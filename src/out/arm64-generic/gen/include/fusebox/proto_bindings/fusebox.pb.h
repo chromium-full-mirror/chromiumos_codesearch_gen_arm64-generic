@@ -44,16 +44,13 @@ struct TableStruct_fusebox_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[9]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
   static const uint32_t offsets[];
 };
 namespace fusebox {
-class DirEntryListProto;
-struct DirEntryListProtoDefaultTypeInternal;
-extern DirEntryListProtoDefaultTypeInternal _DirEntryListProto_default_instance_;
 class DirEntryProto;
 struct DirEntryProtoDefaultTypeInternal;
 extern DirEntryProtoDefaultTypeInternal _DirEntryProto_default_instance_;
@@ -63,20 +60,35 @@ extern ListStoragesRequestProtoDefaultTypeInternal _ListStoragesRequestProto_def
 class ListStoragesResponseProto;
 struct ListStoragesResponseProtoDefaultTypeInternal;
 extern ListStoragesResponseProtoDefaultTypeInternal _ListStoragesResponseProto_default_instance_;
+class MkDirRequestProto;
+struct MkDirRequestProtoDefaultTypeInternal;
+extern MkDirRequestProtoDefaultTypeInternal _MkDirRequestProto_default_instance_;
+class MkDirResponseProto;
+struct MkDirResponseProtoDefaultTypeInternal;
+extern MkDirResponseProtoDefaultTypeInternal _MkDirResponseProto_default_instance_;
 class ReadDir2RequestProto;
 struct ReadDir2RequestProtoDefaultTypeInternal;
 extern ReadDir2RequestProtoDefaultTypeInternal _ReadDir2RequestProto_default_instance_;
 class ReadDir2ResponseProto;
 struct ReadDir2ResponseProtoDefaultTypeInternal;
 extern ReadDir2ResponseProtoDefaultTypeInternal _ReadDir2ResponseProto_default_instance_;
+class RmDirRequestProto;
+struct RmDirRequestProtoDefaultTypeInternal;
+extern RmDirRequestProtoDefaultTypeInternal _RmDirRequestProto_default_instance_;
+class RmDirResponseProto;
+struct RmDirResponseProtoDefaultTypeInternal;
+extern RmDirResponseProtoDefaultTypeInternal _RmDirResponseProto_default_instance_;
 }  // namespace fusebox
 PROTOBUF_NAMESPACE_OPEN
-template<> ::fusebox::DirEntryListProto* Arena::CreateMaybeMessage<::fusebox::DirEntryListProto>(Arena*);
 template<> ::fusebox::DirEntryProto* Arena::CreateMaybeMessage<::fusebox::DirEntryProto>(Arena*);
 template<> ::fusebox::ListStoragesRequestProto* Arena::CreateMaybeMessage<::fusebox::ListStoragesRequestProto>(Arena*);
 template<> ::fusebox::ListStoragesResponseProto* Arena::CreateMaybeMessage<::fusebox::ListStoragesResponseProto>(Arena*);
+template<> ::fusebox::MkDirRequestProto* Arena::CreateMaybeMessage<::fusebox::MkDirRequestProto>(Arena*);
+template<> ::fusebox::MkDirResponseProto* Arena::CreateMaybeMessage<::fusebox::MkDirResponseProto>(Arena*);
 template<> ::fusebox::ReadDir2RequestProto* Arena::CreateMaybeMessage<::fusebox::ReadDir2RequestProto>(Arena*);
 template<> ::fusebox::ReadDir2ResponseProto* Arena::CreateMaybeMessage<::fusebox::ReadDir2ResponseProto>(Arena*);
+template<> ::fusebox::RmDirRequestProto* Arena::CreateMaybeMessage<::fusebox::RmDirRequestProto>(Arena*);
+template<> ::fusebox::RmDirResponseProto* Arena::CreateMaybeMessage<::fusebox::RmDirResponseProto>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace fusebox {
 
@@ -198,6 +210,10 @@ class DirEntryProto final :
     kNameFieldNumber = 2,
     kIsDirectoryFieldNumber = 1,
     kModeBitsFieldNumber = 3,
+    kSizeFieldNumber = 4,
+    kMtimeFieldNumber = 5,
+    kAtimeFieldNumber = 6,
+    kCtimeFieldNumber = 7,
   };
   // optional string name = 2;
   bool has_name() const;
@@ -243,6 +259,58 @@ class DirEntryProto final :
   void _internal_set_mode_bits(uint32_t value);
   public:
 
+  // optional int64 size = 4;
+  bool has_size() const;
+  private:
+  bool _internal_has_size() const;
+  public:
+  void clear_size();
+  int64_t size() const;
+  void set_size(int64_t value);
+  private:
+  int64_t _internal_size() const;
+  void _internal_set_size(int64_t value);
+  public:
+
+  // optional int64 mtime = 5;
+  bool has_mtime() const;
+  private:
+  bool _internal_has_mtime() const;
+  public:
+  void clear_mtime();
+  int64_t mtime() const;
+  void set_mtime(int64_t value);
+  private:
+  int64_t _internal_mtime() const;
+  void _internal_set_mtime(int64_t value);
+  public:
+
+  // optional int64 atime = 6;
+  bool has_atime() const;
+  private:
+  bool _internal_has_atime() const;
+  public:
+  void clear_atime();
+  int64_t atime() const;
+  void set_atime(int64_t value);
+  private:
+  int64_t _internal_atime() const;
+  void _internal_set_atime(int64_t value);
+  public:
+
+  // optional int64 ctime = 7;
+  bool has_ctime() const;
+  private:
+  bool _internal_has_ctime() const;
+  public:
+  void clear_ctime();
+  int64_t ctime() const;
+  void set_ctime(int64_t value);
+  private:
+  int64_t _internal_ctime() const;
+  void _internal_set_ctime(int64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:fusebox.DirEntryProto)
  private:
   class _Internal;
@@ -255,152 +323,10 @@ class DirEntryProto final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   bool is_directory_;
   uint32_t mode_bits_;
-  friend struct ::TableStruct_fusebox_2eproto;
-};
-// -------------------------------------------------------------------
-
-class DirEntryListProto final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.DirEntryListProto) */ {
- public:
-  inline DirEntryListProto() : DirEntryListProto(nullptr) {}
-  ~DirEntryListProto() override;
-  explicit constexpr DirEntryListProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  DirEntryListProto(const DirEntryListProto& from);
-  DirEntryListProto(DirEntryListProto&& from) noexcept
-    : DirEntryListProto() {
-    *this = ::std::move(from);
-  }
-
-  inline DirEntryListProto& operator=(const DirEntryListProto& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline DirEntryListProto& operator=(DirEntryListProto&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const std::string& unknown_fields() const {
-    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
-  }
-  inline std::string* mutable_unknown_fields() {
-    return _internal_metadata_.mutable_unknown_fields<std::string>();
-  }
-
-  static const DirEntryListProto& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const DirEntryListProto* internal_default_instance() {
-    return reinterpret_cast<const DirEntryListProto*>(
-               &_DirEntryListProto_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    1;
-
-  friend void swap(DirEntryListProto& a, DirEntryListProto& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(DirEntryListProto* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(DirEntryListProto* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  DirEntryListProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<DirEntryListProto>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const DirEntryListProto& from);
-  void MergeFrom(const DirEntryListProto& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(DirEntryListProto* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "fusebox.DirEntryListProto";
-  }
-  protected:
-  explicit DirEntryListProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kEntriesFieldNumber = 1,
-  };
-  // repeated .fusebox.DirEntryProto entries = 1;
-  int entries_size() const;
-  private:
-  int _internal_entries_size() const;
-  public:
-  void clear_entries();
-  ::fusebox::DirEntryProto* mutable_entries(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::fusebox::DirEntryProto >*
-      mutable_entries();
-  private:
-  const ::fusebox::DirEntryProto& _internal_entries(int index) const;
-  ::fusebox::DirEntryProto* _internal_add_entries();
-  public:
-  const ::fusebox::DirEntryProto& entries(int index) const;
-  ::fusebox::DirEntryProto* add_entries();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::fusebox::DirEntryProto >&
-      entries() const;
-
-  // @@protoc_insertion_point(class_scope:fusebox.DirEntryListProto)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::fusebox::DirEntryProto > entries_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  int64_t size_;
+  int64_t mtime_;
+  int64_t atime_;
+  int64_t ctime_;
   friend struct ::TableStruct_fusebox_2eproto;
 };
 // -------------------------------------------------------------------
@@ -451,7 +377,7 @@ class ListStoragesRequestProto final :
                &_ListStoragesRequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    1;
 
   friend void swap(ListStoragesRequestProto& a, ListStoragesRequestProto& b) {
     a.Swap(&b);
@@ -575,7 +501,7 @@ class ListStoragesResponseProto final :
                &_ListStoragesResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    2;
 
   friend void swap(ListStoragesResponseProto& a, ListStoragesResponseProto& b) {
     a.Swap(&b);
@@ -697,6 +623,315 @@ class ListStoragesResponseProto final :
 };
 // -------------------------------------------------------------------
 
+class MkDirRequestProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.MkDirRequestProto) */ {
+ public:
+  inline MkDirRequestProto() : MkDirRequestProto(nullptr) {}
+  ~MkDirRequestProto() override;
+  explicit constexpr MkDirRequestProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  MkDirRequestProto(const MkDirRequestProto& from);
+  MkDirRequestProto(MkDirRequestProto&& from) noexcept
+    : MkDirRequestProto() {
+    *this = ::std::move(from);
+  }
+
+  inline MkDirRequestProto& operator=(const MkDirRequestProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline MkDirRequestProto& operator=(MkDirRequestProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const MkDirRequestProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const MkDirRequestProto* internal_default_instance() {
+    return reinterpret_cast<const MkDirRequestProto*>(
+               &_MkDirRequestProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(MkDirRequestProto& a, MkDirRequestProto& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(MkDirRequestProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(MkDirRequestProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  MkDirRequestProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<MkDirRequestProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const MkDirRequestProto& from);
+  void MergeFrom(const MkDirRequestProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(MkDirRequestProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "fusebox.MkDirRequestProto";
+  }
+  protected:
+  explicit MkDirRequestProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFileSystemUrlFieldNumber = 3,
+  };
+  // optional string file_system_url = 3;
+  bool has_file_system_url() const;
+  private:
+  bool _internal_has_file_system_url() const;
+  public:
+  void clear_file_system_url();
+  const std::string& file_system_url() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_file_system_url(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_file_system_url();
+  PROTOBUF_NODISCARD std::string* release_file_system_url();
+  void set_allocated_file_system_url(std::string* file_system_url);
+  private:
+  const std::string& _internal_file_system_url() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_file_system_url(const std::string& value);
+  std::string* _internal_mutable_file_system_url();
+  public:
+
+  // @@protoc_insertion_point(class_scope:fusebox.MkDirRequestProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_system_url_;
+  friend struct ::TableStruct_fusebox_2eproto;
+};
+// -------------------------------------------------------------------
+
+class MkDirResponseProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.MkDirResponseProto) */ {
+ public:
+  inline MkDirResponseProto() : MkDirResponseProto(nullptr) {}
+  ~MkDirResponseProto() override;
+  explicit constexpr MkDirResponseProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  MkDirResponseProto(const MkDirResponseProto& from);
+  MkDirResponseProto(MkDirResponseProto&& from) noexcept
+    : MkDirResponseProto() {
+    *this = ::std::move(from);
+  }
+
+  inline MkDirResponseProto& operator=(const MkDirResponseProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline MkDirResponseProto& operator=(MkDirResponseProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const MkDirResponseProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const MkDirResponseProto* internal_default_instance() {
+    return reinterpret_cast<const MkDirResponseProto*>(
+               &_MkDirResponseProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(MkDirResponseProto& a, MkDirResponseProto& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(MkDirResponseProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(MkDirResponseProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  MkDirResponseProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<MkDirResponseProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const MkDirResponseProto& from);
+  void MergeFrom(const MkDirResponseProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(MkDirResponseProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "fusebox.MkDirResponseProto";
+  }
+  protected:
+  explicit MkDirResponseProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kStatFieldNumber = 3,
+    kPosixErrorCodeFieldNumber = 1,
+  };
+  // optional .fusebox.DirEntryProto stat = 3;
+  bool has_stat() const;
+  private:
+  bool _internal_has_stat() const;
+  public:
+  void clear_stat();
+  const ::fusebox::DirEntryProto& stat() const;
+  PROTOBUF_NODISCARD ::fusebox::DirEntryProto* release_stat();
+  ::fusebox::DirEntryProto* mutable_stat();
+  void set_allocated_stat(::fusebox::DirEntryProto* stat);
+  private:
+  const ::fusebox::DirEntryProto& _internal_stat() const;
+  ::fusebox::DirEntryProto* _internal_mutable_stat();
+  public:
+  void unsafe_arena_set_allocated_stat(
+      ::fusebox::DirEntryProto* stat);
+  ::fusebox::DirEntryProto* unsafe_arena_release_stat();
+
+  // optional int32 posix_error_code = 1;
+  bool has_posix_error_code() const;
+  private:
+  bool _internal_has_posix_error_code() const;
+  public:
+  void clear_posix_error_code();
+  int32_t posix_error_code() const;
+  void set_posix_error_code(int32_t value);
+  private:
+  int32_t _internal_posix_error_code() const;
+  void _internal_set_posix_error_code(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:fusebox.MkDirResponseProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::fusebox::DirEntryProto* stat_;
+  int32_t posix_error_code_;
+  friend struct ::TableStruct_fusebox_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ReadDir2RequestProto final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.ReadDir2RequestProto) */ {
  public:
@@ -743,7 +978,7 @@ class ReadDir2RequestProto final :
                &_ReadDir2RequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(ReadDir2RequestProto& a, ReadDir2RequestProto& b) {
     a.Swap(&b);
@@ -920,7 +1155,7 @@ class ReadDir2ResponseProto final :
                &_ReadDir2ResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(ReadDir2ResponseProto& a, ReadDir2ResponseProto& b) {
     a.Swap(&b);
@@ -1046,6 +1281,295 @@ class ReadDir2ResponseProto final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::fusebox::DirEntryProto > entries_;
   uint64_t cookie_;
+  int32_t posix_error_code_;
+  friend struct ::TableStruct_fusebox_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RmDirRequestProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.RmDirRequestProto) */ {
+ public:
+  inline RmDirRequestProto() : RmDirRequestProto(nullptr) {}
+  ~RmDirRequestProto() override;
+  explicit constexpr RmDirRequestProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RmDirRequestProto(const RmDirRequestProto& from);
+  RmDirRequestProto(RmDirRequestProto&& from) noexcept
+    : RmDirRequestProto() {
+    *this = ::std::move(from);
+  }
+
+  inline RmDirRequestProto& operator=(const RmDirRequestProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RmDirRequestProto& operator=(RmDirRequestProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const RmDirRequestProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RmDirRequestProto* internal_default_instance() {
+    return reinterpret_cast<const RmDirRequestProto*>(
+               &_RmDirRequestProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(RmDirRequestProto& a, RmDirRequestProto& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RmDirRequestProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RmDirRequestProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RmDirRequestProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RmDirRequestProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const RmDirRequestProto& from);
+  void MergeFrom(const RmDirRequestProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RmDirRequestProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "fusebox.RmDirRequestProto";
+  }
+  protected:
+  explicit RmDirRequestProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFileSystemUrlFieldNumber = 3,
+  };
+  // optional string file_system_url = 3;
+  bool has_file_system_url() const;
+  private:
+  bool _internal_has_file_system_url() const;
+  public:
+  void clear_file_system_url();
+  const std::string& file_system_url() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_file_system_url(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_file_system_url();
+  PROTOBUF_NODISCARD std::string* release_file_system_url();
+  void set_allocated_file_system_url(std::string* file_system_url);
+  private:
+  const std::string& _internal_file_system_url() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_file_system_url(const std::string& value);
+  std::string* _internal_mutable_file_system_url();
+  public:
+
+  // @@protoc_insertion_point(class_scope:fusebox.RmDirRequestProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_system_url_;
+  friend struct ::TableStruct_fusebox_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RmDirResponseProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.RmDirResponseProto) */ {
+ public:
+  inline RmDirResponseProto() : RmDirResponseProto(nullptr) {}
+  ~RmDirResponseProto() override;
+  explicit constexpr RmDirResponseProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RmDirResponseProto(const RmDirResponseProto& from);
+  RmDirResponseProto(RmDirResponseProto&& from) noexcept
+    : RmDirResponseProto() {
+    *this = ::std::move(from);
+  }
+
+  inline RmDirResponseProto& operator=(const RmDirResponseProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RmDirResponseProto& operator=(RmDirResponseProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const RmDirResponseProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RmDirResponseProto* internal_default_instance() {
+    return reinterpret_cast<const RmDirResponseProto*>(
+               &_RmDirResponseProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(RmDirResponseProto& a, RmDirResponseProto& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RmDirResponseProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RmDirResponseProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RmDirResponseProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RmDirResponseProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const RmDirResponseProto& from);
+  void MergeFrom(const RmDirResponseProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RmDirResponseProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "fusebox.RmDirResponseProto";
+  }
+  protected:
+  explicit RmDirResponseProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPosixErrorCodeFieldNumber = 1,
+  };
+  // optional int32 posix_error_code = 1;
+  bool has_posix_error_code() const;
+  private:
+  bool _internal_has_posix_error_code() const;
+  public:
+  void clear_posix_error_code();
+  int32_t posix_error_code() const;
+  void set_posix_error_code(int32_t value);
+  private:
+  int32_t _internal_posix_error_code() const;
+  void _internal_set_posix_error_code(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:fusebox.RmDirResponseProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   int32_t posix_error_code_;
   friend struct ::TableStruct_fusebox_2eproto;
 };
@@ -1185,48 +1709,116 @@ inline void DirEntryProto::set_mode_bits(uint32_t value) {
   // @@protoc_insertion_point(field_set:fusebox.DirEntryProto.mode_bits)
 }
 
-// -------------------------------------------------------------------
+// optional int64 size = 4;
+inline bool DirEntryProto::_internal_has_size() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool DirEntryProto::has_size() const {
+  return _internal_has_size();
+}
+inline void DirEntryProto::clear_size() {
+  size_ = int64_t{0};
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline int64_t DirEntryProto::_internal_size() const {
+  return size_;
+}
+inline int64_t DirEntryProto::size() const {
+  // @@protoc_insertion_point(field_get:fusebox.DirEntryProto.size)
+  return _internal_size();
+}
+inline void DirEntryProto::_internal_set_size(int64_t value) {
+  _has_bits_[0] |= 0x00000008u;
+  size_ = value;
+}
+inline void DirEntryProto::set_size(int64_t value) {
+  _internal_set_size(value);
+  // @@protoc_insertion_point(field_set:fusebox.DirEntryProto.size)
+}
 
-// DirEntryListProto
+// optional int64 mtime = 5;
+inline bool DirEntryProto::_internal_has_mtime() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool DirEntryProto::has_mtime() const {
+  return _internal_has_mtime();
+}
+inline void DirEntryProto::clear_mtime() {
+  mtime_ = int64_t{0};
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline int64_t DirEntryProto::_internal_mtime() const {
+  return mtime_;
+}
+inline int64_t DirEntryProto::mtime() const {
+  // @@protoc_insertion_point(field_get:fusebox.DirEntryProto.mtime)
+  return _internal_mtime();
+}
+inline void DirEntryProto::_internal_set_mtime(int64_t value) {
+  _has_bits_[0] |= 0x00000010u;
+  mtime_ = value;
+}
+inline void DirEntryProto::set_mtime(int64_t value) {
+  _internal_set_mtime(value);
+  // @@protoc_insertion_point(field_set:fusebox.DirEntryProto.mtime)
+}
 
-// repeated .fusebox.DirEntryProto entries = 1;
-inline int DirEntryListProto::_internal_entries_size() const {
-  return entries_.size();
+// optional int64 atime = 6;
+inline bool DirEntryProto::_internal_has_atime() const {
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  return value;
 }
-inline int DirEntryListProto::entries_size() const {
-  return _internal_entries_size();
+inline bool DirEntryProto::has_atime() const {
+  return _internal_has_atime();
 }
-inline void DirEntryListProto::clear_entries() {
-  entries_.Clear();
+inline void DirEntryProto::clear_atime() {
+  atime_ = int64_t{0};
+  _has_bits_[0] &= ~0x00000020u;
 }
-inline ::fusebox::DirEntryProto* DirEntryListProto::mutable_entries(int index) {
-  // @@protoc_insertion_point(field_mutable:fusebox.DirEntryListProto.entries)
-  return entries_.Mutable(index);
+inline int64_t DirEntryProto::_internal_atime() const {
+  return atime_;
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::fusebox::DirEntryProto >*
-DirEntryListProto::mutable_entries() {
-  // @@protoc_insertion_point(field_mutable_list:fusebox.DirEntryListProto.entries)
-  return &entries_;
+inline int64_t DirEntryProto::atime() const {
+  // @@protoc_insertion_point(field_get:fusebox.DirEntryProto.atime)
+  return _internal_atime();
 }
-inline const ::fusebox::DirEntryProto& DirEntryListProto::_internal_entries(int index) const {
-  return entries_.Get(index);
+inline void DirEntryProto::_internal_set_atime(int64_t value) {
+  _has_bits_[0] |= 0x00000020u;
+  atime_ = value;
 }
-inline const ::fusebox::DirEntryProto& DirEntryListProto::entries(int index) const {
-  // @@protoc_insertion_point(field_get:fusebox.DirEntryListProto.entries)
-  return _internal_entries(index);
+inline void DirEntryProto::set_atime(int64_t value) {
+  _internal_set_atime(value);
+  // @@protoc_insertion_point(field_set:fusebox.DirEntryProto.atime)
 }
-inline ::fusebox::DirEntryProto* DirEntryListProto::_internal_add_entries() {
-  return entries_.Add();
+
+// optional int64 ctime = 7;
+inline bool DirEntryProto::_internal_has_ctime() const {
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  return value;
 }
-inline ::fusebox::DirEntryProto* DirEntryListProto::add_entries() {
-  ::fusebox::DirEntryProto* _add = _internal_add_entries();
-  // @@protoc_insertion_point(field_add:fusebox.DirEntryListProto.entries)
-  return _add;
+inline bool DirEntryProto::has_ctime() const {
+  return _internal_has_ctime();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::fusebox::DirEntryProto >&
-DirEntryListProto::entries() const {
-  // @@protoc_insertion_point(field_list:fusebox.DirEntryListProto.entries)
-  return entries_;
+inline void DirEntryProto::clear_ctime() {
+  ctime_ = int64_t{0};
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline int64_t DirEntryProto::_internal_ctime() const {
+  return ctime_;
+}
+inline int64_t DirEntryProto::ctime() const {
+  // @@protoc_insertion_point(field_get:fusebox.DirEntryProto.ctime)
+  return _internal_ctime();
+}
+inline void DirEntryProto::_internal_set_ctime(int64_t value) {
+  _has_bits_[0] |= 0x00000040u;
+  ctime_ = value;
+}
+inline void DirEntryProto::set_ctime(int64_t value) {
+  _internal_set_ctime(value);
+  // @@protoc_insertion_point(field_set:fusebox.DirEntryProto.ctime)
 }
 
 // -------------------------------------------------------------------
@@ -1338,6 +1930,201 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 ListStoragesResponseProto::mutable_storages() {
   // @@protoc_insertion_point(field_mutable_list:fusebox.ListStoragesResponseProto.storages)
   return &storages_;
+}
+
+// -------------------------------------------------------------------
+
+// MkDirRequestProto
+
+// optional string file_system_url = 3;
+inline bool MkDirRequestProto::_internal_has_file_system_url() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool MkDirRequestProto::has_file_system_url() const {
+  return _internal_has_file_system_url();
+}
+inline void MkDirRequestProto::clear_file_system_url() {
+  file_system_url_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& MkDirRequestProto::file_system_url() const {
+  // @@protoc_insertion_point(field_get:fusebox.MkDirRequestProto.file_system_url)
+  return _internal_file_system_url();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void MkDirRequestProto::set_file_system_url(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ file_system_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:fusebox.MkDirRequestProto.file_system_url)
+}
+inline std::string* MkDirRequestProto::mutable_file_system_url() {
+  std::string* _s = _internal_mutable_file_system_url();
+  // @@protoc_insertion_point(field_mutable:fusebox.MkDirRequestProto.file_system_url)
+  return _s;
+}
+inline const std::string& MkDirRequestProto::_internal_file_system_url() const {
+  return file_system_url_.Get();
+}
+inline void MkDirRequestProto::_internal_set_file_system_url(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  file_system_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* MkDirRequestProto::_internal_mutable_file_system_url() {
+  _has_bits_[0] |= 0x00000001u;
+  return file_system_url_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* MkDirRequestProto::release_file_system_url() {
+  // @@protoc_insertion_point(field_release:fusebox.MkDirRequestProto.file_system_url)
+  if (!_internal_has_file_system_url()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = file_system_url_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (file_system_url_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    file_system_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void MkDirRequestProto::set_allocated_file_system_url(std::string* file_system_url) {
+  if (file_system_url != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  file_system_url_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), file_system_url,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (file_system_url_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    file_system_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:fusebox.MkDirRequestProto.file_system_url)
+}
+
+// -------------------------------------------------------------------
+
+// MkDirResponseProto
+
+// optional int32 posix_error_code = 1;
+inline bool MkDirResponseProto::_internal_has_posix_error_code() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool MkDirResponseProto::has_posix_error_code() const {
+  return _internal_has_posix_error_code();
+}
+inline void MkDirResponseProto::clear_posix_error_code() {
+  posix_error_code_ = 0;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline int32_t MkDirResponseProto::_internal_posix_error_code() const {
+  return posix_error_code_;
+}
+inline int32_t MkDirResponseProto::posix_error_code() const {
+  // @@protoc_insertion_point(field_get:fusebox.MkDirResponseProto.posix_error_code)
+  return _internal_posix_error_code();
+}
+inline void MkDirResponseProto::_internal_set_posix_error_code(int32_t value) {
+  _has_bits_[0] |= 0x00000002u;
+  posix_error_code_ = value;
+}
+inline void MkDirResponseProto::set_posix_error_code(int32_t value) {
+  _internal_set_posix_error_code(value);
+  // @@protoc_insertion_point(field_set:fusebox.MkDirResponseProto.posix_error_code)
+}
+
+// optional .fusebox.DirEntryProto stat = 3;
+inline bool MkDirResponseProto::_internal_has_stat() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || stat_ != nullptr);
+  return value;
+}
+inline bool MkDirResponseProto::has_stat() const {
+  return _internal_has_stat();
+}
+inline void MkDirResponseProto::clear_stat() {
+  if (stat_ != nullptr) stat_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::fusebox::DirEntryProto& MkDirResponseProto::_internal_stat() const {
+  const ::fusebox::DirEntryProto* p = stat_;
+  return p != nullptr ? *p : reinterpret_cast<const ::fusebox::DirEntryProto&>(
+      ::fusebox::_DirEntryProto_default_instance_);
+}
+inline const ::fusebox::DirEntryProto& MkDirResponseProto::stat() const {
+  // @@protoc_insertion_point(field_get:fusebox.MkDirResponseProto.stat)
+  return _internal_stat();
+}
+inline void MkDirResponseProto::unsafe_arena_set_allocated_stat(
+    ::fusebox::DirEntryProto* stat) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(stat_);
+  }
+  stat_ = stat;
+  if (stat) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:fusebox.MkDirResponseProto.stat)
+}
+inline ::fusebox::DirEntryProto* MkDirResponseProto::release_stat() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::fusebox::DirEntryProto* temp = stat_;
+  stat_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::fusebox::DirEntryProto* MkDirResponseProto::unsafe_arena_release_stat() {
+  // @@protoc_insertion_point(field_release:fusebox.MkDirResponseProto.stat)
+  _has_bits_[0] &= ~0x00000001u;
+  ::fusebox::DirEntryProto* temp = stat_;
+  stat_ = nullptr;
+  return temp;
+}
+inline ::fusebox::DirEntryProto* MkDirResponseProto::_internal_mutable_stat() {
+  _has_bits_[0] |= 0x00000001u;
+  if (stat_ == nullptr) {
+    auto* p = CreateMaybeMessage<::fusebox::DirEntryProto>(GetArenaForAllocation());
+    stat_ = p;
+  }
+  return stat_;
+}
+inline ::fusebox::DirEntryProto* MkDirResponseProto::mutable_stat() {
+  ::fusebox::DirEntryProto* _msg = _internal_mutable_stat();
+  // @@protoc_insertion_point(field_mutable:fusebox.MkDirResponseProto.stat)
+  return _msg;
+}
+inline void MkDirResponseProto::set_allocated_stat(::fusebox::DirEntryProto* stat) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete stat_;
+  }
+  if (stat) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::fusebox::DirEntryProto>::GetOwningArena(stat);
+    if (message_arena != submessage_arena) {
+      stat = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, stat, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  stat_ = stat;
+  // @@protoc_insertion_point(field_set_allocated:fusebox.MkDirResponseProto.stat)
 }
 
 // -------------------------------------------------------------------
@@ -1569,9 +2356,120 @@ ReadDir2ResponseProto::entries() const {
   return entries_;
 }
 
+// -------------------------------------------------------------------
+
+// RmDirRequestProto
+
+// optional string file_system_url = 3;
+inline bool RmDirRequestProto::_internal_has_file_system_url() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool RmDirRequestProto::has_file_system_url() const {
+  return _internal_has_file_system_url();
+}
+inline void RmDirRequestProto::clear_file_system_url() {
+  file_system_url_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& RmDirRequestProto::file_system_url() const {
+  // @@protoc_insertion_point(field_get:fusebox.RmDirRequestProto.file_system_url)
+  return _internal_file_system_url();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RmDirRequestProto::set_file_system_url(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ file_system_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:fusebox.RmDirRequestProto.file_system_url)
+}
+inline std::string* RmDirRequestProto::mutable_file_system_url() {
+  std::string* _s = _internal_mutable_file_system_url();
+  // @@protoc_insertion_point(field_mutable:fusebox.RmDirRequestProto.file_system_url)
+  return _s;
+}
+inline const std::string& RmDirRequestProto::_internal_file_system_url() const {
+  return file_system_url_.Get();
+}
+inline void RmDirRequestProto::_internal_set_file_system_url(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  file_system_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* RmDirRequestProto::_internal_mutable_file_system_url() {
+  _has_bits_[0] |= 0x00000001u;
+  return file_system_url_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* RmDirRequestProto::release_file_system_url() {
+  // @@protoc_insertion_point(field_release:fusebox.RmDirRequestProto.file_system_url)
+  if (!_internal_has_file_system_url()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = file_system_url_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (file_system_url_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    file_system_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void RmDirRequestProto::set_allocated_file_system_url(std::string* file_system_url) {
+  if (file_system_url != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  file_system_url_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), file_system_url,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (file_system_url_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    file_system_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:fusebox.RmDirRequestProto.file_system_url)
+}
+
+// -------------------------------------------------------------------
+
+// RmDirResponseProto
+
+// optional int32 posix_error_code = 1;
+inline bool RmDirResponseProto::_internal_has_posix_error_code() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool RmDirResponseProto::has_posix_error_code() const {
+  return _internal_has_posix_error_code();
+}
+inline void RmDirResponseProto::clear_posix_error_code() {
+  posix_error_code_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline int32_t RmDirResponseProto::_internal_posix_error_code() const {
+  return posix_error_code_;
+}
+inline int32_t RmDirResponseProto::posix_error_code() const {
+  // @@protoc_insertion_point(field_get:fusebox.RmDirResponseProto.posix_error_code)
+  return _internal_posix_error_code();
+}
+inline void RmDirResponseProto::_internal_set_posix_error_code(int32_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  posix_error_code_ = value;
+}
+inline void RmDirResponseProto::set_posix_error_code(int32_t value) {
+  _internal_set_posix_error_code(value);
+  // @@protoc_insertion_point(field_set:fusebox.RmDirResponseProto.posix_error_code)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
