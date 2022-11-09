@@ -933,6 +933,9 @@ class BRILLO_EXPORT TestEventOne final : public ::metrics::structured::EventBase
   static constexpr uint64_t kTestMetricTwoNameHash = UINT64_C(14083999144141567134);
   TestEventOne& SetTestMetricTwo(const int64_t value);
 
+  static constexpr uint64_t kTestMetricThreeNameHash = UINT64_C(13469300759843809564);
+  TestEventOne& SetTestMetricThree(const double value);
+
 };
 
 class BRILLO_EXPORT TestEventTwo final : public ::metrics::structured::EventBase {

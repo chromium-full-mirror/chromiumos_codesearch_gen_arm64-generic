@@ -159,6 +159,10 @@ StructuredEventProto_Metric::StructuredEventProto_Metric(const StructuredEventPr
       _internal_set_value_string(from._internal_value_string());
       break;
     }
+    case kValueDouble: {
+      _internal_set_value_double(from._internal_value_double());
+      break;
+    }
     case VALUE_NOT_SET: {
       break;
     }
@@ -208,6 +212,10 @@ void StructuredEventProto_Metric::clear_value() {
     }
     case kValueString: {
       value_.value_string_.Destroy(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+      break;
+    }
+    case kValueDouble: {
+      // No need to clear
       break;
     }
     case VALUE_NOT_SET: {
@@ -271,6 +279,14 @@ const char* StructuredEventProto_Metric::_InternalParse(const char* ptr, ::PROTO
         } else
           goto handle_unusual;
         continue;
+      // double value_double = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 41)) {
+          _internal_set_value_double(::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr));
+          ptr += sizeof(double);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -324,6 +340,11 @@ uint8_t* StructuredEventProto_Metric::_InternalSerialize(
           4, this->_internal_value_string(), target);
       break;
     }
+    case kValueDouble: {
+      target = stream->EnsureSpace(target);
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(5, this->_internal_value_double(), target);
+      break;
+    }
     default: ;
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -366,6 +387,11 @@ size_t StructuredEventProto_Metric::ByteSizeLong() const {
           this->_internal_value_string());
       break;
     }
+    // double value_double = 5;
+    case kValueDouble: {
+      total_size += 1 + 8;
+      break;
+    }
     case VALUE_NOT_SET: {
       break;
     }
@@ -404,6 +430,10 @@ void StructuredEventProto_Metric::MergeFrom(const StructuredEventProto_Metric& f
     }
     case kValueString: {
       _internal_set_value_string(from._internal_value_string());
+      break;
+    }
+    case kValueDouble: {
+      _internal_set_value_double(from._internal_value_double());
       break;
     }
     case VALUE_NOT_SET: {

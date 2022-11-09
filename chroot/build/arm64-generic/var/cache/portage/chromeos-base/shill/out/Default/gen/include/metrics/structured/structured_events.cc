@@ -988,6 +988,11 @@ TestEventOne& TestEventOne::SetTestMetricTwo(const int64_t value) {
   return *this;
 }
 
+TestEventOne& TestEventOne::SetTestMetricThree(const double value) {
+  AddDoubleMetric(kTestMetricThreeNameHash, value);
+  return *this;
+}
+
 TestEventTwo::TestEventTwo() :
   ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
 TestEventTwo::~TestEventTwo() = default;
