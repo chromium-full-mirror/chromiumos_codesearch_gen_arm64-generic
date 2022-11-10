@@ -48,7 +48,7 @@ class CameraAlgorithmOpsRequestValidator;
 class CameraAlgorithmOpsResponseValidator;
 
 
-class  CameraAlgorithmOps
+class CameraAlgorithmOps
     : public CameraAlgorithmOpsInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -133,7 +133,7 @@ class CameraAlgorithmCallbackOpsStub;
 class CameraAlgorithmCallbackOpsRequestValidator;
 
 
-class  CameraAlgorithmCallbackOps
+class CameraAlgorithmCallbackOps
     : public CameraAlgorithmCallbackOpsInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

@@ -115,6 +115,13 @@ class PowerManagerProxyMock : public PowerManagerProxyInterface {
                void(base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD2(ToggleKeyboardBacklight,
+               bool(brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(ToggleKeyboardBacklightAsync,
+               void(base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD3(SetKeyboardBacklightToggledOff,
                bool(bool /*in_toggled_off*/,
                     brillo::ErrorPtr* /*error*/,

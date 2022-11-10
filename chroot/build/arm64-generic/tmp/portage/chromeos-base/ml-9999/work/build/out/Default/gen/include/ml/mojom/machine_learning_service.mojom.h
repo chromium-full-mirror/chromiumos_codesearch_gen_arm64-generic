@@ -59,7 +59,7 @@ class MachineLearningServiceRequestValidator;
 class MachineLearningServiceResponseValidator;
 
 
-class  MachineLearningService
+class MachineLearningService
     : public MachineLearningServiceInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

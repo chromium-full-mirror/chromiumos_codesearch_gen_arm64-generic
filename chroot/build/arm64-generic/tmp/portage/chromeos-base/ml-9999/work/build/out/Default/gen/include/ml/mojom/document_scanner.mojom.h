@@ -53,7 +53,7 @@ class DocumentScannerRequestValidator;
 class DocumentScannerResponseValidator;
 
 
-class  DocumentScanner
+class DocumentScanner
     : public DocumentScannerInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

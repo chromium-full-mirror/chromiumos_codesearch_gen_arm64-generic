@@ -50,7 +50,7 @@ class TextClassifierRequestValidator;
 class TextClassifierResponseValidator;
 
 
-class  TextClassifier
+class TextClassifier
     : public TextClassifierInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

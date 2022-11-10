@@ -50,7 +50,7 @@ class ModelRequestValidator;
 class ModelResponseValidator;
 
 
-class  Model
+class Model
     : public ModelInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

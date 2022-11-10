@@ -52,7 +52,7 @@ class HandwritingRecognizerRequestValidator;
 class HandwritingRecognizerResponseValidator;
 
 
-class  HandwritingRecognizer
+class HandwritingRecognizer
     : public HandwritingRecognizerInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

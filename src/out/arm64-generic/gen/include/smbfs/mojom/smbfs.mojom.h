@@ -51,7 +51,7 @@ class SmbFsBootstrapRequestValidator;
 class SmbFsBootstrapResponseValidator;
 
 
-class  SmbFsBootstrap
+class SmbFsBootstrap
     : public SmbFsBootstrapInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -100,7 +100,7 @@ class SmbFsRequestValidator;
 class SmbFsResponseValidator;
 
 
-class  SmbFs
+class SmbFs
     : public SmbFsInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -158,7 +158,7 @@ class SmbFsDelegateRequestValidator;
 class SmbFsDelegateResponseValidator;
 
 
-class  SmbFsDelegate
+class SmbFsDelegate
     : public SmbFsDelegateInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

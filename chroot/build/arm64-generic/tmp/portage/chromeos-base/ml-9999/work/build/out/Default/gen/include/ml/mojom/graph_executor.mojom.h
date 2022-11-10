@@ -50,7 +50,7 @@ class GraphExecutorRequestValidator;
 class GraphExecutorResponseValidator;
 
 
-class  GraphExecutor
+class GraphExecutor
     : public GraphExecutorInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

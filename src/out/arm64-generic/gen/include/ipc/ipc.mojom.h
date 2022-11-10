@@ -49,7 +49,7 @@ class ChannelStub;
 class ChannelRequestValidator;
 
 
-class  Channel
+class Channel
     : public ChannelInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -109,7 +109,7 @@ class ChannelBootstrapStub;
 class ChannelBootstrapRequestValidator;
 
 
-class  ChannelBootstrap
+class ChannelBootstrap
     : public ChannelBootstrapInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

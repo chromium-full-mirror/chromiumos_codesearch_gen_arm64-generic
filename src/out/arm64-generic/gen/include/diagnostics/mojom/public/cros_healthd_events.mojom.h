@@ -48,7 +48,7 @@ class CrosHealthdBluetoothObserverStub;
 class CrosHealthdBluetoothObserverRequestValidator;
 
 
-class  CrosHealthdBluetoothObserver
+class CrosHealthdBluetoothObserver
     : public CrosHealthdBluetoothObserverInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -129,7 +129,7 @@ class CrosHealthdLidObserverStub;
 class CrosHealthdLidObserverRequestValidator;
 
 
-class  CrosHealthdLidObserver
+class CrosHealthdLidObserver
     : public CrosHealthdLidObserverInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -182,7 +182,7 @@ class CrosHealthdPowerObserverStub;
 class CrosHealthdPowerObserverRequestValidator;
 
 
-class  CrosHealthdPowerObserver
+class CrosHealthdPowerObserver
     : public CrosHealthdPowerObserverInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -249,7 +249,7 @@ class CrosHealthdAudioObserverStub;
 class CrosHealthdAudioObserverRequestValidator;
 
 
-class  CrosHealthdAudioObserver
+class CrosHealthdAudioObserver
     : public CrosHealthdAudioObserverInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -302,7 +302,7 @@ class CrosHealthdThunderboltObserverStub;
 class CrosHealthdThunderboltObserverRequestValidator;
 
 
-class  CrosHealthdThunderboltObserver
+class CrosHealthdThunderboltObserver
     : public CrosHealthdThunderboltObserverInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -369,7 +369,7 @@ class CrosHealthdUsbObserverStub;
 class CrosHealthdUsbObserverRequestValidator;
 
 
-class  CrosHealthdUsbObserver
+class CrosHealthdUsbObserver
     : public CrosHealthdUsbObserverInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

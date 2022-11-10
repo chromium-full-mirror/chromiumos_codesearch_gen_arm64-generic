@@ -49,7 +49,7 @@ class GrammarCheckerRequestValidator;
 class GrammarCheckerResponseValidator;
 
 
-class  GrammarChecker
+class GrammarChecker
     : public GrammarCheckerInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

@@ -50,7 +50,7 @@ class DelegateRequestValidator;
 class DelegateResponseValidator;
 
 
-class  Delegate
+class Delegate
     : public DelegateInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

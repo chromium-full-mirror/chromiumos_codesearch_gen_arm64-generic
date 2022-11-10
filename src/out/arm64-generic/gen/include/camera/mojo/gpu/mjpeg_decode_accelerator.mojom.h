@@ -49,7 +49,7 @@ class MjpegDecodeAcceleratorRequestValidator;
 class MjpegDecodeAcceleratorResponseValidator;
 
 
-class  MjpegDecodeAccelerator
+class MjpegDecodeAccelerator
     : public MjpegDecodeAcceleratorInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

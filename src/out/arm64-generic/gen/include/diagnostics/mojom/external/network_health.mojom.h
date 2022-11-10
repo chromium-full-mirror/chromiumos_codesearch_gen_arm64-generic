@@ -49,7 +49,7 @@ class NetworkEventsObserverStub;
 class NetworkEventsObserverRequestValidator;
 
 
-class  NetworkEventsObserver
+class NetworkEventsObserver
     : public NetworkEventsObserverInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -103,7 +103,7 @@ class NetworkHealthServiceRequestValidator;
 class NetworkHealthServiceResponseValidator;
 
 
-class  NetworkHealthService
+class NetworkHealthService
     : public NetworkHealthServiceInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

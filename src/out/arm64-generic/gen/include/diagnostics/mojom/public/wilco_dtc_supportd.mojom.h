@@ -50,7 +50,7 @@ class WilcoDtcSupportdServiceFactoryRequestValidator;
 class WilcoDtcSupportdServiceFactoryResponseValidator;
 
 
-class  WilcoDtcSupportdServiceFactory
+class WilcoDtcSupportdServiceFactory
     : public WilcoDtcSupportdServiceFactoryInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -99,7 +99,7 @@ class WilcoDtcSupportdServiceRequestValidator;
 class WilcoDtcSupportdServiceResponseValidator;
 
 
-class  WilcoDtcSupportdService
+class WilcoDtcSupportdService
     : public WilcoDtcSupportdServiceInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -155,7 +155,7 @@ class WilcoDtcSupportdClientRequestValidator;
 class WilcoDtcSupportdClientResponseValidator;
 
 
-class  WilcoDtcSupportdClient
+class WilcoDtcSupportdClient
     : public WilcoDtcSupportdClientInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

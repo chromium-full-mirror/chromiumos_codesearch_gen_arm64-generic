@@ -165,4 +165,21 @@
 
 #endif  // defined(__clang__) || defined(COMPILER_GCC)
 
+#if defined(COMPILER_GCC)
+#define IMMEDIATE_CRASH_ALWAYS_INLINE inline __attribute__((__always_inline__))
+#elif defined(COMPILER_MSVC)
+#define IMMEDIATE_CRASH_ALWAYS_INLINE __forceinline
+#else
+#define IMMEDIATE_CRASH_ALWAYS_INLINE inline
+#endif
+
+namespace base {
+[[noreturn]] IMMEDIATE_CRASH_ALWAYS_INLINE void ImmediateCrash() {
+  TRAP_SEQUENCE_();
+#if defined(__clang__) || defined(COMPILER_GCC)
+  __builtin_unreachable();
+#endif  // defined(__clang__) || defined(COMPILER_GCC)
+}
+}
+
 #endif  // BASE_IMMEDIATE_CRASH_H_

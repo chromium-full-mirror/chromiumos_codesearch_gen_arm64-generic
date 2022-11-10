@@ -49,7 +49,7 @@ class SodaClientStub;
 class SodaClientRequestValidator;
 
 
-class  SodaClient
+class SodaClient
     : public SodaClientInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -109,7 +109,7 @@ class SodaRecognizerStub;
 class SodaRecognizerRequestValidator;
 
 
-class  SodaRecognizer
+class SodaRecognizer
     : public SodaRecognizerInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

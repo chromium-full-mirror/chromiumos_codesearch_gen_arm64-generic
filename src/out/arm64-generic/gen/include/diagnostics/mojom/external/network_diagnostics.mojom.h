@@ -50,7 +50,7 @@ class NetworkDiagnosticsRoutinesRequestValidator;
 class NetworkDiagnosticsRoutinesResponseValidator;
 
 
-class  NetworkDiagnosticsRoutines
+class NetworkDiagnosticsRoutines
     : public NetworkDiagnosticsRoutinesInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

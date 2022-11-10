@@ -50,7 +50,7 @@ class ExecutorRequestValidator;
 class ExecutorResponseValidator;
 
 
-class  Executor
+class Executor
     : public ExecutorInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

@@ -47,7 +47,7 @@ class GenericAssociatedInterfaceStub;
 class GenericAssociatedInterfaceRequestValidator;
 
 
-class  GenericAssociatedInterface
+class GenericAssociatedInterface
     : public GenericAssociatedInterfaceInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

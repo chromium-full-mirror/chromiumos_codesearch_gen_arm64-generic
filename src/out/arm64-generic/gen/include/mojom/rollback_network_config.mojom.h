@@ -49,7 +49,7 @@ class RollbackNetworkConfigRequestValidator;
 class RollbackNetworkConfigResponseValidator;
 
 
-class  RollbackNetworkConfig
+class RollbackNetworkConfig
     : public RollbackNetworkConfigInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

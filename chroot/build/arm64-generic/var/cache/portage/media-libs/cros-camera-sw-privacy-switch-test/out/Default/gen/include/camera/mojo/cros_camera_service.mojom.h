@@ -54,7 +54,7 @@ class CameraHalDispatcherRequestValidator;
 class CameraHalDispatcherResponseValidator;
 
 
-class  CameraHalDispatcher
+class CameraHalDispatcher
     : public CameraHalDispatcherInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -149,7 +149,7 @@ class CameraHalServerRequestValidator;
 class CameraHalServerResponseValidator;
 
 
-class  CameraHalServer
+class CameraHalServer
     : public CameraHalServerInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -243,7 +243,7 @@ class CameraHalServerCallbacksStub;
 class CameraHalServerCallbacksRequestValidator;
 
 
-class  CameraHalServerCallbacks
+class CameraHalServerCallbacks
     : public CameraHalServerCallbacksInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -303,7 +303,7 @@ class CameraHalClientStub;
 class CameraHalClientRequestValidator;
 
 
-class  CameraHalClient
+class CameraHalClient
     : public CameraHalClientInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

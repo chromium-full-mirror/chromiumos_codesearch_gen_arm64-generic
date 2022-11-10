@@ -50,7 +50,7 @@ class VideoProtectedBufferAllocatorRequestValidator;
 class VideoProtectedBufferAllocatorResponseValidator;
 
 
-class  VideoProtectedBufferAllocator
+class VideoProtectedBufferAllocator
     : public VideoProtectedBufferAllocatorInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

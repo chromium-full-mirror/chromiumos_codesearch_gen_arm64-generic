@@ -183,10 +183,30 @@ class PowerManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Toggle the on/off state of the keyboard backlight.
+  //
+  // If the keyboard's backlight is currently turned on, it will be
+  // disabled, and vice versa.
+  virtual bool ToggleKeyboardBacklight(
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Toggle the on/off state of the keyboard backlight.
+  //
+  // If the keyboard's backlight is currently turned on, it will be
+  // disabled, and vice versa.
+  virtual void ToggleKeyboardBacklightAsync(
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Enable or disable the keyboard backlight.
   //
   // If the |toggled_off| arg is true, the keyboard backlight will be
   // turned off. If false, the backlight will be enabled.
+  //
+  // TODO(b/212618906): This call is deprecated; callers should
+  // use ToggleKeyboardBacklight instead.
   virtual bool SetKeyboardBacklightToggledOff(
       bool in_toggled_off,
       brillo::ErrorPtr* error,
@@ -196,6 +216,9 @@ class PowerManagerProxyInterface {
   //
   // If the |toggled_off| arg is true, the keyboard backlight will be
   // turned off. If false, the backlight will be enabled.
+  //
+  // TODO(b/212618906): This call is deprecated; callers should
+  // use ToggleKeyboardBacklight instead.
   virtual void SetKeyboardBacklightToggledOffAsync(
       bool in_toggled_off,
       base::OnceCallback<void()> success_callback,
@@ -206,6 +229,9 @@ class PowerManagerProxyInterface {
   //
   // If |toggled_off| returns true, the keyboard backlight is
   // currently disabled.
+  //
+  // TODO(b/212618906): This call is deprecated; callers should
+  // use GetKeyboardBrightnessPercent instead.
   virtual bool GetKeyboardBacklightToggledOff(
       bool* out_toggled_off,
       brillo::ErrorPtr* error,
@@ -215,6 +241,9 @@ class PowerManagerProxyInterface {
   //
   // If |toggled_off| returns true, the keyboard backlight is
   // currently disabled.
+  //
+  // TODO(b/212618906): This call is deprecated; callers should
+  // use GetKeyboardBrightnessPercent instead.
   virtual void GetKeyboardBacklightToggledOffAsync(
       base::OnceCallback<void(bool /*toggled_off*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
@@ -1232,10 +1261,47 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
         std::move(error_callback));
   }
 
+  // Toggle the on/off state of the keyboard backlight.
+  //
+  // If the keyboard's backlight is currently turned on, it will be
+  // disabled, and vice versa.
+  bool ToggleKeyboardBacklight(
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "ToggleKeyboardBacklight",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // Toggle the on/off state of the keyboard backlight.
+  //
+  // If the keyboard's backlight is currently turned on, it will be
+  // disabled, and vice versa.
+  void ToggleKeyboardBacklightAsync(
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "ToggleKeyboardBacklight",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
   // Enable or disable the keyboard backlight.
   //
   // If the |toggled_off| arg is true, the keyboard backlight will be
   // turned off. If false, the backlight will be enabled.
+  //
+  // TODO(b/212618906): This call is deprecated; callers should
+  // use ToggleKeyboardBacklight instead.
   bool SetKeyboardBacklightToggledOff(
       bool in_toggled_off,
       brillo::ErrorPtr* error,
@@ -1255,6 +1321,9 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
   //
   // If the |toggled_off| arg is true, the keyboard backlight will be
   // turned off. If false, the backlight will be enabled.
+  //
+  // TODO(b/212618906): This call is deprecated; callers should
+  // use ToggleKeyboardBacklight instead.
   void SetKeyboardBacklightToggledOffAsync(
       bool in_toggled_off,
       base::OnceCallback<void()> success_callback,
@@ -1274,6 +1343,9 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
   //
   // If |toggled_off| returns true, the keyboard backlight is
   // currently disabled.
+  //
+  // TODO(b/212618906): This call is deprecated; callers should
+  // use GetKeyboardBrightnessPercent instead.
   bool GetKeyboardBacklightToggledOff(
       bool* out_toggled_off,
       brillo::ErrorPtr* error,
@@ -1292,6 +1364,9 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
   //
   // If |toggled_off| returns true, the keyboard backlight is
   // currently disabled.
+  //
+  // TODO(b/212618906): This call is deprecated; callers should
+  // use GetKeyboardBrightnessPercent instead.
   void GetKeyboardBacklightToggledOffAsync(
       base::OnceCallback<void(bool /*toggled_off*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,

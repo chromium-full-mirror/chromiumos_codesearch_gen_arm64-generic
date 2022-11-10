@@ -49,7 +49,7 @@ class TextSuggesterRequestValidator;
 class TextSuggesterResponseValidator;
 
 
-class  TextSuggester
+class TextSuggester
     : public TextSuggesterInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

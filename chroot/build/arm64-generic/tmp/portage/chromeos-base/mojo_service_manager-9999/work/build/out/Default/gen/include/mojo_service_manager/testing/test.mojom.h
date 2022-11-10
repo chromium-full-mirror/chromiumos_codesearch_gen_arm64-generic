@@ -49,7 +49,7 @@ class FooRequestValidator;
 class FooResponseValidator;
 
 
-class  Foo
+class Foo
     : public FooInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

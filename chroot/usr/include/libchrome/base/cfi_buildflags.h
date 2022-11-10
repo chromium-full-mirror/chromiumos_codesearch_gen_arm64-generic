@@ -6,6 +6,7 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
+#define BUILDFLAG_INTERNAL_CFI_DIAG() (0)
 #define BUILDFLAG_INTERNAL_CFI_ICALL_CHECK() (0)
 #define BUILDFLAG_INTERNAL_CFI_ENFORCEMENT_TRAP() (0)
 

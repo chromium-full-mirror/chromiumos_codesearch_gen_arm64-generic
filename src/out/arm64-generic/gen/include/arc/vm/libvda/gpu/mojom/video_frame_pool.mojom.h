@@ -50,7 +50,7 @@ class VideoFramePoolRequestValidator;
 class VideoFramePoolResponseValidator;
 
 
-class  VideoFramePool
+class VideoFramePool
     : public VideoFramePoolInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -105,7 +105,7 @@ class VideoFramePoolClientStub;
 class VideoFramePoolClientRequestValidator;
 
 
-class  VideoFramePoolClient
+class VideoFramePoolClient
     : public VideoFramePoolClientInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

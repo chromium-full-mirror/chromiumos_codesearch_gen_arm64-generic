@@ -50,7 +50,7 @@ class ServiceManagerRequestValidator;
 class ServiceManagerResponseValidator;
 
 
-class  ServiceManager
+class ServiceManager
     : public ServiceManagerInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -119,7 +119,7 @@ class ServiceProviderStub;
 class ServiceProviderRequestValidator;
 
 
-class  ServiceProvider
+class ServiceProvider
     : public ServiceProviderInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -165,7 +165,7 @@ class ServiceObserverStub;
 class ServiceObserverRequestValidator;
 
 
-class  ServiceObserver
+class ServiceObserver
     : public ServiceObserverInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
