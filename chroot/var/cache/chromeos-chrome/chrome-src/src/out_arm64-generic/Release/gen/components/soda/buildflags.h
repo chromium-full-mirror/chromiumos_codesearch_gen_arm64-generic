@@ -6,6 +6,6 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
-#define BUILDFLAG_INTERNAL_ENABLE_SODA_INTEGRATION_TESTS() (0)
+#define BUILDFLAG_INTERNAL_ENABLE_SODA() (0)
 
 #endif  // COMPONENTS_SODA_BUILDFLAGS_H_

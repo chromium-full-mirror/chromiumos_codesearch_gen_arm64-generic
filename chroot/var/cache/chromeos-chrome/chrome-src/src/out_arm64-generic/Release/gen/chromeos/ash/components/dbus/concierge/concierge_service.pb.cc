@@ -193,13 +193,10 @@ PROTOBUF_CONSTEXPR StartArcVmRequest::StartArcVmRequest(
   , enable_virtio_blk_data_(false)
   , disable_media_store_maintenance_(false)
   , vm_memory_psi_period_(0)
-  , guest_zram_size_(0)
   , arc_generate_play_auto_install_(false)
   , disable_download_provider_(false)
-  , update_o4c_list_via_a2c2_(false)
-  , guest_swappiness_(0)
-  , mglru_reclaim_interval_(0)
-  , mglru_reclaim_swappiness_(0){}
+  , guest_zram_size_(0)
+  , guest_swappiness_(0){}
 struct StartArcVmRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StartArcVmRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -5066,8 +5063,8 @@ StartArcVmRequest::StartArcVmRequest(const StartArcVmRequest& from)
     mini_instance_request_ = nullptr;
   }
   ::memcpy(&cpus_, &from.cpus_,
-    static_cast<size_t>(reinterpret_cast<char*>(&mglru_reclaim_swappiness_) -
-    reinterpret_cast<char*>(&cpus_)) + sizeof(mglru_reclaim_swappiness_));
+    static_cast<size_t>(reinterpret_cast<char*>(&guest_swappiness_) -
+    reinterpret_cast<char*>(&cpus_)) + sizeof(guest_swappiness_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.StartArcVmRequest)
 }
 
@@ -5086,8 +5083,8 @@ fstab_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&vm_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&mglru_reclaim_swappiness_) -
-    reinterpret_cast<char*>(&vm_)) + sizeof(mglru_reclaim_swappiness_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&guest_swappiness_) -
+    reinterpret_cast<char*>(&vm_)) + sizeof(guest_swappiness_));
 }
 
 StartArcVmRequest::~StartArcVmRequest() {
@@ -5137,8 +5134,8 @@ void StartArcVmRequest::Clear() {
   }
   mini_instance_request_ = nullptr;
   ::memset(&cpus_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&mglru_reclaim_swappiness_) -
-      reinterpret_cast<char*>(&cpus_)) + sizeof(mglru_reclaim_swappiness_));
+      reinterpret_cast<char*>(&guest_swappiness_) -
+      reinterpret_cast<char*>(&cpus_)) + sizeof(guest_swappiness_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -5439,30 +5436,6 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // int32 mglru_reclaim_interval = 35;
-      case 35:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          mglru_reclaim_interval_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 mglru_reclaim_swappiness = 36;
-      case 36:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          mglru_reclaim_swappiness_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool update_o4c_list_via_a2c2 = 37;
-      case 37:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          update_o4c_list_via_a2c2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5718,24 +5691,6 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
         _Internal::mini_instance_request(this).GetCachedSize(), target, stream);
   }
 
-  // int32 mglru_reclaim_interval = 35;
-  if (this->_internal_mglru_reclaim_interval() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(35, this->_internal_mglru_reclaim_interval(), target);
-  }
-
-  // int32 mglru_reclaim_swappiness = 36;
-  if (this->_internal_mglru_reclaim_swappiness() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(36, this->_internal_mglru_reclaim_swappiness(), target);
-  }
-
-  // bool update_o4c_list_via_a2c2 = 37;
-  if (this->_internal_update_o4c_list_via_a2c2() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(37, this->_internal_update_o4c_list_via_a2c2(), target);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -5924,13 +5879,6 @@ size_t StartArcVmRequest::ByteSizeLong() const {
         this->_internal_vm_memory_psi_period());
   }
 
-  // int32 guest_zram_size = 32;
-  if (this->_internal_guest_zram_size() != 0) {
-    total_size += 2 +
-      ::_pbi::WireFormatLite::Int32Size(
-        this->_internal_guest_zram_size());
-  }
-
   // bool arc_generate_play_auto_install = 30;
   if (this->_internal_arc_generate_play_auto_install() != 0) {
     total_size += 2 + 1;
@@ -5941,9 +5889,11 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
-  // bool update_o4c_list_via_a2c2 = 37;
-  if (this->_internal_update_o4c_list_via_a2c2() != 0) {
-    total_size += 2 + 1;
+  // int32 guest_zram_size = 32;
+  if (this->_internal_guest_zram_size() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::Int32Size(
+        this->_internal_guest_zram_size());
   }
 
   // int32 guest_swappiness = 33;
@@ -5951,20 +5901,6 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += 2 +
       ::_pbi::WireFormatLite::Int32Size(
         this->_internal_guest_swappiness());
-  }
-
-  // int32 mglru_reclaim_interval = 35;
-  if (this->_internal_mglru_reclaim_interval() != 0) {
-    total_size += 2 +
-      ::_pbi::WireFormatLite::Int32Size(
-        this->_internal_mglru_reclaim_interval());
-  }
-
-  // int32 mglru_reclaim_swappiness = 36;
-  if (this->_internal_mglru_reclaim_swappiness() != 0) {
-    total_size += 2 +
-      ::_pbi::WireFormatLite::Int32Size(
-        this->_internal_mglru_reclaim_swappiness());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6073,26 +6009,17 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   if (from._internal_vm_memory_psi_period() != 0) {
     _internal_set_vm_memory_psi_period(from._internal_vm_memory_psi_period());
   }
-  if (from._internal_guest_zram_size() != 0) {
-    _internal_set_guest_zram_size(from._internal_guest_zram_size());
-  }
   if (from._internal_arc_generate_play_auto_install() != 0) {
     _internal_set_arc_generate_play_auto_install(from._internal_arc_generate_play_auto_install());
   }
   if (from._internal_disable_download_provider() != 0) {
     _internal_set_disable_download_provider(from._internal_disable_download_provider());
   }
-  if (from._internal_update_o4c_list_via_a2c2() != 0) {
-    _internal_set_update_o4c_list_via_a2c2(from._internal_update_o4c_list_via_a2c2());
+  if (from._internal_guest_zram_size() != 0) {
+    _internal_set_guest_zram_size(from._internal_guest_zram_size());
   }
   if (from._internal_guest_swappiness() != 0) {
     _internal_set_guest_swappiness(from._internal_guest_swappiness());
-  }
-  if (from._internal_mglru_reclaim_interval() != 0) {
-    _internal_set_mglru_reclaim_interval(from._internal_mglru_reclaim_interval());
-  }
-  if (from._internal_mglru_reclaim_swappiness() != 0) {
-    _internal_set_mglru_reclaim_swappiness(from._internal_mglru_reclaim_swappiness());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -6128,8 +6055,8 @@ void StartArcVmRequest::InternalSwap(StartArcVmRequest* other) {
       &other->fstab_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, mglru_reclaim_swappiness_)
-      + sizeof(StartArcVmRequest::mglru_reclaim_swappiness_)
+      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, guest_swappiness_)
+      + sizeof(StartArcVmRequest::guest_swappiness_)
       - PROTOBUF_FIELD_OFFSET(StartArcVmRequest, vm_)>(
           reinterpret_cast<char*>(&vm_),
           reinterpret_cast<char*>(&other->vm_));

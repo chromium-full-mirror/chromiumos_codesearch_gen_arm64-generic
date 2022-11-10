@@ -2568,13 +2568,10 @@ class StartArcVmRequest final :
     kEnableVirtioBlkDataFieldNumber = 27,
     kDisableMediaStoreMaintenanceFieldNumber = 29,
     kVmMemoryPsiPeriodFieldNumber = 28,
-    kGuestZramSizeFieldNumber = 32,
     kArcGeneratePlayAutoInstallFieldNumber = 30,
     kDisableDownloadProviderFieldNumber = 31,
-    kUpdateO4CListViaA2C2FieldNumber = 37,
+    kGuestZramSizeFieldNumber = 32,
     kGuestSwappinessFieldNumber = 33,
-    kMglruReclaimIntervalFieldNumber = 35,
-    kMglruReclaimSwappinessFieldNumber = 36,
   };
   // repeated .vm_tools.concierge.DiskImage disks = 2;
   int disks_size() const;
@@ -2912,15 +2909,6 @@ class StartArcVmRequest final :
   void _internal_set_vm_memory_psi_period(int32_t value);
   public:
 
-  // int32 guest_zram_size = 32;
-  void clear_guest_zram_size();
-  int32_t guest_zram_size() const;
-  void set_guest_zram_size(int32_t value);
-  private:
-  int32_t _internal_guest_zram_size() const;
-  void _internal_set_guest_zram_size(int32_t value);
-  public:
-
   // bool arc_generate_play_auto_install = 30;
   void clear_arc_generate_play_auto_install();
   bool arc_generate_play_auto_install() const;
@@ -2939,13 +2927,13 @@ class StartArcVmRequest final :
   void _internal_set_disable_download_provider(bool value);
   public:
 
-  // bool update_o4c_list_via_a2c2 = 37;
-  void clear_update_o4c_list_via_a2c2();
-  bool update_o4c_list_via_a2c2() const;
-  void set_update_o4c_list_via_a2c2(bool value);
+  // int32 guest_zram_size = 32;
+  void clear_guest_zram_size();
+  int32_t guest_zram_size() const;
+  void set_guest_zram_size(int32_t value);
   private:
-  bool _internal_update_o4c_list_via_a2c2() const;
-  void _internal_set_update_o4c_list_via_a2c2(bool value);
+  int32_t _internal_guest_zram_size() const;
+  void _internal_set_guest_zram_size(int32_t value);
   public:
 
   // int32 guest_swappiness = 33;
@@ -2955,24 +2943,6 @@ class StartArcVmRequest final :
   private:
   int32_t _internal_guest_swappiness() const;
   void _internal_set_guest_swappiness(int32_t value);
-  public:
-
-  // int32 mglru_reclaim_interval = 35;
-  void clear_mglru_reclaim_interval();
-  int32_t mglru_reclaim_interval() const;
-  void set_mglru_reclaim_interval(int32_t value);
-  private:
-  int32_t _internal_mglru_reclaim_interval() const;
-  void _internal_set_mglru_reclaim_interval(int32_t value);
-  public:
-
-  // int32 mglru_reclaim_swappiness = 36;
-  void clear_mglru_reclaim_swappiness();
-  int32_t mglru_reclaim_swappiness() const;
-  void set_mglru_reclaim_swappiness(int32_t value);
-  private:
-  int32_t _internal_mglru_reclaim_swappiness() const;
-  void _internal_set_mglru_reclaim_swappiness(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.StartArcVmRequest)
@@ -3012,13 +2982,10 @@ class StartArcVmRequest final :
   bool enable_virtio_blk_data_;
   bool disable_media_store_maintenance_;
   int32_t vm_memory_psi_period_;
-  int32_t guest_zram_size_;
   bool arc_generate_play_auto_install_;
   bool disable_download_provider_;
-  bool update_o4c_list_via_a2c2_;
+  int32_t guest_zram_size_;
   int32_t guest_swappiness_;
-  int32_t mglru_reclaim_interval_;
-  int32_t mglru_reclaim_swappiness_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
@@ -15680,66 +15647,6 @@ inline void StartArcVmRequest::set_allocated_mini_instance_request(::arc::StartA
   }
   mini_instance_request_ = mini_instance_request;
   // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.StartArcVmRequest.mini_instance_request)
-}
-
-// int32 mglru_reclaim_interval = 35;
-inline void StartArcVmRequest::clear_mglru_reclaim_interval() {
-  mglru_reclaim_interval_ = 0;
-}
-inline int32_t StartArcVmRequest::_internal_mglru_reclaim_interval() const {
-  return mglru_reclaim_interval_;
-}
-inline int32_t StartArcVmRequest::mglru_reclaim_interval() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.mglru_reclaim_interval)
-  return _internal_mglru_reclaim_interval();
-}
-inline void StartArcVmRequest::_internal_set_mglru_reclaim_interval(int32_t value) {
-  
-  mglru_reclaim_interval_ = value;
-}
-inline void StartArcVmRequest::set_mglru_reclaim_interval(int32_t value) {
-  _internal_set_mglru_reclaim_interval(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.mglru_reclaim_interval)
-}
-
-// int32 mglru_reclaim_swappiness = 36;
-inline void StartArcVmRequest::clear_mglru_reclaim_swappiness() {
-  mglru_reclaim_swappiness_ = 0;
-}
-inline int32_t StartArcVmRequest::_internal_mglru_reclaim_swappiness() const {
-  return mglru_reclaim_swappiness_;
-}
-inline int32_t StartArcVmRequest::mglru_reclaim_swappiness() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.mglru_reclaim_swappiness)
-  return _internal_mglru_reclaim_swappiness();
-}
-inline void StartArcVmRequest::_internal_set_mglru_reclaim_swappiness(int32_t value) {
-  
-  mglru_reclaim_swappiness_ = value;
-}
-inline void StartArcVmRequest::set_mglru_reclaim_swappiness(int32_t value) {
-  _internal_set_mglru_reclaim_swappiness(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.mglru_reclaim_swappiness)
-}
-
-// bool update_o4c_list_via_a2c2 = 37;
-inline void StartArcVmRequest::clear_update_o4c_list_via_a2c2() {
-  update_o4c_list_via_a2c2_ = false;
-}
-inline bool StartArcVmRequest::_internal_update_o4c_list_via_a2c2() const {
-  return update_o4c_list_via_a2c2_;
-}
-inline bool StartArcVmRequest::update_o4c_list_via_a2c2() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.update_o4c_list_via_a2c2)
-  return _internal_update_o4c_list_via_a2c2();
-}
-inline void StartArcVmRequest::_internal_set_update_o4c_list_via_a2c2(bool value) {
-  
-  update_o4c_list_via_a2c2_ = value;
-}
-inline void StartArcVmRequest::set_update_o4c_list_via_a2c2(bool value) {
-  _internal_set_update_o4c_list_via_a2c2(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.update_o4c_list_via_a2c2)
 }
 
 // -------------------------------------------------------------------
