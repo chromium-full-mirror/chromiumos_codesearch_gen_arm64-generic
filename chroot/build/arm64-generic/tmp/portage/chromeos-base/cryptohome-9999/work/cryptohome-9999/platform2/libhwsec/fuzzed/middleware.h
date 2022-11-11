@@ -2,26 +2,24 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef LIBHWSEC_FRONTEND_MOCK_FRONTEND_H_
-#define LIBHWSEC_FRONTEND_MOCK_FRONTEND_H_
+#ifndef LIBHWSEC_FUZZED_MIDDLEWARE_H_
+#define LIBHWSEC_FUZZED_MIDDLEWARE_H_
 
-#include <memory>
-#include <utility>
+#include <type_traits>
 
 #include <base/task/task_runner.h>
-#include <base/threading/thread_task_runner_handle.h>
 #include <base/threading/thread.h>
+#include <base/threading/thread_task_runner_handle.h>
+#include <fuzzer/FuzzedDataProvider.h>
 
+#include "libhwsec/fuzzed/basic_objects.h"
 #include "libhwsec/middleware/middleware_derivative.h"
 
 namespace hwsec {
 
-class MockFrontend {
- public:
-  MockFrontend() {}
-  virtual ~MockFrontend() = default;
-
-  MiddlewareDerivative GetFakeMiddlewareDerivative() {
+template <>
+struct FuzzedObject<MiddlewareDerivative> {
+  MiddlewareDerivative operator()(FuzzedDataProvider& provider) const {
     return MiddlewareDerivative{
         .task_runner = base::SequencedTaskRunnerHandle::IsSet()
                            ? base::SequencedTaskRunnerHandle::Get()
@@ -34,4 +32,4 @@ class MockFrontend {
 
 }  // namespace hwsec
 
-#endif  // LIBHWSEC_FRONTEND_MOCK_FRONTEND_H_
+#endif  // LIBHWSEC_FUZZED_MIDDLEWARE_H_

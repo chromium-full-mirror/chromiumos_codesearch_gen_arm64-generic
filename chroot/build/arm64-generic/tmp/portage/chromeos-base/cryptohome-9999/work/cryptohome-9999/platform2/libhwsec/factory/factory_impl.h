@@ -15,9 +15,11 @@
 #include "libhwsec/frontend/pinweaver/frontend.h"
 #include "libhwsec/frontend/recovery_crypto/frontend.h"
 #include "libhwsec/frontend/u2fd/frontend.h"
-#include "libhwsec/middleware/middleware.h"
 
 namespace hwsec {
+
+// Forward declarations
+class MiddlewareOwner;
 
 class HWSEC_EXPORT FactoryImpl : public Factory {
  public:
@@ -30,6 +32,9 @@ class HWSEC_EXPORT FactoryImpl : public Factory {
   // Constructor for no isolated thread.
   explicit FactoryImpl(OnCurrentTaskRunner);
 
+  // Constructor for custom middleware.
+  explicit FactoryImpl(std::unique_ptr<MiddlewareOwner> middleware);
+
   ~FactoryImpl() override;
 
   std::unique_ptr<CryptohomeFrontend> GetCryptohomeFrontend() override;
@@ -39,8 +44,9 @@ class HWSEC_EXPORT FactoryImpl : public Factory {
   std::unique_ptr<ChapsFrontend> GetChapsFrontend() override;
   std::unique_ptr<U2fFrontend> GetU2fFrontend() override;
 
- private:
-  MiddlewareOwner middleware_;
+ protected:
+  std::unique_ptr<MiddlewareOwner> default_middleware_;
+  MiddlewareOwner& middleware_;
 };
 
 }  // namespace hwsec
