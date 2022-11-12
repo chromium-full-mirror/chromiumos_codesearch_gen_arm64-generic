@@ -582,8 +582,8 @@ struct Serializer<::ml::model_loader::mojom::TensorInfoDataView, MaybeConstUserT
     mojo::internal::MessageFragment<
         typename decltype(fragment->dimensions)::BaseType>
         dimensions_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams dimensions_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& dimensions_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<uint32_t>>(
         in_dimensions, dimensions_fragment, &dimensions_validate_params);
     fragment->dimensions.Set(
@@ -625,8 +625,8 @@ struct Serializer<::ml::model_loader::mojom::ModelInfoDataView, MaybeConstUserTy
     mojo::internal::MessageFragment<
         typename decltype(fragment->input_tensor_info)::BaseType>
         input_tensor_info_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams input_tensor_info_validate_params(
-        new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& input_tensor_info_validate_params =
+        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, ::ml::model_loader::mojom::TensorInfoDataView>>(
         in_input_tensor_info, input_tensor_info_fragment, &input_tensor_info_validate_params);
     fragment->input_tensor_info.Set(
@@ -639,8 +639,8 @@ struct Serializer<::ml::model_loader::mojom::ModelInfoDataView, MaybeConstUserTy
     mojo::internal::MessageFragment<
         typename decltype(fragment->output_tensor_info)::BaseType>
         output_tensor_info_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams output_tensor_info_validate_params(
-        new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& output_tensor_info_validate_params =
+        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, ::ml::model_loader::mojom::TensorInfoDataView>>(
         in_output_tensor_info, output_tensor_info_fragment, &output_tensor_info_validate_params);
     fragment->output_tensor_info.Set(

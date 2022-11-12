@@ -844,8 +844,8 @@ bool NonRemovableBlockDeviceResult_Data::Validate(
               object->data.f_block_device_info, 1, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams block_device_info_validate_params(
-          0, false, nullptr);
+      constexpr const mojo::internal::ContainerValidateParams& block_device_info_validate_params =
+          mojo::internal::GetArrayValidator<0, false, nullptr>();
       if (!mojo::internal::ValidateContainer(object->data.f_block_device_info, validation_context,
                                              &block_device_info_validate_params)) {
         return false;
@@ -1280,8 +1280,8 @@ bool BacklightResult_Data::Validate(
               object->data.f_backlight_info, 1, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams backlight_info_validate_params(
-          0, false, nullptr);
+      constexpr const mojo::internal::ContainerValidateParams& backlight_info_validate_params =
+          mojo::internal::GetArrayValidator<0, false, nullptr>();
       if (!mojo::internal::ValidateContainer(object->data.f_backlight_info, validation_context,
                                              &backlight_info_validate_params)) {
         return false;
@@ -1341,8 +1341,8 @@ bool FanResult_Data::Validate(
               object->data.f_fan_info, 1, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams fan_info_validate_params(
-          0, false, nullptr);
+      constexpr const mojo::internal::ContainerValidateParams& fan_info_validate_params =
+          mojo::internal::GetArrayValidator<0, false, nullptr>();
       if (!mojo::internal::ValidateContainer(object->data.f_fan_info, validation_context,
                                              &fan_info_validate_params)) {
         return false;
@@ -1459,8 +1459,8 @@ bool BluetoothResult_Data::Validate(
               object->data.f_bluetooth_adapter_info, 1, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams bluetooth_adapter_info_validate_params(
-          0, false, nullptr);
+      constexpr const mojo::internal::ContainerValidateParams& bluetooth_adapter_info_validate_params =
+          mojo::internal::GetArrayValidator<0, false, nullptr>();
       if (!mojo::internal::ValidateContainer(object->data.f_bluetooth_adapter_info, validation_context,
                                              &bluetooth_adapter_info_validate_params)) {
         return false;
@@ -1681,8 +1681,8 @@ bool NetworkInterfaceResult_Data::Validate(
               object->data.f_network_interface_info, 1, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams network_interface_info_validate_params(
-          0, false, nullptr);
+      constexpr const mojo::internal::ContainerValidateParams& network_interface_info_validate_params =
+          mojo::internal::GetArrayValidator<0, false, nullptr>();
       if (!mojo::internal::ValidateContainer(object->data.f_network_interface_info, validation_context,
                                              &network_interface_info_validate_params)) {
         return false;
@@ -1960,8 +1960,8 @@ bool BusResult_Data::Validate(
               object->data.f_bus_devices, 1, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams bus_devices_validate_params(
-          0, false, nullptr);
+      constexpr const mojo::internal::ContainerValidateParams& bus_devices_validate_params =
+          mojo::internal::GetArrayValidator<0, false, nullptr>();
       if (!mojo::internal::ValidateContainer(object->data.f_bus_devices, validation_context,
                                              &bus_devices_validate_params)) {
         return false;
@@ -2367,8 +2367,8 @@ bool ProbeError_Data::Validate(
           object->msg, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams msg_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& msg_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->msg, validation_context,
                                          &msg_validate_params)) {
     return false;
@@ -2401,8 +2401,8 @@ bool MultipleProcessResult_Data::Validate(
           object->process_infos, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams process_infos_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& process_infos_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->process_infos, validation_context,
                                          &process_infos_validate_params)) {
     return false;
@@ -2412,8 +2412,8 @@ bool MultipleProcessResult_Data::Validate(
           object->errors, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams errors_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& errors_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->errors, validation_context,
                                          &errors_validate_params)) {
     return false;
@@ -2451,8 +2451,8 @@ bool ProcessInfo_Data::Validate(
           object->command, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams command_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& command_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->command, validation_context,
                                          &command_validate_params)) {
     return false;
@@ -2465,8 +2465,8 @@ bool ProcessInfo_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->name, validation_context,
                                          &name_validate_params)) {
     return false;
@@ -2499,8 +2499,8 @@ bool BatteryInfo_Data::Validate(
           object->vendor, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams vendor_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& vendor_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->vendor, validation_context,
                                          &vendor_validate_params)) {
     return false;
@@ -2510,8 +2510,8 @@ bool BatteryInfo_Data::Validate(
           object->serial_number, 4, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams serial_number_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& serial_number_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->serial_number, validation_context,
                                          &serial_number_validate_params)) {
     return false;
@@ -2521,8 +2521,8 @@ bool BatteryInfo_Data::Validate(
           object->model_name, 8, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams model_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& model_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->model_name, validation_context,
                                          &model_name_validate_params)) {
     return false;
@@ -2532,8 +2532,8 @@ bool BatteryInfo_Data::Validate(
           object->technology, 11, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams technology_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& technology_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->technology, validation_context,
                                          &technology_validate_params)) {
     return false;
@@ -2543,15 +2543,15 @@ bool BatteryInfo_Data::Validate(
           object->status, 12, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams status_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& status_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->status, validation_context,
                                          &status_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams manufacture_date_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& manufacture_date_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->manufacture_date, validation_context,
                                          &manufacture_date_validate_params)) {
     return false;
@@ -2611,8 +2611,8 @@ bool NonRemovableBlockDeviceInfo_Data::Validate(
           object->name, 10, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->name, validation_context,
                                          &name_validate_params)) {
     return false;
@@ -2629,8 +2629,8 @@ bool NonRemovableBlockDeviceInfo_Data::Validate(
           object->type, 13, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams type_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& type_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->type, validation_context,
                                          &type_validate_params)) {
     return false;
@@ -2645,8 +2645,8 @@ bool NonRemovableBlockDeviceInfo_Data::Validate(
           object->path, 15, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams path_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& path_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->path, validation_context,
                                          &path_validate_params)) {
     return false;
@@ -2688,8 +2688,8 @@ bool CpuInfo_Data::Validate(
           object->physical_cpus, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams physical_cpus_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& physical_cpus_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->physical_cpus, validation_context,
                                          &physical_cpus_validate_params)) {
     return false;
@@ -2699,8 +2699,8 @@ bool CpuInfo_Data::Validate(
           object->temperature_channels, 4, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams temperature_channels_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& temperature_channels_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->temperature_channels, validation_context,
                                          &temperature_channels_validate_params)) {
     return false;
@@ -2716,8 +2716,8 @@ bool CpuInfo_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams vulnerabilities_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& vulnerabilities_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->vulnerabilities, validation_context,
                                          &vulnerabilities_validate_params)) {
     return false;
@@ -2783,8 +2783,8 @@ bool VulnerabilityInfo_Data::Validate(
           object->message, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams message_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& message_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->message, validation_context,
                                          &message_validate_params)) {
     return false;
@@ -2840,8 +2840,8 @@ bool PhysicalCpuInfo_Data::Validate(
   [[maybe_unused]] const PhysicalCpuInfo_Data* object =
       static_cast<const PhysicalCpuInfo_Data*>(data);
 
-  const mojo::internal::ContainerValidateParams model_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& model_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->model_name, validation_context,
                                          &model_name_validate_params)) {
     return false;
@@ -2851,8 +2851,8 @@ bool PhysicalCpuInfo_Data::Validate(
           object->logical_cpus, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams logical_cpus_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& logical_cpus_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->logical_cpus, validation_context,
                                          &logical_cpus_validate_params)) {
     return false;
@@ -2860,8 +2860,8 @@ bool PhysicalCpuInfo_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams flags_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& flags_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->flags, validation_context,
                                          &flags_validate_params)) {
     return false;
@@ -2927,8 +2927,8 @@ bool LogicalCpuInfo_Data::Validate(
           object->c_states, 7, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams c_states_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& c_states_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->c_states, validation_context,
                                          &c_states_validate_params)) {
     return false;
@@ -2961,8 +2961,8 @@ bool CpuCStateInfo_Data::Validate(
           object->name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->name, validation_context,
                                          &name_validate_params)) {
     return false;
@@ -2991,8 +2991,8 @@ bool CpuTemperatureChannel_Data::Validate(
   [[maybe_unused]] const CpuTemperatureChannel_Data* object =
       static_cast<const CpuTemperatureChannel_Data*>(data);
 
-  const mojo::internal::ContainerValidateParams label_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& label_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->label, validation_context,
                                          &label_validate_params)) {
     return false;
@@ -3025,8 +3025,8 @@ bool TimezoneInfo_Data::Validate(
           object->posix, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams posix_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& posix_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->posix, validation_context,
                                          &posix_validate_params)) {
     return false;
@@ -3036,8 +3036,8 @@ bool TimezoneInfo_Data::Validate(
           object->region, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams region_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& region_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->region, validation_context,
                                          &region_validate_params)) {
     return false;
@@ -3135,8 +3135,8 @@ bool BacklightInfo_Data::Validate(
           object->path, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams path_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& path_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->path, validation_context,
                                          &path_validate_params)) {
     return false;
@@ -3192,8 +3192,8 @@ bool StatefulPartitionInfo_Data::Validate(
           object->filesystem, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams filesystem_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& filesystem_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->filesystem, validation_context,
                                          &filesystem_validate_params)) {
     return false;
@@ -3203,8 +3203,8 @@ bool StatefulPartitionInfo_Data::Validate(
           object->mount_source, 4, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams mount_source_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& mount_source_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->mount_source, validation_context,
                                          &mount_source_validate_params)) {
     return false;
@@ -3242,8 +3242,8 @@ bool BluetoothAdapterInfo_Data::Validate(
           object->name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->name, validation_context,
                                          &name_validate_params)) {
     return false;
@@ -3253,8 +3253,8 @@ bool BluetoothAdapterInfo_Data::Validate(
           object->address, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams address_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& address_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->address, validation_context,
                                          &address_validate_params)) {
     return false;
@@ -3262,8 +3262,8 @@ bool BluetoothAdapterInfo_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams connected_devices_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& connected_devices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->connected_devices, validation_context,
                                          &connected_devices_validate_params)) {
     return false;
@@ -3271,8 +3271,8 @@ bool BluetoothAdapterInfo_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams uuids_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& uuids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->uuids, validation_context,
                                          &uuids_validate_params)) {
     return false;
@@ -3280,8 +3280,8 @@ bool BluetoothAdapterInfo_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams modalias_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& modalias_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->modalias, validation_context,
                                          &modalias_validate_params)) {
     return false;
@@ -3289,8 +3289,8 @@ bool BluetoothAdapterInfo_Data::Validate(
   if (object->header_.version < 2)
     return true;
 
-  const mojo::internal::ContainerValidateParams service_allow_list_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& service_allow_list_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->service_allow_list, validation_context,
                                          &service_allow_list_validate_params)) {
     return false;
@@ -3332,15 +3332,15 @@ bool BluetoothDeviceInfo_Data::Validate(
           object->address, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams address_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& address_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->address, validation_context,
                                          &address_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->name, validation_context,
                                          &name_validate_params)) {
     return false;
@@ -3358,8 +3358,8 @@ bool BluetoothDeviceInfo_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->appearance, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams modalias_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& modalias_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->modalias, validation_context,
                                          &modalias_validate_params)) {
     return false;
@@ -3379,8 +3379,8 @@ bool BluetoothDeviceInfo_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->mtu, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams uuids_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& uuids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->uuids, validation_context,
                                          &uuids_validate_params)) {
     return false;
@@ -3482,15 +3482,15 @@ bool OsInfo_Data::Validate(
           object->code_name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams code_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& code_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->code_name, validation_context,
                                          &code_name_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams marketing_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& marketing_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->marketing_name, validation_context,
                                          &marketing_name_validate_params)) {
     return false;
@@ -3510,8 +3510,8 @@ bool OsInfo_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams oem_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& oem_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->oem_name, validation_context,
                                          &oem_name_validate_params)) {
     return false;
@@ -3555,8 +3555,8 @@ bool OsVersion_Data::Validate(
           object->release_milestone, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams release_milestone_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& release_milestone_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->release_milestone, validation_context,
                                          &release_milestone_validate_params)) {
     return false;
@@ -3566,8 +3566,8 @@ bool OsVersion_Data::Validate(
           object->build_number, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams build_number_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& build_number_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->build_number, validation_context,
                                          &build_number_validate_params)) {
     return false;
@@ -3577,8 +3577,8 @@ bool OsVersion_Data::Validate(
           object->patch_number, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams patch_number_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& patch_number_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->patch_number, validation_context,
                                          &patch_number_validate_params)) {
     return false;
@@ -3588,8 +3588,8 @@ bool OsVersion_Data::Validate(
           object->release_channel, 4, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams release_channel_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& release_channel_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->release_channel, validation_context,
                                          &release_channel_validate_params)) {
     return false;
@@ -3597,8 +3597,8 @@ bool OsVersion_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams branch_number_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& branch_number_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->branch_number, validation_context,
                                          &branch_number_validate_params)) {
     return false;
@@ -3631,43 +3631,43 @@ bool VpdInfo_Data::Validate(
   [[maybe_unused]] const VpdInfo_Data* object =
       static_cast<const VpdInfo_Data*>(data);
 
-  const mojo::internal::ContainerValidateParams serial_number_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& serial_number_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->serial_number, validation_context,
                                          &serial_number_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams region_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& region_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->region, validation_context,
                                          &region_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams mfg_date_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& mfg_date_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->mfg_date, validation_context,
                                          &mfg_date_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams activate_date_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& activate_date_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->activate_date, validation_context,
                                          &activate_date_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams sku_number_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& sku_number_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->sku_number, validation_context,
                                          &sku_number_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams model_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& model_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->model_name, validation_context,
                                          &model_name_validate_params)) {
     return false;
@@ -3675,8 +3675,8 @@ bool VpdInfo_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams oem_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& oem_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->oem_name, validation_context,
                                          &oem_name_validate_params)) {
     return false;
@@ -3705,43 +3705,43 @@ bool DmiInfo_Data::Validate(
   [[maybe_unused]] const DmiInfo_Data* object =
       static_cast<const DmiInfo_Data*>(data);
 
-  const mojo::internal::ContainerValidateParams bios_vendor_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& bios_vendor_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->bios_vendor, validation_context,
                                          &bios_vendor_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams bios_version_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& bios_version_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->bios_version, validation_context,
                                          &bios_version_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams board_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& board_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->board_name, validation_context,
                                          &board_name_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams board_vendor_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& board_vendor_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->board_vendor, validation_context,
                                          &board_vendor_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams board_version_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& board_version_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->board_version, validation_context,
                                          &board_version_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams chassis_vendor_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& chassis_vendor_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->chassis_vendor, validation_context,
                                          &chassis_vendor_validate_params)) {
     return false;
@@ -3750,29 +3750,29 @@ bool DmiInfo_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->chassis_type, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams product_family_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& product_family_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->product_family, validation_context,
                                          &product_family_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams product_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& product_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->product_name, validation_context,
                                          &product_name_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams product_version_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& product_version_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->product_version, validation_context,
                                          &product_version_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams sys_vendor_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& sys_vendor_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->sys_vendor, validation_context,
                                          &sys_vendor_validate_params)) {
     return false;
@@ -3805,8 +3805,8 @@ bool WirelessInterfaceInfo_Data::Validate(
           object->interface_name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams interface_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& interface_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->interface_name, validation_context,
                                          &interface_name_validate_params)) {
     return false;
@@ -3842,8 +3842,8 @@ bool WirelessLinkInfo_Data::Validate(
           object->access_point_address_str, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams access_point_address_str_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& access_point_address_str_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->access_point_address_str, validation_context,
                                          &access_point_address_str_validate_params)) {
     return false;
@@ -3876,8 +3876,8 @@ bool AudioInfo_Data::Validate(
           object->output_device_name, 4, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams output_device_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& output_device_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->output_device_name, validation_context,
                                          &output_device_name_validate_params)) {
     return false;
@@ -3887,8 +3887,8 @@ bool AudioInfo_Data::Validate(
           object->input_device_name, 6, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams input_device_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& input_device_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->input_device_name, validation_context,
                                          &input_device_name_validate_params)) {
     return false;
@@ -3921,8 +3921,8 @@ bool AudioHardwareInfo_Data::Validate(
           object->audio_cards, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams audio_cards_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& audio_cards_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->audio_cards, validation_context,
                                          &audio_cards_validate_params)) {
     return false;
@@ -3955,8 +3955,8 @@ bool AudioCard_Data::Validate(
           object->alsa_id, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams alsa_id_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& alsa_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->alsa_id, validation_context,
                                          &alsa_id_validate_params)) {
     return false;
@@ -3969,8 +3969,8 @@ bool AudioCard_Data::Validate(
           object->hd_audio_codecs, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams hd_audio_codecs_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& hd_audio_codecs_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->hd_audio_codecs, validation_context,
                                          &hd_audio_codecs_validate_params)) {
     return false;
@@ -4003,8 +4003,8 @@ bool HDAudioCodec_Data::Validate(
           object->name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->name, validation_context,
                                          &name_validate_params)) {
     return false;
@@ -4037,8 +4037,8 @@ bool BootPerformanceInfo_Data::Validate(
           object->shutdown_reason, 5, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams shutdown_reason_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& shutdown_reason_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->shutdown_reason, validation_context,
                                          &shutdown_reason_validate_params)) {
     return false;
@@ -4071,8 +4071,8 @@ bool BusDevice_Data::Validate(
           object->vendor_name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams vendor_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& vendor_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->vendor_name, validation_context,
                                          &vendor_name_validate_params)) {
     return false;
@@ -4082,8 +4082,8 @@ bool BusDevice_Data::Validate(
           object->product_name, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams product_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& product_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->product_name, validation_context,
                                          &product_name_validate_params)) {
     return false;
@@ -4124,8 +4124,8 @@ bool PciBusInfo_Data::Validate(
   [[maybe_unused]] const PciBusInfo_Data* object =
       static_cast<const PciBusInfo_Data*>(data);
 
-  const mojo::internal::ContainerValidateParams driver_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& driver_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->driver, validation_context,
                                          &driver_validate_params)) {
     return false;
@@ -4162,8 +4162,8 @@ bool UsbBusInfo_Data::Validate(
           object->interfaces, 6, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams interfaces_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& interfaces_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->interfaces, validation_context,
                                          &interfaces_validate_params)) {
     return false;
@@ -4201,8 +4201,8 @@ bool FwupdFirmwareVersionInfo_Data::Validate(
           object->version, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams version_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& version_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->version, validation_context,
                                          &version_validate_params)) {
     return false;
@@ -4236,8 +4236,8 @@ bool UsbBusInterfaceInfo_Data::Validate(
   [[maybe_unused]] const UsbBusInterfaceInfo_Data* object =
       static_cast<const UsbBusInterfaceInfo_Data*>(data);
 
-  const mojo::internal::ContainerValidateParams driver_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& driver_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->driver, validation_context,
                                          &driver_validate_params)) {
     return false;
@@ -4301,8 +4301,8 @@ bool TpmInfo_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->supported_features, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams did_vid_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& did_vid_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->did_vid, validation_context,
                                          &did_vid_validate_params)) {
     return false;
@@ -4336,8 +4336,8 @@ bool TpmVersion_Data::Validate(
         ::Validate(object->gsc_version, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams vendor_specific_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& vendor_specific_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->vendor_specific, validation_context,
                                          &vendor_specific_validate_params)) {
     return false;
@@ -4499,8 +4499,8 @@ bool GLESInfo_Data::Validate(
           object->version, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams version_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& version_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->version, validation_context,
                                          &version_validate_params)) {
     return false;
@@ -4510,8 +4510,8 @@ bool GLESInfo_Data::Validate(
           object->shading_version, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams shading_version_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& shading_version_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->shading_version, validation_context,
                                          &shading_version_validate_params)) {
     return false;
@@ -4521,8 +4521,8 @@ bool GLESInfo_Data::Validate(
           object->vendor, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams vendor_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& vendor_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->vendor, validation_context,
                                          &vendor_validate_params)) {
     return false;
@@ -4532,8 +4532,8 @@ bool GLESInfo_Data::Validate(
           object->renderer, 4, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams renderer_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& renderer_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->renderer, validation_context,
                                          &renderer_validate_params)) {
     return false;
@@ -4543,8 +4543,8 @@ bool GLESInfo_Data::Validate(
           object->extensions, 5, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams extensions_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& extensions_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->extensions, validation_context,
                                          &extensions_validate_params)) {
     return false;
@@ -4577,8 +4577,8 @@ bool EGLInfo_Data::Validate(
           object->version, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams version_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& version_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->version, validation_context,
                                          &version_validate_params)) {
     return false;
@@ -4588,8 +4588,8 @@ bool EGLInfo_Data::Validate(
           object->vendor, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams vendor_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& vendor_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->vendor, validation_context,
                                          &vendor_validate_params)) {
     return false;
@@ -4599,8 +4599,8 @@ bool EGLInfo_Data::Validate(
           object->client_api, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams client_api_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& client_api_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->client_api, validation_context,
                                          &client_api_validate_params)) {
     return false;
@@ -4610,8 +4610,8 @@ bool EGLInfo_Data::Validate(
           object->extensions, 4, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams extensions_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& extensions_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->extensions, validation_context,
                                          &extensions_validate_params)) {
     return false;
@@ -4653,8 +4653,8 @@ bool DisplayInfo_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams dp_infos_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& dp_infos_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->dp_infos, validation_context,
                                          &dp_infos_validate_params)) {
     return false;
@@ -4715,8 +4715,8 @@ bool EmbeddedDisplayInfo_Data::Validate(
   if (object->header_.version < 2)
     return true;
 
-  const mojo::internal::ContainerValidateParams manufacturer_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& manufacturer_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->manufacturer, validation_context,
                                          &manufacturer_validate_params)) {
     return false;
@@ -4744,8 +4744,8 @@ bool EmbeddedDisplayInfo_Data::Validate(
   if (object->header_.version < 2)
     return true;
 
-  const mojo::internal::ContainerValidateParams edid_version_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& edid_version_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->edid_version, validation_context,
                                          &edid_version_validate_params)) {
     return false;
@@ -4760,8 +4760,8 @@ bool EmbeddedDisplayInfo_Data::Validate(
   if (object->header_.version < 2)
     return true;
 
-  const mojo::internal::ContainerValidateParams display_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& display_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->display_name, validation_context,
                                          &display_name_validate_params)) {
     return false;
@@ -4811,8 +4811,8 @@ bool ExternalDisplayInfo_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams manufacturer_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& manufacturer_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->manufacturer, validation_context,
                                          &manufacturer_validate_params)) {
     return false;
@@ -4840,8 +4840,8 @@ bool ExternalDisplayInfo_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams edid_version_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& edid_version_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->edid_version, validation_context,
                                          &edid_version_validate_params)) {
     return false;
@@ -4856,8 +4856,8 @@ bool ExternalDisplayInfo_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams display_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& display_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->display_name, validation_context,
                                          &display_name_validate_params)) {
     return false;
@@ -4890,8 +4890,8 @@ bool ThunderboltBusInterfaceInfo_Data::Validate(
           object->vendor_name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams vendor_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& vendor_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->vendor_name, validation_context,
                                          &vendor_name_validate_params)) {
     return false;
@@ -4901,8 +4901,8 @@ bool ThunderboltBusInterfaceInfo_Data::Validate(
           object->device_name, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams device_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& device_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->device_name, validation_context,
                                          &device_name_validate_params)) {
     return false;
@@ -4912,8 +4912,8 @@ bool ThunderboltBusInterfaceInfo_Data::Validate(
           object->device_type, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams device_type_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& device_type_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->device_type, validation_context,
                                          &device_type_validate_params)) {
     return false;
@@ -4923,8 +4923,8 @@ bool ThunderboltBusInterfaceInfo_Data::Validate(
           object->device_uuid, 4, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams device_uuid_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& device_uuid_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->device_uuid, validation_context,
                                          &device_uuid_validate_params)) {
     return false;
@@ -4934,8 +4934,8 @@ bool ThunderboltBusInterfaceInfo_Data::Validate(
           object->device_fw_version, 8, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams device_fw_version_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& device_fw_version_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->device_fw_version, validation_context,
                                          &device_fw_version_validate_params)) {
     return false;
@@ -4973,8 +4973,8 @@ bool ThunderboltBusInfo_Data::Validate(
           object->thunderbolt_interfaces, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams thunderbolt_interfaces_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& thunderbolt_interfaces_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->thunderbolt_interfaces, validation_context,
                                          &thunderbolt_interfaces_validate_params)) {
     return false;
@@ -5007,8 +5007,8 @@ bool InputInfo_Data::Validate(
           object->touchpad_library_name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams touchpad_library_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& touchpad_library_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->touchpad_library_name, validation_context,
                                          &touchpad_library_name_validate_params)) {
     return false;
@@ -5018,8 +5018,8 @@ bool InputInfo_Data::Validate(
           object->touchscreen_devices, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams touchscreen_devices_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& touchscreen_devices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->touchscreen_devices, validation_context,
                                          &touchscreen_devices_validate_params)) {
     return false;
@@ -5082,8 +5082,8 @@ bool InputDevice_Data::Validate(
           object->name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->name, validation_context,
                                          &name_validate_params)) {
     return false;
@@ -5098,8 +5098,8 @@ bool InputDevice_Data::Validate(
           object->physical_location, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams physical_location_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& physical_location_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->physical_location, validation_context,
                                          &physical_location_validate_params)) {
     return false;
@@ -5137,8 +5137,8 @@ bool SensorInfo_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams sensors_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& sensors_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->sensors, validation_context,
                                          &sensors_validate_params)) {
     return false;
@@ -5167,8 +5167,8 @@ bool Sensor_Data::Validate(
   [[maybe_unused]] const Sensor_Data* object =
       static_cast<const Sensor_Data*>(data);
 
-  const mojo::internal::ContainerValidateParams name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->name, validation_context,
                                          &name_validate_params)) {
     return false;

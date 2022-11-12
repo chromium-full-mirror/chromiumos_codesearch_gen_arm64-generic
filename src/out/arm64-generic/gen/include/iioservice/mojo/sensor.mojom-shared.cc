@@ -322,8 +322,8 @@ bool SensorService_GetDeviceIds_ResponseParams_Data::Validate(
           object->iio_device_ids, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams iio_device_ids_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& iio_device_ids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->iio_device_ids, validation_context,
                                          &iio_device_ids_validate_params)) {
     return false;
@@ -379,8 +379,8 @@ bool SensorService_GetAllDeviceIds_ResponseParams_Data::Validate(
           object->iio_device_ids_types, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams iio_device_ids_types_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, ::cros::mojom::internal::DeviceType_Data::Validate)));
+  constexpr const mojo::internal::ContainerValidateParams& iio_device_ids_types_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayOfEnumsValidator<0, ::cros::mojom::internal::DeviceType_Data::Validate>()>()>();
   if (!mojo::internal::ValidateContainer(object->iio_device_ids_types, validation_context,
                                          &iio_device_ids_types_validate_params)) {
     return false;
@@ -500,8 +500,8 @@ bool SensorDevice_GetAttributes_Params_Data::Validate(
           object->attr_names, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams attr_names_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& attr_names_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->attr_names, validation_context,
                                          &attr_names_validate_params)) {
     return false;
@@ -534,8 +534,8 @@ bool SensorDevice_GetAttributes_ResponseParams_Data::Validate(
           object->values, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams values_validate_params(
-      0, true, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& values_validate_params =
+      mojo::internal::GetArrayValidator<0, true, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->values, validation_context,
                                          &values_validate_params)) {
     return false;
@@ -692,8 +692,8 @@ bool SensorDevice_GetAllChannelIds_ResponseParams_Data::Validate(
           object->iio_chn_ids, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams iio_chn_ids_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& iio_chn_ids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->iio_chn_ids, validation_context,
                                          &iio_chn_ids_validate_params)) {
     return false;
@@ -726,8 +726,8 @@ bool SensorDevice_SetChannelsEnabled_Params_Data::Validate(
           object->iio_chn_indices, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams iio_chn_indices_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& iio_chn_indices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->iio_chn_indices, validation_context,
                                          &iio_chn_indices_validate_params)) {
     return false;
@@ -760,8 +760,8 @@ bool SensorDevice_SetChannelsEnabled_ResponseParams_Data::Validate(
           object->failed_indices, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams failed_indices_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& failed_indices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->failed_indices, validation_context,
                                          &failed_indices_validate_params)) {
     return false;
@@ -794,8 +794,8 @@ bool SensorDevice_GetChannelsEnabled_Params_Data::Validate(
           object->iio_chn_indices, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams iio_chn_indices_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& iio_chn_indices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->iio_chn_indices, validation_context,
                                          &iio_chn_indices_validate_params)) {
     return false;
@@ -828,8 +828,8 @@ bool SensorDevice_GetChannelsEnabled_ResponseParams_Data::Validate(
           object->enabled, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams enabled_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& enabled_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->enabled, validation_context,
                                          &enabled_validate_params)) {
     return false;
@@ -862,8 +862,8 @@ bool SensorDevice_GetChannelsAttributes_Params_Data::Validate(
           object->iio_chn_indices, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams iio_chn_indices_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& iio_chn_indices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->iio_chn_indices, validation_context,
                                          &iio_chn_indices_validate_params)) {
     return false;
@@ -873,8 +873,8 @@ bool SensorDevice_GetChannelsAttributes_Params_Data::Validate(
           object->attr_name, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams attr_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& attr_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->attr_name, validation_context,
                                          &attr_name_validate_params)) {
     return false;
@@ -907,8 +907,8 @@ bool SensorDevice_GetChannelsAttributes_ResponseParams_Data::Validate(
           object->values, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams values_validate_params(
-      0, true, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& values_validate_params =
+      mojo::internal::GetArrayValidator<0, true, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->values, validation_context,
                                          &values_validate_params)) {
     return false;
@@ -964,8 +964,8 @@ bool SensorDevice_GetAllEvents_ResponseParams_Data::Validate(
           object->iio_events, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams iio_events_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& iio_events_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->iio_events, validation_context,
                                          &iio_events_validate_params)) {
     return false;
@@ -998,8 +998,8 @@ bool SensorDevice_SetEventsEnabled_Params_Data::Validate(
           object->iio_event_indices, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams iio_event_indices_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& iio_event_indices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->iio_event_indices, validation_context,
                                          &iio_event_indices_validate_params)) {
     return false;
@@ -1032,8 +1032,8 @@ bool SensorDevice_SetEventsEnabled_ResponseParams_Data::Validate(
           object->failed_indices, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams failed_indices_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& failed_indices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->failed_indices, validation_context,
                                          &failed_indices_validate_params)) {
     return false;
@@ -1066,8 +1066,8 @@ bool SensorDevice_GetEventsEnabled_Params_Data::Validate(
           object->iio_event_indices, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams iio_event_indices_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& iio_event_indices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->iio_event_indices, validation_context,
                                          &iio_event_indices_validate_params)) {
     return false;
@@ -1100,8 +1100,8 @@ bool SensorDevice_GetEventsEnabled_ResponseParams_Data::Validate(
           object->enabled, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams enabled_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& enabled_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->enabled, validation_context,
                                          &enabled_validate_params)) {
     return false;
@@ -1134,8 +1134,8 @@ bool SensorDevice_GetEventsAttributes_Params_Data::Validate(
           object->iio_event_indices, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams iio_event_indices_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& iio_event_indices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->iio_event_indices, validation_context,
                                          &iio_event_indices_validate_params)) {
     return false;
@@ -1145,8 +1145,8 @@ bool SensorDevice_GetEventsAttributes_Params_Data::Validate(
           object->attr_name, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams attr_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& attr_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->attr_name, validation_context,
                                          &attr_name_validate_params)) {
     return false;
@@ -1179,8 +1179,8 @@ bool SensorDevice_GetEventsAttributes_ResponseParams_Data::Validate(
           object->values, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams values_validate_params(
-      0, true, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& values_validate_params =
+      mojo::internal::GetArrayValidator<0, true, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->values, validation_context,
                                          &values_validate_params)) {
     return false;
@@ -1268,8 +1268,8 @@ bool SensorDeviceSamplesObserver_OnSampleUpdated_Params_Data::Validate(
           object->sample, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams sample_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& sample_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->sample, validation_context,
                                          &sample_validate_params)) {
     return false;
@@ -1330,8 +1330,8 @@ bool SensorServiceNewDevicesObserver_OnNewDeviceAdded_Params_Data::Validate(
           object->types, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams types_validate_params(
-      0, ::cros::mojom::internal::DeviceType_Data::Validate);
+  constexpr const mojo::internal::ContainerValidateParams& types_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::cros::mojom::internal::DeviceType_Data::Validate>();
   if (!mojo::internal::ValidateContainer(object->types, validation_context,
                                          &types_validate_params)) {
     return false;

@@ -930,8 +930,8 @@ void VideoEncodeAcceleratorProxy::Encode(
   mojo::internal::MessageFragment<
       typename decltype(params->planes)::BaseType>
       planes_fragment(params.message());
-  const mojo::internal::ContainerValidateParams planes_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& planes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<::arc::mojom::VideoFramePlaneDataView>>(
       in_planes, planes_fragment, &planes_validate_params);
   params->planes.Set(
@@ -1226,8 +1226,8 @@ void VideoEncodeAccelerator_GetSupportedProfiles_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->profiles)::BaseType>
       profiles_fragment(params.message());
-  const mojo::internal::ContainerValidateParams profiles_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& profiles_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<::arc::mojom::VideoEncodeProfileDataView>>(
       in_profiles, profiles_fragment, &profiles_validate_params);
   params->profiles.Set(

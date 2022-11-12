@@ -44,8 +44,8 @@ bool FilePath_Data::Validate(
           object->path, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams path_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& path_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->path, validation_context,
                                          &path_validate_params)) {
     return false;
@@ -78,8 +78,8 @@ bool RelativeFilePath_Data::Validate(
           object->path, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams path_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& path_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->path, validation_context,
                                          &path_validate_params)) {
     return false;

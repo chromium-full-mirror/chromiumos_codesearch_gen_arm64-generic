@@ -88,8 +88,8 @@ bool CameraMetadataEntry_Data::Validate(
           object->data, 5, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams data_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& data_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->data, validation_context,
                                          &data_validate_params)) {
     return false;
@@ -118,8 +118,8 @@ bool CameraMetadata_Data::Validate(
   [[maybe_unused]] const CameraMetadata_Data* object =
       static_cast<const CameraMetadata_Data*>(data);
 
-  const mojo::internal::ContainerValidateParams entries_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& entries_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->entries, validation_context,
                                          &entries_validate_params)) {
     return false;

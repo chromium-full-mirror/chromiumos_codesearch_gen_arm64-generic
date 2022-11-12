@@ -6,6 +6,7 @@
 
 #include <pthread.h>
 
+#include "base/memory/ptr_util.h"
 #include "base/threading/platform_thread.h"
 #include "build/build_config.h"
 

@@ -331,8 +331,8 @@ bool Camera3NotifyMsgMessage_Data::Validate(
               object->data.f_generic, 3, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams generic_validate_params(
-          0, false, nullptr);
+      constexpr const mojo::internal::ContainerValidateParams& generic_validate_params =
+          mojo::internal::GetArrayValidator<0, false, nullptr>();
       if (!mojo::internal::ValidateContainer(object->data.f_generic, validation_context,
                                              &generic_validate_params)) {
         return false;
@@ -422,8 +422,8 @@ bool Camera3Stream_Data::Validate(
   if (object->header_.version < 4)
     return true;
 
-  const mojo::internal::ContainerValidateParams physical_camera_id_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& physical_camera_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->physical_camera_id, validation_context,
                                          &physical_camera_id_validate_params)) {
     return false;
@@ -460,8 +460,8 @@ bool Camera3StreamConfiguration_Data::Validate(
           object->streams, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams streams_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& streams_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->streams, validation_context,
                                          &streams_validate_params)) {
     return false;
@@ -508,8 +508,8 @@ bool CameraBufferHandle_Data::Validate(
           object->fds, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams fds_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& fds_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->fds, validation_context,
                                          &fds_validate_params)) {
     return false;
@@ -524,8 +524,8 @@ bool CameraBufferHandle_Data::Validate(
           object->strides, 7, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams strides_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& strides_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->strides, validation_context,
                                          &strides_validate_params)) {
     return false;
@@ -535,8 +535,8 @@ bool CameraBufferHandle_Data::Validate(
           object->offsets, 8, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams offsets_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& offsets_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->offsets, validation_context,
                                          &offsets_validate_params)) {
     return false;
@@ -544,8 +544,8 @@ bool CameraBufferHandle_Data::Validate(
   if (object->header_.version < 3)
     return true;
 
-  const mojo::internal::ContainerValidateParams sizes_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& sizes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->sizes, validation_context,
                                          &sizes_validate_params)) {
     return false;
@@ -755,8 +755,8 @@ bool Camera3CaptureRequest_Data::Validate(
           object->output_buffers, 4, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams output_buffers_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& output_buffers_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->output_buffers, validation_context,
                                          &output_buffers_validate_params)) {
     return false;
@@ -764,8 +764,8 @@ bool Camera3CaptureRequest_Data::Validate(
   if (object->header_.version < 4)
     return true;
 
-  const mojo::internal::ContainerValidateParams physcam_settings_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& physcam_settings_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->physcam_settings, validation_context,
                                          &physcam_settings_validate_params)) {
     return false;
@@ -805,8 +805,8 @@ bool Camera3CaptureResult_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->result, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams output_buffers_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& output_buffers_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->output_buffers, validation_context,
                                          &output_buffers_validate_params)) {
     return false;
@@ -817,8 +817,8 @@ bool Camera3CaptureResult_Data::Validate(
   if (object->header_.version < 4)
     return true;
 
-  const mojo::internal::ContainerValidateParams physcam_metadata_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& physcam_metadata_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->physcam_metadata, validation_context,
                                          &physcam_metadata_validate_params)) {
     return false;
@@ -1212,8 +1212,8 @@ bool Camera3DeviceOps_RegisterBuffer_Params_Data::Validate(
           object->fds, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams fds_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& fds_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->fds, validation_context,
                                          &fds_validate_params)) {
     return false;
@@ -1228,8 +1228,8 @@ bool Camera3DeviceOps_RegisterBuffer_Params_Data::Validate(
           object->strides, 8, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams strides_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& strides_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->strides, validation_context,
                                          &strides_validate_params)) {
     return false;
@@ -1239,8 +1239,8 @@ bool Camera3DeviceOps_RegisterBuffer_Params_Data::Validate(
           object->offsets, 9, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams offsets_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& offsets_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->offsets, validation_context,
                                          &offsets_validate_params)) {
     return false;
@@ -1375,8 +1375,8 @@ bool Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ResponseParams_Data
           object->allocated_buffers, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams allocated_buffers_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)));
+  constexpr const mojo::internal::ContainerValidateParams& allocated_buffers_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
   if (!mojo::internal::ValidateContainer(object->allocated_buffers, validation_context,
                                          &allocated_buffers_validate_params)) {
     return false;

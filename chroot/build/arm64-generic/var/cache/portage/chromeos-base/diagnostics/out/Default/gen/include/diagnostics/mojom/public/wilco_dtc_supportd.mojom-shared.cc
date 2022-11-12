@@ -302,8 +302,8 @@ bool WilcoDtcSupportdClient_PerformWebRequest_Params_Data::Validate(
           object->headers, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams headers_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& headers_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->headers, validation_context,
                                          &headers_validate_params)) {
     return false;
@@ -457,8 +457,8 @@ bool WilcoDtcSupportdClient_GetConfigurationData_ResponseParams_Data::Validate(
           object->json_configuration_data, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams json_configuration_data_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& json_configuration_data_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->json_configuration_data, validation_context,
                                          &json_configuration_data_validate_params)) {
     return false;

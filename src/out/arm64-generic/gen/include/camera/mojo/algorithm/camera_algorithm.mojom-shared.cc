@@ -154,8 +154,8 @@ bool CameraAlgorithmOps_Request_Params_Data::Validate(
           object->req_header, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams req_header_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& req_header_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->req_header, validation_context,
                                          &req_header_validate_params)) {
     return false;
@@ -188,8 +188,8 @@ bool CameraAlgorithmOps_DeregisterBuffers_Params_Data::Validate(
           object->buffer_handles, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams buffer_handles_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& buffer_handles_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->buffer_handles, validation_context,
                                          &buffer_handles_validate_params)) {
     return false;
@@ -300,8 +300,8 @@ bool CameraAlgorithmCallbackOps_Update_Params_Data::Validate(
           object->upd_header, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams upd_header_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& upd_header_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->upd_header, validation_context,
                                          &upd_header_validate_params)) {
     return false;

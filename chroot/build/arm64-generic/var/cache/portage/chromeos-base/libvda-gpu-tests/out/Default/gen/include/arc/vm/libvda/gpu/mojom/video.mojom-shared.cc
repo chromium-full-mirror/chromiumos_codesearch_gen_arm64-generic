@@ -76,8 +76,8 @@ bool VideoHost_OnBootstrapVideoAcceleratorFactory_ResponseParams_Data::Validate(
           object->token, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams token_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& token_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->token, validation_context,
                                          &token_validate_params)) {
     return false;

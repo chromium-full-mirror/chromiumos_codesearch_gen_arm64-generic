@@ -85,8 +85,8 @@ bool TextEntityData_Data::Validate(
               object->data.f_string_value, 2, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams string_value_validate_params(
-          0, false, nullptr);
+      constexpr const mojo::internal::ContainerValidateParams& string_value_validate_params =
+          mojo::internal::GetArrayValidator<0, false, nullptr>();
       if (!mojo::internal::ValidateContainer(object->data.f_string_value, validation_context,
                                              &string_value_validate_params)) {
         return false;
@@ -125,8 +125,8 @@ bool TextEntity_Data::Validate(
           object->name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->name, validation_context,
                                          &name_validate_params)) {
     return false;
@@ -166,8 +166,8 @@ bool TextAnnotation_Data::Validate(
           object->entities, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams entities_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& entities_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->entities, validation_context,
                                          &entities_validate_params)) {
     return false;
@@ -204,22 +204,22 @@ bool TextAnnotationRequest_Data::Validate(
           object->text, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams text_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& text_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->text, validation_context,
                                          &text_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams default_locales_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& default_locales_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->default_locales, validation_context,
                                          &default_locales_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams detected_text_language_tags_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& detected_text_language_tags_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->detected_text_language_tags, validation_context,
                                          &detected_text_language_tags_validate_params)) {
     return false;
@@ -233,15 +233,15 @@ bool TextAnnotationRequest_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->reference_time, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams reference_timezone_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& reference_timezone_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->reference_timezone, validation_context,
                                          &reference_timezone_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams enabled_entities_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& enabled_entities_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->enabled_entities, validation_context,
                                          &enabled_entities_validate_params)) {
     return false;
@@ -297,8 +297,8 @@ bool TextLanguage_Data::Validate(
           object->locale, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams locale_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& locale_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->locale, validation_context,
                                          &locale_validate_params)) {
     return false;
@@ -331,8 +331,8 @@ bool REMOVED_TextSuggestSelectionRequest_Data::Validate(
           object->text, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams text_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& text_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->text, validation_context,
                                          &text_validate_params)) {
     return false;
@@ -345,15 +345,15 @@ bool REMOVED_TextSuggestSelectionRequest_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->user_selection, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams default_locales_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& default_locales_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->default_locales, validation_context,
                                          &default_locales_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams detected_text_language_tags_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& detected_text_language_tags_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->detected_text_language_tags, validation_context,
                                          &detected_text_language_tags_validate_params)) {
     return false;
@@ -421,8 +421,8 @@ bool TextClassifier_Annotate_ResponseParams_Data::Validate(
           object->outputs, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams outputs_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& outputs_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->outputs, validation_context,
                                          &outputs_validate_params)) {
     return false;
@@ -455,8 +455,8 @@ bool TextClassifier_FindLanguages_Params_Data::Validate(
           object->text, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams text_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& text_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->text, validation_context,
                                          &text_validate_params)) {
     return false;
@@ -489,8 +489,8 @@ bool TextClassifier_FindLanguages_ResponseParams_Data::Validate(
           object->outputs, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams outputs_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& outputs_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->outputs, validation_context,
                                          &outputs_validate_params)) {
     return false;

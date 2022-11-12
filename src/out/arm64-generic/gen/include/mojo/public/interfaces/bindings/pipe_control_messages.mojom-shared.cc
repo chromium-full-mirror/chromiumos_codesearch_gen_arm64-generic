@@ -141,8 +141,8 @@ bool DisconnectReason_Data::Validate(
           object->description, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams description_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& description_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->description, validation_context,
                                          &description_validate_params)) {
     return false;

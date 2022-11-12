@@ -680,8 +680,8 @@ struct Serializer<::smbfs::mojom::CredentialStorageOptionsDataView, MaybeConstUs
     mojo::internal::MessageFragment<
         typename decltype(fragment->salt)::BaseType>
         salt_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams salt_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& salt_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
         in_salt, salt_fragment, &salt_validate_params);
     fragment->salt.Set(

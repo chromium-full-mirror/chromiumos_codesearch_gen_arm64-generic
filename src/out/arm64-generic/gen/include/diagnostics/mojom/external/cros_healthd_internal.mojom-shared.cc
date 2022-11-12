@@ -106,8 +106,8 @@ bool InputDevice_Data::Validate(
           object->name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->name, validation_context,
                                          &name_validate_params)) {
     return false;
@@ -122,8 +122,8 @@ bool InputDevice_Data::Validate(
           object->physical_location, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams physical_location_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& physical_location_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->physical_location, validation_context,
                                          &physical_location_validate_params)) {
     return false;
@@ -133,8 +133,8 @@ bool InputDevice_Data::Validate(
           object->sysfs_path, 5, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams sysfs_path_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& sysfs_path_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->sysfs_path, validation_context,
                                          &sysfs_path_validate_params)) {
     return false;
@@ -190,8 +190,8 @@ bool ChromiumDataCollector_GetTouchscreenDevices_ResponseParams_Data::Validate(
           object->devices, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams devices_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& devices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->devices, validation_context,
                                          &devices_validate_params)) {
     return false;
@@ -247,8 +247,8 @@ bool ChromiumDataCollector_GetTouchpadLibraryName_ResponseParams_Data::Validate(
           object->library_name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams library_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& library_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->library_name, validation_context,
                                          &library_name_validate_params)) {
     return false;

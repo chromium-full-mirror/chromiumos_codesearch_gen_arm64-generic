@@ -480,8 +480,8 @@ struct Serializer<::chromeos::network_health::mojom::SignalStrengthStatsDataView
     mojo::internal::MessageFragment<
         typename decltype(fragment->samples)::BaseType>
         samples_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams samples_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& samples_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
         in_samples, samples_fragment, &samples_validate_params);
     fragment->samples.Set(
@@ -567,8 +567,8 @@ struct Serializer<::chromeos::network_health::mojom::NetworkDataView, MaybeConst
     mojo::internal::MessageFragment<
         typename decltype(fragment->ipv6_addresses)::BaseType>
         ipv6_addresses_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams ipv6_addresses_validate_params(
-        0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& ipv6_addresses_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
         in_ipv6_addresses, ipv6_addresses_fragment, &ipv6_addresses_validate_params);
     fragment->ipv6_addresses.Set(
@@ -620,8 +620,8 @@ struct Serializer<::chromeos::network_health::mojom::NetworkHealthStateDataView,
     mojo::internal::MessageFragment<
         typename decltype(fragment->networks)::BaseType>
         networks_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams networks_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& networks_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_health::mojom::NetworkDataView>>(
         in_networks, networks_fragment, &networks_validate_params);
     fragment->networks.Set(

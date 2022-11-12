@@ -1027,8 +1027,8 @@ void ExecutorProxy::GetProcessIOContents(
   mojo::internal::MessageFragment<
       typename decltype(params->pids)::BaseType>
       pids_fragment(params.message());
-  const mojo::internal::ContainerValidateParams pids_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& pids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<uint32_t>>(
       in_pids, pids_fragment, &pids_validate_params);
   params->pids.Set(
@@ -2097,8 +2097,8 @@ void Executor_GetProcessIOContents_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->contents)::BaseType>
       contents_fragment(params.message());
-  const mojo::internal::ContainerValidateParams contents_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)));
+  constexpr const mojo::internal::ContainerValidateParams& contents_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
   mojo::internal::Serialize<mojo::MapDataView<uint32_t, mojo::StringDataView>>(
       in_contents, contents_fragment, &contents_validate_params);
   params->contents.Set(

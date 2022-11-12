@@ -44,8 +44,8 @@ bool GenericPendingReceiver_Data::Validate(
           object->interface_name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams interface_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& interface_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->interface_name, validation_context,
                                          &interface_name_validate_params)) {
     return false;

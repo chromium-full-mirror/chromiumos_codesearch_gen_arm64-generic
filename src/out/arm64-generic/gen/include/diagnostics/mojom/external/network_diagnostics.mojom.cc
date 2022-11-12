@@ -1853,8 +1853,8 @@ void NetworkDiagnosticsRoutines_GetAllResults_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->results)::BaseType>
       results_fragment(params.message());
-  const mojo::internal::ContainerValidateParams results_validate_params(
-      new mojo::internal::ContainerValidateParams(0, ::chromeos::network_diagnostics::mojom::internal::RoutineType_Data::Validate), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& results_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::RoutineType_Data::Validate>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   mojo::internal::Serialize<mojo::MapDataView<::chromeos::network_diagnostics::mojom::RoutineType, ::chromeos::network_diagnostics::mojom::RoutineResultDataView>>(
       in_results, results_fragment, &results_validate_params);
   params->results.Set(

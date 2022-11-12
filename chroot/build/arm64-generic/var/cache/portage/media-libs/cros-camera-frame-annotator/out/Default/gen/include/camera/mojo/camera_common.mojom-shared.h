@@ -418,8 +418,8 @@ struct Serializer<::cros::mojom::CameraInfoDataView, MaybeConstUserType> {
     mojo::internal::MessageFragment<
         typename decltype(fragment->conflicting_devices)::BaseType>
         conflicting_devices_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams conflicting_devices_validate_params(
-        0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& conflicting_devices_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
         in_conflicting_devices, conflicting_devices_fragment, &conflicting_devices_validate_params);
     fragment->conflicting_devices.Set(

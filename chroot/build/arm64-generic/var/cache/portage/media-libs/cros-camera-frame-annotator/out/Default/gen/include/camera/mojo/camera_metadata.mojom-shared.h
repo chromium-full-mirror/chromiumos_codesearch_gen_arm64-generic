@@ -256,8 +256,8 @@ struct Serializer<::cros::mojom::CameraMetadataEntryDataView, MaybeConstUserType
     mojo::internal::MessageFragment<
         typename decltype(fragment->data)::BaseType>
         data_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams data_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& data_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
         in_data, data_fragment, &data_validate_params);
     fragment->data.Set(
@@ -304,8 +304,8 @@ struct Serializer<::cros::mojom::CameraMetadataDataView, MaybeConstUserType> {
     mojo::internal::MessageFragment<
         typename decltype(fragment->entries)::BaseType>
         entries_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams entries_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& entries_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::cros::mojom::CameraMetadataEntryDataView>>(
         in_entries, entries_fragment, &entries_validate_params);
     fragment->entries.Set(

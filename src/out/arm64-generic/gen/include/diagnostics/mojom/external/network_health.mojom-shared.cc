@@ -104,8 +104,8 @@ bool SignalStrengthStats_Data::Validate(
           object->samples, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams samples_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& samples_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->samples, validation_context,
                                          &samples_validate_params)) {
     return false;
@@ -148,22 +148,22 @@ bool Network_Data::Validate(
         ::Validate(object->state, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams guid_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& guid_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->guid, validation_context,
                                          &guid_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->name, validation_context,
                                          &name_validate_params)) {
     return false;
   }
 
-  const mojo::internal::ContainerValidateParams mac_address_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& mac_address_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->mac_address, validation_context,
                                          &mac_address_validate_params)) {
     return false;
@@ -172,8 +172,8 @@ bool Network_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->signal_strength, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams ipv4_address_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& ipv4_address_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->ipv4_address, validation_context,
                                          &ipv4_address_validate_params)) {
     return false;
@@ -183,8 +183,8 @@ bool Network_Data::Validate(
           object->ipv6_addresses, 8, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams ipv6_addresses_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& ipv6_addresses_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->ipv6_addresses, validation_context,
                                          &ipv6_addresses_validate_params)) {
     return false;
@@ -227,8 +227,8 @@ bool NetworkHealthState_Data::Validate(
           object->networks, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams networks_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& networks_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->networks, validation_context,
                                          &networks_validate_params)) {
     return false;
@@ -261,8 +261,8 @@ bool NetworkEventsObserver_OnConnectionStateChanged_Params_Data::Validate(
           object->guid, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams guid_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& guid_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->guid, validation_context,
                                          &guid_validate_params)) {
     return false;
@@ -300,8 +300,8 @@ bool NetworkEventsObserver_OnSignalStrengthChanged_Params_Data::Validate(
           object->guid, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams guid_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& guid_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->guid, validation_context,
                                          &guid_validate_params)) {
     return false;
@@ -396,8 +396,8 @@ bool NetworkHealthService_GetNetworkList_ResponseParams_Data::Validate(
           object->networks, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams networks_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& networks_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->networks, validation_context,
                                          &networks_validate_params)) {
     return false;

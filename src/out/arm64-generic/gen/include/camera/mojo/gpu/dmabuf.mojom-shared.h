@@ -257,8 +257,8 @@ struct Serializer<::cros::mojom::DmaBufVideoFrameDataView, MaybeConstUserType> {
     mojo::internal::MessageFragment<
         typename decltype(fragment->planes)::BaseType>
         planes_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams planes_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& planes_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::cros::mojom::DmaBufPlaneDataView>>(
         in_planes, planes_fragment, &planes_validate_params);
     fragment->planes.Set(

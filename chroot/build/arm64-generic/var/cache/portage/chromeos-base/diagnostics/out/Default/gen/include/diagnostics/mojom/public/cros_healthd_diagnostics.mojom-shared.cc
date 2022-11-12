@@ -431,8 +431,8 @@ bool NonInteractiveRoutineUpdate_Data::Validate(
           object->status_message, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams status_message_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& status_message_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->status_message, validation_context,
                                          &status_message_validate_params)) {
     return false;

@@ -71,8 +71,8 @@ bool Value_Data::Validate(
               object->data.f_string_value, 5, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams string_value_validate_params(
-          0, false, nullptr);
+      constexpr const mojo::internal::ContainerValidateParams& string_value_validate_params =
+          mojo::internal::GetArrayValidator<0, false, nullptr>();
       if (!mojo::internal::ValidateContainer(object->data.f_string_value, validation_context,
                                              &string_value_validate_params)) {
         return false;
@@ -85,8 +85,8 @@ bool Value_Data::Validate(
               object->data.f_binary_value, 6, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams binary_value_validate_params(
-          0, false, nullptr);
+      constexpr const mojo::internal::ContainerValidateParams& binary_value_validate_params =
+          mojo::internal::GetArrayValidator<0, false, nullptr>();
       if (!mojo::internal::ValidateContainer(object->data.f_binary_value, validation_context,
                                              &binary_value_validate_params)) {
         return false;
@@ -145,8 +145,8 @@ bool DictionaryValue_Data::Validate(
           object->storage, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams storage_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& storage_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->storage, validation_context,
                                          &storage_validate_params)) {
     return false;
@@ -179,8 +179,8 @@ bool ListValue_Data::Validate(
           object->storage, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams storage_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& storage_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->storage, validation_context,
                                          &storage_validate_params)) {
     return false;
@@ -213,8 +213,8 @@ bool DeprecatedDictionaryValue_Data::Validate(
           object->storage, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams storage_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& storage_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->storage, validation_context,
                                          &storage_validate_params)) {
     return false;

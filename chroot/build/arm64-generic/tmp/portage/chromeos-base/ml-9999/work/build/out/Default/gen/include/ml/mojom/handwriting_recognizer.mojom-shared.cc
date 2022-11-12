@@ -140,8 +140,8 @@ bool InkStroke_Data::Validate(
           object->points, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams points_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& points_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->points, validation_context,
                                          &points_validate_params)) {
     return false;
@@ -196,8 +196,8 @@ bool RecognitionContext_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->writing_guide, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams pre_context_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& pre_context_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->pre_context, validation_context,
                                          &pre_context_validate_params)) {
     return false;
@@ -230,8 +230,8 @@ bool HandwritingRecognitionQuery_Data::Validate(
           object->ink, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams ink_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& ink_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->ink, validation_context,
                                          &ink_validate_params)) {
     return false;
@@ -290,8 +290,8 @@ bool HandwritingRecognizerSegment_Data::Validate(
           object->sublabel, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams sublabel_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& sublabel_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->sublabel, validation_context,
                                          &sublabel_validate_params)) {
     return false;
@@ -301,8 +301,8 @@ bool HandwritingRecognizerSegment_Data::Validate(
           object->ink_ranges, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams ink_ranges_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& ink_ranges_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->ink_ranges, validation_context,
                                          &ink_ranges_validate_params)) {
     return false;
@@ -335,8 +335,8 @@ bool HandwritingRecognizerSegmentation_Data::Validate(
           object->segments, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams segments_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& segments_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->segments, validation_context,
                                          &segments_validate_params)) {
     return false;
@@ -369,8 +369,8 @@ bool HandwritingRecognizerCandidate_Data::Validate(
           object->text, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams text_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& text_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->text, validation_context,
                                          &text_validate_params)) {
     return false;
@@ -411,8 +411,8 @@ bool HandwritingRecognizerResult_Data::Validate(
           object->candidates, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams candidates_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& candidates_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->candidates, validation_context,
                                          &candidates_validate_params)) {
     return false;
@@ -450,8 +450,8 @@ bool HandwritingRecognizerSpec_Data::Validate(
           object->language, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams language_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& language_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->language, validation_context,
                                          &language_validate_params)) {
     return false;
@@ -459,8 +459,8 @@ bool HandwritingRecognizerSpec_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams language_pack_path_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& language_pack_path_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->language_pack_path, validation_context,
                                          &language_pack_path_validate_params)) {
     return false;
@@ -468,8 +468,8 @@ bool HandwritingRecognizerSpec_Data::Validate(
   if (object->header_.version < 2)
     return true;
 
-  const mojo::internal::ContainerValidateParams library_dlc_path_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& library_dlc_path_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->library_dlc_path, validation_context,
                                          &library_dlc_path_validate_params)) {
     return false;

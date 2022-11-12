@@ -505,8 +505,8 @@ void HandwritingRecognizerProxy::GetPrediction(
   mojo::internal::MessageFragment<
       typename decltype(params->strokes)::BaseType>
       strokes_fragment(params.message());
-  const mojo::internal::ContainerValidateParams strokes_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& strokes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::machine_learning::web_platform::mojom::HandwritingStrokeDataView>>(
       in_strokes, strokes_fragment, &strokes_validate_params);
   params->strokes.Set(
@@ -635,8 +635,8 @@ void HandwritingRecognizer_GetPrediction_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->prediction)::BaseType>
       prediction_fragment(params.message());
-  const mojo::internal::ContainerValidateParams prediction_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& prediction_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::machine_learning::web_platform::mojom::HandwritingPredictionDataView>>(
       in_prediction, prediction_fragment, &prediction_validate_params);
   params->prediction.Set(

@@ -556,8 +556,8 @@ struct Serializer<::chromeos::machine_learning::mojom::TextSuggesterQueryDataVie
     mojo::internal::MessageFragment<
         typename decltype(fragment->next_word_candidates)::BaseType>
         next_word_candidates_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams next_word_candidates_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& next_word_candidates_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::NextWordCompletionCandidateDataView>>(
         in_next_word_candidates, next_word_candidates_fragment, &next_word_candidates_validate_params);
     fragment->next_word_candidates.Set(
@@ -645,8 +645,8 @@ struct Serializer<::chromeos::machine_learning::mojom::TextSuggesterResultDataVi
     mojo::internal::MessageFragment<
         typename decltype(fragment->candidates)::BaseType>
         candidates_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams candidates_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& candidates_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::TextSuggestionCandidateDataView>>(
         in_candidates, candidates_fragment, &candidates_validate_params);
     fragment->candidates.Set(

@@ -336,8 +336,8 @@ struct Serializer<::chromeos::machine_learning::mojom::DetectCornersResultDataVi
     mojo::internal::MessageFragment<
         typename decltype(fragment->corners)::BaseType>
         corners_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams corners_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& corners_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::gfx::mojom::PointFDataView>>(
         in_corners, corners_fragment, &corners_validate_params);
     fragment->corners.Set(
@@ -381,8 +381,8 @@ struct Serializer<::chromeos::machine_learning::mojom::DoPostProcessingResultDat
     mojo::internal::MessageFragment<
         typename decltype(fragment->processed_jpeg_image)::BaseType>
         processed_jpeg_image_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams processed_jpeg_image_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& processed_jpeg_image_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
         in_processed_jpeg_image, processed_jpeg_image_fragment, &processed_jpeg_image_validate_params);
     fragment->processed_jpeg_image.Set(

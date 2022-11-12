@@ -424,8 +424,8 @@ struct Serializer<::chromeos::machine_learning::mojom::GrammarCheckerCandidateDa
     mojo::internal::MessageFragment<
         typename decltype(fragment->fragments)::BaseType>
         fragments_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams fragments_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& fragments_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::GrammarCorrectionFragmentDataView>>(
         in_fragments, fragments_fragment, &fragments_validate_params);
     fragment->fragments.Set(
@@ -469,8 +469,8 @@ struct Serializer<::chromeos::machine_learning::mojom::GrammarCheckerResultDataV
     mojo::internal::MessageFragment<
         typename decltype(fragment->candidates)::BaseType>
         candidates_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams candidates_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& candidates_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::GrammarCheckerCandidateDataView>>(
         in_candidates, candidates_fragment, &candidates_validate_params);
     fragment->candidates.Set(

@@ -170,8 +170,8 @@ bool NextWordCompletionCandidate_Data::Validate(
           object->text, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams text_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& text_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->text, validation_context,
                                          &text_validate_params)) {
     return false;
@@ -208,8 +208,8 @@ bool TextSuggesterQuery_Data::Validate(
           object->text, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams text_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& text_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->text, validation_context,
                                          &text_validate_params)) {
     return false;
@@ -219,8 +219,8 @@ bool TextSuggesterQuery_Data::Validate(
           object->next_word_candidates, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams next_word_candidates_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& next_word_candidates_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->next_word_candidates, validation_context,
                                          &next_word_candidates_validate_params)) {
     return false;
@@ -260,8 +260,8 @@ bool MultiWordSuggestionCandidate_Data::Validate(
           object->text, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams text_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& text_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->text, validation_context,
                                          &text_validate_params)) {
     return false;
@@ -299,8 +299,8 @@ bool TextSuggesterResult_Data::Validate(
           object->candidates, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams candidates_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& candidates_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->candidates, validation_context,
                                          &candidates_validate_params)) {
     return false;

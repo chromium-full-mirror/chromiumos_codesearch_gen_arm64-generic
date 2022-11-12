@@ -158,8 +158,8 @@ void GraphExecutorProxy::Execute(
   mojo::internal::MessageFragment<
       typename decltype(params->inputs)::BaseType>
       inputs_fragment(params.message());
-  const mojo::internal::ContainerValidateParams inputs_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& inputs_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, ::chromeos::machine_learning::mojom::TensorDataView>>(
       in_inputs, inputs_fragment, &inputs_validate_params);
   params->inputs.Set(
@@ -171,8 +171,8 @@ void GraphExecutorProxy::Execute(
   mojo::internal::MessageFragment<
       typename decltype(params->output_names)::BaseType>
       output_names_fragment(params.message());
-  const mojo::internal::ContainerValidateParams output_names_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& output_names_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
       in_output_names, output_names_fragment, &output_names_validate_params);
   params->output_names.Set(
@@ -299,8 +299,8 @@ void GraphExecutor_Execute_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->outputs)::BaseType>
       outputs_fragment(params.message());
-  const mojo::internal::ContainerValidateParams outputs_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& outputs_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::TensorDataView>>(
       in_outputs, outputs_fragment, &outputs_validate_params);
   params->outputs.Set(

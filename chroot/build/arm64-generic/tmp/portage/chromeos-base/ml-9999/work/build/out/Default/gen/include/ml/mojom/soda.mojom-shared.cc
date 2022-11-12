@@ -234,8 +234,8 @@ bool SodaConfig_Data::Validate(
           object->api_key, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams api_key_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& api_key_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->api_key, validation_context,
                                          &api_key_validate_params)) {
     return false;
@@ -245,8 +245,8 @@ bool SodaConfig_Data::Validate(
           object->library_dlc_path, 4, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams library_dlc_path_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& library_dlc_path_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->library_dlc_path, validation_context,
                                          &library_dlc_path_validate_params)) {
     return false;
@@ -256,8 +256,8 @@ bool SodaConfig_Data::Validate(
           object->language_dlc_path, 5, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams language_dlc_path_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& language_dlc_path_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->language_dlc_path, validation_context,
                                          &language_dlc_path_validate_params)) {
     return false;
@@ -339,8 +339,8 @@ bool TimingInfo_Data::Validate(
           object->word_alignments, 7, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams word_alignments_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& word_alignments_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->word_alignments, validation_context,
                                          &word_alignments_validate_params)) {
     return false;
@@ -404,8 +404,8 @@ bool PartialResult_Data::Validate(
           object->partial_text, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams partial_text_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& partial_text_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->partial_text, validation_context,
                                          &partial_text_validate_params)) {
     return false;
@@ -441,8 +441,8 @@ bool HypothesisPartInResult_Data::Validate(
           object->text, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams text_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& text_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->text, validation_context,
                                          &text_validate_params)) {
     return false;
@@ -486,8 +486,8 @@ bool FinalResult_Data::Validate(
           object->final_hypotheses, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams final_hypotheses_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& final_hypotheses_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->final_hypotheses, validation_context,
                                          &final_hypotheses_validate_params)) {
     return false;
@@ -503,8 +503,8 @@ bool FinalResult_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams hypothesis_part_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& hypothesis_part_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->hypothesis_part, validation_context,
                                          &hypothesis_part_validate_params)) {
     return false;
@@ -636,8 +636,8 @@ bool SodaRecognizer_AddAudio_Params_Data::Validate(
           object->audio, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams audio_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& audio_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->audio, validation_context,
                                          &audio_validate_params)) {
     return false;

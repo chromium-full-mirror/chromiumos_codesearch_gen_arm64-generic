@@ -76,8 +76,8 @@ bool Delegate_GetFingerprintFrame_ResponseParams_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->result, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams err_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& err_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->err, validation_context,
                                          &err_validate_params)) {
     return false;
@@ -136,8 +136,8 @@ bool Delegate_GetFingerprintInfo_ResponseParams_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->result, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams err_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& err_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->err, validation_context,
                                          &err_validate_params)) {
     return false;

@@ -80,8 +80,8 @@ bool HandwritingStroke_Data::Validate(
           object->points, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams points_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& points_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->points, validation_context,
                                          &points_validate_params)) {
     return false;
@@ -137,8 +137,8 @@ bool HandwritingSegment_Data::Validate(
           object->grapheme, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams grapheme_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& grapheme_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->grapheme, validation_context,
                                          &grapheme_validate_params)) {
     return false;
@@ -148,8 +148,8 @@ bool HandwritingSegment_Data::Validate(
           object->drawing_segments, 4, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams drawing_segments_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& drawing_segments_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->drawing_segments, validation_context,
                                          &drawing_segments_validate_params)) {
     return false;
@@ -182,8 +182,8 @@ bool HandwritingPrediction_Data::Validate(
           object->text, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams text_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& text_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->text, validation_context,
                                          &text_validate_params)) {
     return false;
@@ -193,8 +193,8 @@ bool HandwritingPrediction_Data::Validate(
           object->segmentation_result, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams segmentation_result_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& segmentation_result_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->segmentation_result, validation_context,
                                          &segmentation_result_validate_params)) {
     return false;
@@ -231,8 +231,8 @@ bool HandwritingHints_Data::Validate(
           object->recognition_type, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams recognition_type_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& recognition_type_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->recognition_type, validation_context,
                                          &recognition_type_validate_params)) {
     return false;
@@ -242,8 +242,8 @@ bool HandwritingHints_Data::Validate(
           object->input_type, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams input_type_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& input_type_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->input_type, validation_context,
                                          &input_type_validate_params)) {
     return false;
@@ -253,8 +253,8 @@ bool HandwritingHints_Data::Validate(
           object->deprecated_text_context, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams deprecated_text_context_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& deprecated_text_context_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->deprecated_text_context, validation_context,
                                          &deprecated_text_context_validate_params)) {
     return false;
@@ -262,8 +262,8 @@ bool HandwritingHints_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams text_context_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& text_context_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->text_context, validation_context,
                                          &text_context_validate_params)) {
     return false;
@@ -296,8 +296,8 @@ bool HandwritingModelConstraint_Data::Validate(
           object->languages, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams languages_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& languages_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->languages, validation_context,
                                          &languages_validate_params)) {
     return false;
@@ -330,8 +330,8 @@ bool HandwritingRecognizer_GetPrediction_Params_Data::Validate(
           object->strokes, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams strokes_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& strokes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->strokes, validation_context,
                                          &strokes_validate_params)) {
     return false;
@@ -367,8 +367,8 @@ bool HandwritingRecognizer_GetPrediction_ResponseParams_Data::Validate(
   [[maybe_unused]] const HandwritingRecognizer_GetPrediction_ResponseParams_Data* object =
       static_cast<const HandwritingRecognizer_GetPrediction_ResponseParams_Data*>(data);
 
-  const mojo::internal::ContainerValidateParams prediction_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& prediction_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->prediction, validation_context,
                                          &prediction_validate_params)) {
     return false;

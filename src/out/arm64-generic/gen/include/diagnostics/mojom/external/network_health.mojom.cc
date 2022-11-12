@@ -948,8 +948,8 @@ void NetworkHealthService_GetNetworkList_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->networks)::BaseType>
       networks_fragment(params.message());
-  const mojo::internal::ContainerValidateParams networks_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& networks_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_health::mojom::NetworkDataView>>(
       in_networks, networks_fragment, &networks_validate_params);
   params->networks.Set(

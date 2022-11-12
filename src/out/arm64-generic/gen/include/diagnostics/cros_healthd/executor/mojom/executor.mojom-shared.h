@@ -338,8 +338,8 @@ struct Serializer<::ash::cros_healthd::mojom::FingerprintFrameResultDataView, Ma
     mojo::internal::MessageFragment<
         typename decltype(fragment->frame)::BaseType>
         frame_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams frame_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& frame_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
         in_frame, frame_fragment, &frame_validate_params);
     fragment->frame.Set(

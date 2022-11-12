@@ -170,8 +170,8 @@ bool CameraInfo_Data::Validate(
   if (object->header_.version < 1)
     return true;
 
-  const mojo::internal::ContainerValidateParams conflicting_devices_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& conflicting_devices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->conflicting_devices, validation_context,
                                          &conflicting_devices_validate_params)) {
     return false;
@@ -329,8 +329,8 @@ bool VendorTagOps_GetAllTags_ResponseParams_Data::Validate(
           object->tag_array, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams tag_array_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& tag_array_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->tag_array, validation_context,
                                          &tag_array_validate_params)) {
     return false;
@@ -382,8 +382,8 @@ bool VendorTagOps_GetSectionName_ResponseParams_Data::Validate(
   [[maybe_unused]] const VendorTagOps_GetSectionName_ResponseParams_Data* object =
       static_cast<const VendorTagOps_GetSectionName_ResponseParams_Data*>(data);
 
-  const mojo::internal::ContainerValidateParams name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->name, validation_context,
                                          &name_validate_params)) {
     return false;
@@ -435,8 +435,8 @@ bool VendorTagOps_GetTagName_ResponseParams_Data::Validate(
   [[maybe_unused]] const VendorTagOps_GetTagName_ResponseParams_Data* object =
       static_cast<const VendorTagOps_GetTagName_ResponseParams_Data*>(data);
 
-  const mojo::internal::ContainerValidateParams name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->name, validation_context,
                                          &name_validate_params)) {
     return false;

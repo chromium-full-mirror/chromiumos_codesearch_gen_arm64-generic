@@ -365,8 +365,8 @@ void CameraAlgorithmOpsProxy::Request(
   mojo::internal::MessageFragment<
       typename decltype(params->req_header)::BaseType>
       req_header_fragment(params.message());
-  const mojo::internal::ContainerValidateParams req_header_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& req_header_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
       in_req_header, req_header_fragment, &req_header_validate_params);
   params->req_header.Set(
@@ -416,8 +416,8 @@ void CameraAlgorithmOpsProxy::DeregisterBuffers(
   mojo::internal::MessageFragment<
       typename decltype(params->buffer_handles)::BaseType>
       buffer_handles_fragment(params.message());
-  const mojo::internal::ContainerValidateParams buffer_handles_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& buffer_handles_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<int32_t>>(
       in_buffer_handles, buffer_handles_fragment, &buffer_handles_validate_params);
   params->buffer_handles.Set(
@@ -1148,8 +1148,8 @@ void CameraAlgorithmCallbackOpsProxy::Update(
   mojo::internal::MessageFragment<
       typename decltype(params->upd_header)::BaseType>
       upd_header_fragment(params.message());
-  const mojo::internal::ContainerValidateParams upd_header_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& upd_header_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
       in_upd_header, upd_header_fragment, &upd_header_validate_params);
   params->upd_header.Set(

@@ -471,8 +471,8 @@ struct Serializer<::chromeos::machine_learning::mojom::FlatBufferModelSpecDataVi
     mojo::internal::MessageFragment<
         typename decltype(fragment->inputs)::BaseType>
         inputs_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams inputs_validate_params(
-        new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& inputs_validate_params =
+        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, int32_t>>(
         in_inputs, inputs_fragment, &inputs_validate_params);
     fragment->inputs.Set(
@@ -485,8 +485,8 @@ struct Serializer<::chromeos::machine_learning::mojom::FlatBufferModelSpecDataVi
     mojo::internal::MessageFragment<
         typename decltype(fragment->outputs)::BaseType>
         outputs_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams outputs_validate_params(
-        new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& outputs_validate_params =
+        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, int32_t>>(
         in_outputs, outputs_fragment, &outputs_validate_params);
     fragment->outputs.Set(

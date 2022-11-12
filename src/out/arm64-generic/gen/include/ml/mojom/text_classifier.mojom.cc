@@ -908,8 +908,8 @@ void TextClassifier_Annotate_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->outputs)::BaseType>
       outputs_fragment(params.message());
-  const mojo::internal::ContainerValidateParams outputs_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& outputs_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::TextAnnotationDataView>>(
       in_outputs, outputs_fragment, &outputs_validate_params);
   params->outputs.Set(
@@ -1034,8 +1034,8 @@ void TextClassifier_FindLanguages_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->outputs)::BaseType>
       outputs_fragment(params.message());
-  const mojo::internal::ContainerValidateParams outputs_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& outputs_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::TextLanguageDataView>>(
       in_outputs, outputs_fragment, &outputs_validate_params);
   params->outputs.Set(

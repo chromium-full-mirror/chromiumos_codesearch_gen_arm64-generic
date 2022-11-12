@@ -112,8 +112,8 @@ struct Serializer<::mojo_base::mojom::ReadOnlyBufferDataView, MaybeConstUserType
     mojo::internal::MessageFragment<
         typename decltype(fragment->buffer)::BaseType>
         buffer_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams buffer_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& buffer_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
         in_buffer, buffer_fragment, &buffer_validate_params);
     fragment->buffer.Set(

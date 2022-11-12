@@ -144,8 +144,8 @@ bool EcEvent_Data::Validate(
           object->payload, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams payload_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& payload_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->payload, validation_context,
                                          &payload_validate_params)) {
     return false;
@@ -188,8 +188,8 @@ bool GetEcTelemetryResponse_Data::Validate(
           object->payload, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams payload_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& payload_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->payload, validation_context,
                                          &payload_validate_params)) {
     return false;

@@ -645,8 +645,8 @@ struct Serializer<::chromeos::machine_learning::mojom::TextAnnotationDataView, M
     mojo::internal::MessageFragment<
         typename decltype(fragment->entities)::BaseType>
         entities_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams entities_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& entities_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::TextEntityDataView>>(
         in_entities, entities_fragment, &entities_validate_params);
     fragment->entities.Set(
@@ -734,8 +734,8 @@ struct Serializer<::chromeos::machine_learning::mojom::TextAnnotationRequestData
     mojo::internal::MessageFragment<
         typename decltype(fragment->enabled_entities)::BaseType>
         enabled_entities_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams enabled_entities_validate_params(
-        0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& enabled_entities_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
         in_enabled_entities, enabled_entities_fragment, &enabled_entities_validate_params);
     fragment->enabled_entities.Set(

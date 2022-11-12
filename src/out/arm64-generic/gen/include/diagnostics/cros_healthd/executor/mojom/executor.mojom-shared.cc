@@ -71,8 +71,8 @@ bool ExecutedProcessResult_Data::Validate(
           object->out, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams out_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& out_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->out, validation_context,
                                          &out_validate_params)) {
     return false;
@@ -82,8 +82,8 @@ bool ExecutedProcessResult_Data::Validate(
           object->err, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams err_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& err_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->err, validation_context,
                                          &err_validate_params)) {
     return false;
@@ -139,8 +139,8 @@ bool FingerprintFrameResult_Data::Validate(
           object->frame, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams frame_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& frame_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->frame, validation_context,
                                          &frame_validate_params)) {
     return false;
@@ -279,8 +279,8 @@ bool Executor_GetLink_Params_Data::Validate(
           object->interface_name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams interface_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& interface_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->interface_name, validation_context,
                                          &interface_name_validate_params)) {
     return false;
@@ -343,8 +343,8 @@ bool Executor_GetInfo_Params_Data::Validate(
           object->interface_name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams interface_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& interface_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->interface_name, validation_context,
                                          &interface_name_validate_params)) {
     return false;
@@ -407,8 +407,8 @@ bool Executor_GetScanDump_Params_Data::Validate(
           object->interface_name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams interface_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& interface_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->interface_name, validation_context,
                                          &interface_name_validate_params)) {
     return false;
@@ -547,8 +547,8 @@ bool Executor_GetProcessIOContents_Params_Data::Validate(
           object->pids, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams pids_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& pids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->pids, validation_context,
                                          &pids_validate_params)) {
     return false;
@@ -581,8 +581,8 @@ bool Executor_GetProcessIOContents_ResponseParams_Data::Validate(
           object->contents, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams contents_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)));
+  constexpr const mojo::internal::ContainerValidateParams& contents_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
   if (!mojo::internal::ValidateContainer(object->contents, validation_context,
                                          &contents_validate_params)) {
     return false;
@@ -687,8 +687,8 @@ bool Executor_GetUEFISecureBootContent_ResponseParams_Data::Validate(
           object->contents, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams contents_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& contents_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->contents, validation_context,
                                          &contents_validate_params)) {
     return false;
@@ -744,8 +744,8 @@ bool Executor_GetUEFIPlatformSizeContent_ResponseParams_Data::Validate(
           object->contents, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams contents_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& contents_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->contents, validation_context,
                                          &contents_validate_params)) {
     return false;
@@ -862,8 +862,8 @@ bool Executor_GetFingerprintFrame_ResponseParams_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->result, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams err_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& err_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->err, validation_context,
                                          &err_validate_params)) {
     return false;
@@ -922,8 +922,8 @@ bool Executor_GetFingerprintInfo_ResponseParams_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->result, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams err_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& err_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->err, validation_context,
                                          &err_validate_params)) {
     return false;

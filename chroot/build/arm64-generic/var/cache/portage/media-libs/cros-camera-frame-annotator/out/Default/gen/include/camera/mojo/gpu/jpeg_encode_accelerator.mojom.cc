@@ -369,8 +369,8 @@ void JpegEncodeAcceleratorProxy::EncodeWithDmaBuf(
   mojo::internal::MessageFragment<
       typename decltype(params->input_planes)::BaseType>
       input_planes_fragment(params.message());
-  const mojo::internal::ContainerValidateParams input_planes_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& input_planes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<::cros::mojom::DmaBufPlaneDataView>>(
       in_input_planes, input_planes_fragment, &input_planes_validate_params);
   params->input_planes.Set(
@@ -382,8 +382,8 @@ void JpegEncodeAcceleratorProxy::EncodeWithDmaBuf(
   mojo::internal::MessageFragment<
       typename decltype(params->output_planes)::BaseType>
       output_planes_fragment(params.message());
-  const mojo::internal::ContainerValidateParams output_planes_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& output_planes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<::cros::mojom::DmaBufPlaneDataView>>(
       in_output_planes, output_planes_fragment, &output_planes_validate_params);
   params->output_planes.Set(

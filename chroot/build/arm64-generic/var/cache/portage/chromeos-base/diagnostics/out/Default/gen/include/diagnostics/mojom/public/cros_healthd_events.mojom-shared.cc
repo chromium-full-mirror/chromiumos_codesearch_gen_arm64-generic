@@ -45,8 +45,8 @@ bool UsbEventInfo_Data::Validate(
           object->vendor, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams vendor_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& vendor_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->vendor, validation_context,
                                          &vendor_validate_params)) {
     return false;
@@ -56,8 +56,8 @@ bool UsbEventInfo_Data::Validate(
           object->name, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->name, validation_context,
                                          &name_validate_params)) {
     return false;
@@ -67,8 +67,8 @@ bool UsbEventInfo_Data::Validate(
           object->categories, 5, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams categories_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& categories_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->categories, validation_context,
                                          &categories_validate_params)) {
     return false;

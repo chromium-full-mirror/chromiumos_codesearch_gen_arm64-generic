@@ -219,8 +219,8 @@ bool ProcessIdentity_Data::Validate(
           object->security_context, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams security_context_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& security_context_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->security_context, validation_context,
                                          &security_context_validate_params)) {
     return false;
@@ -311,8 +311,8 @@ bool ServiceEvent_Data::Validate(
           object->service_name, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams service_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& service_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->service_name, validation_context,
                                          &service_name_validate_params)) {
     return false;
@@ -357,8 +357,8 @@ bool Error_Data::Validate(
           object->message, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams message_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& message_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->message, validation_context,
                                          &message_validate_params)) {
     return false;
@@ -391,8 +391,8 @@ bool ServiceManager_Register_Params_Data::Validate(
           object->service_name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams service_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& service_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->service_name, validation_context,
                                          &service_name_validate_params)) {
     return false;
@@ -434,8 +434,8 @@ bool ServiceManager_Request_Params_Data::Validate(
           object->service_name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams service_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& service_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->service_name, validation_context,
                                          &service_name_validate_params)) {
     return false;
@@ -480,8 +480,8 @@ bool ServiceManager_Query_Params_Data::Validate(
           object->service_name, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams service_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& service_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->service_name, validation_context,
                                          &service_name_validate_params)) {
     return false;

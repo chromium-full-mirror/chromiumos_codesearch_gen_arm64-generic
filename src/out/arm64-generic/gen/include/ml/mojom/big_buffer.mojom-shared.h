@@ -225,8 +225,8 @@ struct Serializer<::mojo_base::mojom::BigBufferDataView, MaybeConstUserType> {
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_bytes)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams bytes_validate_params(
-            0, false, nullptr);
+        constexpr const mojo::internal::ContainerValidateParams& bytes_validate_params =
+            mojo::internal::GetArrayValidator<0, false, nullptr>();
         mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
             in_bytes, value_fragment, &bytes_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(

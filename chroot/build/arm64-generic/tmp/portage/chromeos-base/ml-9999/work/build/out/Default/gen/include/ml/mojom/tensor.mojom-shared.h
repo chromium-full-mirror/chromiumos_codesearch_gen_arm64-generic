@@ -301,8 +301,8 @@ struct Serializer<::chromeos::machine_learning::mojom::StringListDataView, Maybe
     mojo::internal::MessageFragment<
         typename decltype(fragment->value)::BaseType>
         value_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams value_validate_params(
-        0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& value_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
         in_value, value_fragment, &value_validate_params);
     fragment->value.Set(
@@ -344,8 +344,8 @@ struct Serializer<::chromeos::machine_learning::mojom::FloatListDataView, MaybeC
     mojo::internal::MessageFragment<
         typename decltype(fragment->value)::BaseType>
         value_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams value_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& value_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<double>>(
         in_value, value_fragment, &value_validate_params);
     fragment->value.Set(
@@ -387,8 +387,8 @@ struct Serializer<::chromeos::machine_learning::mojom::Int64ListDataView, MaybeC
     mojo::internal::MessageFragment<
         typename decltype(fragment->value)::BaseType>
         value_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams value_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& value_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<int64_t>>(
         in_value, value_fragment, &value_validate_params);
     fragment->value.Set(
