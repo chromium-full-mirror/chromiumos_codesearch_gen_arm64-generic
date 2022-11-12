@@ -23,7 +23,6 @@
 #include "power_manager/common/cros_ec_prefs_source.h"
 #include "power_manager/common/file_prefs_store.h"
 #include "power_manager/common/prefs_observer.h"
-#include "power_manager/common/util.h"
 
 namespace power_manager {
 
@@ -45,8 +44,6 @@ constexpr base::TimeDelta kDefaultWriteInterval = base::Seconds(1);
 }  // namespace
 
 Prefs::TestApi::TestApi(Prefs* prefs) : prefs_(prefs) {}
-
-Prefs::TestApi::~TestApi() {}
 
 bool Prefs::TestApi::TriggerWriteTimeout() {
   if (!prefs_->write_prefs_timer_.IsRunning())

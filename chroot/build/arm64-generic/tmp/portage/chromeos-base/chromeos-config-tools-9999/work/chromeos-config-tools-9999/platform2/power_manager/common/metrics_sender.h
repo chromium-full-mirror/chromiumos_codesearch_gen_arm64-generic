@@ -25,7 +25,7 @@ class MetricsSenderInterface {
   // already be registered. Ownership of |instance| remains with the caller.
   static void SetInstance(MetricsSenderInterface* instance);
 
-  virtual ~MetricsSenderInterface() {}
+  virtual ~MetricsSenderInterface() = default;
 
   // See MetricsLibrary::SendToUMA in metrics/metrics_library.h for a
   // description of the arguments in the below methods.
@@ -40,7 +40,7 @@ class MetricsSenderInterface {
   // * |num_buckets| <= |max| - |min| + 2
   //
   // Violating these constraints may result in Chrome silently discarding the
-  // simple rather than reporting.
+  // sample rather than reporting.
   virtual bool SendMetric(const std::string& name,
                           int sample,
                           int min,
