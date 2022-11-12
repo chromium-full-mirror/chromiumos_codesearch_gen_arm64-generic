@@ -548,13 +548,13 @@ namespace rmad {
 ShimlessRmaReport::ShimlessRmaReport() :
   ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
 ShimlessRmaReport::~ShimlessRmaReport() = default;
-ShimlessRmaReport& ShimlessRmaReport::SetOverallTime(const int64_t value) {
-  AddIntMetric(kOverallTimeNameHash, value);
+ShimlessRmaReport& ShimlessRmaReport::SetOverallTime(const double value) {
+  AddDoubleMetric(kOverallTimeNameHash, value);
   return *this;
 }
 
-ShimlessRmaReport& ShimlessRmaReport::SetRunningTime(const int64_t value) {
-  AddIntMetric(kRunningTimeNameHash, value);
+ShimlessRmaReport& ShimlessRmaReport::SetRunningTime(const double value) {
+  AddDoubleMetric(kRunningTimeNameHash, value);
   return *this;
 }
 
@@ -620,8 +620,8 @@ ShimlessRmaStateReport& ShimlessRmaStateReport::SetIsAborted(const int64_t value
   return *this;
 }
 
-ShimlessRmaStateReport& ShimlessRmaStateReport::SetOverallTime(const int64_t value) {
-  AddIntMetric(kOverallTimeNameHash, value);
+ShimlessRmaStateReport& ShimlessRmaStateReport::SetOverallTime(const double value) {
+  AddDoubleMetric(kOverallTimeNameHash, value);
   return *this;
 }
 

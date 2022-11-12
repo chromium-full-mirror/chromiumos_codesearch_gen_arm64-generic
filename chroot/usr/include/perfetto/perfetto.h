@@ -322,6 +322,22 @@ enum class BufferExhaustedPolicy {
 // gen_amalgamated expanded: #include "perfetto/base/build_config.h"
 // gen_amalgamated expanded: #include "perfetto/public/compiler.h"
 
+#if __cplusplus >= 201703
+#define PERFETTO_IS_AT_LEAST_CPP17() 1
+#else
+#define PERFETTO_IS_AT_LEAST_CPP17() 0
+#endif
+
+#if !PERFETTO_IS_AT_LEAST_CPP17() && !defined(PERFETTO_ALLOW_SUB_CPP17)
+#error Perfetto is exploring a switch to C++17 in v34 (Feb 2023). During this \
+transitionary period, we are throwing an error when compiling Perfetto \
+with a standard less than C++17. Please reach out to \
+perfetto-dev@googlegroups.com if you have objections or thoughts on \
+this move. To continue compiling this release of Perfetto with \
+C++11/14, specify the define PERFETTO_ALLOW_SUB_CPP17. \
+*Note*: this define *will* stop working in v34 (Feb 2023).
+#endif
+
 // __has_attribute is supported only by clang and recent versions of GCC.
 // Add a layer to wrap the __has_attribute macro.
 #if defined(__has_attribute)
@@ -18073,6 +18089,14 @@ class TrackEventDataSource
     }                                                                          \
   } while (false)
 
+// C++17 doesn't like a move constructor being defined for the EventFinalizer
+// class but C++11 doesn't compile without it being defined so support both.
+#if PERFETTO_IS_AT_LEAST_CPP17()
+#define PERFETTO_INTERNAL_EVENT_FINALIZER_KEYWORD delete
+#else
+#define PERFETTO_INTERNAL_EVENT_FINALIZER_KEYWORD default
+#endif
+
 #define PERFETTO_INTERNAL_SCOPED_TRACK_EVENT(category, name, ...)             \
   struct PERFETTO_UID(ScopedEvent) {                                          \
     struct EventFinalizer {                                                   \
@@ -18089,7 +18113,8 @@ class TrackEventDataSource
       EventFinalizer(const EventFinalizer&) = delete;                         \
       inline EventFinalizer& operator=(const EventFinalizer&) = delete;       \
                                                                               \
-      EventFinalizer(EventFinalizer&&) = default;                             \
+      EventFinalizer(EventFinalizer&&) =                                      \
+          PERFETTO_INTERNAL_EVENT_FINALIZER_KEYWORD;                          \
       EventFinalizer& operator=(EventFinalizer&&) = delete;                   \
     } finalizer;                                                              \
   } PERFETTO_UID(scoped_event) {                                              \
@@ -19953,7 +19978,7 @@ inline ::perfetto::StaticString GetEventNameTypeForLegacyEvents(
       TRACE_EVENT_PHASE_NESTABLE_ASYNC_END, category_group,                   \
       ::perfetto::DynamicString{name}, id, TRACE_EVENT_API_CURRENT_THREAD_ID, \
       timestamp, TRACE_EVENT_FLAG_NONE)
-#define TRACE_EVENT_NESTABLE_ASYNC_END_WITH_TIMESTAMP2(                    \
+#define TRACE_EVENT_COPY_NESTABLE_ASYNC_END_WITH_TIMESTAMP2(               \
     category_group, name, id, timestamp, arg1_name, arg1_val, arg2_name,   \
     arg2_val)                                                              \
   INTERNAL_TRACE_EVENT_ADD_WITH_ID_TID_AND_TIMESTAMP(                      \
@@ -31416,7 +31441,7 @@ const char* FtraceConfig_KsymsMemPolicy_Name(::perfetto::protos::pbzero::FtraceC
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class FtraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/22, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class FtraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/23, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   FtraceConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit FtraceConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -31453,6 +31478,8 @@ class FtraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_I
   ::protozero::RepeatedFieldIterator<::protozero::ConstChars> function_filters() const { return GetRepeated<::protozero::ConstChars>(20); }
   bool has_function_graph_roots() const { return at<21>().valid(); }
   ::protozero::RepeatedFieldIterator<::protozero::ConstChars> function_graph_roots() const { return GetRepeated<::protozero::ConstChars>(21); }
+  bool has_preserve_ftrace_buffer() const { return at<23>().valid(); }
+  bool preserve_ftrace_buffer() const { return at<23>().as_bool(); }
 };
 
 class FtraceConfig : public ::protozero::Message {
@@ -31475,6 +31502,7 @@ class FtraceConfig : public ::protozero::Message {
     kEnableFunctionGraphFieldNumber = 19,
     kFunctionFiltersFieldNumber = 20,
     kFunctionGraphRootsFieldNumber = 21,
+    kPreserveFtraceBufferFieldNumber = 23,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.FtraceConfig"; }
 
@@ -31914,6 +31942,31 @@ class FtraceConfig : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PreserveFtraceBuffer =
+    ::protozero::proto_utils::FieldMetadata<
+      23,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      FtraceConfig>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_PreserveFtraceBuffer kPreserveFtraceBuffer() { return {}; }
+  void set_preserve_ftrace_buffer(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_PreserveFtraceBuffer::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
 };
@@ -63082,7 +63135,7 @@ const char* FtraceStats_Phase_Name(::perfetto::protos::pbzero::FtraceStats_Phase
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class FtraceStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/7, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class FtraceStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/8, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   FtraceStats_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit FtraceStats_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -63101,6 +63154,8 @@ class FtraceStats_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::RepeatedFieldIterator<::protozero::ConstChars> unknown_ftrace_events() const { return GetRepeated<::protozero::ConstChars>(6); }
   bool has_failed_ftrace_events() const { return at<7>().valid(); }
   ::protozero::RepeatedFieldIterator<::protozero::ConstChars> failed_ftrace_events() const { return GetRepeated<::protozero::ConstChars>(7); }
+  bool has_preserve_ftrace_buffer() const { return at<8>().valid(); }
+  bool preserve_ftrace_buffer() const { return at<8>().as_bool(); }
 };
 
 class FtraceStats : public ::protozero::Message {
@@ -63114,6 +63169,7 @@ class FtraceStats : public ::protozero::Message {
     kAtraceErrorsFieldNumber = 5,
     kUnknownFtraceEventsFieldNumber = 6,
     kFailedFtraceEventsFieldNumber = 7,
+    kPreserveFtraceBufferFieldNumber = 8,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.FtraceStats"; }
 
@@ -63312,6 +63368,31 @@ class FtraceStats : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PreserveFtraceBuffer =
+    ::protozero::proto_utils::FieldMetadata<
+      8,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      FtraceStats>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_PreserveFtraceBuffer kPreserveFtraceBuffer() { return {}; }
+  void set_preserve_ftrace_buffer(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_PreserveFtraceBuffer::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
 };
@@ -162095,6 +162176,7 @@ class PERFETTO_EXPORT_COMPONENT FtraceConfig : public ::protozero::CppMessageObj
     kEnableFunctionGraphFieldNumber = 19,
     kFunctionFiltersFieldNumber = 20,
     kFunctionGraphRootsFieldNumber = 21,
+    kPreserveFtraceBufferFieldNumber = 23,
   };
 
   FtraceConfig();
@@ -162193,6 +162275,10 @@ class PERFETTO_EXPORT_COMPONENT FtraceConfig : public ::protozero::CppMessageObj
   void add_function_graph_roots(std::string value) { function_graph_roots_.emplace_back(value); }
   std::string* add_function_graph_roots() { function_graph_roots_.emplace_back(); return &function_graph_roots_.back(); }
 
+  bool has_preserve_ftrace_buffer() const { return _has_field_[23]; }
+  bool preserve_ftrace_buffer() const { return preserve_ftrace_buffer_; }
+  void set_preserve_ftrace_buffer(bool value) { preserve_ftrace_buffer_ = value; _has_field_.set(23); }
+
  private:
   std::vector<std::string> ftrace_events_;
   std::vector<std::string> atrace_categories_;
@@ -162210,12 +162296,13 @@ class PERFETTO_EXPORT_COMPONENT FtraceConfig : public ::protozero::CppMessageObj
   bool enable_function_graph_{};
   std::vector<std::string> function_filters_;
   std::vector<std::string> function_graph_roots_;
+  bool preserve_ftrace_buffer_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<23> _has_field_{};
+  std::bitset<24> _has_field_{};
 };
 
 

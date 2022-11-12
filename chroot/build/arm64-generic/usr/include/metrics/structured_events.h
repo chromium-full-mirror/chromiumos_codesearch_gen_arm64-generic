@@ -518,10 +518,10 @@ class BRILLO_EXPORT ShimlessRmaReport final : public ::metrics::structured::Even
     StructuredEventProto_EventType_REGULAR;
 
   static constexpr uint64_t kOverallTimeNameHash = UINT64_C(9999132872938351554);
-  ShimlessRmaReport& SetOverallTime(const int64_t value);
+  ShimlessRmaReport& SetOverallTime(const double value);
 
   static constexpr uint64_t kRunningTimeNameHash = UINT64_C(4417369112820092838);
-  ShimlessRmaReport& SetRunningTime(const int64_t value);
+  ShimlessRmaReport& SetRunningTime(const double value);
 
   static constexpr uint64_t kIsCompleteNameHash = UINT64_C(13430706429255306620);
   ShimlessRmaReport& SetIsComplete(const int64_t value);
@@ -606,7 +606,7 @@ class BRILLO_EXPORT ShimlessRmaStateReport final : public ::metrics::structured:
   ShimlessRmaStateReport& SetIsAborted(const int64_t value);
 
   static constexpr uint64_t kOverallTimeNameHash = UINT64_C(9999132872938351554);
-  ShimlessRmaStateReport& SetOverallTime(const int64_t value);
+  ShimlessRmaStateReport& SetOverallTime(const double value);
 
   static constexpr uint64_t kTransitionCountNameHash = UINT64_C(7754660623504676373);
   ShimlessRmaStateReport& SetTransitionCount(const int64_t value);

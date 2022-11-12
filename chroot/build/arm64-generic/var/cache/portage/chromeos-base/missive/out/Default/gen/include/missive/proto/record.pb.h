@@ -224,6 +224,7 @@ class Record final :
     kDataFieldNumber = 1,
     kDmTokenFieldNumber = 3,
     kTimestampUsFieldNumber = 4,
+    kReservedSpaceFieldNumber = 5,
     kDestinationFieldNumber = 2,
   };
   // optional bytes data = 1;
@@ -275,6 +276,19 @@ class Record final :
   void _internal_set_timestamp_us(int64_t value);
   public:
 
+  // optional int64 reserved_space = 5;
+  bool has_reserved_space() const;
+  private:
+  bool _internal_has_reserved_space() const;
+  public:
+  void clear_reserved_space();
+  int64_t reserved_space() const;
+  void set_reserved_space(int64_t value);
+  private:
+  int64_t _internal_reserved_space() const;
+  void _internal_set_reserved_space(int64_t value);
+  public:
+
   // optional .reporting.Destination destination = 2;
   bool has_destination() const;
   private:
@@ -300,6 +314,7 @@ class Record final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr data_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dm_token_;
   int64_t timestamp_us_;
+  int64_t reserved_space_;
   int destination_;
   friend struct ::TableStruct_record_2eproto;
 };
@@ -1503,7 +1518,7 @@ inline void Record::set_allocated_data(std::string* data) {
 
 // optional .reporting.Destination destination = 2;
 inline bool Record::_internal_has_destination() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
 inline bool Record::has_destination() const {
@@ -1511,7 +1526,7 @@ inline bool Record::has_destination() const {
 }
 inline void Record::clear_destination() {
   destination_ = 0;
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline ::reporting::Destination Record::_internal_destination() const {
   return static_cast< ::reporting::Destination >(destination_);
@@ -1522,7 +1537,7 @@ inline ::reporting::Destination Record::destination() const {
 }
 inline void Record::_internal_set_destination(::reporting::Destination value) {
   assert(::reporting::Destination_IsValid(value));
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000010u;
   destination_ = value;
 }
 inline void Record::set_destination(::reporting::Destination value) {
@@ -1625,6 +1640,34 @@ inline void Record::_internal_set_timestamp_us(int64_t value) {
 inline void Record::set_timestamp_us(int64_t value) {
   _internal_set_timestamp_us(value);
   // @@protoc_insertion_point(field_set:reporting.Record.timestamp_us)
+}
+
+// optional int64 reserved_space = 5;
+inline bool Record::_internal_has_reserved_space() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool Record::has_reserved_space() const {
+  return _internal_has_reserved_space();
+}
+inline void Record::clear_reserved_space() {
+  reserved_space_ = int64_t{0};
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline int64_t Record::_internal_reserved_space() const {
+  return reserved_space_;
+}
+inline int64_t Record::reserved_space() const {
+  // @@protoc_insertion_point(field_get:reporting.Record.reserved_space)
+  return _internal_reserved_space();
+}
+inline void Record::_internal_set_reserved_space(int64_t value) {
+  _has_bits_[0] |= 0x00000008u;
+  reserved_space_ = value;
+}
+inline void Record::set_reserved_space(int64_t value) {
+  _internal_set_reserved_space(value);
+  // @@protoc_insertion_point(field_set:reporting.Record.reserved_space)
 }
 
 // -------------------------------------------------------------------
