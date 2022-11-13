@@ -142169,7 +142169,7 @@ namespace protos {
 namespace pbzero {
 
 
-class ChromeMojoEventInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class ChromeMojoEventInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   ChromeMojoEventInfo_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ChromeMojoEventInfo_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -142182,6 +142182,8 @@ class ChromeMojoEventInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_
   ::protozero::ConstChars mojo_interface_tag() const { return at<3>().as_string(); }
   bool has_mojo_interface_method_iid() const { return at<4>().valid(); }
   uint64_t mojo_interface_method_iid() const { return at<4>().as_uint64(); }
+  bool has_is_reply() const { return at<5>().valid(); }
+  bool is_reply() const { return at<5>().as_bool(); }
 };
 
 class ChromeMojoEventInfo : public ::protozero::Message {
@@ -142192,6 +142194,7 @@ class ChromeMojoEventInfo : public ::protozero::Message {
     kIpcHashFieldNumber = 2,
     kMojoInterfaceTagFieldNumber = 3,
     kMojoInterfaceMethodIidFieldNumber = 4,
+    kIsReplyFieldNumber = 5,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ChromeMojoEventInfo"; }
 
@@ -142305,6 +142308,31 @@ class ChromeMojoEventInfo : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_IsReply =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ChromeMojoEventInfo>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_IsReply kIsReply() { return {}; }
+  void set_is_reply(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_IsReply::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
 };
@@ -148761,8 +148789,9 @@ namespace protos {
 namespace pbzero {
 
 class PerfettoMetatrace_Arg;
+class PerfettoMetatrace_InternedString;
 
-class PerfettoMetatrace_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/9, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class PerfettoMetatrace_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/11, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   PerfettoMetatrace_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit PerfettoMetatrace_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -148773,6 +148802,8 @@ class PerfettoMetatrace_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FI
   uint32_t counter_id() const { return at<2>().as_uint32(); }
   bool has_event_name() const { return at<8>().valid(); }
   ::protozero::ConstChars event_name() const { return at<8>().as_string(); }
+  bool has_event_name_iid() const { return at<11>().valid(); }
+  uint64_t event_name_iid() const { return at<11>().as_uint64(); }
   bool has_counter_name() const { return at<9>().valid(); }
   ::protozero::ConstChars counter_name() const { return at<9>().as_string(); }
   bool has_event_duration_ns() const { return at<3>().valid(); }
@@ -148785,6 +148816,8 @@ class PerfettoMetatrace_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FI
   bool has_overruns() const { return at<6>().as_bool(); }
   bool has_args() const { return at<7>().valid(); }
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> args() const { return GetRepeated<::protozero::ConstBytes>(7); }
+  bool has_interned_strings() const { return at<10>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> interned_strings() const { return GetRepeated<::protozero::ConstBytes>(10); }
 };
 
 class PerfettoMetatrace : public ::protozero::Message {
@@ -148794,16 +148827,19 @@ class PerfettoMetatrace : public ::protozero::Message {
     kEventIdFieldNumber = 1,
     kCounterIdFieldNumber = 2,
     kEventNameFieldNumber = 8,
+    kEventNameIidFieldNumber = 11,
     kCounterNameFieldNumber = 9,
     kEventDurationNsFieldNumber = 3,
     kCounterValueFieldNumber = 4,
     kThreadIdFieldNumber = 5,
     kHasOverrunsFieldNumber = 6,
     kArgsFieldNumber = 7,
+    kInternedStringsFieldNumber = 10,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.PerfettoMetatrace"; }
 
   using Arg = ::perfetto::protos::pbzero::PerfettoMetatrace_Arg;
+  using InternedString = ::perfetto::protos::pbzero::PerfettoMetatrace_InternedString;
 
   using FieldMetadata_EventId =
     ::protozero::proto_utils::FieldMetadata<
@@ -148883,6 +148919,31 @@ class PerfettoMetatrace : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_EventNameIid =
+    ::protozero::proto_utils::FieldMetadata<
+      11,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      PerfettoMetatrace>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_EventNameIid kEventNameIid() { return {}; }
+  void set_event_name_iid(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_EventNameIid::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
         ::Append(*this, field_id, value);
   }
 
@@ -149037,17 +149098,120 @@ class PerfettoMetatrace : public ::protozero::Message {
     return BeginNestedMessage<T>(7);
   }
 
+
+  using FieldMetadata_InternedStrings =
+    ::protozero::proto_utils::FieldMetadata<
+      10,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      PerfettoMetatrace_InternedString,
+      PerfettoMetatrace>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_InternedStrings kInternedStrings() { return {}; }
+  template <typename T = PerfettoMetatrace_InternedString> T* add_interned_strings() {
+    return BeginNestedMessage<T>(10);
+  }
+
 };
 
-class PerfettoMetatrace_Arg_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class PerfettoMetatrace_InternedString_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  PerfettoMetatrace_InternedString_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit PerfettoMetatrace_InternedString_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit PerfettoMetatrace_InternedString_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_iid() const { return at<1>().valid(); }
+  uint64_t iid() const { return at<1>().as_uint64(); }
+  bool has_value() const { return at<2>().valid(); }
+  ::protozero::ConstChars value() const { return at<2>().as_string(); }
+};
+
+class PerfettoMetatrace_InternedString : public ::protozero::Message {
+ public:
+  using Decoder = PerfettoMetatrace_InternedString_Decoder;
+  enum : int32_t {
+    kIidFieldNumber = 1,
+    kValueFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.PerfettoMetatrace.InternedString"; }
+
+
+  using FieldMetadata_Iid =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      PerfettoMetatrace_InternedString>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Iid kIid() { return {}; }
+  void set_iid(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Iid::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Value =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      PerfettoMetatrace_InternedString>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Value kValue() { return {}; }
+  void set_value(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_Value::kFieldId, data, size);
+  }
+  void set_value(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_Value::kFieldId, chars.data, chars.size);
+  }
+  void set_value(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_Value::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class PerfettoMetatrace_Arg_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   PerfettoMetatrace_Arg_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit PerfettoMetatrace_Arg_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit PerfettoMetatrace_Arg_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_key() const { return at<1>().valid(); }
   ::protozero::ConstChars key() const { return at<1>().as_string(); }
+  bool has_key_iid() const { return at<3>().valid(); }
+  uint64_t key_iid() const { return at<3>().as_uint64(); }
   bool has_value() const { return at<2>().valid(); }
   ::protozero::ConstChars value() const { return at<2>().as_string(); }
+  bool has_value_iid() const { return at<4>().valid(); }
+  uint64_t value_iid() const { return at<4>().as_uint64(); }
 };
 
 class PerfettoMetatrace_Arg : public ::protozero::Message {
@@ -149055,7 +149219,9 @@ class PerfettoMetatrace_Arg : public ::protozero::Message {
   using Decoder = PerfettoMetatrace_Arg_Decoder;
   enum : int32_t {
     kKeyFieldNumber = 1,
+    kKeyIidFieldNumber = 3,
     kValueFieldNumber = 2,
+    kValueIidFieldNumber = 4,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.PerfettoMetatrace.Arg"; }
 
@@ -149091,6 +149257,31 @@ class PerfettoMetatrace_Arg : public ::protozero::Message {
         ::Append(*this, field_id, value);
   }
 
+  using FieldMetadata_KeyIid =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      PerfettoMetatrace_Arg>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_KeyIid kKeyIid() { return {}; }
+  void set_key_iid(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_KeyIid::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
   using FieldMetadata_Value =
     ::protozero::proto_utils::FieldMetadata<
       2,
@@ -149119,6 +149310,31 @@ class PerfettoMetatrace_Arg : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ValueIid =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      PerfettoMetatrace_Arg>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_ValueIid kValueIid() { return {}; }
+  void set_value_iid(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_ValueIid::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
         ::Append(*this, field_id, value);
   }
 };
@@ -159163,6 +159379,7 @@ class PERFETTO_EXPORT_COMPONENT ChromeMojoEventInfo : public ::protozero::CppMes
     kIpcHashFieldNumber = 2,
     kMojoInterfaceTagFieldNumber = 3,
     kMojoInterfaceMethodIidFieldNumber = 4,
+    kIsReplyFieldNumber = 5,
   };
 
   ChromeMojoEventInfo();
@@ -159195,17 +159412,22 @@ class PERFETTO_EXPORT_COMPONENT ChromeMojoEventInfo : public ::protozero::CppMes
   uint64_t mojo_interface_method_iid() const { return mojo_interface_method_iid_; }
   void set_mojo_interface_method_iid(uint64_t value) { mojo_interface_method_iid_ = value; _has_field_.set(4); }
 
+  bool has_is_reply() const { return _has_field_[5]; }
+  bool is_reply() const { return is_reply_; }
+  void set_is_reply(bool value) { is_reply_ = value; _has_field_.set(5); }
+
  private:
   std::string watcher_notify_interface_tag_{};
   uint32_t ipc_hash_{};
   std::string mojo_interface_tag_{};
   uint64_t mojo_interface_method_iid_{};
+  bool is_reply_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<5> _has_field_{};
+  std::bitset<6> _has_field_{};
 };
 
 }  // namespace perfetto
