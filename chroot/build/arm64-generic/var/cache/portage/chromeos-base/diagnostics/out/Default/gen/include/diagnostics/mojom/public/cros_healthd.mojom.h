@@ -153,7 +153,7 @@ class CrosHealthdDiagnosticsService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 3;
+  static constexpr uint32_t Version_ = 4;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
@@ -203,6 +203,7 @@ class CrosHealthdDiagnosticsService
     kRunSensitiveSensorRoutineMinVersion = 2,
     kRunFingerprintRoutineMinVersion = 3,
     kRunFingerprintAliveRoutineMinVersion = 3,
+    kRunPrivacyScreenRoutineMinVersion = 4,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -314,6 +315,9 @@ class CrosHealthdDiagnosticsService
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunFingerprintAliveRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunPrivacyScreenRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -498,6 +502,11 @@ class CrosHealthdDiagnosticsService
   using RunFingerprintAliveRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
   virtual void RunFingerprintAliveRoutine(RunFingerprintAliveRoutineCallback callback) = 0;
+
+
+  using RunPrivacyScreenRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunPrivacyScreenRoutine(bool target_state, RunPrivacyScreenRoutineCallback callback) = 0;
 };
 
 class CrosHealthdEventServiceProxy;
@@ -881,6 +890,8 @@ class  CrosHealthdDiagnosticsServiceProxy
   void RunFingerprintRoutine(RunFingerprintRoutineCallback callback) final;
   
   void RunFingerprintAliveRoutine(RunFingerprintAliveRoutineCallback callback) final;
+  
+  void RunPrivacyScreenRoutine(bool target_state, RunPrivacyScreenRoutineCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

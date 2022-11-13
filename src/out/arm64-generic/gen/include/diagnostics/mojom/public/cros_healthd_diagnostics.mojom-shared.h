@@ -166,8 +166,10 @@ enum class DiagnosticRoutineEnum : int32_t {
   kFingerprint = 32,
   
   kFingerprintAlive = 33,
+  
+  kPrivacyScreen = 34,
   kMinValue = 0,
-  kMaxValue = 33,
+  kMaxValue = 34,
   kDefaultValue = 30
 };
 
