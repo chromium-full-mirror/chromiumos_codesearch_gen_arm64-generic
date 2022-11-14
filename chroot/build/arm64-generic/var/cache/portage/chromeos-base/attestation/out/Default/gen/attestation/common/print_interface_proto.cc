@@ -207,6 +207,14 @@ std::string GetProtoDebugStringWithIndent(const GetKeyInfoReply& value,
             .c_str());
     output += "\n";
   }
+  if (value.has_certified_key_credential()) {
+    output += indent + "  certified_key_credential: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.certified_key_credential().data(),
+                                        value.certified_key_credential().size())
+                            .c_str());
+    output += "\n";
+  }
   output += indent + "}\n";
   return output;
 }
@@ -1222,6 +1230,14 @@ std::string GetProtoDebugStringWithIndent(
             .c_str());
     output += "\n";
   }
+  if (value.has_certified_key_credential()) {
+    output += indent + "  certified_key_credential: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.certified_key_credential().data(),
+                                        value.certified_key_credential().size())
+                            .c_str());
+    output += "\n";
+  }
   output += indent + "}\n";
   return output;
 }
@@ -1329,6 +1345,14 @@ std::string GetProtoDebugStringWithIndent(const GetCertificateReply& value,
         &output, "%s",
         base::HexEncode(value.key_blob().data(), value.key_blob().size())
             .c_str());
+    output += "\n";
+  }
+  if (value.has_certified_key_credential()) {
+    output += indent + "  certified_key_credential: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.certified_key_credential().data(),
+                                        value.certified_key_credential().size())
+                            .c_str());
     output += "\n";
   }
   output += indent + "}\n";
