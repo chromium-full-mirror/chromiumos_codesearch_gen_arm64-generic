@@ -98,9 +98,7 @@ class BASE_EXPORT CheckError {
 class VoidifyStream {
  public:
   VoidifyStream() = default;
-  explicit VoidifyStream(bool ignored) {
-    (void)ignored;
-  }
+  explicit VoidifyStream(bool) {}
 
   // These operators have lower precedence than << but higher than ?:
   void operator&(std::ostream&) {}
