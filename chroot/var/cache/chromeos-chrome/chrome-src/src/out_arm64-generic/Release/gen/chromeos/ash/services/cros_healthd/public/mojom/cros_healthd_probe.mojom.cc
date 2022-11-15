@@ -2386,6 +2386,7 @@ bool OsInfo::Validate(
 OsVersion::OsVersion()
     : release_milestone(),
       build_number(),
+      branch_number(),
       patch_number(),
       release_channel() {}
 
@@ -2396,17 +2397,23 @@ OsVersion::OsVersion(
     const std::string& release_channel_in)
     : release_milestone(std::move(release_milestone_in)),
       build_number(std::move(build_number_in)),
+      branch_number(),
+      patch_number(std::move(patch_number_in)),
+      release_channel(std::move(release_channel_in)) {}
+
+OsVersion::OsVersion(
+    const std::string& release_milestone_in,
+    const std::string& build_number_in,
+    const absl::optional<std::string>& branch_number_in,
+    const std::string& patch_number_in,
+    const std::string& release_channel_in)
+    : release_milestone(std::move(release_milestone_in)),
+      build_number(std::move(build_number_in)),
+      branch_number(std::move(branch_number_in)),
       patch_number(std::move(patch_number_in)),
       release_channel(std::move(release_channel_in)) {}
 
 OsVersion::~OsVersion() = default;
-size_t OsVersion::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->release_milestone);
-  seed = mojo::internal::Hash(seed, this->build_number);
-  seed = mojo::internal::Hash(seed, this->patch_number);
-  seed = mojo::internal::Hash(seed, this->release_channel);
-  return seed;
-}
 
 void OsVersion::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
@@ -2425,6 +2432,15 @@ void OsVersion::WriteIntoTrace(
       "build_number"), this->build_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "branch_number"), this->branch_number,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const absl::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -7900,6 +7916,8 @@ bool StructTraits<::ash::cros_healthd::mojom::OsVersion::DataView, ::ash::cros_h
       if (success && !input.ReadPatchNumber(&result->patch_number))
         success = false;
       if (success && !input.ReadReleaseChannel(&result->release_channel))
+        success = false;
+      if (success && !input.ReadBranchNumber(&result->branch_number))
         success = false;
   *output = std::move(result);
   return success;

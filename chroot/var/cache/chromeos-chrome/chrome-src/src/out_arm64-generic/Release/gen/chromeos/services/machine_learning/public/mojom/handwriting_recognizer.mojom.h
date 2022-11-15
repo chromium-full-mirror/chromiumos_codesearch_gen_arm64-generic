@@ -61,7 +61,6 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingRecognizer
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = HandwritingRecognizerInterfaceBase;

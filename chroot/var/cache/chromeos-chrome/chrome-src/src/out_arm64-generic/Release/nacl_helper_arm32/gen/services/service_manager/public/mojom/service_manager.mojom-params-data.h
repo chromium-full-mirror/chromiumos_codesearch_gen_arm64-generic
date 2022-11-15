@@ -14,11 +14,13 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
+
+namespace mojo::internal {
+class ValidationContext;
+}
 namespace service_manager {
 namespace mojom {
 namespace internal {
-
-class ValidationContext;
 class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM_SHARED) ServiceManagerListener_OnInit_Params_Data {
  public:
   static bool Validate(const void* data,

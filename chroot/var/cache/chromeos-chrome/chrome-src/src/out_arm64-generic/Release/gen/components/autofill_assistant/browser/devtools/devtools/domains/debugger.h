@@ -179,8 +179,8 @@ base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<S
 base::OnceClosure callback = base::OnceClosure());
   void SetBreakpointsActive(std::unique_ptr<SetBreakpointsActiveParams> params, const std::string& optional_node_frame_id, base::OnceClosure callback);
 
-  // Defines pause on exceptions state. Can be set to stop on all exceptions, uncaught exceptions or
-  // no exceptions. Initial pause on exceptions state is `none`.
+  // Defines pause on exceptions state. Can be set to stop on all exceptions, uncaught exceptions,
+  // or caught exceptions, no exceptions. Initial pause on exceptions state is `none`.
   void SetPauseOnExceptions(std::unique_ptr<SetPauseOnExceptionsParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetPauseOnExceptionsResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetPauseOnExceptionsResult>)>());
   void SetPauseOnExceptions(::autofill_assistant::debugger::SetPauseOnExceptionsState state, const std::string& optional_node_frame_id,
 base::OnceClosure callback = base::OnceClosure());

@@ -59,7 +59,6 @@ class CameraModuleCallbacks
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CameraModuleCallbacksInterfaceBase;
@@ -113,7 +112,6 @@ class VendorTagOps
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = VendorTagOpsInterfaceBase;
@@ -198,7 +196,6 @@ class CameraModule
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 3;
   static constexpr bool PassesAssociatedKinds_ = true;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CameraModuleInterfaceBase;

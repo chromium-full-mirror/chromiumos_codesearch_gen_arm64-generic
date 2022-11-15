@@ -61,7 +61,6 @@ class COMPONENT_EXPORT(SMBFS_MOJOM) SmbFsBootstrap
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = SmbFsBootstrapInterfaceBase;
@@ -110,7 +109,6 @@ class COMPONENT_EXPORT(SMBFS_MOJOM) SmbFs
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = SmbFsInterfaceBase;
@@ -168,7 +166,6 @@ class COMPONENT_EXPORT(SMBFS_MOJOM) SmbFsDelegate
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = SmbFsDelegateInterfaceBase;

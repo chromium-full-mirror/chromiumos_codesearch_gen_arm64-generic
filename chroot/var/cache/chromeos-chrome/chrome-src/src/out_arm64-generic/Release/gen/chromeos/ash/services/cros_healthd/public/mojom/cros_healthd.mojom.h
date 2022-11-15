@@ -66,7 +66,6 @@ class CrosHealthdServiceFactory
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CrosHealthdServiceFactoryInterfaceBase;
@@ -153,9 +152,8 @@ class CrosHealthdDiagnosticsService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 1;
+  static constexpr uint32_t Version_ = 2;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CrosHealthdDiagnosticsServiceInterfaceBase;
@@ -200,6 +198,7 @@ class CrosHealthdDiagnosticsService
     kRunArcHttpRoutineMinVersion = 0,
     kRunArcPingRoutineMinVersion = 0,
     kRunArcDnsResolutionRoutineMinVersion = 0,
+    kRunSensitiveSensorRoutineMinVersion = 2,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -302,6 +301,9 @@ class CrosHealthdDiagnosticsService
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunArcDnsResolutionRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunSensitiveSensorRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -471,6 +473,11 @@ class CrosHealthdDiagnosticsService
   using RunArcDnsResolutionRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
   virtual void RunArcDnsResolutionRoutine(RunArcDnsResolutionRoutineCallback callback) = 0;
+
+
+  using RunSensitiveSensorRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunSensitiveSensorRoutine(RunSensitiveSensorRoutineCallback callback) = 0;
 };
 
 class CrosHealthdEventServiceProxy;
@@ -491,7 +498,6 @@ class CrosHealthdEventService
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CrosHealthdEventServiceInterfaceBase;
@@ -580,7 +586,6 @@ class CrosHealthdProbeService
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CrosHealthdProbeServiceInterfaceBase;
@@ -647,7 +652,6 @@ class CrosHealthdSystemService
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CrosHealthdSystemServiceInterfaceBase;
@@ -696,7 +700,6 @@ class WilcoEcServiceController
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = WilcoEcServiceControllerInterfaceBase;
@@ -848,6 +851,8 @@ class  CrosHealthdDiagnosticsServiceProxy
   void RunArcPingRoutine(RunArcPingRoutineCallback callback) final;
   
   void RunArcDnsResolutionRoutine(RunArcDnsResolutionRoutineCallback callback) final;
+  
+  void RunSensitiveSensorRoutine(RunSensitiveSensorRoutineCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

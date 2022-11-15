@@ -14,11 +14,13 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
+
+namespace mojo::internal {
+class ValidationContext;
+}
 namespace device {
 namespace mojom {
 namespace internal {
-
-class ValidationContext;
 class  Sensor_GetDefaultConfiguration_Params_Data {
  public:
   static bool Validate(const void* data,

@@ -161,8 +161,8 @@ class HEADLESS_EXPORT Domain {
   void SetBreakpointsActive(bool active, base::OnceClosure callback = base::OnceClosure());
   void SetBreakpointsActive(std::unique_ptr<SetBreakpointsActiveParams> params, base::OnceClosure callback);
 
-  // Defines pause on exceptions state. Can be set to stop on all exceptions, uncaught exceptions or
-  // no exceptions. Initial pause on exceptions state is `none`.
+  // Defines pause on exceptions state. Can be set to stop on all exceptions, uncaught exceptions,
+  // or caught exceptions, no exceptions. Initial pause on exceptions state is `none`.
   void SetPauseOnExceptions(std::unique_ptr<SetPauseOnExceptionsParams> params, base::OnceCallback<void(std::unique_ptr<SetPauseOnExceptionsResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetPauseOnExceptionsResult>)>());
   void SetPauseOnExceptions(::headless::debugger::SetPauseOnExceptionsState state, base::OnceClosure callback = base::OnceClosure());
   void SetPauseOnExceptions(std::unique_ptr<SetPauseOnExceptionsParams> params, base::OnceClosure callback);

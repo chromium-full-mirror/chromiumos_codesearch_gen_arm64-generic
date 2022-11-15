@@ -3537,8 +3537,12 @@ bool OsVersion_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 40 },
+    { 1, 48 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -3590,12 +3594,21 @@ bool OsVersion_Data::Validate(
                                          &release_channel_validate_params)) {
     return false;
   }
+  if (object->header_.version < 1)
+    return true;
+
+  constexpr const mojo::internal::ContainerValidateParams& branch_number_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->branch_number, validation_context,
+                                         &branch_number_validate_params)) {
+    return false;
+  }
 
   return true;
 }
 
 OsVersion_Data::OsVersion_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 1}) {}
 
 
 // static

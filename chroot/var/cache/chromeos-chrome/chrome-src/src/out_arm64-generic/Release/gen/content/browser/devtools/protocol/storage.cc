@@ -317,6 +317,9 @@ public:
     void setInterestGroupTracking(const crdtp::Dispatchable& dispatchable);
     void getSharedStorageMetadata(const crdtp::Dispatchable& dispatchable);
     void getSharedStorageEntries(const crdtp::Dispatchable& dispatchable);
+    void setSharedStorageEntry(const crdtp::Dispatchable& dispatchable);
+    void deleteSharedStorageEntry(const crdtp::Dispatchable& dispatchable);
+    void clearSharedStorageEntries(const crdtp::Dispatchable& dispatchable);
     void setSharedStorageTracking(const crdtp::Dispatchable& dispatchable);
  protected:
     Backend* m_backend;
@@ -343,8 +346,16 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
           &DomainDispatcherImpl::clearDataForStorageKey
     },
     {
+          crdtp::SpanFrom("clearSharedStorageEntries"),
+          &DomainDispatcherImpl::clearSharedStorageEntries
+    },
+    {
           crdtp::SpanFrom("clearTrustTokens"),
           &DomainDispatcherImpl::clearTrustTokens
+    },
+    {
+          crdtp::SpanFrom("deleteSharedStorageEntry"),
+          &DomainDispatcherImpl::deleteSharedStorageEntry
     },
     {
           crdtp::SpanFrom("getCookies"),
@@ -385,6 +396,10 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
     {
           crdtp::SpanFrom("setInterestGroupTracking"),
           &DomainDispatcherImpl::setInterestGroupTracking
+    },
+    {
+          crdtp::SpanFrom("setSharedStorageEntry"),
+          &DomainDispatcherImpl::setSharedStorageEntry
     },
     {
           crdtp::SpanFrom("setSharedStorageTracking"),
@@ -1318,6 +1333,164 @@ void DomainDispatcherImpl::getSharedStorageEntries(const crdtp::Dispatchable& di
     }
 
     m_backend->GetSharedStorageEntries(params.ownerOrigin, std::make_unique<GetSharedStorageEntriesCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
+}
+
+class SetSharedStorageEntryCallbackImpl : public Backend::SetSharedStorageEntryCallback, public DomainDispatcher::Callback {
+public:
+    SetSharedStorageEntryCallbackImpl(std::unique_ptr<DomainDispatcher::WeakPtr> backendImpl, int callId, crdtp::span<uint8_t> message)
+        : DomainDispatcher::Callback(std::move(backendImpl), callId,
+crdtp::SpanFrom("Storage.setSharedStorageEntry"), message) { }
+
+    void sendSuccess() override
+    {
+        crdtp::ObjectSerializer serializer;
+        sendIfActive(serializer.Finish(), DispatchResponse::Success());
+    }
+
+    void fallThrough() override
+    {
+        fallThroughIfActive();
+    }
+
+    void sendFailure(const DispatchResponse& response) override
+    {
+        DCHECK(response.IsError());
+        sendIfActive(nullptr, response);
+    }
+};
+
+namespace {
+
+struct setSharedStorageEntryParams : public crdtp::DeserializableProtocolObject<setSharedStorageEntryParams> {
+    String ownerOrigin;
+    String key;
+    String value;
+    Maybe<bool> ignoreIfPresent;
+    DECLARE_DESERIALIZATION_SUPPORT();
+};
+
+CRDTP_BEGIN_DESERIALIZER(setSharedStorageEntryParams)
+    CRDTP_DESERIALIZE_FIELD_OPT("ignoreIfPresent", ignoreIfPresent),
+    CRDTP_DESERIALIZE_FIELD("key", key),
+    CRDTP_DESERIALIZE_FIELD("ownerOrigin", ownerOrigin),
+    CRDTP_DESERIALIZE_FIELD("value", value),
+CRDTP_END_DESERIALIZER()
+
+}  // namespace
+
+void DomainDispatcherImpl::setSharedStorageEntry(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
+    setSharedStorageEntryParams params;
+    if (!setSharedStorageEntryParams::Deserialize(&deserializer, &params)) {
+      ReportInvalidParams(dispatchable, deserializer);
+      return;
+    }
+
+    m_backend->SetSharedStorageEntry(params.ownerOrigin, params.key, params.value, std::move(params.ignoreIfPresent), std::make_unique<SetSharedStorageEntryCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
+}
+
+class DeleteSharedStorageEntryCallbackImpl : public Backend::DeleteSharedStorageEntryCallback, public DomainDispatcher::Callback {
+public:
+    DeleteSharedStorageEntryCallbackImpl(std::unique_ptr<DomainDispatcher::WeakPtr> backendImpl, int callId, crdtp::span<uint8_t> message)
+        : DomainDispatcher::Callback(std::move(backendImpl), callId,
+crdtp::SpanFrom("Storage.deleteSharedStorageEntry"), message) { }
+
+    void sendSuccess() override
+    {
+        crdtp::ObjectSerializer serializer;
+        sendIfActive(serializer.Finish(), DispatchResponse::Success());
+    }
+
+    void fallThrough() override
+    {
+        fallThroughIfActive();
+    }
+
+    void sendFailure(const DispatchResponse& response) override
+    {
+        DCHECK(response.IsError());
+        sendIfActive(nullptr, response);
+    }
+};
+
+namespace {
+
+struct deleteSharedStorageEntryParams : public crdtp::DeserializableProtocolObject<deleteSharedStorageEntryParams> {
+    String ownerOrigin;
+    String key;
+    DECLARE_DESERIALIZATION_SUPPORT();
+};
+
+CRDTP_BEGIN_DESERIALIZER(deleteSharedStorageEntryParams)
+    CRDTP_DESERIALIZE_FIELD("key", key),
+    CRDTP_DESERIALIZE_FIELD("ownerOrigin", ownerOrigin),
+CRDTP_END_DESERIALIZER()
+
+}  // namespace
+
+void DomainDispatcherImpl::deleteSharedStorageEntry(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
+    deleteSharedStorageEntryParams params;
+    if (!deleteSharedStorageEntryParams::Deserialize(&deserializer, &params)) {
+      ReportInvalidParams(dispatchable, deserializer);
+      return;
+    }
+
+    m_backend->DeleteSharedStorageEntry(params.ownerOrigin, params.key, std::make_unique<DeleteSharedStorageEntryCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
+}
+
+class ClearSharedStorageEntriesCallbackImpl : public Backend::ClearSharedStorageEntriesCallback, public DomainDispatcher::Callback {
+public:
+    ClearSharedStorageEntriesCallbackImpl(std::unique_ptr<DomainDispatcher::WeakPtr> backendImpl, int callId, crdtp::span<uint8_t> message)
+        : DomainDispatcher::Callback(std::move(backendImpl), callId,
+crdtp::SpanFrom("Storage.clearSharedStorageEntries"), message) { }
+
+    void sendSuccess() override
+    {
+        crdtp::ObjectSerializer serializer;
+        sendIfActive(serializer.Finish(), DispatchResponse::Success());
+    }
+
+    void fallThrough() override
+    {
+        fallThroughIfActive();
+    }
+
+    void sendFailure(const DispatchResponse& response) override
+    {
+        DCHECK(response.IsError());
+        sendIfActive(nullptr, response);
+    }
+};
+
+namespace {
+
+struct clearSharedStorageEntriesParams : public crdtp::DeserializableProtocolObject<clearSharedStorageEntriesParams> {
+    String ownerOrigin;
+    DECLARE_DESERIALIZATION_SUPPORT();
+};
+
+CRDTP_BEGIN_DESERIALIZER(clearSharedStorageEntriesParams)
+    CRDTP_DESERIALIZE_FIELD("ownerOrigin", ownerOrigin),
+CRDTP_END_DESERIALIZER()
+
+}  // namespace
+
+void DomainDispatcherImpl::clearSharedStorageEntries(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
+    clearSharedStorageEntriesParams params;
+    if (!clearSharedStorageEntriesParams::Deserialize(&deserializer, &params)) {
+      ReportInvalidParams(dispatchable, deserializer);
+      return;
+    }
+
+    m_backend->ClearSharedStorageEntries(params.ownerOrigin, std::make_unique<ClearSharedStorageEntriesCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
 }
 
 namespace {

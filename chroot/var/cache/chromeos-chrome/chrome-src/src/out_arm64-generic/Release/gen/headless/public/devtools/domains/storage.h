@@ -104,6 +104,9 @@ class HEADLESS_EXPORT Domain {
   static void HandleSetInterestGroupTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetInterestGroupTrackingResult>)> callback, const base::Value& response);
   static void HandleGetSharedStorageMetadataResponse(base::OnceCallback<void(std::unique_ptr<GetSharedStorageMetadataResult>)> callback, const base::Value& response);
   static void HandleGetSharedStorageEntriesResponse(base::OnceCallback<void(std::unique_ptr<GetSharedStorageEntriesResult>)> callback, const base::Value& response);
+  static void HandleSetSharedStorageEntryResponse(base::OnceCallback<void(std::unique_ptr<SetSharedStorageEntryResult>)> callback, const base::Value& response);
+  static void HandleDeleteSharedStorageEntryResponse(base::OnceCallback<void(std::unique_ptr<DeleteSharedStorageEntryResult>)> callback, const base::Value& response);
+  static void HandleClearSharedStorageEntriesResponse(base::OnceCallback<void(std::unique_ptr<ClearSharedStorageEntriesResult>)> callback, const base::Value& response);
   static void HandleSetSharedStorageTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetSharedStorageTrackingResult>)> callback, const base::Value& response);
 
   void DispatchCacheStorageContentUpdatedEvent(const base::Value& params);
@@ -199,6 +202,15 @@ class ExperimentalDomain : public Domain {
 
   // Gets the entries in an given origin's shared storage.
   void GetSharedStorageEntries(std::unique_ptr<GetSharedStorageEntriesParams> params, base::OnceCallback<void(std::unique_ptr<GetSharedStorageEntriesResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetSharedStorageEntriesResult>)>());
+
+  // Sets entry with `key` and `value` for a given origin's shared storage.
+  void SetSharedStorageEntry(std::unique_ptr<SetSharedStorageEntryParams> params, base::OnceCallback<void(std::unique_ptr<SetSharedStorageEntryResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetSharedStorageEntryResult>)>());
+
+  // Deletes entry for `key` (if it exists) for a given origin's shared storage.
+  void DeleteSharedStorageEntry(std::unique_ptr<DeleteSharedStorageEntryParams> params, base::OnceCallback<void(std::unique_ptr<DeleteSharedStorageEntryResult>)> callback = base::OnceCallback<void(std::unique_ptr<DeleteSharedStorageEntryResult>)>());
+
+  // Clears all entries for a given origin's shared storage.
+  void ClearSharedStorageEntries(std::unique_ptr<ClearSharedStorageEntriesParams> params, base::OnceCallback<void(std::unique_ptr<ClearSharedStorageEntriesResult>)> callback = base::OnceCallback<void(std::unique_ptr<ClearSharedStorageEntriesResult>)>());
 
   // Enables/disables issuing of sharedStorageAccessed events.
   void SetSharedStorageTracking(std::unique_ptr<SetSharedStorageTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetSharedStorageTrackingResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetSharedStorageTrackingResult>)>());

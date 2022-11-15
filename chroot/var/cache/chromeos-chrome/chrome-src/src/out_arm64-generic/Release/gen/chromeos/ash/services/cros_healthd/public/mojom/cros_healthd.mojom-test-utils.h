@@ -74,6 +74,7 @@ class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDi
   void RunArcHttpRoutine(RunArcHttpRoutineCallback callback) override;
   void RunArcPingRoutine(RunArcPingRoutineCallback callback) override;
   void RunArcDnsResolutionRoutine(RunArcDnsResolutionRoutineCallback callback) override;
+  void RunSensitiveSensorRoutine(RunSensitiveSensorRoutineCallback callback) override;
 };
 class  CrosHealthdDiagnosticsServiceAsyncWaiter {
  public:
@@ -182,6 +183,9 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
   void RunArcDnsResolutionRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunArcDnsResolutionRoutine();
+  void RunSensitiveSensorRoutine(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunSensitiveSensorRoutine();
 
  private:
   CrosHealthdDiagnosticsService* const proxy_;

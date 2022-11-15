@@ -14,13 +14,15 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
+
+namespace mojo::internal {
+class ValidationContext;
+}
 namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojom {
 namespace internal {
-
-class ValidationContext;
 class  ChromiumDataCollector_GetTouchscreenDevices_Params_Data {
  public:
   static bool Validate(const void* data,

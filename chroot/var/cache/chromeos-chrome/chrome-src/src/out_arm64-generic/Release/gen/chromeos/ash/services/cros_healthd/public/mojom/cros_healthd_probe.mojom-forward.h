@@ -291,7 +291,7 @@ class OsInfo;
 using OsInfoPtr = mojo::StructPtr<OsInfo>;
 
 class OsVersion;
-using OsVersionPtr = mojo::InlinedStructPtr<OsVersion>;
+using OsVersionPtr = mojo::StructPtr<OsVersion>;
 
 class VpdInfo;
 using VpdInfoPtr = mojo::StructPtr<VpdInfo>;

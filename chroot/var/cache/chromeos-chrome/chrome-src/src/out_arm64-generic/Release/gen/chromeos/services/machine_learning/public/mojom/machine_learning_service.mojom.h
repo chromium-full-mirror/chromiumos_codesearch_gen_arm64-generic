@@ -72,7 +72,6 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) MachineLearningService
                                       12396497001077425579ULL };
   static constexpr uint32_t Version_ = 6;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = MachineLearningServiceInterfaceBase;

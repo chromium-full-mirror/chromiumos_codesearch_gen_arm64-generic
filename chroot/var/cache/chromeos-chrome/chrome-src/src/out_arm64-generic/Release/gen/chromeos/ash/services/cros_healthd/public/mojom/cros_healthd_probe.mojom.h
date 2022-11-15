@@ -1913,152 +1913,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-class  OsVersion {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<OsVersion, T>::value>;
-  using DataView = OsVersionDataView;
-  using Data_ = internal::OsVersion_Data;
-
-  template <typename... Args>
-  static OsVersionPtr New(Args&&... args) {
-    return OsVersionPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static OsVersionPtr From(const U& u) {
-    return mojo::TypeConverter<OsVersionPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, OsVersion>::Convert(*this);
-  }
-
-
-  OsVersion();
-
-  OsVersion(
-      const std::string& release_milestone,
-      const std::string& build_number,
-      const std::string& patch_number,
-      const std::string& release_channel);
-
-
-  ~OsVersion();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = OsVersionPtr>
-  OsVersionPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        OsVersion::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        OsVersion::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::OsVersion_UnserializedMessageContext<
-            UserType, OsVersion::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<OsVersion::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return OsVersion::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::OsVersion_UnserializedMessageContext<
-            UserType, OsVersion::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<OsVersion::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  std::string release_milestone;
-  
-  std::string build_number;
-  
-  std::string patch_number;
-  
-  std::string release_channel;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
 
 
 
@@ -9177,6 +9031,160 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  OsVersion {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<OsVersion, T>::value>;
+  using DataView = OsVersionDataView;
+  using Data_ = internal::OsVersion_Data;
+
+  template <typename... Args>
+  static OsVersionPtr New(Args&&... args) {
+    return OsVersionPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static OsVersionPtr From(const U& u) {
+    return mojo::TypeConverter<OsVersionPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, OsVersion>::Convert(*this);
+  }
+
+
+  OsVersion();
+
+  OsVersion(
+      const std::string& release_milestone,
+      const std::string& build_number,
+      const std::string& patch_number,
+      const std::string& release_channel);
+
+  OsVersion(
+      const std::string& release_milestone,
+      const std::string& build_number,
+      const absl::optional<std::string>& branch_number,
+      const std::string& patch_number,
+      const std::string& release_channel);
+
+
+  ~OsVersion();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = OsVersionPtr>
+  OsVersionPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        OsVersion::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        OsVersion::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::OsVersion_UnserializedMessageContext<
+            UserType, OsVersion::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<OsVersion::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return OsVersion::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::OsVersion_UnserializedMessageContext<
+            UserType, OsVersion::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<OsVersion::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string release_milestone;
+  
+  std::string build_number;
+  
+  absl::optional<std::string> branch_number;
+  
+  std::string patch_number;
+  
+  std::string release_channel;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
 
 class  VpdInfo {
  public:
@@ -15566,6 +15574,7 @@ OsVersionPtr OsVersion::Clone() const {
   return New(
       mojo::Clone(release_milestone),
       mojo::Clone(build_number),
+      mojo::Clone(branch_number),
       mojo::Clone(patch_number),
       mojo::Clone(release_channel)
   );
@@ -15576,6 +15585,8 @@ bool OsVersion::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->release_milestone, other_struct.release_milestone))
     return false;
   if (!mojo::Equals(this->build_number, other_struct.build_number))
+    return false;
+  if (!mojo::Equals(this->branch_number, other_struct.branch_number))
     return false;
   if (!mojo::Equals(this->patch_number, other_struct.patch_number))
     return false;
@@ -15593,6 +15604,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.build_number < rhs.build_number)
     return true;
   if (rhs.build_number < lhs.build_number)
+    return false;
+  if (lhs.branch_number < rhs.branch_number)
+    return true;
+  if (rhs.branch_number < lhs.branch_number)
     return false;
   if (lhs.patch_number < rhs.patch_number)
     return true;
@@ -18377,6 +18392,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::OsVersion::DataView,
   static const decltype(::ash::cros_healthd::mojom::OsVersion::build_number)& build_number(
       const ::ash::cros_healthd::mojom::OsVersionPtr& input) {
     return input->build_number;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::OsVersion::branch_number)& branch_number(
+      const ::ash::cros_healthd::mojom::OsVersionPtr& input) {
+    return input->branch_number;
   }
 
   static const decltype(::ash::cros_healthd::mojom::OsVersion::patch_number)& patch_number(

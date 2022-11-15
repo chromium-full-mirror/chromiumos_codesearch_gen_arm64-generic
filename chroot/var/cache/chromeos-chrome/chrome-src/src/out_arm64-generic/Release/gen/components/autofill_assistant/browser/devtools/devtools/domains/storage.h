@@ -165,6 +165,18 @@ class Domain {
       base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<GetSharedStorageEntriesResult>)> callback,
       const MessageDispatcher::ReplyStatus& reply_status,
       const base::Value& response);
+  static void HandleSetSharedStorageEntryResponse(
+      base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetSharedStorageEntryResult>)> callback,
+      const MessageDispatcher::ReplyStatus& reply_status,
+      const base::Value& response);
+  static void HandleDeleteSharedStorageEntryResponse(
+      base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<DeleteSharedStorageEntryResult>)> callback,
+      const MessageDispatcher::ReplyStatus& reply_status,
+      const base::Value& response);
+  static void HandleClearSharedStorageEntriesResponse(
+      base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<ClearSharedStorageEntriesResult>)> callback,
+      const MessageDispatcher::ReplyStatus& reply_status,
+      const base::Value& response);
   static void HandleSetSharedStorageTrackingResponse(
       base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetSharedStorageTrackingResult>)> callback,
       const MessageDispatcher::ReplyStatus& reply_status,
@@ -263,6 +275,15 @@ class ExperimentalDomain : public Domain {
 
   // Gets the entries in an given origin's shared storage.
   void GetSharedStorageEntries(std::unique_ptr<GetSharedStorageEntriesParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<GetSharedStorageEntriesResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<GetSharedStorageEntriesResult>)>());
+
+  // Sets entry with `key` and `value` for a given origin's shared storage.
+  void SetSharedStorageEntry(std::unique_ptr<SetSharedStorageEntryParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetSharedStorageEntryResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetSharedStorageEntryResult>)>());
+
+  // Deletes entry for `key` (if it exists) for a given origin's shared storage.
+  void DeleteSharedStorageEntry(std::unique_ptr<DeleteSharedStorageEntryParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<DeleteSharedStorageEntryResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<DeleteSharedStorageEntryResult>)>());
+
+  // Clears all entries for a given origin's shared storage.
+  void ClearSharedStorageEntries(std::unique_ptr<ClearSharedStorageEntriesParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<ClearSharedStorageEntriesResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<ClearSharedStorageEntriesResult>)>());
 
   // Enables/disables issuing of sharedStorageAccessed events.
   void SetSharedStorageTracking(std::unique_ptr<SetSharedStorageTrackingParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetSharedStorageTrackingResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetSharedStorageTrackingResult>)>());

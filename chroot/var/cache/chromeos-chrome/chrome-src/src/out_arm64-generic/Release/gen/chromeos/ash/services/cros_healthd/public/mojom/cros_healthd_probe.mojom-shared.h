@@ -3158,6 +3158,27 @@ class OsVersionDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  inline void GetBranchNumberDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBranchNumber(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `branch_number` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadBranchNumber` instead "
+    "of `ReadBranchNumber if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->branch_number.Get() : nullptr;
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::OsVersion_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -9375,6 +9396,14 @@ struct Serializer<::ash::cros_healthd::mojom::OsVersionDataView, MaybeConstUserT
         fragment->release_channel.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null release_channel in OsVersion struct");
+    decltype(Traits::branch_number(input)) in_branch_number = Traits::branch_number(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->branch_number)::BaseType> branch_number_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_branch_number, branch_number_fragment);
+    fragment->branch_number.Set(
+        branch_number_fragment.is_null() ? nullptr : branch_number_fragment.data());
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::OsVersion_Data* input,
@@ -14010,6 +14039,12 @@ inline void OsVersionDataView::GetPatchNumberDataView(
 inline void OsVersionDataView::GetReleaseChannelDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->release_channel.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void OsVersionDataView::GetBranchNumberDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->branch_number.Get() : nullptr;
   *output = mojo::StringDataView(pointer, message_);
 }
 

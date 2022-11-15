@@ -193,10 +193,20 @@ PROTOBUF_CONSTEXPR StartArcVmRequest::StartArcVmRequest(
   , enable_virtio_blk_data_(false)
   , disable_media_store_maintenance_(false)
   , vm_memory_psi_period_(0)
+  , guest_zram_size_(0)
+  , guest_swappiness_(0)
   , arc_generate_play_auto_install_(false)
   , disable_download_provider_(false)
-  , guest_zram_size_(0)
-  , guest_swappiness_(0){}
+  , update_o4c_list_via_a2c2_(false)
+  , enable_rw_(false)
+  , mglru_reclaim_interval_(0)
+  , mglru_reclaim_swappiness_(0)
+  , usap_profile_(0)
+
+  , native_bridge_experiment_(0)
+
+  , ureadahead_mode_(0)
+{}
 struct StartArcVmRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StartArcVmRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -1354,6 +1364,200 @@ constexpr StartArcVmRequest_DisplayOrientation StartArcVmRequest::ORIENTATION_27
 constexpr StartArcVmRequest_DisplayOrientation StartArcVmRequest::DisplayOrientation_MIN;
 constexpr StartArcVmRequest_DisplayOrientation StartArcVmRequest::DisplayOrientation_MAX;
 constexpr int StartArcVmRequest::DisplayOrientation_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool StartArcVmRequest_UsapProfileType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> StartArcVmRequest_UsapProfileType_strings[4] = {};
+
+static const char StartArcVmRequest_UsapProfileType_names[] =
+  "USAP_PROFILE_16G"
+  "USAP_PROFILE_4G"
+  "USAP_PROFILE_8G"
+  "USAP_PROFILE_DEFAULT";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry StartArcVmRequest_UsapProfileType_entries[] = {
+  { {StartArcVmRequest_UsapProfileType_names + 0, 16}, 3 },
+  { {StartArcVmRequest_UsapProfileType_names + 16, 15}, 1 },
+  { {StartArcVmRequest_UsapProfileType_names + 31, 15}, 2 },
+  { {StartArcVmRequest_UsapProfileType_names + 46, 20}, 0 },
+};
+
+static const int StartArcVmRequest_UsapProfileType_entries_by_number[] = {
+  3, // 0 -> USAP_PROFILE_DEFAULT
+  1, // 1 -> USAP_PROFILE_4G
+  2, // 2 -> USAP_PROFILE_8G
+  0, // 3 -> USAP_PROFILE_16G
+};
+
+const std::string& StartArcVmRequest_UsapProfileType_Name(
+    StartArcVmRequest_UsapProfileType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          StartArcVmRequest_UsapProfileType_entries,
+          StartArcVmRequest_UsapProfileType_entries_by_number,
+          4, StartArcVmRequest_UsapProfileType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      StartArcVmRequest_UsapProfileType_entries,
+      StartArcVmRequest_UsapProfileType_entries_by_number,
+      4, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     StartArcVmRequest_UsapProfileType_strings[idx].get();
+}
+bool StartArcVmRequest_UsapProfileType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, StartArcVmRequest_UsapProfileType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      StartArcVmRequest_UsapProfileType_entries, 4, name, &int_value);
+  if (success) {
+    *value = static_cast<StartArcVmRequest_UsapProfileType>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr StartArcVmRequest_UsapProfileType StartArcVmRequest::USAP_PROFILE_DEFAULT;
+constexpr StartArcVmRequest_UsapProfileType StartArcVmRequest::USAP_PROFILE_4G;
+constexpr StartArcVmRequest_UsapProfileType StartArcVmRequest::USAP_PROFILE_8G;
+constexpr StartArcVmRequest_UsapProfileType StartArcVmRequest::USAP_PROFILE_16G;
+constexpr StartArcVmRequest_UsapProfileType StartArcVmRequest::UsapProfileType_MIN;
+constexpr StartArcVmRequest_UsapProfileType StartArcVmRequest::UsapProfileType_MAX;
+constexpr int StartArcVmRequest::UsapProfileType_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool StartArcVmRequest_BinaryTranslationType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> StartArcVmRequest_BinaryTranslationType_strings[3] = {};
+
+static const char StartArcVmRequest_BinaryTranslationType_names[] =
+  "BINARY_TRANSLATION_TYPE_HOUDINI"
+  "BINARY_TRANSLATION_TYPE_NDK_TRANSLATION"
+  "BINARY_TRANSLATION_TYPE_NONE";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry StartArcVmRequest_BinaryTranslationType_entries[] = {
+  { {StartArcVmRequest_BinaryTranslationType_names + 0, 31}, 1 },
+  { {StartArcVmRequest_BinaryTranslationType_names + 31, 39}, 2 },
+  { {StartArcVmRequest_BinaryTranslationType_names + 70, 28}, 0 },
+};
+
+static const int StartArcVmRequest_BinaryTranslationType_entries_by_number[] = {
+  2, // 0 -> BINARY_TRANSLATION_TYPE_NONE
+  0, // 1 -> BINARY_TRANSLATION_TYPE_HOUDINI
+  1, // 2 -> BINARY_TRANSLATION_TYPE_NDK_TRANSLATION
+};
+
+const std::string& StartArcVmRequest_BinaryTranslationType_Name(
+    StartArcVmRequest_BinaryTranslationType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          StartArcVmRequest_BinaryTranslationType_entries,
+          StartArcVmRequest_BinaryTranslationType_entries_by_number,
+          3, StartArcVmRequest_BinaryTranslationType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      StartArcVmRequest_BinaryTranslationType_entries,
+      StartArcVmRequest_BinaryTranslationType_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     StartArcVmRequest_BinaryTranslationType_strings[idx].get();
+}
+bool StartArcVmRequest_BinaryTranslationType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, StartArcVmRequest_BinaryTranslationType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      StartArcVmRequest_BinaryTranslationType_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<StartArcVmRequest_BinaryTranslationType>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr StartArcVmRequest_BinaryTranslationType StartArcVmRequest::BINARY_TRANSLATION_TYPE_NONE;
+constexpr StartArcVmRequest_BinaryTranslationType StartArcVmRequest::BINARY_TRANSLATION_TYPE_HOUDINI;
+constexpr StartArcVmRequest_BinaryTranslationType StartArcVmRequest::BINARY_TRANSLATION_TYPE_NDK_TRANSLATION;
+constexpr StartArcVmRequest_BinaryTranslationType StartArcVmRequest::BinaryTranslationType_MIN;
+constexpr StartArcVmRequest_BinaryTranslationType StartArcVmRequest::BinaryTranslationType_MAX;
+constexpr int StartArcVmRequest::BinaryTranslationType_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool StartArcVmRequest_UreadaheadMode_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> StartArcVmRequest_UreadaheadMode_strings[3] = {};
+
+static const char StartArcVmRequest_UreadaheadMode_names[] =
+  "UREADAHEAD_MODE_DISABLED"
+  "UREADAHEAD_MODE_GENERATE"
+  "UREADAHEAD_MODE_READAHEAD";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry StartArcVmRequest_UreadaheadMode_entries[] = {
+  { {StartArcVmRequest_UreadaheadMode_names + 0, 24}, 2 },
+  { {StartArcVmRequest_UreadaheadMode_names + 24, 24}, 1 },
+  { {StartArcVmRequest_UreadaheadMode_names + 48, 25}, 0 },
+};
+
+static const int StartArcVmRequest_UreadaheadMode_entries_by_number[] = {
+  2, // 0 -> UREADAHEAD_MODE_READAHEAD
+  1, // 1 -> UREADAHEAD_MODE_GENERATE
+  0, // 2 -> UREADAHEAD_MODE_DISABLED
+};
+
+const std::string& StartArcVmRequest_UreadaheadMode_Name(
+    StartArcVmRequest_UreadaheadMode value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          StartArcVmRequest_UreadaheadMode_entries,
+          StartArcVmRequest_UreadaheadMode_entries_by_number,
+          3, StartArcVmRequest_UreadaheadMode_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      StartArcVmRequest_UreadaheadMode_entries,
+      StartArcVmRequest_UreadaheadMode_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     StartArcVmRequest_UreadaheadMode_strings[idx].get();
+}
+bool StartArcVmRequest_UreadaheadMode_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, StartArcVmRequest_UreadaheadMode* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      StartArcVmRequest_UreadaheadMode_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<StartArcVmRequest_UreadaheadMode>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr StartArcVmRequest_UreadaheadMode StartArcVmRequest::UREADAHEAD_MODE_READAHEAD;
+constexpr StartArcVmRequest_UreadaheadMode StartArcVmRequest::UREADAHEAD_MODE_GENERATE;
+constexpr StartArcVmRequest_UreadaheadMode StartArcVmRequest::UREADAHEAD_MODE_DISABLED;
+constexpr StartArcVmRequest_UreadaheadMode StartArcVmRequest::UreadaheadMode_MIN;
+constexpr StartArcVmRequest_UreadaheadMode StartArcVmRequest::UreadaheadMode_MAX;
+constexpr int StartArcVmRequest::UreadaheadMode_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool StartVmResponse_MountResult_IsValid(int value) {
   switch (value) {
@@ -5063,8 +5267,8 @@ StartArcVmRequest::StartArcVmRequest(const StartArcVmRequest& from)
     mini_instance_request_ = nullptr;
   }
   ::memcpy(&cpus_, &from.cpus_,
-    static_cast<size_t>(reinterpret_cast<char*>(&guest_swappiness_) -
-    reinterpret_cast<char*>(&cpus_)) + sizeof(guest_swappiness_));
+    static_cast<size_t>(reinterpret_cast<char*>(&ureadahead_mode_) -
+    reinterpret_cast<char*>(&cpus_)) + sizeof(ureadahead_mode_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.StartArcVmRequest)
 }
 
@@ -5083,8 +5287,8 @@ fstab_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&vm_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&guest_swappiness_) -
-    reinterpret_cast<char*>(&vm_)) + sizeof(guest_swappiness_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&ureadahead_mode_) -
+    reinterpret_cast<char*>(&vm_)) + sizeof(ureadahead_mode_));
 }
 
 StartArcVmRequest::~StartArcVmRequest() {
@@ -5134,8 +5338,8 @@ void StartArcVmRequest::Clear() {
   }
   mini_instance_request_ = nullptr;
   ::memset(&cpus_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&guest_swappiness_) -
-      reinterpret_cast<char*>(&cpus_)) + sizeof(guest_swappiness_));
+      reinterpret_cast<char*>(&ureadahead_mode_) -
+      reinterpret_cast<char*>(&cpus_)) + sizeof(ureadahead_mode_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -5436,6 +5640,65 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
+      // int32 mglru_reclaim_interval = 35;
+      case 35:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          mglru_reclaim_interval_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 mglru_reclaim_swappiness = 36;
+      case 36:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          mglru_reclaim_swappiness_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool update_o4c_list_via_a2c2 = 37;
+      case 37:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          update_o4c_list_via_a2c2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .vm_tools.concierge.StartArcVmRequest.UsapProfileType usap_profile = 38;
+      case 38:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_usap_profile(static_cast<::vm_tools::concierge::StartArcVmRequest_UsapProfileType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .vm_tools.concierge.StartArcVmRequest.BinaryTranslationType native_bridge_experiment = 39;
+      case 39:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_native_bridge_experiment(static_cast<::vm_tools::concierge::StartArcVmRequest_BinaryTranslationType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .vm_tools.concierge.StartArcVmRequest.UreadaheadMode ureadahead_mode = 40;
+      case 40:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_ureadahead_mode(static_cast<::vm_tools::concierge::StartArcVmRequest_UreadaheadMode>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool enable_rw = 41;
+      case 41:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          enable_rw_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5691,6 +5954,51 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
         _Internal::mini_instance_request(this).GetCachedSize(), target, stream);
   }
 
+  // int32 mglru_reclaim_interval = 35;
+  if (this->_internal_mglru_reclaim_interval() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(35, this->_internal_mglru_reclaim_interval(), target);
+  }
+
+  // int32 mglru_reclaim_swappiness = 36;
+  if (this->_internal_mglru_reclaim_swappiness() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(36, this->_internal_mglru_reclaim_swappiness(), target);
+  }
+
+  // bool update_o4c_list_via_a2c2 = 37;
+  if (this->_internal_update_o4c_list_via_a2c2() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(37, this->_internal_update_o4c_list_via_a2c2(), target);
+  }
+
+  // .vm_tools.concierge.StartArcVmRequest.UsapProfileType usap_profile = 38;
+  if (this->_internal_usap_profile() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      38, this->_internal_usap_profile(), target);
+  }
+
+  // .vm_tools.concierge.StartArcVmRequest.BinaryTranslationType native_bridge_experiment = 39;
+  if (this->_internal_native_bridge_experiment() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      39, this->_internal_native_bridge_experiment(), target);
+  }
+
+  // .vm_tools.concierge.StartArcVmRequest.UreadaheadMode ureadahead_mode = 40;
+  if (this->_internal_ureadahead_mode() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      40, this->_internal_ureadahead_mode(), target);
+  }
+
+  // bool enable_rw = 41;
+  if (this->_internal_enable_rw() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(41, this->_internal_enable_rw(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -5879,16 +6187,6 @@ size_t StartArcVmRequest::ByteSizeLong() const {
         this->_internal_vm_memory_psi_period());
   }
 
-  // bool arc_generate_play_auto_install = 30;
-  if (this->_internal_arc_generate_play_auto_install() != 0) {
-    total_size += 2 + 1;
-  }
-
-  // bool disable_download_provider = 31;
-  if (this->_internal_disable_download_provider() != 0) {
-    total_size += 2 + 1;
-  }
-
   // int32 guest_zram_size = 32;
   if (this->_internal_guest_zram_size() != 0) {
     total_size += 2 +
@@ -5901,6 +6199,58 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += 2 +
       ::_pbi::WireFormatLite::Int32Size(
         this->_internal_guest_swappiness());
+  }
+
+  // bool arc_generate_play_auto_install = 30;
+  if (this->_internal_arc_generate_play_auto_install() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool disable_download_provider = 31;
+  if (this->_internal_disable_download_provider() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool update_o4c_list_via_a2c2 = 37;
+  if (this->_internal_update_o4c_list_via_a2c2() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // bool enable_rw = 41;
+  if (this->_internal_enable_rw() != 0) {
+    total_size += 2 + 1;
+  }
+
+  // int32 mglru_reclaim_interval = 35;
+  if (this->_internal_mglru_reclaim_interval() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::Int32Size(
+        this->_internal_mglru_reclaim_interval());
+  }
+
+  // int32 mglru_reclaim_swappiness = 36;
+  if (this->_internal_mglru_reclaim_swappiness() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::Int32Size(
+        this->_internal_mglru_reclaim_swappiness());
+  }
+
+  // .vm_tools.concierge.StartArcVmRequest.UsapProfileType usap_profile = 38;
+  if (this->_internal_usap_profile() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_usap_profile());
+  }
+
+  // .vm_tools.concierge.StartArcVmRequest.BinaryTranslationType native_bridge_experiment = 39;
+  if (this->_internal_native_bridge_experiment() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_native_bridge_experiment());
+  }
+
+  // .vm_tools.concierge.StartArcVmRequest.UreadaheadMode ureadahead_mode = 40;
+  if (this->_internal_ureadahead_mode() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_ureadahead_mode());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6009,17 +6359,38 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   if (from._internal_vm_memory_psi_period() != 0) {
     _internal_set_vm_memory_psi_period(from._internal_vm_memory_psi_period());
   }
+  if (from._internal_guest_zram_size() != 0) {
+    _internal_set_guest_zram_size(from._internal_guest_zram_size());
+  }
+  if (from._internal_guest_swappiness() != 0) {
+    _internal_set_guest_swappiness(from._internal_guest_swappiness());
+  }
   if (from._internal_arc_generate_play_auto_install() != 0) {
     _internal_set_arc_generate_play_auto_install(from._internal_arc_generate_play_auto_install());
   }
   if (from._internal_disable_download_provider() != 0) {
     _internal_set_disable_download_provider(from._internal_disable_download_provider());
   }
-  if (from._internal_guest_zram_size() != 0) {
-    _internal_set_guest_zram_size(from._internal_guest_zram_size());
+  if (from._internal_update_o4c_list_via_a2c2() != 0) {
+    _internal_set_update_o4c_list_via_a2c2(from._internal_update_o4c_list_via_a2c2());
   }
-  if (from._internal_guest_swappiness() != 0) {
-    _internal_set_guest_swappiness(from._internal_guest_swappiness());
+  if (from._internal_enable_rw() != 0) {
+    _internal_set_enable_rw(from._internal_enable_rw());
+  }
+  if (from._internal_mglru_reclaim_interval() != 0) {
+    _internal_set_mglru_reclaim_interval(from._internal_mglru_reclaim_interval());
+  }
+  if (from._internal_mglru_reclaim_swappiness() != 0) {
+    _internal_set_mglru_reclaim_swappiness(from._internal_mglru_reclaim_swappiness());
+  }
+  if (from._internal_usap_profile() != 0) {
+    _internal_set_usap_profile(from._internal_usap_profile());
+  }
+  if (from._internal_native_bridge_experiment() != 0) {
+    _internal_set_native_bridge_experiment(from._internal_native_bridge_experiment());
+  }
+  if (from._internal_ureadahead_mode() != 0) {
+    _internal_set_ureadahead_mode(from._internal_ureadahead_mode());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -6055,8 +6426,8 @@ void StartArcVmRequest::InternalSwap(StartArcVmRequest* other) {
       &other->fstab_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, guest_swappiness_)
-      + sizeof(StartArcVmRequest::guest_swappiness_)
+      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, ureadahead_mode_)
+      + sizeof(StartArcVmRequest::ureadahead_mode_)
       - PROTOBUF_FIELD_OFFSET(StartArcVmRequest, vm_)>(
           reinterpret_cast<char*>(&vm_),
           reinterpret_cast<char*>(&other->vm_));

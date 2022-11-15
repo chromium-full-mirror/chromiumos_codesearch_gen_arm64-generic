@@ -994,6 +994,30 @@ public:
         virtual ~GetSharedStorageEntriesCallback() { }
     };
     virtual void GetSharedStorageEntries(const String& in_ownerOrigin, std::unique_ptr<GetSharedStorageEntriesCallback> callback) = 0;
+    class CONTENT_EXPORT SetSharedStorageEntryCallback {
+    public:
+        virtual void sendSuccess() = 0;
+        virtual void sendFailure(const DispatchResponse&) = 0;
+        virtual void fallThrough() = 0;
+        virtual ~SetSharedStorageEntryCallback() { }
+    };
+    virtual void SetSharedStorageEntry(const String& in_ownerOrigin, const String& in_key, const String& in_value, Maybe<bool> in_ignoreIfPresent, std::unique_ptr<SetSharedStorageEntryCallback> callback) = 0;
+    class CONTENT_EXPORT DeleteSharedStorageEntryCallback {
+    public:
+        virtual void sendSuccess() = 0;
+        virtual void sendFailure(const DispatchResponse&) = 0;
+        virtual void fallThrough() = 0;
+        virtual ~DeleteSharedStorageEntryCallback() { }
+    };
+    virtual void DeleteSharedStorageEntry(const String& in_ownerOrigin, const String& in_key, std::unique_ptr<DeleteSharedStorageEntryCallback> callback) = 0;
+    class CONTENT_EXPORT ClearSharedStorageEntriesCallback {
+    public:
+        virtual void sendSuccess() = 0;
+        virtual void sendFailure(const DispatchResponse&) = 0;
+        virtual void fallThrough() = 0;
+        virtual ~ClearSharedStorageEntriesCallback() { }
+    };
+    virtual void ClearSharedStorageEntries(const String& in_ownerOrigin, std::unique_ptr<ClearSharedStorageEntriesCallback> callback) = 0;
     virtual DispatchResponse SetSharedStorageTracking(bool in_enable) = 0;
 
     virtual DispatchResponse Disable()

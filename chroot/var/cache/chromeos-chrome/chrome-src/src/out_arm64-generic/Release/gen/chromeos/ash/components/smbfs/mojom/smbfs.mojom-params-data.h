@@ -14,11 +14,13 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
+
+namespace mojo::internal {
+class ValidationContext;
+}
 namespace smbfs {
 namespace mojom {
 namespace internal {
-
-class ValidationContext;
 class COMPONENT_EXPORT(SMBFS_MOJOM_SHARED) SmbFsBootstrap_MountShare_Params_Data {
  public:
   static bool Validate(const void* data,

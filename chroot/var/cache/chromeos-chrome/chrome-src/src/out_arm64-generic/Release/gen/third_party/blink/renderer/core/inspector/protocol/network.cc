@@ -1059,7 +1059,7 @@ void Frontend::webTransportClosed(const String& transportId, double timestamp)
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Network.webTransportClosed", serializer.Finish()));
 }
 
-void Frontend::requestWillBeSentExtraInfo(const String& requestId, std::unique_ptr<protocol::Array<protocol::Network::BlockedCookieWithReason>> associatedCookies, std::unique_ptr<protocol::Network::Headers> headers, std::unique_ptr<protocol::Network::ConnectTiming> connectTiming, Maybe<protocol::Network::ClientSecurityState> clientSecurityState)
+void Frontend::requestWillBeSentExtraInfo(const String& requestId, std::unique_ptr<protocol::Array<protocol::Network::BlockedCookieWithReason>> associatedCookies, std::unique_ptr<protocol::Network::Headers> headers, std::unique_ptr<protocol::Network::ConnectTiming> connectTiming, Maybe<protocol::Network::ClientSecurityState> clientSecurityState, Maybe<bool> siteHasCookieInOtherPartition)
 {
     if (!frontend_channel_)
         return;
@@ -1069,6 +1069,7 @@ void Frontend::requestWillBeSentExtraInfo(const String& requestId, std::unique_p
     serializer.AddField(crdtp::MakeSpan("headers"), headers);
     serializer.AddField(crdtp::MakeSpan("connectTiming"), connectTiming);
     serializer.AddField(crdtp::MakeSpan("clientSecurityState"), clientSecurityState);
+    serializer.AddField(crdtp::MakeSpan("siteHasCookieInOtherPartition"), siteHasCookieInOtherPartition);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Network.requestWillBeSentExtraInfo", serializer.Finish()));
 }
 

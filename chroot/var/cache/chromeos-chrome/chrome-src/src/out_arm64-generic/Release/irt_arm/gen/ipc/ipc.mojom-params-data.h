@@ -14,11 +14,13 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
+
+namespace mojo::internal {
+class ValidationContext;
+}
 namespace IPC {
 namespace mojom {
 namespace internal {
-
-class ValidationContext;
 class COMPONENT_EXPORT(IPC_MOJOM_SHARED) Channel_SetPeerPid_Params_Data {
  public:
   static bool Validate(const void* data,

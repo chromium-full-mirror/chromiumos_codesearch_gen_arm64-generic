@@ -65,7 +65,6 @@ class VideoHost
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 4;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = VideoHostInterfaceBase;
@@ -114,7 +113,6 @@ class VideoInstance
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 5;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = VideoInstanceInterfaceBase;
@@ -163,7 +161,6 @@ class VideoAcceleratorFactory
   static constexpr auto kServiceSandbox = sandbox::mojom::Sandbox::kHardwareVideoDecoding;
   static constexpr uint32_t Version_ = 10;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = VideoAcceleratorFactoryInterfaceBase;

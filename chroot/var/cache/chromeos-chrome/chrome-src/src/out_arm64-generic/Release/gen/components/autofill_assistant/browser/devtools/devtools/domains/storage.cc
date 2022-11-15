@@ -178,6 +178,24 @@ void ExperimentalDomain::GetSharedStorageEntries(
     base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<GetSharedStorageEntriesResult>)> callback) {
   dispatcher_->SendMessage("Storage.getSharedStorageEntries", params->Serialize(), optional_node_frame_id, base::BindOnce(&Domain::HandleGetSharedStorageEntriesResponse, std::move(callback)));
 }
+void ExperimentalDomain::SetSharedStorageEntry(
+    std::unique_ptr<SetSharedStorageEntryParams> params,
+    const std::string& optional_node_frame_id,
+    base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetSharedStorageEntryResult>)> callback) {
+  dispatcher_->SendMessage("Storage.setSharedStorageEntry", params->Serialize(), optional_node_frame_id, base::BindOnce(&Domain::HandleSetSharedStorageEntryResponse, std::move(callback)));
+}
+void ExperimentalDomain::DeleteSharedStorageEntry(
+    std::unique_ptr<DeleteSharedStorageEntryParams> params,
+    const std::string& optional_node_frame_id,
+    base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<DeleteSharedStorageEntryResult>)> callback) {
+  dispatcher_->SendMessage("Storage.deleteSharedStorageEntry", params->Serialize(), optional_node_frame_id, base::BindOnce(&Domain::HandleDeleteSharedStorageEntryResponse, std::move(callback)));
+}
+void ExperimentalDomain::ClearSharedStorageEntries(
+    std::unique_ptr<ClearSharedStorageEntriesParams> params,
+    const std::string& optional_node_frame_id,
+    base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<ClearSharedStorageEntriesResult>)> callback) {
+  dispatcher_->SendMessage("Storage.clearSharedStorageEntries", params->Serialize(), optional_node_frame_id, base::BindOnce(&Domain::HandleClearSharedStorageEntriesResponse, std::move(callback)));
+}
 void ExperimentalDomain::SetSharedStorageTracking(
     std::unique_ptr<SetSharedStorageTrackingParams> params,
     const std::string& optional_node_frame_id,
@@ -562,6 +580,63 @@ void Domain::HandleGetSharedStorageEntriesResponse(
   }
   ErrorReporter errors;
   std::unique_ptr<GetSharedStorageEntriesResult> result = GetSharedStorageEntriesResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(reply_status, std::move(result));
+}
+
+// static
+void Domain::HandleSetSharedStorageEntryResponse(
+    base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetSharedStorageEntryResult>)> callback,
+    const MessageDispatcher::ReplyStatus& reply_status,
+    const base::Value& response) {
+  if (callback.is_null())
+    return;
+
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(reply_status, nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<SetSharedStorageEntryResult> result = SetSharedStorageEntryResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(reply_status, std::move(result));
+}
+
+// static
+void Domain::HandleDeleteSharedStorageEntryResponse(
+    base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<DeleteSharedStorageEntryResult>)> callback,
+    const MessageDispatcher::ReplyStatus& reply_status,
+    const base::Value& response) {
+  if (callback.is_null())
+    return;
+
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(reply_status, nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<DeleteSharedStorageEntryResult> result = DeleteSharedStorageEntryResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(reply_status, std::move(result));
+}
+
+// static
+void Domain::HandleClearSharedStorageEntriesResponse(
+    base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<ClearSharedStorageEntriesResult>)> callback,
+    const MessageDispatcher::ReplyStatus& reply_status,
+    const base::Value& response) {
+  if (callback.is_null())
+    return;
+
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(reply_status, nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<ClearSharedStorageEntriesResult> result = ClearSharedStorageEntriesResult::Parse(response, &errors);
   DCHECK(!errors.HasErrors()) << errors.ToString();
   std::move(callback).Run(reply_status, std::move(result));
 }

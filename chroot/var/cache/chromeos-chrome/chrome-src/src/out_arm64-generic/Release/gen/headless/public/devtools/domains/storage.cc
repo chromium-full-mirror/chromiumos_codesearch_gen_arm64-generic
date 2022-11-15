@@ -116,6 +116,15 @@ void ExperimentalDomain::GetSharedStorageMetadata(std::unique_ptr<GetSharedStora
 void ExperimentalDomain::GetSharedStorageEntries(std::unique_ptr<GetSharedStorageEntriesParams> params, base::OnceCallback<void(std::unique_ptr<GetSharedStorageEntriesResult>)> callback) {
   dispatcher_->SendMessage("Storage.getSharedStorageEntries", params->Serialize(), base::BindOnce(&Domain::HandleGetSharedStorageEntriesResponse, std::move(callback)));
 }
+void ExperimentalDomain::SetSharedStorageEntry(std::unique_ptr<SetSharedStorageEntryParams> params, base::OnceCallback<void(std::unique_ptr<SetSharedStorageEntryResult>)> callback) {
+  dispatcher_->SendMessage("Storage.setSharedStorageEntry", params->Serialize(), base::BindOnce(&Domain::HandleSetSharedStorageEntryResponse, std::move(callback)));
+}
+void ExperimentalDomain::DeleteSharedStorageEntry(std::unique_ptr<DeleteSharedStorageEntryParams> params, base::OnceCallback<void(std::unique_ptr<DeleteSharedStorageEntryResult>)> callback) {
+  dispatcher_->SendMessage("Storage.deleteSharedStorageEntry", params->Serialize(), base::BindOnce(&Domain::HandleDeleteSharedStorageEntryResponse, std::move(callback)));
+}
+void ExperimentalDomain::ClearSharedStorageEntries(std::unique_ptr<ClearSharedStorageEntriesParams> params, base::OnceCallback<void(std::unique_ptr<ClearSharedStorageEntriesResult>)> callback) {
+  dispatcher_->SendMessage("Storage.clearSharedStorageEntries", params->Serialize(), base::BindOnce(&Domain::HandleClearSharedStorageEntriesResponse, std::move(callback)));
+}
 void ExperimentalDomain::SetSharedStorageTracking(std::unique_ptr<SetSharedStorageTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetSharedStorageTrackingResult>)> callback) {
   dispatcher_->SendMessage("Storage.setSharedStorageTracking", params->Serialize(), base::BindOnce(&Domain::HandleSetSharedStorageTrackingResponse, std::move(callback)));
 }
@@ -417,6 +426,51 @@ void Domain::HandleGetSharedStorageEntriesResponse(base::OnceCallback<void(std::
   }
   ErrorReporter errors;
   std::unique_ptr<GetSharedStorageEntriesResult> result = GetSharedStorageEntriesResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(std::move(result));
+}
+
+// static
+void Domain::HandleSetSharedStorageEntryResponse(base::OnceCallback<void(std::unique_ptr<SetSharedStorageEntryResult>)> callback, const base::Value& response) {
+  if (callback.is_null())
+    return;
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<SetSharedStorageEntryResult> result = SetSharedStorageEntryResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(std::move(result));
+}
+
+// static
+void Domain::HandleDeleteSharedStorageEntryResponse(base::OnceCallback<void(std::unique_ptr<DeleteSharedStorageEntryResult>)> callback, const base::Value& response) {
+  if (callback.is_null())
+    return;
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<DeleteSharedStorageEntryResult> result = DeleteSharedStorageEntryResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(std::move(result));
+}
+
+// static
+void Domain::HandleClearSharedStorageEntriesResponse(base::OnceCallback<void(std::unique_ptr<ClearSharedStorageEntriesResult>)> callback, const base::Value& response) {
+  if (callback.is_null())
+    return;
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<ClearSharedStorageEntriesResult> result = ClearSharedStorageEntriesResult::Parse(response, &errors);
   DCHECK(!errors.HasErrors()) << errors.ToString();
   std::move(callback).Run(std::move(result));
 }

@@ -14,12 +14,14 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
+
+namespace mojo::internal {
+class ValidationContext;
+}
 namespace ml {
 namespace model_loader {
 namespace mojom {
 namespace internal {
-
-class ValidationContext;
 class  ModelLoader_Load_Params_Data {
  public:
   static bool Validate(const void* data,

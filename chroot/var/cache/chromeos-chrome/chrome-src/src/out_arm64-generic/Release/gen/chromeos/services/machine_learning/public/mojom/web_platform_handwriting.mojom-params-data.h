@@ -14,13 +14,15 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
+
+namespace mojo::internal {
+class ValidationContext;
+}
 namespace chromeos {
 namespace machine_learning {
 namespace web_platform {
 namespace mojom {
 namespace internal {
-
-class ValidationContext;
 class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) HandwritingRecognizer_GetPrediction_Params_Data {
  public:
   static bool Validate(const void* data,

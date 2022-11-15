@@ -23,6 +23,7 @@ PROTOBUF_CONSTEXPR Record::Record(
   : data_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , dm_token_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , timestamp_us_(int64_t{0})
+  , reserved_space_(int64_t{0})
   , destination_(0)
 {}
 struct RecordDefaultTypeInternal {
@@ -190,13 +191,16 @@ class Record::_Internal {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_destination(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
+    (*has_bits)[0] |= 16u;
   }
   static void set_has_dm_token(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_timestamp_us(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
+  }
+  static void set_has_reserved_space(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
   }
 };
 
@@ -281,7 +285,7 @@ void Record::Clear() {
       dm_token_.ClearNonDefaultToEmpty();
     }
   }
-  if (cached_has_bits & 0x0000000cu) {
+  if (cached_has_bits & 0x0000001cu) {
     ::memset(&timestamp_us_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&destination_) -
         reinterpret_cast<char*>(&timestamp_us_)) + sizeof(destination_));
@@ -337,6 +341,15 @@ const char* Record::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
         } else
           goto handle_unusual;
         continue;
+      // optional int64 reserved_space = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _Internal::set_has_reserved_space(&has_bits);
+          reserved_space_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -375,7 +388,7 @@ uint8_t* Record::_InternalSerialize(
   }
 
   // optional .reporting.Destination destination = 2;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_destination(), target);
@@ -391,6 +404,12 @@ uint8_t* Record::_InternalSerialize(
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(4, this->_internal_timestamp_us(), target);
+  }
+
+  // optional int64 reserved_space = 5;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(5, this->_internal_reserved_space(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -410,7 +429,7 @@ size_t Record::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     // optional bytes data = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -430,8 +449,13 @@ size_t Record::ByteSizeLong() const {
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_timestamp_us());
     }
 
-    // optional .reporting.Destination destination = 2;
+    // optional int64 reserved_space = 5;
     if (cached_has_bits & 0x00000008u) {
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_reserved_space());
+    }
+
+    // optional .reporting.Destination destination = 2;
+    if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_destination());
     }
@@ -458,7 +482,7 @@ void Record::MergeFrom(const Record& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_data(from._internal_data());
     }
@@ -469,6 +493,9 @@ void Record::MergeFrom(const Record& from) {
       timestamp_us_ = from.timestamp_us_;
     }
     if (cached_has_bits & 0x00000008u) {
+      reserved_space_ = from.reserved_space_;
+    }
+    if (cached_has_bits & 0x00000010u) {
       destination_ = from.destination_;
     }
     _has_bits_[0] |= cached_has_bits;

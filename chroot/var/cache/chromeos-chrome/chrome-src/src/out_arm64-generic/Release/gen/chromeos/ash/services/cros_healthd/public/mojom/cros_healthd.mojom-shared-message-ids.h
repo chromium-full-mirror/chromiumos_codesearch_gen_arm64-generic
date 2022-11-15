@@ -55,6 +55,7 @@ constexpr uint32_t kCrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Na
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name = 29;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunArcPingRoutine_Name = 30;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Name = 31;
+constexpr uint32_t kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name = 33;
 constexpr uint32_t kCrosHealthdEventService_AddBluetoothObserver_Name = 0;
 constexpr uint32_t kCrosHealthdEventService_AddLidObserver_Name = 1;
 constexpr uint32_t kCrosHealthdEventService_AddPowerObserver_Name = 2;

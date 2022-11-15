@@ -160,8 +160,10 @@ enum class DiagnosticRoutineEnum : int32_t {
   kArcPing = 28,
   
   kArcDnsResolution = 29,
+  
+  kSensitiveSensor = 31,
   kMinValue = 0,
-  kMaxValue = 30,
+  kMaxValue = 31,
   kDefaultValue = 30
 };
 

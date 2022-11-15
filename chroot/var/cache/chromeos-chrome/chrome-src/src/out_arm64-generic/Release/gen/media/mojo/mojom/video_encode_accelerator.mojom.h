@@ -67,7 +67,6 @@ class VideoEncodeAcceleratorProvider
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = VideoEncodeAcceleratorProviderInterfaceBase;
@@ -123,7 +122,10 @@ class VideoEncodeAccelerator
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = true;
-  static constexpr bool HasSyncMethods_ = true;
+  static inline constexpr uint32_t kSyncMethodOrdinals[] = {
+    0, 
+    5
+  };
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = VideoEncodeAcceleratorInterfaceBase;
@@ -229,7 +231,6 @@ class VideoEncodeAcceleratorClient
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = VideoEncodeAcceleratorClientInterfaceBase;

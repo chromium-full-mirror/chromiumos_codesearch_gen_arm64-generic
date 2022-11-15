@@ -62,7 +62,6 @@ class VideoDecodeAccelerator
   static constexpr auto kServiceSandbox = sandbox::mojom::Sandbox::kGpu;
   static constexpr uint32_t Version_ = 4;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = VideoDecodeAcceleratorInterfaceBase;
@@ -158,7 +157,6 @@ class VideoDecodeClient
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 3;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = VideoDecodeClientInterfaceBase;

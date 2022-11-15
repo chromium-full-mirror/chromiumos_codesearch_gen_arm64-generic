@@ -3585,6 +3585,7 @@ class  OsVersion_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> build_number;
   mojo::internal::Pointer<mojo::internal::String_Data> patch_number;
   mojo::internal::Pointer<mojo::internal::String_Data> release_channel;
+  mojo::internal::Pointer<mojo::internal::String_Data> branch_number;
 
  private:
   friend class mojo::internal::MessageFragment<OsVersion_Data>;
@@ -3592,7 +3593,7 @@ class  OsVersion_Data {
   OsVersion_Data();
   ~OsVersion_Data() = delete;
 };
-static_assert(sizeof(OsVersion_Data) == 40,
+static_assert(sizeof(OsVersion_Data) == 48,
               "Bad sizeof(OsVersion_Data)");
 // Used by OsVersion::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

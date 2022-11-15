@@ -14,12 +14,14 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
+
+namespace mojo::internal {
+class ValidationContext;
+}
 namespace chromeos {
 namespace network_config {
 namespace mojom {
 namespace internal {
-
-class ValidationContext;
 
 }  // namespace internal
 }  // namespace mojom
