@@ -2976,10 +2976,10 @@ class StartArcVmRequest final :
   void _internal_set_use_per_vm_core_scheduling(bool value);
   public:
 
-  // bool enable_consumer_auto_update_toggle = 16;
-  void clear_enable_consumer_auto_update_toggle();
-  bool enable_consumer_auto_update_toggle() const;
-  void set_enable_consumer_auto_update_toggle(bool value);
+  // bool enable_consumer_auto_update_toggle = 16 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_enable_consumer_auto_update_toggle();
+  PROTOBUF_DEPRECATED bool enable_consumer_auto_update_toggle() const;
+  PROTOBUF_DEPRECATED void set_enable_consumer_auto_update_toggle(bool value);
   private:
   bool _internal_enable_consumer_auto_update_toggle() const;
   void _internal_set_enable_consumer_auto_update_toggle(bool value);
@@ -2994,10 +2994,10 @@ class StartArcVmRequest final :
   void _internal_set_lock_guest_memory(bool value);
   public:
 
-  // bool enable_arc_file_picker_experiment = 19;
-  void clear_enable_arc_file_picker_experiment();
-  bool enable_arc_file_picker_experiment() const;
-  void set_enable_arc_file_picker_experiment(bool value);
+  // bool enable_arc_file_picker_experiment = 19 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_enable_arc_file_picker_experiment();
+  PROTOBUF_DEPRECATED bool enable_arc_file_picker_experiment() const;
+  PROTOBUF_DEPRECATED void set_enable_arc_file_picker_experiment(bool value);
   private:
   bool _internal_enable_arc_file_picker_experiment() const;
   void _internal_set_enable_arc_file_picker_experiment(bool value);
@@ -3012,10 +3012,10 @@ class StartArcVmRequest final :
   void _internal_set_panel_orientation(::vm_tools::concierge::StartArcVmRequest_DisplayOrientation value);
   public:
 
-  // bool enable_custom_tabs_experiment = 20;
-  void clear_enable_custom_tabs_experiment();
-  bool enable_custom_tabs_experiment() const;
-  void set_enable_custom_tabs_experiment(bool value);
+  // bool enable_custom_tabs_experiment = 20 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_enable_custom_tabs_experiment();
+  PROTOBUF_DEPRECATED bool enable_custom_tabs_experiment() const;
+  PROTOBUF_DEPRECATED void set_enable_custom_tabs_experiment(bool value);
   private:
   bool _internal_enable_custom_tabs_experiment() const;
   void _internal_set_enable_custom_tabs_experiment(bool value);
@@ -3030,19 +3030,19 @@ class StartArcVmRequest final :
   void _internal_set_enable_keyboard_shortcut_helper_integration(bool value);
   public:
 
-  // bool enable_notifications_refresh = 22;
-  void clear_enable_notifications_refresh();
-  bool enable_notifications_refresh() const;
-  void set_enable_notifications_refresh(bool value);
+  // bool enable_notifications_refresh = 22 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_enable_notifications_refresh();
+  PROTOBUF_DEPRECATED bool enable_notifications_refresh() const;
+  PROTOBUF_DEPRECATED void set_enable_notifications_refresh(bool value);
   private:
   bool _internal_enable_notifications_refresh() const;
   void _internal_set_enable_notifications_refresh(bool value);
   public:
 
-  // bool enable_tts_caching = 23;
-  void clear_enable_tts_caching();
-  bool enable_tts_caching() const;
-  void set_enable_tts_caching(bool value);
+  // bool enable_tts_caching = 23 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_enable_tts_caching();
+  PROTOBUF_DEPRECATED bool enable_tts_caching() const;
+  PROTOBUF_DEPRECATED void set_enable_tts_caching(bool value);
   private:
   bool _internal_enable_tts_caching() const;
   void _internal_set_enable_tts_caching(bool value);
@@ -3084,10 +3084,10 @@ class StartArcVmRequest final :
   void _internal_set_enable_virtio_blk_data(bool value);
   public:
 
-  // bool disable_media_store_maintenance = 29;
-  void clear_disable_media_store_maintenance();
-  bool disable_media_store_maintenance() const;
-  void set_disable_media_store_maintenance(bool value);
+  // bool disable_media_store_maintenance = 29 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_disable_media_store_maintenance();
+  PROTOBUF_DEPRECATED bool disable_media_store_maintenance() const;
+  PROTOBUF_DEPRECATED void set_disable_media_store_maintenance(bool value);
   private:
   bool _internal_disable_media_store_maintenance() const;
   void _internal_set_disable_media_store_maintenance(bool value);
@@ -3120,19 +3120,19 @@ class StartArcVmRequest final :
   void _internal_set_guest_swappiness(int32_t value);
   public:
 
-  // bool arc_generate_play_auto_install = 30;
-  void clear_arc_generate_play_auto_install();
-  bool arc_generate_play_auto_install() const;
-  void set_arc_generate_play_auto_install(bool value);
+  // bool arc_generate_play_auto_install = 30 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_arc_generate_play_auto_install();
+  PROTOBUF_DEPRECATED bool arc_generate_play_auto_install() const;
+  PROTOBUF_DEPRECATED void set_arc_generate_play_auto_install(bool value);
   private:
   bool _internal_arc_generate_play_auto_install() const;
   void _internal_set_arc_generate_play_auto_install(bool value);
   public:
 
-  // bool disable_download_provider = 31;
-  void clear_disable_download_provider();
-  bool disable_download_provider() const;
-  void set_disable_download_provider(bool value);
+  // bool disable_download_provider = 31 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_disable_download_provider();
+  PROTOBUF_DEPRECATED bool disable_download_provider() const;
+  PROTOBUF_DEPRECATED void set_disable_download_provider(bool value);
   private:
   bool _internal_disable_download_provider() const;
   void _internal_set_disable_download_provider(bool value);
@@ -15668,7 +15668,7 @@ inline void StartArcVmRequest::set_rootfs_block_size(uint32_t value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.rootfs_block_size)
 }
 
-// bool enable_consumer_auto_update_toggle = 16;
+// bool enable_consumer_auto_update_toggle = 16 [deprecated = true];
 inline void StartArcVmRequest::clear_enable_consumer_auto_update_toggle() {
   enable_consumer_auto_update_toggle_ = false;
 }
@@ -15728,7 +15728,7 @@ inline void StartArcVmRequest::set_lock_guest_memory(bool value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.lock_guest_memory)
 }
 
-// bool enable_arc_file_picker_experiment = 19;
+// bool enable_arc_file_picker_experiment = 19 [deprecated = true];
 inline void StartArcVmRequest::clear_enable_arc_file_picker_experiment() {
   enable_arc_file_picker_experiment_ = false;
 }
@@ -15748,7 +15748,7 @@ inline void StartArcVmRequest::set_enable_arc_file_picker_experiment(bool value)
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_arc_file_picker_experiment)
 }
 
-// bool enable_custom_tabs_experiment = 20;
+// bool enable_custom_tabs_experiment = 20 [deprecated = true];
 inline void StartArcVmRequest::clear_enable_custom_tabs_experiment() {
   enable_custom_tabs_experiment_ = false;
 }
@@ -15788,7 +15788,7 @@ inline void StartArcVmRequest::set_enable_keyboard_shortcut_helper_integration(b
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_keyboard_shortcut_helper_integration)
 }
 
-// bool enable_notifications_refresh = 22;
+// bool enable_notifications_refresh = 22 [deprecated = true];
 inline void StartArcVmRequest::clear_enable_notifications_refresh() {
   enable_notifications_refresh_ = false;
 }
@@ -15808,7 +15808,7 @@ inline void StartArcVmRequest::set_enable_notifications_refresh(bool value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_notifications_refresh)
 }
 
-// bool enable_tts_caching = 23;
+// bool enable_tts_caching = 23 [deprecated = true];
 inline void StartArcVmRequest::clear_enable_tts_caching() {
   enable_tts_caching_ = false;
 }
@@ -15928,7 +15928,7 @@ inline void StartArcVmRequest::set_vm_memory_psi_period(int32_t value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.vm_memory_psi_period)
 }
 
-// bool disable_media_store_maintenance = 29;
+// bool disable_media_store_maintenance = 29 [deprecated = true];
 inline void StartArcVmRequest::clear_disable_media_store_maintenance() {
   disable_media_store_maintenance_ = false;
 }
@@ -15948,7 +15948,7 @@ inline void StartArcVmRequest::set_disable_media_store_maintenance(bool value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.disable_media_store_maintenance)
 }
 
-// bool arc_generate_play_auto_install = 30;
+// bool arc_generate_play_auto_install = 30 [deprecated = true];
 inline void StartArcVmRequest::clear_arc_generate_play_auto_install() {
   arc_generate_play_auto_install_ = false;
 }
@@ -15968,7 +15968,7 @@ inline void StartArcVmRequest::set_arc_generate_play_auto_install(bool value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.arc_generate_play_auto_install)
 }
 
-// bool disable_download_provider = 31;
+// bool disable_download_provider = 31 [deprecated = true];
 inline void StartArcVmRequest::clear_disable_download_provider() {
   disable_download_provider_ = false;
 }

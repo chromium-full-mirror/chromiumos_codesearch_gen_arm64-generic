@@ -220,6 +220,10 @@ constexpr Camera_Fields::Camera_Fields(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , bus_type_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , mipi_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , mipi_module_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , mipi_sensor_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , mipi_vendor_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , usb_vendor_id_(0u)
   , usb_product_id_(0u)
   , usb_bcd_device_(0u)
@@ -564,6 +568,10 @@ const uint32_t TableStruct_runtime_5fprobe_2eproto::offsets[] PROTOBUF_SECTION_V
   PROTOBUF_FIELD_OFFSET(::runtime_probe::Camera_Fields, usb_product_id_),
   PROTOBUF_FIELD_OFFSET(::runtime_probe::Camera_Fields, usb_bcd_device_),
   PROTOBUF_FIELD_OFFSET(::runtime_probe::Camera_Fields, usb_removable_),
+  PROTOBUF_FIELD_OFFSET(::runtime_probe::Camera_Fields, mipi_name_),
+  PROTOBUF_FIELD_OFFSET(::runtime_probe::Camera_Fields, mipi_module_id_),
+  PROTOBUF_FIELD_OFFSET(::runtime_probe::Camera_Fields, mipi_sensor_id_),
+  PROTOBUF_FIELD_OFFSET(::runtime_probe::Camera_Fields, mipi_vendor_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::runtime_probe::Camera, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -707,17 +715,17 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 111, -1, -1, sizeof(::runtime_probe::Network_Fields)},
   { 129, -1, -1, sizeof(::runtime_probe::Network)},
   { 138, -1, -1, sizeof(::runtime_probe::Camera_Fields)},
-  { 150, -1, -1, sizeof(::runtime_probe::Camera)},
-  { 159, -1, -1, sizeof(::runtime_probe::InputDevice_Fields)},
-  { 174, -1, -1, sizeof(::runtime_probe::InputDevice)},
-  { 183, -1, -1, sizeof(::runtime_probe::Memory_Fields)},
-  { 192, -1, -1, sizeof(::runtime_probe::Memory)},
-  { 201, -1, -1, sizeof(::runtime_probe::Edid_Fields)},
-  { 212, -1, -1, sizeof(::runtime_probe::Edid)},
-  { 221, -1, -1, sizeof(::runtime_probe::ProbeResult)},
-  { 243, -1, -1, sizeof(::runtime_probe::ComponentFields)},
-  { 263, -1, -1, sizeof(::runtime_probe::GetKnownComponentsRequest)},
-  { 270, -1, -1, sizeof(::runtime_probe::GetKnownComponentsResult)},
+  { 154, -1, -1, sizeof(::runtime_probe::Camera)},
+  { 163, -1, -1, sizeof(::runtime_probe::InputDevice_Fields)},
+  { 178, -1, -1, sizeof(::runtime_probe::InputDevice)},
+  { 187, -1, -1, sizeof(::runtime_probe::Memory_Fields)},
+  { 196, -1, -1, sizeof(::runtime_probe::Memory)},
+  { 205, -1, -1, sizeof(::runtime_probe::Edid_Fields)},
+  { 216, -1, -1, sizeof(::runtime_probe::Edid)},
+  { 225, -1, -1, sizeof(::runtime_probe::ProbeResult)},
+  { 247, -1, -1, sizeof(::runtime_probe::ComponentFields)},
+  { 267, -1, -1, sizeof(::runtime_probe::GetKnownComponentsRequest)},
+  { 274, -1, -1, sizeof(::runtime_probe::GetKnownComponentsResult)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -800,146 +808,148 @@ const char descriptor_table_protodef_runtime_5fprobe_2eproto[] PROTOBUF_SECTION_
   "\001(\r\022\025\n\rusb_vendor_id\030\007 \001(\r\022\026\n\016usb_produc"
   "t_id\030\010 \001(\r\022\026\n\016usb_bcd_device\030\t \001(\r\022\026\n\016sd"
   "io_vendor_id\030\n \001(\r\022\026\n\016sdio_device_id\030\013 \001"
-  "(\r\"\233\002\n\006Camera\022\014\n\004name\030\001 \001(\t\022,\n\006values\030\002 "
+  "(\r\"\363\002\n\006Camera\022\014\n\004name\030\001 \001(\t\022,\n\006values\030\002 "
   "\001(\0132\034.runtime_probe.Camera.Fields\022/\n\013inf"
   "ormation\030\003 \001(\0132\032.runtime_probe.Informati"
-  "on\032\243\001\n\006Fields\022\014\n\004path\030\001 \001(\t\022\020\n\010bus_type\030"
+  "on\032\373\001\n\006Fields\022\014\n\004path\030\001 \001(\t\022\020\n\010bus_type\030"
   "\002 \001(\t\022\025\n\rusb_vendor_id\030\003 \001(\r\022\026\n\016usb_prod"
   "uct_id\030\004 \001(\r\022\026\n\016usb_bcd_device\030\005 \001(\r\0222\n\r"
   "usb_removable\030\006 \001(\0162\033.runtime_probe.UsbR"
-  "emovable\"\250\003\n\013InputDevice\022\014\n\004name\030\001 \001(\t\0221"
-  "\n\006values\030\002 \001(\0132!.runtime_probe.InputDevi"
-  "ce.Fields\022/\n\013information\030\003 \001(\0132\032.runtime"
-  "_probe.Information\032\274\001\n\006Fields\022\014\n\004name\030\001 "
-  "\001(\t\022\014\n\004path\030\002 \001(\t\022\r\n\005event\030\003 \001(\t\022\013\n\003bus\030"
-  "\004 \001(\r\022\016\n\006vendor\030\005 \001(\r\022\017\n\007product\030\006 \001(\r\022\017"
-  "\n\007version\030\007 \001(\r\022\022\n\nfw_version\030\010 \001(\t\0224\n\013d"
-  "evice_type\030\t \001(\0162\037.runtime_probe.InputDe"
-  "vice.Type\"h\n\004Type\022\024\n\020TYPE_UNSPECIFIED\020\000\022"
-  "\020\n\014TYPE_UNKNOWN\020\001\022\017\n\013TYPE_STYLUS\020\002\022\021\n\rTY"
-  "PE_TOUCHPAD\020\003\022\024\n\020TYPE_TOUCHSCREEN\020\004\"\251\001\n\006"
-  "Memory\022\014\n\004name\030\001 \001(\t\022,\n\006values\030\002 \001(\0132\034.r"
-  "untime_probe.Memory.Fields\022/\n\013informatio"
-  "n\030\003 \001(\0132\032.runtime_probe.Information\0322\n\006F"
-  "ields\022\014\n\004part\030\001 \001(\t\022\014\n\004size\030\002 \001(\r\022\014\n\004slo"
-  "t\030\003 \001(\r\"\221\024\n\004Edid\022\014\n\004name\030\001 \001(\t\022*\n\006values"
-  "\030\002 \001(\0132\032.runtime_probe.Edid.Fields\022/\n\013in"
+  "emovable\022\021\n\tmipi_name\030\007 \001(\t\022\026\n\016mipi_modu"
+  "le_id\030\010 \001(\t\022\026\n\016mipi_sensor_id\030\t \001(\t\022\023\n\013m"
+  "ipi_vendor\030\n \001(\t\"\250\003\n\013InputDevice\022\014\n\004name"
+  "\030\001 \001(\t\0221\n\006values\030\002 \001(\0132!.runtime_probe.I"
+  "nputDevice.Fields\022/\n\013information\030\003 \001(\0132\032"
+  ".runtime_probe.Information\032\274\001\n\006Fields\022\014\n"
+  "\004name\030\001 \001(\t\022\014\n\004path\030\002 \001(\t\022\r\n\005event\030\003 \001(\t"
+  "\022\013\n\003bus\030\004 \001(\r\022\016\n\006vendor\030\005 \001(\r\022\017\n\007product"
+  "\030\006 \001(\r\022\017\n\007version\030\007 \001(\r\022\022\n\nfw_version\030\010 "
+  "\001(\t\0224\n\013device_type\030\t \001(\0162\037.runtime_probe"
+  ".InputDevice.Type\"h\n\004Type\022\024\n\020TYPE_UNSPEC"
+  "IFIED\020\000\022\020\n\014TYPE_UNKNOWN\020\001\022\017\n\013TYPE_STYLUS"
+  "\020\002\022\021\n\rTYPE_TOUCHPAD\020\003\022\024\n\020TYPE_TOUCHSCREE"
+  "N\020\004\"\251\001\n\006Memory\022\014\n\004name\030\001 \001(\t\022,\n\006values\030\002"
+  " \001(\0132\034.runtime_probe.Memory.Fields\022/\n\013in"
   "formation\030\003 \001(\0132\032.runtime_probe.Informat"
-  "ion\032Y\n\006Fields\022\014\n\004path\030\001 \001(\t\022\016\n\006vendor\030\002 "
-  "\001(\t\022\022\n\nproduct_id\030\003 \001(\r\022\016\n\006height\030\004 \001(\r\022"
-  "\r\n\005width\030\005 \001(\r\"\302\022\n\006Vendor\022\022\n\016VENDOR_UNKN"
-  "OWN\020\000\022\016\n\nVENDOR_AAA\020\001\022\016\n\nVENDOR_ACI\020=\022\016\n"
-  "\nVENDOR_ACR\020F\022\016\n\nVENDOR_ACT\020H\022\016\n\nVENDOR_"
-  "ADA\020O\022\017\n\nVENDOR_AGO\020\253\001\022\017\n\nVENDOR_AOP\020\374\002\022"
-  "\017\n\nVENDOR_API\020\217\003\022\017\n\nVENDOR_APP\020\226\003\022\017\n\nVEN"
-  "DOR_ARD\020\276\003\022\017\n\nVENDOR_ART\020\316\003\022\017\n\nVENDOR_AS"
-  "K\020\337\003\022\017\n\nVENDOR_ATO\020\375\003\022\017\n\nVENDOR_AUO\020\227\004\022\017"
-  "\n\nVENDOR_AUS\020\233\004\022\017\n\nVENDOR_AVT\020\266\004\022\017\n\nVEND"
-  "OR_BEL\020\230\006\022\017\n\nVENDOR_BMD\020\340\007\022\017\n\nVENDOR_BNO"
-  "\020\205\010\022\017\n\nVENDOR_BOE\020\225\010\022\017\n\nVENDOR_BPS\020\275\010\022\017\n"
-  "\nVENDOR_CAT\020\334\n\022\017\n\nVENDOR_CHR\020\220\014\022\017\n\nVENDO"
-  "R_CIN\020\246\014\022\017\n\nVENDOR_CMN\020\216\r\022\017\n\nVENDOR_CMO\020"
-  "\217\r\022\017\n\nVENDOR_CNC\020\235\r\022\017\n\nVENDOR_CPL\020\332\r\022\017\n\n"
-  "VENDOR_CPT\020\342\r\022\017\n\nVENDOR_CRO\020\221\016\022\017\n\nVENDOR"
-  "_CSO\020\253\016\022\017\n\nVENDOR_CTO\020\305\016\022\017\n\nVENDOR_CTX\020\316"
-  "\016\022\017\n\nVENDOR_CUK\020\333\016\022\017\n\nVENDOR_DEL\020\340\020\022\017\n\nV"
-  "ENDOR_DGC\020\213\021\022\017\n\nVENDOR_DMO\020\263\022\022\017\n\nVENDOR_"
-  "DON\020\346\022\022\017\n\nVENDOR_DPL\020\376\022\022\017\n\nVENDOR_EGA\020\255\026"
-  "\022\017\n\nVENDOR_ENC\020\345\027\022\017\n\nVENDOR_EPH\020\236\030\022\017\n\nVE"
-  "NDOR_EXN\020\364\031\022\017\n\nVENDOR_EXP\020\366\031\022\017\n\nVENDOR_F"
-  "NI\020\217\035\022\017\n\nVENDOR_FUS\020\317\036\022\017\n\nVENDOR_GBT\020\206 \022"
-  "\017\n\nVENDOR_GFN\020\350 \022\017\n\nVENDOR_GGL\020\200!\022\017\n\nVEN"
-  "DOR_GSM\020\271#\022\017\n\nVENDOR_HIQ\020\335&\022\017\n\nVENDOR_HK"
-  "C\020\203\'\022\017\n\nVENDOR_HOL\020\364\'\022\017\n\nVENDOR_HPN\020\220(\022\017"
-  "\n\nVENDOR_HSD\020\324(\022\017\n\nVENDOR_HTC\020\355(\022\017\n\nVEND"
-  "OR_HWP\020\310)\022\017\n\nVENDOR_HYT\020\200*\022\017\n\nVENDOR_INO"
-  "\020\201-\022\017\n\nVENDOR_INT\020\206-\022\017\n\nVENDOR_INX\020\212-\022\017\n"
-  "\nVENDOR_ITE\020\223.\022\017\n\nVENDOR_IVM\020\317.\022\017\n\nVENDO"
-  "R_IVO\020\321.\022\017\n\nVENDOR_JVC\020\3513\022\017\n\nVENDOR_KDB\020"
-  "\2705\022\017\n\nVENDOR_KDC\020\2715\022\017\n\nVENDOR_KTC\020\3318\022\017\n\n"
-  "VENDOR_LEN\020\202;\022\017\n\nVENDOR_LGD\020\254;\022\017\n\nVENDOR"
-  "_LNX\020\366<\022\017\n\nVENDOR_LPL\020\236=\022\017\n\nVENDOR_LWR\020\332"
-  ">\022\017\n\nVENDOR_MAX\020\310\?\022\017\n\nVENDOR_MEG\020\237@\022\017\n\nV"
-  "ENDOR_MEI\020\241@\022\017\n\nVENDOR_MEL\020\244@\022\017\n\nVENDOR_"
-  "MJI\020\243A\022\017\n\nVENDOR_MOM\020\251B\022\017\n\nVENDOR_MST\020\230C"
-  "\022\017\n\nVENDOR_MSX\020\234C\022\017\n\nVENDOR_MTC\020\241C\022\017\n\nVE"
-  "NDOR_MTX\020\266C\022\017\n\nVENDOR_NCP\020\230E\022\017\n\nVENDOR_N"
-  "CR\020\232E\022\017\n\nVENDOR_NEC\020\277E\022\017\n\nVENDOR_NEX\020\324E\022"
-  "\017\n\nVENDOR_NVD\020\372H\022\017\n\nVENDOR_ONK\020\325L\022\017\n\nVEN"
-  "DOR_ORN\020\300M\022\017\n\nVENDOR_OTM\020\363M\022\017\n\nVENDOR_OV"
-  "R\020\254N\022\017\n\nVENDOR_PAR\020\256O\022\017\n\nVENDOR_PCC\020\323O\022\017"
-  "\n\nVENDOR_PHL\020\336P\022\017\n\nVENDOR_PIO\020\373P\022\017\n\nVEND"
-  "OR_PLY\020\323Q\022\017\n\nVENDOR_PNR\020\200R\022\017\n\nVENDOR_QDS"
-  "\020\241U\022\017\n\nVENDOR_QNT\020\246W\022\017\n\nVENDOR_RAT\020\370Y\022\017\n"
-  "\nVENDOR_REN\020\332Z\022\017\n\nVENDOR_RTK\020\335]\022\017\n\nVENDO"
-  "R_SAM\020\225_\022\017\n\nVENDOR_SAN\020\226_\022\017\n\nVENDOR_SDC\020"
-  "\331_\022\017\n\nVENDOR_SEC\020\363_\022\017\n\nVENDOR_SGT\020\270`\022\017\n\n"
-  "VENDOR_SHP\020\316`\022\017\n\nVENDOR_SII\020\341`\022\017\n\nVENDOR"
-  "_SIS\020\353`\022\017\n\nVENDOR_SLA\020\247a\022\017\n\nVENDOR_SMC\020\303"
-  "a\022\017\n\nVENDOR_SNY\020\363a\022\017\n\nVENDOR_STA\020\367b\022\017\n\nV"
-  "ENDOR_STD\020\372b\022\017\n\nVENDOR_STN\020\204c\022\017\n\nVENDOR_"
-  "SVS\020\275c\022\017\n\nVENDOR_SYN\020\206d\022\017\n\nVENDOR_TAI\020\265d"
-  "\022\017\n\nVENDOR_TCL\020\354d\022\017\n\nVENDOR_TDC\020\375d\022\017\n\nVE"
-  "NDOR_TOP\020\250g\022\017\n\nVENDOR_TOS\020\253g\022\017\n\nVENDOR_T"
-  "SB\020\202h\022\017\n\nVENDOR_TST\020\224h\022\017\n\nVENDOR_UNK\020\255l\022"
-  "\017\n\nVENDOR_VES\020\357o\022\017\n\nVENDOR_VID\020\310p\022\017\n\nVEN"
-  "DOR_VIT\020\330p\022\017\n\nVENDOR_VIZ\020\336p\022\017\n\nVENDOR_VS"
-  "C\020\313r\022\017\n\nVENDOR_VTK\020\355r\022\017\n\nVENDOR_WDE\020\353t\022\017"
-  "\n\nVENDOR_WST\020\200x\022\017\n\nVENDOR_WYS\020\233y\022\017\n\nVEND"
-  "OR_XLX\020\362{\022\020\n\nVENDOR_YMH\020\240\201\001\"\257\005\n\013ProbeRes"
+  "ion\0322\n\006Fields\022\014\n\004part\030\001 \001(\t\022\014\n\004size\030\002 \001("
+  "\r\022\014\n\004slot\030\003 \001(\r\"\221\024\n\004Edid\022\014\n\004name\030\001 \001(\t\022*"
+  "\n\006values\030\002 \001(\0132\032.runtime_probe.Edid.Fiel"
+  "ds\022/\n\013information\030\003 \001(\0132\032.runtime_probe."
+  "Information\032Y\n\006Fields\022\014\n\004path\030\001 \001(\t\022\016\n\006v"
+  "endor\030\002 \001(\t\022\022\n\nproduct_id\030\003 \001(\r\022\016\n\006heigh"
+  "t\030\004 \001(\r\022\r\n\005width\030\005 \001(\r\"\302\022\n\006Vendor\022\022\n\016VEN"
+  "DOR_UNKNOWN\020\000\022\016\n\nVENDOR_AAA\020\001\022\016\n\nVENDOR_"
+  "ACI\020=\022\016\n\nVENDOR_ACR\020F\022\016\n\nVENDOR_ACT\020H\022\016\n"
+  "\nVENDOR_ADA\020O\022\017\n\nVENDOR_AGO\020\253\001\022\017\n\nVENDOR"
+  "_AOP\020\374\002\022\017\n\nVENDOR_API\020\217\003\022\017\n\nVENDOR_APP\020\226"
+  "\003\022\017\n\nVENDOR_ARD\020\276\003\022\017\n\nVENDOR_ART\020\316\003\022\017\n\nV"
+  "ENDOR_ASK\020\337\003\022\017\n\nVENDOR_ATO\020\375\003\022\017\n\nVENDOR_"
+  "AUO\020\227\004\022\017\n\nVENDOR_AUS\020\233\004\022\017\n\nVENDOR_AVT\020\266\004"
+  "\022\017\n\nVENDOR_BEL\020\230\006\022\017\n\nVENDOR_BMD\020\340\007\022\017\n\nVE"
+  "NDOR_BNO\020\205\010\022\017\n\nVENDOR_BOE\020\225\010\022\017\n\nVENDOR_B"
+  "PS\020\275\010\022\017\n\nVENDOR_CAT\020\334\n\022\017\n\nVENDOR_CHR\020\220\014\022"
+  "\017\n\nVENDOR_CIN\020\246\014\022\017\n\nVENDOR_CMN\020\216\r\022\017\n\nVEN"
+  "DOR_CMO\020\217\r\022\017\n\nVENDOR_CNC\020\235\r\022\017\n\nVENDOR_CP"
+  "L\020\332\r\022\017\n\nVENDOR_CPT\020\342\r\022\017\n\nVENDOR_CRO\020\221\016\022\017"
+  "\n\nVENDOR_CSO\020\253\016\022\017\n\nVENDOR_CTO\020\305\016\022\017\n\nVEND"
+  "OR_CTX\020\316\016\022\017\n\nVENDOR_CUK\020\333\016\022\017\n\nVENDOR_DEL"
+  "\020\340\020\022\017\n\nVENDOR_DGC\020\213\021\022\017\n\nVENDOR_DMO\020\263\022\022\017\n"
+  "\nVENDOR_DON\020\346\022\022\017\n\nVENDOR_DPL\020\376\022\022\017\n\nVENDO"
+  "R_EGA\020\255\026\022\017\n\nVENDOR_ENC\020\345\027\022\017\n\nVENDOR_EPH\020"
+  "\236\030\022\017\n\nVENDOR_EXN\020\364\031\022\017\n\nVENDOR_EXP\020\366\031\022\017\n\n"
+  "VENDOR_FNI\020\217\035\022\017\n\nVENDOR_FUS\020\317\036\022\017\n\nVENDOR"
+  "_GBT\020\206 \022\017\n\nVENDOR_GFN\020\350 \022\017\n\nVENDOR_GGL\020\200"
+  "!\022\017\n\nVENDOR_GSM\020\271#\022\017\n\nVENDOR_HIQ\020\335&\022\017\n\nV"
+  "ENDOR_HKC\020\203\'\022\017\n\nVENDOR_HOL\020\364\'\022\017\n\nVENDOR_"
+  "HPN\020\220(\022\017\n\nVENDOR_HSD\020\324(\022\017\n\nVENDOR_HTC\020\355("
+  "\022\017\n\nVENDOR_HWP\020\310)\022\017\n\nVENDOR_HYT\020\200*\022\017\n\nVE"
+  "NDOR_INO\020\201-\022\017\n\nVENDOR_INT\020\206-\022\017\n\nVENDOR_I"
+  "NX\020\212-\022\017\n\nVENDOR_ITE\020\223.\022\017\n\nVENDOR_IVM\020\317.\022"
+  "\017\n\nVENDOR_IVO\020\321.\022\017\n\nVENDOR_JVC\020\3513\022\017\n\nVEN"
+  "DOR_KDB\020\2705\022\017\n\nVENDOR_KDC\020\2715\022\017\n\nVENDOR_KT"
+  "C\020\3318\022\017\n\nVENDOR_LEN\020\202;\022\017\n\nVENDOR_LGD\020\254;\022\017"
+  "\n\nVENDOR_LNX\020\366<\022\017\n\nVENDOR_LPL\020\236=\022\017\n\nVEND"
+  "OR_LWR\020\332>\022\017\n\nVENDOR_MAX\020\310\?\022\017\n\nVENDOR_MEG"
+  "\020\237@\022\017\n\nVENDOR_MEI\020\241@\022\017\n\nVENDOR_MEL\020\244@\022\017\n"
+  "\nVENDOR_MJI\020\243A\022\017\n\nVENDOR_MOM\020\251B\022\017\n\nVENDO"
+  "R_MST\020\230C\022\017\n\nVENDOR_MSX\020\234C\022\017\n\nVENDOR_MTC\020"
+  "\241C\022\017\n\nVENDOR_MTX\020\266C\022\017\n\nVENDOR_NCP\020\230E\022\017\n\n"
+  "VENDOR_NCR\020\232E\022\017\n\nVENDOR_NEC\020\277E\022\017\n\nVENDOR"
+  "_NEX\020\324E\022\017\n\nVENDOR_NVD\020\372H\022\017\n\nVENDOR_ONK\020\325"
+  "L\022\017\n\nVENDOR_ORN\020\300M\022\017\n\nVENDOR_OTM\020\363M\022\017\n\nV"
+  "ENDOR_OVR\020\254N\022\017\n\nVENDOR_PAR\020\256O\022\017\n\nVENDOR_"
+  "PCC\020\323O\022\017\n\nVENDOR_PHL\020\336P\022\017\n\nVENDOR_PIO\020\373P"
+  "\022\017\n\nVENDOR_PLY\020\323Q\022\017\n\nVENDOR_PNR\020\200R\022\017\n\nVE"
+  "NDOR_QDS\020\241U\022\017\n\nVENDOR_QNT\020\246W\022\017\n\nVENDOR_R"
+  "AT\020\370Y\022\017\n\nVENDOR_REN\020\332Z\022\017\n\nVENDOR_RTK\020\335]\022"
+  "\017\n\nVENDOR_SAM\020\225_\022\017\n\nVENDOR_SAN\020\226_\022\017\n\nVEN"
+  "DOR_SDC\020\331_\022\017\n\nVENDOR_SEC\020\363_\022\017\n\nVENDOR_SG"
+  "T\020\270`\022\017\n\nVENDOR_SHP\020\316`\022\017\n\nVENDOR_SII\020\341`\022\017"
+  "\n\nVENDOR_SIS\020\353`\022\017\n\nVENDOR_SLA\020\247a\022\017\n\nVEND"
+  "OR_SMC\020\303a\022\017\n\nVENDOR_SNY\020\363a\022\017\n\nVENDOR_STA"
+  "\020\367b\022\017\n\nVENDOR_STD\020\372b\022\017\n\nVENDOR_STN\020\204c\022\017\n"
+  "\nVENDOR_SVS\020\275c\022\017\n\nVENDOR_SYN\020\206d\022\017\n\nVENDO"
+  "R_TAI\020\265d\022\017\n\nVENDOR_TCL\020\354d\022\017\n\nVENDOR_TDC\020"
+  "\375d\022\017\n\nVENDOR_TOP\020\250g\022\017\n\nVENDOR_TOS\020\253g\022\017\n\n"
+  "VENDOR_TSB\020\202h\022\017\n\nVENDOR_TST\020\224h\022\017\n\nVENDOR"
+  "_UNK\020\255l\022\017\n\nVENDOR_VES\020\357o\022\017\n\nVENDOR_VID\020\310"
+  "p\022\017\n\nVENDOR_VIT\020\330p\022\017\n\nVENDOR_VIZ\020\336p\022\017\n\nV"
+  "ENDOR_VSC\020\313r\022\017\n\nVENDOR_VTK\020\355r\022\017\n\nVENDOR_"
+  "WDE\020\353t\022\017\n\nVENDOR_WST\020\200x\022\017\n\nVENDOR_WYS\020\233y"
+  "\022\017\n\nVENDOR_XLX\020\362{\022\020\n\nVENDOR_YMH\020\240\201\001\"\257\005\n\013"
+  "ProbeResult\022\'\n\005error\030\001 \001(\0162\030.runtime_pro"
+  "be.ErrorCode\022\035\n\025probe_config_checksum\030\006 "
+  "\001(\t\022.\n\013audio_codec\030\002 \003(\0132\031.runtime_probe"
+  ".AudioCodec\022\'\n\007battery\030\003 \003(\0132\026.runtime_p"
+  "robe.Battery\022\'\n\007storage\030\004 \003(\0132\026.runtime_"
+  "probe.Storage\022,\n\nvpd_cached\030\005 \003(\0132\030.runt"
+  "ime_probe.VpdCached\022\'\n\007network\030\007 \003(\0132\026.r"
+  "untime_probe.Network\022%\n\006camera\030\010 \003(\0132\025.r"
+  "untime_probe.Camera\022*\n\006stylus\030\t \003(\0132\032.ru"
+  "ntime_probe.InputDevice\022,\n\010touchpad\030\n \003("
+  "\0132\032.runtime_probe.InputDevice\022/\n\013touchsc"
+  "reen\030\013 \003(\0132\032.runtime_probe.InputDevice\022#"
+  "\n\004dram\030\014 \003(\0132\025.runtime_probe.Memory\022*\n\rd"
+  "isplay_panel\030\r \003(\0132\023.runtime_probe.Edid\022"
+  "(\n\010cellular\030\016 \003(\0132\026.runtime_probe.Networ"
+  "k\022(\n\010ethernet\030\017 \003(\0132\026.runtime_probe.Netw"
+  "ork\022(\n\010wireless\030\020 \003(\0132\026.runtime_probe.Ne"
+  "twork\"\313\005\n\017ComponentFields\0227\n\013audio_codec"
+  "\030\001 \001(\0132 .runtime_probe.AudioCodec.Fields"
+  "H\000\0220\n\007battery\030\002 \001(\0132\035.runtime_probe.Batt"
+  "ery.FieldsH\000\0220\n\007storage\030\003 \001(\0132\035.runtime_"
+  "probe.Storage.FieldsH\000\0225\n\nvpd_cached\030\004 \001"
+  "(\0132\037.runtime_probe.VpdCached.FieldsH\000\022.\n"
+  "\006camera\030\005 \001(\0132\034.runtime_probe.Camera.Fie"
+  "ldsH\000\0223\n\006stylus\030\006 \001(\0132!.runtime_probe.In"
+  "putDevice.FieldsH\000\0225\n\010touchpad\030\007 \001(\0132!.r"
+  "untime_probe.InputDevice.FieldsH\000\0228\n\013tou"
+  "chscreen\030\010 \001(\0132!.runtime_probe.InputDevi"
+  "ce.FieldsH\000\022,\n\004dram\030\t \001(\0132\034.runtime_prob"
+  "e.Memory.FieldsH\000\0223\n\rdisplay_panel\030\n \001(\013"
+  "2\032.runtime_probe.Edid.FieldsH\000\0221\n\010cellul"
+  "ar\030\013 \001(\0132\035.runtime_probe.Network.FieldsH"
+  "\000\0221\n\010ethernet\030\014 \001(\0132\035.runtime_probe.Netw"
+  "ork.FieldsH\000\0221\n\010wireless\030\r \001(\0132\035.runtime"
+  "_probe.Network.FieldsH\000B\022\n\020component_fie"
+  "lds\"Z\n\031GetKnownComponentsRequest\022=\n\010cate"
+  "gory\030\001 \001(\0162+.runtime_probe.ProbeRequest."
+  "SupportCategory\"\\\n\030GetKnownComponentsRes"
   "ult\022\'\n\005error\030\001 \001(\0162\030.runtime_probe.Error"
-  "Code\022\035\n\025probe_config_checksum\030\006 \001(\t\022.\n\013a"
-  "udio_codec\030\002 \003(\0132\031.runtime_probe.AudioCo"
-  "dec\022\'\n\007battery\030\003 \003(\0132\026.runtime_probe.Bat"
-  "tery\022\'\n\007storage\030\004 \003(\0132\026.runtime_probe.St"
-  "orage\022,\n\nvpd_cached\030\005 \003(\0132\030.runtime_prob"
-  "e.VpdCached\022\'\n\007network\030\007 \003(\0132\026.runtime_p"
-  "robe.Network\022%\n\006camera\030\010 \003(\0132\025.runtime_p"
-  "robe.Camera\022*\n\006stylus\030\t \003(\0132\032.runtime_pr"
-  "obe.InputDevice\022,\n\010touchpad\030\n \003(\0132\032.runt"
-  "ime_probe.InputDevice\022/\n\013touchscreen\030\013 \003"
-  "(\0132\032.runtime_probe.InputDevice\022#\n\004dram\030\014"
-  " \003(\0132\025.runtime_probe.Memory\022*\n\rdisplay_p"
-  "anel\030\r \003(\0132\023.runtime_probe.Edid\022(\n\010cellu"
-  "lar\030\016 \003(\0132\026.runtime_probe.Network\022(\n\010eth"
-  "ernet\030\017 \003(\0132\026.runtime_probe.Network\022(\n\010w"
-  "ireless\030\020 \003(\0132\026.runtime_probe.Network\"\313\005"
-  "\n\017ComponentFields\0227\n\013audio_codec\030\001 \001(\0132 "
-  ".runtime_probe.AudioCodec.FieldsH\000\0220\n\007ba"
-  "ttery\030\002 \001(\0132\035.runtime_probe.Battery.Fiel"
-  "dsH\000\0220\n\007storage\030\003 \001(\0132\035.runtime_probe.St"
-  "orage.FieldsH\000\0225\n\nvpd_cached\030\004 \001(\0132\037.run"
-  "time_probe.VpdCached.FieldsH\000\022.\n\006camera\030"
-  "\005 \001(\0132\034.runtime_probe.Camera.FieldsH\000\0223\n"
-  "\006stylus\030\006 \001(\0132!.runtime_probe.InputDevic"
-  "e.FieldsH\000\0225\n\010touchpad\030\007 \001(\0132!.runtime_p"
-  "robe.InputDevice.FieldsH\000\0228\n\013touchscreen"
-  "\030\010 \001(\0132!.runtime_probe.InputDevice.Field"
-  "sH\000\022,\n\004dram\030\t \001(\0132\034.runtime_probe.Memory"
-  ".FieldsH\000\0223\n\rdisplay_panel\030\n \001(\0132\032.runti"
-  "me_probe.Edid.FieldsH\000\0221\n\010cellular\030\013 \001(\013"
-  "2\035.runtime_probe.Network.FieldsH\000\0221\n\010eth"
-  "ernet\030\014 \001(\0132\035.runtime_probe.Network.Fiel"
-  "dsH\000\0221\n\010wireless\030\r \001(\0132\035.runtime_probe.N"
-  "etwork.FieldsH\000B\022\n\020component_fields\"Z\n\031G"
-  "etKnownComponentsRequest\022=\n\010category\030\001 \001"
-  "(\0162+.runtime_probe.ProbeRequest.SupportC"
-  "ategory\"\\\n\030GetKnownComponentsResult\022\'\n\005e"
-  "rror\030\001 \001(\0162\030.runtime_probe.ErrorCode\022\027\n\017"
-  "component_names\030\002 \003(\t*\203\002\n\tErrorCode\022\037\n\033R"
-  "UNTIME_PROBE_ERROR_NOT_SET\020\000\022-\n)RUNTIME_"
-  "PROBE_ERROR_PROBE_REQUEST_INVALID\020\001\022>\n:R"
-  "UNTIME_PROBE_ERROR_PROBE_CONFIG_INCOMPLE"
-  "TE_PROBE_FUNCTION\020\004\022,\n(RUNTIME_PROBE_ERR"
-  "OR_PROBE_RESULT_INVALID\020\005\022,\n(RUNTIME_PRO"
-  "BE_ERROR_PROBE_CONFIG_INVALID\020\006\"\004\010\002\020\002\"\004\010"
-  "\003\020\003*5\n\014UsbRemovable\022\013\n\007UNKNOWN\020\000\022\r\n\tREMO"
-  "VABLE\020\001\022\t\n\005FIXED\020\002B+Z)chromiumos/system_"
-  "api/runtime_probe_protob\006proto3"
+  "Code\022\027\n\017component_names\030\002 \003(\t*\203\002\n\tErrorC"
+  "ode\022\037\n\033RUNTIME_PROBE_ERROR_NOT_SET\020\000\022-\n)"
+  "RUNTIME_PROBE_ERROR_PROBE_REQUEST_INVALI"
+  "D\020\001\022>\n:RUNTIME_PROBE_ERROR_PROBE_CONFIG_"
+  "INCOMPLETE_PROBE_FUNCTION\020\004\022,\n(RUNTIME_P"
+  "ROBE_ERROR_PROBE_RESULT_INVALID\020\005\022,\n(RUN"
+  "TIME_PROBE_ERROR_PROBE_CONFIG_INVALID\020\006\""
+  "\004\010\002\020\002\"\004\010\003\020\003*5\n\014UsbRemovable\022\013\n\007UNKNOWN\020\000"
+  "\022\r\n\tREMOVABLE\020\001\022\t\n\005FIXED\020\002B+Z)chromiumos"
+  "/system_api/runtime_probe_protob\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_runtime_5fprobe_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_runtime_5fprobe_2eproto = {
-  false, false, 7511, descriptor_table_protodef_runtime_5fprobe_2eproto, "runtime_probe.proto", 
+  false, false, 7599, descriptor_table_protodef_runtime_5fprobe_2eproto, "runtime_probe.proto", 
   &descriptor_table_runtime_5fprobe_2eproto_once, nullptr, 0, 24,
   schemas, file_default_instances, TableStruct_runtime_5fprobe_2eproto::offsets,
   file_level_metadata_runtime_5fprobe_2eproto, file_level_enum_descriptors_runtime_5fprobe_2eproto, file_level_service_descriptors_runtime_5fprobe_2eproto,
@@ -5657,6 +5667,38 @@ Camera_Fields::Camera_Fields(const Camera_Fields& from)
     bus_type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_bus_type(), 
       GetArenaForAllocation());
   }
+  mipi_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    mipi_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_mipi_name().empty()) {
+    mipi_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_mipi_name(), 
+      GetArenaForAllocation());
+  }
+  mipi_module_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    mipi_module_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_mipi_module_id().empty()) {
+    mipi_module_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_mipi_module_id(), 
+      GetArenaForAllocation());
+  }
+  mipi_sensor_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    mipi_sensor_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_mipi_sensor_id().empty()) {
+    mipi_sensor_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_mipi_sensor_id(), 
+      GetArenaForAllocation());
+  }
+  mipi_vendor_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    mipi_vendor_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_mipi_vendor().empty()) {
+    mipi_vendor_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_mipi_vendor(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&usb_vendor_id_, &from.usb_vendor_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&usb_removable_) -
     reinterpret_cast<char*>(&usb_vendor_id_)) + sizeof(usb_removable_));
@@ -5671,6 +5713,22 @@ path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlready
 bus_type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   bus_type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+mipi_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  mipi_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+mipi_module_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  mipi_module_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+mipi_sensor_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  mipi_sensor_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+mipi_vendor_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  mipi_vendor_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&usb_vendor_id_) - reinterpret_cast<char*>(this)),
@@ -5689,6 +5747,10 @@ inline void Camera_Fields::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   bus_type_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  mipi_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  mipi_module_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  mipi_sensor_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  mipi_vendor_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void Camera_Fields::ArenaDtor(void* object) {
@@ -5709,6 +5771,10 @@ void Camera_Fields::Clear() {
 
   path_.ClearToEmpty();
   bus_type_.ClearToEmpty();
+  mipi_name_.ClearToEmpty();
+  mipi_module_id_.ClearToEmpty();
+  mipi_sensor_id_.ClearToEmpty();
+  mipi_vendor_.ClearToEmpty();
   ::memset(&usb_vendor_id_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&usb_removable_) -
       reinterpret_cast<char*>(&usb_vendor_id_)) + sizeof(usb_removable_));
@@ -5771,6 +5837,46 @@ const char* Camera_Fields::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_usb_removable(static_cast<::runtime_probe::UsbRemovable>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // string mipi_name = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          auto str = _internal_mutable_mipi_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "runtime_probe.Camera.Fields.mipi_name"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string mipi_module_id = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+          auto str = _internal_mutable_mipi_module_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "runtime_probe.Camera.Fields.mipi_module_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string mipi_sensor_id = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          auto str = _internal_mutable_mipi_sensor_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "runtime_probe.Camera.Fields.mipi_sensor_id"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string mipi_vendor = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
+          auto str = _internal_mutable_mipi_vendor();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "runtime_probe.Camera.Fields.mipi_vendor"));
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -5848,6 +5954,46 @@ uint8_t* Camera_Fields::_InternalSerialize(
       6, this->_internal_usb_removable(), target);
   }
 
+  // string mipi_name = 7;
+  if (!this->_internal_mipi_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_mipi_name().data(), static_cast<int>(this->_internal_mipi_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Camera.Fields.mipi_name");
+    target = stream->WriteStringMaybeAliased(
+        7, this->_internal_mipi_name(), target);
+  }
+
+  // string mipi_module_id = 8;
+  if (!this->_internal_mipi_module_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_mipi_module_id().data(), static_cast<int>(this->_internal_mipi_module_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Camera.Fields.mipi_module_id");
+    target = stream->WriteStringMaybeAliased(
+        8, this->_internal_mipi_module_id(), target);
+  }
+
+  // string mipi_sensor_id = 9;
+  if (!this->_internal_mipi_sensor_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_mipi_sensor_id().data(), static_cast<int>(this->_internal_mipi_sensor_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Camera.Fields.mipi_sensor_id");
+    target = stream->WriteStringMaybeAliased(
+        9, this->_internal_mipi_sensor_id(), target);
+  }
+
+  // string mipi_vendor = 10;
+  if (!this->_internal_mipi_vendor().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_mipi_vendor().data(), static_cast<int>(this->_internal_mipi_vendor().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Camera.Fields.mipi_vendor");
+    target = stream->WriteStringMaybeAliased(
+        10, this->_internal_mipi_vendor(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -5876,6 +6022,34 @@ size_t Camera_Fields::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_bus_type());
+  }
+
+  // string mipi_name = 7;
+  if (!this->_internal_mipi_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_mipi_name());
+  }
+
+  // string mipi_module_id = 8;
+  if (!this->_internal_mipi_module_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_mipi_module_id());
+  }
+
+  // string mipi_sensor_id = 9;
+  if (!this->_internal_mipi_sensor_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_mipi_sensor_id());
+  }
+
+  // string mipi_vendor = 10;
+  if (!this->_internal_mipi_vendor().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_mipi_vendor());
   }
 
   // uint32 usb_vendor_id = 3;
@@ -5927,6 +6101,18 @@ void Camera_Fields::MergeFrom(const Camera_Fields& from) {
   if (!from._internal_bus_type().empty()) {
     _internal_set_bus_type(from._internal_bus_type());
   }
+  if (!from._internal_mipi_name().empty()) {
+    _internal_set_mipi_name(from._internal_mipi_name());
+  }
+  if (!from._internal_mipi_module_id().empty()) {
+    _internal_set_mipi_module_id(from._internal_mipi_module_id());
+  }
+  if (!from._internal_mipi_sensor_id().empty()) {
+    _internal_set_mipi_sensor_id(from._internal_mipi_sensor_id());
+  }
+  if (!from._internal_mipi_vendor().empty()) {
+    _internal_set_mipi_vendor(from._internal_mipi_vendor());
+  }
   if (from._internal_usb_vendor_id() != 0) {
     _internal_set_usb_vendor_id(from._internal_usb_vendor_id());
   }
@@ -5967,6 +6153,26 @@ void Camera_Fields::InternalSwap(Camera_Fields* other) {
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &bus_type_, lhs_arena,
       &other->bus_type_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &mipi_name_, lhs_arena,
+      &other->mipi_name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &mipi_module_id_, lhs_arena,
+      &other->mipi_module_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &mipi_sensor_id_, lhs_arena,
+      &other->mipi_sensor_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &mipi_vendor_, lhs_arena,
+      &other->mipi_vendor_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Camera_Fields, usb_removable_)
