@@ -70,8 +70,6 @@ KeyboardBacklightController::TestApi::TestApi(
     KeyboardBacklightController* controller)
     : controller_(controller) {}
 
-KeyboardBacklightController::TestApi::~TestApi() = default;
-
 bool KeyboardBacklightController::TestApi::TriggerTurnOffTimeout() {
   if (!controller_->turn_off_timer_.IsRunning())
     return false;
@@ -386,7 +384,7 @@ double KeyboardBacklightController::LevelToPercent(int64_t level) const {
     return -1.0;
   level = std::max(std::min(level, max_level), static_cast<int64_t>(0));
   double raw_percent =
-      (static_cast<double>(level) * 100.0) / static_cast<double>(max_level);
+      static_cast<double>(level) * 100.0 / static_cast<double>(max_level);
   return RawPercentToPercent(raw_percent);
 }
 

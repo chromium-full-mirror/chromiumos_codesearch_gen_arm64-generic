@@ -14,17 +14,16 @@
 #include "power_manager/proto_bindings/backlight.pb.h"
 #include "power_manager/proto_bindings/policy.pb.h"
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 // policy::BacklightController implementation that returns dummy values.
 class BacklightControllerStub : public policy::BacklightController {
  public:
-  BacklightControllerStub();
+  BacklightControllerStub() = default;
   BacklightControllerStub(const BacklightControllerStub&) = delete;
   BacklightControllerStub& operator=(const BacklightControllerStub&) = delete;
 
-  ~BacklightControllerStub() override;
+  ~BacklightControllerStub() override = default;
 
   const std::vector<PowerSource>& power_source_changes() const {
     return power_source_changes_;
@@ -138,7 +137,6 @@ class BacklightControllerStub : public policy::BacklightController {
   int num_user_adjustments_ = 0;
 };
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy
 
 #endif  // POWER_MANAGER_POWERD_POLICY_BACKLIGHT_CONTROLLER_STUB_H_

@@ -18,12 +18,10 @@
 #include <gtest/gtest.h>
 
 #include "power_manager/common/battery_percentage_converter.h"
-#include "power_manager/common/power_constants.h"
 #include "power_manager/powerd/system/charge_controller_helper_stub.h"
 #include "power_manager/proto_bindings/policy.pb.h"
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 namespace {
 
@@ -582,5 +580,4 @@ INSTANTIATE_TEST_SUITE_P(
         std::make_tuple(ChargeController::kPeakShiftBatteryThresholdMax + 1,
                         ChargeController::kPeakShiftBatteryThresholdMax)));
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy

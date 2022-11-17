@@ -152,7 +152,7 @@ class CrosHealthdDiagnosticsService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 2;
+  static constexpr uint32_t Version_ = 3;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -199,6 +199,8 @@ class CrosHealthdDiagnosticsService
     kRunArcPingRoutineMinVersion = 0,
     kRunArcDnsResolutionRoutineMinVersion = 0,
     kRunSensitiveSensorRoutineMinVersion = 2,
+    kRunFingerprintRoutineMinVersion = 3,
+    kRunFingerprintAliveRoutineMinVersion = 3,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -304,6 +306,12 @@ class CrosHealthdDiagnosticsService
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunSensitiveSensorRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunFingerprintRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunFingerprintAliveRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -478,6 +486,16 @@ class CrosHealthdDiagnosticsService
   using RunSensitiveSensorRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
   virtual void RunSensitiveSensorRoutine(RunSensitiveSensorRoutineCallback callback) = 0;
+
+
+  using RunFingerprintRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunFingerprintRoutine(RunFingerprintRoutineCallback callback) = 0;
+
+
+  using RunFingerprintAliveRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunFingerprintAliveRoutine(RunFingerprintAliveRoutineCallback callback) = 0;
 };
 
 class CrosHealthdEventServiceProxy;
@@ -853,6 +871,10 @@ class  CrosHealthdDiagnosticsServiceProxy
   void RunArcDnsResolutionRoutine(RunArcDnsResolutionRoutineCallback callback) final;
   
   void RunSensitiveSensorRoutine(RunSensitiveSensorRoutineCallback callback) final;
+  
+  void RunFingerprintRoutine(RunFingerprintRoutineCallback callback) final;
+  
+  void RunFingerprintAliveRoutine(RunFingerprintAliveRoutineCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -2131,6 +2131,112 @@ CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data::Cro
 
 
 // static
+bool CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data*>(data);
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data::CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->response, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->response, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data*>(data);
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->response, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->response, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CrosHealthdEventService_AddBluetoothObserver_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

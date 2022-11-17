@@ -10,8 +10,7 @@
 #include "power_manager/powerd/policy/backlight_controller.h"
 #include "power_manager/proto_bindings/backlight.pb.h"
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 // Interface for observing changes made by BacklightControllers.
 class BacklightControllerObserver : public base::CheckedObserver {
@@ -23,10 +22,9 @@ class BacklightControllerObserver : public base::CheckedObserver {
                                   BacklightController* source) {}
 
  protected:
-  virtual ~BacklightControllerObserver() {}
+  ~BacklightControllerObserver() override = default;
 };
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy
 
 #endif  // POWER_MANAGER_POWERD_POLICY_BACKLIGHT_CONTROLLER_OBSERVER_H_

@@ -21,8 +21,7 @@
 #include "power_manager/powerd/policy/state_controller.h"
 #include "power_manager/powerd/system/dbus_wrapper_stub.h"
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 using HpsResult = hps::HpsResult;
 
@@ -34,7 +33,7 @@ class MockStateController : public StateController {
 
 class DimAdvisorTest : public ::testing::Test {
  public:
-  DimAdvisorTest() {}
+  DimAdvisorTest() = default;
   void SetUp() override {
     ml_decision_dbus_proxy_ = dbus_wrapper_.GetObjectProxy(
         chromeos::kMlDecisionServiceName, chromeos::kMlDecisionServicePath);
@@ -223,5 +222,4 @@ TEST_F(DimAdvisorTest, GetFirstHpsSenseResultOnInitialization) {
   EXPECT_EQ(num_of_method_calls_, 1);
 }
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy

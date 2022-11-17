@@ -8,12 +8,7 @@
 #include <base/logging.h>
 #include <base/notreached.h>
 
-namespace power_manager {
-namespace policy {
-
-BacklightControllerStub::BacklightControllerStub() {}
-
-BacklightControllerStub::~BacklightControllerStub() {}
+namespace power_manager::policy {
 
 void BacklightControllerStub::ResetStats() {
   power_source_changes_.clear();
@@ -143,5 +138,4 @@ void BacklightControllerStub::RegisterAmbientLightResumeMetricsHandler(
   ambient_light_metrics_callback_registered_ = true;
 }
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy

@@ -944,6 +944,12 @@ CrosHealthdDiagnosticsService::IPCStableHashFunction CrosHealthdDiagnosticsServi
     case internal::kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name: {
       return &CrosHealthdDiagnosticsService::RunSensitiveSensorRoutine_Sym::IPCStableHash;
     }
+    case internal::kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name: {
+      return &CrosHealthdDiagnosticsService::RunFingerprintRoutine_Sym::IPCStableHash;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name: {
+      return &CrosHealthdDiagnosticsService::RunFingerprintAliveRoutine_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1023,6 +1029,10 @@ const char* CrosHealthdDiagnosticsService::MessageToMethodName_(mojo::Message& m
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSensitiveSensorRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintAliveRoutine";
     }
   } else {
     switch (message.name()) {
@@ -1094,6 +1104,10 @@ const char* CrosHealthdDiagnosticsService::MessageToMethodName_(mojo::Message& m
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSensitiveSensorRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintAliveRoutine";
     }
   }
   return "Receive unknown mojo message";
@@ -1546,6 +1560,32 @@ uint32_t CrosHealthdDiagnosticsService::RunSensitiveSensorRoutine_Sym::IPCStable
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSensitiveSensorRoutine");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdDiagnosticsService::RunFingerprintRoutine_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintRoutine");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdDiagnosticsService::RunFingerprintAliveRoutine_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintAliveRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -2094,6 +2134,38 @@ class CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   CrosHealthdDiagnosticsService::RunSensitiveSensorRoutineCallback callback_;
+};
+
+class CrosHealthdDiagnosticsService_RunFingerprintRoutine_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosHealthdDiagnosticsService_RunFingerprintRoutine_ForwardToCallback(
+      CrosHealthdDiagnosticsService::RunFingerprintRoutineCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosHealthdDiagnosticsService_RunFingerprintRoutine_ForwardToCallback(const CrosHealthdDiagnosticsService_RunFingerprintRoutine_ForwardToCallback&) = delete;
+  CrosHealthdDiagnosticsService_RunFingerprintRoutine_ForwardToCallback& operator=(const CrosHealthdDiagnosticsService_RunFingerprintRoutine_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosHealthdDiagnosticsService::RunFingerprintRoutineCallback callback_;
+};
+
+class CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ForwardToCallback(
+      CrosHealthdDiagnosticsService::RunFingerprintAliveRoutineCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ForwardToCallback(const CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ForwardToCallback&) = delete;
+  CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ForwardToCallback& operator=(const CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosHealthdDiagnosticsService::RunFingerprintAliveRoutineCallback callback_;
 };
 
 CrosHealthdDiagnosticsServiceProxy::CrosHealthdDiagnosticsServiceProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -3342,6 +3414,68 @@ void CrosHealthdDiagnosticsServiceProxy::RunSensitiveSensorRoutine(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CrosHealthdDiagnosticsServiceProxy::RunFingerprintRoutine(
+    RunFingerprintRoutineCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintRoutine");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunFingerprintRoutine");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosHealthdDiagnosticsService_RunFingerprintRoutine_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CrosHealthdDiagnosticsServiceProxy::RunFingerprintAliveRoutine(
+    RunFingerprintAliveRoutineCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintAliveRoutine");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunFingerprintAliveRoutine");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -7563,6 +7697,254 @@ void CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ProxyToResponder::R
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class CrosHealthdDiagnosticsService_RunFingerprintRoutine_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosHealthdDiagnosticsService::RunFingerprintRoutineCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosHealthdDiagnosticsService_RunFingerprintRoutine_ProxyToResponder> proxy(
+        new CrosHealthdDiagnosticsService_RunFingerprintRoutine_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosHealthdDiagnosticsService_RunFingerprintRoutine_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosHealthdDiagnosticsService_RunFingerprintRoutine_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosHealthdDiagnosticsService_RunFingerprintRoutine_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosHealthdDiagnosticsService::RunFingerprintRoutineCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+};
+
+bool CrosHealthdDiagnosticsService_RunFingerprintRoutine_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosHealthdDiagnosticsService::Name_, 34, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void CrosHealthdDiagnosticsService_RunFingerprintRoutine_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintRoutine", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunFingerprintRoutine");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosHealthdDiagnosticsService::RunFingerprintAliveRoutineCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ProxyToResponder> proxy(
+        new CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosHealthdDiagnosticsService::RunFingerprintAliveRoutineCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+};
+
+bool CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosHealthdDiagnosticsService::Name_, 35, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFingerprintAliveRoutine", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunFingerprintAliveRoutine");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool CrosHealthdDiagnosticsServiceStubDispatch::Accept(
@@ -7669,6 +8051,12 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::Accept(
       break;
     }
     case internal::kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name: {
+      break;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name: {
+      break;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name: {
       break;
     }
   }
@@ -8618,6 +9006,56 @@ std::move(p_stun_server_hostname), std::move(callback));
       impl->RunSensitiveSensorRoutine(std::move(callback));
       return true;
     }
+    case internal::kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name: {
+
+      internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      CrosHealthdDiagnosticsService_RunFingerprintRoutine_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdDiagnosticsService::Name_, 34, false);
+        return false;
+      }
+      CrosHealthdDiagnosticsService::RunFingerprintRoutineCallback callback =
+          CrosHealthdDiagnosticsService_RunFingerprintRoutine_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunFingerprintRoutine(std::move(callback));
+      return true;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name: {
+
+      internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdDiagnosticsService::Name_, 35, false);
+        return false;
+      }
+      CrosHealthdDiagnosticsService::RunFingerprintAliveRoutineCallback callback =
+          CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunFingerprintAliveRoutine(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -8692,6 +9130,10 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdDiagnosticsServic
      &internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data::Validate},
     {&internal::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data::Validate},
+    {&internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data::Validate,
+     &internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data::Validate},
+    {&internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data::Validate,
+     &internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data::Validate},
 };
 
 bool CrosHealthdDiagnosticsServiceRequestValidator::Accept(mojo::Message* message) {
@@ -11274,6 +11716,12 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunArcDnsResolutionRout
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunSensitiveSensorRoutine(RunSensitiveSensorRoutineCallback callback) {
   GetForwardingInterface()->RunSensitiveSensorRoutine(std::move(callback));
 }
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunFingerprintRoutine(RunFingerprintRoutineCallback callback) {
+  GetForwardingInterface()->RunFingerprintRoutine(std::move(callback));
+}
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunFingerprintAliveRoutine(RunFingerprintAliveRoutineCallback callback) {
+  GetForwardingInterface()->RunFingerprintAliveRoutine(std::move(callback));
+}
 CrosHealthdDiagnosticsServiceAsyncWaiter::CrosHealthdDiagnosticsServiceAsyncWaiter(
     CrosHealthdDiagnosticsService* proxy) : proxy_(proxy) {}
 
@@ -12058,6 +12506,52 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSensitiveSensorRoutine(
     ) {
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
   RunSensitiveSensorRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
+void CrosHealthdDiagnosticsServiceAsyncWaiter::RunFingerprintRoutine(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->RunFingerprintRoutine(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunFingerprintRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  RunFingerprintRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
+void CrosHealthdDiagnosticsServiceAsyncWaiter::RunFingerprintAliveRoutine(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->RunFingerprintAliveRoutine(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunFingerprintAliveRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  RunFingerprintAliveRoutine(&async_wait_result);
   return async_wait_result;
 }
 

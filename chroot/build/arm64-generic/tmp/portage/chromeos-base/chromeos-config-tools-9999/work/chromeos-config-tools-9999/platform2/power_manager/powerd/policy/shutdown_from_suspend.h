@@ -28,6 +28,8 @@ namespace policy {
 class ShutdownFromSuspend : public ShutdownFromSuspendInterface {
  public:
   ShutdownFromSuspend();
+  ShutdownFromSuspend(const ShutdownFromSuspend&) = delete;
+  ShutdownFromSuspend& operator=(const ShutdownFromSuspend&) = delete;
   ~ShutdownFromSuspend() override;
 
   void Init(PrefsInterface* prefs,
@@ -43,10 +45,8 @@ class ShutdownFromSuspend : public ShutdownFromSuspendInterface {
   void HandleFullResume() override;
 
  private:
-  ShutdownFromSuspend(
+  explicit ShutdownFromSuspend(
       std::unique_ptr<brillo::timers::SimpleAlarmTimer> alarm_timer);
-  ShutdownFromSuspend(const ShutdownFromSuspend&) = delete;
-  ShutdownFromSuspend& operator=(const ShutdownFromSuspend&) = delete;
 
   friend class ShutdownFromSuspendTest;
 

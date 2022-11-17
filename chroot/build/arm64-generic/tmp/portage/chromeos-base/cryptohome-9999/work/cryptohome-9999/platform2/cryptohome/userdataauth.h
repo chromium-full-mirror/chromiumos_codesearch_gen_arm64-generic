@@ -50,6 +50,7 @@
 #include "cryptohome/storage/arc_disk_quota.h"
 #include "cryptohome/storage/homedirs.h"
 #include "cryptohome/storage/mount.h"
+#include "cryptohome/storage/mount_factory.h"
 #include "cryptohome/user_secret_stash_storage.h"
 #include "cryptohome/user_session/user_session.h"
 #include "cryptohome/user_session/user_session_factory.h"
@@ -645,6 +646,11 @@ class UserDataAuth {
   }
 
   // Override |mount_factory_| for testing purpose
+  void set_mount_factory_for_testing(MountFactory* mount_factory) {
+    mount_factory_ = mount_factory;
+  }
+
+  // Override |user_session_factory_| for testing purpose
   void set_user_session_factory(UserSessionFactory* user_session_factory) {
     user_session_factory_ = user_session_factory;
   }
@@ -822,12 +828,6 @@ class UserDataAuth {
 
   // Shutdown to be run on the worker thread.
   void ShutdownTask();
-
-  // Note: In Service class (the class that this class is refactored from),
-  // there is a initialize_tpm_ member variable, but it is almost unused and
-  // always set to true there, so in this class, if we are migrating any code
-  // from Service class and initialize_tpm_ is used there, then we'll just
-  // assume it's true and not have a initialize_tpm_ variable here.
 
   // This create a dbus connection whose origin thread is UserDataAuth's mount
   // thread.
@@ -1330,16 +1330,6 @@ class UserDataAuth {
 
   // =============== Mount Related Variables ===============
 
-  // Note: In Service class (the class that this class is refactored from),
-  // there is a mounts_lock_ lock for inserting/removal of mounts_ map. However,
-  // in this class, all accesses to mounts_ should happen on the mount thread,
-  // so no lock is needed.
-
-  // This is an unused variable that's lifted over from service.cc. It is kept
-  // here for the purpose of keeping the code in userdatauth.h/.cc as close as
-  // possible to the version in service.cc.
-  bool reported_pkcs11_init_fail_;
-
   // This holds a timestamp for each user that is the time that the user was
   // active.
   std::unique_ptr<UserOldestActivityTimestampManager>
@@ -1431,6 +1421,12 @@ class UserDataAuth {
   uint64_t disk_cleanup_aggressive_threshold_;
   uint64_t disk_cleanup_critical_threshold_;
   uint64_t disk_cleanup_target_free_space_;
+
+  // Factory for creating |Mount| objects.
+  std::unique_ptr<MountFactory> default_mount_factory_;
+  // This usually points to |default_mount_factory_|, but can be overridden in
+  // tests.
+  MountFactory* mount_factory_ = nullptr;
 
   // The default user session factory instance that can be used by this class to
   // create UserSession object.

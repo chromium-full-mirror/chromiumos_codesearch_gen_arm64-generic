@@ -359,7 +359,6 @@ UserDataAuth::UserDataAuth()
       default_install_attrs_(nullptr),
       install_attrs_(nullptr),
       enterprise_owned_(false),
-      reported_pkcs11_init_fail_(false),
       default_user_activity_timestamp_manager_(
           new UserOldestActivityTimestampManager(platform_)),
       user_activity_timestamp_manager_(
@@ -557,11 +556,15 @@ bool UserDataAuth::Initialize() {
     keyset_management_->CleanupPerIndexTimestampFiles(dir.obfuscated);
   }
 
+  if (!mount_factory_) {
+    default_mount_factory_ = std::make_unique<MountFactory>();
+    mount_factory_ = default_mount_factory_.get();
+  }
+
   if (!user_session_factory_) {
     default_user_session_factory_ = std::make_unique<RealUserSessionFactory>(
-        std::make_unique<MountFactory>(), platform_, homedirs_,
-        keyset_management_, user_activity_timestamp_manager_,
-        pkcs11_token_factory_);
+        mount_factory_, platform_, homedirs_, keyset_management_,
+        user_activity_timestamp_manager_, pkcs11_token_factory_);
     user_session_factory_ = default_user_session_factory_.get();
   }
 

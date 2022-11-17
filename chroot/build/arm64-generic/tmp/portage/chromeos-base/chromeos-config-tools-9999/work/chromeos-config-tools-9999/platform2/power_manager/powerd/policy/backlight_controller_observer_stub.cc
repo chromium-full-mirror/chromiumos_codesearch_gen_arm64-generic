@@ -4,12 +4,7 @@
 
 #include "power_manager/powerd/policy/backlight_controller_observer_stub.h"
 
-namespace power_manager {
-namespace policy {
-
-BacklightControllerObserverStub::BacklightControllerObserverStub() {}
-
-BacklightControllerObserverStub::~BacklightControllerObserverStub() {}
+namespace power_manager::policy {
 
 void BacklightControllerObserverStub::Clear() {
   changes_.clear();
@@ -26,5 +21,4 @@ void BacklightControllerObserverStub::OnBrightnessChange(
   changes_.push_back(change);
 }
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy

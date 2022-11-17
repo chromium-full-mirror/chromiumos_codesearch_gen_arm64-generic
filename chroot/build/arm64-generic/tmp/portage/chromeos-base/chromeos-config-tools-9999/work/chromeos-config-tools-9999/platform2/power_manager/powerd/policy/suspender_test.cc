@@ -25,8 +25,7 @@
 #include "power_manager/powerd/system/wakeup_source_identifier_stub.h"
 #include "power_manager/proto_bindings/suspend.pb.h"
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 namespace {
 
@@ -220,10 +219,7 @@ class TestDelegate : public Suspender::Delegate, public ActionRecorder {
 
 class SuspenderTest : public testing::Test {
  public:
-  SuspenderTest()
-      : test_api_(&suspender_),
-        pref_retry_delay_ms_(10000),
-        pref_num_retries_(10) {}
+  SuspenderTest() : test_api_(&suspender_) {}
   SuspenderTest(const SuspenderTest&) = delete;
   SuspenderTest& operator=(const SuspenderTest&) = delete;
 
@@ -305,8 +301,8 @@ class SuspenderTest : public testing::Test {
   Suspender suspender_;
   Suspender::TestApi test_api_;
 
-  int64_t pref_retry_delay_ms_;
-  int64_t pref_num_retries_;
+  int64_t pref_retry_delay_ms_ = 10000;
+  int64_t pref_num_retries_ = 10;
 };
 
 // Tests the standard suspend/resume cycle.
@@ -1089,7 +1085,7 @@ TEST_F(SuspenderTest, RerunDarkSuspendDelaysForCanceledSuspend) {
   EXPECT_EQ(kSuspend, delegate_.GetActions());
   EXPECT_EQ(0, dbus_wrapper_.num_sent_signals());
 
-  // The resuspend attempt is finally sucessful. Reset the suspend callback so
+  // The resuspend attempt is finally successful. Reset the suspend callback so
   // that dark resume is not set to true after Suspend() runs.
   delegate_.set_suspend_callback(base::RepeatingClosure());
   dark_resume_.set_in_dark_resume(false);
@@ -1560,5 +1556,4 @@ TEST_F(SuspenderTest, QuirksHandledCorrectly) {
   EXPECT_FALSE(delegate_.quirks_applied());
 }
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy

@@ -24,6 +24,7 @@
 #include <chromeos/ec/ec_commands.h>
 #include <update_engine/proto_bindings/update_engine.pb.h>
 
+#include "base/time/time.h"
 #include "power_manager/common/clock.h"
 #include "power_manager/common/metrics_constants.h"
 #include "power_manager/common/power_constants.h"
@@ -33,8 +34,7 @@
 #include "power_manager/powerd/system/dbus_wrapper.h"
 #include "power_manager/proto_bindings/idle.pb.h"
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 namespace {
 
@@ -709,7 +709,8 @@ void StateController::ScaleDelays(Delays* delays,
     return;
 
   const base::TimeDelta orig_screen_dim = delays->screen_dim;
-  delays->screen_dim *= screen_dim_scale_factor;
+  delays->screen_dim = base::Microseconds(delays->screen_dim.InMicrosecondsF() *
+                                          screen_dim_scale_factor);
 
   const base::TimeDelta diff = delays->screen_dim - orig_screen_dim;
   if (delays->screen_off > base::TimeDelta())
@@ -1227,11 +1228,12 @@ void StateController::UpdateState() {
     // (2) hps_result_ is POSITIVE.
     // (3) hps_result_ is in POSITIVE state for some time.
     // (4) dimming is not deferred for more than kNTimesForHpsToDeferDimming
-    // times.
+    // times
+    auto hps_wait = base::Microseconds(kHpsPositiveForDimDefer *
+                                       delays_.screen_dim.InMicrosecondsF());
     if (dim_advisor_.IsHpsSenseEnabled() &&
         hps_result_ == hps::HpsResult::POSITIVE &&
-        now - last_hps_result_change_time_ >=
-            kHpsPositiveForDimDefer * delays_.screen_dim &&
+        now - last_hps_result_change_time_ >= hps_wait &&
         now - GetLastActivityTimeForScreenDimWithoutDefer(now) <=
             kNTimesForHpsToDeferDimming * delays_.screen_dim) {
       last_defer_screen_dim_time_ = clock_->GetCurrentTime();
@@ -1702,5 +1704,4 @@ void StateController::HandleHpsResultChange(hps::HpsResult hps_result) {
   UpdateState();
 }
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy

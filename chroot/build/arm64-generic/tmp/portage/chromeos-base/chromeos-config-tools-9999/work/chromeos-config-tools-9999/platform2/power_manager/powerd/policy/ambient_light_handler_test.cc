@@ -12,8 +12,7 @@
 #include "power_manager/powerd/system/ambient_light_sensor_stub.h"
 #include "power_manager/proto_bindings/backlight.pb.h"
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 namespace {
 
@@ -21,14 +20,11 @@ namespace {
 // brightness percent that was passed to it.
 class TestDelegate : public AmbientLightHandler::Delegate {
  public:
-  TestDelegate()
-      : percent_(-1.0),
-        cause_(AmbientLightHandler::BrightnessChangeCause::AMBIENT_LIGHT),
-        resume_lux_(0) {}
+  TestDelegate() = default;
   TestDelegate(const TestDelegate&) = delete;
   TestDelegate& operator=(const TestDelegate&) = delete;
 
-  ~TestDelegate() override {}
+  ~TestDelegate() override = default;
 
   double percent() const { return percent_; }
   AmbientLightHandler::BrightnessChangeCause cause() const { return cause_; }
@@ -48,9 +44,10 @@ class TestDelegate : public AmbientLightHandler::Delegate {
   }
 
  private:
-  double percent_;
-  AmbientLightHandler::BrightnessChangeCause cause_;
-  int resume_lux_;
+  double percent_ = -1.0;
+  AmbientLightHandler::BrightnessChangeCause cause_ =
+      AmbientLightHandler::BrightnessChangeCause::AMBIENT_LIGHT;
+  int resume_lux_ = 0;
 };
 
 class AmbientLightHandlerTest : public ::testing::Test {
@@ -60,7 +57,7 @@ class AmbientLightHandlerTest : public ::testing::Test {
   AmbientLightHandlerTest(const AmbientLightHandlerTest&) = delete;
   AmbientLightHandlerTest& operator=(const AmbientLightHandlerTest&) = delete;
 
-  ~AmbientLightHandlerTest() override {}
+  ~AmbientLightHandlerTest() override = default;
 
  protected:
   // Initializes |handler_|.
@@ -288,5 +285,4 @@ TEST_F(AmbientLightHandlerTest, GetRecentReadingsString) {
             handler_.GetRecentReadingsString());
 }
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy

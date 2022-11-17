@@ -17,7 +17,7 @@ namespace protos {
 namespace pbzero {
 
 
-class ChromeMojoEventInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class ChromeMojoEventInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/7, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   ChromeMojoEventInfo_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ChromeMojoEventInfo_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -32,6 +32,10 @@ class ChromeMojoEventInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_
   uint64_t mojo_interface_method_iid() const { return at<4>().as_uint64(); }
   bool has_is_reply() const { return at<5>().valid(); }
   bool is_reply() const { return at<5>().as_bool(); }
+  bool has_payload_size() const { return at<6>().valid(); }
+  uint64_t payload_size() const { return at<6>().as_uint64(); }
+  bool has_data_num_bytes() const { return at<7>().valid(); }
+  uint64_t data_num_bytes() const { return at<7>().as_uint64(); }
 };
 
 class ChromeMojoEventInfo : public ::protozero::Message {
@@ -43,6 +47,8 @@ class ChromeMojoEventInfo : public ::protozero::Message {
     kMojoInterfaceTagFieldNumber = 3,
     kMojoInterfaceMethodIidFieldNumber = 4,
     kIsReplyFieldNumber = 5,
+    kPayloadSizeFieldNumber = 6,
+    kDataNumBytesFieldNumber = 7,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ChromeMojoEventInfo"; }
 
@@ -181,6 +187,56 @@ class ChromeMojoEventInfo : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PayloadSize =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      ChromeMojoEventInfo>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_PayloadSize kPayloadSize() { return {}; }
+  void set_payload_size(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_PayloadSize::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DataNumBytes =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      ChromeMojoEventInfo>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_DataNumBytes kDataNumBytes() { return {}; }
+  void set_data_num_bytes(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_DataNumBytes::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
         ::Append(*this, field_id, value);
   }
 };

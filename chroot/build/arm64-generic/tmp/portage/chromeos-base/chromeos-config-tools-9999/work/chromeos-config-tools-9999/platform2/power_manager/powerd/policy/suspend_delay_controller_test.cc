@@ -13,8 +13,7 @@
 #include "power_manager/powerd/policy/suspend_delay_observer.h"
 #include "power_manager/proto_bindings/suspend.pb.h"
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 namespace {
 
@@ -23,11 +22,11 @@ constexpr base::TimeDelta kSuspendTimeout = base::Seconds(5);
 
 class TestObserver : public SuspendDelayObserver {
  public:
-  TestObserver() : timeout_(kSuspendTimeout) {}
+  TestObserver() = default;
   TestObserver(const TestObserver&) = delete;
   TestObserver& operator=(const TestObserver&) = delete;
 
-  ~TestObserver() override {}
+  ~TestObserver() override = default;
 
   // Must be called before RunUntilReadyForSuspend().
   void set_timeout(base::TimeDelta timeout) { timeout_ = timeout; }
@@ -43,7 +42,7 @@ class TestObserver : public SuspendDelayObserver {
 
  private:
   // Maximum time to wait for readiness.
-  base::TimeDelta timeout_;
+  base::TimeDelta timeout_ = kSuspendTimeout;
 
   TestMainLoopRunner loop_runner_;
 };
@@ -388,5 +387,4 @@ TEST_F(SuspendDelayControllerTest, DarkResumeSingleDelay) {
   EXPECT_TRUE(controller_.ReadyForSuspend());
 }
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy

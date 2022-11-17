@@ -79,8 +79,7 @@ power_manager::CellularRegulatoryDomain GetRegulatoryDomainFromString(
     return power_manager::CellularRegulatoryDomain::UNKNOWN;
 }
 }  // namespace
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 CellularController::CellularController() : weak_ptr_factory_(this) {}
 
@@ -516,7 +515,7 @@ void CellularController::OnShillReset(bool reset) {
 }
 
 void CellularController::InitShillProxyInterface() {
-  shill_.reset(new shill::Client(dbus_wrapper_->GetBus()));
+  shill_ = std::make_unique<shill::Client>(dbus_wrapper_->GetBus());
   shill_->RegisterProcessChangedHandler(base::BindRepeating(
       &CellularController::OnShillReset, weak_ptr_factory_.GetWeakPtr()));
   shill_->RegisterOnAvailableCallback(base::BindOnce(
@@ -679,5 +678,4 @@ bool CellularController::InitQrtrSocket() {
   return StartServiceLookup(TROGDOR_WDS_SERVICE_ID, 1, 0);
 }
 #endif  // USE_QRTR
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy

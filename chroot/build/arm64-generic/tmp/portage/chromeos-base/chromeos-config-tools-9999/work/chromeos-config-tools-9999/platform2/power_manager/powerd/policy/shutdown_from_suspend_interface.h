@@ -5,8 +5,7 @@
 #ifndef POWER_MANAGER_POWERD_POLICY_SHUTDOWN_FROM_SUSPEND_INTERFACE_H_
 #define POWER_MANAGER_POWERD_POLICY_SHUTDOWN_FROM_SUSPEND_INTERFACE_H_
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 // Holds the logic to shut down or hibernate the device after prolonged non
 // use.
@@ -30,8 +29,8 @@ class ShutdownFromSuspendInterface {
     // Shut the system down immediately.
     SHUT_DOWN,
   };
-  ShutdownFromSuspendInterface() {}
-  virtual ~ShutdownFromSuspendInterface() {}
+  ShutdownFromSuspendInterface() = default;
+  virtual ~ShutdownFromSuspendInterface() = default;
 
   // Updates state in anticipation of the system suspending, returning the
   // action that should be performed.
@@ -43,7 +42,6 @@ class ShutdownFromSuspendInterface {
   virtual void HandleFullResume() = 0;
 };
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy
 
 #endif  // POWER_MANAGER_POWERD_POLICY_SHUTDOWN_FROM_SUSPEND_INTERFACE_H_

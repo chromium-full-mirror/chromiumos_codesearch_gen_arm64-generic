@@ -14,15 +14,13 @@
 #include "power_manager/common/clock.h"
 #include "power_manager/common/power_constants.h"
 #include "power_manager/common/prefs.h"
-#include "power_manager/common/util.h"
 #include "power_manager/powerd/system/dbus_wrapper.h"
 #include "power_manager/powerd/system/display/display_watcher.h"
 #include "power_manager/powerd/system/input_watcher_interface.h"
 #include "power_manager/proto_bindings/input_event.pb.h"
 #include "power_manager/proto_bindings/switch_states.pb.h"
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 InputEventHandler::InputEventHandler()
     : clock_(std::make_unique<Clock>()), weak_ptr_factory_(this) {}
@@ -268,5 +266,4 @@ void InputEventHandler::OnGetSwitchStatesMethodCall(
   std::move(response_sender).Run(std::move(response));
 }
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy

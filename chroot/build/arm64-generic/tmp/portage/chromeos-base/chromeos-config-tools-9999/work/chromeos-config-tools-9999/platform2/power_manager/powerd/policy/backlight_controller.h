@@ -13,7 +13,6 @@
 
 #include "base/callback_forward.h"
 #include "power_manager/common/power_constants.h"
-#include "power_manager/powerd/system/backlight_interface.h"
 #include "power_manager/proto_bindings/backlight.pb.h"
 
 namespace power_manager {
@@ -38,11 +37,11 @@ class BacklightController {
     SLOW,
   };
 
-  BacklightController() {}
+  BacklightController() = default;
   BacklightController(const BacklightController&) = delete;
   BacklightController& operator=(const BacklightController&) = delete;
 
-  virtual ~BacklightController() {}
+  virtual ~BacklightController() = default;
 
   // Adds or removes an observer.
   virtual void AddObserver(BacklightControllerObserver* observer) = 0;

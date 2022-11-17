@@ -18,8 +18,7 @@
 #include "power_manager/powerd/system/thermal/thermal_device_stub.h"
 #include "power_manager/proto_bindings/thermal.pb.h"
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 class ThermalEventHandlerTest : public ::testing::Test {
  public:
@@ -32,7 +31,7 @@ class ThermalEventHandlerTest : public ::testing::Test {
   }
   ThermalEventHandlerTest(const ThermalEventHandlerTest&) = delete;
   ThermalEventHandlerTest& operator=(const ThermalEventHandlerTest&) = delete;
-  ~ThermalEventHandlerTest() override {}
+  ~ThermalEventHandlerTest() override = default;
 
   void SetUp() override { handler_.Init(); }
 
@@ -228,5 +227,4 @@ TEST_F(ThermalEventHandlerTest, GetThermalState) {
   }
 }
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy

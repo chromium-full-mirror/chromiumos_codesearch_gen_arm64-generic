@@ -57,7 +57,7 @@ class StateController : public PrefsObserver {
   // StateController (or otherwise help it interact with the real world).
   class Delegate {
    public:
-    virtual ~Delegate() {}
+    virtual ~Delegate() = default;
 
     // Returns true if a USB input devices is connected.
     virtual bool IsUsbInputDeviceConnected() = 0;
@@ -614,7 +614,7 @@ class StateController : public PrefsObserver {
   OngoingStateActivityLogger wake_lock_logger_;
 
   // Watcher to monitor the presence of |kCrashBootCollectorDoneFile|.
-  // Presence of this file indicates successfull collection of per-boot crash
+  // Presence of this file indicates successful collection of per-boot crash
   // collection.
   base::FilePathWatcher crash_boot_collector_watcher_;
 

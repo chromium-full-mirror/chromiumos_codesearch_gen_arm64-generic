@@ -15,12 +15,10 @@
 #include <base/strings/string_number_conversions.h>
 #include <chromeos/dbus/service_constants.h>
 
-#include "power_manager/common/util.h"
 #include "power_manager/powerd/policy/suspend_delay_observer.h"
 #include "power_manager/proto_bindings/suspend.pb.h"
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 // static.
 constexpr base::TimeDelta
@@ -36,8 +34,6 @@ SuspendDelayController::SuspendDelayController(
       max_delay_timeout_(max_delay_timeout) {
   DCHECK_LT(dark_resume_min_delay_, max_delay_timeout_);
 }
-
-SuspendDelayController::~SuspendDelayController() {}
 
 bool SuspendDelayController::ReadyForSuspend() const {
   return delay_ids_being_waited_on_.empty() &&
@@ -223,12 +219,11 @@ void SuspendDelayController::RemoveDelayFromWaitList(int delay_id) {
 
 void SuspendDelayController::OnMaxDelayExpiration() {
   std::string tardy_delays;
-  for (std::set<int>::const_iterator it = delay_ids_being_waited_on_.begin();
-       it != delay_ids_being_waited_on_.end(); ++it) {
-    const DelayInfo& delay = registered_delays_[*it];
+  for (int delay_id : delay_ids_being_waited_on_) {
+    const DelayInfo& delay = registered_delays_[delay_id];
     if (!tardy_delays.empty())
       tardy_delays += ", ";
-    tardy_delays += base::NumberToString(*it) + " (" + delay.dbus_client +
+    tardy_delays += base::NumberToString(delay_id) + " (" + delay.dbus_client +
                     ": " + delay.description + ")";
   }
   LOG(WARNING) << "Timed out while waiting for " << GetLogDescription()
@@ -262,5 +257,4 @@ void SuspendDelayController::NotifyObservers(int suspend_id) {
     observer.OnReadyForSuspend(this, suspend_id);
 }
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy

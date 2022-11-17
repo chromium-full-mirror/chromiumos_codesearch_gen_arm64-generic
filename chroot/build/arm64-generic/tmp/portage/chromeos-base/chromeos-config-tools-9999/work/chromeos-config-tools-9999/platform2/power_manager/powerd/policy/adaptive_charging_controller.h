@@ -21,7 +21,6 @@
 
 #include "power_manager/common/clock.h"
 #include "power_manager/common/metrics_constants.h"
-#include "power_manager/common/power_constants.h"
 #include "power_manager/common/prefs.h"
 #include "power_manager/powerd/policy/backlight_controller.h"
 #include "power_manager/powerd/system/dbus_wrapper.h"
@@ -32,9 +31,7 @@
 #include "power_manager/proto_bindings/policy.pb.h"
 #include "power_manager/proto_bindings/user_charging_event.pb.h"
 
-namespace power_manager {
-
-namespace policy {
+namespace power_manager::policy {
 
 class AdaptiveChargingControllerInterface : public system::PowerSupplyObserver {
  public:
@@ -73,13 +70,13 @@ class AdaptiveChargingControllerInterface : public system::PowerSupplyObserver {
         double display_battery_percentage) = 0;
   };
 
-  AdaptiveChargingControllerInterface() {}
+  AdaptiveChargingControllerInterface() = default;
   AdaptiveChargingControllerInterface(
       const AdaptiveChargingControllerInterface&) = delete;
   AdaptiveChargingControllerInterface& operator=(
       const AdaptiveChargingControllerInterface&) = delete;
 
-  virtual ~AdaptiveChargingControllerInterface() {}
+  ~AdaptiveChargingControllerInterface() override = default;
 
   // For handling setting changes from the UI settings page or Enterprise
   // policy.
@@ -674,7 +671,6 @@ class AdaptiveChargingController : public AdaptiveChargingControllerInterface {
   base::WeakPtrFactory<AdaptiveChargingController> weak_ptr_factory_;
 };
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy
 
 #endif  // POWER_MANAGER_POWERD_POLICY_ADAPTIVE_CHARGING_CONTROLLER_H_

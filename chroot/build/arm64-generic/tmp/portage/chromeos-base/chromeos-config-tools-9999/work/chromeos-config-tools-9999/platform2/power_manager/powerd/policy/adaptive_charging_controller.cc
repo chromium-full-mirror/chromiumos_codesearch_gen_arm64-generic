@@ -16,13 +16,11 @@
 #include <dbus/bus.h>
 #include <dbus/message.h>
 
-#include "chromeos/dbus/service_constants.h"
 #include "power_manager/common/power_constants.h"
 #include "power_manager/common/util.h"
 #include "power_manager/powerd/policy/adaptive_charging_controller.h"
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 namespace {
 const char kDefaultChargeHistoryDir[] =
@@ -263,7 +261,8 @@ base::TimeDelta ChargeHistory::GetChargeDurationPercentile(double percentile) {
 
   size_t idx = std::min(
       charge_events_.size() - 1,
-      static_cast<size_t>(std::ceil(percentile * charge_events_.size())));
+      static_cast<size_t>(
+          std::ceil(percentile * static_cast<double>(charge_events_.size()))));
   std::nth_element(durations.begin(), durations.begin() + idx, durations.end());
   return durations[idx];
 }
@@ -624,9 +623,9 @@ void ChargeHistory::ScheduleRewrites() {
 }
 
 void ChargeHistory::OnRewriteTimerFired() {
-  for (auto it = scheduled_rewrites_.begin(); it != scheduled_rewrites_.end();
-       it++) {
-    bool success = WriteTimeDeltaToFile(it->first, it->second);
+  for (const std::pair<const base::FilePath, base::TimeDelta>& it :
+       scheduled_rewrites_) {
+    bool success = WriteTimeDeltaToFile(it.first, it.second);
     DCHECK(success);
   }
   scheduled_rewrites_.clear();
@@ -728,7 +727,7 @@ bool ChargeHistory::WriteTimeDeltaToFile(const base::FilePath& path,
 bool ChargeHistory::JSONFileNameToTime(const base::FilePath& file,
                                        base::Time* time) {
   base::Value val = base::FilePathToValue(file.BaseName());
-  absl::optional<base::Time> opt_time = base::ValueToTime(val);
+  std::optional<base::Time> opt_time = base::ValueToTime(val);
   if (!opt_time.has_value()) {
     LOG(ERROR) << "Failed to parse timestamp from filename: " << file;
     return false;
@@ -741,7 +740,7 @@ bool ChargeHistory::JSONFileNameToTime(const base::FilePath& file,
 // static
 bool ChargeHistory::TimeToJSONFileName(base::Time time, base::FilePath* file) {
   base::Value val = base::TimeToValue(time);
-  absl::optional<base::FilePath> opt_file = base::ValueToFilePath(val);
+  std::optional<base::FilePath> opt_file = base::ValueToFilePath(val);
   if (!opt_file.has_value()) {
     LOG(ERROR) << "Failed to create filename from time: " << time;
     return false;
@@ -1097,7 +1096,7 @@ void AdaptiveChargingController::OnPowerStatusUpdate() {
   if (AtHoldPercent(status.display_battery_percentage)) {
     if (state_ == AdaptiveChargingState::ACTIVE && is_sustain_set_) {
       power_supply_->SetAdaptiveCharging(target_full_charge_time_,
-                                         display_percent_);
+                                         static_cast<double>(display_percent_));
     }
 
     // Since we report metrics on how well the ML model does even if Adaptive
@@ -1167,7 +1166,8 @@ bool AdaptiveChargingController::StartAdaptiveCharging(
   }
 
   started_ = true;
-  report_charge_time_ = status.display_battery_percentage <= hold_percent_;
+  report_charge_time_ =
+      status.display_battery_percentage <= static_cast<double>(hold_percent_);
   base::TimeDelta hold_time_on_ac = charge_history_.GetHoldTimeOnAC();
   base::TimeDelta time_full_on_ac = charge_history_.GetTimeFullOnAC();
   base::TimeDelta time_on_ac = charge_history_.GetTimeOnAC();
@@ -1281,7 +1281,8 @@ bool AdaptiveChargingController::AtHoldPercent(double display_battery_percent) {
   // battery percentage drops below `hold_percent_` - `hold_delta_percent_`.
   // This means that the battery charge can momentarily drop below the lower
   // end of the range we specified.
-  return display_battery_percent >= hold_percent_ - hold_delta_percent_ - 1;
+  return display_battery_percent >=
+         static_cast<double>(hold_percent_ - hold_delta_percent_ - 1);
 }
 
 void AdaptiveChargingController::StartRecheckAlarm(base::TimeDelta delay) {
@@ -1305,5 +1306,4 @@ void AdaptiveChargingController::OnRecheckAlarmFired() {
                          true /* async */);
 }
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy

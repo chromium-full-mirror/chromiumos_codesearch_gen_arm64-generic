@@ -1038,6 +1038,21 @@
 #undef CONFIG_CHARGER_INPUT_CURRENT
 
 /*
+ * Percentage derating factor applied to charger input current limits.
+ *
+ * Desired charger current is reduced by this many percent when programming
+ * chargers via the charge manager, which is usually used to account for
+ * chargers that draw slightly more current than the programmed limit or to
+ * provide some margin for accuracy. For example, if this value is set to 4
+ * and input current is limited to 1000 mA, the charger will be given a limit
+ * of 960 mA.
+ *
+ * Boards requiring more complex control over input current should leave this
+ * undefined and override board_set_charge_limit instead.
+ */
+#undef CONFIG_CHARGER_INPUT_CURRENT_DERATE_PCT
+
+/*
  * This config option is used to enable IDCHG trigger for prochot. This macro
  * should be set to the desired current limit to draw from the battery before
  * triggering prochot. Note that is has a 512 mA granularity. The function that
@@ -6927,6 +6942,11 @@
 /* HAS_GPU_DRIVER enables D-Notify and throttling. */
 #if defined(CONFIG_GPU_NVIDIA)
 #define HAS_GPU_DRIVER
+#endif
+
+/* Default to 1024 for end of ram data (panic and jump data) */
+#ifndef CONFIG_PRESERVED_END_OF_RAM_SIZE
+#define CONFIG_PRESERVED_END_OF_RAM_SIZE 1024
 #endif
 
 #endif /* __CROS_EC_CONFIG_H */

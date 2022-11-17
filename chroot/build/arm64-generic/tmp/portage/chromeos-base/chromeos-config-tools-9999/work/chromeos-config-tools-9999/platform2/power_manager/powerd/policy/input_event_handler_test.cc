@@ -27,8 +27,7 @@
 #include "power_manager/proto_bindings/input_event.pb.h"
 #include "power_manager/proto_bindings/switch_states.pb.h"
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 namespace {
 
 const char kNoActions[] = "";
@@ -79,12 +78,12 @@ std::string GetAcknowledgmentDelayAction(base::TimeDelta delay) {
 class TestInputEventHandlerDelegate : public InputEventHandler::Delegate,
                                       public ActionRecorder {
  public:
-  TestInputEventHandlerDelegate() {}
+  TestInputEventHandlerDelegate() = default;
   TestInputEventHandlerDelegate(const TestInputEventHandlerDelegate&) = delete;
   TestInputEventHandlerDelegate& operator=(
       const TestInputEventHandlerDelegate&) = delete;
 
-  ~TestInputEventHandlerDelegate() override {}
+  ~TestInputEventHandlerDelegate() override = default;
 
   // InputEventHandler::Delegate implementation:
   void HandleLidClosed() override { AppendAction(kLidClosed); }
@@ -118,7 +117,7 @@ class InputEventHandlerTest : public ::testing::Test {
     handler_.clock_for_testing()->set_current_time_for_testing(
         base::TimeTicks::FromInternalValue(1000));
   }
-  ~InputEventHandlerTest() override {}
+  ~InputEventHandlerTest() override = default;
 
  protected:
   // Initializes |handler_|.
@@ -450,5 +449,4 @@ TEST_F(InputEventHandlerTest, OnHoverStateChangeTest) {
   EXPECT_EQ(kHoverOff, delegate_.GetActions());
 }
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy

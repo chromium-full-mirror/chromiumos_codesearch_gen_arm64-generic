@@ -5,6 +5,7 @@
 #include "power_manager/powerd/policy/suspender.h"
 
 #include <algorithm>
+#include <memory>
 #include <string>
 
 #include <base/check.h>
@@ -25,8 +26,7 @@
 #include "power_manager/powerd/system/dark_resume_interface.h"
 #include "power_manager/powerd/system/dbus_wrapper.h"
 #include "power_manager/powerd/system/display/display_watcher.h"
-#include "power_manager/powerd/system/input_watcher.h"
-#include "power_manager/powerd/system/wakeup_source_identifier.h"
+#include "power_manager/powerd/system/wakeup_source_identifier_interface.h"
 #include "power_manager/proto_bindings/suspend.pb.h"
 
 namespace {
@@ -35,8 +35,7 @@ namespace {
 const char kDefaultWakeReason[] = "Other";
 }  // namespace
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 Suspender::TestApi::TestApi(Suspender* suspender) : suspender_(suspender) {}
 
@@ -80,8 +79,8 @@ void Suspender::Init(
 
   const int initial_id = delegate_->GetInitialSuspendId();
   suspend_request_id_ = initial_id - 1;
-  suspend_delay_controller_.reset(new SuspendDelayController(
-      initial_id, "", SuspendDelayController::kDefaultMaxSuspendDelayTimeout));
+  suspend_delay_controller_ = std::make_unique<SuspendDelayController>(
+      initial_id, "", SuspendDelayController::kDefaultMaxSuspendDelayTimeout);
   suspend_delay_controller_->AddObserver(this);
 
   // Default dark suspend delay same as regular suspend timeout if the pref
@@ -98,8 +97,8 @@ void Suspender::Init(
   }
   const int initial_dark_id = delegate_->GetInitialDarkSuspendId();
   dark_suspend_id_ = initial_dark_id - 1;
-  dark_suspend_delay_controller_.reset(new SuspendDelayController(
-      initial_dark_id, "dark", max_dark_suspend_delay_timeout));
+  dark_suspend_delay_controller_ = std::make_unique<SuspendDelayController>(
+      initial_dark_id, "dark", max_dark_suspend_delay_timeout);
   dark_suspend_delay_controller_->AddObserver(this);
 
   display_watcher->AddObserver(this);
@@ -804,8 +803,8 @@ Suspender::State Suspender::HandleDarkResume(Delegate::SuspendResult result) {
   if (result == Delegate::SuspendResult::SUCCESS) {
     // This is the start of a new dark resume wake.
     dark_resume_start_time_ = clock_->GetCurrentBootTime();
-    dark_resume_wake_durations_.push_back(
-        DarkResumeInfo(kDefaultWakeReason, base::TimeDelta()));
+    dark_resume_wake_durations_.emplace_back(kDefaultWakeReason,
+                                             base::TimeDelta());
     last_dark_resume_wake_reason_ = kDefaultWakeReason;
     current_num_attempts_ = 0;
   } else {
@@ -886,5 +885,4 @@ void Suspender::EmitHibernateResumeReadySignal(int suspend_request_id) {
                                               proto);
 }
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy

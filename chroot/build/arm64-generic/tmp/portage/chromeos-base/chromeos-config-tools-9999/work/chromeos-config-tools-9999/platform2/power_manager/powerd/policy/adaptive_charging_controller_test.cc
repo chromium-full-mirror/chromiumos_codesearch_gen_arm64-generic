@@ -27,8 +27,7 @@
 #include <dbus/message.h>
 #include <gtest/gtest.h>
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 namespace {
 const int64_t kBatterySustainDisabled = -1;
@@ -230,7 +229,7 @@ class AdaptiveChargingControllerTest : public ::testing::Test {
   void CreateChargeHistoryFile(const base::FilePath& dir,
                                const base::Time& start) {
     base::Value val = base::TimeToValue(FloorTime(start));
-    absl::optional<base::FilePath> opt_path = base::ValueToFilePath(val);
+    std::optional<base::FilePath> opt_path = base::ValueToFilePath(val);
     base::File file(dir.Append(opt_path.value()),
                     base::File::FLAG_CREATE_ALWAYS | base::File::FLAG_READ |
                         base::File::FLAG_WRITE);
@@ -251,7 +250,7 @@ class AdaptiveChargingControllerTest : public ::testing::Test {
                               const base::Time& start,
                               const base::TimeDelta& duration) {
     base::Value val = base::TimeToValue(FloorTime(start));
-    absl::optional<base::FilePath> opt_path = base::ValueToFilePath(val);
+    std::optional<base::FilePath> opt_path = base::ValueToFilePath(val);
     JSONFileValueSerializer serializer(dir.Append(opt_path.value()));
     EXPECT_TRUE(serializer.Serialize(base::TimeDeltaToValue(duration)));
   }
@@ -259,7 +258,7 @@ class AdaptiveChargingControllerTest : public ::testing::Test {
   bool ChargeHistoryFileExists(const base::FilePath& dir,
                                const base::Time& start) {
     base::Value val = base::TimeToValue(FloorTime(start));
-    absl::optional<base::FilePath> opt_path = base::ValueToFilePath(val);
+    std::optional<base::FilePath> opt_path = base::ValueToFilePath(val);
     return base::PathExists(dir.Append(opt_path.value()));
   }
 
@@ -274,7 +273,7 @@ class AdaptiveChargingControllerTest : public ::testing::Test {
   base::TimeDelta ReadChargeHistoryFile(const base::FilePath& dir,
                                         const base::Time& start) {
     base::Value val = base::TimeToValue(FloorTime(start));
-    absl::optional<base::FilePath> opt_path = base::ValueToFilePath(val);
+    std::optional<base::FilePath> opt_path = base::ValueToFilePath(val);
     return ReadTimeDeltaFromFile(dir.Append(opt_path.value()));
   }
 
@@ -524,8 +523,7 @@ TEST_F(AdaptiveChargingControllerTest, TestGetChargeHistory) {
   // incomplete charge event, since we're plugged in.
   EXPECT_EQ(proto.charge_event().size(), 16);
   for (auto& event : proto.charge_event()) {
-    stored_charge_events.push_back(
-        std::make_pair(event.start_time(), event.duration()));
+    stored_charge_events.emplace_back(event.start_time(), event.duration());
   }
 
   // Reverse sort these values, so that we can verify the values in the
@@ -1104,5 +1102,4 @@ TEST_F(AdaptiveChargingControllerTest, TestMaxDelayHeuristic) {
       adaptive_charging_controller_.get_target_full_charge_time_for_testing());
 }
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy

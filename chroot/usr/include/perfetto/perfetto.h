@@ -8029,6 +8029,10 @@ class PERFETTO_EXPORT_COMPONENT Tracing {
       const TraceConfig& config,
       SetupStartupTracingOpts);
 
+  // Informs the tracing services to activate any of these triggers if any
+  // tracing session was waiting for them.
+  static void ActivateTriggers(const std::vector<std::string>& triggers);
+
  private:
   static void InitializeInternal(const TracingInitArgs&);
 
@@ -8540,6 +8544,10 @@ class PERFETTO_EXPORT_COMPONENT TracingMuxer {
                                    InterceptorFactory,
                                    InterceptorBase::TLSFactory,
                                    InterceptorBase::TracePacketCallback) = 0;
+
+  // Informs the tracing services to activate any of these triggers if any
+  // tracing session was waiting for them.
+  virtual void ActivateTriggers(const std::vector<std::string>&) = 0;
 
  protected:
   explicit TracingMuxer(Platform* platform) : platform_(platform) {}
@@ -142169,7 +142177,7 @@ namespace protos {
 namespace pbzero {
 
 
-class ChromeMojoEventInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class ChromeMojoEventInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/7, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   ChromeMojoEventInfo_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ChromeMojoEventInfo_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -142184,6 +142192,10 @@ class ChromeMojoEventInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_
   uint64_t mojo_interface_method_iid() const { return at<4>().as_uint64(); }
   bool has_is_reply() const { return at<5>().valid(); }
   bool is_reply() const { return at<5>().as_bool(); }
+  bool has_payload_size() const { return at<6>().valid(); }
+  uint64_t payload_size() const { return at<6>().as_uint64(); }
+  bool has_data_num_bytes() const { return at<7>().valid(); }
+  uint64_t data_num_bytes() const { return at<7>().as_uint64(); }
 };
 
 class ChromeMojoEventInfo : public ::protozero::Message {
@@ -142195,6 +142207,8 @@ class ChromeMojoEventInfo : public ::protozero::Message {
     kMojoInterfaceTagFieldNumber = 3,
     kMojoInterfaceMethodIidFieldNumber = 4,
     kIsReplyFieldNumber = 5,
+    kPayloadSizeFieldNumber = 6,
+    kDataNumBytesFieldNumber = 7,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ChromeMojoEventInfo"; }
 
@@ -142333,6 +142347,56 @@ class ChromeMojoEventInfo : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PayloadSize =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      ChromeMojoEventInfo>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_PayloadSize kPayloadSize() { return {}; }
+  void set_payload_size(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_PayloadSize::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_DataNumBytes =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      ChromeMojoEventInfo>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_DataNumBytes kDataNumBytes() { return {}; }
+  void set_data_num_bytes(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_DataNumBytes::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
         ::Append(*this, field_id, value);
   }
 };
@@ -159380,6 +159444,8 @@ class PERFETTO_EXPORT_COMPONENT ChromeMojoEventInfo : public ::protozero::CppMes
     kMojoInterfaceTagFieldNumber = 3,
     kMojoInterfaceMethodIidFieldNumber = 4,
     kIsReplyFieldNumber = 5,
+    kPayloadSizeFieldNumber = 6,
+    kDataNumBytesFieldNumber = 7,
   };
 
   ChromeMojoEventInfo();
@@ -159416,18 +159482,28 @@ class PERFETTO_EXPORT_COMPONENT ChromeMojoEventInfo : public ::protozero::CppMes
   bool is_reply() const { return is_reply_; }
   void set_is_reply(bool value) { is_reply_ = value; _has_field_.set(5); }
 
+  bool has_payload_size() const { return _has_field_[6]; }
+  uint64_t payload_size() const { return payload_size_; }
+  void set_payload_size(uint64_t value) { payload_size_ = value; _has_field_.set(6); }
+
+  bool has_data_num_bytes() const { return _has_field_[7]; }
+  uint64_t data_num_bytes() const { return data_num_bytes_; }
+  void set_data_num_bytes(uint64_t value) { data_num_bytes_ = value; _has_field_.set(7); }
+
  private:
   std::string watcher_notify_interface_tag_{};
   uint32_t ipc_hash_{};
   std::string mojo_interface_tag_{};
   uint64_t mojo_interface_method_iid_{};
   bool is_reply_{};
+  uint64_t payload_size_{};
+  uint64_t data_num_bytes_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<6> _has_field_{};
+  std::bitset<8> _has_field_{};
 };
 
 }  // namespace perfetto

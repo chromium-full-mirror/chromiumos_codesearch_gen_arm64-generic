@@ -19,7 +19,6 @@
 
 #include "power_manager/common/prefs.h"
 #include "power_manager/powerd/policy/backlight_controller_observer.h"
-#include "power_manager/powerd/system/ambient_light_sensor_delegate_file.h"
 #include "power_manager/powerd/system/ambient_light_sensor_watcher_interface.h"
 #include "power_manager/powerd/system/dbus_wrapper.h"
 #include "power_manager/powerd/system/display/display_power_setter.h"
@@ -32,8 +31,7 @@
 #include <base/notreached.h>
 #include <dbus/message.h>
 
-namespace power_manager {
-namespace policy {
+namespace power_manager::policy {
 
 namespace {
 
@@ -343,9 +341,7 @@ void ExternalBacklightController::NotifyObservers(
 void ExternalBacklightController::UpdateDisplays(
     const std::vector<system::DisplayInfo>& displays) {
   ExternalDisplayMap updated_displays;
-  for (std::vector<system::DisplayInfo>::const_iterator it = displays.begin();
-       it != displays.end(); ++it) {
-    const system::DisplayInfo& info = *it;
+  for (const system::DisplayInfo& info : displays) {
     if (info.i2c_path.empty())
       continue;
     if (info.connector_status !=
@@ -460,7 +456,7 @@ ExternalBacklightController::
     GetAmbientLightSensorAndDisplayMatchesForTesting() {
   std::vector<std::pair<base::FilePath, system::DisplayInfo>> matches;
   for (const auto& [path, pair] : external_als_displays_) {
-    matches.push_back(std::make_pair(path, pair.first));
+    matches.emplace_back(path, pair.first);
   }
   return matches;
 }
@@ -507,5 +503,4 @@ void ExternalBacklightController::HandleGetExternalDisplayALSBrightnessRequest(
   std::move(response_sender).Run(std::move(response));
 }
 
-}  // namespace policy
-}  // namespace power_manager
+}  // namespace power_manager::policy
