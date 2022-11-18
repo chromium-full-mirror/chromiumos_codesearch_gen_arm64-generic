@@ -92,8 +92,10 @@ enum class GpuApi : int32_t {
   kOpenCL = 0,
   
   kOpenGL = 1,
+  
+  kAny = 2,
   kMinValue = 0,
-  kMaxValue = 1,
+  kMaxValue = 2,
   kDefaultValue = 1
 };
 

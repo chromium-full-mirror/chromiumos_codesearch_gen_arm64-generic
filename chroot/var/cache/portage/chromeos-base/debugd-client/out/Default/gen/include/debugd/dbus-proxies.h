@@ -1524,6 +1524,23 @@ class debugdProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Collect printscan debug logs for the specified categories.
+  // If no categories are specified, disable log collection
+  // for all categories.
+  virtual bool PrintscanDebugSetCategories(
+      uint32_t in_categories,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Collect printscan debug logs for the specified categories.
+  // If no categories are specified, disable log collection
+  // for all categories.
+  virtual void PrintscanDebugSetCategoriesAsync(
+      uint32_t in_categories,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual void RegisterPacketCaptureStartSignalHandler(
       base::RepeatingClosure signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -4887,6 +4904,42 @@ class debugdProxy final : public debugdProxyInterface {
         std::move(success_callback),
         std::move(error_callback),
         in_type);
+  }
+
+  // Collect printscan debug logs for the specified categories.
+  // If no categories are specified, disable log collection
+  // for all categories.
+  bool PrintscanDebugSetCategories(
+      uint32_t in_categories,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "PrintscanDebugSetCategories",
+        error,
+        in_categories);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // Collect printscan debug logs for the specified categories.
+  // If no categories are specified, disable log collection
+  // for all categories.
+  void PrintscanDebugSetCategoriesAsync(
+      uint32_t in_categories,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "PrintscanDebugSetCategories",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_categories);
   }
 
  private:

@@ -58,6 +58,8 @@ static NOINLINE const char* GpuApiToStringHelper(GpuApi value) {
       return "kOpenCL";
     case GpuApi::kOpenGL:
       return "kOpenGL";
+    case GpuApi::kAny:
+      return "kAny";
     default:
       return nullptr;
   }

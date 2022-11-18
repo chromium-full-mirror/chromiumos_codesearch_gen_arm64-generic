@@ -954,6 +954,15 @@ class debugdProxyMock : public debugdProxyInterface {
                     base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD3(PrintscanDebugSetCategories,
+               bool(uint32_t /*in_categories*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(PrintscanDebugSetCategoriesAsync,
+               void(uint32_t /*in_categories*/,
+                    base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   void RegisterPacketCaptureStartSignalHandler(
     base::RepeatingClosure signal_callback,
     dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {

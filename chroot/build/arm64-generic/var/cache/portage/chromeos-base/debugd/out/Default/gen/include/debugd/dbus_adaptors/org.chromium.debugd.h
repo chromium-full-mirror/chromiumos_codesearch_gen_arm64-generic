@@ -475,6 +475,12 @@ class debugdInterface {
   virtual bool DRMTraceSnapshot(
       brillo::ErrorPtr* error,
       uint32_t in_type) = 0;
+  // Collect printscan debug logs for the specified categories.
+  // If no categories are specified, disable log collection
+  // for all categories.
+  virtual bool PrintscanDebugSetCategories(
+      brillo::ErrorPtr* error,
+      uint32_t in_categories) = 0;
 };
 
 // Interface adaptor for org::chromium::debugd.
@@ -864,6 +870,10 @@ class debugdAdaptor {
         "DRMTraceSnapshot",
         base::Unretained(interface_),
         &debugdInterface::DRMTraceSnapshot);
+    itf->AddSimpleMethodHandlerWithError(
+        "PrintscanDebugSetCategories",
+        base::Unretained(interface_),
+        &debugdInterface::PrintscanDebugSetCategories);
 
     signal_PacketCaptureStart_ = itf->RegisterSignalOfType<SignalPacketCaptureStartType>("PacketCaptureStart");
     signal_PacketCaptureStop_ = itf->RegisterSignalOfType<SignalPacketCaptureStopType>("PacketCaptureStop");
@@ -1248,6 +1258,9 @@ class debugdAdaptor {
         "    </method>\n"
         "    <method name=\"DRMTraceSnapshot\">\n"
         "      <arg name=\"type\" type=\"u\" direction=\"in\"/>\n"
+        "    </method>\n"
+        "    <method name=\"PrintscanDebugSetCategories\">\n"
+        "      <arg name=\"categories\" type=\"u\" direction=\"in\"/>\n"
         "    </method>\n"
         "    <signal name=\"PacketCaptureStart\">\n"
         "    </signal>\n"
