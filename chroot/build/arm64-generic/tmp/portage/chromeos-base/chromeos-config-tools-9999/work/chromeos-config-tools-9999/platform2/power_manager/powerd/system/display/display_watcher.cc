@@ -14,8 +14,7 @@
 
 #include "power_manager/powerd/system/udev.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -56,8 +55,6 @@ const char DisplayWatcher::kDrmUdevSubsystem[] = "drm";
 const char DisplayWatcher::kDrmStatusFile[] = "status";
 const char DisplayWatcher::kDrmStatusConnected[] = "connected";
 const char DisplayWatcher::kDrmStatusUnknown[] = "unknown";
-
-DisplayWatcher::DisplayWatcher() : udev_(nullptr) {}
 
 DisplayWatcher::~DisplayWatcher() {
   if (udev_) {
@@ -204,5 +201,4 @@ void DisplayWatcher::UpdateDisplays() {
   }
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

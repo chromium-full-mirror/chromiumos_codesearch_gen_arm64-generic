@@ -13,11 +13,9 @@
 #include <base/time/time.h>
 #include <dbus/message.h>
 
-#include "power_manager/common/util.h"
 #include "power_manager/powerd/system/dbus_wrapper.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -40,11 +38,6 @@ std::string DisplayPowerStateToString(chromeos::DisplayPowerState state) {
 }
 
 }  // namespace
-
-DisplayPowerSetter::DisplayPowerSetter()
-    : dbus_wrapper_(nullptr), display_service_proxy_(nullptr) {}
-
-DisplayPowerSetter::~DisplayPowerSetter() {}
 
 void DisplayPowerSetter::Init(DBusWrapperInterface* dbus_wrapper) {
   DCHECK(dbus_wrapper);
@@ -89,5 +82,4 @@ void DisplayPowerSetter::SendStateToDisplayService(
                                 kDisplayServiceDBusTimeout);
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

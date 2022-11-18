@@ -7,12 +7,7 @@
 #include <base/check.h>
 #include <base/logging.h>
 
-namespace power_manager {
-namespace system {
-
-DisplayWatcherStub::DisplayWatcherStub() {}
-
-DisplayWatcherStub::~DisplayWatcherStub() {}
+namespace power_manager::system {
 
 const std::vector<DisplayInfo>& DisplayWatcherStub::GetDisplays() const {
   return displays_;
@@ -61,5 +56,4 @@ void DisplayWatcherStub::RemoveDisplay(const DisplayInfo& display_info) {
   }
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

@@ -27,8 +27,7 @@
 #include "power_manager/common/power_constants.h"
 #include "power_manager/common/util.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -119,8 +118,6 @@ ExternalDisplay::TestApi::TestApi(ExternalDisplay* display)
       base::TimeTicks::FromInternalValue(1000));  // Arbitrary.
 }
 
-ExternalDisplay::TestApi::~TestApi() {}
-
 void ExternalDisplay::TestApi::AdvanceTime(base::TimeDelta interval) {
   display_->clock_.set_current_time_for_testing(
       display_->clock_.GetCurrentTime() + interval);
@@ -141,14 +138,7 @@ bool ExternalDisplay::TestApi::TriggerTimeout() {
 }
 
 ExternalDisplay::ExternalDisplay(std::unique_ptr<Delegate> delegate)
-    : delegate_(std::move(delegate)),
-      state_(State::IDLE),
-      current_brightness_percent_(0.0),
-      max_brightness_level_(0),
-      pending_brightness_adjustment_percent_(0.0),
-      pending_brightness_percent_(-1.0) {}
-
-ExternalDisplay::~ExternalDisplay() {}
+    : delegate_(std::move(delegate)) {}
 
 void ExternalDisplay::AdjustBrightnessByPercent(double percent_offset) {
   pending_brightness_adjustment_percent_ += percent_offset;
@@ -449,5 +439,4 @@ ExternalDisplay::ReceiveResult ExternalDisplay::ReceiveMessage(
   return ReceiveResult::SUCCESS;
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

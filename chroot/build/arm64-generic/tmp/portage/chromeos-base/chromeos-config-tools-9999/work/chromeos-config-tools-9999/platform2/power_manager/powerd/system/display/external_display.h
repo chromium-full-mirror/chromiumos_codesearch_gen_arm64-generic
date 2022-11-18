@@ -21,8 +21,7 @@
 
 struct i2c_rdwr_ioctl_data;
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 // Class for controlling an external display via DDC/CI.
 //
@@ -123,7 +122,7 @@ class ExternalDisplay {
   // communicate with devices.
   class Delegate {
    public:
-    virtual ~Delegate() {}
+    virtual ~Delegate() = default;
 
     // Returns a name describing the I2C bus represented by this object.
     virtual std::string GetName() const = 0;
@@ -182,7 +181,7 @@ class ExternalDisplay {
     TestApi(const TestApi&) = delete;
     TestApi& operator=(const TestApi&) = delete;
 
-    ~TestApi();
+    ~TestApi() = default;
 
     // Advances |display_|'s clock by |interval|.
     void AdvanceTime(base::TimeDelta interval);
@@ -202,7 +201,7 @@ class ExternalDisplay {
   ExternalDisplay(const ExternalDisplay&) = delete;
   ExternalDisplay& operator=(const ExternalDisplay&) = delete;
 
-  ~ExternalDisplay();
+  ~ExternalDisplay() = default;
 
   // Adjusts the display's brightness by |offset_percent|, a linearly-calculated
   // percent in the range [-100.0, 100.0]. Note that the adjustment will happen
@@ -271,17 +270,17 @@ class ExternalDisplay {
   Clock clock_;
 
   // Current state of the object.
-  State state_;
+  State state_ = State::IDLE;
 
   // Brightness believed to be currently used by the display, as a percentage in
   // the range [0.0, 100.0]. Note that the actual brightness may change in the
   // background, e.g. in response to the user hitting physical buttons on the
   // display.
-  double current_brightness_percent_;
+  double current_brightness_percent_ = 0.0;
 
   // Maximum brightness value supported by the display, in display-specific
   // units.
-  uint16_t max_brightness_level_;
+  uint16_t max_brightness_level_ = 0;
 
   // Last time at which |current_brightness_percent_| and
   // |max_brightness_level_| were updated.
@@ -289,11 +288,11 @@ class ExternalDisplay {
 
   // Amount by which the brightness should be offset, as a percentage in the
   // range [-100.0, 100.0].
-  double pending_brightness_adjustment_percent_;
+  double pending_brightness_adjustment_percent_ = 0.0;
 
   // Absolute brightness to set, as a percentage in the range [0.0, 100.0]. This
   // value will be less than zero if no change is pending.
-  double pending_brightness_percent_;
+  double pending_brightness_percent_ = -1.0;
 
   // Invokes UpdateState(). Used to enforce the mandatory delays between
   // requesting the brightness and reading the reply, and after sending a "set"
@@ -301,7 +300,6 @@ class ExternalDisplay {
   base::OneShotTimer timer_;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_DISPLAY_EXTERNAL_DISPLAY_H_

@@ -21,8 +21,7 @@
 #include "power_manager/common/metrics_constants.h"
 #include "power_manager/common/metrics_sender_stub.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -34,11 +33,11 @@ std::string Hex(uint8_t byte) {
 // Test implementation of ExternalDisplay::Delegate.
 class TestDelegate : public ExternalDisplay::Delegate {
  public:
-  TestDelegate() : report_write_failure_(false), report_read_failure_(false) {}
+  TestDelegate() = default;
   TestDelegate(const TestDelegate&) = delete;
   TestDelegate& operator=(const TestDelegate&) = delete;
 
-  ~TestDelegate() override {}
+  ~TestDelegate() override = default;
 
   void set_reply_message(const std::vector<uint8_t>& message) {
     reply_message_ = message;
@@ -118,8 +117,8 @@ class TestDelegate : public ExternalDisplay::Delegate {
   std::vector<uint8_t> reply_message_;
 
   // True if either writes or reads should report failure.
-  bool report_write_failure_;
-  bool report_read_failure_;
+  bool report_write_failure_ = false;
+  bool report_read_failure_ = false;
 };
 
 }  // namespace
@@ -144,7 +143,7 @@ class ExternalDisplayTest : public testing::Test {
             ExternalDisplay::kDdcGetCommand ^
             ExternalDisplay::kDdcBrightnessIndex);
   }
-  ~ExternalDisplayTest() override {}
+  ~ExternalDisplayTest() override = default;
 
  protected:
   // Updates the checksum byte that's already present at the end of |message|.
@@ -341,8 +340,8 @@ TEST_F(ExternalDisplayTest, InvalidBrightnessReplies) {
 
   // Run through each test case, making sure that no subsequent request is sent
   // after the bogus reply is returned. The timer also shouldn't be rescheduled.
-  for (size_t i = 0; i < test_cases.size(); ++i) {
-    SCOPED_TRACE(test_cases[i].description);
+  for (const TestCase& test_case : test_cases) {
+    SCOPED_TRACE(test_case.description);
 
     display_.AdjustBrightnessByPercent(10.0);
     ASSERT_EQ(request_brightness_message_, delegate_->PopSentMessage());
@@ -353,11 +352,11 @@ TEST_F(ExternalDisplayTest, InvalidBrightnessReplies) {
                   .ToString(),
               PopMetric());
 
-    delegate_->set_reply_message(test_cases[i].reply);
+    delegate_->set_reply_message(test_case.reply);
     ASSERT_TRUE(test_api_.TriggerTimeout());
     EXPECT_EQ(MetricsSenderStub::Metric::CreateEnum(
                   metrics::kExternalBrightnessReadResultName,
-                  static_cast<int>(test_cases[i].metric),
+                  static_cast<int>(test_case.metric),
                   metrics::kExternalDisplayResultMax)
                   .ToString(),
               PopMetric());
@@ -579,5 +578,4 @@ TEST_F(ExternalDisplayTest, AbsoluteBrightness) {
   EXPECT_EQ(GetSetBrightnessMessage(85), delegate_->PopSentMessage());
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

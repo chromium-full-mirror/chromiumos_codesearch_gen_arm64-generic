@@ -10,17 +10,16 @@
 
 #include "power_manager/powerd/system/display/display_watcher.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 // Stub implementation of DisplayWatcherInterface for testing.
 class DisplayWatcherStub : public DisplayWatcherInterface {
  public:
-  DisplayWatcherStub();
+  DisplayWatcherStub() = default;
   DisplayWatcherStub(const DisplayWatcherStub&) = delete;
   DisplayWatcherStub& operator=(const DisplayWatcherStub&) = delete;
 
-  ~DisplayWatcherStub() override;
+  ~DisplayWatcherStub() override = default;
 
   void set_displays(const std::vector<DisplayInfo>& displays) {
     displays_ = displays;
@@ -40,7 +39,6 @@ class DisplayWatcherStub : public DisplayWatcherInterface {
   std::vector<DisplayInfo> displays_;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_DISPLAY_DISPLAY_WATCHER_STUB_H_

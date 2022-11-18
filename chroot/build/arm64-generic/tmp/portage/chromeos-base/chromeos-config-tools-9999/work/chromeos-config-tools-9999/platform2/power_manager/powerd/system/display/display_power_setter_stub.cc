@@ -4,16 +4,7 @@
 
 #include "power_manager/powerd/system/display/display_power_setter_stub.h"
 
-namespace power_manager {
-namespace system {
-
-DisplayPowerSetterStub::DisplayPowerSetterStub()
-    : clock_(nullptr),
-      state_(chromeos::DISPLAY_POWER_ALL_ON),
-      num_power_calls_(0),
-      dimmed_(false) {}
-
-DisplayPowerSetterStub::~DisplayPowerSetterStub() {}
+namespace power_manager::system {
 
 void DisplayPowerSetterStub::SetDisplayPower(chromeos::DisplayPowerState state,
                                              base::TimeDelta delay) {
@@ -28,5 +19,4 @@ void DisplayPowerSetterStub::SetDisplaySoftwareDimming(bool dimmed) {
   dimmed_ = dimmed;
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
