@@ -20,6 +20,7 @@ class  ChromiumDataCollectorInterceptorForTesting : public ChromiumDataCollector
   virtual ChromiumDataCollector* GetForwardingInterface() = 0;
   void GetTouchscreenDevices(GetTouchscreenDevicesCallback callback) override;
   void GetTouchpadLibraryName(GetTouchpadLibraryNameCallback callback) override;
+  void SetPrivacyScreenState(bool state, SetPrivacyScreenStateCallback callback) override;
 };
 class  ChromiumDataCollectorAsyncWaiter {
  public:
@@ -35,6 +36,9 @@ class  ChromiumDataCollectorAsyncWaiter {
   void GetTouchpadLibraryName(
       std::string* out_library_name);
   std::string GetTouchpadLibraryName();
+  void SetPrivacyScreenState(
+      bool state, bool* out_success);
+  bool SetPrivacyScreenState(bool state);
 
  private:
   ChromiumDataCollector* const proxy_;

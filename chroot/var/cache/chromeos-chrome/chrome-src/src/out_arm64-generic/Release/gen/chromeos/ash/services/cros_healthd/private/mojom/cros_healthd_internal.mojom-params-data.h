@@ -85,6 +85,40 @@ class  ChromiumDataCollector_GetTouchpadLibraryName_ResponseParams_Data {
 };
 static_assert(sizeof(ChromiumDataCollector_GetTouchpadLibraryName_ResponseParams_Data) == 16,
               "Bad sizeof(ChromiumDataCollector_GetTouchpadLibraryName_ResponseParams_Data)");
+class  ChromiumDataCollector_SetPrivacyScreenState_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t state : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<ChromiumDataCollector_SetPrivacyScreenState_Params_Data>;
+
+  ChromiumDataCollector_SetPrivacyScreenState_Params_Data();
+  ~ChromiumDataCollector_SetPrivacyScreenState_Params_Data() = delete;
+};
+static_assert(sizeof(ChromiumDataCollector_SetPrivacyScreenState_Params_Data) == 16,
+              "Bad sizeof(ChromiumDataCollector_SetPrivacyScreenState_Params_Data)");
+class  ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t success : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data>;
+
+  ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data();
+  ~ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data) == 16,
+              "Bad sizeof(ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -175,6 +209,44 @@ class ChromiumDataCollector_GetTouchpadLibraryName_ResponseParamsDataView {
 
 
 
+class ChromiumDataCollector_SetPrivacyScreenState_ParamsDataView {
+ public:
+  ChromiumDataCollector_SetPrivacyScreenState_ParamsDataView() = default;
+
+  ChromiumDataCollector_SetPrivacyScreenState_ParamsDataView(
+      internal::ChromiumDataCollector_SetPrivacyScreenState_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool state() const {
+    return data_->state;
+  }
+ private:
+  internal::ChromiumDataCollector_SetPrivacyScreenState_Params_Data* data_ = nullptr;
+};
+
+
+
+class ChromiumDataCollector_SetPrivacyScreenState_ResponseParamsDataView {
+ public:
+  ChromiumDataCollector_SetPrivacyScreenState_ResponseParamsDataView() = default;
+
+  ChromiumDataCollector_SetPrivacyScreenState_ResponseParamsDataView(
+      internal::ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool success() const {
+    return data_->success;
+  }
+ private:
+  internal::ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data* data_ = nullptr;
+};
+
+
+
 
 inline void ChromiumDataCollector_GetTouchscreenDevices_ResponseParamsDataView::GetDevicesDataView(
     mojo::ArrayDataView<TouchscreenDeviceDataView>* output) {
@@ -190,6 +262,10 @@ inline void ChromiumDataCollector_GetTouchpadLibraryName_ResponseParamsDataView:
   auto pointer = data_->library_name.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
+
+
 
 }  // namespace mojom
 }  // namespace internal

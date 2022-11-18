@@ -675,6 +675,27 @@ inline const std::string& SystemProfileProto_ComponentId_Name(T enum_t_value) {
 }
 bool SystemProfileProto_ComponentId_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_ComponentId* value);
+enum SystemProfileProto_AppPackageNameAllowlistFilter : int {
+  SystemProfileProto_AppPackageNameAllowlistFilter_SERVER_SIDE_FILTER_UNSPECIFIED = 0,
+  SystemProfileProto_AppPackageNameAllowlistFilter_SERVER_SIDE_FILTER_REQUIRED = 1,
+  SystemProfileProto_AppPackageNameAllowlistFilter_NO_SERVER_SIDE_FILTER_REQUIRED_DUE_TO_CLIENT_FILTERING = 2,
+  SystemProfileProto_AppPackageNameAllowlistFilter_NO_SERVER_SIDE_FILTER_REQUIRED_FOR_SYSTEM_APPS = 3
+};
+bool SystemProfileProto_AppPackageNameAllowlistFilter_IsValid(int value);
+constexpr SystemProfileProto_AppPackageNameAllowlistFilter SystemProfileProto_AppPackageNameAllowlistFilter_AppPackageNameAllowlistFilter_MIN = SystemProfileProto_AppPackageNameAllowlistFilter_SERVER_SIDE_FILTER_UNSPECIFIED;
+constexpr SystemProfileProto_AppPackageNameAllowlistFilter SystemProfileProto_AppPackageNameAllowlistFilter_AppPackageNameAllowlistFilter_MAX = SystemProfileProto_AppPackageNameAllowlistFilter_NO_SERVER_SIDE_FILTER_REQUIRED_FOR_SYSTEM_APPS;
+constexpr int SystemProfileProto_AppPackageNameAllowlistFilter_AppPackageNameAllowlistFilter_ARRAYSIZE = SystemProfileProto_AppPackageNameAllowlistFilter_AppPackageNameAllowlistFilter_MAX + 1;
+
+const std::string& SystemProfileProto_AppPackageNameAllowlistFilter_Name(SystemProfileProto_AppPackageNameAllowlistFilter value);
+template<typename T>
+inline const std::string& SystemProfileProto_AppPackageNameAllowlistFilter_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SystemProfileProto_AppPackageNameAllowlistFilter>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SystemProfileProto_AppPackageNameAllowlistFilter_Name.");
+  return SystemProfileProto_AppPackageNameAllowlistFilter_Name(static_cast<SystemProfileProto_AppPackageNameAllowlistFilter>(enum_t_value));
+}
+bool SystemProfileProto_AppPackageNameAllowlistFilter_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_AppPackageNameAllowlistFilter* value);
 enum SystemProfileProto_InstallerPackage : int {
   SystemProfileProto_InstallerPackage_INSTALLER_PACKAGE_UNKNOWN = 0,
   SystemProfileProto_InstallerPackage_INSTALLER_PACKAGE_NONE = 1,
@@ -6935,6 +6956,36 @@ class SystemProfileProto final :
     return SystemProfileProto_ComponentId_Parse(name, value);
   }
 
+  typedef SystemProfileProto_AppPackageNameAllowlistFilter AppPackageNameAllowlistFilter;
+  static constexpr AppPackageNameAllowlistFilter SERVER_SIDE_FILTER_UNSPECIFIED =
+    SystemProfileProto_AppPackageNameAllowlistFilter_SERVER_SIDE_FILTER_UNSPECIFIED;
+  static constexpr AppPackageNameAllowlistFilter SERVER_SIDE_FILTER_REQUIRED =
+    SystemProfileProto_AppPackageNameAllowlistFilter_SERVER_SIDE_FILTER_REQUIRED;
+  static constexpr AppPackageNameAllowlistFilter NO_SERVER_SIDE_FILTER_REQUIRED_DUE_TO_CLIENT_FILTERING =
+    SystemProfileProto_AppPackageNameAllowlistFilter_NO_SERVER_SIDE_FILTER_REQUIRED_DUE_TO_CLIENT_FILTERING;
+  static constexpr AppPackageNameAllowlistFilter NO_SERVER_SIDE_FILTER_REQUIRED_FOR_SYSTEM_APPS =
+    SystemProfileProto_AppPackageNameAllowlistFilter_NO_SERVER_SIDE_FILTER_REQUIRED_FOR_SYSTEM_APPS;
+  static inline bool AppPackageNameAllowlistFilter_IsValid(int value) {
+    return SystemProfileProto_AppPackageNameAllowlistFilter_IsValid(value);
+  }
+  static constexpr AppPackageNameAllowlistFilter AppPackageNameAllowlistFilter_MIN =
+    SystemProfileProto_AppPackageNameAllowlistFilter_AppPackageNameAllowlistFilter_MIN;
+  static constexpr AppPackageNameAllowlistFilter AppPackageNameAllowlistFilter_MAX =
+    SystemProfileProto_AppPackageNameAllowlistFilter_AppPackageNameAllowlistFilter_MAX;
+  static constexpr int AppPackageNameAllowlistFilter_ARRAYSIZE =
+    SystemProfileProto_AppPackageNameAllowlistFilter_AppPackageNameAllowlistFilter_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& AppPackageNameAllowlistFilter_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, AppPackageNameAllowlistFilter>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function AppPackageNameAllowlistFilter_Name.");
+    return SystemProfileProto_AppPackageNameAllowlistFilter_Name(enum_t_value);
+  }
+  static inline bool AppPackageNameAllowlistFilter_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      AppPackageNameAllowlistFilter* value) {
+    return SystemProfileProto_AppPackageNameAllowlistFilter_Parse(name, value);
+  }
+
   typedef SystemProfileProto_InstallerPackage InstallerPackage;
   static constexpr InstallerPackage INSTALLER_PACKAGE_UNKNOWN =
     SystemProfileProto_InstallerPackage_INSTALLER_PACKAGE_UNKNOWN;
@@ -7005,6 +7056,7 @@ class SystemProfileProto final :
     kOldLowEntropySourceFieldNumber = 32,
     kInstallerPackageFieldNumber = 35,
     kPseudoLowEntropySourceFieldNumber = 37,
+    kAppPackageNameAllowlistFilterFieldNumber = 42,
   };
   // repeated .metrics.SystemProfileProto.FieldTrial field_trial = 9;
   int field_trial_size() const;
@@ -7610,6 +7662,19 @@ class SystemProfileProto final :
   void _internal_set_pseudo_low_entropy_source(int32_t value);
   public:
 
+  // optional .metrics.SystemProfileProto.AppPackageNameAllowlistFilter app_package_name_allowlist_filter = 42;
+  bool has_app_package_name_allowlist_filter() const;
+  private:
+  bool _internal_has_app_package_name_allowlist_filter() const;
+  public:
+  void clear_app_package_name_allowlist_filter();
+  ::metrics::SystemProfileProto_AppPackageNameAllowlistFilter app_package_name_allowlist_filter() const;
+  void set_app_package_name_allowlist_filter(::metrics::SystemProfileProto_AppPackageNameAllowlistFilter value);
+  private:
+  ::metrics::SystemProfileProto_AppPackageNameAllowlistFilter _internal_app_package_name_allowlist_filter() const;
+  void _internal_set_app_package_name_allowlist_filter(::metrics::SystemProfileProto_AppPackageNameAllowlistFilter value);
+  public:
+
   // @@protoc_insertion_point(class_scope:metrics.SystemProfileProto)
  private:
   class _Internal;
@@ -7656,6 +7721,7 @@ class SystemProfileProto final :
   int32_t old_low_entropy_source_;
   int installer_package_;
   int32_t pseudo_low_entropy_source_;
+  int app_package_name_allowlist_filter_;
   friend struct ::TableStruct_system_5fprofile_2eproto;
 };
 // ===================================================================
@@ -15666,6 +15732,35 @@ inline void SystemProfileProto::set_allocated_app_package_name(std::string* app_
   // @@protoc_insertion_point(field_set_allocated:metrics.SystemProfileProto.app_package_name)
 }
 
+// optional .metrics.SystemProfileProto.AppPackageNameAllowlistFilter app_package_name_allowlist_filter = 42;
+inline bool SystemProfileProto::_internal_has_app_package_name_allowlist_filter() const {
+  bool value = (_has_bits_[0] & 0x40000000u) != 0;
+  return value;
+}
+inline bool SystemProfileProto::has_app_package_name_allowlist_filter() const {
+  return _internal_has_app_package_name_allowlist_filter();
+}
+inline void SystemProfileProto::clear_app_package_name_allowlist_filter() {
+  app_package_name_allowlist_filter_ = 0;
+  _has_bits_[0] &= ~0x40000000u;
+}
+inline ::metrics::SystemProfileProto_AppPackageNameAllowlistFilter SystemProfileProto::_internal_app_package_name_allowlist_filter() const {
+  return static_cast< ::metrics::SystemProfileProto_AppPackageNameAllowlistFilter >(app_package_name_allowlist_filter_);
+}
+inline ::metrics::SystemProfileProto_AppPackageNameAllowlistFilter SystemProfileProto::app_package_name_allowlist_filter() const {
+  // @@protoc_insertion_point(field_get:metrics.SystemProfileProto.app_package_name_allowlist_filter)
+  return _internal_app_package_name_allowlist_filter();
+}
+inline void SystemProfileProto::_internal_set_app_package_name_allowlist_filter(::metrics::SystemProfileProto_AppPackageNameAllowlistFilter value) {
+  assert(::metrics::SystemProfileProto_AppPackageNameAllowlistFilter_IsValid(value));
+  _has_bits_[0] |= 0x40000000u;
+  app_package_name_allowlist_filter_ = value;
+}
+inline void SystemProfileProto::set_app_package_name_allowlist_filter(::metrics::SystemProfileProto_AppPackageNameAllowlistFilter value) {
+  _internal_set_app_package_name_allowlist_filter(value);
+  // @@protoc_insertion_point(field_set:metrics.SystemProfileProto.app_package_name_allowlist_filter)
+}
+
 // optional .metrics.SystemProfileProto.InstallerPackage installer_package = 35;
 inline bool SystemProfileProto::_internal_has_installer_package() const {
   bool value = (_has_bits_[0] & 0x10000000u) != 0;
@@ -15953,6 +16048,7 @@ template <> struct is_proto_enum< ::metrics::SystemProfileProto_ExtensionsState>
 template <> struct is_proto_enum< ::metrics::SystemProfileProto_UmaDefaultState> : ::std::true_type {};
 template <> struct is_proto_enum< ::metrics::SystemProfileProto_AntiVirusState> : ::std::true_type {};
 template <> struct is_proto_enum< ::metrics::SystemProfileProto_ComponentId> : ::std::true_type {};
+template <> struct is_proto_enum< ::metrics::SystemProfileProto_AppPackageNameAllowlistFilter> : ::std::true_type {};
 template <> struct is_proto_enum< ::metrics::SystemProfileProto_InstallerPackage> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
