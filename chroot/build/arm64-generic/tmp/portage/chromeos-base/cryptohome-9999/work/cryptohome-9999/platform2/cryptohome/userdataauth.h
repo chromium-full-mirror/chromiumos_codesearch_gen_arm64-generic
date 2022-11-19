@@ -772,6 +772,11 @@ class UserDataAuth {
       base::OnceCallback<void(const user_data_auth::ListAuthFactorsReply&)>
           on_done);
 
+  void GetAuthFactorExtendedInfo(
+      user_data_auth::GetAuthFactorExtendedInfoRequest request,
+      base::OnceCallback<
+          void(const user_data_auth::GetAuthFactorExtendedInfoReply&)> on_done);
+
   void PrepareAuthFactor(
       user_data_auth::PrepareAuthFactorRequest request,
       base::OnceCallback<void(const user_data_auth::PrepareAuthFactorReply&)>
@@ -787,7 +792,7 @@ class UserDataAuth {
       base::OnceCallback<void(const user_data_auth::GetAuthSessionStatusReply&)>
           on_done);
 
-  bool GetRecoveryRequest(
+  void GetRecoveryRequest(
       user_data_auth::GetRecoveryRequestRequest request,
       base::OnceCallback<void(const user_data_auth::GetRecoveryRequestReply&)>
           on_done);

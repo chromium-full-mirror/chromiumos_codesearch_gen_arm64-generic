@@ -3900,6 +3900,124 @@ std::string GetProtoDebugStringWithIndent(const ListAuthFactorsReply& value,
   return output;
 }
 
+std::string GetProtoDebugString(const RecoveryExtendedInfoRequest& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const RecoveryExtendedInfoRequest& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  max_depth: ";
+  base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
+                      value.max_depth(), value.max_depth());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const RecoveryExtendedInfoReply& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const RecoveryExtendedInfoReply& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  recovery_ids: {";
+  for (int i = 0; i < value.recovery_ids_size(); ++i) {
+    if (i > 0) {
+      base::StringAppendF(&output, ", ");
+    }
+    base::StringAppendF(&output, "%s", value.recovery_ids(i).c_str());
+  }
+  output += "}\n";
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const GetAuthFactorExtendedInfoRequest& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const GetAuthFactorExtendedInfoRequest& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  account_id: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "  auth_factor_label: ";
+  base::StringAppendF(&output, "%s", value.auth_factor_label().c_str());
+  output += "\n";
+
+  output += indent + "  recovery_info_request: ";
+  base::StringAppendF(&output, "%s",
+                      GetProtoDebugStringWithIndent(
+                          value.recovery_info_request(), indent_size + 2)
+                          .c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const GetAuthFactorExtendedInfoReply& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const GetAuthFactorExtendedInfoReply& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  error: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+  output += "\n";
+
+  output += indent + "  error_info: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "  auth_factor: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.auth_factor(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "  recovery_info_reply: ";
+  base::StringAppendF(&output, "%s",
+                      GetProtoDebugStringWithIndent(value.recovery_info_reply(),
+                                                    indent_size + 2)
+                          .c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
 std::string GetProtoDebugString(const GetRecoveryRequestRequest& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }

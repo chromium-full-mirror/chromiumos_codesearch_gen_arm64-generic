@@ -138,6 +138,9 @@ class UserDataAuthInterfaceInterface {
   virtual void ListAuthFactors(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::ListAuthFactorsReply>> response,
       const user_data_auth::ListAuthFactorsRequest& in_request) = 0;
+  virtual void GetAuthFactorExtendedInfo(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetAuthFactorExtendedInfoReply>> response,
+      const user_data_auth::GetAuthFactorExtendedInfoRequest& in_request) = 0;
   virtual void PrepareAuthFactor(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::PrepareAuthFactorReply>> response,
       const user_data_auth::PrepareAuthFactorRequest& in_request) = 0;
@@ -311,6 +314,10 @@ class UserDataAuthInterfaceAdaptor {
         "ListAuthFactors",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::ListAuthFactors);
+    itf->AddMethodHandler(
+        "GetAuthFactorExtendedInfo",
+        base::Unretained(interface_),
+        &UserDataAuthInterfaceInterface::GetAuthFactorExtendedInfo);
     itf->AddMethodHandler(
         "PrepareAuthFactor",
         base::Unretained(interface_),
@@ -504,6 +511,10 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"ListAuthFactors\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"GetAuthFactorExtendedInfo\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
