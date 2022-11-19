@@ -439,6 +439,64 @@ struct FwupdVersionFormat_Data {
   }
 };
 
+struct UsbVersion_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct UsbSpecSpeed_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct TpmGSCVersion_Data {
  public:
   static bool constexpr kIsExtensible = true;
@@ -4221,6 +4279,8 @@ class  UsbBusInfo_Data {
   uint16_t product_id;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::UsbBusInterfaceInfo_Data>>> interfaces;
   mojo::internal::Pointer<internal::FwupdFirmwareVersionInfo_Data> fwupd_firmware_version_info;
+  int32_t version;
+  int32_t spec_speed;
 
  private:
   friend class mojo::internal::MessageFragment<UsbBusInfo_Data>;
@@ -4228,7 +4288,7 @@ class  UsbBusInfo_Data {
   UsbBusInfo_Data();
   ~UsbBusInfo_Data() = delete;
 };
-static_assert(sizeof(UsbBusInfo_Data) == 32,
+static_assert(sizeof(UsbBusInfo_Data) == 40,
               "Bad sizeof(UsbBusInfo_Data)");
 // Used by UsbBusInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

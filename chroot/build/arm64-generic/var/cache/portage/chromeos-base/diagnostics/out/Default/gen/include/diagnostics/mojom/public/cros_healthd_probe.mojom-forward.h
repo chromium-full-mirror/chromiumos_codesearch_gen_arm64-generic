@@ -196,6 +196,10 @@ enum class BusDeviceClass : int32_t;
 
 enum class FwupdVersionFormat : int32_t;
 
+enum class UsbVersion : int32_t;
+
+enum class UsbSpecSpeed : int32_t;
+
 enum class TpmGSCVersion : int32_t;
 
 enum class DisplayInputType : int32_t;

@@ -404,6 +404,74 @@ std::ostream& operator<<(std::ostream& os, FwupdVersionFormat value) {
   return os << FwupdVersionFormatToString(value);
 }
 
+static NOINLINE const char* UsbVersionToStringHelper(UsbVersion value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case UsbVersion::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case UsbVersion::kUnknown:
+      return "kUnknown";
+    case UsbVersion::kUsb1:
+      return "kUsb1";
+    case UsbVersion::kUsb2:
+      return "kUsb2";
+    case UsbVersion::kUsb3:
+      return "kUsb3";
+    default:
+      return nullptr;
+  }
+}
+
+std::string UsbVersionToString(UsbVersion value) {
+  const char *str = UsbVersionToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown UsbVersion value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, UsbVersion value) {
+  return os << UsbVersionToString(value);
+}
+
+static NOINLINE const char* UsbSpecSpeedToStringHelper(UsbSpecSpeed value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case UsbSpecSpeed::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case UsbSpecSpeed::kUnknown:
+      return "kUnknown";
+    case UsbSpecSpeed::kSpeed1_5:
+      return "kSpeed1_5";
+    case UsbSpecSpeed::kSpeed12:
+      return "kSpeed12";
+    case UsbSpecSpeed::kSpeed15:
+      return "kSpeed15";
+    case UsbSpecSpeed::kSpeed480:
+      return "kSpeed480";
+    case UsbSpecSpeed::kSpeed5000:
+      return "kSpeed5000";
+    case UsbSpecSpeed::kSpeed10000:
+      return "kSpeed10000";
+    case UsbSpecSpeed::kSpeed20000:
+      return "kSpeed20000";
+    default:
+      return nullptr;
+  }
+}
+
+std::string UsbSpecSpeedToString(UsbSpecSpeed value) {
+  const char *str = UsbSpecSpeedToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown UsbSpecSpeed value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, UsbSpecSpeed value) {
+  return os << UsbSpecSpeedToString(value);
+}
+
 static NOINLINE const char* TpmGSCVersionToStringHelper(TpmGSCVersion value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -4147,6 +4215,7 @@ bool UsbBusInfo_Data::Validate(
   static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
     { 0, 24 },
     { 1, 32 },
+    { 2, 40 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -4173,12 +4242,26 @@ bool UsbBusInfo_Data::Validate(
 
   if (!mojo::internal::ValidateStruct(object->fwupd_firmware_version_info, validation_context))
     return false;
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::ash::cros_healthd::mojom::internal::UsbVersion_Data
+        ::Validate(object->version, validation_context))
+    return false;
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::ash::cros_healthd::mojom::internal::UsbSpecSpeed_Data
+        ::Validate(object->spec_speed, validation_context))
+    return false;
 
   return true;
 }
 
 UsbBusInfo_Data::UsbBusInfo_Data()
-    : header_({sizeof(*this), 1}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -5408,6 +5491,26 @@ namespace perfetto_libchrome {
 void TraceFormatTraits<::ash::cros_healthd::mojom::FwupdVersionFormat>::WriteIntoTrace(
    perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::FwupdVersionFormat value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::FwupdVersionFormatToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::UsbVersion>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::UsbVersion value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::UsbVersionToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::UsbSpecSpeed>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::UsbSpecSpeed value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::UsbSpecSpeedToString(value));
 }
 
 } // namespace perfetto

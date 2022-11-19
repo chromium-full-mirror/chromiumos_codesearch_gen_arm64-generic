@@ -18,12 +18,14 @@
 #include "libhwsec/backend/tpm2/pinweaver.h"
 #include "libhwsec/backend/tpm2/random.h"
 #include "libhwsec/backend/tpm2/recovery_crypto.h"
+#include "libhwsec/backend/tpm2/ro_data.h"
 #include "libhwsec/backend/tpm2/sealing.h"
 #include "libhwsec/backend/tpm2/session_management.h"
 #include "libhwsec/backend/tpm2/signature_sealing.h"
 #include "libhwsec/backend/tpm2/signing.h"
 #include "libhwsec/backend/tpm2/state.h"
 #include "libhwsec/backend/tpm2/storage.h"
+#include "libhwsec/backend/tpm2/u2f.h"
 #include "libhwsec/backend/tpm2/vendor.h"
 #include "libhwsec/middleware/middleware.h"
 #include "libhwsec/proxy/proxy.h"
@@ -78,7 +80,7 @@ class BackendTpm2 : public Backend {
   State* GetState() override { return &state_; }
   DAMitigation* GetDAMitigation() override { return &da_mitigation_; }
   Storage* GetStorage() override { return &storage_; }
-  RoData* GetRoData() override { return nullptr; }
+  RoData* GetRoData() override { return &ro_data_; }
   Sealing* GetSealing() override { return &sealing_; }
   SignatureSealing* GetSignatureSealing() override {
     return &signature_sealing_;
@@ -95,6 +97,7 @@ class BackendTpm2 : public Backend {
   PinWeaver* GetPinWeaver() override { return &pinweaver_; }
   Vendor* GetVendor() override { return &vendor_; }
   RecoveryCrypto* GetRecoveryCrypto() override { return &recovery_crypto_; }
+  U2f* GetU2f() override { return &u2f_; }
 
   Proxy& proxy_;
 
@@ -115,6 +118,8 @@ class BackendTpm2 : public Backend {
   PinWeaverTpm2 pinweaver_{*this};
   VendorTpm2 vendor_{*this};
   RecoveryCryptoTpm2 recovery_crypto_{*this};
+  U2fTpm2 u2f_{*this};
+  RoDataTpm2 ro_data_{*this};
 
   MiddlewareDerivative middleware_derivative_;
 };
