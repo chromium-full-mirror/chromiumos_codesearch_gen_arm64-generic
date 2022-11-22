@@ -34,6 +34,8 @@ static NOINLINE const char* CameraEffectToStringHelper(CameraEffect value) {
       return "kPortraitRelight";
     case CameraEffect::kBackgroundBlurPortraitRelight:
       return "kBackgroundBlurPortraitRelight";
+    case CameraEffect::kCount:
+      return "kCount";
     default:
       return nullptr;
   }

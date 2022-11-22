@@ -69,8 +69,10 @@ enum class CameraEffect : int32_t {
   kPortraitRelight = 3,
   
   kBackgroundBlurPortraitRelight = 4,
+  
+  kCount = 5,
   kMinValue = 0,
-  kMaxValue = 4,
+  kMaxValue = 5,
   kDefaultValue = 0
 };
 
