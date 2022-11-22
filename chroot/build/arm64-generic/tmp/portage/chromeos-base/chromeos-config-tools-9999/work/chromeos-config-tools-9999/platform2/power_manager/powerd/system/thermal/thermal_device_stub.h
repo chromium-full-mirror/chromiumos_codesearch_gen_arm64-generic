@@ -13,16 +13,15 @@
 #include "power_manager/powerd/system/thermal/thermal_device.h"
 #include "power_manager/powerd/system/thermal/thermal_device_observer.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 class ThermalDeviceStub : public ThermalDeviceInterface {
  public:
-  ThermalDeviceStub();
+  ThermalDeviceStub() = default;
   ThermalDeviceStub(const ThermalDeviceStub&) = delete;
   ThermalDeviceStub& operator=(const ThermalDeviceStub&) = delete;
 
-  ~ThermalDeviceStub() override;
+  ~ThermalDeviceStub() override = default;
 
   // ThermalDeviceInterface implementation:
   void AddObserver(ThermalDeviceObserver* observer) override;
@@ -44,12 +43,11 @@ class ThermalDeviceStub : public ThermalDeviceInterface {
   // List of observers that are currently interested in updates from this.
   base::ObserverList<ThermalDeviceObserver> observers_;
 
-  DeviceThermalState current_state_;
+  DeviceThermalState current_state_ = DeviceThermalState::kUnknown;
 
-  ThermalDeviceType type_;
+  ThermalDeviceType type_ = ThermalDeviceType::kUnknown;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_THERMAL_THERMAL_DEVICE_STUB_H_

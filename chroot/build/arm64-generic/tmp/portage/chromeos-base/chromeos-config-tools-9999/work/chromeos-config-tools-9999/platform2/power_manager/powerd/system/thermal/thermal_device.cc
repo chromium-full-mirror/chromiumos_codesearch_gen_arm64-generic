@@ -16,8 +16,7 @@
 
 #include "power_manager/powerd/system/thermal/device_thermal_state.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -36,8 +35,6 @@ ThermalDevice::ThermalDevice(base::FilePath device_path)
       type_(ThermalDeviceType::kUnknown),
       poll_interval_(kDefaultPollInterval),
       current_state_(DeviceThermalState::kUnknown) {}
-
-ThermalDevice::~ThermalDevice() {}
 
 void ThermalDevice::AddObserver(ThermalDeviceObserver* observer) {
   DCHECK(observer);
@@ -121,5 +118,4 @@ ThermalDeviceType ThermalDevice::GetType() const {
   return type_;
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

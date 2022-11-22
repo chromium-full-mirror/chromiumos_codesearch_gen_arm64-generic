@@ -6000,13 +6000,14 @@ bool RemoteCommand_Type_IsValid(int value) {
     case 12:
     case 13:
     case 14:
+    case 15:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RemoteCommand_Type_strings[16] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RemoteCommand_Type_strings[17] = {};
 
 static const char RemoteCommand_Type_names[] =
   "BROWSER_CLEAR_BROWSING_DATA"
@@ -6024,6 +6025,7 @@ static const char RemoteCommand_Type_names[] =
   "DEVICE_SET_VOLUME"
   "DEVICE_START_CRD_SESSION"
   "DEVICE_WIPE_USERS"
+  "FETCH_CRD_AVAILABILITY_INFO"
   "USER_ARC_COMMAND";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry RemoteCommand_Type_entries[] = {
@@ -6042,7 +6044,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry RemoteCommand_Type_ent
   { {RemoteCommand_Type_names + 321, 17}, 2 },
   { {RemoteCommand_Type_names + 338, 24}, 6 },
   { {RemoteCommand_Type_names + 362, 17}, 5 },
-  { {RemoteCommand_Type_names + 379, 16}, 4 },
+  { {RemoteCommand_Type_names + 379, 27}, 15 },
+  { {RemoteCommand_Type_names + 406, 16}, 4 },
 };
 
 static const int RemoteCommand_Type_entries_by_number[] = {
@@ -6051,7 +6054,7 @@ static const int RemoteCommand_Type_entries_by_number[] = {
   11, // 1 -> DEVICE_SCREENSHOT
   12, // 2 -> DEVICE_SET_VOLUME
   3, // 3 -> DEVICE_FETCH_STATUS
-  15, // 4 -> USER_ARC_COMMAND
+  16, // 4 -> USER_ARC_COMMAND
   14, // 5 -> DEVICE_WIPE_USERS
   13, // 6 -> DEVICE_START_CRD_SESSION
   8, // 7 -> DEVICE_REMOTE_POWERWASH
@@ -6062,6 +6065,7 @@ static const int RemoteCommand_Type_entries_by_number[] = {
   0, // 12 -> BROWSER_CLEAR_BROWSING_DATA
   9, // 13 -> DEVICE_RESET_EUICC
   1, // 14 -> BROWSER_ROTATE_ATTESTATION_CREDENTIAL
+  15, // 15 -> FETCH_CRD_AVAILABILITY_INFO
 };
 
 const std::string& RemoteCommand_Type_Name(
@@ -6070,12 +6074,12 @@ const std::string& RemoteCommand_Type_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           RemoteCommand_Type_entries,
           RemoteCommand_Type_entries_by_number,
-          16, RemoteCommand_Type_strings);
+          17, RemoteCommand_Type_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       RemoteCommand_Type_entries,
       RemoteCommand_Type_entries_by_number,
-      16, value);
+      17, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      RemoteCommand_Type_strings[idx].get();
 }
@@ -6083,7 +6087,7 @@ bool RemoteCommand_Type_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RemoteCommand_Type* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      RemoteCommand_Type_entries, 16, name, &int_value);
+      RemoteCommand_Type_entries, 17, name, &int_value);
   if (success) {
     *value = static_cast<RemoteCommand_Type>(int_value);
   }
@@ -6106,6 +6110,7 @@ constexpr RemoteCommand_Type RemoteCommand::DEVICE_GET_DIAGNOSTIC_ROUTINE_UPDATE
 constexpr RemoteCommand_Type RemoteCommand::BROWSER_CLEAR_BROWSING_DATA;
 constexpr RemoteCommand_Type RemoteCommand::DEVICE_RESET_EUICC;
 constexpr RemoteCommand_Type RemoteCommand::BROWSER_ROTATE_ATTESTATION_CREDENTIAL;
+constexpr RemoteCommand_Type RemoteCommand::FETCH_CRD_AVAILABILITY_INFO;
 constexpr RemoteCommand_Type RemoteCommand::Type_MIN;
 constexpr RemoteCommand_Type RemoteCommand::Type_MAX;
 constexpr int RemoteCommand::Type_ARRAYSIZE;

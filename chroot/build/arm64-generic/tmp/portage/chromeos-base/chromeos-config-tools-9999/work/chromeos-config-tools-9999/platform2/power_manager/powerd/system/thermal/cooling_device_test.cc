@@ -22,8 +22,7 @@
 #include "power_manager/powerd/system/thermal/device_thermal_state.h"
 #include "power_manager/powerd/system/thermal/thermal_device_observer.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -37,11 +36,11 @@ constexpr base::TimeDelta kPollInterval = base::Milliseconds(100);
 // it receives a thermal state change.
 class TestObserver : public ThermalDeviceObserver {
  public:
-  TestObserver() {}
+  TestObserver() = default;
   TestObserver(const TestObserver&) = delete;
   TestObserver& operator=(const TestObserver&) = delete;
 
-  ~TestObserver() override {}
+  ~TestObserver() override = default;
 
   // Runs |loop_| until OnThermalChanged() is called.
   bool RunUntilThermalChanged() {
@@ -60,11 +59,11 @@ class TestObserver : public ThermalDeviceObserver {
 
 class CoolingDeviceTest : public ::testing::Test {
  public:
-  CoolingDeviceTest() {}
+  CoolingDeviceTest() = default;
   CoolingDeviceTest(const CoolingDeviceTest&) = delete;
   CoolingDeviceTest& operator=(const CoolingDeviceTest&) = delete;
 
-  ~CoolingDeviceTest() override {}
+  ~CoolingDeviceTest() override = default;
 
   void SetUp() override {
     CHECK(temp_dir_.CreateUniqueTempDir());
@@ -79,7 +78,7 @@ class CoolingDeviceTest : public ::testing::Test {
     WriteCurState(0);
     WriteType("Processor");
 
-    cooling_device_.reset(new CoolingDevice(device_dir_));
+    cooling_device_ = std::make_unique<CoolingDevice>(device_dir_);
     cooling_device_->set_poll_interval_for_testing(kPollInterval);
     cooling_device_->AddObserver(&observer_);
   }
@@ -219,5 +218,4 @@ TEST_F(CoolingDeviceTest, ZeroMaxState) {
   EXPECT_EQ(DeviceThermalState::kUnknown, cooling_device_->GetThermalState());
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

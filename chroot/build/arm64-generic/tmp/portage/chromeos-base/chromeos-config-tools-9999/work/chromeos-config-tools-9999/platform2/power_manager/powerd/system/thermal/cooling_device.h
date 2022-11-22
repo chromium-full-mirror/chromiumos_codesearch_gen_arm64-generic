@@ -8,15 +8,15 @@
 #include "power_manager/powerd/system/thermal/device_thermal_state.h"
 #include "power_manager/powerd/system/thermal/thermal_device.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 class CoolingDevice : public ThermalDevice {
  public:
   using ThermalDevice::ThermalDevice;
   CoolingDevice(const CoolingDevice&) = delete;
   CoolingDevice& operator=(const CoolingDevice&) = delete;
-  // Read sysfs to determine the scaling for nominal/fair/serious/critcal state.
+  // Read sysfs to determine the scaling for nominal/fair/serious/critical
+  // state.
   bool InitSysfsFile() override;
 
  protected:
@@ -33,7 +33,6 @@ class CoolingDevice : public ThermalDevice {
   int threshold_critical_;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_THERMAL_COOLING_DEVICE_H_

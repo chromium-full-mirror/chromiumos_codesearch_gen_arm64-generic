@@ -16,8 +16,7 @@
 #include "power_manager/powerd/system/thermal/device_thermal_state.h"
 #include "power_manager/powerd/system/thermal/thermal_device_observer.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 enum class ThermalDeviceType {
   kUnknown = 0,
@@ -29,11 +28,11 @@ enum class ThermalDeviceType {
 
 class ThermalDeviceInterface {
  public:
-  ThermalDeviceInterface() {}
+  ThermalDeviceInterface() = default;
   ThermalDeviceInterface(const ThermalDeviceInterface&) = delete;
   ThermalDeviceInterface& operator=(const ThermalDeviceInterface&) = delete;
 
-  virtual ~ThermalDeviceInterface() {}
+  virtual ~ThermalDeviceInterface() = default;
 
   // Adds or removes observers for thermal state change.
   virtual void AddObserver(ThermalDeviceObserver* observer) = 0;
@@ -53,7 +52,7 @@ class ThermalDevice : public ThermalDeviceInterface {
   ThermalDevice(const ThermalDevice&) = delete;
   ThermalDevice& operator=(const ThermalDevice&) = delete;
 
-  ~ThermalDevice() override;
+  ~ThermalDevice() override = default;
 
   void set_poll_interval_for_testing(base::TimeDelta interval) {
     poll_interval_ = interval;
@@ -126,7 +125,6 @@ class ThermalDevice : public ThermalDeviceInterface {
   DeviceThermalState current_state_;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_THERMAL_THERMAL_DEVICE_H_

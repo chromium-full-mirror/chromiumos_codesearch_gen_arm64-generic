@@ -1749,11 +1749,12 @@ enum RemoteCommand_Type : int {
   RemoteCommand_Type_DEVICE_GET_DIAGNOSTIC_ROUTINE_UPDATE = 11,
   RemoteCommand_Type_BROWSER_CLEAR_BROWSING_DATA = 12,
   RemoteCommand_Type_DEVICE_RESET_EUICC = 13,
-  RemoteCommand_Type_BROWSER_ROTATE_ATTESTATION_CREDENTIAL = 14
+  RemoteCommand_Type_BROWSER_ROTATE_ATTESTATION_CREDENTIAL = 14,
+  RemoteCommand_Type_FETCH_CRD_AVAILABILITY_INFO = 15
 };
 bool RemoteCommand_Type_IsValid(int value);
 constexpr RemoteCommand_Type RemoteCommand_Type_Type_MIN = RemoteCommand_Type_COMMAND_ECHO_TEST;
-constexpr RemoteCommand_Type RemoteCommand_Type_Type_MAX = RemoteCommand_Type_BROWSER_ROTATE_ATTESTATION_CREDENTIAL;
+constexpr RemoteCommand_Type RemoteCommand_Type_Type_MAX = RemoteCommand_Type_FETCH_CRD_AVAILABILITY_INFO;
 constexpr int RemoteCommand_Type_Type_ARRAYSIZE = RemoteCommand_Type_Type_MAX + 1;
 
 const std::string& RemoteCommand_Type_Name(RemoteCommand_Type value);
@@ -27151,6 +27152,8 @@ class RemoteCommand final :
     RemoteCommand_Type_DEVICE_RESET_EUICC;
   static constexpr Type BROWSER_ROTATE_ATTESTATION_CREDENTIAL =
     RemoteCommand_Type_BROWSER_ROTATE_ATTESTATION_CREDENTIAL;
+  static constexpr Type FETCH_CRD_AVAILABILITY_INFO =
+    RemoteCommand_Type_FETCH_CRD_AVAILABILITY_INFO;
   static inline bool Type_IsValid(int value) {
     return RemoteCommand_Type_IsValid(value);
   }
