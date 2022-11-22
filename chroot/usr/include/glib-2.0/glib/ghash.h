@@ -1,6 +1,8 @@
 /* GLIB - Library of useful routines for C programming
  * Copyright (C) 1995-1997  Peter Mattis, Spencer Kimball and Josh MacDonald
  *
+ * SPDX-License-Identifier: LGPL-2.1-or-later
+ *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
@@ -158,6 +160,10 @@ void        g_hash_table_unref             (GHashTable     *hash_table);
 GLIB_AVAILABLE_IN_ALL
 gboolean g_str_equal    (gconstpointer  v1,
                          gconstpointer  v2);
+
+/* Macro for optimization in the case it is not used as callback function */
+#define g_str_equal(v1, v2) (strcmp ((v1), (v2)) == 0)
+
 GLIB_AVAILABLE_IN_ALL
 guint    g_str_hash     (gconstpointer  v);
 
