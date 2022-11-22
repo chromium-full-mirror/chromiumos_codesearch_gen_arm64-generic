@@ -53,7 +53,10 @@ EffectsConfig::EffectsConfig()
     : effect(CameraEffect::kNone),
       blur_level(BlurLevel::kMedium),
       segmentation_gpu_api(GpuApi::kOpenGL),
-      graph_max_frames_in_flight(2U) {}
+      graph_max_frames_in_flight(2U),
+      blur_enabled(false),
+      replace_enabled(false),
+      relight_enabled(false) {}
 
 EffectsConfig::EffectsConfig(
     CameraEffect effect_in,
@@ -63,7 +66,26 @@ EffectsConfig::EffectsConfig(
     : effect(std::move(effect_in)),
       blur_level(std::move(blur_level_in)),
       segmentation_gpu_api(std::move(segmentation_gpu_api_in)),
-      graph_max_frames_in_flight(std::move(graph_max_frames_in_flight_in)) {}
+      graph_max_frames_in_flight(std::move(graph_max_frames_in_flight_in)),
+      blur_enabled(false),
+      replace_enabled(false),
+      relight_enabled(false) {}
+
+EffectsConfig::EffectsConfig(
+    CameraEffect effect_in,
+    BlurLevel blur_level_in,
+    GpuApi segmentation_gpu_api_in,
+    uint16_t graph_max_frames_in_flight_in,
+    bool blur_enabled_in,
+    bool replace_enabled_in,
+    bool relight_enabled_in)
+    : effect(std::move(effect_in)),
+      blur_level(std::move(blur_level_in)),
+      segmentation_gpu_api(std::move(segmentation_gpu_api_in)),
+      graph_max_frames_in_flight(std::move(graph_max_frames_in_flight_in)),
+      blur_enabled(std::move(blur_enabled_in)),
+      replace_enabled(std::move(replace_enabled_in)),
+      relight_enabled(std::move(relight_enabled_in)) {}
 
 EffectsConfig::~EffectsConfig() = default;
 size_t EffectsConfig::Hash(size_t seed) const {
@@ -71,6 +93,9 @@ size_t EffectsConfig::Hash(size_t seed) const {
   seed = mojo::internal::Hash(seed, this->blur_level);
   seed = mojo::internal::Hash(seed, this->segmentation_gpu_api);
   seed = mojo::internal::Hash(seed, this->graph_max_frames_in_flight);
+  seed = mojo::internal::Hash(seed, this->blur_enabled);
+  seed = mojo::internal::Hash(seed, this->replace_enabled);
+  seed = mojo::internal::Hash(seed, this->relight_enabled);
   return seed;
 }
 
@@ -113,6 +138,33 @@ void EffectsConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "blur_enabled"), this->blur_enabled,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "replace_enabled"), this->replace_enabled,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "relight_enabled"), this->relight_enabled,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool EffectsConfig::Validate(
@@ -144,6 +196,12 @@ bool StructTraits<::cros::mojom::EffectsConfig::DataView, ::cros::mojom::Effects
         success = false;
       if (success)
         result->graph_max_frames_in_flight = input.graph_max_frames_in_flight();
+      if (success)
+        result->blur_enabled = input.blur_enabled();
+      if (success)
+        result->replace_enabled = input.replace_enabled();
+      if (success)
+        result->relight_enabled = input.relight_enabled();
   *output = std::move(result);
   return success;
 }

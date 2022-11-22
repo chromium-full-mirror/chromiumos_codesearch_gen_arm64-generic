@@ -5464,7 +5464,7 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
         } else
           goto handle_unusual;
         continue;
-      // repeated string params = 5;
+      // repeated string params = 5 [deprecated = true];
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           ptr -= 1;
@@ -5838,7 +5838,7 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
         4, this->_internal_owner_id(), target);
   }
 
-  // repeated string params = 5;
+  // repeated string params = 5 [deprecated = true];
   for (int i = 0, n = this->_internal_params_size(); i < n; i++) {
     const auto& s = this->_internal_params(i);
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
@@ -6099,7 +6099,7 @@ size_t StartArcVmRequest::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // repeated string params = 5;
+  // repeated string params = 5 [deprecated = true];
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(params_.size());
   for (int i = 0, n = params_.size(); i < n; i++) {

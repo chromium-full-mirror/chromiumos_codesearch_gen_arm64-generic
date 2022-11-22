@@ -2784,25 +2784,25 @@ class StartArcVmRequest final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::vm_tools::concierge::DiskImage >&
       disks() const;
 
-  // repeated string params = 5;
-  int params_size() const;
+  // repeated string params = 5 [deprecated = true];
+  PROTOBUF_DEPRECATED int params_size() const;
   private:
   int _internal_params_size() const;
   public:
-  void clear_params();
-  const std::string& params(int index) const;
-  std::string* mutable_params(int index);
-  void set_params(int index, const std::string& value);
-  void set_params(int index, std::string&& value);
-  void set_params(int index, const char* value);
-  void set_params(int index, const char* value, size_t size);
-  std::string* add_params();
-  void add_params(const std::string& value);
-  void add_params(std::string&& value);
-  void add_params(const char* value);
-  void add_params(const char* value, size_t size);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& params() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_params();
+  PROTOBUF_DEPRECATED void clear_params();
+  PROTOBUF_DEPRECATED const std::string& params(int index) const;
+  PROTOBUF_DEPRECATED std::string* mutable_params(int index);
+  PROTOBUF_DEPRECATED void set_params(int index, const std::string& value);
+  PROTOBUF_DEPRECATED void set_params(int index, std::string&& value);
+  PROTOBUF_DEPRECATED void set_params(int index, const char* value);
+  PROTOBUF_DEPRECATED void set_params(int index, const char* value, size_t size);
+  PROTOBUF_DEPRECATED std::string* add_params();
+  PROTOBUF_DEPRECATED void add_params(const std::string& value);
+  PROTOBUF_DEPRECATED void add_params(std::string&& value);
+  PROTOBUF_DEPRECATED void add_params(const char* value);
+  PROTOBUF_DEPRECATED void add_params(const char* value, size_t size);
+  PROTOBUF_DEPRECATED const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& params() const;
+  PROTOBUF_DEPRECATED ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_params();
   private:
   const std::string& _internal_params(int index) const;
   std::string* _internal_add_params();
@@ -15292,7 +15292,7 @@ inline void StartArcVmRequest::set_allocated_owner_id(std::string* owner_id) {
   // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.StartArcVmRequest.owner_id)
 }
 
-// repeated string params = 5;
+// repeated string params = 5 [deprecated = true];
 inline int StartArcVmRequest::_internal_params_size() const {
   return params_.size();
 }

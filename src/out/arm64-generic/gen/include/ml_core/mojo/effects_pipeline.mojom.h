@@ -42,6 +42,9 @@ namespace mojom {
 
 
 
+
+
+
 class  EffectsConfig {
  public:
   template <typename T>
@@ -73,6 +76,15 @@ class  EffectsConfig {
       BlurLevel blur_level,
       GpuApi segmentation_gpu_api,
       uint16_t graph_max_frames_in_flight);
+
+  EffectsConfig(
+      CameraEffect effect,
+      BlurLevel blur_level,
+      GpuApi segmentation_gpu_api,
+      uint16_t graph_max_frames_in_flight,
+      bool blur_enabled,
+      bool replace_enabled,
+      bool relight_enabled);
 
 
   ~EffectsConfig();
@@ -155,6 +167,12 @@ class  EffectsConfig {
   GpuApi segmentation_gpu_api;
   
   uint16_t graph_max_frames_in_flight;
+  
+  bool blur_enabled;
+  
+  bool replace_enabled;
+  
+  bool relight_enabled;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -185,16 +203,16 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
-
-
-
 template <typename StructPtrType>
 EffectsConfigPtr EffectsConfig::Clone() const {
   return New(
       mojo::Clone(effect),
       mojo::Clone(blur_level),
       mojo::Clone(segmentation_gpu_api),
-      mojo::Clone(graph_max_frames_in_flight)
+      mojo::Clone(graph_max_frames_in_flight),
+      mojo::Clone(blur_enabled),
+      mojo::Clone(replace_enabled),
+      mojo::Clone(relight_enabled)
   );
 }
 
@@ -207,6 +225,12 @@ bool EffectsConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->segmentation_gpu_api, other_struct.segmentation_gpu_api))
     return false;
   if (!mojo::Equals(this->graph_max_frames_in_flight, other_struct.graph_max_frames_in_flight))
+    return false;
+  if (!mojo::Equals(this->blur_enabled, other_struct.blur_enabled))
+    return false;
+  if (!mojo::Equals(this->replace_enabled, other_struct.replace_enabled))
+    return false;
+  if (!mojo::Equals(this->relight_enabled, other_struct.relight_enabled))
     return false;
   return true;
 }
@@ -228,6 +252,18 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.graph_max_frames_in_flight < rhs.graph_max_frames_in_flight)
     return true;
   if (rhs.graph_max_frames_in_flight < lhs.graph_max_frames_in_flight)
+    return false;
+  if (lhs.blur_enabled < rhs.blur_enabled)
+    return true;
+  if (rhs.blur_enabled < lhs.blur_enabled)
+    return false;
+  if (lhs.replace_enabled < rhs.replace_enabled)
+    return true;
+  if (rhs.replace_enabled < lhs.replace_enabled)
+    return false;
+  if (lhs.relight_enabled < rhs.relight_enabled)
+    return true;
+  if (rhs.relight_enabled < lhs.relight_enabled)
     return false;
   return false;
 }
@@ -263,6 +299,21 @@ struct  StructTraits<::cros::mojom::EffectsConfig::DataView,
   static decltype(::cros::mojom::EffectsConfig::graph_max_frames_in_flight) graph_max_frames_in_flight(
       const ::cros::mojom::EffectsConfigPtr& input) {
     return input->graph_max_frames_in_flight;
+  }
+
+  static decltype(::cros::mojom::EffectsConfig::blur_enabled) blur_enabled(
+      const ::cros::mojom::EffectsConfigPtr& input) {
+    return input->blur_enabled;
+  }
+
+  static decltype(::cros::mojom::EffectsConfig::replace_enabled) replace_enabled(
+      const ::cros::mojom::EffectsConfigPtr& input) {
+    return input->replace_enabled;
+  }
+
+  static decltype(::cros::mojom::EffectsConfig::relight_enabled) relight_enabled(
+      const ::cros::mojom::EffectsConfigPtr& input) {
+    return input->relight_enabled;
   }
 
   static bool Read(::cros::mojom::EffectsConfig::DataView input, ::cros::mojom::EffectsConfigPtr* output);
