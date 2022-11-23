@@ -45,7 +45,7 @@ struct TableStruct_private_5fcomputing_5fservice_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -58,6 +58,12 @@ extern ActiveStatusDefaultTypeInternal _ActiveStatus_default_instance_;
 class GetStatusResponse;
 struct GetStatusResponseDefaultTypeInternal;
 extern GetStatusResponseDefaultTypeInternal _GetStatusResponse_default_instance_;
+class PrivateComputingClientRegressionTestData;
+struct PrivateComputingClientRegressionTestDataDefaultTypeInternal;
+extern PrivateComputingClientRegressionTestDataDefaultTypeInternal _PrivateComputingClientRegressionTestData_default_instance_;
+class PrivateComputingClientRegressionTestData_TestCase;
+struct PrivateComputingClientRegressionTestData_TestCaseDefaultTypeInternal;
+extern PrivateComputingClientRegressionTestData_TestCaseDefaultTypeInternal _PrivateComputingClientRegressionTestData_TestCase_default_instance_;
 class SaveStatusRequest;
 struct SaveStatusRequestDefaultTypeInternal;
 extern SaveStatusRequestDefaultTypeInternal _SaveStatusRequest_default_instance_;
@@ -68,11 +74,39 @@ extern SaveStatusResponseDefaultTypeInternal _SaveStatusResponse_default_instanc
 PROTOBUF_NAMESPACE_OPEN
 template<> ::private_computing::ActiveStatus* Arena::CreateMaybeMessage<::private_computing::ActiveStatus>(Arena*);
 template<> ::private_computing::GetStatusResponse* Arena::CreateMaybeMessage<::private_computing::GetStatusResponse>(Arena*);
+template<> ::private_computing::PrivateComputingClientRegressionTestData* Arena::CreateMaybeMessage<::private_computing::PrivateComputingClientRegressionTestData>(Arena*);
+template<> ::private_computing::PrivateComputingClientRegressionTestData_TestCase* Arena::CreateMaybeMessage<::private_computing::PrivateComputingClientRegressionTestData_TestCase>(Arena*);
 template<> ::private_computing::SaveStatusRequest* Arena::CreateMaybeMessage<::private_computing::SaveStatusRequest>(Arena*);
 template<> ::private_computing::SaveStatusResponse* Arena::CreateMaybeMessage<::private_computing::SaveStatusResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace private_computing {
 
+enum PrivateComputingClientRegressionTestData_TestName : int {
+  PrivateComputingClientRegressionTestData_TestName_GET_SUCCESS_SAVE_SUCCESS = 0,
+  PrivateComputingClientRegressionTestData_TestName_GET_SUCCESS_SAVE_FAIL = 1,
+  PrivateComputingClientRegressionTestData_TestName_GET_FAIL_SAVE_SUCCESS = 2,
+  PrivateComputingClientRegressionTestData_TestName_GET_FAIL_SAVE_FAIL = 3,
+  PrivateComputingClientRegressionTestData_TestName_GET_SUCCESS_FUTURE_PING_DATE_SAVE_SUCCESS = 4,
+  PrivateComputingClientRegressionTestData_TestName_GET_SUCCESS_SAME_PING_DATE_SAVE_SUCCESS = 5,
+  PrivateComputingClientRegressionTestData_TestName_GET_SUCCESS_PAST_PING_DATE_SAVE_SUCCESS = 6,
+  PrivateComputingClientRegressionTestData_TestName_GET_SUCCESS_UNIX_EPOCH_PING_DATE_SAVE_SUCCESS = 7,
+  PrivateComputingClientRegressionTestData_TestName_GET_INVALID_PING_DATE_SAVE_SUCCESS = 8
+};
+bool PrivateComputingClientRegressionTestData_TestName_IsValid(int value);
+constexpr PrivateComputingClientRegressionTestData_TestName PrivateComputingClientRegressionTestData_TestName_TestName_MIN = PrivateComputingClientRegressionTestData_TestName_GET_SUCCESS_SAVE_SUCCESS;
+constexpr PrivateComputingClientRegressionTestData_TestName PrivateComputingClientRegressionTestData_TestName_TestName_MAX = PrivateComputingClientRegressionTestData_TestName_GET_INVALID_PING_DATE_SAVE_SUCCESS;
+constexpr int PrivateComputingClientRegressionTestData_TestName_TestName_ARRAYSIZE = PrivateComputingClientRegressionTestData_TestName_TestName_MAX + 1;
+
+const std::string& PrivateComputingClientRegressionTestData_TestName_Name(PrivateComputingClientRegressionTestData_TestName value);
+template<typename T>
+inline const std::string& PrivateComputingClientRegressionTestData_TestName_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, PrivateComputingClientRegressionTestData_TestName>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function PrivateComputingClientRegressionTestData_TestName_Name.");
+  return PrivateComputingClientRegressionTestData_TestName_Name(static_cast<PrivateComputingClientRegressionTestData_TestName>(enum_t_value));
+}
+bool PrivateComputingClientRegressionTestData_TestName_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PrivateComputingClientRegressionTestData_TestName* value);
 enum PrivateComputingUseCase : int {
   USE_CASE_UNSPECIFIED = 0,
   CROS_FRESNEL_DAILY = 1,
@@ -716,6 +750,376 @@ class GetStatusResponse final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr error_message_;
   friend struct ::TableStruct_private_5fcomputing_5fservice_2eproto;
 };
+// -------------------------------------------------------------------
+
+class PrivateComputingClientRegressionTestData_TestCase final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:private_computing.PrivateComputingClientRegressionTestData.TestCase) */ {
+ public:
+  inline PrivateComputingClientRegressionTestData_TestCase() : PrivateComputingClientRegressionTestData_TestCase(nullptr) {}
+  ~PrivateComputingClientRegressionTestData_TestCase() override;
+  explicit constexpr PrivateComputingClientRegressionTestData_TestCase(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PrivateComputingClientRegressionTestData_TestCase(const PrivateComputingClientRegressionTestData_TestCase& from);
+  PrivateComputingClientRegressionTestData_TestCase(PrivateComputingClientRegressionTestData_TestCase&& from) noexcept
+    : PrivateComputingClientRegressionTestData_TestCase() {
+    *this = ::std::move(from);
+  }
+
+  inline PrivateComputingClientRegressionTestData_TestCase& operator=(const PrivateComputingClientRegressionTestData_TestCase& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PrivateComputingClientRegressionTestData_TestCase& operator=(PrivateComputingClientRegressionTestData_TestCase&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const PrivateComputingClientRegressionTestData_TestCase& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PrivateComputingClientRegressionTestData_TestCase* internal_default_instance() {
+    return reinterpret_cast<const PrivateComputingClientRegressionTestData_TestCase*>(
+               &_PrivateComputingClientRegressionTestData_TestCase_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(PrivateComputingClientRegressionTestData_TestCase& a, PrivateComputingClientRegressionTestData_TestCase& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PrivateComputingClientRegressionTestData_TestCase* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PrivateComputingClientRegressionTestData_TestCase* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PrivateComputingClientRegressionTestData_TestCase* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PrivateComputingClientRegressionTestData_TestCase>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const PrivateComputingClientRegressionTestData_TestCase& from);
+  void MergeFrom(const PrivateComputingClientRegressionTestData_TestCase& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PrivateComputingClientRegressionTestData_TestCase* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "private_computing.PrivateComputingClientRegressionTestData.TestCase";
+  }
+  protected:
+  explicit PrivateComputingClientRegressionTestData_TestCase(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kGetResponseFieldNumber = 2,
+    kSaveResponseFieldNumber = 4,
+    kNameFieldNumber = 1,
+  };
+  // optional .private_computing.GetStatusResponse get_response = 2;
+  bool has_get_response() const;
+  private:
+  bool _internal_has_get_response() const;
+  public:
+  void clear_get_response();
+  const ::private_computing::GetStatusResponse& get_response() const;
+  PROTOBUF_NODISCARD ::private_computing::GetStatusResponse* release_get_response();
+  ::private_computing::GetStatusResponse* mutable_get_response();
+  void set_allocated_get_response(::private_computing::GetStatusResponse* get_response);
+  private:
+  const ::private_computing::GetStatusResponse& _internal_get_response() const;
+  ::private_computing::GetStatusResponse* _internal_mutable_get_response();
+  public:
+  void unsafe_arena_set_allocated_get_response(
+      ::private_computing::GetStatusResponse* get_response);
+  ::private_computing::GetStatusResponse* unsafe_arena_release_get_response();
+
+  // optional .private_computing.SaveStatusResponse save_response = 4;
+  bool has_save_response() const;
+  private:
+  bool _internal_has_save_response() const;
+  public:
+  void clear_save_response();
+  const ::private_computing::SaveStatusResponse& save_response() const;
+  PROTOBUF_NODISCARD ::private_computing::SaveStatusResponse* release_save_response();
+  ::private_computing::SaveStatusResponse* mutable_save_response();
+  void set_allocated_save_response(::private_computing::SaveStatusResponse* save_response);
+  private:
+  const ::private_computing::SaveStatusResponse& _internal_save_response() const;
+  ::private_computing::SaveStatusResponse* _internal_mutable_save_response();
+  public:
+  void unsafe_arena_set_allocated_save_response(
+      ::private_computing::SaveStatusResponse* save_response);
+  ::private_computing::SaveStatusResponse* unsafe_arena_release_save_response();
+
+  // required .private_computing.PrivateComputingClientRegressionTestData.TestName name = 1;
+  bool has_name() const;
+  private:
+  bool _internal_has_name() const;
+  public:
+  void clear_name();
+  ::private_computing::PrivateComputingClientRegressionTestData_TestName name() const;
+  void set_name(::private_computing::PrivateComputingClientRegressionTestData_TestName value);
+  private:
+  ::private_computing::PrivateComputingClientRegressionTestData_TestName _internal_name() const;
+  void _internal_set_name(::private_computing::PrivateComputingClientRegressionTestData_TestName value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:private_computing.PrivateComputingClientRegressionTestData.TestCase)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::private_computing::GetStatusResponse* get_response_;
+  ::private_computing::SaveStatusResponse* save_response_;
+  int name_;
+  friend struct ::TableStruct_private_5fcomputing_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PrivateComputingClientRegressionTestData final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:private_computing.PrivateComputingClientRegressionTestData) */ {
+ public:
+  inline PrivateComputingClientRegressionTestData() : PrivateComputingClientRegressionTestData(nullptr) {}
+  ~PrivateComputingClientRegressionTestData() override;
+  explicit constexpr PrivateComputingClientRegressionTestData(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PrivateComputingClientRegressionTestData(const PrivateComputingClientRegressionTestData& from);
+  PrivateComputingClientRegressionTestData(PrivateComputingClientRegressionTestData&& from) noexcept
+    : PrivateComputingClientRegressionTestData() {
+    *this = ::std::move(from);
+  }
+
+  inline PrivateComputingClientRegressionTestData& operator=(const PrivateComputingClientRegressionTestData& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PrivateComputingClientRegressionTestData& operator=(PrivateComputingClientRegressionTestData&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const PrivateComputingClientRegressionTestData& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PrivateComputingClientRegressionTestData* internal_default_instance() {
+    return reinterpret_cast<const PrivateComputingClientRegressionTestData*>(
+               &_PrivateComputingClientRegressionTestData_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(PrivateComputingClientRegressionTestData& a, PrivateComputingClientRegressionTestData& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PrivateComputingClientRegressionTestData* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PrivateComputingClientRegressionTestData* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PrivateComputingClientRegressionTestData* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PrivateComputingClientRegressionTestData>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const PrivateComputingClientRegressionTestData& from);
+  void MergeFrom(const PrivateComputingClientRegressionTestData& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PrivateComputingClientRegressionTestData* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "private_computing.PrivateComputingClientRegressionTestData";
+  }
+  protected:
+  explicit PrivateComputingClientRegressionTestData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef PrivateComputingClientRegressionTestData_TestCase TestCase;
+
+  typedef PrivateComputingClientRegressionTestData_TestName TestName;
+  static constexpr TestName GET_SUCCESS_SAVE_SUCCESS =
+    PrivateComputingClientRegressionTestData_TestName_GET_SUCCESS_SAVE_SUCCESS;
+  static constexpr TestName GET_SUCCESS_SAVE_FAIL =
+    PrivateComputingClientRegressionTestData_TestName_GET_SUCCESS_SAVE_FAIL;
+  static constexpr TestName GET_FAIL_SAVE_SUCCESS =
+    PrivateComputingClientRegressionTestData_TestName_GET_FAIL_SAVE_SUCCESS;
+  static constexpr TestName GET_FAIL_SAVE_FAIL =
+    PrivateComputingClientRegressionTestData_TestName_GET_FAIL_SAVE_FAIL;
+  static constexpr TestName GET_SUCCESS_FUTURE_PING_DATE_SAVE_SUCCESS =
+    PrivateComputingClientRegressionTestData_TestName_GET_SUCCESS_FUTURE_PING_DATE_SAVE_SUCCESS;
+  static constexpr TestName GET_SUCCESS_SAME_PING_DATE_SAVE_SUCCESS =
+    PrivateComputingClientRegressionTestData_TestName_GET_SUCCESS_SAME_PING_DATE_SAVE_SUCCESS;
+  static constexpr TestName GET_SUCCESS_PAST_PING_DATE_SAVE_SUCCESS =
+    PrivateComputingClientRegressionTestData_TestName_GET_SUCCESS_PAST_PING_DATE_SAVE_SUCCESS;
+  static constexpr TestName GET_SUCCESS_UNIX_EPOCH_PING_DATE_SAVE_SUCCESS =
+    PrivateComputingClientRegressionTestData_TestName_GET_SUCCESS_UNIX_EPOCH_PING_DATE_SAVE_SUCCESS;
+  static constexpr TestName GET_INVALID_PING_DATE_SAVE_SUCCESS =
+    PrivateComputingClientRegressionTestData_TestName_GET_INVALID_PING_DATE_SAVE_SUCCESS;
+  static inline bool TestName_IsValid(int value) {
+    return PrivateComputingClientRegressionTestData_TestName_IsValid(value);
+  }
+  static constexpr TestName TestName_MIN =
+    PrivateComputingClientRegressionTestData_TestName_TestName_MIN;
+  static constexpr TestName TestName_MAX =
+    PrivateComputingClientRegressionTestData_TestName_TestName_MAX;
+  static constexpr int TestName_ARRAYSIZE =
+    PrivateComputingClientRegressionTestData_TestName_TestName_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& TestName_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, TestName>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function TestName_Name.");
+    return PrivateComputingClientRegressionTestData_TestName_Name(enum_t_value);
+  }
+  static inline bool TestName_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      TestName* value) {
+    return PrivateComputingClientRegressionTestData_TestName_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTestCasesFieldNumber = 1,
+  };
+  // repeated .private_computing.PrivateComputingClientRegressionTestData.TestCase test_cases = 1;
+  int test_cases_size() const;
+  private:
+  int _internal_test_cases_size() const;
+  public:
+  void clear_test_cases();
+  ::private_computing::PrivateComputingClientRegressionTestData_TestCase* mutable_test_cases(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::private_computing::PrivateComputingClientRegressionTestData_TestCase >*
+      mutable_test_cases();
+  private:
+  const ::private_computing::PrivateComputingClientRegressionTestData_TestCase& _internal_test_cases(int index) const;
+  ::private_computing::PrivateComputingClientRegressionTestData_TestCase* _internal_add_test_cases();
+  public:
+  const ::private_computing::PrivateComputingClientRegressionTestData_TestCase& test_cases(int index) const;
+  ::private_computing::PrivateComputingClientRegressionTestData_TestCase* add_test_cases();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::private_computing::PrivateComputingClientRegressionTestData_TestCase >&
+      test_cases() const;
+
+  // @@protoc_insertion_point(class_scope:private_computing.PrivateComputingClientRegressionTestData)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::private_computing::PrivateComputingClientRegressionTestData_TestCase > test_cases_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_private_5fcomputing_5fservice_2eproto;
+};
 // ===================================================================
 
 
@@ -1055,9 +1459,270 @@ GetStatusResponse::active_status() const {
   return active_status_;
 }
 
+// -------------------------------------------------------------------
+
+// PrivateComputingClientRegressionTestData_TestCase
+
+// required .private_computing.PrivateComputingClientRegressionTestData.TestName name = 1;
+inline bool PrivateComputingClientRegressionTestData_TestCase::_internal_has_name() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool PrivateComputingClientRegressionTestData_TestCase::has_name() const {
+  return _internal_has_name();
+}
+inline void PrivateComputingClientRegressionTestData_TestCase::clear_name() {
+  name_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::private_computing::PrivateComputingClientRegressionTestData_TestName PrivateComputingClientRegressionTestData_TestCase::_internal_name() const {
+  return static_cast< ::private_computing::PrivateComputingClientRegressionTestData_TestName >(name_);
+}
+inline ::private_computing::PrivateComputingClientRegressionTestData_TestName PrivateComputingClientRegressionTestData_TestCase::name() const {
+  // @@protoc_insertion_point(field_get:private_computing.PrivateComputingClientRegressionTestData.TestCase.name)
+  return _internal_name();
+}
+inline void PrivateComputingClientRegressionTestData_TestCase::_internal_set_name(::private_computing::PrivateComputingClientRegressionTestData_TestName value) {
+  assert(::private_computing::PrivateComputingClientRegressionTestData_TestName_IsValid(value));
+  _has_bits_[0] |= 0x00000004u;
+  name_ = value;
+}
+inline void PrivateComputingClientRegressionTestData_TestCase::set_name(::private_computing::PrivateComputingClientRegressionTestData_TestName value) {
+  _internal_set_name(value);
+  // @@protoc_insertion_point(field_set:private_computing.PrivateComputingClientRegressionTestData.TestCase.name)
+}
+
+// optional .private_computing.GetStatusResponse get_response = 2;
+inline bool PrivateComputingClientRegressionTestData_TestCase::_internal_has_get_response() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || get_response_ != nullptr);
+  return value;
+}
+inline bool PrivateComputingClientRegressionTestData_TestCase::has_get_response() const {
+  return _internal_has_get_response();
+}
+inline void PrivateComputingClientRegressionTestData_TestCase::clear_get_response() {
+  if (get_response_ != nullptr) get_response_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::private_computing::GetStatusResponse& PrivateComputingClientRegressionTestData_TestCase::_internal_get_response() const {
+  const ::private_computing::GetStatusResponse* p = get_response_;
+  return p != nullptr ? *p : reinterpret_cast<const ::private_computing::GetStatusResponse&>(
+      ::private_computing::_GetStatusResponse_default_instance_);
+}
+inline const ::private_computing::GetStatusResponse& PrivateComputingClientRegressionTestData_TestCase::get_response() const {
+  // @@protoc_insertion_point(field_get:private_computing.PrivateComputingClientRegressionTestData.TestCase.get_response)
+  return _internal_get_response();
+}
+inline void PrivateComputingClientRegressionTestData_TestCase::unsafe_arena_set_allocated_get_response(
+    ::private_computing::GetStatusResponse* get_response) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(get_response_);
+  }
+  get_response_ = get_response;
+  if (get_response) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:private_computing.PrivateComputingClientRegressionTestData.TestCase.get_response)
+}
+inline ::private_computing::GetStatusResponse* PrivateComputingClientRegressionTestData_TestCase::release_get_response() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::private_computing::GetStatusResponse* temp = get_response_;
+  get_response_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::private_computing::GetStatusResponse* PrivateComputingClientRegressionTestData_TestCase::unsafe_arena_release_get_response() {
+  // @@protoc_insertion_point(field_release:private_computing.PrivateComputingClientRegressionTestData.TestCase.get_response)
+  _has_bits_[0] &= ~0x00000001u;
+  ::private_computing::GetStatusResponse* temp = get_response_;
+  get_response_ = nullptr;
+  return temp;
+}
+inline ::private_computing::GetStatusResponse* PrivateComputingClientRegressionTestData_TestCase::_internal_mutable_get_response() {
+  _has_bits_[0] |= 0x00000001u;
+  if (get_response_ == nullptr) {
+    auto* p = CreateMaybeMessage<::private_computing::GetStatusResponse>(GetArenaForAllocation());
+    get_response_ = p;
+  }
+  return get_response_;
+}
+inline ::private_computing::GetStatusResponse* PrivateComputingClientRegressionTestData_TestCase::mutable_get_response() {
+  ::private_computing::GetStatusResponse* _msg = _internal_mutable_get_response();
+  // @@protoc_insertion_point(field_mutable:private_computing.PrivateComputingClientRegressionTestData.TestCase.get_response)
+  return _msg;
+}
+inline void PrivateComputingClientRegressionTestData_TestCase::set_allocated_get_response(::private_computing::GetStatusResponse* get_response) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete get_response_;
+  }
+  if (get_response) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::private_computing::GetStatusResponse>::GetOwningArena(get_response);
+    if (message_arena != submessage_arena) {
+      get_response = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, get_response, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  get_response_ = get_response;
+  // @@protoc_insertion_point(field_set_allocated:private_computing.PrivateComputingClientRegressionTestData.TestCase.get_response)
+}
+
+// optional .private_computing.SaveStatusResponse save_response = 4;
+inline bool PrivateComputingClientRegressionTestData_TestCase::_internal_has_save_response() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || save_response_ != nullptr);
+  return value;
+}
+inline bool PrivateComputingClientRegressionTestData_TestCase::has_save_response() const {
+  return _internal_has_save_response();
+}
+inline void PrivateComputingClientRegressionTestData_TestCase::clear_save_response() {
+  if (save_response_ != nullptr) save_response_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::private_computing::SaveStatusResponse& PrivateComputingClientRegressionTestData_TestCase::_internal_save_response() const {
+  const ::private_computing::SaveStatusResponse* p = save_response_;
+  return p != nullptr ? *p : reinterpret_cast<const ::private_computing::SaveStatusResponse&>(
+      ::private_computing::_SaveStatusResponse_default_instance_);
+}
+inline const ::private_computing::SaveStatusResponse& PrivateComputingClientRegressionTestData_TestCase::save_response() const {
+  // @@protoc_insertion_point(field_get:private_computing.PrivateComputingClientRegressionTestData.TestCase.save_response)
+  return _internal_save_response();
+}
+inline void PrivateComputingClientRegressionTestData_TestCase::unsafe_arena_set_allocated_save_response(
+    ::private_computing::SaveStatusResponse* save_response) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(save_response_);
+  }
+  save_response_ = save_response;
+  if (save_response) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:private_computing.PrivateComputingClientRegressionTestData.TestCase.save_response)
+}
+inline ::private_computing::SaveStatusResponse* PrivateComputingClientRegressionTestData_TestCase::release_save_response() {
+  _has_bits_[0] &= ~0x00000002u;
+  ::private_computing::SaveStatusResponse* temp = save_response_;
+  save_response_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::private_computing::SaveStatusResponse* PrivateComputingClientRegressionTestData_TestCase::unsafe_arena_release_save_response() {
+  // @@protoc_insertion_point(field_release:private_computing.PrivateComputingClientRegressionTestData.TestCase.save_response)
+  _has_bits_[0] &= ~0x00000002u;
+  ::private_computing::SaveStatusResponse* temp = save_response_;
+  save_response_ = nullptr;
+  return temp;
+}
+inline ::private_computing::SaveStatusResponse* PrivateComputingClientRegressionTestData_TestCase::_internal_mutable_save_response() {
+  _has_bits_[0] |= 0x00000002u;
+  if (save_response_ == nullptr) {
+    auto* p = CreateMaybeMessage<::private_computing::SaveStatusResponse>(GetArenaForAllocation());
+    save_response_ = p;
+  }
+  return save_response_;
+}
+inline ::private_computing::SaveStatusResponse* PrivateComputingClientRegressionTestData_TestCase::mutable_save_response() {
+  ::private_computing::SaveStatusResponse* _msg = _internal_mutable_save_response();
+  // @@protoc_insertion_point(field_mutable:private_computing.PrivateComputingClientRegressionTestData.TestCase.save_response)
+  return _msg;
+}
+inline void PrivateComputingClientRegressionTestData_TestCase::set_allocated_save_response(::private_computing::SaveStatusResponse* save_response) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete save_response_;
+  }
+  if (save_response) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::private_computing::SaveStatusResponse>::GetOwningArena(save_response);
+    if (message_arena != submessage_arena) {
+      save_response = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, save_response, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  save_response_ = save_response;
+  // @@protoc_insertion_point(field_set_allocated:private_computing.PrivateComputingClientRegressionTestData.TestCase.save_response)
+}
+
+// -------------------------------------------------------------------
+
+// PrivateComputingClientRegressionTestData
+
+// repeated .private_computing.PrivateComputingClientRegressionTestData.TestCase test_cases = 1;
+inline int PrivateComputingClientRegressionTestData::_internal_test_cases_size() const {
+  return test_cases_.size();
+}
+inline int PrivateComputingClientRegressionTestData::test_cases_size() const {
+  return _internal_test_cases_size();
+}
+inline void PrivateComputingClientRegressionTestData::clear_test_cases() {
+  test_cases_.Clear();
+}
+inline ::private_computing::PrivateComputingClientRegressionTestData_TestCase* PrivateComputingClientRegressionTestData::mutable_test_cases(int index) {
+  // @@protoc_insertion_point(field_mutable:private_computing.PrivateComputingClientRegressionTestData.test_cases)
+  return test_cases_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::private_computing::PrivateComputingClientRegressionTestData_TestCase >*
+PrivateComputingClientRegressionTestData::mutable_test_cases() {
+  // @@protoc_insertion_point(field_mutable_list:private_computing.PrivateComputingClientRegressionTestData.test_cases)
+  return &test_cases_;
+}
+inline const ::private_computing::PrivateComputingClientRegressionTestData_TestCase& PrivateComputingClientRegressionTestData::_internal_test_cases(int index) const {
+  return test_cases_.Get(index);
+}
+inline const ::private_computing::PrivateComputingClientRegressionTestData_TestCase& PrivateComputingClientRegressionTestData::test_cases(int index) const {
+  // @@protoc_insertion_point(field_get:private_computing.PrivateComputingClientRegressionTestData.test_cases)
+  return _internal_test_cases(index);
+}
+inline ::private_computing::PrivateComputingClientRegressionTestData_TestCase* PrivateComputingClientRegressionTestData::_internal_add_test_cases() {
+  return test_cases_.Add();
+}
+inline ::private_computing::PrivateComputingClientRegressionTestData_TestCase* PrivateComputingClientRegressionTestData::add_test_cases() {
+  ::private_computing::PrivateComputingClientRegressionTestData_TestCase* _add = _internal_add_test_cases();
+  // @@protoc_insertion_point(field_add:private_computing.PrivateComputingClientRegressionTestData.test_cases)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::private_computing::PrivateComputingClientRegressionTestData_TestCase >&
+PrivateComputingClientRegressionTestData::test_cases() const {
+  // @@protoc_insertion_point(field_list:private_computing.PrivateComputingClientRegressionTestData.test_cases)
+  return test_cases_;
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -1071,6 +1736,7 @@ GetStatusResponse::active_status() const {
 
 PROTOBUF_NAMESPACE_OPEN
 
+template <> struct is_proto_enum< ::private_computing::PrivateComputingClientRegressionTestData_TestName> : ::std::true_type {};
 template <> struct is_proto_enum< ::private_computing::PrivateComputingUseCase> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE

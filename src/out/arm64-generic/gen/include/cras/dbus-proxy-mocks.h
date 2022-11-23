@@ -367,6 +367,23 @@ class ControlProxyMock : public ControlProxyInterface {
                     base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD3(SetForceSrBtEnabled,
+               bool(bool /*in_enabled*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(SetForceSrBtEnabledAsync,
+               void(bool /*in_enabled*/,
+                    base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(GetForceSrBtEnabled,
+               bool(bool* /*out_enabled*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(GetForceSrBtEnabledAsync,
+               void(base::OnceCallback<void(bool /*enabled*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD3(SetPlayerPlaybackStatus,
                bool(const std::string& /*in_status*/,
                     brillo::ErrorPtr* /*error*/,
