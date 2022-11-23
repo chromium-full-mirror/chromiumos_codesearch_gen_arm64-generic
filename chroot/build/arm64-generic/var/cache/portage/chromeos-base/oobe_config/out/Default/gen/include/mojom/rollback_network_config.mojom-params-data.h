@@ -14,7 +14,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
-namespace chromeos {
+namespace ash {
 namespace rollback_network_config {
 namespace mojom {
 namespace internal {
@@ -195,7 +195,7 @@ inline void RollbackNetworkConfig_RollbackConfigExport_ResponseParamsDataView::G
 
 }  // namespace mojom
 }  // namespace rollback_network_config
-}  // namespace chromeos
+}  // namespace ash
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

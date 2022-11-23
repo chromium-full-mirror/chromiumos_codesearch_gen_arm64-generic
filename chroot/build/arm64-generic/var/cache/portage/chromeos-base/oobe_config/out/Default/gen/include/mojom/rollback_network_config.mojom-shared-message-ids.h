@@ -8,7 +8,7 @@
 #define MOJOM_ROLLBACK_NETWORK_CONFIG_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
+namespace ash {
 namespace rollback_network_config {
 namespace mojom {
 
@@ -21,6 +21,6 @@ constexpr uint32_t kRollbackNetworkConfig_RollbackConfigExport_Name = 1;
 }  // namespace internal
 }  // namespace mojom
 }  // namespace rollback_network_config
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // MOJOM_ROLLBACK_NETWORK_CONFIG_MOJOM_SHARED_MESSAGE_IDS_H_

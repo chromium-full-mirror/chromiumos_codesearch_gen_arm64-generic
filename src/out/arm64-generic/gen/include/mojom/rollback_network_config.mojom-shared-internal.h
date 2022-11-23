@@ -20,7 +20,7 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
+namespace ash {
 namespace rollback_network_config {
 namespace mojom {
 namespace internal {
@@ -32,6 +32,6 @@ namespace internal {
 }  // namespace internal
 }  // namespace mojom
 }  // namespace rollback_network_config
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // MOJOM_ROLLBACK_NETWORK_CONFIG_MOJOM_SHARED_INTERNAL_H_

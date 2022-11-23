@@ -32,14 +32,14 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace rollback_network_config {
 namespace mojom {
 
 
 }  // namespace mojom
 }  // namespace rollback_network_config
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 namespace internal {
@@ -48,7 +48,7 @@ namespace internal {
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace rollback_network_config {
 namespace mojom {
 // Interface base classes. They are used for type safety check.
@@ -66,7 +66,7 @@ using RollbackNetworkConfigAssociatedRequestDataView =
 
 }  // namespace mojom
 }  // namespace rollback_network_config
-}  // namespace chromeos
+}  // namespace ash
 
 namespace std {
 
@@ -77,14 +77,14 @@ namespace mojo {
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace rollback_network_config {
 namespace mojom {
 
 
 }  // namespace mojom
 }  // namespace rollback_network_config
-}  // namespace chromeos
+}  // namespace ash
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

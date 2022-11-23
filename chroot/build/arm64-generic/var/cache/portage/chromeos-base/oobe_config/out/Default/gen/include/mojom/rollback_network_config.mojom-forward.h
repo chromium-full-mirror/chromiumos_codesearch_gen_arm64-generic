@@ -20,7 +20,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace rollback_network_config {
 namespace mojom {
 class RollbackNetworkConfig;
@@ -30,6 +30,6 @@ class RollbackNetworkConfig;
 
 }  // namespace mojom
 }  // namespace rollback_network_config
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // MOJOM_ROLLBACK_NETWORK_CONFIG_MOJOM_FORWARD_H_

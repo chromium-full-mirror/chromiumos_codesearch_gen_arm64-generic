@@ -36,7 +36,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace rollback_network_config {
 namespace mojom {
 
@@ -170,7 +170,7 @@ class  RollbackNetworkConfigResponseValidator : public mojo::MessageReceiver {
 
 }  // namespace mojom
 }  // namespace rollback_network_config
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 

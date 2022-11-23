@@ -47,10 +47,10 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace rollback_network_config {
 namespace mojom {
-const char RollbackNetworkConfig::Name_[] = "chromeos.rollback_network_config.mojom.RollbackNetworkConfig";
+const char RollbackNetworkConfig::Name_[] = "ash.rollback_network_config.mojom.RollbackNetworkConfig";
 
 RollbackNetworkConfig::IPCStableHashFunction RollbackNetworkConfig::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
@@ -73,16 +73,16 @@ const char* RollbackNetworkConfig::MessageToMethodName_(mojo::Message& message) 
   if (!is_response) {
     switch (message.name()) {
       case internal::kRollbackNetworkConfig_RollbackConfigImport_Name:
-            return "Receive chromeos::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigImport";
+            return "Receive ash::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigImport";
       case internal::kRollbackNetworkConfig_RollbackConfigExport_Name:
-            return "Receive chromeos::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigExport";
+            return "Receive ash::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigExport";
     }
   } else {
     switch (message.name()) {
       case internal::kRollbackNetworkConfig_RollbackConfigImport_Name:
-            return "Receive reply chromeos::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigImport";
+            return "Receive reply ash::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigImport";
       case internal::kRollbackNetworkConfig_RollbackConfigExport_Name:
-            return "Receive reply chromeos::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigExport";
+            return "Receive reply ash::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigExport";
     }
   }
   return "Receive unknown mojo message";
@@ -105,7 +105,7 @@ uint32_t RollbackNetworkConfig::RollbackConfigImport_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigImport");
+          "(Impl)ash::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigImport");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -118,7 +118,7 @@ uint32_t RollbackNetworkConfig::RollbackConfigExport_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigExport");
+          "(Impl)ash::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigExport");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -165,7 +165,7 @@ void RollbackNetworkConfigProxy::RollbackConfigImport(
     const std::string& in_config, RollbackConfigImportCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigImport", "input_parameters",
+    "mojom", "Send ash::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigImport", "input_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -185,7 +185,7 @@ void RollbackNetworkConfigProxy::RollbackConfigImport(
   mojo::Message message(
       internal::kRollbackNetworkConfig_RollbackConfigImport_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::rollback_network_config::mojom::internal::RollbackNetworkConfig_RollbackConfigImport_Params_Data> params(
+      ::ash::rollback_network_config::mojom::internal::RollbackNetworkConfig_RollbackConfigImport_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -213,7 +213,7 @@ void RollbackNetworkConfigProxy::RollbackConfigImport(
 void RollbackNetworkConfigProxy::RollbackConfigExport(
     RollbackConfigExportCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigExport");
+  TRACE_EVENT0("mojom", "Send ash::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigExport");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -227,7 +227,7 @@ void RollbackNetworkConfigProxy::RollbackConfigExport(
   mojo::Message message(
       internal::kRollbackNetworkConfig_RollbackConfigExport_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::rollback_network_config::mojom::internal::RollbackNetworkConfig_RollbackConfigExport_Params_Data> params(
+      ::ash::rollback_network_config::mojom::internal::RollbackNetworkConfig_RollbackConfigExport_Params_Data> params(
           message);
   params.Allocate();
 
@@ -317,7 +317,7 @@ void RollbackNetworkConfig_RollbackConfigImport_ProxyToResponder::Run(
     bool in_success) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigImport", "async_response_parameters",
+    "mojom", "Send reply ash::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigImport", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -333,7 +333,7 @@ void RollbackNetworkConfig_RollbackConfigImport_ProxyToResponder::Run(
   mojo::Message message(
       internal::kRollbackNetworkConfig_RollbackConfigImport_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::rollback_network_config::mojom::internal::RollbackNetworkConfig_RollbackConfigImport_ResponseParams_Data> params(
+      ::ash::rollback_network_config::mojom::internal::RollbackNetworkConfig_RollbackConfigImport_ResponseParams_Data> params(
           message);
   params.Allocate();
   params->success = in_success;
@@ -431,7 +431,7 @@ void RollbackNetworkConfig_RollbackConfigExport_ProxyToResponder::Run(
     const std::string& in_config) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigExport", "async_response_parameters",
+    "mojom", "Send reply ash::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigExport", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -447,7 +447,7 @@ void RollbackNetworkConfig_RollbackConfigExport_ProxyToResponder::Run(
   mojo::Message message(
       internal::kRollbackNetworkConfig_RollbackConfigExport_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::rollback_network_config::mojom::internal::RollbackNetworkConfig_RollbackConfigExport_ResponseParams_Data> params(
+      ::ash::rollback_network_config::mojom::internal::RollbackNetworkConfig_RollbackConfigExport_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -570,19 +570,19 @@ static const mojo::internal::GenericValidationInfo kRollbackNetworkConfigValidat
 };
 
 bool RollbackNetworkConfigRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::rollback_network_config::mojom::RollbackNetworkConfig::Name_;
+  const char* name = ::ash::rollback_network_config::mojom::RollbackNetworkConfig::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kRollbackNetworkConfigValidationInfo);
 }
 
 bool RollbackNetworkConfigResponseValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::rollback_network_config::mojom::RollbackNetworkConfig::Name_;
+  const char* name = ::ash::rollback_network_config::mojom::RollbackNetworkConfig::Name_;
   return mojo::internal::ValidateResponseGenericPacked(message, name, kRollbackNetworkConfigValidationInfo);
 }
 
 
 }  // namespace mojom
 }  // namespace rollback_network_config
-}  // namespace chromeos
+}  // namespace ash
 
 
 namespace mojo {
@@ -594,7 +594,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
+namespace ash {
 namespace rollback_network_config {
 namespace mojom {
 
@@ -663,7 +663,7 @@ std::string RollbackNetworkConfigAsyncWaiter::RollbackConfigExport(
 
 }  // namespace mojom
 }  // namespace rollback_network_config
-}  // namespace chromeos
+}  // namespace ash
 
 
 #if defined(__clang__)

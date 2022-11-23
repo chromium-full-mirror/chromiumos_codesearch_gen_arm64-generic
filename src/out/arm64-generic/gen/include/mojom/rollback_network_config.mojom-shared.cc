@@ -18,7 +18,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "mojom/rollback_network_config.mojom-params-data.h"
-namespace chromeos {
+namespace ash {
 namespace rollback_network_config {
 namespace mojom {
 
@@ -141,4 +141,4 @@ RollbackNetworkConfig_RollbackConfigExport_ResponseParams_Data::RollbackNetworkC
 }  // namespace internal
 }  // namespace mojom
 }  // namespace rollback_network_config
-}  // namespace chromeos
+}  // namespace ash
