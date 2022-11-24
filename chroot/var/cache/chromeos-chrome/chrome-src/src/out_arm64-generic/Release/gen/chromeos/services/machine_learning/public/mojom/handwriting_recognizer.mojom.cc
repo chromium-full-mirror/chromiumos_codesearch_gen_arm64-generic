@@ -53,7 +53,7 @@ namespace mojom {
 InkPoint::InkPoint()
     : x(),
       y(),
-      t() {}
+      t(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::base::TimeDelta>>()) {}
 
 InkPoint::InkPoint(
     float x_in,

@@ -95,6 +95,8 @@ static NOINLINE const char* DiagnosticRoutineEnumToStringHelper(DiagnosticRoutin
       return "kFingerprintAlive";
     case DiagnosticRoutineEnum::kPrivacyScreen:
       return "kPrivacyScreen";
+    case DiagnosticRoutineEnum::kLedLitUp:
+      return "kLedLitUp";
     default:
       return nullptr;
   }
@@ -193,6 +195,8 @@ static NOINLINE const char* DiagnosticRoutineUserMessageEnumToStringHelper(Diagn
       return "kPlugInACPower";
     case DiagnosticRoutineUserMessageEnum::kUnknown:
       return "kUnknown";
+    case DiagnosticRoutineUserMessageEnum::kCheckLedColor:
+      return "kCheckLedColor";
     default:
       return nullptr;
   }
@@ -290,6 +294,72 @@ std::string NvmeSelfTestTypeEnumToString(NvmeSelfTestTypeEnum value) {
 
 std::ostream& operator<<(std::ostream& os, NvmeSelfTestTypeEnum value) {
   return os << NvmeSelfTestTypeEnumToString(value);
+}
+
+static NOINLINE const char* LedNameToStringHelper(LedName value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case LedName::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case LedName::kBattery:
+      return "kBattery";
+    case LedName::kPower:
+      return "kPower";
+    case LedName::kAdapter:
+      return "kAdapter";
+    case LedName::kLeft:
+      return "kLeft";
+    case LedName::kRight:
+      return "kRight";
+    default:
+      return nullptr;
+  }
+}
+
+std::string LedNameToString(LedName value) {
+  const char *str = LedNameToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown LedName value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, LedName value) {
+  return os << LedNameToString(value);
+}
+
+static NOINLINE const char* LedColorToStringHelper(LedColor value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case LedColor::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case LedColor::kRed:
+      return "kRed";
+    case LedColor::kGreen:
+      return "kGreen";
+    case LedColor::kBlue:
+      return "kBlue";
+    case LedColor::kYellow:
+      return "kYellow";
+    case LedColor::kWhite:
+      return "kWhite";
+    case LedColor::kAmber:
+      return "kAmber";
+    default:
+      return nullptr;
+  }
+}
+
+std::string LedColorToString(LedColor value) {
+  const char *str = LedColorToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown LedColor value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, LedColor value) {
+  return os << LedColorToString(value);
 }
 
 namespace internal {
@@ -481,6 +551,52 @@ bool RoutineUpdate_Data::Validate(
 RoutineUpdate_Data::RoutineUpdate_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool LedLitUpRoutineReplier_GetColorMatched_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LedLitUpRoutineReplier_GetColorMatched_Params_Data* object =
+      static_cast<const LedLitUpRoutineReplier_GetColorMatched_Params_Data*>(data);
+
+  return true;
+}
+
+LedLitUpRoutineReplier_GetColorMatched_Params_Data::LedLitUpRoutineReplier_GetColorMatched_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* object =
+      static_cast<const LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data*>(data);
+
+  return true;
+}
+
+LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
@@ -552,6 +668,26 @@ namespace perfetto_libchrome {
 void TraceFormatTraits<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum>::WriteIntoTrace(
    perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::NvmeSelfTestTypeEnumToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::LedName>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::LedName value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::LedNameToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::LedColor>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::LedColor value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::LedColorToString(value));
 }
 
 } // namespace perfetto

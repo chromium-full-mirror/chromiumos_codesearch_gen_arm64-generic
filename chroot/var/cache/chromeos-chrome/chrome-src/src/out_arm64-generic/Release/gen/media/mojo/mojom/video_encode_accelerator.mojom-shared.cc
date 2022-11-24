@@ -121,6 +121,32 @@ std::ostream& operator<<(std::ostream& os, VideoEncodeAcceleratorConfig_StorageT
   return os << VideoEncodeAcceleratorConfig_StorageTypeToString(value);
 }
 
+static NOINLINE const char* VideoEncodeAcceleratorConfig_EncoderTypeToStringHelper(VideoEncodeAcceleratorConfig_EncoderType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case VideoEncodeAcceleratorConfig_EncoderType::kHardware:
+      return "kHardware";
+    case VideoEncodeAcceleratorConfig_EncoderType::kSoftware:
+      return "kSoftware";
+    case VideoEncodeAcceleratorConfig_EncoderType::kNoPreference:
+      return "kNoPreference";
+    default:
+      return nullptr;
+  }
+}
+
+std::string VideoEncodeAcceleratorConfig_EncoderTypeToString(VideoEncodeAcceleratorConfig_EncoderType value) {
+  const char *str = VideoEncodeAcceleratorConfig_EncoderTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown VideoEncodeAcceleratorConfig_EncoderType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, VideoEncodeAcceleratorConfig_EncoderType value) {
+  return os << VideoEncodeAcceleratorConfig_EncoderTypeToString(value);
+}
+
 static NOINLINE const char* VideoEncodeAccelerator_ErrorToStringHelper(VideoEncodeAccelerator_Error value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -494,7 +520,7 @@ bool VideoEncodeAcceleratorConfig_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 72, validation_context)) {
+          data, 80, validation_context)) {
     return false;
   }
 
@@ -551,6 +577,11 @@ bool VideoEncodeAcceleratorConfig_Data::Validate(
 
   if (!::media::mojom::internal::VideoEncodeAcceleratorConfig_InterLayerPredMode_Data
         ::Validate(object->inter_layer_pred, validation_context))
+    return false;
+
+
+  if (!::media::mojom::internal::VideoEncodeAcceleratorConfig_EncoderType_Data
+        ::Validate(object->required_encoder_type, validation_context))
     return false;
 
   return true;
@@ -1304,6 +1335,16 @@ namespace perfetto {
 void TraceFormatTraits<::media::mojom::VideoEncodeAcceleratorConfig_StorageType>::WriteIntoTrace(
    perfetto::TracedValue context, ::media::mojom::VideoEncodeAcceleratorConfig_StorageType value) {
   return std::move(context).WriteString(::media::mojom::VideoEncodeAcceleratorConfig_StorageTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::media::mojom::VideoEncodeAcceleratorConfig_EncoderType value) {
+  return std::move(context).WriteString(::media::mojom::VideoEncodeAcceleratorConfig_EncoderTypeToString(value));
 }
 
 } // namespace perfetto

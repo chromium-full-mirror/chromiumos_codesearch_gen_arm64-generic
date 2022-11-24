@@ -114,7 +114,7 @@ bool DmaBufPlane::Validate(
   return Data_::Validate(data, validation_context);
 }
 DmaBufVideoFrame::DmaBufVideoFrame()
-    : format(),
+    : format(mojo::DefaultConstructTraits::CreateInstance<::media::VideoPixelFormat>()),
       coded_width(),
       coded_height(),
       planes() {}

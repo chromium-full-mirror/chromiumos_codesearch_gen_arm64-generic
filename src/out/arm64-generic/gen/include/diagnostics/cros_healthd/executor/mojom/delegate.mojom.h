@@ -26,6 +26,7 @@
 #include "diagnostics/cros_healthd/executor/mojom/delegate.mojom-shared.h"
 #include "diagnostics/cros_healthd/executor/mojom/delegate.mojom-forward.h"
 #include "diagnostics/cros_healthd/executor/mojom/executor.mojom-forward.h"
+#include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-forward.h"
 #include <string>
 #include <vector>
 
@@ -74,6 +75,8 @@ class Delegate
   enum MethodMinVersions : uint32_t {
     kGetFingerprintFrameMinVersion = 0,
     kGetFingerprintInfoMinVersion = 0,
+    kSetLedColorMinVersion = 0,
+    kResetLedColorMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -83,6 +86,12 @@ class Delegate
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetFingerprintInfo_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetLedColor_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ResetLedColor_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -97,6 +106,16 @@ class Delegate
   using GetFingerprintInfoCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::FingerprintInfoResultPtr, const absl::optional<std::string>&)>;
   
   virtual void GetFingerprintInfo(GetFingerprintInfoCallback callback) = 0;
+
+
+  using SetLedColorCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  
+  virtual void SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, SetLedColorCallback callback) = 0;
+
+
+  using ResetLedColorCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  
+  virtual void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) = 0;
 };
 
 
@@ -111,6 +130,10 @@ class  DelegateProxy
   void GetFingerprintFrame(::ash::cros_healthd::mojom::FingerprintCaptureType type, GetFingerprintFrameCallback callback) final;
   
   void GetFingerprintInfo(GetFingerprintInfoCallback callback) final;
+  
+  void SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, SetLedColorCallback callback) final;
+  
+  void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

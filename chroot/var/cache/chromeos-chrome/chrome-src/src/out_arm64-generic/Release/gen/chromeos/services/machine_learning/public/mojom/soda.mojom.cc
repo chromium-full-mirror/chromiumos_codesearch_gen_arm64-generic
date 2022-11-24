@@ -190,11 +190,11 @@ bool SodaConfig::Validate(
   return Data_::Validate(data, validation_context);
 }
 TimingInfo::TimingInfo()
-    : audio_start_epoch(),
-      audio_start_time(),
-      elapsed_wall_time(),
-      event_end_time(),
-      latency(),
+    : audio_start_epoch(mojo::DefaultConstructTraits::CreateInstance<::base::Time>()),
+      audio_start_time(mojo::DefaultConstructTraits::CreateInstance<::base::TimeDelta>()),
+      elapsed_wall_time(mojo::DefaultConstructTraits::CreateInstance<::base::TimeDelta>()),
+      event_end_time(mojo::DefaultConstructTraits::CreateInstance<::base::TimeDelta>()),
+      latency(mojo::DefaultConstructTraits::CreateInstance<::base::TimeDelta>()),
       normalized_latency(),
       word_alignments() {}
 
@@ -371,7 +371,7 @@ bool PartialResult::Validate(
 }
 HypothesisPartInResult::HypothesisPartInResult()
     : text(),
-      alignment() {}
+      alignment(mojo::DefaultConstructTraits::CreateInstance<::base::TimeDelta>()) {}
 
 HypothesisPartInResult::HypothesisPartInResult(
     std::vector<std::string> text_in,

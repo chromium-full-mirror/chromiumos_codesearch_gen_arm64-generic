@@ -50,7 +50,7 @@
 namespace service_manager {
 namespace mojom {
 RunningServiceInfo::RunningServiceInfo()
-    : identity(),
+    : identity(mojo::DefaultConstructTraits::CreateInstance<::service_manager::Identity>()),
       pid(),
       state() {}
 

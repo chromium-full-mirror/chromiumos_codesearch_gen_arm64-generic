@@ -221,6 +221,10 @@ PROTOBUF_CONSTEXPR Camera_Fields::Camera_Fields(
     ::_pbi::ConstantInitialized)
   : path_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , bus_type_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , mipi_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , mipi_module_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , mipi_sensor_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , mipi_vendor_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , usb_vendor_id_(0u)
   , usb_product_id_(0u)
   , usb_bcd_device_(0u)
@@ -5612,6 +5616,38 @@ Camera_Fields::Camera_Fields(const Camera_Fields& from)
     bus_type_.Set(from._internal_bus_type(), 
       GetArenaForAllocation());
   }
+  mipi_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    mipi_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_mipi_name().empty()) {
+    mipi_name_.Set(from._internal_mipi_name(), 
+      GetArenaForAllocation());
+  }
+  mipi_module_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    mipi_module_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_mipi_module_id().empty()) {
+    mipi_module_id_.Set(from._internal_mipi_module_id(), 
+      GetArenaForAllocation());
+  }
+  mipi_sensor_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    mipi_sensor_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_mipi_sensor_id().empty()) {
+    mipi_sensor_id_.Set(from._internal_mipi_sensor_id(), 
+      GetArenaForAllocation());
+  }
+  mipi_vendor_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    mipi_vendor_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_mipi_vendor().empty()) {
+    mipi_vendor_.Set(from._internal_mipi_vendor(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&usb_vendor_id_, &from.usb_vendor_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&usb_removable_) -
     reinterpret_cast<char*>(&usb_vendor_id_)) + sizeof(usb_removable_));
@@ -5626,6 +5662,22 @@ path_.InitDefault();
 bus_type_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   bus_type_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+mipi_name_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  mipi_name_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+mipi_module_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  mipi_module_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+mipi_sensor_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  mipi_sensor_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+mipi_vendor_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  mipi_vendor_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&usb_vendor_id_) - reinterpret_cast<char*>(this)),
@@ -5646,6 +5698,10 @@ inline void Camera_Fields::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   path_.Destroy();
   bus_type_.Destroy();
+  mipi_name_.Destroy();
+  mipi_module_id_.Destroy();
+  mipi_sensor_id_.Destroy();
+  mipi_vendor_.Destroy();
 }
 
 void Camera_Fields::SetCachedSize(int size) const {
@@ -5660,6 +5716,10 @@ void Camera_Fields::Clear() {
 
   path_.ClearToEmpty();
   bus_type_.ClearToEmpty();
+  mipi_name_.ClearToEmpty();
+  mipi_module_id_.ClearToEmpty();
+  mipi_sensor_id_.ClearToEmpty();
+  mipi_vendor_.ClearToEmpty();
   ::memset(&usb_vendor_id_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&usb_removable_) -
       reinterpret_cast<char*>(&usb_vendor_id_)) + sizeof(usb_removable_));
@@ -5722,6 +5782,46 @@ const char* Camera_Fields::_InternalParse(const char* ptr, ::_pbi::ParseContext*
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_usb_removable(static_cast<::runtime_probe::UsbRemovable>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // string mipi_name = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          auto str = _internal_mutable_mipi_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string mipi_module_id = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+          auto str = _internal_mutable_mipi_module_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string mipi_sensor_id = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          auto str = _internal_mutable_mipi_sensor_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string mipi_vendor = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
+          auto str = _internal_mutable_mipi_vendor();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -5799,6 +5899,46 @@ uint8_t* Camera_Fields::_InternalSerialize(
       6, this->_internal_usb_removable(), target);
   }
 
+  // string mipi_name = 7;
+  if (!this->_internal_mipi_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_mipi_name().data(), static_cast<int>(this->_internal_mipi_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Camera.Fields.mipi_name");
+    target = stream->WriteStringMaybeAliased(
+        7, this->_internal_mipi_name(), target);
+  }
+
+  // string mipi_module_id = 8;
+  if (!this->_internal_mipi_module_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_mipi_module_id().data(), static_cast<int>(this->_internal_mipi_module_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Camera.Fields.mipi_module_id");
+    target = stream->WriteStringMaybeAliased(
+        8, this->_internal_mipi_module_id(), target);
+  }
+
+  // string mipi_sensor_id = 9;
+  if (!this->_internal_mipi_sensor_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_mipi_sensor_id().data(), static_cast<int>(this->_internal_mipi_sensor_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Camera.Fields.mipi_sensor_id");
+    target = stream->WriteStringMaybeAliased(
+        9, this->_internal_mipi_sensor_id(), target);
+  }
+
+  // string mipi_vendor = 10;
+  if (!this->_internal_mipi_vendor().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_mipi_vendor().data(), static_cast<int>(this->_internal_mipi_vendor().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Camera.Fields.mipi_vendor");
+    target = stream->WriteStringMaybeAliased(
+        10, this->_internal_mipi_vendor(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -5827,6 +5967,34 @@ size_t Camera_Fields::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_bus_type());
+  }
+
+  // string mipi_name = 7;
+  if (!this->_internal_mipi_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_mipi_name());
+  }
+
+  // string mipi_module_id = 8;
+  if (!this->_internal_mipi_module_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_mipi_module_id());
+  }
+
+  // string mipi_sensor_id = 9;
+  if (!this->_internal_mipi_sensor_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_mipi_sensor_id());
+  }
+
+  // string mipi_vendor = 10;
+  if (!this->_internal_mipi_vendor().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_mipi_vendor());
   }
 
   // uint32 usb_vendor_id = 3;
@@ -5876,6 +6044,18 @@ void Camera_Fields::MergeFrom(const Camera_Fields& from) {
   if (!from._internal_bus_type().empty()) {
     _internal_set_bus_type(from._internal_bus_type());
   }
+  if (!from._internal_mipi_name().empty()) {
+    _internal_set_mipi_name(from._internal_mipi_name());
+  }
+  if (!from._internal_mipi_module_id().empty()) {
+    _internal_set_mipi_module_id(from._internal_mipi_module_id());
+  }
+  if (!from._internal_mipi_sensor_id().empty()) {
+    _internal_set_mipi_sensor_id(from._internal_mipi_sensor_id());
+  }
+  if (!from._internal_mipi_vendor().empty()) {
+    _internal_set_mipi_vendor(from._internal_mipi_vendor());
+  }
   if (from._internal_usb_vendor_id() != 0) {
     _internal_set_usb_vendor_id(from._internal_usb_vendor_id());
   }
@@ -5914,6 +6094,22 @@ void Camera_Fields::InternalSwap(Camera_Fields* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &bus_type_, lhs_arena,
       &other->bus_type_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &mipi_name_, lhs_arena,
+      &other->mipi_name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &mipi_module_id_, lhs_arena,
+      &other->mipi_module_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &mipi_sensor_id_, lhs_arena,
+      &other->mipi_sensor_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &mipi_vendor_, lhs_arena,
+      &other->mipi_vendor_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Camera_Fields, usb_removable_)

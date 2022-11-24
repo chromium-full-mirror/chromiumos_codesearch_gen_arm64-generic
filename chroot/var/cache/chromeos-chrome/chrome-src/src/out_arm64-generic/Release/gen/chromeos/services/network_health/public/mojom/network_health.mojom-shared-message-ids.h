@@ -17,6 +17,7 @@ namespace internal {
 
 constexpr uint32_t kNetworkEventsObserver_OnConnectionStateChanged_Name = 0;
 constexpr uint32_t kNetworkEventsObserver_OnSignalStrengthChanged_Name = 1;
+constexpr uint32_t kNetworkEventsObserver_OnNetworkListChanged_Name = 2;
 constexpr uint32_t kNetworkHealthService_AddObserver_Name = 0;
 constexpr uint32_t kNetworkHealthService_GetNetworkList_Name = 1;
 constexpr uint32_t kNetworkHealthService_GetHealthSnapshot_Name = 2;

@@ -116,7 +116,7 @@ bool BitstreamBuffer::Validate(
 Picture::Picture()
     : picture_buffer_id(),
       bitstream_id(),
-      crop_rect() {}
+      crop_rect(mojo::DefaultConstructTraits::CreateInstance<::gfx::Rect>()) {}
 
 Picture::Picture(
     int32_t picture_buffer_id_in,
@@ -167,7 +167,7 @@ bool Picture::Validate(
 }
 PictureBufferFormat::PictureBufferFormat()
     : min_num_buffers(),
-      coded_size() {}
+      coded_size(mojo::DefaultConstructTraits::CreateInstance<gfx::Size>()) {}
 
 PictureBufferFormat::PictureBufferFormat(
     uint32_t min_num_buffers_in,
@@ -206,7 +206,7 @@ bool PictureBufferFormat::Validate(
   return Data_::Validate(data, validation_context);
 }
 VideoDecodeAcceleratorConfig::VideoDecodeAcceleratorConfig()
-    : profile(),
+    : profile(mojo::DefaultConstructTraits::CreateInstance<media::VideoCodecProfile>()),
       secure_mode() {}
 
 VideoDecodeAcceleratorConfig::VideoDecodeAcceleratorConfig(

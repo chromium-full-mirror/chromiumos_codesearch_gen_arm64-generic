@@ -143,6 +143,31 @@ struct VideoEncodeAcceleratorConfig_StorageType_Data {
   }
 };
 
+struct VideoEncodeAcceleratorConfig_EncoderType_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct VideoEncodeAccelerator_Error_Data {
  public:
   static bool constexpr kIsExtensible = false;
@@ -611,6 +636,8 @@ class  VideoEncodeAcceleratorConfig_Data {
   int32_t content_type;
   int32_t inter_layer_pred;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::SpatialLayer_Data>>> spatial_layers;
+  int32_t required_encoder_type;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<VideoEncodeAcceleratorConfig_Data>;
@@ -618,7 +645,7 @@ class  VideoEncodeAcceleratorConfig_Data {
   VideoEncodeAcceleratorConfig_Data();
   ~VideoEncodeAcceleratorConfig_Data() = delete;
 };
-static_assert(sizeof(VideoEncodeAcceleratorConfig_Data) == 72,
+static_assert(sizeof(VideoEncodeAcceleratorConfig_Data) == 80,
               "Bad sizeof(VideoEncodeAcceleratorConfig_Data)");
 // Used by VideoEncodeAcceleratorConfig::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

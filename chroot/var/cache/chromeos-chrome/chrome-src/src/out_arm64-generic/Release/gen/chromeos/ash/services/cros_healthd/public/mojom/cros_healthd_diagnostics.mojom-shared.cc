@@ -93,6 +93,8 @@ static NOINLINE const char* DiagnosticRoutineEnumToStringHelper(DiagnosticRoutin
       return "kFingerprint";
     case DiagnosticRoutineEnum::kFingerprintAlive:
       return "kFingerprintAlive";
+    case DiagnosticRoutineEnum::kPrivacyScreen:
+      return "kPrivacyScreen";
     default:
       return nullptr;
   }

@@ -37,19 +37,6 @@ class BASE_EXPORT Location {
   Location(Location&& other) noexcept;
   Location& operator=(const Location& other);
 
-  // Only initializes the file name and program counter, the source information
-  // will be null for the strings, and -1 for the line number.
-  // TODO(http://crbug.com/760702) remove file name from this constructor.
-  Location(const char* file_name, const void* program_counter);
-
-  // Constructor should be called with a long-lived char*, such as __FILE__.
-  // It assumes the provided value will persist as a global constant, and it
-  // will not make a copy of it.
-  Location(const char* function_name,
-           const char* file_name,
-           int line_number,
-           const void* program_counter);
-
   static Location CreateForTesting(const char* function_name,
                                    const char* file_name,
                                    int line_number,
@@ -111,6 +98,19 @@ class BASE_EXPORT Location {
 #endif  // SUPPORTS_LOCATION_BUILTINS
 
  private:
+  // Only initializes the file name and program counter, the source information
+  // will be null for the strings, and -1 for the line number.
+  // TODO(http://crbug.com/760702) remove file name from this constructor.
+  Location(const char* file_name, const void* program_counter);
+
+  // Constructor should be called with a long-lived char*, such as __FILE__.
+  // It assumes the provided value will persist as a global constant, and it
+  // will not make a copy of it.
+  Location(const char* function_name,
+           const char* file_name,
+           int line_number,
+           const void* program_counter);
+
   const char* function_name_ = nullptr;
   const char* file_name_ = nullptr;
   int line_number_ = -1;

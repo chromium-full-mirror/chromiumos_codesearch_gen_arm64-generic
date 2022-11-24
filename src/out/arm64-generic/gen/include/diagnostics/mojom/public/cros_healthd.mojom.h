@@ -153,7 +153,7 @@ class CrosHealthdDiagnosticsService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 4;
+  static constexpr uint32_t Version_ = 5;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
@@ -204,6 +204,7 @@ class CrosHealthdDiagnosticsService
     kRunFingerprintRoutineMinVersion = 3,
     kRunFingerprintAliveRoutineMinVersion = 3,
     kRunPrivacyScreenRoutineMinVersion = 4,
+    kRunLedLitUpRoutineMinVersion = 5,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -318,6 +319,9 @@ class CrosHealthdDiagnosticsService
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunPrivacyScreenRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunLedLitUpRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -507,6 +511,11 @@ class CrosHealthdDiagnosticsService
   using RunPrivacyScreenRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
   virtual void RunPrivacyScreenRoutine(bool target_state, RunPrivacyScreenRoutineCallback callback) = 0;
+
+
+  using RunLedLitUpRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunLedLitUpRoutine(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier, RunLedLitUpRoutineCallback callback) = 0;
 };
 
 class CrosHealthdEventServiceProxy;
@@ -892,6 +901,8 @@ class  CrosHealthdDiagnosticsServiceProxy
   void RunFingerprintAliveRoutine(RunFingerprintAliveRoutineCallback callback) final;
   
   void RunPrivacyScreenRoutine(bool target_state, RunPrivacyScreenRoutineCallback callback) final;
+  
+  void RunLedLitUpRoutine(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier, RunLedLitUpRoutineCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

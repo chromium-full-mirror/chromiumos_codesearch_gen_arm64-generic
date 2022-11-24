@@ -50,8 +50,8 @@
 namespace arc {
 namespace mojom {
 VideoEncodeProfile::VideoEncodeProfile()
-    : profile(),
-      max_resolution(),
+    : profile(mojo::DefaultConstructTraits::CreateInstance<media::VideoCodecProfile>()),
+      max_resolution(mojo::DefaultConstructTraits::CreateInstance<gfx::Size>()),
       max_framerate_numerator(),
       max_framerate_denominator() {}
 
@@ -191,16 +191,16 @@ bool VariableBitrate::Validate(
   return Data_::Validate(data, validation_context);
 }
 VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig()
-    : input_format(),
-      input_visible_size(),
-      output_profile(),
+    : input_format(mojo::DefaultConstructTraits::CreateInstance<media::VideoPixelFormat>()),
+      input_visible_size(mojo::DefaultConstructTraits::CreateInstance<gfx::Size>()),
+      output_profile(mojo::DefaultConstructTraits::CreateInstance<media::VideoCodecProfile>()),
       initial_bitrate_deprecated(),
       initial_framerate(),
       has_initial_framerate(),
       h264_output_level(),
       has_h264_output_level(),
-      storage_type(),
-      bitrate() {}
+      storage_type(mojo::DefaultConstructTraits::CreateInstance<::media::VideoEncodeAccelerator::Config::StorageType>()),
+      bitrate(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::media::Bitrate>>()) {}
 
 VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
     media::VideoPixelFormat input_format_in,
@@ -219,8 +219,8 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
       has_initial_framerate(std::move(has_initial_framerate_in)),
       h264_output_level(std::move(h264_output_level_in)),
       has_h264_output_level(std::move(has_h264_output_level_in)),
-      storage_type(),
-      bitrate() {}
+      storage_type(mojo::DefaultConstructTraits::CreateInstance<::media::VideoEncodeAccelerator::Config::StorageType>()),
+      bitrate(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::media::Bitrate>>()) {}
 
 VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
     media::VideoPixelFormat input_format_in,
@@ -241,7 +241,7 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
       h264_output_level(std::move(h264_output_level_in)),
       has_h264_output_level(std::move(has_h264_output_level_in)),
       storage_type(std::move(storage_type_in)),
-      bitrate() {}
+      bitrate(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::media::Bitrate>>()) {}
 
 VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
     media::VideoPixelFormat input_format_in,

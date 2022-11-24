@@ -54,7 +54,7 @@ BitstreamBuffer::BitstreamBuffer()
       memory_handle(),
       size(),
       offset(),
-      timestamp(),
+      timestamp(mojo::DefaultConstructTraits::CreateInstance<::base::TimeDelta>()),
       key_id(),
       iv(),
       subsamples() {}

@@ -52,7 +52,7 @@ namespace mojom {
 VideoFrame::VideoFrame()
     : id(),
       handle_fd(),
-      coded_size(),
+      coded_size(mojo::DefaultConstructTraits::CreateInstance<gfx::Size>()),
       format(),
       planes(),
       modifier() {}

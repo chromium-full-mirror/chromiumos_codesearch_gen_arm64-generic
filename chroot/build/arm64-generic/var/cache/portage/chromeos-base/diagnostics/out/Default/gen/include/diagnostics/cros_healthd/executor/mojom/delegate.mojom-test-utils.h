@@ -19,6 +19,8 @@ class  DelegateInterceptorForTesting : public Delegate {
   virtual Delegate* GetForwardingInterface() = 0;
   void GetFingerprintFrame(::ash::cros_healthd::mojom::FingerprintCaptureType type, GetFingerprintFrameCallback callback) override;
   void GetFingerprintInfo(GetFingerprintInfoCallback callback) override;
+  void SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, SetLedColorCallback callback) override;
+  void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) override;
 };
 class  DelegateAsyncWaiter {
  public:
@@ -34,6 +36,12 @@ class  DelegateAsyncWaiter {
   void GetFingerprintInfo(
       ::ash::cros_healthd::mojom::FingerprintInfoResultPtr* out_result, absl::optional<std::string>* out_err);
   
+  void SetLedColor(
+      ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, absl::optional<std::string>* out_err);
+  absl::optional<std::string> SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color);
+  void ResetLedColor(
+      ::ash::cros_healthd::mojom::LedName name, absl::optional<std::string>* out_err);
+  absl::optional<std::string> ResetLedColor(::ash::cros_healthd::mojom::LedName name);
 
  private:
   Delegate* const proxy_;

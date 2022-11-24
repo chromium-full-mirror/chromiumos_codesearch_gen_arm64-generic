@@ -84,6 +84,10 @@ static NOINLINE const char* CameraMetadataSectionToStringHelper(CameraMetadataSe
       return "ANDROID_HEIC";
     case CameraMetadataSection::ANDROID_HEIC_INFO:
       return "ANDROID_HEIC_INFO";
+    case CameraMetadataSection::ANDROID_AUTOMOTIVE:
+      return "ANDROID_AUTOMOTIVE";
+    case CameraMetadataSection::ANDROID_AUTOMOTIVE_LENS:
+      return "ANDROID_AUTOMOTIVE_LENS";
     case CameraMetadataSection::ANDROID_SECTION_COUNT:
       return "ANDROID_SECTION_COUNT";
     case CameraMetadataSection::VENDOR_SECTION:
@@ -168,6 +172,10 @@ static NOINLINE const char* CameraMetadataSectionStartToStringHelper(CameraMetad
       return "ANDROID_HEIC_START";
     case CameraMetadataSectionStart::ANDROID_HEIC_INFO_START:
       return "ANDROID_HEIC_INFO_START";
+    case CameraMetadataSectionStart::ANDROID_AUTOMOTIVE_START:
+      return "ANDROID_AUTOMOTIVE_START";
+    case CameraMetadataSectionStart::ANDROID_AUTOMOTIVE_LENS_START:
+      return "ANDROID_AUTOMOTIVE_LENS_START";
     default:
       return nullptr;
   }
@@ -296,6 +304,14 @@ static NOINLINE const char* CameraMetadataTagToStringHelper(CameraMetadataTag va
       return "ANDROID_CONTROL_ZOOM_RATIO_RANGE";
     case CameraMetadataTag::ANDROID_CONTROL_ZOOM_RATIO:
       return "ANDROID_CONTROL_ZOOM_RATIO";
+    case CameraMetadataTag::ANDROID_CONTROL_AVAILABLE_HIGH_SPEED_VIDEO_CONFIGURATIONS_MAXIMUM_RESOLUTION:
+      return "ANDROID_CONTROL_AVAILABLE_HIGH_SPEED_VIDEO_CONFIGURATIONS_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_CONTROL_AF_REGIONS_SET:
+      return "ANDROID_CONTROL_AF_REGIONS_SET";
+    case CameraMetadataTag::ANDROID_CONTROL_AE_REGIONS_SET:
+      return "ANDROID_CONTROL_AE_REGIONS_SET";
+    case CameraMetadataTag::ANDROID_CONTROL_AWB_REGIONS_SET:
+      return "ANDROID_CONTROL_AWB_REGIONS_SET";
     case CameraMetadataTag::ANDROID_CONTROL_END:
       return "ANDROID_CONTROL_END";
     case CameraMetadataTag::ANDROID_DEMOSAIC_MODE:
@@ -328,6 +344,10 @@ static NOINLINE const char* CameraMetadataTagToStringHelper(CameraMetadataTag va
       return "ANDROID_FLASH_INFO_AVAILABLE";
     case CameraMetadataTag::ANDROID_FLASH_INFO_CHARGE_DURATION:
       return "ANDROID_FLASH_INFO_CHARGE_DURATION";
+    case CameraMetadataTag::ANDROID_FLASH_INFO_STRENGTH_MAXIMUM_LEVEL:
+      return "ANDROID_FLASH_INFO_STRENGTH_MAXIMUM_LEVEL";
+    case CameraMetadataTag::ANDROID_FLASH_INFO_STRENGTH_DEFAULT_LEVEL:
+      return "ANDROID_FLASH_INFO_STRENGTH_DEFAULT_LEVEL";
     case CameraMetadataTag::ANDROID_FLASH_INFO_END:
       return "ANDROID_FLASH_INFO_END";
     case CameraMetadataTag::ANDROID_HOT_PIXEL_MODE:
@@ -386,6 +406,10 @@ static NOINLINE const char* CameraMetadataTagToStringHelper(CameraMetadataTag va
       return "ANDROID_LENS_POSE_REFERENCE";
     case CameraMetadataTag::ANDROID_LENS_DISTORTION:
       return "ANDROID_LENS_DISTORTION";
+    case CameraMetadataTag::ANDROID_LENS_DISTORTION_MAXIMUM_RESOLUTION:
+      return "ANDROID_LENS_DISTORTION_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_LENS_INTRINSIC_CALIBRATION_MAXIMUM_RESOLUTION:
+      return "ANDROID_LENS_INTRINSIC_CALIBRATION_MAXIMUM_RESOLUTION";
     case CameraMetadataTag::ANDROID_LENS_END:
       return "ANDROID_LENS_END";
     case CameraMetadataTag::ANDROID_LENS_INFO_AVAILABLE_APERTURES:
@@ -464,6 +488,10 @@ static NOINLINE const char* CameraMetadataTagToStringHelper(CameraMetadataTag va
       return "ANDROID_REQUEST_AVAILABLE_PHYSICAL_CAMERA_REQUEST_KEYS";
     case CameraMetadataTag::ANDROID_REQUEST_CHARACTERISTIC_KEYS_NEEDING_PERMISSION:
       return "ANDROID_REQUEST_CHARACTERISTIC_KEYS_NEEDING_PERMISSION";
+    case CameraMetadataTag::ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP:
+      return "ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP";
+    case CameraMetadataTag::ANDROID_REQUEST_RECOMMENDED_TEN_BIT_DYNAMIC_RANGE_PROFILE:
+      return "ANDROID_REQUEST_RECOMMENDED_TEN_BIT_DYNAMIC_RANGE_PROFILE";
     case CameraMetadataTag::ANDROID_REQUEST_END:
       return "ANDROID_REQUEST_END";
     case CameraMetadataTag::ANDROID_SCALER_CROP_REGION:
@@ -502,6 +530,24 @@ static NOINLINE const char* CameraMetadataTagToStringHelper(CameraMetadataTag va
       return "ANDROID_SCALER_AVAILABLE_ROTATE_AND_CROP_MODES";
     case CameraMetadataTag::ANDROID_SCALER_ROTATE_AND_CROP:
       return "ANDROID_SCALER_ROTATE_AND_CROP";
+    case CameraMetadataTag::ANDROID_SCALER_DEFAULT_SECURE_IMAGE_SIZE:
+      return "ANDROID_SCALER_DEFAULT_SECURE_IMAGE_SIZE";
+    case CameraMetadataTag::ANDROID_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS:
+      return "ANDROID_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS";
+    case CameraMetadataTag::ANDROID_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION:
+      return "ANDROID_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_SCALER_AVAILABLE_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION:
+      return "ANDROID_SCALER_AVAILABLE_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_SCALER_AVAILABLE_STALL_DURATIONS_MAXIMUM_RESOLUTION:
+      return "ANDROID_SCALER_AVAILABLE_STALL_DURATIONS_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_SCALER_AVAILABLE_INPUT_OUTPUT_FORMATS_MAP_MAXIMUM_RESOLUTION:
+      return "ANDROID_SCALER_AVAILABLE_INPUT_OUTPUT_FORMATS_MAP_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_SCALER_MULTI_RESOLUTION_STREAM_SUPPORTED:
+      return "ANDROID_SCALER_MULTI_RESOLUTION_STREAM_SUPPORTED";
+    case CameraMetadataTag::ANDROID_SCALER_CROP_REGION_SET:
+      return "ANDROID_SCALER_CROP_REGION_SET";
+    case CameraMetadataTag::ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES:
+      return "ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES";
     case CameraMetadataTag::ANDROID_SCALER_END:
       return "ANDROID_SCALER_END";
     case CameraMetadataTag::ANDROID_SENSOR_EXPOSURE_TIME:
@@ -566,6 +612,12 @@ static NOINLINE const char* CameraMetadataTagToStringHelper(CameraMetadataTag va
       return "ANDROID_SENSOR_DYNAMIC_WHITE_LEVEL";
     case CameraMetadataTag::ANDROID_SENSOR_OPAQUE_RAW_SIZE:
       return "ANDROID_SENSOR_OPAQUE_RAW_SIZE";
+    case CameraMetadataTag::ANDROID_SENSOR_OPAQUE_RAW_SIZE_MAXIMUM_RESOLUTION:
+      return "ANDROID_SENSOR_OPAQUE_RAW_SIZE_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_SENSOR_PIXEL_MODE:
+      return "ANDROID_SENSOR_PIXEL_MODE";
+    case CameraMetadataTag::ANDROID_SENSOR_RAW_BINNING_FACTOR_USED:
+      return "ANDROID_SENSOR_RAW_BINNING_FACTOR_USED";
     case CameraMetadataTag::ANDROID_SENSOR_END:
       return "ANDROID_SENSOR_END";
     case CameraMetadataTag::ANDROID_SENSOR_INFO_ACTIVE_ARRAY_SIZE:
@@ -590,6 +642,14 @@ static NOINLINE const char* CameraMetadataTagToStringHelper(CameraMetadataTag va
       return "ANDROID_SENSOR_INFO_LENS_SHADING_APPLIED";
     case CameraMetadataTag::ANDROID_SENSOR_INFO_PRE_CORRECTION_ACTIVE_ARRAY_SIZE:
       return "ANDROID_SENSOR_INFO_PRE_CORRECTION_ACTIVE_ARRAY_SIZE";
+    case CameraMetadataTag::ANDROID_SENSOR_INFO_ACTIVE_ARRAY_SIZE_MAXIMUM_RESOLUTION:
+      return "ANDROID_SENSOR_INFO_ACTIVE_ARRAY_SIZE_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_SENSOR_INFO_PIXEL_ARRAY_SIZE_MAXIMUM_RESOLUTION:
+      return "ANDROID_SENSOR_INFO_PIXEL_ARRAY_SIZE_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_SENSOR_INFO_PRE_CORRECTION_ACTIVE_ARRAY_SIZE_MAXIMUM_RESOLUTION:
+      return "ANDROID_SENSOR_INFO_PRE_CORRECTION_ACTIVE_ARRAY_SIZE_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_SENSOR_INFO_BINNING_FACTOR:
+      return "ANDROID_SENSOR_INFO_BINNING_FACTOR";
     case CameraMetadataTag::ANDROID_SENSOR_INFO_END:
       return "ANDROID_SENSOR_INFO_END";
     case CameraMetadataTag::ANDROID_SHADING_MODE:
@@ -694,6 +754,8 @@ static NOINLINE const char* CameraMetadataTagToStringHelper(CameraMetadataTag va
       return "ANDROID_INFO_VERSION";
     case CameraMetadataTag::ANDROID_INFO_SUPPORTED_BUFFER_MANAGEMENT_VERSION:
       return "ANDROID_INFO_SUPPORTED_BUFFER_MANAGEMENT_VERSION";
+    case CameraMetadataTag::ANDROID_INFO_DEVICE_STATE_ORIENTATIONS:
+      return "ANDROID_INFO_DEVICE_STATE_ORIENTATIONS";
     case CameraMetadataTag::ANDROID_INFO_END:
       return "ANDROID_INFO_END";
     case CameraMetadataTag::ANDROID_BLACK_LEVEL_LOCK:
@@ -730,6 +792,18 @@ static NOINLINE const char* CameraMetadataTagToStringHelper(CameraMetadataTag va
       return "ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_MIN_FRAME_DURATIONS";
     case CameraMetadataTag::ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STALL_DURATIONS:
       return "ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STALL_DURATIONS";
+    case CameraMetadataTag::ANDROID_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION:
+      return "ANDROID_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_DEPTH_AVAILABLE_DEPTH_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION:
+      return "ANDROID_DEPTH_AVAILABLE_DEPTH_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_DEPTH_AVAILABLE_DEPTH_STALL_DURATIONS_MAXIMUM_RESOLUTION:
+      return "ANDROID_DEPTH_AVAILABLE_DEPTH_STALL_DURATIONS_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION:
+      return "ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION:
+      return "ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STALL_DURATIONS_MAXIMUM_RESOLUTION:
+      return "ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STALL_DURATIONS_MAXIMUM_RESOLUTION";
     case CameraMetadataTag::ANDROID_DEPTH_END:
       return "ANDROID_DEPTH_END";
     case CameraMetadataTag::ANDROID_LOGICAL_MULTI_CAMERA_PHYSICAL_IDS:
@@ -752,6 +826,12 @@ static NOINLINE const char* CameraMetadataTagToStringHelper(CameraMetadataTag va
       return "ANDROID_HEIC_AVAILABLE_HEIC_MIN_FRAME_DURATIONS";
     case CameraMetadataTag::ANDROID_HEIC_AVAILABLE_HEIC_STALL_DURATIONS:
       return "ANDROID_HEIC_AVAILABLE_HEIC_STALL_DURATIONS";
+    case CameraMetadataTag::ANDROID_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION:
+      return "ANDROID_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_HEIC_AVAILABLE_HEIC_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION:
+      return "ANDROID_HEIC_AVAILABLE_HEIC_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION";
+    case CameraMetadataTag::ANDROID_HEIC_AVAILABLE_HEIC_STALL_DURATIONS_MAXIMUM_RESOLUTION:
+      return "ANDROID_HEIC_AVAILABLE_HEIC_STALL_DURATIONS_MAXIMUM_RESOLUTION";
     case CameraMetadataTag::ANDROID_HEIC_END:
       return "ANDROID_HEIC_END";
     case CameraMetadataTag::ANDROID_HEIC_INFO_SUPPORTED:
@@ -760,6 +840,14 @@ static NOINLINE const char* CameraMetadataTagToStringHelper(CameraMetadataTag va
       return "ANDROID_HEIC_INFO_MAX_JPEG_APP_SEGMENTS_COUNT";
     case CameraMetadataTag::ANDROID_HEIC_INFO_END:
       return "ANDROID_HEIC_INFO_END";
+    case CameraMetadataTag::ANDROID_AUTOMOTIVE_LOCATION:
+      return "ANDROID_AUTOMOTIVE_LOCATION";
+    case CameraMetadataTag::ANDROID_AUTOMOTIVE_END:
+      return "ANDROID_AUTOMOTIVE_END";
+    case CameraMetadataTag::ANDROID_AUTOMOTIVE_LENS_FACING:
+      return "ANDROID_AUTOMOTIVE_LENS_FACING";
+    case CameraMetadataTag::ANDROID_AUTOMOTIVE_LENS_END:
+      return "ANDROID_AUTOMOTIVE_LENS_END";
     default:
       return nullptr;
   }
@@ -1234,6 +1322,8 @@ static NOINLINE const char* AndroidControlVideoStabilizationModeToStringHelper(A
       return "ANDROID_CONTROL_VIDEO_STABILIZATION_MODE_OFF";
     case AndroidControlVideoStabilizationMode::ANDROID_CONTROL_VIDEO_STABILIZATION_MODE_ON:
       return "ANDROID_CONTROL_VIDEO_STABILIZATION_MODE_ON";
+    case AndroidControlVideoStabilizationMode::ANDROID_CONTROL_VIDEO_STABILIZATION_MODE_PREVIEW_STABILIZATION:
+      return "ANDROID_CONTROL_VIDEO_STABILIZATION_MODE_PREVIEW_STABILIZATION";
     default:
       return nullptr;
   }
@@ -1467,6 +1557,78 @@ std::string AndroidControlExtendedSceneModeToString(AndroidControlExtendedSceneM
 
 std::ostream& operator<<(std::ostream& os, AndroidControlExtendedSceneMode value) {
   return os << AndroidControlExtendedSceneModeToString(value);
+}
+
+static NOINLINE const char* AndroidControlAfRegionsSetToStringHelper(AndroidControlAfRegionsSet value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AndroidControlAfRegionsSet::ANDROID_CONTROL_AF_REGIONS_SET_FALSE:
+      return "ANDROID_CONTROL_AF_REGIONS_SET_FALSE";
+    case AndroidControlAfRegionsSet::ANDROID_CONTROL_AF_REGIONS_SET_TRUE:
+      return "ANDROID_CONTROL_AF_REGIONS_SET_TRUE";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AndroidControlAfRegionsSetToString(AndroidControlAfRegionsSet value) {
+  const char *str = AndroidControlAfRegionsSetToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AndroidControlAfRegionsSet value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AndroidControlAfRegionsSet value) {
+  return os << AndroidControlAfRegionsSetToString(value);
+}
+
+static NOINLINE const char* AndroidControlAeRegionsSetToStringHelper(AndroidControlAeRegionsSet value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AndroidControlAeRegionsSet::ANDROID_CONTROL_AE_REGIONS_SET_FALSE:
+      return "ANDROID_CONTROL_AE_REGIONS_SET_FALSE";
+    case AndroidControlAeRegionsSet::ANDROID_CONTROL_AE_REGIONS_SET_TRUE:
+      return "ANDROID_CONTROL_AE_REGIONS_SET_TRUE";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AndroidControlAeRegionsSetToString(AndroidControlAeRegionsSet value) {
+  const char *str = AndroidControlAeRegionsSetToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AndroidControlAeRegionsSet value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AndroidControlAeRegionsSet value) {
+  return os << AndroidControlAeRegionsSetToString(value);
+}
+
+static NOINLINE const char* AndroidControlAwbRegionsSetToStringHelper(AndroidControlAwbRegionsSet value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AndroidControlAwbRegionsSet::ANDROID_CONTROL_AWB_REGIONS_SET_FALSE:
+      return "ANDROID_CONTROL_AWB_REGIONS_SET_FALSE";
+    case AndroidControlAwbRegionsSet::ANDROID_CONTROL_AWB_REGIONS_SET_TRUE:
+      return "ANDROID_CONTROL_AWB_REGIONS_SET_TRUE";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AndroidControlAwbRegionsSetToString(AndroidControlAwbRegionsSet value) {
+  const char *str = AndroidControlAwbRegionsSetToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AndroidControlAwbRegionsSet value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AndroidControlAwbRegionsSet value) {
+  return os << AndroidControlAwbRegionsSetToString(value);
 }
 
 static NOINLINE const char* AndroidDemosaicModeToStringHelper(AndroidDemosaicMode value) {
@@ -1710,6 +1872,8 @@ static NOINLINE const char* AndroidLensPoseReferenceToStringHelper(AndroidLensPo
       return "ANDROID_LENS_POSE_REFERENCE_GYROSCOPE";
     case AndroidLensPoseReference::ANDROID_LENS_POSE_REFERENCE_UNDEFINED:
       return "ANDROID_LENS_POSE_REFERENCE_UNDEFINED";
+    case AndroidLensPoseReference::ANDROID_LENS_POSE_REFERENCE_AUTOMOTIVE:
+      return "ANDROID_LENS_POSE_REFERENCE_AUTOMOTIVE";
     default:
       return nullptr;
   }
@@ -1890,6 +2054,14 @@ static NOINLINE const char* AndroidRequestAvailableCapabilitiesToStringHelper(An
       return "ANDROID_REQUEST_AVAILABLE_CAPABILITIES_SYSTEM_CAMERA";
     case AndroidRequestAvailableCapabilities::ANDROID_REQUEST_AVAILABLE_CAPABILITIES_OFFLINE_PROCESSING:
       return "ANDROID_REQUEST_AVAILABLE_CAPABILITIES_OFFLINE_PROCESSING";
+    case AndroidRequestAvailableCapabilities::ANDROID_REQUEST_AVAILABLE_CAPABILITIES_ULTRA_HIGH_RESOLUTION_SENSOR:
+      return "ANDROID_REQUEST_AVAILABLE_CAPABILITIES_ULTRA_HIGH_RESOLUTION_SENSOR";
+    case AndroidRequestAvailableCapabilities::ANDROID_REQUEST_AVAILABLE_CAPABILITIES_REMOSAIC_REPROCESSING:
+      return "ANDROID_REQUEST_AVAILABLE_CAPABILITIES_REMOSAIC_REPROCESSING";
+    case AndroidRequestAvailableCapabilities::ANDROID_REQUEST_AVAILABLE_CAPABILITIES_DYNAMIC_RANGE_TEN_BIT:
+      return "ANDROID_REQUEST_AVAILABLE_CAPABILITIES_DYNAMIC_RANGE_TEN_BIT";
+    case AndroidRequestAvailableCapabilities::ANDROID_REQUEST_AVAILABLE_CAPABILITIES_STREAM_USE_CASE:
+      return "ANDROID_REQUEST_AVAILABLE_CAPABILITIES_STREAM_USE_CASE";
     default:
       return nullptr;
   }
@@ -1905,6 +2077,52 @@ std::string AndroidRequestAvailableCapabilitiesToString(AndroidRequestAvailableC
 
 std::ostream& operator<<(std::ostream& os, AndroidRequestAvailableCapabilities value) {
   return os << AndroidRequestAvailableCapabilitiesToString(value);
+}
+
+static NOINLINE const char* AndroidRequestAvailableDynamicRangeProfilesMapToStringHelper(AndroidRequestAvailableDynamicRangeProfilesMap value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AndroidRequestAvailableDynamicRangeProfilesMap::ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_STANDARD:
+      return "ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_STANDARD";
+    case AndroidRequestAvailableDynamicRangeProfilesMap::ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_HLG10:
+      return "ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_HLG10";
+    case AndroidRequestAvailableDynamicRangeProfilesMap::ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_HDR10:
+      return "ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_HDR10";
+    case AndroidRequestAvailableDynamicRangeProfilesMap::ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_HDR10_PLUS:
+      return "ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_HDR10_PLUS";
+    case AndroidRequestAvailableDynamicRangeProfilesMap::ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_REF:
+      return "ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_REF";
+    case AndroidRequestAvailableDynamicRangeProfilesMap::ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_REF_PO:
+      return "ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_REF_PO";
+    case AndroidRequestAvailableDynamicRangeProfilesMap::ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_OEM:
+      return "ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_OEM";
+    case AndroidRequestAvailableDynamicRangeProfilesMap::ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_OEM_PO:
+      return "ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_OEM_PO";
+    case AndroidRequestAvailableDynamicRangeProfilesMap::ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_REF:
+      return "ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_REF";
+    case AndroidRequestAvailableDynamicRangeProfilesMap::ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_REF_PO:
+      return "ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_REF_PO";
+    case AndroidRequestAvailableDynamicRangeProfilesMap::ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_OEM:
+      return "ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_OEM";
+    case AndroidRequestAvailableDynamicRangeProfilesMap::ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_OEM_PO:
+      return "ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_OEM_PO";
+    case AndroidRequestAvailableDynamicRangeProfilesMap::ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_MAX:
+      return "ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_MAX";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AndroidRequestAvailableDynamicRangeProfilesMapToString(AndroidRequestAvailableDynamicRangeProfilesMap value) {
+  const char *str = AndroidRequestAvailableDynamicRangeProfilesMapToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AndroidRequestAvailableDynamicRangeProfilesMap value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AndroidRequestAvailableDynamicRangeProfilesMap value) {
+  return os << AndroidRequestAvailableDynamicRangeProfilesMapToString(value);
 }
 
 static NOINLINE const char* AndroidScalerAvailableFormatsToStringHelper(AndroidScalerAvailableFormats value) {
@@ -2014,6 +2232,10 @@ static NOINLINE const char* AndroidScalerAvailableRecommendedStreamConfiguration
       return "ANDROID_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_LOW_LATENCY_SNAPSHOT";
     case AndroidScalerAvailableRecommendedStreamConfigurations::ANDROID_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_PUBLIC_END:
       return "ANDROID_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_PUBLIC_END";
+    case AndroidScalerAvailableRecommendedStreamConfigurations::ANDROID_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_10BIT_OUTPUT:
+      return "ANDROID_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_10BIT_OUTPUT";
+    case AndroidScalerAvailableRecommendedStreamConfigurations::ANDROID_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_PUBLIC_END_3_8:
+      return "ANDROID_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_PUBLIC_END_3_8";
     case AndroidScalerAvailableRecommendedStreamConfigurations::ANDROID_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_VENDOR_START:
       return "ANDROID_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_VENDOR_START";
     default:
@@ -2061,6 +2283,136 @@ std::string AndroidScalerRotateAndCropToString(AndroidScalerRotateAndCrop value)
 
 std::ostream& operator<<(std::ostream& os, AndroidScalerRotateAndCrop value) {
   return os << AndroidScalerRotateAndCropToString(value);
+}
+
+static NOINLINE const char* AndroidScalerPhysicalCameraMultiResolutionStreamConfigurationsToStringHelper(AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations::ANDROID_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS_OUTPUT:
+      return "ANDROID_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS_OUTPUT";
+    case AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations::ANDROID_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS_INPUT:
+      return "ANDROID_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS_INPUT";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AndroidScalerPhysicalCameraMultiResolutionStreamConfigurationsToString(AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations value) {
+  const char *str = AndroidScalerPhysicalCameraMultiResolutionStreamConfigurationsToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations value) {
+  return os << AndroidScalerPhysicalCameraMultiResolutionStreamConfigurationsToString(value);
+}
+
+static NOINLINE const char* AndroidScalerAvailableStreamConfigurationsMaximumResolutionToStringHelper(AndroidScalerAvailableStreamConfigurationsMaximumResolution value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AndroidScalerAvailableStreamConfigurationsMaximumResolution::ANDROID_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT:
+      return "ANDROID_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT";
+    case AndroidScalerAvailableStreamConfigurationsMaximumResolution::ANDROID_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT:
+      return "ANDROID_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AndroidScalerAvailableStreamConfigurationsMaximumResolutionToString(AndroidScalerAvailableStreamConfigurationsMaximumResolution value) {
+  const char *str = AndroidScalerAvailableStreamConfigurationsMaximumResolutionToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AndroidScalerAvailableStreamConfigurationsMaximumResolution value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AndroidScalerAvailableStreamConfigurationsMaximumResolution value) {
+  return os << AndroidScalerAvailableStreamConfigurationsMaximumResolutionToString(value);
+}
+
+static NOINLINE const char* AndroidScalerMultiResolutionStreamSupportedToStringHelper(AndroidScalerMultiResolutionStreamSupported value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AndroidScalerMultiResolutionStreamSupported::ANDROID_SCALER_MULTI_RESOLUTION_STREAM_SUPPORTED_FALSE:
+      return "ANDROID_SCALER_MULTI_RESOLUTION_STREAM_SUPPORTED_FALSE";
+    case AndroidScalerMultiResolutionStreamSupported::ANDROID_SCALER_MULTI_RESOLUTION_STREAM_SUPPORTED_TRUE:
+      return "ANDROID_SCALER_MULTI_RESOLUTION_STREAM_SUPPORTED_TRUE";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AndroidScalerMultiResolutionStreamSupportedToString(AndroidScalerMultiResolutionStreamSupported value) {
+  const char *str = AndroidScalerMultiResolutionStreamSupportedToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AndroidScalerMultiResolutionStreamSupported value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AndroidScalerMultiResolutionStreamSupported value) {
+  return os << AndroidScalerMultiResolutionStreamSupportedToString(value);
+}
+
+static NOINLINE const char* AndroidScalerCropRegionSetToStringHelper(AndroidScalerCropRegionSet value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AndroidScalerCropRegionSet::ANDROID_SCALER_CROP_REGION_SET_FALSE:
+      return "ANDROID_SCALER_CROP_REGION_SET_FALSE";
+    case AndroidScalerCropRegionSet::ANDROID_SCALER_CROP_REGION_SET_TRUE:
+      return "ANDROID_SCALER_CROP_REGION_SET_TRUE";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AndroidScalerCropRegionSetToString(AndroidScalerCropRegionSet value) {
+  const char *str = AndroidScalerCropRegionSetToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AndroidScalerCropRegionSet value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AndroidScalerCropRegionSet value) {
+  return os << AndroidScalerCropRegionSetToString(value);
+}
+
+static NOINLINE const char* AndroidScalerAvailableStreamUseCasesToStringHelper(AndroidScalerAvailableStreamUseCases value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AndroidScalerAvailableStreamUseCases::ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_DEFAULT:
+      return "ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_DEFAULT";
+    case AndroidScalerAvailableStreamUseCases::ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_PREVIEW:
+      return "ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_PREVIEW";
+    case AndroidScalerAvailableStreamUseCases::ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_STILL_CAPTURE:
+      return "ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_STILL_CAPTURE";
+    case AndroidScalerAvailableStreamUseCases::ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_VIDEO_RECORD:
+      return "ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_VIDEO_RECORD";
+    case AndroidScalerAvailableStreamUseCases::ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_PREVIEW_VIDEO_STILL:
+      return "ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_PREVIEW_VIDEO_STILL";
+    case AndroidScalerAvailableStreamUseCases::ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_VIDEO_CALL:
+      return "ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_VIDEO_CALL";
+    case AndroidScalerAvailableStreamUseCases::ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_VENDOR_START:
+      return "ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_VENDOR_START";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AndroidScalerAvailableStreamUseCasesToString(AndroidScalerAvailableStreamUseCases value) {
+  const char *str = AndroidScalerAvailableStreamUseCasesToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AndroidScalerAvailableStreamUseCases value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AndroidScalerAvailableStreamUseCases value) {
+  return os << AndroidScalerAvailableStreamUseCasesToString(value);
 }
 
 static NOINLINE const char* AndroidSensorReferenceIlluminant1ToStringHelper(AndroidSensorReferenceIlluminant1 value) {
@@ -2134,6 +2486,8 @@ static NOINLINE const char* AndroidSensorTestPatternModeToStringHelper(AndroidSe
       return "ANDROID_SENSOR_TEST_PATTERN_MODE_COLOR_BARS_FADE_TO_GRAY";
     case AndroidSensorTestPatternMode::ANDROID_SENSOR_TEST_PATTERN_MODE_PN9:
       return "ANDROID_SENSOR_TEST_PATTERN_MODE_PN9";
+    case AndroidSensorTestPatternMode::ANDROID_SENSOR_TEST_PATTERN_MODE_BLACK:
+      return "ANDROID_SENSOR_TEST_PATTERN_MODE_BLACK";
     case AndroidSensorTestPatternMode::ANDROID_SENSOR_TEST_PATTERN_MODE_CUSTOM1:
       return "ANDROID_SENSOR_TEST_PATTERN_MODE_CUSTOM1";
     default:
@@ -2151,6 +2505,54 @@ std::string AndroidSensorTestPatternModeToString(AndroidSensorTestPatternMode va
 
 std::ostream& operator<<(std::ostream& os, AndroidSensorTestPatternMode value) {
   return os << AndroidSensorTestPatternModeToString(value);
+}
+
+static NOINLINE const char* AndroidSensorPixelModeToStringHelper(AndroidSensorPixelMode value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AndroidSensorPixelMode::ANDROID_SENSOR_PIXEL_MODE_DEFAULT:
+      return "ANDROID_SENSOR_PIXEL_MODE_DEFAULT";
+    case AndroidSensorPixelMode::ANDROID_SENSOR_PIXEL_MODE_MAXIMUM_RESOLUTION:
+      return "ANDROID_SENSOR_PIXEL_MODE_MAXIMUM_RESOLUTION";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AndroidSensorPixelModeToString(AndroidSensorPixelMode value) {
+  const char *str = AndroidSensorPixelModeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AndroidSensorPixelMode value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AndroidSensorPixelMode value) {
+  return os << AndroidSensorPixelModeToString(value);
+}
+
+static NOINLINE const char* AndroidSensorRawBinningFactorUsedToStringHelper(AndroidSensorRawBinningFactorUsed value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AndroidSensorRawBinningFactorUsed::ANDROID_SENSOR_RAW_BINNING_FACTOR_USED_TRUE:
+      return "ANDROID_SENSOR_RAW_BINNING_FACTOR_USED_TRUE";
+    case AndroidSensorRawBinningFactorUsed::ANDROID_SENSOR_RAW_BINNING_FACTOR_USED_FALSE:
+      return "ANDROID_SENSOR_RAW_BINNING_FACTOR_USED_FALSE";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AndroidSensorRawBinningFactorUsedToString(AndroidSensorRawBinningFactorUsed value) {
+  const char *str = AndroidSensorRawBinningFactorUsedToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AndroidSensorRawBinningFactorUsed value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AndroidSensorRawBinningFactorUsed value) {
+  return os << AndroidSensorRawBinningFactorUsedToString(value);
 }
 
 static NOINLINE const char* AndroidSensorInfoColorFilterArrangementToStringHelper(AndroidSensorInfoColorFilterArrangement value) {
@@ -2729,6 +3131,54 @@ std::ostream& operator<<(std::ostream& os, AndroidDepthAvailableDynamicDepthStre
   return os << AndroidDepthAvailableDynamicDepthStreamConfigurationsToString(value);
 }
 
+static NOINLINE const char* AndroidDepthAvailableDepthStreamConfigurationsMaximumResolutionToStringHelper(AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution::ANDROID_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT:
+      return "ANDROID_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT";
+    case AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution::ANDROID_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT:
+      return "ANDROID_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AndroidDepthAvailableDepthStreamConfigurationsMaximumResolutionToString(AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution value) {
+  const char *str = AndroidDepthAvailableDepthStreamConfigurationsMaximumResolutionToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution value) {
+  return os << AndroidDepthAvailableDepthStreamConfigurationsMaximumResolutionToString(value);
+}
+
+static NOINLINE const char* AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolutionToStringHelper(AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution::ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT:
+      return "ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT";
+    case AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution::ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT:
+      return "ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolutionToString(AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution value) {
+  const char *str = AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolutionToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution value) {
+  return os << AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolutionToString(value);
+}
+
 static NOINLINE const char* AndroidLogicalMultiCameraSensorSyncTypeToStringHelper(AndroidLogicalMultiCameraSensorSyncType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -2803,6 +3253,30 @@ std::ostream& operator<<(std::ostream& os, AndroidHeicAvailableHeicStreamConfigu
   return os << AndroidHeicAvailableHeicStreamConfigurationsToString(value);
 }
 
+static NOINLINE const char* AndroidHeicAvailableHeicStreamConfigurationsMaximumResolutionToStringHelper(AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution::ANDROID_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT:
+      return "ANDROID_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT";
+    case AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution::ANDROID_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT:
+      return "ANDROID_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AndroidHeicAvailableHeicStreamConfigurationsMaximumResolutionToString(AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution value) {
+  const char *str = AndroidHeicAvailableHeicStreamConfigurationsMaximumResolutionToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution value) {
+  return os << AndroidHeicAvailableHeicStreamConfigurationsMaximumResolutionToString(value);
+}
+
 static NOINLINE const char* AndroidHeicInfoSupportedToStringHelper(AndroidHeicInfoSupported value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -2825,6 +3299,98 @@ std::string AndroidHeicInfoSupportedToString(AndroidHeicInfoSupported value) {
 
 std::ostream& operator<<(std::ostream& os, AndroidHeicInfoSupported value) {
   return os << AndroidHeicInfoSupportedToString(value);
+}
+
+static NOINLINE const char* AndroidAutomotiveLocationToStringHelper(AndroidAutomotiveLocation value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AndroidAutomotiveLocation::ANDROID_AUTOMOTIVE_LOCATION_INTERIOR:
+      return "ANDROID_AUTOMOTIVE_LOCATION_INTERIOR";
+    case AndroidAutomotiveLocation::ANDROID_AUTOMOTIVE_LOCATION_EXTERIOR_OTHER:
+      return "ANDROID_AUTOMOTIVE_LOCATION_EXTERIOR_OTHER";
+    case AndroidAutomotiveLocation::ANDROID_AUTOMOTIVE_LOCATION_EXTERIOR_FRONT:
+      return "ANDROID_AUTOMOTIVE_LOCATION_EXTERIOR_FRONT";
+    case AndroidAutomotiveLocation::ANDROID_AUTOMOTIVE_LOCATION_EXTERIOR_REAR:
+      return "ANDROID_AUTOMOTIVE_LOCATION_EXTERIOR_REAR";
+    case AndroidAutomotiveLocation::ANDROID_AUTOMOTIVE_LOCATION_EXTERIOR_LEFT:
+      return "ANDROID_AUTOMOTIVE_LOCATION_EXTERIOR_LEFT";
+    case AndroidAutomotiveLocation::ANDROID_AUTOMOTIVE_LOCATION_EXTERIOR_RIGHT:
+      return "ANDROID_AUTOMOTIVE_LOCATION_EXTERIOR_RIGHT";
+    case AndroidAutomotiveLocation::ANDROID_AUTOMOTIVE_LOCATION_EXTRA_OTHER:
+      return "ANDROID_AUTOMOTIVE_LOCATION_EXTRA_OTHER";
+    case AndroidAutomotiveLocation::ANDROID_AUTOMOTIVE_LOCATION_EXTRA_FRONT:
+      return "ANDROID_AUTOMOTIVE_LOCATION_EXTRA_FRONT";
+    case AndroidAutomotiveLocation::ANDROID_AUTOMOTIVE_LOCATION_EXTRA_REAR:
+      return "ANDROID_AUTOMOTIVE_LOCATION_EXTRA_REAR";
+    case AndroidAutomotiveLocation::ANDROID_AUTOMOTIVE_LOCATION_EXTRA_LEFT:
+      return "ANDROID_AUTOMOTIVE_LOCATION_EXTRA_LEFT";
+    case AndroidAutomotiveLocation::ANDROID_AUTOMOTIVE_LOCATION_EXTRA_RIGHT:
+      return "ANDROID_AUTOMOTIVE_LOCATION_EXTRA_RIGHT";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AndroidAutomotiveLocationToString(AndroidAutomotiveLocation value) {
+  const char *str = AndroidAutomotiveLocationToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AndroidAutomotiveLocation value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AndroidAutomotiveLocation value) {
+  return os << AndroidAutomotiveLocationToString(value);
+}
+
+static NOINLINE const char* AndroidAutomotiveLensFacingToStringHelper(AndroidAutomotiveLensFacing value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AndroidAutomotiveLensFacing::ANDROID_AUTOMOTIVE_LENS_FACING_EXTERIOR_OTHER:
+      return "ANDROID_AUTOMOTIVE_LENS_FACING_EXTERIOR_OTHER";
+    case AndroidAutomotiveLensFacing::ANDROID_AUTOMOTIVE_LENS_FACING_EXTERIOR_FRONT:
+      return "ANDROID_AUTOMOTIVE_LENS_FACING_EXTERIOR_FRONT";
+    case AndroidAutomotiveLensFacing::ANDROID_AUTOMOTIVE_LENS_FACING_EXTERIOR_REAR:
+      return "ANDROID_AUTOMOTIVE_LENS_FACING_EXTERIOR_REAR";
+    case AndroidAutomotiveLensFacing::ANDROID_AUTOMOTIVE_LENS_FACING_EXTERIOR_LEFT:
+      return "ANDROID_AUTOMOTIVE_LENS_FACING_EXTERIOR_LEFT";
+    case AndroidAutomotiveLensFacing::ANDROID_AUTOMOTIVE_LENS_FACING_EXTERIOR_RIGHT:
+      return "ANDROID_AUTOMOTIVE_LENS_FACING_EXTERIOR_RIGHT";
+    case AndroidAutomotiveLensFacing::ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_OTHER:
+      return "ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_OTHER";
+    case AndroidAutomotiveLensFacing::ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_1_LEFT:
+      return "ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_1_LEFT";
+    case AndroidAutomotiveLensFacing::ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_1_CENTER:
+      return "ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_1_CENTER";
+    case AndroidAutomotiveLensFacing::ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_1_RIGHT:
+      return "ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_1_RIGHT";
+    case AndroidAutomotiveLensFacing::ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_2_LEFT:
+      return "ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_2_LEFT";
+    case AndroidAutomotiveLensFacing::ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_2_CENTER:
+      return "ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_2_CENTER";
+    case AndroidAutomotiveLensFacing::ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_2_RIGHT:
+      return "ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_2_RIGHT";
+    case AndroidAutomotiveLensFacing::ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_3_LEFT:
+      return "ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_3_LEFT";
+    case AndroidAutomotiveLensFacing::ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_3_CENTER:
+      return "ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_3_CENTER";
+    case AndroidAutomotiveLensFacing::ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_3_RIGHT:
+      return "ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_3_RIGHT";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AndroidAutomotiveLensFacingToString(AndroidAutomotiveLensFacing value) {
+  const char *str = AndroidAutomotiveLensFacingToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AndroidAutomotiveLensFacing value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AndroidAutomotiveLensFacing value) {
+  return os << AndroidAutomotiveLensFacingToString(value);
 }
 
 namespace internal {
@@ -3096,6 +3662,36 @@ void TraceFormatTraits<::cros::mojom::AndroidControlExtendedSceneMode>::WriteInt
 namespace perfetto {
 
 // static
+void TraceFormatTraits<::cros::mojom::AndroidControlAfRegionsSet>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::AndroidControlAfRegionsSet value) {
+  return std::move(context).WriteString(::cros::mojom::AndroidControlAfRegionsSetToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::cros::mojom::AndroidControlAeRegionsSet>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::AndroidControlAeRegionsSet value) {
+  return std::move(context).WriteString(::cros::mojom::AndroidControlAeRegionsSetToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::cros::mojom::AndroidControlAwbRegionsSet>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::AndroidControlAwbRegionsSet value) {
+  return std::move(context).WriteString(::cros::mojom::AndroidControlAwbRegionsSetToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
 void TraceFormatTraits<::cros::mojom::AndroidDemosaicMode>::WriteIntoTrace(
    perfetto::TracedValue context, ::cros::mojom::AndroidDemosaicMode value) {
   return std::move(context).WriteString(::cros::mojom::AndroidDemosaicModeToString(value));
@@ -3256,6 +3852,16 @@ void TraceFormatTraits<::cros::mojom::AndroidRequestAvailableCapabilities>::Writ
 namespace perfetto {
 
 // static
+void TraceFormatTraits<::cros::mojom::AndroidRequestAvailableDynamicRangeProfilesMap>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::AndroidRequestAvailableDynamicRangeProfilesMap value) {
+  return std::move(context).WriteString(::cros::mojom::AndroidRequestAvailableDynamicRangeProfilesMapToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
 void TraceFormatTraits<::cros::mojom::AndroidScalerAvailableFormats>::WriteIntoTrace(
    perfetto::TracedValue context, ::cros::mojom::AndroidScalerAvailableFormats value) {
   return std::move(context).WriteString(::cros::mojom::AndroidScalerAvailableFormatsToString(value));
@@ -3306,6 +3912,56 @@ void TraceFormatTraits<::cros::mojom::AndroidScalerRotateAndCrop>::WriteIntoTrac
 namespace perfetto {
 
 // static
+void TraceFormatTraits<::cros::mojom::AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations value) {
+  return std::move(context).WriteString(::cros::mojom::AndroidScalerPhysicalCameraMultiResolutionStreamConfigurationsToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::cros::mojom::AndroidScalerAvailableStreamConfigurationsMaximumResolution>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::AndroidScalerAvailableStreamConfigurationsMaximumResolution value) {
+  return std::move(context).WriteString(::cros::mojom::AndroidScalerAvailableStreamConfigurationsMaximumResolutionToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::cros::mojom::AndroidScalerMultiResolutionStreamSupported>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::AndroidScalerMultiResolutionStreamSupported value) {
+  return std::move(context).WriteString(::cros::mojom::AndroidScalerMultiResolutionStreamSupportedToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::cros::mojom::AndroidScalerCropRegionSet>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::AndroidScalerCropRegionSet value) {
+  return std::move(context).WriteString(::cros::mojom::AndroidScalerCropRegionSetToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::cros::mojom::AndroidScalerAvailableStreamUseCases>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::AndroidScalerAvailableStreamUseCases value) {
+  return std::move(context).WriteString(::cros::mojom::AndroidScalerAvailableStreamUseCasesToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
 void TraceFormatTraits<::cros::mojom::AndroidSensorReferenceIlluminant1>::WriteIntoTrace(
    perfetto::TracedValue context, ::cros::mojom::AndroidSensorReferenceIlluminant1 value) {
   return std::move(context).WriteString(::cros::mojom::AndroidSensorReferenceIlluminant1ToString(value));
@@ -3319,6 +3975,26 @@ namespace perfetto {
 void TraceFormatTraits<::cros::mojom::AndroidSensorTestPatternMode>::WriteIntoTrace(
    perfetto::TracedValue context, ::cros::mojom::AndroidSensorTestPatternMode value) {
   return std::move(context).WriteString(::cros::mojom::AndroidSensorTestPatternModeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::cros::mojom::AndroidSensorPixelMode>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::AndroidSensorPixelMode value) {
+  return std::move(context).WriteString(::cros::mojom::AndroidSensorPixelModeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::cros::mojom::AndroidSensorRawBinningFactorUsed>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::AndroidSensorRawBinningFactorUsed value) {
+  return std::move(context).WriteString(::cros::mojom::AndroidSensorRawBinningFactorUsedToString(value));
 }
 
 } // namespace perfetto
@@ -3556,6 +4232,26 @@ void TraceFormatTraits<::cros::mojom::AndroidDepthAvailableDynamicDepthStreamCon
 namespace perfetto {
 
 // static
+void TraceFormatTraits<::cros::mojom::AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution value) {
+  return std::move(context).WriteString(::cros::mojom::AndroidDepthAvailableDepthStreamConfigurationsMaximumResolutionToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution value) {
+  return std::move(context).WriteString(::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolutionToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
 void TraceFormatTraits<::cros::mojom::AndroidLogicalMultiCameraSensorSyncType>::WriteIntoTrace(
    perfetto::TracedValue context, ::cros::mojom::AndroidLogicalMultiCameraSensorSyncType value) {
   return std::move(context).WriteString(::cros::mojom::AndroidLogicalMultiCameraSensorSyncTypeToString(value));
@@ -3586,9 +4282,39 @@ void TraceFormatTraits<::cros::mojom::AndroidHeicAvailableHeicStreamConfiguratio
 namespace perfetto {
 
 // static
+void TraceFormatTraits<::cros::mojom::AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution value) {
+  return std::move(context).WriteString(::cros::mojom::AndroidHeicAvailableHeicStreamConfigurationsMaximumResolutionToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
 void TraceFormatTraits<::cros::mojom::AndroidHeicInfoSupported>::WriteIntoTrace(
    perfetto::TracedValue context, ::cros::mojom::AndroidHeicInfoSupported value) {
   return std::move(context).WriteString(::cros::mojom::AndroidHeicInfoSupportedToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::cros::mojom::AndroidAutomotiveLocation>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::AndroidAutomotiveLocation value) {
+  return std::move(context).WriteString(::cros::mojom::AndroidAutomotiveLocationToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::cros::mojom::AndroidAutomotiveLensFacing>::WriteIntoTrace(
+   perfetto::TracedValue context, ::cros::mojom::AndroidAutomotiveLensFacing value) {
+  return std::move(context).WriteString(::cros::mojom::AndroidAutomotiveLensFacingToString(value));
 }
 
 } // namespace perfetto

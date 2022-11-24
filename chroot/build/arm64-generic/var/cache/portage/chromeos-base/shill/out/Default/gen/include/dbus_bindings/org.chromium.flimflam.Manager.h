@@ -146,8 +146,8 @@ class ManagerInterface {
       brillo::ErrorPtr* error,
       const dbus::ObjectPath& in_profile,
       const brillo::VariantDictionary& in_properties) = 0;
-  virtual bool SetTetheringEnabled(
-      brillo::ErrorPtr* error,
+  virtual void SetTetheringEnabled(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::string>> response,
       bool in_1) = 0;
   virtual void CheckTetheringReadiness(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::string>> response) = 0;
@@ -312,7 +312,7 @@ class ManagerAdaptor {
         "RemovePasspointCredentials",
         base::Unretained(interface_),
         &ManagerInterface::RemovePasspointCredentials);
-    itf->AddSimpleMethodHandlerWithError(
+    itf->AddMethodHandler(
         "SetTetheringEnabled",
         base::Unretained(interface_),
         &ManagerInterface::SetTetheringEnabled);
@@ -468,6 +468,7 @@ class ManagerAdaptor {
         "    </method>\n"
         "    <method name=\"SetTetheringEnabled\">\n"
         "      <arg name=\"\" type=\"b\" direction=\"in\"/>\n"
+        "      <arg name=\"\" type=\"s\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"CheckTetheringReadiness\">\n"
         "      <arg name=\"\" type=\"s\" direction=\"out\"/>\n"

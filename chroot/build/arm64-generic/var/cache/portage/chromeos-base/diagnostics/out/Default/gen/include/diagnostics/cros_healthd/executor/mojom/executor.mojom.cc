@@ -239,6 +239,12 @@ Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& me
     case internal::kExecutor_GetFingerprintInfo_Name: {
       return &Executor::GetFingerprintInfo_Sym::IPCStableHash;
     }
+    case internal::kExecutor_SetLedColor_Name: {
+      return &Executor::SetLedColor_Sym::IPCStableHash;
+    }
+    case internal::kExecutor_ResetLedColor_Name: {
+      return &Executor::ResetLedColor_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -278,6 +284,10 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Executor::GetFingerprintFrame";
       case internal::kExecutor_GetFingerprintInfo_Name:
             return "Receive ash::cros_healthd::mojom::Executor::GetFingerprintInfo";
+      case internal::kExecutor_SetLedColor_Name:
+            return "Receive ash::cros_healthd::mojom::Executor::SetLedColor";
+      case internal::kExecutor_ResetLedColor_Name:
+            return "Receive ash::cros_healthd::mojom::Executor::ResetLedColor";
     }
   } else {
     switch (message.name()) {
@@ -309,6 +319,10 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Executor::GetFingerprintFrame";
       case internal::kExecutor_GetFingerprintInfo_Name:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetFingerprintInfo";
+      case internal::kExecutor_SetLedColor_Name:
+            return "Receive reply ash::cros_healthd::mojom::Executor::SetLedColor";
+      case internal::kExecutor_ResetLedColor_Name:
+            return "Receive reply ash::cros_healthd::mojom::Executor::ResetLedColor";
     }
   }
   return "Receive unknown mojo message";
@@ -501,6 +515,32 @@ uint32_t Executor::GetFingerprintInfo_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::Executor::GetFingerprintInfo");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::SetLedColor_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::SetLedColor");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::ResetLedColor_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::ResetLedColor");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -713,6 +753,38 @@ class Executor_GetFingerprintInfo_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Executor::GetFingerprintInfoCallback callback_;
+};
+
+class Executor_SetLedColor_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Executor_SetLedColor_ForwardToCallback(
+      Executor::SetLedColorCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Executor_SetLedColor_ForwardToCallback(const Executor_SetLedColor_ForwardToCallback&) = delete;
+  Executor_SetLedColor_ForwardToCallback& operator=(const Executor_SetLedColor_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Executor::SetLedColorCallback callback_;
+};
+
+class Executor_ResetLedColor_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Executor_ResetLedColor_ForwardToCallback(
+      Executor::ResetLedColorCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Executor_ResetLedColor_ForwardToCallback(const Executor_ResetLedColor_ForwardToCallback&) = delete;
+  Executor_ResetLedColor_ForwardToCallback& operator=(const Executor_ResetLedColor_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Executor::ResetLedColorCallback callback_;
 };
 
 ExecutorProxy::ExecutorProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -1251,6 +1323,91 @@ void ExecutorProxy::GetFingerprintInfo(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_GetFingerprintInfo_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ExecutorProxy::SetLedColor(
+    ::ash::cros_healthd::mojom::LedName in_name, ::ash::cros_healthd::mojom::LedColor in_color, SetLedColorCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Executor::SetLedColor", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("name"), in_name,
+                        "<value of type ::ash::cros_healthd::mojom::LedName>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("color"), in_color,
+                        "<value of type ::ash::cros_healthd::mojom::LedColor>");
+   });
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_SetLedColor_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_SetLedColor_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::LedName>(
+      in_name, &params->name);
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::LedColor>(
+      in_color, &params->color);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("SetLedColor");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Executor_SetLedColor_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ExecutorProxy::ResetLedColor(
+    ::ash::cros_healthd::mojom::LedName in_name, ResetLedColorCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Executor::ResetLedColor", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("name"), in_name,
+                        "<value of type ::ash::cros_healthd::mojom::LedName>");
+   });
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_ResetLedColor_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_ResetLedColor_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::LedName>(
+      in_name, &params->name);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("ResetLedColor");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Executor_ResetLedColor_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -2892,6 +3049,246 @@ void Executor_GetFingerprintInfo_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Executor_SetLedColor_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Executor::SetLedColorCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Executor_SetLedColor_ProxyToResponder> proxy(
+        new Executor_SetLedColor_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Executor_SetLedColor_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Executor_SetLedColor_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Executor_SetLedColor_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Executor::SetLedColorCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const absl::optional<std::string>& in_err);
+};
+
+bool Executor_SetLedColor_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Executor_SetLedColor_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Executor_SetLedColor_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  Executor_SetLedColor_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadErr(&p_err))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Executor::Name_, 14, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_err));
+  return true;
+}
+
+void Executor_SetLedColor_ProxyToResponder::Run(
+    const absl::optional<std::string>& in_err) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::SetLedColor", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("err"), in_err,
+                        "<value of type const absl::optional<std::string>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_SetLedColor_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_SetLedColor_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->err)::BaseType> err_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_err, err_fragment);
+  params->err.Set(
+      err_fragment.is_null() ? nullptr : err_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("SetLedColor");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class Executor_ResetLedColor_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Executor::ResetLedColorCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Executor_ResetLedColor_ProxyToResponder> proxy(
+        new Executor_ResetLedColor_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Executor_ResetLedColor_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Executor_ResetLedColor_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Executor_ResetLedColor_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Executor::ResetLedColorCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const absl::optional<std::string>& in_err);
+};
+
+bool Executor_ResetLedColor_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Executor_ResetLedColor_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Executor_ResetLedColor_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  Executor_ResetLedColor_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadErr(&p_err))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Executor::Name_, 15, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_err));
+  return true;
+}
+
+void Executor_ResetLedColor_ProxyToResponder::Run(
+    const absl::optional<std::string>& in_err) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::ResetLedColor", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("err"), in_err,
+                        "<value of type const absl::optional<std::string>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_ResetLedColor_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_ResetLedColor_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->err)::BaseType> err_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_err, err_fragment);
+  params->err.Set(
+      err_fragment.is_null() ? nullptr : err_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("ResetLedColor");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool ExecutorStubDispatch::Accept(
@@ -2957,6 +3354,12 @@ bool ExecutorStubDispatch::Accept(
       break;
     }
     case internal::kExecutor_GetFingerprintInfo_Name: {
+      break;
+    }
+    case internal::kExecutor_SetLedColor_Name: {
+      break;
+    }
+    case internal::kExecutor_ResetLedColor_Name: {
       break;
     }
   }
@@ -3332,6 +3735,68 @@ std::move(p_type), std::move(callback));
       impl->GetFingerprintInfo(std::move(callback));
       return true;
     }
+    case internal::kExecutor_SetLedColor_Name: {
+
+      internal::Executor_SetLedColor_Params_Data* params =
+          reinterpret_cast<
+              internal::Executor_SetLedColor_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::ash::cros_healthd::mojom::LedName p_name = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::LedName>();
+      ::ash::cros_healthd::mojom::LedColor p_color = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::LedColor>();
+      Executor_SetLedColor_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadName(&p_name))
+        success = false;
+      if (success && !input_data_view.ReadColor(&p_color))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 14, false);
+        return false;
+      }
+      Executor::SetLedColorCallback callback =
+          Executor_SetLedColor_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetLedColor(
+std::move(p_name), 
+std::move(p_color), std::move(callback));
+      return true;
+    }
+    case internal::kExecutor_ResetLedColor_Name: {
+
+      internal::Executor_ResetLedColor_Params_Data* params =
+          reinterpret_cast<
+              internal::Executor_ResetLedColor_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::ash::cros_healthd::mojom::LedName p_name = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::LedName>();
+      Executor_ResetLedColor_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadName(&p_name))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 15, false);
+        return false;
+      }
+      Executor::ResetLedColorCallback callback =
+          Executor_ResetLedColor_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ResetLedColor(
+std::move(p_name), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -3366,6 +3831,10 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
      &internal::Executor_GetFingerprintFrame_ResponseParams_Data::Validate},
     {&internal::Executor_GetFingerprintInfo_Params_Data::Validate,
      &internal::Executor_GetFingerprintInfo_ResponseParams_Data::Validate},
+    {&internal::Executor_SetLedColor_Params_Data::Validate,
+     &internal::Executor_SetLedColor_ResponseParams_Data::Validate},
+    {&internal::Executor_ResetLedColor_Params_Data::Validate,
+     &internal::Executor_ResetLedColor_ResponseParams_Data::Validate},
 };
 
 bool ExecutorRequestValidator::Accept(mojo::Message* message) {
@@ -3489,6 +3958,12 @@ void ExecutorInterceptorForTesting::GetFingerprintFrame(FingerprintCaptureType t
 }
 void ExecutorInterceptorForTesting::GetFingerprintInfo(GetFingerprintInfoCallback callback) {
   GetForwardingInterface()->GetFingerprintInfo(std::move(callback));
+}
+void ExecutorInterceptorForTesting::SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, SetLedColorCallback callback) {
+  GetForwardingInterface()->SetLedColor(std::move(name), std::move(color), std::move(callback));
+}
+void ExecutorInterceptorForTesting::ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) {
+  GetForwardingInterface()->ResetLedColor(std::move(name), std::move(callback));
 }
 ExecutorAsyncWaiter::ExecutorAsyncWaiter(
     Executor* proxy) : proxy_(proxy) {}
@@ -3791,6 +4266,52 @@ void ExecutorAsyncWaiter::GetFingerprintInfo(
 }
 
 
+
+void ExecutorAsyncWaiter::SetLedColor(
+    ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, absl::optional<std::string>* out_err) {
+  base::RunLoop loop;
+  proxy_->SetLedColor(std::move(name),std::move(color),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             absl::optional<std::string>* out_err
+,
+             const absl::optional<std::string>& err) {*out_err = std::move(err);
+            loop->Quit();
+          },
+          &loop,
+          out_err));
+  loop.Run();
+}
+
+absl::optional<std::string> ExecutorAsyncWaiter::SetLedColor(
+    ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color) {
+  absl::optional<std::string> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  SetLedColor(std::move(name),std::move(color),&async_wait_result);
+  return async_wait_result;
+}
+
+void ExecutorAsyncWaiter::ResetLedColor(
+    ::ash::cros_healthd::mojom::LedName name, absl::optional<std::string>* out_err) {
+  base::RunLoop loop;
+  proxy_->ResetLedColor(std::move(name),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             absl::optional<std::string>* out_err
+,
+             const absl::optional<std::string>& err) {*out_err = std::move(err);
+            loop->Quit();
+          },
+          &loop,
+          out_err));
+  loop.Run();
+}
+
+absl::optional<std::string> ExecutorAsyncWaiter::ResetLedColor(
+    ::ash::cros_healthd::mojom::LedName name) {
+  absl::optional<std::string> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
+  ResetLedColor(std::move(name),&async_wait_result);
+  return async_wait_result;
+}
 
 
 

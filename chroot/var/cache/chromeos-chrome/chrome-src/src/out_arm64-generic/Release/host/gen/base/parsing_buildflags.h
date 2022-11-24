@@ -6,6 +6,6 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
-#define BUILDFLAG_INTERNAL_BUILD_RUST_JSON_PARSER() (0)
+#define BUILDFLAG_INTERNAL_BUILD_RUST_JSON_READER() (0)
 
 #endif  // BASE_PARSING_BUILDFLAGS_H_

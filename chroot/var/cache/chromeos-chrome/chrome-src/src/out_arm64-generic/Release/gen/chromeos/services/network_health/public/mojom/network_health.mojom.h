@@ -58,7 +58,7 @@ class NetworkEventsObserver
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 4;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -73,6 +73,7 @@ class NetworkEventsObserver
   enum MethodMinVersions : uint32_t {
     kOnConnectionStateChangedMinVersion = 0,
     kOnSignalStrengthChangedMinVersion = 0,
+    kOnNetworkListChangedMinVersion = 4,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -84,6 +85,9 @@ class NetworkEventsObserver
   struct OnSignalStrengthChanged_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct OnNetworkListChanged_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~NetworkEventsObserver() = default;
 
@@ -92,6 +96,9 @@ class NetworkEventsObserver
 
   
   virtual void OnSignalStrengthChanged(const std::string& guid, UInt32ValuePtr signal_strength) = 0;
+
+  
+  virtual void OnNetworkListChanged(std::vector<NetworkPtr> networks) = 0;
 };
 
 class NetworkHealthServiceProxy;
@@ -179,6 +186,8 @@ class  NetworkEventsObserverProxy
   void OnConnectionStateChanged(const std::string& guid, NetworkState state) final;
   
   void OnSignalStrengthChanged(const std::string& guid, UInt32ValuePtr signal_strength) final;
+  
+  void OnNetworkListChanged(std::vector<NetworkPtr> networks) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -50,9 +50,9 @@
 namespace media {
 namespace mojom {
 VideoEncodeAcceleratorSupportedProfile::VideoEncodeAcceleratorSupportedProfile()
-    : profile(),
-      min_resolution(),
-      max_resolution(),
+    : profile(mojo::DefaultConstructTraits::CreateInstance<::media::VideoCodecProfile>()),
+      min_resolution(mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>()),
+      max_resolution(mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>()),
       max_framerate_numerator(),
       max_framerate_denominator(),
       rate_control_modes(),
@@ -378,10 +378,10 @@ bool VariableBitrate::Validate(
   return Data_::Validate(data, validation_context);
 }
 VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig()
-    : input_format(),
-      input_visible_size(),
-      output_profile(),
-      bitrate(),
+    : input_format(mojo::DefaultConstructTraits::CreateInstance<::media::VideoPixelFormat>()),
+      input_visible_size(mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>()),
+      output_profile(mojo::DefaultConstructTraits::CreateInstance<::media::VideoCodecProfile>()),
+      bitrate(mojo::DefaultConstructTraits::CreateInstance<::media::Bitrate>()),
       initial_framerate(),
       has_initial_framerate(),
       gop_length(),
@@ -394,7 +394,8 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig()
       content_type(),
       spatial_layers(),
       inter_layer_pred(),
-      require_low_delay() {}
+      require_low_delay(),
+      required_encoder_type() {}
 
 VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
     ::media::VideoPixelFormat input_format_in,
@@ -413,7 +414,8 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
     VideoEncodeAcceleratorConfig::ContentType content_type_in,
     std::vector<::media::VideoEncodeAccelerator::Config::SpatialLayer> spatial_layers_in,
     VideoEncodeAcceleratorConfig::InterLayerPredMode inter_layer_pred_in,
-    bool require_low_delay_in)
+    bool require_low_delay_in,
+    VideoEncodeAcceleratorConfig::EncoderType required_encoder_type_in)
     : input_format(std::move(input_format_in)),
       input_visible_size(std::move(input_visible_size_in)),
       output_profile(std::move(output_profile_in)),
@@ -430,7 +432,8 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
       content_type(std::move(content_type_in)),
       spatial_layers(std::move(spatial_layers_in)),
       inter_layer_pred(std::move(inter_layer_pred_in)),
-      require_low_delay(std::move(require_low_delay_in)) {}
+      require_low_delay(std::move(require_low_delay_in)),
+      required_encoder_type(std::move(required_encoder_type_in)) {}
 
 VideoEncodeAcceleratorConfig::~VideoEncodeAcceleratorConfig() = default;
 
@@ -586,6 +589,15 @@ void VideoEncodeAcceleratorConfig::WriteIntoTrace(
       "require_low_delay"), this->require_low_delay,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "required_encoder_type"), this->required_encoder_type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type VideoEncodeAcceleratorConfig::EncoderType>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -979,7 +991,7 @@ bool Av1Metadata::Validate(
 BitstreamBufferMetadata::BitstreamBufferMetadata()
     : payload_size_bytes(),
       key_frame(),
-      timestamp(),
+      timestamp(mojo::DefaultConstructTraits::CreateInstance<::base::TimeDelta>()),
       qp(),
       codec_metadata() {}
 
@@ -3758,6 +3770,8 @@ bool StructTraits<::media::mojom::VideoEncodeAcceleratorConfig::DataView, ::medi
         success = false;
       if (success)
         result->require_low_delay = input.require_low_delay();
+      if (success && !input.ReadRequiredEncoderType(&result->required_encoder_type))
+        success = false;
   *output = std::move(result);
   return success;
 }

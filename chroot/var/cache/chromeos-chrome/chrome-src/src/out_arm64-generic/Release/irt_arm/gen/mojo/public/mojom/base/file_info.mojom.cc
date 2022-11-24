@@ -53,9 +53,9 @@ FileInfo::FileInfo()
     : size(),
       is_directory(),
       is_symbolic_link(),
-      last_modified(),
-      last_accessed(),
-      creation_time() {}
+      last_modified(mojo::DefaultConstructTraits::CreateInstance<::base::Time>()),
+      last_accessed(mojo::DefaultConstructTraits::CreateInstance<::base::Time>()),
+      creation_time(mojo::DefaultConstructTraits::CreateInstance<::base::Time>()) {}
 
 FileInfo::FileInfo(
     int64_t size_in,

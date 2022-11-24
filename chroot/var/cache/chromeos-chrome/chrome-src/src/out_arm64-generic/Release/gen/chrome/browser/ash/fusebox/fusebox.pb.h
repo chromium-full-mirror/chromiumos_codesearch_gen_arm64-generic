@@ -28,6 +28,7 @@
 #include <google/protobuf/message_lite.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/generated_enum_util.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_fusebox_2eproto
@@ -42,6 +43,12 @@ struct TableStruct_fusebox_2eproto {
   static const uint32_t offsets[];
 };
 namespace fusebox {
+class Close2RequestProto;
+struct Close2RequestProtoDefaultTypeInternal;
+extern Close2RequestProtoDefaultTypeInternal _Close2RequestProto_default_instance_;
+class Close2ResponseProto;
+struct Close2ResponseProtoDefaultTypeInternal;
+extern Close2ResponseProtoDefaultTypeInternal _Close2ResponseProto_default_instance_;
 class DirEntryProto;
 struct DirEntryProtoDefaultTypeInternal;
 extern DirEntryProtoDefaultTypeInternal _DirEntryProto_default_instance_;
@@ -57,6 +64,18 @@ extern MkDirRequestProtoDefaultTypeInternal _MkDirRequestProto_default_instance_
 class MkDirResponseProto;
 struct MkDirResponseProtoDefaultTypeInternal;
 extern MkDirResponseProtoDefaultTypeInternal _MkDirResponseProto_default_instance_;
+class Open2RequestProto;
+struct Open2RequestProtoDefaultTypeInternal;
+extern Open2RequestProtoDefaultTypeInternal _Open2RequestProto_default_instance_;
+class Open2ResponseProto;
+struct Open2ResponseProtoDefaultTypeInternal;
+extern Open2ResponseProtoDefaultTypeInternal _Open2ResponseProto_default_instance_;
+class Read2RequestProto;
+struct Read2RequestProtoDefaultTypeInternal;
+extern Read2RequestProtoDefaultTypeInternal _Read2RequestProto_default_instance_;
+class Read2ResponseProto;
+struct Read2ResponseProtoDefaultTypeInternal;
+extern Read2ResponseProtoDefaultTypeInternal _Read2ResponseProto_default_instance_;
 class ReadDir2RequestProto;
 struct ReadDir2RequestProtoDefaultTypeInternal;
 extern ReadDir2RequestProtoDefaultTypeInternal _ReadDir2RequestProto_default_instance_;
@@ -71,11 +90,17 @@ struct RmDirResponseProtoDefaultTypeInternal;
 extern RmDirResponseProtoDefaultTypeInternal _RmDirResponseProto_default_instance_;
 }  // namespace fusebox
 PROTOBUF_NAMESPACE_OPEN
+template<> ::fusebox::Close2RequestProto* Arena::CreateMaybeMessage<::fusebox::Close2RequestProto>(Arena*);
+template<> ::fusebox::Close2ResponseProto* Arena::CreateMaybeMessage<::fusebox::Close2ResponseProto>(Arena*);
 template<> ::fusebox::DirEntryProto* Arena::CreateMaybeMessage<::fusebox::DirEntryProto>(Arena*);
 template<> ::fusebox::ListStoragesRequestProto* Arena::CreateMaybeMessage<::fusebox::ListStoragesRequestProto>(Arena*);
 template<> ::fusebox::ListStoragesResponseProto* Arena::CreateMaybeMessage<::fusebox::ListStoragesResponseProto>(Arena*);
 template<> ::fusebox::MkDirRequestProto* Arena::CreateMaybeMessage<::fusebox::MkDirRequestProto>(Arena*);
 template<> ::fusebox::MkDirResponseProto* Arena::CreateMaybeMessage<::fusebox::MkDirResponseProto>(Arena*);
+template<> ::fusebox::Open2RequestProto* Arena::CreateMaybeMessage<::fusebox::Open2RequestProto>(Arena*);
+template<> ::fusebox::Open2ResponseProto* Arena::CreateMaybeMessage<::fusebox::Open2ResponseProto>(Arena*);
+template<> ::fusebox::Read2RequestProto* Arena::CreateMaybeMessage<::fusebox::Read2RequestProto>(Arena*);
+template<> ::fusebox::Read2ResponseProto* Arena::CreateMaybeMessage<::fusebox::Read2ResponseProto>(Arena*);
 template<> ::fusebox::ReadDir2RequestProto* Arena::CreateMaybeMessage<::fusebox::ReadDir2RequestProto>(Arena*);
 template<> ::fusebox::ReadDir2ResponseProto* Arena::CreateMaybeMessage<::fusebox::ReadDir2ResponseProto>(Arena*);
 template<> ::fusebox::RmDirRequestProto* Arena::CreateMaybeMessage<::fusebox::RmDirRequestProto>(Arena*);
@@ -83,6 +108,27 @@ template<> ::fusebox::RmDirResponseProto* Arena::CreateMaybeMessage<::fusebox::R
 PROTOBUF_NAMESPACE_CLOSE
 namespace fusebox {
 
+enum AccessMode : int {
+  NO_ACCESS = 0,
+  READ_ONLY = 1,
+  WRITE_ONLY = 2,
+  READ_WRITE = 3
+};
+bool AccessMode_IsValid(int value);
+constexpr AccessMode AccessMode_MIN = NO_ACCESS;
+constexpr AccessMode AccessMode_MAX = READ_WRITE;
+constexpr int AccessMode_ARRAYSIZE = AccessMode_MAX + 1;
+
+const std::string& AccessMode_Name(AccessMode value);
+template<typename T>
+inline const std::string& AccessMode_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, AccessMode>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function AccessMode_Name.");
+  return AccessMode_Name(static_cast<AccessMode>(enum_t_value));
+}
+bool AccessMode_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AccessMode* value);
 // ===================================================================
 
 class DirEntryProto final :
@@ -319,6 +365,284 @@ class DirEntryProto final :
 };
 // -------------------------------------------------------------------
 
+class Close2RequestProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.Close2RequestProto) */ {
+ public:
+  inline Close2RequestProto() : Close2RequestProto(nullptr) {}
+  ~Close2RequestProto() override;
+  explicit PROTOBUF_CONSTEXPR Close2RequestProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Close2RequestProto(const Close2RequestProto& from);
+  Close2RequestProto(Close2RequestProto&& from) noexcept
+    : Close2RequestProto() {
+    *this = ::std::move(from);
+  }
+
+  inline Close2RequestProto& operator=(const Close2RequestProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Close2RequestProto& operator=(Close2RequestProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const Close2RequestProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Close2RequestProto* internal_default_instance() {
+    return reinterpret_cast<const Close2RequestProto*>(
+               &_Close2RequestProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(Close2RequestProto& a, Close2RequestProto& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(Close2RequestProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Close2RequestProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Close2RequestProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Close2RequestProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const Close2RequestProto& from);
+  void MergeFrom(const Close2RequestProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Close2RequestProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "fusebox.Close2RequestProto";
+  }
+  protected:
+  explicit Close2RequestProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFuseHandleFieldNumber = 2,
+  };
+  // optional uint64 fuse_handle = 2;
+  bool has_fuse_handle() const;
+  private:
+  bool _internal_has_fuse_handle() const;
+  public:
+  void clear_fuse_handle();
+  uint64_t fuse_handle() const;
+  void set_fuse_handle(uint64_t value);
+  private:
+  uint64_t _internal_fuse_handle() const;
+  void _internal_set_fuse_handle(uint64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:fusebox.Close2RequestProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint64_t fuse_handle_;
+  friend struct ::TableStruct_fusebox_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Close2ResponseProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.Close2ResponseProto) */ {
+ public:
+  inline Close2ResponseProto() : Close2ResponseProto(nullptr) {}
+  ~Close2ResponseProto() override;
+  explicit PROTOBUF_CONSTEXPR Close2ResponseProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Close2ResponseProto(const Close2ResponseProto& from);
+  Close2ResponseProto(Close2ResponseProto&& from) noexcept
+    : Close2ResponseProto() {
+    *this = ::std::move(from);
+  }
+
+  inline Close2ResponseProto& operator=(const Close2ResponseProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Close2ResponseProto& operator=(Close2ResponseProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const Close2ResponseProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Close2ResponseProto* internal_default_instance() {
+    return reinterpret_cast<const Close2ResponseProto*>(
+               &_Close2ResponseProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(Close2ResponseProto& a, Close2ResponseProto& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(Close2ResponseProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Close2ResponseProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Close2ResponseProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Close2ResponseProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const Close2ResponseProto& from);
+  void MergeFrom(const Close2ResponseProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Close2ResponseProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "fusebox.Close2ResponseProto";
+  }
+  protected:
+  explicit Close2ResponseProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPosixErrorCodeFieldNumber = 1,
+  };
+  // optional int32 posix_error_code = 1;
+  bool has_posix_error_code() const;
+  private:
+  bool _internal_has_posix_error_code() const;
+  public:
+  void clear_posix_error_code();
+  int32_t posix_error_code() const;
+  void set_posix_error_code(int32_t value);
+  private:
+  int32_t _internal_posix_error_code() const;
+  void _internal_set_posix_error_code(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:fusebox.Close2ResponseProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  int32_t posix_error_code_;
+  friend struct ::TableStruct_fusebox_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ListStoragesRequestProto final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.ListStoragesRequestProto) */ {
  public:
@@ -365,7 +689,7 @@ class ListStoragesRequestProto final :
                &_ListStoragesRequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    3;
 
   friend void swap(ListStoragesRequestProto& a, ListStoragesRequestProto& b) {
     a.Swap(&b);
@@ -486,7 +810,7 @@ class ListStoragesResponseProto final :
                &_ListStoragesResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    4;
 
   friend void swap(ListStoragesResponseProto& a, ListStoragesResponseProto& b) {
     a.Swap(&b);
@@ -651,7 +975,7 @@ class MkDirRequestProto final :
                &_MkDirRequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    5;
 
   friend void swap(MkDirRequestProto& a, MkDirRequestProto& b) {
     a.Swap(&b);
@@ -795,7 +1119,7 @@ class MkDirResponseProto final :
                &_MkDirResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    6;
 
   friend void swap(MkDirResponseProto& a, MkDirResponseProto& b) {
     a.Swap(&b);
@@ -908,6 +1232,647 @@ class MkDirResponseProto final :
 };
 // -------------------------------------------------------------------
 
+class Open2RequestProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.Open2RequestProto) */ {
+ public:
+  inline Open2RequestProto() : Open2RequestProto(nullptr) {}
+  ~Open2RequestProto() override;
+  explicit PROTOBUF_CONSTEXPR Open2RequestProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Open2RequestProto(const Open2RequestProto& from);
+  Open2RequestProto(Open2RequestProto&& from) noexcept
+    : Open2RequestProto() {
+    *this = ::std::move(from);
+  }
+
+  inline Open2RequestProto& operator=(const Open2RequestProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Open2RequestProto& operator=(Open2RequestProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const Open2RequestProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Open2RequestProto* internal_default_instance() {
+    return reinterpret_cast<const Open2RequestProto*>(
+               &_Open2RequestProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(Open2RequestProto& a, Open2RequestProto& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(Open2RequestProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Open2RequestProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Open2RequestProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Open2RequestProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const Open2RequestProto& from);
+  void MergeFrom(const Open2RequestProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Open2RequestProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "fusebox.Open2RequestProto";
+  }
+  protected:
+  explicit Open2RequestProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFileSystemUrlFieldNumber = 3,
+    kAccessModeFieldNumber = 4,
+  };
+  // optional string file_system_url = 3;
+  bool has_file_system_url() const;
+  private:
+  bool _internal_has_file_system_url() const;
+  public:
+  void clear_file_system_url();
+  const std::string& file_system_url() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_file_system_url(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_file_system_url();
+  PROTOBUF_NODISCARD std::string* release_file_system_url();
+  void set_allocated_file_system_url(std::string* file_system_url);
+  private:
+  const std::string& _internal_file_system_url() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_file_system_url(const std::string& value);
+  std::string* _internal_mutable_file_system_url();
+  public:
+
+  // optional .fusebox.AccessMode access_mode = 4;
+  bool has_access_mode() const;
+  private:
+  bool _internal_has_access_mode() const;
+  public:
+  void clear_access_mode();
+  ::fusebox::AccessMode access_mode() const;
+  void set_access_mode(::fusebox::AccessMode value);
+  private:
+  ::fusebox::AccessMode _internal_access_mode() const;
+  void _internal_set_access_mode(::fusebox::AccessMode value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:fusebox.Open2RequestProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_system_url_;
+  int access_mode_;
+  friend struct ::TableStruct_fusebox_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Open2ResponseProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.Open2ResponseProto) */ {
+ public:
+  inline Open2ResponseProto() : Open2ResponseProto(nullptr) {}
+  ~Open2ResponseProto() override;
+  explicit PROTOBUF_CONSTEXPR Open2ResponseProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Open2ResponseProto(const Open2ResponseProto& from);
+  Open2ResponseProto(Open2ResponseProto&& from) noexcept
+    : Open2ResponseProto() {
+    *this = ::std::move(from);
+  }
+
+  inline Open2ResponseProto& operator=(const Open2ResponseProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Open2ResponseProto& operator=(Open2ResponseProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const Open2ResponseProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Open2ResponseProto* internal_default_instance() {
+    return reinterpret_cast<const Open2ResponseProto*>(
+               &_Open2ResponseProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(Open2ResponseProto& a, Open2ResponseProto& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(Open2ResponseProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Open2ResponseProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Open2ResponseProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Open2ResponseProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const Open2ResponseProto& from);
+  void MergeFrom(const Open2ResponseProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Open2ResponseProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "fusebox.Open2ResponseProto";
+  }
+  protected:
+  explicit Open2ResponseProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFuseHandleFieldNumber = 2,
+    kPosixErrorCodeFieldNumber = 1,
+  };
+  // optional uint64 fuse_handle = 2;
+  bool has_fuse_handle() const;
+  private:
+  bool _internal_has_fuse_handle() const;
+  public:
+  void clear_fuse_handle();
+  uint64_t fuse_handle() const;
+  void set_fuse_handle(uint64_t value);
+  private:
+  uint64_t _internal_fuse_handle() const;
+  void _internal_set_fuse_handle(uint64_t value);
+  public:
+
+  // optional int32 posix_error_code = 1;
+  bool has_posix_error_code() const;
+  private:
+  bool _internal_has_posix_error_code() const;
+  public:
+  void clear_posix_error_code();
+  int32_t posix_error_code() const;
+  void set_posix_error_code(int32_t value);
+  private:
+  int32_t _internal_posix_error_code() const;
+  void _internal_set_posix_error_code(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:fusebox.Open2ResponseProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint64_t fuse_handle_;
+  int32_t posix_error_code_;
+  friend struct ::TableStruct_fusebox_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Read2RequestProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.Read2RequestProto) */ {
+ public:
+  inline Read2RequestProto() : Read2RequestProto(nullptr) {}
+  ~Read2RequestProto() override;
+  explicit PROTOBUF_CONSTEXPR Read2RequestProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Read2RequestProto(const Read2RequestProto& from);
+  Read2RequestProto(Read2RequestProto&& from) noexcept
+    : Read2RequestProto() {
+    *this = ::std::move(from);
+  }
+
+  inline Read2RequestProto& operator=(const Read2RequestProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Read2RequestProto& operator=(Read2RequestProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const Read2RequestProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Read2RequestProto* internal_default_instance() {
+    return reinterpret_cast<const Read2RequestProto*>(
+               &_Read2RequestProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(Read2RequestProto& a, Read2RequestProto& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(Read2RequestProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Read2RequestProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Read2RequestProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Read2RequestProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const Read2RequestProto& from);
+  void MergeFrom(const Read2RequestProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Read2RequestProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "fusebox.Read2RequestProto";
+  }
+  protected:
+  explicit Read2RequestProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFuseHandleFieldNumber = 2,
+    kOffsetFieldNumber = 4,
+    kLengthFieldNumber = 5,
+  };
+  // optional uint64 fuse_handle = 2;
+  bool has_fuse_handle() const;
+  private:
+  bool _internal_has_fuse_handle() const;
+  public:
+  void clear_fuse_handle();
+  uint64_t fuse_handle() const;
+  void set_fuse_handle(uint64_t value);
+  private:
+  uint64_t _internal_fuse_handle() const;
+  void _internal_set_fuse_handle(uint64_t value);
+  public:
+
+  // optional int64 offset = 4;
+  bool has_offset() const;
+  private:
+  bool _internal_has_offset() const;
+  public:
+  void clear_offset();
+  int64_t offset() const;
+  void set_offset(int64_t value);
+  private:
+  int64_t _internal_offset() const;
+  void _internal_set_offset(int64_t value);
+  public:
+
+  // optional int64 length = 5;
+  bool has_length() const;
+  private:
+  bool _internal_has_length() const;
+  public:
+  void clear_length();
+  int64_t length() const;
+  void set_length(int64_t value);
+  private:
+  int64_t _internal_length() const;
+  void _internal_set_length(int64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:fusebox.Read2RequestProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint64_t fuse_handle_;
+  int64_t offset_;
+  int64_t length_;
+  friend struct ::TableStruct_fusebox_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Read2ResponseProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.Read2ResponseProto) */ {
+ public:
+  inline Read2ResponseProto() : Read2ResponseProto(nullptr) {}
+  ~Read2ResponseProto() override;
+  explicit PROTOBUF_CONSTEXPR Read2ResponseProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Read2ResponseProto(const Read2ResponseProto& from);
+  Read2ResponseProto(Read2ResponseProto&& from) noexcept
+    : Read2ResponseProto() {
+    *this = ::std::move(from);
+  }
+
+  inline Read2ResponseProto& operator=(const Read2ResponseProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Read2ResponseProto& operator=(Read2ResponseProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const Read2ResponseProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Read2ResponseProto* internal_default_instance() {
+    return reinterpret_cast<const Read2ResponseProto*>(
+               &_Read2ResponseProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(Read2ResponseProto& a, Read2ResponseProto& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(Read2ResponseProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Read2ResponseProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Read2ResponseProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Read2ResponseProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const Read2ResponseProto& from);
+  void MergeFrom(const Read2ResponseProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Read2ResponseProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "fusebox.Read2ResponseProto";
+  }
+  protected:
+  explicit Read2ResponseProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDataFieldNumber = 3,
+    kPosixErrorCodeFieldNumber = 1,
+  };
+  // optional bytes data = 3;
+  bool has_data() const;
+  private:
+  bool _internal_has_data() const;
+  public:
+  void clear_data();
+  const std::string& data() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_data(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_data();
+  PROTOBUF_NODISCARD std::string* release_data();
+  void set_allocated_data(std::string* data);
+  private:
+  const std::string& _internal_data() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_data(const std::string& value);
+  std::string* _internal_mutable_data();
+  public:
+
+  // optional int32 posix_error_code = 1;
+  bool has_posix_error_code() const;
+  private:
+  bool _internal_has_posix_error_code() const;
+  public:
+  void clear_posix_error_code();
+  int32_t posix_error_code() const;
+  void set_posix_error_code(int32_t value);
+  private:
+  int32_t _internal_posix_error_code() const;
+  void _internal_set_posix_error_code(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:fusebox.Read2ResponseProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr data_;
+  int32_t posix_error_code_;
+  friend struct ::TableStruct_fusebox_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ReadDir2RequestProto final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.ReadDir2RequestProto) */ {
  public:
@@ -954,7 +1919,7 @@ class ReadDir2RequestProto final :
                &_ReadDir2RequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    11;
 
   friend void swap(ReadDir2RequestProto& a, ReadDir2RequestProto& b) {
     a.Swap(&b);
@@ -1128,7 +2093,7 @@ class ReadDir2ResponseProto final :
                &_ReadDir2ResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    12;
 
   friend void swap(ReadDir2ResponseProto& a, ReadDir2ResponseProto& b) {
     a.Swap(&b);
@@ -1302,7 +2267,7 @@ class RmDirRequestProto final :
                &_RmDirRequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    13;
 
   friend void swap(RmDirRequestProto& a, RmDirRequestProto& b) {
     a.Swap(&b);
@@ -1446,7 +2411,7 @@ class RmDirResponseProto final :
                &_RmDirResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    14;
 
   friend void swap(RmDirResponseProto& a, RmDirResponseProto& b) {
     a.Swap(&b);
@@ -1786,6 +2751,70 @@ inline void DirEntryProto::set_ctime(int64_t value) {
 
 // -------------------------------------------------------------------
 
+// Close2RequestProto
+
+// optional uint64 fuse_handle = 2;
+inline bool Close2RequestProto::_internal_has_fuse_handle() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool Close2RequestProto::has_fuse_handle() const {
+  return _internal_has_fuse_handle();
+}
+inline void Close2RequestProto::clear_fuse_handle() {
+  fuse_handle_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline uint64_t Close2RequestProto::_internal_fuse_handle() const {
+  return fuse_handle_;
+}
+inline uint64_t Close2RequestProto::fuse_handle() const {
+  // @@protoc_insertion_point(field_get:fusebox.Close2RequestProto.fuse_handle)
+  return _internal_fuse_handle();
+}
+inline void Close2RequestProto::_internal_set_fuse_handle(uint64_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  fuse_handle_ = value;
+}
+inline void Close2RequestProto::set_fuse_handle(uint64_t value) {
+  _internal_set_fuse_handle(value);
+  // @@protoc_insertion_point(field_set:fusebox.Close2RequestProto.fuse_handle)
+}
+
+// -------------------------------------------------------------------
+
+// Close2ResponseProto
+
+// optional int32 posix_error_code = 1;
+inline bool Close2ResponseProto::_internal_has_posix_error_code() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool Close2ResponseProto::has_posix_error_code() const {
+  return _internal_has_posix_error_code();
+}
+inline void Close2ResponseProto::clear_posix_error_code() {
+  posix_error_code_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline int32_t Close2ResponseProto::_internal_posix_error_code() const {
+  return posix_error_code_;
+}
+inline int32_t Close2ResponseProto::posix_error_code() const {
+  // @@protoc_insertion_point(field_get:fusebox.Close2ResponseProto.posix_error_code)
+  return _internal_posix_error_code();
+}
+inline void Close2ResponseProto::_internal_set_posix_error_code(int32_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  posix_error_code_ = value;
+}
+inline void Close2ResponseProto::set_posix_error_code(int32_t value) {
+  _internal_set_posix_error_code(value);
+  // @@protoc_insertion_point(field_set:fusebox.Close2ResponseProto.posix_error_code)
+}
+
+// -------------------------------------------------------------------
+
 // ListStoragesRequestProto
 
 // -------------------------------------------------------------------
@@ -2087,6 +3116,355 @@ inline void MkDirResponseProto::set_allocated_stat(::fusebox::DirEntryProto* sta
   }
   stat_ = stat;
   // @@protoc_insertion_point(field_set_allocated:fusebox.MkDirResponseProto.stat)
+}
+
+// -------------------------------------------------------------------
+
+// Open2RequestProto
+
+// optional string file_system_url = 3;
+inline bool Open2RequestProto::_internal_has_file_system_url() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool Open2RequestProto::has_file_system_url() const {
+  return _internal_has_file_system_url();
+}
+inline void Open2RequestProto::clear_file_system_url() {
+  file_system_url_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& Open2RequestProto::file_system_url() const {
+  // @@protoc_insertion_point(field_get:fusebox.Open2RequestProto.file_system_url)
+  return _internal_file_system_url();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Open2RequestProto::set_file_system_url(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ file_system_url_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:fusebox.Open2RequestProto.file_system_url)
+}
+inline std::string* Open2RequestProto::mutable_file_system_url() {
+  std::string* _s = _internal_mutable_file_system_url();
+  // @@protoc_insertion_point(field_mutable:fusebox.Open2RequestProto.file_system_url)
+  return _s;
+}
+inline const std::string& Open2RequestProto::_internal_file_system_url() const {
+  return file_system_url_.Get();
+}
+inline void Open2RequestProto::_internal_set_file_system_url(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  file_system_url_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Open2RequestProto::_internal_mutable_file_system_url() {
+  _has_bits_[0] |= 0x00000001u;
+  return file_system_url_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Open2RequestProto::release_file_system_url() {
+  // @@protoc_insertion_point(field_release:fusebox.Open2RequestProto.file_system_url)
+  if (!_internal_has_file_system_url()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = file_system_url_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (file_system_url_.IsDefault()) {
+    file_system_url_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void Open2RequestProto::set_allocated_file_system_url(std::string* file_system_url) {
+  if (file_system_url != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  file_system_url_.SetAllocated(file_system_url, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (file_system_url_.IsDefault()) {
+    file_system_url_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:fusebox.Open2RequestProto.file_system_url)
+}
+
+// optional .fusebox.AccessMode access_mode = 4;
+inline bool Open2RequestProto::_internal_has_access_mode() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool Open2RequestProto::has_access_mode() const {
+  return _internal_has_access_mode();
+}
+inline void Open2RequestProto::clear_access_mode() {
+  access_mode_ = 0;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::fusebox::AccessMode Open2RequestProto::_internal_access_mode() const {
+  return static_cast< ::fusebox::AccessMode >(access_mode_);
+}
+inline ::fusebox::AccessMode Open2RequestProto::access_mode() const {
+  // @@protoc_insertion_point(field_get:fusebox.Open2RequestProto.access_mode)
+  return _internal_access_mode();
+}
+inline void Open2RequestProto::_internal_set_access_mode(::fusebox::AccessMode value) {
+  assert(::fusebox::AccessMode_IsValid(value));
+  _has_bits_[0] |= 0x00000002u;
+  access_mode_ = value;
+}
+inline void Open2RequestProto::set_access_mode(::fusebox::AccessMode value) {
+  _internal_set_access_mode(value);
+  // @@protoc_insertion_point(field_set:fusebox.Open2RequestProto.access_mode)
+}
+
+// -------------------------------------------------------------------
+
+// Open2ResponseProto
+
+// optional int32 posix_error_code = 1;
+inline bool Open2ResponseProto::_internal_has_posix_error_code() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool Open2ResponseProto::has_posix_error_code() const {
+  return _internal_has_posix_error_code();
+}
+inline void Open2ResponseProto::clear_posix_error_code() {
+  posix_error_code_ = 0;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline int32_t Open2ResponseProto::_internal_posix_error_code() const {
+  return posix_error_code_;
+}
+inline int32_t Open2ResponseProto::posix_error_code() const {
+  // @@protoc_insertion_point(field_get:fusebox.Open2ResponseProto.posix_error_code)
+  return _internal_posix_error_code();
+}
+inline void Open2ResponseProto::_internal_set_posix_error_code(int32_t value) {
+  _has_bits_[0] |= 0x00000002u;
+  posix_error_code_ = value;
+}
+inline void Open2ResponseProto::set_posix_error_code(int32_t value) {
+  _internal_set_posix_error_code(value);
+  // @@protoc_insertion_point(field_set:fusebox.Open2ResponseProto.posix_error_code)
+}
+
+// optional uint64 fuse_handle = 2;
+inline bool Open2ResponseProto::_internal_has_fuse_handle() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool Open2ResponseProto::has_fuse_handle() const {
+  return _internal_has_fuse_handle();
+}
+inline void Open2ResponseProto::clear_fuse_handle() {
+  fuse_handle_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline uint64_t Open2ResponseProto::_internal_fuse_handle() const {
+  return fuse_handle_;
+}
+inline uint64_t Open2ResponseProto::fuse_handle() const {
+  // @@protoc_insertion_point(field_get:fusebox.Open2ResponseProto.fuse_handle)
+  return _internal_fuse_handle();
+}
+inline void Open2ResponseProto::_internal_set_fuse_handle(uint64_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  fuse_handle_ = value;
+}
+inline void Open2ResponseProto::set_fuse_handle(uint64_t value) {
+  _internal_set_fuse_handle(value);
+  // @@protoc_insertion_point(field_set:fusebox.Open2ResponseProto.fuse_handle)
+}
+
+// -------------------------------------------------------------------
+
+// Read2RequestProto
+
+// optional uint64 fuse_handle = 2;
+inline bool Read2RequestProto::_internal_has_fuse_handle() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool Read2RequestProto::has_fuse_handle() const {
+  return _internal_has_fuse_handle();
+}
+inline void Read2RequestProto::clear_fuse_handle() {
+  fuse_handle_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline uint64_t Read2RequestProto::_internal_fuse_handle() const {
+  return fuse_handle_;
+}
+inline uint64_t Read2RequestProto::fuse_handle() const {
+  // @@protoc_insertion_point(field_get:fusebox.Read2RequestProto.fuse_handle)
+  return _internal_fuse_handle();
+}
+inline void Read2RequestProto::_internal_set_fuse_handle(uint64_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  fuse_handle_ = value;
+}
+inline void Read2RequestProto::set_fuse_handle(uint64_t value) {
+  _internal_set_fuse_handle(value);
+  // @@protoc_insertion_point(field_set:fusebox.Read2RequestProto.fuse_handle)
+}
+
+// optional int64 offset = 4;
+inline bool Read2RequestProto::_internal_has_offset() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool Read2RequestProto::has_offset() const {
+  return _internal_has_offset();
+}
+inline void Read2RequestProto::clear_offset() {
+  offset_ = int64_t{0};
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline int64_t Read2RequestProto::_internal_offset() const {
+  return offset_;
+}
+inline int64_t Read2RequestProto::offset() const {
+  // @@protoc_insertion_point(field_get:fusebox.Read2RequestProto.offset)
+  return _internal_offset();
+}
+inline void Read2RequestProto::_internal_set_offset(int64_t value) {
+  _has_bits_[0] |= 0x00000002u;
+  offset_ = value;
+}
+inline void Read2RequestProto::set_offset(int64_t value) {
+  _internal_set_offset(value);
+  // @@protoc_insertion_point(field_set:fusebox.Read2RequestProto.offset)
+}
+
+// optional int64 length = 5;
+inline bool Read2RequestProto::_internal_has_length() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool Read2RequestProto::has_length() const {
+  return _internal_has_length();
+}
+inline void Read2RequestProto::clear_length() {
+  length_ = int64_t{0};
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline int64_t Read2RequestProto::_internal_length() const {
+  return length_;
+}
+inline int64_t Read2RequestProto::length() const {
+  // @@protoc_insertion_point(field_get:fusebox.Read2RequestProto.length)
+  return _internal_length();
+}
+inline void Read2RequestProto::_internal_set_length(int64_t value) {
+  _has_bits_[0] |= 0x00000004u;
+  length_ = value;
+}
+inline void Read2RequestProto::set_length(int64_t value) {
+  _internal_set_length(value);
+  // @@protoc_insertion_point(field_set:fusebox.Read2RequestProto.length)
+}
+
+// -------------------------------------------------------------------
+
+// Read2ResponseProto
+
+// optional int32 posix_error_code = 1;
+inline bool Read2ResponseProto::_internal_has_posix_error_code() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool Read2ResponseProto::has_posix_error_code() const {
+  return _internal_has_posix_error_code();
+}
+inline void Read2ResponseProto::clear_posix_error_code() {
+  posix_error_code_ = 0;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline int32_t Read2ResponseProto::_internal_posix_error_code() const {
+  return posix_error_code_;
+}
+inline int32_t Read2ResponseProto::posix_error_code() const {
+  // @@protoc_insertion_point(field_get:fusebox.Read2ResponseProto.posix_error_code)
+  return _internal_posix_error_code();
+}
+inline void Read2ResponseProto::_internal_set_posix_error_code(int32_t value) {
+  _has_bits_[0] |= 0x00000002u;
+  posix_error_code_ = value;
+}
+inline void Read2ResponseProto::set_posix_error_code(int32_t value) {
+  _internal_set_posix_error_code(value);
+  // @@protoc_insertion_point(field_set:fusebox.Read2ResponseProto.posix_error_code)
+}
+
+// optional bytes data = 3;
+inline bool Read2ResponseProto::_internal_has_data() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool Read2ResponseProto::has_data() const {
+  return _internal_has_data();
+}
+inline void Read2ResponseProto::clear_data() {
+  data_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& Read2ResponseProto::data() const {
+  // @@protoc_insertion_point(field_get:fusebox.Read2ResponseProto.data)
+  return _internal_data();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Read2ResponseProto::set_data(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ data_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:fusebox.Read2ResponseProto.data)
+}
+inline std::string* Read2ResponseProto::mutable_data() {
+  std::string* _s = _internal_mutable_data();
+  // @@protoc_insertion_point(field_mutable:fusebox.Read2ResponseProto.data)
+  return _s;
+}
+inline const std::string& Read2ResponseProto::_internal_data() const {
+  return data_.Get();
+}
+inline void Read2ResponseProto::_internal_set_data(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  data_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Read2ResponseProto::_internal_mutable_data() {
+  _has_bits_[0] |= 0x00000001u;
+  return data_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Read2ResponseProto::release_data() {
+  // @@protoc_insertion_point(field_release:fusebox.Read2ResponseProto.data)
+  if (!_internal_has_data()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = data_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (data_.IsDefault()) {
+    data_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void Read2ResponseProto::set_allocated_data(std::string* data) {
+  if (data != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  data_.SetAllocated(data, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (data_.IsDefault()) {
+    data_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:fusebox.Read2ResponseProto.data)
 }
 
 // -------------------------------------------------------------------
@@ -2440,10 +3818,28 @@ inline void RmDirResponseProto::set_posix_error_code(int32_t value) {
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace fusebox
+
+PROTOBUF_NAMESPACE_OPEN
+
+template <> struct is_proto_enum< ::fusebox::AccessMode> : ::std::true_type {};
+
+PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
 

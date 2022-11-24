@@ -2909,6 +2909,10 @@ class Camera_Fields final :
   enum : int {
     kPathFieldNumber = 1,
     kBusTypeFieldNumber = 2,
+    kMipiNameFieldNumber = 7,
+    kMipiModuleIdFieldNumber = 8,
+    kMipiSensorIdFieldNumber = 9,
+    kMipiVendorFieldNumber = 10,
     kUsbVendorIdFieldNumber = 3,
     kUsbProductIdFieldNumber = 4,
     kUsbBcdDeviceFieldNumber = 5,
@@ -2940,6 +2944,62 @@ class Camera_Fields final :
   const std::string& _internal_bus_type() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_bus_type(const std::string& value);
   std::string* _internal_mutable_bus_type();
+  public:
+
+  // string mipi_name = 7;
+  void clear_mipi_name();
+  const std::string& mipi_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_mipi_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_mipi_name();
+  PROTOBUF_NODISCARD std::string* release_mipi_name();
+  void set_allocated_mipi_name(std::string* mipi_name);
+  private:
+  const std::string& _internal_mipi_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_mipi_name(const std::string& value);
+  std::string* _internal_mutable_mipi_name();
+  public:
+
+  // string mipi_module_id = 8;
+  void clear_mipi_module_id();
+  const std::string& mipi_module_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_mipi_module_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_mipi_module_id();
+  PROTOBUF_NODISCARD std::string* release_mipi_module_id();
+  void set_allocated_mipi_module_id(std::string* mipi_module_id);
+  private:
+  const std::string& _internal_mipi_module_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_mipi_module_id(const std::string& value);
+  std::string* _internal_mutable_mipi_module_id();
+  public:
+
+  // string mipi_sensor_id = 9;
+  void clear_mipi_sensor_id();
+  const std::string& mipi_sensor_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_mipi_sensor_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_mipi_sensor_id();
+  PROTOBUF_NODISCARD std::string* release_mipi_sensor_id();
+  void set_allocated_mipi_sensor_id(std::string* mipi_sensor_id);
+  private:
+  const std::string& _internal_mipi_sensor_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_mipi_sensor_id(const std::string& value);
+  std::string* _internal_mutable_mipi_sensor_id();
+  public:
+
+  // string mipi_vendor = 10;
+  void clear_mipi_vendor();
+  const std::string& mipi_vendor() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_mipi_vendor(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_mipi_vendor();
+  PROTOBUF_NODISCARD std::string* release_mipi_vendor();
+  void set_allocated_mipi_vendor(std::string* mipi_vendor);
+  private:
+  const std::string& _internal_mipi_vendor() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_mipi_vendor(const std::string& value);
+  std::string* _internal_mutable_mipi_vendor();
   public:
 
   // uint32 usb_vendor_id = 3;
@@ -2987,6 +3047,10 @@ class Camera_Fields final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr path_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr bus_type_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mipi_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mipi_module_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mipi_sensor_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mipi_vendor_;
   uint32_t usb_vendor_id_;
   uint32_t usb_product_id_;
   uint32_t usb_bcd_device_;
@@ -8712,6 +8776,206 @@ inline void Camera_Fields::_internal_set_usb_removable(::runtime_probe::UsbRemov
 inline void Camera_Fields::set_usb_removable(::runtime_probe::UsbRemovable value) {
   _internal_set_usb_removable(value);
   // @@protoc_insertion_point(field_set:runtime_probe.Camera.Fields.usb_removable)
+}
+
+// string mipi_name = 7;
+inline void Camera_Fields::clear_mipi_name() {
+  mipi_name_.ClearToEmpty();
+}
+inline const std::string& Camera_Fields::mipi_name() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Camera.Fields.mipi_name)
+  return _internal_mipi_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Camera_Fields::set_mipi_name(ArgT0&& arg0, ArgT... args) {
+ 
+ mipi_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Camera.Fields.mipi_name)
+}
+inline std::string* Camera_Fields::mutable_mipi_name() {
+  std::string* _s = _internal_mutable_mipi_name();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Camera.Fields.mipi_name)
+  return _s;
+}
+inline const std::string& Camera_Fields::_internal_mipi_name() const {
+  return mipi_name_.Get();
+}
+inline void Camera_Fields::_internal_set_mipi_name(const std::string& value) {
+  
+  mipi_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Camera_Fields::_internal_mutable_mipi_name() {
+  
+  return mipi_name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Camera_Fields::release_mipi_name() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Camera.Fields.mipi_name)
+  return mipi_name_.Release();
+}
+inline void Camera_Fields::set_allocated_mipi_name(std::string* mipi_name) {
+  if (mipi_name != nullptr) {
+    
+  } else {
+    
+  }
+  mipi_name_.SetAllocated(mipi_name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (mipi_name_.IsDefault()) {
+    mipi_name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Camera.Fields.mipi_name)
+}
+
+// string mipi_module_id = 8;
+inline void Camera_Fields::clear_mipi_module_id() {
+  mipi_module_id_.ClearToEmpty();
+}
+inline const std::string& Camera_Fields::mipi_module_id() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Camera.Fields.mipi_module_id)
+  return _internal_mipi_module_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Camera_Fields::set_mipi_module_id(ArgT0&& arg0, ArgT... args) {
+ 
+ mipi_module_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Camera.Fields.mipi_module_id)
+}
+inline std::string* Camera_Fields::mutable_mipi_module_id() {
+  std::string* _s = _internal_mutable_mipi_module_id();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Camera.Fields.mipi_module_id)
+  return _s;
+}
+inline const std::string& Camera_Fields::_internal_mipi_module_id() const {
+  return mipi_module_id_.Get();
+}
+inline void Camera_Fields::_internal_set_mipi_module_id(const std::string& value) {
+  
+  mipi_module_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Camera_Fields::_internal_mutable_mipi_module_id() {
+  
+  return mipi_module_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Camera_Fields::release_mipi_module_id() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Camera.Fields.mipi_module_id)
+  return mipi_module_id_.Release();
+}
+inline void Camera_Fields::set_allocated_mipi_module_id(std::string* mipi_module_id) {
+  if (mipi_module_id != nullptr) {
+    
+  } else {
+    
+  }
+  mipi_module_id_.SetAllocated(mipi_module_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (mipi_module_id_.IsDefault()) {
+    mipi_module_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Camera.Fields.mipi_module_id)
+}
+
+// string mipi_sensor_id = 9;
+inline void Camera_Fields::clear_mipi_sensor_id() {
+  mipi_sensor_id_.ClearToEmpty();
+}
+inline const std::string& Camera_Fields::mipi_sensor_id() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Camera.Fields.mipi_sensor_id)
+  return _internal_mipi_sensor_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Camera_Fields::set_mipi_sensor_id(ArgT0&& arg0, ArgT... args) {
+ 
+ mipi_sensor_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Camera.Fields.mipi_sensor_id)
+}
+inline std::string* Camera_Fields::mutable_mipi_sensor_id() {
+  std::string* _s = _internal_mutable_mipi_sensor_id();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Camera.Fields.mipi_sensor_id)
+  return _s;
+}
+inline const std::string& Camera_Fields::_internal_mipi_sensor_id() const {
+  return mipi_sensor_id_.Get();
+}
+inline void Camera_Fields::_internal_set_mipi_sensor_id(const std::string& value) {
+  
+  mipi_sensor_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Camera_Fields::_internal_mutable_mipi_sensor_id() {
+  
+  return mipi_sensor_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Camera_Fields::release_mipi_sensor_id() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Camera.Fields.mipi_sensor_id)
+  return mipi_sensor_id_.Release();
+}
+inline void Camera_Fields::set_allocated_mipi_sensor_id(std::string* mipi_sensor_id) {
+  if (mipi_sensor_id != nullptr) {
+    
+  } else {
+    
+  }
+  mipi_sensor_id_.SetAllocated(mipi_sensor_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (mipi_sensor_id_.IsDefault()) {
+    mipi_sensor_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Camera.Fields.mipi_sensor_id)
+}
+
+// string mipi_vendor = 10;
+inline void Camera_Fields::clear_mipi_vendor() {
+  mipi_vendor_.ClearToEmpty();
+}
+inline const std::string& Camera_Fields::mipi_vendor() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Camera.Fields.mipi_vendor)
+  return _internal_mipi_vendor();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Camera_Fields::set_mipi_vendor(ArgT0&& arg0, ArgT... args) {
+ 
+ mipi_vendor_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Camera.Fields.mipi_vendor)
+}
+inline std::string* Camera_Fields::mutable_mipi_vendor() {
+  std::string* _s = _internal_mutable_mipi_vendor();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Camera.Fields.mipi_vendor)
+  return _s;
+}
+inline const std::string& Camera_Fields::_internal_mipi_vendor() const {
+  return mipi_vendor_.Get();
+}
+inline void Camera_Fields::_internal_set_mipi_vendor(const std::string& value) {
+  
+  mipi_vendor_.Set(value, GetArenaForAllocation());
+}
+inline std::string* Camera_Fields::_internal_mutable_mipi_vendor() {
+  
+  return mipi_vendor_.Mutable(GetArenaForAllocation());
+}
+inline std::string* Camera_Fields::release_mipi_vendor() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Camera.Fields.mipi_vendor)
+  return mipi_vendor_.Release();
+}
+inline void Camera_Fields::set_allocated_mipi_vendor(std::string* mipi_vendor) {
+  if (mipi_vendor != nullptr) {
+    
+  } else {
+    
+  }
+  mipi_vendor_.SetAllocated(mipi_vendor, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (mipi_vendor_.IsDefault()) {
+    mipi_vendor_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Camera.Fields.mipi_vendor)
 }
 
 // -------------------------------------------------------------------

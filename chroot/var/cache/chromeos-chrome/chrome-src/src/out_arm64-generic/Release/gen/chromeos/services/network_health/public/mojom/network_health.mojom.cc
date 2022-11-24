@@ -145,7 +145,7 @@ Network::Network()
       ipv6_addresses(),
       portal_state(::chromeos::network_config::mojom::PortalState::kUnknown),
       signal_strength_stats(),
-      portal_probe_url() {}
+      portal_probe_url(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::GURL>>()) {}
 
 Network::Network(
     ::chromeos::network_config::mojom::NetworkType type_in,
@@ -167,7 +167,7 @@ Network::Network(
       ipv6_addresses(std::move(ipv6_addresses_in)),
       portal_state(std::move(portal_state_in)),
       signal_strength_stats(),
-      portal_probe_url() {}
+      portal_probe_url(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::GURL>>()) {}
 
 Network::Network(
     ::chromeos::network_config::mojom::NetworkType type_in,
@@ -190,7 +190,7 @@ Network::Network(
       ipv6_addresses(std::move(ipv6_addresses_in)),
       portal_state(std::move(portal_state_in)),
       signal_strength_stats(std::move(signal_strength_stats_in)),
-      portal_probe_url() {}
+      portal_probe_url(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::GURL>>()) {}
 
 Network::Network(
     ::chromeos::network_config::mojom::NetworkType type_in,
@@ -366,6 +366,9 @@ NetworkEventsObserver::IPCStableHashFunction NetworkEventsObserver::MessageToMet
     case internal::kNetworkEventsObserver_OnSignalStrengthChanged_Name: {
       return &NetworkEventsObserver::OnSignalStrengthChanged_Sym::IPCStableHash;
     }
+    case internal::kNetworkEventsObserver_OnNetworkListChanged_Name: {
+      return &NetworkEventsObserver::OnNetworkListChanged_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -381,6 +384,8 @@ const char* NetworkEventsObserver::MessageToMethodName_(mojo::Message& message) 
             return "Receive chromeos::network_health::mojom::NetworkEventsObserver::OnConnectionStateChanged";
       case internal::kNetworkEventsObserver_OnSignalStrengthChanged_Name:
             return "Receive chromeos::network_health::mojom::NetworkEventsObserver::OnSignalStrengthChanged";
+      case internal::kNetworkEventsObserver_OnNetworkListChanged_Name:
+            return "Receive chromeos::network_health::mojom::NetworkEventsObserver::OnNetworkListChanged";
     }
   } else {
     switch (message.name()) {
@@ -388,6 +393,8 @@ const char* NetworkEventsObserver::MessageToMethodName_(mojo::Message& message) 
             return "Receive reply chromeos::network_health::mojom::NetworkEventsObserver::OnConnectionStateChanged";
       case internal::kNetworkEventsObserver_OnSignalStrengthChanged_Name:
             return "Receive reply chromeos::network_health::mojom::NetworkEventsObserver::OnSignalStrengthChanged";
+      case internal::kNetworkEventsObserver_OnNetworkListChanged_Name:
+            return "Receive reply chromeos::network_health::mojom::NetworkEventsObserver::OnNetworkListChanged";
     }
   }
   return "Receive unknown mojo message";
@@ -424,6 +431,19 @@ uint32_t NetworkEventsObserver::OnSignalStrengthChanged_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)chromeos::network_health::mojom::NetworkEventsObserver::OnSignalStrengthChanged");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkEventsObserver::OnNetworkListChanged_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_health::mojom::NetworkEventsObserver::OnNetworkListChanged");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -549,6 +569,56 @@ void NetworkEventsObserverProxy::OnSignalStrengthChanged(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void NetworkEventsObserverProxy::OnNetworkListChanged(
+    std::vector<NetworkPtr> in_networks) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::network_health::mojom::NetworkEventsObserver::OnNetworkListChanged", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("networks"), in_networks,
+                        "<value of type std::vector<NetworkPtr>>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kNetworkEventsObserver_OnNetworkListChanged_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::chromeos::network_health::mojom::internal::NetworkEventsObserver_OnNetworkListChanged_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->networks)::BaseType>
+      networks_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& networks_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_health::mojom::NetworkDataView>>(
+      in_networks, networks_fragment, &networks_validate_params);
+  params->networks.Set(
+      networks_fragment.is_null() ? nullptr : networks_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->networks.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null networks in NetworkEventsObserver.OnNetworkListChanged request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(NetworkEventsObserver::Name_);
+  message.set_method_name("OnNetworkListChanged");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool NetworkEventsObserverStubDispatch::Accept(
     NetworkEventsObserver* impl,
@@ -614,6 +684,32 @@ std::move(p_guid),
 std::move(p_signal_strength));
       return true;
     }
+    case internal::kNetworkEventsObserver_OnNetworkListChanged_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::NetworkEventsObserver_OnNetworkListChanged_Params_Data* params =
+          reinterpret_cast<internal::NetworkEventsObserver_OnNetworkListChanged_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      std::vector<NetworkPtr> p_networks = mojo::DefaultConstructTraits::CreateInstance<std::vector<NetworkPtr>>();
+      NetworkEventsObserver_OnNetworkListChanged_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadNetworks(&p_networks))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            NetworkEventsObserver::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnNetworkListChanged(
+std::move(p_networks));
+      return true;
+    }
   }
   return false;
 }
@@ -633,6 +729,9 @@ bool NetworkEventsObserverStubDispatch::AcceptWithResponder(
     case internal::kNetworkEventsObserver_OnSignalStrengthChanged_Name: {
       break;
     }
+    case internal::kNetworkEventsObserver_OnNetworkListChanged_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -642,6 +741,8 @@ static const mojo::internal::GenericValidationInfo kNetworkEventsObserverValidat
     {&internal::NetworkEventsObserver_OnConnectionStateChanged_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::NetworkEventsObserver_OnSignalStrengthChanged_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::NetworkEventsObserver_OnNetworkListChanged_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1593,6 +1694,9 @@ void NetworkEventsObserverInterceptorForTesting::OnConnectionStateChanged(const 
 }
 void NetworkEventsObserverInterceptorForTesting::OnSignalStrengthChanged(const std::string& guid, UInt32ValuePtr signal_strength) {
   GetForwardingInterface()->OnSignalStrengthChanged(std::move(guid), std::move(signal_strength));
+}
+void NetworkEventsObserverInterceptorForTesting::OnNetworkListChanged(std::vector<NetworkPtr> networks) {
+  GetForwardingInterface()->OnNetworkListChanged(std::move(networks));
 }
 NetworkEventsObserverAsyncWaiter::NetworkEventsObserverAsyncWaiter(
     NetworkEventsObserver* proxy) : proxy_(proxy) {}

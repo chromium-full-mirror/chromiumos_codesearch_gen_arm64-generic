@@ -2123,6 +2123,7 @@ class  VideoEncodeAcceleratorConfig {
   using ContentType = VideoEncodeAcceleratorConfig_ContentType;
   using InterLayerPredMode = VideoEncodeAcceleratorConfig_InterLayerPredMode;
   using StorageType = VideoEncodeAcceleratorConfig_StorageType;
+  using EncoderType = VideoEncodeAcceleratorConfig_EncoderType;
 
   template <typename... Args>
   static VideoEncodeAcceleratorConfigPtr New(Args&&... args) {
@@ -2160,7 +2161,8 @@ class  VideoEncodeAcceleratorConfig {
       VideoEncodeAcceleratorConfig::ContentType content_type,
       std::vector<::media::VideoEncodeAccelerator::Config::SpatialLayer> spatial_layers,
       VideoEncodeAcceleratorConfig::InterLayerPredMode inter_layer_pred,
-      bool require_low_delay);
+      bool require_low_delay,
+      VideoEncodeAcceleratorConfig::EncoderType required_encoder_type);
 
 
   ~VideoEncodeAcceleratorConfig();
@@ -2268,6 +2270,8 @@ class  VideoEncodeAcceleratorConfig {
   VideoEncodeAcceleratorConfig::InterLayerPredMode inter_layer_pred;
   
   bool require_low_delay;
+  
+  VideoEncodeAcceleratorConfig::EncoderType required_encoder_type;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3083,7 +3087,8 @@ VideoEncodeAcceleratorConfigPtr VideoEncodeAcceleratorConfig::Clone() const {
       mojo::Clone(content_type),
       mojo::Clone(spatial_layers),
       mojo::Clone(inter_layer_pred),
-      mojo::Clone(require_low_delay)
+      mojo::Clone(require_low_delay),
+      mojo::Clone(required_encoder_type)
   );
 }
 
@@ -3122,6 +3127,8 @@ bool VideoEncodeAcceleratorConfig::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->inter_layer_pred, other_struct.inter_layer_pred))
     return false;
   if (!mojo::Equals(this->require_low_delay, other_struct.require_low_delay))
+    return false;
+  if (!mojo::Equals(this->required_encoder_type, other_struct.required_encoder_type))
     return false;
   return true;
 }
@@ -3195,6 +3202,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.require_low_delay < rhs.require_low_delay)
     return true;
   if (rhs.require_low_delay < lhs.require_low_delay)
+    return false;
+  if (lhs.required_encoder_type < rhs.required_encoder_type)
+    return true;
+  if (rhs.required_encoder_type < lhs.required_encoder_type)
     return false;
   return false;
 }
@@ -3743,6 +3754,11 @@ struct  StructTraits<::media::mojom::VideoEncodeAcceleratorConfig::DataView,
   static decltype(::media::mojom::VideoEncodeAcceleratorConfig::require_low_delay) require_low_delay(
       const ::media::mojom::VideoEncodeAcceleratorConfigPtr& input) {
     return input->require_low_delay;
+  }
+
+  static decltype(::media::mojom::VideoEncodeAcceleratorConfig::required_encoder_type) required_encoder_type(
+      const ::media::mojom::VideoEncodeAcceleratorConfigPtr& input) {
+    return input->required_encoder_type;
   }
 
   static bool Read(::media::mojom::VideoEncodeAcceleratorConfig::DataView input, ::media::mojom::VideoEncodeAcceleratorConfigPtr* output);

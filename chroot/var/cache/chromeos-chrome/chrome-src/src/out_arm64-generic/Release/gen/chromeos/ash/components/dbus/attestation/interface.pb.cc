@@ -38,6 +38,7 @@ PROTOBUF_CONSTEXPR GetKeyInfoReply::GetKeyInfoReply(
   , certify_info_signature_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , certificate_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , payload_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , certified_key_credential_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , status_(0)
 
   , key_type_(1)
@@ -546,6 +547,7 @@ PROTOBUF_CONSTEXPR FinishCertificateRequestReply::FinishCertificateRequestReply(
   : certificate_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , public_key_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , key_blob_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , certified_key_credential_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , status_(0)
 {}
 struct FinishCertificateRequestReplyDefaultTypeInternal {
@@ -585,6 +587,7 @@ PROTOBUF_CONSTEXPR GetCertificateReply::GetCertificateReply(
   : certificate_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , public_key_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , key_blob_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , certified_key_credential_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , status_(0)
 {}
 struct GetCertificateReplyDefaultTypeInternal {
@@ -1311,13 +1314,13 @@ class GetKeyInfoReply::_Internal {
  public:
   using HasBits = decltype(std::declval<GetKeyInfoReply>()._has_bits_);
   static void set_has_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 32u;
-  }
-  static void set_has_key_type(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
-  static void set_has_key_usage(HasBits* has_bits) {
+  static void set_has_key_type(HasBits* has_bits) {
     (*has_bits)[0] |= 128u;
+  }
+  static void set_has_key_usage(HasBits* has_bits) {
+    (*has_bits)[0] |= 256u;
   }
   static void set_has_public_key(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -1333,6 +1336,9 @@ class GetKeyInfoReply::_Internal {
   }
   static void set_has_payload(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
+  }
+  static void set_has_certified_key_credential(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
   }
 };
 
@@ -1386,6 +1392,14 @@ GetKeyInfoReply::GetKeyInfoReply(const GetKeyInfoReply& from)
     payload_.Set(from._internal_payload(), 
       GetArenaForAllocation());
   }
+  certified_key_credential_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    certified_key_credential_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_certified_key_credential()) {
+    certified_key_credential_.Set(from._internal_certified_key_credential(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&status_, &from.status_,
     static_cast<size_t>(reinterpret_cast<char*>(&key_usage_) -
     reinterpret_cast<char*>(&status_)) + sizeof(key_usage_));
@@ -1413,6 +1427,10 @@ payload_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   payload_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+certified_key_credential_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  certified_key_credential_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 status_ = 0;
 key_type_ = 1;
 key_usage_ = 1;
@@ -1434,6 +1452,7 @@ inline void GetKeyInfoReply::SharedDtor() {
   certify_info_signature_.Destroy();
   certificate_.Destroy();
   payload_.Destroy();
+  certified_key_credential_.Destroy();
 }
 
 void GetKeyInfoReply::SetCachedSize(int size) const {
@@ -1447,7 +1466,7 @@ void GetKeyInfoReply::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
       public_key_.ClearNonDefaultToEmpty();
     }
@@ -1463,12 +1482,15 @@ void GetKeyInfoReply::Clear() {
     if (cached_has_bits & 0x00000010u) {
       payload_.ClearNonDefaultToEmpty();
     }
+    if (cached_has_bits & 0x00000020u) {
+      certified_key_credential_.ClearNonDefaultToEmpty();
+    }
   }
-  if (cached_has_bits & 0x000000e0u) {
+  if (cached_has_bits & 0x000000c0u) {
     status_ = 0;
     key_type_ = 1;
-    key_usage_ = 1;
   }
+  key_usage_ = 1;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -1564,6 +1586,15 @@ const char* GetKeyInfoReply::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
+      // optional bytes certified_key_credential = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          auto str = _internal_mutable_certified_key_credential();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -1596,21 +1627,21 @@ uint8_t* GetKeyInfoReply::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_status(), target);
   }
 
   // optional .attestation.KeyType key_type = 2;
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_key_type(), target);
   }
 
   // optional .attestation.KeyUsage key_usage = 3;
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_key_usage(), target);
@@ -1644,6 +1675,12 @@ uint8_t* GetKeyInfoReply::_InternalSerialize(
   if (cached_has_bits & 0x00000010u) {
     target = stream->WriteBytesMaybeAliased(
         8, this->_internal_payload(), target);
+  }
+
+  // optional bytes certified_key_credential = 9;
+  if (cached_has_bits & 0x00000020u) {
+    target = stream->WriteBytesMaybeAliased(
+        9, this->_internal_certified_key_credential(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1699,25 +1736,32 @@ size_t GetKeyInfoReply::ByteSizeLong() const {
           this->_internal_payload());
     }
 
-    // optional .attestation.AttestationStatus status = 1;
+    // optional bytes certified_key_credential = 9;
     if (cached_has_bits & 0x00000020u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_certified_key_credential());
+    }
+
+    // optional .attestation.AttestationStatus status = 1;
+    if (cached_has_bits & 0x00000040u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
     }
 
     // optional .attestation.KeyType key_type = 2;
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000080u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_key_type());
     }
 
-    // optional .attestation.KeyUsage key_usage = 3;
-    if (cached_has_bits & 0x00000080u) {
-      total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_key_usage());
-    }
-
   }
+  // optional .attestation.KeyUsage key_usage = 3;
+  if (cached_has_bits & 0x00000100u) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_key_usage());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -1756,15 +1800,18 @@ void GetKeyInfoReply::MergeFrom(const GetKeyInfoReply& from) {
       _internal_set_payload(from._internal_payload());
     }
     if (cached_has_bits & 0x00000020u) {
-      status_ = from.status_;
+      _internal_set_certified_key_credential(from._internal_certified_key_credential());
     }
     if (cached_has_bits & 0x00000040u) {
-      key_type_ = from.key_type_;
+      status_ = from.status_;
     }
     if (cached_has_bits & 0x00000080u) {
-      key_usage_ = from.key_usage_;
+      key_type_ = from.key_type_;
     }
     _has_bits_[0] |= cached_has_bits;
+  }
+  if (cached_has_bits & 0x00000100u) {
+    _internal_set_key_usage(from._internal_key_usage());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -1805,6 +1852,10 @@ void GetKeyInfoReply::InternalSwap(GetKeyInfoReply* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &payload_, lhs_arena,
       &other->payload_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &certified_key_credential_, lhs_arena,
+      &other->certified_key_credential_, rhs_arena
   );
   swap(status_, other->status_);
   swap(key_type_, other->key_type_);
@@ -10130,7 +10181,7 @@ class FinishCertificateRequestReply::_Internal {
  public:
   using HasBits = decltype(std::declval<FinishCertificateRequestReply>()._has_bits_);
   static void set_has_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
+    (*has_bits)[0] |= 16u;
   }
   static void set_has_certificate(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -10140,6 +10191,9 @@ class FinishCertificateRequestReply::_Internal {
   }
   static void set_has_key_blob(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
+  }
+  static void set_has_certified_key_credential(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
   }
 };
 
@@ -10177,6 +10231,14 @@ FinishCertificateRequestReply::FinishCertificateRequestReply(const FinishCertifi
     key_blob_.Set(from._internal_key_blob(), 
       GetArenaForAllocation());
   }
+  certified_key_credential_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    certified_key_credential_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_certified_key_credential()) {
+    certified_key_credential_.Set(from._internal_certified_key_credential(), 
+      GetArenaForAllocation());
+  }
   status_ = from.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.FinishCertificateRequestReply)
 }
@@ -10193,6 +10255,10 @@ public_key_.InitDefault();
 key_blob_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   key_blob_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+certified_key_credential_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  certified_key_credential_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 status_ = 0;
 }
@@ -10211,6 +10277,7 @@ inline void FinishCertificateRequestReply::SharedDtor() {
   certificate_.Destroy();
   public_key_.Destroy();
   key_blob_.Destroy();
+  certified_key_credential_.Destroy();
 }
 
 void FinishCertificateRequestReply::SetCachedSize(int size) const {
@@ -10224,7 +10291,7 @@ void FinishCertificateRequestReply::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       certificate_.ClearNonDefaultToEmpty();
     }
@@ -10233,6 +10300,9 @@ void FinishCertificateRequestReply::Clear() {
     }
     if (cached_has_bits & 0x00000004u) {
       key_blob_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000008u) {
+      certified_key_credential_.ClearNonDefaultToEmpty();
     }
   }
   status_ = 0;
@@ -10287,6 +10357,15 @@ const char* FinishCertificateRequestReply::_InternalParse(const char* ptr, ::_pb
         } else
           goto handle_unusual;
         continue;
+      // optional bytes certified_key_credential = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          auto str = _internal_mutable_certified_key_credential();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -10319,7 +10398,7 @@ uint8_t* FinishCertificateRequestReply::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_status(), target);
@@ -10343,6 +10422,12 @@ uint8_t* FinishCertificateRequestReply::_InternalSerialize(
         4, this->_internal_key_blob(), target);
   }
 
+  // optional bytes certified_key_credential = 5;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->WriteBytesMaybeAliased(
+        5, this->_internal_certified_key_credential(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -10360,7 +10445,7 @@ size_t FinishCertificateRequestReply::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     // optional bytes certificate = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -10382,8 +10467,15 @@ size_t FinishCertificateRequestReply::ByteSizeLong() const {
           this->_internal_key_blob());
     }
 
-    // optional .attestation.AttestationStatus status = 1;
+    // optional bytes certified_key_credential = 5;
     if (cached_has_bits & 0x00000008u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_certified_key_credential());
+    }
+
+    // optional .attestation.AttestationStatus status = 1;
+    if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
     }
@@ -10410,7 +10502,7 @@ void FinishCertificateRequestReply::MergeFrom(const FinishCertificateRequestRepl
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_certificate(from._internal_certificate());
     }
@@ -10421,6 +10513,9 @@ void FinishCertificateRequestReply::MergeFrom(const FinishCertificateRequestRepl
       _internal_set_key_blob(from._internal_key_blob());
     }
     if (cached_has_bits & 0x00000008u) {
+      _internal_set_certified_key_credential(from._internal_certified_key_credential());
+    }
+    if (cached_has_bits & 0x00000010u) {
       status_ = from.status_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -10456,6 +10551,10 @@ void FinishCertificateRequestReply::InternalSwap(FinishCertificateRequestReply* 
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &key_blob_, lhs_arena,
       &other->key_blob_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &certified_key_credential_, lhs_arena,
+      &other->certified_key_credential_, rhs_arena
   );
   swap(status_, other->status_);
 }
@@ -11035,7 +11134,7 @@ class GetCertificateReply::_Internal {
  public:
   using HasBits = decltype(std::declval<GetCertificateReply>()._has_bits_);
   static void set_has_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
+    (*has_bits)[0] |= 16u;
   }
   static void set_has_certificate(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -11045,6 +11144,9 @@ class GetCertificateReply::_Internal {
   }
   static void set_has_key_blob(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
+  }
+  static void set_has_certified_key_credential(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
   }
 };
 
@@ -11082,6 +11184,14 @@ GetCertificateReply::GetCertificateReply(const GetCertificateReply& from)
     key_blob_.Set(from._internal_key_blob(), 
       GetArenaForAllocation());
   }
+  certified_key_credential_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    certified_key_credential_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_certified_key_credential()) {
+    certified_key_credential_.Set(from._internal_certified_key_credential(), 
+      GetArenaForAllocation());
+  }
   status_ = from.status_;
   // @@protoc_insertion_point(copy_constructor:attestation.GetCertificateReply)
 }
@@ -11098,6 +11208,10 @@ public_key_.InitDefault();
 key_blob_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   key_blob_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+certified_key_credential_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  certified_key_credential_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 status_ = 0;
 }
@@ -11116,6 +11230,7 @@ inline void GetCertificateReply::SharedDtor() {
   certificate_.Destroy();
   public_key_.Destroy();
   key_blob_.Destroy();
+  certified_key_credential_.Destroy();
 }
 
 void GetCertificateReply::SetCachedSize(int size) const {
@@ -11129,7 +11244,7 @@ void GetCertificateReply::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       certificate_.ClearNonDefaultToEmpty();
     }
@@ -11138,6 +11253,9 @@ void GetCertificateReply::Clear() {
     }
     if (cached_has_bits & 0x00000004u) {
       key_blob_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000008u) {
+      certified_key_credential_.ClearNonDefaultToEmpty();
     }
   }
   status_ = 0;
@@ -11192,6 +11310,15 @@ const char* GetCertificateReply::_InternalParse(const char* ptr, ::_pbi::ParseCo
         } else
           goto handle_unusual;
         continue;
+      // optional bytes certified_key_credential = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          auto str = _internal_mutable_certified_key_credential();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -11224,7 +11351,7 @@ uint8_t* GetCertificateReply::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional .attestation.AttestationStatus status = 1;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_status(), target);
@@ -11248,6 +11375,12 @@ uint8_t* GetCertificateReply::_InternalSerialize(
         4, this->_internal_key_blob(), target);
   }
 
+  // optional bytes certified_key_credential = 5;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->WriteBytesMaybeAliased(
+        5, this->_internal_certified_key_credential(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -11265,7 +11398,7 @@ size_t GetCertificateReply::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     // optional bytes certificate = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -11287,8 +11420,15 @@ size_t GetCertificateReply::ByteSizeLong() const {
           this->_internal_key_blob());
     }
 
-    // optional .attestation.AttestationStatus status = 1;
+    // optional bytes certified_key_credential = 5;
     if (cached_has_bits & 0x00000008u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_certified_key_credential());
+    }
+
+    // optional .attestation.AttestationStatus status = 1;
+    if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
     }
@@ -11315,7 +11455,7 @@ void GetCertificateReply::MergeFrom(const GetCertificateReply& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_certificate(from._internal_certificate());
     }
@@ -11326,6 +11466,9 @@ void GetCertificateReply::MergeFrom(const GetCertificateReply& from) {
       _internal_set_key_blob(from._internal_key_blob());
     }
     if (cached_has_bits & 0x00000008u) {
+      _internal_set_certified_key_credential(from._internal_certified_key_credential());
+    }
+    if (cached_has_bits & 0x00000010u) {
       status_ = from.status_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -11361,6 +11504,10 @@ void GetCertificateReply::InternalSwap(GetCertificateReply* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &key_blob_, lhs_arena,
       &other->key_blob_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &certified_key_credential_, lhs_arena,
+      &other->certified_key_credential_, rhs_arena
   );
   swap(status_, other->status_);
 }

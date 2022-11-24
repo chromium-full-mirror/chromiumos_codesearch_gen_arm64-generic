@@ -142,8 +142,8 @@ bool ColorPlaneLayout::Validate(
   return Data_::Validate(data, validation_context);
 }
 VideoFrameLayout::VideoFrameLayout()
-    : format(),
-      coded_size(),
+    : format(mojo::DefaultConstructTraits::CreateInstance<media::VideoPixelFormat>()),
+      coded_size(mojo::DefaultConstructTraits::CreateInstance<gfx::Size>()),
       planes(),
       is_multi_planar(),
       buffer_addr_align(),

@@ -112,6 +112,12 @@ void ExperimentalDomain::TrackCacheStorageForOrigin(
     base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TrackCacheStorageForOriginResult>)> callback) {
   dispatcher_->SendMessage("Storage.trackCacheStorageForOrigin", params->Serialize(), optional_node_frame_id, base::BindOnce(&Domain::HandleTrackCacheStorageForOriginResponse, std::move(callback)));
 }
+void ExperimentalDomain::TrackCacheStorageForStorageKey(
+    std::unique_ptr<TrackCacheStorageForStorageKeyParams> params,
+    const std::string& optional_node_frame_id,
+    base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TrackCacheStorageForStorageKeyResult>)> callback) {
+  dispatcher_->SendMessage("Storage.trackCacheStorageForStorageKey", params->Serialize(), optional_node_frame_id, base::BindOnce(&Domain::HandleTrackCacheStorageForStorageKeyResponse, std::move(callback)));
+}
 void ExperimentalDomain::TrackIndexedDBForOrigin(
     std::unique_ptr<TrackIndexedDBForOriginParams> params,
     const std::string& optional_node_frame_id,
@@ -129,6 +135,12 @@ void ExperimentalDomain::UntrackCacheStorageForOrigin(
     const std::string& optional_node_frame_id,
     base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<UntrackCacheStorageForOriginResult>)> callback) {
   dispatcher_->SendMessage("Storage.untrackCacheStorageForOrigin", params->Serialize(), optional_node_frame_id, base::BindOnce(&Domain::HandleUntrackCacheStorageForOriginResponse, std::move(callback)));
+}
+void ExperimentalDomain::UntrackCacheStorageForStorageKey(
+    std::unique_ptr<UntrackCacheStorageForStorageKeyParams> params,
+    const std::string& optional_node_frame_id,
+    base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<UntrackCacheStorageForStorageKeyResult>)> callback) {
+  dispatcher_->SendMessage("Storage.untrackCacheStorageForStorageKey", params->Serialize(), optional_node_frame_id, base::BindOnce(&Domain::HandleUntrackCacheStorageForStorageKeyResponse, std::move(callback)));
 }
 void ExperimentalDomain::UntrackIndexedDBForOrigin(
     std::unique_ptr<UntrackIndexedDBForOriginParams> params,
@@ -376,6 +388,25 @@ void Domain::HandleTrackCacheStorageForOriginResponse(
 }
 
 // static
+void Domain::HandleTrackCacheStorageForStorageKeyResponse(
+    base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TrackCacheStorageForStorageKeyResult>)> callback,
+    const MessageDispatcher::ReplyStatus& reply_status,
+    const base::Value& response) {
+  if (callback.is_null())
+    return;
+
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(reply_status, nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<TrackCacheStorageForStorageKeyResult> result = TrackCacheStorageForStorageKeyResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(reply_status, std::move(result));
+}
+
+// static
 void Domain::HandleTrackIndexedDBForOriginResponse(
     base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TrackIndexedDBForOriginResult>)> callback,
     const MessageDispatcher::ReplyStatus& reply_status,
@@ -428,6 +459,25 @@ void Domain::HandleUntrackCacheStorageForOriginResponse(
   }
   ErrorReporter errors;
   std::unique_ptr<UntrackCacheStorageForOriginResult> result = UntrackCacheStorageForOriginResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(reply_status, std::move(result));
+}
+
+// static
+void Domain::HandleUntrackCacheStorageForStorageKeyResponse(
+    base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<UntrackCacheStorageForStorageKeyResult>)> callback,
+    const MessageDispatcher::ReplyStatus& reply_status,
+    const base::Value& response) {
+  if (callback.is_null())
+    return;
+
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(reply_status, nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<UntrackCacheStorageForStorageKeyResult> result = UntrackCacheStorageForStorageKeyResult::Parse(response, &errors);
   DCHECK(!errors.HasErrors()) << errors.ToString();
   std::move(callback).Run(reply_status, std::move(result));
 }

@@ -52,8 +52,8 @@ namespace machine_learning {
 namespace web_platform {
 namespace mojom {
 HandwritingPoint::HandwritingPoint()
-    : location(),
-      t() {}
+    : location(mojo::DefaultConstructTraits::CreateInstance<::gfx::PointF>()),
+      t(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::base::TimeDelta>>()) {}
 
 HandwritingPoint::HandwritingPoint(
     const ::gfx::PointF& location_in,

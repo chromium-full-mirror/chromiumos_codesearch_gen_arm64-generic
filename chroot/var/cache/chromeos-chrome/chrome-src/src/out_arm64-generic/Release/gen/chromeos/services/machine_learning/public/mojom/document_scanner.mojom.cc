@@ -52,12 +52,12 @@ namespace machine_learning {
 namespace mojom {
 DocumentScannerConfig::DocumentScannerConfig()
     : deprecated_library_dlc_path(),
-      library_dlc_path() {}
+      library_dlc_path(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::base::FilePath>>()) {}
 
 DocumentScannerConfig::DocumentScannerConfig(
     const std::string& deprecated_library_dlc_path_in)
     : deprecated_library_dlc_path(std::move(deprecated_library_dlc_path_in)),
-      library_dlc_path() {}
+      library_dlc_path(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::base::FilePath>>()) {}
 
 DocumentScannerConfig::DocumentScannerConfig(
     const std::string& deprecated_library_dlc_path_in,

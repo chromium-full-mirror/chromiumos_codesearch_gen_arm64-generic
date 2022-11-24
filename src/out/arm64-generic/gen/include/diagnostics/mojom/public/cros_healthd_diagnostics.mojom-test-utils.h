@@ -15,6 +15,27 @@ namespace cros_healthd {
 namespace mojom {
 
 
+class  LedLitUpRoutineReplierInterceptorForTesting : public LedLitUpRoutineReplier {
+  virtual LedLitUpRoutineReplier* GetForwardingInterface() = 0;
+  void GetColorMatched(GetColorMatchedCallback callback) override;
+};
+class  LedLitUpRoutineReplierAsyncWaiter {
+ public:
+  explicit LedLitUpRoutineReplierAsyncWaiter(LedLitUpRoutineReplier* proxy);
+
+  LedLitUpRoutineReplierAsyncWaiter(const LedLitUpRoutineReplierAsyncWaiter&) = delete;
+  LedLitUpRoutineReplierAsyncWaiter& operator=(const LedLitUpRoutineReplierAsyncWaiter&) = delete;
+
+  ~LedLitUpRoutineReplierAsyncWaiter();
+  void GetColorMatched(
+      bool* out_matched);
+  bool GetColorMatched();
+
+ private:
+  LedLitUpRoutineReplier* const proxy_;
+};
+
+
 
 
 }  // namespace mojom

@@ -395,6 +395,16 @@ void CrosHealthdRoutineService::RunPrivacyScreenRoutine(
              std::move(callback));
 }
 
+void CrosHealthdRoutineService::RunLedLitUpRoutine(
+    mojo_ipc::LedName name,
+    mojo_ipc::LedColor color,
+    mojo::PendingRemote<mojo_ipc::LedLitUpRoutineReplier> replier,
+    RunLedLitUpRoutineCallback callback) {
+  RunRoutine(
+      routine_factory_->MakeLedLitUpRoutine(name, color, std::move(replier)),
+      mojo_ipc::DiagnosticRoutineEnum::kLedLitUp, std::move(callback));
+}
+
 void CrosHealthdRoutineService::RunRoutine(
     std::unique_ptr<DiagnosticRoutine> routine,
     mojo_ipc::DiagnosticRoutineEnum routine_enum,
@@ -476,7 +486,8 @@ void CrosHealthdRoutineService::PopulateAvailableRoutines(
       mojo_ipc::DiagnosticRoutineEnum::kArcHttp,
       mojo_ipc::DiagnosticRoutineEnum::kArcPing,
       mojo_ipc::DiagnosticRoutineEnum::kArcDnsResolution,
-      mojo_ipc::DiagnosticRoutineEnum::kSensitiveSensor};
+      mojo_ipc::DiagnosticRoutineEnum::kSensitiveSensor,
+      mojo_ipc::DiagnosticRoutineEnum::kLedLitUp};
 
   if (context_->system_config()->HasBattery()) {
     available_routines_.insert(

@@ -328,6 +328,40 @@ NetworkEventsObserver_OnSignalStrengthChanged_Params_Data::NetworkEventsObserver
 
 
 // static
+bool NetworkEventsObserver_OnNetworkListChanged_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const NetworkEventsObserver_OnNetworkListChanged_Params_Data* object =
+      static_cast<const NetworkEventsObserver_OnNetworkListChanged_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->networks, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& networks_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->networks, validation_context,
+                                         &networks_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+NetworkEventsObserver_OnNetworkListChanged_Params_Data::NetworkEventsObserver_OnNetworkListChanged_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool NetworkHealthService_AddObserver_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

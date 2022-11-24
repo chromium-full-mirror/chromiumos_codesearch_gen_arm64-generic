@@ -29,6 +29,8 @@ constexpr uint32_t kExecutor_GetUEFIPlatformSizeContent_Name = 10;
 constexpr uint32_t kExecutor_GetLidAngle_Name = 11;
 constexpr uint32_t kExecutor_GetFingerprintFrame_Name = 12;
 constexpr uint32_t kExecutor_GetFingerprintInfo_Name = 13;
+constexpr uint32_t kExecutor_SetLedColor_Name = 14;
+constexpr uint32_t kExecutor_ResetLedColor_Name = 15;
 
 }  // namespace internal
 }  // namespace mojom

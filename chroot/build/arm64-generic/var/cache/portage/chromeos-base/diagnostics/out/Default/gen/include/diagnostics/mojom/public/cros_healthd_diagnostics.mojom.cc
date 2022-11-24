@@ -288,6 +288,291 @@ bool RoutineUpdateUnion::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
+const char LedLitUpRoutineReplier::Name_[] = "ash.cros_healthd.mojom.LedLitUpRoutineReplier";
+
+LedLitUpRoutineReplier::IPCStableHashFunction LedLitUpRoutineReplier::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kLedLitUpRoutineReplier_GetColorMatched_Name: {
+      return &LedLitUpRoutineReplier::GetColorMatched_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* LedLitUpRoutineReplier::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kLedLitUpRoutineReplier_GetColorMatched_Name:
+            return "Receive ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kLedLitUpRoutineReplier_GetColorMatched_Name:
+            return "Receive reply ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t LedLitUpRoutineReplier::GetColorMatched_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+class LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback(
+      LedLitUpRoutineReplier::GetColorMatchedCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback(const LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback&) = delete;
+  LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback& operator=(const LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  LedLitUpRoutineReplier::GetColorMatchedCallback callback_;
+};
+
+LedLitUpRoutineReplierProxy::LedLitUpRoutineReplierProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void LedLitUpRoutineReplierProxy::GetColorMatched(
+    GetColorMatchedCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kLedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LedLitUpRoutineReplier::Name_);
+  message.set_method_name("GetColorMatched");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+class LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static LedLitUpRoutineReplier::GetColorMatchedCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder> proxy(
+        new LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "LedLitUpRoutineReplier::GetColorMatchedCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_matched);
+};
+
+bool LedLitUpRoutineReplier_GetColorMatched_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_matched = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  LedLitUpRoutineReplier_GetColorMatched_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_matched = input_data_view.matched();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        LedLitUpRoutineReplier::Name_, 0, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_matched));
+  return true;
+}
+
+void LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::Run(
+    bool in_matched) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::LedLitUpRoutineReplier::GetColorMatched", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("matched"), in_matched,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kLedLitUpRoutineReplier_GetColorMatched_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->matched = in_matched;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(LedLitUpRoutineReplier::Name_);
+  message.set_method_name("GetColorMatched");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+
+// static
+bool LedLitUpRoutineReplierStubDispatch::Accept(
+    LedLitUpRoutineReplier* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kLedLitUpRoutineReplier_GetColorMatched_Name: {
+      break;
+    }
+  }
+  return false;
+}
+
+// static
+bool LedLitUpRoutineReplierStubDispatch::AcceptWithResponder(
+    LedLitUpRoutineReplier* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kLedLitUpRoutineReplier_GetColorMatched_Name: {
+
+      internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data* params =
+          reinterpret_cast<
+              internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      LedLitUpRoutineReplier_GetColorMatched_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            LedLitUpRoutineReplier::Name_, 0, false);
+        return false;
+      }
+      LedLitUpRoutineReplier::GetColorMatchedCallback callback =
+          LedLitUpRoutineReplier_GetColorMatched_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetColorMatched(std::move(callback));
+      return true;
+    }
+  }
+  return false;
+}
+
+
+static const mojo::internal::GenericValidationInfo kLedLitUpRoutineReplierValidationInfo[] = {
+    {&internal::LedLitUpRoutineReplier_GetColorMatched_Params_Data::Validate,
+     &internal::LedLitUpRoutineReplier_GetColorMatched_ResponseParams_Data::Validate},
+};
+
+bool LedLitUpRoutineReplierRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::LedLitUpRoutineReplier::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kLedLitUpRoutineReplierValidationInfo);
+}
+
+bool LedLitUpRoutineReplierResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::LedLitUpRoutineReplier::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kLedLitUpRoutineReplierValidationInfo);
+}
 
 
 }  // namespace mojom
@@ -404,6 +689,40 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineUpdateUnion::DataView, ::ash
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+
+
+void LedLitUpRoutineReplierInterceptorForTesting::GetColorMatched(GetColorMatchedCallback callback) {
+  GetForwardingInterface()->GetColorMatched(std::move(callback));
+}
+LedLitUpRoutineReplierAsyncWaiter::LedLitUpRoutineReplierAsyncWaiter(
+    LedLitUpRoutineReplier* proxy) : proxy_(proxy) {}
+
+LedLitUpRoutineReplierAsyncWaiter::~LedLitUpRoutineReplierAsyncWaiter() = default;
+
+void LedLitUpRoutineReplierAsyncWaiter::GetColorMatched(
+    bool* out_matched) {
+  base::RunLoop loop;
+  proxy_->GetColorMatched(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_matched
+,
+             bool matched) {*out_matched = std::move(matched);
+            loop->Quit();
+          },
+          &loop,
+          out_matched));
+  loop.Run();
+}
+
+bool LedLitUpRoutineReplierAsyncWaiter::GetColorMatched(
+    ) {
+  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  GetColorMatched(&async_wait_result);
+  return async_wait_result;
+}
+
+
 
 
 

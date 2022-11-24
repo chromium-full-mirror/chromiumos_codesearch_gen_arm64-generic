@@ -8,5 +8,7 @@
 #define DIAGNOSTICS_CROS_HEALTHD_EXECUTOR_MOJOM_EXECUTOR_MOJOM_IMPORT_HEADERS_H_
 #include "diagnostics/mojom/public/nullable_primitives.mojom.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom-import-headers.h"
+#include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom.h"
+#include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-import-headers.h"
 
 #endif  // DIAGNOSTICS_CROS_HEALTHD_EXECUTOR_MOJOM_EXECUTOR_MOJOM_IMPORT_HEADERS_H_

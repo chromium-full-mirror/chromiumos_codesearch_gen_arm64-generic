@@ -1948,13 +1948,14 @@ enum TaskScopeType : int32_t {
   TASK_SCOPE_SCHEDULED_ACTION = 2,
   TASK_SCOPE_SCRIPT_EXECUTION = 3,
   TASK_SCOPE_POST_MESSAGE = 4,
+  TASK_SCOPE_POP_STATE = 5,
 };
 } // namespace perfetto_pbzero_enum_BlinkTaskScope
 using BlinkTaskScope_TaskScopeType = perfetto_pbzero_enum_BlinkTaskScope::TaskScopeType;
 
 
 constexpr BlinkTaskScope_TaskScopeType BlinkTaskScope_TaskScopeType_MIN = BlinkTaskScope_TaskScopeType::TASK_SCOPE_UNKNOWN;
-constexpr BlinkTaskScope_TaskScopeType BlinkTaskScope_TaskScopeType_MAX = BlinkTaskScope_TaskScopeType::TASK_SCOPE_POST_MESSAGE;
+constexpr BlinkTaskScope_TaskScopeType BlinkTaskScope_TaskScopeType_MAX = BlinkTaskScope_TaskScopeType::TASK_SCOPE_POP_STATE;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -1974,6 +1975,9 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
 
   case ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType::TASK_SCOPE_POST_MESSAGE:
     return "TASK_SCOPE_POST_MESSAGE";
+
+  case ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType::TASK_SCOPE_POP_STATE:
+    return "TASK_SCOPE_POP_STATE";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -8455,6 +8459,7 @@ class BlinkTaskScope : public ::protozero::Message {
   static const TaskScopeType TASK_SCOPE_SCHEDULED_ACTION = TaskScopeType::TASK_SCOPE_SCHEDULED_ACTION;
   static const TaskScopeType TASK_SCOPE_SCRIPT_EXECUTION = TaskScopeType::TASK_SCOPE_SCRIPT_EXECUTION;
   static const TaskScopeType TASK_SCOPE_POST_MESSAGE = TaskScopeType::TASK_SCOPE_POST_MESSAGE;
+  static const TaskScopeType TASK_SCOPE_POP_STATE = TaskScopeType::TASK_SCOPE_POP_STATE;
 
   using FieldMetadata_Type =
     ::protozero::proto_utils::FieldMetadata<

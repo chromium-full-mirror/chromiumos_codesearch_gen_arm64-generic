@@ -158,6 +158,12 @@ extern GetArcDiskFeaturesReplyDefaultTypeInternal _GetArcDiskFeaturesReply_defau
 class GetArcDiskFeaturesRequest;
 struct GetArcDiskFeaturesRequestDefaultTypeInternal;
 extern GetArcDiskFeaturesRequestDefaultTypeInternal _GetArcDiskFeaturesRequest_default_instance_;
+class GetAuthFactorExtendedInfoReply;
+struct GetAuthFactorExtendedInfoReplyDefaultTypeInternal;
+extern GetAuthFactorExtendedInfoReplyDefaultTypeInternal _GetAuthFactorExtendedInfoReply_default_instance_;
+class GetAuthFactorExtendedInfoRequest;
+struct GetAuthFactorExtendedInfoRequestDefaultTypeInternal;
+extern GetAuthFactorExtendedInfoRequestDefaultTypeInternal _GetAuthFactorExtendedInfoRequest_default_instance_;
 class GetAuthSessionStatusReply;
 struct GetAuthSessionStatusReplyDefaultTypeInternal;
 extern GetAuthSessionStatusReplyDefaultTypeInternal _GetAuthSessionStatusReply_default_instance_;
@@ -389,6 +395,12 @@ extern PrepareVaultForMigrationReplyDefaultTypeInternal _PrepareVaultForMigratio
 class PrepareVaultForMigrationRequest;
 struct PrepareVaultForMigrationRequestDefaultTypeInternal;
 extern PrepareVaultForMigrationRequestDefaultTypeInternal _PrepareVaultForMigrationRequest_default_instance_;
+class RecoveryExtendedInfoReply;
+struct RecoveryExtendedInfoReplyDefaultTypeInternal;
+extern RecoveryExtendedInfoReplyDefaultTypeInternal _RecoveryExtendedInfoReply_default_instance_;
+class RecoveryExtendedInfoRequest;
+struct RecoveryExtendedInfoRequestDefaultTypeInternal;
+extern RecoveryExtendedInfoRequestDefaultTypeInternal _RecoveryExtendedInfoRequest_default_instance_;
 class RemoveAuthFactorReply;
 struct RemoveAuthFactorReplyDefaultTypeInternal;
 extern RemoveAuthFactorReplyDefaultTypeInternal _RemoveAuthFactorReply_default_instance_;
@@ -529,6 +541,8 @@ template<> ::user_data_auth::GetAccountDiskUsageReply* Arena::CreateMaybeMessage
 template<> ::user_data_auth::GetAccountDiskUsageRequest* Arena::CreateMaybeMessage<::user_data_auth::GetAccountDiskUsageRequest>(Arena*);
 template<> ::user_data_auth::GetArcDiskFeaturesReply* Arena::CreateMaybeMessage<::user_data_auth::GetArcDiskFeaturesReply>(Arena*);
 template<> ::user_data_auth::GetArcDiskFeaturesRequest* Arena::CreateMaybeMessage<::user_data_auth::GetArcDiskFeaturesRequest>(Arena*);
+template<> ::user_data_auth::GetAuthFactorExtendedInfoReply* Arena::CreateMaybeMessage<::user_data_auth::GetAuthFactorExtendedInfoReply>(Arena*);
+template<> ::user_data_auth::GetAuthFactorExtendedInfoRequest* Arena::CreateMaybeMessage<::user_data_auth::GetAuthFactorExtendedInfoRequest>(Arena*);
 template<> ::user_data_auth::GetAuthSessionStatusReply* Arena::CreateMaybeMessage<::user_data_auth::GetAuthSessionStatusReply>(Arena*);
 template<> ::user_data_auth::GetAuthSessionStatusRequest* Arena::CreateMaybeMessage<::user_data_auth::GetAuthSessionStatusRequest>(Arena*);
 template<> ::user_data_auth::GetCurrentSpaceForArcGidReply* Arena::CreateMaybeMessage<::user_data_auth::GetCurrentSpaceForArcGidReply>(Arena*);
@@ -606,6 +620,8 @@ template<> ::user_data_auth::PreparePersistentVaultReply* Arena::CreateMaybeMess
 template<> ::user_data_auth::PreparePersistentVaultRequest* Arena::CreateMaybeMessage<::user_data_auth::PreparePersistentVaultRequest>(Arena*);
 template<> ::user_data_auth::PrepareVaultForMigrationReply* Arena::CreateMaybeMessage<::user_data_auth::PrepareVaultForMigrationReply>(Arena*);
 template<> ::user_data_auth::PrepareVaultForMigrationRequest* Arena::CreateMaybeMessage<::user_data_auth::PrepareVaultForMigrationRequest>(Arena*);
+template<> ::user_data_auth::RecoveryExtendedInfoReply* Arena::CreateMaybeMessage<::user_data_auth::RecoveryExtendedInfoReply>(Arena*);
+template<> ::user_data_auth::RecoveryExtendedInfoRequest* Arena::CreateMaybeMessage<::user_data_auth::RecoveryExtendedInfoRequest>(Arena*);
 template<> ::user_data_auth::RemoveAuthFactorReply* Arena::CreateMaybeMessage<::user_data_auth::RemoveAuthFactorReply>(Arena*);
 template<> ::user_data_auth::RemoveAuthFactorRequest* Arena::CreateMaybeMessage<::user_data_auth::RemoveAuthFactorRequest>(Arena*);
 template<> ::user_data_auth::RemoveFirmwareManagementParametersReply* Arena::CreateMaybeMessage<::user_data_auth::RemoveFirmwareManagementParametersReply>(Arena*);
@@ -20494,6 +20510,668 @@ class ListAuthFactorsReply final :
 };
 // -------------------------------------------------------------------
 
+class RecoveryExtendedInfoRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.RecoveryExtendedInfoRequest) */ {
+ public:
+  inline RecoveryExtendedInfoRequest() : RecoveryExtendedInfoRequest(nullptr) {}
+  ~RecoveryExtendedInfoRequest() override;
+  explicit PROTOBUF_CONSTEXPR RecoveryExtendedInfoRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RecoveryExtendedInfoRequest(const RecoveryExtendedInfoRequest& from);
+  RecoveryExtendedInfoRequest(RecoveryExtendedInfoRequest&& from) noexcept
+    : RecoveryExtendedInfoRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline RecoveryExtendedInfoRequest& operator=(const RecoveryExtendedInfoRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RecoveryExtendedInfoRequest& operator=(RecoveryExtendedInfoRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const RecoveryExtendedInfoRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RecoveryExtendedInfoRequest* internal_default_instance() {
+    return reinterpret_cast<const RecoveryExtendedInfoRequest*>(
+               &_RecoveryExtendedInfoRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    138;
+
+  friend void swap(RecoveryExtendedInfoRequest& a, RecoveryExtendedInfoRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(RecoveryExtendedInfoRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RecoveryExtendedInfoRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RecoveryExtendedInfoRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RecoveryExtendedInfoRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const RecoveryExtendedInfoRequest& from);
+  void MergeFrom(const RecoveryExtendedInfoRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RecoveryExtendedInfoRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.RecoveryExtendedInfoRequest";
+  }
+  protected:
+  explicit RecoveryExtendedInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMaxDepthFieldNumber = 1,
+  };
+  // uint32 max_depth = 1;
+  void clear_max_depth();
+  uint32_t max_depth() const;
+  void set_max_depth(uint32_t value);
+  private:
+  uint32_t _internal_max_depth() const;
+  void _internal_set_max_depth(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:user_data_auth.RecoveryExtendedInfoRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  uint32_t max_depth_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_UserDataAuth_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RecoveryExtendedInfoReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.RecoveryExtendedInfoReply) */ {
+ public:
+  inline RecoveryExtendedInfoReply() : RecoveryExtendedInfoReply(nullptr) {}
+  ~RecoveryExtendedInfoReply() override;
+  explicit PROTOBUF_CONSTEXPR RecoveryExtendedInfoReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RecoveryExtendedInfoReply(const RecoveryExtendedInfoReply& from);
+  RecoveryExtendedInfoReply(RecoveryExtendedInfoReply&& from) noexcept
+    : RecoveryExtendedInfoReply() {
+    *this = ::std::move(from);
+  }
+
+  inline RecoveryExtendedInfoReply& operator=(const RecoveryExtendedInfoReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RecoveryExtendedInfoReply& operator=(RecoveryExtendedInfoReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const RecoveryExtendedInfoReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RecoveryExtendedInfoReply* internal_default_instance() {
+    return reinterpret_cast<const RecoveryExtendedInfoReply*>(
+               &_RecoveryExtendedInfoReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    139;
+
+  friend void swap(RecoveryExtendedInfoReply& a, RecoveryExtendedInfoReply& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(RecoveryExtendedInfoReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RecoveryExtendedInfoReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RecoveryExtendedInfoReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RecoveryExtendedInfoReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const RecoveryExtendedInfoReply& from);
+  void MergeFrom(const RecoveryExtendedInfoReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RecoveryExtendedInfoReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.RecoveryExtendedInfoReply";
+  }
+  protected:
+  explicit RecoveryExtendedInfoReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kRecoveryIdsFieldNumber = 1,
+  };
+  // repeated string recovery_ids = 1;
+  int recovery_ids_size() const;
+  private:
+  int _internal_recovery_ids_size() const;
+  public:
+  void clear_recovery_ids();
+  const std::string& recovery_ids(int index) const;
+  std::string* mutable_recovery_ids(int index);
+  void set_recovery_ids(int index, const std::string& value);
+  void set_recovery_ids(int index, std::string&& value);
+  void set_recovery_ids(int index, const char* value);
+  void set_recovery_ids(int index, const char* value, size_t size);
+  std::string* add_recovery_ids();
+  void add_recovery_ids(const std::string& value);
+  void add_recovery_ids(std::string&& value);
+  void add_recovery_ids(const char* value);
+  void add_recovery_ids(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& recovery_ids() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_recovery_ids();
+  private:
+  const std::string& _internal_recovery_ids(int index) const;
+  std::string* _internal_add_recovery_ids();
+  public:
+
+  // @@protoc_insertion_point(class_scope:user_data_auth.RecoveryExtendedInfoReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> recovery_ids_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_UserDataAuth_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetAuthFactorExtendedInfoRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.GetAuthFactorExtendedInfoRequest) */ {
+ public:
+  inline GetAuthFactorExtendedInfoRequest() : GetAuthFactorExtendedInfoRequest(nullptr) {}
+  ~GetAuthFactorExtendedInfoRequest() override;
+  explicit PROTOBUF_CONSTEXPR GetAuthFactorExtendedInfoRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetAuthFactorExtendedInfoRequest(const GetAuthFactorExtendedInfoRequest& from);
+  GetAuthFactorExtendedInfoRequest(GetAuthFactorExtendedInfoRequest&& from) noexcept
+    : GetAuthFactorExtendedInfoRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetAuthFactorExtendedInfoRequest& operator=(const GetAuthFactorExtendedInfoRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetAuthFactorExtendedInfoRequest& operator=(GetAuthFactorExtendedInfoRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetAuthFactorExtendedInfoRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  enum ExtendedInfoCase {
+    kRecoveryInfoRequest = 3,
+    EXTENDED_INFO_NOT_SET = 0,
+  };
+
+  static inline const GetAuthFactorExtendedInfoRequest* internal_default_instance() {
+    return reinterpret_cast<const GetAuthFactorExtendedInfoRequest*>(
+               &_GetAuthFactorExtendedInfoRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    140;
+
+  friend void swap(GetAuthFactorExtendedInfoRequest& a, GetAuthFactorExtendedInfoRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(GetAuthFactorExtendedInfoRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetAuthFactorExtendedInfoRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetAuthFactorExtendedInfoRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetAuthFactorExtendedInfoRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetAuthFactorExtendedInfoRequest& from);
+  void MergeFrom(const GetAuthFactorExtendedInfoRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetAuthFactorExtendedInfoRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.GetAuthFactorExtendedInfoRequest";
+  }
+  protected:
+  explicit GetAuthFactorExtendedInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAuthFactorLabelFieldNumber = 2,
+    kAccountIdFieldNumber = 1,
+    kRecoveryInfoRequestFieldNumber = 3,
+  };
+  // string auth_factor_label = 2;
+  void clear_auth_factor_label();
+  const std::string& auth_factor_label() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_auth_factor_label(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_auth_factor_label();
+  PROTOBUF_NODISCARD std::string* release_auth_factor_label();
+  void set_allocated_auth_factor_label(std::string* auth_factor_label);
+  private:
+  const std::string& _internal_auth_factor_label() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_auth_factor_label(const std::string& value);
+  std::string* _internal_mutable_auth_factor_label();
+  public:
+
+  // .cryptohome.AccountIdentifier account_id = 1;
+  bool has_account_id() const;
+  private:
+  bool _internal_has_account_id() const;
+  public:
+  void clear_account_id();
+  const ::cryptohome::AccountIdentifier& account_id() const;
+  PROTOBUF_NODISCARD ::cryptohome::AccountIdentifier* release_account_id();
+  ::cryptohome::AccountIdentifier* mutable_account_id();
+  void set_allocated_account_id(::cryptohome::AccountIdentifier* account_id);
+  private:
+  const ::cryptohome::AccountIdentifier& _internal_account_id() const;
+  ::cryptohome::AccountIdentifier* _internal_mutable_account_id();
+  public:
+  void unsafe_arena_set_allocated_account_id(
+      ::cryptohome::AccountIdentifier* account_id);
+  ::cryptohome::AccountIdentifier* unsafe_arena_release_account_id();
+
+  // .user_data_auth.RecoveryExtendedInfoRequest recovery_info_request = 3;
+  bool has_recovery_info_request() const;
+  private:
+  bool _internal_has_recovery_info_request() const;
+  public:
+  void clear_recovery_info_request();
+  const ::user_data_auth::RecoveryExtendedInfoRequest& recovery_info_request() const;
+  PROTOBUF_NODISCARD ::user_data_auth::RecoveryExtendedInfoRequest* release_recovery_info_request();
+  ::user_data_auth::RecoveryExtendedInfoRequest* mutable_recovery_info_request();
+  void set_allocated_recovery_info_request(::user_data_auth::RecoveryExtendedInfoRequest* recovery_info_request);
+  private:
+  const ::user_data_auth::RecoveryExtendedInfoRequest& _internal_recovery_info_request() const;
+  ::user_data_auth::RecoveryExtendedInfoRequest* _internal_mutable_recovery_info_request();
+  public:
+  void unsafe_arena_set_allocated_recovery_info_request(
+      ::user_data_auth::RecoveryExtendedInfoRequest* recovery_info_request);
+  ::user_data_auth::RecoveryExtendedInfoRequest* unsafe_arena_release_recovery_info_request();
+
+  void clear_extended_info();
+  ExtendedInfoCase extended_info_case() const;
+  // @@protoc_insertion_point(class_scope:user_data_auth.GetAuthFactorExtendedInfoRequest)
+ private:
+  class _Internal;
+  void set_has_recovery_info_request();
+
+  inline bool has_extended_info() const;
+  inline void clear_has_extended_info();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr auth_factor_label_;
+  ::cryptohome::AccountIdentifier* account_id_;
+  union ExtendedInfoUnion {
+    constexpr ExtendedInfoUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::user_data_auth::RecoveryExtendedInfoRequest* recovery_info_request_;
+  } extended_info_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint32_t _oneof_case_[1];
+
+  friend struct ::TableStruct_UserDataAuth_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetAuthFactorExtendedInfoReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.GetAuthFactorExtendedInfoReply) */ {
+ public:
+  inline GetAuthFactorExtendedInfoReply() : GetAuthFactorExtendedInfoReply(nullptr) {}
+  ~GetAuthFactorExtendedInfoReply() override;
+  explicit PROTOBUF_CONSTEXPR GetAuthFactorExtendedInfoReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetAuthFactorExtendedInfoReply(const GetAuthFactorExtendedInfoReply& from);
+  GetAuthFactorExtendedInfoReply(GetAuthFactorExtendedInfoReply&& from) noexcept
+    : GetAuthFactorExtendedInfoReply() {
+    *this = ::std::move(from);
+  }
+
+  inline GetAuthFactorExtendedInfoReply& operator=(const GetAuthFactorExtendedInfoReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetAuthFactorExtendedInfoReply& operator=(GetAuthFactorExtendedInfoReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetAuthFactorExtendedInfoReply& default_instance() {
+    return *internal_default_instance();
+  }
+  enum ExtendedInfoCase {
+    kRecoveryInfoReply = 4,
+    EXTENDED_INFO_NOT_SET = 0,
+  };
+
+  static inline const GetAuthFactorExtendedInfoReply* internal_default_instance() {
+    return reinterpret_cast<const GetAuthFactorExtendedInfoReply*>(
+               &_GetAuthFactorExtendedInfoReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    141;
+
+  friend void swap(GetAuthFactorExtendedInfoReply& a, GetAuthFactorExtendedInfoReply& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(GetAuthFactorExtendedInfoReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetAuthFactorExtendedInfoReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetAuthFactorExtendedInfoReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetAuthFactorExtendedInfoReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetAuthFactorExtendedInfoReply& from);
+  void MergeFrom(const GetAuthFactorExtendedInfoReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetAuthFactorExtendedInfoReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.GetAuthFactorExtendedInfoReply";
+  }
+  protected:
+  explicit GetAuthFactorExtendedInfoReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kErrorInfoFieldNumber = 2,
+    kAuthFactorFieldNumber = 3,
+    kErrorFieldNumber = 1,
+    kRecoveryInfoReplyFieldNumber = 4,
+  };
+  // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+  bool has_error_info() const;
+  private:
+  bool _internal_has_error_info() const;
+  public:
+  void clear_error_info();
+  const ::user_data_auth::CryptohomeErrorInfo& error_info() const;
+  PROTOBUF_NODISCARD ::user_data_auth::CryptohomeErrorInfo* release_error_info();
+  ::user_data_auth::CryptohomeErrorInfo* mutable_error_info();
+  void set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info);
+  private:
+  const ::user_data_auth::CryptohomeErrorInfo& _internal_error_info() const;
+  ::user_data_auth::CryptohomeErrorInfo* _internal_mutable_error_info();
+  public:
+  void unsafe_arena_set_allocated_error_info(
+      ::user_data_auth::CryptohomeErrorInfo* error_info);
+  ::user_data_auth::CryptohomeErrorInfo* unsafe_arena_release_error_info();
+
+  // .user_data_auth.AuthFactor auth_factor = 3;
+  bool has_auth_factor() const;
+  private:
+  bool _internal_has_auth_factor() const;
+  public:
+  void clear_auth_factor();
+  const ::user_data_auth::AuthFactor& auth_factor() const;
+  PROTOBUF_NODISCARD ::user_data_auth::AuthFactor* release_auth_factor();
+  ::user_data_auth::AuthFactor* mutable_auth_factor();
+  void set_allocated_auth_factor(::user_data_auth::AuthFactor* auth_factor);
+  private:
+  const ::user_data_auth::AuthFactor& _internal_auth_factor() const;
+  ::user_data_auth::AuthFactor* _internal_mutable_auth_factor();
+  public:
+  void unsafe_arena_set_allocated_auth_factor(
+      ::user_data_auth::AuthFactor* auth_factor);
+  ::user_data_auth::AuthFactor* unsafe_arena_release_auth_factor();
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  void clear_error();
+  ::user_data_auth::CryptohomeErrorCode error() const;
+  void set_error(::user_data_auth::CryptohomeErrorCode value);
+  private:
+  ::user_data_auth::CryptohomeErrorCode _internal_error() const;
+  void _internal_set_error(::user_data_auth::CryptohomeErrorCode value);
+  public:
+
+  // .user_data_auth.RecoveryExtendedInfoReply recovery_info_reply = 4;
+  bool has_recovery_info_reply() const;
+  private:
+  bool _internal_has_recovery_info_reply() const;
+  public:
+  void clear_recovery_info_reply();
+  const ::user_data_auth::RecoveryExtendedInfoReply& recovery_info_reply() const;
+  PROTOBUF_NODISCARD ::user_data_auth::RecoveryExtendedInfoReply* release_recovery_info_reply();
+  ::user_data_auth::RecoveryExtendedInfoReply* mutable_recovery_info_reply();
+  void set_allocated_recovery_info_reply(::user_data_auth::RecoveryExtendedInfoReply* recovery_info_reply);
+  private:
+  const ::user_data_auth::RecoveryExtendedInfoReply& _internal_recovery_info_reply() const;
+  ::user_data_auth::RecoveryExtendedInfoReply* _internal_mutable_recovery_info_reply();
+  public:
+  void unsafe_arena_set_allocated_recovery_info_reply(
+      ::user_data_auth::RecoveryExtendedInfoReply* recovery_info_reply);
+  ::user_data_auth::RecoveryExtendedInfoReply* unsafe_arena_release_recovery_info_reply();
+
+  void clear_extended_info();
+  ExtendedInfoCase extended_info_case() const;
+  // @@protoc_insertion_point(class_scope:user_data_auth.GetAuthFactorExtendedInfoReply)
+ private:
+  class _Internal;
+  void set_has_recovery_info_reply();
+
+  inline bool has_extended_info() const;
+  inline void clear_has_extended_info();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::user_data_auth::CryptohomeErrorInfo* error_info_;
+  ::user_data_auth::AuthFactor* auth_factor_;
+  int error_;
+  union ExtendedInfoUnion {
+    constexpr ExtendedInfoUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::user_data_auth::RecoveryExtendedInfoReply* recovery_info_reply_;
+  } extended_info_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint32_t _oneof_case_[1];
+
+  friend struct ::TableStruct_UserDataAuth_2eproto;
+};
+// -------------------------------------------------------------------
+
 class GetRecoveryRequestRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.GetRecoveryRequestRequest) */ {
  public:
@@ -20533,7 +21211,7 @@ class GetRecoveryRequestRequest final :
                &_GetRecoveryRequestRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    138;
+    142;
 
   friend void swap(GetRecoveryRequestRequest& a, GetRecoveryRequestRequest& b) {
     a.Swap(&b);
@@ -20782,7 +21460,7 @@ class GetRecoveryRequestReply final :
                &_GetRecoveryRequestReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    139;
+    143;
 
   friend void swap(GetRecoveryRequestReply& a, GetRecoveryRequestReply& b) {
     a.Swap(&b);
@@ -20945,7 +21623,7 @@ class PrepareAuthFactorRequest final :
                &_PrepareAuthFactorRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    140;
+    144;
 
   friend void swap(PrepareAuthFactorRequest& a, PrepareAuthFactorRequest& b) {
     a.Swap(&b);
@@ -21099,7 +21777,7 @@ class PrepareAuthFactorReply final :
                &_PrepareAuthFactorReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    141;
+    145;
 
   friend void swap(PrepareAuthFactorReply& a, PrepareAuthFactorReply& b) {
     a.Swap(&b);
@@ -21246,7 +21924,7 @@ class TerminateAuthFactorRequest final :
                &_TerminateAuthFactorRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    142;
+    146;
 
   friend void swap(TerminateAuthFactorRequest& a, TerminateAuthFactorRequest& b) {
     a.Swap(&b);
@@ -21389,7 +22067,7 @@ class TerminateAuthFactorReply final :
                &_TerminateAuthFactorReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    143;
+    147;
 
   friend void swap(TerminateAuthFactorReply& a, TerminateAuthFactorReply& b) {
     a.Swap(&b);
@@ -21541,7 +22219,7 @@ class AuthScanResult final :
                &_AuthScanResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    144;
+    148;
 
   friend void swap(AuthScanResult& a, AuthScanResult& b) {
     a.Swap(&b);
@@ -21684,7 +22362,7 @@ class FingerprintEnrollmentProgress final :
                &_FingerprintEnrollmentProgress_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    145;
+    149;
 
   friend void swap(FingerprintEnrollmentProgress& a, FingerprintEnrollmentProgress& b) {
     a.Swap(&b);
@@ -21816,7 +22494,7 @@ class AuthEnrollmentProgress final :
                &_AuthEnrollmentProgress_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    146;
+    150;
 
   friend void swap(AuthEnrollmentProgress& a, AuthEnrollmentProgress& b) {
     a.Swap(&b);
@@ -33843,6 +34521,613 @@ ListAuthFactorsReply::mutable_supported_auth_factors() {
 
 // -------------------------------------------------------------------
 
+// RecoveryExtendedInfoRequest
+
+// uint32 max_depth = 1;
+inline void RecoveryExtendedInfoRequest::clear_max_depth() {
+  max_depth_ = 0u;
+}
+inline uint32_t RecoveryExtendedInfoRequest::_internal_max_depth() const {
+  return max_depth_;
+}
+inline uint32_t RecoveryExtendedInfoRequest::max_depth() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.RecoveryExtendedInfoRequest.max_depth)
+  return _internal_max_depth();
+}
+inline void RecoveryExtendedInfoRequest::_internal_set_max_depth(uint32_t value) {
+  
+  max_depth_ = value;
+}
+inline void RecoveryExtendedInfoRequest::set_max_depth(uint32_t value) {
+  _internal_set_max_depth(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.RecoveryExtendedInfoRequest.max_depth)
+}
+
+// -------------------------------------------------------------------
+
+// RecoveryExtendedInfoReply
+
+// repeated string recovery_ids = 1;
+inline int RecoveryExtendedInfoReply::_internal_recovery_ids_size() const {
+  return recovery_ids_.size();
+}
+inline int RecoveryExtendedInfoReply::recovery_ids_size() const {
+  return _internal_recovery_ids_size();
+}
+inline void RecoveryExtendedInfoReply::clear_recovery_ids() {
+  recovery_ids_.Clear();
+}
+inline std::string* RecoveryExtendedInfoReply::add_recovery_ids() {
+  std::string* _s = _internal_add_recovery_ids();
+  // @@protoc_insertion_point(field_add_mutable:user_data_auth.RecoveryExtendedInfoReply.recovery_ids)
+  return _s;
+}
+inline const std::string& RecoveryExtendedInfoReply::_internal_recovery_ids(int index) const {
+  return recovery_ids_.Get(index);
+}
+inline const std::string& RecoveryExtendedInfoReply::recovery_ids(int index) const {
+  // @@protoc_insertion_point(field_get:user_data_auth.RecoveryExtendedInfoReply.recovery_ids)
+  return _internal_recovery_ids(index);
+}
+inline std::string* RecoveryExtendedInfoReply::mutable_recovery_ids(int index) {
+  // @@protoc_insertion_point(field_mutable:user_data_auth.RecoveryExtendedInfoReply.recovery_ids)
+  return recovery_ids_.Mutable(index);
+}
+inline void RecoveryExtendedInfoReply::set_recovery_ids(int index, const std::string& value) {
+  recovery_ids_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.RecoveryExtendedInfoReply.recovery_ids)
+}
+inline void RecoveryExtendedInfoReply::set_recovery_ids(int index, std::string&& value) {
+  recovery_ids_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:user_data_auth.RecoveryExtendedInfoReply.recovery_ids)
+}
+inline void RecoveryExtendedInfoReply::set_recovery_ids(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  recovery_ids_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:user_data_auth.RecoveryExtendedInfoReply.recovery_ids)
+}
+inline void RecoveryExtendedInfoReply::set_recovery_ids(int index, const char* value, size_t size) {
+  recovery_ids_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:user_data_auth.RecoveryExtendedInfoReply.recovery_ids)
+}
+inline std::string* RecoveryExtendedInfoReply::_internal_add_recovery_ids() {
+  return recovery_ids_.Add();
+}
+inline void RecoveryExtendedInfoReply::add_recovery_ids(const std::string& value) {
+  recovery_ids_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:user_data_auth.RecoveryExtendedInfoReply.recovery_ids)
+}
+inline void RecoveryExtendedInfoReply::add_recovery_ids(std::string&& value) {
+  recovery_ids_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:user_data_auth.RecoveryExtendedInfoReply.recovery_ids)
+}
+inline void RecoveryExtendedInfoReply::add_recovery_ids(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  recovery_ids_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:user_data_auth.RecoveryExtendedInfoReply.recovery_ids)
+}
+inline void RecoveryExtendedInfoReply::add_recovery_ids(const char* value, size_t size) {
+  recovery_ids_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:user_data_auth.RecoveryExtendedInfoReply.recovery_ids)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+RecoveryExtendedInfoReply::recovery_ids() const {
+  // @@protoc_insertion_point(field_list:user_data_auth.RecoveryExtendedInfoReply.recovery_ids)
+  return recovery_ids_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+RecoveryExtendedInfoReply::mutable_recovery_ids() {
+  // @@protoc_insertion_point(field_mutable_list:user_data_auth.RecoveryExtendedInfoReply.recovery_ids)
+  return &recovery_ids_;
+}
+
+// -------------------------------------------------------------------
+
+// GetAuthFactorExtendedInfoRequest
+
+// .cryptohome.AccountIdentifier account_id = 1;
+inline bool GetAuthFactorExtendedInfoRequest::_internal_has_account_id() const {
+  return this != internal_default_instance() && account_id_ != nullptr;
+}
+inline bool GetAuthFactorExtendedInfoRequest::has_account_id() const {
+  return _internal_has_account_id();
+}
+inline const ::cryptohome::AccountIdentifier& GetAuthFactorExtendedInfoRequest::_internal_account_id() const {
+  const ::cryptohome::AccountIdentifier* p = account_id_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cryptohome::AccountIdentifier&>(
+      ::cryptohome::_AccountIdentifier_default_instance_);
+}
+inline const ::cryptohome::AccountIdentifier& GetAuthFactorExtendedInfoRequest::account_id() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.GetAuthFactorExtendedInfoRequest.account_id)
+  return _internal_account_id();
+}
+inline void GetAuthFactorExtendedInfoRequest::unsafe_arena_set_allocated_account_id(
+    ::cryptohome::AccountIdentifier* account_id) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(account_id_);
+  }
+  account_id_ = account_id;
+  if (account_id) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.GetAuthFactorExtendedInfoRequest.account_id)
+}
+inline ::cryptohome::AccountIdentifier* GetAuthFactorExtendedInfoRequest::release_account_id() {
+  
+  ::cryptohome::AccountIdentifier* temp = account_id_;
+  account_id_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::cryptohome::AccountIdentifier* GetAuthFactorExtendedInfoRequest::unsafe_arena_release_account_id() {
+  // @@protoc_insertion_point(field_release:user_data_auth.GetAuthFactorExtendedInfoRequest.account_id)
+  
+  ::cryptohome::AccountIdentifier* temp = account_id_;
+  account_id_ = nullptr;
+  return temp;
+}
+inline ::cryptohome::AccountIdentifier* GetAuthFactorExtendedInfoRequest::_internal_mutable_account_id() {
+  
+  if (account_id_ == nullptr) {
+    auto* p = CreateMaybeMessage<::cryptohome::AccountIdentifier>(GetArenaForAllocation());
+    account_id_ = p;
+  }
+  return account_id_;
+}
+inline ::cryptohome::AccountIdentifier* GetAuthFactorExtendedInfoRequest::mutable_account_id() {
+  ::cryptohome::AccountIdentifier* _msg = _internal_mutable_account_id();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.GetAuthFactorExtendedInfoRequest.account_id)
+  return _msg;
+}
+inline void GetAuthFactorExtendedInfoRequest::set_allocated_account_id(::cryptohome::AccountIdentifier* account_id) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(account_id_);
+  }
+  if (account_id) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(account_id));
+    if (message_arena != submessage_arena) {
+      account_id = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, account_id, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  account_id_ = account_id;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.GetAuthFactorExtendedInfoRequest.account_id)
+}
+
+// string auth_factor_label = 2;
+inline void GetAuthFactorExtendedInfoRequest::clear_auth_factor_label() {
+  auth_factor_label_.ClearToEmpty();
+}
+inline const std::string& GetAuthFactorExtendedInfoRequest::auth_factor_label() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.GetAuthFactorExtendedInfoRequest.auth_factor_label)
+  return _internal_auth_factor_label();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetAuthFactorExtendedInfoRequest::set_auth_factor_label(ArgT0&& arg0, ArgT... args) {
+ 
+ auth_factor_label_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.GetAuthFactorExtendedInfoRequest.auth_factor_label)
+}
+inline std::string* GetAuthFactorExtendedInfoRequest::mutable_auth_factor_label() {
+  std::string* _s = _internal_mutable_auth_factor_label();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.GetAuthFactorExtendedInfoRequest.auth_factor_label)
+  return _s;
+}
+inline const std::string& GetAuthFactorExtendedInfoRequest::_internal_auth_factor_label() const {
+  return auth_factor_label_.Get();
+}
+inline void GetAuthFactorExtendedInfoRequest::_internal_set_auth_factor_label(const std::string& value) {
+  
+  auth_factor_label_.Set(value, GetArenaForAllocation());
+}
+inline std::string* GetAuthFactorExtendedInfoRequest::_internal_mutable_auth_factor_label() {
+  
+  return auth_factor_label_.Mutable(GetArenaForAllocation());
+}
+inline std::string* GetAuthFactorExtendedInfoRequest::release_auth_factor_label() {
+  // @@protoc_insertion_point(field_release:user_data_auth.GetAuthFactorExtendedInfoRequest.auth_factor_label)
+  return auth_factor_label_.Release();
+}
+inline void GetAuthFactorExtendedInfoRequest::set_allocated_auth_factor_label(std::string* auth_factor_label) {
+  if (auth_factor_label != nullptr) {
+    
+  } else {
+    
+  }
+  auth_factor_label_.SetAllocated(auth_factor_label, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (auth_factor_label_.IsDefault()) {
+    auth_factor_label_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.GetAuthFactorExtendedInfoRequest.auth_factor_label)
+}
+
+// .user_data_auth.RecoveryExtendedInfoRequest recovery_info_request = 3;
+inline bool GetAuthFactorExtendedInfoRequest::_internal_has_recovery_info_request() const {
+  return extended_info_case() == kRecoveryInfoRequest;
+}
+inline bool GetAuthFactorExtendedInfoRequest::has_recovery_info_request() const {
+  return _internal_has_recovery_info_request();
+}
+inline void GetAuthFactorExtendedInfoRequest::set_has_recovery_info_request() {
+  _oneof_case_[0] = kRecoveryInfoRequest;
+}
+inline void GetAuthFactorExtendedInfoRequest::clear_recovery_info_request() {
+  if (_internal_has_recovery_info_request()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete extended_info_.recovery_info_request_;
+    }
+    clear_has_extended_info();
+  }
+}
+inline ::user_data_auth::RecoveryExtendedInfoRequest* GetAuthFactorExtendedInfoRequest::release_recovery_info_request() {
+  // @@protoc_insertion_point(field_release:user_data_auth.GetAuthFactorExtendedInfoRequest.recovery_info_request)
+  if (_internal_has_recovery_info_request()) {
+    clear_has_extended_info();
+    ::user_data_auth::RecoveryExtendedInfoRequest* temp = extended_info_.recovery_info_request_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    extended_info_.recovery_info_request_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::user_data_auth::RecoveryExtendedInfoRequest& GetAuthFactorExtendedInfoRequest::_internal_recovery_info_request() const {
+  return _internal_has_recovery_info_request()
+      ? *extended_info_.recovery_info_request_
+      : reinterpret_cast< ::user_data_auth::RecoveryExtendedInfoRequest&>(::user_data_auth::_RecoveryExtendedInfoRequest_default_instance_);
+}
+inline const ::user_data_auth::RecoveryExtendedInfoRequest& GetAuthFactorExtendedInfoRequest::recovery_info_request() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.GetAuthFactorExtendedInfoRequest.recovery_info_request)
+  return _internal_recovery_info_request();
+}
+inline ::user_data_auth::RecoveryExtendedInfoRequest* GetAuthFactorExtendedInfoRequest::unsafe_arena_release_recovery_info_request() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:user_data_auth.GetAuthFactorExtendedInfoRequest.recovery_info_request)
+  if (_internal_has_recovery_info_request()) {
+    clear_has_extended_info();
+    ::user_data_auth::RecoveryExtendedInfoRequest* temp = extended_info_.recovery_info_request_;
+    extended_info_.recovery_info_request_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void GetAuthFactorExtendedInfoRequest::unsafe_arena_set_allocated_recovery_info_request(::user_data_auth::RecoveryExtendedInfoRequest* recovery_info_request) {
+  clear_extended_info();
+  if (recovery_info_request) {
+    set_has_recovery_info_request();
+    extended_info_.recovery_info_request_ = recovery_info_request;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.GetAuthFactorExtendedInfoRequest.recovery_info_request)
+}
+inline ::user_data_auth::RecoveryExtendedInfoRequest* GetAuthFactorExtendedInfoRequest::_internal_mutable_recovery_info_request() {
+  if (!_internal_has_recovery_info_request()) {
+    clear_extended_info();
+    set_has_recovery_info_request();
+    extended_info_.recovery_info_request_ = CreateMaybeMessage< ::user_data_auth::RecoveryExtendedInfoRequest >(GetArenaForAllocation());
+  }
+  return extended_info_.recovery_info_request_;
+}
+inline ::user_data_auth::RecoveryExtendedInfoRequest* GetAuthFactorExtendedInfoRequest::mutable_recovery_info_request() {
+  ::user_data_auth::RecoveryExtendedInfoRequest* _msg = _internal_mutable_recovery_info_request();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.GetAuthFactorExtendedInfoRequest.recovery_info_request)
+  return _msg;
+}
+
+inline bool GetAuthFactorExtendedInfoRequest::has_extended_info() const {
+  return extended_info_case() != EXTENDED_INFO_NOT_SET;
+}
+inline void GetAuthFactorExtendedInfoRequest::clear_has_extended_info() {
+  _oneof_case_[0] = EXTENDED_INFO_NOT_SET;
+}
+inline GetAuthFactorExtendedInfoRequest::ExtendedInfoCase GetAuthFactorExtendedInfoRequest::extended_info_case() const {
+  return GetAuthFactorExtendedInfoRequest::ExtendedInfoCase(_oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
+// GetAuthFactorExtendedInfoReply
+
+// .user_data_auth.CryptohomeErrorCode error = 1;
+inline void GetAuthFactorExtendedInfoReply::clear_error() {
+  error_ = 0;
+}
+inline ::user_data_auth::CryptohomeErrorCode GetAuthFactorExtendedInfoReply::_internal_error() const {
+  return static_cast< ::user_data_auth::CryptohomeErrorCode >(error_);
+}
+inline ::user_data_auth::CryptohomeErrorCode GetAuthFactorExtendedInfoReply::error() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.GetAuthFactorExtendedInfoReply.error)
+  return _internal_error();
+}
+inline void GetAuthFactorExtendedInfoReply::_internal_set_error(::user_data_auth::CryptohomeErrorCode value) {
+  
+  error_ = value;
+}
+inline void GetAuthFactorExtendedInfoReply::set_error(::user_data_auth::CryptohomeErrorCode value) {
+  _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.GetAuthFactorExtendedInfoReply.error)
+}
+
+// .user_data_auth.CryptohomeErrorInfo error_info = 2;
+inline bool GetAuthFactorExtendedInfoReply::_internal_has_error_info() const {
+  return this != internal_default_instance() && error_info_ != nullptr;
+}
+inline bool GetAuthFactorExtendedInfoReply::has_error_info() const {
+  return _internal_has_error_info();
+}
+inline void GetAuthFactorExtendedInfoReply::clear_error_info() {
+  if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
+    delete error_info_;
+  }
+  error_info_ = nullptr;
+}
+inline const ::user_data_auth::CryptohomeErrorInfo& GetAuthFactorExtendedInfoReply::_internal_error_info() const {
+  const ::user_data_auth::CryptohomeErrorInfo* p = error_info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::CryptohomeErrorInfo&>(
+      ::user_data_auth::_CryptohomeErrorInfo_default_instance_);
+}
+inline const ::user_data_auth::CryptohomeErrorInfo& GetAuthFactorExtendedInfoReply::error_info() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.GetAuthFactorExtendedInfoReply.error_info)
+  return _internal_error_info();
+}
+inline void GetAuthFactorExtendedInfoReply::unsafe_arena_set_allocated_error_info(
+    ::user_data_auth::CryptohomeErrorInfo* error_info) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(error_info_);
+  }
+  error_info_ = error_info;
+  if (error_info) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.GetAuthFactorExtendedInfoReply.error_info)
+}
+inline ::user_data_auth::CryptohomeErrorInfo* GetAuthFactorExtendedInfoReply::release_error_info() {
+  
+  ::user_data_auth::CryptohomeErrorInfo* temp = error_info_;
+  error_info_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* GetAuthFactorExtendedInfoReply::unsafe_arena_release_error_info() {
+  // @@protoc_insertion_point(field_release:user_data_auth.GetAuthFactorExtendedInfoReply.error_info)
+  
+  ::user_data_auth::CryptohomeErrorInfo* temp = error_info_;
+  error_info_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* GetAuthFactorExtendedInfoReply::_internal_mutable_error_info() {
+  
+  if (error_info_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::CryptohomeErrorInfo>(GetArenaForAllocation());
+    error_info_ = p;
+  }
+  return error_info_;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* GetAuthFactorExtendedInfoReply::mutable_error_info() {
+  ::user_data_auth::CryptohomeErrorInfo* _msg = _internal_mutable_error_info();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.GetAuthFactorExtendedInfoReply.error_info)
+  return _msg;
+}
+inline void GetAuthFactorExtendedInfoReply::set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete error_info_;
+  }
+  if (error_info) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(error_info);
+    if (message_arena != submessage_arena) {
+      error_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, error_info, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  error_info_ = error_info;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.GetAuthFactorExtendedInfoReply.error_info)
+}
+
+// .user_data_auth.AuthFactor auth_factor = 3;
+inline bool GetAuthFactorExtendedInfoReply::_internal_has_auth_factor() const {
+  return this != internal_default_instance() && auth_factor_ != nullptr;
+}
+inline bool GetAuthFactorExtendedInfoReply::has_auth_factor() const {
+  return _internal_has_auth_factor();
+}
+inline const ::user_data_auth::AuthFactor& GetAuthFactorExtendedInfoReply::_internal_auth_factor() const {
+  const ::user_data_auth::AuthFactor* p = auth_factor_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::AuthFactor&>(
+      ::user_data_auth::_AuthFactor_default_instance_);
+}
+inline const ::user_data_auth::AuthFactor& GetAuthFactorExtendedInfoReply::auth_factor() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.GetAuthFactorExtendedInfoReply.auth_factor)
+  return _internal_auth_factor();
+}
+inline void GetAuthFactorExtendedInfoReply::unsafe_arena_set_allocated_auth_factor(
+    ::user_data_auth::AuthFactor* auth_factor) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(auth_factor_);
+  }
+  auth_factor_ = auth_factor;
+  if (auth_factor) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.GetAuthFactorExtendedInfoReply.auth_factor)
+}
+inline ::user_data_auth::AuthFactor* GetAuthFactorExtendedInfoReply::release_auth_factor() {
+  
+  ::user_data_auth::AuthFactor* temp = auth_factor_;
+  auth_factor_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::AuthFactor* GetAuthFactorExtendedInfoReply::unsafe_arena_release_auth_factor() {
+  // @@protoc_insertion_point(field_release:user_data_auth.GetAuthFactorExtendedInfoReply.auth_factor)
+  
+  ::user_data_auth::AuthFactor* temp = auth_factor_;
+  auth_factor_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::AuthFactor* GetAuthFactorExtendedInfoReply::_internal_mutable_auth_factor() {
+  
+  if (auth_factor_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::AuthFactor>(GetArenaForAllocation());
+    auth_factor_ = p;
+  }
+  return auth_factor_;
+}
+inline ::user_data_auth::AuthFactor* GetAuthFactorExtendedInfoReply::mutable_auth_factor() {
+  ::user_data_auth::AuthFactor* _msg = _internal_mutable_auth_factor();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.GetAuthFactorExtendedInfoReply.auth_factor)
+  return _msg;
+}
+inline void GetAuthFactorExtendedInfoReply::set_allocated_auth_factor(::user_data_auth::AuthFactor* auth_factor) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(auth_factor_);
+  }
+  if (auth_factor) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(auth_factor));
+    if (message_arena != submessage_arena) {
+      auth_factor = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, auth_factor, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  auth_factor_ = auth_factor;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.GetAuthFactorExtendedInfoReply.auth_factor)
+}
+
+// .user_data_auth.RecoveryExtendedInfoReply recovery_info_reply = 4;
+inline bool GetAuthFactorExtendedInfoReply::_internal_has_recovery_info_reply() const {
+  return extended_info_case() == kRecoveryInfoReply;
+}
+inline bool GetAuthFactorExtendedInfoReply::has_recovery_info_reply() const {
+  return _internal_has_recovery_info_reply();
+}
+inline void GetAuthFactorExtendedInfoReply::set_has_recovery_info_reply() {
+  _oneof_case_[0] = kRecoveryInfoReply;
+}
+inline void GetAuthFactorExtendedInfoReply::clear_recovery_info_reply() {
+  if (_internal_has_recovery_info_reply()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete extended_info_.recovery_info_reply_;
+    }
+    clear_has_extended_info();
+  }
+}
+inline ::user_data_auth::RecoveryExtendedInfoReply* GetAuthFactorExtendedInfoReply::release_recovery_info_reply() {
+  // @@protoc_insertion_point(field_release:user_data_auth.GetAuthFactorExtendedInfoReply.recovery_info_reply)
+  if (_internal_has_recovery_info_reply()) {
+    clear_has_extended_info();
+    ::user_data_auth::RecoveryExtendedInfoReply* temp = extended_info_.recovery_info_reply_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    extended_info_.recovery_info_reply_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::user_data_auth::RecoveryExtendedInfoReply& GetAuthFactorExtendedInfoReply::_internal_recovery_info_reply() const {
+  return _internal_has_recovery_info_reply()
+      ? *extended_info_.recovery_info_reply_
+      : reinterpret_cast< ::user_data_auth::RecoveryExtendedInfoReply&>(::user_data_auth::_RecoveryExtendedInfoReply_default_instance_);
+}
+inline const ::user_data_auth::RecoveryExtendedInfoReply& GetAuthFactorExtendedInfoReply::recovery_info_reply() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.GetAuthFactorExtendedInfoReply.recovery_info_reply)
+  return _internal_recovery_info_reply();
+}
+inline ::user_data_auth::RecoveryExtendedInfoReply* GetAuthFactorExtendedInfoReply::unsafe_arena_release_recovery_info_reply() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:user_data_auth.GetAuthFactorExtendedInfoReply.recovery_info_reply)
+  if (_internal_has_recovery_info_reply()) {
+    clear_has_extended_info();
+    ::user_data_auth::RecoveryExtendedInfoReply* temp = extended_info_.recovery_info_reply_;
+    extended_info_.recovery_info_reply_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void GetAuthFactorExtendedInfoReply::unsafe_arena_set_allocated_recovery_info_reply(::user_data_auth::RecoveryExtendedInfoReply* recovery_info_reply) {
+  clear_extended_info();
+  if (recovery_info_reply) {
+    set_has_recovery_info_reply();
+    extended_info_.recovery_info_reply_ = recovery_info_reply;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.GetAuthFactorExtendedInfoReply.recovery_info_reply)
+}
+inline ::user_data_auth::RecoveryExtendedInfoReply* GetAuthFactorExtendedInfoReply::_internal_mutable_recovery_info_reply() {
+  if (!_internal_has_recovery_info_reply()) {
+    clear_extended_info();
+    set_has_recovery_info_reply();
+    extended_info_.recovery_info_reply_ = CreateMaybeMessage< ::user_data_auth::RecoveryExtendedInfoReply >(GetArenaForAllocation());
+  }
+  return extended_info_.recovery_info_reply_;
+}
+inline ::user_data_auth::RecoveryExtendedInfoReply* GetAuthFactorExtendedInfoReply::mutable_recovery_info_reply() {
+  ::user_data_auth::RecoveryExtendedInfoReply* _msg = _internal_mutable_recovery_info_reply();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.GetAuthFactorExtendedInfoReply.recovery_info_reply)
+  return _msg;
+}
+
+inline bool GetAuthFactorExtendedInfoReply::has_extended_info() const {
+  return extended_info_case() != EXTENDED_INFO_NOT_SET;
+}
+inline void GetAuthFactorExtendedInfoReply::clear_has_extended_info() {
+  _oneof_case_[0] = EXTENDED_INFO_NOT_SET;
+}
+inline GetAuthFactorExtendedInfoReply::ExtendedInfoCase GetAuthFactorExtendedInfoReply::extended_info_case() const {
+  return GetAuthFactorExtendedInfoReply::ExtendedInfoCase(_oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
 // GetRecoveryRequestRequest
 
 // bytes auth_session_id = 1;
@@ -35000,6 +36285,14 @@ inline AuthEnrollmentProgress::ProgressCase AuthEnrollmentProgress::progress_cas
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

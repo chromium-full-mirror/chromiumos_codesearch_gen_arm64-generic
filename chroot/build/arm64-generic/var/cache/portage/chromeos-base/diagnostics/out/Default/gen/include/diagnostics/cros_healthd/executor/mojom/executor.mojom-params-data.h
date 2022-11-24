@@ -450,6 +450,72 @@ class  Executor_GetFingerprintInfo_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_GetFingerprintInfo_ResponseParams_Data) == 24,
               "Bad sizeof(Executor_GetFingerprintInfo_ResponseParams_Data)");
+class  Executor_SetLedColor_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t name;
+  int32_t color;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_SetLedColor_Params_Data>;
+
+  Executor_SetLedColor_Params_Data();
+  ~Executor_SetLedColor_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_SetLedColor_Params_Data) == 16,
+              "Bad sizeof(Executor_SetLedColor_Params_Data)");
+class  Executor_SetLedColor_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_SetLedColor_ResponseParams_Data>;
+
+  Executor_SetLedColor_ResponseParams_Data();
+  ~Executor_SetLedColor_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_SetLedColor_ResponseParams_Data) == 16,
+              "Bad sizeof(Executor_SetLedColor_ResponseParams_Data)");
+class  Executor_ResetLedColor_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t name;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_ResetLedColor_Params_Data>;
+
+  Executor_ResetLedColor_Params_Data();
+  ~Executor_ResetLedColor_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_ResetLedColor_Params_Data) == 16,
+              "Bad sizeof(Executor_ResetLedColor_Params_Data)");
+class  Executor_ResetLedColor_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_ResetLedColor_ResponseParams_Data>;
+
+  Executor_ResetLedColor_ResponseParams_Data();
+  ~Executor_ResetLedColor_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_ResetLedColor_ResponseParams_Data) == 16,
+              "Bad sizeof(Executor_ResetLedColor_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -1142,6 +1208,142 @@ static_assert(
 
 
 
+class Executor_SetLedColor_ParamsDataView {
+ public:
+  Executor_SetLedColor_ParamsDataView() = default;
+
+  Executor_SetLedColor_ParamsDataView(
+      internal::Executor_SetLedColor_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadName(UserType* output) const {
+    auto data_value = data_->name;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedName>(
+        data_value, output);
+  }
+  ::ash::cros_healthd::mojom::LedName name() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::LedName>(data_->name));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadColor(UserType* output) const {
+    auto data_value = data_->color;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedColor>(
+        data_value, output);
+  }
+  ::ash::cros_healthd::mojom::LedColor color() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::LedColor>(data_->color));
+  }
+ private:
+  internal::Executor_SetLedColor_Params_Data* data_ = nullptr;
+};
+
+
+
+class Executor_SetLedColor_ResponseParamsDataView {
+ public:
+  Executor_SetLedColor_ResponseParamsDataView() = default;
+
+  Executor_SetLedColor_ResponseParamsDataView(
+      internal::Executor_SetLedColor_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_SetLedColor_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class Executor_ResetLedColor_ParamsDataView {
+ public:
+  Executor_ResetLedColor_ParamsDataView() = default;
+
+  Executor_ResetLedColor_ParamsDataView(
+      internal::Executor_ResetLedColor_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadName(UserType* output) const {
+    auto data_value = data_->name;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedName>(
+        data_value, output);
+  }
+  ::ash::cros_healthd::mojom::LedName name() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::LedName>(data_->name));
+  }
+ private:
+  internal::Executor_ResetLedColor_Params_Data* data_ = nullptr;
+};
+
+
+
+class Executor_ResetLedColor_ResponseParamsDataView {
+ public:
+  Executor_ResetLedColor_ResponseParamsDataView() = default;
+
+  Executor_ResetLedColor_ResponseParamsDataView(
+      internal::Executor_ResetLedColor_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_ResetLedColor_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 
 inline void Executor_GetFanSpeed_ResponseParamsDataView::GetResultDataView(
     ExecutedProcessResultDataView* output) {
@@ -1284,6 +1486,24 @@ inline void Executor_GetFingerprintInfo_ResponseParamsDataView::GetResultDataVie
   *output = FingerprintInfoResultDataView(pointer, message_);
 }
 inline void Executor_GetFingerprintInfo_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void Executor_SetLedColor_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void Executor_ResetLedColor_ResponseParamsDataView::GetErrDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->err.Get();
   *output = mojo::StringDataView(pointer, message_);

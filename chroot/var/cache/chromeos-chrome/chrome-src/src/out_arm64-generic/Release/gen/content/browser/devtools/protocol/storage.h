@@ -948,9 +948,11 @@ public:
     };
     virtual void OverrideQuotaForOrigin(const String& in_origin, Maybe<double> in_quotaSize, std::unique_ptr<OverrideQuotaForOriginCallback> callback) = 0;
     virtual DispatchResponse TrackCacheStorageForOrigin(const String& in_origin) = 0;
+    virtual DispatchResponse TrackCacheStorageForStorageKey(const String& in_storageKey) = 0;
     virtual DispatchResponse TrackIndexedDBForOrigin(const String& in_origin) = 0;
     virtual DispatchResponse TrackIndexedDBForStorageKey(const String& in_storageKey) = 0;
     virtual DispatchResponse UntrackCacheStorageForOrigin(const String& in_origin) = 0;
+    virtual DispatchResponse UntrackCacheStorageForStorageKey(const String& in_storageKey) = 0;
     virtual DispatchResponse UntrackIndexedDBForOrigin(const String& in_origin) = 0;
     virtual DispatchResponse UntrackIndexedDBForStorageKey(const String& in_storageKey) = 0;
     class CONTENT_EXPORT GetTrustTokensCallback {
@@ -1031,8 +1033,8 @@ public:
 class CONTENT_EXPORT Frontend {
 public:
   explicit Frontend(FrontendChannel* frontend_channel) : frontend_channel_(frontend_channel) {}
-    void CacheStorageContentUpdated(const String& origin, const String& cacheName);
-    void CacheStorageListUpdated(const String& origin);
+    void CacheStorageContentUpdated(const String& origin, const String& storageKey, const String& cacheName);
+    void CacheStorageListUpdated(const String& origin, const String& storageKey);
     void IndexedDBContentUpdated(const String& origin, const String& storageKey, const String& databaseName, const String& objectStoreName);
     void IndexedDBListUpdated(const String& origin, const String& storageKey);
     void InterestGroupAccessed(double accessTime, const String& type, const String& ownerOrigin, const String& name);

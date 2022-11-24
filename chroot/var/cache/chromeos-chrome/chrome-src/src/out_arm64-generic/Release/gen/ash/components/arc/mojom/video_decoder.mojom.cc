@@ -114,8 +114,8 @@ bool Buffer::Validate(
   return Data_::Validate(data, validation_context);
 }
 VideoDecoderConfig::VideoDecoderConfig()
-    : profile(),
-      coded_size() {}
+    : profile(mojo::DefaultConstructTraits::CreateInstance<media::VideoCodecProfile>()),
+      coded_size(mojo::DefaultConstructTraits::CreateInstance<gfx::Size>()) {}
 
 VideoDecoderConfig::VideoDecoderConfig(
     media::VideoCodecProfile profile_in,

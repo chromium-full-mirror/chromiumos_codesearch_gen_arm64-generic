@@ -179,7 +179,7 @@ bool CredentialStorageOptions::Validate(
 }
 MountOptions::MountOptions()
     : share_path(),
-      resolved_host(),
+      resolved_host(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::net::IPAddress>>()),
       username(),
       workgroup(),
       password(),

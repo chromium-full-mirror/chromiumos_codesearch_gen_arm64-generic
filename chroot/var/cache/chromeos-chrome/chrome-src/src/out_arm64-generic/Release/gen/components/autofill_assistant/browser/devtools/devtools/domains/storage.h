@@ -121,6 +121,10 @@ class Domain {
       base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TrackCacheStorageForOriginResult>)> callback,
       const MessageDispatcher::ReplyStatus& reply_status,
       const base::Value& response);
+  static void HandleTrackCacheStorageForStorageKeyResponse(
+      base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TrackCacheStorageForStorageKeyResult>)> callback,
+      const MessageDispatcher::ReplyStatus& reply_status,
+      const base::Value& response);
   static void HandleTrackIndexedDBForOriginResponse(
       base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TrackIndexedDBForOriginResult>)> callback,
       const MessageDispatcher::ReplyStatus& reply_status,
@@ -131,6 +135,10 @@ class Domain {
       const base::Value& response);
   static void HandleUntrackCacheStorageForOriginResponse(
       base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<UntrackCacheStorageForOriginResult>)> callback,
+      const MessageDispatcher::ReplyStatus& reply_status,
+      const base::Value& response);
+  static void HandleUntrackCacheStorageForStorageKeyResponse(
+      base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<UntrackCacheStorageForStorageKeyResult>)> callback,
       const MessageDispatcher::ReplyStatus& reply_status,
       const base::Value& response);
   static void HandleUntrackIndexedDBForOriginResponse(
@@ -241,6 +249,9 @@ class ExperimentalDomain : public Domain {
   // Registers origin to be notified when an update occurs to its cache storage list.
   void TrackCacheStorageForOrigin(std::unique_ptr<TrackCacheStorageForOriginParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TrackCacheStorageForOriginResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TrackCacheStorageForOriginResult>)>());
 
+  // Registers storage key to be notified when an update occurs to its cache storage list.
+  void TrackCacheStorageForStorageKey(std::unique_ptr<TrackCacheStorageForStorageKeyParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TrackCacheStorageForStorageKeyResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TrackCacheStorageForStorageKeyResult>)>());
+
   // Registers origin to be notified when an update occurs to its IndexedDB.
   void TrackIndexedDBForOrigin(std::unique_ptr<TrackIndexedDBForOriginParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TrackIndexedDBForOriginResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TrackIndexedDBForOriginResult>)>());
 
@@ -249,6 +260,9 @@ class ExperimentalDomain : public Domain {
 
   // Unregisters origin from receiving notifications for cache storage.
   void UntrackCacheStorageForOrigin(std::unique_ptr<UntrackCacheStorageForOriginParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<UntrackCacheStorageForOriginResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<UntrackCacheStorageForOriginResult>)>());
+
+  // Unregisters storage key from receiving notifications for cache storage.
+  void UntrackCacheStorageForStorageKey(std::unique_ptr<UntrackCacheStorageForStorageKeyParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<UntrackCacheStorageForStorageKeyResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<UntrackCacheStorageForStorageKeyResult>)>());
 
   // Unregisters origin from receiving notifications for IndexedDB.
   void UntrackIndexedDBForOrigin(std::unique_ptr<UntrackIndexedDBForOriginParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<UntrackIndexedDBForOriginResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<UntrackIndexedDBForOriginResult>)>());

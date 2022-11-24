@@ -6,7 +6,7 @@
 
 #include "build/buildflag.h" // IWYU pragma: export
 
-#define BUILDFLAG_INTERNAL_ENABLE_XZ_EXTRACTOR() (1)
+#define BUILDFLAG_INTERNAL_ENABLE_EXTRACTORS() (1)
 #define BUILDFLAG_INTERNAL_ENABLE_MALDOCA() (0)
 
 #endif  // CHROME_SERVICES_FILE_UTIL_BUILDFLAGS_H_

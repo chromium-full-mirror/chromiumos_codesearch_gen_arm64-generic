@@ -86,6 +86,72 @@ class  Delegate_GetFingerprintInfo_ResponseParams_Data {
 };
 static_assert(sizeof(Delegate_GetFingerprintInfo_ResponseParams_Data) == 24,
               "Bad sizeof(Delegate_GetFingerprintInfo_ResponseParams_Data)");
+class  Delegate_SetLedColor_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t name;
+  int32_t color;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_SetLedColor_Params_Data>;
+
+  Delegate_SetLedColor_Params_Data();
+  ~Delegate_SetLedColor_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_SetLedColor_Params_Data) == 16,
+              "Bad sizeof(Delegate_SetLedColor_Params_Data)");
+class  Delegate_SetLedColor_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_SetLedColor_ResponseParams_Data>;
+
+  Delegate_SetLedColor_ResponseParams_Data();
+  ~Delegate_SetLedColor_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_SetLedColor_ResponseParams_Data) == 16,
+              "Bad sizeof(Delegate_SetLedColor_ResponseParams_Data)");
+class  Delegate_ResetLedColor_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t name;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_ResetLedColor_Params_Data>;
+
+  Delegate_ResetLedColor_Params_Data();
+  ~Delegate_ResetLedColor_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_ResetLedColor_Params_Data) == 16,
+              "Bad sizeof(Delegate_ResetLedColor_Params_Data)");
+class  Delegate_ResetLedColor_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_ResetLedColor_ResponseParams_Data>;
+
+  Delegate_ResetLedColor_ResponseParams_Data();
+  ~Delegate_ResetLedColor_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_ResetLedColor_ResponseParams_Data) == 16,
+              "Bad sizeof(Delegate_ResetLedColor_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -226,6 +292,142 @@ static_assert(
 
 
 
+class Delegate_SetLedColor_ParamsDataView {
+ public:
+  Delegate_SetLedColor_ParamsDataView() = default;
+
+  Delegate_SetLedColor_ParamsDataView(
+      internal::Delegate_SetLedColor_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadName(UserType* output) const {
+    auto data_value = data_->name;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedName>(
+        data_value, output);
+  }
+  ::ash::cros_healthd::mojom::LedName name() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::LedName>(data_->name));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadColor(UserType* output) const {
+    auto data_value = data_->color;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedColor>(
+        data_value, output);
+  }
+  ::ash::cros_healthd::mojom::LedColor color() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::LedColor>(data_->color));
+  }
+ private:
+  internal::Delegate_SetLedColor_Params_Data* data_ = nullptr;
+};
+
+
+
+class Delegate_SetLedColor_ResponseParamsDataView {
+ public:
+  Delegate_SetLedColor_ResponseParamsDataView() = default;
+
+  Delegate_SetLedColor_ResponseParamsDataView(
+      internal::Delegate_SetLedColor_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_SetLedColor_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class Delegate_ResetLedColor_ParamsDataView {
+ public:
+  Delegate_ResetLedColor_ParamsDataView() = default;
+
+  Delegate_ResetLedColor_ParamsDataView(
+      internal::Delegate_ResetLedColor_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadName(UserType* output) const {
+    auto data_value = data_->name;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LedName>(
+        data_value, output);
+  }
+  ::ash::cros_healthd::mojom::LedName name() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::LedName>(data_->name));
+  }
+ private:
+  internal::Delegate_ResetLedColor_Params_Data* data_ = nullptr;
+};
+
+
+
+class Delegate_ResetLedColor_ResponseParamsDataView {
+ public:
+  Delegate_ResetLedColor_ResponseParamsDataView() = default;
+
+  Delegate_ResetLedColor_ResponseParamsDataView(
+      internal::Delegate_ResetLedColor_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_ResetLedColor_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 
 inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
     ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output) {
@@ -247,6 +449,24 @@ inline void Delegate_GetFingerprintInfo_ResponseParamsDataView::GetResultDataVie
   *output = ::ash::cros_healthd::mojom::FingerprintInfoResultDataView(pointer, message_);
 }
 inline void Delegate_GetFingerprintInfo_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void Delegate_SetLedColor_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void Delegate_ResetLedColor_ResponseParamsDataView::GetErrDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->err.Get();
   *output = mojo::StringDataView(pointer, message_);

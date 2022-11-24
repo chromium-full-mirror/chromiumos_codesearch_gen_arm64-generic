@@ -68,6 +68,17 @@ class MockExecutor final : public ash::cros_healthd::mojom::Executor {
               GetFingerprintInfo,
               (GetFingerprintInfoCallback),
               (override));
+  MOCK_METHOD(void,
+              SetLedColor,
+              (ash::cros_healthd::mojom::LedName name,
+               ash::cros_healthd::mojom::LedColor color,
+               SetLedColorCallback callback),
+              (override));
+  MOCK_METHOD(void,
+              ResetLedColor,
+              (ash::cros_healthd::mojom::LedName name,
+               ResetLedColorCallback callback),
+              (override));
 };
 
 }  // namespace diagnostics

@@ -17,6 +17,8 @@ namespace internal {
 
 constexpr uint32_t kDelegate_GetFingerprintFrame_Name = 0;
 constexpr uint32_t kDelegate_GetFingerprintInfo_Name = 1;
+constexpr uint32_t kDelegate_SetLedColor_Name = 2;
+constexpr uint32_t kDelegate_ResetLedColor_Name = 3;
 
 }  // namespace internal
 }  // namespace mojom

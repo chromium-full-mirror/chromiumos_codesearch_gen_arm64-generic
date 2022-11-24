@@ -208,22 +208,24 @@ CRDTP_END_SERIALIZER();
 
 // ------------- Frontend notifications.
 
-void Frontend::CacheStorageContentUpdated(const String& origin, const String& cacheName)
+void Frontend::CacheStorageContentUpdated(const String& origin, const String& storageKey, const String& cacheName)
 {
     if (!frontend_channel_)
         return;
     crdtp::ObjectSerializer serializer;
     serializer.AddField(crdtp::MakeSpan("origin"), origin);
+    serializer.AddField(crdtp::MakeSpan("storageKey"), storageKey);
     serializer.AddField(crdtp::MakeSpan("cacheName"), cacheName);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.cacheStorageContentUpdated", serializer.Finish()));
 }
 
-void Frontend::CacheStorageListUpdated(const String& origin)
+void Frontend::CacheStorageListUpdated(const String& origin, const String& storageKey)
 {
     if (!frontend_channel_)
         return;
     crdtp::ObjectSerializer serializer;
     serializer.AddField(crdtp::MakeSpan("origin"), origin);
+    serializer.AddField(crdtp::MakeSpan("storageKey"), storageKey);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Storage.cacheStorageListUpdated", serializer.Finish()));
 }
 
@@ -306,9 +308,11 @@ public:
     void getUsageAndQuota(const crdtp::Dispatchable& dispatchable);
     void overrideQuotaForOrigin(const crdtp::Dispatchable& dispatchable);
     void trackCacheStorageForOrigin(const crdtp::Dispatchable& dispatchable);
+    void trackCacheStorageForStorageKey(const crdtp::Dispatchable& dispatchable);
     void trackIndexedDBForOrigin(const crdtp::Dispatchable& dispatchable);
     void trackIndexedDBForStorageKey(const crdtp::Dispatchable& dispatchable);
     void untrackCacheStorageForOrigin(const crdtp::Dispatchable& dispatchable);
+    void untrackCacheStorageForStorageKey(const crdtp::Dispatchable& dispatchable);
     void untrackIndexedDBForOrigin(const crdtp::Dispatchable& dispatchable);
     void untrackIndexedDBForStorageKey(const crdtp::Dispatchable& dispatchable);
     void getTrustTokens(const crdtp::Dispatchable& dispatchable);
@@ -410,6 +414,10 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
           &DomainDispatcherImpl::trackCacheStorageForOrigin
     },
     {
+          crdtp::SpanFrom("trackCacheStorageForStorageKey"),
+          &DomainDispatcherImpl::trackCacheStorageForStorageKey
+    },
+    {
           crdtp::SpanFrom("trackIndexedDBForOrigin"),
           &DomainDispatcherImpl::trackIndexedDBForOrigin
     },
@@ -420,6 +428,10 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
     {
           crdtp::SpanFrom("untrackCacheStorageForOrigin"),
           &DomainDispatcherImpl::untrackCacheStorageForOrigin
+    },
+    {
+          crdtp::SpanFrom("untrackCacheStorageForStorageKey"),
+          &DomainDispatcherImpl::untrackCacheStorageForStorageKey
     },
     {
           crdtp::SpanFrom("untrackIndexedDBForOrigin"),
@@ -890,6 +902,40 @@ void DomainDispatcherImpl::trackCacheStorageForOrigin(const crdtp::Dispatchable&
 
 namespace {
 
+struct trackCacheStorageForStorageKeyParams : public crdtp::DeserializableProtocolObject<trackCacheStorageForStorageKeyParams> {
+    String storageKey;
+    DECLARE_DESERIALIZATION_SUPPORT();
+};
+
+CRDTP_BEGIN_DESERIALIZER(trackCacheStorageForStorageKeyParams)
+    CRDTP_DESERIALIZE_FIELD("storageKey", storageKey),
+CRDTP_END_DESERIALIZER()
+
+}  // namespace
+
+void DomainDispatcherImpl::trackCacheStorageForStorageKey(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
+    trackCacheStorageForStorageKeyParams params;
+    if (!trackCacheStorageForStorageKeyParams::Deserialize(&deserializer, &params)) {
+      ReportInvalidParams(dispatchable, deserializer);
+      return;
+    }
+
+    std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
+    DispatchResponse response = m_backend->TrackCacheStorageForStorageKey(params.storageKey);
+    if (response.IsFallThrough()) {
+        channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("Storage.trackCacheStorageForStorageKey"), dispatchable.Serialized());
+        return;
+    }
+    if (weak->get())
+        weak->get()->sendResponse(dispatchable.CallId(), response);
+    return;
+}
+
+namespace {
+
 struct trackIndexedDBForOriginParams : public crdtp::DeserializableProtocolObject<trackIndexedDBForOriginParams> {
     String origin;
     DECLARE_DESERIALIZATION_SUPPORT();
@@ -983,6 +1029,40 @@ void DomainDispatcherImpl::untrackCacheStorageForOrigin(const crdtp::Dispatchabl
     DispatchResponse response = m_backend->UntrackCacheStorageForOrigin(params.origin);
     if (response.IsFallThrough()) {
         channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("Storage.untrackCacheStorageForOrigin"), dispatchable.Serialized());
+        return;
+    }
+    if (weak->get())
+        weak->get()->sendResponse(dispatchable.CallId(), response);
+    return;
+}
+
+namespace {
+
+struct untrackCacheStorageForStorageKeyParams : public crdtp::DeserializableProtocolObject<untrackCacheStorageForStorageKeyParams> {
+    String storageKey;
+    DECLARE_DESERIALIZATION_SUPPORT();
+};
+
+CRDTP_BEGIN_DESERIALIZER(untrackCacheStorageForStorageKeyParams)
+    CRDTP_DESERIALIZE_FIELD("storageKey", storageKey),
+CRDTP_END_DESERIALIZER()
+
+}  // namespace
+
+void DomainDispatcherImpl::untrackCacheStorageForStorageKey(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
+    untrackCacheStorageForStorageKeyParams params;
+    if (!untrackCacheStorageForStorageKeyParams::Deserialize(&deserializer, &params)) {
+      ReportInvalidParams(dispatchable, deserializer);
+      return;
+    }
+
+    std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
+    DispatchResponse response = m_backend->UntrackCacheStorageForStorageKey(params.storageKey);
+    if (response.IsFallThrough()) {
+        channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("Storage.untrackCacheStorageForStorageKey"), dispatchable.Serialized());
         return;
     }
     if (weak->get())

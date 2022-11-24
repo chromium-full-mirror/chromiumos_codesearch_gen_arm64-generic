@@ -259,6 +259,24 @@ inline bool IsKnownEnumValue(VideoEncodeAcceleratorConfig_StorageType value) {
 }
 
 
+enum class VideoEncodeAcceleratorConfig_EncoderType : int32_t {
+  
+  kHardware = 0,
+  
+  kSoftware = 1,
+  
+  kNoPreference = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+ std::ostream& operator<<(std::ostream& os, VideoEncodeAcceleratorConfig_EncoderType value);
+inline bool IsKnownEnumValue(VideoEncodeAcceleratorConfig_EncoderType value) {
+  return internal::VideoEncodeAcceleratorConfig_EncoderType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class VideoEncodeAccelerator_Error : int32_t {
   
   ILLEGAL_STATE = 0,
@@ -638,6 +656,16 @@ class VideoEncodeAcceleratorConfigDataView {
   }
   bool require_low_delay() const {
     return data_->require_low_delay;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadRequiredEncoderType(UserType* output) const {
+    auto data_value = data_->required_encoder_type;
+    return mojo::internal::Deserialize<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType>(
+        data_value, output);
+  }
+  VideoEncodeAcceleratorConfig_EncoderType required_encoder_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType>(data_->required_encoder_type));
   }
  private:
   internal::VideoEncodeAcceleratorConfig_Data* data_ = nullptr;
@@ -1035,6 +1063,10 @@ struct hash<::media::mojom::VideoEncodeAcceleratorConfig_StorageType>
     : public mojo::internal::EnumHashImpl<::media::mojom::VideoEncodeAcceleratorConfig_StorageType> {};
 
 template <>
+struct hash<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType>
+    : public mojo::internal::EnumHashImpl<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType> {};
+
+template <>
 struct hash<::media::mojom::VideoEncodeAccelerator_Error>
     : public mojo::internal::EnumHashImpl<::media::mojom::VideoEncodeAccelerator_Error> {};
 
@@ -1117,6 +1149,26 @@ struct Serializer<::media::mojom::VideoEncodeAcceleratorConfig_StorageType, Mayb
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::media::mojom::VideoEncodeAcceleratorConfig_StorageType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType>(input)), output);
   }
 };
 
@@ -1473,6 +1525,8 @@ struct Serializer<::media::mojom::VideoEncodeAcceleratorConfigDataView, MaybeCon
     mojo::internal::Serialize<::media::mojom::VideoEncodeAcceleratorConfig_InterLayerPredMode>(
         Traits::inter_layer_pred(input), &fragment->inter_layer_pred);
     fragment->require_low_delay = Traits::require_low_delay(input);
+    mojo::internal::Serialize<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType>(
+        Traits::required_encoder_type(input), &fragment->required_encoder_type);
   }
 
   static bool Deserialize(::media::mojom::internal::VideoEncodeAcceleratorConfig_Data* input,
@@ -2136,6 +2190,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::media::mojom::VideoEncodeAcceleratorConfig_StorageType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::media::mojom::VideoEncodeAcceleratorConfig_StorageType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::media::mojom::VideoEncodeAcceleratorConfig_EncoderType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::media::mojom::VideoEncodeAcceleratorConfig_EncoderType value);
 };
 
 } // namespace perfetto

@@ -51,10 +51,10 @@
 namespace media {
 namespace mojom {
 SupportedVideoDecoderConfig::SupportedVideoDecoderConfig()
-    : profile_min(),
-      profile_max(),
-      coded_size_min(),
-      coded_size_max(),
+    : profile_min(mojo::DefaultConstructTraits::CreateInstance<::media::VideoCodecProfile>()),
+      profile_max(mojo::DefaultConstructTraits::CreateInstance<::media::VideoCodecProfile>()),
+      coded_size_min(mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>()),
+      coded_size_max(mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>()),
       allow_encrypted(),
       require_encrypted() {}
 
@@ -139,7 +139,7 @@ bool SupportedVideoDecoderConfig::Validate(
   return Data_::Validate(data, validation_context);
 }
 CommandBufferId::CommandBufferId()
-    : channel_token(),
+    : channel_token(mojo::DefaultConstructTraits::CreateInstance<::base::UnguessableToken>()),
       route_id() {}
 
 CommandBufferId::CommandBufferId(

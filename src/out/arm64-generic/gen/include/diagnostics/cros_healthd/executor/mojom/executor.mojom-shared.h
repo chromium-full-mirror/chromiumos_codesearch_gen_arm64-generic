@@ -25,6 +25,7 @@
 
 #include "diagnostics/cros_healthd/executor/mojom/executor.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom-shared.h"
+#include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 

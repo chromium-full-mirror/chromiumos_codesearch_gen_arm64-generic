@@ -62,6 +62,8 @@ enum class VideoEncodeAcceleratorConfig_InterLayerPredMode : int32_t;
 
 enum class VideoEncodeAcceleratorConfig_StorageType : int32_t;
 
+enum class VideoEncodeAcceleratorConfig_EncoderType : int32_t;
+
 enum class VideoEncodeAccelerator_Error : int32_t;
 class VideoEncodeAcceleratorSupportedProfile;
 using VideoEncodeAcceleratorSupportedProfilePtr = mojo::StructPtr<VideoEncodeAcceleratorSupportedProfile>;

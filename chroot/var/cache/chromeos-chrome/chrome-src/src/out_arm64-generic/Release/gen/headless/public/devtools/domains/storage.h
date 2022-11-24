@@ -93,9 +93,11 @@ class HEADLESS_EXPORT Domain {
   static void HandleGetUsageAndQuotaResponse(base::OnceCallback<void(std::unique_ptr<GetUsageAndQuotaResult>)> callback, const base::Value& response);
   static void HandleOverrideQuotaForOriginResponse(base::OnceCallback<void(std::unique_ptr<OverrideQuotaForOriginResult>)> callback, const base::Value& response);
   static void HandleTrackCacheStorageForOriginResponse(base::OnceCallback<void(std::unique_ptr<TrackCacheStorageForOriginResult>)> callback, const base::Value& response);
+  static void HandleTrackCacheStorageForStorageKeyResponse(base::OnceCallback<void(std::unique_ptr<TrackCacheStorageForStorageKeyResult>)> callback, const base::Value& response);
   static void HandleTrackIndexedDBForOriginResponse(base::OnceCallback<void(std::unique_ptr<TrackIndexedDBForOriginResult>)> callback, const base::Value& response);
   static void HandleTrackIndexedDBForStorageKeyResponse(base::OnceCallback<void(std::unique_ptr<TrackIndexedDBForStorageKeyResult>)> callback, const base::Value& response);
   static void HandleUntrackCacheStorageForOriginResponse(base::OnceCallback<void(std::unique_ptr<UntrackCacheStorageForOriginResult>)> callback, const base::Value& response);
+  static void HandleUntrackCacheStorageForStorageKeyResponse(base::OnceCallback<void(std::unique_ptr<UntrackCacheStorageForStorageKeyResult>)> callback, const base::Value& response);
   static void HandleUntrackIndexedDBForOriginResponse(base::OnceCallback<void(std::unique_ptr<UntrackIndexedDBForOriginResult>)> callback, const base::Value& response);
   static void HandleUntrackIndexedDBForStorageKeyResponse(base::OnceCallback<void(std::unique_ptr<UntrackIndexedDBForStorageKeyResult>)> callback, const base::Value& response);
   static void HandleGetTrustTokensResponse(base::OnceCallback<void(std::unique_ptr<GetTrustTokensResult>)> callback, const base::Value& response);
@@ -168,6 +170,9 @@ class ExperimentalDomain : public Domain {
   // Registers origin to be notified when an update occurs to its cache storage list.
   void TrackCacheStorageForOrigin(std::unique_ptr<TrackCacheStorageForOriginParams> params, base::OnceCallback<void(std::unique_ptr<TrackCacheStorageForOriginResult>)> callback = base::OnceCallback<void(std::unique_ptr<TrackCacheStorageForOriginResult>)>());
 
+  // Registers storage key to be notified when an update occurs to its cache storage list.
+  void TrackCacheStorageForStorageKey(std::unique_ptr<TrackCacheStorageForStorageKeyParams> params, base::OnceCallback<void(std::unique_ptr<TrackCacheStorageForStorageKeyResult>)> callback = base::OnceCallback<void(std::unique_ptr<TrackCacheStorageForStorageKeyResult>)>());
+
   // Registers origin to be notified when an update occurs to its IndexedDB.
   void TrackIndexedDBForOrigin(std::unique_ptr<TrackIndexedDBForOriginParams> params, base::OnceCallback<void(std::unique_ptr<TrackIndexedDBForOriginResult>)> callback = base::OnceCallback<void(std::unique_ptr<TrackIndexedDBForOriginResult>)>());
 
@@ -176,6 +181,9 @@ class ExperimentalDomain : public Domain {
 
   // Unregisters origin from receiving notifications for cache storage.
   void UntrackCacheStorageForOrigin(std::unique_ptr<UntrackCacheStorageForOriginParams> params, base::OnceCallback<void(std::unique_ptr<UntrackCacheStorageForOriginResult>)> callback = base::OnceCallback<void(std::unique_ptr<UntrackCacheStorageForOriginResult>)>());
+
+  // Unregisters storage key from receiving notifications for cache storage.
+  void UntrackCacheStorageForStorageKey(std::unique_ptr<UntrackCacheStorageForStorageKeyParams> params, base::OnceCallback<void(std::unique_ptr<UntrackCacheStorageForStorageKeyResult>)> callback = base::OnceCallback<void(std::unique_ptr<UntrackCacheStorageForStorageKeyResult>)>());
 
   // Unregisters origin from receiving notifications for IndexedDB.
   void UntrackIndexedDBForOrigin(std::unique_ptr<UntrackIndexedDBForOriginParams> params, base::OnceCallback<void(std::unique_ptr<UntrackIndexedDBForOriginResult>)> callback = base::OnceCallback<void(std::unique_ptr<UntrackIndexedDBForOriginResult>)>());

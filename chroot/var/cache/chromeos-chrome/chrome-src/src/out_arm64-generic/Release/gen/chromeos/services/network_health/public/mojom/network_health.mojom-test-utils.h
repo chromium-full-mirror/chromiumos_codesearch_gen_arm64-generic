@@ -19,6 +19,7 @@ class  NetworkEventsObserverInterceptorForTesting : public NetworkEventsObserver
   virtual NetworkEventsObserver* GetForwardingInterface() = 0;
   void OnConnectionStateChanged(const std::string& guid, NetworkState state) override;
   void OnSignalStrengthChanged(const std::string& guid, UInt32ValuePtr signal_strength) override;
+  void OnNetworkListChanged(std::vector<NetworkPtr> networks) override;
 };
 class  NetworkEventsObserverAsyncWaiter {
  public:

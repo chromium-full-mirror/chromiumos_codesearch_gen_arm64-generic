@@ -57,6 +57,22 @@ class  NetworkEventsObserver_OnSignalStrengthChanged_Params_Data {
 };
 static_assert(sizeof(NetworkEventsObserver_OnSignalStrengthChanged_Params_Data) == 24,
               "Bad sizeof(NetworkEventsObserver_OnSignalStrengthChanged_Params_Data)");
+class  NetworkEventsObserver_OnNetworkListChanged_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Network_Data>>> networks;
+
+ private:
+  friend class mojo::internal::MessageFragment<NetworkEventsObserver_OnNetworkListChanged_Params_Data>;
+
+  NetworkEventsObserver_OnNetworkListChanged_Params_Data();
+  ~NetworkEventsObserver_OnNetworkListChanged_Params_Data() = delete;
+};
+static_assert(sizeof(NetworkEventsObserver_OnNetworkListChanged_Params_Data) == 16,
+              "Bad sizeof(NetworkEventsObserver_OnNetworkListChanged_Params_Data)");
 class  NetworkHealthService_AddObserver_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -244,6 +260,33 @@ class NetworkEventsObserver_OnSignalStrengthChanged_ParamsDataView {
 
 
 
+class NetworkEventsObserver_OnNetworkListChanged_ParamsDataView {
+ public:
+  NetworkEventsObserver_OnNetworkListChanged_ParamsDataView() = default;
+
+  NetworkEventsObserver_OnNetworkListChanged_ParamsDataView(
+      internal::NetworkEventsObserver_OnNetworkListChanged_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetNetworksDataView(
+      mojo::ArrayDataView<NetworkDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadNetworks(UserType* output) {
+    
+    auto* pointer = data_->networks.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::network_health::mojom::NetworkDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::NetworkEventsObserver_OnNetworkListChanged_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 class NetworkHealthService_AddObserver_ParamsDataView {
  public:
   NetworkHealthService_AddObserver_ParamsDataView() = default;
@@ -414,6 +457,13 @@ inline void NetworkEventsObserver_OnSignalStrengthChanged_ParamsDataView::GetSig
     UInt32ValueDataView* output) {
   auto pointer = data_->signal_strength.Get();
   *output = UInt32ValueDataView(pointer, message_);
+}
+
+
+inline void NetworkEventsObserver_OnNetworkListChanged_ParamsDataView::GetNetworksDataView(
+    mojo::ArrayDataView<NetworkDataView>* output) {
+  auto pointer = data_->networks.Get();
+  *output = mojo::ArrayDataView<NetworkDataView>(pointer, message_);
 }
 
 

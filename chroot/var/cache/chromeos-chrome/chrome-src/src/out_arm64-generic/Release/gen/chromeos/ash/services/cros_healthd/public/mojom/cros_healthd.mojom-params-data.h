@@ -1280,6 +1280,39 @@ class  CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_D
 };
 static_assert(sizeof(CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t target_state : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Params_Data>;
+
+  CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Params_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data)");
 class  CrosHealthdEventService_AddBluetoothObserver_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -3569,6 +3602,52 @@ class CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParamsDat
 
 
 
+class CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool target_state() const {
+    return data_->target_state;
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Params_Data* data_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 class CrosHealthdEventService_AddBluetoothObserver_ParamsDataView {
  public:
   CrosHealthdEventService_AddBluetoothObserver_ParamsDataView() = default;
@@ -4444,6 +4523,15 @@ inline void CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParamsDa
 
 
 inline void CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+}
+
+
+
+
+inline void CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParamsDataView::GetResponseDataView(
     ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
   *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
