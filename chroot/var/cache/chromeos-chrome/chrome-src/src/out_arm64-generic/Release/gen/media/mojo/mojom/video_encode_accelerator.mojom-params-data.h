@@ -69,6 +69,23 @@ class  VideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles
 };
 static_assert(sizeof(VideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_ResponseParams_Data) == 16,
               "Bad sizeof(VideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_ResponseParams_Data)");
+class  VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data receiver;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data>;
+
+  VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data();
+  ~VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data() = delete;
+};
+static_assert(sizeof(VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data) == 16,
+              "Bad sizeof(VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data)");
 class  VideoEncodeAccelerator_Initialize_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -392,6 +409,32 @@ class VideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_
   }
  private:
   internal::VideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_ParamsDataView {
+ public:
+  VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_ParamsDataView() = default;
+
+  VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_ParamsDataView(
+      internal::VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::media::mojom::VideoEncodeAcceleratorProviderInterfaceBase>>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -791,6 +834,8 @@ inline void VideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedPro
   auto pointer = data_->profiles.Get();
   *output = mojo::ArrayDataView<VideoEncodeAcceleratorSupportedProfileDataView>(pointer, message_);
 }
+
+
 
 
 inline void VideoEncodeAccelerator_Initialize_ParamsDataView::GetConfigDataView(

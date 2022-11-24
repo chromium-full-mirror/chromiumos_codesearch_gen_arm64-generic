@@ -16,6 +16,7 @@ namespace internal {
 
 constexpr uint32_t kVideoEncodeAcceleratorProvider_CreateVideoEncodeAccelerator_Name = 0;
 constexpr uint32_t kVideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_Name = 1;
+constexpr uint32_t kVideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Name = 0;
 constexpr uint32_t kVideoEncodeAccelerator_Initialize_Name = 0;
 constexpr uint32_t kVideoEncodeAccelerator_Encode_Name = 1;
 constexpr uint32_t kVideoEncodeAccelerator_UseOutputBitstreamBuffer_Name = 2;

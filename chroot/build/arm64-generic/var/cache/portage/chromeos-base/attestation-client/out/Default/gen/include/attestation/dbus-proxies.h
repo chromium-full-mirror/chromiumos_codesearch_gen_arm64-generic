@@ -32,6 +32,18 @@ class AttestationProxyInterface {
  public:
   virtual ~AttestationProxyInterface() = default;
 
+  virtual bool GetFeatures(
+      const attestation::GetFeaturesRequest& in_request,
+      attestation::GetFeaturesReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void GetFeaturesAsync(
+      const attestation::GetFeaturesRequest& in_request,
+      base::OnceCallback<void(const attestation::GetFeaturesReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool GetKeyInfo(
       const attestation::GetKeyInfoRequest& in_request,
       attestation::GetKeyInfoReply* out_reply,
@@ -355,6 +367,37 @@ class AttestationProxy final : public AttestationProxyInterface {
 
   dbus::ObjectProxy* GetObjectProxy() const override {
     return dbus_object_proxy_;
+  }
+
+  bool GetFeatures(
+      const attestation::GetFeaturesRequest& in_request,
+      attestation::GetFeaturesReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Attestation",
+        "GetFeatures",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  void GetFeaturesAsync(
+      const attestation::GetFeaturesRequest& in_request,
+      base::OnceCallback<void(const attestation::GetFeaturesReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.Attestation",
+        "GetFeatures",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
   }
 
   bool GetKeyInfo(

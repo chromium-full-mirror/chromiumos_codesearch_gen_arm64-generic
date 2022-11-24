@@ -18,5 +18,7 @@
 #include "ui/gfx/geometry/mojom/geometry.mojom-import-headers.h"
 #include "media/mojo/mojom/video_encoder_info.mojom.h"
 #include "media/mojo/mojom/video_encoder_info.mojom-import-headers.h"
+#include "sandbox/policy/mojom/sandbox.mojom.h"
+#include "sandbox/policy/mojom/sandbox.mojom-import-headers.h"
 
 #endif  // MEDIA_MOJO_MOJOM_VIDEO_ENCODE_ACCELERATOR_MOJOM_IMPORT_HEADERS_H_

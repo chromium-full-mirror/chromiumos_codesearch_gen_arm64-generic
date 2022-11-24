@@ -30,6 +30,7 @@
 #include "mojo/public/mojom/base/time.mojom-shared.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared.h"
 #include "media/mojo/mojom/video_encoder_info.mojom-shared.h"
+#include "sandbox/policy/mojom/sandbox.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -304,6 +305,16 @@ using VideoEncodeAcceleratorProviderAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<VideoEncodeAcceleratorProviderInterfaceBase>;
 using VideoEncodeAcceleratorProviderAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<VideoEncodeAcceleratorProviderInterfaceBase>;
+class VideoEncodeAcceleratorProviderFactoryInterfaceBase {};
+
+using VideoEncodeAcceleratorProviderFactoryPtrDataView =
+    mojo::InterfacePtrDataView<VideoEncodeAcceleratorProviderFactoryInterfaceBase>;
+using VideoEncodeAcceleratorProviderFactoryRequestDataView =
+    mojo::InterfaceRequestDataView<VideoEncodeAcceleratorProviderFactoryInterfaceBase>;
+using VideoEncodeAcceleratorProviderFactoryAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<VideoEncodeAcceleratorProviderFactoryInterfaceBase>;
+using VideoEncodeAcceleratorProviderFactoryAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<VideoEncodeAcceleratorProviderFactoryInterfaceBase>;
 class VideoEncodeAcceleratorInterfaceBase {};
 
 using VideoEncodeAcceleratorPtrDataView =

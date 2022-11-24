@@ -50,7 +50,7 @@ struct TableStruct_interface_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[54]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[56]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -153,6 +153,12 @@ extern GetEnrollmentPreparationsReply_EnrollmentPreparationsEntry_DoNotUseDefaul
 class GetEnrollmentPreparationsRequest;
 struct GetEnrollmentPreparationsRequestDefaultTypeInternal;
 extern GetEnrollmentPreparationsRequestDefaultTypeInternal _GetEnrollmentPreparationsRequest_default_instance_;
+class GetFeaturesReply;
+struct GetFeaturesReplyDefaultTypeInternal;
+extern GetFeaturesReplyDefaultTypeInternal _GetFeaturesReply_default_instance_;
+class GetFeaturesRequest;
+struct GetFeaturesRequestDefaultTypeInternal;
+extern GetFeaturesRequestDefaultTypeInternal _GetFeaturesRequest_default_instance_;
 class GetKeyInfoReply;
 struct GetKeyInfoReplyDefaultTypeInternal;
 extern GetKeyInfoReplyDefaultTypeInternal _GetKeyInfoReply_default_instance_;
@@ -253,6 +259,8 @@ template<> ::attestation::GetEnrollmentIdRequest* Arena::CreateMaybeMessage<::at
 template<> ::attestation::GetEnrollmentPreparationsReply* Arena::CreateMaybeMessage<::attestation::GetEnrollmentPreparationsReply>(Arena*);
 template<> ::attestation::GetEnrollmentPreparationsReply_EnrollmentPreparationsEntry_DoNotUse* Arena::CreateMaybeMessage<::attestation::GetEnrollmentPreparationsReply_EnrollmentPreparationsEntry_DoNotUse>(Arena*);
 template<> ::attestation::GetEnrollmentPreparationsRequest* Arena::CreateMaybeMessage<::attestation::GetEnrollmentPreparationsRequest>(Arena*);
+template<> ::attestation::GetFeaturesReply* Arena::CreateMaybeMessage<::attestation::GetFeaturesReply>(Arena*);
+template<> ::attestation::GetFeaturesRequest* Arena::CreateMaybeMessage<::attestation::GetFeaturesRequest>(Arena*);
 template<> ::attestation::GetKeyInfoReply* Arena::CreateMaybeMessage<::attestation::GetKeyInfoReply>(Arena*);
 template<> ::attestation::GetKeyInfoRequest* Arena::CreateMaybeMessage<::attestation::GetKeyInfoRequest>(Arena*);
 template<> ::attestation::GetStatusReply* Arena::CreateMaybeMessage<::attestation::GetStatusReply>(Arena*);
@@ -365,6 +373,306 @@ bool VAType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, VAType* value);
 // ===================================================================
 
+class GetFeaturesRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:attestation.GetFeaturesRequest) */ {
+ public:
+  inline GetFeaturesRequest() : GetFeaturesRequest(nullptr) {}
+  ~GetFeaturesRequest() override;
+  explicit constexpr GetFeaturesRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetFeaturesRequest(const GetFeaturesRequest& from);
+  GetFeaturesRequest(GetFeaturesRequest&& from) noexcept
+    : GetFeaturesRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetFeaturesRequest& operator=(const GetFeaturesRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetFeaturesRequest& operator=(GetFeaturesRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const GetFeaturesRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetFeaturesRequest* internal_default_instance() {
+    return reinterpret_cast<const GetFeaturesRequest*>(
+               &_GetFeaturesRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(GetFeaturesRequest& a, GetFeaturesRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetFeaturesRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetFeaturesRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetFeaturesRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetFeaturesRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetFeaturesRequest& from);
+  void MergeFrom(const GetFeaturesRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetFeaturesRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "attestation.GetFeaturesRequest";
+  }
+  protected:
+  explicit GetFeaturesRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:attestation.GetFeaturesRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_interface_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetFeaturesReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:attestation.GetFeaturesReply) */ {
+ public:
+  inline GetFeaturesReply() : GetFeaturesReply(nullptr) {}
+  ~GetFeaturesReply() override;
+  explicit constexpr GetFeaturesReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetFeaturesReply(const GetFeaturesReply& from);
+  GetFeaturesReply(GetFeaturesReply&& from) noexcept
+    : GetFeaturesReply() {
+    *this = ::std::move(from);
+  }
+
+  inline GetFeaturesReply& operator=(const GetFeaturesReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetFeaturesReply& operator=(GetFeaturesReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const GetFeaturesReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetFeaturesReply* internal_default_instance() {
+    return reinterpret_cast<const GetFeaturesReply*>(
+               &_GetFeaturesReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(GetFeaturesReply& a, GetFeaturesReply& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetFeaturesReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetFeaturesReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetFeaturesReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetFeaturesReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetFeaturesReply& from);
+  void MergeFrom(const GetFeaturesReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetFeaturesReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "attestation.GetFeaturesReply";
+  }
+  protected:
+  explicit GetFeaturesReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSupportedKeyTypesFieldNumber = 3,
+    kStatusFieldNumber = 1,
+    kIsAvailableFieldNumber = 2,
+  };
+  // repeated .attestation.KeyType supported_key_types = 3;
+  int supported_key_types_size() const;
+  private:
+  int _internal_supported_key_types_size() const;
+  public:
+  void clear_supported_key_types();
+  private:
+  ::attestation::KeyType _internal_supported_key_types(int index) const;
+  void _internal_add_supported_key_types(::attestation::KeyType value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_supported_key_types();
+  public:
+  ::attestation::KeyType supported_key_types(int index) const;
+  void set_supported_key_types(int index, ::attestation::KeyType value);
+  void add_supported_key_types(::attestation::KeyType value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& supported_key_types() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_supported_key_types();
+
+  // optional .attestation.AttestationStatus status = 1;
+  bool has_status() const;
+  private:
+  bool _internal_has_status() const;
+  public:
+  void clear_status();
+  ::attestation::AttestationStatus status() const;
+  void set_status(::attestation::AttestationStatus value);
+  private:
+  ::attestation::AttestationStatus _internal_status() const;
+  void _internal_set_status(::attestation::AttestationStatus value);
+  public:
+
+  // optional bool is_available = 2;
+  bool has_is_available() const;
+  private:
+  bool _internal_has_is_available() const;
+  public:
+  void clear_is_available();
+  bool is_available() const;
+  void set_is_available(bool value);
+  private:
+  bool _internal_is_available() const;
+  void _internal_set_is_available(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:attestation.GetFeaturesReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> supported_key_types_;
+  int status_;
+  bool is_available_;
+  friend struct ::TableStruct_interface_2eproto;
+};
+// -------------------------------------------------------------------
+
 class GetKeyInfoRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:attestation.GetKeyInfoRequest) */ {
  public:
@@ -411,7 +719,7 @@ class GetKeyInfoRequest final :
                &_GetKeyInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    2;
 
   friend void swap(GetKeyInfoRequest& a, GetKeyInfoRequest& b) {
     a.Swap(&b);
@@ -578,7 +886,7 @@ class GetKeyInfoReply final :
                &_GetKeyInfoReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    3;
 
   friend void swap(GetKeyInfoReply& a, GetKeyInfoReply& b) {
     a.Swap(&b);
@@ -870,7 +1178,7 @@ class GetEndorsementInfoRequest final :
                &_GetEndorsementInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    4;
 
   friend void swap(GetEndorsementInfoRequest& a, GetEndorsementInfoRequest& b) {
     a.Swap(&b);
@@ -994,7 +1302,7 @@ class GetEndorsementInfoReply final :
                &_GetEndorsementInfoReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    5;
 
   friend void swap(GetEndorsementInfoReply& a, GetEndorsementInfoReply& b) {
     a.Swap(&b);
@@ -1196,7 +1504,7 @@ class GetAttestationKeyInfoRequest final :
                &_GetAttestationKeyInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    6;
 
   friend void swap(GetAttestationKeyInfoRequest& a, GetAttestationKeyInfoRequest& b) {
     a.Swap(&b);
@@ -1338,7 +1646,7 @@ class GetAttestationKeyInfoReply final :
                &_GetAttestationKeyInfoReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(GetAttestationKeyInfoReply& a, GetAttestationKeyInfoReply& b) {
     a.Swap(&b);
@@ -1580,7 +1888,7 @@ class ActivateAttestationKeyRequest final :
                &_ActivateAttestationKeyRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   friend void swap(ActivateAttestationKeyRequest& a, ActivateAttestationKeyRequest& b) {
     a.Swap(&b);
@@ -1757,7 +2065,7 @@ class ActivateAttestationKeyReply final :
                &_ActivateAttestationKeyReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    9;
 
   friend void swap(ActivateAttestationKeyReply& a, ActivateAttestationKeyReply& b) {
     a.Swap(&b);
@@ -1919,7 +2227,7 @@ class CreateCertifiableKeyRequest final :
                &_CreateCertifiableKeyRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    10;
 
   friend void swap(CreateCertifiableKeyRequest& a, CreateCertifiableKeyRequest& b) {
     a.Swap(&b);
@@ -2116,7 +2424,7 @@ class CreateCertifiableKeyReply final :
                &_CreateCertifiableKeyReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   friend void swap(CreateCertifiableKeyReply& a, CreateCertifiableKeyReply& b) {
     a.Swap(&b);
@@ -2318,7 +2626,7 @@ class DecryptRequest final :
                &_DecryptRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(DecryptRequest& a, DecryptRequest& b) {
     a.Swap(&b);
@@ -2505,7 +2813,7 @@ class DecryptReply final :
                &_DecryptReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(DecryptReply& a, DecryptReply& b) {
     a.Swap(&b);
@@ -2667,7 +2975,7 @@ class SignRequest final :
                &_SignRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
   friend void swap(SignRequest& a, SignRequest& b) {
     a.Swap(&b);
@@ -2854,7 +3162,7 @@ class SignReply final :
                &_SignReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    15;
 
   friend void swap(SignReply& a, SignReply& b) {
     a.Swap(&b);
@@ -3016,7 +3324,7 @@ class RegisterKeyWithChapsTokenRequest final :
                &_RegisterKeyWithChapsTokenRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   friend void swap(RegisterKeyWithChapsTokenRequest& a, RegisterKeyWithChapsTokenRequest& b) {
     a.Swap(&b);
@@ -3198,7 +3506,7 @@ class RegisterKeyWithChapsTokenReply final :
                &_RegisterKeyWithChapsTokenReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    17;
 
   friend void swap(RegisterKeyWithChapsTokenReply& a, RegisterKeyWithChapsTokenReply& b) {
     a.Swap(&b);
@@ -3340,7 +3648,7 @@ class GetEnrollmentPreparationsRequest final :
                &_GetEnrollmentPreparationsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    18;
 
   friend void swap(GetEnrollmentPreparationsRequest& a, GetEnrollmentPreparationsRequest& b) {
     a.Swap(&b);
@@ -3503,7 +3811,7 @@ class GetEnrollmentPreparationsReply final :
                &_GetEnrollmentPreparationsReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    20;
 
   friend void swap(GetEnrollmentPreparationsReply& a, GetEnrollmentPreparationsReply& b) {
     a.Swap(&b);
@@ -3669,7 +3977,7 @@ class GetStatusRequest final :
                &_GetStatusRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    21;
 
   friend void swap(GetStatusRequest& a, GetStatusRequest& b) {
     a.Swap(&b);
@@ -3811,7 +4119,7 @@ class GetStatusReply_Identity final :
                &_GetStatusReply_Identity_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    22;
 
   friend void swap(GetStatusReply_Identity& a, GetStatusReply_Identity& b) {
     a.Swap(&b);
@@ -3953,7 +4261,7 @@ class GetStatusReply_IdentityCertificate final :
                &_GetStatusReply_IdentityCertificate_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    23;
 
   friend void swap(GetStatusReply_IdentityCertificate& a, GetStatusReply_IdentityCertificate& b) {
     a.Swap(&b);
@@ -4152,7 +4460,7 @@ class GetStatusReply final :
                &_GetStatusReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    26;
 
   friend void swap(GetStatusReply& a, GetStatusReply& b) {
     a.Swap(&b);
@@ -4408,7 +4716,7 @@ class VerifyRequest final :
                &_VerifyRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    27;
 
   friend void swap(VerifyRequest& a, VerifyRequest& b) {
     a.Swap(&b);
@@ -4565,7 +4873,7 @@ class VerifyReply final :
                &_VerifyReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    28;
 
   friend void swap(VerifyReply& a, VerifyReply& b) {
     a.Swap(&b);
@@ -4722,7 +5030,7 @@ class CreateEnrollRequestRequest final :
                &_CreateEnrollRequestRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    29;
 
   friend void swap(CreateEnrollRequestRequest& a, CreateEnrollRequestRequest& b) {
     a.Swap(&b);
@@ -4864,7 +5172,7 @@ class CreateEnrollRequestReply final :
                &_CreateEnrollRequestReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    30;
 
   friend void swap(CreateEnrollRequestReply& a, CreateEnrollRequestReply& b) {
     a.Swap(&b);
@@ -5026,7 +5334,7 @@ class FinishEnrollRequest final :
                &_FinishEnrollRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    31;
 
   friend void swap(FinishEnrollRequest& a, FinishEnrollRequest& b) {
     a.Swap(&b);
@@ -5188,7 +5496,7 @@ class FinishEnrollReply final :
                &_FinishEnrollReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    30;
+    32;
 
   friend void swap(FinishEnrollReply& a, FinishEnrollReply& b) {
     a.Swap(&b);
@@ -5330,7 +5638,7 @@ class EnrollRequest final :
                &_EnrollRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    31;
+    33;
 
   friend void swap(EnrollRequest& a, EnrollRequest& b) {
     a.Swap(&b);
@@ -5487,7 +5795,7 @@ class EnrollReply final :
                &_EnrollReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    32;
+    34;
 
   friend void swap(EnrollReply& a, EnrollReply& b) {
     a.Swap(&b);
@@ -5629,7 +5937,7 @@ class DeviceSetupCertificateRequestMetadata final :
                &_DeviceSetupCertificateRequestMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    33;
+    35;
 
   friend void swap(DeviceSetupCertificateRequestMetadata& a, DeviceSetupCertificateRequestMetadata& b) {
     a.Swap(&b);
@@ -5801,7 +6109,7 @@ class CreateCertificateRequestRequest final :
                &_CreateCertificateRequestRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    34;
+    36;
 
   friend void swap(CreateCertificateRequestRequest& a, CreateCertificateRequestRequest& b) {
     a.Swap(&b);
@@ -6045,7 +6353,7 @@ class CreateCertificateRequestReply final :
                &_CreateCertificateRequestReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    35;
+    37;
 
   friend void swap(CreateCertificateRequestReply& a, CreateCertificateRequestReply& b) {
     a.Swap(&b);
@@ -6207,7 +6515,7 @@ class FinishCertificateRequestRequest final :
                &_FinishCertificateRequestRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    36;
+    38;
 
   friend void swap(FinishCertificateRequestRequest& a, FinishCertificateRequestRequest& b) {
     a.Swap(&b);
@@ -6394,7 +6702,7 @@ class FinishCertificateRequestReply final :
                &_FinishCertificateRequestReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    37;
+    39;
 
   friend void swap(FinishCertificateRequestReply& a, FinishCertificateRequestReply& b) {
     a.Swap(&b);
@@ -6621,7 +6929,7 @@ class GetCertificateRequest final :
                &_GetCertificateRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    38;
+    40;
 
   friend void swap(GetCertificateRequest& a, GetCertificateRequest& b) {
     a.Swap(&b);
@@ -6915,7 +7223,7 @@ class GetCertificateReply final :
                &_GetCertificateReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    39;
+    41;
 
   friend void swap(GetCertificateReply& a, GetCertificateReply& b) {
     a.Swap(&b);
@@ -7137,7 +7445,7 @@ class SignEnterpriseChallengeRequest final :
                &_SignEnterpriseChallengeRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    40;
+    42;
 
   friend void swap(SignEnterpriseChallengeRequest& a, SignEnterpriseChallengeRequest& b) {
     a.Swap(&b);
@@ -7469,7 +7777,7 @@ class SignEnterpriseChallengeReply final :
                &_SignEnterpriseChallengeReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    41;
+    43;
 
   friend void swap(SignEnterpriseChallengeReply& a, SignEnterpriseChallengeReply& b) {
     a.Swap(&b);
@@ -7631,7 +7939,7 @@ class SignSimpleChallengeRequest final :
                &_SignSimpleChallengeRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    42;
+    44;
 
   friend void swap(SignSimpleChallengeRequest& a, SignSimpleChallengeRequest& b) {
     a.Swap(&b);
@@ -7818,7 +8126,7 @@ class SignSimpleChallengeReply final :
                &_SignSimpleChallengeReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    43;
+    45;
 
   friend void swap(SignSimpleChallengeReply& a, SignSimpleChallengeReply& b) {
     a.Swap(&b);
@@ -7980,7 +8288,7 @@ class SetKeyPayloadRequest final :
                &_SetKeyPayloadRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    44;
+    46;
 
   friend void swap(SetKeyPayloadRequest& a, SetKeyPayloadRequest& b) {
     a.Swap(&b);
@@ -8167,7 +8475,7 @@ class SetKeyPayloadReply final :
                &_SetKeyPayloadReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    45;
+    47;
 
   friend void swap(SetKeyPayloadReply& a, SetKeyPayloadReply& b) {
     a.Swap(&b);
@@ -8309,7 +8617,7 @@ class DeleteKeysRequest final :
                &_DeleteKeysRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    46;
+    48;
 
   friend void swap(DeleteKeysRequest& a, DeleteKeysRequest& b) {
     a.Swap(&b);
@@ -8519,7 +8827,7 @@ class DeleteKeysReply final :
                &_DeleteKeysReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    47;
+    49;
 
   friend void swap(DeleteKeysReply& a, DeleteKeysReply& b) {
     a.Swap(&b);
@@ -8661,7 +8969,7 @@ class ResetIdentityRequest final :
                &_ResetIdentityRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    48;
+    50;
 
   friend void swap(ResetIdentityRequest& a, ResetIdentityRequest& b) {
     a.Swap(&b);
@@ -8808,7 +9116,7 @@ class ResetIdentityReply final :
                &_ResetIdentityReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    49;
+    51;
 
   friend void swap(ResetIdentityReply& a, ResetIdentityReply& b) {
     a.Swap(&b);
@@ -8970,7 +9278,7 @@ class GetEnrollmentIdRequest final :
                &_GetEnrollmentIdRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    50;
+    52;
 
   friend void swap(GetEnrollmentIdRequest& a, GetEnrollmentIdRequest& b) {
     a.Swap(&b);
@@ -9112,7 +9420,7 @@ class GetEnrollmentIdReply final :
                &_GetEnrollmentIdReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    51;
+    53;
 
   friend void swap(GetEnrollmentIdReply& a, GetEnrollmentIdReply& b) {
     a.Swap(&b);
@@ -9274,7 +9582,7 @@ class GetCertifiedNvIndexRequest final :
                &_GetCertifiedNvIndexRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    52;
+    54;
 
   friend void swap(GetCertifiedNvIndexRequest& a, GetCertifiedNvIndexRequest& b) {
     a.Swap(&b);
@@ -9451,7 +9759,7 @@ class GetCertifiedNvIndexReply final :
                &_GetCertifiedNvIndexReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    53;
+    55;
 
   friend void swap(GetCertifiedNvIndexReply& a, GetCertifiedNvIndexReply& b) {
     a.Swap(&b);
@@ -9614,6 +9922,116 @@ class GetCertifiedNvIndexReply final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// GetFeaturesRequest
+
+// -------------------------------------------------------------------
+
+// GetFeaturesReply
+
+// optional .attestation.AttestationStatus status = 1;
+inline bool GetFeaturesReply::_internal_has_status() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool GetFeaturesReply::has_status() const {
+  return _internal_has_status();
+}
+inline void GetFeaturesReply::clear_status() {
+  status_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::attestation::AttestationStatus GetFeaturesReply::_internal_status() const {
+  return static_cast< ::attestation::AttestationStatus >(status_);
+}
+inline ::attestation::AttestationStatus GetFeaturesReply::status() const {
+  // @@protoc_insertion_point(field_get:attestation.GetFeaturesReply.status)
+  return _internal_status();
+}
+inline void GetFeaturesReply::_internal_set_status(::attestation::AttestationStatus value) {
+  assert(::attestation::AttestationStatus_IsValid(value));
+  _has_bits_[0] |= 0x00000001u;
+  status_ = value;
+}
+inline void GetFeaturesReply::set_status(::attestation::AttestationStatus value) {
+  _internal_set_status(value);
+  // @@protoc_insertion_point(field_set:attestation.GetFeaturesReply.status)
+}
+
+// optional bool is_available = 2;
+inline bool GetFeaturesReply::_internal_has_is_available() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool GetFeaturesReply::has_is_available() const {
+  return _internal_has_is_available();
+}
+inline void GetFeaturesReply::clear_is_available() {
+  is_available_ = false;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline bool GetFeaturesReply::_internal_is_available() const {
+  return is_available_;
+}
+inline bool GetFeaturesReply::is_available() const {
+  // @@protoc_insertion_point(field_get:attestation.GetFeaturesReply.is_available)
+  return _internal_is_available();
+}
+inline void GetFeaturesReply::_internal_set_is_available(bool value) {
+  _has_bits_[0] |= 0x00000002u;
+  is_available_ = value;
+}
+inline void GetFeaturesReply::set_is_available(bool value) {
+  _internal_set_is_available(value);
+  // @@protoc_insertion_point(field_set:attestation.GetFeaturesReply.is_available)
+}
+
+// repeated .attestation.KeyType supported_key_types = 3;
+inline int GetFeaturesReply::_internal_supported_key_types_size() const {
+  return supported_key_types_.size();
+}
+inline int GetFeaturesReply::supported_key_types_size() const {
+  return _internal_supported_key_types_size();
+}
+inline void GetFeaturesReply::clear_supported_key_types() {
+  supported_key_types_.Clear();
+}
+inline ::attestation::KeyType GetFeaturesReply::_internal_supported_key_types(int index) const {
+  return static_cast< ::attestation::KeyType >(supported_key_types_.Get(index));
+}
+inline ::attestation::KeyType GetFeaturesReply::supported_key_types(int index) const {
+  // @@protoc_insertion_point(field_get:attestation.GetFeaturesReply.supported_key_types)
+  return _internal_supported_key_types(index);
+}
+inline void GetFeaturesReply::set_supported_key_types(int index, ::attestation::KeyType value) {
+  assert(::attestation::KeyType_IsValid(value));
+  supported_key_types_.Set(index, value);
+  // @@protoc_insertion_point(field_set:attestation.GetFeaturesReply.supported_key_types)
+}
+inline void GetFeaturesReply::_internal_add_supported_key_types(::attestation::KeyType value) {
+  assert(::attestation::KeyType_IsValid(value));
+  supported_key_types_.Add(value);
+}
+inline void GetFeaturesReply::add_supported_key_types(::attestation::KeyType value) {
+  _internal_add_supported_key_types(value);
+  // @@protoc_insertion_point(field_add:attestation.GetFeaturesReply.supported_key_types)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
+GetFeaturesReply::supported_key_types() const {
+  // @@protoc_insertion_point(field_list:attestation.GetFeaturesReply.supported_key_types)
+  return supported_key_types_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+GetFeaturesReply::_internal_mutable_supported_key_types() {
+  return &supported_key_types_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+GetFeaturesReply::mutable_supported_key_types() {
+  // @@protoc_insertion_point(field_mutable_list:attestation.GetFeaturesReply.supported_key_types)
+  return _internal_mutable_supported_key_types();
+}
+
+// -------------------------------------------------------------------
+
 // GetKeyInfoRequest
 
 // optional string key_label = 1;
@@ -17423,6 +17841,10 @@ inline void GetCertifiedNvIndexReply::set_allocated_key_certificate(std::string*
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

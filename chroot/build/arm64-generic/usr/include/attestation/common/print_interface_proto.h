@@ -33,6 +33,12 @@ std::string GetProtoDebugStringWithIndent(DeleteKeysRequest_MatchBehavior value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     DeleteKeysRequest_MatchBehavior value);
+std::string GetProtoDebugStringWithIndent(const GetFeaturesRequest& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const GetFeaturesRequest& value);
+std::string GetProtoDebugStringWithIndent(const GetFeaturesReply& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const GetFeaturesReply& value);
 std::string GetProtoDebugStringWithIndent(const GetKeyInfoRequest& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const GetKeyInfoRequest& value);

@@ -36,6 +36,24 @@ class  VideoEncodeAcceleratorProviderAsyncWaiter {
 };
 
 
+class  VideoEncodeAcceleratorProviderFactoryInterceptorForTesting : public VideoEncodeAcceleratorProviderFactory {
+  virtual VideoEncodeAcceleratorProviderFactory* GetForwardingInterface() = 0;
+  void CreateVideoEncodeAcceleratorProvider(::mojo::PendingReceiver<VideoEncodeAcceleratorProvider> receiver) override;
+};
+class  VideoEncodeAcceleratorProviderFactoryAsyncWaiter {
+ public:
+  explicit VideoEncodeAcceleratorProviderFactoryAsyncWaiter(VideoEncodeAcceleratorProviderFactory* proxy);
+
+  VideoEncodeAcceleratorProviderFactoryAsyncWaiter(const VideoEncodeAcceleratorProviderFactoryAsyncWaiter&) = delete;
+  VideoEncodeAcceleratorProviderFactoryAsyncWaiter& operator=(const VideoEncodeAcceleratorProviderFactoryAsyncWaiter&) = delete;
+
+  ~VideoEncodeAcceleratorProviderFactoryAsyncWaiter();
+
+ private:
+  VideoEncodeAcceleratorProviderFactory* const proxy_;
+};
+
+
 class  VideoEncodeAcceleratorInterceptorForTesting : public VideoEncodeAccelerator {
   virtual VideoEncodeAccelerator* GetForwardingInterface() = 0;
   void Initialize(const ::media::VideoEncodeAccelerator::Config& config, ::mojo::PendingAssociatedRemote<VideoEncodeAcceleratorClient> client, ::mojo::PendingRemote<::media::mojom::MediaLog> media_log, InitializeCallback callback) override;

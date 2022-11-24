@@ -31,6 +31,7 @@
 #include "mojo/public/mojom/base/time.mojom.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
 #include "media/mojo/mojom/video_encoder_info.mojom.h"
+#include "sandbox/policy/mojom/sandbox.mojom-forward.h"
 #include <string>
 #include <vector>
 
@@ -101,6 +102,52 @@ class VideoEncodeAcceleratorProvider
   using GetVideoEncodeAcceleratorSupportedProfilesCallback = base::OnceCallback<void(const std::vector<::media::VideoEncodeAccelerator::SupportedProfile>&)>;
   
   virtual void GetVideoEncodeAcceleratorSupportedProfiles(GetVideoEncodeAcceleratorSupportedProfilesCallback callback) = 0;
+};
+
+class VideoEncodeAcceleratorProviderFactoryProxy;
+
+template <typename ImplRefTraits>
+class VideoEncodeAcceleratorProviderFactoryStub;
+
+class VideoEncodeAcceleratorProviderFactoryRequestValidator;
+
+
+class VideoEncodeAcceleratorProviderFactory
+    : public VideoEncodeAcceleratorProviderFactoryInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr auto kServiceSandbox = sandbox::mojom::Sandbox::kHardwareVideoEncoding;
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = VideoEncodeAcceleratorProviderFactoryInterfaceBase;
+  using Proxy_ = VideoEncodeAcceleratorProviderFactoryProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = VideoEncodeAcceleratorProviderFactoryStub<ImplRefTraits>;
+
+  using RequestValidator_ = VideoEncodeAcceleratorProviderFactoryRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kCreateVideoEncodeAcceleratorProviderMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct CreateVideoEncodeAcceleratorProvider_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~VideoEncodeAcceleratorProviderFactory() = default;
+
+  
+  virtual void CreateVideoEncodeAcceleratorProvider(::mojo::PendingReceiver<VideoEncodeAcceleratorProvider> receiver) = 0;
 };
 
 class VideoEncodeAcceleratorProxy;
@@ -298,6 +345,21 @@ class  VideoEncodeAcceleratorProviderProxy
 
 
 
+class  VideoEncodeAcceleratorProviderFactoryProxy
+    : public VideoEncodeAcceleratorProviderFactory {
+ public:
+  using InterfaceType = VideoEncodeAcceleratorProviderFactory;
+
+  explicit VideoEncodeAcceleratorProviderFactoryProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void CreateVideoEncodeAcceleratorProvider(::mojo::PendingReceiver<VideoEncodeAcceleratorProvider> receiver) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
 class  VideoEncodeAcceleratorProxy
     : public VideoEncodeAccelerator {
  public:
@@ -388,6 +450,47 @@ class VideoEncodeAcceleratorProviderStub
  private:
   ImplPointerType sink_;
 };
+class  VideoEncodeAcceleratorProviderFactoryStubDispatch {
+ public:
+  static bool Accept(VideoEncodeAcceleratorProviderFactory* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      VideoEncodeAcceleratorProviderFactory* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<VideoEncodeAcceleratorProviderFactory>>
+class VideoEncodeAcceleratorProviderFactoryStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  VideoEncodeAcceleratorProviderFactoryStub() = default;
+  ~VideoEncodeAcceleratorProviderFactoryStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return VideoEncodeAcceleratorProviderFactoryStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return VideoEncodeAcceleratorProviderFactoryStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
 class  VideoEncodeAcceleratorStubDispatch {
  public:
   static bool Accept(VideoEncodeAccelerator* impl, mojo::Message* message);
@@ -471,6 +574,10 @@ class VideoEncodeAcceleratorClientStub
   ImplPointerType sink_;
 };
 class  VideoEncodeAcceleratorProviderRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  VideoEncodeAcceleratorProviderFactoryRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

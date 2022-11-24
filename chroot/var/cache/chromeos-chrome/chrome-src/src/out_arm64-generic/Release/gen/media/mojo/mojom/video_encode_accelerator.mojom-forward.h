@@ -114,6 +114,8 @@ using CodecMetadataPtr = mojo::StructPtr<CodecMetadata>;
 
 class VideoEncodeAcceleratorProvider;
 
+class VideoEncodeAcceleratorProviderFactory;
+
 class VideoEncodeAccelerator;
 
 class VideoEncodeAcceleratorClient;

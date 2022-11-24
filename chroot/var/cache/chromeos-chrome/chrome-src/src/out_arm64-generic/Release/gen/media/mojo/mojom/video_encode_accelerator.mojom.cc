@@ -1604,6 +1604,172 @@ bool VideoEncodeAcceleratorProviderResponseValidator::Accept(mojo::Message* mess
   const char* name = ::media::mojom::VideoEncodeAcceleratorProvider::Name_;
   return mojo::internal::ValidateResponseGenericPacked(message, name, kVideoEncodeAcceleratorProviderValidationInfo);
 }
+const char VideoEncodeAcceleratorProviderFactory::Name_[] = "media.mojom.VideoEncodeAcceleratorProviderFactory";
+
+VideoEncodeAcceleratorProviderFactory::IPCStableHashFunction VideoEncodeAcceleratorProviderFactory::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kVideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Name: {
+      return &VideoEncodeAcceleratorProviderFactory::CreateVideoEncodeAcceleratorProvider_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* VideoEncodeAcceleratorProviderFactory::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kVideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Name:
+            return "Receive media::mojom::VideoEncodeAcceleratorProviderFactory::CreateVideoEncodeAcceleratorProvider";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kVideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Name:
+            return "Receive reply media::mojom::VideoEncodeAcceleratorProviderFactory::CreateVideoEncodeAcceleratorProvider";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t VideoEncodeAcceleratorProviderFactory::CreateVideoEncodeAcceleratorProvider_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)media::mojom::VideoEncodeAcceleratorProviderFactory::CreateVideoEncodeAcceleratorProvider");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+VideoEncodeAcceleratorProviderFactoryProxy::VideoEncodeAcceleratorProviderFactoryProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void VideoEncodeAcceleratorProviderFactoryProxy::CreateVideoEncodeAcceleratorProvider(
+    ::mojo::PendingReceiver<VideoEncodeAcceleratorProvider> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send media::mojom::VideoEncodeAcceleratorProviderFactory::CreateVideoEncodeAcceleratorProvider", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<VideoEncodeAcceleratorProvider>>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kVideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::media::mojom::internal::VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::media::mojom::VideoEncodeAcceleratorProviderInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in VideoEncodeAcceleratorProviderFactory.CreateVideoEncodeAcceleratorProvider request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(VideoEncodeAcceleratorProviderFactory::Name_);
+  message.set_method_name("CreateVideoEncodeAcceleratorProvider");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool VideoEncodeAcceleratorProviderFactoryStubDispatch::Accept(
+    VideoEncodeAcceleratorProviderFactory* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kVideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data* params =
+          reinterpret_cast<internal::VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingReceiver<VideoEncodeAcceleratorProvider> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<VideoEncodeAcceleratorProvider>>();
+      VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            VideoEncodeAcceleratorProviderFactory::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->CreateVideoEncodeAcceleratorProvider(
+std::move(p_receiver));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool VideoEncodeAcceleratorProviderFactoryStubDispatch::AcceptWithResponder(
+    VideoEncodeAcceleratorProviderFactory* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kVideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Name: {
+      break;
+    }
+  }
+  return false;
+}
+
+
+static const mojo::internal::GenericValidationInfo kVideoEncodeAcceleratorProviderFactoryValidationInfo[] = {
+    {&internal::VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool VideoEncodeAcceleratorProviderFactoryRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::media::mojom::VideoEncodeAcceleratorProviderFactory::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kVideoEncodeAcceleratorProviderFactoryValidationInfo);
+}
+
 const char VideoEncodeAccelerator::Name_[] = "media.mojom.VideoEncodeAccelerator";
 
 VideoEncodeAccelerator::IPCStableHashFunction VideoEncodeAccelerator::MessageToMethodInfo_(mojo::Message& message) {
@@ -4043,6 +4209,17 @@ std::vector<::media::VideoEncodeAccelerator::SupportedProfile> VideoEncodeAccele
   GetVideoEncodeAcceleratorSupportedProfiles(&async_wait_result);
   return async_wait_result;
 }
+
+
+
+
+void VideoEncodeAcceleratorProviderFactoryInterceptorForTesting::CreateVideoEncodeAcceleratorProvider(::mojo::PendingReceiver<VideoEncodeAcceleratorProvider> receiver) {
+  GetForwardingInterface()->CreateVideoEncodeAcceleratorProvider(std::move(receiver));
+}
+VideoEncodeAcceleratorProviderFactoryAsyncWaiter::VideoEncodeAcceleratorProviderFactoryAsyncWaiter(
+    VideoEncodeAcceleratorProviderFactory* proxy) : proxy_(proxy) {}
+
+VideoEncodeAcceleratorProviderFactoryAsyncWaiter::~VideoEncodeAcceleratorProviderFactoryAsyncWaiter() = default;
 
 
 

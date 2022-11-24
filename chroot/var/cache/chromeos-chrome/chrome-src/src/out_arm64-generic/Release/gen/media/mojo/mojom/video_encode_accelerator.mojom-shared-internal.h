@@ -16,6 +16,7 @@
 #include "mojo/public/mojom/base/time.mojom-shared-internal.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared-internal.h"
 #include "media/mojo/mojom/video_encoder_info.mojom-shared-internal.h"
+#include "sandbox/policy/mojom/sandbox.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 

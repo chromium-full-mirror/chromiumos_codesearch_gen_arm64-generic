@@ -110,6 +110,57 @@ std::string GetProtoDebugStringWithIndent(DeleteKeysRequest_MatchBehavior value,
   return "<unknown>";
 }
 
+std::string GetProtoDebugString(const GetFeaturesRequest& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const GetFeaturesRequest& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const GetFeaturesReply& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const GetFeaturesReply& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  if (value.has_status()) {
+    output += indent + "  status: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.status(), indent_size + 2).c_str());
+    output += "\n";
+  }
+  if (value.has_is_available()) {
+    output += indent + "  is_available: ";
+    base::StringAppendF(&output, "%s", value.is_available() ? "true" : "false");
+    output += "\n";
+  }
+  output += indent + "  supported_key_types: {";
+  for (int i = 0; i < value.supported_key_types_size(); ++i) {
+    if (i > 0) {
+      base::StringAppendF(&output, ", ");
+    }
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.supported_key_types(i), indent_size + 2)
+                            .c_str());
+  }
+  output += "}\n";
+  output += indent + "}\n";
+  return output;
+}
+
 std::string GetProtoDebugString(const GetKeyInfoRequest& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }

@@ -66,6 +66,7 @@ class ThreadDescriptor;
 class TraceConfig;
 class TracePacketDefaults;
 class TraceStats;
+class TraceUuid;
 class TracingServiceEvent;
 class TrackDescriptor;
 class TrackEvent;
@@ -127,6 +128,8 @@ class TracePacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes sys_stats() const { return at<7>().as_bytes(); }
   bool has_track_event() const { return at<11>().valid(); }
   ::protozero::ConstBytes track_event() const { return at<11>().as_bytes(); }
+  bool has_trace_uuid() const { return at<89>().valid(); }
+  ::protozero::ConstBytes trace_uuid() const { return at<89>().as_bytes(); }
   bool has_trace_config() const { return at<33>().valid(); }
   ::protozero::ConstBytes trace_config() const { return at<33>().as_bytes(); }
   bool has_ftrace_stats() const { return at<34>().valid(); }
@@ -262,6 +265,7 @@ class TracePacket : public ::protozero::Message {
     kClockSnapshotFieldNumber = 6,
     kSysStatsFieldNumber = 7,
     kTrackEventFieldNumber = 11,
+    kTraceUuidFieldNumber = 89,
     kTraceConfigFieldNumber = 33,
     kFtraceStatsFieldNumber = 34,
     kTraceStatsFieldNumber = 35,
@@ -528,6 +532,27 @@ class TracePacket : public ::protozero::Message {
   static constexpr FieldMetadata_TrackEvent kTrackEvent() { return {}; }
   template <typename T = TrackEvent> T* set_track_event() {
     return BeginNestedMessage<T>(11);
+  }
+
+
+  using FieldMetadata_TraceUuid =
+    ::protozero::proto_utils::FieldMetadata<
+      89,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      TraceUuid,
+      TracePacket>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_TraceUuid kTraceUuid() { return {}; }
+  template <typename T = TraceUuid> T* set_trace_uuid() {
+    return BeginNestedMessage<T>(89);
   }
 
 

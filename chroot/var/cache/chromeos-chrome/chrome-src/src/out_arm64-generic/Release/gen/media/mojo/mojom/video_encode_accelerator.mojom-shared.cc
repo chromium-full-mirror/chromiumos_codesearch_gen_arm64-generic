@@ -873,6 +873,38 @@ VideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_Respon
 
 
 // static
+bool VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data* object =
+      static_cast<const VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->receiver, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->receiver,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data::VideoEncodeAcceleratorProviderFactory_CreateVideoEncodeAcceleratorProvider_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool VideoEncodeAccelerator_Initialize_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

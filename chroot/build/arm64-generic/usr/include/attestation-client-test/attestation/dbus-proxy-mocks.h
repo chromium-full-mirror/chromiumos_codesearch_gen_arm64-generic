@@ -24,6 +24,16 @@ class AttestationProxyMock : public AttestationProxyInterface {
   AttestationProxyMock(const AttestationProxyMock&) = delete;
   AttestationProxyMock& operator=(const AttestationProxyMock&) = delete;
 
+  MOCK_METHOD4(GetFeatures,
+               bool(const attestation::GetFeaturesRequest& /*in_request*/,
+                    attestation::GetFeaturesReply* /*out_reply*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(GetFeaturesAsync,
+               void(const attestation::GetFeaturesRequest& /*in_request*/,
+                    base::OnceCallback<void(const attestation::GetFeaturesReply& /*reply*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD4(GetKeyInfo,
                bool(const attestation::GetKeyInfoRequest& /*in_request*/,
                     attestation::GetKeyInfoReply* /*out_reply*/,
