@@ -19,12 +19,9 @@ const char kIncreaseScreenBrightnessMethod[] = "IncreaseScreenBrightness";
 const char kGetScreenBrightnessPercentMethod[] = "GetScreenBrightnessPercent";
 const char kGetKeyboardBrightnessPercentMethod[] =
     "GetKeyboardBrightnessPercent";
+const char kSetKeyboardBrightnessMethod[] = "SetKeyboardBrightness";
 const char kDecreaseKeyboardBrightnessMethod[] = "DecreaseKeyboardBrightness";
 const char kIncreaseKeyboardBrightnessMethod[] = "IncreaseKeyboardBrightness";
-const char kSetKeyboardBacklightToggledOffMethod[] =
-    "SetKeyboardBacklightToggledOff";
-const char kGetKeyboardBacklightToggledOffMethod[] =
-    "GetKeyboardBacklightToggledOff";
 const char kToggleKeyboardBacklightMethod[] = "ToggleKeyboardBacklight";
 const char kRequestRestartMethod[] = "RequestRestart";
 const char kRequestShutdownMethod[] = "RequestShutdown";
