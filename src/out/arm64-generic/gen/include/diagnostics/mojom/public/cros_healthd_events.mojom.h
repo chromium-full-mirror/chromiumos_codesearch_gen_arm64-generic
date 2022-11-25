@@ -58,7 +58,6 @@ class CrosHealthdBluetoothObserver
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CrosHealthdBluetoothObserverInterfaceBase;
@@ -139,7 +138,6 @@ class CrosHealthdLidObserver
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CrosHealthdLidObserverInterfaceBase;
@@ -192,7 +190,6 @@ class CrosHealthdPowerObserver
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CrosHealthdPowerObserverInterfaceBase;
@@ -259,7 +256,6 @@ class CrosHealthdAudioObserver
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CrosHealthdAudioObserverInterfaceBase;
@@ -312,7 +308,6 @@ class CrosHealthdThunderboltObserver
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CrosHealthdThunderboltObserverInterfaceBase;
@@ -379,7 +374,6 @@ class CrosHealthdUsbObserver
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CrosHealthdUsbObserverInterfaceBase;

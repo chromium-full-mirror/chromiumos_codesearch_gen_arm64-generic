@@ -14,12 +14,14 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
+
+namespace mojo::internal {
+class ValidationContext;
+}
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
 namespace internal {
-
-class ValidationContext;
 class  LedLitUpRoutineReplier_GetColorMatched_Params_Data {
  public:
   static bool Validate(const void* data,

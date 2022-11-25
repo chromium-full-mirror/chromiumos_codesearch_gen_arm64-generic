@@ -14,12 +14,14 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
+
+namespace mojo::internal {
+class ValidationContext;
+}
 namespace ash {
 namespace rollback_network_config {
 namespace mojom {
 namespace internal {
-
-class ValidationContext;
 class  RollbackNetworkConfig_RollbackConfigImport_Params_Data {
  public:
   static bool Validate(const void* data,

@@ -14,11 +14,13 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
+
+namespace mojo::internal {
+class ValidationContext;
+}
 namespace cros {
 namespace mojom {
 namespace internal {
-
-class ValidationContext;
 class  CameraAlgorithmOps_Initialize_Params_Data {
  public:
   static bool Validate(const void* data,

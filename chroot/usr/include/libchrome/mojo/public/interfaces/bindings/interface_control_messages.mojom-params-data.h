@@ -14,11 +14,13 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
+
+namespace mojo::internal {
+class ValidationContext;
+}
 namespace mojo {
 namespace interface_control {
 namespace internal {
-
-class ValidationContext;
 
 }  // namespace internal
 }  // namespace interface_control

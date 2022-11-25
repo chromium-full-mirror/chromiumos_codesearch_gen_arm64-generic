@@ -64,7 +64,6 @@ class CameraHalDispatcher
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 6;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CameraHalDispatcherInterfaceBase;
@@ -159,7 +158,6 @@ class CameraHalServer
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 10;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CameraHalServerInterfaceBase;
@@ -253,7 +251,6 @@ class CameraHalServerCallbacks
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 9;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CameraHalServerCallbacksInterfaceBase;
@@ -313,7 +310,6 @@ class CameraHalClient
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CameraHalClientInterfaceBase;

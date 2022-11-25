@@ -52,6 +52,8 @@ const char kSpacedCliPath[] = "/usr/sbin/spaced_cli";
 const char kSpacedGetFreeDiskSpaceAction[] = "get_free_disk_space";
 const char kSpacedGetTotalDiskSpaceAction[] = "get_total_disk_space";
 
+}  // namespace
+
 class ChromeOSVersionInfo {
  public:
   ChromeOSVersionInfo() {
@@ -68,7 +70,7 @@ class ChromeOSVersionInfo {
       // If the LSB_RELEASE and LSB_RELEASE_TIME environment variables are not
       // set, fall back to a blocking read of the lsb_release file. This should
       // only happen in non Chrome OS environments.
-      ThreadRestrictions::ScopedAllowIO allow_io;
+      ScopedAllowBlocking allow_blocking;
       FilePath path(kLinuxStandardBaseReleaseFile);
       ReadFileToString(path, &lsb_release);
       File::Info fileinfo;
@@ -195,8 +197,6 @@ int64_t GetInfoFromSpaced(StringPiece action, const base::FilePath& path) {
 
   return result;
 }
-
-}  // namespace
 
 // static
 std::string SysInfo::HardwareModelName() {

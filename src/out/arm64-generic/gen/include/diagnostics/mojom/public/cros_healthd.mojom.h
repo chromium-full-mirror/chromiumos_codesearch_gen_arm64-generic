@@ -66,7 +66,6 @@ class CrosHealthdServiceFactory
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CrosHealthdServiceFactoryInterfaceBase;
@@ -155,7 +154,6 @@ class CrosHealthdDiagnosticsService
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 5;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CrosHealthdDiagnosticsServiceInterfaceBase;
@@ -536,7 +534,6 @@ class CrosHealthdEventService
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CrosHealthdEventServiceInterfaceBase;
@@ -625,7 +622,6 @@ class CrosHealthdProbeService
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CrosHealthdProbeServiceInterfaceBase;
@@ -692,7 +688,6 @@ class CrosHealthdSystemService
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = CrosHealthdSystemServiceInterfaceBase;
@@ -741,7 +736,6 @@ class WilcoEcServiceController
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = WilcoEcServiceControllerInterfaceBase;
