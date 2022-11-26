@@ -2732,6 +2732,7 @@ class StartArcVmRequest final :
     kUsapProfileFieldNumber = 38,
     kNativeBridgeExperimentFieldNumber = 39,
     kUreadaheadModeFieldNumber = 40,
+    kEnableWebViewZygoteLazyInitFieldNumber = 42,
   };
   // repeated .vm_tools.concierge.DiskImage disks = 2;
   int disks_size() const;
@@ -3168,6 +3169,15 @@ class StartArcVmRequest final :
   void _internal_set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value);
   public:
 
+  // bool enable_web_view_zygote_lazy_init = 42;
+  void clear_enable_web_view_zygote_lazy_init();
+  bool enable_web_view_zygote_lazy_init() const;
+  void set_enable_web_view_zygote_lazy_init(bool value);
+  private:
+  bool _internal_enable_web_view_zygote_lazy_init() const;
+  void _internal_set_enable_web_view_zygote_lazy_init(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.StartArcVmRequest)
  private:
   class _Internal;
@@ -3216,6 +3226,7 @@ class StartArcVmRequest final :
   int usap_profile_;
   int native_bridge_experiment_;
   int ureadahead_mode_;
+  bool enable_web_view_zygote_lazy_init_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
@@ -16017,6 +16028,26 @@ inline void StartArcVmRequest::_internal_set_enable_rw(bool value) {
 inline void StartArcVmRequest::set_enable_rw(bool value) {
   _internal_set_enable_rw(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_rw)
+}
+
+// bool enable_web_view_zygote_lazy_init = 42;
+inline void StartArcVmRequest::clear_enable_web_view_zygote_lazy_init() {
+  enable_web_view_zygote_lazy_init_ = false;
+}
+inline bool StartArcVmRequest::_internal_enable_web_view_zygote_lazy_init() const {
+  return enable_web_view_zygote_lazy_init_;
+}
+inline bool StartArcVmRequest::enable_web_view_zygote_lazy_init() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.enable_web_view_zygote_lazy_init)
+  return _internal_enable_web_view_zygote_lazy_init();
+}
+inline void StartArcVmRequest::_internal_set_enable_web_view_zygote_lazy_init(bool value) {
+  
+  enable_web_view_zygote_lazy_init_ = value;
+}
+inline void StartArcVmRequest::set_enable_web_view_zygote_lazy_init(bool value) {
+  _internal_set_enable_web_view_zygote_lazy_init(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_web_view_zygote_lazy_init)
 }
 
 // -------------------------------------------------------------------
