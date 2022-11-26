@@ -45,7 +45,7 @@ struct TableStruct_fusebox_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[15]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[17]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -58,6 +58,12 @@ extern Close2RequestProtoDefaultTypeInternal _Close2RequestProto_default_instanc
 class Close2ResponseProto;
 struct Close2ResponseProtoDefaultTypeInternal;
 extern Close2ResponseProtoDefaultTypeInternal _Close2ResponseProto_default_instance_;
+class CreateRequestProto;
+struct CreateRequestProtoDefaultTypeInternal;
+extern CreateRequestProtoDefaultTypeInternal _CreateRequestProto_default_instance_;
+class CreateResponseProto;
+struct CreateResponseProtoDefaultTypeInternal;
+extern CreateResponseProtoDefaultTypeInternal _CreateResponseProto_default_instance_;
 class DirEntryProto;
 struct DirEntryProtoDefaultTypeInternal;
 extern DirEntryProtoDefaultTypeInternal _DirEntryProto_default_instance_;
@@ -101,6 +107,8 @@ extern RmDirResponseProtoDefaultTypeInternal _RmDirResponseProto_default_instanc
 PROTOBUF_NAMESPACE_OPEN
 template<> ::fusebox::Close2RequestProto* Arena::CreateMaybeMessage<::fusebox::Close2RequestProto>(Arena*);
 template<> ::fusebox::Close2ResponseProto* Arena::CreateMaybeMessage<::fusebox::Close2ResponseProto>(Arena*);
+template<> ::fusebox::CreateRequestProto* Arena::CreateMaybeMessage<::fusebox::CreateRequestProto>(Arena*);
+template<> ::fusebox::CreateResponseProto* Arena::CreateMaybeMessage<::fusebox::CreateResponseProto>(Arena*);
 template<> ::fusebox::DirEntryProto* Arena::CreateMaybeMessage<::fusebox::DirEntryProto>(Arena*);
 template<> ::fusebox::ListStoragesRequestProto* Arena::CreateMaybeMessage<::fusebox::ListStoragesRequestProto>(Arena*);
 template<> ::fusebox::ListStoragesResponseProto* Arena::CreateMaybeMessage<::fusebox::ListStoragesResponseProto>(Arena*);
@@ -661,6 +669,330 @@ class Close2ResponseProto final :
 };
 // -------------------------------------------------------------------
 
+class CreateRequestProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.CreateRequestProto) */ {
+ public:
+  inline CreateRequestProto() : CreateRequestProto(nullptr) {}
+  ~CreateRequestProto() override;
+  explicit constexpr CreateRequestProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CreateRequestProto(const CreateRequestProto& from);
+  CreateRequestProto(CreateRequestProto&& from) noexcept
+    : CreateRequestProto() {
+    *this = ::std::move(from);
+  }
+
+  inline CreateRequestProto& operator=(const CreateRequestProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CreateRequestProto& operator=(CreateRequestProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const CreateRequestProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CreateRequestProto* internal_default_instance() {
+    return reinterpret_cast<const CreateRequestProto*>(
+               &_CreateRequestProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(CreateRequestProto& a, CreateRequestProto& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CreateRequestProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CreateRequestProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CreateRequestProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CreateRequestProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const CreateRequestProto& from);
+  void MergeFrom(const CreateRequestProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(CreateRequestProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "fusebox.CreateRequestProto";
+  }
+  protected:
+  explicit CreateRequestProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFileSystemUrlFieldNumber = 3,
+  };
+  // optional string file_system_url = 3;
+  bool has_file_system_url() const;
+  private:
+  bool _internal_has_file_system_url() const;
+  public:
+  void clear_file_system_url();
+  const std::string& file_system_url() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_file_system_url(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_file_system_url();
+  PROTOBUF_NODISCARD std::string* release_file_system_url();
+  void set_allocated_file_system_url(std::string* file_system_url);
+  private:
+  const std::string& _internal_file_system_url() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_file_system_url(const std::string& value);
+  std::string* _internal_mutable_file_system_url();
+  public:
+
+  // @@protoc_insertion_point(class_scope:fusebox.CreateRequestProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr file_system_url_;
+  friend struct ::TableStruct_fusebox_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CreateResponseProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.CreateResponseProto) */ {
+ public:
+  inline CreateResponseProto() : CreateResponseProto(nullptr) {}
+  ~CreateResponseProto() override;
+  explicit constexpr CreateResponseProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CreateResponseProto(const CreateResponseProto& from);
+  CreateResponseProto(CreateResponseProto&& from) noexcept
+    : CreateResponseProto() {
+    *this = ::std::move(from);
+  }
+
+  inline CreateResponseProto& operator=(const CreateResponseProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CreateResponseProto& operator=(CreateResponseProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const CreateResponseProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CreateResponseProto* internal_default_instance() {
+    return reinterpret_cast<const CreateResponseProto*>(
+               &_CreateResponseProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(CreateResponseProto& a, CreateResponseProto& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CreateResponseProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CreateResponseProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CreateResponseProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CreateResponseProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const CreateResponseProto& from);
+  void MergeFrom(const CreateResponseProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(CreateResponseProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "fusebox.CreateResponseProto";
+  }
+  protected:
+  explicit CreateResponseProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kStatFieldNumber = 3,
+    kFuseHandleFieldNumber = 2,
+    kPosixErrorCodeFieldNumber = 1,
+  };
+  // optional .fusebox.DirEntryProto stat = 3;
+  bool has_stat() const;
+  private:
+  bool _internal_has_stat() const;
+  public:
+  void clear_stat();
+  const ::fusebox::DirEntryProto& stat() const;
+  PROTOBUF_NODISCARD ::fusebox::DirEntryProto* release_stat();
+  ::fusebox::DirEntryProto* mutable_stat();
+  void set_allocated_stat(::fusebox::DirEntryProto* stat);
+  private:
+  const ::fusebox::DirEntryProto& _internal_stat() const;
+  ::fusebox::DirEntryProto* _internal_mutable_stat();
+  public:
+  void unsafe_arena_set_allocated_stat(
+      ::fusebox::DirEntryProto* stat);
+  ::fusebox::DirEntryProto* unsafe_arena_release_stat();
+
+  // optional uint64 fuse_handle = 2;
+  bool has_fuse_handle() const;
+  private:
+  bool _internal_has_fuse_handle() const;
+  public:
+  void clear_fuse_handle();
+  uint64_t fuse_handle() const;
+  void set_fuse_handle(uint64_t value);
+  private:
+  uint64_t _internal_fuse_handle() const;
+  void _internal_set_fuse_handle(uint64_t value);
+  public:
+
+  // optional int32 posix_error_code = 1;
+  bool has_posix_error_code() const;
+  private:
+  bool _internal_has_posix_error_code() const;
+  public:
+  void clear_posix_error_code();
+  int32_t posix_error_code() const;
+  void set_posix_error_code(int32_t value);
+  private:
+  int32_t _internal_posix_error_code() const;
+  void _internal_set_posix_error_code(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:fusebox.CreateResponseProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::fusebox::DirEntryProto* stat_;
+  uint64_t fuse_handle_;
+  int32_t posix_error_code_;
+  friend struct ::TableStruct_fusebox_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ListStoragesRequestProto final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.ListStoragesRequestProto) */ {
  public:
@@ -707,7 +1039,7 @@ class ListStoragesRequestProto final :
                &_ListStoragesRequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    5;
 
   friend void swap(ListStoragesRequestProto& a, ListStoragesRequestProto& b) {
     a.Swap(&b);
@@ -831,7 +1163,7 @@ class ListStoragesResponseProto final :
                &_ListStoragesResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    6;
 
   friend void swap(ListStoragesResponseProto& a, ListStoragesResponseProto& b) {
     a.Swap(&b);
@@ -999,7 +1331,7 @@ class MkDirRequestProto final :
                &_MkDirRequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(MkDirRequestProto& a, MkDirRequestProto& b) {
     a.Swap(&b);
@@ -1146,7 +1478,7 @@ class MkDirResponseProto final :
                &_MkDirResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   friend void swap(MkDirResponseProto& a, MkDirResponseProto& b) {
     a.Swap(&b);
@@ -1308,7 +1640,7 @@ class Open2RequestProto final :
                &_Open2RequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    9;
 
   friend void swap(Open2RequestProto& a, Open2RequestProto& b) {
     a.Swap(&b);
@@ -1470,7 +1802,7 @@ class Open2ResponseProto final :
                &_Open2ResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    10;
 
   friend void swap(Open2ResponseProto& a, Open2ResponseProto& b) {
     a.Swap(&b);
@@ -1627,7 +1959,7 @@ class Read2RequestProto final :
                &_Read2RequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   friend void swap(Read2RequestProto& a, Read2RequestProto& b) {
     a.Swap(&b);
@@ -1799,7 +2131,7 @@ class Read2ResponseProto final :
                &_Read2ResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(Read2ResponseProto& a, Read2ResponseProto& b) {
     a.Swap(&b);
@@ -1961,7 +2293,7 @@ class ReadDir2RequestProto final :
                &_ReadDir2RequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(ReadDir2RequestProto& a, ReadDir2RequestProto& b) {
     a.Swap(&b);
@@ -2138,7 +2470,7 @@ class ReadDir2ResponseProto final :
                &_ReadDir2ResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
   friend void swap(ReadDir2ResponseProto& a, ReadDir2ResponseProto& b) {
     a.Swap(&b);
@@ -2315,7 +2647,7 @@ class RmDirRequestProto final :
                &_RmDirRequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    15;
 
   friend void swap(RmDirRequestProto& a, RmDirRequestProto& b) {
     a.Swap(&b);
@@ -2462,7 +2794,7 @@ class RmDirResponseProto final :
                &_RmDirResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   friend void swap(RmDirResponseProto& a, RmDirResponseProto& b) {
     a.Swap(&b);
@@ -2866,6 +3198,229 @@ inline void Close2ResponseProto::_internal_set_posix_error_code(int32_t value) {
 inline void Close2ResponseProto::set_posix_error_code(int32_t value) {
   _internal_set_posix_error_code(value);
   // @@protoc_insertion_point(field_set:fusebox.Close2ResponseProto.posix_error_code)
+}
+
+// -------------------------------------------------------------------
+
+// CreateRequestProto
+
+// optional string file_system_url = 3;
+inline bool CreateRequestProto::_internal_has_file_system_url() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool CreateRequestProto::has_file_system_url() const {
+  return _internal_has_file_system_url();
+}
+inline void CreateRequestProto::clear_file_system_url() {
+  file_system_url_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& CreateRequestProto::file_system_url() const {
+  // @@protoc_insertion_point(field_get:fusebox.CreateRequestProto.file_system_url)
+  return _internal_file_system_url();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CreateRequestProto::set_file_system_url(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ file_system_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:fusebox.CreateRequestProto.file_system_url)
+}
+inline std::string* CreateRequestProto::mutable_file_system_url() {
+  std::string* _s = _internal_mutable_file_system_url();
+  // @@protoc_insertion_point(field_mutable:fusebox.CreateRequestProto.file_system_url)
+  return _s;
+}
+inline const std::string& CreateRequestProto::_internal_file_system_url() const {
+  return file_system_url_.Get();
+}
+inline void CreateRequestProto::_internal_set_file_system_url(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  file_system_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* CreateRequestProto::_internal_mutable_file_system_url() {
+  _has_bits_[0] |= 0x00000001u;
+  return file_system_url_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* CreateRequestProto::release_file_system_url() {
+  // @@protoc_insertion_point(field_release:fusebox.CreateRequestProto.file_system_url)
+  if (!_internal_has_file_system_url()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = file_system_url_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (file_system_url_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    file_system_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void CreateRequestProto::set_allocated_file_system_url(std::string* file_system_url) {
+  if (file_system_url != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  file_system_url_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), file_system_url,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (file_system_url_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    file_system_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:fusebox.CreateRequestProto.file_system_url)
+}
+
+// -------------------------------------------------------------------
+
+// CreateResponseProto
+
+// optional int32 posix_error_code = 1;
+inline bool CreateResponseProto::_internal_has_posix_error_code() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool CreateResponseProto::has_posix_error_code() const {
+  return _internal_has_posix_error_code();
+}
+inline void CreateResponseProto::clear_posix_error_code() {
+  posix_error_code_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline int32_t CreateResponseProto::_internal_posix_error_code() const {
+  return posix_error_code_;
+}
+inline int32_t CreateResponseProto::posix_error_code() const {
+  // @@protoc_insertion_point(field_get:fusebox.CreateResponseProto.posix_error_code)
+  return _internal_posix_error_code();
+}
+inline void CreateResponseProto::_internal_set_posix_error_code(int32_t value) {
+  _has_bits_[0] |= 0x00000004u;
+  posix_error_code_ = value;
+}
+inline void CreateResponseProto::set_posix_error_code(int32_t value) {
+  _internal_set_posix_error_code(value);
+  // @@protoc_insertion_point(field_set:fusebox.CreateResponseProto.posix_error_code)
+}
+
+// optional uint64 fuse_handle = 2;
+inline bool CreateResponseProto::_internal_has_fuse_handle() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool CreateResponseProto::has_fuse_handle() const {
+  return _internal_has_fuse_handle();
+}
+inline void CreateResponseProto::clear_fuse_handle() {
+  fuse_handle_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline uint64_t CreateResponseProto::_internal_fuse_handle() const {
+  return fuse_handle_;
+}
+inline uint64_t CreateResponseProto::fuse_handle() const {
+  // @@protoc_insertion_point(field_get:fusebox.CreateResponseProto.fuse_handle)
+  return _internal_fuse_handle();
+}
+inline void CreateResponseProto::_internal_set_fuse_handle(uint64_t value) {
+  _has_bits_[0] |= 0x00000002u;
+  fuse_handle_ = value;
+}
+inline void CreateResponseProto::set_fuse_handle(uint64_t value) {
+  _internal_set_fuse_handle(value);
+  // @@protoc_insertion_point(field_set:fusebox.CreateResponseProto.fuse_handle)
+}
+
+// optional .fusebox.DirEntryProto stat = 3;
+inline bool CreateResponseProto::_internal_has_stat() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || stat_ != nullptr);
+  return value;
+}
+inline bool CreateResponseProto::has_stat() const {
+  return _internal_has_stat();
+}
+inline void CreateResponseProto::clear_stat() {
+  if (stat_ != nullptr) stat_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::fusebox::DirEntryProto& CreateResponseProto::_internal_stat() const {
+  const ::fusebox::DirEntryProto* p = stat_;
+  return p != nullptr ? *p : reinterpret_cast<const ::fusebox::DirEntryProto&>(
+      ::fusebox::_DirEntryProto_default_instance_);
+}
+inline const ::fusebox::DirEntryProto& CreateResponseProto::stat() const {
+  // @@protoc_insertion_point(field_get:fusebox.CreateResponseProto.stat)
+  return _internal_stat();
+}
+inline void CreateResponseProto::unsafe_arena_set_allocated_stat(
+    ::fusebox::DirEntryProto* stat) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(stat_);
+  }
+  stat_ = stat;
+  if (stat) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:fusebox.CreateResponseProto.stat)
+}
+inline ::fusebox::DirEntryProto* CreateResponseProto::release_stat() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::fusebox::DirEntryProto* temp = stat_;
+  stat_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::fusebox::DirEntryProto* CreateResponseProto::unsafe_arena_release_stat() {
+  // @@protoc_insertion_point(field_release:fusebox.CreateResponseProto.stat)
+  _has_bits_[0] &= ~0x00000001u;
+  ::fusebox::DirEntryProto* temp = stat_;
+  stat_ = nullptr;
+  return temp;
+}
+inline ::fusebox::DirEntryProto* CreateResponseProto::_internal_mutable_stat() {
+  _has_bits_[0] |= 0x00000001u;
+  if (stat_ == nullptr) {
+    auto* p = CreateMaybeMessage<::fusebox::DirEntryProto>(GetArenaForAllocation());
+    stat_ = p;
+  }
+  return stat_;
+}
+inline ::fusebox::DirEntryProto* CreateResponseProto::mutable_stat() {
+  ::fusebox::DirEntryProto* _msg = _internal_mutable_stat();
+  // @@protoc_insertion_point(field_mutable:fusebox.CreateResponseProto.stat)
+  return _msg;
+}
+inline void CreateResponseProto::set_allocated_stat(::fusebox::DirEntryProto* stat) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete stat_;
+  }
+  if (stat) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::fusebox::DirEntryProto>::GetOwningArena(stat);
+    if (message_arena != submessage_arena) {
+      stat = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, stat, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  stat_ = stat;
+  // @@protoc_insertion_point(field_set_allocated:fusebox.CreateResponseProto.stat)
 }
 
 // -------------------------------------------------------------------
@@ -3862,6 +4417,10 @@ inline void RmDirResponseProto::set_posix_error_code(int32_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
