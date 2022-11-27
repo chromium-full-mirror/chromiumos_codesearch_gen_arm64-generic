@@ -78,6 +78,7 @@ class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDi
   void RunFingerprintRoutine(RunFingerprintRoutineCallback callback) override;
   void RunFingerprintAliveRoutine(RunFingerprintAliveRoutineCallback callback) override;
   void RunPrivacyScreenRoutine(bool target_state, RunPrivacyScreenRoutineCallback callback) override;
+  void RunLedLitUpRoutine(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier, RunLedLitUpRoutineCallback callback) override;
 };
 class  CrosHealthdDiagnosticsServiceAsyncWaiter {
  public:
@@ -198,6 +199,9 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
   void RunPrivacyScreenRoutine(
       bool target_state, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunPrivacyScreenRoutine(bool target_state);
+  void RunLedLitUpRoutine(
+      ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunLedLitUpRoutine(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier);
 
  private:
   CrosHealthdDiagnosticsService* const proxy_;

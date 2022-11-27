@@ -40,6 +40,118 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
+class LedLitUpRoutineReplierProxy;
+
+template <typename ImplRefTraits>
+class LedLitUpRoutineReplierStub;
+
+class LedLitUpRoutineReplierRequestValidator;
+class LedLitUpRoutineReplierResponseValidator;
+
+
+class LedLitUpRoutineReplier
+    : public LedLitUpRoutineReplierInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = LedLitUpRoutineReplierInterfaceBase;
+  using Proxy_ = LedLitUpRoutineReplierProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = LedLitUpRoutineReplierStub<ImplRefTraits>;
+
+  using RequestValidator_ = LedLitUpRoutineReplierRequestValidator;
+  using ResponseValidator_ = LedLitUpRoutineReplierResponseValidator;
+  enum MethodMinVersions : uint32_t {
+    kGetColorMatchedMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct GetColorMatched_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~LedLitUpRoutineReplier() = default;
+
+
+  using GetColorMatchedCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void GetColorMatched(GetColorMatchedCallback callback) = 0;
+};
+
+
+
+class  LedLitUpRoutineReplierProxy
+    : public LedLitUpRoutineReplier {
+ public:
+  using InterfaceType = LedLitUpRoutineReplier;
+
+  explicit LedLitUpRoutineReplierProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void GetColorMatched(GetColorMatchedCallback callback) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+class  LedLitUpRoutineReplierStubDispatch {
+ public:
+  static bool Accept(LedLitUpRoutineReplier* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      LedLitUpRoutineReplier* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<LedLitUpRoutineReplier>>
+class LedLitUpRoutineReplierStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  LedLitUpRoutineReplierStub() = default;
+  ~LedLitUpRoutineReplierStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return LedLitUpRoutineReplierStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return LedLitUpRoutineReplierStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  LedLitUpRoutineReplierRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  LedLitUpRoutineReplierResponseValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+
 
 
 

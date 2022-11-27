@@ -11,7 +11,7 @@
 
 #include "mojo/public/cpp/bindings/struct_forward.h"
 
-
+#include "mojo/public/cpp/bindings/deprecated_interface_types_forward.h"
 
 
 #include "mojo/public/interfaces/bindings/native_struct.mojom-forward.h"
@@ -48,6 +48,10 @@ enum class AcPowerStatusEnum : int32_t;
 
 enum class NvmeSelfTestTypeEnum : int32_t;
 
+enum class LedName : int32_t;
+
+enum class LedColor : int32_t;
+
 constexpr int32_t kFailedToStartId = 0;
 class RunRoutineResponse;
 using RunRoutineResponsePtr = mojo::InlinedStructPtr<RunRoutineResponse>;
@@ -64,6 +68,8 @@ using RoutineUpdatePtr = mojo::StructPtr<RoutineUpdate>;
 class RoutineUpdateUnion;
 
 using RoutineUpdateUnionPtr = mojo::StructPtr<RoutineUpdateUnion>;
+
+class LedLitUpRoutineReplier;
 
 
 

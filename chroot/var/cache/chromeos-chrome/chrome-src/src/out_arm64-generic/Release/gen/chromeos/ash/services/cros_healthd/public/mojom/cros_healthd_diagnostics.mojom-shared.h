@@ -168,8 +168,10 @@ enum class DiagnosticRoutineEnum : int32_t {
   kFingerprintAlive = 33,
   
   kPrivacyScreen = 34,
+  
+  kLedLitUp = 35,
   kMinValue = 0,
-  kMaxValue = 34,
+  kMaxValue = 35,
   kDefaultValue = 30
 };
 
@@ -263,8 +265,10 @@ enum class DiagnosticRoutineUserMessageEnum : int32_t {
   kUnplugACPower = 0,
   
   kPlugInACPower = 1,
+  
+  kCheckLedColor = 3,
   kMinValue = 0,
-  kMaxValue = 2,
+  kMaxValue = 3,
   kDefaultValue = 2
 };
 
@@ -358,6 +362,81 @@ inline NvmeSelfTestTypeEnum ToKnownEnumValue(NvmeSelfTestTypeEnum value) {
   }
   return NvmeSelfTestTypeEnum::kDefaultValue;
 }
+
+
+enum class LedName : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kBattery = 1,
+  
+  kPower = 2,
+  
+  kAdapter = 3,
+  
+  kLeft = 4,
+  
+  kRight = 5,
+  kMinValue = 0,
+  kMaxValue = 5,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, LedName value);
+inline bool IsKnownEnumValue(LedName value) {
+  return internal::LedName_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline LedName ToKnownEnumValue(LedName value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return LedName::kDefaultValue;
+}
+
+
+enum class LedColor : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kRed = 1,
+  
+  kGreen = 2,
+  
+  kBlue = 3,
+  
+  kYellow = 4,
+  
+  kWhite = 5,
+  
+  kAmber = 6,
+  kMinValue = 0,
+  kMaxValue = 6,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, LedColor value);
+inline bool IsKnownEnumValue(LedColor value) {
+  return internal::LedColor_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline LedColor ToKnownEnumValue(LedColor value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return LedColor::kDefaultValue;
+}
+// Interface base classes. They are used for type safety check.
+class LedLitUpRoutineReplierInterfaceBase {};
+
+using LedLitUpRoutineReplierPtrDataView =
+    mojo::InterfacePtrDataView<LedLitUpRoutineReplierInterfaceBase>;
+using LedLitUpRoutineReplierRequestDataView =
+    mojo::InterfaceRequestDataView<LedLitUpRoutineReplierInterfaceBase>;
+using LedLitUpRoutineReplierAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<LedLitUpRoutineReplierInterfaceBase>;
+using LedLitUpRoutineReplierAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<LedLitUpRoutineReplierInterfaceBase>;
 
 
 class RunRoutineResponseDataView {
@@ -572,6 +651,14 @@ template <>
 struct hash<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum> {};
 
+template <>
+struct hash<::ash::cros_healthd::mojom::LedName>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::LedName> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::LedColor>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::LedColor> {};
+
 }  // namespace std
 
 namespace mojo {
@@ -711,6 +798,46 @@ struct Serializer<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum, MaybeConstUs
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::LedName, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::LedName, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::LedName>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::LedColor, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::LedColor, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::LedColor>(input)), output);
   }
 };
 
@@ -1041,6 +1168,24 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::LedName> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::LedName value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::LedColor> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::LedColor value);
 };
 
 } // namespace perfetto

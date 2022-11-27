@@ -15,6 +15,7 @@ namespace mojom {
 namespace internal {
 
 
+constexpr uint32_t kLedLitUpRoutineReplier_GetColorMatched_Name = 0;
 
 }  // namespace internal
 }  // namespace mojom

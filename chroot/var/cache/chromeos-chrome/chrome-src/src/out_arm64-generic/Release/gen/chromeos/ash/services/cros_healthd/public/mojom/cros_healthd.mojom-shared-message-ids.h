@@ -59,6 +59,7 @@ constexpr uint32_t kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunFingerprintRoutine_Name = 34;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Name = 35;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_Name = 36;
+constexpr uint32_t kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name = 37;
 constexpr uint32_t kCrosHealthdEventService_AddBluetoothObserver_Name = 0;
 constexpr uint32_t kCrosHealthdEventService_AddLidObserver_Name = 1;
 constexpr uint32_t kCrosHealthdEventService_AddPowerObserver_Name = 2;
