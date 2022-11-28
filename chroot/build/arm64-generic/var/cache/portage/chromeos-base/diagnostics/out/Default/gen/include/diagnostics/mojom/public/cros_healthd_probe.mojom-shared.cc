@@ -441,20 +441,20 @@ static NOINLINE const char* UsbSpecSpeedToStringHelper(UsbSpecSpeed value) {
       return "kUnmappedEnumField";
     case UsbSpecSpeed::kUnknown:
       return "kUnknown";
-    case UsbSpecSpeed::kSpeed1_5:
-      return "kSpeed1_5";
-    case UsbSpecSpeed::kSpeed12:
-      return "kSpeed12";
-    case UsbSpecSpeed::kSpeed15:
-      return "kSpeed15";
-    case UsbSpecSpeed::kSpeed480:
-      return "kSpeed480";
-    case UsbSpecSpeed::kSpeed5000:
-      return "kSpeed5000";
-    case UsbSpecSpeed::kSpeed10000:
-      return "kSpeed10000";
-    case UsbSpecSpeed::kSpeed20000:
-      return "kSpeed20000";
+    case UsbSpecSpeed::k1_5Mbps:
+      return "k1_5Mbps";
+    case UsbSpecSpeed::k12Mbps:
+      return "k12Mbps";
+    case UsbSpecSpeed::kDeprecateSpeed:
+      return "kDeprecateSpeed";
+    case UsbSpecSpeed::k480Mbps:
+      return "k480Mbps";
+    case UsbSpecSpeed::k5Gbps:
+      return "k5Gbps";
+    case UsbSpecSpeed::k10Gbps:
+      return "k10Gbps";
+    case UsbSpecSpeed::k20Gbps:
+      return "k20Gbps";
     default:
       return nullptr;
   }

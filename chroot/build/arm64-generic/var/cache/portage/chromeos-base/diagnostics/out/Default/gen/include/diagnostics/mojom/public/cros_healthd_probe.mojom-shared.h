@@ -1232,19 +1232,19 @@ enum class UsbSpecSpeed : int32_t {
   
   kUnknown = 1,
   
-  kSpeed1_5 = 2,
+  k1_5Mbps = 2,
   
-  kSpeed12 = 3,
+  k12Mbps = 3,
   
-  kSpeed15 = 4,
+  kDeprecateSpeed = 4,
   
-  kSpeed480 = 5,
+  k480Mbps = 5,
   
-  kSpeed5000 = 6,
+  k5Gbps = 6,
   
-  kSpeed10000 = 7,
+  k10Gbps = 7,
   
-  kSpeed20000 = 8,
+  k20Gbps = 8,
   kMinValue = 0,
   kMaxValue = 8,
   kDefaultValue = 0
