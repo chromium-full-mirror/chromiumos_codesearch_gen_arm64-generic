@@ -48,6 +48,14 @@ class RgbkbdInterface {
   // keys. If Capslock is disabled, the Capslock highlight keys will reflect
   // this background color.
   virtual void SetRainbowMode() = 0;
+  // Sets the static background RGB color for the zone. If CapsLock is enabled,
+  // this will not override the Capslock highlight keys. If Capslock is disabled,
+  // the Capslock highlight keys will reflect this background color.
+  virtual void SetZoneColor(
+      int32_t in_zone_idx,
+      uint8_t in_r,
+      uint8_t in_g,
+      uint8_t in_b) = 0;
   // Used for testing purposes only. If `enable_testing` is true, the Rgbkbd
   // daemon will be configured to a testing mode in which will write Rgbkbd
   // calls to logs. If `enable_testing` is false, the Rgbkbd daemon will be
@@ -89,6 +97,10 @@ class RgbkbdAdaptor {
         base::Unretained(interface_),
         &RgbkbdInterface::SetRainbowMode);
     itf->AddSimpleMethodHandler(
+        "SetZoneColor",
+        base::Unretained(interface_),
+        &RgbkbdInterface::SetZoneColor);
+    itf->AddSimpleMethodHandler(
         "SetTestingMode",
         base::Unretained(interface_),
         &RgbkbdInterface::SetTestingMode);
@@ -128,6 +140,12 @@ class RgbkbdAdaptor {
         "      <arg name=\"b\" type=\"y\" direction=\"in\"/>\n"
         "    </method>\n"
         "    <method name=\"SetRainbowMode\">\n"
+        "    </method>\n"
+        "    <method name=\"SetZoneColor\">\n"
+        "      <arg name=\"zone_idx\" type=\"i\" direction=\"in\"/>\n"
+        "      <arg name=\"r\" type=\"y\" direction=\"in\"/>\n"
+        "      <arg name=\"g\" type=\"y\" direction=\"in\"/>\n"
+        "      <arg name=\"b\" type=\"y\" direction=\"in\"/>\n"
         "    </method>\n"
         "    <method name=\"SetTestingMode\">\n"
         "      <arg name=\"enable_testing\" type=\"b\" direction=\"in\"/>\n"
