@@ -1197,6 +1197,72 @@ inline FwupdVersionFormat ToKnownEnumValue(FwupdVersionFormat value) {
 }
 
 
+enum class UsbVersion : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kUnknown = 1,
+  
+  kUsb1 = 2,
+  
+  kUsb2 = 3,
+  
+  kUsb3 = 4,
+  kMinValue = 0,
+  kMaxValue = 4,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, UsbVersion value);
+inline bool IsKnownEnumValue(UsbVersion value) {
+  return internal::UsbVersion_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline UsbVersion ToKnownEnumValue(UsbVersion value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return UsbVersion::kDefaultValue;
+}
+
+
+enum class UsbSpecSpeed : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kUnknown = 1,
+  
+  k1_5Mbps = 2,
+  
+  k12Mbps = 3,
+  
+  kDeprecateSpeed = 4,
+  
+  k480Mbps = 5,
+  
+  k5Gbps = 6,
+  
+  k10Gbps = 7,
+  
+  k20Gbps = 8,
+  kMinValue = 0,
+  kMaxValue = 8,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, UsbSpecSpeed value);
+inline bool IsKnownEnumValue(UsbSpecSpeed value) {
+  return internal::UsbSpecSpeed_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline UsbSpecSpeed ToKnownEnumValue(UsbSpecSpeed value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return UsbSpecSpeed::kDefaultValue;
+}
+
+
 enum class TpmGSCVersion : int32_t {
   
   kNotGSC = 0,
@@ -4027,6 +4093,32 @@ static_assert(
                     ? data_->fwupd_firmware_version_info.Get() : nullptr;
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoDataView>(
         pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadVersion(UserType* output) const {
+    auto data_value = data_->header_.version >= 2
+                      ? data_->version : 0;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UsbVersion>(
+        data_value, output);
+  }
+  UsbVersion version() const {
+    if (data_->header_.version < 2)
+      return UsbVersion{};
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::UsbVersion>(data_->version));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSpecSpeed(UserType* output) const {
+    auto data_value = data_->header_.version >= 2
+                      ? data_->spec_speed : 0;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UsbSpecSpeed>(
+        data_value, output);
+  }
+  UsbSpecSpeed spec_speed() const {
+    if (data_->header_.version < 2)
+      return UsbSpecSpeed{};
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::UsbSpecSpeed>(data_->spec_speed));
   }
  private:
   internal::UsbBusInfo_Data* data_ = nullptr;
@@ -7408,6 +7500,14 @@ struct hash<::ash::cros_healthd::mojom::FwupdVersionFormat>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::FwupdVersionFormat> {};
 
 template <>
+struct hash<::ash::cros_healthd::mojom::UsbVersion>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::UsbVersion> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::UsbSpecSpeed>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::UsbSpecSpeed> {};
+
+template <>
 struct hash<::ash::cros_healthd::mojom::TpmGSCVersion>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::TpmGSCVersion> {};
 
@@ -7666,6 +7766,46 @@ struct Serializer<::ash::cros_healthd::mojom::FwupdVersionFormat, MaybeConstUser
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::FwupdVersionFormat>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::UsbVersion, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::UsbVersion, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::UsbVersion>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::UsbSpecSpeed, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::UsbSpecSpeed, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::UsbSpecSpeed>(input)), output);
   }
 };
 
@@ -10110,6 +10250,10 @@ struct Serializer<::ash::cros_healthd::mojom::UsbBusInfoDataView, MaybeConstUser
         in_fwupd_firmware_version_info, fwupd_firmware_version_info_fragment);
     fragment->fwupd_firmware_version_info.Set(
         fwupd_firmware_version_info_fragment.is_null() ? nullptr : fwupd_firmware_version_info_fragment.data());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::UsbVersion>(
+        Traits::version(input), &fragment->version);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::UsbSpecSpeed>(
+        Traits::spec_speed(input), &fragment->spec_speed);
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::UsbBusInfo_Data* input,
@@ -15101,6 +15245,24 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::FwupdVersionFormat> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::FwupdVersionFormat value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::UsbVersion> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::UsbVersion value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::UsbSpecSpeed> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::UsbSpecSpeed value);
 };
 
 } // namespace perfetto

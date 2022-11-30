@@ -34,7 +34,7 @@ enum class SetEffectResult : int32_t;
 
 enum class BlurLevel : int32_t;
 class EffectsConfig;
-using EffectsConfigPtr = mojo::InlinedStructPtr<EffectsConfig>;
+using EffectsConfigPtr = mojo::StructPtr<EffectsConfig>;
 
 
 

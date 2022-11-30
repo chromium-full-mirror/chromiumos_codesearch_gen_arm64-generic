@@ -203,6 +203,21 @@ class EffectsConfigDataView {
   uint16_t graph_max_frames_in_flight() const {
     return data_->graph_max_frames_in_flight;
   }
+  bool blur_enabled() const {
+    if (data_->header_.version < 1)
+      return bool{};
+    return data_->blur_enabled;
+  }
+  bool replace_enabled() const {
+    if (data_->header_.version < 1)
+      return bool{};
+    return data_->replace_enabled;
+  }
+  bool relight_enabled() const {
+    if (data_->header_.version < 1)
+      return bool{};
+    return data_->relight_enabled;
+  }
  private:
   internal::EffectsConfig_Data* data_ = nullptr;
 };
@@ -335,6 +350,9 @@ struct Serializer<::cros::mojom::EffectsConfigDataView, MaybeConstUserType> {
     mojo::internal::Serialize<::cros::mojom::GpuApi>(
         Traits::segmentation_gpu_api(input), &fragment->segmentation_gpu_api);
     fragment->graph_max_frames_in_flight = Traits::graph_max_frames_in_flight(input);
+    fragment->blur_enabled = Traits::blur_enabled(input);
+    fragment->replace_enabled = Traits::replace_enabled(input);
+    fragment->relight_enabled = Traits::relight_enabled(input);
   }
 
   static bool Deserialize(::cros::mojom::internal::EffectsConfig_Data* input,

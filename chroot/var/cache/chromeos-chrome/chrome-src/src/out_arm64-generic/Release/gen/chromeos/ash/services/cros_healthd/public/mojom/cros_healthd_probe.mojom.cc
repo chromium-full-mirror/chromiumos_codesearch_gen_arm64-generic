@@ -3359,7 +3359,9 @@ UsbBusInfo::UsbBusInfo()
       vendor_id(),
       product_id(),
       interfaces(),
-      fwupd_firmware_version_info() {}
+      fwupd_firmware_version_info(),
+      version(),
+      spec_speed() {}
 
 UsbBusInfo::UsbBusInfo(
     uint8_t class_id_in,
@@ -3374,7 +3376,9 @@ UsbBusInfo::UsbBusInfo(
       vendor_id(std::move(vendor_id_in)),
       product_id(std::move(product_id_in)),
       interfaces(std::move(interfaces_in)),
-      fwupd_firmware_version_info() {}
+      fwupd_firmware_version_info(),
+      version(),
+      spec_speed() {}
 
 UsbBusInfo::UsbBusInfo(
     uint8_t class_id_in,
@@ -3390,7 +3394,29 @@ UsbBusInfo::UsbBusInfo(
       vendor_id(std::move(vendor_id_in)),
       product_id(std::move(product_id_in)),
       interfaces(std::move(interfaces_in)),
-      fwupd_firmware_version_info(std::move(fwupd_firmware_version_info_in)) {}
+      fwupd_firmware_version_info(std::move(fwupd_firmware_version_info_in)),
+      version(),
+      spec_speed() {}
+
+UsbBusInfo::UsbBusInfo(
+    uint8_t class_id_in,
+    uint8_t subclass_id_in,
+    uint8_t protocol_id_in,
+    uint16_t vendor_id_in,
+    uint16_t product_id_in,
+    std::vector<UsbBusInterfaceInfoPtr> interfaces_in,
+    FwupdFirmwareVersionInfoPtr fwupd_firmware_version_info_in,
+    UsbVersion version_in,
+    UsbSpecSpeed spec_speed_in)
+    : class_id(std::move(class_id_in)),
+      subclass_id(std::move(subclass_id_in)),
+      protocol_id(std::move(protocol_id_in)),
+      vendor_id(std::move(vendor_id_in)),
+      product_id(std::move(product_id_in)),
+      interfaces(std::move(interfaces_in)),
+      fwupd_firmware_version_info(std::move(fwupd_firmware_version_info_in)),
+      version(std::move(version_in)),
+      spec_speed(std::move(spec_speed_in)) {}
 
 UsbBusInfo::~UsbBusInfo() = default;
 
@@ -3456,6 +3482,24 @@ void UsbBusInfo::WriteIntoTrace(
       "fwupd_firmware_version_info"), this->fwupd_firmware_version_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type FwupdFirmwareVersionInfoPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "version"), this->version,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type UsbVersion>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "spec_speed"), this->spec_speed,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type UsbSpecSpeed>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -8188,6 +8232,10 @@ bool StructTraits<::ash::cros_healthd::mojom::UsbBusInfo::DataView, ::ash::cros_
       if (success && !input.ReadInterfaces(&result->interfaces))
         success = false;
       if (success && !input.ReadFwupdFirmwareVersionInfo(&result->fwupd_firmware_version_info))
+        success = false;
+      if (success && !input.ReadVersion(&result->version))
+        success = false;
+      if (success && !input.ReadSpecSpeed(&result->spec_speed))
         success = false;
   *output = std::move(result);
   return success;

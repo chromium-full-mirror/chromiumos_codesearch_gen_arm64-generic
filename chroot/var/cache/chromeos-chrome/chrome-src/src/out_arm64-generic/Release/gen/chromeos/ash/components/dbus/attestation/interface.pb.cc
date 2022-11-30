@@ -18,6 +18,32 @@ namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
 namespace attestation {
+PROTOBUF_CONSTEXPR GetFeaturesRequest::GetFeaturesRequest(
+    ::_pbi::ConstantInitialized){}
+struct GetFeaturesRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetFeaturesRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~GetFeaturesRequestDefaultTypeInternal() {}
+  union {
+    GetFeaturesRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetFeaturesRequestDefaultTypeInternal _GetFeaturesRequest_default_instance_;
+PROTOBUF_CONSTEXPR GetFeaturesReply::GetFeaturesReply(
+    ::_pbi::ConstantInitialized)
+  : supported_key_types_()
+  , status_(0)
+
+  , is_available_(false){}
+struct GetFeaturesReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetFeaturesReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~GetFeaturesReplyDefaultTypeInternal() {}
+  union {
+    GetFeaturesReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetFeaturesReplyDefaultTypeInternal _GetFeaturesReply_default_instance_;
 PROTOBUF_CONSTEXPR GetKeyInfoRequest::GetKeyInfoRequest(
     ::_pbi::ConstantInitialized)
   : key_label_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -1051,6 +1077,419 @@ bool VAType_Parse(
   }
   return success;
 }
+
+// ===================================================================
+
+class GetFeaturesRequest::_Internal {
+ public:
+};
+
+GetFeaturesRequest::GetFeaturesRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:attestation.GetFeaturesRequest)
+}
+GetFeaturesRequest::GetFeaturesRequest(const GetFeaturesRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:attestation.GetFeaturesRequest)
+}
+
+inline void GetFeaturesRequest::SharedCtor() {
+}
+
+GetFeaturesRequest::~GetFeaturesRequest() {
+  // @@protoc_insertion_point(destructor:attestation.GetFeaturesRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void GetFeaturesRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void GetFeaturesRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void GetFeaturesRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:attestation.GetFeaturesRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* GetFeaturesRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetFeaturesRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:attestation.GetFeaturesRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:attestation.GetFeaturesRequest)
+  return target;
+}
+
+size_t GetFeaturesRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:attestation.GetFeaturesRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetFeaturesRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const GetFeaturesRequest*>(
+      &from));
+}
+
+void GetFeaturesRequest::MergeFrom(const GetFeaturesRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetFeaturesRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void GetFeaturesRequest::CopyFrom(const GetFeaturesRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:attestation.GetFeaturesRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetFeaturesRequest::IsInitialized() const {
+  return true;
+}
+
+void GetFeaturesRequest::InternalSwap(GetFeaturesRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+}
+
+std::string GetFeaturesRequest::GetTypeName() const {
+  return "attestation.GetFeaturesRequest";
+}
+
+
+// ===================================================================
+
+class GetFeaturesReply::_Internal {
+ public:
+  using HasBits = decltype(std::declval<GetFeaturesReply>()._has_bits_);
+  static void set_has_status(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_is_available(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+GetFeaturesReply::GetFeaturesReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  supported_key_types_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:attestation.GetFeaturesReply)
+}
+GetFeaturesReply::GetFeaturesReply(const GetFeaturesReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_),
+      supported_key_types_(from.supported_key_types_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&status_, &from.status_,
+    static_cast<size_t>(reinterpret_cast<char*>(&is_available_) -
+    reinterpret_cast<char*>(&status_)) + sizeof(is_available_));
+  // @@protoc_insertion_point(copy_constructor:attestation.GetFeaturesReply)
+}
+
+inline void GetFeaturesReply::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&status_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&is_available_) -
+    reinterpret_cast<char*>(&status_)) + sizeof(is_available_));
+}
+
+GetFeaturesReply::~GetFeaturesReply() {
+  // @@protoc_insertion_point(destructor:attestation.GetFeaturesReply)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void GetFeaturesReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void GetFeaturesReply::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void GetFeaturesReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:attestation.GetFeaturesReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  supported_key_types_.Clear();
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    ::memset(&status_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&is_available_) -
+        reinterpret_cast<char*>(&status_)) + sizeof(is_available_));
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* GetFeaturesReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .attestation.AttestationStatus status = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::attestation::AttestationStatus_IsValid(val))) {
+            _internal_set_status(static_cast<::attestation::AttestationStatus>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool is_available = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_is_available(&has_bits);
+          is_available_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .attestation.KeyType supported_key_types = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+            CHK_(ptr);
+            if (PROTOBUF_PREDICT_TRUE(::attestation::KeyType_IsValid(val))) {
+              _internal_add_supported_key_types(static_cast<::attestation::KeyType>(val));
+            } else {
+              ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(3, val, mutable_unknown_fields());
+            }
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<24>(ptr));
+        } else if (static_cast<uint8_t>(tag) == 26) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_supported_key_types(), ptr, ctx, ::attestation::KeyType_IsValid, &_internal_metadata_, 3);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetFeaturesReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:attestation.GetFeaturesReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .attestation.AttestationStatus status = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_status(), target);
+  }
+
+  // optional bool is_available = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_is_available(), target);
+  }
+
+  // repeated .attestation.KeyType supported_key_types = 3;
+  for (int i = 0, n = this->_internal_supported_key_types_size(); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+        3, this->_internal_supported_key_types(i), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:attestation.GetFeaturesReply)
+  return target;
+}
+
+size_t GetFeaturesReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:attestation.GetFeaturesReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .attestation.KeyType supported_key_types = 3;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_supported_key_types_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_supported_key_types(static_cast<int>(i)));
+    }
+    total_size += (1UL * count) + data_size;
+  }
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional .attestation.AttestationStatus status = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
+    }
+
+    // optional bool is_available = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 + 1;
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetFeaturesReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const GetFeaturesReply*>(
+      &from));
+}
+
+void GetFeaturesReply::MergeFrom(const GetFeaturesReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:attestation.GetFeaturesReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  supported_key_types_.MergeFrom(from.supported_key_types_);
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      status_ = from.status_;
+    }
+    if (cached_has_bits & 0x00000002u) {
+      is_available_ = from.is_available_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void GetFeaturesReply::CopyFrom(const GetFeaturesReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:attestation.GetFeaturesReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetFeaturesReply::IsInitialized() const {
+  return true;
+}
+
+void GetFeaturesReply::InternalSwap(GetFeaturesReply* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  supported_key_types_.InternalSwap(&other->supported_key_types_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(GetFeaturesReply, is_available_)
+      + sizeof(GetFeaturesReply::is_available_)
+      - PROTOBUF_FIELD_OFFSET(GetFeaturesReply, status_)>(
+          reinterpret_cast<char*>(&status_),
+          reinterpret_cast<char*>(&other->status_));
+}
+
+std::string GetFeaturesReply::GetTypeName() const {
+  return "attestation.GetFeaturesReply";
+}
+
 
 // ===================================================================
 
@@ -15414,6 +15853,14 @@ std::string GetCertifiedNvIndexReply::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace attestation
 PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::attestation::GetFeaturesRequest*
+Arena::CreateMaybeMessage< ::attestation::GetFeaturesRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::attestation::GetFeaturesRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::attestation::GetFeaturesReply*
+Arena::CreateMaybeMessage< ::attestation::GetFeaturesReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::attestation::GetFeaturesReply >(arena);
+}
 template<> PROTOBUF_NOINLINE ::attestation::GetKeyInfoRequest*
 Arena::CreateMaybeMessage< ::attestation::GetKeyInfoRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::attestation::GetKeyInfoRequest >(arena);

@@ -10745,6 +10745,17 @@ class  UsbBusInfo {
       std::vector<UsbBusInterfaceInfoPtr> interfaces,
       FwupdFirmwareVersionInfoPtr fwupd_firmware_version_info);
 
+  UsbBusInfo(
+      uint8_t class_id,
+      uint8_t subclass_id,
+      uint8_t protocol_id,
+      uint16_t vendor_id,
+      uint16_t product_id,
+      std::vector<UsbBusInterfaceInfoPtr> interfaces,
+      FwupdFirmwareVersionInfoPtr fwupd_firmware_version_info,
+      UsbVersion version,
+      UsbSpecSpeed spec_speed);
+
 UsbBusInfo(const UsbBusInfo&) = delete;
 UsbBusInfo& operator=(const UsbBusInfo&) = delete;
 
@@ -10833,6 +10844,10 @@ UsbBusInfo& operator=(const UsbBusInfo&) = delete;
   std::vector<UsbBusInterfaceInfoPtr> interfaces;
   
   FwupdFirmwareVersionInfoPtr fwupd_firmware_version_info;
+  
+  UsbVersion version;
+  
+  UsbSpecSpeed spec_speed;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -16185,7 +16200,9 @@ UsbBusInfoPtr UsbBusInfo::Clone() const {
       mojo::Clone(vendor_id),
       mojo::Clone(product_id),
       mojo::Clone(interfaces),
-      mojo::Clone(fwupd_firmware_version_info)
+      mojo::Clone(fwupd_firmware_version_info),
+      mojo::Clone(version),
+      mojo::Clone(spec_speed)
   );
 }
 
@@ -16204,6 +16221,10 @@ bool UsbBusInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->interfaces, other_struct.interfaces))
     return false;
   if (!mojo::Equals(this->fwupd_firmware_version_info, other_struct.fwupd_firmware_version_info))
+    return false;
+  if (!mojo::Equals(this->version, other_struct.version))
+    return false;
+  if (!mojo::Equals(this->spec_speed, other_struct.spec_speed))
     return false;
   return true;
 }
@@ -16237,6 +16258,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.fwupd_firmware_version_info < rhs.fwupd_firmware_version_info)
     return true;
   if (rhs.fwupd_firmware_version_info < lhs.fwupd_firmware_version_info)
+    return false;
+  if (lhs.version < rhs.version)
+    return true;
+  if (rhs.version < lhs.version)
+    return false;
+  if (lhs.spec_speed < rhs.spec_speed)
+    return true;
+  if (rhs.spec_speed < lhs.spec_speed)
     return false;
   return false;
 }
@@ -18842,6 +18871,16 @@ struct  StructTraits<::ash::cros_healthd::mojom::UsbBusInfo::DataView,
   static const decltype(::ash::cros_healthd::mojom::UsbBusInfo::fwupd_firmware_version_info)& fwupd_firmware_version_info(
       const ::ash::cros_healthd::mojom::UsbBusInfoPtr& input) {
     return input->fwupd_firmware_version_info;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::UsbBusInfo::version) version(
+      const ::ash::cros_healthd::mojom::UsbBusInfoPtr& input) {
+    return input->version;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::UsbBusInfo::spec_speed) spec_speed(
+      const ::ash::cros_healthd::mojom::UsbBusInfoPtr& input) {
+    return input->spec_speed;
   }
 
   static bool Read(::ash::cros_healthd::mojom::UsbBusInfo::DataView input, ::ash::cros_healthd::mojom::UsbBusInfoPtr* output);

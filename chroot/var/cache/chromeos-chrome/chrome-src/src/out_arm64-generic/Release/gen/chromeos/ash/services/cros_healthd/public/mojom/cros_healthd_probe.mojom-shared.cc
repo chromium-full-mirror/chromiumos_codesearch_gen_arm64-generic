@@ -404,6 +404,74 @@ std::ostream& operator<<(std::ostream& os, FwupdVersionFormat value) {
   return os << FwupdVersionFormatToString(value);
 }
 
+static NOINLINE const char* UsbVersionToStringHelper(UsbVersion value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case UsbVersion::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case UsbVersion::kUnknown:
+      return "kUnknown";
+    case UsbVersion::kUsb1:
+      return "kUsb1";
+    case UsbVersion::kUsb2:
+      return "kUsb2";
+    case UsbVersion::kUsb3:
+      return "kUsb3";
+    default:
+      return nullptr;
+  }
+}
+
+std::string UsbVersionToString(UsbVersion value) {
+  const char *str = UsbVersionToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown UsbVersion value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, UsbVersion value) {
+  return os << UsbVersionToString(value);
+}
+
+static NOINLINE const char* UsbSpecSpeedToStringHelper(UsbSpecSpeed value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case UsbSpecSpeed::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case UsbSpecSpeed::kUnknown:
+      return "kUnknown";
+    case UsbSpecSpeed::k1_5Mbps:
+      return "k1_5Mbps";
+    case UsbSpecSpeed::k12Mbps:
+      return "k12Mbps";
+    case UsbSpecSpeed::kDeprecateSpeed:
+      return "kDeprecateSpeed";
+    case UsbSpecSpeed::k480Mbps:
+      return "k480Mbps";
+    case UsbSpecSpeed::k5Gbps:
+      return "k5Gbps";
+    case UsbSpecSpeed::k10Gbps:
+      return "k10Gbps";
+    case UsbSpecSpeed::k20Gbps:
+      return "k20Gbps";
+    default:
+      return nullptr;
+  }
+}
+
+std::string UsbSpecSpeedToString(UsbSpecSpeed value) {
+  const char *str = UsbSpecSpeedToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown UsbSpecSpeed value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, UsbSpecSpeed value) {
+  return os << UsbSpecSpeedToString(value);
+}
+
 static NOINLINE const char* TpmGSCVersionToStringHelper(TpmGSCVersion value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -4134,6 +4202,7 @@ bool UsbBusInfo_Data::Validate(
   static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
     { 0, 24 },
     { 1, 32 },
+    { 2, 40 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -4160,12 +4229,26 @@ bool UsbBusInfo_Data::Validate(
 
   if (!mojo::internal::ValidateStruct(object->fwupd_firmware_version_info, validation_context))
     return false;
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::ash::cros_healthd::mojom::internal::UsbVersion_Data
+        ::Validate(object->version, validation_context))
+    return false;
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::ash::cros_healthd::mojom::internal::UsbSpecSpeed_Data
+        ::Validate(object->spec_speed, validation_context))
+    return false;
 
   return true;
 }
 
 UsbBusInfo_Data::UsbBusInfo_Data()
-    : header_({sizeof(*this), 1}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -5395,6 +5478,26 @@ namespace perfetto {
 void TraceFormatTraits<::ash::cros_healthd::mojom::FwupdVersionFormat>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::FwupdVersionFormat value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::FwupdVersionFormatToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::UsbVersion>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::UsbVersion value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::UsbVersionToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::UsbSpecSpeed>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::UsbSpecSpeed value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::UsbSpecSpeedToString(value));
 }
 
 } // namespace perfetto

@@ -137,7 +137,10 @@ class  EffectsConfig_Data {
   int32_t blur_level;
   int32_t segmentation_gpu_api;
   uint16_t graph_max_frames_in_flight;
-  uint8_t padfinal_[2];
+  uint8_t blur_enabled : 1;
+  uint8_t replace_enabled : 1;
+  uint8_t relight_enabled : 1;
+  uint8_t padfinal_[1];
 
  private:
   friend class mojo::internal::MessageFragment<EffectsConfig_Data>;
