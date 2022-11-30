@@ -7,8 +7,7 @@
 
 #include <base/observer_list_types.h>
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 class AmbientLightSensorInterface;
 
@@ -16,14 +15,13 @@ class AmbientLightSensorInterface;
 // light level from AmbientLightSensor.
 class AmbientLightObserver : public base::CheckedObserver {
  public:
-  virtual ~AmbientLightObserver() {}
+  ~AmbientLightObserver() override = default;
 
   // Called when the light level is measured. The measured level may be
   // unchanged from the previously-observed level.
   virtual void OnAmbientLightUpdated(AmbientLightSensorInterface* sensor) = 0;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_AMBIENT_LIGHT_OBSERVER_H_

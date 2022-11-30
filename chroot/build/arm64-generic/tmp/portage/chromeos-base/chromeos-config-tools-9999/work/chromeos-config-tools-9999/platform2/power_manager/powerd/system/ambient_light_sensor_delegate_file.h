@@ -14,13 +14,10 @@
 #include <base/files/file_path.h>
 #include <base/timer/timer.h>
 
-#include "power_manager/common/power_constants.h"
-#include "power_manager/powerd/system/ambient_light_observer.h"
-#include "power_manager/powerd/system/ambient_light_sensor.h"
+#include "power_manager/powerd/system/ambient_light_sensor_delegate.h"
 #include "power_manager/powerd/system/async_file_reader.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 class AmbientLightSensorDelegateFile : public AmbientLightSensorDelegate {
  public:
@@ -38,7 +35,7 @@ class AmbientLightSensorDelegateFile : public AmbientLightSensorDelegate {
       delete;
   AmbientLightSensorDelegateFile& operator=(
       const AmbientLightSensorDelegateFile&) = delete;
-  ~AmbientLightSensorDelegateFile() override;
+  ~AmbientLightSensorDelegateFile() override = default;
 
   void set_device_list_path_for_testing(const base::FilePath& path) {
     device_list_path_ = path;
@@ -107,7 +104,7 @@ class AmbientLightSensorDelegateFile : public AmbientLightSensorDelegate {
   bool enable_color_support_;
 
   // Number of attempts to find and open the lux file made so far.
-  int num_init_attempts_;
+  int num_init_attempts_ = 0;
 
   // This is the ambient light sensor asynchronous file I/O object.
   AsyncFileReader als_file_;
@@ -129,7 +126,6 @@ class AmbientLightSensorDelegateFile : public AmbientLightSensorDelegate {
   SensorLocation expected_sensor_location_;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_AMBIENT_LIGHT_SENSOR_DELEGATE_FILE_H_

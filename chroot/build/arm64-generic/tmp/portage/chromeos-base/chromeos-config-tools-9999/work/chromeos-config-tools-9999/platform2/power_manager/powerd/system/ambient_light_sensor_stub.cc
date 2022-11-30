@@ -8,12 +8,11 @@
 
 #include <base/check.h>
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 AmbientLightSensorStub::AmbientLightSensorStub(int lux) : lux_(lux) {}
 
-AmbientLightSensorStub::~AmbientLightSensorStub() {}
+AmbientLightSensorStub::~AmbientLightSensorStub() = default;
 
 void AmbientLightSensorStub::NotifyObservers() {
   for (AmbientLightObserver& observer : observers_)
@@ -46,5 +45,4 @@ base::FilePath AmbientLightSensorStub::GetIlluminancePath() const {
   return path_;
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

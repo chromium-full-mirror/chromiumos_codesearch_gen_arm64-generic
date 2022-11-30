@@ -18,8 +18,7 @@
 #include "power_manager/powerd/system/fake_sensor_service.h"
 #include "power_manager/powerd/system/sensor_service_handler.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -36,8 +35,8 @@ constexpr char kGoodSyspath2[] =
 
 class AmbientLightSensorWatcherMojoTest : public testing::Test {
  public:
-  AmbientLightSensorWatcherMojoTest() {}
-  ~AmbientLightSensorWatcherMojoTest() override {}
+  AmbientLightSensorWatcherMojoTest() = default;
+  ~AmbientLightSensorWatcherMojoTest() override = default;
 
  protected:
   void SetUp() override {
@@ -144,5 +143,4 @@ TEST_F(AmbientLightSensorWatcherMojoTest, SensorDeviceDisconnect) {
   EXPECT_FALSE(fake_lights_[2]->HasReceivers());
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

@@ -15,17 +15,16 @@
 #include <base/callback.h>
 #include <linux/input.h>
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 // EventDeviceInterface implementation that returns canned values for testing.
 class EventDeviceStub : public EventDeviceInterface {
  public:
-  EventDeviceStub();
+  EventDeviceStub() = default;
   EventDeviceStub(const EventDeviceStub&) = delete;
   EventDeviceStub& operator=(const EventDeviceStub&) = delete;
 
-  ~EventDeviceStub() override;
+  ~EventDeviceStub() override = default;
 
   const base::RepeatingClosure& new_events_cb() const { return new_events_cb_; }
   void set_debug_name(const std::string& name) { debug_name_ = name; }
@@ -69,14 +68,14 @@ class EventDeviceStub : public EventDeviceInterface {
   std::string debug_name_;
   std::string name_;
   std::string phys_path_;
-  bool is_cros_fp_;
-  bool is_lid_switch_;
-  bool is_tablet_mode_switch_;
-  bool is_power_button_;
-  bool hover_supported_;
-  bool has_left_button_;
-  LidState initial_lid_state_;
-  TabletMode initial_tablet_mode_;
+  bool is_cros_fp_ = false;
+  bool is_lid_switch_ = false;
+  bool is_tablet_mode_switch_ = false;
+  bool is_power_button_ = false;
+  bool hover_supported_ = false;
+  bool has_left_button_ = false;
+  LidState initial_lid_state_ = LidState::OPEN;
+  TabletMode initial_tablet_mode_ = TabletMode::OFF;
 
   // Events to be returned by the next call to ReadEvents().
   std::vector<input_event> events_;
@@ -89,11 +88,11 @@ class EventDeviceStub : public EventDeviceInterface {
 // testing.
 class EventDeviceFactoryStub : public EventDeviceFactoryInterface {
  public:
-  EventDeviceFactoryStub();
+  EventDeviceFactoryStub() = default;
   EventDeviceFactoryStub(const EventDeviceFactoryStub&) = delete;
   EventDeviceFactoryStub& operator=(const EventDeviceFactoryStub&) = delete;
 
-  ~EventDeviceFactoryStub() override;
+  ~EventDeviceFactoryStub() override = default;
 
   // Adds a mapping in |devices_| so that |device| will be returned in response
   // to Open() calls for |path|.
@@ -109,7 +108,6 @@ class EventDeviceFactoryStub : public EventDeviceFactoryInterface {
   std::map<base::FilePath, std::shared_ptr<EventDeviceInterface>> devices_;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_EVENT_DEVICE_STUB_H_

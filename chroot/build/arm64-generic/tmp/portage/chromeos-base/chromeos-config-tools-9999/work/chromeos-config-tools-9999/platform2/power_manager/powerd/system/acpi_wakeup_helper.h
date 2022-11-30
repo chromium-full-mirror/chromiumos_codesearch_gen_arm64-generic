@@ -10,19 +10,18 @@
 
 #include "power_manager/powerd/system/acpi_wakeup_helper_interface.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 // Abstraction layer around /proc/acpi/wakeup so that we can substitute it for
 // testing. We cannot just use a regular file because read/write have special
 // semantics.
 class AcpiWakeupFileInterface {
  public:
-  AcpiWakeupFileInterface() {}
+  AcpiWakeupFileInterface() = default;
   AcpiWakeupFileInterface(const AcpiWakeupFileInterface&) = delete;
   AcpiWakeupFileInterface& operator=(const AcpiWakeupFileInterface&) = delete;
 
-  virtual ~AcpiWakeupFileInterface() {}
+  virtual ~AcpiWakeupFileInterface() = default;
 
   // Checks whether the file exists.
   virtual bool Exists() = 0;
@@ -40,7 +39,7 @@ class AcpiWakeupHelper : public AcpiWakeupHelperInterface {
   AcpiWakeupHelper(const AcpiWakeupHelper&) = delete;
   AcpiWakeupHelper& operator=(const AcpiWakeupHelper&) = delete;
 
-  ~AcpiWakeupHelper() override;
+  ~AcpiWakeupHelper() override = default;
 
   // Forces use of a fake implementation instead of /proc/acpi/wakeup. Only for
   // testing.
@@ -61,7 +60,6 @@ class AcpiWakeupHelper : public AcpiWakeupHelperInterface {
   std::unique_ptr<AcpiWakeupFileInterface> file_;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_ACPI_WAKEUP_HELPER_H_

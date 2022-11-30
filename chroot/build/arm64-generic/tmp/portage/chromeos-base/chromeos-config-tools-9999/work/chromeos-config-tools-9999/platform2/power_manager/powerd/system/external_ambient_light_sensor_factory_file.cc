@@ -6,10 +6,10 @@
 
 #include <utility>
 
+#include "power_manager/powerd/system/ambient_light_sensor.h"
 #include "power_manager/powerd/system/ambient_light_sensor_delegate_file.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 std::unique_ptr<AmbientLightSensorInterface>
 ExternalAmbientLightSensorFactoryFile::CreateSensor(
@@ -22,5 +22,4 @@ ExternalAmbientLightSensorFactoryFile::CreateSensor(
   return sensor;
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

@@ -10,8 +10,7 @@
 #include <base/observer_list_types.h>
 #include <iioservice/mojo/sensor.mojom.h>
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 class SensorServiceHandler;
 
@@ -24,7 +23,7 @@ class SensorServiceHandlerObserver : public base::CheckedObserver {
   virtual void SensorServiceConnected() = 0;
   virtual void SensorServiceDisconnected() = 0;
 
-  virtual ~SensorServiceHandlerObserver();
+  ~SensorServiceHandlerObserver() override;
 
  protected:
   // Will add itself to |sensor_service_handler_| in c'tor, and remove itself in
@@ -35,7 +34,6 @@ class SensorServiceHandlerObserver : public base::CheckedObserver {
   SensorServiceHandler* sensor_service_handler_;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_SENSOR_SERVICE_HANDLER_OBSERVER_H_

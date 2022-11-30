@@ -16,20 +16,15 @@
 #include <dbus/exported_object.h>
 #include <dbus/object_proxy.h>
 
-#include "power_manager/common/power_constants.h"
-
 namespace dbus {
 class Bus;
 }  // namespace dbus
 
-namespace google {
-namespace protobuf {
+namespace google::protobuf {
 class MessageLite;
-}  // namespace protobuf
-}  // namespace google
+}  // namespace google::protobuf
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 // Interface for sending D-Bus messages.  A stub implementation can be
 // instantiated by tests to verify behavior without actually communicating with
@@ -44,10 +39,10 @@ class DBusWrapperInterface {
                                         const std::string& old_owner,
                                         const std::string& new_owner) {}
 
-    virtual ~Observer() {}
+    ~Observer() override = default;
   };
 
-  virtual ~DBusWrapperInterface() {}
+  virtual ~DBusWrapperInterface() = default;
 
   // Adds or removes an observer.
   virtual void AddObserver(Observer* observer) = 0;
@@ -122,6 +117,9 @@ class DBusWrapperInterface {
 // bus.
 class DBusWrapper : public DBusWrapperInterface {
  public:
+  DBusWrapper(const DBusWrapper&) = delete;
+  DBusWrapper& operator=(const DBusWrapper&) = delete;
+
   ~DBusWrapper() override;
 
   // Factory method for DBusWrapper. Returns nullptr on failure.
@@ -161,8 +159,6 @@ class DBusWrapper : public DBusWrapperInterface {
   // Create DBusWrappers using the factory method above.
   DBusWrapper(scoped_refptr<dbus::Bus> bus,
               dbus::ExportedObject* exported_object);
-  DBusWrapper(const DBusWrapper&) = delete;
-  DBusWrapper& operator=(const DBusWrapper&) = delete;
 
   // Handles NameOwnerChanged signals emitted by dbus-daemon.
   void HandleNameOwnerChangedSignal(dbus::Signal* signal);
@@ -179,7 +175,6 @@ class DBusWrapper : public DBusWrapperInterface {
   base::WeakPtrFactory<DBusWrapper> weak_ptr_factory_;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_DBUS_WRAPPER_H_

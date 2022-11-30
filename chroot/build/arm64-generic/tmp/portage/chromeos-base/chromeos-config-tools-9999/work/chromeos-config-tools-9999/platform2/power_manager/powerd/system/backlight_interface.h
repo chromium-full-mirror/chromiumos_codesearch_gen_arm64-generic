@@ -10,19 +10,18 @@
 #include <base/logging.h>
 #include <base/time/time.h>
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 class BacklightObserver;
 
 // Interface for getting and setting the backlight level from hardware.
 class BacklightInterface {
  public:
-  BacklightInterface() {}
+  BacklightInterface() = default;
   BacklightInterface(const BacklightInterface&) = delete;
   BacklightInterface& operator=(const BacklightInterface&) = delete;
 
-  virtual ~BacklightInterface() {}
+  virtual ~BacklightInterface() = default;
 
   enum class BrightnessScale {
     kUnknown,
@@ -56,7 +55,6 @@ class BacklightInterface {
   virtual bool TransitionInProgress() const = 0;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_BACKLIGHT_INTERFACE_H_

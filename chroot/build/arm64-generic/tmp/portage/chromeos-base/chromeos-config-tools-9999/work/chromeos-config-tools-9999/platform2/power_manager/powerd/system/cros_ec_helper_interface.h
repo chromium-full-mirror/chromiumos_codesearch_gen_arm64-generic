@@ -5,17 +5,16 @@
 #ifndef POWER_MANAGER_POWERD_SYSTEM_CROS_EC_HELPER_INTERFACE_H_
 #define POWER_MANAGER_POWERD_SYSTEM_CROS_EC_HELPER_INTERFACE_H_
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 // Helper class to manipulate EC settings.
 class CrosEcHelperInterface {
  public:
-  CrosEcHelperInterface() {}
+  CrosEcHelperInterface() = default;
   CrosEcHelperInterface(const CrosEcHelperInterface&) = delete;
   CrosEcHelperInterface& operator=(const CrosEcHelperInterface&) = delete;
 
-  virtual ~CrosEcHelperInterface() {}
+  virtual ~CrosEcHelperInterface() = default;
 
   // Checks whether EC supports setting wake angle.
   virtual bool IsWakeAngleSupported() = 0;
@@ -25,7 +24,6 @@ class CrosEcHelperInterface {
   virtual bool AllowWakeupAsTablet(bool enabled) = 0;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_CROS_EC_HELPER_INTERFACE_H_

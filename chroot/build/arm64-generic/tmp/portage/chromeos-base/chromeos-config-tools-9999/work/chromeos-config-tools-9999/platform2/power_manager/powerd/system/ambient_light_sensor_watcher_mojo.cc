@@ -10,14 +10,11 @@
 
 #include <base/containers/contains.h>
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 AmbientLightSensorWatcherMojo::AmbientLightSensorWatcherMojo(
     SensorServiceHandler* sensor_service_handler)
     : SensorServiceHandlerObserver(sensor_service_handler) {}
-
-AmbientLightSensorWatcherMojo::~AmbientLightSensorWatcherMojo() {}
 
 void AmbientLightSensorWatcherMojo::OnNewDeviceAdded(
     int32_t iio_device_id, const std::vector<cros::mojom::DeviceType>& types) {
@@ -126,5 +123,4 @@ void AmbientLightSensorWatcherMojo::OnSensorDeviceDisconnect(
   }
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

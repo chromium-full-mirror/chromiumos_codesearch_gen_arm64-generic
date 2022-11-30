@@ -16,10 +16,8 @@
 #include <gtest/gtest.h>
 
 #include "power_manager/common/test_main_loop_runner.h"
-#include "power_manager/common/util.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -71,13 +69,12 @@ class AsyncFileReaderTest : public ::testing::Test {
  public:
   AsyncFileReaderTest()
       : temp_dir_(new base::ScopedTempDir()),
-        file_reader_(new AsyncFileReader()),
-        got_error_(false) {
+        file_reader_(new AsyncFileReader()) {
     CHECK(temp_dir_->CreateUniqueTempDir());
     CHECK(temp_dir_->IsValid());
     path_ = temp_dir_->GetPath().Append(kDummyFileName);
   }
-  ~AsyncFileReaderTest() override {}
+  ~AsyncFileReaderTest() override = default;
 
  protected:
   // Creates a file containing |file_size| bytes and uses AsyncFileReader to
@@ -130,7 +127,7 @@ class AsyncFileReaderTest : public ::testing::Test {
   std::string data_;
 
   // True if |file_reader_| reported an error.
-  bool got_error_;
+  bool got_error_ = false;
 };
 
 // Read an empty file.
@@ -176,5 +173,4 @@ TEST_F(AsyncFileReaderTest, InitWithMissingFile) {
   EXPECT_FALSE(file_reader_->Init(path_));
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

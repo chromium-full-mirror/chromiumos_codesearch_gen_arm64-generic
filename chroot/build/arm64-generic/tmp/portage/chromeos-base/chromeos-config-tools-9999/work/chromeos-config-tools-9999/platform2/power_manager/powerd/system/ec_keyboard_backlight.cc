@@ -16,23 +16,16 @@
 #include <libec/ec_command.h>
 #include <libec/pwm_command.h>
 
-#include "power_manager/common/clock.h"
-#include "power_manager/common/util.h"
-
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 const int EcKeyboardBacklight::kMaxBrightnessLevel = 100;
 
 EcKeyboardBacklight::EcKeyboardBacklight()
-    : InternalBacklight(),
-      get_cmd_(std::make_unique<ec::GetKeyboardBacklightCommand>()) {}
+    : get_cmd_(std::make_unique<ec::GetKeyboardBacklightCommand>()) {}
 
 EcKeyboardBacklight::EcKeyboardBacklight(
     std::unique_ptr<ec::GetKeyboardBacklightCommand> get_cmd)
-    : InternalBacklight(), get_cmd_(std::move(get_cmd)) {}
-
-EcKeyboardBacklight::~EcKeyboardBacklight() {}
+    : get_cmd_(std::move(get_cmd)) {}
 
 bool EcKeyboardBacklight::Init(ec::EcUsbEndpointInterface* uep) {
   usb_endpoint_ = uep;
@@ -90,5 +83,4 @@ bool EcKeyboardBacklight::WriteBrightness(int64_t new_level) {
   return true;
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

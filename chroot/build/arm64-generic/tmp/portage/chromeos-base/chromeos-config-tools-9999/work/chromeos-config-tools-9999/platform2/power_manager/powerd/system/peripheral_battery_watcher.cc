@@ -22,12 +22,10 @@
 #include <chromeos/dbus/service_constants.h>
 #include <re2/re2.h>
 
-#include "power_manager/common/util.h"
 #include "power_manager/powerd/system/dbus_wrapper.h"
 #include "power_manager/proto_bindings/peripheral_battery_status.pb.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -348,5 +346,4 @@ void PeripheralBatteryWatcher::OnRefreshAllPeripheralBatteryMethodCall(
   std::move(response_sender).Run(std::move(response));
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

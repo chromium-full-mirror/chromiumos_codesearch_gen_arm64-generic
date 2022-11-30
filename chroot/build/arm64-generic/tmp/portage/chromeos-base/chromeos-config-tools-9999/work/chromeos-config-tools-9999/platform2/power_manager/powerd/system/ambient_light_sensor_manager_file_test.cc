@@ -16,11 +16,11 @@
 #include <gtest/gtest.h>
 
 #include "power_manager/common/fake_prefs.h"
+#include "power_manager/common/power_constants.h"
 #include "power_manager/common/test_main_loop_runner.h"
 #include "power_manager/powerd/system/ambient_light_observer.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -35,11 +35,11 @@ constexpr base::TimeDelta kPollInterval = base::Milliseconds(100);
 // until it receives notification that the ambient light level has changed.
 class TestObserver : public AmbientLightObserver {
  public:
-  TestObserver() {}
+  TestObserver() = default;
   TestObserver(const TestObserver&) = delete;
   TestObserver& operator=(const TestObserver&) = delete;
 
-  ~TestObserver() override {}
+  ~TestObserver() override = default;
 
   // Runs |loop_| until OnAmbientLightUpdated() is called.
   bool RunUntilAmbientLightUpdated() {
@@ -59,13 +59,13 @@ class TestObserver : public AmbientLightObserver {
 
 class AmbientLightSensorManagerFileTest : public ::testing::Test {
  public:
-  AmbientLightSensorManagerFileTest() {}
+  AmbientLightSensorManagerFileTest() = default;
   AmbientLightSensorManagerFileTest(const AmbientLightSensorManagerFileTest&) =
       delete;
   AmbientLightSensorManagerFileTest& operator=(
       const AmbientLightSensorManagerFileTest&) = delete;
 
-  ~AmbientLightSensorManagerFileTest() override {}
+  ~AmbientLightSensorManagerFileTest() override = default;
 
   void SetUp() override {
     prefs_.SetInt64(kAllowAmbientEQ, 0);
@@ -205,5 +205,4 @@ TEST_F(AmbientLightSensorManagerFileTest, HasColorSensor) {
   EXPECT_TRUE(manager_->HasColorSensor());
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

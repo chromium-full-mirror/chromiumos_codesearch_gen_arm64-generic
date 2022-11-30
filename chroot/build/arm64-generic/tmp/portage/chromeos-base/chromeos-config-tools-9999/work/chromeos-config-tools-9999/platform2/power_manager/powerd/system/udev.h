@@ -18,8 +18,7 @@ struct udev;
 struct udev_device;
 struct udev_monitor;
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 class TaggedDevice;
 class UdevSubsystemObserver;
@@ -51,8 +50,8 @@ struct UdevEvent {
 // Watches the udev manager for device-related events (e.g. hotplug).
 class UdevInterface {
  public:
-  UdevInterface() {}
-  virtual ~UdevInterface() {}
+  UdevInterface() = default;
+  virtual ~UdevInterface() = default;
 
   // Adds or removes an observer for watching |subsystem|. To receive events,
   // this subsystem must also be given a "powerd" tag by
@@ -187,7 +186,6 @@ class Udev : public UdevInterface {
   std::unique_ptr<base::FileDescriptorWatcher::Controller> controller_;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_UDEV_H_

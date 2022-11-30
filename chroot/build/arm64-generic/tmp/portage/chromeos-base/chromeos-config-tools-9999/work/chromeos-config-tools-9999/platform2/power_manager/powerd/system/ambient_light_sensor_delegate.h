@@ -11,8 +11,7 @@
 #include <base/callback.h>
 #include <base/files/file_path.h>
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 enum class ChannelType {
   X,
@@ -45,11 +44,11 @@ class AmbientLightSensorDelegate {
   static std::optional<int> CalculateColorTemperature(
       const std::map<ChannelType, int>& readings);
 
-  AmbientLightSensorDelegate() {}
+  AmbientLightSensorDelegate() = default;
   AmbientLightSensorDelegate(const AmbientLightSensorDelegate&) = delete;
   AmbientLightSensorDelegate& operator=(const AmbientLightSensorDelegate&) =
       delete;
-  virtual ~AmbientLightSensorDelegate() {}
+  virtual ~AmbientLightSensorDelegate() = default;
 
   virtual bool IsColorSensor() const = 0;
   virtual base::FilePath GetIlluminancePath() const = 0;
@@ -63,7 +62,6 @@ class AmbientLightSensorDelegate {
       set_lux_callback_;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_AMBIENT_LIGHT_SENSOR_DELEGATE_H_

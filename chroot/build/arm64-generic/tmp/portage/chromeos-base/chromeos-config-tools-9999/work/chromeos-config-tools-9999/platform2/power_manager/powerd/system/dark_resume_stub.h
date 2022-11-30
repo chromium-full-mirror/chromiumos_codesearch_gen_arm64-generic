@@ -10,17 +10,16 @@
 
 #include "power_manager/powerd/system/dark_resume_interface.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 // Stub implementation of DarkResumeInterface for tests.
 class DarkResumeStub : public DarkResumeInterface {
  public:
-  DarkResumeStub();
+  DarkResumeStub() = default;
   DarkResumeStub(const DarkResumeStub&) = delete;
   DarkResumeStub& operator=(const DarkResumeStub&) = delete;
 
-  ~DarkResumeStub() override;
+  ~DarkResumeStub() override = default;
 
   void set_in_dark_resume(bool in_dark_resume) {
     in_dark_resume_ = in_dark_resume;
@@ -39,7 +38,6 @@ class DarkResumeStub : public DarkResumeInterface {
   bool enabled_ = false;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_DARK_RESUME_STUB_H_

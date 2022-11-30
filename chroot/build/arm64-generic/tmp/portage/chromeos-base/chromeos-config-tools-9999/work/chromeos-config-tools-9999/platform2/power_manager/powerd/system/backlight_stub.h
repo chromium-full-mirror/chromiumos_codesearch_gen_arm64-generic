@@ -13,8 +13,7 @@
 #include "power_manager/powerd/system/backlight_interface.h"
 #include "power_manager/powerd/system/backlight_observer.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 // Stub implementation of BacklightInterface for testing.
 class BacklightStub : public BacklightInterface {
@@ -25,7 +24,7 @@ class BacklightStub : public BacklightInterface {
   BacklightStub(const BacklightStub&) = delete;
   BacklightStub& operator=(const BacklightStub&) = delete;
 
-  ~BacklightStub() override;
+  ~BacklightStub() override = default;
 
   void set_clock(Clock* clock) { clock_ = clock; }
   void set_device_exists(bool exists) { device_exists_ = exists; }
@@ -89,7 +88,6 @@ class BacklightStub : public BacklightInterface {
   BrightnessScale scale_ = BrightnessScale::kUnknown;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_BACKLIGHT_STUB_H_

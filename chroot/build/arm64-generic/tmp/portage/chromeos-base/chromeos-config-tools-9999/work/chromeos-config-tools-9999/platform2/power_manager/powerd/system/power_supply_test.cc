@@ -20,7 +20,6 @@
 #include <gtest/gtest.h>
 
 #include "power_manager/common/battery_percentage_converter.h"
-#include "power_manager/common/clock.h"
 #include "power_manager/common/fake_prefs.h"
 #include "power_manager/common/power_constants.h"
 #include "power_manager/common/test_main_loop_runner.h"
@@ -28,8 +27,7 @@
 #include "power_manager/powerd/system/udev_stub.h"
 #include "power_manager/proto_bindings/power_supply_properties.pb.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -83,7 +81,7 @@ const char* kInvalidUsbTypeValues[] = {
 class TestObserver : public PowerSupplyObserver {
  public:
   explicit TestObserver(PowerSupply* power_supply)
-      : power_supply_(power_supply), num_updates_(0) {
+      : power_supply_(power_supply) {
     power_supply_->AddObserver(this);
   }
   TestObserver(const TestObserver&) = delete;
@@ -109,7 +107,7 @@ class TestObserver : public PowerSupplyObserver {
   PowerSupply* power_supply_ = nullptr;  // Not owned.
 
   // Number of times that OnPowerStatusUpdate() has been called.
-  int num_updates_;
+  int num_updates_ = 0;
 
   TestMainLoopRunner runner_;
 };
@@ -118,7 +116,7 @@ class TestObserver : public PowerSupplyObserver {
 
 class PowerSupplyTest : public ::testing::Test {
  public:
-  PowerSupplyTest() {}
+  PowerSupplyTest() = default;
 
   void SetUp() override {
     ASSERT_TRUE(temp_dir_.CreateUniqueTempDir());
@@ -129,8 +127,8 @@ class PowerSupplyTest : public ::testing::Test {
     prefs_.SetInt64(kMaxCurrentSamplesPref, 5);
     prefs_.SetInt64(kMaxChargeSamplesPref, 5);
 
-    power_supply_.reset(new PowerSupply);
-    test_api_.reset(new PowerSupply::TestApi(power_supply_.get()));
+    power_supply_ = std::make_unique<PowerSupply>();
+    test_api_ = std::make_unique<PowerSupply::TestApi>(power_supply_.get());
     test_api_->SetCurrentTime(kStartTime);
 
     ac_dir_ = temp_dir_.GetPath().Append("AC");
@@ -324,7 +322,7 @@ TEST(PowerSupplyStaticTest, ConnectedSourcesAreEqual) {
 
   // A disconnected port should be disregarded.
   constexpr char kId1[] = "ID1";
-  a.ports.push_back(PowerStatus::Port());
+  a.ports.emplace_back();
   a.ports[0].id = kId1;
   EXPECT_TRUE(PowerSupply::ConnectedSourcesAreEqual(a, b));
   EXPECT_TRUE(PowerSupply::ConnectedSourcesAreEqual(b, a));
@@ -336,7 +334,7 @@ TEST(PowerSupplyStaticTest, ConnectedSourcesAreEqual) {
   EXPECT_FALSE(PowerSupply::ConnectedSourcesAreEqual(b, a));
 
   // A disconnected port that's added to |b| should be ignored.
-  b.ports.push_back(PowerStatus::Port());
+  b.ports.emplace_back();
   b.ports[0].id = kId1;
   EXPECT_FALSE(PowerSupply::ConnectedSourcesAreEqual(a, b));
   EXPECT_FALSE(PowerSupply::ConnectedSourcesAreEqual(b, a));
@@ -508,8 +506,7 @@ TEST_F(PowerSupplyTest, LinePowerWithUsbType) {
             power_status.external_power);
 
   // Invalid usb_type values should report as low-power USB.
-  for (size_t i = 0; i < std::size(kInvalidUsbTypeValues); ++i) {
-    const char* kType = kInvalidUsbTypeValues[i];
+  for (const char* const kType : kInvalidUsbTypeValues) {
     SCOPED_TRACE(kType);
     WriteValue(ac_dir_, "usb_type", kType);
     ASSERT_TRUE(UpdateStatus(&power_status));
@@ -786,8 +783,7 @@ TEST_F(PowerSupplyTest, DualRolePowerSources) {
   ASSERT_EQ(Role::DUAL_ROLE, status.ports[1].role);
 
   // USB should not report as dual role if usb_type is craaaazy.
-  for (size_t i = 0; i < std::size(kInvalidUsbTypeValues); ++i) {
-    const char* kType = kInvalidUsbTypeValues[i];
+  for (const char* const kType : kInvalidUsbTypeValues) {
     SCOPED_TRACE(kType);
     WriteValue(line2_dir, "usb_type", kType);
     ASSERT_TRUE(UpdateStatus(&status));
@@ -2359,5 +2355,4 @@ TEST_F(PowerSupplyTest, BarreljackAndUSBPresent) {
   proto.Clear();
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

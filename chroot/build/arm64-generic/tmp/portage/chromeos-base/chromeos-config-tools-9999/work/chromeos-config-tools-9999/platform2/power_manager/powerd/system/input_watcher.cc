@@ -23,15 +23,11 @@
 
 #include "power_manager/common/power_constants.h"
 #include "power_manager/common/prefs.h"
-#include "power_manager/common/util.h"
-#include "power_manager/powerd/system/acpi_wakeup_helper.h"
 #include "power_manager/powerd/system/event_device_interface.h"
 #include "power_manager/powerd/system/input_observer.h"
 #include "power_manager/powerd/system/udev.h"
-#include "power_manager/powerd/system/wakeup_device.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -183,7 +179,7 @@ LidState InputWatcher::QueryLidState() {
 
     queued_events_.reserve(queued_events_.size() + events.size());
     for (auto event : events)
-      queued_events_.push_back(std::make_pair(event, device_types));
+      queued_events_.emplace_back(event, device_types);
     VLOG(1) << "Queued " << events.size()
             << " event(s) while querying lid state";
   }
@@ -271,12 +267,12 @@ void InputWatcher::OnNewEvents(EventDeviceInterface* device) {
   VLOG(1) << "Read " << events.size() << " event(s) from "
           << device->GetDebugName();
   const uint32_t device_types = GetDeviceTypes(device);
-  for (size_t i = 0; i < events.size(); ++i) {
+  for (const input_event& event : events) {
     // Update |lid_state_| here instead of in ProcessEvent() so we can avoid
     // modifying it in response to queued events.
     if (device_types & DEVICE_LID_SWITCH)
-      GetLidStateFromEvent(events[i], &lid_state_);
-    ProcessEvent(events[i], device_types);
+      GetLidStateFromEvent(event, &lid_state_);
+    ProcessEvent(event, device_types);
   }
 }
 
@@ -483,5 +479,4 @@ void InputWatcher::SendQueuedEvents() {
   queued_events_.clear();
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

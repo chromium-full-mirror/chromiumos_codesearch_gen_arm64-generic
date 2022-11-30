@@ -18,8 +18,7 @@ using ::testing::AnyNumber;
 using ::testing::Return;
 using ::testing::SaveArg;
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -33,11 +32,11 @@ constexpr char kTestAddressPath[] = "12_34_56_AB_CD_EF";
 
 class BluezBatteryProviderTest : public ::testing::Test {
  public:
-  BluezBatteryProviderTest() {}
+  BluezBatteryProviderTest() = default;
   BluezBatteryProviderTest(const BluezBatteryProviderTest&) = delete;
   BluezBatteryProviderTest& operator=(const BluezBatteryProviderTest&) = delete;
 
-  ~BluezBatteryProviderTest() override {}
+  ~BluezBatteryProviderTest() override = default;
 
   void SetUp() override { bus_ = new dbus::MockBus(dbus::Bus::Options()); }
 
@@ -149,5 +148,4 @@ TEST_F(BluezBatteryProviderTest, BatteryUpdate) {
   bluez_battery_provider_.Reset();
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

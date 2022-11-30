@@ -21,8 +21,7 @@
 #include "power_manager/powerd/system/bluez_battery_provider.h"
 #include "power_manager/powerd/system/udev_subsystem_observer.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 class DBusWrapperInterface;
 
@@ -68,7 +67,7 @@ class PeripheralBatteryWatcher : public UdevSubsystemObserver {
   PeripheralBatteryWatcher(const PeripheralBatteryWatcher&) = delete;
   PeripheralBatteryWatcher& operator=(const PeripheralBatteryWatcher&) = delete;
 
-  ~PeripheralBatteryWatcher();
+  ~PeripheralBatteryWatcher() override;
 
   void set_battery_path_for_testing(const base::FilePath& path) {
     peripheral_battery_path_ = path;
@@ -166,7 +165,6 @@ class PeripheralBatteryWatcher : public UdevSubsystemObserver {
   base::WeakPtrFactory<PeripheralBatteryWatcher> weak_ptr_factory_;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_PERIPHERAL_BATTERY_WATCHER_H_

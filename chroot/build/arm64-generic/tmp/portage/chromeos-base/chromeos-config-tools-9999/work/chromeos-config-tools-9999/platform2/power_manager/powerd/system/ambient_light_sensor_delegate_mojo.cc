@@ -18,11 +18,9 @@
 #include <base/check_op.h>
 #include <base/containers/flat_map.h>
 #include <base/logging.h>
-#include "base/strings/string_number_conversions.h"
 #include <base/strings/stringprintf.h>
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -398,5 +396,4 @@ void AmbientLightSensorDelegateMojo::FinishInitialization() {
     std::move(init_closure_).Run();
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

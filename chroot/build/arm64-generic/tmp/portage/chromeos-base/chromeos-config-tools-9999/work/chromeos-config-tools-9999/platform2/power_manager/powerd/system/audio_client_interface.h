@@ -7,17 +7,16 @@
 
 #include "power_manager/powerd/system/audio_observer.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 // Interface for monitoring system audio activity.
 class AudioClientInterface {
  public:
-  AudioClientInterface() {}
+  AudioClientInterface() = default;
   AudioClientInterface(const AudioClientInterface&) = delete;
   AudioClientInterface& operator=(const AudioClientInterface&) = delete;
 
-  virtual ~AudioClientInterface() {}
+  virtual ~AudioClientInterface() = default;
 
   // Returns the current state of the headphone jack and of HDMI audio.
   virtual bool GetHeadphoneJackPlugged() const = 0;
@@ -31,7 +30,6 @@ class AudioClientInterface {
   virtual void SetSuspended(bool suspended) = 0;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_AUDIO_CLIENT_INTERFACE_H_

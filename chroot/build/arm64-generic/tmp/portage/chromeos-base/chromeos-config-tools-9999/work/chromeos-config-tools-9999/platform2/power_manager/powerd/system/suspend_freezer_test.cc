@@ -16,8 +16,7 @@
 #include <base/files/file_util.h>
 #include <gtest/gtest.h>
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -72,7 +71,6 @@ class SuspendFreezerTest : public ::testing::Test {
  public:
   SuspendFreezerTest()
       : mock_sys_utils_(new MockSystemUtils),
-        suspend_freezer_(),
         test_state_(kTestPath.Append(kStateFile)) {
     mock_sys_utils_->set_write_ = true;
     mock_sys_utils_->permission_fail_ = false;
@@ -260,5 +258,4 @@ TEST_F(SuspendFreezerTest, TestCircularDeps) {
   EXPECT_EQ(mock_sys_utils_->file_contents_[test2], kFreezerStateThawed);
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

@@ -16,10 +16,11 @@
 #include <gtest/gtest.h>
 
 #include "power_manager/powerd/system/ambient_light_observer.h"
+#include "power_manager/powerd/system/ambient_light_sensor.h"
+#include "power_manager/powerd/system/ambient_light_sensor_interface.h"
 #include "power_manager/powerd/system/fake_light.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -68,8 +69,8 @@ class AmbientLightSensorDelegateMojoTest : public ::testing::Test {
   AmbientLightSensorDelegateMojoTest& operator=(
       const AmbientLightSensorDelegateMojoTest&) = delete;
 
-  AmbientLightSensorDelegateMojoTest() {}
-  ~AmbientLightSensorDelegateMojoTest() override {}
+  AmbientLightSensorDelegateMojoTest() = default;
+  ~AmbientLightSensorDelegateMojoTest() override = default;
 
  protected:
   void SetUp() override {
@@ -215,5 +216,4 @@ TEST_F(AmbientLightSensorDelegateMojoTest, GiveUpAfterTooManyFailures) {
   EXPECT_FALSE(fake_light_->HasReceivers());
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

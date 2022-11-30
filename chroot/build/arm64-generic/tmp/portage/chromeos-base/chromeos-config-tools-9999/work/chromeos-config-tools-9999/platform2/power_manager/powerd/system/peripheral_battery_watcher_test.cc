@@ -21,8 +21,7 @@
 #include "power_manager/powerd/system/udev_stub.h"
 #include "power_manager/proto_bindings/peripheral_battery_status.pb.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 using std::string;
 
@@ -50,11 +49,11 @@ constexpr char kPeripheralChargerBatteryPCHGSysname[] = "PCHG0";
 
 class TestWrapper : public DBusWrapperStub {
  public:
-  TestWrapper() {}
+  TestWrapper() = default;
   TestWrapper(const TestWrapper&) = delete;
   TestWrapper& operator=(const TestWrapper&) = delete;
 
-  ~TestWrapper() override {}
+  ~TestWrapper() override = default;
 
   // Runs |loop_| until battery status is sent through D-Bus.
   bool RunUntilSignalSent(const base::TimeDelta& timeout) {
@@ -81,12 +80,12 @@ class TestWrapper : public DBusWrapperStub {
 
 class PeripheralBatteryWatcherTest : public ::testing::Test {
  public:
-  PeripheralBatteryWatcherTest() {}
+  PeripheralBatteryWatcherTest() = default;
   PeripheralBatteryWatcherTest(const PeripheralBatteryWatcherTest&) = delete;
   PeripheralBatteryWatcherTest& operator=(const PeripheralBatteryWatcherTest&) =
       delete;
 
-  ~PeripheralBatteryWatcherTest() override {}
+  ~PeripheralBatteryWatcherTest() override = default;
 
   void SetUp() override {
     auto bluez_battery_provider = std::make_unique<MockBluezBatteryProvider>();
@@ -659,5 +658,4 @@ TEST_F(PeripheralBatteryWatcherTest, UdevEventsWithSerial) {
   EXPECT_FALSE(test_wrapper_.RunUntilSignalSent(kShortUpdateTimeout));
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

@@ -22,8 +22,7 @@
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 // C++14's <algorithm> could do std::max(EV_MAX, KEY_MAX, SW_MAX);
@@ -169,10 +168,6 @@ void EventDevice::WatchForEvents(const base::RepeatingClosure& new_events_cb) {
   fd_watcher_ = base::FileDescriptorWatcher::WatchReadable(fd_, new_events_cb);
 }
 
-EventDeviceFactory::EventDeviceFactory() {}
-
-EventDeviceFactory::~EventDeviceFactory() {}
-
 std::shared_ptr<EventDeviceInterface> EventDeviceFactory::Open(
     const base::FilePath& path) {
   int fd = HANDLE_EINTR(open(path.value().c_str(), O_RDONLY | O_NONBLOCK));
@@ -183,5 +178,4 @@ std::shared_ptr<EventDeviceInterface> EventDeviceFactory::Open(
   return std::shared_ptr<EventDeviceInterface>(new EventDevice(fd, path));
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

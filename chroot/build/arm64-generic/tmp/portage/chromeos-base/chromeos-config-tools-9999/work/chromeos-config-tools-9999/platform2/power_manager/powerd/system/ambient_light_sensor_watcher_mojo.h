@@ -11,12 +11,10 @@
 #include <vector>
 
 #include "power_manager/powerd/system/ambient_light_sensor_watcher_interface.h"
-#include "power_manager/powerd/system/ambient_light_sensor_watcher_observer.h"
 #include "power_manager/powerd/system/sensor_service_handler.h"
 #include "power_manager/powerd/system/sensor_service_handler_observer.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 // Mojo implementation of AmbientLightSensorWatcherInterface that reports
 // devices from iioserivce.
@@ -29,7 +27,7 @@ class AmbientLightSensorWatcherMojo : public AmbientLightSensorWatcherInterface,
   AmbientLightSensorWatcherMojo& operator=(
       const AmbientLightSensorWatcherMojo&) = delete;
 
-  ~AmbientLightSensorWatcherMojo() override;
+  ~AmbientLightSensorWatcherMojo() override = default;
 
   // SensorServiceHandlerObserver overrides:
   void OnNewDeviceAdded(
@@ -54,7 +52,6 @@ class AmbientLightSensorWatcherMojo : public AmbientLightSensorWatcherInterface,
   std::map<int32_t, mojo::Remote<cros::mojom::SensorDevice>> device_remotes_;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_AMBIENT_LIGHT_SENSOR_WATCHER_MOJO_H_

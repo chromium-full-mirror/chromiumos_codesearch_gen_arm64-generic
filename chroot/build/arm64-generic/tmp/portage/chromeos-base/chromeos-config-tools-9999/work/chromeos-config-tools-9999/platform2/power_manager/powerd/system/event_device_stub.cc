@@ -6,20 +6,7 @@
 
 #include <base/logging.h>
 
-namespace power_manager {
-namespace system {
-
-EventDeviceStub::EventDeviceStub()
-    : is_cros_fp_(false),
-      is_lid_switch_(false),
-      is_tablet_mode_switch_(false),
-      is_power_button_(false),
-      hover_supported_(false),
-      has_left_button_(false),
-      initial_lid_state_(LidState::OPEN),
-      initial_tablet_mode_(TabletMode::OFF) {}
-
-EventDeviceStub::~EventDeviceStub() {}
+namespace power_manager::system {
 
 void EventDeviceStub::AppendEvent(uint16_t type, uint16_t code, int32_t value) {
   input_event event;
@@ -93,10 +80,6 @@ void EventDeviceStub::WatchForEvents(
   new_events_cb_ = new_events_cb;
 }
 
-EventDeviceFactoryStub::EventDeviceFactoryStub() {}
-
-EventDeviceFactoryStub::~EventDeviceFactoryStub() {}
-
 void EventDeviceFactoryStub::RegisterDevice(
     const base::FilePath& path, std::shared_ptr<EventDeviceInterface> device) {
   devices_[path] = device;
@@ -109,5 +92,4 @@ std::shared_ptr<EventDeviceInterface> EventDeviceFactoryStub::Open(
                               : std::shared_ptr<EventDeviceInterface>();
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

@@ -20,8 +20,7 @@
 #include "power_manager/common/clock.h"
 #include "power_manager/common/util.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -35,16 +34,6 @@ const char InternalBacklight::kBrightnessFilename[] = "brightness";
 const char InternalBacklight::kMaxBrightnessFilename[] = "max_brightness";
 const char InternalBacklight::kBlPowerFilename[] = "bl_power";
 const char InternalBacklight::kScaleFilename[] = "scale";
-
-InternalBacklight::InternalBacklight()
-    : clock_(new Clock),
-      brightness_scale_(BrightnessScale::kUnknown),
-      transition_start_level_(0),
-      transition_end_level_(0),
-      max_brightness_level_(0),
-      current_brightness_level_(0) {}
-
-InternalBacklight::~InternalBacklight() {}
 
 bool InternalBacklight::Init(const base::FilePath& base_path,
                              const std::string& pattern) {
@@ -201,9 +190,9 @@ void InternalBacklight::HandleTransitionTimeout() {
     double transition_fraction =
         (now - transition_start_time_).InMillisecondsF() /
         (transition_end_time_ - transition_start_time_).InMillisecondsF();
-    int64_t intermediate_amount =
-        lround(transition_fraction *
-               (transition_end_level_ - transition_start_level_));
+    int64_t intermediate_amount = lround(
+        transition_fraction *
+        static_cast<double>((transition_end_level_ - transition_start_level_)));
     new_level = transition_start_level_ + intermediate_amount;
   }
 
@@ -221,5 +210,4 @@ void InternalBacklight::CancelTransition() {
   transition_end_level_ = current_brightness_level_;
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

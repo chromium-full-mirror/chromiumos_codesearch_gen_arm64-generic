@@ -23,8 +23,7 @@
 #include "power_manager/powerd/system/input_observer.h"
 #include "power_manager/powerd/system/udev_stub.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 namespace {
 
 // Strings that can be compared against TestObserver::GetActions().
@@ -117,10 +116,7 @@ class InputWatcherTest : public testing::Test {
  public:
   InputWatcherTest()
       : scoped_event_device_factory_(new EventDeviceFactoryStub()),
-        event_device_factory_(scoped_event_device_factory_.get()),
-        use_lid_pref_(1),
-        legacy_power_button_pref_(0),
-        detect_hover_pref_(0) {
+        event_device_factory_(scoped_event_device_factory_.get()) {
     CHECK(temp_dir_.CreateUniqueTempDir());
 
     dev_input_path_ = temp_dir_.GetPath().Append(base::FilePath("dev/input"));
@@ -130,7 +126,7 @@ class InputWatcherTest : public testing::Test {
         temp_dir_.GetPath().Append(base::FilePath("sys/class/input"));
     CHECK(base::CreateDirectory(sys_class_input_path_));
   }
-  ~InputWatcherTest() override {}
+  ~InputWatcherTest() override = default;
 
  protected:
   // Initializes |input_watcher_|. Intended to be called by tests after
@@ -189,9 +185,9 @@ class InputWatcherTest : public testing::Test {
   std::unique_ptr<TestObserver> observer_;
 
   // Initial values for prefs.
-  int64_t use_lid_pref_;
-  int64_t legacy_power_button_pref_;
-  int64_t detect_hover_pref_;
+  int64_t use_lid_pref_ = 1;
+  int64_t legacy_power_button_pref_ = 0;
+  int64_t detect_hover_pref_ = 0;
 };
 
 TEST_F(InputWatcherTest, DetectUSBDevices) {
@@ -712,5 +708,4 @@ TEST_F(InputWatcherTest, TolerateMissingDevInputDirectory) {
   EXPECT_FALSE(input_watcher_->IsUSBInputDeviceConnected());
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

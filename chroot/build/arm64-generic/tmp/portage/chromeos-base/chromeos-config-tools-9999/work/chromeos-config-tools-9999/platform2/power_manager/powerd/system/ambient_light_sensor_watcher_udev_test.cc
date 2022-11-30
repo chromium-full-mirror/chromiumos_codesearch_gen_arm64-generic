@@ -11,8 +11,7 @@
 #include "power_manager/powerd/system/ambient_light_sensor_watcher_observer_stub.h"
 #include "power_manager/powerd/system/udev_stub.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -24,8 +23,8 @@ constexpr char kGoodSyspath[] =
 
 class AmbientLightSensorWatcherUdevTest : public testing::Test {
  public:
-  AmbientLightSensorWatcherUdevTest() {}
-  ~AmbientLightSensorWatcherUdevTest() override {}
+  AmbientLightSensorWatcherUdevTest() = default;
+  ~AmbientLightSensorWatcherUdevTest() override = default;
 
  protected:
   void Init() { watcher_.Init(&udev_); }
@@ -147,5 +146,4 @@ TEST_F(AmbientLightSensorWatcherUdevTest, RemoveDevice) {
   EXPECT_EQ(0, watcher_.GetAmbientLightSensors().size());
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

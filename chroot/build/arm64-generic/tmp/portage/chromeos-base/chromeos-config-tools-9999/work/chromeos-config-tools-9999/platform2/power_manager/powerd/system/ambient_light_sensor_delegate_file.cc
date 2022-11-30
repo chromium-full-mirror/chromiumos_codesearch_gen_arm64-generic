@@ -25,10 +25,7 @@
 #include <base/strings/string_util.h>
 #include <base/strings/stringprintf.h>
 
-#include "power_manager/common/util.h"
-
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -80,7 +77,6 @@ AmbientLightSensorDelegateFile::AmbientLightSensorDelegateFile(
     : device_list_path_(kDefaultDeviceListPath),
       poll_interval_(kDefaultPollInterval),
       enable_color_support_(enable_color_support),
-      num_init_attempts_(0),
       expected_sensor_location_(expected_sensor_location) {}
 
 AmbientLightSensorDelegateFile::AmbientLightSensorDelegateFile(
@@ -89,10 +85,7 @@ AmbientLightSensorDelegateFile::AmbientLightSensorDelegateFile(
       device_(device),
       poll_interval_(kDefaultPollInterval),
       enable_color_support_(enable_color_support),
-      num_init_attempts_(0),
       expected_sensor_location_(SensorLocation::UNKNOWN) {}
-
-AmbientLightSensorDelegateFile::~AmbientLightSensorDelegateFile() {}
 
 void AmbientLightSensorDelegateFile::Init(bool read_immediately) {
   if (read_immediately)
@@ -317,5 +310,4 @@ bool AmbientLightSensorDelegateFile::InitAlsFile() {
   return false;
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

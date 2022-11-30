@@ -9,8 +9,7 @@
 
 #include <base/time/time.h>
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 // This class tracks the rolling average from a continuous sequence of
 // samples.
@@ -21,7 +20,7 @@ class RollingAverage {
   RollingAverage(const RollingAverage&) = delete;
   RollingAverage& operator=(const RollingAverage&) = delete;
 
-  ~RollingAverage();
+  ~RollingAverage() = default;
 
   // Adds a sample of |value| collected at |time|. Negative values are allowed.
   void AddSample(double value, const base::TimeTicks& time);
@@ -59,13 +58,12 @@ class RollingAverage {
   std::queue<Sample> samples_;
 
   // Sum of values in |samples_|.
-  double running_total_;
+  double running_total_ = 0.0;
 
   // Maximum number of samples to store.
   size_t window_size_;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_ROLLING_AVERAGE_H_

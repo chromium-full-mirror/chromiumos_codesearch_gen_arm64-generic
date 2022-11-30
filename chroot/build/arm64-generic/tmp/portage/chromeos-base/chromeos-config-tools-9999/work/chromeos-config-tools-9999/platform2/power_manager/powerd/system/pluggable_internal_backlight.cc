@@ -13,10 +13,7 @@
 #include "power_manager/powerd/system/internal_backlight.h"
 #include "power_manager/powerd/system/udev.h"
 
-namespace power_manager {
-namespace system {
-
-PluggableInternalBacklight::PluggableInternalBacklight() {}
+namespace power_manager::system {
 
 PluggableInternalBacklight::~PluggableInternalBacklight() {
   if (udev_)
@@ -99,5 +96,4 @@ void PluggableInternalBacklight::OnUdevEvent(const UdevEvent& event) {
   }
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

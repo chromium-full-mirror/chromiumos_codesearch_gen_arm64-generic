@@ -7,19 +7,18 @@
 
 #include "power_manager/common/power_constants.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 class InputObserver;
 
 // An interface for querying vaguely-input-related state.
 class InputWatcherInterface {
  public:
-  InputWatcherInterface() {}
+  InputWatcherInterface() = default;
   InputWatcherInterface(const InputWatcherInterface&) = delete;
   InputWatcherInterface& operator=(const InputWatcherInterface&) = delete;
 
-  virtual ~InputWatcherInterface() {}
+  virtual ~InputWatcherInterface() = default;
 
   // Adds or removes an observer.
   virtual void AddObserver(InputObserver* observer) = 0;
@@ -37,7 +36,6 @@ class InputWatcherInterface {
   virtual bool IsUSBInputDeviceConnected() const = 0;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_INPUT_WATCHER_INTERFACE_H_

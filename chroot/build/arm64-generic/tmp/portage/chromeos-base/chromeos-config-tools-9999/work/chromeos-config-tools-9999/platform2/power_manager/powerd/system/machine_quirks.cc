@@ -14,8 +14,7 @@
 #include "power_manager/common/prefs.h"
 #include "power_manager/common/util.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 // Default DMI ID directory
@@ -33,8 +32,6 @@ const base::FilePath kPowerManagerSuspendPreventionFile(
 }  // namespace
 
 MachineQuirks::MachineQuirks() : dmi_id_dir_(kDefaultDmiIdDir) {}
-
-MachineQuirks::~MachineQuirks() {}
 
 void MachineQuirks::Init(PrefsInterface* prefs) {
   DCHECK(prefs);
@@ -126,5 +123,4 @@ bool MachineQuirks::IsQuirkMatch(std::string field_name,
   return false;
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

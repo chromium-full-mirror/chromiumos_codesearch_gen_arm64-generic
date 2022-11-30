@@ -15,10 +15,7 @@
 #include <base/logging.h>
 #include <base/time/time.h>
 
-#include "power_manager/common/util.h"
-
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -171,5 +168,4 @@ bool AsyncFileReader::AsyncRead(int size, int offset) {
   return true;
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

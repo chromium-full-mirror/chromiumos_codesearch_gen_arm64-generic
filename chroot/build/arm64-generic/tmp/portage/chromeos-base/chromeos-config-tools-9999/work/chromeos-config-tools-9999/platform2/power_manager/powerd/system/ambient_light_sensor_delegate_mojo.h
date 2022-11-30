@@ -24,13 +24,9 @@
 #include <mojo/public/cpp/bindings/receiver.h>
 #include <mojo/public/cpp/bindings/remote.h>
 
-#include "power_manager/common/power_constants.h"
-#include "power_manager/powerd/system/ambient_light_observer.h"
-#include "power_manager/powerd/system/ambient_light_sensor.h"
-#include "power_manager/powerd/system/async_file_reader.h"
+#include "power_manager/powerd/system/ambient_light_sensor_delegate.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 class AmbientLightSensorDelegateMojo
     : public AmbientLightSensorDelegate,
@@ -147,7 +143,6 @@ class AmbientLightSensorDelegateMojo
                            GiveUpAfterTooManyFailures);
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_AMBIENT_LIGHT_SENSOR_DELEGATE_MOJO_H_

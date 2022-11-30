@@ -7,13 +7,10 @@
 #include <optional>
 #include <utility>
 
-#include "power_manager/powerd/system/ambient_light_sensor_delegate_mojo.h"
-
 #include <base/check.h>
 #include <base/logging.h>
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 mojo::ReceiverId FakeSensorDevice::AddReceiver(
     mojo::PendingReceiver<cros::mojom::SensorDevice> pending_receiver) {
@@ -175,5 +172,4 @@ void FakeSensorDevice::StopReadingEvents() {
   events_observers_.erase(receiver_set_.current_receiver());
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

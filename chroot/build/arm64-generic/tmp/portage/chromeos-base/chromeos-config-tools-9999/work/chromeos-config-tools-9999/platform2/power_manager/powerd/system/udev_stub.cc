@@ -4,18 +4,12 @@
 
 #include "power_manager/powerd/system/udev_stub.h"
 
-#include "power_manager/powerd/system/tagged_device.h"
 #include "power_manager/powerd/system/udev_subsystem_observer.h"
 #include "power_manager/powerd/system/udev_tagged_device_observer.h"
 
 #include <base/check.h>
 
-namespace power_manager {
-namespace system {
-
-UdevStub::UdevStub() : stop_accepting_sysattr_for_testing_(false) {}
-
-UdevStub::~UdevStub() {}
+namespace power_manager::system {
 
 bool UdevStub::HasSubsystemObserver(const std::string& subsystem,
                                     UdevSubsystemObserver* observer) const {
@@ -149,5 +143,4 @@ bool UdevStub::GetDevlinks(const std::string& syspath,
   return true;
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

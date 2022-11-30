@@ -16,15 +16,14 @@
 
 struct input_event;  // from <linux/input.h>
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 // Provides methods to access event devices, i.e. the device files exposed by
 // the kernel evdev interface: /dev/input/eventN.
 class EventDeviceInterface {
  public:
-  EventDeviceInterface() {}
-  virtual ~EventDeviceInterface() {}
+  EventDeviceInterface() = default;
+  virtual ~EventDeviceInterface() = default;
 
   // Returns a human-readable identifier to be used for debugging.
   virtual std::string GetDebugName() = 0;
@@ -75,8 +74,8 @@ class EventDeviceInterface {
 
 class EventDeviceFactoryInterface {
  public:
-  EventDeviceFactoryInterface() {}
-  virtual ~EventDeviceFactoryInterface() {}
+  EventDeviceFactoryInterface() = default;
+  virtual ~EventDeviceFactoryInterface() = default;
 
   // Opens an event device by path. Returns the device or NULL on error.
   // TODO(crbug.com/1073772,ejcaruso): migrate to unique_ptr.
@@ -91,7 +90,6 @@ class EventDeviceFactoryInterface {
       const base::FilePath& path) = 0;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_EVENT_DEVICE_INTERFACE_H_

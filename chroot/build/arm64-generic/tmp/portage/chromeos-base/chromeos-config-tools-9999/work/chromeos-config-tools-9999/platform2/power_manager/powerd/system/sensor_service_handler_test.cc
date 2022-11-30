@@ -16,8 +16,7 @@
 #include "power_manager/powerd/system/fake_light.h"
 #include "power_manager/powerd/system/fake_sensor_service.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -46,8 +45,8 @@ class SensorServiceHandlerTest : public ::testing::Test {
   SensorServiceHandlerTest(const SensorServiceHandlerTest&) = delete;
   SensorServiceHandlerTest& operator=(const SensorServiceHandlerTest&) = delete;
 
-  SensorServiceHandlerTest() {}
-  ~SensorServiceHandlerTest() override {}
+  SensorServiceHandlerTest() = default;
+  ~SensorServiceHandlerTest() override = default;
 
  protected:
   void SetUp() override {
@@ -114,5 +113,4 @@ TEST_F(SensorServiceHandlerTest, ConnectedAndAddNewDevices) {
   EXPECT_EQ(observer2->device_ids_[0], 1);
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

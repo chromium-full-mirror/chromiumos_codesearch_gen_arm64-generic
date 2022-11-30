@@ -7,18 +7,17 @@
 
 #include <string>
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 // Helper class to manipulate ACPI wakeup settings.
 class AcpiWakeupHelperInterface {
  public:
-  AcpiWakeupHelperInterface() {}
+  AcpiWakeupHelperInterface() = default;
   AcpiWakeupHelperInterface(const AcpiWakeupHelperInterface&) = delete;
   AcpiWakeupHelperInterface& operator=(const AcpiWakeupHelperInterface&) =
       delete;
 
-  virtual ~AcpiWakeupHelperInterface() {}
+  virtual ~AcpiWakeupHelperInterface() = default;
 
   // Checks whether /proc/acpi/wakeup is available on this system.
   virtual bool IsSupported() = 0;
@@ -34,7 +33,6 @@ class AcpiWakeupHelperInterface {
                                 bool enabled) = 0;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_ACPI_WAKEUP_HELPER_INTERFACE_H_

@@ -6,8 +6,7 @@
 
 #include <utility>
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 FakeSensorService::FakeSensorService() = default;
 FakeSensorService::~FakeSensorService() = default;
@@ -76,10 +75,7 @@ void FakeSensorService::GetDevice(
 void FakeSensorService::RegisterNewDevicesObserver(
     mojo::PendingRemote<cros::mojom::SensorServiceNewDevicesObserver>
         observer) {
-  observers_.emplace_back(
-      mojo::Remote<cros::mojom::SensorServiceNewDevicesObserver>(
-          std::move(observer)));
+  observers_.emplace_back(std::move(observer));
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

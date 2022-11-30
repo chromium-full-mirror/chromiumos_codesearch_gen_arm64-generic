@@ -9,14 +9,13 @@
 
 #include <base/observer_list_types.h>
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 class TaggedDevice;
 
 class UdevTaggedDeviceObserver : public base::CheckedObserver {
  public:
-  virtual ~UdevTaggedDeviceObserver() {}
+  ~UdevTaggedDeviceObserver() override = default;
 
   // Called whenever a device with powerd tags set is added or changed.
   // Implementations should be idempotent, i.e. multiple invocations should have
@@ -27,7 +26,6 @@ class UdevTaggedDeviceObserver : public base::CheckedObserver {
   virtual void OnTaggedDeviceRemoved(const TaggedDevice& device) = 0;
 };
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
 
 #endif  // POWER_MANAGER_POWERD_SYSTEM_UDEV_TAGGED_DEVICE_OBSERVER_H_

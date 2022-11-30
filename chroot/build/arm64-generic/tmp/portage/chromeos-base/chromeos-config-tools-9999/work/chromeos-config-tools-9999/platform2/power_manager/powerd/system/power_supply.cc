@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdlib>
+#include <memory>
 #include <optional>
 #include <utility>
 
@@ -41,8 +42,7 @@
 #include "power_manager/powerd/system/udev.h"
 #include "power_manager/proto_bindings/power_supply_properties.pb.h"
 
-namespace power_manager {
-namespace system {
+namespace power_manager::system {
 
 namespace {
 
@@ -90,8 +90,10 @@ bool ReadInt64(const base::FilePath& directory,
 double ReadScaledDouble(const base::FilePath& directory,
                         const std::string& filename) {
   int64_t value = 0;
-  return ReadInt64(directory, filename, &value) ? kDoubleScaleFactor * value
-                                                : 0.0;
+  if (!ReadInt64(directory, filename, &value))
+    return 0.0;
+
+  return kDoubleScaleFactor * static_cast<double>(value);
 }
 
 // Returns the string surrounded by brackets via the |out| parameter.
@@ -665,11 +667,11 @@ void PowerSupply::Init(
 
   int64_t samples = 0;
   CHECK(prefs_->GetInt64(kMaxCurrentSamplesPref, &samples));
-  current_samples_on_line_power_.reset(new RollingAverage(samples));
-  current_samples_on_battery_power_.reset(new RollingAverage(samples));
+  current_samples_on_line_power_ = std::make_unique<RollingAverage>(samples);
+  current_samples_on_battery_power_ = std::make_unique<RollingAverage>(samples);
 
   CHECK(prefs_->GetInt64(kMaxChargeSamplesPref, &samples));
-  charge_samples_.reset(new RollingAverage(samples));
+  charge_samples_ = std::make_unique<RollingAverage>(samples);
 
   LOG(INFO) << "Using low battery time threshold of "
             << low_battery_shutdown_time_.InSeconds()
@@ -997,7 +999,7 @@ bool PowerSupply::UpdatePowerStatus(UpdatePolicy policy) {
 void PowerSupply::ReadLinePowerDirectory(const base::FilePath& path,
                                          PowerStatus* status) {
   // Add the port and fill in its details as we go.
-  status->ports.push_back(PowerStatus::Port());
+  status->ports.emplace_back();
   PowerStatus::Port* port = &status->ports.back();
   port->id = GetIdForPath(path);
   const auto location_it = port_names_.find(path.BaseName().value());
@@ -1610,5 +1612,4 @@ bool PowerSupply::SetPowerSource(const std::string& id) {
   return true;
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

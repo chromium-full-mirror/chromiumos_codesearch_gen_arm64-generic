@@ -4,12 +4,7 @@
 
 #include "power_manager/powerd/system/dark_resume_stub.h"
 
-namespace power_manager {
-namespace system {
-
-DarkResumeStub::DarkResumeStub() {}
-
-DarkResumeStub::~DarkResumeStub() {}
+namespace power_manager::system {
 
 void DarkResumeStub::HandleSuccessfulResume(bool from_hibernate) {}
 
@@ -21,5 +16,4 @@ bool DarkResumeStub::IsEnabled() {
   return enabled_;
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system

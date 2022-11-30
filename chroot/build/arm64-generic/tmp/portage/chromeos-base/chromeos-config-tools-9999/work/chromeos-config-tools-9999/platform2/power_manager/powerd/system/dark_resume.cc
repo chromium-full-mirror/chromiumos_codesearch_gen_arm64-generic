@@ -13,12 +13,7 @@
 #include <base/check.h>
 #include <base/logging.h>
 
-namespace power_manager {
-namespace system {
-
-DarkResume::DarkResume() {}
-
-DarkResume::~DarkResume() {}
+namespace power_manager::system {
 
 void DarkResume::Init(
     PrefsInterface* prefs,
@@ -81,5 +76,4 @@ void DarkResume::ReadDarkResumePref() {
   LOG(INFO) << "Dark resume " << (enabled_ ? "enabled" : "disabled");
 }
 
-}  // namespace system
-}  // namespace power_manager
+}  // namespace power_manager::system
