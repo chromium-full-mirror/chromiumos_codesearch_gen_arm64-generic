@@ -5371,4 +5371,191 @@ TEST_F(UserDataAuthTestThreaded, ShutdownTask) {
   }));
 }
 
+// ============== Full API Behaviour Test for Negative Testing ==============
+
+// This section holds tests that simulate API calls so that we can test that the
+// right error comes up in error conditions.
+
+// This serves as the base class for all full API behaviour tests. It is for a
+// set of integration-style unit tests that is aimed at stressing the negative
+// cases from an API usage perspective. This differs from other unit tests in
+// which it is written in more of a integration test style and verifies the
+// behaviour of cryptohomed APIs rather than the UserDataAuth class.
+class UserDataAuthApiTest : public UserDataAuthTest {
+ public:
+  UserDataAuthApiTest() = default;
+
+  // Simply the Sync() version of StartAuthSession(). Caller should check that
+  // the returned value is not nullopt, which indicates that the call did not
+  // finish.
+  std::optional<user_data_auth::StartAuthSessionReply> StartAuthSessionSync(
+      const user_data_auth::StartAuthSessionRequest& in_request) {
+    std::optional<user_data_auth::StartAuthSessionReply> out_reply;
+    userdataauth_->StartAuthSession(
+        in_request, base::BindOnce(
+                        [](std::optional<user_data_auth::StartAuthSessionReply>*
+                               out_reply_ptr,
+                           const user_data_auth::StartAuthSessionReply& reply) {
+                          *out_reply_ptr = reply;
+                        },
+                        base::Unretained(&out_reply)));
+    RunUntilIdle();
+    return out_reply;
+  }
+
+  // Obtain a test auth session for kUsername1. Result is nullopt if it's
+  // unsuccessful.
+  std::optional<std::string> GetTestUnauthedAuthSession(
+      user_data_auth::AuthIntent =
+          user_data_auth::AuthIntent::AUTH_INTENT_DECRYPT) {
+    user_data_auth::StartAuthSessionRequest req;
+    req.mutable_account_id()->set_account_id(kUsername1);
+    req.set_intent(user_data_auth::AuthIntent::AUTH_INTENT_DECRYPT);
+    std::optional<user_data_auth::StartAuthSessionReply> reply =
+        StartAuthSessionSync(req);
+    if (!reply.has_value()) {
+      LOG(ERROR) << "GetTestUnauthedAuthSession() failed because "
+                    "StartAuthSession() did not complete.";
+      return std::nullopt;
+    }
+
+    if (reply.value().error_info().primary_action() !=
+        user_data_auth::PrimaryAction::PRIMARY_NO_ERROR) {
+      LOG(ERROR) << "GetTestUnauthedAuthSession() failed because "
+                    "StartAuthSession() failed.";
+      return std::nullopt;
+    }
+    return reply.value().auth_session_id();
+  }
+
+  std::optional<user_data_auth::AuthenticateAuthSessionReply>
+  AuthenticateAuthSessionSync(
+      const user_data_auth::AuthenticateAuthSessionRequest& in_request) {
+    std::optional<user_data_auth::AuthenticateAuthSessionReply> out_reply;
+    userdataauth_->AuthenticateAuthSession(
+        in_request,
+        base::BindOnce(
+            [](std::optional<user_data_auth::AuthenticateAuthSessionReply>*
+                   out_reply_ptr,
+               const user_data_auth::AuthenticateAuthSessionReply& reply) {
+              *out_reply_ptr = reply;
+            },
+            base::Unretained(&out_reply)));
+    RunUntilIdle();
+    return out_reply;
+  }
+
+  std::optional<user_data_auth::AuthenticateAuthFactorReply>
+  AuthenticateAuthFactorSync(
+      const user_data_auth::AuthenticateAuthFactorRequest& in_request) {
+    std::optional<user_data_auth::AuthenticateAuthFactorReply> out_reply;
+    userdataauth_->AuthenticateAuthFactor(
+        in_request,
+        base::BindOnce(
+            [](std::optional<user_data_auth::AuthenticateAuthFactorReply>*
+                   out_reply_ptr,
+               const user_data_auth::AuthenticateAuthFactorReply& reply) {
+              *out_reply_ptr = reply;
+            },
+            base::Unretained(&out_reply)));
+    RunUntilIdle();
+    return out_reply;
+  }
+
+ private:
+  static constexpr char kUsername1[] = "foo@gmail.com";
+};
+
+// Matches against user_data_auth::CryptohomeErrorInfo to see if it contains an
+// active recommendation for the specified PossibleAction |action|. "Active
+// recommendation" here refers to a correct PrimaryAction value such that the
+// PossibleAction field is active and not disregarded.
+MATCHER_P(HasPossibleAction, action, "") {
+  if (arg.primary_action() != user_data_auth::PrimaryAction::PRIMARY_NONE) {
+    *result_listener
+        << "Invalid PrimaryAction when checking for PossibleAction: "
+        << user_data_auth::PrimaryAction_Name(arg.primary_action());
+    return false;
+  }
+  for (int i = 0; i < arg.possible_actions_size(); i++) {
+    if (arg.possible_actions(i) == action)
+      return true;
+  }
+
+  return false;
+}
+
+TEST_F(UserDataAuthApiTest, RemoveStillMounted) {
+  // If a home directory is mounted it'll return false for Remove().
+  EXPECT_CALL(homedirs_, Remove(_)).WillOnce(Return(false));
+
+  std::optional<std::string> session_id = GetTestUnauthedAuthSession();
+  ASSERT_TRUE(session_id.has_value());
+
+  user_data_auth::RemoveRequest req;
+  req.set_auth_session_id(session_id.value());
+  user_data_auth::RemoveReply reply;
+
+  reply = userdataauth_->Remove(req);
+
+  // Failure to Remove() due to still mounted vault should result in Reboot and
+  // Powerwash recommendation.
+  EXPECT_THAT(
+      reply.error_info(),
+      HasPossibleAction(user_data_auth::PossibleAction::POSSIBLY_REBOOT));
+  EXPECT_THAT(
+      reply.error_info(),
+      HasPossibleAction(user_data_auth::PossibleAction::POSSIBLY_POWERWASH));
+}
+
+TEST_F(UserDataAuthApiTest, RemoveNoID) {
+  user_data_auth::RemoveRequest req;
+  user_data_auth::RemoveReply reply;
+
+  reply = userdataauth_->Remove(req);
+
+  // Failure to Remove() due to the lack of username in the request is
+  // unexpected, and should result in POSSIBLY_DEV_CHECK_UNEXPECTED_STATE.
+  EXPECT_THAT(
+      reply.error_info(),
+      HasPossibleAction(
+          user_data_auth::PossibleAction::POSSIBLY_DEV_CHECK_UNEXPECTED_STATE));
+}
+
+TEST_F(UserDataAuthApiTest, AuthAuthSessionNoSession) {
+  user_data_auth::AuthenticateAuthSessionRequest req;
+  req.set_auth_session_id("NOT_A_VALID_AUTH_SESSION!");
+  user_data_auth::AuthenticateAuthSessionReply reply;
+
+  std::optional<user_data_auth::AuthenticateAuthSessionReply> result =
+      AuthenticateAuthSessionSync(req);
+  ASSERT_TRUE(result.has_value());
+  reply = *result;
+
+  // Failure to AuthenticateAuthSession() due to missing session should result
+  // in recommendation to reboot, because we'll need to restart the session
+  // after reboot so the problem might go away.
+  EXPECT_THAT(
+      reply.error_info(),
+      HasPossibleAction(user_data_auth::PossibleAction::POSSIBLY_REBOOT));
+}
+
+TEST_F(UserDataAuthApiTest, AuthAuthFactorNoSession) {
+  user_data_auth::AuthenticateAuthFactorRequest req;
+  req.set_auth_session_id("NOT_A_VALID_AUTH_SESSION!");
+  user_data_auth::AuthenticateAuthFactorReply reply;
+
+  std::optional<user_data_auth::AuthenticateAuthFactorReply> result =
+      AuthenticateAuthFactorSync(req);
+  ASSERT_TRUE(result.has_value());
+  reply = *result;
+
+  // Failure to AuthenticateAuthFactor() due to missing session should result in
+  // recommendation to reboot, because we'll need to restart the session after
+  // reboot so the problem might go away.
+  EXPECT_THAT(
+      reply.error_info(),
+      HasPossibleAction(user_data_auth::PossibleAction::POSSIBLY_REBOOT));
+}
+
 }  // namespace cryptohome

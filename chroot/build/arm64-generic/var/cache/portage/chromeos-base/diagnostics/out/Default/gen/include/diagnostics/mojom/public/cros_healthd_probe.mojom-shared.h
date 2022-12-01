@@ -2886,6 +2886,16 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadAppearance(UserType* output) {
     
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableUint16DataView, UserType>(),
+    "Attempting to read the optional `appearance` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadAppearance` instead "
+    "of `ReadAppearance if you're fine with null values being "
+    "silently ignored in this case.");
     auto* pointer = data_->appearance.Get();
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         pointer, output, message_);
@@ -2916,6 +2926,16 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadRssi(UserType* output) {
     
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableInt16DataView, UserType>(),
+    "Attempting to read the optional `rssi` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadRssi` instead "
+    "of `ReadRssi if you're fine with null values being "
+    "silently ignored in this case.");
     auto* pointer = data_->rssi.Get();
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableInt16DataView>(
         pointer, output, message_);
@@ -2926,6 +2946,16 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadMtu(UserType* output) {
     
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableUint16DataView, UserType>(),
+    "Attempting to read the optional `mtu` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadMtu` instead "
+    "of `ReadMtu if you're fine with null values being "
+    "silently ignored in this case.");
     auto* pointer = data_->mtu.Get();
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         pointer, output, message_);
@@ -9263,10 +9293,6 @@ struct Serializer<::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView, Maybe
         in_appearance, appearance_fragment);
     fragment->appearance.Set(
         appearance_fragment.is_null() ? nullptr : appearance_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->appearance.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null appearance in BluetoothDeviceInfo struct");
     decltype(Traits::modalias(input)) in_modalias = Traits::modalias(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->modalias)::BaseType> modalias_fragment(
@@ -9283,10 +9309,6 @@ struct Serializer<::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView, Maybe
         in_rssi, rssi_fragment);
     fragment->rssi.Set(
         rssi_fragment.is_null() ? nullptr : rssi_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->rssi.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null rssi in BluetoothDeviceInfo struct");
     decltype(Traits::mtu(input)) in_mtu = Traits::mtu(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->mtu)::BaseType> mtu_fragment(
@@ -9295,10 +9317,6 @@ struct Serializer<::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView, Maybe
         in_mtu, mtu_fragment);
     fragment->mtu.Set(
         mtu_fragment.is_null() ? nullptr : mtu_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->mtu.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null mtu in BluetoothDeviceInfo struct");
     decltype(Traits::uuids(input)) in_uuids = Traits::uuids(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->uuids)::BaseType>
