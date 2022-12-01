@@ -106,6 +106,8 @@ class HomeDirsTest
         std::make_unique<EncryptedContainerFactory>(
             &platform_, std::make_unique<FakeKeyring>(),
             std::make_unique<BackingDeviceFactory>(&platform_));
+    vault_factory_ = std::make_unique<CryptohomeVaultFactory>(
+        &platform_, std::move(container_factory));
     HomeDirs::RemoveCallback remove_callback =
         base::BindRepeating(&MockKeysetManagement::RemoveLECredentials,
                             base::Unretained(&keyset_management_));
@@ -113,9 +115,7 @@ class HomeDirsTest
         &platform_,
         std::make_unique<policy::PolicyProvider>(
             std::unique_ptr<policy::MockDevicePolicy>(mock_device_policy_)),
-        remove_callback,
-        std::make_unique<CryptohomeVaultFactory>(&platform_,
-                                                 std::move(container_factory)));
+        remove_callback, vault_factory_.get());
 
     AddUser(kUser0, kUserPassword0);
     AddUser(kUser1, kUserPassword1);
@@ -161,6 +161,7 @@ class HomeDirsTest
   NiceMock<MockPlatform> platform_;
   MockKeysetManagement keyset_management_;
   policy::MockDevicePolicy* mock_device_policy_;  // owned by homedirs_
+  std::unique_ptr<CryptohomeVaultFactory> vault_factory_;
   std::unique_ptr<HomeDirs> homedirs_;
 
   // Information about users' homedirs. The order of users is equal to kUsers.
@@ -543,150 +544,150 @@ class HomeDirsVaultTest : public ::testing::Test {
 namespace {
 TEST_F(HomeDirsVaultTest, PickVaultType) {
   const std::vector<HomeDirsVaultTest::HomedirsTestCase> test_cases = {
-    {
-        .name = "new_ecryptfs_allowed",
-        .lvm_supported = false,
-        .fscrypt_supported = false,
-        .existing_container_type = EncryptedContainerType::kUnknown,
-        .options = {},
-        .expected_type = EncryptedContainerType::kEcryptfs,
-        .expected_error = MOUNT_ERROR_NONE,
-    },
-    {
-        .name = "new_ecryptfs_block_no_effect",
-        .lvm_supported = false,
-        .fscrypt_supported = false,
-        .existing_container_type = EncryptedContainerType::kUnknown,
-        .options = {.block_ecryptfs = true},
-        .expected_type = EncryptedContainerType::kEcryptfs,
-        .expected_error = MOUNT_ERROR_NONE,
-    },
-    {
-        .name = "new_ecryptfs_cant_migrate",
-        .lvm_supported = false,
-        .fscrypt_supported = false,
-        .existing_container_type = EncryptedContainerType::kUnknown,
-        .options = {.migrate = true},
-        .expected_type = EncryptedContainerType::kUnknown,
-        .expected_error = MOUNT_ERROR_UNEXPECTED_MOUNT_TYPE,
-    },
-    {
-        .name = "new_ecryptfs_forced",
-        .lvm_supported = false,
-        .fscrypt_supported = true,
-        .existing_container_type = EncryptedContainerType::kUnknown,
-        .options = {.force_type = EncryptedContainerType::kEcryptfs},
-        .expected_type = EncryptedContainerType::kEcryptfs,
-        .expected_error = MOUNT_ERROR_NONE,
-    },
-    {
-        .name = "new_fscrypt",
-        .lvm_supported = false,
-        .fscrypt_supported = true,
-        .existing_container_type = EncryptedContainerType::kUnknown,
-        .options = {},
-        .expected_type = EncryptedContainerType::kFscrypt,
-        .expected_error = MOUNT_ERROR_NONE,
-    },
-    {
-        .name = "existing_ecryptfs_allowed",
-        .lvm_supported = false,
-        .fscrypt_supported = true,
-        .existing_container_type = EncryptedContainerType::kEcryptfs,
-        .options = {},
-        .expected_type = EncryptedContainerType::kEcryptfs,
-        .expected_error = MOUNT_ERROR_NONE,
-    },
-    {
-        .name = "existing_ecryptfs_not_allowed",
-        .lvm_supported = false,
-        .fscrypt_supported = true,
-        .existing_container_type = EncryptedContainerType::kEcryptfs,
-        .options = {.block_ecryptfs = true},
-        .expected_type = EncryptedContainerType::kUnknown,
-        .expected_error = MOUNT_ERROR_OLD_ENCRYPTION,
-    },
-    {
-        .name = "existing_ecryptfs_migrate_to_fscrypt",
-        .lvm_supported = false,
-        .fscrypt_supported = true,
-        .existing_container_type = EncryptedContainerType::kEcryptfs,
-        .options = {.migrate = true},
-        .expected_type = EncryptedContainerType::kEcryptfsToFscrypt,
-        .expected_error = MOUNT_ERROR_NONE,
-    },
-    {
-        .name = "existing_fscrypt",
-        .lvm_supported = false,
-        .fscrypt_supported = true,
-        .existing_container_type = EncryptedContainerType::kFscrypt,
-        .options = {},
-        .expected_type = EncryptedContainerType::kFscrypt,
-        .expected_error = MOUNT_ERROR_NONE,
-    },
-    {
-        .name = "existing_fscrypt_force_ignored",
-        .lvm_supported = false,
-        .fscrypt_supported = true,
-        .existing_container_type = EncryptedContainerType::kFscrypt,
-        .options = {.force_type = EncryptedContainerType::kEcryptfs},
-        .expected_type = EncryptedContainerType::kFscrypt,
-        .expected_error = MOUNT_ERROR_NONE,
-    },
-    {
-        .name = "existing_migration",
-        .lvm_supported = false,
-        .fscrypt_supported = true,
-        .existing_container_type = EncryptedContainerType::kEcryptfsToFscrypt,
-        .options = {.migrate = true},
-        .expected_type = EncryptedContainerType::kEcryptfsToFscrypt,
-        .expected_error = MOUNT_ERROR_NONE,
-    },
-    {
-        .name = "existing_migration_without_flag",
-        .lvm_supported = false,
-        .fscrypt_supported = true,
-        .existing_container_type = EncryptedContainerType::kEcryptfsToFscrypt,
-        .options = {},
-        .expected_type = EncryptedContainerType::kUnknown,
-        .expected_error = MOUNT_ERROR_PREVIOUS_MIGRATION_INCOMPLETE,
-    },
-    {
-        .name = "existing_fscrypt_migrate",
-        .lvm_supported = true,
-        .fscrypt_supported = true,
-        .existing_container_type = EncryptedContainerType::kFscrypt,
-        .options = {.migrate = true},
-        .expected_type = EncryptedContainerType::kFscryptToDmcrypt,
-        .expected_error = MOUNT_ERROR_NONE,
-    },
-    {
-        .name = "existing_ecryptfs_migrate_to_dmcrypt",
-        .lvm_supported = true,
-        .fscrypt_supported = true,
-        .existing_container_type = EncryptedContainerType::kEcryptfs,
-        .options = {.migrate = true},
-        .expected_type = EncryptedContainerType::kEcryptfsToDmcrypt,
-        .expected_error = MOUNT_ERROR_NONE,
-    },
-    {
-        .name = "new_lvm",
-        .lvm_supported = true,
-        .fscrypt_supported = true,
-        .existing_container_type = EncryptedContainerType::kUnknown,
-        .options = {},
-        .expected_type = EncryptedContainerType::kDmcrypt,
-        .expected_error = MOUNT_ERROR_NONE,
-    },
-    {
-        .name = "existing_lvm",
-        .lvm_supported = true,
-        .fscrypt_supported = true,
-        .existing_container_type = EncryptedContainerType::kDmcrypt,
-        .options = {},
-        .expected_type = EncryptedContainerType::kDmcrypt,
-        .expected_error = MOUNT_ERROR_NONE,
-    },
+      {
+          .name = "new_ecryptfs_allowed",
+          .lvm_supported = false,
+          .fscrypt_supported = false,
+          .existing_container_type = EncryptedContainerType::kUnknown,
+          .options = {},
+          .expected_type = EncryptedContainerType::kEcryptfs,
+          .expected_error = MOUNT_ERROR_NONE,
+      },
+      {
+          .name = "new_ecryptfs_block_no_effect",
+          .lvm_supported = false,
+          .fscrypt_supported = false,
+          .existing_container_type = EncryptedContainerType::kUnknown,
+          .options = {.block_ecryptfs = true},
+          .expected_type = EncryptedContainerType::kEcryptfs,
+          .expected_error = MOUNT_ERROR_NONE,
+      },
+      {
+          .name = "new_ecryptfs_cant_migrate",
+          .lvm_supported = false,
+          .fscrypt_supported = false,
+          .existing_container_type = EncryptedContainerType::kUnknown,
+          .options = {.migrate = true},
+          .expected_type = EncryptedContainerType::kUnknown,
+          .expected_error = MOUNT_ERROR_UNEXPECTED_MOUNT_TYPE,
+      },
+      {
+          .name = "new_ecryptfs_forced",
+          .lvm_supported = false,
+          .fscrypt_supported = true,
+          .existing_container_type = EncryptedContainerType::kUnknown,
+          .options = {.force_type = EncryptedContainerType::kEcryptfs},
+          .expected_type = EncryptedContainerType::kEcryptfs,
+          .expected_error = MOUNT_ERROR_NONE,
+      },
+      {
+          .name = "new_fscrypt",
+          .lvm_supported = false,
+          .fscrypt_supported = true,
+          .existing_container_type = EncryptedContainerType::kUnknown,
+          .options = {},
+          .expected_type = EncryptedContainerType::kFscrypt,
+          .expected_error = MOUNT_ERROR_NONE,
+      },
+      {
+          .name = "existing_ecryptfs_allowed",
+          .lvm_supported = false,
+          .fscrypt_supported = true,
+          .existing_container_type = EncryptedContainerType::kEcryptfs,
+          .options = {},
+          .expected_type = EncryptedContainerType::kEcryptfs,
+          .expected_error = MOUNT_ERROR_NONE,
+      },
+      {
+          .name = "existing_ecryptfs_not_allowed",
+          .lvm_supported = false,
+          .fscrypt_supported = true,
+          .existing_container_type = EncryptedContainerType::kEcryptfs,
+          .options = {.block_ecryptfs = true},
+          .expected_type = EncryptedContainerType::kUnknown,
+          .expected_error = MOUNT_ERROR_OLD_ENCRYPTION,
+      },
+      {
+          .name = "existing_ecryptfs_migrate_to_fscrypt",
+          .lvm_supported = false,
+          .fscrypt_supported = true,
+          .existing_container_type = EncryptedContainerType::kEcryptfs,
+          .options = {.migrate = true},
+          .expected_type = EncryptedContainerType::kEcryptfsToFscrypt,
+          .expected_error = MOUNT_ERROR_NONE,
+      },
+      {
+          .name = "existing_fscrypt",
+          .lvm_supported = false,
+          .fscrypt_supported = true,
+          .existing_container_type = EncryptedContainerType::kFscrypt,
+          .options = {},
+          .expected_type = EncryptedContainerType::kFscrypt,
+          .expected_error = MOUNT_ERROR_NONE,
+      },
+      {
+          .name = "existing_fscrypt_force_ignored",
+          .lvm_supported = false,
+          .fscrypt_supported = true,
+          .existing_container_type = EncryptedContainerType::kFscrypt,
+          .options = {.force_type = EncryptedContainerType::kEcryptfs},
+          .expected_type = EncryptedContainerType::kFscrypt,
+          .expected_error = MOUNT_ERROR_NONE,
+      },
+      {
+          .name = "existing_migration",
+          .lvm_supported = false,
+          .fscrypt_supported = true,
+          .existing_container_type = EncryptedContainerType::kEcryptfsToFscrypt,
+          .options = {.migrate = true},
+          .expected_type = EncryptedContainerType::kEcryptfsToFscrypt,
+          .expected_error = MOUNT_ERROR_NONE,
+      },
+      {
+          .name = "existing_migration_without_flag",
+          .lvm_supported = false,
+          .fscrypt_supported = true,
+          .existing_container_type = EncryptedContainerType::kEcryptfsToFscrypt,
+          .options = {},
+          .expected_type = EncryptedContainerType::kUnknown,
+          .expected_error = MOUNT_ERROR_PREVIOUS_MIGRATION_INCOMPLETE,
+      },
+      {
+          .name = "existing_fscrypt_migrate",
+          .lvm_supported = true,
+          .fscrypt_supported = true,
+          .existing_container_type = EncryptedContainerType::kFscrypt,
+          .options = {.migrate = true},
+          .expected_type = EncryptedContainerType::kFscryptToDmcrypt,
+          .expected_error = MOUNT_ERROR_NONE,
+      },
+      {
+          .name = "existing_ecryptfs_migrate_to_dmcrypt",
+          .lvm_supported = true,
+          .fscrypt_supported = true,
+          .existing_container_type = EncryptedContainerType::kEcryptfs,
+          .options = {.migrate = true},
+          .expected_type = EncryptedContainerType::kEcryptfsToDmcrypt,
+          .expected_error = MOUNT_ERROR_NONE,
+      },
+      {
+          .name = "new_lvm",
+          .lvm_supported = true,
+          .fscrypt_supported = true,
+          .existing_container_type = EncryptedContainerType::kUnknown,
+          .options = {},
+          .expected_type = EncryptedContainerType::kDmcrypt,
+          .expected_error = MOUNT_ERROR_NONE,
+      },
+      {
+          .name = "existing_lvm",
+          .lvm_supported = true,
+          .fscrypt_supported = true,
+          .existing_container_type = EncryptedContainerType::kDmcrypt,
+          .options = {},
+          .expected_type = EncryptedContainerType::kDmcrypt,
+          .expected_error = MOUNT_ERROR_NONE,
+      },
   };
 
   for (const auto& test_case : test_cases) {
@@ -711,7 +712,7 @@ TEST_F(HomeDirsVaultTest, PickVaultType) {
     HomeDirs homedirs(&platform,
                       std::make_unique<policy::PolicyProvider>(
                           std::make_unique<policy::MockDevicePolicy>()),
-                      HomeDirs::RemoveCallback(), std::move(vault_factory));
+                      HomeDirs::RemoveCallback(), vault_factory.get());
 
     PrepareTestCase(test_case, &platform, &homedirs);
     auto vault_type_or =

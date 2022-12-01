@@ -1,21 +1,9 @@
-/* libc/include/alloca.h - Allocate memory on stack */
+/* Copyright 2022 The ChromiumOS Authors
+ * Use of this source code is governed by a BSD-style license that can be
+ * found in the LICENSE file.
+ */
+#ifndef DEV_EMBEDDED_TI50_SDK_FILES_INCLUDE_ALLOCA_H_
+#define DEV_EMBEDDED_TI50_SDK_FILES_INCLUDE_ALLOCA_H_
+#define alloca __builtin_alloca
 
-/* Written 2000 by Werner Almesberger */
-/* Rearranged for general inclusion by stdlib.h.
-   2001, Corinna Vinschen <vinschen@redhat.com> */
-
-#ifndef _NEWLIB_ALLOCA_H
-#define _NEWLIB_ALLOCA_H
-
-#include "_ansi.h"
-#include <sys/reent.h>
-
-#undef alloca
-
-#ifdef __GNUC__
-#define alloca(size) __builtin_alloca(size)
-#else
-void * alloca (size_t);
-#endif
-
-#endif
+#endif /* DEV_EMBEDDED_TI50_SDK_FILES_INCLUDE_ALLOCA_H_ */
