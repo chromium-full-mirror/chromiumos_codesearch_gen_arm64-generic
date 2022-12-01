@@ -228,6 +228,18 @@ class UserDataAuthInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool GetEncryptionInfo(
+      const user_data_auth::GetEncryptionInfoRequest& in_request,
+      user_data_auth::GetEncryptionInfoReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void GetEncryptionInfoAsync(
+      const user_data_auth::GetEncryptionInfoRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::GetEncryptionInfoReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool StartMigrateToDircrypto(
       const user_data_auth::StartMigrateToDircryptoRequest& in_request,
       user_data_auth::StartMigrateToDircryptoReply* out_reply,
@@ -1113,6 +1125,37 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "GetHibernateSecret",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  bool GetEncryptionInfo(
+      const user_data_auth::GetEncryptionInfoRequest& in_request,
+      user_data_auth::GetEncryptionInfoReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "GetEncryptionInfo",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  void GetEncryptionInfoAsync(
+      const user_data_auth::GetEncryptionInfoRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::GetEncryptionInfoReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "GetEncryptionInfo",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

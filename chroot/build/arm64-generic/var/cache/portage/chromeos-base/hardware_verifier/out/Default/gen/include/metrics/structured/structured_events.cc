@@ -971,6 +971,202 @@ WiFiConnectionEnd& WiFiConnectionEnd::SetDisconnectionReasonCode(const int64_t v
   return *this;
 }
 
+WiFiLinkQualityTrigger::WiFiLinkQualityTrigger() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+WiFiLinkQualityTrigger::~WiFiLinkQualityTrigger() = default;
+WiFiLinkQualityTrigger& WiFiLinkQualityTrigger::SetBootId(const std::string& value) {
+  AddHmacMetric(kBootIdNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityTrigger& WiFiLinkQualityTrigger::SetSystemTime(const int64_t value) {
+  AddIntMetric(kSystemTimeNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityTrigger& WiFiLinkQualityTrigger::SetEventVersion(const int64_t value) {
+  AddIntMetric(kEventVersionNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityTrigger& WiFiLinkQualityTrigger::SetSessionTag(const int64_t value) {
+  AddIntMetric(kSessionTagNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityTrigger& WiFiLinkQualityTrigger::SetType(const int64_t value) {
+  AddIntMetric(kTypeNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport::WiFiLinkQualityReport() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+WiFiLinkQualityReport::~WiFiLinkQualityReport() = default;
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetBootId(const std::string& value) {
+  AddHmacMetric(kBootIdNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetSystemTime(const int64_t value) {
+  AddIntMetric(kSystemTimeNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetEventVersion(const int64_t value) {
+  AddIntMetric(kEventVersionNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetSessionTag(const int64_t value) {
+  AddIntMetric(kSessionTagNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXPackets(const int64_t value) {
+  AddIntMetric(kRXPacketsNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXBytes(const int64_t value) {
+  AddIntMetric(kRXBytesNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXPackets(const int64_t value) {
+  AddIntMetric(kTXPacketsNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXBytes(const int64_t value) {
+  AddIntMetric(kTXBytesNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXRetries(const int64_t value) {
+  AddIntMetric(kTXRetriesNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXFailures(const int64_t value) {
+  AddIntMetric(kTXFailuresNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXDrops(const int64_t value) {
+  AddIntMetric(kRXDropsNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetChain0Signal(const int64_t value) {
+  AddIntMetric(kChain0SignalNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetChain0SignalAvg(const int64_t value) {
+  AddIntMetric(kChain0SignalAvgNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetChain1Signal(const int64_t value) {
+  AddIntMetric(kChain1SignalNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetChain1SignalAvg(const int64_t value) {
+  AddIntMetric(kChain1SignalAvgNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetBeaconSignalAvg(const int64_t value) {
+  AddIntMetric(kBeaconSignalAvgNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetBeaconsReceived(const int64_t value) {
+  AddIntMetric(kBeaconsReceivedNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetBeaconsLost(const int64_t value) {
+  AddIntMetric(kBeaconsLostNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetExpectedThroughput(const int64_t value) {
+  AddIntMetric(kExpectedThroughputNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXRate(const int64_t value) {
+  AddIntMetric(kRXRateNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXMCS(const int64_t value) {
+  AddIntMetric(kRXMCSNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXChannelWidth(const int64_t value) {
+  AddIntMetric(kRXChannelWidthNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXMode(const int64_t value) {
+  AddIntMetric(kRXModeNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXGuardInterval(const int64_t value) {
+  AddIntMetric(kRXGuardIntervalNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXNSS(const int64_t value) {
+  AddIntMetric(kRXNSSNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXDCM(const int64_t value) {
+  AddIntMetric(kRXDCMNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXRate(const int64_t value) {
+  AddIntMetric(kTXRateNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXMCS(const int64_t value) {
+  AddIntMetric(kTXMCSNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXChannelWidth(const int64_t value) {
+  AddIntMetric(kTXChannelWidthNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXMode(const int64_t value) {
+  AddIntMetric(kTXModeNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXGuardInterval(const int64_t value) {
+  AddIntMetric(kTXGuardIntervalNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXNSS(const int64_t value) {
+  AddIntMetric(kTXNSSNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXDCM(const int64_t value) {
+  AddIntMetric(kTXDCMNameHash, value);
+  return *this;
+}
+
 }  // namespace wi_fi
 
 namespace test_project_one {

@@ -42,8 +42,7 @@ using ::testing::Return;
 using ::testing::StrictMock;
 using ::testing::Test;
 
-namespace power_manager {
-namespace metrics {
+namespace power_manager::metrics {
 
 class MetricsCollectorTest : public Test {
  public:
@@ -526,10 +525,10 @@ TEST_F(MetricsCollectorTest, GatherDarkResumeMetrics) {
   std::string kExpectedHistogram4 = kExpectedHistogramPrefix + kWakeReason4;
 
   // First test the basic case.
-  wake_durations.push_back(std::make_pair(kWakeReason1, kTimeDelta1));
-  wake_durations.push_back(std::make_pair(kWakeReason2, kTimeDelta2));
-  wake_durations.push_back(std::make_pair(kWakeReason3, kTimeDelta3));
-  wake_durations.push_back(std::make_pair(kWakeReason4, kTimeDelta4));
+  wake_durations.emplace_back(kWakeReason1, kTimeDelta1);
+  wake_durations.emplace_back(kWakeReason2, kTimeDelta2);
+  wake_durations.emplace_back(kWakeReason3, kTimeDelta3);
+  wake_durations.emplace_back(kWakeReason4, kTimeDelta4);
 
   suspend_duration = base::Hours(2);
 
@@ -563,8 +562,7 @@ TEST_F(MetricsCollectorTest, GatherDarkResumeMetrics) {
   Mock::VerifyAndClearExpectations(metrics_lib_);
   wake_durations.clear();
 
-  wake_durations.push_back(
-      std::make_pair(kWakeReason1, base::Milliseconds(359)));
+  wake_durations.emplace_back(kWakeReason1, base::Milliseconds(359));
   suspend_duration = base::Minutes(13);
 
   IgnoreMetric(kDarkResumeWakeDurationMsName);
@@ -1124,5 +1122,4 @@ TEST_F(S0ixResidencyMetricsTest, SuspendTimeMoreThanMaxResidency) {
   Mock::VerifyAndClearExpectations(metrics_lib_);
 }
 
-}  // namespace metrics
-}  // namespace power_manager
+}  // namespace power_manager::metrics

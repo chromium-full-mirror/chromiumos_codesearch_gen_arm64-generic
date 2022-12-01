@@ -11,9 +11,17 @@
 #include <string>
 #include <vector>
 
+#include "power_manager/common/battery_percentage_converter.h"
+#include "power_manager/common/power_constants.h"
+#include "power_manager/powerd/policy/adaptive_charging_controller.h"
+#include "power_manager/powerd/system/cros_ec_helper_interface.h"
+#include "power_manager/powerd/system/suspend_freezer.h"
+
 #include <base/files/file_path.h>
+#include <dbus/bus.h>
 #include <libec/charge_control_set_command.h>
 #include <libec/ec_usb_endpoint.h>
+#include <ml/dbus-proxies.h>
 
 namespace power_manager {
 
@@ -57,11 +65,11 @@ class PrefsInterface;
 // objects.
 class DaemonDelegate {
  public:
-  DaemonDelegate() {}
+  DaemonDelegate() = default;
   DaemonDelegate(const DaemonDelegate&) = delete;
   DaemonDelegate& operator=(const DaemonDelegate&) = delete;
 
-  virtual ~DaemonDelegate() {}
+  virtual ~DaemonDelegate() = default;
 
   // Crashes if prefs can't be loaded (e.g. due to a missing directory).
   virtual std::unique_ptr<PrefsInterface> CreatePrefs() = 0;

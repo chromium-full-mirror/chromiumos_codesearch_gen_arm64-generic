@@ -1373,6 +1373,45 @@ std::string GetProtoDebugStringWithIndent(const GetHibernateSecretReply& value,
   return output;
 }
 
+std::string GetProtoDebugString(const GetEncryptionInfoRequest& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const GetEncryptionInfoRequest& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const GetEncryptionInfoReply& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const GetEncryptionInfoReply& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  error: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+  output += "\n";
+
+  output += indent + "  keylocker_supported: ";
+  base::StringAppendF(&output, "%s",
+                      value.keylocker_supported() ? "true" : "false");
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
 std::string GetProtoDebugString(const StartMigrateToDircryptoRequest& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }

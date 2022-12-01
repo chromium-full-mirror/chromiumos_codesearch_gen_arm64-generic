@@ -188,6 +188,16 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
                     base::OnceCallback<void(const user_data_auth::GetHibernateSecretReply& /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD4(GetEncryptionInfo,
+               bool(const user_data_auth::GetEncryptionInfoRequest& /*in_request*/,
+                    user_data_auth::GetEncryptionInfoReply* /*out_reply*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(GetEncryptionInfoAsync,
+               void(const user_data_auth::GetEncryptionInfoRequest& /*in_request*/,
+                    base::OnceCallback<void(const user_data_auth::GetEncryptionInfoReply& /*reply*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD4(StartMigrateToDircrypto,
                bool(const user_data_auth::StartMigrateToDircryptoRequest& /*in_request*/,
                     user_data_auth::StartMigrateToDircryptoReply* /*out_reply*/,

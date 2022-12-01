@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <cmath>
 #include <map>
+#include <memory>
 #include <utility>
 
 #include <base/bind.h>
@@ -44,14 +45,12 @@
 #include "power_manager/powerd/metrics_collector.h"
 #include "power_manager/powerd/policy/backlight_controller.h"
 #include "power_manager/powerd/policy/input_device_controller.h"
-#include "power_manager/powerd/policy/keyboard_backlight_controller.h"
 #include "power_manager/powerd/policy/shutdown_from_suspend.h"
 #include "power_manager/powerd/policy/state_controller.h"
 #include "power_manager/powerd/policy/thermal_event_handler.h"
 #include "power_manager/powerd/system/acpi_wakeup_helper_interface.h"
 #include "power_manager/powerd/system/ambient_light_sensor_manager_interface.h"
 #if USE_IIOSERVICE
-#include "power_manager/powerd/system/ambient_light_sensor_manager_mojo.h"
 #include <mojo_service_manager/lib/connect.h>
 #endif  // USE_IIOSERVICE
 #include "power_manager/powerd/system/ambient_light_sensor_watcher_interface.h"
@@ -66,7 +65,6 @@
 #include "power_manager/powerd/system/dbus_wrapper.h"
 #include "power_manager/powerd/system/display/display_power_setter.h"
 #include "power_manager/powerd/system/display/display_watcher.h"
-#include "power_manager/powerd/system/event_device_interface.h"
 #include "power_manager/powerd/system/external_ambient_light_sensor_factory_interface.h"
 #include "power_manager/powerd/system/input_watcher_interface.h"
 #include "power_manager/powerd/system/lockfile_checker.h"
@@ -80,7 +78,6 @@
 #include "power_manager/powerd/system/user_proximity_watcher_interface.h"
 #include "power_manager/powerd/system/wake_on_dp_configurator.h"
 #include "power_manager/powerd/system/wakeup_source_identifier.h"
-#include "power_manager/powerd/system/wilco_charge_controller_helper.h"
 #include "power_manager/proto_bindings/idle.pb.h"
 #include "power_manager/proto_bindings/policy.pb.h"
 #include "power_manager/proto_bindings/user_charging_event.pb.h"
@@ -333,7 +330,6 @@ Daemon::Daemon(DaemonDelegate* delegate, const base::FilePath& run_dir)
       cellular_controller_(std::make_unique<policy::CellularController>()),
       metrics_collector_(new metrics::MetricsCollector),
       arc_timer_manager_(std::make_unique<system::ArcTimerManager>()),
-      retry_shutdown_for_lockfile_timer_(),
       wakeup_count_path_(kDefaultWakeupCountPath),
       oobe_completed_path_(kDefaultOobeCompletedPath),
       cros_ec_path_(ec::kCrosEcPath),
@@ -1290,7 +1286,7 @@ void Daemon::InitDBus() {
   int64_t tpm_threshold = 0;
   prefs_->GetInt64(kTpmCounterSuspendThresholdPref, &tpm_threshold);
   if (tpm_threshold > 0) {
-    tpm_manager_proxy_.reset(new org::chromium::TpmManagerProxy(bus));
+    tpm_manager_proxy_ = std::make_unique<org::chromium::TpmManagerProxy>(bus);
     tpm_manager_proxy_->GetObjectProxy()->WaitForServiceToBeAvailable(
         base::BindRepeating(&Daemon::HandleTpmManagerdAvailable,
                             weak_ptr_factory_.GetWeakPtr()));

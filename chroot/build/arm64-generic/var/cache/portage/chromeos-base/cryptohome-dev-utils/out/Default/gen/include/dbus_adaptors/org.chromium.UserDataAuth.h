@@ -75,6 +75,9 @@ class UserDataAuthInterfaceInterface {
   virtual void GetHibernateSecret(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetHibernateSecretReply>> response,
       const user_data_auth::GetHibernateSecretRequest& in_request) = 0;
+  virtual void GetEncryptionInfo(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetEncryptionInfoReply>> response,
+      const user_data_auth::GetEncryptionInfoRequest& in_request) = 0;
   virtual void StartMigrateToDircrypto(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::StartMigrateToDircryptoReply>> response,
       const user_data_auth::StartMigrateToDircryptoRequest& in_request) = 0;
@@ -230,6 +233,10 @@ class UserDataAuthInterfaceAdaptor {
         "GetHibernateSecret",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::GetHibernateSecret);
+    itf->AddMethodHandler(
+        "GetEncryptionInfo",
+        base::Unretained(interface_),
+        &UserDataAuthInterfaceInterface::GetEncryptionInfo);
     itf->AddMethodHandler(
         "StartMigrateToDircrypto",
         base::Unretained(interface_),
@@ -427,6 +434,10 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"GetHibernateSecret\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"GetEncryptionInfo\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

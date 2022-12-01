@@ -912,6 +912,146 @@ class BRILLO_EXPORT WiFiConnectionEnd final : public ::metrics::structured::Even
 
 };
 
+class BRILLO_EXPORT WiFiLinkQualityTrigger final : public ::metrics::structured::EventBase {
+ public:
+  WiFiLinkQualityTrigger();
+  ~WiFiLinkQualityTrigger() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(7481353691260635032);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(4320592646346933548);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kBootIdNameHash = UINT64_C(9983133050293312198);
+  WiFiLinkQualityTrigger& SetBootId(const std::string& value);
+
+  static constexpr uint64_t kSystemTimeNameHash = UINT64_C(5430963162341175395);
+  WiFiLinkQualityTrigger& SetSystemTime(const int64_t value);
+
+  static constexpr uint64_t kEventVersionNameHash = UINT64_C(16640453375065674525);
+  WiFiLinkQualityTrigger& SetEventVersion(const int64_t value);
+
+  static constexpr uint64_t kSessionTagNameHash = UINT64_C(17993910024827537162);
+  WiFiLinkQualityTrigger& SetSessionTag(const int64_t value);
+
+  static constexpr uint64_t kTypeNameHash = UINT64_C(11671684778792498320);
+  WiFiLinkQualityTrigger& SetType(const int64_t value);
+
+};
+
+class BRILLO_EXPORT WiFiLinkQualityReport final : public ::metrics::structured::EventBase {
+ public:
+  WiFiLinkQualityReport();
+  ~WiFiLinkQualityReport() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(9450233159258993332);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(4320592646346933548);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kBootIdNameHash = UINT64_C(9983133050293312198);
+  WiFiLinkQualityReport& SetBootId(const std::string& value);
+
+  static constexpr uint64_t kSystemTimeNameHash = UINT64_C(5430963162341175395);
+  WiFiLinkQualityReport& SetSystemTime(const int64_t value);
+
+  static constexpr uint64_t kEventVersionNameHash = UINT64_C(16640453375065674525);
+  WiFiLinkQualityReport& SetEventVersion(const int64_t value);
+
+  static constexpr uint64_t kSessionTagNameHash = UINT64_C(17993910024827537162);
+  WiFiLinkQualityReport& SetSessionTag(const int64_t value);
+
+  static constexpr uint64_t kRXPacketsNameHash = UINT64_C(7105794985843644325);
+  WiFiLinkQualityReport& SetRXPackets(const int64_t value);
+
+  static constexpr uint64_t kRXBytesNameHash = UINT64_C(10544463948688889058);
+  WiFiLinkQualityReport& SetRXBytes(const int64_t value);
+
+  static constexpr uint64_t kTXPacketsNameHash = UINT64_C(10478602410474332936);
+  WiFiLinkQualityReport& SetTXPackets(const int64_t value);
+
+  static constexpr uint64_t kTXBytesNameHash = UINT64_C(2501592160331470859);
+  WiFiLinkQualityReport& SetTXBytes(const int64_t value);
+
+  static constexpr uint64_t kTXRetriesNameHash = UINT64_C(9308980182811283580);
+  WiFiLinkQualityReport& SetTXRetries(const int64_t value);
+
+  static constexpr uint64_t kTXFailuresNameHash = UINT64_C(13901264391317610499);
+  WiFiLinkQualityReport& SetTXFailures(const int64_t value);
+
+  static constexpr uint64_t kRXDropsNameHash = UINT64_C(3027679419883671081);
+  WiFiLinkQualityReport& SetRXDrops(const int64_t value);
+
+  static constexpr uint64_t kChain0SignalNameHash = UINT64_C(11911311885019620543);
+  WiFiLinkQualityReport& SetChain0Signal(const int64_t value);
+
+  static constexpr uint64_t kChain0SignalAvgNameHash = UINT64_C(6620818394394387405);
+  WiFiLinkQualityReport& SetChain0SignalAvg(const int64_t value);
+
+  static constexpr uint64_t kChain1SignalNameHash = UINT64_C(16935198125035652291);
+  WiFiLinkQualityReport& SetChain1Signal(const int64_t value);
+
+  static constexpr uint64_t kChain1SignalAvgNameHash = UINT64_C(884964695392994095);
+  WiFiLinkQualityReport& SetChain1SignalAvg(const int64_t value);
+
+  static constexpr uint64_t kBeaconSignalAvgNameHash = UINT64_C(7538017328061378970);
+  WiFiLinkQualityReport& SetBeaconSignalAvg(const int64_t value);
+
+  static constexpr uint64_t kBeaconsReceivedNameHash = UINT64_C(1258692833791259398);
+  WiFiLinkQualityReport& SetBeaconsReceived(const int64_t value);
+
+  static constexpr uint64_t kBeaconsLostNameHash = UINT64_C(1018380494248751899);
+  WiFiLinkQualityReport& SetBeaconsLost(const int64_t value);
+
+  static constexpr uint64_t kExpectedThroughputNameHash = UINT64_C(2592935567011135559);
+  WiFiLinkQualityReport& SetExpectedThroughput(const int64_t value);
+
+  static constexpr uint64_t kRXRateNameHash = UINT64_C(12035331905988488012);
+  WiFiLinkQualityReport& SetRXRate(const int64_t value);
+
+  static constexpr uint64_t kRXMCSNameHash = UINT64_C(5865277763103815393);
+  WiFiLinkQualityReport& SetRXMCS(const int64_t value);
+
+  static constexpr uint64_t kRXChannelWidthNameHash = UINT64_C(1721891022488936054);
+  WiFiLinkQualityReport& SetRXChannelWidth(const int64_t value);
+
+  static constexpr uint64_t kRXModeNameHash = UINT64_C(5905150458059193614);
+  WiFiLinkQualityReport& SetRXMode(const int64_t value);
+
+  static constexpr uint64_t kRXGuardIntervalNameHash = UINT64_C(7142059799856873399);
+  WiFiLinkQualityReport& SetRXGuardInterval(const int64_t value);
+
+  static constexpr uint64_t kRXNSSNameHash = UINT64_C(614048839857613072);
+  WiFiLinkQualityReport& SetRXNSS(const int64_t value);
+
+  static constexpr uint64_t kRXDCMNameHash = UINT64_C(18335562395711139574);
+  WiFiLinkQualityReport& SetRXDCM(const int64_t value);
+
+  static constexpr uint64_t kTXRateNameHash = UINT64_C(10179747812426294189);
+  WiFiLinkQualityReport& SetTXRate(const int64_t value);
+
+  static constexpr uint64_t kTXMCSNameHash = UINT64_C(8504260015439808721);
+  WiFiLinkQualityReport& SetTXMCS(const int64_t value);
+
+  static constexpr uint64_t kTXChannelWidthNameHash = UINT64_C(3251628047626487965);
+  WiFiLinkQualityReport& SetTXChannelWidth(const int64_t value);
+
+  static constexpr uint64_t kTXModeNameHash = UINT64_C(1928231536935154120);
+  WiFiLinkQualityReport& SetTXMode(const int64_t value);
+
+  static constexpr uint64_t kTXGuardIntervalNameHash = UINT64_C(8157853018105453257);
+  WiFiLinkQualityReport& SetTXGuardInterval(const int64_t value);
+
+  static constexpr uint64_t kTXNSSNameHash = UINT64_C(16763757227936851524);
+  WiFiLinkQualityReport& SetTXNSS(const int64_t value);
+
+  static constexpr uint64_t kTXDCMNameHash = UINT64_C(3069112994238134799);
+  WiFiLinkQualityReport& SetTXDCM(const int64_t value);
+
+};
+
 }  // namespace wi_fi
 
 namespace test_project_one {

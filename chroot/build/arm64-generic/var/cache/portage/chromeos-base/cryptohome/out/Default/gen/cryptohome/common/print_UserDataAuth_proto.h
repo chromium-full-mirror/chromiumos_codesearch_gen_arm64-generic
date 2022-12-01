@@ -176,6 +176,14 @@ std::string GetProtoDebugStringWithIndent(const GetHibernateSecretReply& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const GetHibernateSecretReply& value);
+std::string GetProtoDebugStringWithIndent(const GetEncryptionInfoRequest& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const GetEncryptionInfoRequest& value);
+std::string GetProtoDebugStringWithIndent(const GetEncryptionInfoReply& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const GetEncryptionInfoReply& value);
 std::string GetProtoDebugStringWithIndent(
     const StartMigrateToDircryptoRequest& value,
     int indent_size);

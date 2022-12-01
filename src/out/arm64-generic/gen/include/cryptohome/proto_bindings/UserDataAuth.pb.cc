@@ -478,6 +478,31 @@ struct GetHibernateSecretReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetHibernateSecretReplyDefaultTypeInternal _GetHibernateSecretReply_default_instance_;
+constexpr GetEncryptionInfoRequest::GetEncryptionInfoRequest(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+struct GetEncryptionInfoRequestDefaultTypeInternal {
+  constexpr GetEncryptionInfoRequestDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~GetEncryptionInfoRequestDefaultTypeInternal() {}
+  union {
+    GetEncryptionInfoRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetEncryptionInfoRequestDefaultTypeInternal _GetEncryptionInfoRequest_default_instance_;
+constexpr GetEncryptionInfoReply::GetEncryptionInfoReply(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : error_(0)
+
+  , keylocker_supported_(false){}
+struct GetEncryptionInfoReplyDefaultTypeInternal {
+  constexpr GetEncryptionInfoReplyDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~GetEncryptionInfoReplyDefaultTypeInternal() {}
+  union {
+    GetEncryptionInfoReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetEncryptionInfoReplyDefaultTypeInternal _GetEncryptionInfoReply_default_instance_;
 constexpr StartMigrateToDircryptoRequest::StartMigrateToDircryptoRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : auth_session_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
@@ -10857,6 +10882,362 @@ void GetHibernateSecretReply::InternalSwap(GetHibernateSecretReply* other) {
 
 std::string GetHibernateSecretReply::GetTypeName() const {
   return "user_data_auth.GetHibernateSecretReply";
+}
+
+
+// ===================================================================
+
+class GetEncryptionInfoRequest::_Internal {
+ public:
+};
+
+GetEncryptionInfoRequest::GetEncryptionInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.GetEncryptionInfoRequest)
+}
+GetEncryptionInfoRequest::GetEncryptionInfoRequest(const GetEncryptionInfoRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.GetEncryptionInfoRequest)
+}
+
+inline void GetEncryptionInfoRequest::SharedCtor() {
+}
+
+GetEncryptionInfoRequest::~GetEncryptionInfoRequest() {
+  // @@protoc_insertion_point(destructor:user_data_auth.GetEncryptionInfoRequest)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void GetEncryptionInfoRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void GetEncryptionInfoRequest::ArenaDtor(void* object) {
+  GetEncryptionInfoRequest* _this = reinterpret_cast< GetEncryptionInfoRequest* >(object);
+  (void)_this;
+}
+void GetEncryptionInfoRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void GetEncryptionInfoRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void GetEncryptionInfoRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.GetEncryptionInfoRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* GetEncryptionInfoRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetEncryptionInfoRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.GetEncryptionInfoRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.GetEncryptionInfoRequest)
+  return target;
+}
+
+size_t GetEncryptionInfoRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.GetEncryptionInfoRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetEncryptionInfoRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetEncryptionInfoRequest*>(
+      &from));
+}
+
+void GetEncryptionInfoRequest::MergeFrom(const GetEncryptionInfoRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.GetEncryptionInfoRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void GetEncryptionInfoRequest::CopyFrom(const GetEncryptionInfoRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.GetEncryptionInfoRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetEncryptionInfoRequest::IsInitialized() const {
+  return true;
+}
+
+void GetEncryptionInfoRequest::InternalSwap(GetEncryptionInfoRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+}
+
+std::string GetEncryptionInfoRequest::GetTypeName() const {
+  return "user_data_auth.GetEncryptionInfoRequest";
+}
+
+
+// ===================================================================
+
+class GetEncryptionInfoReply::_Internal {
+ public:
+};
+
+GetEncryptionInfoReply::GetEncryptionInfoReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.GetEncryptionInfoReply)
+}
+GetEncryptionInfoReply::GetEncryptionInfoReply(const GetEncryptionInfoReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&error_, &from.error_,
+    static_cast<size_t>(reinterpret_cast<char*>(&keylocker_supported_) -
+    reinterpret_cast<char*>(&error_)) + sizeof(keylocker_supported_));
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.GetEncryptionInfoReply)
+}
+
+inline void GetEncryptionInfoReply::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&error_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&keylocker_supported_) -
+    reinterpret_cast<char*>(&error_)) + sizeof(keylocker_supported_));
+}
+
+GetEncryptionInfoReply::~GetEncryptionInfoReply() {
+  // @@protoc_insertion_point(destructor:user_data_auth.GetEncryptionInfoReply)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void GetEncryptionInfoReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void GetEncryptionInfoReply::ArenaDtor(void* object) {
+  GetEncryptionInfoReply* _this = reinterpret_cast< GetEncryptionInfoReply* >(object);
+  (void)_this;
+}
+void GetEncryptionInfoReply::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void GetEncryptionInfoReply::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void GetEncryptionInfoReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.GetEncryptionInfoReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&error_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&keylocker_supported_) -
+      reinterpret_cast<char*>(&error_)) + sizeof(keylocker_supported_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* GetEncryptionInfoReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .user_data_auth.CryptohomeErrorCode error = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_error(static_cast<::user_data_auth::CryptohomeErrorCode>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool keylocker_supported = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          keylocker_supported_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetEncryptionInfoReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.GetEncryptionInfoReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error(), target);
+  }
+
+  // bool keylocker_supported = 2;
+  if (this->_internal_keylocker_supported() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_keylocker_supported(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.GetEncryptionInfoReply)
+  return target;
+}
+
+size_t GetEncryptionInfoReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.GetEncryptionInfoReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_error());
+  }
+
+  // bool keylocker_supported = 2;
+  if (this->_internal_keylocker_supported() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetEncryptionInfoReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetEncryptionInfoReply*>(
+      &from));
+}
+
+void GetEncryptionInfoReply::MergeFrom(const GetEncryptionInfoReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.GetEncryptionInfoReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_error() != 0) {
+    _internal_set_error(from._internal_error());
+  }
+  if (from._internal_keylocker_supported() != 0) {
+    _internal_set_keylocker_supported(from._internal_keylocker_supported());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void GetEncryptionInfoReply::CopyFrom(const GetEncryptionInfoReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.GetEncryptionInfoReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetEncryptionInfoReply::IsInitialized() const {
+  return true;
+}
+
+void GetEncryptionInfoReply::InternalSwap(GetEncryptionInfoReply* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(GetEncryptionInfoReply, keylocker_supported_)
+      + sizeof(GetEncryptionInfoReply::keylocker_supported_)
+      - PROTOBUF_FIELD_OFFSET(GetEncryptionInfoReply, error_)>(
+          reinterpret_cast<char*>(&error_),
+          reinterpret_cast<char*>(&other->error_));
+}
+
+std::string GetEncryptionInfoReply::GetTypeName() const {
+  return "user_data_auth.GetEncryptionInfoReply";
 }
 
 
@@ -36260,6 +36641,12 @@ template<> PROTOBUF_NOINLINE ::user_data_auth::GetHibernateSecretRequest* Arena:
 }
 template<> PROTOBUF_NOINLINE ::user_data_auth::GetHibernateSecretReply* Arena::CreateMaybeMessage< ::user_data_auth::GetHibernateSecretReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::GetHibernateSecretReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::GetEncryptionInfoRequest* Arena::CreateMaybeMessage< ::user_data_auth::GetEncryptionInfoRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::GetEncryptionInfoRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::GetEncryptionInfoReply* Arena::CreateMaybeMessage< ::user_data_auth::GetEncryptionInfoReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::GetEncryptionInfoReply >(arena);
 }
 template<> PROTOBUF_NOINLINE ::user_data_auth::StartMigrateToDircryptoRequest* Arena::CreateMaybeMessage< ::user_data_auth::StartMigrateToDircryptoRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::StartMigrateToDircryptoRequest >(arena);

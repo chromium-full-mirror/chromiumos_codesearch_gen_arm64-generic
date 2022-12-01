@@ -42,7 +42,6 @@
 #include "power_manager/powerd/system/dbus_wrapper_stub.h"
 #include "power_manager/powerd/system/display/display_power_setter_stub.h"
 #include "power_manager/powerd/system/display/display_watcher_stub.h"
-#include "power_manager/powerd/system/ec_keyboard_backlight.h"
 #include "power_manager/powerd/system/external_ambient_light_sensor_factory_stub.h"
 #include "power_manager/powerd/system/input_watcher_stub.h"
 #include "power_manager/powerd/system/lockfile_checker_stub.h"
@@ -151,8 +150,7 @@ class DaemonTest : public ::testing::Test, public DaemonDelegate {
         adaptive_charging_controller_(
             passed_adaptive_charging_controller_.get()),
         adaptive_charging_proxy_(passed_adaptive_charging_proxy_.get()),
-        charge_control_set_command_(passed_charge_control_set_command_.get()),
-        pid_(2) {
+        charge_control_set_command_(passed_charge_control_set_command_.get()) {
     CHECK(run_dir_.CreateUniqueTempDir());
     CHECK(run_dir_.IsValid());
 
@@ -170,7 +168,7 @@ class DaemonTest : public ::testing::Test, public DaemonDelegate {
   DaemonTest(const DaemonTest&) = delete;
   DaemonTest& operator=(const DaemonTest&) = delete;
 
-  ~DaemonTest() override {}
+  ~DaemonTest() override = default;
 
   void Init() {
     // These prefs are required by policy::Suspender.
@@ -199,7 +197,7 @@ class DaemonTest : public ::testing::Test, public DaemonDelegate {
     resourced_call_count_ = 0;
     resourced_fail_ = 0;
 
-    daemon_.reset(new Daemon(this, run_dir_.GetPath()));
+    daemon_ = std::make_unique<Daemon>(this, run_dir_.GetPath());
     daemon_->set_wakeup_count_path_for_testing(wakeup_count_path_);
     daemon_->set_oobe_completed_path_for_testing(oobe_completed_path_);
     daemon_->set_cros_ec_path_for_testing(cros_ec_path_);
@@ -630,7 +628,7 @@ class DaemonTest : public ::testing::Test, public DaemonDelegate {
   base::FilePath proc_path_;
 
   // Value to return from GetPid().
-  pid_t pid_;
+  pid_t pid_ = 2;
 
   // Command lines executed via Launch() and Run(), respectively.
   std::vector<std::string> async_commands_;
