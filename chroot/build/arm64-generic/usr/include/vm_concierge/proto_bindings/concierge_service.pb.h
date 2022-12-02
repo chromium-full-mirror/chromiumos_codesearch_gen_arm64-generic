@@ -46,7 +46,7 @@ struct TableStruct_concierge_5fservice_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[68]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[67]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -75,9 +75,6 @@ extern AttachUsbDeviceRequestDefaultTypeInternal _AttachUsbDeviceRequest_default
 class AttachUsbDeviceResponse;
 struct AttachUsbDeviceResponseDefaultTypeInternal;
 extern AttachUsbDeviceResponseDefaultTypeInternal _AttachUsbDeviceResponse_default_instance_;
-class BalloonPolicyOptions;
-struct BalloonPolicyOptionsDefaultTypeInternal;
-extern BalloonPolicyOptionsDefaultTypeInternal _BalloonPolicyOptions_default_instance_;
 class CancelDiskImageRequest;
 struct CancelDiskImageRequestDefaultTypeInternal;
 extern CancelDiskImageRequestDefaultTypeInternal _CancelDiskImageRequest_default_instance_;
@@ -268,7 +265,6 @@ template<> ::vm_tools::concierge::ArcVmCompleteBootRequest* Arena::CreateMaybeMe
 template<> ::vm_tools::concierge::ArcVmCompleteBootResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::ArcVmCompleteBootResponse>(Arena*);
 template<> ::vm_tools::concierge::AttachUsbDeviceRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::AttachUsbDeviceRequest>(Arena*);
 template<> ::vm_tools::concierge::AttachUsbDeviceResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::AttachUsbDeviceResponse>(Arena*);
-template<> ::vm_tools::concierge::BalloonPolicyOptions* Arena::CreateMaybeMessage<::vm_tools::concierge::BalloonPolicyOptions>(Arena*);
 template<> ::vm_tools::concierge::CancelDiskImageRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::CancelDiskImageRequest>(Arena*);
 template<> ::vm_tools::concierge::CancelDiskImageResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::CancelDiskImageResponse>(Arena*);
 template<> ::vm_tools::concierge::ContainerSshKeysRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ContainerSshKeysRequest>(Arena*);
@@ -2317,191 +2313,6 @@ class StartPluginVmRequest final :
 };
 // -------------------------------------------------------------------
 
-class BalloonPolicyOptions final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.BalloonPolicyOptions) */ {
- public:
-  inline BalloonPolicyOptions() : BalloonPolicyOptions(nullptr) {}
-  ~BalloonPolicyOptions() override;
-  explicit constexpr BalloonPolicyOptions(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  BalloonPolicyOptions(const BalloonPolicyOptions& from);
-  BalloonPolicyOptions(BalloonPolicyOptions&& from) noexcept
-    : BalloonPolicyOptions() {
-    *this = ::std::move(from);
-  }
-
-  inline BalloonPolicyOptions& operator=(const BalloonPolicyOptions& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline BalloonPolicyOptions& operator=(BalloonPolicyOptions&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const BalloonPolicyOptions& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const BalloonPolicyOptions* internal_default_instance() {
-    return reinterpret_cast<const BalloonPolicyOptions*>(
-               &_BalloonPolicyOptions_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    6;
-
-  friend void swap(BalloonPolicyOptions& a, BalloonPolicyOptions& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(BalloonPolicyOptions* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(BalloonPolicyOptions* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  BalloonPolicyOptions* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<BalloonPolicyOptions>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const BalloonPolicyOptions& from);
-  void MergeFrom(const BalloonPolicyOptions& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(BalloonPolicyOptions* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "vm_tools.concierge.BalloonPolicyOptions";
-  }
-  protected:
-  explicit BalloonPolicyOptions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kReclaimTargetCacheFieldNumber = 1,
-    kCriticalTargetCacheFieldNumber = 2,
-    kModerateTargetCacheFieldNumber = 3,
-    kResponsiveFieldNumber = 4,
-    kResponsiveTimeoutMsFieldNumber = 5,
-    kResponsiveMaxDeflateBytesFieldNumber = 6,
-  };
-  // int64 reclaim_target_cache = 1;
-  void clear_reclaim_target_cache();
-  int64_t reclaim_target_cache() const;
-  void set_reclaim_target_cache(int64_t value);
-  private:
-  int64_t _internal_reclaim_target_cache() const;
-  void _internal_set_reclaim_target_cache(int64_t value);
-  public:
-
-  // int64 critical_target_cache = 2;
-  void clear_critical_target_cache();
-  int64_t critical_target_cache() const;
-  void set_critical_target_cache(int64_t value);
-  private:
-  int64_t _internal_critical_target_cache() const;
-  void _internal_set_critical_target_cache(int64_t value);
-  public:
-
-  // int64 moderate_target_cache = 3;
-  void clear_moderate_target_cache();
-  int64_t moderate_target_cache() const;
-  void set_moderate_target_cache(int64_t value);
-  private:
-  int64_t _internal_moderate_target_cache() const;
-  void _internal_set_moderate_target_cache(int64_t value);
-  public:
-
-  // bool responsive = 4;
-  void clear_responsive();
-  bool responsive() const;
-  void set_responsive(bool value);
-  private:
-  bool _internal_responsive() const;
-  void _internal_set_responsive(bool value);
-  public:
-
-  // int32 responsive_timeout_ms = 5;
-  void clear_responsive_timeout_ms();
-  int32_t responsive_timeout_ms() const;
-  void set_responsive_timeout_ms(int32_t value);
-  private:
-  int32_t _internal_responsive_timeout_ms() const;
-  void _internal_set_responsive_timeout_ms(int32_t value);
-  public:
-
-  // int64 responsive_max_deflate_bytes = 6;
-  void clear_responsive_max_deflate_bytes();
-  int64_t responsive_max_deflate_bytes() const;
-  void set_responsive_max_deflate_bytes(int64_t value);
-  private:
-  int64_t _internal_responsive_max_deflate_bytes() const;
-  void _internal_set_responsive_max_deflate_bytes(int64_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:vm_tools.concierge.BalloonPolicyOptions)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  int64_t reclaim_target_cache_;
-  int64_t critical_target_cache_;
-  int64_t moderate_target_cache_;
-  bool responsive_;
-  int32_t responsive_timeout_ms_;
-  int64_t responsive_max_deflate_bytes_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_concierge_5fservice_2eproto;
-};
-// -------------------------------------------------------------------
-
 class StartArcVmRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.StartArcVmRequest) */ {
  public:
@@ -2541,7 +2352,7 @@ class StartArcVmRequest final :
                &_StartArcVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    6;
 
   friend void swap(StartArcVmRequest& a, StartArcVmRequest& b) {
     a.Swap(&b);
@@ -2730,7 +2541,6 @@ class StartArcVmRequest final :
     kOwnerIdFieldNumber = 4,
     kFstabFieldNumber = 6,
     kVmFieldNumber = 1,
-    kBalloonPolicyFieldNumber = 13,
     kMiniInstanceRequestFieldNumber = 34,
     kCpusFieldNumber = 7,
     kRootfsWritableFieldNumber = 8,
@@ -2868,24 +2678,6 @@ class StartArcVmRequest final :
   void unsafe_arena_set_allocated_vm(
       ::vm_tools::concierge::VirtualMachineSpec* vm);
   ::vm_tools::concierge::VirtualMachineSpec* unsafe_arena_release_vm();
-
-  // .vm_tools.concierge.BalloonPolicyOptions balloon_policy = 13;
-  bool has_balloon_policy() const;
-  private:
-  bool _internal_has_balloon_policy() const;
-  public:
-  void clear_balloon_policy();
-  const ::vm_tools::concierge::BalloonPolicyOptions& balloon_policy() const;
-  PROTOBUF_NODISCARD ::vm_tools::concierge::BalloonPolicyOptions* release_balloon_policy();
-  ::vm_tools::concierge::BalloonPolicyOptions* mutable_balloon_policy();
-  void set_allocated_balloon_policy(::vm_tools::concierge::BalloonPolicyOptions* balloon_policy);
-  private:
-  const ::vm_tools::concierge::BalloonPolicyOptions& _internal_balloon_policy() const;
-  ::vm_tools::concierge::BalloonPolicyOptions* _internal_mutable_balloon_policy();
-  public:
-  void unsafe_arena_set_allocated_balloon_policy(
-      ::vm_tools::concierge::BalloonPolicyOptions* balloon_policy);
-  ::vm_tools::concierge::BalloonPolicyOptions* unsafe_arena_release_balloon_policy();
 
   // .arc.StartArcMiniInstanceRequest mini_instance_request = 34;
   bool has_mini_instance_request() const;
@@ -3224,7 +3016,6 @@ class StartArcVmRequest final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr fstab_;
   ::vm_tools::concierge::VirtualMachineSpec* vm_;
-  ::vm_tools::concierge::BalloonPolicyOptions* balloon_policy_;
   ::arc::StartArcMiniInstanceRequest* mini_instance_request_;
   uint32_t cpus_;
   bool rootfs_writable_;
@@ -3304,7 +3095,7 @@ class StartVmResponse final :
                &_StartVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    7;
 
   friend void swap(StartVmResponse& a, StartVmResponse& b) {
     a.Swap(&b);
@@ -3544,7 +3335,7 @@ class VmStartedSignal final :
                &_VmStartedSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    8;
 
   friend void swap(VmStartedSignal& a, VmStartedSignal& b) {
     a.Swap(&b);
@@ -3726,7 +3517,7 @@ class StopVmRequest final :
                &_StopVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    9;
 
   friend void swap(StopVmRequest& a, StopVmRequest& b) {
     a.Swap(&b);
@@ -3877,7 +3668,7 @@ class StopVmResponse final :
                &_StopVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    10;
 
   friend void swap(StopVmResponse& a, StopVmResponse& b) {
     a.Swap(&b);
@@ -4023,7 +3814,7 @@ class VmStoppedSignal final :
                &_VmStoppedSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    11;
 
   friend void swap(VmStoppedSignal& a, VmStoppedSignal& b) {
     a.Swap(&b);
@@ -4196,7 +3987,7 @@ class VmStoppingSignal final :
                &_VmStoppingSignal_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    12;
 
   friend void swap(VmStoppingSignal& a, VmStoppingSignal& b) {
     a.Swap(&b);
@@ -4358,7 +4149,7 @@ class SuspendVmRequest final :
                &_SuspendVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    13;
 
   friend void swap(SuspendVmRequest& a, SuspendVmRequest& b) {
     a.Swap(&b);
@@ -4509,7 +4300,7 @@ class SuspendVmResponse final :
                &_SuspendVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    14;
 
   friend void swap(SuspendVmResponse& a, SuspendVmResponse& b) {
     a.Swap(&b);
@@ -4655,7 +4446,7 @@ class ResumeVmRequest final :
                &_ResumeVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    15;
 
   friend void swap(ResumeVmRequest& a, ResumeVmRequest& b) {
     a.Swap(&b);
@@ -4806,7 +4597,7 @@ class ResumeVmResponse final :
                &_ResumeVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    16;
 
   friend void swap(ResumeVmResponse& a, ResumeVmResponse& b) {
     a.Swap(&b);
@@ -4952,7 +4743,7 @@ class SyncVmTimesResponse final :
                &_SyncVmTimesResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    17;
 
   friend void swap(SyncVmTimesResponse& a, SyncVmTimesResponse& b) {
     a.Swap(&b);
@@ -5119,7 +4910,7 @@ class GetVmInfoRequest final :
                &_GetVmInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    18;
 
   friend void swap(GetVmInfoRequest& a, GetVmInfoRequest& b) {
     a.Swap(&b);
@@ -5270,7 +5061,7 @@ class GetVmInfoResponse final :
                &_GetVmInfoResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    19;
 
   friend void swap(GetVmInfoResponse& a, GetVmInfoResponse& b) {
     a.Swap(&b);
@@ -5420,7 +5211,7 @@ class GetVmEnterpriseReportingInfoRequest final :
                &_GetVmEnterpriseReportingInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    20;
 
   friend void swap(GetVmEnterpriseReportingInfoRequest& a, GetVmEnterpriseReportingInfoRequest& b) {
     a.Swap(&b);
@@ -5571,7 +5362,7 @@ class GetVmEnterpriseReportingInfoResponse final :
                &_GetVmEnterpriseReportingInfoResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    21;
 
   friend void swap(GetVmEnterpriseReportingInfoResponse& a, GetVmEnterpriseReportingInfoResponse& b) {
     a.Swap(&b);
@@ -5733,7 +5524,7 @@ class ArcVmCompleteBootRequest final :
                &_ArcVmCompleteBootRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    22;
 
   friend void swap(ArcVmCompleteBootRequest& a, ArcVmCompleteBootRequest& b) {
     a.Swap(&b);
@@ -5868,7 +5659,7 @@ class ArcVmCompleteBootResponse final :
                &_ArcVmCompleteBootResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    23;
 
   friend void swap(ArcVmCompleteBootResponse& a, ArcVmCompleteBootResponse& b) {
     a.Swap(&b);
@@ -5998,7 +5789,7 @@ class SetBalloonTimerRequest final :
                &_SetBalloonTimerRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    24;
 
   friend void swap(SetBalloonTimerRequest& a, SetBalloonTimerRequest& b) {
     a.Swap(&b);
@@ -6128,7 +5919,7 @@ class SetBalloonTimerResponse final :
                &_SetBalloonTimerResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    25;
 
   friend void swap(SetBalloonTimerResponse& a, SetBalloonTimerResponse& b) {
     a.Swap(&b);
@@ -6274,7 +6065,7 @@ class CreateDiskImageRequest final :
                &_CreateDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    26;
 
   friend void swap(CreateDiskImageRequest& a, CreateDiskImageRequest& b) {
     a.Swap(&b);
@@ -6517,7 +6308,7 @@ class CreateDiskImageResponse final :
                &_CreateDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    27;
 
   friend void swap(CreateDiskImageResponse& a, CreateDiskImageResponse& b) {
     a.Swap(&b);
@@ -6695,7 +6486,7 @@ class DestroyDiskImageRequest final :
                &_DestroyDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    28;
 
   friend void swap(DestroyDiskImageRequest& a, DestroyDiskImageRequest& b) {
     a.Swap(&b);
@@ -6846,7 +6637,7 @@ class DestroyDiskImageResponse final :
                &_DestroyDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    30;
+    29;
 
   friend void swap(DestroyDiskImageResponse& a, DestroyDiskImageResponse& b) {
     a.Swap(&b);
@@ -6992,7 +6783,7 @@ class ResizeDiskImageRequest final :
                &_ResizeDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    31;
+    30;
 
   friend void swap(ResizeDiskImageRequest& a, ResizeDiskImageRequest& b) {
     a.Swap(&b);
@@ -7154,7 +6945,7 @@ class ResizeDiskImageResponse final :
                &_ResizeDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    32;
+    31;
 
   friend void swap(ResizeDiskImageResponse& a, ResizeDiskImageResponse& b) {
     a.Swap(&b);
@@ -7316,7 +7107,7 @@ class ExportDiskImageRequest final :
                &_ExportDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    33;
+    32;
 
   friend void swap(ExportDiskImageRequest& a, ExportDiskImageRequest& b) {
     a.Swap(&b);
@@ -7489,7 +7280,7 @@ class ExportDiskImageResponse final :
                &_ExportDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    34;
+    33;
 
   friend void swap(ExportDiskImageResponse& a, ExportDiskImageResponse& b) {
     a.Swap(&b);
@@ -7651,7 +7442,7 @@ class ImportDiskImageRequest final :
                &_ImportDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    35;
+    34;
 
   friend void swap(ImportDiskImageRequest& a, ImportDiskImageRequest& b) {
     a.Swap(&b);
@@ -7824,7 +7615,7 @@ class ImportDiskImageResponse final :
                &_ImportDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    36;
+    35;
 
   friend void swap(ImportDiskImageResponse& a, ImportDiskImageResponse& b) {
     a.Swap(&b);
@@ -7986,7 +7777,7 @@ class DiskImageStatusRequest final :
                &_DiskImageStatusRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    37;
+    36;
 
   friend void swap(DiskImageStatusRequest& a, DiskImageStatusRequest& b) {
     a.Swap(&b);
@@ -8121,7 +7912,7 @@ class DiskImageStatusResponse final :
                &_DiskImageStatusResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    38;
+    37;
 
   friend void swap(DiskImageStatusResponse& a, DiskImageStatusResponse& b) {
     a.Swap(&b);
@@ -8294,7 +8085,7 @@ class CancelDiskImageRequest final :
                &_CancelDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    39;
+    38;
 
   friend void swap(CancelDiskImageRequest& a, CancelDiskImageRequest& b) {
     a.Swap(&b);
@@ -8429,7 +8220,7 @@ class CancelDiskImageResponse final :
                &_CancelDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    40;
+    39;
 
   friend void swap(CancelDiskImageResponse& a, CancelDiskImageResponse& b) {
     a.Swap(&b);
@@ -8575,7 +8366,7 @@ class ListVmDisksRequest final :
                &_ListVmDisksRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    41;
+    40;
 
   friend void swap(ListVmDisksRequest& a, ListVmDisksRequest& b) {
     a.Swap(&b);
@@ -8748,7 +8539,7 @@ class VmDiskInfo final :
                &_VmDiskInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    42;
+    41;
 
   friend void swap(VmDiskInfo& a, VmDiskInfo& b) {
     a.Swap(&b);
@@ -8965,7 +8756,7 @@ class ListVmDisksResponse final :
                &_ListVmDisksResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    43;
+    42;
 
   friend void swap(ListVmDisksResponse& a, ListVmDisksResponse& b) {
     a.Swap(&b);
@@ -9142,7 +8933,7 @@ class ContainerSshKeysRequest final :
                &_ContainerSshKeysRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    44;
+    43;
 
   friend void swap(ContainerSshKeysRequest& a, ContainerSshKeysRequest& b) {
     a.Swap(&b);
@@ -9309,7 +9100,7 @@ class ContainerSshKeysResponse final :
                &_ContainerSshKeysResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    45;
+    44;
 
   friend void swap(ContainerSshKeysResponse& a, ContainerSshKeysResponse& b) {
     a.Swap(&b);
@@ -9508,7 +9299,7 @@ class AttachUsbDeviceRequest final :
                &_AttachUsbDeviceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    46;
+    45;
 
   friend void swap(AttachUsbDeviceRequest& a, AttachUsbDeviceRequest& b) {
     a.Swap(&b);
@@ -9703,7 +9494,7 @@ class AttachUsbDeviceResponse final :
                &_AttachUsbDeviceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    47;
+    46;
 
   friend void swap(AttachUsbDeviceResponse& a, AttachUsbDeviceResponse& b) {
     a.Swap(&b);
@@ -9860,7 +9651,7 @@ class DetachUsbDeviceRequest final :
                &_DetachUsbDeviceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    48;
+    47;
 
   friend void swap(DetachUsbDeviceRequest& a, DetachUsbDeviceRequest& b) {
     a.Swap(&b);
@@ -10022,7 +9813,7 @@ class DetachUsbDeviceResponse final :
                &_DetachUsbDeviceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    49;
+    48;
 
   friend void swap(DetachUsbDeviceResponse& a, DetachUsbDeviceResponse& b) {
     a.Swap(&b);
@@ -10168,7 +9959,7 @@ class ListUsbDeviceRequest final :
                &_ListUsbDeviceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    50;
+    49;
 
   friend void swap(ListUsbDeviceRequest& a, ListUsbDeviceRequest& b) {
     a.Swap(&b);
@@ -10319,7 +10110,7 @@ class UsbDeviceMessage final :
                &_UsbDeviceMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    51;
+    50;
 
   friend void swap(UsbDeviceMessage& a, UsbDeviceMessage& b) {
     a.Swap(&b);
@@ -10487,7 +10278,7 @@ class ListUsbDeviceResponse final :
                &_ListUsbDeviceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    52;
+    51;
 
   friend void swap(ListUsbDeviceResponse& a, ListUsbDeviceResponse& b) {
     a.Swap(&b);
@@ -10637,7 +10428,7 @@ class DnsSettings final :
                &_DnsSettings_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    53;
+    52;
 
   friend void swap(DnsSettings& a, DnsSettings& b) {
     a.Swap(&b);
@@ -10808,7 +10599,7 @@ class SetVmCpuRestrictionRequest final :
                &_SetVmCpuRestrictionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    54;
+    53;
 
   friend void swap(SetVmCpuRestrictionRequest& a, SetVmCpuRestrictionRequest& b) {
     a.Swap(&b);
@@ -10949,7 +10740,7 @@ class SetVmCpuRestrictionResponse final :
                &_SetVmCpuRestrictionResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    55;
+    54;
 
   friend void swap(SetVmCpuRestrictionResponse& a, SetVmCpuRestrictionResponse& b) {
     a.Swap(&b);
@@ -11079,7 +10870,7 @@ class AdjustVmRequest final :
                &_AdjustVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    56;
+    55;
 
   friend void swap(AdjustVmRequest& a, AdjustVmRequest& b) {
     a.Swap(&b);
@@ -11272,7 +11063,7 @@ class AdjustVmResponse final :
                &_AdjustVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    57;
+    56;
 
   friend void swap(AdjustVmResponse& a, AdjustVmResponse& b) {
     a.Swap(&b);
@@ -11418,7 +11209,7 @@ class ReclaimVmMemoryRequest final :
                &_ReclaimVmMemoryRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    58;
+    57;
 
   friend void swap(ReclaimVmMemoryRequest& a, ReclaimVmMemoryRequest& b) {
     a.Swap(&b);
@@ -11580,7 +11371,7 @@ class ReclaimVmMemoryResponse final :
                &_ReclaimVmMemoryResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    59;
+    58;
 
   friend void swap(ReclaimVmMemoryResponse& a, ReclaimVmMemoryResponse& b) {
     a.Swap(&b);
@@ -11726,7 +11517,7 @@ class ListVmsRequest final :
                &_ListVmsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    60;
+    59;
 
   friend void swap(ListVmsRequest& a, ListVmsRequest& b) {
     a.Swap(&b);
@@ -11861,7 +11652,7 @@ class ExtendedVmInfo final :
                &_ExtendedVmInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    61;
+    60;
 
   friend void swap(ExtendedVmInfo& a, ExtendedVmInfo& b) {
     a.Swap(&b);
@@ -12043,7 +11834,7 @@ class ListVmsResponse final :
                &_ListVmsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    62;
+    61;
 
   friend void swap(ListVmsResponse& a, ListVmsResponse& b) {
     a.Swap(&b);
@@ -12209,7 +12000,7 @@ class GetVmGpuCachePathRequest final :
                &_GetVmGpuCachePathRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    63;
+    62;
 
   friend void swap(GetVmGpuCachePathRequest& a, GetVmGpuCachePathRequest& b) {
     a.Swap(&b);
@@ -12360,7 +12151,7 @@ class GetVmGpuCachePathResponse final :
                &_GetVmGpuCachePathResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    64;
+    63;
 
   friend void swap(GetVmGpuCachePathResponse& a, GetVmGpuCachePathResponse& b) {
     a.Swap(&b);
@@ -12495,7 +12286,7 @@ class AddGroupPermissionMesaRequest final :
                &_AddGroupPermissionMesaRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    65;
+    64;
 
   friend void swap(AddGroupPermissionMesaRequest& a, AddGroupPermissionMesaRequest& b) {
     a.Swap(&b);
@@ -12646,7 +12437,7 @@ class GetVmLaunchAllowedRequest final :
                &_GetVmLaunchAllowedRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    66;
+    65;
 
   friend void swap(GetVmLaunchAllowedRequest& a, GetVmLaunchAllowedRequest& b) {
     a.Swap(&b);
@@ -12798,7 +12589,7 @@ class GetVmLaunchAllowedResponse final :
                &_GetVmLaunchAllowedResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    67;
+    66;
 
   friend void swap(GetVmLaunchAllowedResponse& a, GetVmLaunchAllowedResponse& b) {
     a.Swap(&b);
@@ -14945,130 +14736,6 @@ inline void StartPluginVmRequest::set_allocated_net_options(::vm_tools::concierg
 
 // -------------------------------------------------------------------
 
-// BalloonPolicyOptions
-
-// int64 reclaim_target_cache = 1;
-inline void BalloonPolicyOptions::clear_reclaim_target_cache() {
-  reclaim_target_cache_ = int64_t{0};
-}
-inline int64_t BalloonPolicyOptions::_internal_reclaim_target_cache() const {
-  return reclaim_target_cache_;
-}
-inline int64_t BalloonPolicyOptions::reclaim_target_cache() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.BalloonPolicyOptions.reclaim_target_cache)
-  return _internal_reclaim_target_cache();
-}
-inline void BalloonPolicyOptions::_internal_set_reclaim_target_cache(int64_t value) {
-  
-  reclaim_target_cache_ = value;
-}
-inline void BalloonPolicyOptions::set_reclaim_target_cache(int64_t value) {
-  _internal_set_reclaim_target_cache(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.BalloonPolicyOptions.reclaim_target_cache)
-}
-
-// int64 critical_target_cache = 2;
-inline void BalloonPolicyOptions::clear_critical_target_cache() {
-  critical_target_cache_ = int64_t{0};
-}
-inline int64_t BalloonPolicyOptions::_internal_critical_target_cache() const {
-  return critical_target_cache_;
-}
-inline int64_t BalloonPolicyOptions::critical_target_cache() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.BalloonPolicyOptions.critical_target_cache)
-  return _internal_critical_target_cache();
-}
-inline void BalloonPolicyOptions::_internal_set_critical_target_cache(int64_t value) {
-  
-  critical_target_cache_ = value;
-}
-inline void BalloonPolicyOptions::set_critical_target_cache(int64_t value) {
-  _internal_set_critical_target_cache(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.BalloonPolicyOptions.critical_target_cache)
-}
-
-// int64 moderate_target_cache = 3;
-inline void BalloonPolicyOptions::clear_moderate_target_cache() {
-  moderate_target_cache_ = int64_t{0};
-}
-inline int64_t BalloonPolicyOptions::_internal_moderate_target_cache() const {
-  return moderate_target_cache_;
-}
-inline int64_t BalloonPolicyOptions::moderate_target_cache() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.BalloonPolicyOptions.moderate_target_cache)
-  return _internal_moderate_target_cache();
-}
-inline void BalloonPolicyOptions::_internal_set_moderate_target_cache(int64_t value) {
-  
-  moderate_target_cache_ = value;
-}
-inline void BalloonPolicyOptions::set_moderate_target_cache(int64_t value) {
-  _internal_set_moderate_target_cache(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.BalloonPolicyOptions.moderate_target_cache)
-}
-
-// bool responsive = 4;
-inline void BalloonPolicyOptions::clear_responsive() {
-  responsive_ = false;
-}
-inline bool BalloonPolicyOptions::_internal_responsive() const {
-  return responsive_;
-}
-inline bool BalloonPolicyOptions::responsive() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.BalloonPolicyOptions.responsive)
-  return _internal_responsive();
-}
-inline void BalloonPolicyOptions::_internal_set_responsive(bool value) {
-  
-  responsive_ = value;
-}
-inline void BalloonPolicyOptions::set_responsive(bool value) {
-  _internal_set_responsive(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.BalloonPolicyOptions.responsive)
-}
-
-// int32 responsive_timeout_ms = 5;
-inline void BalloonPolicyOptions::clear_responsive_timeout_ms() {
-  responsive_timeout_ms_ = 0;
-}
-inline int32_t BalloonPolicyOptions::_internal_responsive_timeout_ms() const {
-  return responsive_timeout_ms_;
-}
-inline int32_t BalloonPolicyOptions::responsive_timeout_ms() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.BalloonPolicyOptions.responsive_timeout_ms)
-  return _internal_responsive_timeout_ms();
-}
-inline void BalloonPolicyOptions::_internal_set_responsive_timeout_ms(int32_t value) {
-  
-  responsive_timeout_ms_ = value;
-}
-inline void BalloonPolicyOptions::set_responsive_timeout_ms(int32_t value) {
-  _internal_set_responsive_timeout_ms(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.BalloonPolicyOptions.responsive_timeout_ms)
-}
-
-// int64 responsive_max_deflate_bytes = 6;
-inline void BalloonPolicyOptions::clear_responsive_max_deflate_bytes() {
-  responsive_max_deflate_bytes_ = int64_t{0};
-}
-inline int64_t BalloonPolicyOptions::_internal_responsive_max_deflate_bytes() const {
-  return responsive_max_deflate_bytes_;
-}
-inline int64_t BalloonPolicyOptions::responsive_max_deflate_bytes() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.BalloonPolicyOptions.responsive_max_deflate_bytes)
-  return _internal_responsive_max_deflate_bytes();
-}
-inline void BalloonPolicyOptions::_internal_set_responsive_max_deflate_bytes(int64_t value) {
-  
-  responsive_max_deflate_bytes_ = value;
-}
-inline void BalloonPolicyOptions::set_responsive_max_deflate_bytes(int64_t value) {
-  _internal_set_responsive_max_deflate_bytes(value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.BalloonPolicyOptions.responsive_max_deflate_bytes)
-}
-
-// -------------------------------------------------------------------
-
 // StartArcVmRequest
 
 // .vm_tools.concierge.VirtualMachineSpec vm = 1;
@@ -15547,96 +15214,6 @@ inline void StartArcVmRequest::_internal_set_memory_mib(uint32_t value) {
 inline void StartArcVmRequest::set_memory_mib(uint32_t value) {
   _internal_set_memory_mib(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.memory_mib)
-}
-
-// .vm_tools.concierge.BalloonPolicyOptions balloon_policy = 13;
-inline bool StartArcVmRequest::_internal_has_balloon_policy() const {
-  return this != internal_default_instance() && balloon_policy_ != nullptr;
-}
-inline bool StartArcVmRequest::has_balloon_policy() const {
-  return _internal_has_balloon_policy();
-}
-inline void StartArcVmRequest::clear_balloon_policy() {
-  if (GetArenaForAllocation() == nullptr && balloon_policy_ != nullptr) {
-    delete balloon_policy_;
-  }
-  balloon_policy_ = nullptr;
-}
-inline const ::vm_tools::concierge::BalloonPolicyOptions& StartArcVmRequest::_internal_balloon_policy() const {
-  const ::vm_tools::concierge::BalloonPolicyOptions* p = balloon_policy_;
-  return p != nullptr ? *p : reinterpret_cast<const ::vm_tools::concierge::BalloonPolicyOptions&>(
-      ::vm_tools::concierge::_BalloonPolicyOptions_default_instance_);
-}
-inline const ::vm_tools::concierge::BalloonPolicyOptions& StartArcVmRequest::balloon_policy() const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.balloon_policy)
-  return _internal_balloon_policy();
-}
-inline void StartArcVmRequest::unsafe_arena_set_allocated_balloon_policy(
-    ::vm_tools::concierge::BalloonPolicyOptions* balloon_policy) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(balloon_policy_);
-  }
-  balloon_policy_ = balloon_policy;
-  if (balloon_policy) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vm_tools.concierge.StartArcVmRequest.balloon_policy)
-}
-inline ::vm_tools::concierge::BalloonPolicyOptions* StartArcVmRequest::release_balloon_policy() {
-  
-  ::vm_tools::concierge::BalloonPolicyOptions* temp = balloon_policy_;
-  balloon_policy_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::vm_tools::concierge::BalloonPolicyOptions* StartArcVmRequest::unsafe_arena_release_balloon_policy() {
-  // @@protoc_insertion_point(field_release:vm_tools.concierge.StartArcVmRequest.balloon_policy)
-  
-  ::vm_tools::concierge::BalloonPolicyOptions* temp = balloon_policy_;
-  balloon_policy_ = nullptr;
-  return temp;
-}
-inline ::vm_tools::concierge::BalloonPolicyOptions* StartArcVmRequest::_internal_mutable_balloon_policy() {
-  
-  if (balloon_policy_ == nullptr) {
-    auto* p = CreateMaybeMessage<::vm_tools::concierge::BalloonPolicyOptions>(GetArenaForAllocation());
-    balloon_policy_ = p;
-  }
-  return balloon_policy_;
-}
-inline ::vm_tools::concierge::BalloonPolicyOptions* StartArcVmRequest::mutable_balloon_policy() {
-  ::vm_tools::concierge::BalloonPolicyOptions* _msg = _internal_mutable_balloon_policy();
-  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.StartArcVmRequest.balloon_policy)
-  return _msg;
-}
-inline void StartArcVmRequest::set_allocated_balloon_policy(::vm_tools::concierge::BalloonPolicyOptions* balloon_policy) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete balloon_policy_;
-  }
-  if (balloon_policy) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vm_tools::concierge::BalloonPolicyOptions>::GetOwningArena(balloon_policy);
-    if (message_arena != submessage_arena) {
-      balloon_policy = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, balloon_policy, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  balloon_policy_ = balloon_policy;
-  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.StartArcVmRequest.balloon_policy)
 }
 
 // bool use_per_vm_core_scheduling = 14;
@@ -23311,8 +22888,6 @@ inline void GetVmLaunchAllowedResponse::set_allocated_reason(std::string* reason
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
