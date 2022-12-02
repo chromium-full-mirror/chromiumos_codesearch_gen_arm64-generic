@@ -102,20 +102,28 @@ class LocationProxyInterface {
 
   static const char* CapabilitiesName() { return "Capabilities"; }
   virtual uint32_t capabilities() const = 0;
+  virtual bool is_capabilities_valid() const = 0;
   static const char* SupportedAssistanceDataName() { return "SupportedAssistanceData"; }
   virtual uint32_t supported_assistance_data() const = 0;
+  virtual bool is_supported_assistance_data_valid() const = 0;
   static const char* EnabledName() { return "Enabled"; }
   virtual uint32_t enabled() const = 0;
+  virtual bool is_enabled_valid() const = 0;
   static const char* SignalsLocationName() { return "SignalsLocation"; }
   virtual bool signals_location() const = 0;
+  virtual bool is_signals_location_valid() const = 0;
   static const char* LocationName() { return "Location"; }
   virtual const std::map<uint32_t, brillo::Any>& location() const = 0;
+  virtual bool is_location_valid() const = 0;
   static const char* SuplServerName() { return "SuplServer"; }
   virtual const std::string& supl_server() const = 0;
+  virtual bool is_supl_server_valid() const = 0;
   static const char* AssistanceDataServersName() { return "AssistanceDataServers"; }
   virtual const std::vector<std::string>& assistance_data_servers() const = 0;
+  virtual bool is_assistance_data_servers_valid() const = 0;
   static const char* GpsRefreshRateName() { return "GpsRefreshRate"; }
   virtual uint32_t gps_refresh_rate() const = 0;
+  virtual bool is_gps_refresh_rate_valid() const = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
@@ -362,32 +370,64 @@ class LocationProxy final : public LocationProxyInterface {
     return property_set_->capabilities.value();
   }
 
+  bool is_capabilities_valid() const override {
+    return property_set_->capabilities.is_valid();
+  }
+
   uint32_t supported_assistance_data() const override {
     return property_set_->supported_assistance_data.value();
+  }
+
+  bool is_supported_assistance_data_valid() const override {
+    return property_set_->supported_assistance_data.is_valid();
   }
 
   uint32_t enabled() const override {
     return property_set_->enabled.value();
   }
 
+  bool is_enabled_valid() const override {
+    return property_set_->enabled.is_valid();
+  }
+
   bool signals_location() const override {
     return property_set_->signals_location.value();
+  }
+
+  bool is_signals_location_valid() const override {
+    return property_set_->signals_location.is_valid();
   }
 
   const std::map<uint32_t, brillo::Any>& location() const override {
     return property_set_->location.value();
   }
 
+  bool is_location_valid() const override {
+    return property_set_->location.is_valid();
+  }
+
   const std::string& supl_server() const override {
     return property_set_->supl_server.value();
+  }
+
+  bool is_supl_server_valid() const override {
+    return property_set_->supl_server.is_valid();
   }
 
   const std::vector<std::string>& assistance_data_servers() const override {
     return property_set_->assistance_data_servers.value();
   }
 
+  bool is_assistance_data_servers_valid() const override {
+    return property_set_->assistance_data_servers.is_valid();
+  }
+
   uint32_t gps_refresh_rate() const override {
     return property_set_->gps_refresh_rate.value();
+  }
+
+  bool is_gps_refresh_rate_valid() const override {
+    return property_set_->gps_refresh_rate.is_valid();
   }
 
  private:
@@ -454,6 +494,7 @@ class ProfileManagerProxyInterface {
 
   static const char* IndexFieldName() { return "IndexField"; }
   virtual const std::string& index_field() const = 0;
+  virtual bool is_index_field_valid() const = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
@@ -636,6 +677,10 @@ class ProfileManagerProxy final : public ProfileManagerProxyInterface {
     return property_set_->index_field.value();
   }
 
+  bool is_index_field_valid() const override {
+    return property_set_->index_field.is_valid();
+  }
+
  private:
   scoped_refptr<dbus::Bus> bus_;
   std::string service_name_;
@@ -739,28 +784,40 @@ class Modem3gppProxyInterface {
 
   static const char* ImeiName() { return "Imei"; }
   virtual const std::string& imei() const = 0;
+  virtual bool is_imei_valid() const = 0;
   static const char* RegistrationStateName() { return "RegistrationState"; }
   virtual uint32_t registration_state() const = 0;
+  virtual bool is_registration_state_valid() const = 0;
   static const char* OperatorCodeName() { return "OperatorCode"; }
   virtual const std::string& operator_code() const = 0;
+  virtual bool is_operator_code_valid() const = 0;
   static const char* OperatorNameName() { return "OperatorName"; }
   virtual const std::string& operator_name() const = 0;
+  virtual bool is_operator_name_valid() const = 0;
   static const char* EnabledFacilityLocksName() { return "EnabledFacilityLocks"; }
   virtual uint32_t enabled_facility_locks() const = 0;
+  virtual bool is_enabled_facility_locks_valid() const = 0;
   static const char* SubscriptionStateName() { return "SubscriptionState"; }
   virtual uint32_t subscription_state() const = 0;
+  virtual bool is_subscription_state_valid() const = 0;
   static const char* EpsUeModeOperationName() { return "EpsUeModeOperation"; }
   virtual uint32_t eps_ue_mode_operation() const = 0;
+  virtual bool is_eps_ue_mode_operation_valid() const = 0;
   static const char* PcoName() { return "Pco"; }
   virtual const std::vector<std::tuple<uint32_t, bool, std::vector<uint8_t>>>& pco() const = 0;
+  virtual bool is_pco_valid() const = 0;
   static const char* InitialEpsBearerName() { return "InitialEpsBearer"; }
   virtual const dbus::ObjectPath& initial_eps_bearer() const = 0;
+  virtual bool is_initial_eps_bearer_valid() const = 0;
   static const char* InitialEpsBearerSettingsName() { return "InitialEpsBearerSettings"; }
   virtual const brillo::VariantDictionary& initial_eps_bearer_settings() const = 0;
+  virtual bool is_initial_eps_bearer_settings_valid() const = 0;
   static const char* PacketServiceStateName() { return "PacketServiceState"; }
   virtual uint32_t packet_service_state() const = 0;
+  virtual bool is_packet_service_state_valid() const = 0;
   static const char* Nr5gRegistrationSettingsName() { return "Nr5gRegistrationSettings"; }
   virtual const brillo::VariantDictionary& nr5g_registration_settings() const = 0;
+  virtual bool is_nr5g_registration_settings_valid() const = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
@@ -1071,48 +1128,96 @@ class Modem3gppProxy final : public Modem3gppProxyInterface {
     return property_set_->imei.value();
   }
 
+  bool is_imei_valid() const override {
+    return property_set_->imei.is_valid();
+  }
+
   uint32_t registration_state() const override {
     return property_set_->registration_state.value();
+  }
+
+  bool is_registration_state_valid() const override {
+    return property_set_->registration_state.is_valid();
   }
 
   const std::string& operator_code() const override {
     return property_set_->operator_code.value();
   }
 
+  bool is_operator_code_valid() const override {
+    return property_set_->operator_code.is_valid();
+  }
+
   const std::string& operator_name() const override {
     return property_set_->operator_name.value();
+  }
+
+  bool is_operator_name_valid() const override {
+    return property_set_->operator_name.is_valid();
   }
 
   uint32_t enabled_facility_locks() const override {
     return property_set_->enabled_facility_locks.value();
   }
 
+  bool is_enabled_facility_locks_valid() const override {
+    return property_set_->enabled_facility_locks.is_valid();
+  }
+
   uint32_t subscription_state() const override {
     return property_set_->subscription_state.value();
+  }
+
+  bool is_subscription_state_valid() const override {
+    return property_set_->subscription_state.is_valid();
   }
 
   uint32_t eps_ue_mode_operation() const override {
     return property_set_->eps_ue_mode_operation.value();
   }
 
+  bool is_eps_ue_mode_operation_valid() const override {
+    return property_set_->eps_ue_mode_operation.is_valid();
+  }
+
   const std::vector<std::tuple<uint32_t, bool, std::vector<uint8_t>>>& pco() const override {
     return property_set_->pco.value();
+  }
+
+  bool is_pco_valid() const override {
+    return property_set_->pco.is_valid();
   }
 
   const dbus::ObjectPath& initial_eps_bearer() const override {
     return property_set_->initial_eps_bearer.value();
   }
 
+  bool is_initial_eps_bearer_valid() const override {
+    return property_set_->initial_eps_bearer.is_valid();
+  }
+
   const brillo::VariantDictionary& initial_eps_bearer_settings() const override {
     return property_set_->initial_eps_bearer_settings.value();
+  }
+
+  bool is_initial_eps_bearer_settings_valid() const override {
+    return property_set_->initial_eps_bearer_settings.is_valid();
   }
 
   uint32_t packet_service_state() const override {
     return property_set_->packet_service_state.value();
   }
 
+  bool is_packet_service_state_valid() const override {
+    return property_set_->packet_service_state.is_valid();
+  }
+
   const brillo::VariantDictionary& nr5g_registration_settings() const override {
     return property_set_->nr5g_registration_settings.value();
+  }
+
+  bool is_nr5g_registration_settings_valid() const override {
+    return property_set_->nr5g_registration_settings.is_valid();
   }
 
  private:
@@ -1169,18 +1274,25 @@ class ModemCdmaProxyInterface {
 
   static const char* ActivationStateName() { return "ActivationState"; }
   virtual uint32_t activation_state() const = 0;
+  virtual bool is_activation_state_valid() const = 0;
   static const char* MeidName() { return "Meid"; }
   virtual const std::string& meid() const = 0;
+  virtual bool is_meid_valid() const = 0;
   static const char* EsnName() { return "Esn"; }
   virtual const std::string& esn() const = 0;
+  virtual bool is_esn_valid() const = 0;
   static const char* SidName() { return "Sid"; }
   virtual uint32_t sid() const = 0;
+  virtual bool is_sid_valid() const = 0;
   static const char* NidName() { return "Nid"; }
   virtual uint32_t nid() const = 0;
+  virtual bool is_nid_valid() const = 0;
   static const char* Cdma1xRegistrationStateName() { return "Cdma1xRegistrationState"; }
   virtual uint32_t cdma1x_registration_state() const = 0;
+  virtual bool is_cdma1x_registration_state_valid() const = 0;
   static const char* EvdoRegistrationStateName() { return "EvdoRegistrationState"; }
   virtual uint32_t evdo_registration_state() const = 0;
+  virtual bool is_evdo_registration_state_valid() const = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
@@ -1347,28 +1459,56 @@ class ModemCdmaProxy final : public ModemCdmaProxyInterface {
     return property_set_->activation_state.value();
   }
 
+  bool is_activation_state_valid() const override {
+    return property_set_->activation_state.is_valid();
+  }
+
   const std::string& meid() const override {
     return property_set_->meid.value();
+  }
+
+  bool is_meid_valid() const override {
+    return property_set_->meid.is_valid();
   }
 
   const std::string& esn() const override {
     return property_set_->esn.value();
   }
 
+  bool is_esn_valid() const override {
+    return property_set_->esn.is_valid();
+  }
+
   uint32_t sid() const override {
     return property_set_->sid.value();
+  }
+
+  bool is_sid_valid() const override {
+    return property_set_->sid.is_valid();
   }
 
   uint32_t nid() const override {
     return property_set_->nid.value();
   }
 
+  bool is_nid_valid() const override {
+    return property_set_->nid.is_valid();
+  }
+
   uint32_t cdma1x_registration_state() const override {
     return property_set_->cdma1x_registration_state.value();
   }
 
+  bool is_cdma1x_registration_state_valid() const override {
+    return property_set_->cdma1x_registration_state.is_valid();
+  }
+
   uint32_t evdo_registration_state() const override {
     return property_set_->evdo_registration_state.value();
+  }
+
+  bool is_evdo_registration_state_valid() const override {
+    return property_set_->evdo_registration_state.is_valid();
   }
 
  private:
@@ -1419,22 +1559,31 @@ class SignalProxyInterface {
 
   static const char* RateName() { return "Rate"; }
   virtual uint32_t rate() const = 0;
+  virtual bool is_rate_valid() const = 0;
   static const char* RssiThresholdName() { return "RssiThreshold"; }
   virtual uint32_t rssi_threshold() const = 0;
+  virtual bool is_rssi_threshold_valid() const = 0;
   static const char* ErrorRateThresholdName() { return "ErrorRateThreshold"; }
   virtual bool error_rate_threshold() const = 0;
+  virtual bool is_error_rate_threshold_valid() const = 0;
   static const char* CdmaName() { return "Cdma"; }
   virtual const brillo::VariantDictionary& cdma() const = 0;
+  virtual bool is_cdma_valid() const = 0;
   static const char* EvdoName() { return "Evdo"; }
   virtual const brillo::VariantDictionary& evdo() const = 0;
+  virtual bool is_evdo_valid() const = 0;
   static const char* GsmName() { return "Gsm"; }
   virtual const brillo::VariantDictionary& gsm() const = 0;
+  virtual bool is_gsm_valid() const = 0;
   static const char* UmtsName() { return "Umts"; }
   virtual const brillo::VariantDictionary& umts() const = 0;
+  virtual bool is_umts_valid() const = 0;
   static const char* LteName() { return "Lte"; }
   virtual const brillo::VariantDictionary& lte() const = 0;
+  virtual bool is_lte_valid() const = 0;
   static const char* Nr5gName() { return "Nr5g"; }
   virtual const brillo::VariantDictionary& nr5g() const = 0;
+  virtual bool is_nr5g_valid() const = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
@@ -1592,36 +1741,72 @@ class SignalProxy final : public SignalProxyInterface {
     return property_set_->rate.value();
   }
 
+  bool is_rate_valid() const override {
+    return property_set_->rate.is_valid();
+  }
+
   uint32_t rssi_threshold() const override {
     return property_set_->rssi_threshold.value();
+  }
+
+  bool is_rssi_threshold_valid() const override {
+    return property_set_->rssi_threshold.is_valid();
   }
 
   bool error_rate_threshold() const override {
     return property_set_->error_rate_threshold.value();
   }
 
+  bool is_error_rate_threshold_valid() const override {
+    return property_set_->error_rate_threshold.is_valid();
+  }
+
   const brillo::VariantDictionary& cdma() const override {
     return property_set_->cdma.value();
+  }
+
+  bool is_cdma_valid() const override {
+    return property_set_->cdma.is_valid();
   }
 
   const brillo::VariantDictionary& evdo() const override {
     return property_set_->evdo.value();
   }
 
+  bool is_evdo_valid() const override {
+    return property_set_->evdo.is_valid();
+  }
+
   const brillo::VariantDictionary& gsm() const override {
     return property_set_->gsm.value();
+  }
+
+  bool is_gsm_valid() const override {
+    return property_set_->gsm.is_valid();
   }
 
   const brillo::VariantDictionary& umts() const override {
     return property_set_->umts.value();
   }
 
+  bool is_umts_valid() const override {
+    return property_set_->umts.is_valid();
+  }
+
   const brillo::VariantDictionary& lte() const override {
     return property_set_->lte.value();
   }
 
+  bool is_lte_valid() const override {
+    return property_set_->lte.is_valid();
+  }
+
   const brillo::VariantDictionary& nr5g() const override {
     return property_set_->nr5g.value();
+  }
+
+  bool is_nr5g_valid() const override {
+    return property_set_->nr5g.is_valid();
   }
 
  private:
@@ -1988,74 +2173,109 @@ class ModemProxyInterface {
 
   static const char* SimName() { return "Sim"; }
   virtual const dbus::ObjectPath& sim() const = 0;
+  virtual bool is_sim_valid() const = 0;
   static const char* SimSlotsName() { return "SimSlots"; }
   virtual const std::vector<dbus::ObjectPath>& sim_slots() const = 0;
+  virtual bool is_sim_slots_valid() const = 0;
   static const char* PrimarySimSlotName() { return "PrimarySimSlot"; }
   virtual uint32_t primary_sim_slot() const = 0;
+  virtual bool is_primary_sim_slot_valid() const = 0;
   static const char* BearersName() { return "Bearers"; }
   virtual const std::vector<dbus::ObjectPath>& bearers() const = 0;
+  virtual bool is_bearers_valid() const = 0;
   static const char* SupportedCapabilitiesName() { return "SupportedCapabilities"; }
   virtual const std::vector<uint32_t>& supported_capabilities() const = 0;
+  virtual bool is_supported_capabilities_valid() const = 0;
   static const char* CurrentCapabilitiesName() { return "CurrentCapabilities"; }
   virtual uint32_t current_capabilities() const = 0;
+  virtual bool is_current_capabilities_valid() const = 0;
   static const char* MaxBearersName() { return "MaxBearers"; }
   virtual uint32_t max_bearers() const = 0;
+  virtual bool is_max_bearers_valid() const = 0;
   static const char* MaxActiveBearersName() { return "MaxActiveBearers"; }
   virtual uint32_t max_active_bearers() const = 0;
+  virtual bool is_max_active_bearers_valid() const = 0;
   static const char* MaxActiveMultiplexedBearersName() { return "MaxActiveMultiplexedBearers"; }
   virtual uint32_t max_active_multiplexed_bearers() const = 0;
+  virtual bool is_max_active_multiplexed_bearers_valid() const = 0;
   static const char* ManufacturerName() { return "Manufacturer"; }
   virtual const std::string& manufacturer() const = 0;
+  virtual bool is_manufacturer_valid() const = 0;
   static const char* ModelName() { return "Model"; }
   virtual const std::string& model() const = 0;
+  virtual bool is_model_valid() const = 0;
   static const char* RevisionName() { return "Revision"; }
   virtual const std::string& revision() const = 0;
+  virtual bool is_revision_valid() const = 0;
   static const char* CarrierConfigurationName() { return "CarrierConfiguration"; }
   virtual const std::string& carrier_configuration() const = 0;
+  virtual bool is_carrier_configuration_valid() const = 0;
   static const char* CarrierConfigurationRevisionName() { return "CarrierConfigurationRevision"; }
   virtual const std::string& carrier_configuration_revision() const = 0;
+  virtual bool is_carrier_configuration_revision_valid() const = 0;
   static const char* HardwareRevisionName() { return "HardwareRevision"; }
   virtual const std::string& hardware_revision() const = 0;
+  virtual bool is_hardware_revision_valid() const = 0;
   static const char* DeviceIdentifierName() { return "DeviceIdentifier"; }
   virtual const std::string& device_identifier() const = 0;
+  virtual bool is_device_identifier_valid() const = 0;
   static const char* DeviceName() { return "Device"; }
   virtual const std::string& device() const = 0;
+  virtual bool is_device_valid() const = 0;
   static const char* DriversName() { return "Drivers"; }
   virtual const std::vector<std::string>& drivers() const = 0;
+  virtual bool is_drivers_valid() const = 0;
   static const char* PluginName() { return "Plugin"; }
   virtual const std::string& plugin() const = 0;
+  virtual bool is_plugin_valid() const = 0;
   static const char* PrimaryPortName() { return "PrimaryPort"; }
   virtual const std::string& primary_port() const = 0;
+  virtual bool is_primary_port_valid() const = 0;
   static const char* PortsName() { return "Ports"; }
   virtual const std::vector<std::tuple<std::string, uint32_t>>& ports() const = 0;
+  virtual bool is_ports_valid() const = 0;
   static const char* EquipmentIdentifierName() { return "EquipmentIdentifier"; }
   virtual const std::string& equipment_identifier() const = 0;
+  virtual bool is_equipment_identifier_valid() const = 0;
   static const char* UnlockRequiredName() { return "UnlockRequired"; }
   virtual uint32_t unlock_required() const = 0;
+  virtual bool is_unlock_required_valid() const = 0;
   static const char* UnlockRetriesName() { return "UnlockRetries"; }
   virtual const std::map<uint32_t, uint32_t>& unlock_retries() const = 0;
+  virtual bool is_unlock_retries_valid() const = 0;
   static const char* StateName() { return "State"; }
   virtual int32_t state() const = 0;
+  virtual bool is_state_valid() const = 0;
   static const char* StateFailedReasonName() { return "StateFailedReason"; }
   virtual uint32_t state_failed_reason() const = 0;
+  virtual bool is_state_failed_reason_valid() const = 0;
   static const char* AccessTechnologiesName() { return "AccessTechnologies"; }
   virtual uint32_t access_technologies() const = 0;
+  virtual bool is_access_technologies_valid() const = 0;
   static const char* SignalQualityName() { return "SignalQuality"; }
   virtual const std::tuple<uint32_t, bool>& signal_quality() const = 0;
+  virtual bool is_signal_quality_valid() const = 0;
   static const char* OwnNumbersName() { return "OwnNumbers"; }
   virtual const std::vector<std::string>& own_numbers() const = 0;
+  virtual bool is_own_numbers_valid() const = 0;
   static const char* PowerStateName() { return "PowerState"; }
   virtual uint32_t power_state() const = 0;
+  virtual bool is_power_state_valid() const = 0;
   static const char* SupportedModesName() { return "SupportedModes"; }
   virtual const std::vector<std::tuple<uint32_t, uint32_t>>& supported_modes() const = 0;
+  virtual bool is_supported_modes_valid() const = 0;
   static const char* CurrentModesName() { return "CurrentModes"; }
   virtual const std::tuple<uint32_t, uint32_t>& current_modes() const = 0;
+  virtual bool is_current_modes_valid() const = 0;
   static const char* SupportedBandsName() { return "SupportedBands"; }
   virtual const std::vector<uint32_t>& supported_bands() const = 0;
+  virtual bool is_supported_bands_valid() const = 0;
   static const char* CurrentBandsName() { return "CurrentBands"; }
   virtual const std::vector<uint32_t>& current_bands() const = 0;
+  virtual bool is_current_bands_valid() const = 0;
   static const char* SupportedIpFamiliesName() { return "SupportedIpFamilies"; }
   virtual uint32_t supported_ip_families() const = 0;
+  virtual bool is_supported_ip_families_valid() const = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
@@ -2602,140 +2822,280 @@ class ModemProxy final : public ModemProxyInterface {
     return property_set_->sim.value();
   }
 
+  bool is_sim_valid() const override {
+    return property_set_->sim.is_valid();
+  }
+
   const std::vector<dbus::ObjectPath>& sim_slots() const override {
     return property_set_->sim_slots.value();
+  }
+
+  bool is_sim_slots_valid() const override {
+    return property_set_->sim_slots.is_valid();
   }
 
   uint32_t primary_sim_slot() const override {
     return property_set_->primary_sim_slot.value();
   }
 
+  bool is_primary_sim_slot_valid() const override {
+    return property_set_->primary_sim_slot.is_valid();
+  }
+
   const std::vector<dbus::ObjectPath>& bearers() const override {
     return property_set_->bearers.value();
+  }
+
+  bool is_bearers_valid() const override {
+    return property_set_->bearers.is_valid();
   }
 
   const std::vector<uint32_t>& supported_capabilities() const override {
     return property_set_->supported_capabilities.value();
   }
 
+  bool is_supported_capabilities_valid() const override {
+    return property_set_->supported_capabilities.is_valid();
+  }
+
   uint32_t current_capabilities() const override {
     return property_set_->current_capabilities.value();
+  }
+
+  bool is_current_capabilities_valid() const override {
+    return property_set_->current_capabilities.is_valid();
   }
 
   uint32_t max_bearers() const override {
     return property_set_->max_bearers.value();
   }
 
+  bool is_max_bearers_valid() const override {
+    return property_set_->max_bearers.is_valid();
+  }
+
   uint32_t max_active_bearers() const override {
     return property_set_->max_active_bearers.value();
+  }
+
+  bool is_max_active_bearers_valid() const override {
+    return property_set_->max_active_bearers.is_valid();
   }
 
   uint32_t max_active_multiplexed_bearers() const override {
     return property_set_->max_active_multiplexed_bearers.value();
   }
 
+  bool is_max_active_multiplexed_bearers_valid() const override {
+    return property_set_->max_active_multiplexed_bearers.is_valid();
+  }
+
   const std::string& manufacturer() const override {
     return property_set_->manufacturer.value();
+  }
+
+  bool is_manufacturer_valid() const override {
+    return property_set_->manufacturer.is_valid();
   }
 
   const std::string& model() const override {
     return property_set_->model.value();
   }
 
+  bool is_model_valid() const override {
+    return property_set_->model.is_valid();
+  }
+
   const std::string& revision() const override {
     return property_set_->revision.value();
+  }
+
+  bool is_revision_valid() const override {
+    return property_set_->revision.is_valid();
   }
 
   const std::string& carrier_configuration() const override {
     return property_set_->carrier_configuration.value();
   }
 
+  bool is_carrier_configuration_valid() const override {
+    return property_set_->carrier_configuration.is_valid();
+  }
+
   const std::string& carrier_configuration_revision() const override {
     return property_set_->carrier_configuration_revision.value();
+  }
+
+  bool is_carrier_configuration_revision_valid() const override {
+    return property_set_->carrier_configuration_revision.is_valid();
   }
 
   const std::string& hardware_revision() const override {
     return property_set_->hardware_revision.value();
   }
 
+  bool is_hardware_revision_valid() const override {
+    return property_set_->hardware_revision.is_valid();
+  }
+
   const std::string& device_identifier() const override {
     return property_set_->device_identifier.value();
+  }
+
+  bool is_device_identifier_valid() const override {
+    return property_set_->device_identifier.is_valid();
   }
 
   const std::string& device() const override {
     return property_set_->device.value();
   }
 
+  bool is_device_valid() const override {
+    return property_set_->device.is_valid();
+  }
+
   const std::vector<std::string>& drivers() const override {
     return property_set_->drivers.value();
+  }
+
+  bool is_drivers_valid() const override {
+    return property_set_->drivers.is_valid();
   }
 
   const std::string& plugin() const override {
     return property_set_->plugin.value();
   }
 
+  bool is_plugin_valid() const override {
+    return property_set_->plugin.is_valid();
+  }
+
   const std::string& primary_port() const override {
     return property_set_->primary_port.value();
+  }
+
+  bool is_primary_port_valid() const override {
+    return property_set_->primary_port.is_valid();
   }
 
   const std::vector<std::tuple<std::string, uint32_t>>& ports() const override {
     return property_set_->ports.value();
   }
 
+  bool is_ports_valid() const override {
+    return property_set_->ports.is_valid();
+  }
+
   const std::string& equipment_identifier() const override {
     return property_set_->equipment_identifier.value();
+  }
+
+  bool is_equipment_identifier_valid() const override {
+    return property_set_->equipment_identifier.is_valid();
   }
 
   uint32_t unlock_required() const override {
     return property_set_->unlock_required.value();
   }
 
+  bool is_unlock_required_valid() const override {
+    return property_set_->unlock_required.is_valid();
+  }
+
   const std::map<uint32_t, uint32_t>& unlock_retries() const override {
     return property_set_->unlock_retries.value();
+  }
+
+  bool is_unlock_retries_valid() const override {
+    return property_set_->unlock_retries.is_valid();
   }
 
   int32_t state() const override {
     return property_set_->state.value();
   }
 
+  bool is_state_valid() const override {
+    return property_set_->state.is_valid();
+  }
+
   uint32_t state_failed_reason() const override {
     return property_set_->state_failed_reason.value();
+  }
+
+  bool is_state_failed_reason_valid() const override {
+    return property_set_->state_failed_reason.is_valid();
   }
 
   uint32_t access_technologies() const override {
     return property_set_->access_technologies.value();
   }
 
+  bool is_access_technologies_valid() const override {
+    return property_set_->access_technologies.is_valid();
+  }
+
   const std::tuple<uint32_t, bool>& signal_quality() const override {
     return property_set_->signal_quality.value();
+  }
+
+  bool is_signal_quality_valid() const override {
+    return property_set_->signal_quality.is_valid();
   }
 
   const std::vector<std::string>& own_numbers() const override {
     return property_set_->own_numbers.value();
   }
 
+  bool is_own_numbers_valid() const override {
+    return property_set_->own_numbers.is_valid();
+  }
+
   uint32_t power_state() const override {
     return property_set_->power_state.value();
+  }
+
+  bool is_power_state_valid() const override {
+    return property_set_->power_state.is_valid();
   }
 
   const std::vector<std::tuple<uint32_t, uint32_t>>& supported_modes() const override {
     return property_set_->supported_modes.value();
   }
 
+  bool is_supported_modes_valid() const override {
+    return property_set_->supported_modes.is_valid();
+  }
+
   const std::tuple<uint32_t, uint32_t>& current_modes() const override {
     return property_set_->current_modes.value();
+  }
+
+  bool is_current_modes_valid() const override {
+    return property_set_->current_modes.is_valid();
   }
 
   const std::vector<uint32_t>& supported_bands() const override {
     return property_set_->supported_bands.value();
   }
 
+  bool is_supported_bands_valid() const override {
+    return property_set_->supported_bands.is_valid();
+  }
+
   const std::vector<uint32_t>& current_bands() const override {
     return property_set_->current_bands.value();
   }
 
+  bool is_current_bands_valid() const override {
+    return property_set_->current_bands.is_valid();
+  }
+
   uint32_t supported_ip_families() const override {
     return property_set_->supported_ip_families.value();
+  }
+
+  bool is_supported_ip_families_valid() const override {
+    return property_set_->supported_ip_families.is_valid();
   }
 
  private:
@@ -2823,30 +3183,43 @@ class SimProxyInterface {
 
   static const char* ActiveName() { return "Active"; }
   virtual bool active() const = 0;
+  virtual bool is_active_valid() const = 0;
   static const char* SimIdentifierName() { return "SimIdentifier"; }
   virtual const std::string& sim_identifier() const = 0;
+  virtual bool is_sim_identifier_valid() const = 0;
   static const char* ImsiName() { return "Imsi"; }
   virtual const std::string& imsi() const = 0;
+  virtual bool is_imsi_valid() const = 0;
   static const char* EidName() { return "Eid"; }
   virtual const std::string& eid() const = 0;
+  virtual bool is_eid_valid() const = 0;
   static const char* OperatorIdentifierName() { return "OperatorIdentifier"; }
   virtual const std::string& operator_identifier() const = 0;
+  virtual bool is_operator_identifier_valid() const = 0;
   static const char* OperatorNameName() { return "OperatorName"; }
   virtual const std::string& operator_name() const = 0;
+  virtual bool is_operator_name_valid() const = 0;
   static const char* EmergencyNumbersName() { return "EmergencyNumbers"; }
   virtual const std::vector<std::string>& emergency_numbers() const = 0;
+  virtual bool is_emergency_numbers_valid() const = 0;
   static const char* PreferredNetworksName() { return "PreferredNetworks"; }
   virtual const std::vector<std::tuple<std::string, uint32_t>>& preferred_networks() const = 0;
+  virtual bool is_preferred_networks_valid() const = 0;
   static const char* Gid1Name() { return "Gid1"; }
   virtual const std::vector<uint8_t>& gid1() const = 0;
+  virtual bool is_gid1_valid() const = 0;
   static const char* Gid2Name() { return "Gid2"; }
   virtual const std::vector<uint8_t>& gid2() const = 0;
+  virtual bool is_gid2_valid() const = 0;
   static const char* SimTypeName() { return "SimType"; }
   virtual uint32_t sim_type() const = 0;
+  virtual bool is_sim_type_valid() const = 0;
   static const char* EsimStatusName() { return "EsimStatus"; }
   virtual uint32_t esim_status() const = 0;
+  virtual bool is_esim_status_valid() const = 0;
   static const char* RemovabilityName() { return "Removability"; }
   virtual uint32_t removability() const = 0;
+  virtual bool is_removability_valid() const = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
@@ -3112,52 +3485,104 @@ class SimProxy final : public SimProxyInterface {
     return property_set_->active.value();
   }
 
+  bool is_active_valid() const override {
+    return property_set_->active.is_valid();
+  }
+
   const std::string& sim_identifier() const override {
     return property_set_->sim_identifier.value();
+  }
+
+  bool is_sim_identifier_valid() const override {
+    return property_set_->sim_identifier.is_valid();
   }
 
   const std::string& imsi() const override {
     return property_set_->imsi.value();
   }
 
+  bool is_imsi_valid() const override {
+    return property_set_->imsi.is_valid();
+  }
+
   const std::string& eid() const override {
     return property_set_->eid.value();
+  }
+
+  bool is_eid_valid() const override {
+    return property_set_->eid.is_valid();
   }
 
   const std::string& operator_identifier() const override {
     return property_set_->operator_identifier.value();
   }
 
+  bool is_operator_identifier_valid() const override {
+    return property_set_->operator_identifier.is_valid();
+  }
+
   const std::string& operator_name() const override {
     return property_set_->operator_name.value();
+  }
+
+  bool is_operator_name_valid() const override {
+    return property_set_->operator_name.is_valid();
   }
 
   const std::vector<std::string>& emergency_numbers() const override {
     return property_set_->emergency_numbers.value();
   }
 
+  bool is_emergency_numbers_valid() const override {
+    return property_set_->emergency_numbers.is_valid();
+  }
+
   const std::vector<std::tuple<std::string, uint32_t>>& preferred_networks() const override {
     return property_set_->preferred_networks.value();
+  }
+
+  bool is_preferred_networks_valid() const override {
+    return property_set_->preferred_networks.is_valid();
   }
 
   const std::vector<uint8_t>& gid1() const override {
     return property_set_->gid1.value();
   }
 
+  bool is_gid1_valid() const override {
+    return property_set_->gid1.is_valid();
+  }
+
   const std::vector<uint8_t>& gid2() const override {
     return property_set_->gid2.value();
+  }
+
+  bool is_gid2_valid() const override {
+    return property_set_->gid2.is_valid();
   }
 
   uint32_t sim_type() const override {
     return property_set_->sim_type.value();
   }
 
+  bool is_sim_type_valid() const override {
+    return property_set_->sim_type.is_valid();
+  }
+
   uint32_t esim_status() const override {
     return property_set_->esim_status.value();
   }
 
+  bool is_esim_status_valid() const override {
+    return property_set_->esim_status.is_valid();
+  }
+
   uint32_t removability() const override {
     return property_set_->removability.value();
+  }
+
+  bool is_removability_valid() const override {
+    return property_set_->removability.is_valid();
   }
 
  private:
@@ -3227,6 +3652,7 @@ class ModemManager1ProxyInterface {
 
   static const char* VersionName() { return "Version"; }
   virtual const std::string& version() const = 0;
+  virtual bool is_version_valid() const = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
@@ -3420,6 +3846,10 @@ class ModemManager1Proxy final : public ModemManager1ProxyInterface {
 
   const std::string& version() const override {
     return property_set_->version.value();
+  }
+
+  bool is_version_valid() const override {
+    return property_set_->version.is_valid();
   }
 
  private:

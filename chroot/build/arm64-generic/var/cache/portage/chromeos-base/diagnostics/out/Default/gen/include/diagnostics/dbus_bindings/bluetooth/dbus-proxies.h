@@ -42,18 +42,25 @@ class Adapter1ProxyInterface {
 
   static const char* AddressName() { return "Address"; }
   virtual const std::string& address() const = 0;
+  virtual bool is_address_valid() const = 0;
   static const char* NameName() { return "Name"; }
   virtual const std::string& name() const = 0;
+  virtual bool is_name_valid() const = 0;
   static const char* PoweredName() { return "Powered"; }
   virtual bool powered() const = 0;
+  virtual bool is_powered_valid() const = 0;
   static const char* DiscoverableName() { return "Discoverable"; }
   virtual bool discoverable() const = 0;
+  virtual bool is_discoverable_valid() const = 0;
   static const char* DiscoveringName() { return "Discovering"; }
   virtual bool discovering() const = 0;
+  virtual bool is_discovering_valid() const = 0;
   static const char* UUIDsName() { return "UUIDs"; }
   virtual const std::vector<std::string>& uuids() const = 0;
+  virtual bool is_uuids_valid() const = 0;
   static const char* ModaliasName() { return "Modalias"; }
   virtual const std::string& modalias() const = 0;
+  virtual bool is_modalias_valid() const = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
@@ -140,28 +147,56 @@ class Adapter1Proxy final : public Adapter1ProxyInterface {
     return property_set_->address.value();
   }
 
+  bool is_address_valid() const override {
+    return property_set_->address.is_valid();
+  }
+
   const std::string& name() const override {
     return property_set_->name.value();
+  }
+
+  bool is_name_valid() const override {
+    return property_set_->name.is_valid();
   }
 
   bool powered() const override {
     return property_set_->powered.value();
   }
 
+  bool is_powered_valid() const override {
+    return property_set_->powered.is_valid();
+  }
+
   bool discoverable() const override {
     return property_set_->discoverable.value();
+  }
+
+  bool is_discoverable_valid() const override {
+    return property_set_->discoverable.is_valid();
   }
 
   bool discovering() const override {
     return property_set_->discovering.value();
   }
 
+  bool is_discovering_valid() const override {
+    return property_set_->discovering.is_valid();
+  }
+
   const std::vector<std::string>& uuids() const override {
     return property_set_->uuids.value();
   }
 
+  bool is_uuids_valid() const override {
+    return property_set_->uuids.is_valid();
+  }
+
   const std::string& modalias() const override {
     return property_set_->modalias.value();
+  }
+
+  bool is_modalias_valid() const override {
+    return property_set_->modalias.is_valid();
   }
 
  private:
@@ -193,6 +228,7 @@ class AdminPolicyStatus1ProxyInterface {
 
   static const char* ServiceAllowListName() { return "ServiceAllowList"; }
   virtual const std::vector<std::string>& service_allow_list() const = 0;
+  virtual bool is_service_allow_list_valid() const = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
@@ -267,6 +303,10 @@ class AdminPolicyStatus1Proxy final : public AdminPolicyStatus1ProxyInterface {
     return property_set_->service_allow_list.value();
   }
 
+  bool is_service_allow_list_valid() const override {
+    return property_set_->service_allow_list.is_valid();
+  }
+
  private:
   void OnPropertyChanged(const std::string& property_name) {
     if (!on_property_changed_.is_null())
@@ -296,6 +336,7 @@ class Battery1ProxyInterface {
 
   static const char* PercentageName() { return "Percentage"; }
   virtual uint8_t percentage() const = 0;
+  virtual bool is_percentage_valid() const = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
@@ -370,6 +411,10 @@ class Battery1Proxy final : public Battery1ProxyInterface {
     return property_set_->percentage.value();
   }
 
+  bool is_percentage_valid() const override {
+    return property_set_->percentage.is_valid();
+  }
+
  private:
   void OnPropertyChanged(const std::string& property_name) {
     if (!on_property_changed_.is_null())
@@ -399,24 +444,34 @@ class Device1ProxyInterface {
 
   static const char* AddressName() { return "Address"; }
   virtual const std::string& address() const = 0;
+  virtual bool is_address_valid() const = 0;
   static const char* NameName() { return "Name"; }
   virtual const std::string& name() const = 0;
+  virtual bool is_name_valid() const = 0;
   static const char* TypeName() { return "Type"; }
   virtual const std::string& type() const = 0;
+  virtual bool is_type_valid() const = 0;
   static const char* AppearanceName() { return "Appearance"; }
   virtual uint16_t appearance() const = 0;
+  virtual bool is_appearance_valid() const = 0;
   static const char* ModaliasName() { return "Modalias"; }
   virtual const std::string& modalias() const = 0;
+  virtual bool is_modalias_valid() const = 0;
   static const char* RSSIName() { return "RSSI"; }
   virtual int16_t rssi() const = 0;
+  virtual bool is_rssi_valid() const = 0;
   static const char* MTUName() { return "MTU"; }
   virtual uint16_t mtu() const = 0;
+  virtual bool is_mtu_valid() const = 0;
   static const char* UUIDsName() { return "UUIDs"; }
   virtual const std::vector<std::string>& uuids() const = 0;
+  virtual bool is_uuids_valid() const = 0;
   static const char* ConnectedName() { return "Connected"; }
   virtual bool connected() const = 0;
+  virtual bool is_connected_valid() const = 0;
   static const char* AdapterName() { return "Adapter"; }
   virtual const dbus::ObjectPath& adapter() const = 0;
+  virtual bool is_adapter_valid() const = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
@@ -509,40 +564,80 @@ class Device1Proxy final : public Device1ProxyInterface {
     return property_set_->address.value();
   }
 
+  bool is_address_valid() const override {
+    return property_set_->address.is_valid();
+  }
+
   const std::string& name() const override {
     return property_set_->name.value();
+  }
+
+  bool is_name_valid() const override {
+    return property_set_->name.is_valid();
   }
 
   const std::string& type() const override {
     return property_set_->type.value();
   }
 
+  bool is_type_valid() const override {
+    return property_set_->type.is_valid();
+  }
+
   uint16_t appearance() const override {
     return property_set_->appearance.value();
+  }
+
+  bool is_appearance_valid() const override {
+    return property_set_->appearance.is_valid();
   }
 
   const std::string& modalias() const override {
     return property_set_->modalias.value();
   }
 
+  bool is_modalias_valid() const override {
+    return property_set_->modalias.is_valid();
+  }
+
   int16_t rssi() const override {
     return property_set_->rssi.value();
+  }
+
+  bool is_rssi_valid() const override {
+    return property_set_->rssi.is_valid();
   }
 
   uint16_t mtu() const override {
     return property_set_->mtu.value();
   }
 
+  bool is_mtu_valid() const override {
+    return property_set_->mtu.is_valid();
+  }
+
   const std::vector<std::string>& uuids() const override {
     return property_set_->uuids.value();
+  }
+
+  bool is_uuids_valid() const override {
+    return property_set_->uuids.is_valid();
   }
 
   bool connected() const override {
     return property_set_->connected.value();
   }
 
+  bool is_connected_valid() const override {
+    return property_set_->connected.is_valid();
+  }
+
   const dbus::ObjectPath& adapter() const override {
     return property_set_->adapter.value();
+  }
+
+  bool is_adapter_valid() const override {
+    return property_set_->adapter.is_valid();
   }
 
  private:
@@ -574,6 +669,7 @@ class LEAdvertisingManager1ProxyInterface {
 
   static const char* SupportedCapabilitiesName() { return "SupportedCapabilities"; }
   virtual const brillo::VariantDictionary& supported_capabilities() const = 0;
+  virtual bool is_supported_capabilities_valid() const = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
@@ -646,6 +742,10 @@ class LEAdvertisingManager1Proxy final : public LEAdvertisingManager1ProxyInterf
 
   const brillo::VariantDictionary& supported_capabilities() const override {
     return property_set_->supported_capabilities.value();
+  }
+
+  bool is_supported_capabilities_valid() const override {
+    return property_set_->supported_capabilities.is_valid();
   }
 
  private:

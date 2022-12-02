@@ -422,30 +422,43 @@ class fwupdProxyInterface {
 
   static const char* DaemonVersionName() { return "DaemonVersion"; }
   virtual const std::string& daemon_version() const = 0;
+  virtual bool is_daemon_version_valid() const = 0;
   static const char* HostBkcName() { return "HostBkc"; }
   virtual const std::string& host_bkc() const = 0;
+  virtual bool is_host_bkc_valid() const = 0;
   static const char* HostVendorName() { return "HostVendor"; }
   virtual const std::string& host_vendor() const = 0;
+  virtual bool is_host_vendor_valid() const = 0;
   static const char* HostProductName() { return "HostProduct"; }
   virtual const std::string& host_product() const = 0;
+  virtual bool is_host_product_valid() const = 0;
   static const char* HostMachineIdName() { return "HostMachineId"; }
   virtual const std::string& host_machine_id() const = 0;
+  virtual bool is_host_machine_id_valid() const = 0;
   static const char* HostSecurityIdName() { return "HostSecurityId"; }
   virtual const std::string& host_security_id() const = 0;
+  virtual bool is_host_security_id_valid() const = 0;
   static const char* TaintedName() { return "Tainted"; }
   virtual bool tainted() const = 0;
+  virtual bool is_tainted_valid() const = 0;
   static const char* InteractiveName() { return "Interactive"; }
   virtual bool interactive() const = 0;
+  virtual bool is_interactive_valid() const = 0;
   static const char* StatusName() { return "Status"; }
   virtual uint32_t status() const = 0;
+  virtual bool is_status_valid() const = 0;
   static const char* PercentageName() { return "Percentage"; }
   virtual uint32_t percentage() const = 0;
+  virtual bool is_percentage_valid() const = 0;
   static const char* BatteryLevelName() { return "BatteryLevel"; }
   virtual uint32_t battery_level() const = 0;
+  virtual bool is_battery_level_valid() const = 0;
   static const char* BatteryThresholdName() { return "BatteryThreshold"; }
   virtual uint32_t battery_threshold() const = 0;
+  virtual bool is_battery_threshold_valid() const = 0;
   static const char* OnlyTrustedName() { return "OnlyTrusted"; }
   virtual bool only_trusted() const = 0;
+  virtual bool is_only_trusted_valid() const = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
@@ -1576,52 +1589,104 @@ class fwupdProxy final : public fwupdProxyInterface {
     return property_set_->daemon_version.value();
   }
 
+  bool is_daemon_version_valid() const override {
+    return property_set_->daemon_version.is_valid();
+  }
+
   const std::string& host_bkc() const override {
     return property_set_->host_bkc.value();
+  }
+
+  bool is_host_bkc_valid() const override {
+    return property_set_->host_bkc.is_valid();
   }
 
   const std::string& host_vendor() const override {
     return property_set_->host_vendor.value();
   }
 
+  bool is_host_vendor_valid() const override {
+    return property_set_->host_vendor.is_valid();
+  }
+
   const std::string& host_product() const override {
     return property_set_->host_product.value();
+  }
+
+  bool is_host_product_valid() const override {
+    return property_set_->host_product.is_valid();
   }
 
   const std::string& host_machine_id() const override {
     return property_set_->host_machine_id.value();
   }
 
+  bool is_host_machine_id_valid() const override {
+    return property_set_->host_machine_id.is_valid();
+  }
+
   const std::string& host_security_id() const override {
     return property_set_->host_security_id.value();
+  }
+
+  bool is_host_security_id_valid() const override {
+    return property_set_->host_security_id.is_valid();
   }
 
   bool tainted() const override {
     return property_set_->tainted.value();
   }
 
+  bool is_tainted_valid() const override {
+    return property_set_->tainted.is_valid();
+  }
+
   bool interactive() const override {
     return property_set_->interactive.value();
+  }
+
+  bool is_interactive_valid() const override {
+    return property_set_->interactive.is_valid();
   }
 
   uint32_t status() const override {
     return property_set_->status.value();
   }
 
+  bool is_status_valid() const override {
+    return property_set_->status.is_valid();
+  }
+
   uint32_t percentage() const override {
     return property_set_->percentage.value();
+  }
+
+  bool is_percentage_valid() const override {
+    return property_set_->percentage.is_valid();
   }
 
   uint32_t battery_level() const override {
     return property_set_->battery_level.value();
   }
 
+  bool is_battery_level_valid() const override {
+    return property_set_->battery_level.is_valid();
+  }
+
   uint32_t battery_threshold() const override {
     return property_set_->battery_threshold.value();
   }
 
+  bool is_battery_threshold_valid() const override {
+    return property_set_->battery_threshold.is_valid();
+  }
+
   bool only_trusted() const override {
     return property_set_->only_trusted.value();
+  }
+
+  bool is_only_trusted_valid() const override {
+    return property_set_->only_trusted.is_valid();
   }
 
  private:

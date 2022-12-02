@@ -29,12 +29,19 @@ class Adapter1ProxyMock : public Adapter1ProxyInterface {
   Adapter1ProxyMock& operator=(const Adapter1ProxyMock&) = delete;
 
   MOCK_CONST_METHOD0(address, const std::string&());
+  MOCK_CONST_METHOD0(is_address_valid, bool());
   MOCK_CONST_METHOD0(name, const std::string&());
+  MOCK_CONST_METHOD0(is_name_valid, bool());
   MOCK_CONST_METHOD0(powered, bool());
+  MOCK_CONST_METHOD0(is_powered_valid, bool());
   MOCK_CONST_METHOD0(discoverable, bool());
+  MOCK_CONST_METHOD0(is_discoverable_valid, bool());
   MOCK_CONST_METHOD0(discovering, bool());
+  MOCK_CONST_METHOD0(is_discovering_valid, bool());
   MOCK_CONST_METHOD0(uuids, const std::vector<std::string>&());
+  MOCK_CONST_METHOD0(is_uuids_valid, bool());
   MOCK_CONST_METHOD0(modalias, const std::string&());
+  MOCK_CONST_METHOD0(is_modalias_valid, bool());
   MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
   MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
   MOCK_METHOD1(SetPropertyChangedCallback,
@@ -54,6 +61,7 @@ class AdminPolicyStatus1ProxyMock : public AdminPolicyStatus1ProxyInterface {
   AdminPolicyStatus1ProxyMock& operator=(const AdminPolicyStatus1ProxyMock&) = delete;
 
   MOCK_CONST_METHOD0(service_allow_list, const std::vector<std::string>&());
+  MOCK_CONST_METHOD0(is_service_allow_list_valid, bool());
   MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
   MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
   MOCK_METHOD1(SetPropertyChangedCallback,
@@ -73,6 +81,7 @@ class Battery1ProxyMock : public Battery1ProxyInterface {
   Battery1ProxyMock& operator=(const Battery1ProxyMock&) = delete;
 
   MOCK_CONST_METHOD0(percentage, uint8_t());
+  MOCK_CONST_METHOD0(is_percentage_valid, bool());
   MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
   MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
   MOCK_METHOD1(SetPropertyChangedCallback,
@@ -92,15 +101,25 @@ class Device1ProxyMock : public Device1ProxyInterface {
   Device1ProxyMock& operator=(const Device1ProxyMock&) = delete;
 
   MOCK_CONST_METHOD0(address, const std::string&());
+  MOCK_CONST_METHOD0(is_address_valid, bool());
   MOCK_CONST_METHOD0(name, const std::string&());
+  MOCK_CONST_METHOD0(is_name_valid, bool());
   MOCK_CONST_METHOD0(type, const std::string&());
+  MOCK_CONST_METHOD0(is_type_valid, bool());
   MOCK_CONST_METHOD0(appearance, uint16_t());
+  MOCK_CONST_METHOD0(is_appearance_valid, bool());
   MOCK_CONST_METHOD0(modalias, const std::string&());
+  MOCK_CONST_METHOD0(is_modalias_valid, bool());
   MOCK_CONST_METHOD0(rssi, int16_t());
+  MOCK_CONST_METHOD0(is_rssi_valid, bool());
   MOCK_CONST_METHOD0(mtu, uint16_t());
+  MOCK_CONST_METHOD0(is_mtu_valid, bool());
   MOCK_CONST_METHOD0(uuids, const std::vector<std::string>&());
+  MOCK_CONST_METHOD0(is_uuids_valid, bool());
   MOCK_CONST_METHOD0(connected, bool());
+  MOCK_CONST_METHOD0(is_connected_valid, bool());
   MOCK_CONST_METHOD0(adapter, const dbus::ObjectPath&());
+  MOCK_CONST_METHOD0(is_adapter_valid, bool());
   MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
   MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
   MOCK_METHOD1(SetPropertyChangedCallback,
@@ -120,6 +139,7 @@ class LEAdvertisingManager1ProxyMock : public LEAdvertisingManager1ProxyInterfac
   LEAdvertisingManager1ProxyMock& operator=(const LEAdvertisingManager1ProxyMock&) = delete;
 
   MOCK_CONST_METHOD0(supported_capabilities, const brillo::VariantDictionary&());
+  MOCK_CONST_METHOD0(is_supported_capabilities_valid, bool());
   MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
   MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
   MOCK_METHOD1(SetPropertyChangedCallback,

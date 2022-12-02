@@ -369,18 +369,31 @@ class fwupdProxyMock : public fwupdProxyInterface {
                void(const base::RepeatingCallback<void(const brillo::VariantDictionary&)>& /*signal_callback*/,
                     dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
   MOCK_CONST_METHOD0(daemon_version, const std::string&());
+  MOCK_CONST_METHOD0(is_daemon_version_valid, bool());
   MOCK_CONST_METHOD0(host_bkc, const std::string&());
+  MOCK_CONST_METHOD0(is_host_bkc_valid, bool());
   MOCK_CONST_METHOD0(host_vendor, const std::string&());
+  MOCK_CONST_METHOD0(is_host_vendor_valid, bool());
   MOCK_CONST_METHOD0(host_product, const std::string&());
+  MOCK_CONST_METHOD0(is_host_product_valid, bool());
   MOCK_CONST_METHOD0(host_machine_id, const std::string&());
+  MOCK_CONST_METHOD0(is_host_machine_id_valid, bool());
   MOCK_CONST_METHOD0(host_security_id, const std::string&());
+  MOCK_CONST_METHOD0(is_host_security_id_valid, bool());
   MOCK_CONST_METHOD0(tainted, bool());
+  MOCK_CONST_METHOD0(is_tainted_valid, bool());
   MOCK_CONST_METHOD0(interactive, bool());
+  MOCK_CONST_METHOD0(is_interactive_valid, bool());
   MOCK_CONST_METHOD0(status, uint32_t());
+  MOCK_CONST_METHOD0(is_status_valid, bool());
   MOCK_CONST_METHOD0(percentage, uint32_t());
+  MOCK_CONST_METHOD0(is_percentage_valid, bool());
   MOCK_CONST_METHOD0(battery_level, uint32_t());
+  MOCK_CONST_METHOD0(is_battery_level_valid, bool());
   MOCK_CONST_METHOD0(battery_threshold, uint32_t());
+  MOCK_CONST_METHOD0(is_battery_threshold_valid, bool());
   MOCK_CONST_METHOD0(only_trusted, bool());
+  MOCK_CONST_METHOD0(is_only_trusted_valid, bool());
   MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
   MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
   MOCK_METHOD1(InitializeProperties,

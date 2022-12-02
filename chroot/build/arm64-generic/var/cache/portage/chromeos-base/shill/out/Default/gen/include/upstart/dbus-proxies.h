@@ -186,8 +186,10 @@ class Upstart0_6ProxyInterface {
 
   static const char* versionName() { return "version"; }
   virtual const std::string& version() const = 0;
+  virtual bool is_version_valid() const = 0;
   static const char* log_priorityName() { return "log_priority"; }
   virtual const std::string& log_priority() const = 0;
+  virtual bool is_log_priority_valid() const = 0;
   virtual void set_log_priority(const std::string& value,
                                 base::OnceCallback<void(bool)> callback) = 0;
 
@@ -373,8 +375,16 @@ class Upstart0_6Proxy final : public Upstart0_6ProxyInterface {
     return property_set_->version.value();
   }
 
+  bool is_version_valid() const override {
+    return property_set_->version.is_valid();
+  }
+
   const std::string& log_priority() const override {
     return property_set_->log_priority.value();
+  }
+
+  bool is_log_priority_valid() const override {
+    return property_set_->log_priority.is_valid();
   }
 
   void set_log_priority(const std::string& value,

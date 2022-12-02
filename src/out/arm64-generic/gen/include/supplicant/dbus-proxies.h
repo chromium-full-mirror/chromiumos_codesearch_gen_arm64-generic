@@ -42,24 +42,34 @@ class BSSProxyInterface {
 
   static const char* BSSIDName() { return "BSSID"; }
   virtual const std::vector<uint8_t>& bssid() const = 0;
+  virtual bool is_bssid_valid() const = 0;
   static const char* SSIDName() { return "SSID"; }
   virtual const std::vector<uint8_t>& ssid() const = 0;
+  virtual bool is_ssid_valid() const = 0;
   static const char* WPAName() { return "WPA"; }
   virtual const brillo::VariantDictionary& wpa() const = 0;
+  virtual bool is_wpa_valid() const = 0;
   static const char* RSNName() { return "RSN"; }
   virtual const brillo::VariantDictionary& rsn() const = 0;
+  virtual bool is_rsn_valid() const = 0;
   static const char* IEsName() { return "IEs"; }
   virtual const std::vector<uint8_t>& ies() const = 0;
+  virtual bool is_ies_valid() const = 0;
   static const char* PrivacyName() { return "Privacy"; }
   virtual bool privacy() const = 0;
+  virtual bool is_privacy_valid() const = 0;
   static const char* ModeName() { return "Mode"; }
   virtual const std::string& mode() const = 0;
+  virtual bool is_mode_valid() const = 0;
   static const char* FrequencyName() { return "Frequency"; }
   virtual uint16_t frequency() const = 0;
+  virtual bool is_frequency_valid() const = 0;
   static const char* RatesName() { return "Rates"; }
   virtual const std::vector<uint32_t>& rates() const = 0;
+  virtual bool is_rates_valid() const = 0;
   static const char* SignalName() { return "Signal"; }
   virtual int16_t signal() const = 0;
+  virtual bool is_signal_valid() const = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
@@ -168,40 +178,80 @@ class BSSProxy final : public BSSProxyInterface {
     return property_set_->bssid.value();
   }
 
+  bool is_bssid_valid() const override {
+    return property_set_->bssid.is_valid();
+  }
+
   const std::vector<uint8_t>& ssid() const override {
     return property_set_->ssid.value();
+  }
+
+  bool is_ssid_valid() const override {
+    return property_set_->ssid.is_valid();
   }
 
   const brillo::VariantDictionary& wpa() const override {
     return property_set_->wpa.value();
   }
 
+  bool is_wpa_valid() const override {
+    return property_set_->wpa.is_valid();
+  }
+
   const brillo::VariantDictionary& rsn() const override {
     return property_set_->rsn.value();
+  }
+
+  bool is_rsn_valid() const override {
+    return property_set_->rsn.is_valid();
   }
 
   const std::vector<uint8_t>& ies() const override {
     return property_set_->ies.value();
   }
 
+  bool is_ies_valid() const override {
+    return property_set_->ies.is_valid();
+  }
+
   bool privacy() const override {
     return property_set_->privacy.value();
+  }
+
+  bool is_privacy_valid() const override {
+    return property_set_->privacy.is_valid();
   }
 
   const std::string& mode() const override {
     return property_set_->mode.value();
   }
 
+  bool is_mode_valid() const override {
+    return property_set_->mode.is_valid();
+  }
+
   uint16_t frequency() const override {
     return property_set_->frequency.value();
+  }
+
+  bool is_frequency_valid() const override {
+    return property_set_->frequency.is_valid();
   }
 
   const std::vector<uint32_t>& rates() const override {
     return property_set_->rates.value();
   }
 
+  bool is_rates_valid() const override {
+    return property_set_->rates.is_valid();
+  }
+
   int16_t signal() const override {
     return property_set_->signal.value();
+  }
+
+  bool is_signal_valid() const override {
+    return property_set_->signal.is_valid();
   }
 
  private:
@@ -498,48 +548,65 @@ class InterfaceProxyInterface {
 
   static const char* CapabilitiesName() { return "Capabilities"; }
   virtual const brillo::VariantDictionary& capabilities() const = 0;
+  virtual bool is_capabilities_valid() const = 0;
   static const char* StateName() { return "State"; }
   virtual const std::string& state() const = 0;
+  virtual bool is_state_valid() const = 0;
   static const char* ScanningName() { return "Scanning"; }
   virtual bool scanning() const = 0;
+  virtual bool is_scanning_valid() const = 0;
   static const char* ApScanName() { return "ApScan"; }
   virtual uint32_t ap_scan() const = 0;
+  virtual bool is_ap_scan_valid() const = 0;
   virtual void set_ap_scan(uint32_t value,
                            base::OnceCallback<void(bool)> callback) = 0;
   static const char* IfnameName() { return "Ifname"; }
   virtual const std::string& ifname() const = 0;
+  virtual bool is_ifname_valid() const = 0;
   static const char* BridgeIfnameName() { return "BridgeIfname"; }
   virtual const std::string& bridge_ifname() const = 0;
+  virtual bool is_bridge_ifname_valid() const = 0;
   static const char* DriverName() { return "Driver"; }
   virtual const std::string& driver() const = 0;
+  virtual bool is_driver_valid() const = 0;
   static const char* CurrentBSSName() { return "CurrentBSS"; }
   virtual const dbus::ObjectPath& current_bss() const = 0;
+  virtual bool is_current_bss_valid() const = 0;
   static const char* CurrentNetworkName() { return "CurrentNetwork"; }
   virtual const dbus::ObjectPath& current_network() const = 0;
+  virtual bool is_current_network_valid() const = 0;
   static const char* BlobsName() { return "Blobs"; }
   virtual const std::vector<std::string>& blobs() const = 0;
+  virtual bool is_blobs_valid() const = 0;
   static const char* BSSsName() { return "BSSs"; }
   virtual const std::vector<dbus::ObjectPath>& bsss() const = 0;
+  virtual bool is_bsss_valid() const = 0;
   static const char* NetworksName() { return "Networks"; }
   virtual const std::vector<dbus::ObjectPath>& networks() const = 0;
+  virtual bool is_networks_valid() const = 0;
   static const char* FastReauthName() { return "FastReauth"; }
   virtual bool fast_reauth() const = 0;
+  virtual bool is_fast_reauth_valid() const = 0;
   virtual void set_fast_reauth(bool value,
                                base::OnceCallback<void(bool)> callback) = 0;
   static const char* ScanIntervalName() { return "ScanInterval"; }
   virtual int32_t scan_interval() const = 0;
+  virtual bool is_scan_interval_valid() const = 0;
   virtual void set_scan_interval(int32_t value,
                                  base::OnceCallback<void(bool)> callback) = 0;
   static const char* SchedScanName() { return "SchedScan"; }
   virtual bool sched_scan() const = 0;
+  virtual bool is_sched_scan_valid() const = 0;
   virtual void set_sched_scan(bool value,
                               base::OnceCallback<void(bool)> callback) = 0;
   static const char* ScanName() { return "Scan"; }
   virtual bool scan() const = 0;
+  virtual bool is_scan_valid() const = 0;
   virtual void set_scan(bool value,
                         base::OnceCallback<void(bool)> callback) = 0;
   static const char* MACAddressRandomizationMaskName() { return "MACAddressRandomizationMask"; }
   virtual const std::map<std::string, std::vector<uint8_t>>& macaddress_randomization_mask() const = 0;
+  virtual bool is_macaddress_randomization_mask_valid() const = 0;
   virtual void set_macaddress_randomization_mask(const std::map<std::string, std::vector<uint8_t>>& value,
                                                  base::OnceCallback<void(bool)> callback) = 0;
 
@@ -1384,16 +1451,32 @@ class InterfaceProxy final : public InterfaceProxyInterface {
     return property_set_->capabilities.value();
   }
 
+  bool is_capabilities_valid() const override {
+    return property_set_->capabilities.is_valid();
+  }
+
   const std::string& state() const override {
     return property_set_->state.value();
+  }
+
+  bool is_state_valid() const override {
+    return property_set_->state.is_valid();
   }
 
   bool scanning() const override {
     return property_set_->scanning.value();
   }
 
+  bool is_scanning_valid() const override {
+    return property_set_->scanning.is_valid();
+  }
+
   uint32_t ap_scan() const override {
     return property_set_->ap_scan.value();
+  }
+
+  bool is_ap_scan_valid() const override {
+    return property_set_->ap_scan.is_valid();
   }
 
   void set_ap_scan(uint32_t value,
@@ -1405,36 +1488,72 @@ class InterfaceProxy final : public InterfaceProxyInterface {
     return property_set_->ifname.value();
   }
 
+  bool is_ifname_valid() const override {
+    return property_set_->ifname.is_valid();
+  }
+
   const std::string& bridge_ifname() const override {
     return property_set_->bridge_ifname.value();
+  }
+
+  bool is_bridge_ifname_valid() const override {
+    return property_set_->bridge_ifname.is_valid();
   }
 
   const std::string& driver() const override {
     return property_set_->driver.value();
   }
 
+  bool is_driver_valid() const override {
+    return property_set_->driver.is_valid();
+  }
+
   const dbus::ObjectPath& current_bss() const override {
     return property_set_->current_bss.value();
+  }
+
+  bool is_current_bss_valid() const override {
+    return property_set_->current_bss.is_valid();
   }
 
   const dbus::ObjectPath& current_network() const override {
     return property_set_->current_network.value();
   }
 
+  bool is_current_network_valid() const override {
+    return property_set_->current_network.is_valid();
+  }
+
   const std::vector<std::string>& blobs() const override {
     return property_set_->blobs.value();
+  }
+
+  bool is_blobs_valid() const override {
+    return property_set_->blobs.is_valid();
   }
 
   const std::vector<dbus::ObjectPath>& bsss() const override {
     return property_set_->bsss.value();
   }
 
+  bool is_bsss_valid() const override {
+    return property_set_->bsss.is_valid();
+  }
+
   const std::vector<dbus::ObjectPath>& networks() const override {
     return property_set_->networks.value();
   }
 
+  bool is_networks_valid() const override {
+    return property_set_->networks.is_valid();
+  }
+
   bool fast_reauth() const override {
     return property_set_->fast_reauth.value();
+  }
+
+  bool is_fast_reauth_valid() const override {
+    return property_set_->fast_reauth.is_valid();
   }
 
   void set_fast_reauth(bool value,
@@ -1446,6 +1565,10 @@ class InterfaceProxy final : public InterfaceProxyInterface {
     return property_set_->scan_interval.value();
   }
 
+  bool is_scan_interval_valid() const override {
+    return property_set_->scan_interval.is_valid();
+  }
+
   void set_scan_interval(int32_t value,
                          base::OnceCallback<void(bool)> callback) override {
     property_set_->scan_interval.Set(value, std::move(callback));
@@ -1453,6 +1576,10 @@ class InterfaceProxy final : public InterfaceProxyInterface {
 
   bool sched_scan() const override {
     return property_set_->sched_scan.value();
+  }
+
+  bool is_sched_scan_valid() const override {
+    return property_set_->sched_scan.is_valid();
   }
 
   void set_sched_scan(bool value,
@@ -1464,6 +1591,10 @@ class InterfaceProxy final : public InterfaceProxyInterface {
     return property_set_->scan.value();
   }
 
+  bool is_scan_valid() const override {
+    return property_set_->scan.is_valid();
+  }
+
   void set_scan(bool value,
                 base::OnceCallback<void(bool)> callback) override {
     property_set_->scan.Set(value, std::move(callback));
@@ -1471,6 +1602,10 @@ class InterfaceProxy final : public InterfaceProxyInterface {
 
   const std::map<std::string, std::vector<uint8_t>>& macaddress_randomization_mask() const override {
     return property_set_->macaddress_randomization_mask.value();
+  }
+
+  bool is_macaddress_randomization_mask_valid() const override {
+    return property_set_->macaddress_randomization_mask.is_valid();
   }
 
   void set_macaddress_randomization_mask(const std::map<std::string, std::vector<uint8_t>>& value,
@@ -1506,10 +1641,12 @@ class NetworkProxyInterface {
 
   static const char* EnabledName() { return "Enabled"; }
   virtual bool enabled() const = 0;
+  virtual bool is_enabled_valid() const = 0;
   virtual void set_enabled(bool value,
                            base::OnceCallback<void(bool)> callback) = 0;
   static const char* PropertiesName() { return "Properties"; }
   virtual const brillo::VariantDictionary& properties() const = 0;
+  virtual bool is_properties_valid() const = 0;
   virtual void set_properties(const brillo::VariantDictionary& value,
                               base::OnceCallback<void(bool)> callback) = 0;
 
@@ -1604,6 +1741,10 @@ class NetworkProxy final : public NetworkProxyInterface {
     return property_set_->enabled.value();
   }
 
+  bool is_enabled_valid() const override {
+    return property_set_->enabled.is_valid();
+  }
+
   void set_enabled(bool value,
                    base::OnceCallback<void(bool)> callback) override {
     property_set_->enabled.Set(value, std::move(callback));
@@ -1611,6 +1752,10 @@ class NetworkProxy final : public NetworkProxyInterface {
 
   const brillo::VariantDictionary& properties() const override {
     return property_set_->properties.value();
+  }
+
+  bool is_properties_valid() const override {
+    return property_set_->properties.is_valid();
   }
 
   void set_properties(const brillo::VariantDictionary& value,
@@ -1698,20 +1843,25 @@ class wpa_supplicant1ProxyInterface {
 
   static const char* DebugLevelName() { return "DebugLevel"; }
   virtual const std::string& debug_level() const = 0;
+  virtual bool is_debug_level_valid() const = 0;
   virtual void set_debug_level(const std::string& value,
                                base::OnceCallback<void(bool)> callback) = 0;
   static const char* DebugTimestampName() { return "DebugTimestamp"; }
   virtual bool debug_timestamp() const = 0;
+  virtual bool is_debug_timestamp_valid() const = 0;
   virtual void set_debug_timestamp(bool value,
                                    base::OnceCallback<void(bool)> callback) = 0;
   static const char* DebugShowKeysName() { return "DebugShowKeys"; }
   virtual bool debug_show_keys() const = 0;
+  virtual bool is_debug_show_keys_valid() const = 0;
   virtual void set_debug_show_keys(bool value,
                                    base::OnceCallback<void(bool)> callback) = 0;
   static const char* InterfacesName() { return "Interfaces"; }
   virtual const std::vector<dbus::ObjectPath>& interfaces() const = 0;
+  virtual bool is_interfaces_valid() const = 0;
   static const char* EapMethodsName() { return "EapMethods"; }
   virtual const std::vector<std::string>& eap_methods() const = 0;
+  virtual bool is_eap_methods_valid() const = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
@@ -1949,6 +2099,10 @@ class wpa_supplicant1Proxy final : public wpa_supplicant1ProxyInterface {
     return property_set_->debug_level.value();
   }
 
+  bool is_debug_level_valid() const override {
+    return property_set_->debug_level.is_valid();
+  }
+
   void set_debug_level(const std::string& value,
                        base::OnceCallback<void(bool)> callback) override {
     property_set_->debug_level.Set(value, std::move(callback));
@@ -1956,6 +2110,10 @@ class wpa_supplicant1Proxy final : public wpa_supplicant1ProxyInterface {
 
   bool debug_timestamp() const override {
     return property_set_->debug_timestamp.value();
+  }
+
+  bool is_debug_timestamp_valid() const override {
+    return property_set_->debug_timestamp.is_valid();
   }
 
   void set_debug_timestamp(bool value,
@@ -1967,6 +2125,10 @@ class wpa_supplicant1Proxy final : public wpa_supplicant1ProxyInterface {
     return property_set_->debug_show_keys.value();
   }
 
+  bool is_debug_show_keys_valid() const override {
+    return property_set_->debug_show_keys.is_valid();
+  }
+
   void set_debug_show_keys(bool value,
                            base::OnceCallback<void(bool)> callback) override {
     property_set_->debug_show_keys.Set(value, std::move(callback));
@@ -1976,8 +2138,16 @@ class wpa_supplicant1Proxy final : public wpa_supplicant1ProxyInterface {
     return property_set_->interfaces.value();
   }
 
+  bool is_interfaces_valid() const override {
+    return property_set_->interfaces.is_valid();
+  }
+
   const std::vector<std::string>& eap_methods() const override {
     return property_set_->eap_methods.value();
+  }
+
+  bool is_eap_methods_valid() const override {
+    return property_set_->eap_methods.is_valid();
   }
 
  private:
