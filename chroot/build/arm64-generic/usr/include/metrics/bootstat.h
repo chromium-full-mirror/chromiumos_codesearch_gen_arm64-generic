@@ -28,7 +28,9 @@ namespace bootstat {
 // Abstracts system operations in order to inject on testing.
 class BootStatSystem {
  public:
-  BootStatSystem() = default;
+  BootStatSystem();
+  // Constructor for tests that may want to modify the root path.
+  explicit BootStatSystem(const base::FilePath& root_path);
   BootStatSystem(const BootStatSystem&) = delete;
   BootStatSystem& operator=(const BootStatSystem&) = delete;
   virtual ~BootStatSystem() = default;
@@ -41,17 +43,25 @@ class BootStatSystem {
   // std::nullopt on error.
   virtual std::optional<struct timespec> GetUpTime() const;
 
+  // Returns the idle time since boot.
+  std::optional<base::TimeDelta> GetIdleTime() const;
+
   // Returns a scoped FD to the RTC device (used by GetRtcTime below).
   virtual base::ScopedFD OpenRtc() const;
   // Reads and return RTC's time, std::nullopt on error.
   virtual std::optional<struct rtc_time> GetRtcTime(
       base::ScopedFD* rtc_fd) const;
+
+ private:
+  base::FilePath root_path_;
 };
 
 // Basic class for bootstat API interface.
 class BRILLO_EXPORT BootStat {
  public:
   BootStat();
+  // Constructor for external tests, that may want to modify the root path.
+  explicit BootStat(const base::FilePath& root_path);
   // Constructor for testing purpose: changes the default output directory and
   // allows replacing BootStatSystem implementation with a fake one.
   BootStat(const base::FilePath& output_directory_path,
@@ -76,6 +86,12 @@ class BRILLO_EXPORT BootStat {
   struct BootstatTiming {
     // Time since boot.
     base::TimeDelta uptime;
+
+    // Time spent in the idle task since boot. Note that this accumulates for
+    // each CPU, so on a multi-core system, a meaningful comparison of "idle
+    // time" might normalize against the number of available CPUs in the
+    // system.
+    base::TimeDelta idle_time;
   };
 
   // Retrieves the event timings for a given event type (|event_name|). There
