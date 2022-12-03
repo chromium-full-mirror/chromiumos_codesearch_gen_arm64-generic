@@ -241,7 +241,7 @@ TEST_F(VaultKeysetTest, DeserializeTest) {
   EXPECT_TRUE(vault_keyset.ToKeysBlob(&blob));
 
   VaultKeyset new_vault_keyset;
-  new_vault_keyset.FromKeysBlob(blob);
+  EXPECT_TRUE(new_vault_keyset.FromKeysBlob(blob));
 
   EXPECT_EQ(vault_keyset.GetFek().size(), new_vault_keyset.GetFek().size());
   EXPECT_TRUE(VaultKeysetTest::FindBlobInBlob(vault_keyset.GetFek(),
@@ -1006,7 +1006,7 @@ class LeCredentialsManagerTest : public ::testing::Test {
             SetArgPointee<3>(brillo::SecureBlob(HexDecode(kHexResetSecret))),
             ReturnError<CryptohomeLECredError>()));
     crypto_.set_le_manager_for_testing(
-        std::unique_ptr<cryptohome::LECredentialManager>(le_cred_manager_));
+        std::unique_ptr<LECredentialManager>(le_cred_manager_));
 
     crypto_.Init();
 

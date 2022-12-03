@@ -52,7 +52,7 @@ namespace chromeos {
 namespace network_diagnostics {
 namespace mojom {
 HttpsLatencyResultValue::HttpsLatencyResultValue()
-    : latency() {}
+    : latency(mojo::DefaultConstructTraits::CreateInstance<base::TimeDelta>()) {}
 
 HttpsLatencyResultValue::HttpsLatencyResultValue(
     base::TimeDelta latency_in)
@@ -82,7 +82,7 @@ bool HttpsLatencyResultValue::Validate(
 RoutineResult::RoutineResult()
     : verdict(),
       problems(),
-      timestamp(),
+      timestamp(mojo::DefaultConstructTraits::CreateInstance<base::Time>()),
       result_value() {}
 
 RoutineResult::RoutineResult(

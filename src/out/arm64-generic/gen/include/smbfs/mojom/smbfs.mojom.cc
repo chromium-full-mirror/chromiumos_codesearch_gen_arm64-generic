@@ -184,7 +184,7 @@ MountOptions::MountOptions()
       resolved_host(),
       username(),
       workgroup(),
-      password(),
+      password(mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::unique_ptr<password_provider::Password>>>()),
       kerberos_config(),
       allow_ntlm(false),
       skip_connect(false),
@@ -325,7 +325,7 @@ bool MountOptions::Validate(
 Credentials::Credentials()
     : username(),
       workgroup(),
-      password() {}
+      password(mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::unique_ptr<password_provider::Password>>>()) {}
 
 Credentials::Credentials(
     const std::string& username_in,

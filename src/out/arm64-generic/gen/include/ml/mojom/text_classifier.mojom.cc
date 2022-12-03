@@ -166,7 +166,7 @@ TextAnnotationRequest::TextAnnotationRequest()
       default_locales(),
       detected_text_language_tags(),
       annotation_usecase(AnnotationUsecase::ANNOTATION_USECASE_SMART),
-      reference_time(),
+      reference_time(mojo::DefaultConstructTraits::CreateInstance<absl::optional<base::Time>>()),
       reference_timezone(),
       enabled_entities(),
       trigger_dictionary_on_beginner_words(false) {}

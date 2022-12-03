@@ -54,7 +54,7 @@ namespace web_platform {
 namespace mojom {
 HandwritingPoint::HandwritingPoint()
     : location(),
-      t() {}
+      t(mojo::DefaultConstructTraits::CreateInstance<absl::optional<base::TimeDelta>>()) {}
 
 HandwritingPoint::HandwritingPoint(
     ::gfx::mojom::PointFPtr location_in,
