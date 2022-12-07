@@ -97,6 +97,8 @@ static NOINLINE const char* DiagnosticRoutineEnumToStringHelper(DiagnosticRoutin
       return "kPrivacyScreen";
     case DiagnosticRoutineEnum::kLedLitUp:
       return "kLedLitUp";
+    case DiagnosticRoutineEnum::kSmartctlCheckWithPercentageUsed:
+      return "kSmartctlCheckWithPercentageUsed";
     default:
       return nullptr;
   }

@@ -327,9 +327,11 @@ void CrosHealthdRoutineService::RunSignalStrengthRoutine(
 }
 
 void CrosHealthdRoutineService::RunSmartctlCheckRoutine(
+    mojo_ipc::NullableUint32Ptr percentage_used_threshold,
     RunSmartctlCheckRoutineCallback callback) {
   RunRoutine(
-      routine_factory_->MakeSmartctlCheckRoutine(context_->debugd_proxy()),
+      routine_factory_->MakeSmartctlCheckRoutine(
+          context_->debugd_proxy(), std::move(percentage_used_threshold)),
       mojo_ipc::DiagnosticRoutineEnum::kSmartctlCheck, std::move(callback));
 }
 
@@ -512,6 +514,8 @@ void CrosHealthdRoutineService::PopulateAvailableRoutines(
 
   if (context_->system_config()->SmartCtlSupported()) {
     available_routines_.insert(mojo_ipc::DiagnosticRoutineEnum::kSmartctlCheck);
+    available_routines_.insert(
+        mojo_ipc::DiagnosticRoutineEnum::kSmartctlCheckWithPercentageUsed);
   }
 
   if (context_->system_config()->FioSupported()) {

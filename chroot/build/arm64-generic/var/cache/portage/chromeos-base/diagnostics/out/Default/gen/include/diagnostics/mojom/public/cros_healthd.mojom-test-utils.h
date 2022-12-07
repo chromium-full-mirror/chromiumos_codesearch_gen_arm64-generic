@@ -46,7 +46,7 @@ class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDi
   void RunUrandomRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunUrandomRoutineCallback callback) override;
   void RunBatteryCapacityRoutine(RunBatteryCapacityRoutineCallback callback) override;
   void RunBatteryHealthRoutine(RunBatteryHealthRoutineCallback callback) override;
-  void RunSmartctlCheckRoutine(RunSmartctlCheckRoutineCallback callback) override;
+  void RunSmartctlCheckRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold, RunSmartctlCheckRoutineCallback callback) override;
   void RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) override;
   void RunCpuCacheRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunCpuCacheRoutineCallback callback) override;
   void RunCpuStressRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunCpuStressRoutineCallback callback) override;
@@ -104,8 +104,8 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBatteryHealthRoutine();
   void RunSmartctlCheckRoutine(
-      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunSmartctlCheckRoutine();
+      ::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunSmartctlCheckRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold);
   void RunAcPowerRoutine(
       ::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type);

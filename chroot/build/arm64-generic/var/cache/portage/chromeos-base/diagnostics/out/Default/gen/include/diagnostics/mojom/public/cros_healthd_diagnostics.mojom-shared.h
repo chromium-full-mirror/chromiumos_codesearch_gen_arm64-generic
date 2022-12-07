@@ -170,8 +170,10 @@ enum class DiagnosticRoutineEnum : int32_t {
   kPrivacyScreen = 34,
   
   kLedLitUp = 35,
+  
+  kSmartctlCheckWithPercentageUsed = 36,
   kMinValue = 0,
-  kMaxValue = 35,
+  kMaxValue = 36,
   kDefaultValue = 30
 };
 

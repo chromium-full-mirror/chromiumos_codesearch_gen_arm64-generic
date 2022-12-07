@@ -242,7 +242,8 @@ struct UrandomRoutineParametersDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UrandomRoutineParametersDefaultTypeInternal _UrandomRoutineParameters_default_instance_;
 constexpr SmartctlCheckRoutineParameters::SmartctlCheckRoutineParameters(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : percentage_used_threshold_(0u){}
 struct SmartctlCheckRoutineParametersDefaultTypeInternal {
   constexpr SmartctlCheckRoutineParametersDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -698,12 +699,14 @@ const uint32_t TableStruct_wilco_5fdtc_5fsupportd_2eproto::offsets[] PROTOBUF_SE
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::UrandomRoutineParameters, length_seconds_),
-  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::SmartctlCheckRoutineParameters, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::SmartctlCheckRoutineParameters, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::SmartctlCheckRoutineParameters, percentage_used_threshold_),
+  0,
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::CpuRoutineParameters, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -894,30 +897,30 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 119, -1, -1, sizeof(::diagnostics::grpc_api::BatteryRoutineParameters)},
   { 127, -1, -1, sizeof(::diagnostics::grpc_api::BatterySysfsRoutineParameters)},
   { 135, -1, -1, sizeof(::diagnostics::grpc_api::UrandomRoutineParameters)},
-  { 142, -1, -1, sizeof(::diagnostics::grpc_api::SmartctlCheckRoutineParameters)},
-  { 148, -1, -1, sizeof(::diagnostics::grpc_api::CpuRoutineParameters)},
-  { 155, -1, -1, sizeof(::diagnostics::grpc_api::FloatingPointAccuracyRoutineParameters)},
-  { 162, -1, -1, sizeof(::diagnostics::grpc_api::NvmeWearLevelRoutineParameters)},
-  { 169, -1, -1, sizeof(::diagnostics::grpc_api::NvmeShortSelfTestRoutineParameters)},
-  { 175, -1, -1, sizeof(::diagnostics::grpc_api::NvmeLongSelfTestRoutineParameters)},
-  { 181, -1, -1, sizeof(::diagnostics::grpc_api::DiskLinearReadRoutineParameters)},
-  { 189, -1, -1, sizeof(::diagnostics::grpc_api::DiskRandomReadRoutineParameters)},
-  { 197, -1, -1, sizeof(::diagnostics::grpc_api::PrimeSearchRoutineParameters)},
-  { 205, -1, -1, sizeof(::diagnostics::grpc_api::RunRoutineResponse)},
-  { 214, -1, -1, sizeof(::diagnostics::grpc_api::GetRoutineUpdateRequest)},
-  { 223, -1, -1, sizeof(::diagnostics::grpc_api::GetRoutineUpdateResponse)},
-  { 236, -1, -1, sizeof(::diagnostics::grpc_api::GetConfigurationDataRequest)},
-  { 242, -1, -1, sizeof(::diagnostics::grpc_api::GetConfigurationDataResponse)},
-  { 249, -1, -1, sizeof(::diagnostics::grpc_api::GetOsVersionRequest)},
-  { 255, -1, -1, sizeof(::diagnostics::grpc_api::GetOsVersionResponse)},
-  { 263, -1, -1, sizeof(::diagnostics::grpc_api::GetVpdFieldRequest)},
-  { 270, -1, -1, sizeof(::diagnostics::grpc_api::GetVpdFieldResponse)},
-  { 278, -1, -1, sizeof(::diagnostics::grpc_api::GetDriveSystemDataRequest)},
-  { 285, -1, -1, sizeof(::diagnostics::grpc_api::GetDriveSystemDataResponse)},
-  { 293, -1, -1, sizeof(::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest)},
-  { 299, -1, -1, sizeof(::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse)},
-  { 305, -1, -1, sizeof(::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest)},
-  { 311, -1, -1, sizeof(::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse)},
+  { 142, 149, -1, sizeof(::diagnostics::grpc_api::SmartctlCheckRoutineParameters)},
+  { 150, -1, -1, sizeof(::diagnostics::grpc_api::CpuRoutineParameters)},
+  { 157, -1, -1, sizeof(::diagnostics::grpc_api::FloatingPointAccuracyRoutineParameters)},
+  { 164, -1, -1, sizeof(::diagnostics::grpc_api::NvmeWearLevelRoutineParameters)},
+  { 171, -1, -1, sizeof(::diagnostics::grpc_api::NvmeShortSelfTestRoutineParameters)},
+  { 177, -1, -1, sizeof(::diagnostics::grpc_api::NvmeLongSelfTestRoutineParameters)},
+  { 183, -1, -1, sizeof(::diagnostics::grpc_api::DiskLinearReadRoutineParameters)},
+  { 191, -1, -1, sizeof(::diagnostics::grpc_api::DiskRandomReadRoutineParameters)},
+  { 199, -1, -1, sizeof(::diagnostics::grpc_api::PrimeSearchRoutineParameters)},
+  { 207, -1, -1, sizeof(::diagnostics::grpc_api::RunRoutineResponse)},
+  { 216, -1, -1, sizeof(::diagnostics::grpc_api::GetRoutineUpdateRequest)},
+  { 225, -1, -1, sizeof(::diagnostics::grpc_api::GetRoutineUpdateResponse)},
+  { 238, -1, -1, sizeof(::diagnostics::grpc_api::GetConfigurationDataRequest)},
+  { 244, -1, -1, sizeof(::diagnostics::grpc_api::GetConfigurationDataResponse)},
+  { 251, -1, -1, sizeof(::diagnostics::grpc_api::GetOsVersionRequest)},
+  { 257, -1, -1, sizeof(::diagnostics::grpc_api::GetOsVersionResponse)},
+  { 265, -1, -1, sizeof(::diagnostics::grpc_api::GetVpdFieldRequest)},
+  { 272, -1, -1, sizeof(::diagnostics::grpc_api::GetVpdFieldResponse)},
+  { 280, -1, -1, sizeof(::diagnostics::grpc_api::GetDriveSystemDataRequest)},
+  { 287, -1, -1, sizeof(::diagnostics::grpc_api::GetDriveSystemDataResponse)},
+  { 295, -1, -1, sizeof(::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest)},
+  { 301, -1, -1, sizeof(::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse)},
+  { 307, -1, -1, sizeof(::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest)},
+  { 313, -1, -1, sizeof(::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -1051,148 +1054,150 @@ const char descriptor_table_protodef_wilco_5fdtc_5fsupportd_2eproto[] PROTOBUF_S
   "\n\035BatterySysfsRoutineParameters\022\033\n\023maxim"
   "um_cycle_count\030\001 \001(\005\022$\n\034percent_battery_"
   "wear_allowed\030\002 \001(\005\"2\n\030UrandomRoutinePara"
-  "meters\022\026\n\016length_seconds\030\001 \001(\005\" \n\036Smartc"
-  "tlCheckRoutineParameters\".\n\024CpuRoutinePa"
-  "rameters\022\026\n\016length_seconds\030\001 \001(\005\"@\n&Floa"
-  "tingPointAccuracyRoutineParameters\022\026\n\016le"
-  "ngth_seconds\030\001 \001(\r\">\n\036NvmeWearLevelRouti"
-  "neParameters\022\034\n\024wear_level_threshold\030\001 \001"
-  "(\r\"$\n\"NvmeShortSelfTestRoutineParameters"
-  "\"#\n!NvmeLongSelfTestRoutineParameters\"O\n"
-  "\037DiskLinearReadRoutineParameters\022\026\n\016leng"
-  "th_seconds\030\001 \001(\r\022\024\n\014file_size_mb\030\002 \001(\r\"O"
-  "\n\037DiskRandomReadRoutineParameters\022\026\n\016len"
-  "gth_seconds\030\001 \001(\r\022\024\n\014file_size_mb\030\002 \001(\r\""
-  "G\n\034PrimeSearchRoutineParameters\022\026\n\016lengt"
-  "h_seconds\030\001 \001(\r\022\017\n\007max_num\030\002 \001(\004\"\245\001\n\022Run"
-  "RoutineResponse\022\014\n\004uuid\030\001 \001(\005\022=\n\006status\030"
-  "\002 \001(\0162-.diagnostics.grpc_api.DiagnosticR"
-  "outineStatus\022B\n\016service_status\030\003 \001(\0162*.d"
-  "iagnostics.grpc_api.RoutineServiceStatus"
-  "\"\331\001\n\027GetRoutineUpdateRequest\022\014\n\004uuid\030\001 \001"
-  "(\005\022F\n\007command\030\002 \001(\01625.diagnostics.grpc_a"
-  "pi.GetRoutineUpdateRequest.Command\022\026\n\016in"
-  "clude_output\030\003 \001(\010\"P\n\007Command\022\021\n\rCOMMAND"
-  "_UNSET\020\000\022\n\n\006RESUME\020\001\022\n\n\006CANCEL\020\002\022\016\n\nGET_"
-  "STATUS\020\003\022\n\n\006REMOVE\020\004\"\267\002\n\030GetRoutineUpdat"
-  "eResponse\022\014\n\004uuid\030\001 \001(\005\022=\n\006status\030\002 \001(\0162"
-  "-.diagnostics.grpc_api.DiagnosticRoutine"
-  "Status\022\030\n\020progress_percent\030\003 \001(\005\022H\n\014user"
-  "_message\030\004 \001(\01622.diagnostics.grpc_api.Di"
-  "agnosticRoutineUserMessage\022\016\n\006output\030\005 \001"
-  "(\t\022\026\n\016status_message\030\006 \001(\t\022B\n\016service_st"
-  "atus\030\007 \001(\0162*.diagnostics.grpc_api.Routin"
-  "eServiceStatus\"\035\n\033GetConfigurationDataRe"
-  "quest\"\?\n\034GetConfigurationDataResponse\022\037\n"
-  "\027json_configuration_data\030\001 \001(\t\"\025\n\023GetOsV"
-  "ersionRequest\":\n\024GetOsVersionResponse\022\017\n"
-  "\007version\030\001 \001(\t\022\021\n\tmilestone\030\002 \001(\005\"\256\002\n\022Ge"
-  "tVpdFieldRequest\022D\n\tvpd_field\030\001 \001(\01621.di"
-  "agnostics.grpc_api.GetVpdFieldRequest.Vp"
-  "dField\"\321\001\n\010VpdField\022\017\n\013FIELD_UNSET\020\000\022\027\n\023"
-  "FIELD_SERIAL_NUMBER\020\001\022\024\n\020FIELD_MODEL_NAM"
-  "E\020\002\022\022\n\016FIELD_ASSET_ID\020\003\022\024\n\020FIELD_SKU_NUM"
-  "BER\020\004\022\021\n\rFIELD_UUID_ID\020\005\022\032\n\026FIELD_MANUFA"
-  "CTURE_DATE\020\006\022\027\n\023FIELD_ACTIVATE_DATE\020\007\022\023\n"
-  "\017FIELD_SYSTEM_ID\020\010\"\332\001\n\023GetVpdFieldRespon"
-  "se\022@\n\006status\030\001 \001(\01620.diagnostics.grpc_ap"
-  "i.GetVpdFieldResponse.Status\022\027\n\017vpd_fiel"
-  "d_value\030\002 \001(\t\"h\n\006Status\022\020\n\014STATUS_UNSET\020"
-  "\000\022\r\n\tSTATUS_OK\020\001\022\"\n\036STATUS_ERROR_VPD_FIE"
-  "LD_UNKNOWN\020\002\022\031\n\025STATUS_ERROR_INTERNAL\020\004\""
-  "\246\001\n\031GetDriveSystemDataRequest\022B\n\004type\030\001 "
-  "\001(\01624.diagnostics.grpc_api.GetDriveSyste"
-  "mDataRequest.Type\"E\n\004Type\022\016\n\nTYPE_UNSET\020"
-  "\000\022\024\n\020SMART_ATTRIBUTES\020\001\022\027\n\023IDENTITY_ATTR"
-  "IBUTES\020\002\"\355\001\n\032GetDriveSystemDataResponse\022"
-  "G\n\006status\030\001 \001(\01627.diagnostics.grpc_api.G"
-  "etDriveSystemDataResponse.Status\022\017\n\007payl"
-  "oad\030\002 \001(\014\"u\n\006Status\022\020\n\014STATUS_UNSET\020\000\022\r\n"
-  "\tSTATUS_OK\020\001\022%\n!STATUS_ERROR_REQUEST_TYP"
-  "E_UNKNOWN\020\002\022#\n\037STATUS_ERROR_REQUEST_PROC"
-  "ESSING\020\003\")\n\'RequestBluetoothDataNotifica"
-  "tionRequest\"*\n(RequestBluetoothDataNotif"
-  "icationResponse\".\n,GetStatefulPartitionA"
-  "vailableCapacityRequest\"\372\001\n-GetStatefulP"
-  "artitionAvailableCapacityResponse\022Z\n\006sta"
-  "tus\030\001 \001(\0162J.diagnostics.grpc_api.GetStat"
-  "efulPartitionAvailableCapacityResponse.S"
-  "tatus\022\035\n\025available_capacity_mb\030\002 \001(\005\"N\n\006"
-  "Status\022\020\n\014STATUS_UNSET\020\000\022\r\n\tSTATUS_OK\020\001\022"
-  "#\n\037STATUS_ERROR_REQUEST_PROCESSING\020\002*\177\n\024"
-  "RoutineServiceStatus\022 \n\034ROUTINE_SERVICE_"
-  "STATUS_UNSET\020\000\022\035\n\031ROUTINE_SERVICE_STATUS"
-  "_OK\020\001\022&\n\"ROUTINE_SERVICE_STATUS_UNAVAILA"
-  "BLE\020\002*\221\003\n\021DiagnosticRoutine\022\021\n\rROUTINE_U"
-  "NSET\020\000\022\023\n\017ROUTINE_BATTERY\020\001\022\031\n\025ROUTINE_B"
-  "ATTERY_SYSFS\020\002\022\023\n\017ROUTINE_URANDOM\020\003\022\032\n\026R"
-  "OUTINE_SMARTCTL_CHECK\020\004\022\025\n\021ROUTINE_CPU_C"
-  "ACHE\020\005\022\026\n\022ROUTINE_CPU_STRESS\020\006\022#\n\037ROUTIN"
-  "E_FLOATING_POINT_ACCURACY\020\007\022\033\n\027ROUTINE_N"
-  "VME_WEAR_LEVEL\020\010\022 \n\034ROUTINE_NVME_SHORT_S"
-  "ELF_TEST\020\t\022\037\n\033ROUTINE_NVME_LONG_SELF_TES"
-  "T\020\n\022\034\n\030ROUTINE_DISK_LINEAR_READ\020\013\022\034\n\030ROU"
-  "TINE_DISK_RANDOM_READ\020\014\022\030\n\024ROUTINE_PRIME"
-  "_SEARCH\020\r*\332\002\n\027DiagnosticRoutineStatus\022\030\n"
-  "\024ROUTINE_STATUS_READY\020\000\022\032\n\026ROUTINE_STATU"
-  "S_RUNNING\020\001\022\032\n\026ROUTINE_STATUS_WAITING\020\002\022"
-  "\031\n\025ROUTINE_STATUS_PASSED\020\003\022\031\n\025ROUTINE_ST"
-  "ATUS_FAILED\020\004\022\030\n\024ROUTINE_STATUS_ERROR\020\005\022"
-  "\034\n\030ROUTINE_STATUS_CANCELLED\020\006\022\"\n\036ROUTINE"
-  "_STATUS_FAILED_TO_START\020\007\022\032\n\026ROUTINE_STA"
-  "TUS_REMOVED\020\010\022\035\n\031ROUTINE_STATUS_CANCELLI"
-  "NG\020\t\022 \n\034ROUTINE_STATUS_INVALID_FIELD\020\n*h"
-  "\n\034DiagnosticRoutineUserMessage\022\036\n\032ROUTIN"
-  "E_USER_MESSAGE_UNSET\020\000\022(\n$ROUTINE_USER_M"
-  "ESSAGE_UNPLUG_AC_POWER\020\0012\273\r\n\020WilcoDtcSup"
-  "portd\022p\n\017SendMessageToUi\022,.diagnostics.g"
-  "rpc_api.SendMessageToUiRequest\032-.diagnos"
-  "tics.grpc_api.SendMessageToUiResponse\"\000\022"
-  "d\n\013GetProcData\022(.diagnostics.grpc_api.Ge"
-  "tProcDataRequest\032).diagnostics.grpc_api."
-  "GetProcDataResponse\"\000\022g\n\014GetSysfsData\022)."
-  "diagnostics.grpc_api.GetSysfsDataRequest"
-  "\032*.diagnostics.grpc_api.GetSysfsDataResp"
-  "onse\"\000\022x\n\021PerformWebRequest\0220.diagnostic"
-  "s.grpc_api.PerformWebRequestParameter\032/."
-  "diagnostics.grpc_api.PerformWebRequestRe"
-  "sponse\"\000\022m\n\016GetEcTelemetry\022+.diagnostics"
-  ".grpc_api.GetEcTelemetryRequest\032,.diagno"
-  "stics.grpc_api.GetEcTelemetryResponse\"\000\022"
-  "\177\n\024GetAvailableRoutines\0221.diagnostics.gr"
-  "pc_api.GetAvailableRoutinesRequest\0322.dia"
-  "gnostics.grpc_api.GetAvailableRoutinesRe"
-  "sponse\"\000\022a\n\nRunRoutine\022\'.diagnostics.grp"
-  "c_api.RunRoutineRequest\032(.diagnostics.gr"
-  "pc_api.RunRoutineResponse\"\000\022s\n\020GetRoutin"
-  "eUpdate\022-.diagnostics.grpc_api.GetRoutin"
-  "eUpdateRequest\032..diagnostics.grpc_api.Ge"
-  "tRoutineUpdateResponse\"\000\022\177\n\024GetConfigura"
-  "tionData\0221.diagnostics.grpc_api.GetConfi"
-  "gurationDataRequest\0322.diagnostics.grpc_a"
-  "pi.GetConfigurationDataResponse\"\000\022g\n\014Get"
-  "OsVersion\022).diagnostics.grpc_api.GetOsVe"
-  "rsionRequest\032*.diagnostics.grpc_api.GetO"
-  "sVersionResponse\"\000\022d\n\013GetVpdField\022(.diag"
-  "nostics.grpc_api.GetVpdFieldRequest\032).di"
-  "agnostics.grpc_api.GetVpdFieldResponse\"\000"
-  "\022y\n\022GetDriveSystemData\022/.diagnostics.grp"
-  "c_api.GetDriveSystemDataRequest\0320.diagno"
-  "stics.grpc_api.GetDriveSystemDataRespons"
-  "e\"\000\022\243\001\n RequestBluetoothDataNotification"
-  "\022=.diagnostics.grpc_api.RequestBluetooth"
-  "DataNotificationRequest\032>.diagnostics.gr"
-  "pc_api.RequestBluetoothDataNotificationR"
-  "esponse\"\000\022\262\001\n%GetStatefulPartitionAvaila"
-  "bleCapacity\022B.diagnostics.grpc_api.GetSt"
-  "atefulPartitionAvailableCapacityRequest\032"
-  "C.diagnostics.grpc_api.GetStatefulPartit"
-  "ionAvailableCapacityResponse\"\000B\026Z\024chromi"
-  "umos/wilco_dtcb\006proto3"
+  "meters\022\026\n\016length_seconds\030\001 \001(\005\"f\n\036Smartc"
+  "tlCheckRoutineParameters\022&\n\031percentage_u"
+  "sed_threshold\030\001 \001(\rH\000\210\001\001B\034\n\032_percentage_"
+  "used_threshold\".\n\024CpuRoutineParameters\022\026"
+  "\n\016length_seconds\030\001 \001(\005\"@\n&FloatingPointA"
+  "ccuracyRoutineParameters\022\026\n\016length_secon"
+  "ds\030\001 \001(\r\">\n\036NvmeWearLevelRoutineParamete"
+  "rs\022\034\n\024wear_level_threshold\030\001 \001(\r\"$\n\"Nvme"
+  "ShortSelfTestRoutineParameters\"#\n!NvmeLo"
+  "ngSelfTestRoutineParameters\"O\n\037DiskLinea"
+  "rReadRoutineParameters\022\026\n\016length_seconds"
+  "\030\001 \001(\r\022\024\n\014file_size_mb\030\002 \001(\r\"O\n\037DiskRand"
+  "omReadRoutineParameters\022\026\n\016length_second"
+  "s\030\001 \001(\r\022\024\n\014file_size_mb\030\002 \001(\r\"G\n\034PrimeSe"
+  "archRoutineParameters\022\026\n\016length_seconds\030"
+  "\001 \001(\r\022\017\n\007max_num\030\002 \001(\004\"\245\001\n\022RunRoutineRes"
+  "ponse\022\014\n\004uuid\030\001 \001(\005\022=\n\006status\030\002 \001(\0162-.di"
+  "agnostics.grpc_api.DiagnosticRoutineStat"
+  "us\022B\n\016service_status\030\003 \001(\0162*.diagnostics"
+  ".grpc_api.RoutineServiceStatus\"\331\001\n\027GetRo"
+  "utineUpdateRequest\022\014\n\004uuid\030\001 \001(\005\022F\n\007comm"
+  "and\030\002 \001(\01625.diagnostics.grpc_api.GetRout"
+  "ineUpdateRequest.Command\022\026\n\016include_outp"
+  "ut\030\003 \001(\010\"P\n\007Command\022\021\n\rCOMMAND_UNSET\020\000\022\n"
+  "\n\006RESUME\020\001\022\n\n\006CANCEL\020\002\022\016\n\nGET_STATUS\020\003\022\n"
+  "\n\006REMOVE\020\004\"\267\002\n\030GetRoutineUpdateResponse\022"
+  "\014\n\004uuid\030\001 \001(\005\022=\n\006status\030\002 \001(\0162-.diagnost"
+  "ics.grpc_api.DiagnosticRoutineStatus\022\030\n\020"
+  "progress_percent\030\003 \001(\005\022H\n\014user_message\030\004"
+  " \001(\01622.diagnostics.grpc_api.DiagnosticRo"
+  "utineUserMessage\022\016\n\006output\030\005 \001(\t\022\026\n\016stat"
+  "us_message\030\006 \001(\t\022B\n\016service_status\030\007 \001(\016"
+  "2*.diagnostics.grpc_api.RoutineServiceSt"
+  "atus\"\035\n\033GetConfigurationDataRequest\"\?\n\034G"
+  "etConfigurationDataResponse\022\037\n\027json_conf"
+  "iguration_data\030\001 \001(\t\"\025\n\023GetOsVersionRequ"
+  "est\":\n\024GetOsVersionResponse\022\017\n\007version\030\001"
+  " \001(\t\022\021\n\tmilestone\030\002 \001(\005\"\256\002\n\022GetVpdFieldR"
+  "equest\022D\n\tvpd_field\030\001 \001(\01621.diagnostics."
+  "grpc_api.GetVpdFieldRequest.VpdField\"\321\001\n"
+  "\010VpdField\022\017\n\013FIELD_UNSET\020\000\022\027\n\023FIELD_SERI"
+  "AL_NUMBER\020\001\022\024\n\020FIELD_MODEL_NAME\020\002\022\022\n\016FIE"
+  "LD_ASSET_ID\020\003\022\024\n\020FIELD_SKU_NUMBER\020\004\022\021\n\rF"
+  "IELD_UUID_ID\020\005\022\032\n\026FIELD_MANUFACTURE_DATE"
+  "\020\006\022\027\n\023FIELD_ACTIVATE_DATE\020\007\022\023\n\017FIELD_SYS"
+  "TEM_ID\020\010\"\332\001\n\023GetVpdFieldResponse\022@\n\006stat"
+  "us\030\001 \001(\01620.diagnostics.grpc_api.GetVpdFi"
+  "eldResponse.Status\022\027\n\017vpd_field_value\030\002 "
+  "\001(\t\"h\n\006Status\022\020\n\014STATUS_UNSET\020\000\022\r\n\tSTATU"
+  "S_OK\020\001\022\"\n\036STATUS_ERROR_VPD_FIELD_UNKNOWN"
+  "\020\002\022\031\n\025STATUS_ERROR_INTERNAL\020\004\"\246\001\n\031GetDri"
+  "veSystemDataRequest\022B\n\004type\030\001 \001(\01624.diag"
+  "nostics.grpc_api.GetDriveSystemDataReque"
+  "st.Type\"E\n\004Type\022\016\n\nTYPE_UNSET\020\000\022\024\n\020SMART"
+  "_ATTRIBUTES\020\001\022\027\n\023IDENTITY_ATTRIBUTES\020\002\"\355"
+  "\001\n\032GetDriveSystemDataResponse\022G\n\006status\030"
+  "\001 \001(\01627.diagnostics.grpc_api.GetDriveSys"
+  "temDataResponse.Status\022\017\n\007payload\030\002 \001(\014\""
+  "u\n\006Status\022\020\n\014STATUS_UNSET\020\000\022\r\n\tSTATUS_OK"
+  "\020\001\022%\n!STATUS_ERROR_REQUEST_TYPE_UNKNOWN\020"
+  "\002\022#\n\037STATUS_ERROR_REQUEST_PROCESSING\020\003\")"
+  "\n\'RequestBluetoothDataNotificationReques"
+  "t\"*\n(RequestBluetoothDataNotificationRes"
+  "ponse\".\n,GetStatefulPartitionAvailableCa"
+  "pacityRequest\"\372\001\n-GetStatefulPartitionAv"
+  "ailableCapacityResponse\022Z\n\006status\030\001 \001(\0162"
+  "J.diagnostics.grpc_api.GetStatefulPartit"
+  "ionAvailableCapacityResponse.Status\022\035\n\025a"
+  "vailable_capacity_mb\030\002 \001(\005\"N\n\006Status\022\020\n\014"
+  "STATUS_UNSET\020\000\022\r\n\tSTATUS_OK\020\001\022#\n\037STATUS_"
+  "ERROR_REQUEST_PROCESSING\020\002*\177\n\024RoutineSer"
+  "viceStatus\022 \n\034ROUTINE_SERVICE_STATUS_UNS"
+  "ET\020\000\022\035\n\031ROUTINE_SERVICE_STATUS_OK\020\001\022&\n\"R"
+  "OUTINE_SERVICE_STATUS_UNAVAILABLE\020\002*\221\003\n\021"
+  "DiagnosticRoutine\022\021\n\rROUTINE_UNSET\020\000\022\023\n\017"
+  "ROUTINE_BATTERY\020\001\022\031\n\025ROUTINE_BATTERY_SYS"
+  "FS\020\002\022\023\n\017ROUTINE_URANDOM\020\003\022\032\n\026ROUTINE_SMA"
+  "RTCTL_CHECK\020\004\022\025\n\021ROUTINE_CPU_CACHE\020\005\022\026\n\022"
+  "ROUTINE_CPU_STRESS\020\006\022#\n\037ROUTINE_FLOATING"
+  "_POINT_ACCURACY\020\007\022\033\n\027ROUTINE_NVME_WEAR_L"
+  "EVEL\020\010\022 \n\034ROUTINE_NVME_SHORT_SELF_TEST\020\t"
+  "\022\037\n\033ROUTINE_NVME_LONG_SELF_TEST\020\n\022\034\n\030ROU"
+  "TINE_DISK_LINEAR_READ\020\013\022\034\n\030ROUTINE_DISK_"
+  "RANDOM_READ\020\014\022\030\n\024ROUTINE_PRIME_SEARCH\020\r*"
+  "\332\002\n\027DiagnosticRoutineStatus\022\030\n\024ROUTINE_S"
+  "TATUS_READY\020\000\022\032\n\026ROUTINE_STATUS_RUNNING\020"
+  "\001\022\032\n\026ROUTINE_STATUS_WAITING\020\002\022\031\n\025ROUTINE"
+  "_STATUS_PASSED\020\003\022\031\n\025ROUTINE_STATUS_FAILE"
+  "D\020\004\022\030\n\024ROUTINE_STATUS_ERROR\020\005\022\034\n\030ROUTINE"
+  "_STATUS_CANCELLED\020\006\022\"\n\036ROUTINE_STATUS_FA"
+  "ILED_TO_START\020\007\022\032\n\026ROUTINE_STATUS_REMOVE"
+  "D\020\010\022\035\n\031ROUTINE_STATUS_CANCELLING\020\t\022 \n\034RO"
+  "UTINE_STATUS_INVALID_FIELD\020\n*h\n\034Diagnost"
+  "icRoutineUserMessage\022\036\n\032ROUTINE_USER_MES"
+  "SAGE_UNSET\020\000\022(\n$ROUTINE_USER_MESSAGE_UNP"
+  "LUG_AC_POWER\020\0012\273\r\n\020WilcoDtcSupportd\022p\n\017S"
+  "endMessageToUi\022,.diagnostics.grpc_api.Se"
+  "ndMessageToUiRequest\032-.diagnostics.grpc_"
+  "api.SendMessageToUiResponse\"\000\022d\n\013GetProc"
+  "Data\022(.diagnostics.grpc_api.GetProcDataR"
+  "equest\032).diagnostics.grpc_api.GetProcDat"
+  "aResponse\"\000\022g\n\014GetSysfsData\022).diagnostic"
+  "s.grpc_api.GetSysfsDataRequest\032*.diagnos"
+  "tics.grpc_api.GetSysfsDataResponse\"\000\022x\n\021"
+  "PerformWebRequest\0220.diagnostics.grpc_api"
+  ".PerformWebRequestParameter\032/.diagnostic"
+  "s.grpc_api.PerformWebRequestResponse\"\000\022m"
+  "\n\016GetEcTelemetry\022+.diagnostics.grpc_api."
+  "GetEcTelemetryRequest\032,.diagnostics.grpc"
+  "_api.GetEcTelemetryResponse\"\000\022\177\n\024GetAvai"
+  "lableRoutines\0221.diagnostics.grpc_api.Get"
+  "AvailableRoutinesRequest\0322.diagnostics.g"
+  "rpc_api.GetAvailableRoutinesResponse\"\000\022a"
+  "\n\nRunRoutine\022\'.diagnostics.grpc_api.RunR"
+  "outineRequest\032(.diagnostics.grpc_api.Run"
+  "RoutineResponse\"\000\022s\n\020GetRoutineUpdate\022-."
+  "diagnostics.grpc_api.GetRoutineUpdateReq"
+  "uest\032..diagnostics.grpc_api.GetRoutineUp"
+  "dateResponse\"\000\022\177\n\024GetConfigurationData\0221"
+  ".diagnostics.grpc_api.GetConfigurationDa"
+  "taRequest\0322.diagnostics.grpc_api.GetConf"
+  "igurationDataResponse\"\000\022g\n\014GetOsVersion\022"
+  ").diagnostics.grpc_api.GetOsVersionReque"
+  "st\032*.diagnostics.grpc_api.GetOsVersionRe"
+  "sponse\"\000\022d\n\013GetVpdField\022(.diagnostics.gr"
+  "pc_api.GetVpdFieldRequest\032).diagnostics."
+  "grpc_api.GetVpdFieldResponse\"\000\022y\n\022GetDri"
+  "veSystemData\022/.diagnostics.grpc_api.GetD"
+  "riveSystemDataRequest\0320.diagnostics.grpc"
+  "_api.GetDriveSystemDataResponse\"\000\022\243\001\n Re"
+  "questBluetoothDataNotification\022=.diagnos"
+  "tics.grpc_api.RequestBluetoothDataNotifi"
+  "cationRequest\032>.diagnostics.grpc_api.Req"
+  "uestBluetoothDataNotificationResponse\"\000\022"
+  "\262\001\n%GetStatefulPartitionAvailableCapacit"
+  "y\022B.diagnostics.grpc_api.GetStatefulPart"
+  "itionAvailableCapacityRequest\032C.diagnost"
+  "ics.grpc_api.GetStatefulPartitionAvailab"
+  "leCapacityResponse\"\000B\026Z\024chromiumos/wilco"
+  "_dtcb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_wilco_5fdtc_5fsupportd_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_wilco_5fdtc_5fsupportd_2eproto = {
-  false, false, 8942, descriptor_table_protodef_wilco_5fdtc_5fsupportd_2eproto, "wilco_dtc_supportd.proto", 
+  false, false, 9012, descriptor_table_protodef_wilco_5fdtc_5fsupportd_2eproto, "wilco_dtc_supportd.proto", 
   &descriptor_table_wilco_5fdtc_5fsupportd_2eproto_once, nullptr, 0, 41,
   schemas, file_default_instances, TableStruct_wilco_5fdtc_5fsupportd_2eproto::offsets,
   file_level_metadata_wilco_5fdtc_5fsupportd_2eproto, file_level_enum_descriptors_wilco_5fdtc_5fsupportd_2eproto, file_level_service_descriptors_wilco_5fdtc_5fsupportd_2eproto,
@@ -5806,34 +5811,184 @@ void UrandomRoutineParameters::InternalSwap(UrandomRoutineParameters* other) {
 
 class SmartctlCheckRoutineParameters::_Internal {
  public:
+  using HasBits = decltype(std::declval<SmartctlCheckRoutineParameters>()._has_bits_);
+  static void set_has_percentage_used_threshold(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 SmartctlCheckRoutineParameters::SmartctlCheckRoutineParameters(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase(arena, is_message_owned) {
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
   // @@protoc_insertion_point(arena_constructor:diagnostics.grpc_api.SmartctlCheckRoutineParameters)
 }
 SmartctlCheckRoutineParameters::SmartctlCheckRoutineParameters(const SmartctlCheckRoutineParameters& from)
-  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  percentage_used_threshold_ = from.percentage_used_threshold_;
   // @@protoc_insertion_point(copy_constructor:diagnostics.grpc_api.SmartctlCheckRoutineParameters)
 }
 
+inline void SmartctlCheckRoutineParameters::SharedCtor() {
+percentage_used_threshold_ = 0u;
+}
 
+SmartctlCheckRoutineParameters::~SmartctlCheckRoutineParameters() {
+  // @@protoc_insertion_point(destructor:diagnostics.grpc_api.SmartctlCheckRoutineParameters)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
 
+inline void SmartctlCheckRoutineParameters::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
 
+void SmartctlCheckRoutineParameters::ArenaDtor(void* object) {
+  SmartctlCheckRoutineParameters* _this = reinterpret_cast< SmartctlCheckRoutineParameters* >(object);
+  (void)_this;
+}
+void SmartctlCheckRoutineParameters::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void SmartctlCheckRoutineParameters::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void SmartctlCheckRoutineParameters::Clear() {
+// @@protoc_insertion_point(message_clear_start:diagnostics.grpc_api.SmartctlCheckRoutineParameters)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  percentage_used_threshold_ = 0u;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* SmartctlCheckRoutineParameters::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional uint32 percentage_used_threshold = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_percentage_used_threshold(&has_bits);
+          percentage_used_threshold_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SmartctlCheckRoutineParameters::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:diagnostics.grpc_api.SmartctlCheckRoutineParameters)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // optional uint32 percentage_used_threshold = 1;
+  if (_internal_has_percentage_used_threshold()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_percentage_used_threshold(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:diagnostics.grpc_api.SmartctlCheckRoutineParameters)
+  return target;
+}
+
+size_t SmartctlCheckRoutineParameters::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:diagnostics.grpc_api.SmartctlCheckRoutineParameters)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional uint32 percentage_used_threshold = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_percentage_used_threshold());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SmartctlCheckRoutineParameters::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl,
-    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    SmartctlCheckRoutineParameters::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SmartctlCheckRoutineParameters::GetClassData() const { return &_class_data_; }
 
+void SmartctlCheckRoutineParameters::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<SmartctlCheckRoutineParameters *>(to)->MergeFrom(
+      static_cast<const SmartctlCheckRoutineParameters &>(from));
+}
 
 
+void SmartctlCheckRoutineParameters::MergeFrom(const SmartctlCheckRoutineParameters& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:diagnostics.grpc_api.SmartctlCheckRoutineParameters)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
 
+  if (from._internal_has_percentage_used_threshold()) {
+    _internal_set_percentage_used_threshold(from._internal_percentage_used_threshold());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
 
+void SmartctlCheckRoutineParameters::CopyFrom(const SmartctlCheckRoutineParameters& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:diagnostics.grpc_api.SmartctlCheckRoutineParameters)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
 
+bool SmartctlCheckRoutineParameters::IsInitialized() const {
+  return true;
+}
+
+void SmartctlCheckRoutineParameters::InternalSwap(SmartctlCheckRoutineParameters* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(percentage_used_threshold_, other->percentage_used_threshold_);
+}
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SmartctlCheckRoutineParameters::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(

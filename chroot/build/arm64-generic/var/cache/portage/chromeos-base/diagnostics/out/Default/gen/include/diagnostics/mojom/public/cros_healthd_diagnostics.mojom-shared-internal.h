@@ -72,6 +72,7 @@ struct DiagnosticRoutineEnum_Data {
       case 33:
       case 34:
       case 35:
+      case 36:
         return true;
     }
     return false;

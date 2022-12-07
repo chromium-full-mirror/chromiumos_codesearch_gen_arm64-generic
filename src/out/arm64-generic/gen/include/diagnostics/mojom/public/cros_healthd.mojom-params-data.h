@@ -304,6 +304,7 @@ class  CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> percentage_used_threshold;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data>;
@@ -311,7 +312,7 @@ class  CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data {
   CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data();
   ~CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data() = delete;
 };
-static_assert(sizeof(CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data) == 8,
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data)");
 class  CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParams_Data {
  public:
@@ -2112,11 +2113,33 @@ class CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ParamsDataView {
   CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ParamsDataView(
       internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
+  inline void GetPercentageUsedThresholdDataView(
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPercentageUsedThreshold(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+    "Attempting to read the optional `percentage_used_threshold` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadPercentageUsedThreshold` instead "
+    "of `ReadPercentageUsedThreshold if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 6
+                    ? data_->percentage_used_threshold.Get() : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+        pointer, output, message_);
+  }
  private:
   internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -4322,6 +4345,12 @@ inline void CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParams
 }
 
 
+inline void CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ParamsDataView::GetPercentageUsedThresholdDataView(
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
+  auto pointer = data_->header_.version >= 6
+                 ? data_->percentage_used_threshold.Get() : nullptr;
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+}
 
 
 inline void CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParamsDataView::GetResponseDataView(

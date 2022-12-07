@@ -152,7 +152,7 @@ class CrosHealthdDiagnosticsService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 5;
+  static constexpr uint32_t Version_ = 6;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -353,7 +353,7 @@ class CrosHealthdDiagnosticsService
 
   using RunSmartctlCheckRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
-  virtual void RunSmartctlCheckRoutine(RunSmartctlCheckRoutineCallback callback) = 0;
+  virtual void RunSmartctlCheckRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold, RunSmartctlCheckRoutineCallback callback) = 0;
 
 
   using RunAcPowerRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
@@ -832,7 +832,7 @@ class  CrosHealthdDiagnosticsServiceProxy
   
   void RunBatteryHealthRoutine(RunBatteryHealthRoutineCallback callback) final;
   
-  void RunSmartctlCheckRoutine(RunSmartctlCheckRoutineCallback callback) final;
+  void RunSmartctlCheckRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold, RunSmartctlCheckRoutineCallback callback) final;
   
   void RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) final;
   

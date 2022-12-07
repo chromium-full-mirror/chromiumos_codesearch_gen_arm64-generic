@@ -2431,9 +2431,16 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryHealthRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceProxy::RunSmartctlCheckRoutine(
-    RunSmartctlCheckRoutineCallback callback) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr in_percentage_used_threshold, RunSmartctlCheckRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine");
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("percentage_used_threshold"), in_percentage_used_threshold,
+                        "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
+   });
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -2450,6 +2457,13 @@ void CrosHealthdDiagnosticsServiceProxy::RunSmartctlCheckRoutine(
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data> params(
           message);
   params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->percentage_used_threshold)::BaseType> percentage_used_threshold_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+      in_percentage_used_threshold, percentage_used_threshold_fragment);
+  params->percentage_used_threshold.Set(
+      percentage_used_threshold_fragment.is_null() ? nullptr : percentage_used_threshold_fragment.data());
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
@@ -8640,8 +8654,11 @@ std::move(p_length_seconds), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_percentage_used_threshold = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NullableUint32Ptr>();
       CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadPercentageUsedThreshold(&p_percentage_used_threshold))
+        success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -8654,7 +8671,8 @@ std::move(p_length_seconds), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunSmartctlCheckRoutine(std::move(callback));
+      impl->RunSmartctlCheckRoutine(
+std::move(p_percentage_used_threshold), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name: {
@@ -12120,8 +12138,8 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBatteryCapacityRouti
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBatteryHealthRoutine(RunBatteryHealthRoutineCallback callback) {
   GetForwardingInterface()->RunBatteryHealthRoutine(std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunSmartctlCheckRoutine(RunSmartctlCheckRoutineCallback callback) {
-  GetForwardingInterface()->RunSmartctlCheckRoutine(std::move(callback));
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunSmartctlCheckRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold, RunSmartctlCheckRoutineCallback callback) {
+  GetForwardingInterface()->RunSmartctlCheckRoutine(std::move(percentage_used_threshold), std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) {
   GetForwardingInterface()->RunAcPowerRoutine(std::move(expected_status), std::move(expected_power_type), std::move(callback));
@@ -12340,9 +12358,9 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryHealthRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSmartctlCheckRoutine(
-    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
-  proxy_->RunSmartctlCheckRoutine(
+  proxy_->RunSmartctlCheckRoutine(std::move(percentage_used_threshold),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
@@ -12356,9 +12374,9 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSmartctlCheckRoutine(
 }
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunSmartctlCheckRoutine(
-    ) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold) {
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
-  RunSmartctlCheckRoutine(&async_wait_result);
+  RunSmartctlCheckRoutine(std::move(percentage_used_threshold),&async_wait_result);
   return async_wait_result;
 }
 

@@ -3824,9 +3824,10 @@ class UrandomRoutineParameters final :
 // -------------------------------------------------------------------
 
 class SmartctlCheckRoutineParameters final :
-    public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:diagnostics.grpc_api.SmartctlCheckRoutineParameters) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:diagnostics.grpc_api.SmartctlCheckRoutineParameters) */ {
  public:
   inline SmartctlCheckRoutineParameters() : SmartctlCheckRoutineParameters(nullptr) {}
+  ~SmartctlCheckRoutineParameters() override;
   explicit constexpr SmartctlCheckRoutineParameters(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
   SmartctlCheckRoutineParameters(const SmartctlCheckRoutineParameters& from);
@@ -3899,15 +3900,27 @@ class SmartctlCheckRoutineParameters final :
   SmartctlCheckRoutineParameters* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
     return CreateMaybeMessage<SmartctlCheckRoutineParameters>(arena);
   }
-  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyFrom;
-  inline void CopyFrom(const SmartctlCheckRoutineParameters& from) {
-    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl(this, from);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeFrom;
-  void MergeFrom(const SmartctlCheckRoutineParameters& from) {
-    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl(this, from);
-  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const SmartctlCheckRoutineParameters& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const SmartctlCheckRoutineParameters& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
   public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SmartctlCheckRoutineParameters* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
@@ -3918,6 +3931,8 @@ class SmartctlCheckRoutineParameters final :
   explicit SmartctlCheckRoutineParameters(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   public:
 
   static const ClassData _class_data_;
@@ -3929,6 +3944,22 @@ class SmartctlCheckRoutineParameters final :
 
   // accessors -------------------------------------------------------
 
+  enum : int {
+    kPercentageUsedThresholdFieldNumber = 1,
+  };
+  // optional uint32 percentage_used_threshold = 1;
+  bool has_percentage_used_threshold() const;
+  private:
+  bool _internal_has_percentage_used_threshold() const;
+  public:
+  void clear_percentage_used_threshold();
+  uint32_t percentage_used_threshold() const;
+  void set_percentage_used_threshold(uint32_t value);
+  private:
+  uint32_t _internal_percentage_used_threshold() const;
+  void _internal_set_percentage_used_threshold(uint32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:diagnostics.grpc_api.SmartctlCheckRoutineParameters)
  private:
   class _Internal;
@@ -3936,7 +3967,9 @@ class SmartctlCheckRoutineParameters final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint32_t percentage_used_threshold_;
   friend struct ::TableStruct_wilco_5fdtc_5fsupportd_2eproto;
 };
 // -------------------------------------------------------------------
@@ -9473,6 +9506,34 @@ inline void UrandomRoutineParameters::set_length_seconds(int32_t value) {
 // -------------------------------------------------------------------
 
 // SmartctlCheckRoutineParameters
+
+// optional uint32 percentage_used_threshold = 1;
+inline bool SmartctlCheckRoutineParameters::_internal_has_percentage_used_threshold() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool SmartctlCheckRoutineParameters::has_percentage_used_threshold() const {
+  return _internal_has_percentage_used_threshold();
+}
+inline void SmartctlCheckRoutineParameters::clear_percentage_used_threshold() {
+  percentage_used_threshold_ = 0u;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline uint32_t SmartctlCheckRoutineParameters::_internal_percentage_used_threshold() const {
+  return percentage_used_threshold_;
+}
+inline uint32_t SmartctlCheckRoutineParameters::percentage_used_threshold() const {
+  // @@protoc_insertion_point(field_get:diagnostics.grpc_api.SmartctlCheckRoutineParameters.percentage_used_threshold)
+  return _internal_percentage_used_threshold();
+}
+inline void SmartctlCheckRoutineParameters::_internal_set_percentage_used_threshold(uint32_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  percentage_used_threshold_ = value;
+}
+inline void SmartctlCheckRoutineParameters::set_percentage_used_threshold(uint32_t value) {
+  _internal_set_percentage_used_threshold(value);
+  // @@protoc_insertion_point(field_set:diagnostics.grpc_api.SmartctlCheckRoutineParameters.percentage_used_threshold)
+}
 
 // -------------------------------------------------------------------
 

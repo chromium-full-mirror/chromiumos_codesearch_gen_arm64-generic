@@ -49,6 +49,7 @@ std::set<mojo_ipc::DiagnosticRoutineEnum> GetAllAvailableRoutines() {
       mojo_ipc::DiagnosticRoutineEnum::kBatteryCharge,
       mojo_ipc::DiagnosticRoutineEnum::kBatteryHealth,
       mojo_ipc::DiagnosticRoutineEnum::kSmartctlCheck,
+      mojo_ipc::DiagnosticRoutineEnum::kSmartctlCheckWithPercentageUsed,
       mojo_ipc::DiagnosticRoutineEnum::kAcPower,
       mojo_ipc::DiagnosticRoutineEnum::kCpuCache,
       mojo_ipc::DiagnosticRoutineEnum::kCpuStress,
@@ -102,7 +103,8 @@ std::set<mojo_ipc::DiagnosticRoutineEnum> GetWilcoRoutines() {
 
 std::set<mojo_ipc::DiagnosticRoutineEnum> GetSmartCtlRoutines() {
   return std::set<mojo_ipc::DiagnosticRoutineEnum>{
-      mojo_ipc::DiagnosticRoutineEnum::kSmartctlCheck};
+      mojo_ipc::DiagnosticRoutineEnum::kSmartctlCheck,
+      mojo_ipc::DiagnosticRoutineEnum::kSmartctlCheckWithPercentageUsed};
 }
 
 std::set<mojo_ipc::DiagnosticRoutineEnum> GetFioRoutines() {
@@ -383,7 +385,7 @@ TEST_F(CrosHealthdRoutineServiceTest, RunUrandomRoutine) {
 }
 
 // Test that the smartctl check routine can be run.
-TEST_F(CrosHealthdRoutineServiceTest, RunSmartctlCheckRoutine) {
+TEST_F(CrosHealthdRoutineServiceTest, RunSmartctlCheckRoutineWithoutParam) {
   constexpr mojo_ipc::DiagnosticRoutineStatusEnum kExpectedStatus =
       mojo_ipc::DiagnosticRoutineStatusEnum::kRunning;
   routine_factory()->SetNonInteractiveStatus(
@@ -392,11 +394,37 @@ TEST_F(CrosHealthdRoutineServiceTest, RunSmartctlCheckRoutine) {
 
   mojo_ipc::RunRoutineResponsePtr response;
   base::RunLoop run_loop;
-  service()->RunSmartctlCheckRoutine(base::BindLambdaForTesting(
-      [&](mojo_ipc::RunRoutineResponsePtr received_response) {
-        response = std::move(received_response);
-        run_loop.Quit();
-      }));
+  // Pass the threshold as nullptr to test interface's backward compatibility.
+  service()->RunSmartctlCheckRoutine(
+      /*percentage_used_threshold=*/nullptr,
+      base::BindLambdaForTesting(
+          [&](mojo_ipc::RunRoutineResponsePtr received_response) {
+            response = std::move(received_response);
+            run_loop.Quit();
+          }));
+  run_loop.Run();
+
+  EXPECT_EQ(response->id, 1);
+  EXPECT_EQ(response->status, kExpectedStatus);
+}
+
+// Test that the smartctl check routine can be run.
+TEST_F(CrosHealthdRoutineServiceTest, RunSmartctlCheckRoutineWithParam) {
+  constexpr mojo_ipc::DiagnosticRoutineStatusEnum kExpectedStatus =
+      mojo_ipc::DiagnosticRoutineStatusEnum::kRunning;
+  routine_factory()->SetNonInteractiveStatus(
+      kExpectedStatus, /*status_message=*/"", /*progress_percent=*/50,
+      /*output=*/"");
+
+  mojo_ipc::RunRoutineResponsePtr response;
+  base::RunLoop run_loop;
+  service()->RunSmartctlCheckRoutine(
+      /*percentage_used_threshold=*/mojo_ipc::NullableUint32::New(255),
+      base::BindLambdaForTesting(
+          [&](mojo_ipc::RunRoutineResponsePtr received_response) {
+            response = std::move(received_response);
+            run_loop.Quit();
+          }));
   run_loop.Run();
 
   EXPECT_EQ(response->id, 1);
@@ -944,11 +972,13 @@ TEST_F(CrosHealthdRoutineServiceTest, AccessStoppedRoutine) {
 
   mojo_ipc::RunRoutineResponsePtr response;
   base::RunLoop run_loop;
-  service()->RunSmartctlCheckRoutine(base::BindLambdaForTesting(
-      [&](mojo_ipc::RunRoutineResponsePtr received_response) {
-        response = std::move(received_response);
-        run_loop.Quit();
-      }));
+  service()->RunSmartctlCheckRoutine(
+      /*percentage_used_threshold=*/mojo_ipc::NullableUint32Ptr(),
+      base::BindLambdaForTesting(
+          [&](mojo_ipc::RunRoutineResponsePtr received_response) {
+            response = std::move(received_response);
+            run_loop.Quit();
+          }));
   run_loop.Run();
 
   ExecuteGetRoutineUpdate(response->id,
@@ -976,11 +1006,13 @@ TEST_F(CrosHealthdRoutineServiceTest, RunUnsupportedRoutine) {
 
   mojo_ipc::RunRoutineResponsePtr response;
   base::RunLoop run_loop;
-  service()->RunSmartctlCheckRoutine(base::BindLambdaForTesting(
-      [&](mojo_ipc::RunRoutineResponsePtr received_response) {
-        response = std::move(received_response);
-        run_loop.Quit();
-      }));
+  service()->RunSmartctlCheckRoutine(
+      /*percentage_used_threshold=*/mojo_ipc::NullableUint32Ptr(),
+      base::BindLambdaForTesting(
+          [&](mojo_ipc::RunRoutineResponsePtr received_response) {
+            response = std::move(received_response);
+            run_loop.Quit();
+          }));
   run_loop.Run();
 
   EXPECT_EQ(response->id, mojo_ipc::kFailedToStartId);
@@ -1026,11 +1058,13 @@ TEST_P(RoutineUpdateCommandTest, SendCommand) {
 
   mojo_ipc::RunRoutineResponsePtr response;
   base::RunLoop run_loop;
-  service()->RunSmartctlCheckRoutine(base::BindLambdaForTesting(
-      [&](mojo_ipc::RunRoutineResponsePtr received_response) {
-        response = std::move(received_response);
-        run_loop.Quit();
-      }));
+  service()->RunSmartctlCheckRoutine(
+      /*percentage_used_threshold=*/mojo_ipc::NullableUint32Ptr(),
+      base::BindLambdaForTesting(
+          [&](mojo_ipc::RunRoutineResponsePtr received_response) {
+            response = std::move(received_response);
+            run_loop.Quit();
+          }));
   run_loop.Run();
 
   auto update = ExecuteGetRoutineUpdate(response->id, params().command,

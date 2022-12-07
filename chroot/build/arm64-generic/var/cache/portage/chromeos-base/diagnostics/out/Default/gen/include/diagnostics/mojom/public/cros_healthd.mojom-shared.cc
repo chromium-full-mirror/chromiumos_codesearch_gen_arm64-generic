@@ -555,8 +555,12 @@ bool CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data::Validate
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 6, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -564,12 +568,17 @@ bool CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data::Validate
   // the message comes from an older version.
   [[maybe_unused]] const CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data* object =
       static_cast<const CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data*>(data);
+  if (object->header_.version < 6)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->percentage_used_threshold, validation_context))
+    return false;
 
   return true;
 }
 
 CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 6}) {}
 
 
 // static

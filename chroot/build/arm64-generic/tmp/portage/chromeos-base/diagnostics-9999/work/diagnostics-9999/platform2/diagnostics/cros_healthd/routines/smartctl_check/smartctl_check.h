@@ -6,6 +6,7 @@
 #define DIAGNOSTICS_CROS_HEALTHD_ROUTINES_SMARTCTL_CHECK_SMARTCTL_CHECK_H_
 
 #include <cstdint>
+#include <optional>
 #include <string>
 
 #include <base/values.h>
@@ -26,17 +27,27 @@ inline constexpr char kSmartctlCheckRoutineSuccess[] =
     "smartctl-check status: PASS.";
 inline constexpr char kSmartctlCheckRoutineFailedToParse[] =
     "smartctl-check status: FAILED, unable to parse smartctl output.";
+inline constexpr char kSmartctlCheckRoutineCheckFailed[] =
+    "smartctl-check status: FAILED, one or more checks have failed.";
 inline constexpr char kSmartctlCheckRoutineDebugdError[] =
     "smartctl-check status: ERROR, debugd returns error.";
-inline constexpr char kSmartctlCheckRoutineFailedAvailableSpare[] =
-    "smartctl-check status: FAILED, available_spare is less than "
-    "available_spare_threshold.";
+inline constexpr char kSmartctlCheckRoutineThresholdError[] =
+    "smartctl-check status: ERROR, threshold in percentage should be non-empty "
+    "and between 0 and 255, inclusive.";
 
-// The SmartctlCheckRoutine routine to examine available_spare against
-// available_spare_threshold.
+// The SmartctlCheckRoutine routine to examine:
+// available_spare check: available_spare against available_spare_threshold.
+// percentage_used check: percentage_used against input threshold.
+// critical_warning check: critical_warning is 0x00 (no warning).
 class SmartctlCheckRoutine final : public DiagnosticRoutine {
  public:
-  SmartctlCheckRoutine(org::chromium::debugdProxyInterface* debugd_proxy);
+  static const uint32_t kPercentageUsedMax;
+  static const uint32_t kPercentageUsedMin;
+  static const uint32_t kCriticalWarningNone;
+
+  SmartctlCheckRoutine(
+      org::chromium::debugdProxyInterface* debugd_proxy,
+      const std::optional<uint32_t>& percentage_used_threshold);
   SmartctlCheckRoutine(const SmartctlCheckRoutine&) = delete;
   SmartctlCheckRoutine& operator=(const SmartctlCheckRoutine&) = delete;
   ~SmartctlCheckRoutine() override;
@@ -60,6 +71,7 @@ class SmartctlCheckRoutine final : public DiagnosticRoutine {
       std::string msg);
 
   org::chromium::debugdProxyInterface* const debugd_proxy_;
+  uint32_t percentage_used_threshold_;
 
   ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum status_ =
       ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum::kReady;
