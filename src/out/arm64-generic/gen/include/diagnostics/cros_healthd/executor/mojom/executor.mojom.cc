@@ -192,6 +192,57 @@ bool FingerprintFrameResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+const char ProcessControl::Name_[] = "ash.cros_healthd.mojom.ProcessControl";
+
+ProcessControl::IPCStableHashFunction ProcessControl::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* ProcessControl::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+ProcessControlProxy::ProcessControlProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+// static
+bool ProcessControlStubDispatch::Accept(
+    ProcessControl* impl,
+    mojo::Message* message) {
+  return false;
+}
+
+// static
+bool ProcessControlStubDispatch::AcceptWithResponder(
+    ProcessControl* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  return false;
+}
+
+
+
+bool ProcessControlRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::ProcessControl::Name_;
+  return mojo::internal::ValidateRequestGeneric(message, name, {});
+}
+
 const char Executor::Name_[] = "ash.cros_healthd.mojom.Executor";
 
 Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& message) {
@@ -3915,6 +3966,14 @@ bool StructTraits<::ash::cros_healthd::mojom::FingerprintFrameResult::DataView, 
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+
+
+ProcessControlAsyncWaiter::ProcessControlAsyncWaiter(
+    ProcessControl* proxy) : proxy_(proxy) {}
+
+ProcessControlAsyncWaiter::~ProcessControlAsyncWaiter() = default;
+
+
 
 
 void ExecutorInterceptorForTesting::GetFanSpeed(GetFanSpeedCallback callback) {

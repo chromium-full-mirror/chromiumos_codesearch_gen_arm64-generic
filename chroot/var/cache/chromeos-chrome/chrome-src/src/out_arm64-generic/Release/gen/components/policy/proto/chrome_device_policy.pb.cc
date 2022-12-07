@@ -1239,6 +1239,18 @@ struct KeyboardBacklightColorProtoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyboardBacklightColorProtoDefaultTypeInternal _KeyboardBacklightColorProto_default_instance_;
+PROTOBUF_CONSTEXPR KeyboardBrightnessProto::KeyboardBrightnessProto(
+    ::_pbi::ConstantInitialized)
+  : percentage_(0){}
+struct KeyboardBrightnessProtoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR KeyboardBrightnessProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~KeyboardBrightnessProtoDefaultTypeInternal() {}
+  union {
+    KeyboardBrightnessProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyboardBrightnessProtoDefaultTypeInternal _KeyboardBrightnessProto_default_instance_;
 PROTOBUF_CONSTEXPR DeviceUserPolicyLoopbackProcessingModeProto::DeviceUserPolicyLoopbackProcessingModeProto(
     ::_pbi::ConstantInitialized)
   : mode_(0)
@@ -1878,7 +1890,8 @@ PROTOBUF_CONSTEXPR ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
   , device_login_screen_context_aware_access_signals_allowlist_(nullptr)
   , device_printing_client_name_template_(nullptr)
   , device_report_xdr_events_(nullptr)
-  , keyboard_backlight_color_(nullptr){}
+  , keyboard_backlight_color_(nullptr)
+  , keyboard_brightness_(nullptr){}
 struct ChromeDeviceSettingsProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ChromeDeviceSettingsProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -24769,6 +24782,186 @@ std::string KeyboardBacklightColorProto::GetTypeName() const {
 
 // ===================================================================
 
+class KeyboardBrightnessProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<KeyboardBrightnessProto>()._has_bits_);
+  static void set_has_percentage(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+KeyboardBrightnessProto::KeyboardBrightnessProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.KeyboardBrightnessProto)
+}
+KeyboardBrightnessProto::KeyboardBrightnessProto(const KeyboardBrightnessProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  percentage_ = from.percentage_;
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.KeyboardBrightnessProto)
+}
+
+inline void KeyboardBrightnessProto::SharedCtor() {
+percentage_ = 0;
+}
+
+KeyboardBrightnessProto::~KeyboardBrightnessProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.KeyboardBrightnessProto)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void KeyboardBrightnessProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void KeyboardBrightnessProto::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void KeyboardBrightnessProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.KeyboardBrightnessProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  percentage_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* KeyboardBrightnessProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional int32 percentage = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_percentage(&has_bits);
+          percentage_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* KeyboardBrightnessProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.KeyboardBrightnessProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional int32 percentage = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_percentage(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.KeyboardBrightnessProto)
+  return target;
+}
+
+size_t KeyboardBrightnessProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.KeyboardBrightnessProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional int32 percentage = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_percentage());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void KeyboardBrightnessProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const KeyboardBrightnessProto*>(
+      &from));
+}
+
+void KeyboardBrightnessProto::MergeFrom(const KeyboardBrightnessProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.KeyboardBrightnessProto)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_percentage()) {
+    _internal_set_percentage(from._internal_percentage());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void KeyboardBrightnessProto::CopyFrom(const KeyboardBrightnessProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.KeyboardBrightnessProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool KeyboardBrightnessProto::IsInitialized() const {
+  return true;
+}
+
+void KeyboardBrightnessProto::InternalSwap(KeyboardBrightnessProto* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(percentage_, other->percentage_);
+}
+
+std::string KeyboardBrightnessProto::GetTypeName() const {
+  return "enterprise_management.KeyboardBrightnessProto";
+}
+
+
+// ===================================================================
+
 class DeviceUserPolicyLoopbackProcessingModeProto::_Internal {
  public:
   using HasBits = decltype(std::declval<DeviceUserPolicyLoopbackProcessingModeProto>()._has_bits_);
@@ -33137,6 +33330,10 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_keyboard_backlight_color(HasBits* has_bits) {
     (*has_bits)[4] |= 128u;
   }
+  static const ::enterprise_management::KeyboardBrightnessProto& keyboard_brightness(const ChromeDeviceSettingsProto* msg);
+  static void set_has_keyboard_brightness(HasBits* has_bits) {
+    (*has_bits)[4] |= 256u;
+  }
 };
 
 const ::enterprise_management::DevicePolicyRefreshRateProto&
@@ -33682,6 +33879,10 @@ ChromeDeviceSettingsProto::_Internal::device_report_xdr_events(const ChromeDevic
 const ::enterprise_management::KeyboardBacklightColorProto&
 ChromeDeviceSettingsProto::_Internal::keyboard_backlight_color(const ChromeDeviceSettingsProto* msg) {
   return *msg->keyboard_backlight_color_;
+}
+const ::enterprise_management::KeyboardBrightnessProto&
+ChromeDeviceSettingsProto::_Internal::keyboard_brightness(const ChromeDeviceSettingsProto* msg) {
+  return *msg->keyboard_brightness_;
 }
 void ChromeDeviceSettingsProto::clear_device_login_screen_system_info_enforced() {
   if (device_login_screen_system_info_enforced_ != nullptr) device_login_screen_system_info_enforced_->Clear();
@@ -34429,14 +34630,19 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
   } else {
     keyboard_backlight_color_ = nullptr;
   }
+  if (from._internal_has_keyboard_brightness()) {
+    keyboard_brightness_ = new ::enterprise_management::KeyboardBrightnessProto(*from.keyboard_brightness_);
+  } else {
+    keyboard_brightness_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.ChromeDeviceSettingsProto)
 }
 
 inline void ChromeDeviceSettingsProto::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&device_policy_refresh_rate_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&keyboard_backlight_color_) -
-    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(keyboard_backlight_color_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&keyboard_brightness_) -
+    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(keyboard_brightness_));
 }
 
 ChromeDeviceSettingsProto::~ChromeDeviceSettingsProto() {
@@ -34586,6 +34792,7 @@ inline void ChromeDeviceSettingsProto::SharedDtor() {
   if (this != internal_default_instance()) delete device_printing_client_name_template_;
   if (this != internal_default_instance()) delete device_report_xdr_events_;
   if (this != internal_default_instance()) delete keyboard_backlight_color_;
+  if (this != internal_default_instance()) delete keyboard_brightness_;
 }
 
 void ChromeDeviceSettingsProto::SetCachedSize(int size) const {
@@ -35180,6 +35387,10 @@ void ChromeDeviceSettingsProto::Clear() {
       GOOGLE_DCHECK(keyboard_backlight_color_ != nullptr);
       keyboard_backlight_color_->Clear();
     }
+  }
+  if (cached_has_bits & 0x00000100u) {
+    GOOGLE_DCHECK(keyboard_brightness_ != nullptr);
+    keyboard_brightness_->Clear();
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -36279,6 +36490,14 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.KeyboardBrightnessProto keyboard_brightness = 140;
+      case 140:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
+          ptr = ctx->ParseMessage(_internal_mutable_keyboard_brightness(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -37263,6 +37482,13 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(139, _Internal::keyboard_backlight_color(this),
         _Internal::keyboard_backlight_color(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.KeyboardBrightnessProto keyboard_brightness = 140;
+  if (cached_has_bits & 0x00000100u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(140, _Internal::keyboard_brightness(this),
+        _Internal::keyboard_brightness(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -38272,6 +38498,13 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
     }
 
   }
+  // optional .enterprise_management.KeyboardBrightnessProto keyboard_brightness = 140;
+  if (cached_has_bits & 0x00000100u) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *keyboard_brightness_);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -38739,6 +38972,9 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
       _internal_mutable_keyboard_backlight_color()->::enterprise_management::KeyboardBacklightColorProto::MergeFrom(from._internal_keyboard_backlight_color());
     }
   }
+  if (cached_has_bits & 0x00000100u) {
+    _internal_mutable_keyboard_brightness()->::enterprise_management::KeyboardBrightnessProto::MergeFrom(from._internal_keyboard_brightness());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -38762,8 +38998,8 @@ void ChromeDeviceSettingsProto::InternalSwap(ChromeDeviceSettingsProto* other) {
   swap(_has_bits_[3], other->_has_bits_[3]);
   swap(_has_bits_[4], other->_has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, keyboard_backlight_color_)
-      + sizeof(ChromeDeviceSettingsProto::keyboard_backlight_color_)
+      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, keyboard_brightness_)
+      + sizeof(ChromeDeviceSettingsProto::keyboard_brightness_)
       - PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_policy_refresh_rate_)>(
           reinterpret_cast<char*>(&device_policy_refresh_rate_),
           reinterpret_cast<char*>(&other->device_policy_refresh_rate_));
@@ -39136,6 +39372,10 @@ Arena::CreateMaybeMessage< ::enterprise_management::DeviceKerberosEncryptionType
 template<> PROTOBUF_NOINLINE ::enterprise_management::KeyboardBacklightColorProto*
 Arena::CreateMaybeMessage< ::enterprise_management::KeyboardBacklightColorProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::KeyboardBacklightColorProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::KeyboardBrightnessProto*
+Arena::CreateMaybeMessage< ::enterprise_management::KeyboardBrightnessProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::KeyboardBrightnessProto >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceUserPolicyLoopbackProcessingModeProto*
 Arena::CreateMaybeMessage< ::enterprise_management::DeviceUserPolicyLoopbackProcessingModeProto >(Arena* arena) {

@@ -53,6 +53,7 @@ namespace InterestGroupAccessTypeEnum {
 CONTENT_EXPORT extern const char Join[];
 CONTENT_EXPORT extern const char Leave[];
 CONTENT_EXPORT extern const char Update[];
+CONTENT_EXPORT extern const char Loaded[];
 CONTENT_EXPORT extern const char Bid[];
 CONTENT_EXPORT extern const char Win[];
 } // namespace InterestGroupAccessTypeEnum

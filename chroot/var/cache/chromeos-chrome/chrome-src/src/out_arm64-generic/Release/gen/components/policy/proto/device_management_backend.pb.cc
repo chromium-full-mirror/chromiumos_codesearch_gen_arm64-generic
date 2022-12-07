@@ -1691,6 +1691,8 @@ PROTOBUF_CONSTEXPR DeviceInitialEnrollmentStateResponse::DeviceInitialEnrollment
 
   , is_license_packaged_with_device_(false)
   , license_packaging_sku_(0)
+
+  , assigned_upgrade_type_(0)
 {}
 struct DeviceInitialEnrollmentStateResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceInitialEnrollmentStateResponseDefaultTypeInternal()
@@ -5824,6 +5826,69 @@ constexpr DeviceInitialEnrollmentStateResponse_LicensePackagingSKU DeviceInitial
 constexpr DeviceInitialEnrollmentStateResponse_LicensePackagingSKU DeviceInitialEnrollmentStateResponse::LicensePackagingSKU_MIN;
 constexpr DeviceInitialEnrollmentStateResponse_LicensePackagingSKU DeviceInitialEnrollmentStateResponse::LicensePackagingSKU_MAX;
 constexpr int DeviceInitialEnrollmentStateResponse::LicensePackagingSKU_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_strings[3] = {};
+
+static const char DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_names[] =
+  "ASSIGNED_UPGRADE_TYPE_CHROME_ENTERPRISE"
+  "ASSIGNED_UPGRADE_TYPE_KIOSK_AND_SIGNAGE"
+  "ASSIGNED_UPGRADE_TYPE_UNSPECIFIED";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_entries[] = {
+  { {DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_names + 0, 39}, 1 },
+  { {DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_names + 39, 39}, 2 },
+  { {DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_names + 78, 33}, 0 },
+};
+
+static const int DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_entries_by_number[] = {
+  2, // 0 -> ASSIGNED_UPGRADE_TYPE_UNSPECIFIED
+  0, // 1 -> ASSIGNED_UPGRADE_TYPE_CHROME_ENTERPRISE
+  1, // 2 -> ASSIGNED_UPGRADE_TYPE_KIOSK_AND_SIGNAGE
+};
+
+const std::string& DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_Name(
+    DeviceInitialEnrollmentStateResponse_AssignedUpgradeType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_entries,
+          DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_entries_by_number,
+          3, DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_entries,
+      DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_strings[idx].get();
+}
+bool DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceInitialEnrollmentStateResponse_AssignedUpgradeType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<DeviceInitialEnrollmentStateResponse_AssignedUpgradeType>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr DeviceInitialEnrollmentStateResponse_AssignedUpgradeType DeviceInitialEnrollmentStateResponse::ASSIGNED_UPGRADE_TYPE_UNSPECIFIED;
+constexpr DeviceInitialEnrollmentStateResponse_AssignedUpgradeType DeviceInitialEnrollmentStateResponse::ASSIGNED_UPGRADE_TYPE_CHROME_ENTERPRISE;
+constexpr DeviceInitialEnrollmentStateResponse_AssignedUpgradeType DeviceInitialEnrollmentStateResponse::ASSIGNED_UPGRADE_TYPE_KIOSK_AND_SIGNAGE;
+constexpr DeviceInitialEnrollmentStateResponse_AssignedUpgradeType DeviceInitialEnrollmentStateResponse::AssignedUpgradeType_MIN;
+constexpr DeviceInitialEnrollmentStateResponse_AssignedUpgradeType DeviceInitialEnrollmentStateResponse::AssignedUpgradeType_MAX;
+constexpr int DeviceInitialEnrollmentStateResponse::AssignedUpgradeType_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool DevicePairingResponse_StatusCode_IsValid(int value) {
   switch (value) {
@@ -45041,6 +45106,9 @@ class DeviceInitialEnrollmentStateResponse::_Internal {
   static void set_has_license_packaging_sku(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
+  static void set_has_assigned_upgrade_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
 };
 
 const ::enterprise_management::DisabledState&
@@ -45071,8 +45139,8 @@ DeviceInitialEnrollmentStateResponse::DeviceInitialEnrollmentStateResponse(const
     disabled_state_ = nullptr;
   }
   ::memcpy(&initial_enrollment_mode_, &from.initial_enrollment_mode_,
-    static_cast<size_t>(reinterpret_cast<char*>(&license_packaging_sku_) -
-    reinterpret_cast<char*>(&initial_enrollment_mode_)) + sizeof(license_packaging_sku_));
+    static_cast<size_t>(reinterpret_cast<char*>(&assigned_upgrade_type_) -
+    reinterpret_cast<char*>(&initial_enrollment_mode_)) + sizeof(assigned_upgrade_type_));
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceInitialEnrollmentStateResponse)
 }
 
@@ -45083,8 +45151,8 @@ management_domain_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&disabled_state_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&license_packaging_sku_) -
-    reinterpret_cast<char*>(&disabled_state_)) + sizeof(license_packaging_sku_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&assigned_upgrade_type_) -
+    reinterpret_cast<char*>(&disabled_state_)) + sizeof(assigned_upgrade_type_));
 }
 
 DeviceInitialEnrollmentStateResponse::~DeviceInitialEnrollmentStateResponse() {
@@ -45122,10 +45190,10 @@ void DeviceInitialEnrollmentStateResponse::Clear() {
       disabled_state_->Clear();
     }
   }
-  if (cached_has_bits & 0x0000001cu) {
+  if (cached_has_bits & 0x0000003cu) {
     ::memset(&initial_enrollment_mode_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&license_packaging_sku_) -
-        reinterpret_cast<char*>(&initial_enrollment_mode_)) + sizeof(license_packaging_sku_));
+        reinterpret_cast<char*>(&assigned_upgrade_type_) -
+        reinterpret_cast<char*>(&initial_enrollment_mode_)) + sizeof(assigned_upgrade_type_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -45186,6 +45254,19 @@ const char* DeviceInitialEnrollmentStateResponse::_InternalParse(const char* ptr
             _internal_set_license_packaging_sku(static_cast<::enterprise_management::DeviceInitialEnrollmentStateResponse_LicensePackagingSKU>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(5, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.DeviceInitialEnrollmentStateResponse.AssignedUpgradeType assigned_upgrade_type = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_IsValid(val))) {
+            _internal_set_assigned_upgrade_type(static_cast<::enterprise_management::DeviceInitialEnrollmentStateResponse_AssignedUpgradeType>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(6, val, mutable_unknown_fields());
           }
         } else
           goto handle_unusual;
@@ -45254,6 +45335,13 @@ uint8_t* DeviceInitialEnrollmentStateResponse::_InternalSerialize(
       5, this->_internal_license_packaging_sku(), target);
   }
 
+  // optional .enterprise_management.DeviceInitialEnrollmentStateResponse.AssignedUpgradeType assigned_upgrade_type = 6;
+  if (cached_has_bits & 0x00000020u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      6, this->_internal_assigned_upgrade_type(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -45271,7 +45359,7 @@ size_t DeviceInitialEnrollmentStateResponse::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     // optional string management_domain = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -45303,6 +45391,12 @@ size_t DeviceInitialEnrollmentStateResponse::ByteSizeLong() const {
         ::_pbi::WireFormatLite::EnumSize(this->_internal_license_packaging_sku());
     }
 
+    // optional .enterprise_management.DeviceInitialEnrollmentStateResponse.AssignedUpgradeType assigned_upgrade_type = 6;
+    if (cached_has_bits & 0x00000020u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_assigned_upgrade_type());
+    }
+
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -45325,7 +45419,7 @@ void DeviceInitialEnrollmentStateResponse::MergeFrom(const DeviceInitialEnrollme
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_management_domain(from._internal_management_domain());
     }
@@ -45340,6 +45434,9 @@ void DeviceInitialEnrollmentStateResponse::MergeFrom(const DeviceInitialEnrollme
     }
     if (cached_has_bits & 0x00000010u) {
       license_packaging_sku_ = from.license_packaging_sku_;
+    }
+    if (cached_has_bits & 0x00000020u) {
+      assigned_upgrade_type_ = from.assigned_upgrade_type_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -45368,8 +45465,8 @@ void DeviceInitialEnrollmentStateResponse::InternalSwap(DeviceInitialEnrollmentS
       &other->management_domain_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DeviceInitialEnrollmentStateResponse, license_packaging_sku_)
-      + sizeof(DeviceInitialEnrollmentStateResponse::license_packaging_sku_)
+      PROTOBUF_FIELD_OFFSET(DeviceInitialEnrollmentStateResponse, assigned_upgrade_type_)
+      + sizeof(DeviceInitialEnrollmentStateResponse::assigned_upgrade_type_)
       - PROTOBUF_FIELD_OFFSET(DeviceInitialEnrollmentStateResponse, disabled_state_)>(
           reinterpret_cast<char*>(&disabled_state_),
           reinterpret_cast<char*>(&other->disabled_state_));

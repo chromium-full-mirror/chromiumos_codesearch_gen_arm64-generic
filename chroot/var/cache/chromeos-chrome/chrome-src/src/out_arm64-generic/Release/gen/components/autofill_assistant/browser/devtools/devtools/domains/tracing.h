@@ -27,8 +27,8 @@ class ExperimentalObserver {
  public:
   virtual ~ExperimentalObserver() {}
   virtual void OnBufferUsage(const BufferUsageParams& params) {}
-  // Contains an bucket of collected trace events. When tracing is stopped collected events will be
-  // send as a sequence of dataCollected events followed by tracingComplete event.
+  // Contains a bucket of collected trace events. When tracing is stopped collected events will be
+  // sent as a sequence of dataCollected events followed by tracingComplete event.
   virtual void OnDataCollected(const DataCollectedParams& params) {}
   // Signals that tracing is stopped and there is no trace buffers pending flush, all data were
   // delivered via dataCollected events.
@@ -39,8 +39,8 @@ class Observer : public ExperimentalObserver {
  public:
   virtual ~Observer() {}
   virtual void OnBufferUsage(const BufferUsageParams& params) final {}
-  // Experimental: Contains an bucket of collected trace events. When tracing is stopped collected events will be
-  // send as a sequence of dataCollected events followed by tracingComplete event.
+  // Experimental: Contains a bucket of collected trace events. When tracing is stopped collected events will be
+  // sent as a sequence of dataCollected events followed by tracingComplete event.
   virtual void OnDataCollected(const DataCollectedParams& params) final {}
   // Experimental: Signals that tracing is stopped and there is no trace buffers pending flush, all data were
   // delivered via dataCollected events.

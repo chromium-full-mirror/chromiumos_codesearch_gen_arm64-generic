@@ -3419,10 +3419,6 @@ bool BluetoothDeviceInfo_Data::Validate(
         ::Validate(object->type, validation_context))
     return false;
 
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->appearance, 4, validation_context)) {
-    return false;
-  }
   if (!mojo::internal::ValidateStruct(object->appearance, validation_context))
     return false;
 
@@ -3433,17 +3429,9 @@ bool BluetoothDeviceInfo_Data::Validate(
     return false;
   }
 
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->rssi, 6, validation_context)) {
-    return false;
-  }
   if (!mojo::internal::ValidateStruct(object->rssi, validation_context))
     return false;
 
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->mtu, 7, validation_context)) {
-    return false;
-  }
   if (!mojo::internal::ValidateStruct(object->mtu, validation_context))
     return false;
 

@@ -1678,6 +1678,26 @@ return DeviceInitialEnrollmentStateResponse_LicensePackagingSKU_Name(static_cast
 }
 bool DeviceInitialEnrollmentStateResponse_LicensePackagingSKU_Parse(
 ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceInitialEnrollmentStateResponse_LicensePackagingSKU* value);
+enum DeviceInitialEnrollmentStateResponse_AssignedUpgradeType : int {
+DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_ASSIGNED_UPGRADE_TYPE_UNSPECIFIED = 0,
+DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_ASSIGNED_UPGRADE_TYPE_CHROME_ENTERPRISE = 1,
+DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_ASSIGNED_UPGRADE_TYPE_KIOSK_AND_SIGNAGE = 2
+};
+POLICY_PROTO_EXPORT bool DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_IsValid(int value);
+constexpr DeviceInitialEnrollmentStateResponse_AssignedUpgradeType DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_AssignedUpgradeType_MIN = DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_ASSIGNED_UPGRADE_TYPE_UNSPECIFIED;
+constexpr DeviceInitialEnrollmentStateResponse_AssignedUpgradeType DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_AssignedUpgradeType_MAX = DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_ASSIGNED_UPGRADE_TYPE_KIOSK_AND_SIGNAGE;
+constexpr int DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_AssignedUpgradeType_ARRAYSIZE = DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_AssignedUpgradeType_MAX + 1;
+
+const std::string& DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_Name(DeviceInitialEnrollmentStateResponse_AssignedUpgradeType value);
+template<typename T>
+inline const std::string& DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_Name(T enum_t_value) {
+static_assert(::std::is_same<T, DeviceInitialEnrollmentStateResponse_AssignedUpgradeType>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_Name.");
+return DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_Name(static_cast<DeviceInitialEnrollmentStateResponse_AssignedUpgradeType>(enum_t_value));
+}
+bool DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_Parse(
+::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceInitialEnrollmentStateResponse_AssignedUpgradeType* value);
 enum DevicePairingResponse_StatusCode : int {
 DevicePairingResponse_StatusCode_SUCCESS = 0,
 DevicePairingResponse_StatusCode_FAILED = 1,
@@ -25890,6 +25910,34 @@ LicensePackagingSKU* value) {
 return DeviceInitialEnrollmentStateResponse_LicensePackagingSKU_Parse(name, value);
 }
 
+typedef DeviceInitialEnrollmentStateResponse_AssignedUpgradeType AssignedUpgradeType;
+static constexpr AssignedUpgradeType ASSIGNED_UPGRADE_TYPE_UNSPECIFIED =
+DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_ASSIGNED_UPGRADE_TYPE_UNSPECIFIED;
+static constexpr AssignedUpgradeType ASSIGNED_UPGRADE_TYPE_CHROME_ENTERPRISE =
+DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_ASSIGNED_UPGRADE_TYPE_CHROME_ENTERPRISE;
+static constexpr AssignedUpgradeType ASSIGNED_UPGRADE_TYPE_KIOSK_AND_SIGNAGE =
+DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_ASSIGNED_UPGRADE_TYPE_KIOSK_AND_SIGNAGE;
+static inline bool AssignedUpgradeType_IsValid(int value) {
+return DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_IsValid(value);
+}
+static constexpr AssignedUpgradeType AssignedUpgradeType_MIN =
+DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_AssignedUpgradeType_MIN;
+static constexpr AssignedUpgradeType AssignedUpgradeType_MAX =
+DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_AssignedUpgradeType_MAX;
+static constexpr int AssignedUpgradeType_ARRAYSIZE =
+DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_AssignedUpgradeType_ARRAYSIZE;
+template<typename T>
+static inline const std::string& AssignedUpgradeType_Name(T enum_t_value) {
+static_assert(::std::is_same<T, AssignedUpgradeType>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function AssignedUpgradeType_Name.");
+return DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_Name(enum_t_value);
+}
+static inline bool AssignedUpgradeType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+AssignedUpgradeType* value) {
+return DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_Parse(name, value);
+}
+
 // accessors -------------------------------------------------------
 
 enum : int {
@@ -25898,6 +25946,7 @@ kDisabledStateFieldNumber = 4,
 kInitialEnrollmentModeFieldNumber = 1,
 kIsLicensePackagedWithDeviceFieldNumber = 3,
 kLicensePackagingSkuFieldNumber = 5,
+kAssignedUpgradeTypeFieldNumber = 6,
 };
 // optional string management_domain = 2;
 bool has_management_domain() const;
@@ -25974,6 +26023,19 @@ private:
 void _internal_set_license_packaging_sku(::enterprise_management::DeviceInitialEnrollmentStateResponse_LicensePackagingSKU value);
 public:
 
+// optional .enterprise_management.DeviceInitialEnrollmentStateResponse.AssignedUpgradeType assigned_upgrade_type = 6;
+bool has_assigned_upgrade_type() const;
+private:
+bool _internal_has_assigned_upgrade_type() const;
+public:
+void clear_assigned_upgrade_type();
+::enterprise_management::DeviceInitialEnrollmentStateResponse_AssignedUpgradeType assigned_upgrade_type() const;
+void set_assigned_upgrade_type(::enterprise_management::DeviceInitialEnrollmentStateResponse_AssignedUpgradeType value);
+private:
+::enterprise_management::DeviceInitialEnrollmentStateResponse_AssignedUpgradeType _internal_assigned_upgrade_type() const;
+void _internal_set_assigned_upgrade_type(::enterprise_management::DeviceInitialEnrollmentStateResponse_AssignedUpgradeType value);
+public:
+
 // @@protoc_insertion_point(class_scope:enterprise_management.DeviceInitialEnrollmentStateResponse)
 private:
 class _Internal;
@@ -25988,6 +26050,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 int initial_enrollment_mode_;
 bool is_license_packaged_with_device_;
 int license_packaging_sku_;
+int assigned_upgrade_type_;
 friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };
 // -------------------------------------------------------------------
@@ -67058,6 +67121,35 @@ _internal_set_license_packaging_sku(value);
 // @@protoc_insertion_point(field_set:enterprise_management.DeviceInitialEnrollmentStateResponse.license_packaging_sku)
 }
 
+// optional .enterprise_management.DeviceInitialEnrollmentStateResponse.AssignedUpgradeType assigned_upgrade_type = 6;
+inline bool DeviceInitialEnrollmentStateResponse::_internal_has_assigned_upgrade_type() const {
+bool value = (_has_bits_[0] & 0x00000020u) != 0;
+return value;
+}
+inline bool DeviceInitialEnrollmentStateResponse::has_assigned_upgrade_type() const {
+return _internal_has_assigned_upgrade_type();
+}
+inline void DeviceInitialEnrollmentStateResponse::clear_assigned_upgrade_type() {
+assigned_upgrade_type_ = 0;
+_has_bits_[0] &= ~0x00000020u;
+}
+inline ::enterprise_management::DeviceInitialEnrollmentStateResponse_AssignedUpgradeType DeviceInitialEnrollmentStateResponse::_internal_assigned_upgrade_type() const {
+return static_cast< ::enterprise_management::DeviceInitialEnrollmentStateResponse_AssignedUpgradeType >(assigned_upgrade_type_);
+}
+inline ::enterprise_management::DeviceInitialEnrollmentStateResponse_AssignedUpgradeType DeviceInitialEnrollmentStateResponse::assigned_upgrade_type() const {
+// @@protoc_insertion_point(field_get:enterprise_management.DeviceInitialEnrollmentStateResponse.assigned_upgrade_type)
+return _internal_assigned_upgrade_type();
+}
+inline void DeviceInitialEnrollmentStateResponse::_internal_set_assigned_upgrade_type(::enterprise_management::DeviceInitialEnrollmentStateResponse_AssignedUpgradeType value) {
+assert(::enterprise_management::DeviceInitialEnrollmentStateResponse_AssignedUpgradeType_IsValid(value));
+_has_bits_[0] |= 0x00000020u;
+assigned_upgrade_type_ = value;
+}
+inline void DeviceInitialEnrollmentStateResponse::set_assigned_upgrade_type(::enterprise_management::DeviceInitialEnrollmentStateResponse_AssignedUpgradeType value) {
+_internal_set_assigned_upgrade_type(value);
+// @@protoc_insertion_point(field_set:enterprise_management.DeviceInitialEnrollmentStateResponse.assigned_upgrade_type)
+}
+
 // -------------------------------------------------------------------
 
 // DevicePairingRequest
@@ -83697,6 +83789,7 @@ template <> struct is_proto_enum< ::enterprise_management::DeviceAutoEnrollmentR
 template <> struct is_proto_enum< ::enterprise_management::DeviceStateRetrievalResponse_RestoreMode> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DeviceInitialEnrollmentStateResponse_InitialEnrollmentMode> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DeviceInitialEnrollmentStateResponse_LicensePackagingSKU> : ::std::true_type {};
+template <> struct is_proto_enum< ::enterprise_management::DeviceInitialEnrollmentStateResponse_AssignedUpgradeType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DevicePairingResponse_StatusCode> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::CheckDevicePairingResponse_StatusCode> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::RemoteCommand_Type> : ::std::true_type {};

@@ -42,6 +42,44 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
+class ProcessControlProxy;
+
+template <typename ImplRefTraits>
+class ProcessControlStub;
+
+class ProcessControlRequestValidator;
+
+
+class ProcessControl
+    : public ProcessControlInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = ProcessControlInterfaceBase;
+  using Proxy_ = ProcessControlProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = ProcessControlStub<ImplRefTraits>;
+
+  using RequestValidator_ = ProcessControlRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~ProcessControl() = default;
+};
+
 class ExecutorProxy;
 
 template <typename ImplRefTraits>
@@ -225,6 +263,19 @@ class Executor
 
 
 
+class  ProcessControlProxy
+    : public ProcessControl {
+ public:
+  using InterfaceType = ProcessControl;
+
+  explicit ProcessControlProxy(mojo::MessageReceiverWithResponder* receiver);
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
 class  ExecutorProxy
     : public Executor {
  public:
@@ -267,6 +318,47 @@ class  ExecutorProxy
  private:
   mojo::MessageReceiverWithResponder* receiver_;
 };
+class  ProcessControlStubDispatch {
+ public:
+  static bool Accept(ProcessControl* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      ProcessControl* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<ProcessControl>>
+class ProcessControlStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  ProcessControlStub() = default;
+  ~ProcessControlStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return ProcessControlStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return ProcessControlStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
 class  ExecutorStubDispatch {
  public:
   static bool Accept(Executor* impl, mojo::Message* message);
@@ -307,6 +399,10 @@ class ExecutorStub
 
  private:
   ImplPointerType sink_;
+};
+class  ProcessControlRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
 };
 class  ExecutorRequestValidator : public mojo::MessageReceiver {
  public:

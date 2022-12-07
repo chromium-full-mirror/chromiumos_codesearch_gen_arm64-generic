@@ -41,6 +41,8 @@ using FingerprintInfoResultPtr = mojo::InlinedStructPtr<FingerprintInfoResult>;
 class FingerprintFrameResult;
 using FingerprintFrameResultPtr = mojo::StructPtr<FingerprintFrameResult>;
 
+class ProcessControl;
+
 class Executor;
 
 

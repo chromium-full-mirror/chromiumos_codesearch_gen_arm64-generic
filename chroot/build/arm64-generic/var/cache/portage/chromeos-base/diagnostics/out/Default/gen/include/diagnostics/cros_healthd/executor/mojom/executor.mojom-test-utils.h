@@ -15,6 +15,23 @@ namespace cros_healthd {
 namespace mojom {
 
 
+class  ProcessControlInterceptorForTesting : public ProcessControl {
+  virtual ProcessControl* GetForwardingInterface() = 0;
+};
+class  ProcessControlAsyncWaiter {
+ public:
+  explicit ProcessControlAsyncWaiter(ProcessControl* proxy);
+
+  ProcessControlAsyncWaiter(const ProcessControlAsyncWaiter&) = delete;
+  ProcessControlAsyncWaiter& operator=(const ProcessControlAsyncWaiter&) = delete;
+
+  ~ProcessControlAsyncWaiter();
+
+ private:
+  ProcessControl* const proxy_;
+};
+
+
 class  ExecutorInterceptorForTesting : public Executor {
   virtual Executor* GetForwardingInterface() = 0;
   void GetFanSpeed(GetFanSpeedCallback callback) override;

@@ -99,6 +99,16 @@ inline bool IsKnownEnumValue(FingerprintCaptureType value) {
       static_cast<int32_t>(value));
 }
 // Interface base classes. They are used for type safety check.
+class ProcessControlInterfaceBase {};
+
+using ProcessControlPtrDataView =
+    mojo::InterfacePtrDataView<ProcessControlInterfaceBase>;
+using ProcessControlRequestDataView =
+    mojo::InterfaceRequestDataView<ProcessControlInterfaceBase>;
+using ProcessControlAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<ProcessControlInterfaceBase>;
+using ProcessControlAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<ProcessControlInterfaceBase>;
 class ExecutorInterfaceBase {};
 
 using ExecutorPtrDataView =

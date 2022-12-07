@@ -69,6 +69,7 @@ namespace InterestGroupAccessTypeEnum {
 const char Join[] = "join";
 const char Leave[] = "leave";
 const char Update[] = "update";
+const char Loaded[] = "loaded";
 const char Bid[] = "bid";
 const char Win[] = "win";
 } // namespace InterestGroupAccessTypeEnum
