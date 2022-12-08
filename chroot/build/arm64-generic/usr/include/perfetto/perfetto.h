@@ -8651,6 +8651,7 @@ class TraceUuid;
 class TracingServiceEvent;
 class TrackDescriptor;
 class TrackEvent;
+class TrackEventRangeOfInterest;
 class TranslationTable;
 class Trigger;
 class UiState;
@@ -8811,6 +8812,8 @@ class TracePacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes extension_descriptor() const { return at<72>().as_bytes(); }
   bool has_network_packet() const { return at<88>().valid(); }
   ::protozero::ConstBytes network_packet() const { return at<88>().as_bytes(); }
+  bool has_track_event_range_of_interest() const { return at<90>().valid(); }
+  ::protozero::ConstBytes track_event_range_of_interest() const { return at<90>().as_bytes(); }
   bool has_for_testing() const { return at<900>().valid(); }
   ::protozero::ConstBytes for_testing() const { return at<900>().as_bytes(); }
   bool has_trusted_uid() const { return at<3>().valid(); }
@@ -8897,6 +8900,7 @@ class TracePacket : public ::protozero::Message {
     kCompressedPacketsFieldNumber = 50,
     kExtensionDescriptorFieldNumber = 72,
     kNetworkPacketFieldNumber = 88,
+    kTrackEventRangeOfInterestFieldNumber = 90,
     kForTestingFieldNumber = 900,
     kTrustedUidFieldNumber = 3,
     kTrustedPacketSequenceIdFieldNumber = 10,
@@ -10204,6 +10208,27 @@ class TracePacket : public ::protozero::Message {
   static constexpr FieldMetadata_NetworkPacket kNetworkPacket() { return {}; }
   template <typename T = NetworkPacketEvent> T* set_network_packet() {
     return BeginNestedMessage<T>(88);
+  }
+
+
+  using FieldMetadata_TrackEventRangeOfInterest =
+    ::protozero::proto_utils::FieldMetadata<
+      90,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      TrackEventRangeOfInterest,
+      TracePacket>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_TrackEventRangeOfInterest kTrackEventRangeOfInterest() { return {}; }
+  template <typename T = TrackEventRangeOfInterest> T* set_track_event_range_of_interest() {
+    return BeginNestedMessage<T>(90);
   }
 
 
@@ -33227,7 +33252,7 @@ const char* ProcessStatsConfig_Quirks_Name(::perfetto::protos::pbzero::ProcessSt
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class ProcessStatsConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/6, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class ProcessStatsConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/9, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   ProcessStatsConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ProcessStatsConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -33242,6 +33267,8 @@ class ProcessStatsConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_F
   uint32_t proc_stats_poll_ms() const { return at<4>().as_uint32(); }
   bool has_proc_stats_cache_ttl_ms() const { return at<6>().valid(); }
   uint32_t proc_stats_cache_ttl_ms() const { return at<6>().as_uint32(); }
+  bool has_resolve_process_fds() const { return at<9>().valid(); }
+  bool resolve_process_fds() const { return at<9>().as_bool(); }
 };
 
 class ProcessStatsConfig : public ::protozero::Message {
@@ -33253,6 +33280,7 @@ class ProcessStatsConfig : public ::protozero::Message {
     kRecordThreadNamesFieldNumber = 3,
     kProcStatsPollMsFieldNumber = 4,
     kProcStatsCacheTtlMsFieldNumber = 6,
+    kResolveProcessFdsFieldNumber = 9,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ProcessStatsConfig"; }
 
@@ -33387,6 +33415,31 @@ class ProcessStatsConfig : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ResolveProcessFds =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      ProcessStatsConfig>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_ResolveProcessFds kResolveProcessFds() { return {}; }
+  void set_resolve_process_fds(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_ResolveProcessFds::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
 };
@@ -116323,13 +116376,15 @@ class SysExitFtraceEvent : public ::protozero::Message {
   }
 };
 
-class SysEnterFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class SysEnterFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   SysEnterFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit SysEnterFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit SysEnterFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_id() const { return at<1>().valid(); }
   int64_t id() const { return at<1>().as_int64(); }
+  bool has_args() const { return at<2>().valid(); }
+  ::protozero::RepeatedFieldIterator<uint64_t> args() const { return GetRepeated<uint64_t>(2); }
 };
 
 class SysEnterFtraceEvent : public ::protozero::Message {
@@ -116337,6 +116392,7 @@ class SysEnterFtraceEvent : public ::protozero::Message {
   using Decoder = SysEnterFtraceEvent_Decoder;
   enum : int32_t {
     kIdFieldNumber = 1,
+    kArgsFieldNumber = 2,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.SysEnterFtraceEvent"; }
 
@@ -116363,6 +116419,31 @@ class SysEnterFtraceEvent : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Args =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      SysEnterFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Args kArgs() { return {}; }
+  void add_args(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Args::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
         ::Append(*this, field_id, value);
   }
 };
@@ -146379,6 +146460,74 @@ class ProcessDescriptor : public ::protozero::Message {
 } // Namespace.
 } // Namespace.
 #endif  // Include guard.
+// gen_amalgamated begin header: gen/protos/perfetto/trace/track_event/range_of_interest.pbzero.h
+// Autogenerated by the ProtoZero compiler plugin. DO NOT EDIT.
+
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_TRACK_EVENT_RANGE_OF_INTEREST_PROTO_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_TRACK_EVENT_RANGE_OF_INTEREST_PROTO_H_
+
+#include <stddef.h>
+#include <stdint.h>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/field_writer.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/message.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/packed_repeated_fields.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/proto_decoder.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/proto_utils.h"
+
+namespace perfetto {
+namespace protos {
+namespace pbzero {
+
+
+class TrackEventRangeOfInterest_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  TrackEventRangeOfInterest_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit TrackEventRangeOfInterest_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit TrackEventRangeOfInterest_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_start_us() const { return at<1>().valid(); }
+  int64_t start_us() const { return at<1>().as_int64(); }
+};
+
+class TrackEventRangeOfInterest : public ::protozero::Message {
+ public:
+  using Decoder = TrackEventRangeOfInterest_Decoder;
+  enum : int32_t {
+    kStartUsFieldNumber = 1,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.TrackEventRangeOfInterest"; }
+
+
+  using FieldMetadata_StartUs =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      TrackEventRangeOfInterest>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_StartUs kStartUs() { return {}; }
+  void set_start_us(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_StartUs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+};
+
+} // Namespace.
+} // Namespace.
+} // Namespace.
+#endif  // Include guard.
 // gen_amalgamated begin header: gen/protos/perfetto/trace/track_event/source_location.pbzero.h
 // Autogenerated by the ProtoZero compiler plugin. DO NOT EDIT.
 
@@ -151446,6 +151595,7 @@ namespace perfetto {
 namespace protos {
 namespace pbzero {
 
+class ProcessStats_FDInfo;
 class ProcessStats_Process;
 class ProcessStats_Thread;
 
@@ -151470,6 +151620,7 @@ class ProcessStats : public ::protozero::Message {
   static constexpr const char* GetName() { return ".perfetto.protos.ProcessStats"; }
 
   using Thread = ::perfetto::protos::pbzero::ProcessStats_Thread;
+  using FDInfo = ::perfetto::protos::pbzero::ProcessStats_FDInfo;
   using Process = ::perfetto::protos::pbzero::ProcessStats_Process;
 
   using FieldMetadata_Processes =
@@ -151519,7 +151670,7 @@ class ProcessStats : public ::protozero::Message {
   }
 };
 
-class ProcessStats_Process_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/14, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class ProcessStats_Process_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/15, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   ProcessStats_Process_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ProcessStats_Process_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -151552,6 +151703,8 @@ class ProcessStats_Process_Decoder : public ::protozero::TypedProtoDecoder</*MAX
   uint32_t chrome_private_footprint_kb() const { return at<13>().as_uint32(); }
   bool has_chrome_peak_resident_set_kb() const { return at<14>().valid(); }
   uint32_t chrome_peak_resident_set_kb() const { return at<14>().as_uint32(); }
+  bool has_fds() const { return at<15>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> fds() const { return GetRepeated<::protozero::ConstBytes>(15); }
 };
 
 class ProcessStats_Process : public ::protozero::Message {
@@ -151572,6 +151725,7 @@ class ProcessStats_Process : public ::protozero::Message {
     kIsPeakRssResettableFieldNumber = 12,
     kChromePrivateFootprintKbFieldNumber = 13,
     kChromePeakResidentSetKbFieldNumber = 14,
+    kFdsFieldNumber = 15,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ProcessStats.Process"; }
 
@@ -151919,6 +152073,105 @@ class ProcessStats_Process : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Fds =
+    ::protozero::proto_utils::FieldMetadata<
+      15,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ProcessStats_FDInfo,
+      ProcessStats_Process>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Fds kFds() { return {}; }
+  template <typename T = ProcessStats_FDInfo> T* add_fds() {
+    return BeginNestedMessage<T>(15);
+  }
+
+};
+
+class ProcessStats_FDInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  ProcessStats_FDInfo_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit ProcessStats_FDInfo_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit ProcessStats_FDInfo_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_fd() const { return at<1>().valid(); }
+  uint64_t fd() const { return at<1>().as_uint64(); }
+  bool has_path() const { return at<2>().valid(); }
+  ::protozero::ConstChars path() const { return at<2>().as_string(); }
+};
+
+class ProcessStats_FDInfo : public ::protozero::Message {
+ public:
+  using Decoder = ProcessStats_FDInfo_Decoder;
+  enum : int32_t {
+    kFdFieldNumber = 1,
+    kPathFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.ProcessStats.FDInfo"; }
+
+
+  using FieldMetadata_Fd =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      ProcessStats_FDInfo>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Fd kFd() { return {}; }
+  void set_fd(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Fd::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Path =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      ProcessStats_FDInfo>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Path kPath() { return {}; }
+  void set_path(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_Path::kFieldId, data, size);
+  }
+  void set_path(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_Path::kFieldId, chars.data, chars.size);
+  }
+  void set_path(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_Path::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
         ::Append(*this, field_id, value);
   }
 };
@@ -155475,6 +155728,7 @@ class TraceUuid;
 class TracingServiceEvent;
 class TrackDescriptor;
 class TrackEvent;
+class TrackEventRangeOfInterest;
 class TranslationTable;
 class Trigger;
 class UiState;
@@ -155635,6 +155889,8 @@ class TracePacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes extension_descriptor() const { return at<72>().as_bytes(); }
   bool has_network_packet() const { return at<88>().valid(); }
   ::protozero::ConstBytes network_packet() const { return at<88>().as_bytes(); }
+  bool has_track_event_range_of_interest() const { return at<90>().valid(); }
+  ::protozero::ConstBytes track_event_range_of_interest() const { return at<90>().as_bytes(); }
   bool has_for_testing() const { return at<900>().valid(); }
   ::protozero::ConstBytes for_testing() const { return at<900>().as_bytes(); }
   bool has_trusted_uid() const { return at<3>().valid(); }
@@ -155721,6 +155977,7 @@ class TracePacket : public ::protozero::Message {
     kCompressedPacketsFieldNumber = 50,
     kExtensionDescriptorFieldNumber = 72,
     kNetworkPacketFieldNumber = 88,
+    kTrackEventRangeOfInterestFieldNumber = 90,
     kForTestingFieldNumber = 900,
     kTrustedUidFieldNumber = 3,
     kTrustedPacketSequenceIdFieldNumber = 10,
@@ -157028,6 +157285,27 @@ class TracePacket : public ::protozero::Message {
   static constexpr FieldMetadata_NetworkPacket kNetworkPacket() { return {}; }
   template <typename T = NetworkPacketEvent> T* set_network_packet() {
     return BeginNestedMessage<T>(88);
+  }
+
+
+  using FieldMetadata_TrackEventRangeOfInterest =
+    ::protozero::proto_utils::FieldMetadata<
+      90,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      TrackEventRangeOfInterest,
+      TracePacket>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_TrackEventRangeOfInterest kTrackEventRangeOfInterest() { return {}; }
+  template <typename T = TrackEventRangeOfInterest> T* set_track_event_range_of_interest() {
+    return BeginNestedMessage<T>(90);
   }
 
 
@@ -161966,6 +162244,76 @@ class PERFETTO_EXPORT_COMPONENT ProcessDescriptor : public ::protozero::CppMessa
 }  // namespace gen
 
 #endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_TRACK_EVENT_PROCESS_DESCRIPTOR_PROTO_CPP_H_
+// gen_amalgamated begin header: gen/protos/perfetto/trace/track_event/range_of_interest.gen.h
+// DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_TRACK_EVENT_RANGE_OF_INTEREST_PROTO_CPP_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_TRACK_EVENT_RANGE_OF_INTEREST_PROTO_CPP_H_
+
+#include <stdint.h>
+#include <bitset>
+#include <vector>
+#include <string>
+#include <type_traits>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/cpp_message_obj.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/copyable_ptr.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+class TrackEventRangeOfInterest;
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+namespace protozero {
+class Message;
+}  // namespace protozero
+
+namespace perfetto {
+namespace protos {
+namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT TrackEventRangeOfInterest : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kStartUsFieldNumber = 1,
+  };
+
+  TrackEventRangeOfInterest();
+  ~TrackEventRangeOfInterest() override;
+  TrackEventRangeOfInterest(TrackEventRangeOfInterest&&) noexcept;
+  TrackEventRangeOfInterest& operator=(TrackEventRangeOfInterest&&);
+  TrackEventRangeOfInterest(const TrackEventRangeOfInterest&);
+  TrackEventRangeOfInterest& operator=(const TrackEventRangeOfInterest&);
+  bool operator==(const TrackEventRangeOfInterest&) const;
+  bool operator!=(const TrackEventRangeOfInterest& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_start_us() const { return _has_field_[1]; }
+  int64_t start_us() const { return start_us_; }
+  void set_start_us(int64_t value) { start_us_ = value; _has_field_.set(1); }
+
+ private:
+  int64_t start_us_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<2> _has_field_{};
+};
+
+}  // namespace perfetto
+}  // namespace protos
+}  // namespace gen
+
+#endif  // PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_TRACK_EVENT_RANGE_OF_INTEREST_PROTO_CPP_H_
 // gen_amalgamated begin header: gen/protos/perfetto/trace/track_event/source_location.gen.h
 // DO NOT EDIT. Autogenerated by Perfetto cppgen_plugin
 #ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_TRACK_EVENT_SOURCE_LOCATION_PROTO_CPP_H_
@@ -164481,6 +164829,7 @@ class PERFETTO_EXPORT_COMPONENT ProcessStatsConfig : public ::protozero::CppMess
     kRecordThreadNamesFieldNumber = 3,
     kProcStatsPollMsFieldNumber = 4,
     kProcStatsCacheTtlMsFieldNumber = 6,
+    kResolveProcessFdsFieldNumber = 9,
   };
 
   ProcessStatsConfig();
@@ -164520,18 +164869,23 @@ class PERFETTO_EXPORT_COMPONENT ProcessStatsConfig : public ::protozero::CppMess
   uint32_t proc_stats_cache_ttl_ms() const { return proc_stats_cache_ttl_ms_; }
   void set_proc_stats_cache_ttl_ms(uint32_t value) { proc_stats_cache_ttl_ms_ = value; _has_field_.set(6); }
 
+  bool has_resolve_process_fds() const { return _has_field_[9]; }
+  bool resolve_process_fds() const { return resolve_process_fds_; }
+  void set_resolve_process_fds(bool value) { resolve_process_fds_ = value; _has_field_.set(9); }
+
  private:
   std::vector<ProcessStatsConfig_Quirks> quirks_;
   bool scan_all_processes_on_start_{};
   bool record_thread_names_{};
   uint32_t proc_stats_poll_ms_{};
   uint32_t proc_stats_cache_ttl_ms_{};
+  bool resolve_process_fds_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<7> _has_field_{};
+  std::bitset<10> _has_field_{};
 };
 
 }  // namespace perfetto
@@ -168123,6 +168477,8 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_BufferConfig : public ::protozero::C
 namespace perfetto {
 namespace protos {
 namespace gen {
+class CloneSessionResponse;
+class CloneSessionRequest;
 class SaveTraceForBugreportResponse;
 class SaveTraceForBugreportRequest;
 class QueryCapabilitiesResponse;
@@ -168205,6 +168561,82 @@ class Message;
 namespace perfetto {
 namespace protos {
 namespace gen {
+
+class PERFETTO_EXPORT_COMPONENT CloneSessionResponse : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kSuccessFieldNumber = 1,
+    kErrorFieldNumber = 2,
+  };
+
+  CloneSessionResponse();
+  ~CloneSessionResponse() override;
+  CloneSessionResponse(CloneSessionResponse&&) noexcept;
+  CloneSessionResponse& operator=(CloneSessionResponse&&);
+  CloneSessionResponse(const CloneSessionResponse&);
+  CloneSessionResponse& operator=(const CloneSessionResponse&);
+  bool operator==(const CloneSessionResponse&) const;
+  bool operator!=(const CloneSessionResponse& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_success() const { return _has_field_[1]; }
+  bool success() const { return success_; }
+  void set_success(bool value) { success_ = value; _has_field_.set(1); }
+
+  bool has_error() const { return _has_field_[2]; }
+  const std::string& error() const { return error_; }
+  void set_error(const std::string& value) { error_ = value; _has_field_.set(2); }
+
+ private:
+  bool success_{};
+  std::string error_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<3> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT CloneSessionRequest : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kSessionIdFieldNumber = 1,
+  };
+
+  CloneSessionRequest();
+  ~CloneSessionRequest() override;
+  CloneSessionRequest(CloneSessionRequest&&) noexcept;
+  CloneSessionRequest& operator=(CloneSessionRequest&&);
+  CloneSessionRequest(const CloneSessionRequest&);
+  CloneSessionRequest& operator=(const CloneSessionRequest&);
+  bool operator==(const CloneSessionRequest&) const;
+  bool operator!=(const CloneSessionRequest& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_session_id() const { return _has_field_[1]; }
+  uint64_t session_id() const { return session_id_; }
+  void set_session_id(uint64_t value) { session_id_ = value; _has_field_.set(1); }
+
+ private:
+  uint64_t session_id_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<2> _has_field_{};
+};
+
 
 class PERFETTO_EXPORT_COMPONENT SaveTraceForBugreportResponse : public ::protozero::CppMessageObj {
  public:
