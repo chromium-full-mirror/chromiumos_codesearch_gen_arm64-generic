@@ -144,30 +144,6 @@ class UserDataAuthInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  virtual bool MassRemoveKeys(
-      const user_data_auth::MassRemoveKeysRequest& in_request,
-      user_data_auth::MassRemoveKeysReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void MassRemoveKeysAsync(
-      const user_data_auth::MassRemoveKeysRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::MassRemoveKeysReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual bool MigrateKey(
-      const user_data_auth::MigrateKeyRequest& in_request,
-      user_data_auth::MigrateKeyReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void MigrateKeyAsync(
-      const user_data_auth::MigrateKeyRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::MigrateKeyReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   virtual bool StartFingerprintAuthSession(
       const user_data_auth::StartFingerprintAuthSessionRequest& in_request,
       user_data_auth::StartFingerprintAuthSessionReply* out_reply,
@@ -908,68 +884,6 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "RemoveKey",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
-  bool MassRemoveKeys(
-      const user_data_auth::MassRemoveKeysRequest& in_request,
-      user_data_auth::MassRemoveKeysReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "MassRemoveKeys",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void MassRemoveKeysAsync(
-      const user_data_auth::MassRemoveKeysRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::MassRemoveKeysReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "MassRemoveKeys",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
-  bool MigrateKey(
-      const user_data_auth::MigrateKeyRequest& in_request,
-      user_data_auth::MigrateKeyReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "MigrateKey",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void MigrateKeyAsync(
-      const user_data_auth::MigrateKeyRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::MigrateKeyReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "MigrateKey",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

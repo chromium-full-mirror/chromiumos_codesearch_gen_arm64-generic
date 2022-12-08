@@ -27,14 +27,16 @@ class DlpInterface {
   virtual std::vector<uint8_t> SetDlpFilesPolicy(
       const std::vector<uint8_t>& in_request) = 0;
   // Adds file together with it's source to the database.
-  virtual std::vector<uint8_t> AddFile(
+  virtual void AddFile(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::vector<uint8_t>>> response,
       const std::vector<uint8_t>& in_request) = 0;
   // Requests access to the file to be copied/uploaded to the given destination.
   virtual void RequestFileAccess(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::vector<uint8_t>, brillo::dbus_utils::FileDescriptor>> response,
       const std::vector<uint8_t>& in_request) = 0;
   // Returns sources for the requested files.
-  virtual std::vector<uint8_t> GetFilesSources(
+  virtual void GetFilesSources(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::vector<uint8_t>>> response,
       const std::vector<uint8_t>& in_request) = 0;
   // Returns files disallowed to be transferred.
   virtual void CheckFilesTransfer(
@@ -57,7 +59,7 @@ class DlpAdaptor {
         "SetDlpFilesPolicy",
         base::Unretained(interface_),
         &DlpInterface::SetDlpFilesPolicy);
-    itf->AddSimpleMethodHandler(
+    itf->AddMethodHandler(
         "AddFile",
         base::Unretained(interface_),
         &DlpInterface::AddFile);
@@ -65,7 +67,7 @@ class DlpAdaptor {
         "RequestFileAccess",
         base::Unretained(interface_),
         &DlpInterface::RequestFileAccess);
-    itf->AddSimpleMethodHandler(
+    itf->AddMethodHandler(
         "GetFilesSources",
         base::Unretained(interface_),
         &DlpInterface::GetFilesSources);

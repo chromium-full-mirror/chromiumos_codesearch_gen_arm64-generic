@@ -5305,7 +5305,7 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
         } else
           goto handle_unusual;
         continue;
-      // int32 logd_config_size = 26;
+      // int32 logd_config_size = 26 [deprecated = true];
       case 26:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 208)) {
           logd_config_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
@@ -5638,7 +5638,7 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(25, this->_internal_enable_broadcast_anr_prenotify(), target);
   }
 
-  // int32 logd_config_size = 26;
+  // int32 logd_config_size = 26 [deprecated = true];
   if (this->_internal_logd_config_size() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(26, this->_internal_logd_config_size(), target);
@@ -5892,7 +5892,7 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
-  // int32 logd_config_size = 26;
+  // int32 logd_config_size = 26 [deprecated = true];
   if (this->_internal_logd_config_size() != 0) {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(

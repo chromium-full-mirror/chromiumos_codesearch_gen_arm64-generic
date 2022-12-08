@@ -2841,10 +2841,10 @@ class StartArcVmRequest final :
   void _internal_set_enable_tts_caching(bool value);
   public:
 
-  // int32 logd_config_size = 26;
-  void clear_logd_config_size();
-  int32_t logd_config_size() const;
-  void set_logd_config_size(int32_t value);
+  // int32 logd_config_size = 26 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_logd_config_size();
+  PROTOBUF_DEPRECATED int32_t logd_config_size() const;
+  PROTOBUF_DEPRECATED void set_logd_config_size(int32_t value);
   private:
   int32_t _internal_logd_config_size() const;
   void _internal_set_logd_config_size(int32_t value);
@@ -15456,7 +15456,7 @@ inline void StartArcVmRequest::set_enable_broadcast_anr_prenotify(bool value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_broadcast_anr_prenotify)
 }
 
-// int32 logd_config_size = 26;
+// int32 logd_config_size = 26 [deprecated = true];
 inline void StartArcVmRequest::clear_logd_config_size() {
   logd_config_size_ = 0;
 }

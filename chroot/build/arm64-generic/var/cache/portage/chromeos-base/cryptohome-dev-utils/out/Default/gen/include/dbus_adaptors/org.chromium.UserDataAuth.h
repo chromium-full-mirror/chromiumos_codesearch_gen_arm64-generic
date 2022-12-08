@@ -54,12 +54,6 @@ class UserDataAuthInterfaceInterface {
   virtual void RemoveKey(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::RemoveKeyReply>> response,
       const user_data_auth::RemoveKeyRequest& in_request) = 0;
-  virtual void MassRemoveKeys(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::MassRemoveKeysReply>> response,
-      const user_data_auth::MassRemoveKeysRequest& in_request) = 0;
-  virtual void MigrateKey(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::MigrateKeyReply>> response,
-      const user_data_auth::MigrateKeyRequest& in_request) = 0;
   virtual void StartFingerprintAuthSession(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::StartFingerprintAuthSessionReply>> response,
       const user_data_auth::StartFingerprintAuthSessionRequest& in_request) = 0;
@@ -205,14 +199,6 @@ class UserDataAuthInterfaceAdaptor {
         "RemoveKey",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::RemoveKey);
-    itf->AddMethodHandler(
-        "MassRemoveKeys",
-        base::Unretained(interface_),
-        &UserDataAuthInterfaceInterface::MassRemoveKeys);
-    itf->AddMethodHandler(
-        "MigrateKey",
-        base::Unretained(interface_),
-        &UserDataAuthInterfaceInterface::MigrateKey);
     itf->AddMethodHandler(
         "StartFingerprintAuthSession",
         base::Unretained(interface_),
@@ -406,14 +392,6 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"RemoveKey\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"MassRemoveKeys\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"MigrateKey\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
