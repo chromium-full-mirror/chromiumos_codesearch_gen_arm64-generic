@@ -13,6 +13,7 @@
 
 #include <absl/container/flat_hash_map.h>
 #include <absl/container/flat_hash_set.h>
+#include <base/timer/timer.h>
 #include <brillo/secure_blob.h>
 #include <trunks/tpm_generated.h>
 
@@ -28,6 +29,9 @@ class BackendTpm2;
 
 struct KeyReloadDataTpm2 {
   brillo::Blob key_blob;
+  uint32_t client_count;
+  base::TimeDelta lazy_expiration_time;
+  std::unique_ptr<base::OneShotTimer> flush_timer;
 };
 
 struct KeyTpm2 {
@@ -59,11 +63,11 @@ class KeyManagementTpm2 : public Backend::KeyManagement,
                      const CreateKeyOptions& options) override;
   StatusOr<CreateKeyResult> CreateKey(const OperationPolicySetting& policy,
                                       KeyAlgoType key_algo,
-                                      AutoReload auto_reload,
+                                      const LoadKeyOptions& load_key_options,
                                       const CreateKeyOptions& options) override;
   StatusOr<ScopedKey> LoadKey(const OperationPolicy& policy,
                               const brillo::Blob& key_blob,
-                              AutoReload auto_reload) override;
+                              const LoadKeyOptions& load_key_options) override;
   StatusOr<ScopedKey> GetPersistentKey(PersistentKeyType key_type) override;
   StatusOr<brillo::Blob> GetPubkeyHash(Key key) override;
   Status Flush(Key key) override;
@@ -76,14 +80,14 @@ class KeyManagementTpm2 : public Backend::KeyManagement,
       const OperationPolicySetting& policy,
       const brillo::Blob& public_modulus,
       const brillo::SecureBlob& private_prime_factor,
-      AutoReload auto_reload,
+      const LoadKeyOptions& load_key_options,
       const CreateKeyOptions& options) override;
   StatusOr<CreateKeyResult> WrapECCKey(
       const OperationPolicySetting& policy,
       const brillo::Blob& public_point_x,
       const brillo::Blob& public_point_y,
       const brillo::SecureBlob& private_value,
-      AutoReload auto_reload,
+      const LoadKeyOptions& load_key_options,
       const CreateKeyOptions& options) override;
   StatusOr<RSAPublicInfo> GetRSAPublicInfo(Key key) override;
   StatusOr<ECCPublicInfo> GetECCPublicInfo(Key key) override;
@@ -102,25 +106,30 @@ class KeyManagementTpm2 : public Backend::KeyManagement,
       trunks::TPM_ALG_ID hash_alg);
 
  private:
-  StatusOr<CreateKeyResult> CreateRsaKey(const OperationPolicySetting& policy,
-                                         const CreateKeyOptions& options,
-                                         AutoReload auto_reload);
+  StatusOr<CreateKeyResult> CreateRsaKey(
+      const OperationPolicySetting& policy,
+      const CreateKeyOptions& options,
+      const LoadKeyOptions& load_key_options);
   StatusOr<CreateKeyResult> CreateSoftwareGenRsaKey(
       const OperationPolicySetting& policy,
       const CreateKeyOptions& options,
-      AutoReload auto_reload);
-  StatusOr<CreateKeyResult> CreateEccKey(const OperationPolicySetting& policy,
-                                         const CreateKeyOptions& options,
-                                         AutoReload auto_reload);
+      const LoadKeyOptions& load_key_options);
+  StatusOr<CreateKeyResult> CreateEccKey(
+      const OperationPolicySetting& policy,
+      const CreateKeyOptions& options,
+      const LoadKeyOptions& load_key_options);
   StatusOr<ScopedKey> LoadKeyInternal(
       const OperationPolicy& policy,
       KeyTpm2::Type key_type,
       uint32_t key_handle,
       std::optional<KeyReloadDataTpm2> reload_data);
+  Status FlushTransientKey(Key key, KeyTpm2& key_data);
+  Status FlushKeyTokenAndHandle(KeyToken token, trunks::TPM_HANDLE handle);
 
   KeyToken current_token_ = 0;
   absl::flat_hash_map<KeyToken, KeyTpm2> key_map_;
   absl::flat_hash_map<PersistentKeyType, KeyToken> persistent_key_map_;
+  bool shall_flush_immediately_ = false;
 };
 
 }  // namespace hwsec

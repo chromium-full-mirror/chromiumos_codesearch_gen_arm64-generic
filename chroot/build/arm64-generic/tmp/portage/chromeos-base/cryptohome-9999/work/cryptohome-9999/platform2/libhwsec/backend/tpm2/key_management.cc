@@ -4,6 +4,7 @@
 
 #include "libhwsec/backend/tpm2/key_management.h"
 
+#include <algorithm>
 #include <cstdint>
 #include <optional>
 #include <string>
@@ -12,6 +13,7 @@
 #include <absl/container/flat_hash_set.h>
 #include <base/callback_helpers.h>
 #include <base/numerics/safe_conversions.h>
+#include <base/timer/timer.h>
 #include <brillo/secure_blob.h>
 #include <crypto/scoped_openssl_types.h>
 #include <libhwsec-foundation/crypto/rsa.h>
@@ -151,13 +153,44 @@ std::string PaddingStringToLength(const std::string& in, size_t length) {
   return in;
 }
 
+bool IsKeyDataMatch(const KeyTpm2& key_data,
+                    const brillo::Blob& key_blob,
+                    const OperationPolicy& policy) {
+  if (!key_data.reload_data.has_value()) {
+    return false;
+  }
+
+  if (key_data.reload_data->key_blob != key_blob) {
+    return false;
+  }
+
+  if (key_data.cache.policy.permission.auth_value !=
+      policy.permission.auth_value) {
+    return false;
+  }
+
+  if (key_data.cache.policy.device_configs != policy.device_configs) {
+    return false;
+  }
+
+  return true;
+}
+
 }  // namespace
 
 KeyManagementTpm2::~KeyManagementTpm2() {
+  shall_flush_immediately_ = true;
+
   std::vector<Key> key_list;
   for (auto& [token, data] : key_map_) {
+    if (data.reload_data.has_value() &&
+        data.reload_data->flush_timer != nullptr) {
+      data.reload_data->flush_timer->Stop();
+      data.reload_data->flush_timer.reset();
+    }
     key_list.push_back(Key{.token = token});
   }
+
   for (Key key : key_list) {
     if (Status status = Flush(key); !status.ok()) {
       LOG(WARNING) << "Failed to flush key: " << status;
@@ -210,13 +243,13 @@ Status KeyManagementTpm2::IsSupported(KeyAlgoType key_algo,
 StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateKey(
     const OperationPolicySetting& policy,
     KeyAlgoType key_algo,
-    AutoReload auto_reload,
+    const LoadKeyOptions& load_key_options,
     const CreateKeyOptions& options) {
   switch (key_algo) {
     case KeyAlgoType::kRsa:
-      return CreateRsaKey(policy, options, auto_reload);
+      return CreateRsaKey(policy, options, load_key_options);
     case KeyAlgoType::kEcc:
-      return CreateEccKey(policy, options, auto_reload);
+      return CreateEccKey(policy, options, load_key_options);
     default:
       return MakeStatus<TPMError>("Unsupported key creation algorithm",
                                   TPMRetryAction::kNoRetry);
@@ -226,14 +259,14 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateKey(
 StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateRsaKey(
     const OperationPolicySetting& policy,
     const CreateKeyOptions& options,
-    AutoReload auto_reload) {
+    const LoadKeyOptions& load_key_options) {
   ASSIGN_OR_RETURN(
       const ConfigTpm2::PcrMap& setting,
       backend_.GetConfigTpm2().ToSettingsPcrMap(policy.device_config_settings),
       _.WithStatus<TPMError>("Failed to convert setting to PCR map"));
 
   if (options.allow_software_gen && setting.empty()) {
-    return CreateSoftwareGenRsaKey(policy, options, auto_reload);
+    return CreateSoftwareGenRsaKey(policy, options, load_key_options);
   }
 
   BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
@@ -296,7 +329,8 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateRsaKey(
       backend_.GetConfigTpm2().ToOperationPolicy(policy),
       _.WithStatus<TPMError>("Failed to convert setting to policy"));
 
-  ASSIGN_OR_RETURN(ScopedKey key, LoadKey(op_policy, key_blob, auto_reload),
+  ASSIGN_OR_RETURN(ScopedKey key,
+                   LoadKey(op_policy, key_blob, load_key_options),
                    _.WithStatus<TPMError>("Failed to load created RSA key"));
 
   return CreateKeyResult{
@@ -306,9 +340,10 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateRsaKey(
 }
 
 StatusOr<KeyManagementTpm2::CreateKeyResult>
-KeyManagementTpm2::CreateSoftwareGenRsaKey(const OperationPolicySetting& policy,
-                                           const CreateKeyOptions& options,
-                                           AutoReload auto_reload) {
+KeyManagementTpm2::CreateSoftwareGenRsaKey(
+    const OperationPolicySetting& policy,
+    const CreateKeyOptions& options,
+    const LoadKeyOptions& load_key_options) {
   brillo::SecureBlob n;
   brillo::SecureBlob p;
   if (!hwsec_foundation::CreateRsaKey(
@@ -318,14 +353,14 @@ KeyManagementTpm2::CreateSoftwareGenRsaKey(const OperationPolicySetting& policy,
   }
 
   return WrapRSAKey(policy, brillo::Blob(std::begin(n), std::end(n)), p,
-                    auto_reload, options);
+                    load_key_options, options);
 }
 
 StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::WrapRSAKey(
     const OperationPolicySetting& policy,
     const brillo::Blob& public_modulus,
     const brillo::SecureBlob& private_prime_factor,
-    AutoReload auto_reload,
+    const LoadKeyOptions& load_key_options,
     const CreateKeyOptions& options) {
   ASSIGN_OR_RETURN(
       const ConfigTpm2::PcrMap& setting,
@@ -379,7 +414,7 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::WrapRSAKey(
       _.WithStatus<TPMError>("Failed to convert setting to policy"));
 
   ASSIGN_OR_RETURN(
-      ScopedKey key, LoadKey(op_policy, key_blob, auto_reload),
+      ScopedKey key, LoadKey(op_policy, key_blob, load_key_options),
       _.WithStatus<TPMError>("Failed to load created software RSA key"));
 
   return CreateKeyResult{
@@ -393,7 +428,7 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::WrapECCKey(
     const brillo::Blob& public_point_x,
     const brillo::Blob& public_point_y,
     const brillo::SecureBlob& private_value,
-    AutoReload auto_reload,
+    const LoadKeyOptions& load_key_options,
     const CreateKeyOptions& options) {
   ASSIGN_OR_RETURN(
       const ConfigTpm2::PcrMap& setting,
@@ -449,7 +484,7 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::WrapECCKey(
       _.WithStatus<TPMError>("Failed to convert setting to policy"));
 
   ASSIGN_OR_RETURN(
-      ScopedKey key, LoadKey(op_policy, key_blob, auto_reload),
+      ScopedKey key, LoadKey(op_policy, key_blob, load_key_options),
       _.WithStatus<TPMError>("Failed to load created software RSA key"));
 
   return CreateKeyResult{
@@ -461,7 +496,7 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::WrapECCKey(
 StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateEccKey(
     const OperationPolicySetting& policy,
     const CreateKeyOptions& options,
-    AutoReload auto_reload) {
+    const LoadKeyOptions& load_key_options) {
   BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
 
   ASSIGN_OR_RETURN(trunks::TpmUtility::AsymmetricKeyUsage usage,
@@ -525,7 +560,8 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateEccKey(
       backend_.GetConfigTpm2().ToOperationPolicy(policy),
       _.WithStatus<TPMError>("Failed to convert setting to policy"));
 
-  ASSIGN_OR_RETURN(ScopedKey key, LoadKey(op_policy, key_blob, auto_reload),
+  ASSIGN_OR_RETURN(ScopedKey key,
+                   LoadKey(op_policy, key_blob, load_key_options),
                    _.WithStatus<TPMError>("Failed to load created RSA key"));
 
   return CreateKeyResult{
@@ -534,9 +570,28 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateEccKey(
   };
 }
 
-StatusOr<ScopedKey> KeyManagementTpm2::LoadKey(const OperationPolicy& policy,
-                                               const brillo::Blob& key_blob,
-                                               AutoReload auto_reload) {
+StatusOr<ScopedKey> KeyManagementTpm2::LoadKey(
+    const OperationPolicy& policy,
+    const brillo::Blob& key_blob,
+    const LoadKeyOptions& load_key_options) {
+  if (load_key_options.auto_reload == true && policy.device_configs.none()) {
+    for (auto& [token, key_data] : key_map_) {
+      if (IsKeyDataMatch(key_data, key_blob, policy)) {
+        if (key_data.reload_data->flush_timer != nullptr) {
+          key_data.reload_data->flush_timer->Stop();
+          key_data.reload_data->flush_timer.reset();
+        }
+
+        key_data.reload_data->lazy_expiration_time =
+            std::min(key_data.reload_data->lazy_expiration_time,
+                     load_key_options.lazy_expiration_time);
+        key_data.reload_data->client_count++;
+        return ScopedKey(Key{.token = token},
+                         backend_.GetMiddlewareDerivative());
+      }
+    }
+  }
+
   BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
 
   uint32_t key_handle;
@@ -549,14 +604,16 @@ StatusOr<ScopedKey> KeyManagementTpm2::LoadKey(const OperationPolicy& policy,
 
   KeyTpm2::Type key_type = KeyTpm2::Type::kTransientKey;
   std::optional<KeyReloadDataTpm2> reload_data;
-  if (auto_reload == AutoReload::kTrue) {
+  if (load_key_options.auto_reload == true) {
     key_type = KeyTpm2::Type::kReloadableTransientKey;
     reload_data = KeyReloadDataTpm2{
         .key_blob = key_blob,
+        .client_count = 1,
+        .lazy_expiration_time = load_key_options.lazy_expiration_time,
     };
   }
 
-  return LoadKeyInternal(policy, key_type, key_handle, reload_data);
+  return LoadKeyInternal(policy, key_type, key_handle, std::move(reload_data));
 }
 
 StatusOr<ScopedKey> KeyManagementTpm2::GetPersistentKey(
@@ -697,9 +754,8 @@ StatusOr<ScopedKey> KeyManagementTpm2::LoadKeyInternal(
 }
 
 Status KeyManagementTpm2::Flush(Key key) {
-  ASSIGN_OR_RETURN(const KeyTpm2& key_data, GetKeyData(key));
+  ASSIGN_OR_RETURN(KeyTpm2 & key_data, GetKeyData(key));
 
-  BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
   switch (key_data.type) {
     case KeyTpm2::Type::kPersistentKey:
       // We don't need to unload these kinds of key.
@@ -707,16 +763,59 @@ Status KeyManagementTpm2::Flush(Key key) {
 
     case KeyTpm2::Type::kTransientKey:
     case KeyTpm2::Type::kReloadableTransientKey:
-      RETURN_IF_ERROR(
-          MakeStatus<TPM2Error>(context.factory.GetTpm()->FlushContextSync(
-              key_data.key_handle, nullptr)))
-          .WithStatus<TPMError>("Failed to flush key handle");
-      key_map_.erase(key.token);
-      return OkStatus();
+      return FlushTransientKey(key, key_data);
 
     default:
       return MakeStatus<TPMError>("Unknown key type", TPMRetryAction::kNoRetry);
   }
+}
+
+Status KeyManagementTpm2::FlushTransientKey(Key key, KeyTpm2& key_data) {
+  if (shall_flush_immediately_) {
+    return FlushKeyTokenAndHandle(key.token, key_data.key_handle);
+  }
+
+  if (key_data.reload_data.has_value()) {
+    key_data.reload_data->client_count--;
+    if (key_data.reload_data->client_count != 0) {
+      // We still have the other client using this key.
+      return OkStatus();
+    }
+  }
+
+  if (key_data.reload_data.has_value() &&
+      key_data.reload_data->lazy_expiration_time.is_positive() &&
+      base::SequencedTaskRunnerHandle::IsSet()) {
+    base::OnceClosure flush_closure =
+        base::BindOnce(&KeyManagementTpm2::FlushKeyTokenAndHandle,
+                       base::Unretained(this), static_cast<KeyToken>(key.token),
+                       static_cast<trunks::TPM_HANDLE>(key_data.key_handle))
+            .Then(base::BindOnce([](Status result) {
+              if (!result.ok()) {
+                LOG(ERROR) << "Failed to flush key: " << result;
+              }
+            }));
+    key_data.reload_data->flush_timer = std::make_unique<base::OneShotTimer>();
+    key_data.reload_data->flush_timer->Start(
+        FROM_HERE, key_data.reload_data->lazy_expiration_time,
+        std::move(flush_closure));
+    return OkStatus();
+  }
+
+  return FlushKeyTokenAndHandle(key.token, key_data.key_handle);
+}
+
+Status KeyManagementTpm2::FlushKeyTokenAndHandle(KeyToken token,
+                                                 trunks::TPM_HANDLE handle) {
+  BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
+
+  RETURN_IF_ERROR(
+      MakeStatus<TPM2Error>(
+          context.factory.GetTpm()->FlushContextSync(handle, nullptr)))
+      .WithStatus<TPMError>("Failed to flush key handle");
+
+  key_map_.erase(token);
+  return OkStatus();
 }
 
 StatusOr<std::reference_wrapper<KeyTpm2>> KeyManagementTpm2::GetKeyData(

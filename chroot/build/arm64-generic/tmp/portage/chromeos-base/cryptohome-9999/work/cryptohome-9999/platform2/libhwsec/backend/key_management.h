@@ -8,6 +8,7 @@
 #include <cstdint>
 
 #include <absl/container/flat_hash_set.h>
+#include <base/time/time.h>
 #include <brillo/secure_blob.h>
 
 #include "libhwsec/status.h"
@@ -33,10 +34,6 @@ class KeyManagement {
   enum class PersistentKeyType {
     kStorageRootKey,
   };
-  enum class AutoReload {
-    kFalse,
-    kTrue,
-  };
   struct CreateKeyOptions {
     bool allow_software_gen = false;
     bool allow_decrypt = false;
@@ -44,6 +41,10 @@ class KeyManagement {
     std::optional<uint32_t> rsa_modulus_bits;
     std::optional<brillo::Blob> rsa_exponent;
     std::optional<uint32_t> ecc_nid;
+  };
+  struct LoadKeyOptions {
+    bool auto_reload = false;
+    base::TimeDelta lazy_expiration_time = base::Seconds(0);
   };
   struct CreateKeyResult {
     ScopedKey key;
@@ -61,13 +62,14 @@ class KeyManagement {
   virtual StatusOr<CreateKeyResult> CreateKey(
       const OperationPolicySetting& policy,
       KeyAlgoType key_algo,
-      AutoReload auto_reload,
+      const LoadKeyOptions& load_key_options,
       const CreateKeyOptions& options) = 0;
 
   // Loads a key from |key_blob| with |policy|.
-  virtual StatusOr<ScopedKey> LoadKey(const OperationPolicy& policy,
-                                      const brillo::Blob& key_blob,
-                                      AutoReload auto_reload) = 0;
+  virtual StatusOr<ScopedKey> LoadKey(
+      const OperationPolicy& policy,
+      const brillo::Blob& key_blob,
+      const LoadKeyOptions& load_key_options) = 0;
 
   // Loads the persistent key with specific |key_type|.
   virtual StatusOr<ScopedKey> GetPersistentKey(PersistentKeyType key_type) = 0;
@@ -94,7 +96,7 @@ class KeyManagement {
       const OperationPolicySetting& policy,
       const brillo::Blob& public_modulus,
       const brillo::SecureBlob& private_prime_factor,
-      AutoReload auto_reload,
+      const LoadKeyOptions& load_key_options,
       const CreateKeyOptions& options) = 0;
 
   // Wraps an ECC key with the |policy| and the given parameters.
@@ -103,7 +105,7 @@ class KeyManagement {
       const brillo::Blob& public_point_x,
       const brillo::Blob& public_point_y,
       const brillo::SecureBlob& private_value,
-      AutoReload auto_reload,
+      const LoadKeyOptions& load_key_options,
       const CreateKeyOptions& options) = 0;
 
   // Gets the public information of a RSA |key|.
