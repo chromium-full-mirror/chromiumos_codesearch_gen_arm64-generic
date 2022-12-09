@@ -15,8 +15,10 @@ namespace hindsight {
 
 CrOSActionEvent_FileOpened::CrOSActionEvent_FileOpened() :
   ::metrics::structured::Event("Hindsight",
-                               "CrOSActionEvent_FileOpened") {}
+                               "CrOSActionEvent_FileOpened",
+                               false) {}
 CrOSActionEvent_FileOpened::~CrOSActionEvent_FileOpened() = default;
+
 CrOSActionEvent_FileOpened& CrOSActionEvent_FileOpened::SetFilename(const std::string& value) {
   AddMetric("Filename", Event::MetricType::kHmac,
             base::Value(value));
@@ -43,8 +45,10 @@ CrOSActionEvent_FileOpened& CrOSActionEvent_FileOpened::SetTimeSinceLastAction(c
 
 CrOSActionEvent_SearchResultLaunched::CrOSActionEvent_SearchResultLaunched() :
   ::metrics::structured::Event("Hindsight",
-                               "CrOSActionEvent_SearchResultLaunched") {}
+                               "CrOSActionEvent_SearchResultLaunched",
+                               false) {}
 CrOSActionEvent_SearchResultLaunched::~CrOSActionEvent_SearchResultLaunched() = default;
+
 CrOSActionEvent_SearchResultLaunched& CrOSActionEvent_SearchResultLaunched::SetQuery(const std::string& value) {
   AddMetric("Query", Event::MetricType::kHmac,
             base::Value(value));
@@ -77,8 +81,10 @@ CrOSActionEvent_SearchResultLaunched& CrOSActionEvent_SearchResultLaunched::SetT
 
 CrOSActionEvent_SettingChanged::CrOSActionEvent_SettingChanged() :
   ::metrics::structured::Event("Hindsight",
-                               "CrOSActionEvent_SettingChanged") {}
+                               "CrOSActionEvent_SettingChanged",
+                               false) {}
 CrOSActionEvent_SettingChanged::~CrOSActionEvent_SettingChanged() = default;
+
 CrOSActionEvent_SettingChanged& CrOSActionEvent_SettingChanged::SetCurrentValue(const int64_t value) {
   AddMetric("CurrentValue", Event::MetricType::kLong,
             base::Value(base::NumberToString(value)));
@@ -117,8 +123,10 @@ CrOSActionEvent_SettingChanged& CrOSActionEvent_SettingChanged::SetTimeSinceLast
 
 CrOSActionEvent_TabEvent_TabNavigated::CrOSActionEvent_TabEvent_TabNavigated() :
   ::metrics::structured::Event("Hindsight",
-                               "CrOSActionEvent_TabEvent_TabNavigated") {}
+                               "CrOSActionEvent_TabEvent_TabNavigated",
+                               false) {}
 CrOSActionEvent_TabEvent_TabNavigated::~CrOSActionEvent_TabEvent_TabNavigated() = default;
+
 CrOSActionEvent_TabEvent_TabNavigated& CrOSActionEvent_TabEvent_TabNavigated::SetPageTransition(const int64_t value) {
   AddMetric("PageTransition", Event::MetricType::kLong,
             base::Value(base::NumberToString(value)));
@@ -151,8 +159,10 @@ CrOSActionEvent_TabEvent_TabNavigated& CrOSActionEvent_TabEvent_TabNavigated::Se
 
 CrOSActionEvent_TabEvent_TabOpened::CrOSActionEvent_TabEvent_TabOpened() :
   ::metrics::structured::Event("Hindsight",
-                               "CrOSActionEvent_TabEvent_TabOpened") {}
+                               "CrOSActionEvent_TabEvent_TabOpened",
+                               false) {}
 CrOSActionEvent_TabEvent_TabOpened::~CrOSActionEvent_TabEvent_TabOpened() = default;
+
 CrOSActionEvent_TabEvent_TabOpened& CrOSActionEvent_TabEvent_TabOpened::SetSequenceId(const int64_t value) {
   AddMetric("SequenceId", Event::MetricType::kLong,
             base::Value(base::NumberToString(value)));
@@ -185,8 +195,10 @@ CrOSActionEvent_TabEvent_TabOpened& CrOSActionEvent_TabEvent_TabOpened::SetWindo
 
 CrOSActionEvent_TabEvent_TabReactivated::CrOSActionEvent_TabEvent_TabReactivated() :
   ::metrics::structured::Event("Hindsight",
-                               "CrOSActionEvent_TabEvent_TabReactivated") {}
+                               "CrOSActionEvent_TabEvent_TabReactivated",
+                               false) {}
 CrOSActionEvent_TabEvent_TabReactivated::~CrOSActionEvent_TabEvent_TabReactivated() = default;
+
 CrOSActionEvent_TabEvent_TabReactivated& CrOSActionEvent_TabEvent_TabReactivated::SetSequenceId(const int64_t value) {
   AddMetric("SequenceId", Event::MetricType::kLong,
             base::Value(base::NumberToString(value)));
@@ -211,8 +223,10 @@ namespace launcher_usage {
 
 LauncherUsage::LauncherUsage() :
   ::metrics::structured::Event("LauncherUsage",
-                               "LauncherUsage") {}
+                               "LauncherUsage",
+                               false) {}
 LauncherUsage::~LauncherUsage() = default;
+
 LauncherUsage& LauncherUsage::SetApp(const std::string& value) {
   AddMetric("App", Event::MetricType::kHmac,
             base::Value(value));
@@ -267,8 +281,10 @@ namespace neutrino_devices {
 
 ClientIdChanged::ClientIdChanged() :
   ::metrics::structured::Event("NeutrinoDevices",
-                               "ClientIdChanged") {}
+                               "ClientIdChanged",
+                               false) {}
 ClientIdChanged::~ClientIdChanged() = default;
+
 ClientIdChanged& ClientIdChanged::SetInitialClientId(const std::string& value) {
   AddMetric("InitialClientId", Event::MetricType::kHmac,
             base::Value(value));
@@ -307,8 +323,10 @@ ClientIdChanged& ClientIdChanged::SetDaysSinceKeyRotation(const int64_t value) {
 
 ClientIdCleared::ClientIdCleared() :
   ::metrics::structured::Event("NeutrinoDevices",
-                               "ClientIdCleared") {}
+                               "ClientIdCleared",
+                               false) {}
 ClientIdCleared::~ClientIdCleared() = default;
+
 ClientIdCleared& ClientIdCleared::SetInitialClientId(const std::string& value) {
   AddMetric("InitialClientId", Event::MetricType::kHmac,
             base::Value(value));
@@ -329,8 +347,10 @@ ClientIdCleared& ClientIdCleared::SetLog2TimeSinceMetricsEnabled(const int64_t v
 
 Enrollment::Enrollment() :
   ::metrics::structured::Event("NeutrinoDevices",
-                               "Enrollment") {}
+                               "Enrollment",
+                               false) {}
 Enrollment::~Enrollment() = default;
+
 Enrollment& Enrollment::SetClientId(const std::string& value) {
   AddMetric("ClientId", Event::MetricType::kHmac,
             base::Value(value));
@@ -357,8 +377,10 @@ Enrollment& Enrollment::SetIsManagedPolicy(const int64_t value) {
 
 CodePoint::CodePoint() :
   ::metrics::structured::Event("NeutrinoDevices",
-                               "CodePoint") {}
+                               "CodePoint",
+                               false) {}
 CodePoint::~CodePoint() = default;
+
 CodePoint& CodePoint::SetClientId(const std::string& value) {
   AddMetric("ClientId", Event::MetricType::kHmac,
             base::Value(value));
@@ -377,8 +399,10 @@ namespace structured_metrics {
 
 Initialization::Initialization() :
   ::metrics::structured::Event("StructuredMetrics",
-                               "Initialization") {}
+                               "Initialization",
+                               false) {}
 Initialization::~Initialization() = default;
+
 Initialization& Initialization::SetPlatform(const int64_t value) {
   AddMetric("Platform", Event::MetricType::kLong,
             base::Value(base::NumberToString(value)));
@@ -387,12 +411,36 @@ Initialization& Initialization::SetPlatform(const int64_t value) {
 
 }  // namespace structured_metrics
 
+namespace cr_os_events {
+
+Test1::Test1() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "Test1",
+                               true) {}
+Test1::~Test1() = default;
+
+Test1& Test1::SetMetric1(const double value) {
+  AddMetric("Metric1", Event::MetricType::kDouble,
+            base::Value(value));
+  return *this;
+}
+
+NoMetricsEvent::NoMetricsEvent() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "NoMetricsEvent",
+                               true) {}
+NoMetricsEvent::~NoMetricsEvent() = default;
+
+}  // namespace cr_os_events
+
 namespace test_project_one {
 
 TestEventOne::TestEventOne() :
   ::metrics::structured::Event("TestProjectOne",
-                               "TestEventOne") {}
+                               "TestEventOne",
+                               false) {}
 TestEventOne::~TestEventOne() = default;
+
 TestEventOne& TestEventOne::SetTestMetricOne(const std::string& value) {
   AddMetric("TestMetricOne", Event::MetricType::kHmac,
             base::Value(value));
@@ -411,8 +459,10 @@ namespace test_project_two {
 
 TestEventThree::TestEventThree() :
   ::metrics::structured::Event("TestProjectTwo",
-                               "TestEventThree") {}
+                               "TestEventThree",
+                               false) {}
 TestEventThree::~TestEventThree() = default;
+
 TestEventThree& TestEventThree::SetTestMetricFour(const std::string& value) {
   AddMetric("TestMetricFour", Event::MetricType::kHmac,
             base::Value(value));
@@ -421,8 +471,10 @@ TestEventThree& TestEventThree::SetTestMetricFour(const std::string& value) {
 
 TestEventTwo::TestEventTwo() :
   ::metrics::structured::Event("TestProjectTwo",
-                               "TestEventTwo") {}
+                               "TestEventTwo",
+                               false) {}
 TestEventTwo::~TestEventTwo() = default;
+
 TestEventTwo& TestEventTwo::SetTestMetricThree(const std::string& value) {
   AddMetric("TestMetricThree", Event::MetricType::kHmac,
             base::Value(value));
@@ -435,8 +487,10 @@ namespace test_project_three {
 
 TestEventFour::TestEventFour() :
   ::metrics::structured::Event("TestProjectThree",
-                               "TestEventFour") {}
+                               "TestEventFour",
+                               false) {}
 TestEventFour::~TestEventFour() = default;
+
 TestEventFour& TestEventFour::SetTestMetricFour(const int64_t value) {
   AddMetric("TestMetricFour", Event::MetricType::kLong,
             base::Value(base::NumberToString(value)));
@@ -449,8 +503,10 @@ namespace test_project_four {
 
 TestEventFive::TestEventFive() :
   ::metrics::structured::Event("TestProjectFour",
-                               "TestEventFive") {}
+                               "TestEventFive",
+                               false) {}
 TestEventFive::~TestEventFive() = default;
+
 TestEventFive& TestEventFive::SetTestMetricFive(const std::string& value) {
   AddMetric("TestMetricFive", Event::MetricType::kHmac,
             base::Value(value));
@@ -463,8 +519,10 @@ namespace test_project_five {
 
 TestEventSix::TestEventSix() :
   ::metrics::structured::Event("TestProjectFive",
-                               "TestEventSix") {}
+                               "TestEventSix",
+                               false) {}
 TestEventSix::~TestEventSix() = default;
+
 TestEventSix& TestEventSix::SetTestMetricSix(const std::string& value) {
   AddMetric("TestMetricSix", Event::MetricType::kRawString,
             base::Value(value));
@@ -477,8 +535,10 @@ namespace test_project_six {
 
 TestEventSeven::TestEventSeven() :
   ::metrics::structured::Event("TestProjectSix",
-                               "TestEventSeven") {}
+                               "TestEventSeven",
+                               false) {}
 TestEventSeven::~TestEventSeven() = default;
+
 TestEventSeven& TestEventSeven::SetTestMetricSeven(const double value) {
   AddMetric("TestMetricSeven", Event::MetricType::kDouble,
             base::Value(value));

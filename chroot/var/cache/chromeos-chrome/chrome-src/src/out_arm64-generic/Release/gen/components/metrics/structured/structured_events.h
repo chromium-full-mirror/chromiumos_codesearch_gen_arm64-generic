@@ -167,6 +167,25 @@ class Initialization final : public ::metrics::structured::Event {
 
 }  // namespace structured_metrics
 
+namespace cr_os_events {
+
+class Test1 final : public ::metrics::structured::Event {
+ public:
+  Test1();
+  ~Test1() override;
+
+    Test1& SetMetric1(const double value);
+};
+
+class NoMetricsEvent final : public ::metrics::structured::Event {
+ public:
+  NoMetricsEvent();
+  ~NoMetricsEvent() override;
+
+  };
+
+}  // namespace cr_os_events
+
 namespace test_project_one {
 
 class TestEventOne final : public ::metrics::structured::Event {
