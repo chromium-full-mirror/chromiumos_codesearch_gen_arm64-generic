@@ -682,6 +682,16 @@ class debugdProxyMock : public debugdProxyInterface {
                     base::OnceCallback<void(const std::string& /*status*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD4(SwapSetSwappiness,
+               bool(uint32_t /*in_swappiness_value*/,
+                    std::string* /*out_status*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(SwapSetSwappinessAsync,
+               void(uint32_t /*in_swappiness_value*/,
+                    base::OnceCallback<void(const std::string& /*status*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD4(SetU2fFlags,
                bool(const std::string& /*in_flags*/,
                     std::string* /*out_status*/,

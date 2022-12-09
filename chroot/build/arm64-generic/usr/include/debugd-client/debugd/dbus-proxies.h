@@ -1108,6 +1108,20 @@ class debugdProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Set the /proc/sys/vm/swappiness to the provided |swappiness_value|.
+  virtual bool SwapSetSwappiness(
+      uint32_t in_swappiness_value,
+      std::string* out_status,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Set the /proc/sys/vm/swappiness to the provided |swappiness_value|.
+  virtual void SwapSetSwappinessAsync(
+      uint32_t in_swappiness_value,
+      base::OnceCallback<void(const std::string& /*status*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Modify u2fd daemon debugging/override flags.
   virtual bool SetU2fFlags(
       const std::string& in_flags,
@@ -3958,6 +3972,39 @@ class debugdProxy final : public debugdProxyInterface {
         std::move(success_callback),
         std::move(error_callback),
         in_mode);
+  }
+
+  // Set the /proc/sys/vm/swappiness to the provided |swappiness_value|.
+  bool SwapSetSwappiness(
+      uint32_t in_swappiness_value,
+      std::string* out_status,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "SwapSetSwappiness",
+        error,
+        in_swappiness_value);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_status);
+  }
+
+  // Set the /proc/sys/vm/swappiness to the provided |swappiness_value|.
+  void SwapSetSwappinessAsync(
+      uint32_t in_swappiness_value,
+      base::OnceCallback<void(const std::string& /*status*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "SwapSetSwappiness",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_swappiness_value);
   }
 
   // Modify u2fd daemon debugging/override flags.

@@ -342,6 +342,9 @@ class debugdInterface {
   // Initiate a zram writeback using the provided |mode|.
   virtual std::string InitiateSwapZramWriteback(
       uint32_t in_mode) = 0;
+  // Set the /proc/sys/vm/swappiness to the provided |swappiness_value|.
+  virtual std::string SwapSetSwappiness(
+      uint32_t in_swappiness_value) = 0;
   // Modify u2fd daemon debugging/override flags.
   virtual std::string SetU2fFlags(
       const std::string& in_flags) = 0;
@@ -759,6 +762,10 @@ class debugdAdaptor {
         base::Unretained(interface_),
         &debugdInterface::InitiateSwapZramWriteback);
     itf->AddSimpleMethodHandler(
+        "SwapSetSwappiness",
+        base::Unretained(interface_),
+        &debugdInterface::SwapSetSwappiness);
+    itf->AddSimpleMethodHandler(
         "SetU2fFlags",
         base::Unretained(interface_),
         &debugdInterface::SetU2fFlags);
@@ -1152,6 +1159,10 @@ class debugdAdaptor {
         "    </method>\n"
         "    <method name=\"InitiateSwapZramWriteback\">\n"
         "      <arg name=\"mode\" type=\"u\" direction=\"in\"/>\n"
+        "      <arg name=\"status\" type=\"s\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"SwapSetSwappiness\">\n"
+        "      <arg name=\"swappiness_value\" type=\"u\" direction=\"in\"/>\n"
         "      <arg name=\"status\" type=\"s\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"SetU2fFlags\">\n"
