@@ -58,6 +58,13 @@ extern const int kIdleAfterDimMax;
 extern const char kBatteryChargeHealthName[];
 extern const int kBatteryChargeHealthMax;
 
+extern const char kBatteryCapacityActualSuffix[];
+extern const char kBatteryCapacityDesignSuffix[];
+
+extern const char kBatteryCapacityName[];
+extern const int kBatteryCapacityMin;
+extern const int kBatteryCapacityMax;
+
 extern const char kBatteryDischargeRateName[];
 extern const int kBatteryDischargeRateMin;
 extern const int kBatteryDischargeRateMax;
@@ -68,6 +75,14 @@ extern const char kBatteryDischargeRateWhileHibernatedName[];
 extern const int kBatteryDischargeRateWhileSuspendedMin;
 extern const int kBatteryDischargeRateWhileSuspendedMax;
 extern const base::TimeDelta kBatteryDischargeRateWhileSuspendedMinSuspend;
+
+extern const char kBatteryLifeName[];
+extern const int kBatteryLifeMin;
+extern const int kBatteryLifeMax;
+
+extern const char kBatteryLifeWhileSuspendedName[];
+extern const int kBatteryLifeWhileSuspendedMin;
+extern const int kBatteryLifeWhileSuspendedMax;
 
 extern const char kBatteryRemainingWhenChargeStartsName[];
 extern const char kBatteryRemainingAtEndOfSessionName[];

@@ -54,6 +54,13 @@ const char kBatteryChargeHealthName[] = "Power.BatteryChargeHealth";  // %
 // >100% to account for new batteries which often charge above full
 const int kBatteryChargeHealthMax = 111;
 
+const char kBatteryCapacityActualSuffix[] = ".Actual";
+const char kBatteryCapacityDesignSuffix[] = ".Design";
+
+const char kBatteryCapacityName[] = "Power.BatteryCapacity";  // mWh
+const int kBatteryCapacityMin = 0;
+const int kBatteryCapacityMax = 200000;
+
 const char kBatteryDischargeRateName[] = "Power.BatteryDischargeRate";  // mW
 const int kBatteryDischargeRateMin = 1;
 const int kBatteryDischargeRateMax = 20000;
@@ -67,6 +74,15 @@ const int kBatteryDischargeRateWhileSuspendedMin = 1;
 const int kBatteryDischargeRateWhileSuspendedMax = 5000;
 const base::TimeDelta kBatteryDischargeRateWhileSuspendedMinSuspend =
     base::Minutes(10);
+
+const char kBatteryLifeName[] = "Power.BatteryLife";  // minute
+const int kBatteryLifeMin = 1;
+const int kBatteryLifeMax = 48 * 60;
+
+const char kBatteryLifeWhileSuspendedName[] =
+    "Power.BatteryLifeWhileSuspended";  // hour
+const int kBatteryLifeWhileSuspendedMin = 1;
+const int kBatteryLifeWhileSuspendedMax = 60 * 24;
 
 const char kBatteryRemainingWhenChargeStartsName[] =
     "Power.BatteryRemainingWhenChargeStarts";  // %

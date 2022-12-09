@@ -774,6 +774,31 @@ class ControlProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Enable or disable speak-on-mute detection.
+  virtual bool SetSpeakOnMuteDetection(
+      bool in_enable,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Enable or disable speak-on-mute detection.
+  virtual void SetSpeakOnMuteDetectionAsync(
+      bool in_enable,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Get whether speak-on-mute detection is enabled.
+  virtual bool SpeakOnMuteDetectionEnabled(
+      bool* out_enable,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Get whether speak-on-mute detection is enabled.
+  virtual void SpeakOnMuteDetectionEnabledAsync(
+      base::OnceCallback<void(bool /*enable*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual void RegisterOutputVolumeChangedSignalHandler(
       const base::RepeatingCallback<void(int32_t)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -845,6 +870,10 @@ class ControlProxyInterface {
 
   virtual void RegisterSurveyTriggerSignalHandler(
       const base::RepeatingCallback<void(const brillo::VariantDictionary&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
+  virtual void RegisterSpeakOnMuteDetectedSignalHandler(
+      base::RepeatingClosure signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
 
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
@@ -1067,6 +1096,17 @@ class ControlProxy final : public ControlProxyInterface {
         dbus_object_proxy_,
         "org.chromium.cras.Control",
         "SurveyTrigger",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterSpeakOnMuteDetectedSignalHandler(
+      base::RepeatingClosure signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "SpeakOnMuteDetected",
         signal_callback,
         std::move(on_connected_callback));
   }
@@ -2635,6 +2675,67 @@ class ControlProxy final : public ControlProxyInterface {
         std::move(success_callback),
         std::move(error_callback),
         in_metadata);
+  }
+
+  // Enable or disable speak-on-mute detection.
+  bool SetSpeakOnMuteDetection(
+      bool in_enable,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "SetSpeakOnMuteDetection",
+        error,
+        in_enable);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // Enable or disable speak-on-mute detection.
+  void SetSpeakOnMuteDetectionAsync(
+      bool in_enable,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "SetSpeakOnMuteDetection",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_enable);
+  }
+
+  // Get whether speak-on-mute detection is enabled.
+  bool SpeakOnMuteDetectionEnabled(
+      bool* out_enable,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "SpeakOnMuteDetectionEnabled",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_enable);
+  }
+
+  // Get whether speak-on-mute detection is enabled.
+  void SpeakOnMuteDetectionEnabledAsync(
+      base::OnceCallback<void(bool /*enable*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "SpeakOnMuteDetectionEnabled",
+        std::move(success_callback),
+        std::move(error_callback));
   }
 
  private:

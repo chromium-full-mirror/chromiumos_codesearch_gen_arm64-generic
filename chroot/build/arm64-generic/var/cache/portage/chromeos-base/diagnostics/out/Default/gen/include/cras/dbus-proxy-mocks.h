@@ -420,6 +420,23 @@ class ControlProxyMock : public ControlProxyInterface {
                     base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD3(SetSpeakOnMuteDetection,
+               bool(bool /*in_enable*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(SetSpeakOnMuteDetectionAsync,
+               void(bool /*in_enable*/,
+                    base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(SpeakOnMuteDetectionEnabled,
+               bool(bool* /*out_enable*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(SpeakOnMuteDetectionEnabledAsync,
+               void(base::OnceCallback<void(bool /*enable*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   void RegisterOutputVolumeChangedSignalHandler(
     const base::RepeatingCallback<void(int32_t)>& signal_callback,
     dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
@@ -565,6 +582,14 @@ class ControlProxyMock : public ControlProxyInterface {
   }
   MOCK_METHOD2(DoRegisterSurveyTriggerSignalHandler,
                void(const base::RepeatingCallback<void(const brillo::VariantDictionary&)>& /*signal_callback*/,
+                    dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+  void RegisterSpeakOnMuteDetectedSignalHandler(
+    base::RepeatingClosure signal_callback,
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
+    DoRegisterSpeakOnMuteDetectedSignalHandler(signal_callback, &on_connected_callback);
+  }
+  MOCK_METHOD2(DoRegisterSpeakOnMuteDetectedSignalHandler,
+               void(base::RepeatingClosure /*signal_callback*/,
                     dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
   MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
   MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());

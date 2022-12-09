@@ -116,19 +116,6 @@ BRILLO_EXPORT std::string GetProtoDebugString(const RemoveKeyRequest& value);
 std::string GetProtoDebugStringWithIndent(const RemoveKeyReply& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const RemoveKeyReply& value);
-std::string GetProtoDebugStringWithIndent(const MassRemoveKeysRequest& value,
-                                          int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const MassRemoveKeysRequest& value);
-std::string GetProtoDebugStringWithIndent(const MassRemoveKeysReply& value,
-                                          int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(const MassRemoveKeysReply& value);
-std::string GetProtoDebugStringWithIndent(const MigrateKeyRequest& value,
-                                          int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(const MigrateKeyRequest& value);
-std::string GetProtoDebugStringWithIndent(const MigrateKeyReply& value,
-                                          int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(const MigrateKeyReply& value);
 std::string GetProtoDebugStringWithIndent(
     const StartFingerprintAuthSessionRequest& value,
     int indent_size);
