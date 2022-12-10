@@ -12,6 +12,7 @@
 #include <metrics/metrics_library.h>
 
 #include "cryptohome/auth_blocks/auth_block_type.h"
+#include "cryptohome/auth_factor/auth_factor.h"
 #include "cryptohome/data_migrator/metrics.h"
 #include "cryptohome/le_credential_manager.h"
 #include "cryptohome/migration_type.h"
@@ -507,6 +508,30 @@ enum class UssExperimentFlag {
   kMaxValue,
 };
 
+// List of possible auth factor backing store configurations that a user can
+// have. This is determined by whether a user's factors are stored in vault
+// keysets or the USS.
+// These values are persisted to logs. Entries should not be renumbered and
+// numeric values should never be reused.
+enum class AuthFactorBackingStoreConfig {
+  kEmpty = 0,            // User has no auth factors.
+  kVaultKeyset = 1,      // All factors are stored in vault keysets.
+  kUserSecretStash = 2,  // All factors are stored in the user secret stash.
+  kMixed = 3,            // Factors are stoed in a mix of backings stores.
+  kMaxValue = kMixed,
+};
+
+// List of errors from migrating a vault keyset to USS (or success=0). This enum
+// should be updated with any new errors that can occur, along with enums.xml.
+// These values are persisted to logs. Entries should not be renumbered and
+// numeric values should never be reused.
+enum class VkToUssMigrationStatus {
+  kSuccess = 0,        // Migration succeeded with no errors.
+  kFailedPersist = 1,  // Migration failed when persisting to USS.
+  kFailedInput = 2,    // Migration unable to construct an AuthInput.
+  kMaxValue = kFailedInput,
+};
+
 // Initializes cryptohome metrics. If this is not called, all calls to Report*
 // will have no effect.
 void InitializeMetrics();
@@ -776,6 +801,12 @@ void ReportFetchUssExperimentConfigRetries(int retries);
 
 // Reports the result of reading the USS experiment flag.
 void ReportUssExperimentFlag(UssExperimentFlag flag);
+
+// Reports the current state of the auth factor backing stores.
+void ReportAuthFactorBackingStoreConfig(AuthFactorBackingStoreConfig config);
+
+// Reports the result of an (attempted) migration of a keyset to USS.
+void ReportVkToUssMigrationStatus(VkToUssMigrationStatus status);
 
 // Initialization helper.
 class ScopedMetricsInitializer {
