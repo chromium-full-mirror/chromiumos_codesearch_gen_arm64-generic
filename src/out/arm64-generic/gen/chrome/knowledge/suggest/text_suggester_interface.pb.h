@@ -113,11 +113,14 @@ enum MultiWordExperiment : int {
   MULTI_WORD_EXPERIMENT_GBOARD = 1,
   MULTI_WORD_EXPERIMENT_GBOARD_RELAXED_A = 2,
   MULTI_WORD_EXPERIMENT_GBOARD_RELAXED_B = 3,
-  MULTI_WORD_EXPERIMENT_GBOARD_RELAXED_C = 4
+  MULTI_WORD_EXPERIMENT_GBOARD_RELAXED_C = 4,
+  MULTI_WORD_EXPERIMENT_GBOARD_D = 5,
+  MULTI_WORD_EXPERIMENT_GBOARD_E = 6,
+  MULTI_WORD_EXPERIMENT_GBOARD_F = 7
 };
 bool MultiWordExperiment_IsValid(int value);
 constexpr MultiWordExperiment MultiWordExperiment_MIN = MULTI_WORD_EXPERIMENT_UNSPECIFIED;
-constexpr MultiWordExperiment MultiWordExperiment_MAX = MULTI_WORD_EXPERIMENT_GBOARD_RELAXED_C;
+constexpr MultiWordExperiment MultiWordExperiment_MAX = MULTI_WORD_EXPERIMENT_GBOARD_F;
 constexpr int MultiWordExperiment_ARRAYSIZE = MultiWordExperiment_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MultiWordExperiment_descriptor();

@@ -1167,6 +1167,31 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXDCM(const int64_t value) {
   return *this;
 }
 
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetBTEnabled(const int64_t value) {
+  AddIntMetric(kBTEnabledNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetBTStack(const int64_t value) {
+  AddIntMetric(kBTStackNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetBTHFP(const int64_t value) {
+  AddIntMetric(kBTHFPNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetBTA2DP(const int64_t value) {
+  AddIntMetric(kBTA2DPNameHash, value);
+  return *this;
+}
+
+WiFiLinkQualityReport& WiFiLinkQualityReport::SetBTActivelyScanning(const int64_t value) {
+  AddIntMetric(kBTActivelyScanningNameHash, value);
+  return *this;
+}
+
 }  // namespace wi_fi
 
 namespace test_project_one {

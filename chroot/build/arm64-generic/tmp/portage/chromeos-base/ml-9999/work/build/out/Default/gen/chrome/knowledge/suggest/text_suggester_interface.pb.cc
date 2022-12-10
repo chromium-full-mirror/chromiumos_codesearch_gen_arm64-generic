@@ -393,20 +393,23 @@ const char descriptor_table_protodef_text_5fsuggester_5finterface_2eproto[] PROT
   "oji\030\002 \001(\0132*.chrome_knowledge.EmojiSugges"
   "tionCandidateH\000B\013\n\tcandidate\"T\n\023TextSugg"
   "esterResult\022=\n\ncandidates\030\001 \003(\0132).chrome"
-  "_knowledge.TextSuggestionCandidate*\342\001\n\023M"
+  "_knowledge.TextSuggestionCandidate*\316\002\n\023M"
   "ultiWordExperiment\022%\n!MULTI_WORD_EXPERIM"
   "ENT_UNSPECIFIED\020\000\022 \n\034MULTI_WORD_EXPERIME"
   "NT_GBOARD\020\001\022*\n&MULTI_WORD_EXPERIMENT_GBO"
   "ARD_RELAXED_A\020\002\022*\n&MULTI_WORD_EXPERIMENT"
   "_GBOARD_RELAXED_B\020\003\022*\n&MULTI_WORD_EXPERI"
-  "MENT_GBOARD_RELAXED_C\020\004*t\n\025RequestSugges"
-  "tionMode\022\033\n\027SUGGESTION_MODE_UNKNOWN\020\000\022\036\n"
-  "\032SUGGESTION_MODE_COMPLETION\020\001\022\036\n\032SUGGEST"
-  "ION_MODE_PREDICTION\020\002"
+  "MENT_GBOARD_RELAXED_C\020\004\022\"\n\036MULTI_WORD_EX"
+  "PERIMENT_GBOARD_D\020\005\022\"\n\036MULTI_WORD_EXPERI"
+  "MENT_GBOARD_E\020\006\022\"\n\036MULTI_WORD_EXPERIMENT"
+  "_GBOARD_F\020\007*t\n\025RequestSuggestionMode\022\033\n\027"
+  "SUGGESTION_MODE_UNKNOWN\020\000\022\036\n\032SUGGESTION_"
+  "MODE_COMPLETION\020\001\022\036\n\032SUGGESTION_MODE_PRE"
+  "DICTION\020\002"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_text_5fsuggester_5finterface_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_text_5fsuggester_5finterface_2eproto = {
-  false, false, 2021, descriptor_table_protodef_text_5fsuggester_5finterface_2eproto, "text_suggester_interface.proto", 
+  false, false, 2129, descriptor_table_protodef_text_5fsuggester_5finterface_2eproto, "text_suggester_interface.proto", 
   &descriptor_table_text_5fsuggester_5finterface_2eproto_once, nullptr, 0, 12,
   schemas, file_default_instances, TableStruct_text_5fsuggester_5finterface_2eproto::offsets,
   file_level_metadata_text_5fsuggester_5finterface_2eproto, file_level_enum_descriptors_text_5fsuggester_5finterface_2eproto, file_level_service_descriptors_text_5fsuggester_5finterface_2eproto,
@@ -429,6 +432,9 @@ bool MultiWordExperiment_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
+    case 6:
+    case 7:
       return true;
     default:
       return false;

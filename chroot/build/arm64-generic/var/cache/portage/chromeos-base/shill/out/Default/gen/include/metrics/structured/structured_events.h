@@ -1050,6 +1050,21 @@ class BRILLO_EXPORT WiFiLinkQualityReport final : public ::metrics::structured::
   static constexpr uint64_t kTXDCMNameHash = UINT64_C(3069112994238134799);
   WiFiLinkQualityReport& SetTXDCM(const int64_t value);
 
+  static constexpr uint64_t kBTEnabledNameHash = UINT64_C(15747177435389473954);
+  WiFiLinkQualityReport& SetBTEnabled(const int64_t value);
+
+  static constexpr uint64_t kBTStackNameHash = UINT64_C(8405949737899968258);
+  WiFiLinkQualityReport& SetBTStack(const int64_t value);
+
+  static constexpr uint64_t kBTHFPNameHash = UINT64_C(11404229425485018955);
+  WiFiLinkQualityReport& SetBTHFP(const int64_t value);
+
+  static constexpr uint64_t kBTA2DPNameHash = UINT64_C(10528485639018036148);
+  WiFiLinkQualityReport& SetBTA2DP(const int64_t value);
+
+  static constexpr uint64_t kBTActivelyScanningNameHash = UINT64_C(8919887253805068389);
+  WiFiLinkQualityReport& SetBTActivelyScanning(const int64_t value);
+
 };
 
 }  // namespace wi_fi
