@@ -954,9 +954,6 @@ drmGetFormatModifierVendor(uint64_t modifier);
 extern char *
 drmGetFormatModifierName(uint64_t modifier);
 
-extern char *
-drmGetFormatName(uint32_t format);
-
 #ifndef fourcc_mod_get_vendor
 #define fourcc_mod_get_vendor(modifier) \
        (((modifier) >> 56) & 0xff)
