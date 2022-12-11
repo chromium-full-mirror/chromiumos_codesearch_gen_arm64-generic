@@ -1137,9 +1137,9 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocUserDataAuthNoKeyChallengeServiceInAddAuthFactor = 655,
   /* =Obsolete= */
   kLocUserDataAuthNoKeyChallengeServiceInAuthAuthFactor = 656,
-  /* ./auth_session.cc */
+  /* =Obsolete= */
   kLocNoWrappedSeedInAuthInputForAdd = 657,
-  /* ./auth_session.cc */
+  /* =Obsolete= */
   kLocEmptySeedInAuthInputForAdd = 658,
   /* =Obsolete= */
   kLocAuthSessionInvalidBlockTypeInUpdateAuthFactorViaVK = 659,
@@ -1349,6 +1349,18 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   //////////////////////////////////////////////////
   /* ./auth_blocks/auth_block_utility_impl.cc */
   kLocAuthBlockUtilNullLeManagerInGetAuthBlockWithType = 2500,
+  /* ./userdataauth.cc */
+  kLocUserDataAuthNonEphemeralAuthSessionInPrepareEphemeralVault = 2501,
+  /* ./userdataauth.cc */
+  kLocUserDataAuthEphemeralAuthSessionAttemptPreparePersistentVault = 2502,
+  /* ./userdataauth.cc */
+  kLocUserDataAuthEphemeralAuthSessionAttemptCreatePersistentUser = 2503,
+  /* ./auth_session.cc */
+  kLocUpdateAuthInputNoWrappedSeedInVaultKeyset = 2504,
+  /* ./auth_session.cc */
+  kLocUpdateAuthInputResetSeedEmptyInVaultKeyset = 2505,
+  /* ./auth_session.cc */
+  kLocNoVkInAuthInputForMigration = 2506,
   //////////////////////////////////////////////////
   //// This is a separator block at value 2700
   //// See location_db.py for more info.
@@ -1361,9 +1373,6 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   //// This is a separator block at value 3100
   //// See location_db.py for more info.
   //////////////////////////////////////////////////
-  kLocUserDataAuthEphemeralAuthSessionAttemptPreparePersistentVault = 3100,
-  kLocUserDataAuthEphemeralAuthSessionAttemptCreatePersistentUser = 3101,
-  kLocUserDataAuthNonEphemeralAuthSessionInPrepareEphemeralVault = 3102,
   //////////////////////////////////////////////////
   //// This is a separator block at value 3300
   //// See location_db.py for more info.
