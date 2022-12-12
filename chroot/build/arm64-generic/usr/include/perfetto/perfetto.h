@@ -7060,6 +7060,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_GuardrailOverrides : public ::protoz
  public:
   enum FieldNumbers {
     kMaxUploadPerDayBytesFieldNumber = 1,
+    kMaxTracingBufferSizeKbFieldNumber = 2,
   };
 
   TraceConfig_GuardrailOverrides();
@@ -7080,14 +7081,19 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_GuardrailOverrides : public ::protoz
   uint64_t max_upload_per_day_bytes() const { return max_upload_per_day_bytes_; }
   void set_max_upload_per_day_bytes(uint64_t value) { max_upload_per_day_bytes_ = value; _has_field_.set(1); }
 
+  bool has_max_tracing_buffer_size_kb() const { return _has_field_[2]; }
+  uint32_t max_tracing_buffer_size_kb() const { return max_tracing_buffer_size_kb_; }
+  void set_max_tracing_buffer_size_kb(uint32_t value) { max_tracing_buffer_size_kb_ = value; _has_field_.set(2); }
+
  private:
   uint64_t max_upload_per_day_bytes_{};
+  uint32_t max_tracing_buffer_size_kb_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<2> _has_field_{};
+  std::bitset<3> _has_field_{};
 };
 
 
@@ -42937,13 +42943,15 @@ class TraceConfig_TriggerConfig_Trigger : public ::protozero::Message {
   }
 };
 
-class TraceConfig_GuardrailOverrides_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class TraceConfig_GuardrailOverrides_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   TraceConfig_GuardrailOverrides_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TraceConfig_GuardrailOverrides_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit TraceConfig_GuardrailOverrides_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_max_upload_per_day_bytes() const { return at<1>().valid(); }
   uint64_t max_upload_per_day_bytes() const { return at<1>().as_uint64(); }
+  bool has_max_tracing_buffer_size_kb() const { return at<2>().valid(); }
+  uint32_t max_tracing_buffer_size_kb() const { return at<2>().as_uint32(); }
 };
 
 class TraceConfig_GuardrailOverrides : public ::protozero::Message {
@@ -42951,6 +42959,7 @@ class TraceConfig_GuardrailOverrides : public ::protozero::Message {
   using Decoder = TraceConfig_GuardrailOverrides_Decoder;
   enum : int32_t {
     kMaxUploadPerDayBytesFieldNumber = 1,
+    kMaxTracingBufferSizeKbFieldNumber = 2,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.TraceConfig.GuardrailOverrides"; }
 
@@ -42977,6 +42986,31 @@ class TraceConfig_GuardrailOverrides : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_MaxTracingBufferSizeKb =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      TraceConfig_GuardrailOverrides>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_MaxTracingBufferSizeKb kMaxTracingBufferSizeKb() { return {}; }
+  void set_max_tracing_buffer_size_kb(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_MaxTracingBufferSizeKb::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
         ::Append(*this, field_id, value);
   }
 };
@@ -168153,6 +168187,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_GuardrailOverrides : public ::protoz
  public:
   enum FieldNumbers {
     kMaxUploadPerDayBytesFieldNumber = 1,
+    kMaxTracingBufferSizeKbFieldNumber = 2,
   };
 
   TraceConfig_GuardrailOverrides();
@@ -168173,14 +168208,19 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_GuardrailOverrides : public ::protoz
   uint64_t max_upload_per_day_bytes() const { return max_upload_per_day_bytes_; }
   void set_max_upload_per_day_bytes(uint64_t value) { max_upload_per_day_bytes_ = value; _has_field_.set(1); }
 
+  bool has_max_tracing_buffer_size_kb() const { return _has_field_[2]; }
+  uint32_t max_tracing_buffer_size_kb() const { return max_tracing_buffer_size_kb_; }
+  void set_max_tracing_buffer_size_kb(uint32_t value) { max_tracing_buffer_size_kb_ = value; _has_field_.set(2); }
+
  private:
   uint64_t max_upload_per_day_bytes_{};
+  uint32_t max_tracing_buffer_size_kb_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<2> _has_field_{};
+  std::bitset<3> _has_field_{};
 };
 
 
