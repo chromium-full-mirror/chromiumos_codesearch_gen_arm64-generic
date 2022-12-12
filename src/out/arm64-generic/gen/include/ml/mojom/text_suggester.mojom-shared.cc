@@ -59,6 +59,12 @@ static NOINLINE const char* MultiWordExperimentGroupToStringHelper(MultiWordExpe
       return "kGboardRelaxedB";
     case MultiWordExperimentGroup::kGboardRelaxedC:
       return "kGboardRelaxedC";
+    case MultiWordExperimentGroup::kGboardD:
+      return "kGboardD";
+    case MultiWordExperimentGroup::kGboardE:
+      return "kGboardE";
+    case MultiWordExperimentGroup::kGboardF:
+      return "kGboardF";
     default:
       return nullptr;
   }

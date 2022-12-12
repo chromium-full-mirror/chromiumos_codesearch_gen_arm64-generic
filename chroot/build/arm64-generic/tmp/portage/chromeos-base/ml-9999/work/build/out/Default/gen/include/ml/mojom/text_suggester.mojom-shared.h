@@ -140,8 +140,14 @@ enum class MultiWordExperimentGroup : int32_t {
   kGboardRelaxedB = 3,
   
   kGboardRelaxedC = 4,
+  
+  kGboardD = 5,
+  
+  kGboardE = 6,
+  
+  kGboardF = 7,
   kMinValue = 0,
-  kMaxValue = 4,
+  kMaxValue = 7,
   kDefaultValue = 0
 };
 
