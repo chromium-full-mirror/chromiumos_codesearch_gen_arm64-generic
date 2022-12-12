@@ -14,12 +14,10 @@
 #include "base/containers/span.h"
 #include "base/strings/string_piece.h"
 #include "build/build_config.h"
-#if 0 // libchrome does not provide boringssl support
-#if BUILDFLAG(IS_NACL)
+#if BUILDFLAG(IS_NACL) || 1
 #include "base/hash/sha1_nacl.h"
 #else
 #include "base/hash/sha1_boringssl.h"
-#endif
 #endif
 
 namespace base {
@@ -41,12 +39,10 @@ BASE_EXPORT void SHA1HashBytes(const unsigned char* data,
                                size_t len,
                                unsigned char* hash);
 
-#if 0
 // These functions allow streaming SHA-1 operations.
 BASE_EXPORT void SHA1Init(SHA1Context& context);
 BASE_EXPORT void SHA1Update(const StringPiece data, SHA1Context& context);
 BASE_EXPORT void SHA1Final(SHA1Context& context, SHA1Digest& digest);
-#endif
 }  // namespace base
 
 #endif  // BASE_HASH_SHA1_H_
