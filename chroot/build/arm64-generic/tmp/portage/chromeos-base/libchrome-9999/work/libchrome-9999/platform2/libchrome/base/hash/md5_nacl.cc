@@ -1,4 +1,4 @@
-// Copyright (c) 2011 The Chromium Authors. All rights reserved.
+// Copyright 2011 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -21,9 +21,9 @@
  * will fill a supplied 16-byte array with the digest.
  */
 
-#include "base/hash/md5.h"
-
 #include <stddef.h>
+
+#include "base/hash/md5.h"
 
 namespace {
 
@@ -38,9 +38,9 @@ struct Context {
  */
 void byteReverse(uint8_t* buf, unsigned longs) {
   do {
-    uint32_t temp = static_cast<uint32_t>(
-        static_cast<unsigned>(buf[3]) << 8 |
-        buf[2]) << 16 |
+    uint32_t temp =
+        static_cast<uint32_t>(static_cast<unsigned>(buf[3]) << 8 | buf[2])
+            << 16 |
         (static_cast<unsigned>(buf[1]) << 8 | buf[0]);
     *reinterpret_cast<uint32_t*>(buf) = temp;
     buf += 4;
@@ -261,21 +261,13 @@ void MD5Final(MD5Digest* digest, MD5Context* context) {
   memset(ctx, 0, sizeof(*ctx)); /* In case it's sensitive */
 }
 
-void MD5IntermediateFinal(MD5Digest* digest, const MD5Context* context) {
-  /* MD5Final mutates the MD5Context*. Make a copy for generating the
-     intermediate value. */
-  MD5Context context_copy;
-  memcpy(&context_copy, context, sizeof(context_copy));
-  MD5Final(digest, &context_copy);
-}
-
 std::string MD5DigestToBase16(const MD5Digest& digest) {
   static char const zEncode[] = "0123456789abcdef";
 
   std::string ret;
   ret.resize(32);
 
-  for (int i = 0, j = 0; i < 16; i++, j += 2) {
+  for (size_t i = 0, j = 0; i < 16; i++, j += 2) {
     uint8_t a = digest.a[i];
     ret[j] = zEncode[(a >> 4) & 0xf];
     ret[j + 1] = zEncode[a & 0xf];
