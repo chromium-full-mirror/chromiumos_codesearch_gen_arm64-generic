@@ -407,6 +407,13 @@ void CrosHealthdDiagnosticsService::RunLedLitUpRoutine(
       mojo_ipc::DiagnosticRoutineEnum::kLedLitUp, std::move(callback));
 }
 
+void CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine(
+    RunEmmcLifetimeRoutineCallback callback) {
+  RunRoutine(
+      routine_factory_->MakeEmmcLifetimeRoutine(context_->debugd_proxy()),
+      mojo_ipc::DiagnosticRoutineEnum::kEmmcLifetime, std::move(callback));
+}
+
 void CrosHealthdDiagnosticsService::RunRoutine(
     std::unique_ptr<DiagnosticRoutine> routine,
     mojo_ipc::DiagnosticRoutineEnum routine_enum,
@@ -530,6 +537,10 @@ void CrosHealthdDiagnosticsService::PopulateAvailableRoutines(
 
   if (context_->system_config()->HasPrivacyScreen()) {
     available_routines_.insert(mojo_ipc::DiagnosticRoutineEnum::kPrivacyScreen);
+  }
+
+  if (context_->system_config()->MmcSupported()) {
+    available_routines_.insert(mojo_ipc::DiagnosticRoutineEnum::kEmmcLifetime);
   }
 }
 

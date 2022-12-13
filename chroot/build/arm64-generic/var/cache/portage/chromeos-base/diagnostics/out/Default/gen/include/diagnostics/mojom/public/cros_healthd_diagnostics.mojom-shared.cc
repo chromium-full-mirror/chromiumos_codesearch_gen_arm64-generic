@@ -99,6 +99,8 @@ static NOINLINE const char* DiagnosticRoutineEnumToStringHelper(DiagnosticRoutin
       return "kLedLitUp";
     case DiagnosticRoutineEnum::kSmartctlCheckWithPercentageUsed:
       return "kSmartctlCheckWithPercentageUsed";
+    case DiagnosticRoutineEnum::kEmmcLifetime:
+      return "kEmmcLifetime";
     default:
       return nullptr;
   }

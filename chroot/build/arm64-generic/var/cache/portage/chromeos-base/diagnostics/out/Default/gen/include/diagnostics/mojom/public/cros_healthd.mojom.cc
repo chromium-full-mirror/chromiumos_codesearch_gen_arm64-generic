@@ -956,6 +956,9 @@ CrosHealthdDiagnosticsService::IPCStableHashFunction CrosHealthdDiagnosticsServi
     case internal::kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name: {
       return &CrosHealthdDiagnosticsService::RunLedLitUpRoutine_Sym::IPCStableHash;
     }
+    case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name: {
+      return &CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1043,6 +1046,8 @@ const char* CrosHealthdDiagnosticsService::MessageToMethodName_(mojo::Message& m
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrivacyScreenRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLedLitUpRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine";
     }
   } else {
     switch (message.name()) {
@@ -1122,6 +1127,8 @@ const char* CrosHealthdDiagnosticsService::MessageToMethodName_(mojo::Message& m
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrivacyScreenRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLedLitUpRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine";
     }
   }
   return "Receive unknown mojo message";
@@ -1626,6 +1633,19 @@ uint32_t CrosHealthdDiagnosticsService::RunLedLitUpRoutine_Sym::IPCStableHash() 
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLedLitUpRoutine");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -2238,6 +2258,22 @@ class CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   CrosHealthdDiagnosticsService::RunLedLitUpRoutineCallback callback_;
+};
+
+class CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback(
+      CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutineCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback(const CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback&) = delete;
+  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback& operator=(const CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutineCallback callback_;
 };
 
 CrosHealthdDiagnosticsServiceProxy::CrosHealthdDiagnosticsServiceProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -3655,6 +3691,37 @@ void CrosHealthdDiagnosticsServiceProxy::RunLedLitUpRoutine(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CrosHealthdDiagnosticsServiceProxy::RunEmmcLifetimeRoutine(
+    RunEmmcLifetimeRoutineCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunEmmcLifetimeRoutine");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -8372,6 +8439,130 @@ void CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutineCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder> proxy(
+        new CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutineCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+};
+
+bool CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosHealthdDiagnosticsService::Name_, 38, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunEmmcLifetimeRoutine");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool CrosHealthdDiagnosticsServiceStubDispatch::Accept(
@@ -8490,6 +8681,9 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::Accept(
       break;
     }
     case internal::kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name: {
+      break;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name: {
       break;
     }
   }
@@ -9561,6 +9755,31 @@ std::move(p_color),
 std::move(p_replier), std::move(callback));
       return true;
     }
+    case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name: {
+
+      internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdDiagnosticsService::Name_, 38, false);
+        return false;
+      }
+      CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutineCallback callback =
+          CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunEmmcLifetimeRoutine(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -9643,6 +9862,8 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdDiagnosticsServic
      &internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data::Validate},
     {&internal::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data::Validate},
+    {&internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data::Validate,
+     &internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data::Validate},
 };
 
 bool CrosHealthdDiagnosticsServiceRequestValidator::Accept(mojo::Message* message) {
@@ -12237,6 +12458,9 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunPrivacyScreenRoutine
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunLedLitUpRoutine(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier, RunLedLitUpRoutineCallback callback) {
   GetForwardingInterface()->RunLedLitUpRoutine(std::move(name), std::move(color), std::move(replier), std::move(callback));
 }
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunEmmcLifetimeRoutine(RunEmmcLifetimeRoutineCallback callback) {
+  GetForwardingInterface()->RunEmmcLifetimeRoutine(std::move(callback));
+}
 CrosHealthdDiagnosticsServiceAsyncWaiter::CrosHealthdDiagnosticsServiceAsyncWaiter(
     CrosHealthdDiagnosticsService* proxy) : proxy_(proxy) {}
 
@@ -13113,6 +13337,29 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunLedLitUpRoutine(
     ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier) {
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
   RunLedLitUpRoutine(std::move(name),std::move(color),std::move(replier),&async_wait_result);
+  return async_wait_result;
+}
+
+void CrosHealthdDiagnosticsServiceAsyncWaiter::RunEmmcLifetimeRoutine(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->RunEmmcLifetimeRoutine(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunEmmcLifetimeRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  RunEmmcLifetimeRoutine(&async_wait_result);
   return async_wait_result;
 }
 

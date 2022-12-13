@@ -172,8 +172,10 @@ enum class DiagnosticRoutineEnum : int32_t {
   kLedLitUp = 35,
   
   kSmartctlCheckWithPercentageUsed = 36,
+  
+  kEmmcLifetime = 37,
   kMinValue = 0,
-  kMaxValue = 36,
+  kMaxValue = 37,
   kDefaultValue = 30
 };
 

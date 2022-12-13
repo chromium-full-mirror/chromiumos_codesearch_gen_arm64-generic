@@ -79,7 +79,8 @@ std::set<mojo_ipc::DiagnosticRoutineEnum> GetAllAvailableRoutines() {
       mojo_ipc::DiagnosticRoutineEnum::kFingerprint,
       mojo_ipc::DiagnosticRoutineEnum::kFingerprintAlive,
       mojo_ipc::DiagnosticRoutineEnum::kPrivacyScreen,
-      mojo_ipc::DiagnosticRoutineEnum::kLedLitUp};
+      mojo_ipc::DiagnosticRoutineEnum::kLedLitUp,
+      mojo_ipc::DiagnosticRoutineEnum::kEmmcLifetime};
 }
 
 std::set<mojo_ipc::DiagnosticRoutineEnum> GetBatteryRoutines() {
@@ -112,6 +113,11 @@ std::set<mojo_ipc::DiagnosticRoutineEnum> GetFioRoutines() {
       mojo_ipc::DiagnosticRoutineEnum::kDiskRead};
 }
 
+std::set<mojo_ipc::DiagnosticRoutineEnum> GetMmcRoutines() {
+  return std::set<mojo_ipc::DiagnosticRoutineEnum>{
+      mojo_ipc::DiagnosticRoutineEnum::kEmmcLifetime};
+}
+
 // Tests for the CrosHealthdDiagnosticsService class.
 class CrosHealthdDiagnosticsServiceTest : public testing::Test {
  protected:
@@ -124,6 +130,7 @@ class CrosHealthdDiagnosticsServiceTest : public testing::Test {
     mock_context_.fake_system_config()->SetNvmeSupported(true);
     mock_context_.fake_system_config()->SetSmartCtrlSupported(true);
     mock_context_.fake_system_config()->SetIsWilcoDevice(true);
+    mock_context_.fake_system_config()->SetMmcSupported(true);
 
     CreateService();
   }
@@ -270,6 +277,22 @@ TEST_F(CrosHealthdDiagnosticsServiceTest, GetAvailableRoutinesNoSmartctl) {
 
   auto expected_routines = GetAllAvailableRoutines();
   for (const auto r : GetSmartCtlRoutines())
+    expected_routines.erase(r);
+
+  EXPECT_EQ(reply_set, expected_routines);
+}
+
+// Test that GetAvailableRoutines returns the expected list of routines when
+// mmc routines are not supported.
+TEST_F(CrosHealthdDiagnosticsServiceTest, GetAvailableRoutinesNoMmc) {
+  mock_context()->fake_system_config()->SetMmcSupported(false);
+  CreateService();
+  auto reply = ExecuteGetAvailableRoutines();
+  std::set<mojo_ipc::DiagnosticRoutineEnum> reply_set(reply.begin(),
+                                                      reply.end());
+
+  auto expected_routines = GetAllAvailableRoutines();
+  for (const auto r : GetMmcRoutines())
     expected_routines.erase(r);
 
   EXPECT_EQ(reply_set, expected_routines);
@@ -425,6 +448,27 @@ TEST_F(CrosHealthdDiagnosticsServiceTest, RunSmartctlCheckRoutineWithParam) {
             response = std::move(received_response);
             run_loop.Quit();
           }));
+  run_loop.Run();
+
+  EXPECT_EQ(response->id, 1);
+  EXPECT_EQ(response->status, kExpectedStatus);
+}
+
+// Test that the eMMC lifetime routine can be run.
+TEST_F(CrosHealthdDiagnosticsServiceTest, RunEmmcLifetimeRoutine) {
+  constexpr mojo_ipc::DiagnosticRoutineStatusEnum kExpectedStatus =
+      mojo_ipc::DiagnosticRoutineStatusEnum::kRunning;
+  routine_factory()->SetNonInteractiveStatus(
+      kExpectedStatus, /*status_message=*/"", /*progress_percent=*/50,
+      /*output=*/"");
+
+  mojo_ipc::RunRoutineResponsePtr response;
+  base::RunLoop run_loop;
+  service()->RunEmmcLifetimeRoutine(base::BindLambdaForTesting(
+      [&](mojo_ipc::RunRoutineResponsePtr received_response) {
+        response = std::move(received_response);
+        run_loop.Quit();
+      }));
   run_loop.Run();
 
   EXPECT_EQ(response->id, 1);
