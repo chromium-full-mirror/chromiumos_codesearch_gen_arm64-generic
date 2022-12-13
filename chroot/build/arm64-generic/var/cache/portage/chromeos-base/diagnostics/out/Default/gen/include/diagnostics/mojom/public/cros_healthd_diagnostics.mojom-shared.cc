@@ -101,6 +101,10 @@ static NOINLINE const char* DiagnosticRoutineEnumToStringHelper(DiagnosticRoutin
       return "kSmartctlCheckWithPercentageUsed";
     case DiagnosticRoutineEnum::kEmmcLifetime:
       return "kEmmcLifetime";
+    case DiagnosticRoutineEnum::kAudioSetVolume:
+      return "kAudioSetVolume";
+    case DiagnosticRoutineEnum::kAudioSetGain:
+      return "kAudioSetGain";
     default:
       return nullptr;
   }

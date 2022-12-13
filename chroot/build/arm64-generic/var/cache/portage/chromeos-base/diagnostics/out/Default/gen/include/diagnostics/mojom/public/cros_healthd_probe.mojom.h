@@ -8591,6 +8591,18 @@ class  BluetoothDeviceInfo {
       absl::optional<std::vector<std::string>> uuids,
       ::ash::cros_healthd::mojom::NullableUint8Ptr battery_percentage);
 
+  BluetoothDeviceInfo(
+      const std::string& address,
+      const absl::optional<std::string>& name,
+      BluetoothDeviceType type,
+      ::ash::cros_healthd::mojom::NullableUint16Ptr appearance,
+      const absl::optional<std::string>& modalias,
+      ::ash::cros_healthd::mojom::NullableInt16Ptr rssi,
+      ::ash::cros_healthd::mojom::NullableUint16Ptr mtu,
+      absl::optional<std::vector<std::string>> uuids,
+      ::ash::cros_healthd::mojom::NullableUint8Ptr battery_percentage,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr bluetooth_class);
+
 BluetoothDeviceInfo(const BluetoothDeviceInfo&) = delete;
 BluetoothDeviceInfo& operator=(const BluetoothDeviceInfo&) = delete;
 
@@ -8683,6 +8695,8 @@ BluetoothDeviceInfo& operator=(const BluetoothDeviceInfo&) = delete;
   absl::optional<std::vector<std::string>> uuids;
   
   ::ash::cros_healthd::mojom::NullableUint8Ptr battery_percentage;
+  
+  ::ash::cros_healthd::mojom::NullableUint32Ptr bluetooth_class;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -15392,7 +15406,8 @@ BluetoothDeviceInfoPtr BluetoothDeviceInfo::Clone() const {
       mojo::Clone(rssi),
       mojo::Clone(mtu),
       mojo::Clone(uuids),
-      mojo::Clone(battery_percentage)
+      mojo::Clone(battery_percentage),
+      mojo::Clone(bluetooth_class)
   );
 }
 
@@ -15415,6 +15430,8 @@ bool BluetoothDeviceInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->uuids, other_struct.uuids))
     return false;
   if (!mojo::Equals(this->battery_percentage, other_struct.battery_percentage))
+    return false;
+  if (!mojo::Equals(this->bluetooth_class, other_struct.bluetooth_class))
     return false;
   return true;
 }
@@ -15456,6 +15473,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.battery_percentage < rhs.battery_percentage)
     return true;
   if (rhs.battery_percentage < lhs.battery_percentage)
+    return false;
+  if (lhs.bluetooth_class < rhs.bluetooth_class)
+    return true;
+  if (rhs.bluetooth_class < lhs.bluetooth_class)
     return false;
   return false;
 }
@@ -18324,6 +18345,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::BluetoothDeviceInfo::DataView,
   static const decltype(::ash::cros_healthd::mojom::BluetoothDeviceInfo::battery_percentage)& battery_percentage(
       const ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
     return input->battery_percentage;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::BluetoothDeviceInfo::bluetooth_class)& bluetooth_class(
+      const ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
+    return input->bluetooth_class;
   }
 
   static bool Read(::ash::cros_healthd::mojom::BluetoothDeviceInfo::DataView input, ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr* output);

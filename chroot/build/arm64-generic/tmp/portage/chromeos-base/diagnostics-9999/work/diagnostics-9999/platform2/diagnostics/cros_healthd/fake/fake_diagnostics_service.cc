@@ -237,4 +237,20 @@ void FakeDiagnosticsService::RunEmmcLifetimeRoutine(
   NOTIMPLEMENTED();
 }
 
+void FakeDiagnosticsService::RunAudioSetVolumeRoutine(
+    uint64_t node_id,
+    uint8_t volume,
+    bool mute_on,
+    RunAudioSetVolumeRoutineCallback callback) {
+  NOTIMPLEMENTED();
+}
+
+void FakeDiagnosticsService::RunAudioSetGainRoutine(
+    uint64_t node_id,
+    uint8_t gain,
+    bool mute_on,
+    RunAudioSetGainRoutineCallback callback) {
+  NOTIMPLEMENTED();
+}
+
 }  // namespace diagnostics

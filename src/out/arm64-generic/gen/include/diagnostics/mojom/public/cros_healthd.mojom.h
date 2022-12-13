@@ -152,7 +152,7 @@ class CrosHealthdDiagnosticsService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 7;
+  static constexpr uint32_t Version_ = 8;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -204,6 +204,8 @@ class CrosHealthdDiagnosticsService
     kRunPrivacyScreenRoutineMinVersion = 4,
     kRunLedLitUpRoutineMinVersion = 5,
     kRunEmmcLifetimeRoutineMinVersion = 7,
+    kRunAudioSetVolumeRoutineMinVersion = 8,
+    kRunAudioSetGainRoutineMinVersion = 8,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -324,6 +326,12 @@ class CrosHealthdDiagnosticsService
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunEmmcLifetimeRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunAudioSetVolumeRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunAudioSetGainRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -523,6 +531,16 @@ class CrosHealthdDiagnosticsService
   using RunEmmcLifetimeRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
   virtual void RunEmmcLifetimeRoutine(RunEmmcLifetimeRoutineCallback callback) = 0;
+
+
+  using RunAudioSetVolumeRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on, RunAudioSetVolumeRoutineCallback callback) = 0;
+
+
+  using RunAudioSetGainRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool mute_on, RunAudioSetGainRoutineCallback callback) = 0;
 };
 
 class CrosHealthdEventServiceProxy;
@@ -908,6 +926,10 @@ class  CrosHealthdDiagnosticsServiceProxy
   void RunLedLitUpRoutine(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier, RunLedLitUpRoutineCallback callback) final;
   
   void RunEmmcLifetimeRoutine(RunEmmcLifetimeRoutineCallback callback) final;
+  
+  void RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on, RunAudioSetVolumeRoutineCallback callback) final;
+  
+  void RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool mute_on, RunAudioSetGainRoutineCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

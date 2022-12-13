@@ -174,8 +174,12 @@ enum class DiagnosticRoutineEnum : int32_t {
   kSmartctlCheckWithPercentageUsed = 36,
   
   kEmmcLifetime = 37,
+  
+  kAudioSetVolume = 38,
+  
+  kAudioSetGain = 39,
   kMinValue = 0,
-  kMaxValue = 37,
+  kMaxValue = 39,
   kDefaultValue = 30
 };
 

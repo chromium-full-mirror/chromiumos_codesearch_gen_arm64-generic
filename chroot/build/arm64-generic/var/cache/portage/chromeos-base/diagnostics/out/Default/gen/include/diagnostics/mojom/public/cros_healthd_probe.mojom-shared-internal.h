@@ -3437,6 +3437,7 @@ class  BluetoothDeviceInfo_Data {
   mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> mtu;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> uuids;
   mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint8_Data> battery_percentage;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> bluetooth_class;
 
  private:
   friend class mojo::internal::MessageFragment<BluetoothDeviceInfo_Data>;
@@ -3444,7 +3445,7 @@ class  BluetoothDeviceInfo_Data {
   BluetoothDeviceInfo_Data();
   ~BluetoothDeviceInfo_Data() = delete;
 };
-static_assert(sizeof(BluetoothDeviceInfo_Data) == 80,
+static_assert(sizeof(BluetoothDeviceInfo_Data) == 88,
               "Bad sizeof(BluetoothDeviceInfo_Data)");
 // Used by BluetoothDeviceInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

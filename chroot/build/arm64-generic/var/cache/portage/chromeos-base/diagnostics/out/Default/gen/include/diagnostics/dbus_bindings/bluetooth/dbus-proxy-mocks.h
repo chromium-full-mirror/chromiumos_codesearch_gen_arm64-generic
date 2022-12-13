@@ -116,6 +116,8 @@ class Device1ProxyMock : public Device1ProxyInterface {
   MOCK_CONST_METHOD0(is_mtu_valid, bool());
   MOCK_CONST_METHOD0(uuids, const std::vector<std::string>&());
   MOCK_CONST_METHOD0(is_uuids_valid, bool());
+  MOCK_CONST_METHOD0(bluetooth_class, uint32_t());
+  MOCK_CONST_METHOD0(is_bluetooth_class_valid, bool());
   MOCK_CONST_METHOD0(connected, bool());
   MOCK_CONST_METHOD0(is_connected_valid, bool());
   MOCK_CONST_METHOD0(adapter, const dbus::ObjectPath&());

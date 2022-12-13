@@ -3001,6 +3001,27 @@ static_assert(
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint8DataView>(
         pointer, output, message_);
   }
+  inline void GetBluetoothClassDataView(
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBluetoothClass(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+    "Attempting to read the optional `bluetooth_class` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadBluetoothClass` instead "
+    "of `ReadBluetoothClass if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 2
+                    ? data_->bluetooth_class.Get() : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+        pointer, output, message_);
+  }
  private:
   internal::BluetoothDeviceInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -9335,6 +9356,14 @@ struct Serializer<::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView, Maybe
         in_battery_percentage, battery_percentage_fragment);
     fragment->battery_percentage.Set(
         battery_percentage_fragment.is_null() ? nullptr : battery_percentage_fragment.data());
+    decltype(Traits::bluetooth_class(input)) in_bluetooth_class = Traits::bluetooth_class(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->bluetooth_class)::BaseType> bluetooth_class_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+        in_bluetooth_class, bluetooth_class_fragment);
+    fragment->bluetooth_class.Set(
+        bluetooth_class_fragment.is_null() ? nullptr : bluetooth_class_fragment.data());
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothDeviceInfo_Data* input,
@@ -14167,6 +14196,12 @@ inline void BluetoothDeviceInfoDataView::GetBatteryPercentageDataView(
   auto pointer = data_->header_.version >= 1
                  ? data_->battery_percentage.Get() : nullptr;
   *output = ::ash::cros_healthd::mojom::NullableUint8DataView(pointer, message_);
+}
+inline void BluetoothDeviceInfoDataView::GetBluetoothClassDataView(
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
+  auto pointer = data_->header_.version >= 2
+                 ? data_->bluetooth_class.Get() : nullptr;
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 
 

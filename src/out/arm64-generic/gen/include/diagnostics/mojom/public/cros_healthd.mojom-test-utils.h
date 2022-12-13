@@ -80,6 +80,8 @@ class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDi
   void RunPrivacyScreenRoutine(bool target_state, RunPrivacyScreenRoutineCallback callback) override;
   void RunLedLitUpRoutine(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier, RunLedLitUpRoutineCallback callback) override;
   void RunEmmcLifetimeRoutine(RunEmmcLifetimeRoutineCallback callback) override;
+  void RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on, RunAudioSetVolumeRoutineCallback callback) override;
+  void RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool mute_on, RunAudioSetGainRoutineCallback callback) override;
 };
 class  CrosHealthdDiagnosticsServiceAsyncWaiter {
  public:
@@ -206,6 +208,12 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
   void RunEmmcLifetimeRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunEmmcLifetimeRoutine();
+  void RunAudioSetVolumeRoutine(
+      uint64_t node_id, uint8_t volume, bool mute_on, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on);
+  void RunAudioSetGainRoutine(
+      uint64_t node_id, uint8_t gain, bool mute_on, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool mute_on);
 
  private:
   CrosHealthdDiagnosticsService* const proxy_;

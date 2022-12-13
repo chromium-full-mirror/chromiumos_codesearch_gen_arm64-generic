@@ -2013,7 +2013,8 @@ BluetoothDeviceInfo::BluetoothDeviceInfo()
       rssi(),
       mtu(),
       uuids(),
-      battery_percentage() {}
+      battery_percentage(),
+      bluetooth_class() {}
 
 BluetoothDeviceInfo::BluetoothDeviceInfo(
     const std::string& address_in,
@@ -2032,7 +2033,8 @@ BluetoothDeviceInfo::BluetoothDeviceInfo(
       rssi(std::move(rssi_in)),
       mtu(std::move(mtu_in)),
       uuids(std::move(uuids_in)),
-      battery_percentage() {}
+      battery_percentage(),
+      bluetooth_class() {}
 
 BluetoothDeviceInfo::BluetoothDeviceInfo(
     const std::string& address_in,
@@ -2052,7 +2054,30 @@ BluetoothDeviceInfo::BluetoothDeviceInfo(
       rssi(std::move(rssi_in)),
       mtu(std::move(mtu_in)),
       uuids(std::move(uuids_in)),
-      battery_percentage(std::move(battery_percentage_in)) {}
+      battery_percentage(std::move(battery_percentage_in)),
+      bluetooth_class() {}
+
+BluetoothDeviceInfo::BluetoothDeviceInfo(
+    const std::string& address_in,
+    const absl::optional<std::string>& name_in,
+    BluetoothDeviceType type_in,
+    ::ash::cros_healthd::mojom::NullableUint16Ptr appearance_in,
+    const absl::optional<std::string>& modalias_in,
+    ::ash::cros_healthd::mojom::NullableInt16Ptr rssi_in,
+    ::ash::cros_healthd::mojom::NullableUint16Ptr mtu_in,
+    absl::optional<std::vector<std::string>> uuids_in,
+    ::ash::cros_healthd::mojom::NullableUint8Ptr battery_percentage_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr bluetooth_class_in)
+    : address(std::move(address_in)),
+      name(std::move(name_in)),
+      type(std::move(type_in)),
+      appearance(std::move(appearance_in)),
+      modalias(std::move(modalias_in)),
+      rssi(std::move(rssi_in)),
+      mtu(std::move(mtu_in)),
+      uuids(std::move(uuids_in)),
+      battery_percentage(std::move(battery_percentage_in)),
+      bluetooth_class(std::move(bluetooth_class_in)) {}
 
 BluetoothDeviceInfo::~BluetoothDeviceInfo() = default;
 
@@ -2136,6 +2161,15 @@ void BluetoothDeviceInfo::WriteIntoTrace(
       "battery_percentage"), this->battery_percentage,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::ash::cros_healthd::mojom::NullableUint8Ptr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "bluetooth_class"), this->bluetooth_class,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -7905,6 +7939,8 @@ bool StructTraits<::ash::cros_healthd::mojom::BluetoothDeviceInfo::DataView, ::a
       if (success && !input.ReadUuids(&result->uuids))
         success = false;
       if (success && !input.ReadBatteryPercentage(&result->battery_percentage))
+        success = false;
+      if (success && !input.ReadBluetoothClass(&result->bluetooth_class))
         success = false;
   *output = std::move(result);
   return success;

@@ -466,6 +466,9 @@ class Device1ProxyInterface {
   static const char* UUIDsName() { return "UUIDs"; }
   virtual const std::vector<std::string>& uuids() const = 0;
   virtual bool is_uuids_valid() const = 0;
+  static const char* ClassName() { return "Class"; }
+  virtual uint32_t bluetooth_class() const = 0;
+  virtual bool is_bluetooth_class_valid() const = 0;
   static const char* ConnectedName() { return "Connected"; }
   virtual bool connected() const = 0;
   virtual bool is_connected_valid() const = 0;
@@ -504,6 +507,7 @@ class Device1Proxy final : public Device1ProxyInterface {
       RegisterProperty(RSSIName(), &rssi);
       RegisterProperty(MTUName(), &mtu);
       RegisterProperty(UUIDsName(), &uuids);
+      RegisterProperty(ClassName(), &bluetooth_class);
       RegisterProperty(ConnectedName(), &connected);
       RegisterProperty(AdapterName(), &adapter);
     }
@@ -518,6 +522,7 @@ class Device1Proxy final : public Device1ProxyInterface {
     brillo::dbus_utils::Property<int16_t> rssi;
     brillo::dbus_utils::Property<uint16_t> mtu;
     brillo::dbus_utils::Property<std::vector<std::string>> uuids;
+    brillo::dbus_utils::Property<uint32_t> bluetooth_class;
     brillo::dbus_utils::Property<bool> connected;
     brillo::dbus_utils::Property<dbus::ObjectPath> adapter;
 
@@ -622,6 +627,14 @@ class Device1Proxy final : public Device1ProxyInterface {
 
   bool is_uuids_valid() const override {
     return property_set_->uuids.is_valid();
+  }
+
+  uint32_t bluetooth_class() const override {
+    return property_set_->bluetooth_class.value();
+  }
+
+  bool is_bluetooth_class_valid() const override {
+    return property_set_->bluetooth_class.is_valid();
   }
 
   bool connected() const override {

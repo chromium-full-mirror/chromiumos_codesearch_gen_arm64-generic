@@ -15,6 +15,8 @@
 #include "diagnostics/cros_healthd/routines/arc_dns_resolution/arc_dns_resolution.h"
 #include "diagnostics/cros_healthd/routines/arc_http/arc_http.h"
 #include "diagnostics/cros_healthd/routines/arc_ping/arc_ping.h"
+#include "diagnostics/cros_healthd/routines/audio/audio_set_gain.h"
+#include "diagnostics/cros_healthd/routines/audio/audio_set_volume.h"
 #include "diagnostics/cros_healthd/routines/battery_capacity/battery_capacity.h"
 #include "diagnostics/cros_healthd/routines/battery_charge/battery_charge.h"
 #include "diagnostics/cros_healthd/routines/battery_discharge/battery_discharge.h"
@@ -305,6 +307,22 @@ CrosHealthdRoutineFactoryImpl::MakeEmmcLifetimeRoutine(
     org::chromium::debugdProxyInterface* debugd_proxy) {
   DCHECK(debugd_proxy);
   return std::make_unique<EmmcLifetimeRoutine>(debugd_proxy);
+}
+
+std::unique_ptr<DiagnosticRoutine>
+CrosHealthdRoutineFactoryImpl::MakeAudioSetVolumeRoutine(uint64_t node_id,
+                                                         uint8_t volume,
+                                                         bool mute_on) {
+  return std::make_unique<AudioSetVolumeRoutine>(context_, node_id, volume,
+                                                 mute_on);
+}
+
+std::unique_ptr<DiagnosticRoutine>
+CrosHealthdRoutineFactoryImpl::MakeAudioSetGainRoutine(uint64_t node_id,
+                                                       uint8_t gain,
+                                                       bool mute_on) {
+  return std::make_unique<AudioSetGainRoutine>(context_, node_id, gain,
+                                               mute_on);
 }
 
 }  // namespace diagnostics

@@ -259,6 +259,22 @@ void FakeDiagnosticsService::RunEmmcLifetimeRoutine(
   std::move(callback).Run(run_routine_response_.Clone());
 }
 
+void FakeDiagnosticsService::RunAudioSetVolumeRoutine(
+    uint64_t node_id,
+    uint8_t volume,
+    bool mute_on,
+    RunAudioSetVolumeRoutineCallback callback) {
+  std::move(callback).Run(run_routine_response_.Clone());
+}
+
+void FakeDiagnosticsService::RunAudioSetGainRoutine(
+    uint64_t node_id,
+    uint8_t gain,
+    bool mute_on,
+    RunAudioSetGainRoutineCallback callback) {
+  std::move(callback).Run(run_routine_response_.Clone());
+}
+
 void FakeDiagnosticsService::SetMojoServiceIsAvailable(bool is_available) {
   is_available_ = is_available;
 }

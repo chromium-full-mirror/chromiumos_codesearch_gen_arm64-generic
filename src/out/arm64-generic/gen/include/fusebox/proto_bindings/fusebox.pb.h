@@ -45,7 +45,7 @@ struct TableStruct_fusebox_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[25]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[27]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -97,6 +97,12 @@ extern ReadDir2RequestProtoDefaultTypeInternal _ReadDir2RequestProto_default_ins
 class ReadDir2ResponseProto;
 struct ReadDir2ResponseProtoDefaultTypeInternal;
 extern ReadDir2ResponseProtoDefaultTypeInternal _ReadDir2ResponseProto_default_instance_;
+class RenameRequestProto;
+struct RenameRequestProtoDefaultTypeInternal;
+extern RenameRequestProtoDefaultTypeInternal _RenameRequestProto_default_instance_;
+class RenameResponseProto;
+struct RenameResponseProtoDefaultTypeInternal;
+extern RenameResponseProtoDefaultTypeInternal _RenameResponseProto_default_instance_;
 class RmDirRequestProto;
 struct RmDirRequestProtoDefaultTypeInternal;
 extern RmDirRequestProtoDefaultTypeInternal _RmDirRequestProto_default_instance_;
@@ -144,6 +150,8 @@ template<> ::fusebox::Read2RequestProto* Arena::CreateMaybeMessage<::fusebox::Re
 template<> ::fusebox::Read2ResponseProto* Arena::CreateMaybeMessage<::fusebox::Read2ResponseProto>(Arena*);
 template<> ::fusebox::ReadDir2RequestProto* Arena::CreateMaybeMessage<::fusebox::ReadDir2RequestProto>(Arena*);
 template<> ::fusebox::ReadDir2ResponseProto* Arena::CreateMaybeMessage<::fusebox::ReadDir2ResponseProto>(Arena*);
+template<> ::fusebox::RenameRequestProto* Arena::CreateMaybeMessage<::fusebox::RenameRequestProto>(Arena*);
+template<> ::fusebox::RenameResponseProto* Arena::CreateMaybeMessage<::fusebox::RenameResponseProto>(Arena*);
 template<> ::fusebox::RmDirRequestProto* Arena::CreateMaybeMessage<::fusebox::RmDirRequestProto>(Arena*);
 template<> ::fusebox::RmDirResponseProto* Arena::CreateMaybeMessage<::fusebox::RmDirResponseProto>(Arena*);
 template<> ::fusebox::Stat2RequestProto* Arena::CreateMaybeMessage<::fusebox::Stat2RequestProto>(Arena*);
@@ -2633,6 +2641,315 @@ class ReadDir2ResponseProto final :
 };
 // -------------------------------------------------------------------
 
+class RenameRequestProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.RenameRequestProto) */ {
+ public:
+  inline RenameRequestProto() : RenameRequestProto(nullptr) {}
+  ~RenameRequestProto() override;
+  explicit constexpr RenameRequestProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RenameRequestProto(const RenameRequestProto& from);
+  RenameRequestProto(RenameRequestProto&& from) noexcept
+    : RenameRequestProto() {
+    *this = ::std::move(from);
+  }
+
+  inline RenameRequestProto& operator=(const RenameRequestProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RenameRequestProto& operator=(RenameRequestProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const RenameRequestProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RenameRequestProto* internal_default_instance() {
+    return reinterpret_cast<const RenameRequestProto*>(
+               &_RenameRequestProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    15;
+
+  friend void swap(RenameRequestProto& a, RenameRequestProto& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RenameRequestProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RenameRequestProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RenameRequestProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RenameRequestProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const RenameRequestProto& from);
+  void MergeFrom(const RenameRequestProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RenameRequestProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "fusebox.RenameRequestProto";
+  }
+  protected:
+  explicit RenameRequestProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSrcFileSystemUrlFieldNumber = 3,
+    kDstFileSystemUrlFieldNumber = 6,
+  };
+  // optional string src_file_system_url = 3;
+  bool has_src_file_system_url() const;
+  private:
+  bool _internal_has_src_file_system_url() const;
+  public:
+  void clear_src_file_system_url();
+  const std::string& src_file_system_url() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_src_file_system_url(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_src_file_system_url();
+  PROTOBUF_NODISCARD std::string* release_src_file_system_url();
+  void set_allocated_src_file_system_url(std::string* src_file_system_url);
+  private:
+  const std::string& _internal_src_file_system_url() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_src_file_system_url(const std::string& value);
+  std::string* _internal_mutable_src_file_system_url();
+  public:
+
+  // optional string dst_file_system_url = 6;
+  bool has_dst_file_system_url() const;
+  private:
+  bool _internal_has_dst_file_system_url() const;
+  public:
+  void clear_dst_file_system_url();
+  const std::string& dst_file_system_url() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_dst_file_system_url(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_dst_file_system_url();
+  PROTOBUF_NODISCARD std::string* release_dst_file_system_url();
+  void set_allocated_dst_file_system_url(std::string* dst_file_system_url);
+  private:
+  const std::string& _internal_dst_file_system_url() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_dst_file_system_url(const std::string& value);
+  std::string* _internal_mutable_dst_file_system_url();
+  public:
+
+  // @@protoc_insertion_point(class_scope:fusebox.RenameRequestProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr src_file_system_url_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dst_file_system_url_;
+  friend struct ::TableStruct_fusebox_2eproto;
+};
+// -------------------------------------------------------------------
+
+class RenameResponseProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.RenameResponseProto) */ {
+ public:
+  inline RenameResponseProto() : RenameResponseProto(nullptr) {}
+  ~RenameResponseProto() override;
+  explicit constexpr RenameResponseProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  RenameResponseProto(const RenameResponseProto& from);
+  RenameResponseProto(RenameResponseProto&& from) noexcept
+    : RenameResponseProto() {
+    *this = ::std::move(from);
+  }
+
+  inline RenameResponseProto& operator=(const RenameResponseProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RenameResponseProto& operator=(RenameResponseProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const RenameResponseProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const RenameResponseProto* internal_default_instance() {
+    return reinterpret_cast<const RenameResponseProto*>(
+               &_RenameResponseProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    16;
+
+  friend void swap(RenameResponseProto& a, RenameResponseProto& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RenameResponseProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(RenameResponseProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  RenameResponseProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<RenameResponseProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const RenameResponseProto& from);
+  void MergeFrom(const RenameResponseProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(RenameResponseProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "fusebox.RenameResponseProto";
+  }
+  protected:
+  explicit RenameResponseProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPosixErrorCodeFieldNumber = 1,
+  };
+  // optional int32 posix_error_code = 1;
+  bool has_posix_error_code() const;
+  private:
+  bool _internal_has_posix_error_code() const;
+  public:
+  void clear_posix_error_code();
+  int32_t posix_error_code() const;
+  void set_posix_error_code(int32_t value);
+  private:
+  int32_t _internal_posix_error_code() const;
+  void _internal_set_posix_error_code(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:fusebox.RenameResponseProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  int32_t posix_error_code_;
+  friend struct ::TableStruct_fusebox_2eproto;
+};
+// -------------------------------------------------------------------
+
 class RmDirRequestProto final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:fusebox.RmDirRequestProto) */ {
  public:
@@ -2679,7 +2996,7 @@ class RmDirRequestProto final :
                &_RmDirRequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    17;
 
   friend void swap(RmDirRequestProto& a, RmDirRequestProto& b) {
     a.Swap(&b);
@@ -2826,7 +3143,7 @@ class RmDirResponseProto final :
                &_RmDirResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    18;
 
   friend void swap(RmDirResponseProto& a, RmDirResponseProto& b) {
     a.Swap(&b);
@@ -2968,7 +3285,7 @@ class Stat2RequestProto final :
                &_Stat2RequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    19;
 
   friend void swap(Stat2RequestProto& a, Stat2RequestProto& b) {
     a.Swap(&b);
@@ -3115,7 +3432,7 @@ class Stat2ResponseProto final :
                &_Stat2ResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    20;
 
   friend void swap(Stat2ResponseProto& a, Stat2ResponseProto& b) {
     a.Swap(&b);
@@ -3277,7 +3594,7 @@ class TruncateRequestProto final :
                &_TruncateRequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    21;
 
   friend void swap(TruncateRequestProto& a, TruncateRequestProto& b) {
     a.Swap(&b);
@@ -3439,7 +3756,7 @@ class TruncateResponseProto final :
                &_TruncateResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    22;
 
   friend void swap(TruncateResponseProto& a, TruncateResponseProto& b) {
     a.Swap(&b);
@@ -3601,7 +3918,7 @@ class UnlinkRequestProto final :
                &_UnlinkRequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    23;
 
   friend void swap(UnlinkRequestProto& a, UnlinkRequestProto& b) {
     a.Swap(&b);
@@ -3748,7 +4065,7 @@ class UnlinkResponseProto final :
                &_UnlinkResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    24;
 
   friend void swap(UnlinkResponseProto& a, UnlinkResponseProto& b) {
     a.Swap(&b);
@@ -3890,7 +4207,7 @@ class Write2RequestProto final :
                &_Write2RequestProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    25;
 
   friend void swap(Write2RequestProto& a, Write2RequestProto& b) {
     a.Swap(&b);
@@ -4067,7 +4384,7 @@ class Write2ResponseProto final :
                &_Write2ResponseProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    26;
 
   friend void swap(Write2ResponseProto& a, Write2ResponseProto& b) {
     a.Swap(&b);
@@ -5584,6 +5901,180 @@ ReadDir2ResponseProto::entries() const {
 
 // -------------------------------------------------------------------
 
+// RenameRequestProto
+
+// optional string src_file_system_url = 3;
+inline bool RenameRequestProto::_internal_has_src_file_system_url() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool RenameRequestProto::has_src_file_system_url() const {
+  return _internal_has_src_file_system_url();
+}
+inline void RenameRequestProto::clear_src_file_system_url() {
+  src_file_system_url_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& RenameRequestProto::src_file_system_url() const {
+  // @@protoc_insertion_point(field_get:fusebox.RenameRequestProto.src_file_system_url)
+  return _internal_src_file_system_url();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RenameRequestProto::set_src_file_system_url(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ src_file_system_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:fusebox.RenameRequestProto.src_file_system_url)
+}
+inline std::string* RenameRequestProto::mutable_src_file_system_url() {
+  std::string* _s = _internal_mutable_src_file_system_url();
+  // @@protoc_insertion_point(field_mutable:fusebox.RenameRequestProto.src_file_system_url)
+  return _s;
+}
+inline const std::string& RenameRequestProto::_internal_src_file_system_url() const {
+  return src_file_system_url_.Get();
+}
+inline void RenameRequestProto::_internal_set_src_file_system_url(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  src_file_system_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* RenameRequestProto::_internal_mutable_src_file_system_url() {
+  _has_bits_[0] |= 0x00000001u;
+  return src_file_system_url_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* RenameRequestProto::release_src_file_system_url() {
+  // @@protoc_insertion_point(field_release:fusebox.RenameRequestProto.src_file_system_url)
+  if (!_internal_has_src_file_system_url()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = src_file_system_url_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (src_file_system_url_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    src_file_system_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void RenameRequestProto::set_allocated_src_file_system_url(std::string* src_file_system_url) {
+  if (src_file_system_url != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  src_file_system_url_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), src_file_system_url,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (src_file_system_url_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    src_file_system_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:fusebox.RenameRequestProto.src_file_system_url)
+}
+
+// optional string dst_file_system_url = 6;
+inline bool RenameRequestProto::_internal_has_dst_file_system_url() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool RenameRequestProto::has_dst_file_system_url() const {
+  return _internal_has_dst_file_system_url();
+}
+inline void RenameRequestProto::clear_dst_file_system_url() {
+  dst_file_system_url_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& RenameRequestProto::dst_file_system_url() const {
+  // @@protoc_insertion_point(field_get:fusebox.RenameRequestProto.dst_file_system_url)
+  return _internal_dst_file_system_url();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RenameRequestProto::set_dst_file_system_url(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000002u;
+ dst_file_system_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:fusebox.RenameRequestProto.dst_file_system_url)
+}
+inline std::string* RenameRequestProto::mutable_dst_file_system_url() {
+  std::string* _s = _internal_mutable_dst_file_system_url();
+  // @@protoc_insertion_point(field_mutable:fusebox.RenameRequestProto.dst_file_system_url)
+  return _s;
+}
+inline const std::string& RenameRequestProto::_internal_dst_file_system_url() const {
+  return dst_file_system_url_.Get();
+}
+inline void RenameRequestProto::_internal_set_dst_file_system_url(const std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  dst_file_system_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* RenameRequestProto::_internal_mutable_dst_file_system_url() {
+  _has_bits_[0] |= 0x00000002u;
+  return dst_file_system_url_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* RenameRequestProto::release_dst_file_system_url() {
+  // @@protoc_insertion_point(field_release:fusebox.RenameRequestProto.dst_file_system_url)
+  if (!_internal_has_dst_file_system_url()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  auto* p = dst_file_system_url_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (dst_file_system_url_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    dst_file_system_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void RenameRequestProto::set_allocated_dst_file_system_url(std::string* dst_file_system_url) {
+  if (dst_file_system_url != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  dst_file_system_url_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), dst_file_system_url,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (dst_file_system_url_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    dst_file_system_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:fusebox.RenameRequestProto.dst_file_system_url)
+}
+
+// -------------------------------------------------------------------
+
+// RenameResponseProto
+
+// optional int32 posix_error_code = 1;
+inline bool RenameResponseProto::_internal_has_posix_error_code() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool RenameResponseProto::has_posix_error_code() const {
+  return _internal_has_posix_error_code();
+}
+inline void RenameResponseProto::clear_posix_error_code() {
+  posix_error_code_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline int32_t RenameResponseProto::_internal_posix_error_code() const {
+  return posix_error_code_;
+}
+inline int32_t RenameResponseProto::posix_error_code() const {
+  // @@protoc_insertion_point(field_get:fusebox.RenameResponseProto.posix_error_code)
+  return _internal_posix_error_code();
+}
+inline void RenameResponseProto::_internal_set_posix_error_code(int32_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  posix_error_code_ = value;
+}
+inline void RenameResponseProto::set_posix_error_code(int32_t value) {
+  _internal_set_posix_error_code(value);
+  // @@protoc_insertion_point(field_set:fusebox.RenameResponseProto.posix_error_code)
+}
+
+// -------------------------------------------------------------------
+
 // RmDirRequestProto
 
 // optional string file_system_url = 3;
@@ -6374,6 +6865,10 @@ inline void Write2ResponseProto::set_posix_error_code(int32_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

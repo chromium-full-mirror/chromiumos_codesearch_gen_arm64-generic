@@ -407,4 +407,19 @@ FakeCrosHealthdRoutineFactory::MakeLedLitUpRoutine(
         replier) {
   return std::move(next_routine_);
 }
+
+std::unique_ptr<DiagnosticRoutine>
+FakeCrosHealthdRoutineFactory::MakeAudioSetVolumeRoutine(uint64_t node_id,
+                                                         uint8_t volume,
+                                                         bool mute_on) {
+  return std::move(next_routine_);
+}
+
+std::unique_ptr<DiagnosticRoutine>
+FakeCrosHealthdRoutineFactory::MakeAudioSetGainRoutine(uint64_t node_id,
+                                                       uint8_t gain,
+                                                       bool mute_on) {
+  return std::move(next_routine_);
+}
+
 }  // namespace diagnostics

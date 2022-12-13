@@ -3385,6 +3385,7 @@ bool BluetoothDeviceInfo_Data::Validate(
   static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
     { 0, 72 },
     { 1, 80 },
+    { 2, 88 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -3446,12 +3447,17 @@ bool BluetoothDeviceInfo_Data::Validate(
 
   if (!mojo::internal::ValidateStruct(object->battery_percentage, validation_context))
     return false;
+  if (object->header_.version < 2)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->bluetooth_class, validation_context))
+    return false;
 
   return true;
 }
 
 BluetoothDeviceInfo_Data::BluetoothDeviceInfo_Data()
-    : header_({sizeof(*this), 1}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
