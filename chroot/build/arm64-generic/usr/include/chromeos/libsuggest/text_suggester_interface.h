@@ -23,8 +23,7 @@ typedef decltype(&LoadTextSuggester) LoadTextSuggesterFn;
 // DeleteSuggestionResultData(). Returns false if candidate generation fails and
 // no result_data is returned.
 bool SuggestCandidates(TextSuggester suggester, const char* request_data,
-                       int request_size, char** const result_data,
-                       int* const result_size);
+                       int request_size, char** result_data, int* result_size);
 typedef decltype(&SuggestCandidates) SuggestCandidatesFn;
 
 // Deletes result_data returned by SuggestCandidates().
