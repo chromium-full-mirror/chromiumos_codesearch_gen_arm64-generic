@@ -33,15 +33,8 @@ namespace legacy {
 
 template <>
 perfetto_libchrome::ThreadTrack ConvertThreadId(const ::base::PlatformThreadId& thread) {
-  return perfetto_libchrome::ThreadTrack::ForThread(static_cast<int32_t>(thread));
+  return perfetto_libchrome::ThreadTrack::ForThread(thread);
 }
-
-#if BUILDFLAG(IS_WIN)
-template <>
-perfetto_libchrome::ThreadTrack ConvertThreadId(const int& thread) {
-  return perfetto_libchrome::ThreadTrack::ForThread(static_cast<int32_t>(thread));
-}
-#endif  // BUILDFLAG(IS_WIN)
 
 }  // namespace legacy
 
