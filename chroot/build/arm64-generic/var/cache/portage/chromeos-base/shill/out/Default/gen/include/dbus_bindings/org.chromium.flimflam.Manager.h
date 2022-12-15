@@ -151,6 +151,9 @@ class ManagerInterface {
       bool in_1) = 0;
   virtual void CheckTetheringReadiness(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::string>> response) = 0;
+  virtual void SetLOHSEnabled(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::string>> response,
+      bool in_1) = 0;
 };
 
 // Interface adaptor for org::chromium::flimflam::Manager.
@@ -320,6 +323,10 @@ class ManagerAdaptor {
         "CheckTetheringReadiness",
         base::Unretained(interface_),
         &ManagerInterface::CheckTetheringReadiness);
+    itf->AddMethodHandler(
+        "SetLOHSEnabled",
+        base::Unretained(interface_),
+        &ManagerInterface::SetLOHSEnabled);
 
     signal_PropertyChanged_ = itf->RegisterSignalOfType<SignalPropertyChangedType>("PropertyChanged");
     signal_StateChanged_ = itf->RegisterSignalOfType<SignalStateChangedType>("StateChanged");
@@ -471,6 +478,10 @@ class ManagerAdaptor {
         "      <arg name=\"\" type=\"s\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"CheckTetheringReadiness\">\n"
+        "      <arg name=\"\" type=\"s\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"SetLOHSEnabled\">\n"
+        "      <arg name=\"\" type=\"b\" direction=\"in\"/>\n"
         "      <arg name=\"\" type=\"s\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <signal name=\"PropertyChanged\">\n"

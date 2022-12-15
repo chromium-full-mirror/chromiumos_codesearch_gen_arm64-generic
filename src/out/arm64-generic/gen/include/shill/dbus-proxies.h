@@ -1362,6 +1362,18 @@ class ManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool SetLOHSEnabled(
+      bool in_1,
+      std::string* out_2,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void SetLOHSEnabledAsync(
+      bool in_1,
+      base::OnceCallback<void(const std::string&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual void RegisterPropertyChangedSignalHandler(
       const base::RepeatingCallback<void(const std::string&,
                                          const brillo::Any&)>& signal_callback,
@@ -2593,6 +2605,37 @@ class ManagerProxy final : public ManagerProxyInterface {
         "CheckTetheringReadiness",
         std::move(success_callback),
         std::move(error_callback));
+  }
+
+  bool SetLOHSEnabled(
+      bool in_1,
+      std::string* out_2,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "SetLOHSEnabled",
+        error,
+        in_1);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_2);
+  }
+
+  void SetLOHSEnabledAsync(
+      bool in_1,
+      base::OnceCallback<void(const std::string&)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "SetLOHSEnabled",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_1);
   }
 
  private:
