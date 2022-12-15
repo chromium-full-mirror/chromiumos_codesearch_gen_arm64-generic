@@ -86,6 +86,8 @@ class WirelessLinkInfoDataView;
 
 class AudioInfoDataView;
 
+class AudioNodeInfoDataView;
+
 class AudioHardwareInfoDataView;
 
 class AudioCardDataView;
@@ -311,6 +313,9 @@ using WirelessLinkInfoPtr = mojo::StructPtr<WirelessLinkInfo>;
 
 class AudioInfo;
 using AudioInfoPtr = mojo::StructPtr<AudioInfo>;
+
+class AudioNodeInfo;
+using AudioNodeInfoPtr = mojo::StructPtr<AudioNodeInfo>;
 
 class AudioHardwareInfo;
 using AudioHardwareInfoPtr = mojo::StructPtr<AudioHardwareInfo>;

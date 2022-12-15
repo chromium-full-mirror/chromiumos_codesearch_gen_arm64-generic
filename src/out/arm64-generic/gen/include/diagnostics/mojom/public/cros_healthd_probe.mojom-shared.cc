@@ -3924,8 +3924,12 @@ bool AudioInfo_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 48 },
+    { 1, 64 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -3955,11 +3959,74 @@ bool AudioInfo_Data::Validate(
                                          &input_device_name_validate_params)) {
     return false;
   }
+  if (object->header_.version < 1)
+    return true;
+
+  constexpr const mojo::internal::ContainerValidateParams& output_nodes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->output_nodes, validation_context,
+                                         &output_nodes_validate_params)) {
+    return false;
+  }
+  if (object->header_.version < 1)
+    return true;
+
+  constexpr const mojo::internal::ContainerValidateParams& input_nodes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->input_nodes, validation_context,
+                                         &input_nodes_validate_params)) {
+    return false;
+  }
 
   return true;
 }
 
 AudioInfo_Data::AudioInfo_Data()
+    : header_({sizeof(*this), 1}) {}
+
+
+// static
+bool AudioNodeInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 40, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AudioNodeInfo_Data* object =
+      static_cast<const AudioNodeInfo_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->name, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->name, validation_context,
+                                         &name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->device_name, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& device_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->device_name, validation_context,
+                                         &device_name_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+AudioNodeInfo_Data::AudioNodeInfo_Data()
     : header_({sizeof(*this), 0}) {}
 
 

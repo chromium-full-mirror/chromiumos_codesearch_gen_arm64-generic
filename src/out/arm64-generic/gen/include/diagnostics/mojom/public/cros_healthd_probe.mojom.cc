@@ -2937,7 +2937,9 @@ AudioInfo::AudioInfo()
       input_gain(),
       input_device_name(),
       underruns(),
-      severe_underruns() {}
+      severe_underruns(),
+      output_nodes(),
+      input_nodes() {}
 
 AudioInfo::AudioInfo(
     bool output_mute_in,
@@ -2955,20 +2957,33 @@ AudioInfo::AudioInfo(
       input_gain(std::move(input_gain_in)),
       input_device_name(std::move(input_device_name_in)),
       underruns(std::move(underruns_in)),
-      severe_underruns(std::move(severe_underruns_in)) {}
+      severe_underruns(std::move(severe_underruns_in)),
+      output_nodes(),
+      input_nodes() {}
+
+AudioInfo::AudioInfo(
+    bool output_mute_in,
+    bool input_mute_in,
+    uint64_t output_volume_in,
+    const std::string& output_device_name_in,
+    uint32_t input_gain_in,
+    const std::string& input_device_name_in,
+    uint32_t underruns_in,
+    uint32_t severe_underruns_in,
+    absl::optional<std::vector<AudioNodeInfoPtr>> output_nodes_in,
+    absl::optional<std::vector<AudioNodeInfoPtr>> input_nodes_in)
+    : output_mute(std::move(output_mute_in)),
+      input_mute(std::move(input_mute_in)),
+      output_volume(std::move(output_volume_in)),
+      output_device_name(std::move(output_device_name_in)),
+      input_gain(std::move(input_gain_in)),
+      input_device_name(std::move(input_device_name_in)),
+      underruns(std::move(underruns_in)),
+      severe_underruns(std::move(severe_underruns_in)),
+      output_nodes(std::move(output_nodes_in)),
+      input_nodes(std::move(input_nodes_in)) {}
 
 AudioInfo::~AudioInfo() = default;
-size_t AudioInfo::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->output_mute);
-  seed = mojo::internal::Hash(seed, this->input_mute);
-  seed = mojo::internal::Hash(seed, this->output_volume);
-  seed = mojo::internal::Hash(seed, this->output_device_name);
-  seed = mojo::internal::Hash(seed, this->input_gain);
-  seed = mojo::internal::Hash(seed, this->input_device_name);
-  seed = mojo::internal::Hash(seed, this->underruns);
-  seed = mojo::internal::Hash(seed, this->severe_underruns);
-  return seed;
-}
 
 void AudioInfo::WriteIntoTrace(
     perfetto_libchrome::TracedValue traced_context) const {
@@ -3045,9 +3060,124 @@ void AudioInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_nodes"), this->output_nodes,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<std::vector<AudioNodeInfoPtr>>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_nodes"), this->input_nodes,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<std::vector<AudioNodeInfoPtr>>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool AudioInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+AudioNodeInfo::AudioNodeInfo()
+    : id(),
+      name(),
+      device_name(),
+      active(),
+      node_volume(),
+      input_node_gain() {}
+
+AudioNodeInfo::AudioNodeInfo(
+    uint64_t id_in,
+    const std::string& name_in,
+    const std::string& device_name_in,
+    bool active_in,
+    uint8_t node_volume_in,
+    uint8_t input_node_gain_in)
+    : id(std::move(id_in)),
+      name(std::move(name_in)),
+      device_name(std::move(device_name_in)),
+      active(std::move(active_in)),
+      node_volume(std::move(node_volume_in)),
+      input_node_gain(std::move(input_node_gain_in)) {}
+
+AudioNodeInfo::~AudioNodeInfo() = default;
+size_t AudioNodeInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->id);
+  seed = mojo::internal::Hash(seed, this->name);
+  seed = mojo::internal::Hash(seed, this->device_name);
+  seed = mojo::internal::Hash(seed, this->active);
+  seed = mojo::internal::Hash(seed, this->node_volume);
+  seed = mojo::internal::Hash(seed, this->input_node_gain);
+  return seed;
+}
+
+void AudioNodeInfo::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "id"), this->id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "name"), this->name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "device_name"), this->device_name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "active"), this->active,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "node_volume"), this->node_volume,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_node_gain"), this->input_node_gain,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool AudioNodeInfo::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -6902,19 +7032,6 @@ void AudioResult::DestroyActive() {
       break;
   }
 }
-size_t AudioResult::Hash(size_t seed) const {
-  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
-  switch (tag_) {
-
-    case Tag::kAudioInfo:
-      return mojo::internal::Hash(seed, data_.audio_info);
-    case Tag::kError:
-      return mojo::internal::Hash(seed, data_.error);
-    default:
-      NOTREACHED();
-      return seed;
-  }
-}
 
 bool AudioResult::Validate(
     const void* data,
@@ -8158,6 +8275,34 @@ bool StructTraits<::ash::cros_healthd::mojom::AudioInfo::DataView, ::ash::cros_h
         result->underruns = input.underruns();
       if (success)
         result->severe_underruns = input.severe_underruns();
+      if (success && !input.ReadOutputNodes(&result->output_nodes))
+        success = false;
+      if (success && !input.ReadInputNodes(&result->input_nodes))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::AudioNodeInfo::DataView, ::ash::cros_healthd::mojom::AudioNodeInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::AudioNodeInfo::DataView input,
+    ::ash::cros_healthd::mojom::AudioNodeInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::AudioNodeInfoPtr result(::ash::cros_healthd::mojom::AudioNodeInfo::New());
+  
+      if (success)
+        result->id = input.id();
+      if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success && !input.ReadDeviceName(&result->device_name))
+        success = false;
+      if (success)
+        result->active = input.active();
+      if (success)
+        result->node_volume = input.node_volume();
+      if (success)
+        result->input_node_gain = input.input_node_gain();
   *output = std::move(result);
   return success;
 }
