@@ -26,6 +26,8 @@ static NOINLINE const char* ThreadTypeToStringHelper(ThreadType value) {
   switch(value) {
     case ThreadType::kBackground:
       return "kBackground";
+    case ThreadType::kUtility:
+      return "kUtility";
     case ThreadType::kResourceEfficient:
       return "kResourceEfficient";
     case ThreadType::kDefault:

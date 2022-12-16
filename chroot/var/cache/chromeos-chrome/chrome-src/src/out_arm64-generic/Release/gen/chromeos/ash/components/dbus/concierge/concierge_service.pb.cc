@@ -143,23 +143,6 @@ struct StartPluginVmRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StartPluginVmRequestDefaultTypeInternal _StartPluginVmRequest_default_instance_;
-PROTOBUF_CONSTEXPR BalloonPolicyOptions::BalloonPolicyOptions(
-    ::_pbi::ConstantInitialized)
-  : reclaim_target_cache_(int64_t{0})
-  , critical_target_cache_(int64_t{0})
-  , moderate_target_cache_(int64_t{0})
-  , responsive_(false)
-  , responsive_timeout_ms_(0)
-  , responsive_max_deflate_bytes_(int64_t{0}){}
-struct BalloonPolicyOptionsDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR BalloonPolicyOptionsDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~BalloonPolicyOptionsDefaultTypeInternal() {}
-  union {
-    BalloonPolicyOptions _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BalloonPolicyOptionsDefaultTypeInternal _BalloonPolicyOptions_default_instance_;
 PROTOBUF_CONSTEXPR StartArcVmRequest::StartArcVmRequest(
     ::_pbi::ConstantInitialized)
   : disks_()
@@ -168,7 +151,6 @@ PROTOBUF_CONSTEXPR StartArcVmRequest::StartArcVmRequest(
   , owner_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , fstab_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , vm_(nullptr)
-  , balloon_policy_(nullptr)
   , mini_instance_request_(nullptr)
   , cpus_(0u)
   , rootfs_writable_(false)
@@ -4900,310 +4882,15 @@ std::string StartPluginVmRequest::GetTypeName() const {
 
 // ===================================================================
 
-class BalloonPolicyOptions::_Internal {
- public:
-};
-
-BalloonPolicyOptions::BalloonPolicyOptions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.BalloonPolicyOptions)
-}
-BalloonPolicyOptions::BalloonPolicyOptions(const BalloonPolicyOptions& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&reclaim_target_cache_, &from.reclaim_target_cache_,
-    static_cast<size_t>(reinterpret_cast<char*>(&responsive_max_deflate_bytes_) -
-    reinterpret_cast<char*>(&reclaim_target_cache_)) + sizeof(responsive_max_deflate_bytes_));
-  // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.BalloonPolicyOptions)
-}
-
-inline void BalloonPolicyOptions::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&reclaim_target_cache_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&responsive_max_deflate_bytes_) -
-    reinterpret_cast<char*>(&reclaim_target_cache_)) + sizeof(responsive_max_deflate_bytes_));
-}
-
-BalloonPolicyOptions::~BalloonPolicyOptions() {
-  // @@protoc_insertion_point(destructor:vm_tools.concierge.BalloonPolicyOptions)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void BalloonPolicyOptions::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-}
-
-void BalloonPolicyOptions::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void BalloonPolicyOptions::Clear() {
-// @@protoc_insertion_point(message_clear_start:vm_tools.concierge.BalloonPolicyOptions)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  ::memset(&reclaim_target_cache_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&responsive_max_deflate_bytes_) -
-      reinterpret_cast<char*>(&reclaim_target_cache_)) + sizeof(responsive_max_deflate_bytes_));
-  _internal_metadata_.Clear<std::string>();
-}
-
-const char* BalloonPolicyOptions::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // int64 reclaim_target_cache = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          reclaim_target_cache_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int64 critical_target_cache = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          critical_target_cache_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int64 moderate_target_cache = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          moderate_target_cache_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool responsive = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          responsive_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int32 responsive_timeout_ms = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          responsive_timeout_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // int64 responsive_max_deflate_bytes = 6;
-      case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
-          responsive_max_deflate_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* BalloonPolicyOptions::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.concierge.BalloonPolicyOptions)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // int64 reclaim_target_cache = 1;
-  if (this->_internal_reclaim_target_cache() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_reclaim_target_cache(), target);
-  }
-
-  // int64 critical_target_cache = 2;
-  if (this->_internal_critical_target_cache() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_critical_target_cache(), target);
-  }
-
-  // int64 moderate_target_cache = 3;
-  if (this->_internal_moderate_target_cache() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(3, this->_internal_moderate_target_cache(), target);
-  }
-
-  // bool responsive = 4;
-  if (this->_internal_responsive() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_responsive(), target);
-  }
-
-  // int32 responsive_timeout_ms = 5;
-  if (this->_internal_responsive_timeout_ms() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_responsive_timeout_ms(), target);
-  }
-
-  // int64 responsive_max_deflate_bytes = 6;
-  if (this->_internal_responsive_max_deflate_bytes() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt64ToArray(6, this->_internal_responsive_max_deflate_bytes(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.concierge.BalloonPolicyOptions)
-  return target;
-}
-
-size_t BalloonPolicyOptions::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:vm_tools.concierge.BalloonPolicyOptions)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // int64 reclaim_target_cache = 1;
-  if (this->_internal_reclaim_target_cache() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_reclaim_target_cache());
-  }
-
-  // int64 critical_target_cache = 2;
-  if (this->_internal_critical_target_cache() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_critical_target_cache());
-  }
-
-  // int64 moderate_target_cache = 3;
-  if (this->_internal_moderate_target_cache() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_moderate_target_cache());
-  }
-
-  // bool responsive = 4;
-  if (this->_internal_responsive() != 0) {
-    total_size += 1 + 1;
-  }
-
-  // int32 responsive_timeout_ms = 5;
-  if (this->_internal_responsive_timeout_ms() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_responsive_timeout_ms());
-  }
-
-  // int64 responsive_max_deflate_bytes = 6;
-  if (this->_internal_responsive_max_deflate_bytes() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_responsive_max_deflate_bytes());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void BalloonPolicyOptions::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const BalloonPolicyOptions*>(
-      &from));
-}
-
-void BalloonPolicyOptions::MergeFrom(const BalloonPolicyOptions& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.concierge.BalloonPolicyOptions)
-  GOOGLE_DCHECK_NE(&from, this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_reclaim_target_cache() != 0) {
-    _internal_set_reclaim_target_cache(from._internal_reclaim_target_cache());
-  }
-  if (from._internal_critical_target_cache() != 0) {
-    _internal_set_critical_target_cache(from._internal_critical_target_cache());
-  }
-  if (from._internal_moderate_target_cache() != 0) {
-    _internal_set_moderate_target_cache(from._internal_moderate_target_cache());
-  }
-  if (from._internal_responsive() != 0) {
-    _internal_set_responsive(from._internal_responsive());
-  }
-  if (from._internal_responsive_timeout_ms() != 0) {
-    _internal_set_responsive_timeout_ms(from._internal_responsive_timeout_ms());
-  }
-  if (from._internal_responsive_max_deflate_bytes() != 0) {
-    _internal_set_responsive_max_deflate_bytes(from._internal_responsive_max_deflate_bytes());
-  }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-}
-
-void BalloonPolicyOptions::CopyFrom(const BalloonPolicyOptions& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.concierge.BalloonPolicyOptions)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool BalloonPolicyOptions::IsInitialized() const {
-  return true;
-}
-
-void BalloonPolicyOptions::InternalSwap(BalloonPolicyOptions* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(BalloonPolicyOptions, responsive_max_deflate_bytes_)
-      + sizeof(BalloonPolicyOptions::responsive_max_deflate_bytes_)
-      - PROTOBUF_FIELD_OFFSET(BalloonPolicyOptions, reclaim_target_cache_)>(
-          reinterpret_cast<char*>(&reclaim_target_cache_),
-          reinterpret_cast<char*>(&other->reclaim_target_cache_));
-}
-
-std::string BalloonPolicyOptions::GetTypeName() const {
-  return "vm_tools.concierge.BalloonPolicyOptions";
-}
-
-
-// ===================================================================
-
 class StartArcVmRequest::_Internal {
  public:
   static const ::vm_tools::concierge::VirtualMachineSpec& vm(const StartArcVmRequest* msg);
-  static const ::vm_tools::concierge::BalloonPolicyOptions& balloon_policy(const StartArcVmRequest* msg);
   static const ::arc::StartArcMiniInstanceRequest& mini_instance_request(const StartArcVmRequest* msg);
 };
 
 const ::vm_tools::concierge::VirtualMachineSpec&
 StartArcVmRequest::_Internal::vm(const StartArcVmRequest* msg) {
   return *msg->vm_;
-}
-const ::vm_tools::concierge::BalloonPolicyOptions&
-StartArcVmRequest::_Internal::balloon_policy(const StartArcVmRequest* msg) {
-  return *msg->balloon_policy_;
 }
 const ::arc::StartArcMiniInstanceRequest&
 StartArcVmRequest::_Internal::mini_instance_request(const StartArcVmRequest* msg) {
@@ -5257,11 +4944,6 @@ StartArcVmRequest::StartArcVmRequest(const StartArcVmRequest& from)
   } else {
     vm_ = nullptr;
   }
-  if (from._internal_has_balloon_policy()) {
-    balloon_policy_ = new ::vm_tools::concierge::BalloonPolicyOptions(*from.balloon_policy_);
-  } else {
-    balloon_policy_ = nullptr;
-  }
   if (from._internal_has_mini_instance_request()) {
     mini_instance_request_ = new ::arc::StartArcMiniInstanceRequest(*from.mini_instance_request_);
   } else {
@@ -5307,7 +4989,6 @@ inline void StartArcVmRequest::SharedDtor() {
   owner_id_.Destroy();
   fstab_.Destroy();
   if (this != internal_default_instance()) delete vm_;
-  if (this != internal_default_instance()) delete balloon_policy_;
   if (this != internal_default_instance()) delete mini_instance_request_;
 }
 
@@ -5330,10 +5011,6 @@ void StartArcVmRequest::Clear() {
     delete vm_;
   }
   vm_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && balloon_policy_ != nullptr) {
-    delete balloon_policy_;
-  }
-  balloon_policy_ = nullptr;
   if (GetArenaForAllocation() == nullptr && mini_instance_request_ != nullptr) {
     delete mini_instance_request_;
   }
@@ -5464,14 +5141,6 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // .vm_tools.concierge.BalloonPolicyOptions balloon_policy = 13;
-      case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
-          ptr = ctx->ParseMessage(_internal_mutable_balloon_policy(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       // bool use_per_vm_core_scheduling = 14;
       case 14:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
@@ -5569,7 +5238,7 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseCont
         } else
           goto handle_unusual;
         continue;
-      // int32 logd_config_size = 26;
+      // int32 logd_config_size = 26 [deprecated = true];
       case 26:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 208)) {
           logd_config_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
@@ -5828,13 +5497,6 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(12, this->_internal_memory_mib(), target);
   }
 
-  // .vm_tools.concierge.BalloonPolicyOptions balloon_policy = 13;
-  if (this->_internal_has_balloon_policy()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(13, _Internal::balloon_policy(this),
-        _Internal::balloon_policy(this).GetCachedSize(), target, stream);
-  }
-
   // bool use_per_vm_core_scheduling = 14;
   if (this->_internal_use_per_vm_core_scheduling() != 0) {
     target = stream->EnsureSpace(target);
@@ -5908,7 +5570,7 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(25, this->_internal_enable_broadcast_anr_prenotify(), target);
   }
 
-  // int32 logd_config_size = 26;
+  // int32 logd_config_size = 26 [deprecated = true];
   if (this->_internal_logd_config_size() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(26, this->_internal_logd_config_size(), target);
@@ -6073,13 +5735,6 @@ size_t StartArcVmRequest::ByteSizeLong() const {
         *vm_);
   }
 
-  // .vm_tools.concierge.BalloonPolicyOptions balloon_policy = 13;
-  if (this->_internal_has_balloon_policy()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *balloon_policy_);
-  }
-
   // .arc.StartArcMiniInstanceRequest mini_instance_request = 34;
   if (this->_internal_has_mini_instance_request()) {
     total_size += 2 +
@@ -6168,7 +5823,7 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
-  // int32 logd_config_size = 26;
+  // int32 logd_config_size = 26 [deprecated = true];
   if (this->_internal_logd_config_size() != 0) {
     total_size += 2 +
       ::_pbi::WireFormatLite::Int32Size(
@@ -6306,9 +5961,6 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   }
   if (from._internal_has_vm()) {
     _internal_mutable_vm()->::vm_tools::concierge::VirtualMachineSpec::MergeFrom(from._internal_vm());
-  }
-  if (from._internal_has_balloon_policy()) {
-    _internal_mutable_balloon_policy()->::vm_tools::concierge::BalloonPolicyOptions::MergeFrom(from._internal_balloon_policy());
   }
   if (from._internal_has_mini_instance_request()) {
     _internal_mutable_mini_instance_request()->::arc::StartArcMiniInstanceRequest::MergeFrom(from._internal_mini_instance_request());
@@ -21802,10 +21454,6 @@ Arena::CreateMaybeMessage< ::vm_tools::concierge::StartVmRequest >(Arena* arena)
 template<> PROTOBUF_NOINLINE ::vm_tools::concierge::StartPluginVmRequest*
 Arena::CreateMaybeMessage< ::vm_tools::concierge::StartPluginVmRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::concierge::StartPluginVmRequest >(arena);
-}
-template<> PROTOBUF_NOINLINE ::vm_tools::concierge::BalloonPolicyOptions*
-Arena::CreateMaybeMessage< ::vm_tools::concierge::BalloonPolicyOptions >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::vm_tools::concierge::BalloonPolicyOptions >(arena);
 }
 template<> PROTOBUF_NOINLINE ::vm_tools::concierge::StartArcVmRequest*
 Arena::CreateMaybeMessage< ::vm_tools::concierge::StartArcVmRequest >(Arena* arena) {

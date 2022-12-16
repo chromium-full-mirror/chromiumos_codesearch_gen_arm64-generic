@@ -393,6 +393,16 @@ class InterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool SignalPoll(
+      brillo::VariantDictionary* out_properties,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void SignalPollAsync(
+      base::OnceCallback<void(const brillo::VariantDictionary& /*properties*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool FlushBSS(
       uint32_t in_age,
       brillo::ErrorPtr* error,
@@ -1182,6 +1192,33 @@ class InterfaceProxy final : public InterfaceProxyInterface {
         std::move(success_callback),
         std::move(error_callback),
         in_name);
+  }
+
+  bool SignalPoll(
+      brillo::VariantDictionary* out_properties,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface",
+        "SignalPoll",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_properties);
+  }
+
+  void SignalPollAsync(
+      base::OnceCallback<void(const brillo::VariantDictionary& /*properties*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface",
+        "SignalPoll",
+        std::move(success_callback),
+        std::move(error_callback));
   }
 
   bool FlushBSS(

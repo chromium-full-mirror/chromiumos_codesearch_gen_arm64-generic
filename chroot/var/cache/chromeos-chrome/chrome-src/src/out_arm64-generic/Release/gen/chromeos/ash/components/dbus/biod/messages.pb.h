@@ -49,10 +49,18 @@ extern EnrollScanDoneDefaultTypeInternal _EnrollScanDone_default_instance_;
 class FingerprintMessage;
 struct FingerprintMessageDefaultTypeInternal;
 extern FingerprintMessageDefaultTypeInternal _FingerprintMessage_default_instance_;
+class StartAuthSessionReply;
+struct StartAuthSessionReplyDefaultTypeInternal;
+extern StartAuthSessionReplyDefaultTypeInternal _StartAuthSessionReply_default_instance_;
+class StartEnrollSessionReply;
+struct StartEnrollSessionReplyDefaultTypeInternal;
+extern StartEnrollSessionReplyDefaultTypeInternal _StartEnrollSessionReply_default_instance_;
 }  // namespace biod
 PROTOBUF_NAMESPACE_OPEN
 template<> ::biod::EnrollScanDone* Arena::CreateMaybeMessage<::biod::EnrollScanDone>(Arena*);
 template<> ::biod::FingerprintMessage* Arena::CreateMaybeMessage<::biod::FingerprintMessage>(Arena*);
+template<> ::biod::StartAuthSessionReply* Arena::CreateMaybeMessage<::biod::StartAuthSessionReply>(Arena*);
+template<> ::biod::StartEnrollSessionReply* Arena::CreateMaybeMessage<::biod::StartEnrollSessionReply>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace biod {
 
@@ -397,6 +405,284 @@ class EnrollScanDone final :
   int32_t percent_complete_;
   friend struct ::TableStruct_messages_2eproto;
 };
+// -------------------------------------------------------------------
+
+class StartEnrollSessionReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:biod.StartEnrollSessionReply) */ {
+ public:
+  inline StartEnrollSessionReply() : StartEnrollSessionReply(nullptr) {}
+  ~StartEnrollSessionReply() override;
+  explicit PROTOBUF_CONSTEXPR StartEnrollSessionReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  StartEnrollSessionReply(const StartEnrollSessionReply& from);
+  StartEnrollSessionReply(StartEnrollSessionReply&& from) noexcept
+    : StartEnrollSessionReply() {
+    *this = ::std::move(from);
+  }
+
+  inline StartEnrollSessionReply& operator=(const StartEnrollSessionReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StartEnrollSessionReply& operator=(StartEnrollSessionReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const StartEnrollSessionReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const StartEnrollSessionReply* internal_default_instance() {
+    return reinterpret_cast<const StartEnrollSessionReply*>(
+               &_StartEnrollSessionReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(StartEnrollSessionReply& a, StartEnrollSessionReply& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(StartEnrollSessionReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StartEnrollSessionReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  StartEnrollSessionReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<StartEnrollSessionReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const StartEnrollSessionReply& from);
+  void MergeFrom(const StartEnrollSessionReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(StartEnrollSessionReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "biod.StartEnrollSessionReply";
+  }
+  protected:
+  explicit StartEnrollSessionReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kErrorFieldNumber = 1,
+  };
+  // optional .biod.FingerprintError error = 1;
+  bool has_error() const;
+  private:
+  bool _internal_has_error() const;
+  public:
+  void clear_error();
+  ::biod::FingerprintError error() const;
+  void set_error(::biod::FingerprintError value);
+  private:
+  ::biod::FingerprintError _internal_error() const;
+  void _internal_set_error(::biod::FingerprintError value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:biod.StartEnrollSessionReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  int error_;
+  friend struct ::TableStruct_messages_2eproto;
+};
+// -------------------------------------------------------------------
+
+class StartAuthSessionReply final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:biod.StartAuthSessionReply) */ {
+ public:
+  inline StartAuthSessionReply() : StartAuthSessionReply(nullptr) {}
+  ~StartAuthSessionReply() override;
+  explicit PROTOBUF_CONSTEXPR StartAuthSessionReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  StartAuthSessionReply(const StartAuthSessionReply& from);
+  StartAuthSessionReply(StartAuthSessionReply&& from) noexcept
+    : StartAuthSessionReply() {
+    *this = ::std::move(from);
+  }
+
+  inline StartAuthSessionReply& operator=(const StartAuthSessionReply& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline StartAuthSessionReply& operator=(StartAuthSessionReply&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const StartAuthSessionReply& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const StartAuthSessionReply* internal_default_instance() {
+    return reinterpret_cast<const StartAuthSessionReply*>(
+               &_StartAuthSessionReply_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(StartAuthSessionReply& a, StartAuthSessionReply& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(StartAuthSessionReply* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(StartAuthSessionReply* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  StartAuthSessionReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<StartAuthSessionReply>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const StartAuthSessionReply& from);
+  void MergeFrom(const StartAuthSessionReply& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(StartAuthSessionReply* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "biod.StartAuthSessionReply";
+  }
+  protected:
+  explicit StartAuthSessionReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kErrorFieldNumber = 1,
+  };
+  // optional .biod.FingerprintError error = 1;
+  bool has_error() const;
+  private:
+  bool _internal_has_error() const;
+  public:
+  void clear_error();
+  ::biod::FingerprintError error() const;
+  void set_error(::biod::FingerprintError value);
+  private:
+  ::biod::FingerprintError _internal_error() const;
+  void _internal_set_error(::biod::FingerprintError value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:biod.StartAuthSessionReply)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  int error_;
+  friend struct ::TableStruct_messages_2eproto;
+};
 // ===================================================================
 
 
@@ -584,9 +870,79 @@ inline void EnrollScanDone::set_percent_complete(int32_t value) {
   // @@protoc_insertion_point(field_set:biod.EnrollScanDone.percent_complete)
 }
 
+// -------------------------------------------------------------------
+
+// StartEnrollSessionReply
+
+// optional .biod.FingerprintError error = 1;
+inline bool StartEnrollSessionReply::_internal_has_error() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool StartEnrollSessionReply::has_error() const {
+  return _internal_has_error();
+}
+inline void StartEnrollSessionReply::clear_error() {
+  error_ = 1;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::biod::FingerprintError StartEnrollSessionReply::_internal_error() const {
+  return static_cast< ::biod::FingerprintError >(error_);
+}
+inline ::biod::FingerprintError StartEnrollSessionReply::error() const {
+  // @@protoc_insertion_point(field_get:biod.StartEnrollSessionReply.error)
+  return _internal_error();
+}
+inline void StartEnrollSessionReply::_internal_set_error(::biod::FingerprintError value) {
+  assert(::biod::FingerprintError_IsValid(value));
+  _has_bits_[0] |= 0x00000001u;
+  error_ = value;
+}
+inline void StartEnrollSessionReply::set_error(::biod::FingerprintError value) {
+  _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:biod.StartEnrollSessionReply.error)
+}
+
+// -------------------------------------------------------------------
+
+// StartAuthSessionReply
+
+// optional .biod.FingerprintError error = 1;
+inline bool StartAuthSessionReply::_internal_has_error() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool StartAuthSessionReply::has_error() const {
+  return _internal_has_error();
+}
+inline void StartAuthSessionReply::clear_error() {
+  error_ = 1;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::biod::FingerprintError StartAuthSessionReply::_internal_error() const {
+  return static_cast< ::biod::FingerprintError >(error_);
+}
+inline ::biod::FingerprintError StartAuthSessionReply::error() const {
+  // @@protoc_insertion_point(field_get:biod.StartAuthSessionReply.error)
+  return _internal_error();
+}
+inline void StartAuthSessionReply::_internal_set_error(::biod::FingerprintError value) {
+  assert(::biod::FingerprintError_IsValid(value));
+  _has_bits_[0] |= 0x00000001u;
+  error_ = value;
+}
+inline void StartAuthSessionReply::set_error(::biod::FingerprintError value) {
+  _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:biod.StartAuthSessionReply.error)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 

@@ -1140,16 +1140,13 @@ bool NetworkInterface_NetworkDeviceType_Parse(
 ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, NetworkInterface_NetworkDeviceType* value);
 enum NetworkState_ConnectionState : int {
 NetworkState_ConnectionState_IDLE = 0,
-NetworkState_ConnectionState_CARRIER = 1,
 NetworkState_ConnectionState_ASSOCIATION = 2,
 NetworkState_ConnectionState_CONFIGURATION = 3,
 NetworkState_ConnectionState_READY = 4,
 NetworkState_ConnectionState_PORTAL = 5,
-NetworkState_ConnectionState_OFFLINE = 6,
 NetworkState_ConnectionState_ONLINE = 7,
 NetworkState_ConnectionState_DISCONNECT = 8,
 NetworkState_ConnectionState_FAILURE = 9,
-NetworkState_ConnectionState_ACTIVATION_FAILURE = 10,
 NetworkState_ConnectionState_UNKNOWN = 11
 };
 POLICY_PROTO_EXPORT bool NetworkState_ConnectionState_IsValid(int value);
@@ -2524,6 +2521,51 @@ return BrowserPublicKeyUploadResponse_ResponseCode_Name(static_cast<BrowserPubli
 }
 bool BrowserPublicKeyUploadResponse_ResponseCode_Parse(
 ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, BrowserPublicKeyUploadResponse_ResponseCode* value);
+enum UserSessionType : int {
+USER_SESSION_TYPE_UNKNOWN = 0,
+AUTO_LAUNCHED_KIOSK_SESSION = 1,
+MANUALLY_LAUNCHED_KIOSK_SESSION = 2,
+AFFILIATED_USER_SESSION = 3,
+UNAFFILIATED_USER_SESSION = 4,
+MANAGED_GUEST_SESSION = 5,
+GUEST_SESSION = 6,
+NO_SESSION = 7
+};
+POLICY_PROTO_EXPORT bool UserSessionType_IsValid(int value);
+constexpr UserSessionType UserSessionType_MIN = USER_SESSION_TYPE_UNKNOWN;
+constexpr UserSessionType UserSessionType_MAX = NO_SESSION;
+constexpr int UserSessionType_ARRAYSIZE = UserSessionType_MAX + 1;
+
+const std::string& UserSessionType_Name(UserSessionType value);
+template<typename T>
+inline const std::string& UserSessionType_Name(T enum_t_value) {
+static_assert(::std::is_same<T, UserSessionType>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function UserSessionType_Name.");
+return UserSessionType_Name(static_cast<UserSessionType>(enum_t_value));
+}
+bool UserSessionType_Parse(
+::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UserSessionType* value);
+enum CrdSessionType : int {
+CRD_SESSION_TYPE_UNKNOWN = 0,
+REMOTE_ACCESS_SESSION = 1,
+REMOTE_SUPPORT_SESSION = 2
+};
+POLICY_PROTO_EXPORT bool CrdSessionType_IsValid(int value);
+constexpr CrdSessionType CrdSessionType_MIN = CRD_SESSION_TYPE_UNKNOWN;
+constexpr CrdSessionType CrdSessionType_MAX = REMOTE_SUPPORT_SESSION;
+constexpr int CrdSessionType_ARRAYSIZE = CrdSessionType_MAX + 1;
+
+const std::string& CrdSessionType_Name(CrdSessionType value);
+template<typename T>
+inline const std::string& CrdSessionType_Name(T enum_t_value) {
+static_assert(::std::is_same<T, CrdSessionType>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function CrdSessionType_Name.");
+return CrdSessionType_Name(static_cast<CrdSessionType>(enum_t_value));
+}
+bool CrdSessionType_Parse(
+::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CrdSessionType* value);
 enum Channel : int {
 CHANNEL_UNKNOWN = 0,
 CHANNEL_CANARY = 1,
@@ -9109,8 +9151,6 @@ std::string GetTypeName() const final;
 typedef NetworkState_ConnectionState ConnectionState;
 static constexpr ConnectionState IDLE =
 NetworkState_ConnectionState_IDLE;
-static constexpr ConnectionState CARRIER =
-NetworkState_ConnectionState_CARRIER;
 static constexpr ConnectionState ASSOCIATION =
 NetworkState_ConnectionState_ASSOCIATION;
 static constexpr ConnectionState CONFIGURATION =
@@ -9119,16 +9159,12 @@ static constexpr ConnectionState READY =
 NetworkState_ConnectionState_READY;
 static constexpr ConnectionState PORTAL =
 NetworkState_ConnectionState_PORTAL;
-static constexpr ConnectionState OFFLINE =
-NetworkState_ConnectionState_OFFLINE;
 static constexpr ConnectionState ONLINE =
 NetworkState_ConnectionState_ONLINE;
 static constexpr ConnectionState DISCONNECT =
 NetworkState_ConnectionState_DISCONNECT;
 static constexpr ConnectionState FAILURE =
 NetworkState_ConnectionState_FAILURE;
-static constexpr ConnectionState ACTIVATION_FAILURE =
-NetworkState_ConnectionState_ACTIVATION_FAILURE;
 static constexpr ConnectionState UNKNOWN =
 NetworkState_ConnectionState_UNKNOWN;
 static inline bool ConnectionState_IsValid(int value) {
@@ -83822,6 +83858,8 @@ template <> struct is_proto_enum< ::enterprise_management::ClientCertificateProv
 template <> struct is_proto_enum< ::enterprise_management::BrowserPublicKeyUploadRequest_KeyTrustLevel> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::BrowserPublicKeyUploadRequest_KeyType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::BrowserPublicKeyUploadResponse_ResponseCode> : ::std::true_type {};
+template <> struct is_proto_enum< ::enterprise_management::UserSessionType> : ::std::true_type {};
+template <> struct is_proto_enum< ::enterprise_management::CrdSessionType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::Channel> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::BusDeviceClass> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::BusType> : ::std::true_type {};

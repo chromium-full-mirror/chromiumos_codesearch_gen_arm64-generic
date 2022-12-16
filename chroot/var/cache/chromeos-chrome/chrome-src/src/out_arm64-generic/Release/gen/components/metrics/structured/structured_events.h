@@ -169,6 +169,13 @@ class Initialization final : public ::metrics::structured::Event {
 
 namespace cr_os_events {
 
+class UserLogin final : public ::metrics::structured::Event {
+ public:
+  UserLogin();
+  ~UserLogin() override;
+
+  };
+
 class Test1 final : public ::metrics::structured::Event {
  public:
   Test1();

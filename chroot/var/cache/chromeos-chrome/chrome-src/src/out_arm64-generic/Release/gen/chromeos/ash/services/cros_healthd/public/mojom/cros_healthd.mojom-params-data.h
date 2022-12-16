@@ -304,6 +304,7 @@ class  CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> percentage_used_threshold;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data>;
@@ -311,7 +312,7 @@ class  CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data {
   CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data();
   ~CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data() = delete;
 };
-static_assert(sizeof(CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data) == 8,
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data)");
 class  CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParams_Data {
  public:
@@ -1347,6 +1348,107 @@ class  CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data {
 };
 static_assert(sizeof(CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data>;
+
+  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data) == 8,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t node_id;
+  uint8_t volume;
+  uint8_t mute_on : 1;
+  uint8_t padfinal_[6];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data>;
+
+  CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data) == 24,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t node_id;
+  uint8_t gain;
+  uint8_t mute_on : 1;
+  uint8_t padfinal_[6];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data>;
+
+  CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data) == 24,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data)");
 class  CrosHealthdEventService_AddBluetoothObserver_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -2112,11 +2214,33 @@ class CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ParamsDataView {
   CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ParamsDataView(
       internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
+  inline void GetPercentageUsedThresholdDataView(
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPercentageUsedThreshold(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+    "Attempting to read the optional `percentage_used_threshold` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadPercentageUsedThreshold` instead "
+    "of `ReadPercentageUsedThreshold if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 6
+                    ? data_->percentage_used_threshold.Get() : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+        pointer, output, message_);
+  }
  private:
   internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -3755,6 +3879,153 @@ class CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParamsDataView {
 
 
 
+class CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data* data_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint64_t node_id() const {
+    return data_->node_id;
+  }
+  uint8_t volume() const {
+    return data_->volume;
+  }
+  bool mute_on() const {
+    return data_->mute_on;
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data* data_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint64_t node_id() const {
+    return data_->node_id;
+  }
+  uint8_t gain() const {
+    return data_->gain;
+  }
+  bool mute_on() const {
+    return data_->mute_on;
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data* data_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 class CrosHealthdEventService_AddBluetoothObserver_ParamsDataView {
  public:
   CrosHealthdEventService_AddBluetoothObserver_ParamsDataView() = default;
@@ -4322,6 +4593,12 @@ inline void CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParams
 }
 
 
+inline void CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ParamsDataView::GetPercentageUsedThresholdDataView(
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
+  auto pointer = data_->header_.version >= 6
+                 ? data_->percentage_used_threshold.Get() : nullptr;
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+}
 
 
 inline void CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParamsDataView::GetResponseDataView(
@@ -4648,6 +4925,33 @@ inline void CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams
 
 
 inline void CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+}
+
+
+
+
+inline void CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+}
+
+
+
+
+inline void CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+}
+
+
+
+
+inline void CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParamsDataView::GetResponseDataView(
     ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
   *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);

@@ -7,6 +7,5 @@
 #include "build/buildflag.h" // IWYU pragma: export
 
 #define BUILDFLAG_INTERNAL_RTC_USE_H264() (0)
-#define BUILDFLAG_INTERNAL_ENABLE_JXL_DECODER() (1)
 
 #endif  // THIRD_PARTY_BLINK_PUBLIC_COMMON_BUILDFLAGS_H_

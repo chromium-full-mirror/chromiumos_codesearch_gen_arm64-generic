@@ -4018,16 +4018,13 @@ constexpr int NetworkInterface::NetworkDeviceType_ARRAYSIZE;
 bool NetworkState_ConnectionState_IsValid(int value) {
   switch (value) {
     case 0:
-    case 1:
     case 2:
     case 3:
     case 4:
     case 5:
-    case 6:
     case 7:
     case 8:
     case 9:
-    case 10:
     case 11:
       return true;
     default:
@@ -4035,50 +4032,41 @@ bool NetworkState_ConnectionState_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> NetworkState_ConnectionState_strings[12] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> NetworkState_ConnectionState_strings[9] = {};
 
 static const char NetworkState_ConnectionState_names[] =
-  "ACTIVATION_FAILURE"
   "ASSOCIATION"
-  "CARRIER"
   "CONFIGURATION"
   "DISCONNECT"
   "FAILURE"
   "IDLE"
-  "OFFLINE"
   "ONLINE"
   "PORTAL"
   "READY"
   "UNKNOWN";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry NetworkState_ConnectionState_entries[] = {
-  { {NetworkState_ConnectionState_names + 0, 18}, 10 },
-  { {NetworkState_ConnectionState_names + 18, 11}, 2 },
-  { {NetworkState_ConnectionState_names + 29, 7}, 1 },
-  { {NetworkState_ConnectionState_names + 36, 13}, 3 },
-  { {NetworkState_ConnectionState_names + 49, 10}, 8 },
-  { {NetworkState_ConnectionState_names + 59, 7}, 9 },
-  { {NetworkState_ConnectionState_names + 66, 4}, 0 },
-  { {NetworkState_ConnectionState_names + 70, 7}, 6 },
-  { {NetworkState_ConnectionState_names + 77, 6}, 7 },
-  { {NetworkState_ConnectionState_names + 83, 6}, 5 },
-  { {NetworkState_ConnectionState_names + 89, 5}, 4 },
-  { {NetworkState_ConnectionState_names + 94, 7}, 11 },
+  { {NetworkState_ConnectionState_names + 0, 11}, 2 },
+  { {NetworkState_ConnectionState_names + 11, 13}, 3 },
+  { {NetworkState_ConnectionState_names + 24, 10}, 8 },
+  { {NetworkState_ConnectionState_names + 34, 7}, 9 },
+  { {NetworkState_ConnectionState_names + 41, 4}, 0 },
+  { {NetworkState_ConnectionState_names + 45, 6}, 7 },
+  { {NetworkState_ConnectionState_names + 51, 6}, 5 },
+  { {NetworkState_ConnectionState_names + 57, 5}, 4 },
+  { {NetworkState_ConnectionState_names + 62, 7}, 11 },
 };
 
 static const int NetworkState_ConnectionState_entries_by_number[] = {
-  6, // 0 -> IDLE
-  2, // 1 -> CARRIER
-  1, // 2 -> ASSOCIATION
-  3, // 3 -> CONFIGURATION
-  10, // 4 -> READY
-  9, // 5 -> PORTAL
-  7, // 6 -> OFFLINE
-  8, // 7 -> ONLINE
-  4, // 8 -> DISCONNECT
-  5, // 9 -> FAILURE
-  0, // 10 -> ACTIVATION_FAILURE
-  11, // 11 -> UNKNOWN
+  4, // 0 -> IDLE
+  0, // 2 -> ASSOCIATION
+  1, // 3 -> CONFIGURATION
+  7, // 4 -> READY
+  6, // 5 -> PORTAL
+  5, // 7 -> ONLINE
+  2, // 8 -> DISCONNECT
+  3, // 9 -> FAILURE
+  8, // 11 -> UNKNOWN
 };
 
 const std::string& NetworkState_ConnectionState_Name(
@@ -4087,12 +4075,12 @@ const std::string& NetworkState_ConnectionState_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           NetworkState_ConnectionState_entries,
           NetworkState_ConnectionState_entries_by_number,
-          12, NetworkState_ConnectionState_strings);
+          9, NetworkState_ConnectionState_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       NetworkState_ConnectionState_entries,
       NetworkState_ConnectionState_entries_by_number,
-      12, value);
+      9, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      NetworkState_ConnectionState_strings[idx].get();
 }
@@ -4100,7 +4088,7 @@ bool NetworkState_ConnectionState_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, NetworkState_ConnectionState* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      NetworkState_ConnectionState_entries, 12, name, &int_value);
+      NetworkState_ConnectionState_entries, 9, name, &int_value);
   if (success) {
     *value = static_cast<NetworkState_ConnectionState>(int_value);
   }
@@ -4108,16 +4096,13 @@ bool NetworkState_ConnectionState_Parse(
 }
 #if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr NetworkState_ConnectionState NetworkState::IDLE;
-constexpr NetworkState_ConnectionState NetworkState::CARRIER;
 constexpr NetworkState_ConnectionState NetworkState::ASSOCIATION;
 constexpr NetworkState_ConnectionState NetworkState::CONFIGURATION;
 constexpr NetworkState_ConnectionState NetworkState::READY;
 constexpr NetworkState_ConnectionState NetworkState::PORTAL;
-constexpr NetworkState_ConnectionState NetworkState::OFFLINE;
 constexpr NetworkState_ConnectionState NetworkState::ONLINE;
 constexpr NetworkState_ConnectionState NetworkState::DISCONNECT;
 constexpr NetworkState_ConnectionState NetworkState::FAILURE;
-constexpr NetworkState_ConnectionState NetworkState::ACTIVATION_FAILURE;
 constexpr NetworkState_ConnectionState NetworkState::UNKNOWN;
 constexpr NetworkState_ConnectionState NetworkState::ConnectionState_MIN;
 constexpr NetworkState_ConnectionState NetworkState::ConnectionState_MAX;
@@ -8836,6 +8821,136 @@ constexpr BrowserPublicKeyUploadResponse_ResponseCode BrowserPublicKeyUploadResp
 constexpr BrowserPublicKeyUploadResponse_ResponseCode BrowserPublicKeyUploadResponse::ResponseCode_MAX;
 constexpr int BrowserPublicKeyUploadResponse::ResponseCode_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool UserSessionType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> UserSessionType_strings[8] = {};
+
+static const char UserSessionType_names[] =
+  "AFFILIATED_USER_SESSION"
+  "AUTO_LAUNCHED_KIOSK_SESSION"
+  "GUEST_SESSION"
+  "MANAGED_GUEST_SESSION"
+  "MANUALLY_LAUNCHED_KIOSK_SESSION"
+  "NO_SESSION"
+  "UNAFFILIATED_USER_SESSION"
+  "USER_SESSION_TYPE_UNKNOWN";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry UserSessionType_entries[] = {
+  { {UserSessionType_names + 0, 23}, 3 },
+  { {UserSessionType_names + 23, 27}, 1 },
+  { {UserSessionType_names + 50, 13}, 6 },
+  { {UserSessionType_names + 63, 21}, 5 },
+  { {UserSessionType_names + 84, 31}, 2 },
+  { {UserSessionType_names + 115, 10}, 7 },
+  { {UserSessionType_names + 125, 25}, 4 },
+  { {UserSessionType_names + 150, 25}, 0 },
+};
+
+static const int UserSessionType_entries_by_number[] = {
+  7, // 0 -> USER_SESSION_TYPE_UNKNOWN
+  1, // 1 -> AUTO_LAUNCHED_KIOSK_SESSION
+  4, // 2 -> MANUALLY_LAUNCHED_KIOSK_SESSION
+  0, // 3 -> AFFILIATED_USER_SESSION
+  6, // 4 -> UNAFFILIATED_USER_SESSION
+  3, // 5 -> MANAGED_GUEST_SESSION
+  2, // 6 -> GUEST_SESSION
+  5, // 7 -> NO_SESSION
+};
+
+const std::string& UserSessionType_Name(
+    UserSessionType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          UserSessionType_entries,
+          UserSessionType_entries_by_number,
+          8, UserSessionType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      UserSessionType_entries,
+      UserSessionType_entries_by_number,
+      8, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     UserSessionType_strings[idx].get();
+}
+bool UserSessionType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UserSessionType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      UserSessionType_entries, 8, name, &int_value);
+  if (success) {
+    *value = static_cast<UserSessionType>(int_value);
+  }
+  return success;
+}
+bool CrdSessionType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CrdSessionType_strings[3] = {};
+
+static const char CrdSessionType_names[] =
+  "CRD_SESSION_TYPE_UNKNOWN"
+  "REMOTE_ACCESS_SESSION"
+  "REMOTE_SUPPORT_SESSION";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CrdSessionType_entries[] = {
+  { {CrdSessionType_names + 0, 24}, 0 },
+  { {CrdSessionType_names + 24, 21}, 1 },
+  { {CrdSessionType_names + 45, 22}, 2 },
+};
+
+static const int CrdSessionType_entries_by_number[] = {
+  0, // 0 -> CRD_SESSION_TYPE_UNKNOWN
+  1, // 1 -> REMOTE_ACCESS_SESSION
+  2, // 2 -> REMOTE_SUPPORT_SESSION
+};
+
+const std::string& CrdSessionType_Name(
+    CrdSessionType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          CrdSessionType_entries,
+          CrdSessionType_entries_by_number,
+          3, CrdSessionType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      CrdSessionType_entries,
+      CrdSessionType_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     CrdSessionType_strings[idx].get();
+}
+bool CrdSessionType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CrdSessionType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      CrdSessionType_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<CrdSessionType>(int_value);
+  }
+  return success;
+}
 bool Channel_IsValid(int value) {
   switch (value) {
     case 0:

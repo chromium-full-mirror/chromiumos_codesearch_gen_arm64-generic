@@ -152,7 +152,7 @@ class CrosHealthdDiagnosticsService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 5;
+  static constexpr uint32_t Version_ = 8;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -203,6 +203,9 @@ class CrosHealthdDiagnosticsService
     kRunFingerprintAliveRoutineMinVersion = 3,
     kRunPrivacyScreenRoutineMinVersion = 4,
     kRunLedLitUpRoutineMinVersion = 5,
+    kRunEmmcLifetimeRoutineMinVersion = 7,
+    kRunAudioSetVolumeRoutineMinVersion = 8,
+    kRunAudioSetGainRoutineMinVersion = 8,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -322,6 +325,15 @@ class CrosHealthdDiagnosticsService
   struct RunLedLitUpRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct RunEmmcLifetimeRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunAudioSetVolumeRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunAudioSetGainRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CrosHealthdDiagnosticsService() = default;
 
@@ -353,7 +365,7 @@ class CrosHealthdDiagnosticsService
 
   using RunSmartctlCheckRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
-  virtual void RunSmartctlCheckRoutine(RunSmartctlCheckRoutineCallback callback) = 0;
+  virtual void RunSmartctlCheckRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold, RunSmartctlCheckRoutineCallback callback) = 0;
 
 
   using RunAcPowerRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
@@ -514,6 +526,21 @@ class CrosHealthdDiagnosticsService
   using RunLedLitUpRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
   virtual void RunLedLitUpRoutine(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier, RunLedLitUpRoutineCallback callback) = 0;
+
+
+  using RunEmmcLifetimeRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunEmmcLifetimeRoutine(RunEmmcLifetimeRoutineCallback callback) = 0;
+
+
+  using RunAudioSetVolumeRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on, RunAudioSetVolumeRoutineCallback callback) = 0;
+
+
+  using RunAudioSetGainRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool mute_on, RunAudioSetGainRoutineCallback callback) = 0;
 };
 
 class CrosHealthdEventServiceProxy;
@@ -832,7 +859,7 @@ class  CrosHealthdDiagnosticsServiceProxy
   
   void RunBatteryHealthRoutine(RunBatteryHealthRoutineCallback callback) final;
   
-  void RunSmartctlCheckRoutine(RunSmartctlCheckRoutineCallback callback) final;
+  void RunSmartctlCheckRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold, RunSmartctlCheckRoutineCallback callback) final;
   
   void RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) final;
   
@@ -897,6 +924,12 @@ class  CrosHealthdDiagnosticsServiceProxy
   void RunPrivacyScreenRoutine(bool target_state, RunPrivacyScreenRoutineCallback callback) final;
   
   void RunLedLitUpRoutine(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier, RunLedLitUpRoutineCallback callback) final;
+  
+  void RunEmmcLifetimeRoutine(RunEmmcLifetimeRoutineCallback callback) final;
+  
+  void RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on, RunAudioSetVolumeRoutineCallback callback) final;
+  
+  void RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool mute_on, RunAudioSetGainRoutineCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

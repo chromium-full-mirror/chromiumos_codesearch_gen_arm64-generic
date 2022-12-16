@@ -21,6 +21,7 @@ namespace private_computing {
 PROTOBUF_CONSTEXPR ActiveStatus::ActiveStatus(
     ::_pbi::ConstantInitialized)
   : last_ping_utc_date_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , last_ping_date_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , use_case_(0)
 {}
 struct ActiveStatusDefaultTypeInternal {
@@ -257,10 +258,13 @@ class ActiveStatus::_Internal {
  public:
   using HasBits = decltype(std::declval<ActiveStatus>()._has_bits_);
   static void set_has_use_case(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
+    (*has_bits)[0] |= 4u;
   }
   static void set_has_last_ping_utc_date(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
+  }
+  static void set_has_last_ping_date(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
   }
 };
 
@@ -282,6 +286,14 @@ ActiveStatus::ActiveStatus(const ActiveStatus& from)
     last_ping_utc_date_.Set(from._internal_last_ping_utc_date(), 
       GetArenaForAllocation());
   }
+  last_ping_date_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    last_ping_date_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_last_ping_date()) {
+    last_ping_date_.Set(from._internal_last_ping_date(), 
+      GetArenaForAllocation());
+  }
   use_case_ = from.use_case_;
   // @@protoc_insertion_point(copy_constructor:private_computing.ActiveStatus)
 }
@@ -290,6 +302,10 @@ inline void ActiveStatus::SharedCtor() {
 last_ping_utc_date_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   last_ping_utc_date_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+last_ping_date_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  last_ping_date_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 use_case_ = 0;
 }
@@ -306,6 +322,7 @@ ActiveStatus::~ActiveStatus() {
 inline void ActiveStatus::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   last_ping_utc_date_.Destroy();
+  last_ping_date_.Destroy();
 }
 
 void ActiveStatus::SetCachedSize(int size) const {
@@ -319,8 +336,13 @@ void ActiveStatus::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    last_ping_utc_date_.ClearNonDefaultToEmpty();
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      last_ping_utc_date_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      last_ping_date_.ClearNonDefaultToEmpty();
+    }
   }
   use_case_ = 0;
   _has_bits_.Clear();
@@ -347,10 +369,19 @@ const char* ActiveStatus::_InternalParse(const char* ptr, ::_pbi::ParseContext* 
         } else
           goto handle_unusual;
         continue;
-      // optional string last_ping_utc_date = 2;
+      // optional string last_ping_utc_date = 2 [deprecated = true];
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_last_ping_utc_date();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string last_ping_date = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_last_ping_date();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
@@ -388,16 +419,22 @@ uint8_t* ActiveStatus::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional .private_computing.PrivateComputingUseCase use_case = 1;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_use_case(), target);
   }
 
-  // optional string last_ping_utc_date = 2;
+  // optional string last_ping_utc_date = 2 [deprecated = true];
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_last_ping_utc_date(), target);
+  }
+
+  // optional string last_ping_date = 3;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_last_ping_date(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -417,16 +454,23 @@ size_t ActiveStatus::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    // optional string last_ping_utc_date = 2;
+  if (cached_has_bits & 0x00000007u) {
+    // optional string last_ping_utc_date = 2 [deprecated = true];
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
           this->_internal_last_ping_utc_date());
     }
 
-    // optional .private_computing.PrivateComputingUseCase use_case = 1;
+    // optional string last_ping_date = 3;
     if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_last_ping_date());
+    }
+
+    // optional .private_computing.PrivateComputingUseCase use_case = 1;
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_use_case());
     }
@@ -453,11 +497,14 @@ void ActiveStatus::MergeFrom(const ActiveStatus& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_last_ping_utc_date(from._internal_last_ping_utc_date());
     }
     if (cached_has_bits & 0x00000002u) {
+      _internal_set_last_ping_date(from._internal_last_ping_date());
+    }
+    if (cached_has_bits & 0x00000004u) {
       use_case_ = from.use_case_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -485,6 +532,10 @@ void ActiveStatus::InternalSwap(ActiveStatus* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &last_ping_utc_date_, lhs_arena,
       &other->last_ping_utc_date_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &last_ping_date_, lhs_arena,
+      &other->last_ping_date_, rhs_arena
   );
   swap(use_case_, other->use_case_);
 }

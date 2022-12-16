@@ -413,6 +413,12 @@ Initialization& Initialization::SetPlatform(const int64_t value) {
 
 namespace cr_os_events {
 
+UserLogin::UserLogin() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "UserLogin",
+                               true) {}
+UserLogin::~UserLogin() = default;
+
 Test1::Test1() :
   ::metrics::structured::Event("CrOSEvents",
                                "Test1",

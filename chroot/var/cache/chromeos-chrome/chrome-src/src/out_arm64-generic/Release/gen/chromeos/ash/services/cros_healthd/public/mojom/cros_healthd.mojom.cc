@@ -956,6 +956,15 @@ CrosHealthdDiagnosticsService::IPCStableHashFunction CrosHealthdDiagnosticsServi
     case internal::kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name: {
       return &CrosHealthdDiagnosticsService::RunLedLitUpRoutine_Sym::IPCStableHash;
     }
+    case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name: {
+      return &CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine_Sym::IPCStableHash;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Name: {
+      return &CrosHealthdDiagnosticsService::RunAudioSetVolumeRoutine_Sym::IPCStableHash;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Name: {
+      return &CrosHealthdDiagnosticsService::RunAudioSetGainRoutine_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1043,6 +1052,12 @@ const char* CrosHealthdDiagnosticsService::MessageToMethodName_(mojo::Message& m
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrivacyScreenRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLedLitUpRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetVolumeRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetGainRoutine";
     }
   } else {
     switch (message.name()) {
@@ -1122,6 +1137,12 @@ const char* CrosHealthdDiagnosticsService::MessageToMethodName_(mojo::Message& m
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrivacyScreenRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLedLitUpRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetVolumeRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetGainRoutine";
     }
   }
   return "Receive unknown mojo message";
@@ -1626,6 +1647,45 @@ uint32_t CrosHealthdDiagnosticsService::RunLedLitUpRoutine_Sym::IPCStableHash() 
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLedLitUpRoutine");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdDiagnosticsService::RunAudioSetVolumeRoutine_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetVolumeRoutine");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdDiagnosticsService::RunAudioSetGainRoutine_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetGainRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -2240,6 +2300,54 @@ class CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ForwardToCallback
   CrosHealthdDiagnosticsService::RunLedLitUpRoutineCallback callback_;
 };
 
+class CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback(
+      CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutineCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback(const CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback&) = delete;
+  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback& operator=(const CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutineCallback callback_;
+};
+
+class CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ForwardToCallback(
+      CrosHealthdDiagnosticsService::RunAudioSetVolumeRoutineCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ForwardToCallback(const CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ForwardToCallback&) = delete;
+  CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ForwardToCallback& operator=(const CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosHealthdDiagnosticsService::RunAudioSetVolumeRoutineCallback callback_;
+};
+
+class CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ForwardToCallback(
+      CrosHealthdDiagnosticsService::RunAudioSetGainRoutineCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ForwardToCallback(const CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ForwardToCallback&) = delete;
+  CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ForwardToCallback& operator=(const CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosHealthdDiagnosticsService::RunAudioSetGainRoutineCallback callback_;
+};
+
 CrosHealthdDiagnosticsServiceProxy::CrosHealthdDiagnosticsServiceProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -2431,9 +2539,16 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryHealthRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceProxy::RunSmartctlCheckRoutine(
-    RunSmartctlCheckRoutineCallback callback) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr in_percentage_used_threshold, RunSmartctlCheckRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine");
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("percentage_used_threshold"), in_percentage_used_threshold,
+                        "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
+   });
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -2450,6 +2565,13 @@ void CrosHealthdDiagnosticsServiceProxy::RunSmartctlCheckRoutine(
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data> params(
           message);
   params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->percentage_used_threshold)::BaseType> percentage_used_threshold_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+      in_percentage_used_threshold, percentage_used_threshold_fragment);
+  params->percentage_used_threshold.Set(
+      percentage_used_threshold_fragment.is_null() ? nullptr : percentage_used_threshold_fragment.data());
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
@@ -3641,6 +3763,131 @@ void CrosHealthdDiagnosticsServiceProxy::RunLedLitUpRoutine(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CrosHealthdDiagnosticsServiceProxy::RunEmmcLifetimeRoutine(
+    RunEmmcLifetimeRoutineCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunEmmcLifetimeRoutine");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CrosHealthdDiagnosticsServiceProxy::RunAudioSetVolumeRoutine(
+    uint64_t in_node_id, uint8_t in_volume, bool in_mute_on, RunAudioSetVolumeRoutineCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetVolumeRoutine", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("node_id"), in_node_id,
+                        "<value of type uint64_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("volume"), in_volume,
+                        "<value of type uint8_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("mute_on"), in_mute_on,
+                        "<value of type bool>");
+   });
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data> params(
+          message);
+  params.Allocate();
+  params->node_id = in_node_id;
+  params->volume = in_volume;
+  params->mute_on = in_mute_on;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunAudioSetVolumeRoutine");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CrosHealthdDiagnosticsServiceProxy::RunAudioSetGainRoutine(
+    uint64_t in_node_id, uint8_t in_gain, bool in_mute_on, RunAudioSetGainRoutineCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetGainRoutine", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("node_id"), in_node_id,
+                        "<value of type uint64_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("gain"), in_gain,
+                        "<value of type uint8_t>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("mute_on"), in_mute_on,
+                        "<value of type bool>");
+   });
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data> params(
+          message);
+  params.Allocate();
+  params->node_id = in_node_id;
+  params->gain = in_gain;
+  params->mute_on = in_mute_on;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunAudioSetGainRoutine");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -8358,6 +8605,378 @@ void CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutineCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder> proxy(
+        new CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutineCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+};
+
+bool CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosHealthdDiagnosticsService::Name_, 38, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutine", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunEmmcLifetimeRoutine");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosHealthdDiagnosticsService::RunAudioSetVolumeRoutineCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ProxyToResponder> proxy(
+        new CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosHealthdDiagnosticsService::RunAudioSetVolumeRoutineCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+};
+
+bool CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosHealthdDiagnosticsService::Name_, 39, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetVolumeRoutine", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunAudioSetVolumeRoutine");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosHealthdDiagnosticsService::RunAudioSetGainRoutineCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ProxyToResponder> proxy(
+        new CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosHealthdDiagnosticsService::RunAudioSetGainRoutineCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+};
+
+bool CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosHealthdDiagnosticsService::Name_, 40, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetGainRoutine", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunAudioSetGainRoutine");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool CrosHealthdDiagnosticsServiceStubDispatch::Accept(
@@ -8476,6 +9095,15 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::Accept(
       break;
     }
     case internal::kCrosHealthdDiagnosticsService_RunLedLitUpRoutine_Name: {
+      break;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name: {
+      break;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Name: {
+      break;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Name: {
       break;
     }
   }
@@ -8640,8 +9268,11 @@ std::move(p_length_seconds), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_percentage_used_threshold = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NullableUint32Ptr>();
       CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadPercentageUsedThreshold(&p_percentage_used_threshold))
+        success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -8654,7 +9285,8 @@ std::move(p_length_seconds), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunSmartctlCheckRoutine(std::move(callback));
+      impl->RunSmartctlCheckRoutine(
+std::move(p_percentage_used_threshold), std::move(callback));
       return true;
     }
     case internal::kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name: {
@@ -9543,6 +10175,105 @@ std::move(p_color),
 std::move(p_replier), std::move(callback));
       return true;
     }
+    case internal::kCrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Name: {
+
+      internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdDiagnosticsService::Name_, 38, false);
+        return false;
+      }
+      CrosHealthdDiagnosticsService::RunEmmcLifetimeRoutineCallback callback =
+          CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunEmmcLifetimeRoutine(std::move(callback));
+      return true;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Name: {
+
+      internal::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      uint64_t p_node_id = mojo::DefaultConstructTraits::CreateInstance<uint64_t>();
+      uint8_t p_volume = mojo::DefaultConstructTraits::CreateInstance<uint8_t>();
+      bool p_mute_on = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_node_id = input_data_view.node_id();
+      if (success)
+        p_volume = input_data_view.volume();
+      if (success)
+        p_mute_on = input_data_view.mute_on();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdDiagnosticsService::Name_, 39, false);
+        return false;
+      }
+      CrosHealthdDiagnosticsService::RunAudioSetVolumeRoutineCallback callback =
+          CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunAudioSetVolumeRoutine(
+std::move(p_node_id), 
+std::move(p_volume), 
+std::move(p_mute_on), std::move(callback));
+      return true;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Name: {
+
+      internal::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      uint64_t p_node_id = mojo::DefaultConstructTraits::CreateInstance<uint64_t>();
+      uint8_t p_gain = mojo::DefaultConstructTraits::CreateInstance<uint8_t>();
+      bool p_mute_on = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_node_id = input_data_view.node_id();
+      if (success)
+        p_gain = input_data_view.gain();
+      if (success)
+        p_mute_on = input_data_view.mute_on();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdDiagnosticsService::Name_, 40, false);
+        return false;
+      }
+      CrosHealthdDiagnosticsService::RunAudioSetGainRoutineCallback callback =
+          CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunAudioSetGainRoutine(
+std::move(p_node_id), 
+std::move(p_gain), 
+std::move(p_mute_on), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -9625,6 +10356,12 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdDiagnosticsServic
      &internal::CrosHealthdDiagnosticsService_RunPrivacyScreenRoutine_ResponseParams_Data::Validate},
     {&internal::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunLedLitUpRoutine_ResponseParams_Data::Validate},
+    {&internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_Params_Data::Validate,
+     &internal::CrosHealthdDiagnosticsService_RunEmmcLifetimeRoutine_ResponseParams_Data::Validate},
+    {&internal::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_Params_Data::Validate,
+     &internal::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data::Validate},
+    {&internal::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data::Validate,
+     &internal::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data::Validate},
 };
 
 bool CrosHealthdDiagnosticsServiceRequestValidator::Accept(mojo::Message* message) {
@@ -12120,8 +12857,8 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBatteryCapacityRouti
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBatteryHealthRoutine(RunBatteryHealthRoutineCallback callback) {
   GetForwardingInterface()->RunBatteryHealthRoutine(std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunSmartctlCheckRoutine(RunSmartctlCheckRoutineCallback callback) {
-  GetForwardingInterface()->RunSmartctlCheckRoutine(std::move(callback));
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunSmartctlCheckRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold, RunSmartctlCheckRoutineCallback callback) {
+  GetForwardingInterface()->RunSmartctlCheckRoutine(std::move(percentage_used_threshold), std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) {
   GetForwardingInterface()->RunAcPowerRoutine(std::move(expected_status), std::move(expected_power_type), std::move(callback));
@@ -12218,6 +12955,15 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunPrivacyScreenRoutine
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunLedLitUpRoutine(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier, RunLedLitUpRoutineCallback callback) {
   GetForwardingInterface()->RunLedLitUpRoutine(std::move(name), std::move(color), std::move(replier), std::move(callback));
+}
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunEmmcLifetimeRoutine(RunEmmcLifetimeRoutineCallback callback) {
+  GetForwardingInterface()->RunEmmcLifetimeRoutine(std::move(callback));
+}
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on, RunAudioSetVolumeRoutineCallback callback) {
+  GetForwardingInterface()->RunAudioSetVolumeRoutine(std::move(node_id), std::move(volume), std::move(mute_on), std::move(callback));
+}
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool mute_on, RunAudioSetGainRoutineCallback callback) {
+  GetForwardingInterface()->RunAudioSetGainRoutine(std::move(node_id), std::move(gain), std::move(mute_on), std::move(callback));
 }
 CrosHealthdDiagnosticsServiceAsyncWaiter::CrosHealthdDiagnosticsServiceAsyncWaiter(
     CrosHealthdDiagnosticsService* proxy) : proxy_(proxy) {}
@@ -12340,9 +13086,9 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryHealthRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSmartctlCheckRoutine(
-    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
-  proxy_->RunSmartctlCheckRoutine(
+  proxy_->RunSmartctlCheckRoutine(std::move(percentage_used_threshold),
       base::BindOnce(
           [](base::RunLoop* loop,
              ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
@@ -12356,9 +13102,9 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSmartctlCheckRoutine(
 }
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunSmartctlCheckRoutine(
-    ) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr percentage_used_threshold) {
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
-  RunSmartctlCheckRoutine(&async_wait_result);
+  RunSmartctlCheckRoutine(std::move(percentage_used_threshold),&async_wait_result);
   return async_wait_result;
 }
 
@@ -13095,6 +13841,75 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunLedLitUpRoutine(
     ::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, ::mojo::PendingRemote<::ash::cros_healthd::mojom::LedLitUpRoutineReplier> replier) {
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
   RunLedLitUpRoutine(std::move(name),std::move(color),std::move(replier),&async_wait_result);
+  return async_wait_result;
+}
+
+void CrosHealthdDiagnosticsServiceAsyncWaiter::RunEmmcLifetimeRoutine(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->RunEmmcLifetimeRoutine(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunEmmcLifetimeRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  RunEmmcLifetimeRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
+void CrosHealthdDiagnosticsServiceAsyncWaiter::RunAudioSetVolumeRoutine(
+    uint64_t node_id, uint8_t volume, bool mute_on, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->RunAudioSetVolumeRoutine(std::move(node_id),std::move(volume),std::move(mute_on),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunAudioSetVolumeRoutine(
+    uint64_t node_id, uint8_t volume, bool mute_on) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  RunAudioSetVolumeRoutine(std::move(node_id),std::move(volume),std::move(mute_on),&async_wait_result);
+  return async_wait_result;
+}
+
+void CrosHealthdDiagnosticsServiceAsyncWaiter::RunAudioSetGainRoutine(
+    uint64_t node_id, uint8_t gain, bool mute_on, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->RunAudioSetGainRoutine(std::move(node_id),std::move(gain),std::move(mute_on),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunAudioSetGainRoutine(
+    uint64_t node_id, uint8_t gain, bool mute_on) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  RunAudioSetGainRoutine(std::move(node_id),std::move(gain),std::move(mute_on),&async_wait_result);
   return async_wait_result;
 }
 

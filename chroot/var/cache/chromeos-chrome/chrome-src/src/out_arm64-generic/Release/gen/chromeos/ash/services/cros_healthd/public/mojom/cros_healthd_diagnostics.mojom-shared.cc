@@ -97,6 +97,14 @@ static NOINLINE const char* DiagnosticRoutineEnumToStringHelper(DiagnosticRoutin
       return "kPrivacyScreen";
     case DiagnosticRoutineEnum::kLedLitUp:
       return "kLedLitUp";
+    case DiagnosticRoutineEnum::kSmartctlCheckWithPercentageUsed:
+      return "kSmartctlCheckWithPercentageUsed";
+    case DiagnosticRoutineEnum::kEmmcLifetime:
+      return "kEmmcLifetime";
+    case DiagnosticRoutineEnum::kAudioSetVolume:
+      return "kAudioSetVolume";
+    case DiagnosticRoutineEnum::kAudioSetGain:
+      return "kAudioSetGain";
     default:
       return nullptr;
   }

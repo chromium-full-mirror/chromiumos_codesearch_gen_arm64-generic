@@ -232,24 +232,43 @@ class ActiveStatus final :
 
   enum : int {
     kLastPingUtcDateFieldNumber = 2,
+    kLastPingDateFieldNumber = 3,
     kUseCaseFieldNumber = 1,
   };
-  // optional string last_ping_utc_date = 2;
-  bool has_last_ping_utc_date() const;
+  // optional string last_ping_utc_date = 2 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_last_ping_utc_date() const;
   private:
   bool _internal_has_last_ping_utc_date() const;
   public:
-  void clear_last_ping_utc_date();
-  const std::string& last_ping_utc_date() const;
+  PROTOBUF_DEPRECATED void clear_last_ping_utc_date();
+  PROTOBUF_DEPRECATED const std::string& last_ping_utc_date() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_last_ping_utc_date(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_last_ping_utc_date();
-  PROTOBUF_NODISCARD std::string* release_last_ping_utc_date();
-  void set_allocated_last_ping_utc_date(std::string* last_ping_utc_date);
+  PROTOBUF_DEPRECATED void set_last_ping_utc_date(ArgT0&& arg0, ArgT... args);
+  PROTOBUF_DEPRECATED std::string* mutable_last_ping_utc_date();
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED std::string* release_last_ping_utc_date();
+  PROTOBUF_DEPRECATED void set_allocated_last_ping_utc_date(std::string* last_ping_utc_date);
   private:
   const std::string& _internal_last_ping_utc_date() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_last_ping_utc_date(const std::string& value);
   std::string* _internal_mutable_last_ping_utc_date();
+  public:
+
+  // optional string last_ping_date = 3;
+  bool has_last_ping_date() const;
+  private:
+  bool _internal_has_last_ping_date() const;
+  public:
+  void clear_last_ping_date();
+  const std::string& last_ping_date() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_last_ping_date(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_last_ping_date();
+  PROTOBUF_NODISCARD std::string* release_last_ping_date();
+  void set_allocated_last_ping_date(std::string* last_ping_date);
+  private:
+  const std::string& _internal_last_ping_date() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_last_ping_date(const std::string& value);
+  std::string* _internal_mutable_last_ping_date();
   public:
 
   // optional .private_computing.PrivateComputingUseCase use_case = 1;
@@ -275,6 +294,7 @@ class ActiveStatus final :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr last_ping_utc_date_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr last_ping_date_;
   int use_case_;
   friend struct ::TableStruct_private_5fcomputing_5fservice_2eproto;
 };
@@ -1106,7 +1126,7 @@ class PrivateComputingClientRegressionTestData final :
 
 // optional .private_computing.PrivateComputingUseCase use_case = 1;
 inline bool ActiveStatus::_internal_has_use_case() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
 inline bool ActiveStatus::has_use_case() const {
@@ -1114,7 +1134,7 @@ inline bool ActiveStatus::has_use_case() const {
 }
 inline void ActiveStatus::clear_use_case() {
   use_case_ = 0;
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline ::private_computing::PrivateComputingUseCase ActiveStatus::_internal_use_case() const {
   return static_cast< ::private_computing::PrivateComputingUseCase >(use_case_);
@@ -1125,7 +1145,7 @@ inline ::private_computing::PrivateComputingUseCase ActiveStatus::use_case() con
 }
 inline void ActiveStatus::_internal_set_use_case(::private_computing::PrivateComputingUseCase value) {
   assert(::private_computing::PrivateComputingUseCase_IsValid(value));
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   use_case_ = value;
 }
 inline void ActiveStatus::set_use_case(::private_computing::PrivateComputingUseCase value) {
@@ -1133,7 +1153,7 @@ inline void ActiveStatus::set_use_case(::private_computing::PrivateComputingUseC
   // @@protoc_insertion_point(field_set:private_computing.ActiveStatus.use_case)
 }
 
-// optional string last_ping_utc_date = 2;
+// optional string last_ping_utc_date = 2 [deprecated = true];
 inline bool ActiveStatus::_internal_has_last_ping_utc_date() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -1199,6 +1219,74 @@ inline void ActiveStatus::set_allocated_last_ping_utc_date(std::string* last_pin
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:private_computing.ActiveStatus.last_ping_utc_date)
+}
+
+// optional string last_ping_date = 3;
+inline bool ActiveStatus::_internal_has_last_ping_date() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool ActiveStatus::has_last_ping_date() const {
+  return _internal_has_last_ping_date();
+}
+inline void ActiveStatus::clear_last_ping_date() {
+  last_ping_date_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& ActiveStatus::last_ping_date() const {
+  // @@protoc_insertion_point(field_get:private_computing.ActiveStatus.last_ping_date)
+  return _internal_last_ping_date();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ActiveStatus::set_last_ping_date(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000002u;
+ last_ping_date_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:private_computing.ActiveStatus.last_ping_date)
+}
+inline std::string* ActiveStatus::mutable_last_ping_date() {
+  std::string* _s = _internal_mutable_last_ping_date();
+  // @@protoc_insertion_point(field_mutable:private_computing.ActiveStatus.last_ping_date)
+  return _s;
+}
+inline const std::string& ActiveStatus::_internal_last_ping_date() const {
+  return last_ping_date_.Get();
+}
+inline void ActiveStatus::_internal_set_last_ping_date(const std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  last_ping_date_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ActiveStatus::_internal_mutable_last_ping_date() {
+  _has_bits_[0] |= 0x00000002u;
+  return last_ping_date_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ActiveStatus::release_last_ping_date() {
+  // @@protoc_insertion_point(field_release:private_computing.ActiveStatus.last_ping_date)
+  if (!_internal_has_last_ping_date()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  auto* p = last_ping_date_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (last_ping_date_.IsDefault()) {
+    last_ping_date_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void ActiveStatus::set_allocated_last_ping_date(std::string* last_ping_date) {
+  if (last_ping_date != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  last_ping_date_.SetAllocated(last_ping_date, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (last_ping_date_.IsDefault()) {
+    last_ping_date_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:private_computing.ActiveStatus.last_ping_date)
 }
 
 // -------------------------------------------------------------------

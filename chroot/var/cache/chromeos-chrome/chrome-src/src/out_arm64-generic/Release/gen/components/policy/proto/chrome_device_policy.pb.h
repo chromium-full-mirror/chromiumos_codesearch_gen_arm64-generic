@@ -294,9 +294,6 @@ POLICY_PROTO_EXPORT extern HostnameUserConfigurableProtoDefaultTypeInternal _Hos
 class KeyboardBacklightColorProto;
 struct KeyboardBacklightColorProtoDefaultTypeInternal;
 POLICY_PROTO_EXPORT extern KeyboardBacklightColorProtoDefaultTypeInternal _KeyboardBacklightColorProto_default_instance_;
-class KeyboardBrightnessProto;
-struct KeyboardBrightnessProtoDefaultTypeInternal;
-POLICY_PROTO_EXPORT extern KeyboardBrightnessProtoDefaultTypeInternal _KeyboardBrightnessProto_default_instance_;
 class KioskAppInfoProto;
 struct KioskAppInfoProtoDefaultTypeInternal;
 POLICY_PROTO_EXPORT extern KioskAppInfoProtoDefaultTypeInternal _KioskAppInfoProto_default_instance_;
@@ -529,7 +526,6 @@ template<> POLICY_PROTO_EXPORT ::enterprise_management::FeatureFlagsProto* Arena
 template<> POLICY_PROTO_EXPORT ::enterprise_management::GuestModeEnabledProto* Arena::CreateMaybeMessage<::enterprise_management::GuestModeEnabledProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::HostnameUserConfigurableProto* Arena::CreateMaybeMessage<::enterprise_management::HostnameUserConfigurableProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::KeyboardBacklightColorProto* Arena::CreateMaybeMessage<::enterprise_management::KeyboardBacklightColorProto>(Arena*);
-template<> POLICY_PROTO_EXPORT ::enterprise_management::KeyboardBrightnessProto* Arena::CreateMaybeMessage<::enterprise_management::KeyboardBrightnessProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::KioskAppInfoProto* Arena::CreateMaybeMessage<::enterprise_management::KioskAppInfoProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::LoginAuthenticationBehaviorProto* Arena::CreateMaybeMessage<::enterprise_management::LoginAuthenticationBehaviorProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::LoginScreenDomainAutoCompleteProto* Arena::CreateMaybeMessage<::enterprise_management::LoginScreenDomainAutoCompleteProto>(Arena*);
@@ -16442,145 +16438,6 @@ friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
 
-class POLICY_PROTO_EXPORT KeyboardBrightnessProto final :
-public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.KeyboardBrightnessProto) */ {
-public:
-inline KeyboardBrightnessProto() : KeyboardBrightnessProto(nullptr) {}
-~KeyboardBrightnessProto() override;
-explicit PROTOBUF_CONSTEXPR KeyboardBrightnessProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-KeyboardBrightnessProto(const KeyboardBrightnessProto& from);
-KeyboardBrightnessProto(KeyboardBrightnessProto&& from) noexcept
-: KeyboardBrightnessProto() {
-*this = ::std::move(from);
-}
-
-inline KeyboardBrightnessProto& operator=(const KeyboardBrightnessProto& from) {
-CopyFrom(from);
-return *this;
-}
-inline KeyboardBrightnessProto& operator=(KeyboardBrightnessProto&& from) noexcept {
-if (this == &from) return *this;
-if (GetOwningArena() == from.GetOwningArena()
-#ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-&& GetOwningArena() != nullptr
-#endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-) {
-InternalSwap(&from);
-} else {
-CopyFrom(from);
-}
-return *this;
-}
-
-inline const std::string& unknown_fields() const {
-return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
-}
-inline std::string* mutable_unknown_fields() {
-return _internal_metadata_.mutable_unknown_fields<std::string>();
-}
-
-static const KeyboardBrightnessProto& default_instance() {
-return *internal_default_instance();
-}
-static inline const KeyboardBrightnessProto* internal_default_instance() {
-return reinterpret_cast<const KeyboardBrightnessProto*>(
-&_KeyboardBrightnessProto_default_instance_);
-}
-static constexpr int kIndexInFileMessages =
-90;
-
-friend void swap(KeyboardBrightnessProto& a, KeyboardBrightnessProto& b) {
-a.Swap(&b);
-}
-PROTOBUF_NOINLINE void Swap(KeyboardBrightnessProto* other) {
-if (other == this) return;
-#ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-if (GetOwningArena() != nullptr &&
-GetOwningArena() == other->GetOwningArena()) {
-#else  // PROTOBUF_FORCE_COPY_IN_SWAP
-if (GetOwningArena() == other->GetOwningArena()) {
-#endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-InternalSwap(other);
-} else {
-::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-}
-}
-void UnsafeArenaSwap(KeyboardBrightnessProto* other) {
-if (other == this) return;
-GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-InternalSwap(other);
-}
-
-// implements Message ----------------------------------------------
-
-KeyboardBrightnessProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-return CreateMaybeMessage<KeyboardBrightnessProto>(arena);
-}
-void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-void CopyFrom(const KeyboardBrightnessProto& from);
-void MergeFrom(const KeyboardBrightnessProto& from);
-PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-bool IsInitialized() const final;
-
-size_t ByteSizeLong() const final;
-const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-uint8_t* _InternalSerialize(
-uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-int GetCachedSize() const final { return _cached_size_.Get(); }
-
-private:
-void SharedCtor();
-void SharedDtor();
-void SetCachedSize(int size) const;
-void InternalSwap(KeyboardBrightnessProto* other);
-
-private:
-friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-return "enterprise_management.KeyboardBrightnessProto";
-}
-protected:
-explicit KeyboardBrightnessProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-bool is_message_owned = false);
-public:
-
-std::string GetTypeName() const final;
-
-// nested types ----------------------------------------------------
-
-// accessors -------------------------------------------------------
-
-enum : int {
-kPercentageFieldNumber = 1,
-};
-// optional int32 percentage = 1;
-bool has_percentage() const;
-private:
-bool _internal_has_percentage() const;
-public:
-void clear_percentage();
-int32_t percentage() const;
-void set_percentage(int32_t value);
-private:
-int32_t _internal_percentage() const;
-void _internal_set_percentage(int32_t value);
-public:
-
-// @@protoc_insertion_point(class_scope:enterprise_management.KeyboardBrightnessProto)
-private:
-class _Internal;
-
-template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-typedef void InternalArenaConstructable_;
-typedef void DestructorSkippable_;
-::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-int32_t percentage_;
-friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
-};
-// -------------------------------------------------------------------
-
 class POLICY_PROTO_EXPORT DeviceUserPolicyLoopbackProcessingModeProto final :
 public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceUserPolicyLoopbackProcessingModeProto) */ {
 public:
@@ -16627,7 +16484,7 @@ return reinterpret_cast<const DeviceUserPolicyLoopbackProcessingModeProto*>(
 &_DeviceUserPolicyLoopbackProcessingModeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-91;
+90;
 
 friend void swap(DeviceUserPolicyLoopbackProcessingModeProto& a, DeviceUserPolicyLoopbackProcessingModeProto& b) {
 a.Swap(&b);
@@ -16794,7 +16651,7 @@ return reinterpret_cast<const OBSOLETE_DeviceLoginScreenIsolateOriginsProto*>(
 &_OBSOLETE_DeviceLoginScreenIsolateOriginsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-92;
+91;
 
 friend void swap(OBSOLETE_DeviceLoginScreenIsolateOriginsProto& a, OBSOLETE_DeviceLoginScreenIsolateOriginsProto& b) {
 a.Swap(&b);
@@ -16938,7 +16795,7 @@ return reinterpret_cast<const OBSOLETE_DeviceLoginScreenSitePerProcessProto*>(
 &_OBSOLETE_DeviceLoginScreenSitePerProcessProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-93;
+92;
 
 friend void swap(OBSOLETE_DeviceLoginScreenSitePerProcessProto& a, OBSOLETE_DeviceLoginScreenSitePerProcessProto& b) {
 a.Swap(&b);
@@ -17077,7 +16934,7 @@ return reinterpret_cast<const VirtualMachinesAllowedProto*>(
 &_VirtualMachinesAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-94;
+93;
 
 friend void swap(VirtualMachinesAllowedProto& a, VirtualMachinesAllowedProto& b) {
 a.Swap(&b);
@@ -17216,7 +17073,7 @@ return reinterpret_cast<const DeviceMachinePasswordChangeRateProto*>(
 &_DeviceMachinePasswordChangeRateProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-95;
+94;
 
 friend void swap(DeviceMachinePasswordChangeRateProto& a, DeviceMachinePasswordChangeRateProto& b) {
 a.Swap(&b);
@@ -17355,7 +17212,7 @@ return reinterpret_cast<const DeviceGpoCacheLifetimeProto*>(
 &_DeviceGpoCacheLifetimeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-96;
+95;
 
 friend void swap(DeviceGpoCacheLifetimeProto& a, DeviceGpoCacheLifetimeProto& b) {
 a.Swap(&b);
@@ -17494,7 +17351,7 @@ return reinterpret_cast<const DeviceAuthDataCacheLifetimeProto*>(
 &_DeviceAuthDataCacheLifetimeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-97;
+96;
 
 friend void swap(DeviceAuthDataCacheLifetimeProto& a, DeviceAuthDataCacheLifetimeProto& b) {
 a.Swap(&b);
@@ -17633,7 +17490,7 @@ return reinterpret_cast<const DeviceUnaffiliatedCrostiniAllowedProto*>(
 &_DeviceUnaffiliatedCrostiniAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-98;
+97;
 
 friend void swap(DeviceUnaffiliatedCrostiniAllowedProto& a, DeviceUnaffiliatedCrostiniAllowedProto& b) {
 a.Swap(&b);
@@ -17772,7 +17629,7 @@ return reinterpret_cast<const PluginVmAllowedProto*>(
 &_PluginVmAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-99;
+98;
 
 friend void swap(PluginVmAllowedProto& a, PluginVmAllowedProto& b) {
 a.Swap(&b);
@@ -17911,7 +17768,7 @@ return reinterpret_cast<const PluginVmLicenseKeyProto*>(
 &_PluginVmLicenseKeyProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-100;
+99;
 
 friend void swap(PluginVmLicenseKeyProto& a, PluginVmLicenseKeyProto& b) {
 a.Swap(&b);
@@ -18055,7 +17912,7 @@ return reinterpret_cast<const DeviceRebootOnUserSignoutProto*>(
 &_DeviceRebootOnUserSignoutProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-101;
+100;
 
 friend void swap(DeviceRebootOnUserSignoutProto& a, DeviceRebootOnUserSignoutProto& b) {
 a.Swap(&b);
@@ -18226,7 +18083,7 @@ return reinterpret_cast<const DeviceWilcoDtcAllowedProto*>(
 &_DeviceWilcoDtcAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-102;
+101;
 
 friend void swap(DeviceWilcoDtcAllowedProto& a, DeviceWilcoDtcAllowedProto& b) {
 a.Swap(&b);
@@ -18365,7 +18222,7 @@ return reinterpret_cast<const DeviceWilcoDtcConfigurationProto*>(
 &_DeviceWilcoDtcConfigurationProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-103;
+102;
 
 friend void swap(DeviceWilcoDtcConfigurationProto& a, DeviceWilcoDtcConfigurationProto& b) {
 a.Swap(&b);
@@ -18509,7 +18366,7 @@ return reinterpret_cast<const DevicePowerPeakShiftProto*>(
 &_DevicePowerPeakShiftProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-104;
+103;
 
 friend void swap(DevicePowerPeakShiftProto& a, DevicePowerPeakShiftProto& b) {
 a.Swap(&b);
@@ -18683,7 +18540,7 @@ return reinterpret_cast<const DeviceBootOnAcProto*>(
 &_DeviceBootOnAcProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-105;
+104;
 
 friend void swap(DeviceBootOnAcProto& a, DeviceBootOnAcProto& b) {
 a.Swap(&b);
@@ -18822,7 +18679,7 @@ return reinterpret_cast<const DeviceDockMacAddressSourceProto*>(
 &_DeviceDockMacAddressSourceProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-106;
+105;
 
 friend void swap(DeviceDockMacAddressSourceProto& a, DeviceDockMacAddressSourceProto& b) {
 a.Swap(&b);
@@ -18991,7 +18848,7 @@ return reinterpret_cast<const DeviceAdvancedBatteryChargeModeProto*>(
 &_DeviceAdvancedBatteryChargeModeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-107;
+106;
 
 friend void swap(DeviceAdvancedBatteryChargeModeProto& a, DeviceAdvancedBatteryChargeModeProto& b) {
 a.Swap(&b);
@@ -19150,7 +19007,7 @@ return reinterpret_cast<const DeviceBatteryChargeModeProto*>(
 &_DeviceBatteryChargeModeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-108;
+107;
 
 friend void swap(DeviceBatteryChargeModeProto& a, DeviceBatteryChargeModeProto& b) {
 a.Swap(&b);
@@ -19353,7 +19210,7 @@ return reinterpret_cast<const DeviceUsbPowerShareProto*>(
 &_DeviceUsbPowerShareProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-109;
+108;
 
 friend void swap(DeviceUsbPowerShareProto& a, DeviceUsbPowerShareProto& b) {
 a.Swap(&b);
@@ -19492,7 +19349,7 @@ return reinterpret_cast<const DeviceScheduledUpdateCheckProto*>(
 &_DeviceScheduledUpdateCheckProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-110;
+109;
 
 friend void swap(DeviceScheduledUpdateCheckProto& a, DeviceScheduledUpdateCheckProto& b) {
 a.Swap(&b);
@@ -19636,7 +19493,7 @@ return reinterpret_cast<const DevicePowerwashAllowedProto*>(
 &_DevicePowerwashAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-111;
+110;
 
 friend void swap(DevicePowerwashAllowedProto& a, DevicePowerwashAllowedProto& b) {
 a.Swap(&b);
@@ -19775,7 +19632,7 @@ return reinterpret_cast<const DeviceLoginScreenWebUsbAllowDevicesForUrlsProto*>(
 &_DeviceLoginScreenWebUsbAllowDevicesForUrlsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-112;
+111;
 
 friend void swap(DeviceLoginScreenWebUsbAllowDevicesForUrlsProto& a, DeviceLoginScreenWebUsbAllowDevicesForUrlsProto& b) {
 a.Swap(&b);
@@ -19919,7 +19776,7 @@ return reinterpret_cast<const SystemProxySettingsProto*>(
 &_SystemProxySettingsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-113;
+112;
 
 friend void swap(SystemProxySettingsProto& a, SystemProxySettingsProto& b) {
 a.Swap(&b);
@@ -20063,7 +19920,7 @@ return reinterpret_cast<const RequiredClientCertificateForDeviceProto*>(
 &_RequiredClientCertificateForDeviceProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-114;
+113;
 
 friend void swap(RequiredClientCertificateForDeviceProto& a, RequiredClientCertificateForDeviceProto& b) {
 a.Swap(&b);
@@ -20207,7 +20064,7 @@ return reinterpret_cast<const DeviceCrostiniArcAdbSideloadingAllowedProto*>(
 &_DeviceCrostiniArcAdbSideloadingAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-115;
+114;
 
 friend void swap(DeviceCrostiniArcAdbSideloadingAllowedProto& a, DeviceCrostiniArcAdbSideloadingAllowedProto& b) {
 a.Swap(&b);
@@ -20374,7 +20231,7 @@ return reinterpret_cast<const DeviceShowLowDiskSpaceNotificationProto*>(
 &_DeviceShowLowDiskSpaceNotificationProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-116;
+115;
 
 friend void swap(DeviceShowLowDiskSpaceNotificationProto& a, DeviceShowLowDiskSpaceNotificationProto& b) {
 a.Swap(&b);
@@ -20513,7 +20370,7 @@ return reinterpret_cast<const DeviceFamilyLinkAccountsAllowedProto*>(
 &_DeviceFamilyLinkAccountsAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-117;
+116;
 
 friend void swap(DeviceFamilyLinkAccountsAllowedProto& a, DeviceFamilyLinkAccountsAllowedProto& b) {
 a.Swap(&b);
@@ -20652,7 +20509,7 @@ return reinterpret_cast<const DeviceArcDataSnapshotHoursProto*>(
 &_DeviceArcDataSnapshotHoursProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-118;
+117;
 
 friend void swap(DeviceArcDataSnapshotHoursProto& a, DeviceArcDataSnapshotHoursProto& b) {
 a.Swap(&b);
@@ -20796,7 +20653,7 @@ return reinterpret_cast<const DeviceSystemWideTracingEnabledProto*>(
 &_DeviceSystemWideTracingEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-119;
+118;
 
 friend void swap(DeviceSystemWideTracingEnabledProto& a, DeviceSystemWideTracingEnabledProto& b) {
 a.Swap(&b);
@@ -20935,7 +20792,7 @@ return reinterpret_cast<const DevicePciPeripheralDataAccessEnabledProto*>(
 &_DevicePciPeripheralDataAccessEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-120;
+119;
 
 friend void swap(DevicePciPeripheralDataAccessEnabledProto& a, DevicePciPeripheralDataAccessEnabledProto& b) {
 a.Swap(&b);
@@ -21074,7 +20931,7 @@ return reinterpret_cast<const DevicePciPeripheralDataAccessEnabledProtoV2*>(
 &_DevicePciPeripheralDataAccessEnabledProtoV2_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-121;
+120;
 
 friend void swap(DevicePciPeripheralDataAccessEnabledProtoV2& a, DevicePciPeripheralDataAccessEnabledProtoV2& b) {
 a.Swap(&b);
@@ -21213,7 +21070,7 @@ return reinterpret_cast<const DeviceBorealisAllowedProto*>(
 &_DeviceBorealisAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-122;
+121;
 
 friend void swap(DeviceBorealisAllowedProto& a, DeviceBorealisAllowedProto& b) {
 a.Swap(&b);
@@ -21352,7 +21209,7 @@ return reinterpret_cast<const DeviceAllowedBluetoothServicesProto*>(
 &_DeviceAllowedBluetoothServicesProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-123;
+122;
 
 friend void swap(DeviceAllowedBluetoothServicesProto& a, DeviceAllowedBluetoothServicesProto& b) {
 a.Swap(&b);
@@ -21501,7 +21358,7 @@ return reinterpret_cast<const DeviceDebugPacketCaptureAllowedProto*>(
 &_DeviceDebugPacketCaptureAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-124;
+123;
 
 friend void swap(DeviceDebugPacketCaptureAllowedProto& a, DeviceDebugPacketCaptureAllowedProto& b) {
 a.Swap(&b);
@@ -21640,7 +21497,7 @@ return reinterpret_cast<const DeviceScheduledRebootProto*>(
 &_DeviceScheduledRebootProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-125;
+124;
 
 friend void swap(DeviceScheduledRebootProto& a, DeviceScheduledRebootProto& b) {
 a.Swap(&b);
@@ -21784,7 +21641,7 @@ return reinterpret_cast<const DeviceRestrictedManagedGuestSessionEnabledProto*>(
 &_DeviceRestrictedManagedGuestSessionEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-126;
+125;
 
 friend void swap(DeviceRestrictedManagedGuestSessionEnabledProto& a, DeviceRestrictedManagedGuestSessionEnabledProto& b) {
 a.Swap(&b);
@@ -21923,7 +21780,7 @@ return reinterpret_cast<const DeviceI18nShortcutsEnabledProto*>(
 &_DeviceI18nShortcutsEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-127;
+126;
 
 friend void swap(DeviceI18nShortcutsEnabledProto& a, DeviceI18nShortcutsEnabledProto& b) {
 a.Swap(&b);
@@ -22062,7 +21919,7 @@ return reinterpret_cast<const RevenDeviceHWDataUsageEnabledProto*>(
 &_RevenDeviceHWDataUsageEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-128;
+127;
 
 friend void swap(RevenDeviceHWDataUsageEnabledProto& a, RevenDeviceHWDataUsageEnabledProto& b) {
 a.Swap(&b);
@@ -22201,7 +22058,7 @@ return reinterpret_cast<const DeviceLoginScreenWebUILazyLoadingProto*>(
 &_DeviceLoginScreenWebUILazyLoadingProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-129;
+128;
 
 friend void swap(DeviceLoginScreenWebUILazyLoadingProto& a, DeviceLoginScreenWebUILazyLoadingProto& b) {
 a.Swap(&b);
@@ -22340,7 +22197,7 @@ return reinterpret_cast<const EncryptedReportingPipelineConfigurationProto*>(
 &_EncryptedReportingPipelineConfigurationProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-130;
+129;
 
 friend void swap(EncryptedReportingPipelineConfigurationProto& a, EncryptedReportingPipelineConfigurationProto& b) {
 a.Swap(&b);
@@ -22479,7 +22336,7 @@ return reinterpret_cast<const DeviceReportXDREventsProto*>(
 &_DeviceReportXDREventsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-131;
+130;
 
 friend void swap(DeviceReportXDREventsProto& a, DeviceReportXDREventsProto& b) {
 a.Swap(&b);
@@ -22618,7 +22475,7 @@ return reinterpret_cast<const ChromeDeviceSettingsProto*>(
 &_ChromeDeviceSettingsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-132;
+131;
 
 friend void swap(ChromeDeviceSettingsProto& a, ChromeDeviceSettingsProto& b) {
 a.Swap(&b);
@@ -22818,7 +22675,6 @@ kDeviceLoginScreenContextAwareAccessSignalsAllowlistFieldNumber = 136,
 kDevicePrintingClientNameTemplateFieldNumber = 137,
 kDeviceReportXdrEventsFieldNumber = 138,
 kKeyboardBacklightColorFieldNumber = 139,
-kKeyboardBrightnessFieldNumber = 140,
 };
 // optional .enterprise_management.DevicePolicyRefreshRateProto device_policy_refresh_rate = 1;
 bool has_device_policy_refresh_rate() const;
@@ -25268,24 +25124,6 @@ void unsafe_arena_set_allocated_keyboard_backlight_color(
 ::enterprise_management::KeyboardBacklightColorProto* keyboard_backlight_color);
 ::enterprise_management::KeyboardBacklightColorProto* unsafe_arena_release_keyboard_backlight_color();
 
-// optional .enterprise_management.KeyboardBrightnessProto keyboard_brightness = 140;
-bool has_keyboard_brightness() const;
-private:
-bool _internal_has_keyboard_brightness() const;
-public:
-void clear_keyboard_brightness();
-const ::enterprise_management::KeyboardBrightnessProto& keyboard_brightness() const;
-PROTOBUF_NODISCARD ::enterprise_management::KeyboardBrightnessProto* release_keyboard_brightness();
-::enterprise_management::KeyboardBrightnessProto* mutable_keyboard_brightness();
-void set_allocated_keyboard_brightness(::enterprise_management::KeyboardBrightnessProto* keyboard_brightness);
-private:
-const ::enterprise_management::KeyboardBrightnessProto& _internal_keyboard_brightness() const;
-::enterprise_management::KeyboardBrightnessProto* _internal_mutable_keyboard_brightness();
-public:
-void unsafe_arena_set_allocated_keyboard_brightness(
-::enterprise_management::KeyboardBrightnessProto* keyboard_brightness);
-::enterprise_management::KeyboardBrightnessProto* unsafe_arena_release_keyboard_brightness();
-
 // @@protoc_insertion_point(class_scope:enterprise_management.ChromeDeviceSettingsProto)
 private:
 class _Internal;
@@ -25431,7 +25269,6 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::StringPolicyProto* device_printing_client_name_template_;
 ::enterprise_management::DeviceReportXDREventsProto* device_report_xdr_events_;
 ::enterprise_management::KeyboardBacklightColorProto* keyboard_backlight_color_;
-::enterprise_management::KeyboardBrightnessProto* keyboard_brightness_;
 friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // ===================================================================
@@ -35724,38 +35561,6 @@ color_ = value;
 inline void KeyboardBacklightColorProto::set_color(::enterprise_management::KeyboardBacklightColorProto_BacklightColor value) {
 _internal_set_color(value);
 // @@protoc_insertion_point(field_set:enterprise_management.KeyboardBacklightColorProto.color)
-}
-
-// -------------------------------------------------------------------
-
-// KeyboardBrightnessProto
-
-// optional int32 percentage = 1;
-inline bool KeyboardBrightnessProto::_internal_has_percentage() const {
-bool value = (_has_bits_[0] & 0x00000001u) != 0;
-return value;
-}
-inline bool KeyboardBrightnessProto::has_percentage() const {
-return _internal_has_percentage();
-}
-inline void KeyboardBrightnessProto::clear_percentage() {
-percentage_ = 0;
-_has_bits_[0] &= ~0x00000001u;
-}
-inline int32_t KeyboardBrightnessProto::_internal_percentage() const {
-return percentage_;
-}
-inline int32_t KeyboardBrightnessProto::percentage() const {
-// @@protoc_insertion_point(field_get:enterprise_management.KeyboardBrightnessProto.percentage)
-return _internal_percentage();
-}
-inline void KeyboardBrightnessProto::_internal_set_percentage(int32_t value) {
-_has_bits_[0] |= 0x00000001u;
-percentage_ = value;
-}
-inline void KeyboardBrightnessProto::set_percentage(int32_t value) {
-_internal_set_percentage(value);
-// @@protoc_insertion_point(field_set:enterprise_management.KeyboardBrightnessProto.percentage)
 }
 
 // -------------------------------------------------------------------
@@ -49904,101 +49709,9 @@ keyboard_backlight_color_ = keyboard_backlight_color;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.keyboard_backlight_color)
 }
 
-// optional .enterprise_management.KeyboardBrightnessProto keyboard_brightness = 140;
-inline bool ChromeDeviceSettingsProto::_internal_has_keyboard_brightness() const {
-bool value = (_has_bits_[4] & 0x00000100u) != 0;
-PROTOBUF_ASSUME(!value || keyboard_brightness_ != nullptr);
-return value;
-}
-inline bool ChromeDeviceSettingsProto::has_keyboard_brightness() const {
-return _internal_has_keyboard_brightness();
-}
-inline void ChromeDeviceSettingsProto::clear_keyboard_brightness() {
-if (keyboard_brightness_ != nullptr) keyboard_brightness_->Clear();
-_has_bits_[4] &= ~0x00000100u;
-}
-inline const ::enterprise_management::KeyboardBrightnessProto& ChromeDeviceSettingsProto::_internal_keyboard_brightness() const {
-const ::enterprise_management::KeyboardBrightnessProto* p = keyboard_brightness_;
-return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::KeyboardBrightnessProto&>(
-::enterprise_management::_KeyboardBrightnessProto_default_instance_);
-}
-inline const ::enterprise_management::KeyboardBrightnessProto& ChromeDeviceSettingsProto::keyboard_brightness() const {
-// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.keyboard_brightness)
-return _internal_keyboard_brightness();
-}
-inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_keyboard_brightness(
-::enterprise_management::KeyboardBrightnessProto* keyboard_brightness) {
-if (GetArenaForAllocation() == nullptr) {
-delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(keyboard_brightness_);
-}
-keyboard_brightness_ = keyboard_brightness;
-if (keyboard_brightness) {
-_has_bits_[4] |= 0x00000100u;
-} else {
-_has_bits_[4] &= ~0x00000100u;
-}
-// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.keyboard_brightness)
-}
-inline ::enterprise_management::KeyboardBrightnessProto* ChromeDeviceSettingsProto::release_keyboard_brightness() {
-_has_bits_[4] &= ~0x00000100u;
-::enterprise_management::KeyboardBrightnessProto* temp = keyboard_brightness_;
-keyboard_brightness_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-if (GetArenaForAllocation() != nullptr) {
-temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-}
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-return temp;
-}
-inline ::enterprise_management::KeyboardBrightnessProto* ChromeDeviceSettingsProto::unsafe_arena_release_keyboard_brightness() {
-// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.keyboard_brightness)
-_has_bits_[4] &= ~0x00000100u;
-::enterprise_management::KeyboardBrightnessProto* temp = keyboard_brightness_;
-keyboard_brightness_ = nullptr;
-return temp;
-}
-inline ::enterprise_management::KeyboardBrightnessProto* ChromeDeviceSettingsProto::_internal_mutable_keyboard_brightness() {
-_has_bits_[4] |= 0x00000100u;
-if (keyboard_brightness_ == nullptr) {
-auto* p = CreateMaybeMessage<::enterprise_management::KeyboardBrightnessProto>(GetArenaForAllocation());
-keyboard_brightness_ = p;
-}
-return keyboard_brightness_;
-}
-inline ::enterprise_management::KeyboardBrightnessProto* ChromeDeviceSettingsProto::mutable_keyboard_brightness() {
-::enterprise_management::KeyboardBrightnessProto* _msg = _internal_mutable_keyboard_brightness();
-// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.keyboard_brightness)
-return _msg;
-}
-inline void ChromeDeviceSettingsProto::set_allocated_keyboard_brightness(::enterprise_management::KeyboardBrightnessProto* keyboard_brightness) {
-::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-if (message_arena == nullptr) {
-delete keyboard_brightness_;
-}
-if (keyboard_brightness) {
-::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(keyboard_brightness);
-if (message_arena != submessage_arena) {
-keyboard_brightness = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-message_arena, keyboard_brightness, submessage_arena);
-}
-_has_bits_[4] |= 0x00000100u;
-} else {
-_has_bits_[4] &= ~0x00000100u;
-}
-keyboard_brightness_ = keyboard_brightness;
-// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.keyboard_brightness)
-}
-
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

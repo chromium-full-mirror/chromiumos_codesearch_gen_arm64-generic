@@ -300,60 +300,6 @@ struct RemoveKeyReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RemoveKeyReplyDefaultTypeInternal _RemoveKeyReply_default_instance_;
-PROTOBUF_CONSTEXPR MassRemoveKeysRequest::MassRemoveKeysRequest(
-    ::_pbi::ConstantInitialized)
-  : exempt_key_data_()
-  , account_id_(nullptr)
-  , authorization_request_(nullptr){}
-struct MassRemoveKeysRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR MassRemoveKeysRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~MassRemoveKeysRequestDefaultTypeInternal() {}
-  union {
-    MassRemoveKeysRequest _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MassRemoveKeysRequestDefaultTypeInternal _MassRemoveKeysRequest_default_instance_;
-PROTOBUF_CONSTEXPR MassRemoveKeysReply::MassRemoveKeysReply(
-    ::_pbi::ConstantInitialized)
-  : error_(0)
-{}
-struct MassRemoveKeysReplyDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR MassRemoveKeysReplyDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~MassRemoveKeysReplyDefaultTypeInternal() {}
-  union {
-    MassRemoveKeysReply _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MassRemoveKeysReplyDefaultTypeInternal _MassRemoveKeysReply_default_instance_;
-PROTOBUF_CONSTEXPR MigrateKeyRequest::MigrateKeyRequest(
-    ::_pbi::ConstantInitialized)
-  : secret_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , account_id_(nullptr)
-  , authorization_request_(nullptr){}
-struct MigrateKeyRequestDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR MigrateKeyRequestDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~MigrateKeyRequestDefaultTypeInternal() {}
-  union {
-    MigrateKeyRequest _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MigrateKeyRequestDefaultTypeInternal _MigrateKeyRequest_default_instance_;
-PROTOBUF_CONSTEXPR MigrateKeyReply::MigrateKeyReply(
-    ::_pbi::ConstantInitialized)
-  : error_(0)
-{}
-struct MigrateKeyReplyDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR MigrateKeyReplyDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~MigrateKeyReplyDefaultTypeInternal() {}
-  union {
-    MigrateKeyReply _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MigrateKeyReplyDefaultTypeInternal _MigrateKeyReply_default_instance_;
 PROTOBUF_CONSTEXPR StartFingerprintAuthSessionRequest::StartFingerprintAuthSessionRequest(
     ::_pbi::ConstantInitialized)
   : account_id_(nullptr){}
@@ -482,6 +428,31 @@ struct GetHibernateSecretReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetHibernateSecretReplyDefaultTypeInternal _GetHibernateSecretReply_default_instance_;
+PROTOBUF_CONSTEXPR GetEncryptionInfoRequest::GetEncryptionInfoRequest(
+    ::_pbi::ConstantInitialized){}
+struct GetEncryptionInfoRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetEncryptionInfoRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~GetEncryptionInfoRequestDefaultTypeInternal() {}
+  union {
+    GetEncryptionInfoRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetEncryptionInfoRequestDefaultTypeInternal _GetEncryptionInfoRequest_default_instance_;
+PROTOBUF_CONSTEXPR GetEncryptionInfoReply::GetEncryptionInfoReply(
+    ::_pbi::ConstantInitialized)
+  : error_(0)
+
+  , keylocker_supported_(false){}
+struct GetEncryptionInfoReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR GetEncryptionInfoReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~GetEncryptionInfoReplyDefaultTypeInternal() {}
+  union {
+    GetEncryptionInfoReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetEncryptionInfoReplyDefaultTypeInternal _GetEncryptionInfoReply_default_instance_;
 PROTOBUF_CONSTEXPR StartMigrateToDircryptoRequest::StartMigrateToDircryptoRequest(
     ::_pbi::ConstantInitialized)
   : auth_session_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
@@ -7744,917 +7715,6 @@ std::string RemoveKeyReply::GetTypeName() const {
 
 // ===================================================================
 
-class MassRemoveKeysRequest::_Internal {
- public:
-  static const ::cryptohome::AccountIdentifier& account_id(const MassRemoveKeysRequest* msg);
-  static const ::cryptohome::AuthorizationRequest& authorization_request(const MassRemoveKeysRequest* msg);
-};
-
-const ::cryptohome::AccountIdentifier&
-MassRemoveKeysRequest::_Internal::account_id(const MassRemoveKeysRequest* msg) {
-  return *msg->account_id_;
-}
-const ::cryptohome::AuthorizationRequest&
-MassRemoveKeysRequest::_Internal::authorization_request(const MassRemoveKeysRequest* msg) {
-  return *msg->authorization_request_;
-}
-void MassRemoveKeysRequest::clear_account_id() {
-  if (GetArenaForAllocation() == nullptr && account_id_ != nullptr) {
-    delete account_id_;
-  }
-  account_id_ = nullptr;
-}
-void MassRemoveKeysRequest::clear_authorization_request() {
-  if (GetArenaForAllocation() == nullptr && authorization_request_ != nullptr) {
-    delete authorization_request_;
-  }
-  authorization_request_ = nullptr;
-}
-void MassRemoveKeysRequest::clear_exempt_key_data() {
-  exempt_key_data_.Clear();
-}
-MassRemoveKeysRequest::MassRemoveKeysRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  exempt_key_data_(arena) {
-  SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:user_data_auth.MassRemoveKeysRequest)
-}
-MassRemoveKeysRequest::MassRemoveKeysRequest(const MassRemoveKeysRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      exempt_key_data_(from.exempt_key_data_) {
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_account_id()) {
-    account_id_ = new ::cryptohome::AccountIdentifier(*from.account_id_);
-  } else {
-    account_id_ = nullptr;
-  }
-  if (from._internal_has_authorization_request()) {
-    authorization_request_ = new ::cryptohome::AuthorizationRequest(*from.authorization_request_);
-  } else {
-    authorization_request_ = nullptr;
-  }
-  // @@protoc_insertion_point(copy_constructor:user_data_auth.MassRemoveKeysRequest)
-}
-
-inline void MassRemoveKeysRequest::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&account_id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&authorization_request_) -
-    reinterpret_cast<char*>(&account_id_)) + sizeof(authorization_request_));
-}
-
-MassRemoveKeysRequest::~MassRemoveKeysRequest() {
-  // @@protoc_insertion_point(destructor:user_data_auth.MassRemoveKeysRequest)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void MassRemoveKeysRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete account_id_;
-  if (this != internal_default_instance()) delete authorization_request_;
-}
-
-void MassRemoveKeysRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void MassRemoveKeysRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:user_data_auth.MassRemoveKeysRequest)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  exempt_key_data_.Clear();
-  if (GetArenaForAllocation() == nullptr && account_id_ != nullptr) {
-    delete account_id_;
-  }
-  account_id_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && authorization_request_ != nullptr) {
-    delete authorization_request_;
-  }
-  authorization_request_ = nullptr;
-  _internal_metadata_.Clear<std::string>();
-}
-
-const char* MassRemoveKeysRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // .cryptohome.AccountIdentifier account_id = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_account_id(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // .cryptohome.AuthorizationRequest authorization_request = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_authorization_request(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated .cryptohome.KeyData exempt_key_data = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_exempt_key_data(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* MassRemoveKeysRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.MassRemoveKeysRequest)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // .cryptohome.AccountIdentifier account_id = 1;
-  if (this->_internal_has_account_id()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, _Internal::account_id(this),
-        _Internal::account_id(this).GetCachedSize(), target, stream);
-  }
-
-  // .cryptohome.AuthorizationRequest authorization_request = 2;
-  if (this->_internal_has_authorization_request()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::authorization_request(this),
-        _Internal::authorization_request(this).GetCachedSize(), target, stream);
-  }
-
-  // repeated .cryptohome.KeyData exempt_key_data = 3;
-  for (unsigned i = 0,
-      n = static_cast<unsigned>(this->_internal_exempt_key_data_size()); i < n; i++) {
-    const auto& repfield = this->_internal_exempt_key_data(i);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(3, repfield, repfield.GetCachedSize(), target, stream);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.MassRemoveKeysRequest)
-  return target;
-}
-
-size_t MassRemoveKeysRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:user_data_auth.MassRemoveKeysRequest)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // repeated .cryptohome.KeyData exempt_key_data = 3;
-  total_size += 1UL * this->_internal_exempt_key_data_size();
-  for (const auto& msg : this->exempt_key_data_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // .cryptohome.AccountIdentifier account_id = 1;
-  if (this->_internal_has_account_id()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *account_id_);
-  }
-
-  // .cryptohome.AuthorizationRequest authorization_request = 2;
-  if (this->_internal_has_authorization_request()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *authorization_request_);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void MassRemoveKeysRequest::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const MassRemoveKeysRequest*>(
-      &from));
-}
-
-void MassRemoveKeysRequest::MergeFrom(const MassRemoveKeysRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.MassRemoveKeysRequest)
-  GOOGLE_DCHECK_NE(&from, this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  exempt_key_data_.MergeFrom(from.exempt_key_data_);
-  if (from._internal_has_account_id()) {
-    _internal_mutable_account_id()->::cryptohome::AccountIdentifier::MergeFrom(from._internal_account_id());
-  }
-  if (from._internal_has_authorization_request()) {
-    _internal_mutable_authorization_request()->::cryptohome::AuthorizationRequest::MergeFrom(from._internal_authorization_request());
-  }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-}
-
-void MassRemoveKeysRequest::CopyFrom(const MassRemoveKeysRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.MassRemoveKeysRequest)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool MassRemoveKeysRequest::IsInitialized() const {
-  return true;
-}
-
-void MassRemoveKeysRequest::InternalSwap(MassRemoveKeysRequest* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  exempt_key_data_.InternalSwap(&other->exempt_key_data_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(MassRemoveKeysRequest, authorization_request_)
-      + sizeof(MassRemoveKeysRequest::authorization_request_)
-      - PROTOBUF_FIELD_OFFSET(MassRemoveKeysRequest, account_id_)>(
-          reinterpret_cast<char*>(&account_id_),
-          reinterpret_cast<char*>(&other->account_id_));
-}
-
-std::string MassRemoveKeysRequest::GetTypeName() const {
-  return "user_data_auth.MassRemoveKeysRequest";
-}
-
-
-// ===================================================================
-
-class MassRemoveKeysReply::_Internal {
- public:
-};
-
-MassRemoveKeysReply::MassRemoveKeysReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:user_data_auth.MassRemoveKeysReply)
-}
-MassRemoveKeysReply::MassRemoveKeysReply(const MassRemoveKeysReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  error_ = from.error_;
-  // @@protoc_insertion_point(copy_constructor:user_data_auth.MassRemoveKeysReply)
-}
-
-inline void MassRemoveKeysReply::SharedCtor() {
-error_ = 0;
-}
-
-MassRemoveKeysReply::~MassRemoveKeysReply() {
-  // @@protoc_insertion_point(destructor:user_data_auth.MassRemoveKeysReply)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void MassRemoveKeysReply::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-}
-
-void MassRemoveKeysReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void MassRemoveKeysReply::Clear() {
-// @@protoc_insertion_point(message_clear_start:user_data_auth.MassRemoveKeysReply)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  error_ = 0;
-  _internal_metadata_.Clear<std::string>();
-}
-
-const char* MassRemoveKeysReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // .user_data_auth.CryptohomeErrorCode error = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          _internal_set_error(static_cast<::user_data_auth::CryptohomeErrorCode>(val));
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* MassRemoveKeysReply::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.MassRemoveKeysReply)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // .user_data_auth.CryptohomeErrorCode error = 1;
-  if (this->_internal_error() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_error(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.MassRemoveKeysReply)
-  return target;
-}
-
-size_t MassRemoveKeysReply::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:user_data_auth.MassRemoveKeysReply)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // .user_data_auth.CryptohomeErrorCode error = 1;
-  if (this->_internal_error() != 0) {
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void MassRemoveKeysReply::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const MassRemoveKeysReply*>(
-      &from));
-}
-
-void MassRemoveKeysReply::MergeFrom(const MassRemoveKeysReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.MassRemoveKeysReply)
-  GOOGLE_DCHECK_NE(&from, this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_error() != 0) {
-    _internal_set_error(from._internal_error());
-  }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-}
-
-void MassRemoveKeysReply::CopyFrom(const MassRemoveKeysReply& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.MassRemoveKeysReply)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool MassRemoveKeysReply::IsInitialized() const {
-  return true;
-}
-
-void MassRemoveKeysReply::InternalSwap(MassRemoveKeysReply* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(error_, other->error_);
-}
-
-std::string MassRemoveKeysReply::GetTypeName() const {
-  return "user_data_auth.MassRemoveKeysReply";
-}
-
-
-// ===================================================================
-
-class MigrateKeyRequest::_Internal {
- public:
-  static const ::cryptohome::AccountIdentifier& account_id(const MigrateKeyRequest* msg);
-  static const ::cryptohome::AuthorizationRequest& authorization_request(const MigrateKeyRequest* msg);
-};
-
-const ::cryptohome::AccountIdentifier&
-MigrateKeyRequest::_Internal::account_id(const MigrateKeyRequest* msg) {
-  return *msg->account_id_;
-}
-const ::cryptohome::AuthorizationRequest&
-MigrateKeyRequest::_Internal::authorization_request(const MigrateKeyRequest* msg) {
-  return *msg->authorization_request_;
-}
-void MigrateKeyRequest::clear_account_id() {
-  if (GetArenaForAllocation() == nullptr && account_id_ != nullptr) {
-    delete account_id_;
-  }
-  account_id_ = nullptr;
-}
-void MigrateKeyRequest::clear_authorization_request() {
-  if (GetArenaForAllocation() == nullptr && authorization_request_ != nullptr) {
-    delete authorization_request_;
-  }
-  authorization_request_ = nullptr;
-}
-MigrateKeyRequest::MigrateKeyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:user_data_auth.MigrateKeyRequest)
-}
-MigrateKeyRequest::MigrateKeyRequest(const MigrateKeyRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  secret_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    secret_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (!from._internal_secret().empty()) {
-    secret_.Set(from._internal_secret(), 
-      GetArenaForAllocation());
-  }
-  if (from._internal_has_account_id()) {
-    account_id_ = new ::cryptohome::AccountIdentifier(*from.account_id_);
-  } else {
-    account_id_ = nullptr;
-  }
-  if (from._internal_has_authorization_request()) {
-    authorization_request_ = new ::cryptohome::AuthorizationRequest(*from.authorization_request_);
-  } else {
-    authorization_request_ = nullptr;
-  }
-  // @@protoc_insertion_point(copy_constructor:user_data_auth.MigrateKeyRequest)
-}
-
-inline void MigrateKeyRequest::SharedCtor() {
-secret_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  secret_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&account_id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&authorization_request_) -
-    reinterpret_cast<char*>(&account_id_)) + sizeof(authorization_request_));
-}
-
-MigrateKeyRequest::~MigrateKeyRequest() {
-  // @@protoc_insertion_point(destructor:user_data_auth.MigrateKeyRequest)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void MigrateKeyRequest::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  secret_.Destroy();
-  if (this != internal_default_instance()) delete account_id_;
-  if (this != internal_default_instance()) delete authorization_request_;
-}
-
-void MigrateKeyRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void MigrateKeyRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:user_data_auth.MigrateKeyRequest)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  secret_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && account_id_ != nullptr) {
-    delete account_id_;
-  }
-  account_id_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && authorization_request_ != nullptr) {
-    delete authorization_request_;
-  }
-  authorization_request_ = nullptr;
-  _internal_metadata_.Clear<std::string>();
-}
-
-const char* MigrateKeyRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // .cryptohome.AccountIdentifier account_id = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_account_id(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // .cryptohome.AuthorizationRequest authorization_request = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_authorization_request(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bytes secret = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          auto str = _internal_mutable_secret();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* MigrateKeyRequest::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.MigrateKeyRequest)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // .cryptohome.AccountIdentifier account_id = 1;
-  if (this->_internal_has_account_id()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, _Internal::account_id(this),
-        _Internal::account_id(this).GetCachedSize(), target, stream);
-  }
-
-  // .cryptohome.AuthorizationRequest authorization_request = 2;
-  if (this->_internal_has_authorization_request()) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, _Internal::authorization_request(this),
-        _Internal::authorization_request(this).GetCachedSize(), target, stream);
-  }
-
-  // bytes secret = 3;
-  if (!this->_internal_secret().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        3, this->_internal_secret(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.MigrateKeyRequest)
-  return target;
-}
-
-size_t MigrateKeyRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:user_data_auth.MigrateKeyRequest)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // bytes secret = 3;
-  if (!this->_internal_secret().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-        this->_internal_secret());
-  }
-
-  // .cryptohome.AccountIdentifier account_id = 1;
-  if (this->_internal_has_account_id()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *account_id_);
-  }
-
-  // .cryptohome.AuthorizationRequest authorization_request = 2;
-  if (this->_internal_has_authorization_request()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *authorization_request_);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void MigrateKeyRequest::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const MigrateKeyRequest*>(
-      &from));
-}
-
-void MigrateKeyRequest::MergeFrom(const MigrateKeyRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.MigrateKeyRequest)
-  GOOGLE_DCHECK_NE(&from, this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (!from._internal_secret().empty()) {
-    _internal_set_secret(from._internal_secret());
-  }
-  if (from._internal_has_account_id()) {
-    _internal_mutable_account_id()->::cryptohome::AccountIdentifier::MergeFrom(from._internal_account_id());
-  }
-  if (from._internal_has_authorization_request()) {
-    _internal_mutable_authorization_request()->::cryptohome::AuthorizationRequest::MergeFrom(from._internal_authorization_request());
-  }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-}
-
-void MigrateKeyRequest::CopyFrom(const MigrateKeyRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.MigrateKeyRequest)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool MigrateKeyRequest::IsInitialized() const {
-  return true;
-}
-
-void MigrateKeyRequest::InternalSwap(MigrateKeyRequest* other) {
-  using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &secret_, lhs_arena,
-      &other->secret_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(MigrateKeyRequest, authorization_request_)
-      + sizeof(MigrateKeyRequest::authorization_request_)
-      - PROTOBUF_FIELD_OFFSET(MigrateKeyRequest, account_id_)>(
-          reinterpret_cast<char*>(&account_id_),
-          reinterpret_cast<char*>(&other->account_id_));
-}
-
-std::string MigrateKeyRequest::GetTypeName() const {
-  return "user_data_auth.MigrateKeyRequest";
-}
-
-
-// ===================================================================
-
-class MigrateKeyReply::_Internal {
- public:
-};
-
-MigrateKeyReply::MigrateKeyReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:user_data_auth.MigrateKeyReply)
-}
-MigrateKeyReply::MigrateKeyReply(const MigrateKeyReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  error_ = from.error_;
-  // @@protoc_insertion_point(copy_constructor:user_data_auth.MigrateKeyReply)
-}
-
-inline void MigrateKeyReply::SharedCtor() {
-error_ = 0;
-}
-
-MigrateKeyReply::~MigrateKeyReply() {
-  // @@protoc_insertion_point(destructor:user_data_auth.MigrateKeyReply)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void MigrateKeyReply::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-}
-
-void MigrateKeyReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void MigrateKeyReply::Clear() {
-// @@protoc_insertion_point(message_clear_start:user_data_auth.MigrateKeyReply)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  error_ = 0;
-  _internal_metadata_.Clear<std::string>();
-}
-
-const char* MigrateKeyReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // .user_data_auth.CryptohomeErrorCode error = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          _internal_set_error(static_cast<::user_data_auth::CryptohomeErrorCode>(val));
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* MigrateKeyReply::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.MigrateKeyReply)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // .user_data_auth.CryptohomeErrorCode error = 1;
-  if (this->_internal_error() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_error(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.MigrateKeyReply)
-  return target;
-}
-
-size_t MigrateKeyReply::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:user_data_auth.MigrateKeyReply)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // .user_data_auth.CryptohomeErrorCode error = 1;
-  if (this->_internal_error() != 0) {
-    total_size += 1 +
-      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void MigrateKeyReply::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const MigrateKeyReply*>(
-      &from));
-}
-
-void MigrateKeyReply::MergeFrom(const MigrateKeyReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.MigrateKeyReply)
-  GOOGLE_DCHECK_NE(&from, this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_error() != 0) {
-    _internal_set_error(from._internal_error());
-  }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-}
-
-void MigrateKeyReply::CopyFrom(const MigrateKeyReply& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.MigrateKeyReply)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool MigrateKeyReply::IsInitialized() const {
-  return true;
-}
-
-void MigrateKeyReply::InternalSwap(MigrateKeyReply* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(error_, other->error_);
-}
-
-std::string MigrateKeyReply::GetTypeName() const {
-  return "user_data_auth.MigrateKeyReply";
-}
-
-
-// ===================================================================
-
 class StartFingerprintAuthSessionRequest::_Internal {
  public:
   static const ::cryptohome::AccountIdentifier& account_id(const StartFingerprintAuthSessionRequest* msg);
@@ -10582,6 +9642,348 @@ void GetHibernateSecretReply::InternalSwap(GetHibernateSecretReply* other) {
 
 std::string GetHibernateSecretReply::GetTypeName() const {
   return "user_data_auth.GetHibernateSecretReply";
+}
+
+
+// ===================================================================
+
+class GetEncryptionInfoRequest::_Internal {
+ public:
+};
+
+GetEncryptionInfoRequest::GetEncryptionInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.GetEncryptionInfoRequest)
+}
+GetEncryptionInfoRequest::GetEncryptionInfoRequest(const GetEncryptionInfoRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.GetEncryptionInfoRequest)
+}
+
+inline void GetEncryptionInfoRequest::SharedCtor() {
+}
+
+GetEncryptionInfoRequest::~GetEncryptionInfoRequest() {
+  // @@protoc_insertion_point(destructor:user_data_auth.GetEncryptionInfoRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void GetEncryptionInfoRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void GetEncryptionInfoRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void GetEncryptionInfoRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.GetEncryptionInfoRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* GetEncryptionInfoRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetEncryptionInfoRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.GetEncryptionInfoRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.GetEncryptionInfoRequest)
+  return target;
+}
+
+size_t GetEncryptionInfoRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.GetEncryptionInfoRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetEncryptionInfoRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const GetEncryptionInfoRequest*>(
+      &from));
+}
+
+void GetEncryptionInfoRequest::MergeFrom(const GetEncryptionInfoRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.GetEncryptionInfoRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void GetEncryptionInfoRequest::CopyFrom(const GetEncryptionInfoRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.GetEncryptionInfoRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetEncryptionInfoRequest::IsInitialized() const {
+  return true;
+}
+
+void GetEncryptionInfoRequest::InternalSwap(GetEncryptionInfoRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+}
+
+std::string GetEncryptionInfoRequest::GetTypeName() const {
+  return "user_data_auth.GetEncryptionInfoRequest";
+}
+
+
+// ===================================================================
+
+class GetEncryptionInfoReply::_Internal {
+ public:
+};
+
+GetEncryptionInfoReply::GetEncryptionInfoReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.GetEncryptionInfoReply)
+}
+GetEncryptionInfoReply::GetEncryptionInfoReply(const GetEncryptionInfoReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&error_, &from.error_,
+    static_cast<size_t>(reinterpret_cast<char*>(&keylocker_supported_) -
+    reinterpret_cast<char*>(&error_)) + sizeof(keylocker_supported_));
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.GetEncryptionInfoReply)
+}
+
+inline void GetEncryptionInfoReply::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&error_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&keylocker_supported_) -
+    reinterpret_cast<char*>(&error_)) + sizeof(keylocker_supported_));
+}
+
+GetEncryptionInfoReply::~GetEncryptionInfoReply() {
+  // @@protoc_insertion_point(destructor:user_data_auth.GetEncryptionInfoReply)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void GetEncryptionInfoReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void GetEncryptionInfoReply::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void GetEncryptionInfoReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.GetEncryptionInfoReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&error_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&keylocker_supported_) -
+      reinterpret_cast<char*>(&error_)) + sizeof(keylocker_supported_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* GetEncryptionInfoReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .user_data_auth.CryptohomeErrorCode error = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_error(static_cast<::user_data_auth::CryptohomeErrorCode>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool keylocker_supported = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          keylocker_supported_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetEncryptionInfoReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.GetEncryptionInfoReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error(), target);
+  }
+
+  // bool keylocker_supported = 2;
+  if (this->_internal_keylocker_supported() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_keylocker_supported(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.GetEncryptionInfoReply)
+  return target;
+}
+
+size_t GetEncryptionInfoReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.GetEncryptionInfoReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+  }
+
+  // bool keylocker_supported = 2;
+  if (this->_internal_keylocker_supported() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetEncryptionInfoReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const GetEncryptionInfoReply*>(
+      &from));
+}
+
+void GetEncryptionInfoReply::MergeFrom(const GetEncryptionInfoReply& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.GetEncryptionInfoReply)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_error() != 0) {
+    _internal_set_error(from._internal_error());
+  }
+  if (from._internal_keylocker_supported() != 0) {
+    _internal_set_keylocker_supported(from._internal_keylocker_supported());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void GetEncryptionInfoReply::CopyFrom(const GetEncryptionInfoReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.GetEncryptionInfoReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetEncryptionInfoReply::IsInitialized() const {
+  return true;
+}
+
+void GetEncryptionInfoReply::InternalSwap(GetEncryptionInfoReply* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(GetEncryptionInfoReply, keylocker_supported_)
+      + sizeof(GetEncryptionInfoReply::keylocker_supported_)
+      - PROTOBUF_FIELD_OFFSET(GetEncryptionInfoReply, error_)>(
+          reinterpret_cast<char*>(&error_),
+          reinterpret_cast<char*>(&other->error_));
+}
+
+std::string GetEncryptionInfoReply::GetTypeName() const {
+  return "user_data_auth.GetEncryptionInfoReply";
 }
 
 
@@ -35032,22 +34434,6 @@ template<> PROTOBUF_NOINLINE ::user_data_auth::RemoveKeyReply*
 Arena::CreateMaybeMessage< ::user_data_auth::RemoveKeyReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::RemoveKeyReply >(arena);
 }
-template<> PROTOBUF_NOINLINE ::user_data_auth::MassRemoveKeysRequest*
-Arena::CreateMaybeMessage< ::user_data_auth::MassRemoveKeysRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::user_data_auth::MassRemoveKeysRequest >(arena);
-}
-template<> PROTOBUF_NOINLINE ::user_data_auth::MassRemoveKeysReply*
-Arena::CreateMaybeMessage< ::user_data_auth::MassRemoveKeysReply >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::user_data_auth::MassRemoveKeysReply >(arena);
-}
-template<> PROTOBUF_NOINLINE ::user_data_auth::MigrateKeyRequest*
-Arena::CreateMaybeMessage< ::user_data_auth::MigrateKeyRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::user_data_auth::MigrateKeyRequest >(arena);
-}
-template<> PROTOBUF_NOINLINE ::user_data_auth::MigrateKeyReply*
-Arena::CreateMaybeMessage< ::user_data_auth::MigrateKeyReply >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::user_data_auth::MigrateKeyReply >(arena);
-}
 template<> PROTOBUF_NOINLINE ::user_data_auth::StartFingerprintAuthSessionRequest*
 Arena::CreateMaybeMessage< ::user_data_auth::StartFingerprintAuthSessionRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::StartFingerprintAuthSessionRequest >(arena);
@@ -35087,6 +34473,14 @@ Arena::CreateMaybeMessage< ::user_data_auth::GetHibernateSecretRequest >(Arena* 
 template<> PROTOBUF_NOINLINE ::user_data_auth::GetHibernateSecretReply*
 Arena::CreateMaybeMessage< ::user_data_auth::GetHibernateSecretReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::GetHibernateSecretReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::GetEncryptionInfoRequest*
+Arena::CreateMaybeMessage< ::user_data_auth::GetEncryptionInfoRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::GetEncryptionInfoRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::GetEncryptionInfoReply*
+Arena::CreateMaybeMessage< ::user_data_auth::GetEncryptionInfoReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::GetEncryptionInfoReply >(arena);
 }
 template<> PROTOBUF_NOINLINE ::user_data_auth::StartMigrateToDircryptoRequest*
 Arena::CreateMaybeMessage< ::user_data_auth::StartMigrateToDircryptoRequest >(Arena* arena) {

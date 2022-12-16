@@ -52,6 +52,8 @@ PROTOBUF_CONSTEXPR StructuredEventProto::StructuredEventProto(
   , profile_event_id_(uint64_t{0u})
   , event_name_hash_(uint64_t{0u})
   , project_name_hash_(uint64_t{0u})
+  , user_project_id_(uint64_t{0u})
+  , device_project_id_(uint64_t{0u})
   , event_type_(0)
 {}
 struct StructuredEventProtoDefaultTypeInternal {
@@ -747,11 +749,17 @@ class StructuredEventProto::_Internal {
   static void set_has_profile_event_id(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
+  static void set_has_user_project_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_device_project_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
   static void set_has_event_name_hash(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
   static void set_has_event_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
+    (*has_bits)[0] |= 64u;
   }
   static void set_has_project_name_hash(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
@@ -826,7 +834,7 @@ void StructuredEventProto::Clear() {
     GOOGLE_DCHECK(event_sequence_metadata_ != nullptr);
     event_sequence_metadata_->Clear();
   }
-  if (cached_has_bits & 0x0000001eu) {
+  if (cached_has_bits & 0x0000007eu) {
     ::memset(&profile_event_id_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&event_type_) -
         reinterpret_cast<char*>(&profile_event_id_)) + sizeof(event_type_));
@@ -903,6 +911,24 @@ const char* StructuredEventProto::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
+      // optional fixed64 user_project_id = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 57)) {
+          _Internal::set_has_user_project_id(&has_bits);
+          user_project_id_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<uint64_t>(ptr);
+          ptr += sizeof(uint64_t);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional fixed64 device_project_id = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 65)) {
+          _Internal::set_has_device_project_id(&has_bits);
+          device_project_id_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<uint64_t>(ptr);
+          ptr += sizeof(uint64_t);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -955,7 +981,7 @@ uint8_t* StructuredEventProto::_InternalSerialize(
   }
 
   // optional .metrics.StructuredEventProto.EventType event_type = 4;
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       4, this->_internal_event_type(), target);
@@ -972,6 +998,18 @@ uint8_t* StructuredEventProto::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(6, _Internal::event_sequence_metadata(this),
         _Internal::event_sequence_metadata(this).GetCachedSize(), target, stream);
+  }
+
+  // optional fixed64 user_project_id = 7;
+  if (cached_has_bits & 0x00000010u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFixed64ToArray(7, this->_internal_user_project_id(), target);
+  }
+
+  // optional fixed64 device_project_id = 8;
+  if (cached_has_bits & 0x00000020u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFixed64ToArray(8, this->_internal_device_project_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -998,7 +1036,7 @@ size_t StructuredEventProto::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000007fu) {
     // optional .metrics.StructuredEventProto.EventSequenceMetadata event_sequence_metadata = 6;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -1021,8 +1059,18 @@ size_t StructuredEventProto::ByteSizeLong() const {
       total_size += 1 + 8;
     }
 
-    // optional .metrics.StructuredEventProto.EventType event_type = 4;
+    // optional fixed64 user_project_id = 7;
     if (cached_has_bits & 0x00000010u) {
+      total_size += 1 + 8;
+    }
+
+    // optional fixed64 device_project_id = 8;
+    if (cached_has_bits & 0x00000020u) {
+      total_size += 1 + 8;
+    }
+
+    // optional .metrics.StructuredEventProto.EventType event_type = 4;
+    if (cached_has_bits & 0x00000040u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_event_type());
     }
@@ -1050,7 +1098,7 @@ void StructuredEventProto::MergeFrom(const StructuredEventProto& from) {
 
   metrics_.MergeFrom(from.metrics_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_mutable_event_sequence_metadata()->::metrics::StructuredEventProto_EventSequenceMetadata::MergeFrom(from._internal_event_sequence_metadata());
     }
@@ -1064,6 +1112,12 @@ void StructuredEventProto::MergeFrom(const StructuredEventProto& from) {
       project_name_hash_ = from.project_name_hash_;
     }
     if (cached_has_bits & 0x00000010u) {
+      user_project_id_ = from.user_project_id_;
+    }
+    if (cached_has_bits & 0x00000020u) {
+      device_project_id_ = from.device_project_id_;
+    }
+    if (cached_has_bits & 0x00000040u) {
       event_type_ = from.event_type_;
     }
     _has_bits_[0] |= cached_has_bits;
