@@ -59,6 +59,10 @@ std::string GetProtoDebugStringWithIndent(
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const LegacyFingerprintAuthInput& value);
+std::string GetProtoDebugStringWithIndent(const FingerprintAuthInput& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const FingerprintAuthInput& value);
 std::string GetProtoDebugStringWithIndent(const AuthInput& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const AuthInput& value);
@@ -87,6 +91,9 @@ std::string GetProtoDebugStringWithIndent(
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const LegacyFingerprintMetadata& value);
+std::string GetProtoDebugStringWithIndent(const FingerprintMetadata& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const FingerprintMetadata& value);
 std::string GetProtoDebugStringWithIndent(const AuthFactor& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const AuthFactor& value);

@@ -45,7 +45,7 @@ struct TableStruct_auth_5ffactor_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[15]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[17]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -67,6 +67,12 @@ extern CryptohomeRecoveryAuthInputDefaultTypeInternal _CryptohomeRecoveryAuthInp
 class CryptohomeRecoveryMetadata;
 struct CryptohomeRecoveryMetadataDefaultTypeInternal;
 extern CryptohomeRecoveryMetadataDefaultTypeInternal _CryptohomeRecoveryMetadata_default_instance_;
+class FingerprintAuthInput;
+struct FingerprintAuthInputDefaultTypeInternal;
+extern FingerprintAuthInputDefaultTypeInternal _FingerprintAuthInput_default_instance_;
+class FingerprintMetadata;
+struct FingerprintMetadataDefaultTypeInternal;
+extern FingerprintMetadataDefaultTypeInternal _FingerprintMetadata_default_instance_;
 class KioskAuthInput;
 struct KioskAuthInputDefaultTypeInternal;
 extern KioskAuthInputDefaultTypeInternal _KioskAuthInput_default_instance_;
@@ -104,6 +110,8 @@ template<> ::user_data_auth::AuthInput* Arena::CreateMaybeMessage<::user_data_au
 template<> ::user_data_auth::CommonMetadata* Arena::CreateMaybeMessage<::user_data_auth::CommonMetadata>(Arena*);
 template<> ::user_data_auth::CryptohomeRecoveryAuthInput* Arena::CreateMaybeMessage<::user_data_auth::CryptohomeRecoveryAuthInput>(Arena*);
 template<> ::user_data_auth::CryptohomeRecoveryMetadata* Arena::CreateMaybeMessage<::user_data_auth::CryptohomeRecoveryMetadata>(Arena*);
+template<> ::user_data_auth::FingerprintAuthInput* Arena::CreateMaybeMessage<::user_data_auth::FingerprintAuthInput>(Arena*);
+template<> ::user_data_auth::FingerprintMetadata* Arena::CreateMaybeMessage<::user_data_auth::FingerprintMetadata>(Arena*);
 template<> ::user_data_auth::KioskAuthInput* Arena::CreateMaybeMessage<::user_data_auth::KioskAuthInput>(Arena*);
 template<> ::user_data_auth::KioskMetadata* Arena::CreateMaybeMessage<::user_data_auth::KioskMetadata>(Arena*);
 template<> ::user_data_auth::LegacyFingerprintAuthInput* Arena::CreateMaybeMessage<::user_data_auth::LegacyFingerprintAuthInput>(Arena*);
@@ -125,12 +133,13 @@ enum AuthFactorType : int {
   AUTH_FACTOR_TYPE_KIOSK = 4,
   AUTH_FACTOR_TYPE_SMART_CARD = 5,
   AUTH_FACTOR_TYPE_LEGACY_FINGERPRINT = 6,
+  AUTH_FACTOR_TYPE_FINGERPRINT = 7,
   AuthFactorType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   AuthFactorType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool AuthFactorType_IsValid(int value);
 constexpr AuthFactorType AuthFactorType_MIN = AUTH_FACTOR_TYPE_UNSPECIFIED;
-constexpr AuthFactorType AuthFactorType_MAX = AUTH_FACTOR_TYPE_LEGACY_FINGERPRINT;
+constexpr AuthFactorType AuthFactorType_MAX = AUTH_FACTOR_TYPE_FINGERPRINT;
 constexpr int AuthFactorType_ARRAYSIZE = AuthFactorType_MAX + 1;
 
 const std::string& AuthFactorType_Name(AuthFactorType value);
@@ -1072,6 +1081,123 @@ class LegacyFingerprintAuthInput final :
 };
 // -------------------------------------------------------------------
 
+class FingerprintAuthInput final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.FingerprintAuthInput) */ {
+ public:
+  inline FingerprintAuthInput() : FingerprintAuthInput(nullptr) {}
+  ~FingerprintAuthInput() override;
+  explicit constexpr FingerprintAuthInput(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  FingerprintAuthInput(const FingerprintAuthInput& from);
+  FingerprintAuthInput(FingerprintAuthInput&& from) noexcept
+    : FingerprintAuthInput() {
+    *this = ::std::move(from);
+  }
+
+  inline FingerprintAuthInput& operator=(const FingerprintAuthInput& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline FingerprintAuthInput& operator=(FingerprintAuthInput&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const FingerprintAuthInput& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const FingerprintAuthInput* internal_default_instance() {
+    return reinterpret_cast<const FingerprintAuthInput*>(
+               &_FingerprintAuthInput_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(FingerprintAuthInput& a, FingerprintAuthInput& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(FingerprintAuthInput* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(FingerprintAuthInput* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  FingerprintAuthInput* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<FingerprintAuthInput>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const FingerprintAuthInput& from);
+  void MergeFrom(const FingerprintAuthInput& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(FingerprintAuthInput* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.FingerprintAuthInput";
+  }
+  protected:
+  explicit FingerprintAuthInput(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:user_data_auth.FingerprintAuthInput)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_auth_5ffactor_2eproto;
+};
+// -------------------------------------------------------------------
+
 class AuthInput final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.AuthInput) */ {
  public:
@@ -1113,6 +1239,7 @@ class AuthInput final :
     kKioskInput = 4,
     kSmartCardInput = 5,
     kLegacyFingerprintInput = 6,
+    kFingerprintInput = 7,
     INPUT_NOT_SET = 0,
   };
 
@@ -1121,7 +1248,7 @@ class AuthInput final :
                &_AuthInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(AuthInput& a, AuthInput& b) {
     a.Swap(&b);
@@ -1194,6 +1321,7 @@ class AuthInput final :
     kKioskInputFieldNumber = 4,
     kSmartCardInputFieldNumber = 5,
     kLegacyFingerprintInputFieldNumber = 6,
+    kFingerprintInputFieldNumber = 7,
   };
   // .user_data_auth.PasswordAuthInput password_input = 1;
   bool has_password_input() const;
@@ -1303,6 +1431,24 @@ class AuthInput final :
       ::user_data_auth::LegacyFingerprintAuthInput* legacy_fingerprint_input);
   ::user_data_auth::LegacyFingerprintAuthInput* unsafe_arena_release_legacy_fingerprint_input();
 
+  // .user_data_auth.FingerprintAuthInput fingerprint_input = 7;
+  bool has_fingerprint_input() const;
+  private:
+  bool _internal_has_fingerprint_input() const;
+  public:
+  void clear_fingerprint_input();
+  const ::user_data_auth::FingerprintAuthInput& fingerprint_input() const;
+  PROTOBUF_NODISCARD ::user_data_auth::FingerprintAuthInput* release_fingerprint_input();
+  ::user_data_auth::FingerprintAuthInput* mutable_fingerprint_input();
+  void set_allocated_fingerprint_input(::user_data_auth::FingerprintAuthInput* fingerprint_input);
+  private:
+  const ::user_data_auth::FingerprintAuthInput& _internal_fingerprint_input() const;
+  ::user_data_auth::FingerprintAuthInput* _internal_mutable_fingerprint_input();
+  public:
+  void unsafe_arena_set_allocated_fingerprint_input(
+      ::user_data_auth::FingerprintAuthInput* fingerprint_input);
+  ::user_data_auth::FingerprintAuthInput* unsafe_arena_release_fingerprint_input();
+
   void clear_input();
   InputCase input_case() const;
   // @@protoc_insertion_point(class_scope:user_data_auth.AuthInput)
@@ -1314,6 +1460,7 @@ class AuthInput final :
   void set_has_kiosk_input();
   void set_has_smart_card_input();
   void set_has_legacy_fingerprint_input();
+  void set_has_fingerprint_input();
 
   inline bool has_input() const;
   inline void clear_has_input();
@@ -1330,6 +1477,7 @@ class AuthInput final :
     ::user_data_auth::KioskAuthInput* kiosk_input_;
     ::user_data_auth::SmartCardAuthInput* smart_card_input_;
     ::user_data_auth::LegacyFingerprintAuthInput* legacy_fingerprint_input_;
+    ::user_data_auth::FingerprintAuthInput* fingerprint_input_;
   } input_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   uint32_t _oneof_case_[1];
@@ -1377,7 +1525,7 @@ class PasswordMetadata final :
                &_PasswordMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(PasswordMetadata& a, PasswordMetadata& b) {
     a.Swap(&b);
@@ -1494,7 +1642,7 @@ class PinMetadata final :
                &_PinMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(PinMetadata& a, PinMetadata& b) {
     a.Swap(&b);
@@ -1624,7 +1772,7 @@ class CryptohomeRecoveryMetadata final :
                &_CryptohomeRecoveryMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(CryptohomeRecoveryMetadata& a, CryptohomeRecoveryMetadata& b) {
     a.Swap(&b);
@@ -1741,7 +1889,7 @@ class KioskMetadata final :
                &_KioskMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   friend void swap(KioskMetadata& a, KioskMetadata& b) {
     a.Swap(&b);
@@ -1858,7 +2006,7 @@ class SmartCardMetadata final :
                &_SmartCardMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   friend void swap(SmartCardMetadata& a, SmartCardMetadata& b) {
     a.Swap(&b);
@@ -1993,7 +2141,7 @@ class CommonMetadata final :
                &_CommonMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    13;
 
   friend void swap(CommonMetadata& a, CommonMetadata& b) {
     a.Swap(&b);
@@ -2144,7 +2292,7 @@ class LegacyFingerprintMetadata final :
                &_LegacyFingerprintMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    14;
 
   friend void swap(LegacyFingerprintMetadata& a, LegacyFingerprintMetadata& b) {
     a.Swap(&b);
@@ -2222,6 +2370,123 @@ class LegacyFingerprintMetadata final :
 };
 // -------------------------------------------------------------------
 
+class FingerprintMetadata final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.FingerprintMetadata) */ {
+ public:
+  inline FingerprintMetadata() : FingerprintMetadata(nullptr) {}
+  ~FingerprintMetadata() override;
+  explicit constexpr FingerprintMetadata(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  FingerprintMetadata(const FingerprintMetadata& from);
+  FingerprintMetadata(FingerprintMetadata&& from) noexcept
+    : FingerprintMetadata() {
+    *this = ::std::move(from);
+  }
+
+  inline FingerprintMetadata& operator=(const FingerprintMetadata& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline FingerprintMetadata& operator=(FingerprintMetadata&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const FingerprintMetadata& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const FingerprintMetadata* internal_default_instance() {
+    return reinterpret_cast<const FingerprintMetadata*>(
+               &_FingerprintMetadata_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    15;
+
+  friend void swap(FingerprintMetadata& a, FingerprintMetadata& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(FingerprintMetadata* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(FingerprintMetadata* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  FingerprintMetadata* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<FingerprintMetadata>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const FingerprintMetadata& from);
+  void MergeFrom(const FingerprintMetadata& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(FingerprintMetadata* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.FingerprintMetadata";
+  }
+  protected:
+  explicit FingerprintMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:user_data_auth.FingerprintMetadata)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_auth_5ffactor_2eproto;
+};
+// -------------------------------------------------------------------
+
 class AuthFactor final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.AuthFactor) */ {
  public:
@@ -2263,6 +2528,7 @@ class AuthFactor final :
     kKioskMetadata = 7,
     kSmartCardMetadata = 8,
     kLegacyFingerprintMetadata = 11,
+    kFingerprintMetadata = 12,
     METADATA_NOT_SET = 0,
   };
 
@@ -2271,7 +2537,7 @@ class AuthFactor final :
                &_AuthFactor_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   friend void swap(AuthFactor& a, AuthFactor& b) {
     a.Swap(&b);
@@ -2347,6 +2613,7 @@ class AuthFactor final :
     kKioskMetadataFieldNumber = 7,
     kSmartCardMetadataFieldNumber = 8,
     kLegacyFingerprintMetadataFieldNumber = 11,
+    kFingerprintMetadataFieldNumber = 12,
   };
   // string label = 2;
   void clear_label();
@@ -2497,6 +2764,24 @@ class AuthFactor final :
       ::user_data_auth::LegacyFingerprintMetadata* legacy_fingerprint_metadata);
   ::user_data_auth::LegacyFingerprintMetadata* unsafe_arena_release_legacy_fingerprint_metadata();
 
+  // .user_data_auth.FingerprintMetadata fingerprint_metadata = 12;
+  bool has_fingerprint_metadata() const;
+  private:
+  bool _internal_has_fingerprint_metadata() const;
+  public:
+  void clear_fingerprint_metadata();
+  const ::user_data_auth::FingerprintMetadata& fingerprint_metadata() const;
+  PROTOBUF_NODISCARD ::user_data_auth::FingerprintMetadata* release_fingerprint_metadata();
+  ::user_data_auth::FingerprintMetadata* mutable_fingerprint_metadata();
+  void set_allocated_fingerprint_metadata(::user_data_auth::FingerprintMetadata* fingerprint_metadata);
+  private:
+  const ::user_data_auth::FingerprintMetadata& _internal_fingerprint_metadata() const;
+  ::user_data_auth::FingerprintMetadata* _internal_mutable_fingerprint_metadata();
+  public:
+  void unsafe_arena_set_allocated_fingerprint_metadata(
+      ::user_data_auth::FingerprintMetadata* fingerprint_metadata);
+  ::user_data_auth::FingerprintMetadata* unsafe_arena_release_fingerprint_metadata();
+
   void clear_metadata();
   MetadataCase metadata_case() const;
   // @@protoc_insertion_point(class_scope:user_data_auth.AuthFactor)
@@ -2508,6 +2793,7 @@ class AuthFactor final :
   void set_has_kiosk_metadata();
   void set_has_smart_card_metadata();
   void set_has_legacy_fingerprint_metadata();
+  void set_has_fingerprint_metadata();
 
   inline bool has_metadata() const;
   inline void clear_has_metadata();
@@ -2527,6 +2813,7 @@ class AuthFactor final :
     ::user_data_auth::KioskMetadata* kiosk_metadata_;
     ::user_data_auth::SmartCardMetadata* smart_card_metadata_;
     ::user_data_auth::LegacyFingerprintMetadata* legacy_fingerprint_metadata_;
+    ::user_data_auth::FingerprintMetadata* fingerprint_metadata_;
   } metadata_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   uint32_t _oneof_case_[1];
@@ -3017,6 +3304,10 @@ inline void SmartCardAuthInput::set_allocated_key_delegate_dbus_service_name(std
 
 // -------------------------------------------------------------------
 
+// FingerprintAuthInput
+
+// -------------------------------------------------------------------
+
 // AuthInput
 
 // .user_data_auth.PasswordAuthInput password_input = 1;
@@ -3463,6 +3754,80 @@ inline ::user_data_auth::LegacyFingerprintAuthInput* AuthInput::mutable_legacy_f
   return _msg;
 }
 
+// .user_data_auth.FingerprintAuthInput fingerprint_input = 7;
+inline bool AuthInput::_internal_has_fingerprint_input() const {
+  return input_case() == kFingerprintInput;
+}
+inline bool AuthInput::has_fingerprint_input() const {
+  return _internal_has_fingerprint_input();
+}
+inline void AuthInput::set_has_fingerprint_input() {
+  _oneof_case_[0] = kFingerprintInput;
+}
+inline void AuthInput::clear_fingerprint_input() {
+  if (_internal_has_fingerprint_input()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete input_.fingerprint_input_;
+    }
+    clear_has_input();
+  }
+}
+inline ::user_data_auth::FingerprintAuthInput* AuthInput::release_fingerprint_input() {
+  // @@protoc_insertion_point(field_release:user_data_auth.AuthInput.fingerprint_input)
+  if (_internal_has_fingerprint_input()) {
+    clear_has_input();
+      ::user_data_auth::FingerprintAuthInput* temp = input_.fingerprint_input_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    input_.fingerprint_input_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::user_data_auth::FingerprintAuthInput& AuthInput::_internal_fingerprint_input() const {
+  return _internal_has_fingerprint_input()
+      ? *input_.fingerprint_input_
+      : reinterpret_cast< ::user_data_auth::FingerprintAuthInput&>(::user_data_auth::_FingerprintAuthInput_default_instance_);
+}
+inline const ::user_data_auth::FingerprintAuthInput& AuthInput::fingerprint_input() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.AuthInput.fingerprint_input)
+  return _internal_fingerprint_input();
+}
+inline ::user_data_auth::FingerprintAuthInput* AuthInput::unsafe_arena_release_fingerprint_input() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:user_data_auth.AuthInput.fingerprint_input)
+  if (_internal_has_fingerprint_input()) {
+    clear_has_input();
+    ::user_data_auth::FingerprintAuthInput* temp = input_.fingerprint_input_;
+    input_.fingerprint_input_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void AuthInput::unsafe_arena_set_allocated_fingerprint_input(::user_data_auth::FingerprintAuthInput* fingerprint_input) {
+  clear_input();
+  if (fingerprint_input) {
+    set_has_fingerprint_input();
+    input_.fingerprint_input_ = fingerprint_input;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.AuthInput.fingerprint_input)
+}
+inline ::user_data_auth::FingerprintAuthInput* AuthInput::_internal_mutable_fingerprint_input() {
+  if (!_internal_has_fingerprint_input()) {
+    clear_input();
+    set_has_fingerprint_input();
+    input_.fingerprint_input_ = CreateMaybeMessage< ::user_data_auth::FingerprintAuthInput >(GetArenaForAllocation());
+  }
+  return input_.fingerprint_input_;
+}
+inline ::user_data_auth::FingerprintAuthInput* AuthInput::mutable_fingerprint_input() {
+  ::user_data_auth::FingerprintAuthInput* _msg = _internal_mutable_fingerprint_input();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.AuthInput.fingerprint_input)
+  return _msg;
+}
+
 inline bool AuthInput::has_input() const {
   return input_case() != INPUT_NOT_SET;
 }
@@ -3672,6 +4037,10 @@ inline void CommonMetadata::set_allocated_chrome_version_last_updated(std::strin
 // -------------------------------------------------------------------
 
 // LegacyFingerprintMetadata
+
+// -------------------------------------------------------------------
+
+// FingerprintMetadata
 
 // -------------------------------------------------------------------
 
@@ -4282,6 +4651,80 @@ inline ::user_data_auth::LegacyFingerprintMetadata* AuthFactor::mutable_legacy_f
   return _msg;
 }
 
+// .user_data_auth.FingerprintMetadata fingerprint_metadata = 12;
+inline bool AuthFactor::_internal_has_fingerprint_metadata() const {
+  return metadata_case() == kFingerprintMetadata;
+}
+inline bool AuthFactor::has_fingerprint_metadata() const {
+  return _internal_has_fingerprint_metadata();
+}
+inline void AuthFactor::set_has_fingerprint_metadata() {
+  _oneof_case_[0] = kFingerprintMetadata;
+}
+inline void AuthFactor::clear_fingerprint_metadata() {
+  if (_internal_has_fingerprint_metadata()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete metadata_.fingerprint_metadata_;
+    }
+    clear_has_metadata();
+  }
+}
+inline ::user_data_auth::FingerprintMetadata* AuthFactor::release_fingerprint_metadata() {
+  // @@protoc_insertion_point(field_release:user_data_auth.AuthFactor.fingerprint_metadata)
+  if (_internal_has_fingerprint_metadata()) {
+    clear_has_metadata();
+      ::user_data_auth::FingerprintMetadata* temp = metadata_.fingerprint_metadata_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    metadata_.fingerprint_metadata_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::user_data_auth::FingerprintMetadata& AuthFactor::_internal_fingerprint_metadata() const {
+  return _internal_has_fingerprint_metadata()
+      ? *metadata_.fingerprint_metadata_
+      : reinterpret_cast< ::user_data_auth::FingerprintMetadata&>(::user_data_auth::_FingerprintMetadata_default_instance_);
+}
+inline const ::user_data_auth::FingerprintMetadata& AuthFactor::fingerprint_metadata() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.AuthFactor.fingerprint_metadata)
+  return _internal_fingerprint_metadata();
+}
+inline ::user_data_auth::FingerprintMetadata* AuthFactor::unsafe_arena_release_fingerprint_metadata() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:user_data_auth.AuthFactor.fingerprint_metadata)
+  if (_internal_has_fingerprint_metadata()) {
+    clear_has_metadata();
+    ::user_data_auth::FingerprintMetadata* temp = metadata_.fingerprint_metadata_;
+    metadata_.fingerprint_metadata_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void AuthFactor::unsafe_arena_set_allocated_fingerprint_metadata(::user_data_auth::FingerprintMetadata* fingerprint_metadata) {
+  clear_metadata();
+  if (fingerprint_metadata) {
+    set_has_fingerprint_metadata();
+    metadata_.fingerprint_metadata_ = fingerprint_metadata;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.AuthFactor.fingerprint_metadata)
+}
+inline ::user_data_auth::FingerprintMetadata* AuthFactor::_internal_mutable_fingerprint_metadata() {
+  if (!_internal_has_fingerprint_metadata()) {
+    clear_metadata();
+    set_has_fingerprint_metadata();
+    metadata_.fingerprint_metadata_ = CreateMaybeMessage< ::user_data_auth::FingerprintMetadata >(GetArenaForAllocation());
+  }
+  return metadata_.fingerprint_metadata_;
+}
+inline ::user_data_auth::FingerprintMetadata* AuthFactor::mutable_fingerprint_metadata() {
+  ::user_data_auth::FingerprintMetadata* _msg = _internal_mutable_fingerprint_metadata();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.AuthFactor.fingerprint_metadata)
+  return _msg;
+}
+
 inline bool AuthFactor::has_metadata() const {
   return metadata_case() != METADATA_NOT_SET;
 }
@@ -4294,6 +4737,10 @@ inline AuthFactor::MetadataCase AuthFactor::metadata_case() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

@@ -52,6 +52,9 @@ std::string GetProtoDebugStringWithIndent(AuthFactorType value,
   if (value == AUTH_FACTOR_TYPE_LEGACY_FINGERPRINT) {
     return "AUTH_FACTOR_TYPE_LEGACY_FINGERPRINT";
   }
+  if (value == AUTH_FACTOR_TYPE_FINGERPRINT) {
+    return "AUTH_FACTOR_TYPE_FINGERPRINT";
+  }
   return "<unknown>";
 }
 
@@ -260,6 +263,20 @@ std::string GetProtoDebugStringWithIndent(
   return output;
 }
 
+std::string GetProtoDebugString(const FingerprintAuthInput& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const FingerprintAuthInput& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "}\n";
+  return output;
+}
+
 std::string GetProtoDebugString(const AuthInput& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }
@@ -310,6 +327,13 @@ std::string GetProtoDebugStringWithIndent(const AuthInput& value,
                       GetProtoDebugStringWithIndent(
                           value.legacy_fingerprint_input(), indent_size + 2)
                           .c_str());
+  output += "\n";
+
+  output += indent + "  fingerprint_input: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.fingerprint_input(), indent_size + 2)
+          .c_str());
   output += "\n";
 
   output += indent + "}\n";
@@ -437,6 +461,20 @@ std::string GetProtoDebugStringWithIndent(
   return output;
 }
 
+std::string GetProtoDebugString(const FingerprintMetadata& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const FingerprintMetadata& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "}\n";
+  return output;
+}
+
 std::string GetProtoDebugString(const AuthFactor& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }
@@ -503,6 +541,13 @@ std::string GetProtoDebugStringWithIndent(const AuthFactor& value,
   base::StringAppendF(&output, "%s",
                       GetProtoDebugStringWithIndent(
                           value.legacy_fingerprint_metadata(), indent_size + 2)
+                          .c_str());
+  output += "\n";
+
+  output += indent + "  fingerprint_metadata: ";
+  base::StringAppendF(&output, "%s",
+                      GetProtoDebugStringWithIndent(
+                          value.fingerprint_metadata(), indent_size + 2)
                           .c_str());
   output += "\n";
 
