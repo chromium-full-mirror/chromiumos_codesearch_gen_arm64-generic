@@ -1921,6 +1921,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  HDAudioCodec {
  public:
   template <typename T>
@@ -5730,7 +5731,6 @@ class  AudioResult {
             typename std::enable_if<std::is_same<
                 T, AudioResult>::value>::type* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
-  size_t Hash(size_t seed) const;
 
   Tag which() const {
     return tag_;
@@ -9844,6 +9844,20 @@ class  AudioInfo {
       uint32_t underruns,
       uint32_t severe_underruns);
 
+  AudioInfo(
+      bool output_mute,
+      bool input_mute,
+      uint64_t output_volume,
+      const std::string& output_device_name,
+      uint32_t input_gain,
+      const std::string& input_device_name,
+      uint32_t underruns,
+      uint32_t severe_underruns,
+      absl::optional<std::vector<AudioNodeInfoPtr>> output_nodes,
+      absl::optional<std::vector<AudioNodeInfoPtr>> input_nodes);
+
+AudioInfo(const AudioInfo&) = delete;
+AudioInfo& operator=(const AudioInfo&) = delete;
 
   ~AudioInfo();
 
@@ -9861,7 +9875,6 @@ class  AudioInfo {
 
   template <typename T, AudioInfo::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
-  size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -9933,6 +9946,10 @@ class  AudioInfo {
   uint32_t underruns;
   
   uint32_t severe_underruns;
+  
+  absl::optional<std::vector<AudioNodeInfoPtr>> output_nodes;
+  
+  absl::optional<std::vector<AudioNodeInfoPtr>> input_nodes;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -9959,6 +9976,159 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, AudioInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  AudioNodeInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<AudioNodeInfo, T>::value>;
+  using DataView = AudioNodeInfoDataView;
+  using Data_ = internal::AudioNodeInfo_Data;
+
+  template <typename... Args>
+  static AudioNodeInfoPtr New(Args&&... args) {
+    return AudioNodeInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static AudioNodeInfoPtr From(const U& u) {
+    return mojo::TypeConverter<AudioNodeInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, AudioNodeInfo>::Convert(*this);
+  }
+
+
+  AudioNodeInfo();
+
+  AudioNodeInfo(
+      uint64_t id,
+      const std::string& name,
+      const std::string& device_name,
+      bool active,
+      uint8_t node_volume,
+      uint8_t input_node_gain);
+
+
+  ~AudioNodeInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = AudioNodeInfoPtr>
+  AudioNodeInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, AudioNodeInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, AudioNodeInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        AudioNodeInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        AudioNodeInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::AudioNodeInfo_UnserializedMessageContext<
+            UserType, AudioNodeInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<AudioNodeInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return AudioNodeInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::AudioNodeInfo_UnserializedMessageContext<
+            UserType, AudioNodeInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<AudioNodeInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint64_t id;
+  
+  std::string name;
+  
+  std::string device_name;
+  
+  bool active;
+  
+  uint8_t node_volume;
+  
+  uint8_t input_node_gain;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, AudioNodeInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, AudioNodeInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, AudioNodeInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, AudioNodeInfo::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -15893,7 +16063,9 @@ AudioInfoPtr AudioInfo::Clone() const {
       mojo::Clone(input_gain),
       mojo::Clone(input_device_name),
       mojo::Clone(underruns),
-      mojo::Clone(severe_underruns)
+      mojo::Clone(severe_underruns),
+      mojo::Clone(output_nodes),
+      mojo::Clone(input_nodes)
   );
 }
 
@@ -15914,6 +16086,10 @@ bool AudioInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->underruns, other_struct.underruns))
     return false;
   if (!mojo::Equals(this->severe_underruns, other_struct.severe_underruns))
+    return false;
+  if (!mojo::Equals(this->output_nodes, other_struct.output_nodes))
+    return false;
+  if (!mojo::Equals(this->input_nodes, other_struct.input_nodes))
     return false;
   return true;
 }
@@ -15951,6 +16127,71 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.severe_underruns < rhs.severe_underruns)
     return true;
   if (rhs.severe_underruns < lhs.severe_underruns)
+    return false;
+  if (lhs.output_nodes < rhs.output_nodes)
+    return true;
+  if (rhs.output_nodes < lhs.output_nodes)
+    return false;
+  if (lhs.input_nodes < rhs.input_nodes)
+    return true;
+  if (rhs.input_nodes < lhs.input_nodes)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+AudioNodeInfoPtr AudioNodeInfo::Clone() const {
+  return New(
+      mojo::Clone(id),
+      mojo::Clone(name),
+      mojo::Clone(device_name),
+      mojo::Clone(active),
+      mojo::Clone(node_volume),
+      mojo::Clone(input_node_gain)
+  );
+}
+
+template <typename T, AudioNodeInfo::EnableIfSame<T>*>
+bool AudioNodeInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->id, other_struct.id))
+    return false;
+  if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->device_name, other_struct.device_name))
+    return false;
+  if (!mojo::Equals(this->active, other_struct.active))
+    return false;
+  if (!mojo::Equals(this->node_volume, other_struct.node_volume))
+    return false;
+  if (!mojo::Equals(this->input_node_gain, other_struct.input_node_gain))
+    return false;
+  return true;
+}
+
+template <typename T, AudioNodeInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.id < rhs.id)
+    return true;
+  if (rhs.id < lhs.id)
+    return false;
+  if (lhs.name < rhs.name)
+    return true;
+  if (rhs.name < lhs.name)
+    return false;
+  if (lhs.device_name < rhs.device_name)
+    return true;
+  if (rhs.device_name < lhs.device_name)
+    return false;
+  if (lhs.active < rhs.active)
+    return true;
+  if (rhs.active < lhs.active)
+    return false;
+  if (lhs.node_volume < rhs.node_volume)
+    return true;
+  if (rhs.node_volume < lhs.node_volume)
+    return false;
+  if (lhs.input_node_gain < rhs.input_node_gain)
+    return true;
+  if (rhs.input_node_gain < lhs.input_node_gain)
     return false;
   return false;
 }
@@ -18663,7 +18904,57 @@ struct  StructTraits<::ash::cros_healthd::mojom::AudioInfo::DataView,
     return input->severe_underruns;
   }
 
+  static const decltype(::ash::cros_healthd::mojom::AudioInfo::output_nodes)& output_nodes(
+      const ::ash::cros_healthd::mojom::AudioInfoPtr& input) {
+    return input->output_nodes;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::AudioInfo::input_nodes)& input_nodes(
+      const ::ash::cros_healthd::mojom::AudioInfoPtr& input) {
+    return input->input_nodes;
+  }
+
   static bool Read(::ash::cros_healthd::mojom::AudioInfo::DataView input, ::ash::cros_healthd::mojom::AudioInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::AudioNodeInfo::DataView,
+                                         ::ash::cros_healthd::mojom::AudioNodeInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::AudioNodeInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::AudioNodeInfoPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::AudioNodeInfo::id) id(
+      const ::ash::cros_healthd::mojom::AudioNodeInfoPtr& input) {
+    return input->id;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::AudioNodeInfo::name)& name(
+      const ::ash::cros_healthd::mojom::AudioNodeInfoPtr& input) {
+    return input->name;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::AudioNodeInfo::device_name)& device_name(
+      const ::ash::cros_healthd::mojom::AudioNodeInfoPtr& input) {
+    return input->device_name;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::AudioNodeInfo::active) active(
+      const ::ash::cros_healthd::mojom::AudioNodeInfoPtr& input) {
+    return input->active;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::AudioNodeInfo::node_volume) node_volume(
+      const ::ash::cros_healthd::mojom::AudioNodeInfoPtr& input) {
+    return input->node_volume;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::AudioNodeInfo::input_node_gain) input_node_gain(
+      const ::ash::cros_healthd::mojom::AudioNodeInfoPtr& input) {
+    return input->input_node_gain;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::AudioNodeInfo::DataView input, ::ash::cros_healthd::mojom::AudioNodeInfoPtr* output);
 };
 
 

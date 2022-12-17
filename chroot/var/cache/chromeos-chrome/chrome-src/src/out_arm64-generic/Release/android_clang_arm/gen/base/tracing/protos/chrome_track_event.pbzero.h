@@ -32,6 +32,8 @@ class RenderFrameHost;
 class RenderProcessHost;
 class SiteInstance;
 class SiteInstanceGroup;
+class V8StackFrame;
+class V8StackFrame_ScriptLocation;
 namespace perfetto_pbzero_enum_AndroidToolbar {
 enum AllowCaptureReason : int32_t;
 }  // namespace perfetto_pbzero_enum_AndroidToolbar
@@ -2239,7 +2241,7 @@ class BlinkHighEntropyAPI_JSFunctionArgument : public ::protozero::Message {
   }
 };
 
-class BlinkSourceLocation_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/6, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class BlinkSourceLocation_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/7, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   BlinkSourceLocation_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit BlinkSourceLocation_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -2256,6 +2258,8 @@ class BlinkSourceLocation_Decoder : public ::protozero::TypedProtoDecoder</*MAX_
   int32_t column_number() const { return at<5>().as_int32(); }
   bool has_stack_trace() const { return at<6>().valid(); }
   ::protozero::ConstChars stack_trace() const { return at<6>().as_string(); }
+  bool has_stack_frames() const { return at<7>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> stack_frames() const { return GetRepeated<::protozero::ConstBytes>(7); }
 };
 
 class BlinkSourceLocation : public ::protozero::Message {
@@ -2268,6 +2272,7 @@ class BlinkSourceLocation : public ::protozero::Message {
     kLineNumberFieldNumber = 4,
     kColumnNumberFieldNumber = 5,
     kStackTraceFieldNumber = 6,
+    kStackFramesFieldNumber = 7,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.BlinkSourceLocation"; }
 
@@ -2439,6 +2444,27 @@ class BlinkSourceLocation : public ::protozero::Message {
       ::protozero::proto_utils::ProtoSchemaType::kString>
         ::Append(*this, field_id, value);
   }
+
+  using FieldMetadata_StackFrames =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      V8StackFrame,
+      BlinkSourceLocation>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_StackFrames kStackFrames() { return {}; }
+  template <typename T = V8StackFrame> T* add_stack_frames() {
+    return BeginNestedMessage<T>(7);
+  }
+
 };
 
 class BlinkExecutionContext_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
@@ -2560,6 +2586,187 @@ class BlinkExecutionContext : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class V8StackFrame_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  V8StackFrame_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit V8StackFrame_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit V8StackFrame_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_function_name() const { return at<1>().valid(); }
+  ::protozero::ConstChars function_name() const { return at<1>().as_string(); }
+  bool has_script_location() const { return at<2>().valid(); }
+  ::protozero::ConstBytes script_location() const { return at<2>().as_bytes(); }
+};
+
+class V8StackFrame : public ::protozero::Message {
+ public:
+  using Decoder = V8StackFrame_Decoder;
+  enum : int32_t {
+    kFunctionNameFieldNumber = 1,
+    kScriptLocationFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.V8StackFrame"; }
+
+  using ScriptLocation = ::perfetto::protos::pbzero::V8StackFrame_ScriptLocation;
+
+  using FieldMetadata_FunctionName =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      V8StackFrame>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_FunctionName kFunctionName() { return {}; }
+  void set_function_name(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_FunctionName::kFieldId, data, size);
+  }
+  void set_function_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_FunctionName::kFieldId, chars.data, chars.size);
+  }
+  void set_function_name(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_FunctionName::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ScriptLocation =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      V8StackFrame_ScriptLocation,
+      V8StackFrame>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_ScriptLocation kScriptLocation() { return {}; }
+  template <typename T = V8StackFrame_ScriptLocation> T* set_script_location() {
+    return BeginNestedMessage<T>(2);
+  }
+
+};
+
+class V8StackFrame_ScriptLocation_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  V8StackFrame_ScriptLocation_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit V8StackFrame_ScriptLocation_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit V8StackFrame_ScriptLocation_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_source_url() const { return at<1>().valid(); }
+  ::protozero::ConstChars source_url() const { return at<1>().as_string(); }
+  bool has_line_number() const { return at<2>().valid(); }
+  int64_t line_number() const { return at<2>().as_int64(); }
+  bool has_column_number() const { return at<3>().valid(); }
+  int64_t column_number() const { return at<3>().as_int64(); }
+};
+
+class V8StackFrame_ScriptLocation : public ::protozero::Message {
+ public:
+  using Decoder = V8StackFrame_ScriptLocation_Decoder;
+  enum : int32_t {
+    kSourceUrlFieldNumber = 1,
+    kLineNumberFieldNumber = 2,
+    kColumnNumberFieldNumber = 3,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.V8StackFrame.ScriptLocation"; }
+
+
+  using FieldMetadata_SourceUrl =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      V8StackFrame_ScriptLocation>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_SourceUrl kSourceUrl() { return {}; }
+  void set_source_url(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_SourceUrl::kFieldId, data, size);
+  }
+  void set_source_url(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_SourceUrl::kFieldId, chars.data, chars.size);
+  }
+  void set_source_url(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_SourceUrl::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LineNumber =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      V8StackFrame_ScriptLocation>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_LineNumber kLineNumber() { return {}; }
+  void set_line_number(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_LineNumber::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ColumnNumber =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      V8StackFrame_ScriptLocation>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_ColumnNumber kColumnNumber() { return {}; }
+  void set_column_number(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_ColumnNumber::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
         ::Append(*this, field_id, value);
   }
 };

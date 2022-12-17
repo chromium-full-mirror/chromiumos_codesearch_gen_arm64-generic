@@ -98,6 +98,8 @@ class WirelessLinkInfoDataView;
 
 class AudioInfoDataView;
 
+class AudioNodeInfoDataView;
+
 class AudioHardwareInfoDataView;
 
 class AudioCardDataView;
@@ -407,6 +409,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::WirelessLinkInfoDataView> {
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioInfoDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::AudioInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioNodeInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::AudioNodeInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -3799,8 +3808,99 @@ class AudioInfoDataView {
   uint32_t severe_underruns() const {
     return data_->severe_underruns;
   }
+  inline void GetOutputNodesDataView(
+      mojo::ArrayDataView<AudioNodeInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOutputNodes(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<::ash::cros_healthd::mojom::AudioNodeInfoDataView>, UserType>(),
+    "Attempting to read the optional `output_nodes` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadOutputNodes` instead "
+    "of `ReadOutputNodes if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->output_nodes.Get() : nullptr;
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::AudioNodeInfoDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetInputNodesDataView(
+      mojo::ArrayDataView<AudioNodeInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInputNodes(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<::ash::cros_healthd::mojom::AudioNodeInfoDataView>, UserType>(),
+    "Attempting to read the optional `input_nodes` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadInputNodes` instead "
+    "of `ReadInputNodes if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->input_nodes.Get() : nullptr;
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::AudioNodeInfoDataView>>(
+        pointer, output, message_);
+  }
  private:
   internal::AudioInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class AudioNodeInfoDataView {
+ public:
+  AudioNodeInfoDataView() = default;
+
+  AudioNodeInfoDataView(
+      internal::AudioNodeInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  uint64_t id() const {
+    return data_->id;
+  }
+  inline void GetNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadName(UserType* output) {
+    
+    auto* pointer = data_->name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetDeviceNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDeviceName(UserType* output) {
+    
+    auto* pointer = data_->device_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  bool active() const {
+    return data_->active;
+  }
+  uint8_t node_volume() const {
+    return data_->node_volume;
+  }
+  uint8_t input_node_gain() const {
+    return data_->input_node_gain;
+  }
+ private:
+  internal::AudioNodeInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -9912,6 +10012,26 @@ struct Serializer<::ash::cros_healthd::mojom::AudioInfoDataView, MaybeConstUserT
         "null input_device_name in AudioInfo struct");
     fragment->underruns = Traits::underruns(input);
     fragment->severe_underruns = Traits::severe_underruns(input);
+    decltype(Traits::output_nodes(input)) in_output_nodes = Traits::output_nodes(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->output_nodes)::BaseType>
+        output_nodes_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& output_nodes_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::AudioNodeInfoDataView>>(
+        in_output_nodes, output_nodes_fragment, &output_nodes_validate_params);
+    fragment->output_nodes.Set(
+        output_nodes_fragment.is_null() ? nullptr : output_nodes_fragment.data());
+    decltype(Traits::input_nodes(input)) in_input_nodes = Traits::input_nodes(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->input_nodes)::BaseType>
+        input_nodes_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& input_nodes_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::AudioNodeInfoDataView>>(
+        in_input_nodes, input_nodes_fragment, &input_nodes_validate_params);
+    fragment->input_nodes.Set(
+        input_nodes_fragment.is_null() ? nullptr : input_nodes_fragment.data());
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::AudioInfo_Data* input,
@@ -9921,6 +10041,63 @@ struct Serializer<::ash::cros_healthd::mojom::AudioInfoDataView, MaybeConstUserT
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::AudioInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::AudioNodeInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::AudioNodeInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::AudioNodeInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->id = Traits::id(input);
+    decltype(Traits::name(input)) in_name = Traits::name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->name)::BaseType> name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_name, name_fragment);
+    fragment->name.Set(
+        name_fragment.is_null() ? nullptr : name_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->name.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null name in AudioNodeInfo struct");
+    decltype(Traits::device_name(input)) in_device_name = Traits::device_name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->device_name)::BaseType> device_name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_device_name, device_name_fragment);
+    fragment->device_name.Set(
+        device_name_fragment.is_null() ? nullptr : device_name_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->device_name.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null device_name in AudioNodeInfo struct");
+    fragment->active = Traits::active(input);
+    fragment->node_volume = Traits::node_volume(input);
+    fragment->input_node_gain = Traits::input_node_gain(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::AudioNodeInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::AudioNodeInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -14327,6 +14504,30 @@ inline void AudioInfoDataView::GetOutputDeviceNameDataView(
 inline void AudioInfoDataView::GetInputDeviceNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->input_device_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void AudioInfoDataView::GetOutputNodesDataView(
+    mojo::ArrayDataView<AudioNodeInfoDataView>* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->output_nodes.Get() : nullptr;
+  *output = mojo::ArrayDataView<AudioNodeInfoDataView>(pointer, message_);
+}
+inline void AudioInfoDataView::GetInputNodesDataView(
+    mojo::ArrayDataView<AudioNodeInfoDataView>* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->input_nodes.Get() : nullptr;
+  *output = mojo::ArrayDataView<AudioNodeInfoDataView>(pointer, message_);
+}
+
+
+inline void AudioNodeInfoDataView::GetNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void AudioNodeInfoDataView::GetDeviceNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->device_name.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 
