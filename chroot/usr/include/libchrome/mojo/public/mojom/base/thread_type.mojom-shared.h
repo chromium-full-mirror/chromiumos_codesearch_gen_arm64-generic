@@ -46,17 +46,19 @@ enum class ThreadType : int32_t {
   
   kBackground = 0,
   
-  kResourceEfficient = 1,
+  kUtility = 1,
   
-  kDefault = 2,
+  kResourceEfficient = 2,
   
-  kCompositing = 3,
+  kDefault = 3,
   
-  kDisplayCritical = 4,
+  kCompositing = 4,
   
-  kRealtimeAudio = 5,
+  kDisplayCritical = 5,
+  
+  kRealtimeAudio = 6,
   kMinValue = 0,
-  kMaxValue = 5,
+  kMaxValue = 6,
 };
 
  std::ostream& operator<<(std::ostream& os, ThreadType value);
