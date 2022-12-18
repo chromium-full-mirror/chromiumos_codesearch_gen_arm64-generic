@@ -957,6 +957,7 @@ class  BitstreamBufferMetadata_Data {
   int32_t qp;
   uint8_t pad3_[4];
   internal::CodecMetadata_Data codec_metadata;
+  mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> encoded_size;
 
  private:
   friend class mojo::internal::MessageFragment<BitstreamBufferMetadata_Data>;
@@ -964,7 +965,7 @@ class  BitstreamBufferMetadata_Data {
   BitstreamBufferMetadata_Data();
   ~BitstreamBufferMetadata_Data() = delete;
 };
-static_assert(sizeof(BitstreamBufferMetadata_Data) == 48,
+static_assert(sizeof(BitstreamBufferMetadata_Data) == 56,
               "Bad sizeof(BitstreamBufferMetadata_Data)");
 // Used by BitstreamBufferMetadata::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

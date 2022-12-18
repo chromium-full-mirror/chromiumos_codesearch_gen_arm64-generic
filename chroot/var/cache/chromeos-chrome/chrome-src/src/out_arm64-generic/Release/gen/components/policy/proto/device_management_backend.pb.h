@@ -1317,11 +1317,12 @@ AppInfo_AppType_TYPE_CROSTINI = 3,
 AppInfo_AppType_TYPE_EXTENSION = 4,
 AppInfo_AppType_TYPE_WEB = 5,
 AppInfo_AppType_TYPE_PLUGINVM = 6,
-AppInfo_AppType_TYPE_BOREALIS = 7
+AppInfo_AppType_TYPE_BOREALIS = 7,
+AppInfo_AppType_TYPE_BRUSCHETTA = 8
 };
 POLICY_PROTO_EXPORT bool AppInfo_AppType_IsValid(int value);
 constexpr AppInfo_AppType AppInfo_AppType_AppType_MIN = AppInfo_AppType_TYPE_UNKNOWN;
-constexpr AppInfo_AppType AppInfo_AppType_AppType_MAX = AppInfo_AppType_TYPE_BOREALIS;
+constexpr AppInfo_AppType AppInfo_AppType_AppType_MAX = AppInfo_AppType_TYPE_BRUSCHETTA;
 constexpr int AppInfo_AppType_AppType_ARRAYSIZE = AppInfo_AppType_AppType_MAX + 1;
 
 const std::string& AppInfo_AppType_Name(AppInfo_AppType value);
@@ -2394,11 +2395,12 @@ App_AppType_CROSTINI = 3,
 App_AppType_EXTENSION = 4,
 App_AppType_WEB = 5,
 App_AppType_PLUGIN_VM = 6,
-App_AppType_BOREALIS = 7
+App_AppType_BOREALIS = 7,
+App_AppType_BRUSCHETTA = 8
 };
 POLICY_PROTO_EXPORT bool App_AppType_IsValid(int value);
 constexpr App_AppType App_AppType_AppType_MIN = App_AppType_UNKNOWN;
-constexpr App_AppType App_AppType_AppType_MAX = App_AppType_BOREALIS;
+constexpr App_AppType App_AppType_AppType_MAX = App_AppType_BRUSCHETTA;
 constexpr int App_AppType_AppType_ARRAYSIZE = App_AppType_AppType_MAX + 1;
 
 const std::string& App_AppType_Name(App_AppType value);
@@ -17823,6 +17825,8 @@ static constexpr AppType TYPE_PLUGINVM =
 AppInfo_AppType_TYPE_PLUGINVM;
 static constexpr AppType TYPE_BOREALIS =
 AppInfo_AppType_TYPE_BOREALIS;
+static constexpr AppType TYPE_BRUSCHETTA =
+AppInfo_AppType_TYPE_BRUSCHETTA;
 static inline bool AppType_IsValid(int value) {
 return AppInfo_AppType_IsValid(value);
 }
@@ -36532,6 +36536,8 @@ static constexpr AppType PLUGIN_VM =
 App_AppType_PLUGIN_VM;
 static constexpr AppType BOREALIS =
 App_AppType_BOREALIS;
+static constexpr AppType BRUSCHETTA =
+App_AppType_BRUSCHETTA;
 static inline bool AppType_IsValid(int value) {
 return App_AppType_IsValid(value);
 }

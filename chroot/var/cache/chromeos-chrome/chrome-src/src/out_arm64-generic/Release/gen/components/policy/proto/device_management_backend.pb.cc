@@ -4584,17 +4584,19 @@ bool AppInfo_AppType_IsValid(int value) {
     case 5:
     case 6:
     case 7:
+    case 8:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AppInfo_AppType_strings[8] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AppInfo_AppType_strings[9] = {};
 
 static const char AppInfo_AppType_names[] =
   "TYPE_ARC"
   "TYPE_BOREALIS"
+  "TYPE_BRUSCHETTA"
   "TYPE_BUILTIN"
   "TYPE_CROSTINI"
   "TYPE_EXTENSION"
@@ -4605,23 +4607,25 @@ static const char AppInfo_AppType_names[] =
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AppInfo_AppType_entries[] = {
   { {AppInfo_AppType_names + 0, 8}, 1 },
   { {AppInfo_AppType_names + 8, 13}, 7 },
-  { {AppInfo_AppType_names + 21, 12}, 2 },
-  { {AppInfo_AppType_names + 33, 13}, 3 },
-  { {AppInfo_AppType_names + 46, 14}, 4 },
-  { {AppInfo_AppType_names + 60, 13}, 6 },
-  { {AppInfo_AppType_names + 73, 12}, 0 },
-  { {AppInfo_AppType_names + 85, 8}, 5 },
+  { {AppInfo_AppType_names + 21, 15}, 8 },
+  { {AppInfo_AppType_names + 36, 12}, 2 },
+  { {AppInfo_AppType_names + 48, 13}, 3 },
+  { {AppInfo_AppType_names + 61, 14}, 4 },
+  { {AppInfo_AppType_names + 75, 13}, 6 },
+  { {AppInfo_AppType_names + 88, 12}, 0 },
+  { {AppInfo_AppType_names + 100, 8}, 5 },
 };
 
 static const int AppInfo_AppType_entries_by_number[] = {
-  6, // 0 -> TYPE_UNKNOWN
+  7, // 0 -> TYPE_UNKNOWN
   0, // 1 -> TYPE_ARC
-  2, // 2 -> TYPE_BUILTIN
-  3, // 3 -> TYPE_CROSTINI
-  4, // 4 -> TYPE_EXTENSION
-  7, // 5 -> TYPE_WEB
-  5, // 6 -> TYPE_PLUGINVM
+  3, // 2 -> TYPE_BUILTIN
+  4, // 3 -> TYPE_CROSTINI
+  5, // 4 -> TYPE_EXTENSION
+  8, // 5 -> TYPE_WEB
+  6, // 6 -> TYPE_PLUGINVM
   1, // 7 -> TYPE_BOREALIS
+  2, // 8 -> TYPE_BRUSCHETTA
 };
 
 const std::string& AppInfo_AppType_Name(
@@ -4630,12 +4634,12 @@ const std::string& AppInfo_AppType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           AppInfo_AppType_entries,
           AppInfo_AppType_entries_by_number,
-          8, AppInfo_AppType_strings);
+          9, AppInfo_AppType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       AppInfo_AppType_entries,
       AppInfo_AppType_entries_by_number,
-      8, value);
+      9, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      AppInfo_AppType_strings[idx].get();
 }
@@ -4643,7 +4647,7 @@ bool AppInfo_AppType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AppInfo_AppType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      AppInfo_AppType_entries, 8, name, &int_value);
+      AppInfo_AppType_entries, 9, name, &int_value);
   if (success) {
     *value = static_cast<AppInfo_AppType>(int_value);
   }
@@ -4658,6 +4662,7 @@ constexpr AppInfo_AppType AppInfo::TYPE_EXTENSION;
 constexpr AppInfo_AppType AppInfo::TYPE_WEB;
 constexpr AppInfo_AppType AppInfo::TYPE_PLUGINVM;
 constexpr AppInfo_AppType AppInfo::TYPE_BOREALIS;
+constexpr AppInfo_AppType AppInfo::TYPE_BRUSCHETTA;
 constexpr AppInfo_AppType AppInfo::AppType_MIN;
 constexpr AppInfo_AppType AppInfo::AppType_MAX;
 constexpr int AppInfo::AppType_ARRAYSIZE;
@@ -8378,17 +8383,19 @@ bool App_AppType_IsValid(int value) {
     case 5:
     case 6:
     case 7:
+    case 8:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> App_AppType_strings[8] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> App_AppType_strings[9] = {};
 
 static const char App_AppType_names[] =
   "ARC"
   "BOREALIS"
+  "BRUSCHETTA"
   "BUILT_IN"
   "CROSTINI"
   "EXTENSION"
@@ -8399,23 +8406,25 @@ static const char App_AppType_names[] =
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry App_AppType_entries[] = {
   { {App_AppType_names + 0, 3}, 1 },
   { {App_AppType_names + 3, 8}, 7 },
-  { {App_AppType_names + 11, 8}, 2 },
-  { {App_AppType_names + 19, 8}, 3 },
-  { {App_AppType_names + 27, 9}, 4 },
-  { {App_AppType_names + 36, 9}, 6 },
-  { {App_AppType_names + 45, 7}, 0 },
-  { {App_AppType_names + 52, 3}, 5 },
+  { {App_AppType_names + 11, 10}, 8 },
+  { {App_AppType_names + 21, 8}, 2 },
+  { {App_AppType_names + 29, 8}, 3 },
+  { {App_AppType_names + 37, 9}, 4 },
+  { {App_AppType_names + 46, 9}, 6 },
+  { {App_AppType_names + 55, 7}, 0 },
+  { {App_AppType_names + 62, 3}, 5 },
 };
 
 static const int App_AppType_entries_by_number[] = {
-  6, // 0 -> UNKNOWN
+  7, // 0 -> UNKNOWN
   0, // 1 -> ARC
-  2, // 2 -> BUILT_IN
-  3, // 3 -> CROSTINI
-  4, // 4 -> EXTENSION
-  7, // 5 -> WEB
-  5, // 6 -> PLUGIN_VM
+  3, // 2 -> BUILT_IN
+  4, // 3 -> CROSTINI
+  5, // 4 -> EXTENSION
+  8, // 5 -> WEB
+  6, // 6 -> PLUGIN_VM
   1, // 7 -> BOREALIS
+  2, // 8 -> BRUSCHETTA
 };
 
 const std::string& App_AppType_Name(
@@ -8424,12 +8433,12 @@ const std::string& App_AppType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           App_AppType_entries,
           App_AppType_entries_by_number,
-          8, App_AppType_strings);
+          9, App_AppType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       App_AppType_entries,
       App_AppType_entries_by_number,
-      8, value);
+      9, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      App_AppType_strings[idx].get();
 }
@@ -8437,7 +8446,7 @@ bool App_AppType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, App_AppType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      App_AppType_entries, 8, name, &int_value);
+      App_AppType_entries, 9, name, &int_value);
   if (success) {
     *value = static_cast<App_AppType>(int_value);
   }
@@ -8452,6 +8461,7 @@ constexpr App_AppType App::EXTENSION;
 constexpr App_AppType App::WEB;
 constexpr App_AppType App::PLUGIN_VM;
 constexpr App_AppType App::BOREALIS;
+constexpr App_AppType App::BRUSCHETTA;
 constexpr App_AppType App::AppType_MIN;
 constexpr App_AppType App::AppType_MAX;
 constexpr int App::AppType_ARRAYSIZE;

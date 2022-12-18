@@ -311,6 +311,7 @@ CORE_EXPORT extern const char* FailedPrecondition;
 CORE_EXPORT extern const char* ResourceExhausted;
 CORE_EXPORT extern const char* AlreadyExists;
 CORE_EXPORT extern const char* Unavailable;
+CORE_EXPORT extern const char* Unauthorized;
 CORE_EXPORT extern const char* BadResponse;
 CORE_EXPORT extern const char* InternalError;
 CORE_EXPORT extern const char* UnknownError;

@@ -916,6 +916,26 @@ static_assert(
     return mojo::internal::Deserialize<::media::mojom::CodecMetadataDataView>(
         pointer, output, message_);
   }
+  inline void GetEncodedSizeDataView(
+      ::gfx::mojom::SizeDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadEncodedSize(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::gfx::mojom::SizeDataView, UserType>(),
+    "Attempting to read the optional `encoded_size` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadEncodedSize` instead "
+    "of `ReadEncodedSize if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->encoded_size.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::SizeDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::BitstreamBufferMetadata_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -1809,6 +1829,14 @@ struct Serializer<::media::mojom::BitstreamBufferMetadataDataView, MaybeConstUse
     codec_metadata_fragment.Claim(&fragment->codec_metadata);
     mojo::internal::Serialize<::media::mojom::CodecMetadataDataView>(
         in_codec_metadata, codec_metadata_fragment, true);
+    decltype(Traits::encoded_size(input)) in_encoded_size = Traits::encoded_size(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->encoded_size)::BaseType> encoded_size_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::gfx::mojom::SizeDataView>(
+        in_encoded_size, encoded_size_fragment);
+    fragment->encoded_size.Set(
+        encoded_size_fragment.is_null() ? nullptr : encoded_size_fragment.data());
   }
 
   static bool Deserialize(::media::mojom::internal::BitstreamBufferMetadata_Data* input,
@@ -2122,6 +2150,11 @@ inline void BitstreamBufferMetadataDataView::GetCodecMetadataDataView(
     CodecMetadataDataView* output) {
   auto pointer = &data_->codec_metadata;
   *output = CodecMetadataDataView(pointer, message_);
+}
+inline void BitstreamBufferMetadataDataView::GetEncodedSizeDataView(
+    ::gfx::mojom::SizeDataView* output) {
+  auto pointer = data_->encoded_size.Get();
+  *output = ::gfx::mojom::SizeDataView(pointer, message_);
 }
 
 

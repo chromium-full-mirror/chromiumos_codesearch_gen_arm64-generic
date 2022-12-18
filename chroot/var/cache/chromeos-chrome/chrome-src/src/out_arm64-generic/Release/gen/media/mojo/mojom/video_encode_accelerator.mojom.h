@@ -2763,7 +2763,8 @@ class  BitstreamBufferMetadata {
       bool key_frame,
       ::base::TimeDelta timestamp,
       int32_t qp,
-      CodecMetadataPtr codec_metadata);
+      CodecMetadataPtr codec_metadata,
+      const absl::optional<::gfx::Size>& encoded_size);
 
 BitstreamBufferMetadata(const BitstreamBufferMetadata&) = delete;
 BitstreamBufferMetadata& operator=(const BitstreamBufferMetadata&) = delete;
@@ -2849,6 +2850,8 @@ BitstreamBufferMetadata& operator=(const BitstreamBufferMetadata&) = delete;
   int32_t qp;
   
   CodecMetadataPtr codec_metadata;
+  
+  absl::optional<::gfx::Size> encoded_size;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -3566,7 +3569,8 @@ BitstreamBufferMetadataPtr BitstreamBufferMetadata::Clone() const {
       mojo::Clone(key_frame),
       mojo::Clone(timestamp),
       mojo::Clone(qp),
-      mojo::Clone(codec_metadata)
+      mojo::Clone(codec_metadata),
+      mojo::Clone(encoded_size)
   );
 }
 
@@ -3581,6 +3585,8 @@ bool BitstreamBufferMetadata::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->qp, other_struct.qp))
     return false;
   if (!mojo::Equals(this->codec_metadata, other_struct.codec_metadata))
+    return false;
+  if (!mojo::Equals(this->encoded_size, other_struct.encoded_size))
     return false;
   return true;
 }
@@ -3606,6 +3612,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.codec_metadata < rhs.codec_metadata)
     return true;
   if (rhs.codec_metadata < lhs.codec_metadata)
+    return false;
+  if (lhs.encoded_size < rhs.encoded_size)
+    return true;
+  if (rhs.encoded_size < lhs.encoded_size)
     return false;
   return false;
 }
@@ -4071,6 +4081,11 @@ struct  StructTraits<::media::mojom::BitstreamBufferMetadata::DataView,
   static const decltype(::media::mojom::BitstreamBufferMetadata::codec_metadata)& codec_metadata(
       const ::media::mojom::BitstreamBufferMetadataPtr& input) {
     return input->codec_metadata;
+  }
+
+  static const decltype(::media::mojom::BitstreamBufferMetadata::encoded_size)& encoded_size(
+      const ::media::mojom::BitstreamBufferMetadataPtr& input) {
+    return input->encoded_size;
   }
 
   static bool Read(::media::mojom::BitstreamBufferMetadata::DataView input, ::media::mojom::BitstreamBufferMetadataPtr* output);

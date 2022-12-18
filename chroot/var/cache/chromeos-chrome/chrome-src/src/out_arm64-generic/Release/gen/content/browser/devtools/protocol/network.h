@@ -338,6 +338,7 @@ CONTENT_EXPORT extern const char* FailedPrecondition;
 CONTENT_EXPORT extern const char* ResourceExhausted;
 CONTENT_EXPORT extern const char* AlreadyExists;
 CONTENT_EXPORT extern const char* Unavailable;
+CONTENT_EXPORT extern const char* Unauthorized;
 CONTENT_EXPORT extern const char* BadResponse;
 CONTENT_EXPORT extern const char* InternalError;
 CONTENT_EXPORT extern const char* UnknownError;

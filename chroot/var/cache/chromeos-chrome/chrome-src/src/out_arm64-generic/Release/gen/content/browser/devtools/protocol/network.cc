@@ -924,6 +924,7 @@ const char* FailedPrecondition = "FailedPrecondition";
 const char* ResourceExhausted = "ResourceExhausted";
 const char* AlreadyExists = "AlreadyExists";
 const char* Unavailable = "Unavailable";
+const char* Unauthorized = "Unauthorized";
 const char* BadResponse = "BadResponse";
 const char* InternalError = "InternalError";
 const char* UnknownError = "UnknownError";
