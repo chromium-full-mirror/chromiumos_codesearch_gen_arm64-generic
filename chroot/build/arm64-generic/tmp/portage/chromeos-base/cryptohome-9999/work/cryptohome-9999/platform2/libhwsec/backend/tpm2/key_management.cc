@@ -19,6 +19,9 @@
 #include <libhwsec-foundation/crypto/rsa.h>
 #include <libhwsec-foundation/crypto/sha.h>
 #include <libhwsec-foundation/status/status_chain_macros.h>
+#include <tpm_manager/proto_bindings/tpm_manager.pb.h>
+#include <tpm_manager-client/tpm_manager/dbus-constants.h>
+#include <tpm_manager-client/tpm_manager/dbus-proxies.h>
 #include <trunks/tpm_utility.h>
 #include <openssl/bn.h>
 #include <openssl/evp.h>
@@ -27,7 +30,9 @@
 
 #include "libhwsec/backend/tpm2/backend.h"
 #include "libhwsec/error/tpm2_error.h"
+#include "libhwsec/error/tpm_manager_error.h"
 #include "libhwsec/status.h"
+#include "trunks/tpm_generated.h"
 
 using brillo::BlobFromString;
 using brillo::BlobToString;
@@ -176,6 +181,29 @@ bool IsKeyDataMatch(const KeyTpm2& key_data,
   return true;
 }
 
+StatusOr<brillo::SecureBlob> GetEndorsementPassword(
+    org::chromium::TpmManagerProxyInterface& tpm_manager) {
+  tpm_manager::GetTpmStatusRequest status_request;
+  tpm_manager::GetTpmStatusReply status_reply;
+
+  if (brillo::ErrorPtr err; !tpm_manager.GetTpmStatus(
+          status_request, &status_reply, &err, Proxy::kDefaultDBusTimeoutMs)) {
+    return MakeStatus<TPMError>(TPMRetryAction::kCommunication)
+        .Wrap(std::move(err));
+  }
+
+  RETURN_IF_ERROR(MakeStatus<TPMManagerError>(status_reply.status()));
+
+  brillo::SecureBlob password(status_reply.local_data().endorsement_password());
+
+  if (password.empty()) {
+    return MakeStatus<TPMError>("Empty endorsement password",
+                                TPMRetryAction::kLater);
+  }
+
+  return password;
+}
+
 }  // namespace
 
 KeyManagementTpm2::~KeyManagementTpm2() {
@@ -260,12 +288,11 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateRsaKey(
     const OperationPolicySetting& policy,
     const CreateKeyOptions& options,
     const LoadKeyOptions& load_key_options) {
-  ASSIGN_OR_RETURN(
-      const ConfigTpm2::PcrMap& setting,
-      backend_.GetConfigTpm2().ToSettingsPcrMap(policy.device_config_settings),
-      _.WithStatus<TPMError>("Failed to convert setting to PCR map"));
+  ASSIGN_OR_RETURN(const std::string& policy_digest,
+                   backend_.GetConfigTpm2().GetPolicyDigest(policy),
+                   _.WithStatus<TPMError>("Failed to get policy digest"));
 
-  if (options.allow_software_gen && setting.empty()) {
+  if (options.allow_software_gen && policy_digest.empty()) {
     return CreateSoftwareGenRsaKey(policy, options, load_key_options);
   }
 
@@ -275,20 +302,9 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateRsaKey(
                    GetKeyUsage(options),
                    _.WithStatus<TPMError>("Failed to get key usage"));
 
-  std::string policy_digest;
-  std::vector<uint32_t> pcr_list;
   bool use_only_policy_authorization = false;
 
-  if (!setting.empty()) {
-    RETURN_IF_ERROR(
-        MakeStatus<TPM2Error>(context.tpm_utility->GetPolicyDigestForPcrValues(
-            setting, policy.permission.auth_value.has_value(), &policy_digest)))
-        .WithStatus<TPMError>("Failed to get policy digest");
-
-    for (const auto& map_pair : setting) {
-      pcr_list.push_back(map_pair.first);
-    }
-
+  if (!policy_digest.empty()) {
     // We should not allow using the key without policy when the policy had been
     // set.
     use_only_policy_authorization = true;
@@ -301,7 +317,8 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateRsaKey(
   }
 
   std::string auth_value;
-  if (policy.permission.auth_value.has_value()) {
+  if (policy.permission.type == PermissionType::kAuthValue &&
+      policy.permission.auth_value.has_value()) {
     auth_value = policy.permission.auth_value.value().to_string();
   }
 
@@ -318,8 +335,8 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateRsaKey(
       MakeStatus<TPM2Error>(context.tpm_utility->CreateRSAKeyPair(
           usage, options.rsa_modulus_bits.value_or(kDefaultTpmRsaKeyBits),
           exponent, auth_value, policy_digest, use_only_policy_authorization,
-          pcr_list, delegate.get(), &tpm_key_blob,
-          nullptr /* No creation_blob */)))
+          /*creation_pcr_indexes=*/{}, delegate.get(), &tpm_key_blob,
+          /*creation_blob=*/nullptr)))
       .WithStatus<TPMError>("Failed to create RSA key");
 
   brillo::Blob key_blob = BlobFromString(tpm_key_blob);
@@ -503,32 +520,21 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateEccKey(
                    GetKeyUsage(options),
                    _.WithStatus<TPMError>("Failed to get key usage"));
 
-  std::string policy_digest;
-  std::vector<uint32_t> pcr_list;
   bool use_only_policy_authorization = false;
 
-  ASSIGN_OR_RETURN(
-      const ConfigTpm2::PcrMap& setting,
-      backend_.GetConfigTpm2().ToSettingsPcrMap(policy.device_config_settings),
-      _.WithStatus<TPMError>("Failed to convert setting to PCR map"));
+  ASSIGN_OR_RETURN(const std::string& policy_digest,
+                   backend_.GetConfigTpm2().GetPolicyDigest(policy),
+                   _.WithStatus<TPMError>("Failed to get policy digest"));
 
-  if (!setting.empty()) {
-    RETURN_IF_ERROR(
-        MakeStatus<TPM2Error>(context.tpm_utility->GetPolicyDigestForPcrValues(
-            setting, policy.permission.auth_value.has_value(), &policy_digest)))
-        .WithStatus<TPMError>("Failed to get policy digest");
-
-    for (const auto& map_pair : setting) {
-      pcr_list.push_back(map_pair.first);
-    }
-
+  if (!policy_digest.empty()) {
     // We should not allow using the key without policy when the policy had been
     // set.
     use_only_policy_authorization = true;
   }
 
   std::string auth_value;
-  if (policy.permission.auth_value.has_value()) {
+  if (policy.permission.type == PermissionType::kAuthValue &&
+      policy.permission.auth_value.has_value()) {
     auth_value = policy.permission.auth_value.value().to_string();
   }
 
@@ -547,10 +553,11 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateEccKey(
 
   std::string tpm_key_blob;
 
-  RETURN_IF_ERROR(MakeStatus<TPM2Error>(context.tpm_utility->CreateECCKeyPair(
-                      usage, curve, auth_value, policy_digest,
-                      use_only_policy_authorization, pcr_list, delegate.get(),
-                      &tpm_key_blob, /*creation_blob=*/nullptr)))
+  RETURN_IF_ERROR(
+      MakeStatus<TPM2Error>(context.tpm_utility->CreateECCKeyPair(
+          usage, curve, auth_value, policy_digest,
+          use_only_policy_authorization, /*creation_pcr_indexes=*/{},
+          delegate.get(), &tpm_key_blob, /*creation_blob=*/nullptr)))
       .WithStatus<TPMError>("Failed to create ECC key");
 
   brillo::Blob key_blob = BlobFromString(tpm_key_blob);
@@ -614,6 +621,66 @@ StatusOr<ScopedKey> KeyManagementTpm2::LoadKey(
   }
 
   return LoadKeyInternal(policy, key_type, key_handle, std::move(reload_data));
+}
+
+StatusOr<ScopedKey> KeyManagementTpm2::GetPolicyEndorsementKey(
+    const OperationPolicySetting& policy, KeyAlgoType key_algo) {
+  trunks::TPM_ALG_ID key_type;
+
+  switch (key_algo) {
+    case KeyAlgoType::kRsa:
+      key_type = trunks::TPM_ALG_RSA;
+      break;
+    case KeyAlgoType::kEcc:
+      key_type = trunks::TPM_ALG_ECC;
+      break;
+    default:
+      return MakeStatus<TPMError>(
+          "Unsupported policy endorsement key algorithm",
+          TPMRetryAction::kNoRetry);
+  }
+
+  if (policy.permission.auth_value.has_value() &&
+      policy.permission.type == PermissionType::kAuthValue) {
+    return MakeStatus<TPMError>(
+        "Policy endorsement key doesn't support session auth permission",
+        TPMRetryAction::kNoRetry);
+  }
+
+  ASSIGN_OR_RETURN(const std::string& policy_digest,
+                   backend_.GetConfigTpm2().GetPolicyDigest(policy),
+                   _.WithStatus<TPMError>("Failed to get policy digest"));
+
+  BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
+
+  ASSIGN_OR_RETURN(
+      const brillo::SecureBlob& endorsement_pass,
+      GetEndorsementPassword(backend_.GetProxy().GetTpmManager()),
+      _.WithStatus<TPMError>("Failed to get endorsement password"));
+
+  std::unique_ptr<trunks::AuthorizationDelegate> delegate =
+      context.factory.GetPasswordAuthorization(endorsement_pass.to_string());
+
+  trunks::TPM_HANDLE key_handle;
+  trunks::TPM2B_NAME key_name;
+
+  RETURN_IF_ERROR(
+      MakeStatus<TPM2Error>(context.tpm_utility->GetAuthPolicyEndorsementKey(
+          key_type, policy_digest, delegate.get(), &key_handle, &key_name)))
+      .WithStatus<TPMError>("Failed to get auth policy endorsement key");
+
+  ASSIGN_OR_RETURN(
+      const OperationPolicy& op_policy,
+      backend_.GetConfigTpm2().ToOperationPolicy(policy),
+      _.WithStatus<TPMError>("Failed to convert setting to policy"));
+
+  ASSIGN_OR_RETURN(
+      ScopedKey key,
+      LoadKeyInternal(op_policy, KeyTpm2::Type::kTransientKey, key_handle,
+                      /*reload_data=*/std::nullopt),
+      _.WithStatus<TPMError>("Failed to side load policy endorsement key"));
+
+  return key;
 }
 
 StatusOr<ScopedKey> KeyManagementTpm2::GetPersistentKey(

@@ -79,8 +79,9 @@ class ConfigTpm2 : public Backend::Config,
   // Creates the PCR value for PinWeaver digest.
   StatusOr<PcrValue> ToPcrValue(const DeviceConfigSettings& settings);
 
-  // Creates the policy digest from device config setting.
-  StatusOr<std::string> ToPolicyDigest(const DeviceConfigSettings& settings);
+  // Gets the policy digest from operation policy setting. Returns empty string
+  // if the the policy can be satisfied by HMAC session.
+  StatusOr<std::string> GetPolicyDigest(const OperationPolicySetting& policy);
 
  private:
   StatusOr<std::string> ReadPcr(uint32_t pcr_index);
