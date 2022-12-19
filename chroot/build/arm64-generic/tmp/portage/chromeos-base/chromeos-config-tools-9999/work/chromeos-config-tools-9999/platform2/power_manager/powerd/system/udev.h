@@ -14,6 +14,8 @@
 #include <base/files/file_path.h>
 #include <base/observer_list.h>
 
+#include "power_manager/powerd/system/tagged_device.h"
+
 struct udev;
 struct udev_device;
 struct udev_monitor;
@@ -99,7 +101,7 @@ class UdevInterface {
 // Actual implementation of UdevInterface.
 class Udev : public UdevInterface {
  public:
-  Udev();
+  Udev() = default;
   Udev(const Udev&) = delete;
   Udev& operator=(const Udev&) = delete;
 
@@ -169,8 +171,8 @@ class Udev : public UdevInterface {
   base::FilePath FindWakeCapableParent(const std::string& syspath);
 
   bool GetDeviceInfo(struct udev_device* dev, UdevDeviceInfo* device_info_out);
-  struct udev* udev_;
-  struct udev_monitor* udev_monitor_;
+  struct udev* udev_ = nullptr;
+  struct udev_monitor* udev_monitor_ = nullptr;
 
   // Maps from a subsystem name to the corresponding observers.
   std::map<std::string,

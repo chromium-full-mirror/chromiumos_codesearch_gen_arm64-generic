@@ -703,13 +703,15 @@ enum QueueName : int32_t {
   WORKER_THROTTLEABLE_TQ = 49,
   WORKER_UNPAUSABLE_TQ = 50,
   WORKER_WEB_SCHEDULING_TQ = 51,
+  UI_USER_BLOCKING_DEFERRABLE_TQ = 52,
+  IO_USER_BLOCKING_DEFERRABLE_TQ = 53,
 };
 } // namespace perfetto_pbzero_enum_SequenceManagerTask
 using SequenceManagerTask_QueueName = perfetto_pbzero_enum_SequenceManagerTask::QueueName;
 
 
 constexpr SequenceManagerTask_QueueName SequenceManagerTask_QueueName_MIN = SequenceManagerTask_QueueName::UNKNOWN_TQ;
-constexpr SequenceManagerTask_QueueName SequenceManagerTask_QueueName_MAX = SequenceManagerTask_QueueName::WORKER_WEB_SCHEDULING_TQ;
+constexpr SequenceManagerTask_QueueName SequenceManagerTask_QueueName_MAX = SequenceManagerTask_QueueName::IO_USER_BLOCKING_DEFERRABLE_TQ;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -870,6 +872,12 @@ const char* SequenceManagerTask_QueueName_Name(::perfetto::protos::pbzero::Seque
 
   case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::WORKER_WEB_SCHEDULING_TQ:
     return "WORKER_WEB_SCHEDULING_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::UI_USER_BLOCKING_DEFERRABLE_TQ:
+    return "UI_USER_BLOCKING_DEFERRABLE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IO_USER_BLOCKING_DEFERRABLE_TQ:
+    return "IO_USER_BLOCKING_DEFERRABLE_TQ";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -3212,6 +3220,8 @@ class SequenceManagerTask : public ::protozero::Message {
   static const QueueName WORKER_THROTTLEABLE_TQ = QueueName::WORKER_THROTTLEABLE_TQ;
   static const QueueName WORKER_UNPAUSABLE_TQ = QueueName::WORKER_UNPAUSABLE_TQ;
   static const QueueName WORKER_WEB_SCHEDULING_TQ = QueueName::WORKER_WEB_SCHEDULING_TQ;
+  static const QueueName UI_USER_BLOCKING_DEFERRABLE_TQ = QueueName::UI_USER_BLOCKING_DEFERRABLE_TQ;
+  static const QueueName IO_USER_BLOCKING_DEFERRABLE_TQ = QueueName::IO_USER_BLOCKING_DEFERRABLE_TQ;
 
   using FieldMetadata_Priority =
     ::protozero::proto_utils::FieldMetadata<

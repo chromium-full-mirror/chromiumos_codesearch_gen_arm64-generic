@@ -50,7 +50,7 @@ class AsyncFileReader {
   // Updates the state based on whether there is an ongoing file I/O.
   void UpdateState();
 
-  // Goes back to the idle state, cleans up allocated resouces.
+  // Goes back to the idle state, cleans up allocated resources.
   void Reset();
 
   // Initiates an AIO read operation.  This is a helper function for
@@ -61,7 +61,7 @@ class AsyncFileReader {
   void CancelUpdateStateTimeout();
 
   // Flag indicating whether there is an active AIO read.
-  bool read_in_progress_;
+  bool read_in_progress_ = false;
 
   // AIO control object.
   aiocb aio_control_;
@@ -70,7 +70,7 @@ class AsyncFileReader {
   base::FilePath path_;
 
   // File for AIO reads.
-  int fd_;
+  int fd_ = -1;
 
   // Buffer for AIO reads.
   std::unique_ptr<char[]> aio_buffer_;
