@@ -2287,6 +2287,14 @@ struct DataSourceStaticState {
     static_assert(sizeof(valid_instances.load()) * 8 >= kMaxDataSourceInstances,
                   "kMaxDataSourceInstances too high");
   }
+
+  void ResetForTesting() {
+    id = 0;
+    index = kMaxDataSources;
+    valid_instances.store(0, std::memory_order_release);
+    instances = {};
+    incremental_state_generation.store(0, std::memory_order_release);
+  }
 };
 
 // Per-DataSource-instance thread-local state.
@@ -2304,7 +2312,7 @@ struct DataSourceInstanceThreadLocalState {
   BufferId buffer_id = 0;
   uint64_t data_source_instance_id = 0;
   bool is_intercepted = false;
-  bool last_packet_was_empty = false;
+  uint64_t last_empty_packet_position = 0;
   uint16_t startup_target_buffer_reservation = 0;
 };
 
@@ -10692,17 +10700,18 @@ class DataSource : public DataSourceBase {
     // safely read the last event from the trace buffer.
     // See PERFETTO_INTERNAL_ADD_EMPTY_EVENT macros for context.
     void AddEmptyTracePacket() {
-      // Only add a new empty packet if the previous packet wasn't empty.
-      // Otherwise, there's nothing to flush, so adding more empty packets
-      // serves no purpose.
-      if (tls_inst_->last_packet_was_empty)
+      // If nothing was written since the last empty packet, there's nothing to
+      // scrape, so adding more empty packets serves no purpose.
+      if (tls_inst_->trace_writer->written() ==
+          tls_inst_->last_empty_packet_position) {
         return;
-      tls_inst_->last_packet_was_empty = true;
+      }
       tls_inst_->trace_writer->NewTracePacket();
+      tls_inst_->last_empty_packet_position =
+          tls_inst_->trace_writer->written();
     }
 
     TracePacketHandle NewTracePacket() {
-      tls_inst_->last_packet_was_empty = false;
       return tls_inst_->trace_writer->NewTracePacket();
     }
 
@@ -18194,8 +18203,9 @@ class TrackEventDataSource
   } while (false)
 
 // C++17 doesn't like a move constructor being defined for the EventFinalizer
-// class but C++11 doesn't compile without it being defined so support both.
-#if PERFETTO_IS_AT_LEAST_CPP17()
+// class but C++11 and MSVC doesn't compile without it being defined so support
+// both.
+#if PERFETTO_IS_AT_LEAST_CPP17() && !PERFETTO_BUILDFLAG(PERFETTO_COMPILER_MSVC)
 #define PERFETTO_INTERNAL_EVENT_FINALIZER_KEYWORD delete
 #else
 #define PERFETTO_INTERNAL_EVENT_FINALIZER_KEYWORD default
@@ -52311,6 +52321,10 @@ class KvmUserspaceExitFtraceEvent;
 class KvmVcpuWakeupFtraceEvent;
 class KvmWfxArm64FtraceEvent;
 class LowmemoryKillFtraceEvent;
+class LwisTracingMarkWriteFtraceEvent;
+class MaliMaliKCPUCQSSETFtraceEvent;
+class MaliMaliKCPUCQSWAITENDFtraceEvent;
+class MaliMaliKCPUCQSWAITSTARTFtraceEvent;
 class MaliTracingMarkWriteFtraceEvent;
 class MarkVictimFtraceEvent;
 class MdpCmdKickoffFtraceEvent;
@@ -52452,6 +52466,8 @@ class Vb2V4l2BufQueueFtraceEvent;
 class Vb2V4l2DqbufFtraceEvent;
 class Vb2V4l2QbufFtraceEvent;
 class VgicUpdateIrqPendingFtraceEvent;
+class VirtioGpuCmdQueueFtraceEvent;
+class VirtioGpuCmdResponseFtraceEvent;
 class VirtioVideoCmdDoneFtraceEvent;
 class VirtioVideoCmdFtraceEvent;
 class VirtioVideoResourceQueueDoneFtraceEvent;
@@ -52464,7 +52480,7 @@ class WorkqueueExecuteStartFtraceEvent;
 class WorkqueueQueueWorkFtraceEvent;
 class ZeroFtraceEvent;
 
-class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/466, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/472, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   FtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit FtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -53367,6 +53383,18 @@ class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes cma_alloc_start() const { return at<465>().as_bytes(); }
   bool has_cma_alloc_info() const { return at<466>().valid(); }
   ::protozero::ConstBytes cma_alloc_info() const { return at<466>().as_bytes(); }
+  bool has_lwis_tracing_mark_write() const { return at<467>().valid(); }
+  ::protozero::ConstBytes lwis_tracing_mark_write() const { return at<467>().as_bytes(); }
+  bool has_virtio_gpu_cmd_queue() const { return at<468>().valid(); }
+  ::protozero::ConstBytes virtio_gpu_cmd_queue() const { return at<468>().as_bytes(); }
+  bool has_virtio_gpu_cmd_response() const { return at<469>().valid(); }
+  ::protozero::ConstBytes virtio_gpu_cmd_response() const { return at<469>().as_bytes(); }
+  bool has_mali_mali_kcpu_cqs_set() const { return at<470>().valid(); }
+  ::protozero::ConstBytes mali_mali_kcpu_cqs_set() const { return at<470>().as_bytes(); }
+  bool has_mali_mali_kcpu_cqs_wait_start() const { return at<471>().valid(); }
+  ::protozero::ConstBytes mali_mali_kcpu_cqs_wait_start() const { return at<471>().as_bytes(); }
+  bool has_mali_mali_kcpu_cqs_wait_end() const { return at<472>().valid(); }
+  ::protozero::ConstBytes mali_mali_kcpu_cqs_wait_end() const { return at<472>().as_bytes(); }
 };
 
 class FtraceEvent : public ::protozero::Message {
@@ -53822,6 +53850,12 @@ class FtraceEvent : public ::protozero::Message {
     kTrustyEnqueueNopFieldNumber = 464,
     kCmaAllocStartFieldNumber = 465,
     kCmaAllocInfoFieldNumber = 466,
+    kLwisTracingMarkWriteFieldNumber = 467,
+    kVirtioGpuCmdQueueFieldNumber = 468,
+    kVirtioGpuCmdResponseFieldNumber = 469,
+    kMaliMaliKCPUCQSSETFieldNumber = 470,
+    kMaliMaliKCPUCQSWAITSTARTFieldNumber = 471,
+    kMaliMaliKCPUCQSWAITENDFieldNumber = 472,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.FtraceEvent"; }
 
@@ -63260,6 +63294,132 @@ class FtraceEvent : public ::protozero::Message {
   static constexpr FieldMetadata_CmaAllocInfo kCmaAllocInfo() { return {}; }
   template <typename T = CmaAllocInfoFtraceEvent> T* set_cma_alloc_info() {
     return BeginNestedMessage<T>(466);
+  }
+
+
+  using FieldMetadata_LwisTracingMarkWrite =
+    ::protozero::proto_utils::FieldMetadata<
+      467,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      LwisTracingMarkWriteFtraceEvent,
+      FtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_LwisTracingMarkWrite kLwisTracingMarkWrite() { return {}; }
+  template <typename T = LwisTracingMarkWriteFtraceEvent> T* set_lwis_tracing_mark_write() {
+    return BeginNestedMessage<T>(467);
+  }
+
+
+  using FieldMetadata_VirtioGpuCmdQueue =
+    ::protozero::proto_utils::FieldMetadata<
+      468,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      VirtioGpuCmdQueueFtraceEvent,
+      FtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_VirtioGpuCmdQueue kVirtioGpuCmdQueue() { return {}; }
+  template <typename T = VirtioGpuCmdQueueFtraceEvent> T* set_virtio_gpu_cmd_queue() {
+    return BeginNestedMessage<T>(468);
+  }
+
+
+  using FieldMetadata_VirtioGpuCmdResponse =
+    ::protozero::proto_utils::FieldMetadata<
+      469,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      VirtioGpuCmdResponseFtraceEvent,
+      FtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_VirtioGpuCmdResponse kVirtioGpuCmdResponse() { return {}; }
+  template <typename T = VirtioGpuCmdResponseFtraceEvent> T* set_virtio_gpu_cmd_response() {
+    return BeginNestedMessage<T>(469);
+  }
+
+
+  using FieldMetadata_MaliMaliKCPUCQSSET =
+    ::protozero::proto_utils::FieldMetadata<
+      470,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      MaliMaliKCPUCQSSETFtraceEvent,
+      FtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_MaliMaliKCPUCQSSET kMaliMaliKCPUCQSSET() { return {}; }
+  template <typename T = MaliMaliKCPUCQSSETFtraceEvent> T* set_mali_mali_kcpu_cqs_set() {
+    return BeginNestedMessage<T>(470);
+  }
+
+
+  using FieldMetadata_MaliMaliKCPUCQSWAITSTART =
+    ::protozero::proto_utils::FieldMetadata<
+      471,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      MaliMaliKCPUCQSWAITSTARTFtraceEvent,
+      FtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_MaliMaliKCPUCQSWAITSTART kMaliMaliKCPUCQSWAITSTART() { return {}; }
+  template <typename T = MaliMaliKCPUCQSWAITSTARTFtraceEvent> T* set_mali_mali_kcpu_cqs_wait_start() {
+    return BeginNestedMessage<T>(471);
+  }
+
+
+  using FieldMetadata_MaliMaliKCPUCQSWAITEND =
+    ::protozero::proto_utils::FieldMetadata<
+      472,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      MaliMaliKCPUCQSWAITENDFtraceEvent,
+      FtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_MaliMaliKCPUCQSWAITEND kMaliMaliKCPUCQSWAITEND() { return {}; }
+  template <typename T = MaliMaliKCPUCQSWAITENDFtraceEvent> T* set_mali_mali_kcpu_cqs_wait_end() {
+    return BeginNestedMessage<T>(472);
   }
 
 };
@@ -110398,6 +110558,198 @@ class LowmemoryKillFtraceEvent : public ::protozero::Message {
 } // Namespace.
 } // Namespace.
 #endif  // Include guard.
+// gen_amalgamated begin header: gen/protos/perfetto/trace/ftrace/lwis.pbzero.h
+// Autogenerated by the ProtoZero compiler plugin. DO NOT EDIT.
+
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_FTRACE_LWIS_PROTO_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_FTRACE_LWIS_PROTO_H_
+
+#include <stddef.h>
+#include <stdint.h>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/field_writer.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/message.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/packed_repeated_fields.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/proto_decoder.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/proto_utils.h"
+
+namespace perfetto {
+namespace protos {
+namespace pbzero {
+
+
+class LwisTracingMarkWriteFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  LwisTracingMarkWriteFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit LwisTracingMarkWriteFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit LwisTracingMarkWriteFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_lwis_name() const { return at<1>().valid(); }
+  ::protozero::ConstChars lwis_name() const { return at<1>().as_string(); }
+  bool has_type() const { return at<2>().valid(); }
+  uint32_t type() const { return at<2>().as_uint32(); }
+  bool has_pid() const { return at<3>().valid(); }
+  int32_t pid() const { return at<3>().as_int32(); }
+  bool has_func_name() const { return at<4>().valid(); }
+  ::protozero::ConstChars func_name() const { return at<4>().as_string(); }
+  bool has_value() const { return at<5>().valid(); }
+  int64_t value() const { return at<5>().as_int64(); }
+};
+
+class LwisTracingMarkWriteFtraceEvent : public ::protozero::Message {
+ public:
+  using Decoder = LwisTracingMarkWriteFtraceEvent_Decoder;
+  enum : int32_t {
+    kLwisNameFieldNumber = 1,
+    kTypeFieldNumber = 2,
+    kPidFieldNumber = 3,
+    kFuncNameFieldNumber = 4,
+    kValueFieldNumber = 5,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.LwisTracingMarkWriteFtraceEvent"; }
+
+
+  using FieldMetadata_LwisName =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      LwisTracingMarkWriteFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_LwisName kLwisName() { return {}; }
+  void set_lwis_name(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_LwisName::kFieldId, data, size);
+  }
+  void set_lwis_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_LwisName::kFieldId, chars.data, chars.size);
+  }
+  void set_lwis_name(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_LwisName::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Type =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      LwisTracingMarkWriteFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Type kType() { return {}; }
+  void set_type(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Pid =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      LwisTracingMarkWriteFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Pid kPid() { return {}; }
+  void set_pid(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Pid::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FuncName =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      LwisTracingMarkWriteFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_FuncName kFuncName() { return {}; }
+  void set_func_name(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_FuncName::kFieldId, data, size);
+  }
+  void set_func_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_FuncName::kFieldId, chars.data, chars.size);
+  }
+  void set_func_name(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_FuncName::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Value =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      LwisTracingMarkWriteFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Value kValue() { return {}; }
+  void set_value(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Value::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+};
+
+} // Namespace.
+} // Namespace.
+} // Namespace.
+#endif  // Include guard.
 // gen_amalgamated begin header: gen/protos/perfetto/trace/ftrace/mali.pbzero.h
 // Autogenerated by the ProtoZero compiler plugin. DO NOT EDIT.
 
@@ -110417,6 +110769,474 @@ namespace perfetto {
 namespace protos {
 namespace pbzero {
 
+
+class MaliMaliKCPUCQSWAITENDFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  MaliMaliKCPUCQSWAITENDFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit MaliMaliKCPUCQSWAITENDFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit MaliMaliKCPUCQSWAITENDFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_id() const { return at<1>().valid(); }
+  uint32_t id() const { return at<1>().as_uint32(); }
+  bool has_info_val1() const { return at<2>().valid(); }
+  uint64_t info_val1() const { return at<2>().as_uint64(); }
+  bool has_info_val2() const { return at<3>().valid(); }
+  uint64_t info_val2() const { return at<3>().as_uint64(); }
+  bool has_kctx_id() const { return at<4>().valid(); }
+  uint32_t kctx_id() const { return at<4>().as_uint32(); }
+  bool has_kctx_tgid() const { return at<5>().valid(); }
+  int32_t kctx_tgid() const { return at<5>().as_int32(); }
+};
+
+class MaliMaliKCPUCQSWAITENDFtraceEvent : public ::protozero::Message {
+ public:
+  using Decoder = MaliMaliKCPUCQSWAITENDFtraceEvent_Decoder;
+  enum : int32_t {
+    kIdFieldNumber = 1,
+    kInfoVal1FieldNumber = 2,
+    kInfoVal2FieldNumber = 3,
+    kKctxIdFieldNumber = 4,
+    kKctxTgidFieldNumber = 5,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.MaliMaliKCPUCQSWAITENDFtraceEvent"; }
+
+
+  using FieldMetadata_Id =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      MaliMaliKCPUCQSWAITENDFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Id kId() { return {}; }
+  void set_id(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Id::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_InfoVal1 =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      MaliMaliKCPUCQSWAITENDFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_InfoVal1 kInfoVal1() { return {}; }
+  void set_info_val1(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_InfoVal1::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_InfoVal2 =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      MaliMaliKCPUCQSWAITENDFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_InfoVal2 kInfoVal2() { return {}; }
+  void set_info_val2(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_InfoVal2::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_KctxId =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      MaliMaliKCPUCQSWAITENDFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_KctxId kKctxId() { return {}; }
+  void set_kctx_id(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_KctxId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_KctxTgid =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      MaliMaliKCPUCQSWAITENDFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_KctxTgid kKctxTgid() { return {}; }
+  void set_kctx_tgid(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_KctxTgid::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class MaliMaliKCPUCQSWAITSTARTFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  MaliMaliKCPUCQSWAITSTARTFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit MaliMaliKCPUCQSWAITSTARTFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit MaliMaliKCPUCQSWAITSTARTFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_id() const { return at<1>().valid(); }
+  uint32_t id() const { return at<1>().as_uint32(); }
+  bool has_info_val1() const { return at<2>().valid(); }
+  uint64_t info_val1() const { return at<2>().as_uint64(); }
+  bool has_info_val2() const { return at<3>().valid(); }
+  uint64_t info_val2() const { return at<3>().as_uint64(); }
+  bool has_kctx_id() const { return at<4>().valid(); }
+  uint32_t kctx_id() const { return at<4>().as_uint32(); }
+  bool has_kctx_tgid() const { return at<5>().valid(); }
+  int32_t kctx_tgid() const { return at<5>().as_int32(); }
+};
+
+class MaliMaliKCPUCQSWAITSTARTFtraceEvent : public ::protozero::Message {
+ public:
+  using Decoder = MaliMaliKCPUCQSWAITSTARTFtraceEvent_Decoder;
+  enum : int32_t {
+    kIdFieldNumber = 1,
+    kInfoVal1FieldNumber = 2,
+    kInfoVal2FieldNumber = 3,
+    kKctxIdFieldNumber = 4,
+    kKctxTgidFieldNumber = 5,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.MaliMaliKCPUCQSWAITSTARTFtraceEvent"; }
+
+
+  using FieldMetadata_Id =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      MaliMaliKCPUCQSWAITSTARTFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Id kId() { return {}; }
+  void set_id(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Id::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_InfoVal1 =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      MaliMaliKCPUCQSWAITSTARTFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_InfoVal1 kInfoVal1() { return {}; }
+  void set_info_val1(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_InfoVal1::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_InfoVal2 =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      MaliMaliKCPUCQSWAITSTARTFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_InfoVal2 kInfoVal2() { return {}; }
+  void set_info_val2(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_InfoVal2::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_KctxId =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      MaliMaliKCPUCQSWAITSTARTFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_KctxId kKctxId() { return {}; }
+  void set_kctx_id(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_KctxId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_KctxTgid =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      MaliMaliKCPUCQSWAITSTARTFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_KctxTgid kKctxTgid() { return {}; }
+  void set_kctx_tgid(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_KctxTgid::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class MaliMaliKCPUCQSSETFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  MaliMaliKCPUCQSSETFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit MaliMaliKCPUCQSSETFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit MaliMaliKCPUCQSSETFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_id() const { return at<1>().valid(); }
+  uint32_t id() const { return at<1>().as_uint32(); }
+  bool has_info_val1() const { return at<2>().valid(); }
+  uint64_t info_val1() const { return at<2>().as_uint64(); }
+  bool has_info_val2() const { return at<3>().valid(); }
+  uint64_t info_val2() const { return at<3>().as_uint64(); }
+  bool has_kctx_id() const { return at<4>().valid(); }
+  uint32_t kctx_id() const { return at<4>().as_uint32(); }
+  bool has_kctx_tgid() const { return at<5>().valid(); }
+  int32_t kctx_tgid() const { return at<5>().as_int32(); }
+};
+
+class MaliMaliKCPUCQSSETFtraceEvent : public ::protozero::Message {
+ public:
+  using Decoder = MaliMaliKCPUCQSSETFtraceEvent_Decoder;
+  enum : int32_t {
+    kIdFieldNumber = 1,
+    kInfoVal1FieldNumber = 2,
+    kInfoVal2FieldNumber = 3,
+    kKctxIdFieldNumber = 4,
+    kKctxTgidFieldNumber = 5,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.MaliMaliKCPUCQSSETFtraceEvent"; }
+
+
+  using FieldMetadata_Id =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      MaliMaliKCPUCQSSETFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Id kId() { return {}; }
+  void set_id(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Id::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_InfoVal1 =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      MaliMaliKCPUCQSSETFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_InfoVal1 kInfoVal1() { return {}; }
+  void set_info_val1(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_InfoVal1::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_InfoVal2 =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      MaliMaliKCPUCQSSETFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_InfoVal2 kInfoVal2() { return {}; }
+  void set_info_val2(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_InfoVal2::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_KctxId =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      MaliMaliKCPUCQSSETFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_KctxId kKctxId() { return {}; }
+  void set_kctx_id(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_KctxId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_KctxTgid =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      MaliMaliKCPUCQSSETFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_KctxTgid kKctxTgid() { return {}; }
+  void set_kctx_tgid(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_KctxTgid::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+};
 
 class MaliTracingMarkWriteFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
@@ -127632,6 +128452,578 @@ class V4l2QbufFtraceEvent : public ::protozero::Message {
   static constexpr FieldMetadata_Type kType() { return {}; }
   void set_type(uint32_t value) {
     static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+};
+
+} // Namespace.
+} // Namespace.
+} // Namespace.
+#endif  // Include guard.
+// gen_amalgamated begin header: gen/protos/perfetto/trace/ftrace/virtio_gpu.pbzero.h
+// Autogenerated by the ProtoZero compiler plugin. DO NOT EDIT.
+
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_FTRACE_VIRTIO_GPU_PROTO_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_FTRACE_VIRTIO_GPU_PROTO_H_
+
+#include <stddef.h>
+#include <stdint.h>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/field_writer.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/message.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/packed_repeated_fields.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/proto_decoder.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/proto_utils.h"
+
+namespace perfetto {
+namespace protos {
+namespace pbzero {
+
+
+class VirtioGpuCmdResponseFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/9, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  VirtioGpuCmdResponseFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit VirtioGpuCmdResponseFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit VirtioGpuCmdResponseFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_ctx_id() const { return at<1>().valid(); }
+  uint32_t ctx_id() const { return at<1>().as_uint32(); }
+  bool has_dev() const { return at<2>().valid(); }
+  int32_t dev() const { return at<2>().as_int32(); }
+  bool has_fence_id() const { return at<3>().valid(); }
+  uint64_t fence_id() const { return at<3>().as_uint64(); }
+  bool has_flags() const { return at<4>().valid(); }
+  uint32_t flags() const { return at<4>().as_uint32(); }
+  bool has_name() const { return at<5>().valid(); }
+  ::protozero::ConstChars name() const { return at<5>().as_string(); }
+  bool has_num_free() const { return at<6>().valid(); }
+  uint32_t num_free() const { return at<6>().as_uint32(); }
+  bool has_seqno() const { return at<7>().valid(); }
+  uint32_t seqno() const { return at<7>().as_uint32(); }
+  bool has_type() const { return at<8>().valid(); }
+  uint32_t type() const { return at<8>().as_uint32(); }
+  bool has_vq() const { return at<9>().valid(); }
+  uint32_t vq() const { return at<9>().as_uint32(); }
+};
+
+class VirtioGpuCmdResponseFtraceEvent : public ::protozero::Message {
+ public:
+  using Decoder = VirtioGpuCmdResponseFtraceEvent_Decoder;
+  enum : int32_t {
+    kCtxIdFieldNumber = 1,
+    kDevFieldNumber = 2,
+    kFenceIdFieldNumber = 3,
+    kFlagsFieldNumber = 4,
+    kNameFieldNumber = 5,
+    kNumFreeFieldNumber = 6,
+    kSeqnoFieldNumber = 7,
+    kTypeFieldNumber = 8,
+    kVqFieldNumber = 9,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.VirtioGpuCmdResponseFtraceEvent"; }
+
+
+  using FieldMetadata_CtxId =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      VirtioGpuCmdResponseFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_CtxId kCtxId() { return {}; }
+  void set_ctx_id(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_CtxId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Dev =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      VirtioGpuCmdResponseFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Dev kDev() { return {}; }
+  void set_dev(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Dev::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FenceId =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      VirtioGpuCmdResponseFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_FenceId kFenceId() { return {}; }
+  void set_fence_id(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_FenceId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Flags =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      VirtioGpuCmdResponseFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Flags kFlags() { return {}; }
+  void set_flags(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Flags::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Name =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      VirtioGpuCmdResponseFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Name kName() { return {}; }
+  void set_name(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_Name::kFieldId, data, size);
+  }
+  void set_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_Name::kFieldId, chars.data, chars.size);
+  }
+  void set_name(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_Name::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NumFree =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      VirtioGpuCmdResponseFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_NumFree kNumFree() { return {}; }
+  void set_num_free(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_NumFree::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Seqno =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      VirtioGpuCmdResponseFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Seqno kSeqno() { return {}; }
+  void set_seqno(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Seqno::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Type =
+    ::protozero::proto_utils::FieldMetadata<
+      8,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      VirtioGpuCmdResponseFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Type kType() { return {}; }
+  void set_type(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Vq =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      VirtioGpuCmdResponseFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Vq kVq() { return {}; }
+  void set_vq(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Vq::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class VirtioGpuCmdQueueFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/9, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  VirtioGpuCmdQueueFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit VirtioGpuCmdQueueFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit VirtioGpuCmdQueueFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_ctx_id() const { return at<1>().valid(); }
+  uint32_t ctx_id() const { return at<1>().as_uint32(); }
+  bool has_dev() const { return at<2>().valid(); }
+  int32_t dev() const { return at<2>().as_int32(); }
+  bool has_fence_id() const { return at<3>().valid(); }
+  uint64_t fence_id() const { return at<3>().as_uint64(); }
+  bool has_flags() const { return at<4>().valid(); }
+  uint32_t flags() const { return at<4>().as_uint32(); }
+  bool has_name() const { return at<5>().valid(); }
+  ::protozero::ConstChars name() const { return at<5>().as_string(); }
+  bool has_num_free() const { return at<6>().valid(); }
+  uint32_t num_free() const { return at<6>().as_uint32(); }
+  bool has_seqno() const { return at<7>().valid(); }
+  uint32_t seqno() const { return at<7>().as_uint32(); }
+  bool has_type() const { return at<8>().valid(); }
+  uint32_t type() const { return at<8>().as_uint32(); }
+  bool has_vq() const { return at<9>().valid(); }
+  uint32_t vq() const { return at<9>().as_uint32(); }
+};
+
+class VirtioGpuCmdQueueFtraceEvent : public ::protozero::Message {
+ public:
+  using Decoder = VirtioGpuCmdQueueFtraceEvent_Decoder;
+  enum : int32_t {
+    kCtxIdFieldNumber = 1,
+    kDevFieldNumber = 2,
+    kFenceIdFieldNumber = 3,
+    kFlagsFieldNumber = 4,
+    kNameFieldNumber = 5,
+    kNumFreeFieldNumber = 6,
+    kSeqnoFieldNumber = 7,
+    kTypeFieldNumber = 8,
+    kVqFieldNumber = 9,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.VirtioGpuCmdQueueFtraceEvent"; }
+
+
+  using FieldMetadata_CtxId =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      VirtioGpuCmdQueueFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_CtxId kCtxId() { return {}; }
+  void set_ctx_id(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_CtxId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Dev =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      VirtioGpuCmdQueueFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Dev kDev() { return {}; }
+  void set_dev(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Dev::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FenceId =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      VirtioGpuCmdQueueFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_FenceId kFenceId() { return {}; }
+  void set_fence_id(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_FenceId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Flags =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      VirtioGpuCmdQueueFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Flags kFlags() { return {}; }
+  void set_flags(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Flags::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Name =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      VirtioGpuCmdQueueFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Name kName() { return {}; }
+  void set_name(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_Name::kFieldId, data, size);
+  }
+  void set_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_Name::kFieldId, chars.data, chars.size);
+  }
+  void set_name(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_Name::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_NumFree =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      VirtioGpuCmdQueueFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_NumFree kNumFree() { return {}; }
+  void set_num_free(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_NumFree::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Seqno =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      VirtioGpuCmdQueueFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Seqno kSeqno() { return {}; }
+  void set_seqno(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Seqno::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Type =
+    ::protozero::proto_utils::FieldMetadata<
+      8,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      VirtioGpuCmdQueueFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Type kType() { return {}; }
+  void set_type(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Vq =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint32,
+      uint32_t,
+      VirtioGpuCmdQueueFtraceEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Vq kVq() { return {}; }
+  void set_vq(uint32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Vq::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
