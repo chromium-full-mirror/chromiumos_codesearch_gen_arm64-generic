@@ -429,8 +429,8 @@ class BRILLO_EXPORT CellularConnectionAttempt final : public ::metrics::structur
   static constexpr uint64_t kroaming_stateNameHash = UINT64_C(532797944946872246);
   CellularConnectionAttempt& Setroaming_state(const int64_t value);
 
-  static constexpr uint64_t kuse_attach_apnNameHash = UINT64_C(9693172311959236696);
-  CellularConnectionAttempt& Setuse_attach_apn(const int64_t value);
+  static constexpr uint64_t kapn_typesNameHash = UINT64_C(8517920636314770527);
+  CellularConnectionAttempt& Setapn_types(const int64_t value);
 
   static constexpr uint64_t kapn_sourceNameHash = UINT64_C(17270104400182726796);
   CellularConnectionAttempt& Setapn_source(const int64_t value);
@@ -458,6 +458,9 @@ class BRILLO_EXPORT CellularConnectionAttempt final : public ::metrics::structur
 
   static constexpr uint64_t kgid1NameHash = UINT64_C(10647497580367333237);
   CellularConnectionAttempt& Setgid1(const int64_t value);
+
+  static constexpr uint64_t kuse_apn_revamp_uiNameHash = UINT64_C(12104499805283108665);
+  CellularConnectionAttempt& Setuse_apn_revamp_ui(const int64_t value);
 
 };
 

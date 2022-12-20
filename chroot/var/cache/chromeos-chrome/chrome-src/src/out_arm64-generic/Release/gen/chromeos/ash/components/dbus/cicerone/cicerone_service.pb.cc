@@ -108,6 +108,7 @@ PROTOBUF_CONSTEXPR ContainerStartedSignal::ContainerStartedSignal(
   , container_username_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , container_homedir_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , ipv4_address_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , container_token_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , sftp_vsock_port_(0u){}
 struct ContainerStartedSignalDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ContainerStartedSignalDefaultTypeInternal()
@@ -5984,6 +5985,14 @@ ContainerStartedSignal::ContainerStartedSignal(const ContainerStartedSignal& fro
     ipv4_address_.Set(from._internal_ipv4_address(), 
       GetArenaForAllocation());
   }
+  container_token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    container_token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_container_token().empty()) {
+    container_token_.Set(from._internal_container_token(), 
+      GetArenaForAllocation());
+  }
   sftp_vsock_port_ = from.sftp_vsock_port_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.cicerone.ContainerStartedSignal)
 }
@@ -6013,6 +6022,10 @@ ipv4_address_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   ipv4_address_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+container_token_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  container_token_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 sftp_vsock_port_ = 0u;
 }
 
@@ -6033,6 +6046,7 @@ inline void ContainerStartedSignal::SharedDtor() {
   container_username_.Destroy();
   container_homedir_.Destroy();
   ipv4_address_.Destroy();
+  container_token_.Destroy();
 }
 
 void ContainerStartedSignal::SetCachedSize(int size) const {
@@ -6051,6 +6065,7 @@ void ContainerStartedSignal::Clear() {
   container_username_.ClearToEmpty();
   container_homedir_.ClearToEmpty();
   ipv4_address_.ClearToEmpty();
+  container_token_.ClearToEmpty();
   sftp_vsock_port_ = 0u;
   _internal_metadata_.Clear<std::string>();
 }
@@ -6126,6 +6141,16 @@ const char* ContainerStartedSignal::_InternalParse(const char* ptr, ::_pbi::Pars
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
           sftp_vsock_port_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string container_token = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+          auto str = _internal_mutable_container_token();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -6224,6 +6249,16 @@ uint8_t* ContainerStartedSignal::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(7, this->_internal_sftp_vsock_port(), target);
   }
 
+  // string container_token = 8;
+  if (!this->_internal_container_token().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_container_token().data(), static_cast<int>(this->_internal_container_token().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.cicerone.ContainerStartedSignal.container_token");
+    target = stream->WriteStringMaybeAliased(
+        8, this->_internal_container_token(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -6282,6 +6317,13 @@ size_t ContainerStartedSignal::ByteSizeLong() const {
         this->_internal_ipv4_address());
   }
 
+  // string container_token = 8;
+  if (!this->_internal_container_token().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_container_token());
+  }
+
   // uint32 sftp_vsock_port = 7;
   if (this->_internal_sftp_vsock_port() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_sftp_vsock_port());
@@ -6324,6 +6366,9 @@ void ContainerStartedSignal::MergeFrom(const ContainerStartedSignal& from) {
   }
   if (!from._internal_ipv4_address().empty()) {
     _internal_set_ipv4_address(from._internal_ipv4_address());
+  }
+  if (!from._internal_container_token().empty()) {
+    _internal_set_container_token(from._internal_container_token());
   }
   if (from._internal_sftp_vsock_port() != 0) {
     _internal_set_sftp_vsock_port(from._internal_sftp_vsock_port());
@@ -6370,6 +6415,10 @@ void ContainerStartedSignal::InternalSwap(ContainerStartedSignal* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &ipv4_address_, lhs_arena,
       &other->ipv4_address_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &container_token_, lhs_arena,
+      &other->container_token_, rhs_arena
   );
   swap(sftp_vsock_port_, other->sftp_vsock_port_);
 }

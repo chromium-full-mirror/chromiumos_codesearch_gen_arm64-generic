@@ -2466,6 +2466,7 @@ class ContainerStartedSignal final :
     kContainerUsernameFieldNumber = 4,
     kContainerHomedirFieldNumber = 5,
     kIpv4AddressFieldNumber = 6,
+    kContainerTokenFieldNumber = 8,
     kSftpVsockPortFieldNumber = 7,
   };
   // string vm_name = 1;
@@ -2552,6 +2553,20 @@ class ContainerStartedSignal final :
   std::string* _internal_mutable_ipv4_address();
   public:
 
+  // string container_token = 8;
+  void clear_container_token();
+  const std::string& container_token() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_container_token(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_container_token();
+  PROTOBUF_NODISCARD std::string* release_container_token();
+  void set_allocated_container_token(std::string* container_token);
+  private:
+  const std::string& _internal_container_token() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_container_token(const std::string& value);
+  std::string* _internal_mutable_container_token();
+  public:
+
   // uint32 sftp_vsock_port = 7;
   void clear_sftp_vsock_port();
   uint32_t sftp_vsock_port() const;
@@ -2574,6 +2589,7 @@ class ContainerStartedSignal final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr container_username_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr container_homedir_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ipv4_address_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr container_token_;
   uint32_t sftp_vsock_port_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_cicerone_5fservice_2eproto;
@@ -19996,6 +20012,56 @@ inline void ContainerStartedSignal::_internal_set_sftp_vsock_port(uint32_t value
 inline void ContainerStartedSignal::set_sftp_vsock_port(uint32_t value) {
   _internal_set_sftp_vsock_port(value);
   // @@protoc_insertion_point(field_set:vm_tools.cicerone.ContainerStartedSignal.sftp_vsock_port)
+}
+
+// string container_token = 8;
+inline void ContainerStartedSignal::clear_container_token() {
+  container_token_.ClearToEmpty();
+}
+inline const std::string& ContainerStartedSignal::container_token() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.ContainerStartedSignal.container_token)
+  return _internal_container_token();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ContainerStartedSignal::set_container_token(ArgT0&& arg0, ArgT... args) {
+ 
+ container_token_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.ContainerStartedSignal.container_token)
+}
+inline std::string* ContainerStartedSignal::mutable_container_token() {
+  std::string* _s = _internal_mutable_container_token();
+  // @@protoc_insertion_point(field_mutable:vm_tools.cicerone.ContainerStartedSignal.container_token)
+  return _s;
+}
+inline const std::string& ContainerStartedSignal::_internal_container_token() const {
+  return container_token_.Get();
+}
+inline void ContainerStartedSignal::_internal_set_container_token(const std::string& value) {
+  
+  container_token_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ContainerStartedSignal::_internal_mutable_container_token() {
+  
+  return container_token_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ContainerStartedSignal::release_container_token() {
+  // @@protoc_insertion_point(field_release:vm_tools.cicerone.ContainerStartedSignal.container_token)
+  return container_token_.Release();
+}
+inline void ContainerStartedSignal::set_allocated_container_token(std::string* container_token) {
+  if (container_token != nullptr) {
+    
+  } else {
+    
+  }
+  container_token_.SetAllocated(container_token, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (container_token_.IsDefault()) {
+    container_token_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.cicerone.ContainerStartedSignal.container_token)
 }
 
 // -------------------------------------------------------------------

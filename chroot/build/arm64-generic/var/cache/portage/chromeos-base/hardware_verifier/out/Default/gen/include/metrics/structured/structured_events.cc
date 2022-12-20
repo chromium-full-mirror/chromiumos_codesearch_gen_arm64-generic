@@ -460,8 +460,8 @@ CellularConnectionAttempt& CellularConnectionAttempt::Setroaming_state(const int
   return *this;
 }
 
-CellularConnectionAttempt& CellularConnectionAttempt::Setuse_attach_apn(const int64_t value) {
-  AddIntMetric(kuse_attach_apnNameHash, value);
+CellularConnectionAttempt& CellularConnectionAttempt::Setapn_types(const int64_t value) {
+  AddIntMetric(kapn_typesNameHash, value);
   return *this;
 }
 
@@ -507,6 +507,11 @@ CellularConnectionAttempt& CellularConnectionAttempt::Setdetailed_error(const in
 
 CellularConnectionAttempt& CellularConnectionAttempt::Setgid1(const int64_t value) {
   AddIntMetric(kgid1NameHash, value);
+  return *this;
+}
+
+CellularConnectionAttempt& CellularConnectionAttempt::Setuse_apn_revamp_ui(const int64_t value) {
+  AddIntMetric(kuse_apn_revamp_uiNameHash, value);
   return *this;
 }
 

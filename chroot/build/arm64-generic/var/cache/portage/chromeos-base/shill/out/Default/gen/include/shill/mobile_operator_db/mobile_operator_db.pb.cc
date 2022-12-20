@@ -62,13 +62,14 @@ constexpr MobileAPN::MobileAPN(
   : localized_name_()
   , obsolete_dns_()
   , apn_filter_()
+  , type_()
   , apn_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , obsolete_gateway_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , username_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , password_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , authentication_(0)
 
-  , is_attach_apn_(false)
+  , obsolete_is_attach_apn_(false)
   , ip_type_(1)
 {}
 struct MobileAPNDefaultTypeInternal {
@@ -254,17 +255,17 @@ static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Mob
 
 static const char MobileAPN_Authentication_names[] =
   "CHAP"
-  "DEFAULT"
+  "DEFAULT_AUTH"
   "PAP";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry MobileAPN_Authentication_entries[] = {
   { {MobileAPN_Authentication_names + 0, 4}, 2 },
-  { {MobileAPN_Authentication_names + 4, 7}, 0 },
-  { {MobileAPN_Authentication_names + 11, 3}, 1 },
+  { {MobileAPN_Authentication_names + 4, 12}, 0 },
+  { {MobileAPN_Authentication_names + 16, 3}, 1 },
 };
 
 static const int MobileAPN_Authentication_entries_by_number[] = {
-  1, // 0 -> DEFAULT
+  1, // 0 -> DEFAULT_AUTH
   2, // 1 -> PAP
   0, // 2 -> CHAP
 };
@@ -295,7 +296,7 @@ bool MobileAPN_Authentication_Parse(
   return success;
 }
 #if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-constexpr MobileAPN_Authentication MobileAPN::DEFAULT;
+constexpr MobileAPN_Authentication MobileAPN::DEFAULT_AUTH;
 constexpr MobileAPN_Authentication MobileAPN::PAP;
 constexpr MobileAPN_Authentication MobileAPN::CHAP;
 constexpr MobileAPN_Authentication MobileAPN::Authentication_MIN;
@@ -369,6 +370,64 @@ constexpr MobileAPN_IpType MobileAPN::IPV4V6;
 constexpr MobileAPN_IpType MobileAPN::IpType_MIN;
 constexpr MobileAPN_IpType MobileAPN::IpType_MAX;
 constexpr int MobileAPN::IpType_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool MobileAPN_ApnType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> MobileAPN_ApnType_strings[2] = {};
+
+static const char MobileAPN_ApnType_names[] =
+  "DEFAULT"
+  "IA";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry MobileAPN_ApnType_entries[] = {
+  { {MobileAPN_ApnType_names + 0, 7}, 0 },
+  { {MobileAPN_ApnType_names + 7, 2}, 1 },
+};
+
+static const int MobileAPN_ApnType_entries_by_number[] = {
+  0, // 0 -> DEFAULT
+  1, // 1 -> IA
+};
+
+const std::string& MobileAPN_ApnType_Name(
+    MobileAPN_ApnType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          MobileAPN_ApnType_entries,
+          MobileAPN_ApnType_entries_by_number,
+          2, MobileAPN_ApnType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      MobileAPN_ApnType_entries,
+      MobileAPN_ApnType_entries_by_number,
+      2, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     MobileAPN_ApnType_strings[idx].get();
+}
+bool MobileAPN_ApnType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, MobileAPN_ApnType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      MobileAPN_ApnType_entries, 2, name, &int_value);
+  if (success) {
+    *value = static_cast<MobileAPN_ApnType>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr MobileAPN_ApnType MobileAPN::DEFAULT;
+constexpr MobileAPN_ApnType MobileAPN::IA;
+constexpr MobileAPN_ApnType MobileAPN::ApnType_MIN;
+constexpr MobileAPN_ApnType MobileAPN::ApnType_MAX;
+constexpr int MobileAPN::ApnType_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool OnlinePortal_Method_IsValid(int value) {
   switch (value) {
@@ -1306,7 +1365,7 @@ class MobileAPN::_Internal {
   static void set_has_authentication(HasBits* has_bits) {
     (*has_bits)[0] |= 16u;
   }
-  static void set_has_is_attach_apn(HasBits* has_bits) {
+  static void set_has_obsolete_is_attach_apn(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
   }
   static void set_has_ip_type(HasBits* has_bits) {
@@ -1322,7 +1381,8 @@ MobileAPN::MobileAPN(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   localized_name_(arena),
   obsolete_dns_(arena),
-  apn_filter_(arena) {
+  apn_filter_(arena),
+  type_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -1334,7 +1394,8 @@ MobileAPN::MobileAPN(const MobileAPN& from)
       _has_bits_(from._has_bits_),
       localized_name_(from.localized_name_),
       obsolete_dns_(from.obsolete_dns_),
-      apn_filter_(from.apn_filter_) {
+      apn_filter_(from.apn_filter_),
+      type_(from.type_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   apn_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -1393,8 +1454,8 @@ password_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlr
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&authentication_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&is_attach_apn_) -
-    reinterpret_cast<char*>(&authentication_)) + sizeof(is_attach_apn_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&obsolete_is_attach_apn_) -
+    reinterpret_cast<char*>(&authentication_)) + sizeof(obsolete_is_attach_apn_));
 ip_type_ = 1;
 }
 
@@ -1432,6 +1493,7 @@ void MobileAPN::Clear() {
   localized_name_.Clear();
   obsolete_dns_.Clear();
   apn_filter_.Clear();
+  type_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -1449,8 +1511,8 @@ void MobileAPN::Clear() {
   }
   if (cached_has_bits & 0x00000070u) {
     ::memset(&authentication_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&is_attach_apn_) -
-        reinterpret_cast<char*>(&authentication_)) + sizeof(is_attach_apn_));
+        reinterpret_cast<char*>(&obsolete_is_attach_apn_) -
+        reinterpret_cast<char*>(&authentication_)) + sizeof(obsolete_is_attach_apn_));
     ip_type_ = 1;
   }
   _has_bits_.Clear();
@@ -1540,11 +1602,11 @@ const char* MobileAPN::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
         } else
           goto handle_unusual;
         continue;
-      // optional bool is_attach_apn = 9 [default = false];
+      // optional bool OBSOLETE_is_attach_apn = 9;
       case 9:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
-          _Internal::set_has_is_attach_apn(&has_bits);
-          is_attach_apn_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _Internal::set_has_obsolete_is_attach_apn(&has_bits);
+          obsolete_is_attach_apn_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1572,6 +1634,27 @@ const char* MobileAPN::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<90>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .shill.mobile_operator_db.MobileAPN.ApnType type = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+            CHK_(ptr);
+            if (PROTOBUF_PREDICT_TRUE(::shill::mobile_operator_db::MobileAPN_ApnType_IsValid(val))) {
+              _internal_add_type(static_cast<::shill::mobile_operator_db::MobileAPN_ApnType>(val));
+            } else {
+              ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(12, val, mutable_unknown_fields());
+            }
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<96>(ptr));
+        } else if (static_cast<uint8_t>(tag) == 98) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser<std::string>(_internal_mutable_type(), ptr, ctx, ::shill::mobile_operator_db::MobileAPN_ApnType_IsValid, &_internal_metadata_, 12);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -1651,10 +1734,10 @@ uint8_t* MobileAPN::_InternalSerialize(
       8, this->_internal_authentication(), target);
   }
 
-  // optional bool is_attach_apn = 9 [default = false];
+  // optional bool OBSOLETE_is_attach_apn = 9;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(9, this->_internal_is_attach_apn(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(9, this->_internal_obsolete_is_attach_apn(), target);
   }
 
   // optional .shill.mobile_operator_db.MobileAPN.IpType ip_type = 10 [default = IPV4];
@@ -1670,6 +1753,13 @@ uint8_t* MobileAPN::_InternalSerialize(
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(11, this->_internal_apn_filter(i), target, stream);
+  }
+
+  // repeated .shill.mobile_operator_db.MobileAPN.ApnType type = 12;
+  for (int i = 0, n = this->_internal_type_size(); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+        12, this->_internal_type(i), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1716,6 +1806,16 @@ size_t MobileAPN::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // repeated .shill.mobile_operator_db.MobileAPN.ApnType type = 12;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_type_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(
+        this->_internal_type(static_cast<int>(i)));
+    }
+    total_size += (1UL * count) + data_size;
+  }
+
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x0000007eu) {
     // optional string OBSOLETE_gateway = 4;
@@ -1745,7 +1845,7 @@ size_t MobileAPN::ByteSizeLong() const {
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_authentication());
     }
 
-    // optional bool is_attach_apn = 9 [default = false];
+    // optional bool OBSOLETE_is_attach_apn = 9;
     if (cached_has_bits & 0x00000020u) {
       total_size += 1 + 1;
     }
@@ -1780,6 +1880,7 @@ void MobileAPN::MergeFrom(const MobileAPN& from) {
   localized_name_.MergeFrom(from.localized_name_);
   obsolete_dns_.MergeFrom(from.obsolete_dns_);
   apn_filter_.MergeFrom(from.apn_filter_);
+  type_.MergeFrom(from.type_);
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
@@ -1798,7 +1899,7 @@ void MobileAPN::MergeFrom(const MobileAPN& from) {
       authentication_ = from.authentication_;
     }
     if (cached_has_bits & 0x00000020u) {
-      is_attach_apn_ = from.is_attach_apn_;
+      obsolete_is_attach_apn_ = from.obsolete_is_attach_apn_;
     }
     if (cached_has_bits & 0x00000040u) {
       ip_type_ = from.ip_type_;
@@ -1833,6 +1934,7 @@ void MobileAPN::InternalSwap(MobileAPN* other) {
   localized_name_.InternalSwap(&other->localized_name_);
   obsolete_dns_.InternalSwap(&other->obsolete_dns_);
   apn_filter_.InternalSwap(&other->apn_filter_);
+  type_.InternalSwap(&other->type_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &apn_, lhs_arena,
@@ -1854,8 +1956,8 @@ void MobileAPN::InternalSwap(MobileAPN* other) {
       &other->password_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(MobileAPN, is_attach_apn_)
-      + sizeof(MobileAPN::is_attach_apn_)
+      PROTOBUF_FIELD_OFFSET(MobileAPN, obsolete_is_attach_apn_)
+      + sizeof(MobileAPN::obsolete_is_attach_apn_)
       - PROTOBUF_FIELD_OFFSET(MobileAPN, authentication_)>(
           reinterpret_cast<char*>(&authentication_),
           reinterpret_cast<char*>(&other->authentication_));

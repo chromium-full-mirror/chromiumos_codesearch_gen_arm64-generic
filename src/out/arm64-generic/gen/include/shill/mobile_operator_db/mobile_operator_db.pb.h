@@ -120,12 +120,12 @@ inline const std::string& Filter_Type_Name(T enum_t_value) {
 bool Filter_Type_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Filter_Type* value);
 enum MobileAPN_Authentication : int {
-  MobileAPN_Authentication_DEFAULT = 0,
+  MobileAPN_Authentication_DEFAULT_AUTH = 0,
   MobileAPN_Authentication_PAP = 1,
   MobileAPN_Authentication_CHAP = 2
 };
 bool MobileAPN_Authentication_IsValid(int value);
-constexpr MobileAPN_Authentication MobileAPN_Authentication_Authentication_MIN = MobileAPN_Authentication_DEFAULT;
+constexpr MobileAPN_Authentication MobileAPN_Authentication_Authentication_MIN = MobileAPN_Authentication_DEFAULT_AUTH;
 constexpr MobileAPN_Authentication MobileAPN_Authentication_Authentication_MAX = MobileAPN_Authentication_CHAP;
 constexpr int MobileAPN_Authentication_Authentication_ARRAYSIZE = MobileAPN_Authentication_Authentication_MAX + 1;
 
@@ -160,6 +160,25 @@ inline const std::string& MobileAPN_IpType_Name(T enum_t_value) {
 }
 bool MobileAPN_IpType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, MobileAPN_IpType* value);
+enum MobileAPN_ApnType : int {
+  MobileAPN_ApnType_DEFAULT = 0,
+  MobileAPN_ApnType_IA = 1
+};
+bool MobileAPN_ApnType_IsValid(int value);
+constexpr MobileAPN_ApnType MobileAPN_ApnType_ApnType_MIN = MobileAPN_ApnType_DEFAULT;
+constexpr MobileAPN_ApnType MobileAPN_ApnType_ApnType_MAX = MobileAPN_ApnType_IA;
+constexpr int MobileAPN_ApnType_ApnType_ARRAYSIZE = MobileAPN_ApnType_ApnType_MAX + 1;
+
+const std::string& MobileAPN_ApnType_Name(MobileAPN_ApnType value);
+template<typename T>
+inline const std::string& MobileAPN_ApnType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, MobileAPN_ApnType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function MobileAPN_ApnType_Name.");
+  return MobileAPN_ApnType_Name(static_cast<MobileAPN_ApnType>(enum_t_value));
+}
+bool MobileAPN_ApnType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, MobileAPN_ApnType* value);
 enum OnlinePortal_Method : int {
   OnlinePortal_Method_GET = 1,
   OnlinePortal_Method_POST = 2
@@ -855,8 +874,8 @@ class MobileAPN final :
   // nested types ----------------------------------------------------
 
   typedef MobileAPN_Authentication Authentication;
-  static constexpr Authentication DEFAULT =
-    MobileAPN_Authentication_DEFAULT;
+  static constexpr Authentication DEFAULT_AUTH =
+    MobileAPN_Authentication_DEFAULT_AUTH;
   static constexpr Authentication PAP =
     MobileAPN_Authentication_PAP;
   static constexpr Authentication CHAP =
@@ -912,18 +931,45 @@ class MobileAPN final :
     return MobileAPN_IpType_Parse(name, value);
   }
 
+  typedef MobileAPN_ApnType ApnType;
+  static constexpr ApnType DEFAULT =
+    MobileAPN_ApnType_DEFAULT;
+  static constexpr ApnType IA =
+    MobileAPN_ApnType_IA;
+  static inline bool ApnType_IsValid(int value) {
+    return MobileAPN_ApnType_IsValid(value);
+  }
+  static constexpr ApnType ApnType_MIN =
+    MobileAPN_ApnType_ApnType_MIN;
+  static constexpr ApnType ApnType_MAX =
+    MobileAPN_ApnType_ApnType_MAX;
+  static constexpr int ApnType_ARRAYSIZE =
+    MobileAPN_ApnType_ApnType_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& ApnType_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, ApnType>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function ApnType_Name.");
+    return MobileAPN_ApnType_Name(enum_t_value);
+  }
+  static inline bool ApnType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      ApnType* value) {
+    return MobileAPN_ApnType_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kLocalizedNameFieldNumber = 3,
     kOBSOLETEDnsFieldNumber = 7,
     kApnFilterFieldNumber = 11,
+    kTypeFieldNumber = 12,
     kApnFieldNumber = 1,
     kOBSOLETEGatewayFieldNumber = 4,
     kUsernameFieldNumber = 5,
     kPasswordFieldNumber = 6,
     kAuthenticationFieldNumber = 8,
-    kIsAttachApnFieldNumber = 9,
+    kOBSOLETEIsAttachApnFieldNumber = 9,
     kIpTypeFieldNumber = 10,
   };
   // repeated .shill.mobile_operator_db.LocalizedName localized_name = 3;
@@ -985,6 +1031,23 @@ class MobileAPN final :
   ::shill::mobile_operator_db::Filter* add_apn_filter();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::shill::mobile_operator_db::Filter >&
       apn_filter() const;
+
+  // repeated .shill.mobile_operator_db.MobileAPN.ApnType type = 12;
+  int type_size() const;
+  private:
+  int _internal_type_size() const;
+  public:
+  void clear_type();
+  private:
+  ::shill::mobile_operator_db::MobileAPN_ApnType _internal_type(int index) const;
+  void _internal_add_type(::shill::mobile_operator_db::MobileAPN_ApnType value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_type();
+  public:
+  ::shill::mobile_operator_db::MobileAPN_ApnType type(int index) const;
+  void set_type(int index, ::shill::mobile_operator_db::MobileAPN_ApnType value);
+  void add_type(::shill::mobile_operator_db::MobileAPN_ApnType value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& type() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_type();
 
   // required string apn = 1;
   bool has_apn() const;
@@ -1071,17 +1134,17 @@ class MobileAPN final :
   void _internal_set_authentication(::shill::mobile_operator_db::MobileAPN_Authentication value);
   public:
 
-  // optional bool is_attach_apn = 9 [default = false];
-  bool has_is_attach_apn() const;
+  // optional bool OBSOLETE_is_attach_apn = 9;
+  bool has_obsolete_is_attach_apn() const;
   private:
-  bool _internal_has_is_attach_apn() const;
+  bool _internal_has_obsolete_is_attach_apn() const;
   public:
-  void clear_is_attach_apn();
-  bool is_attach_apn() const;
-  void set_is_attach_apn(bool value);
+  void clear_obsolete_is_attach_apn();
+  bool obsolete_is_attach_apn() const;
+  void set_obsolete_is_attach_apn(bool value);
   private:
-  bool _internal_is_attach_apn() const;
-  void _internal_set_is_attach_apn(bool value);
+  bool _internal_obsolete_is_attach_apn() const;
+  void _internal_set_obsolete_is_attach_apn(bool value);
   public:
 
   // optional .shill.mobile_operator_db.MobileAPN.IpType ip_type = 10 [default = IPV4];
@@ -1109,12 +1172,13 @@ class MobileAPN final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::shill::mobile_operator_db::LocalizedName > localized_name_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> obsolete_dns_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::shill::mobile_operator_db::Filter > apn_filter_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> type_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr apn_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr obsolete_gateway_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr password_;
   int authentication_;
-  bool is_attach_apn_;
+  bool obsolete_is_attach_apn_;
   int ip_type_;
   friend struct ::TableStruct_mobile_5foperator_5fdb_2eproto;
 };
@@ -3026,32 +3090,32 @@ inline void MobileAPN::set_authentication(::shill::mobile_operator_db::MobileAPN
   // @@protoc_insertion_point(field_set:shill.mobile_operator_db.MobileAPN.authentication)
 }
 
-// optional bool is_attach_apn = 9 [default = false];
-inline bool MobileAPN::_internal_has_is_attach_apn() const {
+// optional bool OBSOLETE_is_attach_apn = 9;
+inline bool MobileAPN::_internal_has_obsolete_is_attach_apn() const {
   bool value = (_has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
-inline bool MobileAPN::has_is_attach_apn() const {
-  return _internal_has_is_attach_apn();
+inline bool MobileAPN::has_obsolete_is_attach_apn() const {
+  return _internal_has_obsolete_is_attach_apn();
 }
-inline void MobileAPN::clear_is_attach_apn() {
-  is_attach_apn_ = false;
+inline void MobileAPN::clear_obsolete_is_attach_apn() {
+  obsolete_is_attach_apn_ = false;
   _has_bits_[0] &= ~0x00000020u;
 }
-inline bool MobileAPN::_internal_is_attach_apn() const {
-  return is_attach_apn_;
+inline bool MobileAPN::_internal_obsolete_is_attach_apn() const {
+  return obsolete_is_attach_apn_;
 }
-inline bool MobileAPN::is_attach_apn() const {
-  // @@protoc_insertion_point(field_get:shill.mobile_operator_db.MobileAPN.is_attach_apn)
-  return _internal_is_attach_apn();
+inline bool MobileAPN::obsolete_is_attach_apn() const {
+  // @@protoc_insertion_point(field_get:shill.mobile_operator_db.MobileAPN.OBSOLETE_is_attach_apn)
+  return _internal_obsolete_is_attach_apn();
 }
-inline void MobileAPN::_internal_set_is_attach_apn(bool value) {
+inline void MobileAPN::_internal_set_obsolete_is_attach_apn(bool value) {
   _has_bits_[0] |= 0x00000020u;
-  is_attach_apn_ = value;
+  obsolete_is_attach_apn_ = value;
 }
-inline void MobileAPN::set_is_attach_apn(bool value) {
-  _internal_set_is_attach_apn(value);
-  // @@protoc_insertion_point(field_set:shill.mobile_operator_db.MobileAPN.is_attach_apn)
+inline void MobileAPN::set_obsolete_is_attach_apn(bool value) {
+  _internal_set_obsolete_is_attach_apn(value);
+  // @@protoc_insertion_point(field_set:shill.mobile_operator_db.MobileAPN.OBSOLETE_is_attach_apn)
 }
 
 // optional .shill.mobile_operator_db.MobileAPN.IpType ip_type = 10 [default = IPV4];
@@ -3121,6 +3185,51 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::shill::mobile_operator
 MobileAPN::apn_filter() const {
   // @@protoc_insertion_point(field_list:shill.mobile_operator_db.MobileAPN.apn_filter)
   return apn_filter_;
+}
+
+// repeated .shill.mobile_operator_db.MobileAPN.ApnType type = 12;
+inline int MobileAPN::_internal_type_size() const {
+  return type_.size();
+}
+inline int MobileAPN::type_size() const {
+  return _internal_type_size();
+}
+inline void MobileAPN::clear_type() {
+  type_.Clear();
+}
+inline ::shill::mobile_operator_db::MobileAPN_ApnType MobileAPN::_internal_type(int index) const {
+  return static_cast< ::shill::mobile_operator_db::MobileAPN_ApnType >(type_.Get(index));
+}
+inline ::shill::mobile_operator_db::MobileAPN_ApnType MobileAPN::type(int index) const {
+  // @@protoc_insertion_point(field_get:shill.mobile_operator_db.MobileAPN.type)
+  return _internal_type(index);
+}
+inline void MobileAPN::set_type(int index, ::shill::mobile_operator_db::MobileAPN_ApnType value) {
+  assert(::shill::mobile_operator_db::MobileAPN_ApnType_IsValid(value));
+  type_.Set(index, value);
+  // @@protoc_insertion_point(field_set:shill.mobile_operator_db.MobileAPN.type)
+}
+inline void MobileAPN::_internal_add_type(::shill::mobile_operator_db::MobileAPN_ApnType value) {
+  assert(::shill::mobile_operator_db::MobileAPN_ApnType_IsValid(value));
+  type_.Add(value);
+}
+inline void MobileAPN::add_type(::shill::mobile_operator_db::MobileAPN_ApnType value) {
+  _internal_add_type(value);
+  // @@protoc_insertion_point(field_add:shill.mobile_operator_db.MobileAPN.type)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
+MobileAPN::type() const {
+  // @@protoc_insertion_point(field_list:shill.mobile_operator_db.MobileAPN.type)
+  return type_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+MobileAPN::_internal_mutable_type() {
+  return &type_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+MobileAPN::mutable_type() {
+  // @@protoc_insertion_point(field_mutable_list:shill.mobile_operator_db.MobileAPN.type)
+  return _internal_mutable_type();
 }
 
 // -------------------------------------------------------------------
@@ -4255,6 +4364,7 @@ PROTOBUF_NAMESPACE_OPEN
 template <> struct is_proto_enum< ::shill::mobile_operator_db::Filter_Type> : ::std::true_type {};
 template <> struct is_proto_enum< ::shill::mobile_operator_db::MobileAPN_Authentication> : ::std::true_type {};
 template <> struct is_proto_enum< ::shill::mobile_operator_db::MobileAPN_IpType> : ::std::true_type {};
+template <> struct is_proto_enum< ::shill::mobile_operator_db::MobileAPN_ApnType> : ::std::true_type {};
 template <> struct is_proto_enum< ::shill::mobile_operator_db::OnlinePortal_Method> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
