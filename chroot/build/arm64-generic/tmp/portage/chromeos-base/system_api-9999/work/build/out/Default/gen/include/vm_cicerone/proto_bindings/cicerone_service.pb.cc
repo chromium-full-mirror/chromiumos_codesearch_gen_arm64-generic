@@ -1324,6 +1324,7 @@ constexpr ContainerInfo::ContainerInfo(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : vm_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , container_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , container_token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , os_release_(nullptr){}
 struct ContainerInfoDefaultTypeInternal {
   constexpr ContainerInfoDefaultTypeInternal()
@@ -31279,6 +31280,14 @@ ContainerInfo::ContainerInfo(const ContainerInfo& from)
     container_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_container_name(), 
       GetArenaForAllocation());
   }
+  container_token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    container_token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_container_token().empty()) {
+    container_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_container_token(), 
+      GetArenaForAllocation());
+  }
   if (from._internal_has_os_release()) {
     os_release_ = new ::vm_tools::cicerone::OsRelease(*from.os_release_);
   } else {
@@ -31296,6 +31305,10 @@ container_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStr
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   container_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+container_token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  container_token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 os_release_ = nullptr;
 }
 
@@ -31310,6 +31323,7 @@ inline void ContainerInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   vm_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   container_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  container_token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete os_release_;
 }
 
@@ -31331,6 +31345,7 @@ void ContainerInfo::Clear() {
 
   vm_name_.ClearToEmpty();
   container_name_.ClearToEmpty();
+  container_token_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && os_release_ != nullptr) {
     delete os_release_;
   }
@@ -31368,6 +31383,16 @@ const char* ContainerInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_os_release(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string container_token = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_container_token();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -31429,6 +31454,16 @@ uint8_t* ContainerInfo::_InternalSerialize(
         3, _Internal::os_release(this), target, stream);
   }
 
+  // string container_token = 4;
+  if (!this->_internal_container_token().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_container_token().data(), static_cast<int>(this->_internal_container_token().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.cicerone.ContainerInfo.container_token");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_container_token(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -31457,6 +31492,13 @@ size_t ContainerInfo::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_container_name());
+  }
+
+  // string container_token = 4;
+  if (!this->_internal_container_token().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_container_token());
   }
 
   // .vm_tools.cicerone.OsRelease os_release = 3;
@@ -31492,6 +31534,9 @@ void ContainerInfo::MergeFrom(const ContainerInfo& from) {
   if (!from._internal_container_name().empty()) {
     _internal_set_container_name(from._internal_container_name());
   }
+  if (!from._internal_container_token().empty()) {
+    _internal_set_container_token(from._internal_container_token());
+  }
   if (from._internal_has_os_release()) {
     _internal_mutable_os_release()->::vm_tools::cicerone::OsRelease::MergeFrom(from._internal_os_release());
   }
@@ -31523,6 +31568,11 @@ void ContainerInfo::InternalSwap(ContainerInfo* other) {
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &container_name_, lhs_arena,
       &other->container_name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &container_token_, lhs_arena,
+      &other->container_token_, rhs_arena
   );
   swap(os_release_, other->os_release_);
 }

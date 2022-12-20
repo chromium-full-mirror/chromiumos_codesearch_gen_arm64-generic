@@ -52441,12 +52441,10 @@ class TrustyEnqueueNopFtraceEvent;
 class TrustyIpcConnectEndFtraceEvent;
 class TrustyIpcConnectFtraceEvent;
 class TrustyIpcHandleEventFtraceEvent;
-class TrustyIpcPollEndFtraceEvent;
 class TrustyIpcPollFtraceEvent;
 class TrustyIpcReadEndFtraceEvent;
 class TrustyIpcReadFtraceEvent;
 class TrustyIpcRxFtraceEvent;
-class TrustyIpcTxFtraceEvent;
 class TrustyIpcWriteFtraceEvent;
 class TrustyIrqFtraceEvent;
 class TrustyReclaimMemoryDoneFtraceEvent;
@@ -53367,16 +53365,12 @@ class FtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes trusty_ipc_write() const { return at<457>().as_bytes(); }
   bool has_trusty_ipc_poll() const { return at<458>().valid(); }
   ::protozero::ConstBytes trusty_ipc_poll() const { return at<458>().as_bytes(); }
-  bool has_trusty_ipc_poll_end() const { return at<459>().valid(); }
-  ::protozero::ConstBytes trusty_ipc_poll_end() const { return at<459>().as_bytes(); }
   bool has_trusty_ipc_read() const { return at<460>().valid(); }
   ::protozero::ConstBytes trusty_ipc_read() const { return at<460>().as_bytes(); }
   bool has_trusty_ipc_read_end() const { return at<461>().valid(); }
   ::protozero::ConstBytes trusty_ipc_read_end() const { return at<461>().as_bytes(); }
   bool has_trusty_ipc_rx() const { return at<462>().valid(); }
   ::protozero::ConstBytes trusty_ipc_rx() const { return at<462>().as_bytes(); }
-  bool has_trusty_ipc_tx() const { return at<463>().valid(); }
-  ::protozero::ConstBytes trusty_ipc_tx() const { return at<463>().as_bytes(); }
   bool has_trusty_enqueue_nop() const { return at<464>().valid(); }
   ::protozero::ConstBytes trusty_enqueue_nop() const { return at<464>().as_bytes(); }
   bool has_cma_alloc_start() const { return at<465>().valid(); }
@@ -53842,11 +53836,9 @@ class FtraceEvent : public ::protozero::Message {
     kTrustyIpcConnectEndFieldNumber = 456,
     kTrustyIpcWriteFieldNumber = 457,
     kTrustyIpcPollFieldNumber = 458,
-    kTrustyIpcPollEndFieldNumber = 459,
     kTrustyIpcReadFieldNumber = 460,
     kTrustyIpcReadEndFieldNumber = 461,
     kTrustyIpcRxFieldNumber = 462,
-    kTrustyIpcTxFieldNumber = 463,
     kTrustyEnqueueNopFieldNumber = 464,
     kCmaAllocStartFieldNumber = 465,
     kCmaAllocInfoFieldNumber = 466,
@@ -63129,27 +63121,6 @@ class FtraceEvent : public ::protozero::Message {
   }
 
 
-  using FieldMetadata_TrustyIpcPollEnd =
-    ::protozero::proto_utils::FieldMetadata<
-      459,
-      ::protozero::proto_utils::RepetitionType::kNotRepeated,
-      ::protozero::proto_utils::ProtoSchemaType::kMessage,
-      TrustyIpcPollEndFtraceEvent,
-      FtraceEvent>;
-
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_TrustyIpcPollEnd kTrustyIpcPollEnd() { return {}; }
-  template <typename T = TrustyIpcPollEndFtraceEvent> T* set_trusty_ipc_poll_end() {
-    return BeginNestedMessage<T>(459);
-  }
-
-
   using FieldMetadata_TrustyIpcRead =
     ::protozero::proto_utils::FieldMetadata<
       460,
@@ -63210,27 +63181,6 @@ class FtraceEvent : public ::protozero::Message {
   static constexpr FieldMetadata_TrustyIpcRx kTrustyIpcRx() { return {}; }
   template <typename T = TrustyIpcRxFtraceEvent> T* set_trusty_ipc_rx() {
     return BeginNestedMessage<T>(462);
-  }
-
-
-  using FieldMetadata_TrustyIpcTx =
-    ::protozero::proto_utils::FieldMetadata<
-      463,
-      ::protozero::proto_utils::RepetitionType::kNotRepeated,
-      ::protozero::proto_utils::ProtoSchemaType::kMessage,
-      TrustyIpcTxFtraceEvent,
-      FtraceEvent>;
-
-  // Ceci n'est pas une pipe.
-  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
-  // type (and users are expected to use it as such, hence kCamelCase name).
-  // It is declared as a function to keep protozero bindings header-only as
-  // inline constexpr variables are not available until C++17 (while inline
-  // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.
-  static constexpr FieldMetadata_TrustyIpcTx kTrustyIpcTx() { return {}; }
-  template <typename T = TrustyIpcTxFtraceEvent> T* set_trusty_ipc_tx() {
-    return BeginNestedMessage<T>(463);
   }
 
 
@@ -123500,20 +123450,6 @@ class TrustyEnqueueNopFtraceEvent : public ::protozero::Message {
   }
 };
 
-class TrustyIpcTxFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/0, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
- public:
-  TrustyIpcTxFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
-  explicit TrustyIpcTxFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
-  explicit TrustyIpcTxFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
-};
-
-class TrustyIpcTxFtraceEvent : public ::protozero::Message {
- public:
-  using Decoder = TrustyIpcTxFtraceEvent_Decoder;
-  static constexpr const char* GetName() { return ".perfetto.protos.TrustyIpcTxFtraceEvent"; }
-
-};
-
 class TrustyIpcRxFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   TrustyIpcRxFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
@@ -123858,20 +123794,6 @@ class TrustyIpcReadFtraceEvent : public ::protozero::Message {
       ::protozero::proto_utils::ProtoSchemaType::kString>
         ::Append(*this, field_id, value);
   }
-};
-
-class TrustyIpcPollEndFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/0, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
- public:
-  TrustyIpcPollEndFtraceEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
-  explicit TrustyIpcPollEndFtraceEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
-  explicit TrustyIpcPollEndFtraceEvent_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
-};
-
-class TrustyIpcPollEndFtraceEvent : public ::protozero::Message {
- public:
-  using Decoder = TrustyIpcPollEndFtraceEvent_Decoder;
-  static constexpr const char* GetName() { return ".perfetto.protos.TrustyIpcPollEndFtraceEvent"; }
-
 };
 
 class TrustyIpcPollFtraceEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
