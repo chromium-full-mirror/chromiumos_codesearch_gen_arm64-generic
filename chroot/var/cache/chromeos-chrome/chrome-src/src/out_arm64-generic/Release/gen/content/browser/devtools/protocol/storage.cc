@@ -325,6 +325,7 @@ public:
     void setSharedStorageEntry(const crdtp::Dispatchable& dispatchable);
     void deleteSharedStorageEntry(const crdtp::Dispatchable& dispatchable);
     void clearSharedStorageEntries(const crdtp::Dispatchable& dispatchable);
+    void resetSharedStorageBudget(const crdtp::Dispatchable& dispatchable);
     void setSharedStorageTracking(const crdtp::Dispatchable& dispatchable);
  protected:
     Backend* m_backend;
@@ -393,6 +394,10 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
     {
           crdtp::SpanFrom("overrideQuotaForOrigin"),
           &DomainDispatcherImpl::overrideQuotaForOrigin
+    },
+    {
+          crdtp::SpanFrom("resetSharedStorageBudget"),
+          &DomainDispatcherImpl::resetSharedStorageBudget
     },
     {
           crdtp::SpanFrom("setCookies"),
@@ -1572,6 +1577,56 @@ void DomainDispatcherImpl::clearSharedStorageEntries(const crdtp::Dispatchable& 
     }
 
     m_backend->ClearSharedStorageEntries(params.ownerOrigin, std::make_unique<ClearSharedStorageEntriesCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
+}
+
+class ResetSharedStorageBudgetCallbackImpl : public Backend::ResetSharedStorageBudgetCallback, public DomainDispatcher::Callback {
+public:
+    ResetSharedStorageBudgetCallbackImpl(std::unique_ptr<DomainDispatcher::WeakPtr> backendImpl, int callId, crdtp::span<uint8_t> message)
+        : DomainDispatcher::Callback(std::move(backendImpl), callId,
+crdtp::SpanFrom("Storage.resetSharedStorageBudget"), message) { }
+
+    void sendSuccess() override
+    {
+        crdtp::ObjectSerializer serializer;
+        sendIfActive(serializer.Finish(), DispatchResponse::Success());
+    }
+
+    void fallThrough() override
+    {
+        fallThroughIfActive();
+    }
+
+    void sendFailure(const DispatchResponse& response) override
+    {
+        DCHECK(response.IsError());
+        sendIfActive(nullptr, response);
+    }
+};
+
+namespace {
+
+struct resetSharedStorageBudgetParams : public crdtp::DeserializableProtocolObject<resetSharedStorageBudgetParams> {
+    String ownerOrigin;
+    DECLARE_DESERIALIZATION_SUPPORT();
+};
+
+CRDTP_BEGIN_DESERIALIZER(resetSharedStorageBudgetParams)
+    CRDTP_DESERIALIZE_FIELD("ownerOrigin", ownerOrigin),
+CRDTP_END_DESERIALIZER()
+
+}  // namespace
+
+void DomainDispatcherImpl::resetSharedStorageBudget(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
+    resetSharedStorageBudgetParams params;
+    if (!resetSharedStorageBudgetParams::Deserialize(&deserializer, &params)) {
+      ReportInvalidParams(dispatchable, deserializer);
+      return;
+    }
+
+    m_backend->ResetSharedStorageBudget(params.ownerOrigin, std::make_unique<ResetSharedStorageBudgetCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
 }
 
 namespace {

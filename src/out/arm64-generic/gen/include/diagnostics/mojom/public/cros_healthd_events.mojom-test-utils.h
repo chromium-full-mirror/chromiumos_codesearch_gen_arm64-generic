@@ -137,6 +137,24 @@ class  CrosHealthdUsbObserverAsyncWaiter {
 };
 
 
+class  EventObserverInterceptorForTesting : public EventObserver {
+  virtual EventObserver* GetForwardingInterface() = 0;
+  void OnEvent(EventInfoPtr info) override;
+};
+class  EventObserverAsyncWaiter {
+ public:
+  explicit EventObserverAsyncWaiter(EventObserver* proxy);
+
+  EventObserverAsyncWaiter(const EventObserverAsyncWaiter&) = delete;
+  EventObserverAsyncWaiter& operator=(const EventObserverAsyncWaiter&) = delete;
+
+  ~EventObserverAsyncWaiter();
+
+ private:
+  EventObserver* const proxy_;
+};
+
+
 
 
 }  // namespace mojom

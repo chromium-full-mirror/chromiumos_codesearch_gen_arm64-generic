@@ -7,7 +7,7 @@
 #ifndef DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_EVENTS_MOJOM_FORWARD_H_
 #define DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_EVENTS_MOJOM_FORWARD_H_
 
-
+#include <stdint.h>
 
 #include "mojo/public/cpp/bindings/struct_forward.h"
 
@@ -26,8 +26,52 @@ namespace cros_healthd {
 namespace mojom {
 class UsbEventInfoDataView;
 
+class ThunderboltEventInfoDataView;
+
+class LidEventInfoDataView;
+
+class BluetoothEventInfoDataView;
+
+class PowerEventInfoDataView;
+
+class AudioEventInfoDataView;
+
+class EventInfoDataView;
+
+enum class EventCategoryEnum : int32_t;
+
+enum class UsbEventInfo_State : int32_t;
+
+enum class ThunderboltEventInfo_State : int32_t;
+
+enum class LidEventInfo_State : int32_t;
+
+enum class BluetoothEventInfo_State : int32_t;
+
+enum class PowerEventInfo_State : int32_t;
+
+enum class AudioEventInfo_State : int32_t;
 class UsbEventInfo;
 using UsbEventInfoPtr = mojo::StructPtr<UsbEventInfo>;
+
+class ThunderboltEventInfo;
+using ThunderboltEventInfoPtr = mojo::InlinedStructPtr<ThunderboltEventInfo>;
+
+class LidEventInfo;
+using LidEventInfoPtr = mojo::InlinedStructPtr<LidEventInfo>;
+
+class BluetoothEventInfo;
+using BluetoothEventInfoPtr = mojo::InlinedStructPtr<BluetoothEventInfo>;
+
+class PowerEventInfo;
+using PowerEventInfoPtr = mojo::InlinedStructPtr<PowerEventInfo>;
+
+class AudioEventInfo;
+using AudioEventInfoPtr = mojo::InlinedStructPtr<AudioEventInfo>;
+
+class EventInfo;
+
+using EventInfoPtr = mojo::StructPtr<EventInfo>;
 
 class CrosHealthdBluetoothObserver;
 
@@ -40,6 +84,8 @@ class CrosHealthdAudioObserver;
 class CrosHealthdThunderboltObserver;
 
 class CrosHealthdUsbObserver;
+
+class EventObserver;
 
 
 

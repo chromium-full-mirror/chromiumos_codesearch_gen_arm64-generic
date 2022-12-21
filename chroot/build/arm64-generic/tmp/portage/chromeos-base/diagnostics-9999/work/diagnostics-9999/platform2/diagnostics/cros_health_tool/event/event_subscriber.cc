@@ -4,9 +4,13 @@
 
 #include "diagnostics/cros_health_tool/event/event_subscriber.h"
 
+#include <iostream>
+#include <string>
 #include <utility>
 
 #include <base/check.h>
+#include <base/json/json_writer.h>
+#include <base/values.h>
 #include <mojo/public/cpp/bindings/pending_remote.h>
 
 #include "diagnostics/cros_healthd_mojo_adapter/cros_healthd_mojo_adapter.h"
@@ -15,32 +19,91 @@
 
 namespace diagnostics {
 
-namespace mojo_ipc = ::ash::cros_healthd::mojom;
+namespace {
+
+namespace mojom = ::ash::cros_healthd::mojom;
 namespace network_health_ipc = ::chromeos::network_health::mojom;
 
+std::string EnumToString(mojom::UsbEventInfo::State state) {
+  switch (state) {
+    case mojom::UsbEventInfo::State::kUnmappedEnumField:
+      LOG(FATAL) << "Got UnmappedEnumField";
+      return "UnmappedEnumField";
+    case mojom::UsbEventInfo::State::kAdd:
+      return "Add";
+    case mojom::UsbEventInfo::State::kRemove:
+      return "Remove";
+  }
+}
+
+std::string EnumToString(mojom::ThunderboltEventInfo::State state) {
+  switch (state) {
+    case mojom::ThunderboltEventInfo::State::kUnmappedEnumField:
+      LOG(FATAL) << "Got UnmappedEnumField";
+      return "UnmappedEnumField";
+    case mojom::ThunderboltEventInfo::State::kAdd:
+      return "Device added";
+    case mojom::ThunderboltEventInfo::State::kRemove:
+      return "Device removed";
+    case mojom::ThunderboltEventInfo::State::kAuthorized:
+      return "Device Authorized";
+    case mojom::ThunderboltEventInfo::State::kUnAuthorized:
+      return "Device UnAuthorized";
+  }
+}
+
+void OutputUsbEventInfo(const mojom::UsbEventInfoPtr& info) {
+  base::Value output{base::Value::Type::DICTIONARY};
+
+  output.SetStringKey("event", EnumToString(info->state));
+  output.SetStringKey("vendor", info->vendor);
+  output.SetStringKey("name", info->name);
+  output.SetKey("vid", base::Value(info->vid));
+  output.SetKey("pid", base::Value(info->pid));
+
+  auto* categories =
+      output.SetKey("categories", base::Value{base::Value::Type::LIST});
+  for (const auto& category : info->categories) {
+    categories->Append(category);
+  }
+
+  std::string json;
+  base::JSONWriter::WriteWithOptions(
+      output, base::JSONWriter::Options::OPTIONS_PRETTY_PRINT, &json);
+
+  std::cout << json << std::endl;
+}
+
+void OutputThunderboltEventInfo(const mojom::ThunderboltEventInfoPtr& info) {
+  std::cout << "Thunderbolt event received: " << EnumToString(info->state)
+            << std::endl;
+}
+
+}  // namespace
+
 EventSubscriber::EventSubscriber()
-    : mojo_adapter_(CrosHealthdMojoAdapter::Create()) {
+    : mojo_adapter_(CrosHealthdMojoAdapter::Create()), receiver_{this} {
   DCHECK(mojo_adapter_);
 }
 
 EventSubscriber::~EventSubscriber() = default;
 
 bool EventSubscriber::SubscribeToBluetoothEvents() {
-  mojo::PendingRemote<mojo_ipc::CrosHealthdBluetoothObserver> remote;
+  mojo::PendingRemote<mojom::CrosHealthdBluetoothObserver> remote;
   bluetooth_subscriber_ = std::make_unique<BluetoothSubscriber>(
       remote.InitWithNewPipeAndPassReceiver());
   return mojo_adapter_->AddBluetoothObserver(std::move(remote));
 }
 
 bool EventSubscriber::SubscribeToLidEvents() {
-  mojo::PendingRemote<mojo_ipc::CrosHealthdLidObserver> remote;
+  mojo::PendingRemote<mojom::CrosHealthdLidObserver> remote;
   lid_subscriber_ =
       std::make_unique<LidSubscriber>(remote.InitWithNewPipeAndPassReceiver());
   return mojo_adapter_->AddLidObserver(std::move(remote));
 }
 
 bool EventSubscriber::SubscribeToPowerEvents() {
-  mojo::PendingRemote<mojo_ipc::CrosHealthdPowerObserver> remote;
+  mojo::PendingRemote<mojom::CrosHealthdPowerObserver> remote;
   power_subscriber_ = std::make_unique<PowerSubscriber>(
       remote.InitWithNewPipeAndPassReceiver());
   return mojo_adapter_->AddPowerObserver(std::move(remote));
@@ -54,24 +117,41 @@ bool EventSubscriber::SubscribeToNetworkEvents() {
 }
 
 bool EventSubscriber::SubscribeToAudioEvents() {
-  mojo::PendingRemote<mojo_ipc::CrosHealthdAudioObserver> remote;
+  mojo::PendingRemote<mojom::CrosHealthdAudioObserver> remote;
   audio_subscriber_ = std::make_unique<AudioSubscriber>(
       remote.InitWithNewPipeAndPassReceiver());
   return mojo_adapter_->AddAudioObserver(std::move(remote));
 }
 
-bool EventSubscriber::SubscribeToThunderboltEvents() {
-  mojo::PendingRemote<mojo_ipc::CrosHealthdThunderboltObserver> remote;
-  thunderbolt_subscriber_ = std::make_unique<ThunderboltSubscriber>(
-      remote.InitWithNewPipeAndPassReceiver());
-  return mojo_adapter_->AddThunderboltObserver(std::move(remote));
+bool EventSubscriber::SubscribeToEvents(mojom::EventCategoryEnum category) {
+  return mojo_adapter_->AddEventObserver(category,
+                                         receiver_.BindNewPipeAndPassRemote());
 }
 
-bool EventSubscriber::SubscribeToUsbEvents() {
-  mojo::PendingRemote<mojo_ipc::CrosHealthdUsbObserver> remote;
-  usb_subscriber_ =
-      std::make_unique<UsbSubscriber>(remote.InitWithNewPipeAndPassReceiver());
-  return mojo_adapter_->AddUsbObserver(std::move(remote));
+void EventSubscriber::OnEvent(const mojom::EventInfoPtr info) {
+  switch (info->which()) {
+    case mojom::EventInfo::Tag::kDefaultType:
+      LOG(FATAL) << "Got UnmappedEnumField";
+      break;
+    case mojom::EventInfo::Tag::kUsbEventInfo:
+      OutputUsbEventInfo(info->get_usb_event_info());
+      break;
+    case mojom::EventInfo::Tag::kThunderboltEventInfo:
+      OutputThunderboltEventInfo(info->get_thunderbolt_event_info());
+      break;
+    case mojom::EventInfo::Tag::kLidEventInfo:
+      NOTIMPLEMENTED();
+      break;
+    case mojom::EventInfo::Tag::kBluetoothEventInfo:
+      NOTIMPLEMENTED();
+      break;
+    case mojom::EventInfo::Tag::kPowerEventInfo:
+      NOTIMPLEMENTED();
+      break;
+    case mojom::EventInfo::Tag::kAudioEventInfo:
+      NOTIMPLEMENTED();
+      break;
+  }
 }
 
 }  // namespace diagnostics

@@ -1021,6 +1021,14 @@ public:
         virtual ~ClearSharedStorageEntriesCallback() { }
     };
     virtual void ClearSharedStorageEntries(const String& in_ownerOrigin, std::unique_ptr<ClearSharedStorageEntriesCallback> callback) = 0;
+    class CONTENT_EXPORT ResetSharedStorageBudgetCallback {
+    public:
+        virtual void sendSuccess() = 0;
+        virtual void sendFailure(const DispatchResponse&) = 0;
+        virtual void fallThrough() = 0;
+        virtual ~ResetSharedStorageBudgetCallback() { }
+    };
+    virtual void ResetSharedStorageBudget(const String& in_ownerOrigin, std::unique_ptr<ResetSharedStorageBudgetCallback> callback) = 0;
     virtual DispatchResponse SetSharedStorageTracking(bool in_enable) = 0;
 
     virtual DispatchResponse Disable()

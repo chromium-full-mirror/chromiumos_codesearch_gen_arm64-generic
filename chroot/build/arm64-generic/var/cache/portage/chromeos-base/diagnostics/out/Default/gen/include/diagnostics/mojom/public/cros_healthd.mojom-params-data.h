@@ -1561,6 +1561,24 @@ class  CrosHealthdEventService_AddUsbObserver_Params_Data {
 };
 static_assert(sizeof(CrosHealthdEventService_AddUsbObserver_Params_Data) == 16,
               "Bad sizeof(CrosHealthdEventService_AddUsbObserver_Params_Data)");
+class  CrosHealthdEventService_AddEventObserver_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t category;
+  mojo::internal::Interface_Data observer;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdEventService_AddEventObserver_Params_Data>;
+
+  CrosHealthdEventService_AddEventObserver_Params_Data();
+  ~CrosHealthdEventService_AddEventObserver_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdEventService_AddEventObserver_Params_Data) == 24,
+              "Bad sizeof(CrosHealthdEventService_AddEventObserver_Params_Data)");
 class  CrosHealthdProbeService_ProbeProcessInfo_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -4208,6 +4226,42 @@ class CrosHealthdEventService_AddUsbObserver_ParamsDataView {
 
 
 
+class CrosHealthdEventService_AddEventObserver_ParamsDataView {
+ public:
+  CrosHealthdEventService_AddEventObserver_ParamsDataView() = default;
+
+  CrosHealthdEventService_AddEventObserver_ParamsDataView(
+      internal::CrosHealthdEventService_AddEventObserver_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadCategory(UserType* output) const {
+    auto data_value = data_->category;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::EventCategoryEnum>(
+        data_value, output);
+  }
+  ::ash::cros_healthd::mojom::EventCategoryEnum category() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::EventCategoryEnum>(data_->category));
+  }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::EventObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::CrosHealthdEventService_AddEventObserver_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 class CrosHealthdProbeService_ProbeProcessInfo_ParamsDataView {
  public:
   CrosHealthdProbeService_ProbeProcessInfo_ParamsDataView() = default;
@@ -4956,6 +5010,8 @@ inline void CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParamsD
   auto pointer = data_->response.Get();
   *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
+
+
 
 
 

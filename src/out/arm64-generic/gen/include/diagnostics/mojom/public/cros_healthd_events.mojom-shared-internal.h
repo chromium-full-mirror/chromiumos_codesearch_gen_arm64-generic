@@ -25,8 +25,268 @@ namespace cros_healthd {
 namespace mojom {
 namespace internal {
 class UsbEventInfo_Data;
+class ThunderboltEventInfo_Data;
+class LidEventInfo_Data;
+class BluetoothEventInfo_Data;
+class PowerEventInfo_Data;
+class AudioEventInfo_Data;
+class EventInfo_Data;
+
+struct EventCategoryEnum_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct UsbEventInfo_State_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct ThunderboltEventInfo_State_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct LidEventInfo_State_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct BluetoothEventInfo_State_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct PowerEventInfo_State_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct AudioEventInfo_State_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
 
 #pragma pack(push, 1)
+
+
+class  EventInfo_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  EventInfo_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~EventInfo_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<EventInfo_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class EventInfo_Tag : uint32_t {
+
+    
+    kDefaultType,
+    
+    kUsbEventInfo,
+    
+    kThunderboltEventInfo,
+    
+    kLidEventInfo,
+    
+    kBluetoothEventInfo,
+    
+    kPowerEventInfo,
+    
+    kAudioEventInfo,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    uint8_t f_default_type;
+    mojo::internal::Pointer<internal::UsbEventInfo_Data> f_usb_event_info;
+    mojo::internal::Pointer<internal::ThunderboltEventInfo_Data> f_thunderbolt_event_info;
+    mojo::internal::Pointer<internal::LidEventInfo_Data> f_lid_event_info;
+    mojo::internal::Pointer<internal::BluetoothEventInfo_Data> f_bluetooth_event_info;
+    mojo::internal::Pointer<internal::PowerEventInfo_Data> f_power_event_info;
+    mojo::internal::Pointer<internal::AudioEventInfo_Data> f_audio_event_info;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  EventInfo_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(EventInfo_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(EventInfo_Data)");
 class  UsbEventInfo_Data {
  public:
   static bool Validate(const void* data,
@@ -37,7 +297,7 @@ class  UsbEventInfo_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> name;
   uint16_t vid;
   uint16_t pid;
-  uint8_t pad3_[4];
+  int32_t state;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> categories;
 
  private:
@@ -80,6 +340,251 @@ struct UsbEventInfo_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     UsbEventInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  ThunderboltEventInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<ThunderboltEventInfo_Data>;
+
+  ThunderboltEventInfo_Data();
+  ~ThunderboltEventInfo_Data() = delete;
+};
+static_assert(sizeof(ThunderboltEventInfo_Data) == 16,
+              "Bad sizeof(ThunderboltEventInfo_Data)");
+// Used by ThunderboltEventInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ThunderboltEventInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ThunderboltEventInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ThunderboltEventInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ThunderboltEventInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ThunderboltEventInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  LidEventInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<LidEventInfo_Data>;
+
+  LidEventInfo_Data();
+  ~LidEventInfo_Data() = delete;
+};
+static_assert(sizeof(LidEventInfo_Data) == 16,
+              "Bad sizeof(LidEventInfo_Data)");
+// Used by LidEventInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct LidEventInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  LidEventInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~LidEventInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<LidEventInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    LidEventInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  BluetoothEventInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<BluetoothEventInfo_Data>;
+
+  BluetoothEventInfo_Data();
+  ~BluetoothEventInfo_Data() = delete;
+};
+static_assert(sizeof(BluetoothEventInfo_Data) == 16,
+              "Bad sizeof(BluetoothEventInfo_Data)");
+// Used by BluetoothEventInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct BluetoothEventInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  BluetoothEventInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~BluetoothEventInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<BluetoothEventInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    BluetoothEventInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  PowerEventInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<PowerEventInfo_Data>;
+
+  PowerEventInfo_Data();
+  ~PowerEventInfo_Data() = delete;
+};
+static_assert(sizeof(PowerEventInfo_Data) == 16,
+              "Bad sizeof(PowerEventInfo_Data)");
+// Used by PowerEventInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct PowerEventInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  PowerEventInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~PowerEventInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<PowerEventInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    PowerEventInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  AudioEventInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<AudioEventInfo_Data>;
+
+  AudioEventInfo_Data();
+  ~AudioEventInfo_Data() = delete;
+};
+static_assert(sizeof(AudioEventInfo_Data) == 16,
+              "Bad sizeof(AudioEventInfo_Data)");
+// Used by AudioEventInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct AudioEventInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  AudioEventInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~AudioEventInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<AudioEventInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    AudioEventInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

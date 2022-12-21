@@ -19,11 +19,11 @@
 #include "diagnostics/cros_healthd/cros_healthd_diagnostics_service.h"
 #include "diagnostics/cros_healthd/cros_healthd_mojo_service.h"
 #include "diagnostics/cros_healthd/cros_healthd_routine_factory.h"
+#include "diagnostics/cros_healthd/event_aggregator.h"
 #include "diagnostics/cros_healthd/events/audio_events.h"
 #include "diagnostics/cros_healthd/events/bluetooth_events.h"
 #include "diagnostics/cros_healthd/events/lid_events.h"
 #include "diagnostics/cros_healthd/events/power_events.h"
-#include "diagnostics/cros_healthd/events/udev_events.h"
 #include "diagnostics/cros_healthd/fetch_aggregator.h"
 #include "diagnostics/mojom/public/cros_healthd.mojom.h"
 
@@ -104,6 +104,10 @@ class CrosHealthd final
   // requests.
   std::unique_ptr<FetchAggregator> fetch_aggregator_;
 
+  // |event_aggregator_| is responsible for fulfulling all event requests from
+  // CrosHealthdEventService.
+  std::unique_ptr<EventAggregator> event_aggregator_;
+
   // Provides support for Bluetooth-related events.
   std::unique_ptr<BluetoothEvents> bluetooth_events_;
   // Provides support for lid-related events.
@@ -112,8 +116,6 @@ class CrosHealthd final
   std::unique_ptr<PowerEvents> power_events_;
   // Provides support for audio-related events.
   std::unique_ptr<AudioEvents> audio_events_;
-  // Provides support for udev-related events.
-  std::unique_ptr<UdevEvents> udev_events_;
 
   // |diagnostics_service_| delegates routine creation to |routine_factory_|.
   std::unique_ptr<CrosHealthdRoutineFactory> routine_factory_;

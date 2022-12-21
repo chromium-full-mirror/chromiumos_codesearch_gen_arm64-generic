@@ -408,6 +408,51 @@ class CrosHealthdUsbObserver
   virtual void OnRemove(UsbEventInfoPtr info) = 0;
 };
 
+class EventObserverProxy;
+
+template <typename ImplRefTraits>
+class EventObserverStub;
+
+class EventObserverRequestValidator;
+
+
+class EventObserver
+    : public EventObserverInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = EventObserverInterfaceBase;
+  using Proxy_ = EventObserverProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = EventObserverStub<ImplRefTraits>;
+
+  using RequestValidator_ = EventObserverRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kOnEventMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnEvent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~EventObserver() = default;
+
+  
+  virtual void OnEvent(EventInfoPtr info) = 0;
+};
+
 
 
 class  CrosHealthdBluetoothObserverProxy
@@ -521,6 +566,21 @@ class  CrosHealthdUsbObserverProxy
   void OnAdd(UsbEventInfoPtr info) final;
   
   void OnRemove(UsbEventInfoPtr info) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  EventObserverProxy
+    : public EventObserver {
+ public:
+  using InterfaceType = EventObserver;
+
+  explicit EventObserverProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnEvent(EventInfoPtr info) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -771,6 +831,47 @@ class CrosHealthdUsbObserverStub
  private:
   ImplPointerType sink_;
 };
+class  EventObserverStubDispatch {
+ public:
+  static bool Accept(EventObserver* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      EventObserver* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<EventObserver>>
+class EventObserverStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  EventObserverStub() = default;
+  ~EventObserverStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return EventObserverStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return EventObserverStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
 class  CrosHealthdBluetoothObserverRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
@@ -795,9 +896,939 @@ class  CrosHealthdUsbObserverRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
+class  EventObserverRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
 
 
 
+
+
+
+class  ThunderboltEventInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ThunderboltEventInfo, T>::value>;
+  using DataView = ThunderboltEventInfoDataView;
+  using Data_ = internal::ThunderboltEventInfo_Data;
+  using State = ThunderboltEventInfo_State;
+
+  template <typename... Args>
+  static ThunderboltEventInfoPtr New(Args&&... args) {
+    return ThunderboltEventInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ThunderboltEventInfoPtr From(const U& u) {
+    return mojo::TypeConverter<ThunderboltEventInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ThunderboltEventInfo>::Convert(*this);
+  }
+
+
+  ThunderboltEventInfo();
+
+  explicit ThunderboltEventInfo(
+      ThunderboltEventInfo::State state);
+
+
+  ~ThunderboltEventInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ThunderboltEventInfoPtr>
+  ThunderboltEventInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ThunderboltEventInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ThunderboltEventInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ThunderboltEventInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ThunderboltEventInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ThunderboltEventInfo_UnserializedMessageContext<
+            UserType, ThunderboltEventInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ThunderboltEventInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ThunderboltEventInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ThunderboltEventInfo_UnserializedMessageContext<
+            UserType, ThunderboltEventInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ThunderboltEventInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ThunderboltEventInfo::State state;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ThunderboltEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ThunderboltEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ThunderboltEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ThunderboltEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  LidEventInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<LidEventInfo, T>::value>;
+  using DataView = LidEventInfoDataView;
+  using Data_ = internal::LidEventInfo_Data;
+  using State = LidEventInfo_State;
+
+  template <typename... Args>
+  static LidEventInfoPtr New(Args&&... args) {
+    return LidEventInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static LidEventInfoPtr From(const U& u) {
+    return mojo::TypeConverter<LidEventInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, LidEventInfo>::Convert(*this);
+  }
+
+
+  LidEventInfo();
+
+  explicit LidEventInfo(
+      LidEventInfo::State state);
+
+
+  ~LidEventInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = LidEventInfoPtr>
+  LidEventInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, LidEventInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, LidEventInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        LidEventInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        LidEventInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::LidEventInfo_UnserializedMessageContext<
+            UserType, LidEventInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<LidEventInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return LidEventInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::LidEventInfo_UnserializedMessageContext<
+            UserType, LidEventInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<LidEventInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  LidEventInfo::State state;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, LidEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, LidEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, LidEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, LidEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  BluetoothEventInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<BluetoothEventInfo, T>::value>;
+  using DataView = BluetoothEventInfoDataView;
+  using Data_ = internal::BluetoothEventInfo_Data;
+  using State = BluetoothEventInfo_State;
+
+  template <typename... Args>
+  static BluetoothEventInfoPtr New(Args&&... args) {
+    return BluetoothEventInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static BluetoothEventInfoPtr From(const U& u) {
+    return mojo::TypeConverter<BluetoothEventInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, BluetoothEventInfo>::Convert(*this);
+  }
+
+
+  BluetoothEventInfo();
+
+  explicit BluetoothEventInfo(
+      BluetoothEventInfo::State state);
+
+
+  ~BluetoothEventInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = BluetoothEventInfoPtr>
+  BluetoothEventInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, BluetoothEventInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, BluetoothEventInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        BluetoothEventInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        BluetoothEventInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::BluetoothEventInfo_UnserializedMessageContext<
+            UserType, BluetoothEventInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<BluetoothEventInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return BluetoothEventInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::BluetoothEventInfo_UnserializedMessageContext<
+            UserType, BluetoothEventInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<BluetoothEventInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  BluetoothEventInfo::State state;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, BluetoothEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, BluetoothEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, BluetoothEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, BluetoothEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  PowerEventInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<PowerEventInfo, T>::value>;
+  using DataView = PowerEventInfoDataView;
+  using Data_ = internal::PowerEventInfo_Data;
+  using State = PowerEventInfo_State;
+
+  template <typename... Args>
+  static PowerEventInfoPtr New(Args&&... args) {
+    return PowerEventInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static PowerEventInfoPtr From(const U& u) {
+    return mojo::TypeConverter<PowerEventInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, PowerEventInfo>::Convert(*this);
+  }
+
+
+  PowerEventInfo();
+
+  explicit PowerEventInfo(
+      PowerEventInfo::State state);
+
+
+  ~PowerEventInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = PowerEventInfoPtr>
+  PowerEventInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, PowerEventInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, PowerEventInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        PowerEventInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        PowerEventInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::PowerEventInfo_UnserializedMessageContext<
+            UserType, PowerEventInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<PowerEventInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return PowerEventInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::PowerEventInfo_UnserializedMessageContext<
+            UserType, PowerEventInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<PowerEventInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  PowerEventInfo::State state;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, PowerEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, PowerEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, PowerEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, PowerEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  AudioEventInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<AudioEventInfo, T>::value>;
+  using DataView = AudioEventInfoDataView;
+  using Data_ = internal::AudioEventInfo_Data;
+  using State = AudioEventInfo_State;
+
+  template <typename... Args>
+  static AudioEventInfoPtr New(Args&&... args) {
+    return AudioEventInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static AudioEventInfoPtr From(const U& u) {
+    return mojo::TypeConverter<AudioEventInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, AudioEventInfo>::Convert(*this);
+  }
+
+
+  AudioEventInfo();
+
+  explicit AudioEventInfo(
+      AudioEventInfo::State state);
+
+
+  ~AudioEventInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = AudioEventInfoPtr>
+  AudioEventInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, AudioEventInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, AudioEventInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        AudioEventInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        AudioEventInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::AudioEventInfo_UnserializedMessageContext<
+            UserType, AudioEventInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<AudioEventInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return AudioEventInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::AudioEventInfo_UnserializedMessageContext<
+            UserType, AudioEventInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<AudioEventInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  AudioEventInfo::State state;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, AudioEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, AudioEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, AudioEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, AudioEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  EventInfo {
+ public:
+  using DataView = EventInfoDataView;
+  using Data_ = internal::EventInfo_Data;
+  using Tag = Data_::EventInfo_Tag;
+
+  template <typename... Args>
+  static EventInfoPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |default_type|.
+  static EventInfoPtr
+  NewDefaultType(
+      uint8_t default_type) {
+    auto result = EventInfoPtr(absl::in_place);
+    result->set_default_type(std::move(default_type));
+    return result;
+  }
+  // Construct an instance holding |usb_event_info|.
+  static EventInfoPtr
+  NewUsbEventInfo(
+      UsbEventInfoPtr usb_event_info) {
+    auto result = EventInfoPtr(absl::in_place);
+    result->set_usb_event_info(std::move(usb_event_info));
+    return result;
+  }
+  // Construct an instance holding |thunderbolt_event_info|.
+  static EventInfoPtr
+  NewThunderboltEventInfo(
+      ThunderboltEventInfoPtr thunderbolt_event_info) {
+    auto result = EventInfoPtr(absl::in_place);
+    result->set_thunderbolt_event_info(std::move(thunderbolt_event_info));
+    return result;
+  }
+  // Construct an instance holding |lid_event_info|.
+  static EventInfoPtr
+  NewLidEventInfo(
+      LidEventInfoPtr lid_event_info) {
+    auto result = EventInfoPtr(absl::in_place);
+    result->set_lid_event_info(std::move(lid_event_info));
+    return result;
+  }
+  // Construct an instance holding |bluetooth_event_info|.
+  static EventInfoPtr
+  NewBluetoothEventInfo(
+      BluetoothEventInfoPtr bluetooth_event_info) {
+    auto result = EventInfoPtr(absl::in_place);
+    result->set_bluetooth_event_info(std::move(bluetooth_event_info));
+    return result;
+  }
+  // Construct an instance holding |power_event_info|.
+  static EventInfoPtr
+  NewPowerEventInfo(
+      PowerEventInfoPtr power_event_info) {
+    auto result = EventInfoPtr(absl::in_place);
+    result->set_power_event_info(std::move(power_event_info));
+    return result;
+  }
+  // Construct an instance holding |audio_event_info|.
+  static EventInfoPtr
+  NewAudioEventInfo(
+      AudioEventInfoPtr audio_event_info) {
+    auto result = EventInfoPtr(absl::in_place);
+    result->set_audio_event_info(std::move(audio_event_info));
+    return result;
+  }
+
+  template <typename U>
+  static EventInfoPtr From(const U& u) {
+    return mojo::TypeConverter<EventInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, EventInfo>::Convert(*this);
+  }
+
+  EventInfo();
+  ~EventInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = EventInfoPtr>
+  EventInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, EventInfo>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, EventInfo>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_default_type() const { return tag_ == Tag::kDefaultType; }
+
+  
+  uint8_t get_default_type() const {
+    CHECK(tag_ == Tag::kDefaultType);
+    return data_.default_type;
+  }
+
+  
+  void set_default_type(
+      uint8_t default_type);
+  
+  bool is_usb_event_info() const { return tag_ == Tag::kUsbEventInfo; }
+
+  
+  UsbEventInfoPtr& get_usb_event_info() const {
+    CHECK(tag_ == Tag::kUsbEventInfo);
+    return *(data_.usb_event_info);
+  }
+
+  
+  void set_usb_event_info(
+      UsbEventInfoPtr usb_event_info);
+  
+  bool is_thunderbolt_event_info() const { return tag_ == Tag::kThunderboltEventInfo; }
+
+  
+  ThunderboltEventInfoPtr& get_thunderbolt_event_info() const {
+    CHECK(tag_ == Tag::kThunderboltEventInfo);
+    return *(data_.thunderbolt_event_info);
+  }
+
+  
+  void set_thunderbolt_event_info(
+      ThunderboltEventInfoPtr thunderbolt_event_info);
+  
+  bool is_lid_event_info() const { return tag_ == Tag::kLidEventInfo; }
+
+  
+  LidEventInfoPtr& get_lid_event_info() const {
+    CHECK(tag_ == Tag::kLidEventInfo);
+    return *(data_.lid_event_info);
+  }
+
+  
+  void set_lid_event_info(
+      LidEventInfoPtr lid_event_info);
+  
+  bool is_bluetooth_event_info() const { return tag_ == Tag::kBluetoothEventInfo; }
+
+  
+  BluetoothEventInfoPtr& get_bluetooth_event_info() const {
+    CHECK(tag_ == Tag::kBluetoothEventInfo);
+    return *(data_.bluetooth_event_info);
+  }
+
+  
+  void set_bluetooth_event_info(
+      BluetoothEventInfoPtr bluetooth_event_info);
+  
+  bool is_power_event_info() const { return tag_ == Tag::kPowerEventInfo; }
+
+  
+  PowerEventInfoPtr& get_power_event_info() const {
+    CHECK(tag_ == Tag::kPowerEventInfo);
+    return *(data_.power_event_info);
+  }
+
+  
+  void set_power_event_info(
+      PowerEventInfoPtr power_event_info);
+  
+  bool is_audio_event_info() const { return tag_ == Tag::kAudioEventInfo; }
+
+  
+  AudioEventInfoPtr& get_audio_event_info() const {
+    CHECK(tag_ == Tag::kAudioEventInfo);
+    return *(data_.audio_event_info);
+  }
+
+  
+  void set_audio_event_info(
+      AudioEventInfoPtr audio_event_info);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        EventInfo::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<EventInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    uint8_t default_type;
+    UsbEventInfoPtr* usb_event_info;
+    ThunderboltEventInfoPtr* thunderbolt_event_info;
+    LidEventInfoPtr* lid_event_info;
+    BluetoothEventInfoPtr* bluetooth_event_info;
+    PowerEventInfoPtr* power_event_info;
+    AudioEventInfoPtr* audio_event_info;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
 
 
 
@@ -809,6 +1840,7 @@ class  UsbEventInfo {
   using EnableIfSame = std::enable_if_t<std::is_same<UsbEventInfo, T>::value>;
   using DataView = UsbEventInfoDataView;
   using Data_ = internal::UsbEventInfo_Data;
+  using State = UsbEventInfo_State;
 
   template <typename... Args>
   static UsbEventInfoPtr New(Args&&... args) {
@@ -835,6 +1867,14 @@ class  UsbEventInfo {
       uint16_t vid,
       uint16_t pid,
       std::vector<std::string> categories);
+
+  UsbEventInfo(
+      const std::string& vendor,
+      const std::string& name,
+      uint16_t vid,
+      uint16_t pid,
+      std::vector<std::string> categories,
+      UsbEventInfo::State state);
 
 
   ~UsbEventInfo();
@@ -918,6 +1958,8 @@ class  UsbEventInfo {
   uint16_t pid;
   
   std::vector<std::string> categories;
+  
+  UsbEventInfo::State state;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -948,6 +1990,65 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
+
+
+template <typename UnionPtrType>
+EventInfoPtr EventInfo::Clone() const {
+  switch (tag_) {
+    case Tag::kDefaultType:
+      return NewDefaultType(
+          mojo::Clone(data_.default_type));
+    case Tag::kUsbEventInfo:
+      return NewUsbEventInfo(
+          mojo::Clone(*data_.usb_event_info));
+    case Tag::kThunderboltEventInfo:
+      return NewThunderboltEventInfo(
+          mojo::Clone(*data_.thunderbolt_event_info));
+    case Tag::kLidEventInfo:
+      return NewLidEventInfo(
+          mojo::Clone(*data_.lid_event_info));
+    case Tag::kBluetoothEventInfo:
+      return NewBluetoothEventInfo(
+          mojo::Clone(*data_.bluetooth_event_info));
+    case Tag::kPowerEventInfo:
+      return NewPowerEventInfo(
+          mojo::Clone(*data_.power_event_info));
+    case Tag::kAudioEventInfo:
+      return NewAudioEventInfo(
+          mojo::Clone(*data_.audio_event_info));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, EventInfo>::value>::type*>
+bool EventInfo::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kDefaultType:
+      return mojo::Equals(data_.default_type, other.data_.default_type);
+    case Tag::kUsbEventInfo:
+      return mojo::Equals(*(data_.usb_event_info), *(other.data_.usb_event_info));
+    case Tag::kThunderboltEventInfo:
+      return mojo::Equals(*(data_.thunderbolt_event_info), *(other.data_.thunderbolt_event_info));
+    case Tag::kLidEventInfo:
+      return mojo::Equals(*(data_.lid_event_info), *(other.data_.lid_event_info));
+    case Tag::kBluetoothEventInfo:
+      return mojo::Equals(*(data_.bluetooth_event_info), *(other.data_.bluetooth_event_info));
+    case Tag::kPowerEventInfo:
+      return mojo::Equals(*(data_.power_event_info), *(other.data_.power_event_info));
+    case Tag::kAudioEventInfo:
+      return mojo::Equals(*(data_.audio_event_info), *(other.data_.audio_event_info));
+  }
+
+  return false;
+}
 template <typename StructPtrType>
 UsbEventInfoPtr UsbEventInfo::Clone() const {
   return New(
@@ -955,7 +2056,8 @@ UsbEventInfoPtr UsbEventInfo::Clone() const {
       mojo::Clone(name),
       mojo::Clone(vid),
       mojo::Clone(pid),
-      mojo::Clone(categories)
+      mojo::Clone(categories),
+      mojo::Clone(state)
   );
 }
 
@@ -970,6 +2072,8 @@ bool UsbEventInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->pid, other_struct.pid))
     return false;
   if (!mojo::Equals(this->categories, other_struct.categories))
+    return false;
+  if (!mojo::Equals(this->state, other_struct.state))
     return false;
   return true;
 }
@@ -995,6 +2099,120 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.categories < rhs.categories)
     return true;
   if (rhs.categories < lhs.categories)
+    return false;
+  if (lhs.state < rhs.state)
+    return true;
+  if (rhs.state < lhs.state)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ThunderboltEventInfoPtr ThunderboltEventInfo::Clone() const {
+  return New(
+      mojo::Clone(state)
+  );
+}
+
+template <typename T, ThunderboltEventInfo::EnableIfSame<T>*>
+bool ThunderboltEventInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->state, other_struct.state))
+    return false;
+  return true;
+}
+
+template <typename T, ThunderboltEventInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.state < rhs.state)
+    return true;
+  if (rhs.state < lhs.state)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+LidEventInfoPtr LidEventInfo::Clone() const {
+  return New(
+      mojo::Clone(state)
+  );
+}
+
+template <typename T, LidEventInfo::EnableIfSame<T>*>
+bool LidEventInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->state, other_struct.state))
+    return false;
+  return true;
+}
+
+template <typename T, LidEventInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.state < rhs.state)
+    return true;
+  if (rhs.state < lhs.state)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+BluetoothEventInfoPtr BluetoothEventInfo::Clone() const {
+  return New(
+      mojo::Clone(state)
+  );
+}
+
+template <typename T, BluetoothEventInfo::EnableIfSame<T>*>
+bool BluetoothEventInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->state, other_struct.state))
+    return false;
+  return true;
+}
+
+template <typename T, BluetoothEventInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.state < rhs.state)
+    return true;
+  if (rhs.state < lhs.state)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+PowerEventInfoPtr PowerEventInfo::Clone() const {
+  return New(
+      mojo::Clone(state)
+  );
+}
+
+template <typename T, PowerEventInfo::EnableIfSame<T>*>
+bool PowerEventInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->state, other_struct.state))
+    return false;
+  return true;
+}
+
+template <typename T, PowerEventInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.state < rhs.state)
+    return true;
+  if (rhs.state < lhs.state)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+AudioEventInfoPtr AudioEventInfo::Clone() const {
+  return New(
+      mojo::Clone(state)
+  );
+}
+
+template <typename T, AudioEventInfo::EnableIfSame<T>*>
+bool AudioEventInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->state, other_struct.state))
+    return false;
+  return true;
+}
+
+template <typename T, AudioEventInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.state < rhs.state)
+    return true;
+  if (rhs.state < lhs.state)
     return false;
   return false;
 }
@@ -1038,7 +2256,129 @@ struct  StructTraits<::ash::cros_healthd::mojom::UsbEventInfo::DataView,
     return input->categories;
   }
 
+  static decltype(::ash::cros_healthd::mojom::UsbEventInfo::state) state(
+      const ::ash::cros_healthd::mojom::UsbEventInfoPtr& input) {
+    return input->state;
+  }
+
   static bool Read(::ash::cros_healthd::mojom::UsbEventInfo::DataView input, ::ash::cros_healthd::mojom::UsbEventInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::ThunderboltEventInfo::DataView,
+                                         ::ash::cros_healthd::mojom::ThunderboltEventInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::ThunderboltEventInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::ThunderboltEventInfoPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::ThunderboltEventInfo::state) state(
+      const ::ash::cros_healthd::mojom::ThunderboltEventInfoPtr& input) {
+    return input->state;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::ThunderboltEventInfo::DataView input, ::ash::cros_healthd::mojom::ThunderboltEventInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::LidEventInfo::DataView,
+                                         ::ash::cros_healthd::mojom::LidEventInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::LidEventInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::LidEventInfoPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::LidEventInfo::state) state(
+      const ::ash::cros_healthd::mojom::LidEventInfoPtr& input) {
+    return input->state;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::LidEventInfo::DataView input, ::ash::cros_healthd::mojom::LidEventInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::BluetoothEventInfo::DataView,
+                                         ::ash::cros_healthd::mojom::BluetoothEventInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BluetoothEventInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BluetoothEventInfoPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::BluetoothEventInfo::state) state(
+      const ::ash::cros_healthd::mojom::BluetoothEventInfoPtr& input) {
+    return input->state;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::BluetoothEventInfo::DataView input, ::ash::cros_healthd::mojom::BluetoothEventInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::PowerEventInfo::DataView,
+                                         ::ash::cros_healthd::mojom::PowerEventInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::PowerEventInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::PowerEventInfoPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::PowerEventInfo::state) state(
+      const ::ash::cros_healthd::mojom::PowerEventInfoPtr& input) {
+    return input->state;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::PowerEventInfo::DataView input, ::ash::cros_healthd::mojom::PowerEventInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::AudioEventInfo::DataView,
+                                         ::ash::cros_healthd::mojom::AudioEventInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::AudioEventInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::AudioEventInfoPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::AudioEventInfo::state) state(
+      const ::ash::cros_healthd::mojom::AudioEventInfoPtr& input) {
+    return input->state;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::AudioEventInfo::DataView input, ::ash::cros_healthd::mojom::AudioEventInfoPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView,
+                                        ::ash::cros_healthd::mojom::EventInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::EventInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::EventInfoPtr* output) { output->reset(); }
+
+  static ::ash::cros_healthd::mojom::EventInfo::Tag GetTag(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
+    return input->which();
+  }
+
+  static  uint8_t default_type(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
+    return input->get_default_type();
+  }
+
+  static const ::ash::cros_healthd::mojom::UsbEventInfoPtr& usb_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
+    return input->get_usb_event_info();
+  }
+
+  static const ::ash::cros_healthd::mojom::ThunderboltEventInfoPtr& thunderbolt_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
+    return input->get_thunderbolt_event_info();
+  }
+
+  static const ::ash::cros_healthd::mojom::LidEventInfoPtr& lid_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
+    return input->get_lid_event_info();
+  }
+
+  static const ::ash::cros_healthd::mojom::BluetoothEventInfoPtr& bluetooth_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
+    return input->get_bluetooth_event_info();
+  }
+
+  static const ::ash::cros_healthd::mojom::PowerEventInfoPtr& power_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
+    return input->get_power_event_info();
+  }
+
+  static const ::ash::cros_healthd::mojom::AudioEventInfoPtr& audio_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
+    return input->get_audio_event_info();
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::EventInfo::DataView input, ::ash::cros_healthd::mojom::EventInfoPtr* output);
 };
 
 }  // namespace mojo

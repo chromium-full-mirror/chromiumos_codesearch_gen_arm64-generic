@@ -17,34 +17,34 @@
 
 namespace diagnostics {
 
-namespace mojo_ipc = ::ash::cros_healthd::mojom;
-namespace network_health_ipc = ::chromeos::network_health::mojom;
+namespace mojom = ::ash::cros_healthd::mojom;
+namespace network_health_mojom = ::chromeos::network_health::mojom;
 
 CrosHealthdMojoService::CrosHealthdMojoService(
     Context* context,
     FetchAggregator* fetch_aggregator,
+    EventAggregator* event_aggregator,
     BluetoothEvents* bluetooth_events,
     LidEvents* lid_events,
     PowerEvents* power_events,
-    AudioEvents* audio_events,
-    UdevEvents* udev_events)
+    AudioEvents* audio_events)
     : probe_provider_(this),
       event_provider_(this),
       system_provider_(this),
       context_(context),
       fetch_aggregator_(fetch_aggregator),
+      event_aggregator_(event_aggregator),
       bluetooth_events_(bluetooth_events),
       lid_events_(lid_events),
       power_events_(power_events),
-      audio_events_(audio_events),
-      udev_events_(udev_events) {
+      audio_events_(audio_events) {
   DCHECK(context_);
   DCHECK(fetch_aggregator_);
+  DCHECK(event_aggregator_);
   DCHECK(bluetooth_events_);
   DCHECK(lid_events_);
   DCHECK(power_events_);
   DCHECK(audio_events_);
-  DCHECK(udev_events_);
   probe_provider_.Register(context->mojo_service()->GetServiceManager(),
                            chromeos::mojo_services::kCrosHealthdProbe);
   event_provider_.Register(context->mojo_service()->GetServiceManager(),
@@ -56,38 +56,44 @@ CrosHealthdMojoService::CrosHealthdMojoService(
 CrosHealthdMojoService::~CrosHealthdMojoService() = default;
 
 void CrosHealthdMojoService::AddBluetoothObserver(
-    mojo::PendingRemote<mojo_ipc::CrosHealthdBluetoothObserver> observer) {
+    mojo::PendingRemote<mojom::CrosHealthdBluetoothObserver> observer) {
   bluetooth_events_->AddObserver(std::move(observer));
 }
 
 void CrosHealthdMojoService::AddLidObserver(
-    mojo::PendingRemote<mojo_ipc::CrosHealthdLidObserver> observer) {
+    mojo::PendingRemote<mojom::CrosHealthdLidObserver> observer) {
   lid_events_->AddObserver(std::move(observer));
 }
 
 void CrosHealthdMojoService::AddPowerObserver(
-    mojo::PendingRemote<mojo_ipc::CrosHealthdPowerObserver> observer) {
+    mojo::PendingRemote<mojom::CrosHealthdPowerObserver> observer) {
   power_events_->AddObserver(std::move(observer));
 }
 
 void CrosHealthdMojoService::AddNetworkObserver(
-    mojo::PendingRemote<network_health_ipc::NetworkEventsObserver> observer) {
+    mojo::PendingRemote<network_health_mojom::NetworkEventsObserver> observer) {
   context_->network_health_adapter()->AddObserver(std::move(observer));
 }
 
 void CrosHealthdMojoService::AddAudioObserver(
-    mojo::PendingRemote<mojo_ipc::CrosHealthdAudioObserver> observer) {
+    mojo::PendingRemote<mojom::CrosHealthdAudioObserver> observer) {
   audio_events_->AddObserver(std::move(observer));
 }
 
 void CrosHealthdMojoService::AddThunderboltObserver(
-    mojo::PendingRemote<mojo_ipc::CrosHealthdThunderboltObserver> observer) {
-  udev_events_->AddThunderboltObserver(std::move(observer));
+    mojo::PendingRemote<mojom::CrosHealthdThunderboltObserver> observer) {
+  event_aggregator_->AddObserver(std::move(observer));
 }
 
 void CrosHealthdMojoService::AddUsbObserver(
-    mojo::PendingRemote<mojo_ipc::CrosHealthdUsbObserver> observer) {
-  udev_events_->AddUsbObserver(std::move(observer));
+    mojo::PendingRemote<mojom::CrosHealthdUsbObserver> observer) {
+  event_aggregator_->AddObserver(std::move(observer));
+}
+
+void CrosHealthdMojoService::AddEventObserver(
+    mojom::EventCategoryEnum category,
+    mojo::PendingRemote<mojom::EventObserver> observer) {
+  event_aggregator_->AddObserver(category, std::move(observer));
 }
 
 void CrosHealthdMojoService::ProbeProcessInfo(
@@ -112,7 +118,7 @@ void CrosHealthdMojoService::ProbeMultipleProcessInfo(
 
 void CrosHealthdMojoService::GetServiceStatus(
     GetServiceStatusCallback callback) {
-  auto response = mojo_ipc::ServiceStatus::New();
+  auto response = mojom::ServiceStatus::New();
   response->network_health_bound =
       context_->network_health_adapter()->ServiceRemoteBound();
   response->network_diagnostics_bound =
@@ -121,17 +127,17 @@ void CrosHealthdMojoService::GetServiceStatus(
 }
 
 void CrosHealthdMojoService::AddProbeReceiver(
-    mojo::PendingReceiver<mojo_ipc::CrosHealthdProbeService> receiver) {
+    mojo::PendingReceiver<mojom::CrosHealthdProbeService> receiver) {
   probe_receiver_set_.Add(this /* impl */, std::move(receiver));
 }
 
 void CrosHealthdMojoService::AddEventReceiver(
-    mojo::PendingReceiver<mojo_ipc::CrosHealthdEventService> receiver) {
+    mojo::PendingReceiver<mojom::CrosHealthdEventService> receiver) {
   event_receiver_set_.Add(this /* impl */, std::move(receiver));
 }
 
 void CrosHealthdMojoService::AddSystemReceiver(
-    mojo::PendingReceiver<mojo_ipc::CrosHealthdSystemService> receiver) {
+    mojo::PendingReceiver<mojom::CrosHealthdSystemService> receiver) {
   system_receiver_set_.Add(this /* impl */, std::move(receiver));
 }
 

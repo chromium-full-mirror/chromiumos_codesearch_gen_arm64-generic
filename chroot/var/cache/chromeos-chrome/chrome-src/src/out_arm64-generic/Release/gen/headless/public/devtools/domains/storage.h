@@ -109,6 +109,7 @@ class HEADLESS_EXPORT Domain {
   static void HandleSetSharedStorageEntryResponse(base::OnceCallback<void(std::unique_ptr<SetSharedStorageEntryResult>)> callback, const base::Value& response);
   static void HandleDeleteSharedStorageEntryResponse(base::OnceCallback<void(std::unique_ptr<DeleteSharedStorageEntryResult>)> callback, const base::Value& response);
   static void HandleClearSharedStorageEntriesResponse(base::OnceCallback<void(std::unique_ptr<ClearSharedStorageEntriesResult>)> callback, const base::Value& response);
+  static void HandleResetSharedStorageBudgetResponse(base::OnceCallback<void(std::unique_ptr<ResetSharedStorageBudgetResult>)> callback, const base::Value& response);
   static void HandleSetSharedStorageTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetSharedStorageTrackingResult>)> callback, const base::Value& response);
 
   void DispatchCacheStorageContentUpdatedEvent(const base::Value& params);
@@ -219,6 +220,9 @@ class ExperimentalDomain : public Domain {
 
   // Clears all entries for a given origin's shared storage.
   void ClearSharedStorageEntries(std::unique_ptr<ClearSharedStorageEntriesParams> params, base::OnceCallback<void(std::unique_ptr<ClearSharedStorageEntriesResult>)> callback = base::OnceCallback<void(std::unique_ptr<ClearSharedStorageEntriesResult>)>());
+
+  // Resets the budget for `ownerOrigin` by clearing all budget withdrawals.
+  void ResetSharedStorageBudget(std::unique_ptr<ResetSharedStorageBudgetParams> params, base::OnceCallback<void(std::unique_ptr<ResetSharedStorageBudgetResult>)> callback = base::OnceCallback<void(std::unique_ptr<ResetSharedStorageBudgetResult>)>());
 
   // Enables/disables issuing of sharedStorageAccessed events.
   void SetSharedStorageTracking(std::unique_ptr<SetSharedStorageTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetSharedStorageTrackingResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetSharedStorageTrackingResult>)>());

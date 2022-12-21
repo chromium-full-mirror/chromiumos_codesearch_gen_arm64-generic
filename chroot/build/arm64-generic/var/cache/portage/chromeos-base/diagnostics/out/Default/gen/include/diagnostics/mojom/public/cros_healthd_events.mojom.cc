@@ -55,7 +55,8 @@ UsbEventInfo::UsbEventInfo()
       name(),
       vid(),
       pid(),
-      categories() {}
+      categories(),
+      state() {}
 
 UsbEventInfo::UsbEventInfo(
     const std::string& vendor_in,
@@ -67,7 +68,22 @@ UsbEventInfo::UsbEventInfo(
       name(std::move(name_in)),
       vid(std::move(vid_in)),
       pid(std::move(pid_in)),
-      categories(std::move(categories_in)) {}
+      categories(std::move(categories_in)),
+      state() {}
+
+UsbEventInfo::UsbEventInfo(
+    const std::string& vendor_in,
+    const std::string& name_in,
+    uint16_t vid_in,
+    uint16_t pid_in,
+    std::vector<std::string> categories_in,
+    UsbEventInfo::State state_in)
+    : vendor(std::move(vendor_in)),
+      name(std::move(name_in)),
+      vid(std::move(vid_in)),
+      pid(std::move(pid_in)),
+      categories(std::move(categories_in)),
+      state(std::move(state_in)) {}
 
 UsbEventInfo::~UsbEventInfo() = default;
 
@@ -119,12 +135,303 @@ void UsbEventInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "state"), this->state,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type UsbEventInfo::State>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool UsbEventInfo::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
+}
+ThunderboltEventInfo::ThunderboltEventInfo()
+    : state() {}
+
+ThunderboltEventInfo::ThunderboltEventInfo(
+    ThunderboltEventInfo::State state_in)
+    : state(std::move(state_in)) {}
+
+ThunderboltEventInfo::~ThunderboltEventInfo() = default;
+size_t ThunderboltEventInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->state);
+  return seed;
+}
+
+void ThunderboltEventInfo::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "state"), this->state,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ThunderboltEventInfo::State>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ThunderboltEventInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+LidEventInfo::LidEventInfo()
+    : state() {}
+
+LidEventInfo::LidEventInfo(
+    LidEventInfo::State state_in)
+    : state(std::move(state_in)) {}
+
+LidEventInfo::~LidEventInfo() = default;
+size_t LidEventInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->state);
+  return seed;
+}
+
+void LidEventInfo::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "state"), this->state,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type LidEventInfo::State>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool LidEventInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+BluetoothEventInfo::BluetoothEventInfo()
+    : state() {}
+
+BluetoothEventInfo::BluetoothEventInfo(
+    BluetoothEventInfo::State state_in)
+    : state(std::move(state_in)) {}
+
+BluetoothEventInfo::~BluetoothEventInfo() = default;
+size_t BluetoothEventInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->state);
+  return seed;
+}
+
+void BluetoothEventInfo::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "state"), this->state,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type BluetoothEventInfo::State>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool BluetoothEventInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+PowerEventInfo::PowerEventInfo()
+    : state() {}
+
+PowerEventInfo::PowerEventInfo(
+    PowerEventInfo::State state_in)
+    : state(std::move(state_in)) {}
+
+PowerEventInfo::~PowerEventInfo() = default;
+size_t PowerEventInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->state);
+  return seed;
+}
+
+void PowerEventInfo::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "state"), this->state,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type PowerEventInfo::State>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool PowerEventInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+AudioEventInfo::AudioEventInfo()
+    : state() {}
+
+AudioEventInfo::AudioEventInfo(
+    AudioEventInfo::State state_in)
+    : state(std::move(state_in)) {}
+
+AudioEventInfo::~AudioEventInfo() = default;
+size_t AudioEventInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->state);
+  return seed;
+}
+
+void AudioEventInfo::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "state"), this->state,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type AudioEventInfo::State>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool AudioEventInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+EventInfo::EventInfo() : tag_(Tag::kDefaultType) {
+  data_.default_type = uint8_t();
+}
+
+EventInfo::~EventInfo() {
+  DestroyActive();
+}
+
+
+void EventInfo::set_default_type(
+    uint8_t default_type) {
+  if (tag_ != Tag::kDefaultType) {
+    DestroyActive();
+    tag_ = Tag::kDefaultType;
+  }
+  data_.default_type = default_type;
+}
+void EventInfo::set_usb_event_info(
+    UsbEventInfoPtr usb_event_info) {
+  if (tag_ == Tag::kUsbEventInfo) {
+    *(data_.usb_event_info) = std::move(usb_event_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kUsbEventInfo;
+    data_.usb_event_info = new UsbEventInfoPtr(
+        std::move(usb_event_info));
+  }
+}
+void EventInfo::set_thunderbolt_event_info(
+    ThunderboltEventInfoPtr thunderbolt_event_info) {
+  if (tag_ == Tag::kThunderboltEventInfo) {
+    *(data_.thunderbolt_event_info) = std::move(thunderbolt_event_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kThunderboltEventInfo;
+    data_.thunderbolt_event_info = new ThunderboltEventInfoPtr(
+        std::move(thunderbolt_event_info));
+  }
+}
+void EventInfo::set_lid_event_info(
+    LidEventInfoPtr lid_event_info) {
+  if (tag_ == Tag::kLidEventInfo) {
+    *(data_.lid_event_info) = std::move(lid_event_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kLidEventInfo;
+    data_.lid_event_info = new LidEventInfoPtr(
+        std::move(lid_event_info));
+  }
+}
+void EventInfo::set_bluetooth_event_info(
+    BluetoothEventInfoPtr bluetooth_event_info) {
+  if (tag_ == Tag::kBluetoothEventInfo) {
+    *(data_.bluetooth_event_info) = std::move(bluetooth_event_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kBluetoothEventInfo;
+    data_.bluetooth_event_info = new BluetoothEventInfoPtr(
+        std::move(bluetooth_event_info));
+  }
+}
+void EventInfo::set_power_event_info(
+    PowerEventInfoPtr power_event_info) {
+  if (tag_ == Tag::kPowerEventInfo) {
+    *(data_.power_event_info) = std::move(power_event_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kPowerEventInfo;
+    data_.power_event_info = new PowerEventInfoPtr(
+        std::move(power_event_info));
+  }
+}
+void EventInfo::set_audio_event_info(
+    AudioEventInfoPtr audio_event_info) {
+  if (tag_ == Tag::kAudioEventInfo) {
+    *(data_.audio_event_info) = std::move(audio_event_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kAudioEventInfo;
+    data_.audio_event_info = new AudioEventInfoPtr(
+        std::move(audio_event_info));
+  }
+}
+
+void EventInfo::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kDefaultType:
+
+      break;
+    case Tag::kUsbEventInfo:
+
+      delete data_.usb_event_info;
+      break;
+    case Tag::kThunderboltEventInfo:
+
+      delete data_.thunderbolt_event_info;
+      break;
+    case Tag::kLidEventInfo:
+
+      delete data_.lid_event_info;
+      break;
+    case Tag::kBluetoothEventInfo:
+
+      delete data_.bluetooth_event_info;
+      break;
+    case Tag::kPowerEventInfo:
+
+      delete data_.power_event_info;
+      break;
+    case Tag::kAudioEventInfo:
+
+      delete data_.audio_event_info;
+      break;
+  }
+}
+
+bool EventInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
 }
 const char CrosHealthdBluetoothObserver::Name_[] = "ash.cros_healthd.mojom.CrosHealthdBluetoothObserver";
 
@@ -2130,6 +2437,173 @@ bool CrosHealthdUsbObserverRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosHealthdUsbObserverValidationInfo);
 }
 
+const char EventObserver::Name_[] = "ash.cros_healthd.mojom.EventObserver";
+
+EventObserver::IPCStableHashFunction EventObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kEventObserver_OnEvent_Name: {
+      return &EventObserver::OnEvent_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* EventObserver::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kEventObserver_OnEvent_Name:
+            return "Receive ash::cros_healthd::mojom::EventObserver::OnEvent";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kEventObserver_OnEvent_Name:
+            return "Receive reply ash::cros_healthd::mojom::EventObserver::OnEvent";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t EventObserver::OnEvent_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::EventObserver::OnEvent");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+EventObserverProxy::EventObserverProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void EventObserverProxy::OnEvent(
+    EventInfoPtr in_info) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::EventObserver::OnEvent", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("info"), in_info,
+                        "<value of type EventInfoPtr>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kEventObserver_OnEvent_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::EventObserver_OnEvent_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<decltype(params->info)>
+      info_fragment(params.message());
+  info_fragment.Claim(&params->info);
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::EventInfoDataView>(
+      in_info, info_fragment, true);
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->info.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null info in EventObserver.OnEvent request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(EventObserver::Name_);
+  message.set_method_name("OnEvent");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool EventObserverStubDispatch::Accept(
+    EventObserver* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kEventObserver_OnEvent_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::EventObserver_OnEvent_Params_Data* params =
+          reinterpret_cast<internal::EventObserver_OnEvent_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      EventInfoPtr p_info = mojo::DefaultConstructTraits::CreateInstance<EventInfoPtr>();
+      EventObserver_OnEvent_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadInfo(&p_info))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            EventObserver::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnEvent(
+std::move(p_info));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool EventObserverStubDispatch::AcceptWithResponder(
+    EventObserver* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kEventObserver_OnEvent_Name: {
+      break;
+    }
+  }
+  return false;
+}
+
+
+static const mojo::internal::GenericValidationInfo kEventObserverValidationInfo[] = {
+    {&internal::EventObserver_OnEvent_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool EventObserverRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::EventObserver::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kEventObserverValidationInfo);
+}
+
 
 
 }  // namespace mojom
@@ -2157,8 +2631,154 @@ bool StructTraits<::ash::cros_healthd::mojom::UsbEventInfo::DataView, ::ash::cro
         result->pid = input.pid();
       if (success && !input.ReadCategories(&result->categories))
         success = false;
+      if (success && !input.ReadState(&result->state))
+        success = false;
   *output = std::move(result);
   return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::ThunderboltEventInfo::DataView, ::ash::cros_healthd::mojom::ThunderboltEventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::ThunderboltEventInfo::DataView input,
+    ::ash::cros_healthd::mojom::ThunderboltEventInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::ThunderboltEventInfoPtr result(::ash::cros_healthd::mojom::ThunderboltEventInfo::New());
+  
+      if (success && !input.ReadState(&result->state))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::LidEventInfo::DataView, ::ash::cros_healthd::mojom::LidEventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::LidEventInfo::DataView input,
+    ::ash::cros_healthd::mojom::LidEventInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::LidEventInfoPtr result(::ash::cros_healthd::mojom::LidEventInfo::New());
+  
+      if (success && !input.ReadState(&result->state))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothEventInfo::DataView, ::ash::cros_healthd::mojom::BluetoothEventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothEventInfo::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothEventInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::BluetoothEventInfoPtr result(::ash::cros_healthd::mojom::BluetoothEventInfo::New());
+  
+      if (success && !input.ReadState(&result->state))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::PowerEventInfo::DataView, ::ash::cros_healthd::mojom::PowerEventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::PowerEventInfo::DataView input,
+    ::ash::cros_healthd::mojom::PowerEventInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::PowerEventInfoPtr result(::ash::cros_healthd::mojom::PowerEventInfo::New());
+  
+      if (success && !input.ReadState(&result->state))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::AudioEventInfo::DataView, ::ash::cros_healthd::mojom::AudioEventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::AudioEventInfo::DataView input,
+    ::ash::cros_healthd::mojom::AudioEventInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::AudioEventInfoPtr result(::ash::cros_healthd::mojom::AudioEventInfo::New());
+  
+      if (success && !input.ReadState(&result->state))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView, ::ash::cros_healthd::mojom::EventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::EventInfo::DataView input,
+    ::ash::cros_healthd::mojom::EventInfoPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::EventInfo;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kDefaultType: {
+      *output = UnionType::NewDefaultType(input.default_type());
+      break;
+    }
+    case Tag::kUsbEventInfo: {
+      ::ash::cros_healthd::mojom::UsbEventInfoPtr result_usb_event_info;
+      if (!input.ReadUsbEventInfo(&result_usb_event_info))
+        return false;
+
+      *output = UnionType::NewUsbEventInfo(
+          std::move(result_usb_event_info));
+      break;
+    }
+    case Tag::kThunderboltEventInfo: {
+      ::ash::cros_healthd::mojom::ThunderboltEventInfoPtr result_thunderbolt_event_info;
+      if (!input.ReadThunderboltEventInfo(&result_thunderbolt_event_info))
+        return false;
+
+      *output = UnionType::NewThunderboltEventInfo(
+          std::move(result_thunderbolt_event_info));
+      break;
+    }
+    case Tag::kLidEventInfo: {
+      ::ash::cros_healthd::mojom::LidEventInfoPtr result_lid_event_info;
+      if (!input.ReadLidEventInfo(&result_lid_event_info))
+        return false;
+
+      *output = UnionType::NewLidEventInfo(
+          std::move(result_lid_event_info));
+      break;
+    }
+    case Tag::kBluetoothEventInfo: {
+      ::ash::cros_healthd::mojom::BluetoothEventInfoPtr result_bluetooth_event_info;
+      if (!input.ReadBluetoothEventInfo(&result_bluetooth_event_info))
+        return false;
+
+      *output = UnionType::NewBluetoothEventInfo(
+          std::move(result_bluetooth_event_info));
+      break;
+    }
+    case Tag::kPowerEventInfo: {
+      ::ash::cros_healthd::mojom::PowerEventInfoPtr result_power_event_info;
+      if (!input.ReadPowerEventInfo(&result_power_event_info))
+        return false;
+
+      *output = UnionType::NewPowerEventInfo(
+          std::move(result_power_event_info));
+      break;
+    }
+    case Tag::kAudioEventInfo: {
+      ::ash::cros_healthd::mojom::AudioEventInfoPtr result_audio_event_info;
+      if (!input.ReadAudioEventInfo(&result_audio_event_info))
+        return false;
+
+      *output = UnionType::NewAudioEventInfo(
+          std::move(result_audio_event_info));
+      break;
+    }
+    default:
+
+      *output = UnionType::NewDefaultType({});
+      return true;
+  }
+  return true;
 }
 
 }  // namespace mojo
@@ -2277,6 +2897,17 @@ CrosHealthdUsbObserverAsyncWaiter::CrosHealthdUsbObserverAsyncWaiter(
     CrosHealthdUsbObserver* proxy) : proxy_(proxy) {}
 
 CrosHealthdUsbObserverAsyncWaiter::~CrosHealthdUsbObserverAsyncWaiter() = default;
+
+
+
+
+void EventObserverInterceptorForTesting::OnEvent(EventInfoPtr info) {
+  GetForwardingInterface()->OnEvent(std::move(info));
+}
+EventObserverAsyncWaiter::EventObserverAsyncWaiter(
+    EventObserver* proxy) : proxy_(proxy) {}
+
+EventObserverAsyncWaiter::~EventObserverAsyncWaiter() = default;
 
 
 

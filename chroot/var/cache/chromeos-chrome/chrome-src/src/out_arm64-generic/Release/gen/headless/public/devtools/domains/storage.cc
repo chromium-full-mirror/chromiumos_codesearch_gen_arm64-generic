@@ -131,6 +131,9 @@ void ExperimentalDomain::DeleteSharedStorageEntry(std::unique_ptr<DeleteSharedSt
 void ExperimentalDomain::ClearSharedStorageEntries(std::unique_ptr<ClearSharedStorageEntriesParams> params, base::OnceCallback<void(std::unique_ptr<ClearSharedStorageEntriesResult>)> callback) {
   dispatcher_->SendMessage("Storage.clearSharedStorageEntries", params->Serialize(), base::BindOnce(&Domain::HandleClearSharedStorageEntriesResponse, std::move(callback)));
 }
+void ExperimentalDomain::ResetSharedStorageBudget(std::unique_ptr<ResetSharedStorageBudgetParams> params, base::OnceCallback<void(std::unique_ptr<ResetSharedStorageBudgetResult>)> callback) {
+  dispatcher_->SendMessage("Storage.resetSharedStorageBudget", params->Serialize(), base::BindOnce(&Domain::HandleResetSharedStorageBudgetResponse, std::move(callback)));
+}
 void ExperimentalDomain::SetSharedStorageTracking(std::unique_ptr<SetSharedStorageTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetSharedStorageTrackingResult>)> callback) {
   dispatcher_->SendMessage("Storage.setSharedStorageTracking", params->Serialize(), base::BindOnce(&Domain::HandleSetSharedStorageTrackingResponse, std::move(callback)));
 }
@@ -507,6 +510,21 @@ void Domain::HandleClearSharedStorageEntriesResponse(base::OnceCallback<void(std
   }
   ErrorReporter errors;
   std::unique_ptr<ClearSharedStorageEntriesResult> result = ClearSharedStorageEntriesResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(std::move(result));
+}
+
+// static
+void Domain::HandleResetSharedStorageBudgetResponse(base::OnceCallback<void(std::unique_ptr<ResetSharedStorageBudgetResult>)> callback, const base::Value& response) {
+  if (callback.is_null())
+    return;
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<ResetSharedStorageBudgetResult> result = ResetSharedStorageBudgetResult::Parse(response, &errors);
   DCHECK(!errors.HasErrors()) << errors.ToString();
   std::move(callback).Run(std::move(result));
 }

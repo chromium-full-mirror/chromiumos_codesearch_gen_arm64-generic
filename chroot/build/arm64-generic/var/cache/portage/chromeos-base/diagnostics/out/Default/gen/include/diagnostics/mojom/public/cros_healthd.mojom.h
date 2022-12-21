@@ -559,7 +559,7 @@ class CrosHealthdEventService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 1;
+  static constexpr uint32_t Version_ = 2;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -579,6 +579,7 @@ class CrosHealthdEventService
     kAddAudioObserverMinVersion = 0,
     kAddThunderboltObserverMinVersion = 0,
     kAddUsbObserverMinVersion = 1,
+    kAddEventObserverMinVersion = 2,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -605,6 +606,9 @@ class CrosHealthdEventService
   struct AddUsbObserver_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct AddEventObserver_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CrosHealthdEventService() = default;
 
@@ -628,6 +632,9 @@ class CrosHealthdEventService
 
   
   virtual void AddUsbObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> observer) = 0;
+
+  
+  virtual void AddEventObserver(::ash::cros_healthd::mojom::EventCategoryEnum category, ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> observer) = 0;
 };
 
 class CrosHealthdProbeServiceProxy;
@@ -957,6 +964,8 @@ class  CrosHealthdEventServiceProxy
   void AddThunderboltObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> observer) final;
   
   void AddUsbObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> observer) final;
+  
+  void AddEventObserver(::ash::cros_healthd::mojom::EventCategoryEnum category, ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> observer) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

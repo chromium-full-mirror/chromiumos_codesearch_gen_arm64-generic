@@ -229,6 +229,7 @@ class  CrosHealthdEventServiceInterceptorForTesting : public CrosHealthdEventSer
   void AddAudioObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> observer) override;
   void AddThunderboltObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> observer) override;
   void AddUsbObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> observer) override;
+  void AddEventObserver(::ash::cros_healthd::mojom::EventCategoryEnum category, ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> observer) override;
 };
 class  CrosHealthdEventServiceAsyncWaiter {
  public:
