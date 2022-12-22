@@ -50,6 +50,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void GetFingerprintInfo(GetFingerprintInfoCallback callback) override;
   void SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, SetLedColorCallback callback) override;
   void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) override;
+  void GetHciDeviceConfig(GetHciDeviceConfigCallback callback) override;
 };
 class  ExecutorAsyncWaiter {
  public:
@@ -104,6 +105,9 @@ class  ExecutorAsyncWaiter {
   void ResetLedColor(
       ::ash::cros_healthd::mojom::LedName name, absl::optional<std::string>* out_err);
   absl::optional<std::string> ResetLedColor(::ash::cros_healthd::mojom::LedName name);
+  void GetHciDeviceConfig(
+      ExecutedProcessResultPtr* out_result);
+  ExecutedProcessResultPtr GetHciDeviceConfig();
 
  private:
   Executor* const proxy_;

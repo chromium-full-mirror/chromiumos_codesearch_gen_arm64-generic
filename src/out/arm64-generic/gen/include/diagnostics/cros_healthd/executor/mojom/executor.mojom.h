@@ -126,6 +126,7 @@ class Executor
     kGetFingerprintInfoMinVersion = 0,
     kSetLedColorMinVersion = 0,
     kResetLedColorMinVersion = 0,
+    kGetHciDeviceConfigMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -177,6 +178,9 @@ class Executor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct ResetLedColor_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetHciDeviceConfig_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -259,6 +263,11 @@ class Executor
   using ResetLedColorCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
   
   virtual void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) = 0;
+
+
+  using GetHciDeviceConfigCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
+  
+  virtual void GetHciDeviceConfig(GetHciDeviceConfigCallback callback) = 0;
 };
 
 
@@ -314,6 +323,8 @@ class  ExecutorProxy
   void SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, SetLedColorCallback callback) final;
   
   void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) final;
+  
+  void GetHciDeviceConfig(GetHciDeviceConfigCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

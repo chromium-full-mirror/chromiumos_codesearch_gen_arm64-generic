@@ -518,6 +518,37 @@ class  Executor_ResetLedColor_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_ResetLedColor_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_ResetLedColor_ResponseParams_Data)");
+class  Executor_GetHciDeviceConfig_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_GetHciDeviceConfig_Params_Data>;
+
+  Executor_GetHciDeviceConfig_Params_Data();
+  ~Executor_GetHciDeviceConfig_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_GetHciDeviceConfig_Params_Data) == 8,
+              "Bad sizeof(Executor_GetHciDeviceConfig_Params_Data)");
+class  Executor_GetHciDeviceConfig_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::ExecutedProcessResult_Data> result;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_GetHciDeviceConfig_ResponseParams_Data>;
+
+  Executor_GetHciDeviceConfig_ResponseParams_Data();
+  ~Executor_GetHciDeviceConfig_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_GetHciDeviceConfig_ResponseParams_Data) == 16,
+              "Bad sizeof(Executor_GetHciDeviceConfig_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -1346,6 +1377,49 @@ static_assert(
 
 
 
+class Executor_GetHciDeviceConfig_ParamsDataView {
+ public:
+  Executor_GetHciDeviceConfig_ParamsDataView() = default;
+
+  Executor_GetHciDeviceConfig_ParamsDataView(
+      internal::Executor_GetHciDeviceConfig_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Executor_GetHciDeviceConfig_Params_Data* data_ = nullptr;
+};
+
+
+
+class Executor_GetHciDeviceConfig_ResponseParamsDataView {
+ public:
+  Executor_GetHciDeviceConfig_ResponseParamsDataView() = default;
+
+  Executor_GetHciDeviceConfig_ResponseParamsDataView(
+      internal::Executor_GetHciDeviceConfig_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      ExecutedProcessResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = data_->result.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_GetHciDeviceConfig_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 
 inline void Executor_GetFanSpeed_ResponseParamsDataView::GetResultDataView(
     ExecutedProcessResultDataView* output) {
@@ -1509,6 +1583,15 @@ inline void Executor_ResetLedColor_ResponseParamsDataView::GetErrDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->err.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void Executor_GetHciDeviceConfig_ResponseParamsDataView::GetResultDataView(
+    ExecutedProcessResultDataView* output) {
+  auto pointer = data_->result.Get();
+  *output = ExecutedProcessResultDataView(pointer, message_);
 }
 
 }  // namespace mojom

@@ -31,6 +31,7 @@ constexpr uint32_t kExecutor_GetFingerprintFrame_Name = 12;
 constexpr uint32_t kExecutor_GetFingerprintInfo_Name = 13;
 constexpr uint32_t kExecutor_SetLedColor_Name = 14;
 constexpr uint32_t kExecutor_ResetLedColor_Name = 15;
+constexpr uint32_t kExecutor_GetHciDeviceConfig_Name = 16;
 
 }  // namespace internal
 }  // namespace mojom

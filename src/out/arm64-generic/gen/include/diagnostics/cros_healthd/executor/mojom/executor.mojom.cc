@@ -296,6 +296,9 @@ Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& me
     case internal::kExecutor_ResetLedColor_Name: {
       return &Executor::ResetLedColor_Sym::IPCStableHash;
     }
+    case internal::kExecutor_GetHciDeviceConfig_Name: {
+      return &Executor::GetHciDeviceConfig_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -339,6 +342,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Executor::SetLedColor";
       case internal::kExecutor_ResetLedColor_Name:
             return "Receive ash::cros_healthd::mojom::Executor::ResetLedColor";
+      case internal::kExecutor_GetHciDeviceConfig_Name:
+            return "Receive ash::cros_healthd::mojom::Executor::GetHciDeviceConfig";
     }
   } else {
     switch (message.name()) {
@@ -374,6 +379,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Executor::SetLedColor";
       case internal::kExecutor_ResetLedColor_Name:
             return "Receive reply ash::cros_healthd::mojom::Executor::ResetLedColor";
+      case internal::kExecutor_GetHciDeviceConfig_Name:
+            return "Receive reply ash::cros_healthd::mojom::Executor::GetHciDeviceConfig";
     }
   }
   return "Receive unknown mojo message";
@@ -592,6 +599,19 @@ uint32_t Executor::ResetLedColor_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::Executor::ResetLedColor");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::GetHciDeviceConfig_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::GetHciDeviceConfig");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -836,6 +856,22 @@ class Executor_ResetLedColor_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Executor::ResetLedColorCallback callback_;
+};
+
+class Executor_GetHciDeviceConfig_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Executor_GetHciDeviceConfig_ForwardToCallback(
+      Executor::GetHciDeviceConfigCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Executor_GetHciDeviceConfig_ForwardToCallback(const Executor_GetHciDeviceConfig_ForwardToCallback&) = delete;
+  Executor_GetHciDeviceConfig_ForwardToCallback& operator=(const Executor_GetHciDeviceConfig_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Executor::GetHciDeviceConfigCallback callback_;
 };
 
 ExecutorProxy::ExecutorProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -1459,6 +1495,37 @@ void ExecutorProxy::ResetLedColor(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_ResetLedColor_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ExecutorProxy::GetHciDeviceConfig(
+    GetHciDeviceConfigCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Executor::GetHciDeviceConfig");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_GetHciDeviceConfig_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_GetHciDeviceConfig_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("GetHciDeviceConfig");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Executor_GetHciDeviceConfig_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -3340,6 +3407,130 @@ void Executor_ResetLedColor_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Executor_GetHciDeviceConfig_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Executor::GetHciDeviceConfigCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Executor_GetHciDeviceConfig_ProxyToResponder> proxy(
+        new Executor_GetHciDeviceConfig_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Executor_GetHciDeviceConfig_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Executor_GetHciDeviceConfig_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Executor_GetHciDeviceConfig_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Executor::GetHciDeviceConfigCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ExecutedProcessResultPtr in_result);
+};
+
+bool Executor_GetHciDeviceConfig_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Executor_GetHciDeviceConfig_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Executor_GetHciDeviceConfig_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ExecutedProcessResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
+  Executor_GetHciDeviceConfig_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Executor::Name_, 16, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void Executor_GetHciDeviceConfig_ProxyToResponder::Run(
+    ExecutedProcessResultPtr in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetHciDeviceConfig", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type ExecutedProcessResultPtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_GetHciDeviceConfig_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_GetHciDeviceConfig_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->result)::BaseType> result_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
+      in_result, result_fragment);
+  params->result.Set(
+      result_fragment.is_null() ? nullptr : result_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("GetHciDeviceConfig");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool ExecutorStubDispatch::Accept(
@@ -3411,6 +3602,9 @@ bool ExecutorStubDispatch::Accept(
       break;
     }
     case internal::kExecutor_ResetLedColor_Name: {
+      break;
+    }
+    case internal::kExecutor_GetHciDeviceConfig_Name: {
       break;
     }
   }
@@ -3848,6 +4042,31 @@ std::move(p_color), std::move(callback));
 std::move(p_name), std::move(callback));
       return true;
     }
+    case internal::kExecutor_GetHciDeviceConfig_Name: {
+
+      internal::Executor_GetHciDeviceConfig_Params_Data* params =
+          reinterpret_cast<
+              internal::Executor_GetHciDeviceConfig_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Executor_GetHciDeviceConfig_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 16, false);
+        return false;
+      }
+      Executor::GetHciDeviceConfigCallback callback =
+          Executor_GetHciDeviceConfig_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetHciDeviceConfig(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -3886,6 +4105,8 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
      &internal::Executor_SetLedColor_ResponseParams_Data::Validate},
     {&internal::Executor_ResetLedColor_Params_Data::Validate,
      &internal::Executor_ResetLedColor_ResponseParams_Data::Validate},
+    {&internal::Executor_GetHciDeviceConfig_Params_Data::Validate,
+     &internal::Executor_GetHciDeviceConfig_ResponseParams_Data::Validate},
 };
 
 bool ExecutorRequestValidator::Accept(mojo::Message* message) {
@@ -4023,6 +4244,9 @@ void ExecutorInterceptorForTesting::SetLedColor(::ash::cros_healthd::mojom::LedN
 }
 void ExecutorInterceptorForTesting::ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) {
   GetForwardingInterface()->ResetLedColor(std::move(name), std::move(callback));
+}
+void ExecutorInterceptorForTesting::GetHciDeviceConfig(GetHciDeviceConfigCallback callback) {
+  GetForwardingInterface()->GetHciDeviceConfig(std::move(callback));
 }
 ExecutorAsyncWaiter::ExecutorAsyncWaiter(
     Executor* proxy) : proxy_(proxy) {}
@@ -4369,6 +4593,29 @@ absl::optional<std::string> ExecutorAsyncWaiter::ResetLedColor(
     ::ash::cros_healthd::mojom::LedName name) {
   absl::optional<std::string> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
   ResetLedColor(std::move(name),&async_wait_result);
+  return async_wait_result;
+}
+
+void ExecutorAsyncWaiter::GetHciDeviceConfig(
+    ExecutedProcessResultPtr* out_result) {
+  base::RunLoop loop;
+  proxy_->GetHciDeviceConfig(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ExecutedProcessResultPtr* out_result
+,
+             ExecutedProcessResultPtr result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
+  loop.Run();
+}
+
+ExecutedProcessResultPtr ExecutorAsyncWaiter::GetHciDeviceConfig(
+    ) {
+  ExecutedProcessResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
+  GetHciDeviceConfig(&async_wait_result);
   return async_wait_result;
 }
 
