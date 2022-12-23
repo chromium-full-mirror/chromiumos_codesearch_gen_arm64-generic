@@ -669,6 +669,193 @@ bool BatteryInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+NvmeDeviceInfo::NvmeDeviceInfo()
+    : subsystem_vendor(),
+      subsystem_device(),
+      pcie_rev(),
+      firmware_rev() {}
+
+NvmeDeviceInfo::NvmeDeviceInfo(
+    uint32_t subsystem_vendor_in,
+    uint32_t subsystem_device_in,
+    uint8_t pcie_rev_in,
+    uint64_t firmware_rev_in)
+    : subsystem_vendor(std::move(subsystem_vendor_in)),
+      subsystem_device(std::move(subsystem_device_in)),
+      pcie_rev(std::move(pcie_rev_in)),
+      firmware_rev(std::move(firmware_rev_in)) {}
+
+NvmeDeviceInfo::~NvmeDeviceInfo() = default;
+size_t NvmeDeviceInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->subsystem_vendor);
+  seed = mojo::internal::Hash(seed, this->subsystem_device);
+  seed = mojo::internal::Hash(seed, this->pcie_rev);
+  seed = mojo::internal::Hash(seed, this->firmware_rev);
+  return seed;
+}
+
+void NvmeDeviceInfo::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "subsystem_vendor"), this->subsystem_vendor,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "subsystem_device"), this->subsystem_device,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "pcie_rev"), this->pcie_rev,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "firmware_rev"), this->firmware_rev,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool NvmeDeviceInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+EmmcDeviceInfo::EmmcDeviceInfo()
+    : manfid(),
+      pnm(),
+      prv(),
+      fwrev() {}
+
+EmmcDeviceInfo::EmmcDeviceInfo(
+    uint16_t manfid_in,
+    uint64_t pnm_in,
+    uint8_t prv_in,
+    uint64_t fwrev_in)
+    : manfid(std::move(manfid_in)),
+      pnm(std::move(pnm_in)),
+      prv(std::move(prv_in)),
+      fwrev(std::move(fwrev_in)) {}
+
+EmmcDeviceInfo::~EmmcDeviceInfo() = default;
+size_t EmmcDeviceInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->manfid);
+  seed = mojo::internal::Hash(seed, this->pnm);
+  seed = mojo::internal::Hash(seed, this->prv);
+  seed = mojo::internal::Hash(seed, this->fwrev);
+  return seed;
+}
+
+void EmmcDeviceInfo::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "manfid"), this->manfid,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint16_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "pnm"), this->pnm,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "prv"), this->prv,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "fwrev"), this->fwrev,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool EmmcDeviceInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+UfsDeviceInfo::UfsDeviceInfo()
+    : jedec_manfid(),
+      fwrev() {}
+
+UfsDeviceInfo::UfsDeviceInfo(
+    uint16_t jedec_manfid_in,
+    uint64_t fwrev_in)
+    : jedec_manfid(std::move(jedec_manfid_in)),
+      fwrev(std::move(fwrev_in)) {}
+
+UfsDeviceInfo::~UfsDeviceInfo() = default;
+size_t UfsDeviceInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->jedec_manfid);
+  seed = mojo::internal::Hash(seed, this->fwrev);
+  return seed;
+}
+
+void UfsDeviceInfo::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "jedec_manfid"), this->jedec_manfid,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint16_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "fwrev"), this->fwrev,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool UfsDeviceInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 NonRemovableBlockDeviceInfo::NonRemovableBlockDeviceInfo()
     : bytes_read_since_last_boot(),
       bytes_written_since_last_boot(),
@@ -676,6 +863,7 @@ NonRemovableBlockDeviceInfo::NonRemovableBlockDeviceInfo()
       write_time_seconds_since_last_boot(),
       io_time_seconds_since_last_boot(),
       discard_time_seconds_since_last_boot(),
+      device_info(),
       vendor_id(),
       product_id(),
       revision(),
@@ -712,6 +900,45 @@ NonRemovableBlockDeviceInfo::NonRemovableBlockDeviceInfo(
       write_time_seconds_since_last_boot(std::move(write_time_seconds_since_last_boot_in)),
       io_time_seconds_since_last_boot(std::move(io_time_seconds_since_last_boot_in)),
       discard_time_seconds_since_last_boot(std::move(discard_time_seconds_since_last_boot_in)),
+      device_info(),
+      vendor_id(std::move(vendor_id_in)),
+      product_id(std::move(product_id_in)),
+      revision(std::move(revision_in)),
+      name(std::move(name_in)),
+      size(std::move(size_in)),
+      firmware_version(std::move(firmware_version_in)),
+      type(std::move(type_in)),
+      purpose(std::move(purpose_in)),
+      path(std::move(path_in)),
+      manufacturer_id(std::move(manufacturer_id_in)),
+      serial(std::move(serial_in)) {}
+
+NonRemovableBlockDeviceInfo::NonRemovableBlockDeviceInfo(
+    uint64_t bytes_read_since_last_boot_in,
+    uint64_t bytes_written_since_last_boot_in,
+    uint64_t read_time_seconds_since_last_boot_in,
+    uint64_t write_time_seconds_since_last_boot_in,
+    uint64_t io_time_seconds_since_last_boot_in,
+    ::ash::cros_healthd::mojom::NullableUint64Ptr discard_time_seconds_since_last_boot_in,
+    BlockDeviceInfoPtr device_info_in,
+    BlockDeviceVendorPtr vendor_id_in,
+    BlockDeviceProductPtr product_id_in,
+    BlockDeviceRevisionPtr revision_in,
+    const std::string& name_in,
+    uint64_t size_in,
+    BlockDeviceFirmwarePtr firmware_version_in,
+    const std::string& type_in,
+    StorageDevicePurpose purpose_in,
+    const std::string& path_in,
+    uint8_t manufacturer_id_in,
+    uint32_t serial_in)
+    : bytes_read_since_last_boot(std::move(bytes_read_since_last_boot_in)),
+      bytes_written_since_last_boot(std::move(bytes_written_since_last_boot_in)),
+      read_time_seconds_since_last_boot(std::move(read_time_seconds_since_last_boot_in)),
+      write_time_seconds_since_last_boot(std::move(write_time_seconds_since_last_boot_in)),
+      io_time_seconds_since_last_boot(std::move(io_time_seconds_since_last_boot_in)),
+      discard_time_seconds_since_last_boot(std::move(discard_time_seconds_since_last_boot_in)),
+      device_info(std::move(device_info_in)),
       vendor_id(std::move(vendor_id_in)),
       product_id(std::move(product_id_in)),
       revision(std::move(revision_in)),
@@ -779,6 +1006,15 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
       "discard_time_seconds_since_last_boot"), this->discard_time_seconds_since_last_boot,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::ash::cros_healthd::mojom::NullableUint64Ptr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "device_info"), this->device_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type BlockDeviceInfoPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -6368,6 +6604,100 @@ bool BlockDeviceFirmware::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
+BlockDeviceInfo::BlockDeviceInfo() : tag_(Tag::kUnrecognized) {
+  data_.unrecognized = bool();
+}
+
+BlockDeviceInfo::~BlockDeviceInfo() {
+  DestroyActive();
+}
+
+
+void BlockDeviceInfo::set_unrecognized(
+    bool unrecognized) {
+  if (tag_ != Tag::kUnrecognized) {
+    DestroyActive();
+    tag_ = Tag::kUnrecognized;
+  }
+  data_.unrecognized = unrecognized;
+}
+void BlockDeviceInfo::set_nvme_device_info(
+    NvmeDeviceInfoPtr nvme_device_info) {
+  if (tag_ == Tag::kNvmeDeviceInfo) {
+    *(data_.nvme_device_info) = std::move(nvme_device_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kNvmeDeviceInfo;
+    data_.nvme_device_info = new NvmeDeviceInfoPtr(
+        std::move(nvme_device_info));
+  }
+}
+void BlockDeviceInfo::set_emmc_device_info(
+    EmmcDeviceInfoPtr emmc_device_info) {
+  if (tag_ == Tag::kEmmcDeviceInfo) {
+    *(data_.emmc_device_info) = std::move(emmc_device_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kEmmcDeviceInfo;
+    data_.emmc_device_info = new EmmcDeviceInfoPtr(
+        std::move(emmc_device_info));
+  }
+}
+void BlockDeviceInfo::set_ufs_device_info(
+    UfsDeviceInfoPtr ufs_device_info) {
+  if (tag_ == Tag::kUfsDeviceInfo) {
+    *(data_.ufs_device_info) = std::move(ufs_device_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kUfsDeviceInfo;
+    data_.ufs_device_info = new UfsDeviceInfoPtr(
+        std::move(ufs_device_info));
+  }
+}
+
+void BlockDeviceInfo::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kUnrecognized:
+
+      break;
+    case Tag::kNvmeDeviceInfo:
+
+      delete data_.nvme_device_info;
+      break;
+    case Tag::kEmmcDeviceInfo:
+
+      delete data_.emmc_device_info;
+      break;
+    case Tag::kUfsDeviceInfo:
+
+      delete data_.ufs_device_info;
+      break;
+  }
+}
+size_t BlockDeviceInfo::Hash(size_t seed) const {
+  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
+  switch (tag_) {
+
+    case Tag::kUnrecognized:
+      return mojo::internal::Hash(seed, data_.unrecognized);
+    case Tag::kNvmeDeviceInfo:
+      return mojo::internal::Hash(seed, data_.nvme_device_info);
+    case Tag::kEmmcDeviceInfo:
+      return mojo::internal::Hash(seed, data_.emmc_device_info);
+    case Tag::kUfsDeviceInfo:
+      return mojo::internal::Hash(seed, data_.ufs_device_info);
+    default:
+      NOTREACHED();
+      return seed;
+  }
+}
+
+bool BlockDeviceInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
 CpuResult::CpuResult() : tag_(Tag::kCpuInfo) {
   data_.cpu_info = new CpuInfoPtr;
 }
@@ -7673,6 +8003,62 @@ bool StructTraits<::ash::cros_healthd::mojom::BatteryInfo::DataView, ::ash::cros
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::NvmeDeviceInfo::DataView, ::ash::cros_healthd::mojom::NvmeDeviceInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::NvmeDeviceInfo::DataView input,
+    ::ash::cros_healthd::mojom::NvmeDeviceInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::NvmeDeviceInfoPtr result(::ash::cros_healthd::mojom::NvmeDeviceInfo::New());
+  
+      if (success)
+        result->subsystem_vendor = input.subsystem_vendor();
+      if (success)
+        result->subsystem_device = input.subsystem_device();
+      if (success)
+        result->pcie_rev = input.pcie_rev();
+      if (success)
+        result->firmware_rev = input.firmware_rev();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::EmmcDeviceInfo::DataView, ::ash::cros_healthd::mojom::EmmcDeviceInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::EmmcDeviceInfo::DataView input,
+    ::ash::cros_healthd::mojom::EmmcDeviceInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::EmmcDeviceInfoPtr result(::ash::cros_healthd::mojom::EmmcDeviceInfo::New());
+  
+      if (success)
+        result->manfid = input.manfid();
+      if (success)
+        result->pnm = input.pnm();
+      if (success)
+        result->prv = input.prv();
+      if (success)
+        result->fwrev = input.fwrev();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::UfsDeviceInfo::DataView, ::ash::cros_healthd::mojom::UfsDeviceInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::UfsDeviceInfo::DataView input,
+    ::ash::cros_healthd::mojom::UfsDeviceInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::UfsDeviceInfoPtr result(::ash::cros_healthd::mojom::UfsDeviceInfo::New());
+  
+      if (success)
+        result->jedec_manfid = input.jedec_manfid();
+      if (success)
+        result->fwrev = input.fwrev();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::DataView, ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr>::Read(
     ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::DataView input,
     ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr* output) {
@@ -7713,6 +8099,8 @@ bool StructTraits<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::DataV
         result->manufacturer_id = input.manufacturer_id();
       if (success)
         result->serial = input.serial();
+      if (success && !input.ReadDeviceInfo(&result->device_info))
+        success = false;
   *output = std::move(result);
   return success;
 }
@@ -9189,6 +9577,53 @@ bool UnionTraits<::ash::cros_healthd::mojom::BlockDeviceFirmware::DataView, ::as
     default:
 
       *output = UnionType::NewUnknown({});
+      return true;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::BlockDeviceInfo::DataView, ::ash::cros_healthd::mojom::BlockDeviceInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::BlockDeviceInfo::DataView input,
+    ::ash::cros_healthd::mojom::BlockDeviceInfoPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::BlockDeviceInfo;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kUnrecognized: {
+      *output = UnionType::NewUnrecognized(input.unrecognized());
+      break;
+    }
+    case Tag::kNvmeDeviceInfo: {
+      ::ash::cros_healthd::mojom::NvmeDeviceInfoPtr result_nvme_device_info;
+      if (!input.ReadNvmeDeviceInfo(&result_nvme_device_info))
+        return false;
+
+      *output = UnionType::NewNvmeDeviceInfo(
+          std::move(result_nvme_device_info));
+      break;
+    }
+    case Tag::kEmmcDeviceInfo: {
+      ::ash::cros_healthd::mojom::EmmcDeviceInfoPtr result_emmc_device_info;
+      if (!input.ReadEmmcDeviceInfo(&result_emmc_device_info))
+        return false;
+
+      *output = UnionType::NewEmmcDeviceInfo(
+          std::move(result_emmc_device_info));
+      break;
+    }
+    case Tag::kUfsDeviceInfo: {
+      ::ash::cros_healthd::mojom::UfsDeviceInfoPtr result_ufs_device_info;
+      if (!input.ReadUfsDeviceInfo(&result_ufs_device_info))
+        return false;
+
+      *output = UnionType::NewUfsDeviceInfo(
+          std::move(result_ufs_device_info));
+      break;
+    }
+    default:
+
+      *output = UnionType::NewUnrecognized({});
       return true;
   }
   return true;

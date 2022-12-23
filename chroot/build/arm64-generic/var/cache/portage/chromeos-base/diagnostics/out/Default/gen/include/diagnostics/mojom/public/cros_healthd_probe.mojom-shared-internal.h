@@ -30,6 +30,9 @@ class ProbeError_Data;
 class MultipleProcessResult_Data;
 class ProcessInfo_Data;
 class BatteryInfo_Data;
+class NvmeDeviceInfo_Data;
+class EmmcDeviceInfo_Data;
+class UfsDeviceInfo_Data;
 class NonRemovableBlockDeviceInfo_Data;
 class CpuInfo_Data;
 class VirtualizationInfo_Data;
@@ -94,6 +97,7 @@ class BlockDeviceVendor_Data;
 class BlockDeviceProduct_Data;
 class BlockDeviceRevision_Data;
 class BlockDeviceFirmware_Data;
+class BlockDeviceInfo_Data;
 class CpuResult_Data;
 class TimezoneResult_Data;
 class MemoryResult_Data;
@@ -1161,6 +1165,64 @@ class  BlockDeviceFirmware_Data {
 };
 static_assert(sizeof(BlockDeviceFirmware_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(BlockDeviceFirmware_Data)");
+
+
+class  BlockDeviceInfo_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  BlockDeviceInfo_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~BlockDeviceInfo_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<BlockDeviceInfo_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class BlockDeviceInfo_Tag : uint32_t {
+
+    
+    kUnrecognized,
+    
+    kNvmeDeviceInfo,
+    
+    kEmmcDeviceInfo,
+    
+    kUfsDeviceInfo,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    uint8_t f_unrecognized : 1;
+    mojo::internal::Pointer<internal::NvmeDeviceInfo_Data> f_nvme_device_info;
+    mojo::internal::Pointer<internal::EmmcDeviceInfo_Data> f_emmc_device_info;
+    mojo::internal::Pointer<internal::UfsDeviceInfo_Data> f_ufs_device_info;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  BlockDeviceInfo_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(BlockDeviceInfo_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(BlockDeviceInfo_Data)");
 
 
 class  CpuResult_Data {
@@ -2534,6 +2596,160 @@ struct BatteryInfo_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     BatteryInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  NvmeDeviceInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint32_t subsystem_vendor;
+  uint32_t subsystem_device;
+  uint8_t pcie_rev;
+  uint8_t pad2_[7];
+  uint64_t firmware_rev;
+
+ private:
+  friend class mojo::internal::MessageFragment<NvmeDeviceInfo_Data>;
+
+  NvmeDeviceInfo_Data();
+  ~NvmeDeviceInfo_Data() = delete;
+};
+static_assert(sizeof(NvmeDeviceInfo_Data) == 32,
+              "Bad sizeof(NvmeDeviceInfo_Data)");
+// Used by NvmeDeviceInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct NvmeDeviceInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  NvmeDeviceInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~NvmeDeviceInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<NvmeDeviceInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    NvmeDeviceInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  EmmcDeviceInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint16_t manfid;
+  uint8_t prv;
+  uint8_t pad1_[5];
+  uint64_t pnm;
+  uint64_t fwrev;
+
+ private:
+  friend class mojo::internal::MessageFragment<EmmcDeviceInfo_Data>;
+
+  EmmcDeviceInfo_Data();
+  ~EmmcDeviceInfo_Data() = delete;
+};
+static_assert(sizeof(EmmcDeviceInfo_Data) == 32,
+              "Bad sizeof(EmmcDeviceInfo_Data)");
+// Used by EmmcDeviceInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct EmmcDeviceInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  EmmcDeviceInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~EmmcDeviceInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<EmmcDeviceInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    EmmcDeviceInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  UfsDeviceInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint16_t jedec_manfid;
+  uint8_t pad0_[6];
+  uint64_t fwrev;
+
+ private:
+  friend class mojo::internal::MessageFragment<UfsDeviceInfo_Data>;
+
+  UfsDeviceInfo_Data();
+  ~UfsDeviceInfo_Data() = delete;
+};
+static_assert(sizeof(UfsDeviceInfo_Data) == 24,
+              "Bad sizeof(UfsDeviceInfo_Data)");
+// Used by UfsDeviceInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct UfsDeviceInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  UfsDeviceInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~UfsDeviceInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<UfsDeviceInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    UfsDeviceInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  NonRemovableBlockDeviceInfo_Data {
  public:
   static bool Validate(const void* data,
@@ -2558,7 +2774,8 @@ class  NonRemovableBlockDeviceInfo_Data {
   uint8_t pad14_[3];
   mojo::internal::Pointer<mojo::internal::String_Data> path;
   uint32_t serial;
-  uint8_t padfinal_[4];
+  uint8_t pad16_[4];
+  internal::BlockDeviceInfo_Data device_info;
 
  private:
   friend class mojo::internal::MessageFragment<NonRemovableBlockDeviceInfo_Data>;
@@ -2566,7 +2783,7 @@ class  NonRemovableBlockDeviceInfo_Data {
   NonRemovableBlockDeviceInfo_Data();
   ~NonRemovableBlockDeviceInfo_Data() = delete;
 };
-static_assert(sizeof(NonRemovableBlockDeviceInfo_Data) == 168,
+static_assert(sizeof(NonRemovableBlockDeviceInfo_Data) == 184,
               "Bad sizeof(NonRemovableBlockDeviceInfo_Data)");
 // Used by NonRemovableBlockDeviceInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
