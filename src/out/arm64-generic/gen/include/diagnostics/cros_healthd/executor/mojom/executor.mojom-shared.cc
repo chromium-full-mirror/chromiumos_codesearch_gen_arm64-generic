@@ -154,6 +154,52 @@ FingerprintFrameResult_Data::FingerprintFrameResult_Data()
 
 
 // static
+bool AudioJackObserver_OnAdd_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AudioJackObserver_OnAdd_Params_Data* object =
+      static_cast<const AudioJackObserver_OnAdd_Params_Data*>(data);
+
+  return true;
+}
+
+AudioJackObserver_OnAdd_Params_Data::AudioJackObserver_OnAdd_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AudioJackObserver_OnRemove_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AudioJackObserver_OnRemove_Params_Data* object =
+      static_cast<const AudioJackObserver_OnRemove_Params_Data*>(data);
+
+  return true;
+}
+
+AudioJackObserver_OnRemove_Params_Data::AudioJackObserver_OnRemove_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Executor_GetFanSpeed_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1107,6 +1153,47 @@ bool Executor_GetHciDeviceConfig_ResponseParams_Data::Validate(
 }
 
 Executor_GetHciDeviceConfig_ResponseParams_Data::Executor_GetHciDeviceConfig_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_MonitorAudioJack_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_MonitorAudioJack_Params_Data* object =
+      static_cast<const Executor_MonitorAudioJack_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->observer, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->process_control, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->process_control,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_MonitorAudioJack_Params_Data::Executor_MonitorAudioJack_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

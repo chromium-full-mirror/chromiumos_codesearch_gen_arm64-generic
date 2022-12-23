@@ -32,6 +32,25 @@ class  ProcessControlAsyncWaiter {
 };
 
 
+class  AudioJackObserverInterceptorForTesting : public AudioJackObserver {
+  virtual AudioJackObserver* GetForwardingInterface() = 0;
+  void OnAdd() override;
+  void OnRemove() override;
+};
+class  AudioJackObserverAsyncWaiter {
+ public:
+  explicit AudioJackObserverAsyncWaiter(AudioJackObserver* proxy);
+
+  AudioJackObserverAsyncWaiter(const AudioJackObserverAsyncWaiter&) = delete;
+  AudioJackObserverAsyncWaiter& operator=(const AudioJackObserverAsyncWaiter&) = delete;
+
+  ~AudioJackObserverAsyncWaiter();
+
+ private:
+  AudioJackObserver* const proxy_;
+};
+
+
 class  ExecutorInterceptorForTesting : public Executor {
   virtual Executor* GetForwardingInterface() = 0;
   void GetFanSpeed(GetFanSpeedCallback callback) override;
@@ -51,6 +70,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, SetLedColorCallback callback) override;
   void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) override;
   void GetHciDeviceConfig(GetHciDeviceConfigCallback callback) override;
+  void MonitorAudioJack(::mojo::PendingRemote<AudioJackObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
 };
 class  ExecutorAsyncWaiter {
  public:

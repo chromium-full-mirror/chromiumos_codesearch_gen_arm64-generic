@@ -17417,6 +17417,7 @@ class ContainerInfo final :
   enum : int {
     kVmNameFieldNumber = 1,
     kContainerNameFieldNumber = 2,
+    kContainerTokenFieldNumber = 4,
     kOsReleaseFieldNumber = 3,
   };
   // string vm_name = 1;
@@ -17447,6 +17448,20 @@ class ContainerInfo final :
   std::string* _internal_mutable_container_name();
   public:
 
+  // string container_token = 4;
+  void clear_container_token();
+  const std::string& container_token() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_container_token(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_container_token();
+  PROTOBUF_NODISCARD std::string* release_container_token();
+  void set_allocated_container_token(std::string* container_token);
+  private:
+  const std::string& _internal_container_token() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_container_token(const std::string& value);
+  std::string* _internal_mutable_container_token();
+  public:
+
   // .vm_tools.cicerone.OsRelease os_release = 3;
   bool has_os_release() const;
   private:
@@ -17474,6 +17489,7 @@ class ContainerInfo final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr container_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr container_token_;
   ::vm_tools::cicerone::OsRelease* os_release_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_cicerone_5fservice_2eproto;
@@ -33298,6 +33314,56 @@ inline void ContainerInfo::set_allocated_os_release(::vm_tools::cicerone::OsRele
   }
   os_release_ = os_release;
   // @@protoc_insertion_point(field_set_allocated:vm_tools.cicerone.ContainerInfo.os_release)
+}
+
+// string container_token = 4;
+inline void ContainerInfo::clear_container_token() {
+  container_token_.ClearToEmpty();
+}
+inline const std::string& ContainerInfo::container_token() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.ContainerInfo.container_token)
+  return _internal_container_token();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void ContainerInfo::set_container_token(ArgT0&& arg0, ArgT... args) {
+ 
+ container_token_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.ContainerInfo.container_token)
+}
+inline std::string* ContainerInfo::mutable_container_token() {
+  std::string* _s = _internal_mutable_container_token();
+  // @@protoc_insertion_point(field_mutable:vm_tools.cicerone.ContainerInfo.container_token)
+  return _s;
+}
+inline const std::string& ContainerInfo::_internal_container_token() const {
+  return container_token_.Get();
+}
+inline void ContainerInfo::_internal_set_container_token(const std::string& value) {
+  
+  container_token_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ContainerInfo::_internal_mutable_container_token() {
+  
+  return container_token_.Mutable(GetArenaForAllocation());
+}
+inline std::string* ContainerInfo::release_container_token() {
+  // @@protoc_insertion_point(field_release:vm_tools.cicerone.ContainerInfo.container_token)
+  return container_token_.Release();
+}
+inline void ContainerInfo::set_allocated_container_token(std::string* container_token) {
+  if (container_token != nullptr) {
+    
+  } else {
+    
+  }
+  container_token_.SetAllocated(container_token, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (container_token_.IsDefault()) {
+    container_token_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.cicerone.ContainerInfo.container_token)
 }
 
 // -------------------------------------------------------------------

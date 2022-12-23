@@ -319,7 +319,8 @@ class  VideoEncodeAcceleratorSupportedProfile_Data {
   mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> min_resolution;
   mojo::internal::Pointer<::gfx::mojom::internal::Size_Data> max_resolution;
   uint32_t max_framerate_denominator;
-  uint8_t pad4_[4];
+  uint8_t is_software_codec : 1;
+  uint8_t pad5_[3];
   mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> rate_control_modes;
   mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> scalability_modes;
 

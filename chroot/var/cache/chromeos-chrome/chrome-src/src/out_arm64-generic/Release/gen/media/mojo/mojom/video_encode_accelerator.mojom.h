@@ -1802,7 +1802,8 @@ class  VideoEncodeAcceleratorSupportedProfile {
       uint32_t max_framerate_numerator,
       uint32_t max_framerate_denominator,
       std::vector<VideoEncodeAcceleratorSupportedRateControlMode> rate_control_modes,
-      std::vector<::media::SVCScalabilityMode> scalability_modes);
+      std::vector<::media::SVCScalabilityMode> scalability_modes,
+      bool is_software_codec);
 
 
   ~VideoEncodeAcceleratorSupportedProfile();
@@ -1890,6 +1891,8 @@ class  VideoEncodeAcceleratorSupportedProfile {
   std::vector<VideoEncodeAcceleratorSupportedRateControlMode> rate_control_modes;
   
   std::vector<::media::SVCScalabilityMode> scalability_modes;
+  
+  bool is_software_codec;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2964,7 +2967,8 @@ VideoEncodeAcceleratorSupportedProfilePtr VideoEncodeAcceleratorSupportedProfile
       mojo::Clone(max_framerate_numerator),
       mojo::Clone(max_framerate_denominator),
       mojo::Clone(rate_control_modes),
-      mojo::Clone(scalability_modes)
+      mojo::Clone(scalability_modes),
+      mojo::Clone(is_software_codec)
   );
 }
 
@@ -2983,6 +2987,8 @@ bool VideoEncodeAcceleratorSupportedProfile::Equals(const T& other_struct) const
   if (!mojo::Equals(this->rate_control_modes, other_struct.rate_control_modes))
     return false;
   if (!mojo::Equals(this->scalability_modes, other_struct.scalability_modes))
+    return false;
+  if (!mojo::Equals(this->is_software_codec, other_struct.is_software_codec))
     return false;
   return true;
 }
@@ -3016,6 +3022,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.scalability_modes < rhs.scalability_modes)
     return true;
   if (rhs.scalability_modes < lhs.scalability_modes)
+    return false;
+  if (lhs.is_software_codec < rhs.is_software_codec)
+    return true;
+  if (rhs.is_software_codec < lhs.is_software_codec)
     return false;
   return false;
 }
@@ -3666,6 +3676,11 @@ struct  StructTraits<::media::mojom::VideoEncodeAcceleratorSupportedProfile::Dat
   static const decltype(::media::mojom::VideoEncodeAcceleratorSupportedProfile::scalability_modes)& scalability_modes(
       const ::media::mojom::VideoEncodeAcceleratorSupportedProfilePtr& input) {
     return input->scalability_modes;
+  }
+
+  static decltype(::media::mojom::VideoEncodeAcceleratorSupportedProfile::is_software_codec) is_software_codec(
+      const ::media::mojom::VideoEncodeAcceleratorSupportedProfilePtr& input) {
+    return input->is_software_codec;
   }
 
   static bool Read(::media::mojom::VideoEncodeAcceleratorSupportedProfile::DataView input, ::media::mojom::VideoEncodeAcceleratorSupportedProfilePtr* output);

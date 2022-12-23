@@ -154,6 +154,22 @@ class  Delegate_ResetLedColor_ResponseParams_Data {
 };
 static_assert(sizeof(Delegate_ResetLedColor_ResponseParams_Data) == 16,
               "Bad sizeof(Delegate_ResetLedColor_ResponseParams_Data)");
+class  Delegate_MonitorAudioJack_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_MonitorAudioJack_Params_Data>;
+
+  Delegate_MonitorAudioJack_Params_Data();
+  ~Delegate_MonitorAudioJack_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_MonitorAudioJack_Params_Data) == 16,
+              "Bad sizeof(Delegate_MonitorAudioJack_Params_Data)");
 
 }  // namespace internal
 
@@ -430,6 +446,32 @@ static_assert(
 
 
 
+class Delegate_MonitorAudioJack_ParamsDataView {
+ public:
+  Delegate_MonitorAudioJack_ParamsDataView() = default;
+
+  Delegate_MonitorAudioJack_ParamsDataView(
+      internal::Delegate_MonitorAudioJack_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::AudioJackObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Delegate_MonitorAudioJack_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 
 inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
     ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output) {
@@ -473,6 +515,8 @@ inline void Delegate_ResetLedColor_ResponseParamsDataView::GetErrDataView(
   auto pointer = data_->err.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
 
 }  // namespace mojom
 }  // namespace cros_healthd

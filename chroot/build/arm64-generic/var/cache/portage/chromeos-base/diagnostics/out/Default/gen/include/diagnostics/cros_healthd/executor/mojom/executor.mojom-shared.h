@@ -109,6 +109,16 @@ using ProcessControlAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<ProcessControlInterfaceBase>;
 using ProcessControlAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<ProcessControlInterfaceBase>;
+class AudioJackObserverInterfaceBase {};
+
+using AudioJackObserverPtrDataView =
+    mojo::InterfacePtrDataView<AudioJackObserverInterfaceBase>;
+using AudioJackObserverRequestDataView =
+    mojo::InterfaceRequestDataView<AudioJackObserverInterfaceBase>;
+using AudioJackObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<AudioJackObserverInterfaceBase>;
+using AudioJackObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<AudioJackObserverInterfaceBase>;
 class ExecutorInterfaceBase {};
 
 using ExecutorPtrDataView =

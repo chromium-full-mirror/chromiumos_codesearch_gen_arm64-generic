@@ -270,6 +270,38 @@ bool Delegate_ResetLedColor_ResponseParams_Data::Validate(
 Delegate_ResetLedColor_ResponseParams_Data::Delegate_ResetLedColor_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool Delegate_MonitorAudioJack_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_MonitorAudioJack_Params_Data* object =
+      static_cast<const Delegate_MonitorAudioJack_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->observer, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Delegate_MonitorAudioJack_Params_Data::Delegate_MonitorAudioJack_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd

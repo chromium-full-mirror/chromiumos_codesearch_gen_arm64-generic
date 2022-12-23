@@ -56,7 +56,8 @@ VideoEncodeAcceleratorSupportedProfile::VideoEncodeAcceleratorSupportedProfile()
       max_framerate_numerator(),
       max_framerate_denominator(),
       rate_control_modes(),
-      scalability_modes() {}
+      scalability_modes(),
+      is_software_codec() {}
 
 VideoEncodeAcceleratorSupportedProfile::VideoEncodeAcceleratorSupportedProfile(
     ::media::VideoCodecProfile profile_in,
@@ -65,14 +66,16 @@ VideoEncodeAcceleratorSupportedProfile::VideoEncodeAcceleratorSupportedProfile(
     uint32_t max_framerate_numerator_in,
     uint32_t max_framerate_denominator_in,
     std::vector<VideoEncodeAcceleratorSupportedRateControlMode> rate_control_modes_in,
-    std::vector<::media::SVCScalabilityMode> scalability_modes_in)
+    std::vector<::media::SVCScalabilityMode> scalability_modes_in,
+    bool is_software_codec_in)
     : profile(std::move(profile_in)),
       min_resolution(std::move(min_resolution_in)),
       max_resolution(std::move(max_resolution_in)),
       max_framerate_numerator(std::move(max_framerate_numerator_in)),
       max_framerate_denominator(std::move(max_framerate_denominator_in)),
       rate_control_modes(std::move(rate_control_modes_in)),
-      scalability_modes(std::move(scalability_modes_in)) {}
+      scalability_modes(std::move(scalability_modes_in)),
+      is_software_codec(std::move(is_software_codec_in)) {}
 
 VideoEncodeAcceleratorSupportedProfile::~VideoEncodeAcceleratorSupportedProfile() = default;
 
@@ -138,6 +141,15 @@ void VideoEncodeAcceleratorSupportedProfile::WriteIntoTrace(
       "scalability_modes"), this->scalability_modes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::vector<::media::SVCScalabilityMode>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "is_software_codec"), this->is_software_codec,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -3818,6 +3830,8 @@ bool StructTraits<::media::mojom::VideoEncodeAcceleratorSupportedProfile::DataVi
         success = false;
       if (success && !input.ReadScalabilityModes(&result->scalability_modes))
         success = false;
+      if (success)
+        result->is_software_codec = input.is_software_codec();
   *output = std::move(result);
   return success;
 }

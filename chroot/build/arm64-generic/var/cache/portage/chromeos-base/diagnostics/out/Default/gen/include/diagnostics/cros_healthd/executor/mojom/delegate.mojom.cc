@@ -67,6 +67,9 @@ Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& me
     case internal::kDelegate_ResetLedColor_Name: {
       return &Delegate::ResetLedColor_Sym::IPCStableHash;
     }
+    case internal::kDelegate_MonitorAudioJack_Name: {
+      return &Delegate::MonitorAudioJack_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -86,6 +89,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Delegate::SetLedColor";
       case internal::kDelegate_ResetLedColor_Name:
             return "Receive ash::cros_healthd::mojom::Delegate::ResetLedColor";
+      case internal::kDelegate_MonitorAudioJack_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::MonitorAudioJack";
     }
   } else {
     switch (message.name()) {
@@ -97,6 +102,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Delegate::SetLedColor";
       case internal::kDelegate_ResetLedColor_Name:
             return "Receive reply ash::cros_healthd::mojom::Delegate::ResetLedColor";
+      case internal::kDelegate_MonitorAudioJack_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorAudioJack";
     }
   }
   return "Receive unknown mojo message";
@@ -159,6 +166,19 @@ uint32_t Delegate::ResetLedColor_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::Delegate::ResetLedColor");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Delegate::MonitorAudioJack_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::MonitorAudioJack");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -387,6 +407,49 @@ void DelegateProxy::ResetLedColor(
       new Delegate_ResetLedColor_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DelegateProxy::MonitorAudioJack(
+    ::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver> in_observer) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Delegate::MonitorAudioJack", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("observer"), in_observer,
+                        "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver>>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_MonitorAudioJack_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_MonitorAudioJack_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::AudioJackObserverInterfaceBase>>(
+      in_observer, &params->observer, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->observer),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid observer in Delegate.MonitorAudioJack request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("MonitorAudioJack");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class Delegate_GetFingerprintFrame_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -922,6 +985,34 @@ bool DelegateStubDispatch::Accept(
     case internal::kDelegate_ResetLedColor_Name: {
       break;
     }
+    case internal::kDelegate_MonitorAudioJack_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Delegate_MonitorAudioJack_Params_Data* params =
+          reinterpret_cast<internal::Delegate_MonitorAudioJack_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver>>();
+      Delegate_MonitorAudioJack_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_observer =
+            input_data_view.TakeObserver<decltype(p_observer)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 4, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->MonitorAudioJack(
+std::move(p_observer));
+      return true;
+    }
   }
   return false;
 }
@@ -1051,6 +1142,9 @@ std::move(p_color), std::move(callback));
 std::move(p_name), std::move(callback));
       return true;
     }
+    case internal::kDelegate_MonitorAudioJack_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -1065,6 +1159,8 @@ static const mojo::internal::GenericValidationInfo kDelegateValidationInfo[] = {
      &internal::Delegate_SetLedColor_ResponseParams_Data::Validate},
     {&internal::Delegate_ResetLedColor_Params_Data::Validate,
      &internal::Delegate_ResetLedColor_ResponseParams_Data::Validate},
+    {&internal::Delegate_MonitorAudioJack_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool DelegateRequestValidator::Accept(mojo::Message* message) {
@@ -1108,6 +1204,9 @@ void DelegateInterceptorForTesting::SetLedColor(::ash::cros_healthd::mojom::LedN
 }
 void DelegateInterceptorForTesting::ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) {
   GetForwardingInterface()->ResetLedColor(std::move(name), std::move(callback));
+}
+void DelegateInterceptorForTesting::MonitorAudioJack(::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver> observer) {
+  GetForwardingInterface()->MonitorAudioJack(std::move(observer));
 }
 DelegateAsyncWaiter::DelegateAsyncWaiter(
     Delegate* proxy) : proxy_(proxy) {}

@@ -43,6 +43,8 @@ using FingerprintFrameResultPtr = mojo::StructPtr<FingerprintFrameResult>;
 
 class ProcessControl;
 
+class AudioJackObserver;
+
 class Executor;
 
 

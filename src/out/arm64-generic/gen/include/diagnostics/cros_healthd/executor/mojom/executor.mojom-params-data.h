@@ -22,6 +22,36 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 namespace internal {
+class  AudioJackObserver_OnAdd_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<AudioJackObserver_OnAdd_Params_Data>;
+
+  AudioJackObserver_OnAdd_Params_Data();
+  ~AudioJackObserver_OnAdd_Params_Data() = delete;
+};
+static_assert(sizeof(AudioJackObserver_OnAdd_Params_Data) == 8,
+              "Bad sizeof(AudioJackObserver_OnAdd_Params_Data)");
+class  AudioJackObserver_OnRemove_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<AudioJackObserver_OnRemove_Params_Data>;
+
+  AudioJackObserver_OnRemove_Params_Data();
+  ~AudioJackObserver_OnRemove_Params_Data() = delete;
+};
+static_assert(sizeof(AudioJackObserver_OnRemove_Params_Data) == 8,
+              "Bad sizeof(AudioJackObserver_OnRemove_Params_Data)");
 class  Executor_GetFanSpeed_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -549,8 +579,58 @@ class  Executor_GetHciDeviceConfig_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_GetHciDeviceConfig_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_GetHciDeviceConfig_ResponseParams_Data)");
+class  Executor_MonitorAudioJack_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+  mojo::internal::Handle_Data process_control;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_MonitorAudioJack_Params_Data>;
+
+  Executor_MonitorAudioJack_Params_Data();
+  ~Executor_MonitorAudioJack_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_MonitorAudioJack_Params_Data) == 24,
+              "Bad sizeof(Executor_MonitorAudioJack_Params_Data)");
 
 }  // namespace internal
+
+
+class AudioJackObserver_OnAdd_ParamsDataView {
+ public:
+  AudioJackObserver_OnAdd_ParamsDataView() = default;
+
+  AudioJackObserver_OnAdd_ParamsDataView(
+      internal::AudioJackObserver_OnAdd_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::AudioJackObserver_OnAdd_Params_Data* data_ = nullptr;
+};
+
+
+
+class AudioJackObserver_OnRemove_ParamsDataView {
+ public:
+  AudioJackObserver_OnRemove_ParamsDataView() = default;
+
+  AudioJackObserver_OnRemove_ParamsDataView(
+      internal::AudioJackObserver_OnRemove_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::AudioJackObserver_OnRemove_Params_Data* data_ = nullptr;
+};
+
 
 
 class Executor_GetFanSpeed_ParamsDataView {
@@ -1420,6 +1500,45 @@ class Executor_GetHciDeviceConfig_ResponseParamsDataView {
 
 
 
+class Executor_MonitorAudioJack_ParamsDataView {
+ public:
+  Executor_MonitorAudioJack_ParamsDataView() = default;
+
+  Executor_MonitorAudioJack_ParamsDataView(
+      internal::Executor_MonitorAudioJack_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::AudioJackObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakeProcessControl() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+            &data_->process_control, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Executor_MonitorAudioJack_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+
+
+
+
 
 inline void Executor_GetFanSpeed_ResponseParamsDataView::GetResultDataView(
     ExecutedProcessResultDataView* output) {
@@ -1593,6 +1712,8 @@ inline void Executor_GetHciDeviceConfig_ResponseParamsDataView::GetResultDataVie
   auto pointer = data_->result.Get();
   *output = ExecutedProcessResultDataView(pointer, message_);
 }
+
+
 
 }  // namespace mojom
 }  // namespace cros_healthd

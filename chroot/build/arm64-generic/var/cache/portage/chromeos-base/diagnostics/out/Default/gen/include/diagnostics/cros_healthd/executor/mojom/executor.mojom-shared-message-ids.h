@@ -15,6 +15,8 @@ namespace mojom {
 namespace internal {
 
 
+constexpr uint32_t kAudioJackObserver_OnAdd_Name = 0;
+constexpr uint32_t kAudioJackObserver_OnRemove_Name = 1;
 constexpr uint32_t kExecutor_GetFanSpeed_Name = 0;
 constexpr uint32_t kExecutor_GetInterfaces_Name = 1;
 constexpr uint32_t kExecutor_GetLink_Name = 2;
@@ -32,6 +34,7 @@ constexpr uint32_t kExecutor_GetFingerprintInfo_Name = 13;
 constexpr uint32_t kExecutor_SetLedColor_Name = 14;
 constexpr uint32_t kExecutor_ResetLedColor_Name = 15;
 constexpr uint32_t kExecutor_GetHciDeviceConfig_Name = 16;
+constexpr uint32_t kExecutor_MonitorAudioJack_Name = 17;
 
 }  // namespace internal
 }  // namespace mojom

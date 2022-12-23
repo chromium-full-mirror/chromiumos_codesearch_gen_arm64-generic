@@ -403,6 +403,9 @@ class VideoEncodeAcceleratorSupportedProfileDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::media::mojom::SVCScalabilityMode>>(
         pointer, output, message_);
   }
+  bool is_software_codec() const {
+    return data_->is_software_codec;
+  }
  private:
   internal::VideoEncodeAcceleratorSupportedProfile_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -1295,6 +1298,7 @@ struct Serializer<::media::mojom::VideoEncodeAcceleratorSupportedProfileDataView
         fragment->scalability_modes.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null scalability_modes in VideoEncodeAcceleratorSupportedProfile struct");
+    fragment->is_software_codec = Traits::is_software_codec(input);
   }
 
   static bool Deserialize(::media::mojom::internal::VideoEncodeAcceleratorSupportedProfile_Data* input,

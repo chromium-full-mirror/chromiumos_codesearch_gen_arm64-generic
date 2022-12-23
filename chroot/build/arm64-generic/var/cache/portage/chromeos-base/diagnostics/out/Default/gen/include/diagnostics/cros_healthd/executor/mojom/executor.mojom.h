@@ -80,6 +80,58 @@ class ProcessControl
   virtual ~ProcessControl() = default;
 };
 
+class AudioJackObserverProxy;
+
+template <typename ImplRefTraits>
+class AudioJackObserverStub;
+
+class AudioJackObserverRequestValidator;
+
+
+class AudioJackObserver
+    : public AudioJackObserverInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = AudioJackObserverInterfaceBase;
+  using Proxy_ = AudioJackObserverProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = AudioJackObserverStub<ImplRefTraits>;
+
+  using RequestValidator_ = AudioJackObserverRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kOnAddMinVersion = 0,
+    kOnRemoveMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnAdd_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnRemove_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~AudioJackObserver() = default;
+
+  
+  virtual void OnAdd() = 0;
+
+  
+  virtual void OnRemove() = 0;
+};
+
 class ExecutorProxy;
 
 template <typename ImplRefTraits>
@@ -127,6 +179,7 @@ class Executor
     kSetLedColorMinVersion = 0,
     kResetLedColorMinVersion = 0,
     kGetHciDeviceConfigMinVersion = 0,
+    kMonitorAudioJackMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -181,6 +234,9 @@ class Executor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetHciDeviceConfig_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct MonitorAudioJack_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -268,6 +324,9 @@ class Executor
   using GetHciDeviceConfigCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
   
   virtual void GetHciDeviceConfig(GetHciDeviceConfigCallback callback) = 0;
+
+  
+  virtual void MonitorAudioJack(::mojo::PendingRemote<AudioJackObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) = 0;
 };
 
 
@@ -278,6 +337,23 @@ class  ProcessControlProxy
   using InterfaceType = ProcessControl;
 
   explicit ProcessControlProxy(mojo::MessageReceiverWithResponder* receiver);
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  AudioJackObserverProxy
+    : public AudioJackObserver {
+ public:
+  using InterfaceType = AudioJackObserver;
+
+  explicit AudioJackObserverProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnAdd() final;
+  
+  void OnRemove() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -325,6 +401,8 @@ class  ExecutorProxy
   void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) final;
   
   void GetHciDeviceConfig(GetHciDeviceConfigCallback callback) final;
+  
+  void MonitorAudioJack(::mojo::PendingRemote<AudioJackObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -364,6 +442,47 @@ class ProcessControlStub
     if (ImplRefTraits::IsNull(sink_))
       return false;
     return ProcessControlStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class  AudioJackObserverStubDispatch {
+ public:
+  static bool Accept(AudioJackObserver* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      AudioJackObserver* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<AudioJackObserver>>
+class AudioJackObserverStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  AudioJackObserverStub() = default;
+  ~AudioJackObserverStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return AudioJackObserverStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return AudioJackObserverStubDispatch::AcceptWithResponder(
         ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
   }
 
@@ -412,6 +531,10 @@ class ExecutorStub
   ImplPointerType sink_;
 };
 class  ProcessControlRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  AudioJackObserverRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
