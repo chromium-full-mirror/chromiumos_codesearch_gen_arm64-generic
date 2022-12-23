@@ -847,6 +847,10 @@ class ControlProxyInterface {
       const base::RepeatingCallback<void(int32_t)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
 
+  virtual void RegisterNumberOfNonChromeOutputStreamsChangedSignalHandler(
+      const base::RepeatingCallback<void(int32_t)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
   virtual void RegisterNumberOfInputStreamsWithPermissionChangedSignalHandler(
       const base::RepeatingCallback<void(const brillo::VariantDictionary&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -1029,6 +1033,17 @@ class ControlProxy final : public ControlProxyInterface {
         dbus_object_proxy_,
         "org.chromium.cras.Control",
         "NumberOfActiveStreamsChanged",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterNumberOfNonChromeOutputStreamsChangedSignalHandler(
+      const base::RepeatingCallback<void(int32_t)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "NumberOfNonChromeOutputStreamsChanged",
         signal_callback,
         std::move(on_connected_callback));
   }

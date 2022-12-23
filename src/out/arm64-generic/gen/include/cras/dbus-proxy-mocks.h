@@ -533,6 +533,14 @@ class ControlProxyMock : public ControlProxyInterface {
   MOCK_METHOD2(DoRegisterNumberOfActiveStreamsChangedSignalHandler,
                void(const base::RepeatingCallback<void(int32_t)>& /*signal_callback*/,
                     dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+  void RegisterNumberOfNonChromeOutputStreamsChangedSignalHandler(
+    const base::RepeatingCallback<void(int32_t)>& signal_callback,
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
+    DoRegisterNumberOfNonChromeOutputStreamsChangedSignalHandler(signal_callback, &on_connected_callback);
+  }
+  MOCK_METHOD2(DoRegisterNumberOfNonChromeOutputStreamsChangedSignalHandler,
+               void(const base::RepeatingCallback<void(int32_t)>& /*signal_callback*/,
+                    dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
   void RegisterNumberOfInputStreamsWithPermissionChangedSignalHandler(
     const base::RepeatingCallback<void(const brillo::VariantDictionary&)>& signal_callback,
     dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
