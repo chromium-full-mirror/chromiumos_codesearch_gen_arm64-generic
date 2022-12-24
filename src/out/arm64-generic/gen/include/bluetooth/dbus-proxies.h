@@ -1,4 +1,5 @@
 // Automatic generation of D-Bus interfaces:
+//  - org.bluez.Adapter1
 //  - org.chromium.bluetooth.Manager
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SHILL_OUT_DEFAULT_GEN_INCLUDE_BLUETOOTH_DBUS_PROXIES_H
 #define ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SHILL_OUT_DEFAULT_GEN_INCLUDE_BLUETOOTH_DBUS_PROXIES_H
@@ -23,6 +24,110 @@
 #include <dbus/object_manager.h>
 #include <dbus/object_path.h>
 #include <dbus/object_proxy.h>
+
+namespace org {
+namespace bluez {
+
+// Abstract interface proxy for org::bluez::Adapter1.
+class Adapter1ProxyInterface {
+ public:
+  virtual ~Adapter1ProxyInterface() = default;
+
+  static const char* PoweredName() { return "Powered"; }
+  virtual bool powered() const = 0;
+  virtual bool is_powered_valid() const = 0;
+
+  virtual const dbus::ObjectPath& GetObjectPath() const = 0;
+  virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
+
+  virtual void InitializeProperties(
+      const base::RepeatingCallback<void(Adapter1ProxyInterface*, const std::string&)>& callback) = 0;
+};
+
+}  // namespace bluez
+}  // namespace org
+
+namespace org {
+namespace bluez {
+
+// Interface proxy for org::bluez::Adapter1.
+class Adapter1Proxy final : public Adapter1ProxyInterface {
+ public:
+  class PropertySet : public dbus::PropertySet {
+   public:
+    PropertySet(dbus::ObjectProxy* object_proxy,
+                const PropertyChangedCallback& callback)
+        : dbus::PropertySet{object_proxy,
+                            "org.bluez.Adapter1",
+                            callback} {
+      RegisterProperty(PoweredName(), &powered);
+    }
+    PropertySet(const PropertySet&) = delete;
+    PropertySet& operator=(const PropertySet&) = delete;
+
+    brillo::dbus_utils::Property<bool> powered;
+
+  };
+
+  Adapter1Proxy(
+      const scoped_refptr<dbus::Bus>& bus,
+      const std::string& service_name,
+      const dbus::ObjectPath& object_path) :
+          bus_{bus},
+          service_name_{service_name},
+          object_path_{object_path},
+          dbus_object_proxy_{
+              bus_->GetObjectProxy(service_name_, object_path_)} {
+  }
+
+  Adapter1Proxy(const Adapter1Proxy&) = delete;
+  Adapter1Proxy& operator=(const Adapter1Proxy&) = delete;
+
+  ~Adapter1Proxy() override {
+  }
+
+  void ReleaseObjectProxy(base::OnceClosure callback) {
+    bus_->RemoveObjectProxy(service_name_, object_path_, std::move(callback));
+  }
+
+  const dbus::ObjectPath& GetObjectPath() const override {
+    return object_path_;
+  }
+
+  dbus::ObjectProxy* GetObjectProxy() const override {
+    return dbus_object_proxy_;
+  }
+
+  void InitializeProperties(
+      const base::RepeatingCallback<void(Adapter1ProxyInterface*, const std::string&)>& callback) override {
+    property_set_.reset(
+        new PropertySet(dbus_object_proxy_, base::BindRepeating(callback, this)));
+    property_set_->ConnectSignals();
+    property_set_->GetAll();
+  }
+
+  const PropertySet* GetProperties() const { return &(*property_set_); }
+  PropertySet* GetProperties() { return &(*property_set_); }
+
+  bool powered() const override {
+    return property_set_->powered.value();
+  }
+
+  bool is_powered_valid() const override {
+    return property_set_->powered.is_valid();
+  }
+
+ private:
+  scoped_refptr<dbus::Bus> bus_;
+  std::string service_name_;
+  dbus::ObjectPath object_path_;
+  dbus::ObjectProxy* dbus_object_proxy_;
+  std::unique_ptr<PropertySet> property_set_;
+
+};
+
+}  // namespace bluez
+}  // namespace org
 
 namespace org {
 namespace chromium {
