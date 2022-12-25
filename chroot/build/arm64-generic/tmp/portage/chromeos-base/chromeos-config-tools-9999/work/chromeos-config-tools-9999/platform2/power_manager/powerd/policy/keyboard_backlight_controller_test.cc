@@ -8,10 +8,10 @@
 #include <limits>
 #include <string>
 
+#include <base/strings/stringprintf.h>
+#include <base/test/task_environment.h>
 #include <gtest/gtest.h>
 
-#include "base/strings/stringprintf.h"
-#include "power_manager/common/clock.h"
 #include "power_manager/common/fake_prefs.h"
 #include "power_manager/common/power_constants.h"
 #include "power_manager/powerd/policy/backlight_controller.h"
@@ -21,22 +21,18 @@
 #include "power_manager/powerd/system/ambient_light_sensor_stub.h"
 #include "power_manager/powerd/system/backlight_stub.h"
 #include "power_manager/powerd/system/dbus_wrapper_stub.h"
-#include "power_manager/powerd/testing/test_environment.h"
 #include "power_manager/proto_bindings/backlight.pb.h"
 #include "power_manager/proto_bindings/policy.pb.h"
 
 namespace power_manager::policy {
 
-class KeyboardBacklightControllerTest : public TestEnvironment {
+class KeyboardBacklightControllerTest : public ::testing::Test {
  public:
   KeyboardBacklightControllerTest()
       : backlight_(max_backlight_level_,
                    initial_backlight_level_,
                    system::BacklightInterface::BrightnessScale::kUnknown),
-        light_sensor_(initial_als_lux_),
-        test_api_(&controller_) {
-    test_api_.clock()->set_current_time_for_testing(
-        base::TimeTicks::FromInternalValue(1000));
+        light_sensor_(initial_als_lux_) {
     controller_.AddObserver(&observer_);
   }
 
@@ -79,8 +75,7 @@ class KeyboardBacklightControllerTest : public TestEnvironment {
 
   // Advances |controller_|'s clock by |interval|.
   void AdvanceTime(const base::TimeDelta& interval) {
-    test_api_.clock()->set_current_time_for_testing(
-        test_api_.clock()->GetCurrentTime() + interval);
+    task_environment_.FastForwardBy(interval);
   }
 
   // Calls the IncreaseKeyboardBrightness D-Bus method.
@@ -137,6 +132,10 @@ class KeyboardBacklightControllerTest : public TestEnvironment {
     ASSERT_TRUE(dbus_wrapper_.CallExportedMethodSync(&method_call));
   }
 
+  base::test::SingleThreadTaskEnvironment task_environment_{
+      base::test::TaskEnvironment::MainThreadType::IO,
+      base::test::TaskEnvironment::TimeSource::MOCK_TIME};
+
   BacklightControllerStub display_backlight_controller_;
 
   // Max and initial brightness levels for |backlight_|.
@@ -169,7 +168,6 @@ class KeyboardBacklightControllerTest : public TestEnvironment {
   system::DBusWrapperStub dbus_wrapper_;
   BacklightControllerObserverStub observer_;
   KeyboardBacklightController controller_;
-  KeyboardBacklightController::TestApi test_api_;
 };
 
 TEST_F(KeyboardBacklightControllerTest, GetBrightnessPercent) {
@@ -205,24 +203,36 @@ TEST_F(KeyboardBacklightControllerTest, GetBrightnessPercentWithScaling) {
   }
 }
 
-TEST_F(KeyboardBacklightControllerTest, TurnOffForFullscreenVideo) {
+TEST_F(KeyboardBacklightControllerTest, TurnOffFasterForFullscreenVideo) {
   als_steps_pref_ = "20.0 -1 50\n50.0 35 75\n75.0 60 -1";
   user_steps_pref_ = "0.0\n100.0";
+  turn_on_for_user_activity_pref_ = 1;
+  keep_on_ms_pref_ = 30'000;
+  keep_on_during_video_ms_pref_ = 3'000;
   Init();
   controller_.HandleSessionStateChange(SessionState::STARTED);
   light_sensor_.NotifyObservers();
-  ASSERT_EQ(20, backlight_.current_level());
 
-  // Non-fullscreen video shouldn't turn off the backlight.
+  // Non-fullscreen video shouldn't affect when the backlight is turned off.
+  controller_.HandleUserActivity(USER_ACTIVITY_OTHER);
   controller_.HandleVideoActivity(false);
   EXPECT_EQ(20, backlight_.current_level());
-
-  // Fullscreen video should turn it off.
-  controller_.HandleVideoActivity(true);
+  AdvanceTime(base::Milliseconds(keep_on_ms_pref_ / 2));
+  EXPECT_EQ(20, backlight_.current_level());
+  AdvanceTime(base::Milliseconds(keep_on_ms_pref_ / 2));
   EXPECT_EQ(0, backlight_.current_level());
   EXPECT_EQ(kSlowBacklightTransition, backlight_.current_interval());
 
-  // If the video switches to non-fullscreen, the backlight should be turned on.
+  // When fullscreen video is playing, turn off the video after 3 seconds.
+  controller_.HandleUserActivity(USER_ACTIVITY_OTHER);
+  controller_.HandleVideoActivity(true);
+  EXPECT_EQ(20, backlight_.current_level());
+  AdvanceTime(base::Milliseconds(keep_on_during_video_ms_pref_));
+  EXPECT_EQ(0, backlight_.current_level());
+  EXPECT_EQ(kSlowBacklightTransition, backlight_.current_interval());
+
+  // If the video switches to non-fullscreen, the backlight should be turned on
+  // again.
   controller_.HandleVideoActivity(false);
   EXPECT_EQ(20, backlight_.current_level());
   EXPECT_EQ(kSlowBacklightTransition, backlight_.current_interval());
@@ -234,7 +244,7 @@ TEST_F(KeyboardBacklightControllerTest, TurnOffForFullscreenVideo) {
 
   // If the timeout fires to indicate that video has stopped, the backlight
   // should be turned on.
-  ASSERT_TRUE(test_api_.TriggerVideoTimeout());
+  AdvanceTime(KeyboardBacklightController::kVideoTimeoutInterval);
   EXPECT_EQ(20, backlight_.current_level());
   EXPECT_EQ(kFastBacklightTransition, backlight_.current_interval());
 
@@ -253,7 +263,7 @@ TEST_F(KeyboardBacklightControllerTest, TurnOffForFullscreenVideo) {
   EXPECT_EQ(100, backlight_.current_level());
   CallDecreaseKeyboardBrightness();
   EXPECT_EQ(0, backlight_.current_level());
-  ASSERT_TRUE(test_api_.TriggerVideoTimeout());
+  AdvanceTime(KeyboardBacklightController::kVideoTimeoutInterval);
   EXPECT_EQ(0, backlight_.current_level());
 }
 
@@ -432,6 +442,21 @@ TEST_F(KeyboardBacklightControllerTest, InitialAlsLevel) {
   light_sensor_.NotifyObservers();
   EXPECT_EQ(60, backlight_.current_level());
   EXPECT_EQ(kSlowBacklightTransition, backlight_.current_interval());
+}
+
+TEST_F(KeyboardBacklightControllerTest, InitialAlsLevelWithUserActivity) {
+  als_steps_pref_ = "20.0 -1 60\n80.0 40 -1";
+  initial_backlight_level_ = 55;
+  turn_on_for_user_activity_pref_ = 1;
+  keep_on_ms_pref_ = 30'000;
+  Init();
+
+  // Have the controller receiver user activity before the first sensor
+  // reading is received.
+  //
+  // Expect that the backlight is turned on to its default level.
+  controller_.HandleUserActivity(USER_ACTIVITY_OTHER);
+  EXPECT_EQ(55, backlight_.current_level());
 }
 
 TEST_F(KeyboardBacklightControllerTest, IncreaseBrightness) {
@@ -621,20 +646,19 @@ TEST_F(KeyboardBacklightControllerTest, Hover) {
 
   // After enough time, the backlight should turn off.
   AdvanceTime(base::Milliseconds(keep_on_during_video_ms_pref_));
-  ASSERT_TRUE(test_api_.TriggerTurnOffTimeout());
   EXPECT_EQ(0, backlight_.current_level());
   EXPECT_EQ(kSlowBacklightTransition, backlight_.current_interval());
 
   // Stop the video. Since the user was hovering recently, the backlight should
   // turn back on.
-  ASSERT_TRUE(test_api_.TriggerVideoTimeout());
+  AdvanceTime(KeyboardBacklightController::kVideoTimeoutInterval);
   EXPECT_EQ(50, backlight_.current_level());
   EXPECT_EQ(kFastBacklightTransition, backlight_.current_interval());
 
   // After the rest of the full timeout, the backlight should turn off slowly.
   AdvanceTime(
-      base::Milliseconds(keep_on_ms_pref_ - keep_on_during_video_ms_pref_));
-  ASSERT_TRUE(test_api_.TriggerTurnOffTimeout());
+      base::Milliseconds(keep_on_ms_pref_ - keep_on_during_video_ms_pref_) -
+      KeyboardBacklightController::kVideoTimeoutInterval);
   EXPECT_EQ(0, backlight_.current_level());
   EXPECT_EQ(kSlowBacklightTransition, backlight_.current_interval());
 
@@ -644,7 +668,6 @@ TEST_F(KeyboardBacklightControllerTest, Hover) {
   EXPECT_EQ(50, backlight_.current_level());
   EXPECT_EQ(kFastBacklightTransition, backlight_.current_interval());
   AdvanceTime(base::Milliseconds(keep_on_ms_pref_));
-  ASSERT_TRUE(test_api_.TriggerTurnOffTimeout());
   EXPECT_EQ(0, backlight_.current_level());
   EXPECT_EQ(kSlowBacklightTransition, backlight_.current_interval());
 
@@ -720,7 +743,6 @@ TEST_F(KeyboardBacklightControllerTest, EnableForUserActivity) {
   // The backlight should be turned off |keep_on_ms_pref_| after the last report
   // of user activity.
   AdvanceTime(base::Milliseconds(keep_on_ms_pref_));
-  ASSERT_TRUE(test_api_.TriggerTurnOffTimeout());
   EXPECT_EQ(0, backlight_.current_level());
   EXPECT_EQ(kSlowBacklightTransition, backlight_.current_interval());
 }

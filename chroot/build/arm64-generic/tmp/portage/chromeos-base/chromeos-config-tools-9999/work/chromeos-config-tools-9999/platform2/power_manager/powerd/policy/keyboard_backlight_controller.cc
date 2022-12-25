@@ -36,12 +36,6 @@ namespace power_manager::policy {
 
 namespace {
 
-// This is how long after a video playing message is received we should wait
-// until reverting to the not playing state. If another message is received in
-// this interval the timeout is reset. The browser should be sending these
-// messages ~5 seconds when video is playing.
-constexpr base::TimeDelta kVideoTimeoutInterval = base::Seconds(7);
-
 // Maximum valid value for scaled percentages.
 const double kMaxPercent = 100.0;
 
@@ -81,31 +75,6 @@ BacklightBrightnessChange_Cause ToBacklightBrightnessChangeCause(
 }
 
 }  // namespace
-
-KeyboardBacklightController::TestApi::TestApi(
-    KeyboardBacklightController* controller)
-    : controller_(controller) {}
-
-bool KeyboardBacklightController::TestApi::TriggerTurnOffTimeout() {
-  if (!controller_->turn_off_timer_.IsRunning())
-    return false;
-
-  controller_->turn_off_timer_.Stop();
-  controller_->UpdateState(Transition::SLOW,
-                           BacklightBrightnessChange_Cause_OTHER);
-  return true;
-}
-
-bool KeyboardBacklightController::TestApi::TriggerVideoTimeout() {
-  if (!controller_->video_timer_.IsRunning())
-    return false;
-
-  controller_->video_timer_.Stop();
-  controller_->HandleVideoTimeout();
-  return true;
-}
-
-const double KeyboardBacklightController::kDimPercent = 10.0;
 
 KeyboardBacklightController::KeyboardBacklightController()
     : clock_(std::make_unique<Clock>()), weak_ptr_factory_(this) {}
@@ -209,6 +178,16 @@ void KeyboardBacklightController::Init(
               << current_level;
   }
 
+  // Set the initial level of the backlight brightness, used for systems without
+  // an ALS, or systems with an ALS prior to our first reading.
+  automated_percent_ = DefaultBrightnessPercent(current_percent_);
+
+  // Set manual control off, and the default brightness if the user toggles the
+  // backlight from off to on prior to making any other manual adjustment.
+  user_brightness_percent_ = std::nullopt;
+  last_positive_user_brightness_percent_ = automated_percent_;
+
+  // Configure the ALS for systems that have it.
   if (ambient_light_handler_.get()) {
     std::string pref_value;
     CHECK(prefs_->GetString(kKeyboardBacklightAlsStepsPref, &pref_value))
@@ -220,17 +199,10 @@ void KeyboardBacklightController::Init(
     ambient_light_handler_->Init(pref_value, current_percent_,
                                  als_smoothing_constant);
   } else {
-    automated_percent_ = user_steps_.back();
-    prefs_->GetDouble(kKeyboardBacklightNoAlsBrightnessPref,
-                      &automated_percent_);
+    // Slowly transition to the default brightness percent, or to
+    // off if we are using `turn_on_for_user_activity_`.
     UpdateState(Transition::SLOW, BacklightBrightnessChange_Cause_OTHER);
   }
-
-  // Set manual control off, and the default brightness if the user toggles the
-  // backlight from off to on prior to making any other manual adjustment.
-  user_brightness_percent_ = std::nullopt;
-  last_positive_user_brightness_percent_ =
-      DefaultUserBrightnessPercent(current_percent_);
 }
 
 void KeyboardBacklightController::AddObserver(
@@ -285,6 +257,7 @@ void KeyboardBacklightController::HandleVideoActivity(bool is_fullscreen) {
     VLOG(1) << "Fullscreen video "
             << (is_fullscreen ? "started" : "went non-fullscreen");
     fullscreen_video_playing_ = is_fullscreen;
+    UpdateTurnOffTimer();
     UpdateState(Transition::SLOW,
                 BacklightBrightnessChange_Cause_USER_ACTIVITY);
   }
@@ -307,9 +280,7 @@ void KeyboardBacklightController::HandleHoverStateChange(bool hovering) {
   turn_off_timer_.Stop();
   if (!hovering_) {
     // If the user stopped hovering, start a timer to turn the backlight off in
-    // a little while. If this is updated to do something else instead of
-    // calling UpdateState(), TestApi::TriggerTurnOffTimeout() must also be
-    // updated.
+    // a little while.
     last_hover_time_ = clock_->GetCurrentTime();
     UpdateTurnOffTimer();
   } else {
@@ -508,7 +479,7 @@ ssize_t KeyboardBacklightController::PercentToUserStepIndex(
   return result;
 }
 
-double KeyboardBacklightController::DefaultUserBrightnessPercent(
+double KeyboardBacklightController::DefaultBrightnessPercent(
     double startup_brightness_percent) const {
   // Get a default brightness, as a percent.
   //
