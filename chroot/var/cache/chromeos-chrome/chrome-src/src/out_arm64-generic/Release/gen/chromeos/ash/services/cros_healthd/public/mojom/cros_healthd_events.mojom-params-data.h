@@ -324,6 +324,22 @@ class  CrosHealthdUsbObserver_OnRemove_Params_Data {
 };
 static_assert(sizeof(CrosHealthdUsbObserver_OnRemove_Params_Data) == 16,
               "Bad sizeof(CrosHealthdUsbObserver_OnRemove_Params_Data)");
+class  EventObserver_OnEvent_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  internal::EventInfo_Data info;
+
+ private:
+  friend class mojo::internal::MessageFragment<EventObserver_OnEvent_Params_Data>;
+
+  EventObserver_OnEvent_Params_Data();
+  ~EventObserver_OnEvent_Params_Data() = delete;
+};
+static_assert(sizeof(EventObserver_OnEvent_Params_Data) == 24,
+              "Bad sizeof(EventObserver_OnEvent_Params_Data)");
 
 }  // namespace internal
 
@@ -670,6 +686,33 @@ class CrosHealthdUsbObserver_OnRemove_ParamsDataView {
 
 
 
+class EventObserver_OnEvent_ParamsDataView {
+ public:
+  EventObserver_OnEvent_ParamsDataView() = default;
+
+  EventObserver_OnEvent_ParamsDataView(
+      internal::EventObserver_OnEvent_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetInfoDataView(
+      EventInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadInfo(UserType* output) {
+    
+    auto* pointer = !data_->info.is_null() ? &data_->info : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::EventInfoDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::EventObserver_OnEvent_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 
 
 
@@ -716,6 +759,13 @@ inline void CrosHealthdUsbObserver_OnRemove_ParamsDataView::GetInfoDataView(
     UsbEventInfoDataView* output) {
   auto pointer = data_->info.Get();
   *output = UsbEventInfoDataView(pointer, message_);
+}
+
+
+inline void EventObserver_OnEvent_ParamsDataView::GetInfoDataView(
+    EventInfoDataView* output) {
+  auto pointer = &data_->info;
+  *output = EventInfoDataView(pointer, message_);
 }
 
 }  // namespace mojom

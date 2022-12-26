@@ -37,6 +37,17 @@ namespace cros_healthd {
 namespace mojom {
 class UsbEventInfoDataView;
 
+class ThunderboltEventInfoDataView;
+
+class LidEventInfoDataView;
+
+class BluetoothEventInfoDataView;
+
+class PowerEventInfoDataView;
+
+class AudioEventInfoDataView;
+
+class EventInfoDataView;
 
 
 }  // namespace mojom
@@ -53,6 +64,48 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::UsbEventInfoDataView> {
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::ThunderboltEventInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::ThunderboltEventInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::LidEventInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::LidEventInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothEventInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BluetoothEventInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::PowerEventInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::PowerEventInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioEventInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::AudioEventInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::EventInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::EventInfo_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
 }  // namespace internal
 }  // namespace mojo
 
@@ -60,6 +113,205 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::UsbEventInfoDataView> {
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+
+
+enum class EventCategoryEnum : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kUsb = 1,
+  
+  kThunderbolt = 2,
+  
+  kLid = 3,
+  
+  kBluetooth = 4,
+  
+  kPower = 5,
+  
+  kAudio = 6,
+  kMinValue = 0,
+  kMaxValue = 6,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, EventCategoryEnum value);
+inline bool IsKnownEnumValue(EventCategoryEnum value) {
+  return internal::EventCategoryEnum_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline EventCategoryEnum ToKnownEnumValue(EventCategoryEnum value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return EventCategoryEnum::kDefaultValue;
+}
+
+
+enum class UsbEventInfo_State : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kAdd = 1,
+  
+  kRemove = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, UsbEventInfo_State value);
+inline bool IsKnownEnumValue(UsbEventInfo_State value) {
+  return internal::UsbEventInfo_State_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline UsbEventInfo_State ToKnownEnumValue(UsbEventInfo_State value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return UsbEventInfo_State::kDefaultValue;
+}
+
+
+enum class ThunderboltEventInfo_State : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kAdd = 1,
+  
+  kRemove = 2,
+  
+  kAuthorized = 3,
+  
+  kUnAuthorized = 4,
+  kMinValue = 0,
+  kMaxValue = 4,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, ThunderboltEventInfo_State value);
+inline bool IsKnownEnumValue(ThunderboltEventInfo_State value) {
+  return internal::ThunderboltEventInfo_State_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline ThunderboltEventInfo_State ToKnownEnumValue(ThunderboltEventInfo_State value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return ThunderboltEventInfo_State::kDefaultValue;
+}
+
+
+enum class LidEventInfo_State : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kClosed = 1,
+  
+  kOpened = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, LidEventInfo_State value);
+inline bool IsKnownEnumValue(LidEventInfo_State value) {
+  return internal::LidEventInfo_State_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline LidEventInfo_State ToKnownEnumValue(LidEventInfo_State value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return LidEventInfo_State::kDefaultValue;
+}
+
+
+enum class BluetoothEventInfo_State : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kAdapterAdded = 1,
+  
+  kAdapterRemoved = 2,
+  
+  kAdapterPropertyChanged = 3,
+  
+  kDeviceAdded = 4,
+  
+  kDeviceRemoved = 5,
+  
+  kDevicePropertyChanged = 6,
+  kMinValue = 0,
+  kMaxValue = 6,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, BluetoothEventInfo_State value);
+inline bool IsKnownEnumValue(BluetoothEventInfo_State value) {
+  return internal::BluetoothEventInfo_State_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline BluetoothEventInfo_State ToKnownEnumValue(BluetoothEventInfo_State value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return BluetoothEventInfo_State::kDefaultValue;
+}
+
+
+enum class PowerEventInfo_State : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kAcInserted = 1,
+  
+  kAcRemoved = 2,
+  
+  kOsSuspend = 3,
+  
+  kOsResume = 4,
+  kMinValue = 0,
+  kMaxValue = 4,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, PowerEventInfo_State value);
+inline bool IsKnownEnumValue(PowerEventInfo_State value) {
+  return internal::PowerEventInfo_State_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline PowerEventInfo_State ToKnownEnumValue(PowerEventInfo_State value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return PowerEventInfo_State::kDefaultValue;
+}
+
+
+enum class AudioEventInfo_State : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kUnderrun = 1,
+  
+  kSevereUnderrun = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, AudioEventInfo_State value);
+inline bool IsKnownEnumValue(AudioEventInfo_State value) {
+  return internal::AudioEventInfo_State_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline AudioEventInfo_State ToKnownEnumValue(AudioEventInfo_State value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return AudioEventInfo_State::kDefaultValue;
+}
 // Interface base classes. They are used for type safety check.
 class CrosHealthdBluetoothObserverInterfaceBase {};
 
@@ -121,6 +373,16 @@ using CrosHealthdUsbObserverAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<CrosHealthdUsbObserverInterfaceBase>;
 using CrosHealthdUsbObserverAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CrosHealthdUsbObserverInterfaceBase>;
+class EventObserverInterfaceBase {};
+
+using EventObserverPtrDataView =
+    mojo::InterfacePtrDataView<EventObserverInterfaceBase>;
+using EventObserverRequestDataView =
+    mojo::InterfaceRequestDataView<EventObserverInterfaceBase>;
+using EventObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<EventObserverInterfaceBase>;
+using EventObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<EventObserverInterfaceBase>;
 
 
 class UsbEventInfoDataView {
@@ -169,8 +431,248 @@ class UsbEventInfoDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
         pointer, output, message_);
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->header_.version >= 1
+                      ? data_->state : 0;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UsbEventInfo_State>(
+        data_value, output);
+  }
+  UsbEventInfo_State state() const {
+    if (data_->header_.version < 1)
+      return UsbEventInfo_State{};
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::UsbEventInfo_State>(data_->state));
+  }
  private:
   internal::UsbEventInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class ThunderboltEventInfoDataView {
+ public:
+  ThunderboltEventInfoDataView() = default;
+
+  ThunderboltEventInfoDataView(
+      internal::ThunderboltEventInfo_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ThunderboltEventInfo_State>(
+        data_value, output);
+  }
+  ThunderboltEventInfo_State state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::ThunderboltEventInfo_State>(data_->state));
+  }
+ private:
+  internal::ThunderboltEventInfo_Data* data_ = nullptr;
+};
+
+
+
+class LidEventInfoDataView {
+ public:
+  LidEventInfoDataView() = default;
+
+  LidEventInfoDataView(
+      internal::LidEventInfo_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LidEventInfo_State>(
+        data_value, output);
+  }
+  LidEventInfo_State state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::LidEventInfo_State>(data_->state));
+  }
+ private:
+  internal::LidEventInfo_Data* data_ = nullptr;
+};
+
+
+
+class BluetoothEventInfoDataView {
+ public:
+  BluetoothEventInfoDataView() = default;
+
+  BluetoothEventInfoDataView(
+      internal::BluetoothEventInfo_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothEventInfo_State>(
+        data_value, output);
+  }
+  BluetoothEventInfo_State state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::BluetoothEventInfo_State>(data_->state));
+  }
+ private:
+  internal::BluetoothEventInfo_Data* data_ = nullptr;
+};
+
+
+
+class PowerEventInfoDataView {
+ public:
+  PowerEventInfoDataView() = default;
+
+  PowerEventInfoDataView(
+      internal::PowerEventInfo_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PowerEventInfo_State>(
+        data_value, output);
+  }
+  PowerEventInfo_State state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::PowerEventInfo_State>(data_->state));
+  }
+ private:
+  internal::PowerEventInfo_Data* data_ = nullptr;
+};
+
+
+
+class AudioEventInfoDataView {
+ public:
+  AudioEventInfoDataView() = default;
+
+  AudioEventInfoDataView(
+      internal::AudioEventInfo_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioEventInfo_State>(
+        data_value, output);
+  }
+  AudioEventInfo_State state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::AudioEventInfo_State>(data_->state));
+  }
+ private:
+  internal::AudioEventInfo_Data* data_ = nullptr;
+};
+
+
+
+class EventInfoDataView {
+ public:
+  using Tag = internal::EventInfo_Data::EventInfo_Tag;
+
+  EventInfoDataView() = default;
+
+  EventInfoDataView(
+      internal::EventInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_default_type() const { return data_->tag == Tag::kDefaultType; }
+  uint8_t default_type() const {
+    CHECK(is_default_type());
+    return data_->data.f_default_type;
+  }
+  bool is_usb_event_info() const { return data_->tag == Tag::kUsbEventInfo; }
+  inline void GetUsbEventInfoDataView(
+      UsbEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUsbEventInfo(UserType* output) const {
+    
+    CHECK(is_usb_event_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UsbEventInfoDataView>(
+        data_->data.f_usb_event_info.Get(), output, message_);
+  }
+  bool is_thunderbolt_event_info() const { return data_->tag == Tag::kThunderboltEventInfo; }
+  inline void GetThunderboltEventInfoDataView(
+      ThunderboltEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadThunderboltEventInfo(UserType* output) const {
+    
+    CHECK(is_thunderbolt_event_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ThunderboltEventInfoDataView>(
+        data_->data.f_thunderbolt_event_info.Get(), output, message_);
+  }
+  bool is_lid_event_info() const { return data_->tag == Tag::kLidEventInfo; }
+  inline void GetLidEventInfoDataView(
+      LidEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLidEventInfo(UserType* output) const {
+    
+    CHECK(is_lid_event_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::LidEventInfoDataView>(
+        data_->data.f_lid_event_info.Get(), output, message_);
+  }
+  bool is_bluetooth_event_info() const { return data_->tag == Tag::kBluetoothEventInfo; }
+  inline void GetBluetoothEventInfoDataView(
+      BluetoothEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBluetoothEventInfo(UserType* output) const {
+    
+    CHECK(is_bluetooth_event_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothEventInfoDataView>(
+        data_->data.f_bluetooth_event_info.Get(), output, message_);
+  }
+  bool is_power_event_info() const { return data_->tag == Tag::kPowerEventInfo; }
+  inline void GetPowerEventInfoDataView(
+      PowerEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPowerEventInfo(UserType* output) const {
+    
+    CHECK(is_power_event_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PowerEventInfoDataView>(
+        data_->data.f_power_event_info.Get(), output, message_);
+  }
+  bool is_audio_event_info() const { return data_->tag == Tag::kAudioEventInfo; }
+  inline void GetAudioEventInfoDataView(
+      AudioEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAudioEventInfo(UserType* output) const {
+    
+    CHECK(is_audio_event_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioEventInfoDataView>(
+        data_->data.f_audio_event_info.Get(), output, message_);
+  }
+
+ private:
+  internal::EventInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -182,9 +684,177 @@ class UsbEventInfoDataView {
 
 namespace std {
 
+template <>
+struct hash<::ash::cros_healthd::mojom::EventCategoryEnum>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::EventCategoryEnum> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::UsbEventInfo_State>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::UsbEventInfo_State> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::ThunderboltEventInfo_State>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::ThunderboltEventInfo_State> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::LidEventInfo_State>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::LidEventInfo_State> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::BluetoothEventInfo_State>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::BluetoothEventInfo_State> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::PowerEventInfo_State>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::PowerEventInfo_State> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::AudioEventInfo_State>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::AudioEventInfo_State> {};
+
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::EventCategoryEnum, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::EventCategoryEnum, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::EventCategoryEnum>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::UsbEventInfo_State, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::UsbEventInfo_State, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::UsbEventInfo_State>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::ThunderboltEventInfo_State, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::ThunderboltEventInfo_State, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::ThunderboltEventInfo_State>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::LidEventInfo_State, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::LidEventInfo_State, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::LidEventInfo_State>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothEventInfo_State, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::BluetoothEventInfo_State, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::BluetoothEventInfo_State>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::PowerEventInfo_State, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::PowerEventInfo_State, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::PowerEventInfo_State>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::AudioEventInfo_State, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::AudioEventInfo_State, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::AudioEventInfo_State>(input)), output);
+  }
+};
+
+}  // namespace internal
 
 
 namespace internal {
@@ -240,6 +910,8 @@ struct Serializer<::ash::cros_healthd::mojom::UsbEventInfoDataView, MaybeConstUs
         fragment->categories.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null categories in UsbEventInfo struct");
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::UsbEventInfo_State>(
+        Traits::state(input), &fragment->state);
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::UsbEventInfo_Data* input,
@@ -249,6 +921,304 @@ struct Serializer<::ash::cros_healthd::mojom::UsbEventInfoDataView, MaybeConstUs
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::UsbEventInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::ThunderboltEventInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::ThunderboltEventInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::ThunderboltEventInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::ThunderboltEventInfo_State>(
+        Traits::state(input), &fragment->state);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::ThunderboltEventInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::ThunderboltEventInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::LidEventInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::LidEventInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::LidEventInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::LidEventInfo_State>(
+        Traits::state(input), &fragment->state);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::LidEventInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::LidEventInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BluetoothEventInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BluetoothEventInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BluetoothEventInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothEventInfo_State>(
+        Traits::state(input), &fragment->state);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothEventInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::BluetoothEventInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::PowerEventInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::PowerEventInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::PowerEventInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::PowerEventInfo_State>(
+        Traits::state(input), &fragment->state);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::PowerEventInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::PowerEventInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::AudioEventInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::AudioEventInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::AudioEventInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioEventInfo_State>(
+        Traits::state(input), &fragment->state);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::AudioEventInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::AudioEventInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::EventInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::EventInfoDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::EventInfo_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kDefaultType: {
+        decltype(Traits::default_type(input))
+            in_default_type = Traits::default_type(input);
+        fragment->data.f_default_type = in_default_type;
+        break;
+      }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kUsbEventInfo: {
+        decltype(Traits::usb_event_info(input))
+            in_usb_event_info = Traits::usb_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_usb_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::UsbEventInfoDataView>(
+            in_usb_event_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null usb_event_info in EventInfo union");
+        fragment->data.f_usb_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kThunderboltEventInfo: {
+        decltype(Traits::thunderbolt_event_info(input))
+            in_thunderbolt_event_info = Traits::thunderbolt_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_thunderbolt_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ThunderboltEventInfoDataView>(
+            in_thunderbolt_event_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null thunderbolt_event_info in EventInfo union");
+        fragment->data.f_thunderbolt_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kLidEventInfo: {
+        decltype(Traits::lid_event_info(input))
+            in_lid_event_info = Traits::lid_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_lid_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::LidEventInfoDataView>(
+            in_lid_event_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null lid_event_info in EventInfo union");
+        fragment->data.f_lid_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kBluetoothEventInfo: {
+        decltype(Traits::bluetooth_event_info(input))
+            in_bluetooth_event_info = Traits::bluetooth_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_bluetooth_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothEventInfoDataView>(
+            in_bluetooth_event_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null bluetooth_event_info in EventInfo union");
+        fragment->data.f_bluetooth_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kPowerEventInfo: {
+        decltype(Traits::power_event_info(input))
+            in_power_event_info = Traits::power_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_power_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::PowerEventInfoDataView>(
+            in_power_event_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null power_event_info in EventInfo union");
+        fragment->data.f_power_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kAudioEventInfo: {
+        decltype(Traits::audio_event_info(input))
+            in_audio_event_info = Traits::audio_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_audio_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioEventInfoDataView>(
+            in_audio_event_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null audio_event_info in EventInfo union");
+        fragment->data.f_audio_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::EventInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::EventInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -280,11 +1250,115 @@ inline void UsbEventInfoDataView::GetCategoriesDataView(
 
 
 
+
+
+
+
+
+
+
+
+
+inline void EventInfoDataView::GetUsbEventInfoDataView(
+    UsbEventInfoDataView* output) const {
+  CHECK(is_usb_event_info());
+  *output = UsbEventInfoDataView(data_->data.f_usb_event_info.Get(), message_);
+}
+inline void EventInfoDataView::GetThunderboltEventInfoDataView(
+    ThunderboltEventInfoDataView* output) const {
+  CHECK(is_thunderbolt_event_info());
+  *output = ThunderboltEventInfoDataView(data_->data.f_thunderbolt_event_info.Get(), message_);
+}
+inline void EventInfoDataView::GetLidEventInfoDataView(
+    LidEventInfoDataView* output) const {
+  CHECK(is_lid_event_info());
+  *output = LidEventInfoDataView(data_->data.f_lid_event_info.Get(), message_);
+}
+inline void EventInfoDataView::GetBluetoothEventInfoDataView(
+    BluetoothEventInfoDataView* output) const {
+  CHECK(is_bluetooth_event_info());
+  *output = BluetoothEventInfoDataView(data_->data.f_bluetooth_event_info.Get(), message_);
+}
+inline void EventInfoDataView::GetPowerEventInfoDataView(
+    PowerEventInfoDataView* output) const {
+  CHECK(is_power_event_info());
+  *output = PowerEventInfoDataView(data_->data.f_power_event_info.Get(), message_);
+}
+inline void EventInfoDataView::GetAudioEventInfoDataView(
+    AudioEventInfoDataView* output) const {
+  CHECK(is_audio_event_info());
+  *output = AudioEventInfoDataView(data_->data.f_audio_event_info.Get(), message_);
+}
+
+
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::EventCategoryEnum> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::EventCategoryEnum value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::UsbEventInfo_State> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::UsbEventInfo_State value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::ThunderboltEventInfo_State> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::ThunderboltEventInfo_State value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::LidEventInfo_State> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::LidEventInfo_State value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::BluetoothEventInfo_State> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::BluetoothEventInfo_State value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::PowerEventInfo_State> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::PowerEventInfo_State value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::AudioEventInfo_State> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::AudioEventInfo_State value);
+};
+
+} // namespace perfetto
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_EVENTS_MOJOM_SHARED_H_

@@ -22,7 +22,310 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
+static NOINLINE const char* EventCategoryEnumToStringHelper(EventCategoryEnum value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case EventCategoryEnum::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case EventCategoryEnum::kUsb:
+      return "kUsb";
+    case EventCategoryEnum::kThunderbolt:
+      return "kThunderbolt";
+    case EventCategoryEnum::kLid:
+      return "kLid";
+    case EventCategoryEnum::kBluetooth:
+      return "kBluetooth";
+    case EventCategoryEnum::kPower:
+      return "kPower";
+    case EventCategoryEnum::kAudio:
+      return "kAudio";
+    default:
+      return nullptr;
+  }
+}
+
+std::string EventCategoryEnumToString(EventCategoryEnum value) {
+  const char *str = EventCategoryEnumToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown EventCategoryEnum value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, EventCategoryEnum value) {
+  return os << EventCategoryEnumToString(value);
+}
+
+static NOINLINE const char* UsbEventInfo_StateToStringHelper(UsbEventInfo_State value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case UsbEventInfo_State::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case UsbEventInfo_State::kAdd:
+      return "kAdd";
+    case UsbEventInfo_State::kRemove:
+      return "kRemove";
+    default:
+      return nullptr;
+  }
+}
+
+std::string UsbEventInfo_StateToString(UsbEventInfo_State value) {
+  const char *str = UsbEventInfo_StateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown UsbEventInfo_State value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, UsbEventInfo_State value) {
+  return os << UsbEventInfo_StateToString(value);
+}
+
+static NOINLINE const char* ThunderboltEventInfo_StateToStringHelper(ThunderboltEventInfo_State value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case ThunderboltEventInfo_State::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case ThunderboltEventInfo_State::kAdd:
+      return "kAdd";
+    case ThunderboltEventInfo_State::kRemove:
+      return "kRemove";
+    case ThunderboltEventInfo_State::kAuthorized:
+      return "kAuthorized";
+    case ThunderboltEventInfo_State::kUnAuthorized:
+      return "kUnAuthorized";
+    default:
+      return nullptr;
+  }
+}
+
+std::string ThunderboltEventInfo_StateToString(ThunderboltEventInfo_State value) {
+  const char *str = ThunderboltEventInfo_StateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown ThunderboltEventInfo_State value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, ThunderboltEventInfo_State value) {
+  return os << ThunderboltEventInfo_StateToString(value);
+}
+
+static NOINLINE const char* LidEventInfo_StateToStringHelper(LidEventInfo_State value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case LidEventInfo_State::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case LidEventInfo_State::kClosed:
+      return "kClosed";
+    case LidEventInfo_State::kOpened:
+      return "kOpened";
+    default:
+      return nullptr;
+  }
+}
+
+std::string LidEventInfo_StateToString(LidEventInfo_State value) {
+  const char *str = LidEventInfo_StateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown LidEventInfo_State value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, LidEventInfo_State value) {
+  return os << LidEventInfo_StateToString(value);
+}
+
+static NOINLINE const char* BluetoothEventInfo_StateToStringHelper(BluetoothEventInfo_State value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case BluetoothEventInfo_State::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case BluetoothEventInfo_State::kAdapterAdded:
+      return "kAdapterAdded";
+    case BluetoothEventInfo_State::kAdapterRemoved:
+      return "kAdapterRemoved";
+    case BluetoothEventInfo_State::kAdapterPropertyChanged:
+      return "kAdapterPropertyChanged";
+    case BluetoothEventInfo_State::kDeviceAdded:
+      return "kDeviceAdded";
+    case BluetoothEventInfo_State::kDeviceRemoved:
+      return "kDeviceRemoved";
+    case BluetoothEventInfo_State::kDevicePropertyChanged:
+      return "kDevicePropertyChanged";
+    default:
+      return nullptr;
+  }
+}
+
+std::string BluetoothEventInfo_StateToString(BluetoothEventInfo_State value) {
+  const char *str = BluetoothEventInfo_StateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown BluetoothEventInfo_State value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, BluetoothEventInfo_State value) {
+  return os << BluetoothEventInfo_StateToString(value);
+}
+
+static NOINLINE const char* PowerEventInfo_StateToStringHelper(PowerEventInfo_State value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case PowerEventInfo_State::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case PowerEventInfo_State::kAcInserted:
+      return "kAcInserted";
+    case PowerEventInfo_State::kAcRemoved:
+      return "kAcRemoved";
+    case PowerEventInfo_State::kOsSuspend:
+      return "kOsSuspend";
+    case PowerEventInfo_State::kOsResume:
+      return "kOsResume";
+    default:
+      return nullptr;
+  }
+}
+
+std::string PowerEventInfo_StateToString(PowerEventInfo_State value) {
+  const char *str = PowerEventInfo_StateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown PowerEventInfo_State value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, PowerEventInfo_State value) {
+  return os << PowerEventInfo_StateToString(value);
+}
+
+static NOINLINE const char* AudioEventInfo_StateToStringHelper(AudioEventInfo_State value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AudioEventInfo_State::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case AudioEventInfo_State::kUnderrun:
+      return "kUnderrun";
+    case AudioEventInfo_State::kSevereUnderrun:
+      return "kSevereUnderrun";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AudioEventInfo_StateToString(AudioEventInfo_State value) {
+  const char *str = AudioEventInfo_StateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AudioEventInfo_State value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AudioEventInfo_State value) {
+  return os << AudioEventInfo_StateToString(value);
+}
+
 namespace internal {
+// static
+bool EventInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const EventInfo_Data* object = static_cast<const EventInfo_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case EventInfo_Tag::kDefaultType: {
+
+      return true;
+    }
+    case EventInfo_Tag::kUsbEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_usb_event_info, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_usb_event_info, validation_context))
+        return false;
+      return true;
+    }
+    case EventInfo_Tag::kThunderboltEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_thunderbolt_event_info, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_thunderbolt_event_info, validation_context))
+        return false;
+      return true;
+    }
+    case EventInfo_Tag::kLidEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_lid_event_info, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_lid_event_info, validation_context))
+        return false;
+      return true;
+    }
+    case EventInfo_Tag::kBluetoothEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_bluetooth_event_info, 5, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_bluetooth_event_info, validation_context))
+        return false;
+      return true;
+    }
+    case EventInfo_Tag::kPowerEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_power_event_info, 6, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_power_event_info, validation_context))
+        return false;
+      return true;
+    }
+    case EventInfo_Tag::kAudioEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_audio_event_info, 7, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_audio_event_info, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      return true;
+    }
+  }
+}
 
 
 // static
@@ -31,8 +334,12 @@ bool UsbEventInfo_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 40 },
+    { 1, 40 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -73,11 +380,158 @@ bool UsbEventInfo_Data::Validate(
                                          &categories_validate_params)) {
     return false;
   }
+  if (object->header_.version < 1)
+    return true;
+
+
+  if (!::ash::cros_healthd::mojom::internal::UsbEventInfo_State_Data
+        ::Validate(object->state, validation_context))
+    return false;
 
   return true;
 }
 
 UsbEventInfo_Data::UsbEventInfo_Data()
+    : header_({sizeof(*this), 1}) {}
+
+
+// static
+bool ThunderboltEventInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ThunderboltEventInfo_Data* object =
+      static_cast<const ThunderboltEventInfo_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::ThunderboltEventInfo_State_Data
+        ::Validate(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+ThunderboltEventInfo_Data::ThunderboltEventInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool LidEventInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LidEventInfo_Data* object =
+      static_cast<const LidEventInfo_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::LidEventInfo_State_Data
+        ::Validate(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+LidEventInfo_Data::LidEventInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool BluetoothEventInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const BluetoothEventInfo_Data* object =
+      static_cast<const BluetoothEventInfo_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::BluetoothEventInfo_State_Data
+        ::Validate(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+BluetoothEventInfo_Data::BluetoothEventInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PowerEventInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PowerEventInfo_Data* object =
+      static_cast<const PowerEventInfo_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::PowerEventInfo_State_Data
+        ::Validate(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+PowerEventInfo_Data::PowerEventInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AudioEventInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AudioEventInfo_Data* object =
+      static_cast<const AudioEventInfo_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::AudioEventInfo_State_Data
+        ::Validate(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+AudioEventInfo_Data::AudioEventInfo_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -554,7 +1008,107 @@ bool CrosHealthdUsbObserver_OnRemove_Params_Data::Validate(
 CrosHealthdUsbObserver_OnRemove_Params_Data::CrosHealthdUsbObserver_OnRemove_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool EventObserver_OnEvent_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const EventObserver_OnEvent_Params_Data* object =
+      static_cast<const EventObserver_OnEvent_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
+          object->info, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateInlinedUnion(object->info, validation_context))
+    return false;
+
+  return true;
+}
+
+EventObserver_OnEvent_Params_Data::EventObserver_OnEvent_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::EventCategoryEnum>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::EventCategoryEnum value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::EventCategoryEnumToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::UsbEventInfo_State>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::UsbEventInfo_State value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::UsbEventInfo_StateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::ThunderboltEventInfo_State>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::ThunderboltEventInfo_State value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::ThunderboltEventInfo_StateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::LidEventInfo_State>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::LidEventInfo_State value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::LidEventInfo_StateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::BluetoothEventInfo_State>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::BluetoothEventInfo_State value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::BluetoothEventInfo_StateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::PowerEventInfo_State>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::PowerEventInfo_State value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::PowerEventInfo_StateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::AudioEventInfo_State>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::AudioEventInfo_State value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::AudioEventInfo_StateToString(value));
+}
+
+} // namespace perfetto

@@ -10399,6 +10399,9 @@ CrosHealthdEventService::IPCStableHashFunction CrosHealthdEventService::MessageT
     case internal::kCrosHealthdEventService_AddUsbObserver_Name: {
       return &CrosHealthdEventService::AddUsbObserver_Sym::IPCStableHash;
     }
+    case internal::kCrosHealthdEventService_AddEventObserver_Name: {
+      return &CrosHealthdEventService::AddEventObserver_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -10424,6 +10427,8 @@ const char* CrosHealthdEventService::MessageToMethodName_(mojo::Message& message
             return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddThunderboltObserver";
       case internal::kCrosHealthdEventService_AddUsbObserver_Name:
             return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver";
+      case internal::kCrosHealthdEventService_AddEventObserver_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddEventObserver";
     }
   } else {
     switch (message.name()) {
@@ -10441,6 +10446,8 @@ const char* CrosHealthdEventService::MessageToMethodName_(mojo::Message& message
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddThunderboltObserver";
       case internal::kCrosHealthdEventService_AddUsbObserver_Name:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver";
+      case internal::kCrosHealthdEventService_AddEventObserver_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddEventObserver";
     }
   }
   return "Receive unknown mojo message";
@@ -10542,6 +10549,19 @@ uint32_t CrosHealthdEventService::AddUsbObserver_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdEventService::AddEventObserver_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::AddEventObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -10853,6 +10873,54 @@ void CrosHealthdEventServiceProxy::AddUsbObserver(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void CrosHealthdEventServiceProxy::AddEventObserver(
+    ::ash::cros_healthd::mojom::EventCategoryEnum in_category, ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> in_observer) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddEventObserver", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("category"), in_category,
+                        "<value of type ::ash::cros_healthd::mojom::EventCategoryEnum>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("observer"), in_observer,
+                        "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver>>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdEventService_AddEventObserver_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_AddEventObserver_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::EventCategoryEnum>(
+      in_category, &params->category);
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::EventObserverInterfaceBase>>(
+      in_observer, &params->observer, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->observer),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid observer in CrosHealthdEventService.AddEventObserver request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdEventService::Name_);
+  message.set_method_name("AddEventObserver");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool CrosHealthdEventServiceStubDispatch::Accept(
     CrosHealthdEventService* impl,
@@ -11054,6 +11122,38 @@ std::move(p_observer));
 std::move(p_observer));
       return true;
     }
+    case internal::kCrosHealthdEventService_AddEventObserver_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CrosHealthdEventService_AddEventObserver_Params_Data* params =
+          reinterpret_cast<internal::CrosHealthdEventService_AddEventObserver_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::ash::cros_healthd::mojom::EventCategoryEnum p_category = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::EventCategoryEnum>();
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver>>();
+      CrosHealthdEventService_AddEventObserver_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadCategory(&p_category))
+        success = false;
+      if (success) {
+        p_observer =
+            input_data_view.TakeObserver<decltype(p_observer)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdEventService::Name_, 7, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->AddEventObserver(
+std::move(p_category), 
+std::move(p_observer));
+      return true;
+    }
   }
   return false;
 }
@@ -11088,6 +11188,9 @@ bool CrosHealthdEventServiceStubDispatch::AcceptWithResponder(
     case internal::kCrosHealthdEventService_AddUsbObserver_Name: {
       break;
     }
+    case internal::kCrosHealthdEventService_AddEventObserver_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -11107,6 +11210,8 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdEventServiceValid
     {&internal::CrosHealthdEventService_AddThunderboltObserver_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::CrosHealthdEventService_AddUsbObserver_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::CrosHealthdEventService_AddEventObserver_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -13936,6 +14041,9 @@ void CrosHealthdEventServiceInterceptorForTesting::AddThunderboltObserver(::mojo
 }
 void CrosHealthdEventServiceInterceptorForTesting::AddUsbObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> observer) {
   GetForwardingInterface()->AddUsbObserver(std::move(observer));
+}
+void CrosHealthdEventServiceInterceptorForTesting::AddEventObserver(::ash::cros_healthd::mojom::EventCategoryEnum category, ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> observer) {
+  GetForwardingInterface()->AddEventObserver(std::move(category), std::move(observer));
 }
 CrosHealthdEventServiceAsyncWaiter::CrosHealthdEventServiceAsyncWaiter(
     CrosHealthdEventService* proxy) : proxy_(proxy) {}
