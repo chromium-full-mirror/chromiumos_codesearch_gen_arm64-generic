@@ -27,6 +27,9 @@
 
 namespace base {
 
+const char kLsbReleaseKey[] = "LSB_RELEASE";
+const char kLsbReleaseTimeKey[] = "LSB_RELEASE_TIME";  // Seconds since epoch
+
 namespace {
 
 const char* const kLinuxStandardBaseVersionKeys[] = {
@@ -40,9 +43,6 @@ const char* const kChromeOsReleaseNames[] = {
 };
 
 const char kLinuxStandardBaseReleaseFile[] = "/etc/lsb-release";
-
-const char kLsbReleaseKey[] = "LSB_RELEASE";
-const char kLsbReleaseTimeKey[] = "LSB_RELEASE_TIME";  // Seconds since epoch
 
 const char kLsbReleaseSourceKey[] = "lsb-release";
 const char kLsbReleaseSourceEnv[] = "env";
