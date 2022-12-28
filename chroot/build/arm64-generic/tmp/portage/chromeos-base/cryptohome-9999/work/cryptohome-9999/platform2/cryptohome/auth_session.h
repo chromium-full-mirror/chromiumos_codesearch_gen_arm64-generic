@@ -654,15 +654,15 @@ class AuthSession final {
   UserSecretStashStorage* const user_secret_stash_storage_;
   // Unowned pointer.
   feature::PlatformFeaturesInterface* feature_lib_;
+  // A stateless object to convert AuthFactor API to VaultKeyset KeyData and
+  // VaultKeysets to AuthFactor API.
+  AuthFactorVaultKeysetConverter converter_;
 
   const base::UnguessableToken token_;
   const std::string serialized_token_;
 
   // Used to decrypt/ encrypt & store credentials.
   std::unique_ptr<VaultKeyset> vault_keyset_;
-  // A stateless object to convert AuthFactor API to VaultKeyset KeyData and
-  // VaultKeysets to AuthFactor API.
-  std::unique_ptr<AuthFactorVaultKeysetConverter> converter_;
   // Used to store key meta data.
   KeyData key_data_;
   // FileSystemKeyset is needed by cryptohome to mount a user.
@@ -678,6 +678,8 @@ class AuthSession final {
   // It's set only after GetRecoveryRequest() call, and is std::nullopt in other
   // cases.
   std::optional<brillo::SecureBlob> cryptohome_recovery_ephemeral_pub_key_;
+  // Switch to enable creation of the backup VaultKeysets together with the USS.
+  bool enable_create_backup_vk_with_uss_ = true;
   // Tokens from active auth factors, keyed off of the token's auth factor type.
   std::map<AuthFactorType, std::unique_ptr<PreparedAuthFactorToken>>
       active_auth_factor_tokens_;
