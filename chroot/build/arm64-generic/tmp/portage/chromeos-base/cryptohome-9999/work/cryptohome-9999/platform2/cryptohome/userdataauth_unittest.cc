@@ -5,6 +5,7 @@
 #include "cryptohome/userdataauth.h"
 
 #include <algorithm>
+#include <deque>
 #include <memory>
 #include <optional>
 #include <set>
@@ -71,6 +72,8 @@
 #include "cryptohome/storage/homedirs.h"
 #include "cryptohome/storage/mock_arc_disk_quota.h"
 #include "cryptohome/storage/mock_homedirs.h"
+#include "cryptohome/storage/mock_mount.h"
+#include "cryptohome/storage/mock_mount_factory.h"
 #include "cryptohome/user_session/mock_user_session.h"
 #include "cryptohome/user_session/mock_user_session_factory.h"
 
@@ -170,6 +173,7 @@ class UserDataAuthTestBase : public ::testing::Test {
     userdataauth_->set_cryptohome_keys_manager(&cryptohome_keys_manager_);
     userdataauth_->set_challenge_credentials_helper(
         &challenge_credentials_helper_);
+    userdataauth_->set_user_session_factory(&user_session_factory_);
 
     // It doesnt matter what key it returns for the purposes of the
     // UserDataAuth test.
@@ -217,7 +221,6 @@ class UserDataAuthTestBase : public ::testing::Test {
     userdataauth_->set_arc_disk_quota(&arc_disk_quota_);
     userdataauth_->set_pkcs11_init(&pkcs11_init_);
     userdataauth_->set_pkcs11_token_factory(&pkcs11_token_factory_);
-    userdataauth_->set_user_session_factory(&user_session_factory_);
     userdataauth_->set_key_challenge_service_factory(
         &key_challenge_service_factory_);
     userdataauth_->set_low_disk_space_handler(&low_disk_space_handler_);
@@ -5336,9 +5339,28 @@ class UserDataAuthApiTest : public UserDataAuthTest {
     userdataauth_->set_hwsec_factory(&sim_factory_);
 
     SetupDefaultUserDataAuth();
+    SetupMountFactory();
     // Note: We skip SetupHwsec() because we use the simulated libhwsec layer.
     SetupTasks();
     InitializeUserDataAuth();
+  }
+
+  void SetupMountFactory() {
+    userdataauth_->set_mount_factory_for_testing(&mount_factory_);
+
+    ON_CALL(mount_factory_, New(_, _, _, _, _))
+        .WillByDefault(
+            Invoke([this](Platform* platform, HomeDirs* homedirs,
+                          bool legacy_mount, bool bind_mount_downloads,
+                          bool use_local_mounter) -> Mount* {
+              if (new_mounts_.empty()) {
+                ADD_FAILURE() << "Not enough objects in new_mounts_";
+                return nullptr;
+              }
+              Mount* result = new_mounts_[0];
+              new_mounts_.pop_front();
+              return result;
+            }));
   }
 
   // Simply the Sync() version of StartAuthSession(). Caller should check that
@@ -5359,10 +5381,13 @@ class UserDataAuthApiTest : public UserDataAuthTest {
   // unsuccessful.
   std::optional<std::string> GetTestUnauthedAuthSession(
       user_data_auth::AuthIntent intent =
-          user_data_auth::AuthIntent::AUTH_INTENT_DECRYPT) {
+          user_data_auth::AuthIntent::AUTH_INTENT_DECRYPT,
+      uint32_t flags =
+          user_data_auth::AuthSessionFlags::AUTH_SESSION_FLAGS_NONE) {
     user_data_auth::StartAuthSessionRequest req;
     req.mutable_account_id()->set_account_id(kUsername1);
     req.set_intent(intent);
+    req.set_flags(flags);
     std::optional<user_data_auth::StartAuthSessionReply> reply =
         StartAuthSessionSync(req);
     if (!reply.has_value()) {
@@ -5547,11 +5572,43 @@ class UserDataAuthApiTest : public UserDataAuthTest {
     return reply_future.Get();
   }
 
+  std::optional<user_data_auth::PreparePersistentVaultReply>
+  PreparePersistentVaultSync(
+      const user_data_auth::PreparePersistentVaultRequest& in_request) {
+    TestFuture<user_data_auth::PreparePersistentVaultReply> reply_future;
+    userdataauth_->PreparePersistentVault(
+        in_request,
+        reply_future
+            .GetCallback<const user_data_auth::PreparePersistentVaultReply&>());
+    RunUntilIdle();
+    return reply_future.Get();
+  }
+
+  std::optional<user_data_auth::PrepareEphemeralVaultReply>
+  PrepareEphemeralVaultSync(
+      const user_data_auth::PrepareEphemeralVaultRequest& in_request) {
+    TestFuture<user_data_auth::PrepareEphemeralVaultReply> reply_future;
+    userdataauth_->PrepareEphemeralVault(
+        in_request,
+        reply_future
+            .GetCallback<const user_data_auth::PrepareEphemeralVaultReply&>());
+    RunUntilIdle();
+    return reply_future.Get();
+  }
+
  protected:
+  // Mock mount factory for mocking Mount objects.
+  MockMountFactory mount_factory_;
+  // Any elements added to this queue will be returned when mount_factory_.New()
+  // is called.
+  std::deque<Mount*> new_mounts_;
+
   static constexpr char kUsername1[] = "foo@gmail.com";
+  static constexpr char kUsername2[] = "bar@gmail.com";
   static constexpr char kPassword1[] = "MyP@ssW0rd!!";
   static constexpr char kPasswordLabel[] = "Password1";
   static constexpr char kSmartCardLabel[] = "SmartCard1";
+  static constexpr char kTestErrorString[] = "ErrorForTestingOnly";
 
   hwsec::Tpm2SimulatorFactoryForTest sim_factory_;
 };
@@ -5575,6 +5632,32 @@ MATCHER_P(HasPossibleAction, action, "") {
   return false;
 }
 
+// Same as multiple invocation of HasPossibleAction. This matcher checks that
+// the CryptohomeErrorInfo contains a correct PrimaryAction and the list of
+// recommended PossibleAction(s) contains the specified actions. |actions|
+// should be set<user_data_auth::PossibleAction>.
+MATCHER_P(HasPossibleActions, actions, "") {
+  // We need to copy the actions to strip off the constness.
+  std::set<user_data_auth::PossibleAction> to_match = actions;
+  if (arg.primary_action() != user_data_auth::PrimaryAction::PRIMARY_NONE) {
+    *result_listener
+        << "Invalid PrimaryAction when checking for PossibleAction: "
+        << user_data_auth::PrimaryAction_Name(arg.primary_action());
+    return false;
+  }
+  for (int i = 0; i < arg.possible_actions_size(); i++) {
+    const auto current_action = arg.possible_actions(i);
+    if (to_match.count(current_action) != 0) {
+      to_match.erase(current_action);
+    }
+  }
+  for (const auto& action : to_match) {
+    *result_listener << "Action " << user_data_auth::PossibleAction_Name(action)
+                     << " not found";
+  }
+  return to_match.size() == 0;
+}
+
 TEST_F(UserDataAuthApiTest, RemoveStillMounted) {
   // If a home directory is mounted it'll return false for Remove().
   EXPECT_CALL(homedirs_, Remove(_)).WillOnce(Return(false));
@@ -5590,12 +5673,10 @@ TEST_F(UserDataAuthApiTest, RemoveStillMounted) {
 
   // Failure to Remove() due to still mounted vault should result in Reboot and
   // Powerwash recommendation.
-  EXPECT_THAT(
-      reply.error_info(),
-      HasPossibleAction(user_data_auth::PossibleAction::POSSIBLY_REBOOT));
-  EXPECT_THAT(
-      reply.error_info(),
-      HasPossibleAction(user_data_auth::PossibleAction::POSSIBLY_POWERWASH));
+  EXPECT_THAT(reply.error_info(),
+              HasPossibleActions(std::set(
+                  {user_data_auth::PossibleAction::POSSIBLY_REBOOT,
+                   user_data_auth::PossibleAction::POSSIBLY_POWERWASH})));
 }
 
 TEST_F(UserDataAuthApiTest, RemoveNoID) {
@@ -5681,6 +5762,68 @@ TEST_F(UserDataAuthApiTest, ChalCredBadSRKROCA) {
   ASSERT_TRUE(add_factor_reply.has_value());
   EXPECT_EQ(add_factor_reply->error_info().primary_action(),
             user_data_auth::PrimaryAction::PRIMARY_TPM_UDPATE_REQUIRED);
+}
+
+TEST_F(UserDataAuthApiTest, MountFailed) {
+  // Prepare an account.
+  ASSERT_TRUE(CreateTestUser());
+  std::optional<std::string> session_id = GetTestAuthedAuthSession();
+  ASSERT_TRUE(session_id.has_value());
+
+  // Ensure that the mount fails.
+  scoped_refptr<MockMount> mount = new MockMount();
+  EXPECT_CALL(*mount, MountCryptohome(_, _, _))
+      .WillOnce(ReturnError<StorageError>(FROM_HERE, kTestErrorString,
+                                          MOUNT_ERROR_FATAL, false));
+  new_mounts_.push_back(mount.get());
+
+  EXPECT_CALL(homedirs_, Exists(_)).WillOnce(Return(true));
+  EXPECT_CALL(disk_cleanup_, FreeDiskSpaceDuringLogin(_))
+      .WillRepeatedly(Return(true));
+
+  // Make the call to check that the result is correct.
+  user_data_auth::PreparePersistentVaultRequest prepare_req;
+  prepare_req.set_auth_session_id(session_id.value());
+  std::optional<user_data_auth::PreparePersistentVaultReply> prepare_reply =
+      PreparePersistentVaultSync(prepare_req);
+
+  ASSERT_TRUE(prepare_reply.has_value());
+  EXPECT_THAT(prepare_reply->error_info(),
+              HasPossibleActions(std::set(
+                  {user_data_auth::PossibleAction::POSSIBLY_RETRY,
+                   user_data_auth::PossibleAction::POSSIBLY_REBOOT,
+                   user_data_auth::PossibleAction::POSSIBLY_DELETE_VAULT,
+                   user_data_auth::PossibleAction::POSSIBLY_POWERWASH})));
+}
+
+TEST_F(UserDataAuthApiTest, EphemeralMountFailed) {
+  // Prepare an auth session for ephemeral mount.
+  std::optional<std::string> session_id = GetTestUnauthedAuthSession(
+      user_data_auth::AuthIntent::AUTH_INTENT_DECRYPT,
+      user_data_auth::AuthSessionFlags::AUTH_SESSION_FLAGS_EPHEMERAL_USER);
+  ASSERT_TRUE(session_id.has_value());
+
+  // Ensure that the mount fails.
+  scoped_refptr<MockMount> mount = new MockMount();
+  EXPECT_CALL(*mount, MountEphemeralCryptohome(_))
+      .WillOnce(ReturnError<StorageError>(FROM_HERE, kTestErrorString,
+                                          MOUNT_ERROR_FATAL, false));
+  new_mounts_.push_back(mount.get());
+  EXPECT_CALL(homedirs_, GetPlainOwner(_))
+      .WillRepeatedly(DoAll(SetArgPointee<0>(kUsername2), Return(true)));
+
+  // Make the call to check that the result is correct.
+  user_data_auth::PrepareEphemeralVaultRequest prepare_req;
+  prepare_req.set_auth_session_id(session_id.value());
+  std::optional<user_data_auth::PrepareEphemeralVaultReply> prepare_reply =
+      PrepareEphemeralVaultSync(prepare_req);
+
+  ASSERT_TRUE(prepare_reply.has_value());
+  EXPECT_THAT(prepare_reply->error_info(),
+              HasPossibleActions(std::set(
+                  {user_data_auth::PossibleAction::POSSIBLY_RETRY,
+                   user_data_auth::PossibleAction::POSSIBLY_REBOOT,
+                   user_data_auth::PossibleAction::POSSIBLY_POWERWASH})));
 }
 
 }  // namespace cryptohome

@@ -51,7 +51,8 @@ constexpr SerializedVaultKeyset::SerializedVaultKeyset(
   , last_activity_timestamp_(int64_t{0})
   , le_label_(uint64_t{0u})
   , fscrypt_policy_version_(0)
-  , backup_vk_(false){}
+  , backup_vk_(false)
+  , migrated_vk_(false){}
 struct SerializedVaultKeysetDefaultTypeInternal {
   constexpr SerializedVaultKeysetDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -571,6 +572,9 @@ class SerializedVaultKeyset::_Internal {
   static void set_has_backup_vk(HasBits* has_bits) {
     (*has_bits)[0] |= 524288u;
   }
+  static void set_has_migrated_vk(HasBits* has_bits) {
+    (*has_bits)[0] |= 1048576u;
+  }
   static bool MissingRequiredFields(const HasBits& has_bits) {
     return ((has_bits[0] & 0x00004003) ^ 0x00004003) != 0;
   }
@@ -708,8 +712,8 @@ SerializedVaultKeyset::SerializedVaultKeyset(const SerializedVaultKeyset& from)
     signature_challenge_info_ = nullptr;
   }
   ::memcpy(&flags_, &from.flags_,
-    static_cast<size_t>(reinterpret_cast<char*>(&backup_vk_) -
-    reinterpret_cast<char*>(&flags_)) + sizeof(backup_vk_));
+    static_cast<size_t>(reinterpret_cast<char*>(&migrated_vk_) -
+    reinterpret_cast<char*>(&flags_)) + sizeof(migrated_vk_));
   // @@protoc_insertion_point(copy_constructor:cryptohome.SerializedVaultKeyset)
 }
 
@@ -764,8 +768,8 @@ vkk_iv_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlrea
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&key_data_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&backup_vk_) -
-    reinterpret_cast<char*>(&key_data_)) + sizeof(backup_vk_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&migrated_vk_) -
+    reinterpret_cast<char*>(&key_data_)) + sizeof(migrated_vk_));
 }
 
 SerializedVaultKeyset::~SerializedVaultKeyset() {
@@ -863,10 +867,10 @@ void SerializedVaultKeyset::Clear() {
         reinterpret_cast<char*>(&password_rounds_) -
         reinterpret_cast<char*>(&flags_)) + sizeof(password_rounds_));
   }
-  if (cached_has_bits & 0x000f0000u) {
+  if (cached_has_bits & 0x001f0000u) {
     ::memset(&last_activity_timestamp_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&backup_vk_) -
-        reinterpret_cast<char*>(&last_activity_timestamp_)) + sizeof(backup_vk_));
+        reinterpret_cast<char*>(&migrated_vk_) -
+        reinterpret_cast<char*>(&last_activity_timestamp_)) + sizeof(migrated_vk_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -1057,6 +1061,15 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
         } else
           goto handle_unusual;
         continue;
+      // optional bool migrated_vk = 23;
+      case 23:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 184)) {
+          _Internal::set_has_migrated_vk(&has_bits);
+          migrated_vk_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -1212,6 +1225,12 @@ uint8_t* SerializedVaultKeyset::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(22, this->_internal_backup_vk(), target);
   }
 
+  // optional bool migrated_vk = 23;
+  if (cached_has_bits & 0x00100000u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(23, this->_internal_migrated_vk(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1364,7 +1383,7 @@ size_t SerializedVaultKeyset::ByteSizeLong() const {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_password_rounds());
   }
 
-  if (cached_has_bits & 0x000f0000u) {
+  if (cached_has_bits & 0x001f0000u) {
     // optional int64 last_activity_timestamp = 8;
     if (cached_has_bits & 0x00010000u) {
       total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_last_activity_timestamp());
@@ -1384,6 +1403,11 @@ size_t SerializedVaultKeyset::ByteSizeLong() const {
 
     // optional bool backup_vk = 22;
     if (cached_has_bits & 0x00080000u) {
+      total_size += 2 + 1;
+    }
+
+    // optional bool migrated_vk = 23;
+    if (cached_has_bits & 0x00100000u) {
       total_size += 2 + 1;
     }
 
@@ -1462,7 +1486,7 @@ void SerializedVaultKeyset::MergeFrom(const SerializedVaultKeyset& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x000f0000u) {
+  if (cached_has_bits & 0x001f0000u) {
     if (cached_has_bits & 0x00010000u) {
       last_activity_timestamp_ = from.last_activity_timestamp_;
     }
@@ -1474,6 +1498,9 @@ void SerializedVaultKeyset::MergeFrom(const SerializedVaultKeyset& from) {
     }
     if (cached_has_bits & 0x00080000u) {
       backup_vk_ = from.backup_vk_;
+    }
+    if (cached_has_bits & 0x00100000u) {
+      migrated_vk_ = from.migrated_vk_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -1559,8 +1586,8 @@ void SerializedVaultKeyset::InternalSwap(SerializedVaultKeyset* other) {
       &other->vkk_iv_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SerializedVaultKeyset, backup_vk_)
-      + sizeof(SerializedVaultKeyset::backup_vk_)
+      PROTOBUF_FIELD_OFFSET(SerializedVaultKeyset, migrated_vk_)
+      + sizeof(SerializedVaultKeyset::migrated_vk_)
       - PROTOBUF_FIELD_OFFSET(SerializedVaultKeyset, key_data_)>(
           reinterpret_cast<char*>(&key_data_),
           reinterpret_cast<char*>(&other->key_data_));

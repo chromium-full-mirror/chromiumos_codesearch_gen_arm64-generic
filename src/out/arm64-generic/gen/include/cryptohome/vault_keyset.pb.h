@@ -469,6 +469,7 @@ class SerializedVaultKeyset final :
     kLeLabelFieldNumber = 13,
     kFscryptPolicyVersionFieldNumber = 20,
     kBackupVkFieldNumber = 22,
+    kMigratedVkFieldNumber = 23,
   };
   // required bytes salt = 2;
   bool has_salt() const;
@@ -800,6 +801,19 @@ class SerializedVaultKeyset final :
   void _internal_set_backup_vk(bool value);
   public:
 
+  // optional bool migrated_vk = 23;
+  bool has_migrated_vk() const;
+  private:
+  bool _internal_has_migrated_vk() const;
+  public:
+  void clear_migrated_vk();
+  bool migrated_vk() const;
+  void set_migrated_vk(bool value);
+  private:
+  bool _internal_migrated_vk() const;
+  void _internal_set_migrated_vk(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:cryptohome.SerializedVaultKeyset)
  private:
   class _Internal;
@@ -832,6 +846,7 @@ class SerializedVaultKeyset final :
   uint64_t le_label_;
   int32_t fscrypt_policy_version_;
   bool backup_vk_;
+  bool migrated_vk_;
   friend struct ::TableStruct_vault_5fkeyset_2eproto;
 };
 // ===================================================================
@@ -2276,6 +2291,34 @@ inline void SerializedVaultKeyset::_internal_set_backup_vk(bool value) {
 inline void SerializedVaultKeyset::set_backup_vk(bool value) {
   _internal_set_backup_vk(value);
   // @@protoc_insertion_point(field_set:cryptohome.SerializedVaultKeyset.backup_vk)
+}
+
+// optional bool migrated_vk = 23;
+inline bool SerializedVaultKeyset::_internal_has_migrated_vk() const {
+  bool value = (_has_bits_[0] & 0x00100000u) != 0;
+  return value;
+}
+inline bool SerializedVaultKeyset::has_migrated_vk() const {
+  return _internal_has_migrated_vk();
+}
+inline void SerializedVaultKeyset::clear_migrated_vk() {
+  migrated_vk_ = false;
+  _has_bits_[0] &= ~0x00100000u;
+}
+inline bool SerializedVaultKeyset::_internal_migrated_vk() const {
+  return migrated_vk_;
+}
+inline bool SerializedVaultKeyset::migrated_vk() const {
+  // @@protoc_insertion_point(field_get:cryptohome.SerializedVaultKeyset.migrated_vk)
+  return _internal_migrated_vk();
+}
+inline void SerializedVaultKeyset::_internal_set_migrated_vk(bool value) {
+  _has_bits_[0] |= 0x00100000u;
+  migrated_vk_ = value;
+}
+inline void SerializedVaultKeyset::set_migrated_vk(bool value) {
+  _internal_set_migrated_vk(value);
+  // @@protoc_insertion_point(field_set:cryptohome.SerializedVaultKeyset.migrated_vk)
 }
 
 #ifdef __GNUC__
