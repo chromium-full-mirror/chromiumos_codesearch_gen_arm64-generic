@@ -194,35 +194,6 @@ struct GetDevicesOptions {
 
 };
 
-struct DevicePromptOptions {
-  DevicePromptOptions();
-  ~DevicePromptOptions();
-  DevicePromptOptions(const DevicePromptOptions&) = delete;
-  DevicePromptOptions& operator=(const DevicePromptOptions&) = delete;
-  DevicePromptOptions(DevicePromptOptions&& rhs);
-  DevicePromptOptions& operator=(DevicePromptOptions&& rhs);
-
-  // Populates a DevicePromptOptions object from a base::Value. Returns whether
-  // |out| was successfully populated.
-  static bool Populate(const base::Value& value, DevicePromptOptions* out);
-
-  // Creates a DevicePromptOptions object from a base::Value, or NULL on
-  // failure.
-  static std::unique_ptr<DevicePromptOptions> FromValue(const base::Value& value);
-
-  // Returns a new base::Value::Dict representing the serialized form of
-  // thisDevicePromptOptions object.
-  base::Value::Dict ToValue() const;
-
-  // Allow the user to select multiple devices.
-  absl::optional<bool> multiple;
-
-  // Filter the list of devices presented to the user. If multiple filters are
-  // provided devices matching any filter will be displayed.
-  absl::optional<std::vector<DeviceFilter>> filters;
-
-};
-
 
 //
 // Functions
@@ -250,29 +221,6 @@ base::Value::List Create(const std::vector<HidDeviceInfo>& devices);
 }  // namespace Results
 
 }  // namespace GetDevices
-
-namespace GetUserSelectedDevices {
-
-struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
-  Params(const Params&) = delete;
-  Params& operator=(const Params&) = delete;
-  ~Params();
-
-  // Configuration of the device picker dialog box.
-  absl::optional<DevicePromptOptions> options;
-
-
- private:
-  Params();
-};
-
-namespace Results {
-
-base::Value::List Create(const std::vector<HidDeviceInfo>& devices);
-}  // namespace Results
-
-}  // namespace GetUserSelectedDevices
 
 namespace Connect {
 
