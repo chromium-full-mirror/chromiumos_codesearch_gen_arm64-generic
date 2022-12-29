@@ -234,6 +234,11 @@ class ControlProxyInterface {
   //     The new stable ID. Keeping both stable
   //     ID and stable ID new is for backward
   //     compatibility.
+  //   uint32 DeviceLastOpenResult
+  //     The last known result of opening the
+  //     device.
+  //     It is 0 for unknown, 1 for success and
+  //     2 for failure.
   //   boolean Active
   //     Whether this node is currently used
   //     for output/input. There is one active
@@ -306,6 +311,11 @@ class ControlProxyInterface {
   //     The new stable ID. Keeping both stable
   //     ID and stable ID new is for backward
   //     compatibility.
+  //   uint32 DeviceLastOpenResult
+  //     The last known result of opening the
+  //     device.
+  //     It is 0 for unknown, 1 for success and
+  //     2 for failure.
   //   boolean Active
   //     Whether this node is currently used
   //     for output/input. There is one active
@@ -1551,6 +1561,11 @@ class ControlProxy final : public ControlProxyInterface {
   //     The new stable ID. Keeping both stable
   //     ID and stable ID new is for backward
   //     compatibility.
+  //   uint32 DeviceLastOpenResult
+  //     The last known result of opening the
+  //     device.
+  //     It is 0 for unknown, 1 for success and
+  //     2 for failure.
   //   boolean Active
   //     Whether this node is currently used
   //     for output/input. There is one active
@@ -1632,6 +1647,11 @@ class ControlProxy final : public ControlProxyInterface {
   //     The new stable ID. Keeping both stable
   //     ID and stable ID new is for backward
   //     compatibility.
+  //   uint32 DeviceLastOpenResult
+  //     The last known result of opening the
+  //     device.
+  //     It is 0 for unknown, 1 for success and
+  //     2 for failure.
   //   boolean Active
   //     Whether this node is currently used
   //     for output/input. There is one active
