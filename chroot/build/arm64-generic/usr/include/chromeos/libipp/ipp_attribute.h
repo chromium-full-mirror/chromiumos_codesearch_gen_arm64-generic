@@ -6,11 +6,13 @@
 #define LIBIPP_IPP_ATTRIBUTE_H_
 
 #include <cstdint>
+#include <iterator>
 #include <limits>
 #include <map>
 #include <memory>
 #include <string>
 #include <string_view>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -21,21 +23,6 @@ namespace ipp {
 
 // Forward declaration
 enum class Code;
-
-// Represents the current state of the attribute:
-// set/unset or one of the out-of-band values.
-// "unset" means that the attribute is not included in a IPP frame.
-// It is DEPRECATED. Use ValueTag instead.
-enum class AttrState : uint8_t {
-  unset = 0x00,             // internal
-  set = 0x01,               // internal
-  unsupported = 0x10,       // [rfc8010]
-  unknown = 0x12,           // [rfc8010]
-  novalue_ = 0x13,          // [rfc8010]
-  not_settable = 0x15,      // [rfc3380]
-  delete_attribute = 0x16,  // [rfc3380]
-  admin_define = 0x17       // [rfc3380]
-};
 
 // Values of ValueTag enum are copied from IPP specification; this is why
 // they do not follow the standard naming rule.
@@ -155,7 +142,6 @@ struct DateTime {
 
 // Functions converting basic types to string. For enums it returns empty
 // string if given value is not defined.
-IPP_EXPORT std::string ToString(AttrState value);
 IPP_EXPORT std::string_view ToStrView(ValueTag tag);
 IPP_EXPORT std::string ToString(bool value);
 IPP_EXPORT std::string ToString(int value);
@@ -191,9 +177,91 @@ struct AttrDef {
 };
 
 // Base class for all IPP collections. Collections is like struct filled with
-// Attributes. Each attribute in Collection must have unique name.
+// Attributes. Each attribute in Collection must have unique non-empty name.
+// Use AddAttr() methods to add new attributes to the collection and GetAttr()
+// to get access to the attribute by its name. To iterate over all attributes in
+// the collection use iterators, e.g.:
+//
+//    for (Attribute& attr: collection) { ... }
+//    for (const Attribute& attr: collection) { ... }
+//
+// Attributes inside the collection are always in the same order they were added
+// to it. They will also appear in the same order in the resultant frame.
 class IPP_EXPORT Collection {
  public:
+  class const_iterator;
+  class iterator {
+   public:
+    using iterator_category = std::bidirectional_iterator_tag;
+    using value_type = Attribute;
+    using difference_type = int;
+    using pointer = Attribute*;
+    using reference = Attribute&;
+
+    iterator() = default;
+    iterator& operator++() {
+      ++iter_;
+      return *this;
+    }
+    iterator& operator--() {
+      --iter_;
+      return *this;
+    }
+    iterator operator++(int) { return iterator(iter_++); }
+    iterator operator--(int) { return iterator(iter_--); }
+    Attribute& operator*() { return *(iter_->get()); }
+    Attribute* operator->() { return iter_->get(); }
+    bool operator==(const iterator& i) const { return iter_ == i.iter_; }
+    bool operator!=(const iterator& i) const { return iter_ != i.iter_; }
+    bool operator==(const const_iterator& i) const { return iter_ == i.iter_; }
+    bool operator!=(const const_iterator& i) const { return iter_ != i.iter_; }
+
+   private:
+    friend class Collection;
+    explicit iterator(std::vector<std::unique_ptr<Attribute>>::iterator iter)
+        : iter_(iter) {}
+    std::vector<std::unique_ptr<Attribute>>::iterator iter_;
+  };
+
+  class const_iterator {
+   public:
+    using iterator_category = std::bidirectional_iterator_tag;
+    using value_type = const Attribute;
+    using difference_type = int;
+    using pointer = const Attribute*;
+    using reference = const Attribute&;
+
+    const_iterator() = default;
+    explicit const_iterator(iterator it) : iter_(it.iter_) {}
+    const_iterator& operator=(iterator it) {
+      iter_ = it.iter_;
+      return *this;
+    }
+    const_iterator& operator++() {
+      ++iter_;
+      return *this;
+    }
+    const_iterator& operator--() {
+      --iter_;
+      return *this;
+    }
+    const_iterator operator++(int) { return const_iterator(iter_++); }
+    const_iterator operator--(int) { return const_iterator(iter_--); }
+    const Attribute& operator*() { return *(iter_->get()); }
+    const Attribute* operator->() { return iter_->get(); }
+    bool operator==(const iterator& i) const { return iter_ == i.iter_; }
+    bool operator!=(const iterator& i) const { return iter_ != i.iter_; }
+    bool operator==(const const_iterator& i) const { return iter_ == i.iter_; }
+    bool operator!=(const const_iterator& i) const { return iter_ != i.iter_; }
+
+   private:
+    friend class Collection;
+    explicit const_iterator(
+        std::vector<std::unique_ptr<Attribute>>::const_iterator iter)
+        : iter_(iter) {}
+    std::vector<std::unique_ptr<Attribute>>::const_iterator iter_;
+  };
+
   Collection();
   Collection(const Collection&) = delete;
   Collection(Collection&&) = delete;
@@ -201,6 +269,23 @@ class IPP_EXPORT Collection {
   Collection& operator=(Collection&&) = delete;
   virtual ~Collection();
 
+  // Standard methods returning iterators.
+  iterator begin() { return iterator(attributes_.begin()); }
+  iterator end() { return iterator(attributes_.end()); }
+  const_iterator cbegin() const { return const_iterator(attributes_.cbegin()); }
+  const_iterator cend() const { return const_iterator(attributes_.cend()); }
+  const_iterator begin() const { return cbegin(); }
+  const_iterator end() const { return cend(); }
+
+  // Methods return attribute by name. Methods return an iterator end() <=> the
+  // collection has no attributes with this name.
+  iterator GetAttr(std::string_view name);
+  const_iterator GetAttr(std::string_view name) const;
+
+  // DEPRECATED. Use iterators instead, e.g:
+  //    for (Attribute& attr: collection) { ... }
+  //    for (const Attribute& attr: collection) { ... }
+  //
   // Returns all attributes in the collection.
   // Returned vector = GetKnownAttributes() + unknown attributes.
   // Unknown attributes are in the order they were added to the collection.
@@ -208,15 +293,12 @@ class IPP_EXPORT Collection {
   std::vector<Attribute*> GetAllAttributes();
   std::vector<const Attribute*> GetAllAttributes() const;
 
+  // DEPRECATED. Use methods GetAttr() instead.
+  //
   // Methods return attribute by name. Methods return nullptr <=> the collection
   // has no attribute with this name.
   Attribute* GetAttribute(const std::string& name);
   const Attribute* GetAttribute(const std::string& name) const;
-
-  // Adds new attribute to the collection. Returns nullptr <=> an attribute
-  // with this name already exists in the collection or given name/type are
-  // incorrect.
-  Attribute* AddUnknownAttribute(const std::string& name, ValueTag type);
 
   // Add a new attribute without values. `tag` must be Out-Of-Band (see ValueTag
   // definition). Possible errors:
@@ -302,25 +384,31 @@ class IPP_EXPORT Collection {
  private:
   friend class Attribute;
 
+  // Adds new attribute to the collection. Returns Code::OK <=> an attribute
+  // was created. A pointer to the new attribute is saved to `new_attr`.
+  Code CreateNewAttribute(const std::string& name,
+                          ValueTag type,
+                          Attribute*& new_attr);
+
+  // Tries to add a new attribute to the collection and set initial values for
+  // it. This function does not check compatibility of `tag` and ApiType. All
+  // other constraints are enforced. If `tag` is Out-Of-Band the parameter
+  // `values` is ignored.
+  template <typename ApiType>
+  Code AddAttributeToCollection(const std::string& name,
+                                ValueTag tag,
+                                const std::vector<ApiType>& values);
+
   // Methods return attribute by name. Methods return nullptr <=> the collection
   // has no attribute with this name.
   Attribute* GetAttribute(AttrName);
   const Attribute* GetAttribute(AttrName) const;
 
-  // Stores states of the attributes (see AttrState).
-  std::map<AttrName, AttrState> states_;
+  // Stores attributes in the order they are saved in the frame.
+  std::vector<std::unique_ptr<Attribute>> attributes_;
 
-  // Internal structure, represent attributes defined in runtime.
-  struct UnknownAttr {
-    Attribute* object;
-  };
-  // Stores attributes defined in runtime.
-  std::map<AttrName, UnknownAttr> unknown_attributes;
-  // Mapping between temporary AttrName created for unknown attributes and
-  // their real names.
-  std::map<AttrName, std::string> unknown_names;
-  // Stores the order of the unknown attributes.
-  std::vector<AttrName> unknown_attributes_order_;
+  // Indexes attributes by name. Values are indices from `attributes_`.
+  std::unordered_map<std::string_view, size_t> attributes_index_;
 };
 
 // Base class representing Attribute, contains general API for Attribute.
@@ -336,11 +424,6 @@ class IPP_EXPORT Attribute {
   // Returns tag of the attribute.
   ValueTag Tag() const;
 
-  // Sets state of the attribute (set, unset or one of the out-of-band values).
-  // * If (new_state != set), it deletes all values stored in the attribute.
-  // * If (new_state == set), it adds single value if the attribute is empty.
-  void SetState(AttrState new_state);
-
   // Returns an attribute's name. It is always a non-empty string.
   std::string_view Name() const;
 
@@ -349,9 +432,7 @@ class IPP_EXPORT Attribute {
   size_t Size() const;
 
   // Resizes the attribute (changes the number of stored values/collections).
-  // (IsASet() == false) and (new_size > 1) => does nothing.
-  // (Size() > 0) and (|new_size| == 0) => the attribute's state is changed
-  // to AttrState::unset.
+  // When (IsOutOfBand(Tag()) or `new_size` equals 0 this method does nothing.
   void Resize(size_t new_size);
 
   // Retrieves a value from an attribute, returns true for success and
@@ -359,7 +440,7 @@ class IPP_EXPORT Attribute {
   // to given variable (in this case, the given variable is not modified).
   // For attributes with collections use GetCollection().
   // (val == nullptr) => does nothing and returns false.
-  // (GetType() == collection) => does nothing and returns false.
+  // (Tag() == collection) => does nothing and returns false.
   bool GetValue(std::string* val, size_t index = 0) const;
   bool GetValue(StringWithLanguage* val, size_t index = 0) const;
   bool GetValue(int* val, size_t index = 0) const;
@@ -367,12 +448,12 @@ class IPP_EXPORT Attribute {
   bool GetValue(RangeOfInteger* val, size_t index = 0) const;
   bool GetValue(DateTime* val, size_t index = 0) const;
 
-  // Stores a value in given attribute's element. If the attribute is a set
-  // and given index is out of range, the underlying container is resized.
+  // Stores a value in given attribute's element. If given index is out of
+  // range, the underlying container is resized.
   // Returns true for success and false if given value cannot be converted
   // to internal variable or one of the following conditions are met:
-  // * (GetType() == collection)
-  // * (IsASet() == false && index != 0).
+  // * Tag() == collection
+  // * IsOutOfBand(Tag())
   bool SetValue(const std::string& val, size_t index = 0);
   bool SetValue(const StringWithLanguage& val, size_t index = 0);
   bool SetValue(const int& val, size_t index = 0);
@@ -381,28 +462,15 @@ class IPP_EXPORT Attribute {
   bool SetValue(const DateTime& val, size_t index = 0);
 
   // Returns a pointer to Collection.
-  // (GetType() != collection || index >= Size()) <=> returns nullptr.
+  // (Tag() != collection || index >= Size()) <=> returns nullptr.
   Collection* GetCollection(size_t index = 0);
   const Collection* GetCollection(size_t index = 0) const;
 
  private:
   friend class Collection;
 
-  // Constructor is called from Collection only. `owner` cannot be nullptr.
-  Attribute(Collection* owner, AttrName name, AttrDef def);
-
-  // Returns a state of an attribute. Default state is always AttrState::unset,
-  // setting any value with SetValues(...) switches the state to AttrState::set.
-  // State can be also set by hand with SetState() method.
-  AttrState GetState() const;
-
-  // Returns enum value corresponding to attributes name. If the name has
-  // no corresponding AttrName value, it returns AttrName::_unknown.
-  AttrName GetNameAsEnum() const {
-    if (ToString(name_) == "")
-      return AttrName::_unknown;
-    return name_;
-  }
+  // Constructor is called from Collection only.
+  Attribute(std::string_view name, AttrDef def);
 
   // Returns the current number of elements (values or Collections).
   // (IsASet() == false) => always returns 0 or 1.
@@ -412,8 +480,8 @@ class IPP_EXPORT Attribute {
   template <typename ApiType>
   bool SaveValue(size_t index, const ApiType& value);
 
-  Collection* const owner_;
-  const AttrName name_;
+  // The name of the attribute.
+  std::string name_;
 
   // Defines the type of values stored in the attribute.
   const AttrDef def_;
