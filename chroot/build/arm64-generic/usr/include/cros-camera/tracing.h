@@ -31,26 +31,14 @@ void CROS_CAMERA_EXPORT InitializeCameraTrace();
 // The camera trace categories.
 constexpr char kCameraTraceCategoryAutoFraming[] = "camera.auto_framing";
 constexpr char kCameraTraceCategoryCommon[] = "camera.common";
+constexpr char kCameraTraceCategoryFaceDetection[] = "camera.face_detection";
 constexpr char kCameraTraceCategoryGcamAe[] = "camera.gcam_ae";
+constexpr char kCameraTraceCategoryGpuDebug[] = "camera.gpu.debug";
 constexpr char kCameraTraceCategoryGpu[] = "camera.gpu";
 constexpr char kCameraTraceCategoryHalAdapter[] = "camera.hal_adapter";
+constexpr char kCameraTraceCategoryHdrnetDebug[] = "camera.hdrnet.debug";
 constexpr char kCameraTraceCategoryHdrnet[] = "camera.hdrnet";
-
-// Common keys used to annotate camera trace events.
-constexpr char kCameraTraceKeyFrameNumber[] = "frame_number";
-constexpr char kCameraTraceKeyBufferId[] = "buffer_id";
-constexpr char kCameraTraceKeyCameraId[] = "camera_id";
-constexpr char kCameraTraceKeyStreamId[] = "stream_id";
-constexpr char kCameraTraceKeyWidth[] = "width";
-constexpr char kCameraTraceKeyHeight[] = "height";
-constexpr char kCameraTraceKeyFormat[] = "format";
-
-constexpr char kCameraTraceKeyStreamConfigurations[] = "stream_configurations";
-constexpr char kCameraTraceKeyCaptureInfo[] = "capture_info";
-constexpr char kCameraTraceKeyCaptureType[] = "capture_type";
-constexpr char kCameraTraceKeyPartialResult[] = "partial_result";
-constexpr char kCameraTraceKeyInputBuffer[] = "input_buffer";
-constexpr char kCameraTraceKeyOutputBuffers[] = "output_buffers";
+constexpr char kCameraTraceCategoryZsl[] = "camera.zsl";
 
 }  // namespace cros
 
@@ -64,6 +52,7 @@ constexpr std::string_view TraceCameraEventName(const char* pretty_function) {
   }
   return name;
 }
+
 #define TRACE_CAMERA_EVENT_NAME TraceCameraEventName(__PRETTY_FUNCTION__)
 
 #define TRACE_EVENT_AUTOGEN(category, ...)                                \
@@ -76,13 +65,23 @@ PERFETTO_DEFINE_CATEGORIES(
         .SetDescription("Events from CrOS Auto Framing pipeline"),
     perfetto::Category(cros::kCameraTraceCategoryCommon)
         .SetDescription("Events from common CrOS Camera library"),
+    perfetto::Category(cros::kCameraTraceCategoryFaceDetection)
+        .SetDescription("Events from CrOS Face Detection"),
     perfetto::Category(cros::kCameraTraceCategoryGcamAe)
         .SetDescription("Events from CrOS Gcam AE pipeline"),
+    perfetto::Category(cros::kCameraTraceCategoryGpuDebug)
+        .SetDescription("Events from CrOS Camera GPU operations (debug)")
+        .SetTags("debug"),
     perfetto::Category(cros::kCameraTraceCategoryGpu)
         .SetDescription("Events from CrOS Camera GPU operations"),
     perfetto::Category(cros::kCameraTraceCategoryHalAdapter)
         .SetDescription("Events from CrOS Camera HAL adapter"),
+    perfetto::Category(cros::kCameraTraceCategoryHdrnetDebug)
+        .SetDescription("Events from CrOS HDRnet pipeline (debug)")
+        .SetTags("debug"),
     perfetto::Category(cros::kCameraTraceCategoryHdrnet)
-        .SetDescription("Events from CrOS HDRnet pipeline"));
+        .SetDescription("Events from CrOS HDRnet pipeline"),
+    perfetto::Category(cros::kCameraTraceCategoryZsl)
+        .SetDescription("Events from CrOS ZSL pipeline"));
 
 #endif  // CAMERA_INCLUDE_CROS_CAMERA_TRACING_H_
