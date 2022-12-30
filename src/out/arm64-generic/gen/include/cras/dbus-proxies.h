@@ -809,6 +809,20 @@ class ControlProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Returns 1 if at least 1 internal audio card that is not HDMI audio
+  // card is detected. Returns 0 if no internal audio cards are detected.
+  virtual bool IsInternalCardDetected(
+      bool* out_detected,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns 1 if at least 1 internal audio card that is not HDMI audio
+  // card is detected. Returns 0 if no internal audio cards are detected.
+  virtual void IsInternalCardDetectedAsync(
+      base::OnceCallback<void(bool /*detected*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual void RegisterOutputVolumeChangedSignalHandler(
       const base::RepeatingCallback<void(int32_t)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -2769,6 +2783,37 @@ class ControlProxy final : public ControlProxyInterface {
         dbus_object_proxy_,
         "org.chromium.cras.Control",
         "SpeakOnMuteDetectionEnabled",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  // Returns 1 if at least 1 internal audio card that is not HDMI audio
+  // card is detected. Returns 0 if no internal audio cards are detected.
+  bool IsInternalCardDetected(
+      bool* out_detected,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "IsInternalCardDetected",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_detected);
+  }
+
+  // Returns 1 if at least 1 internal audio card that is not HDMI audio
+  // card is detected. Returns 0 if no internal audio cards are detected.
+  void IsInternalCardDetectedAsync(
+      base::OnceCallback<void(bool /*detected*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "IsInternalCardDetected",
         std::move(success_callback),
         std::move(error_callback));
   }

@@ -437,6 +437,14 @@ class ControlProxyMock : public ControlProxyInterface {
                void(base::OnceCallback<void(bool /*enable*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD3(IsInternalCardDetected,
+               bool(bool* /*out_detected*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(IsInternalCardDetectedAsync,
+               void(base::OnceCallback<void(bool /*detected*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   void RegisterOutputVolumeChangedSignalHandler(
     const base::RepeatingCallback<void(int32_t)>& signal_callback,
     dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
