@@ -34,6 +34,7 @@ class Adapter1ProxyMock : public Adapter1ProxyInterface {
   MOCK_CONST_METHOD0(is_name_valid, bool());
   MOCK_CONST_METHOD0(powered, bool());
   MOCK_CONST_METHOD0(is_powered_valid, bool());
+  MOCK_METHOD2(set_powered, void(bool, base::OnceCallback<void(bool)>));
   MOCK_CONST_METHOD0(discoverable, bool());
   MOCK_CONST_METHOD0(is_discoverable_valid, bool());
   MOCK_CONST_METHOD0(discovering, bool());

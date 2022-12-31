@@ -49,6 +49,8 @@ class Adapter1ProxyInterface {
   static const char* PoweredName() { return "Powered"; }
   virtual bool powered() const = 0;
   virtual bool is_powered_valid() const = 0;
+  virtual void set_powered(bool value,
+                           base::OnceCallback<void(bool)> callback) = 0;
   static const char* DiscoverableName() { return "Discoverable"; }
   virtual bool discoverable() const = 0;
   virtual bool is_discoverable_valid() const = 0;
@@ -165,6 +167,11 @@ class Adapter1Proxy final : public Adapter1ProxyInterface {
 
   bool is_powered_valid() const override {
     return property_set_->powered.is_valid();
+  }
+
+  void set_powered(bool value,
+                   base::OnceCallback<void(bool)> callback) override {
+    property_set_->powered.Set(value, std::move(callback));
   }
 
   bool discoverable() const override {
