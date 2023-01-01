@@ -937,6 +937,18 @@ struct DeviceLoginScreenExtensionsProtoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceLoginScreenExtensionsProtoDefaultTypeInternal _DeviceLoginScreenExtensionsProto_default_instance_;
+PROTOBUF_CONSTEXPR LoginScreenExtensionManifestV2AvailabilityProto::LoginScreenExtensionManifestV2AvailabilityProto(
+    ::_pbi::ConstantInitialized)
+  : login_screen_extension_manifest_v2_availability_(false){}
+struct LoginScreenExtensionManifestV2AvailabilityProtoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR LoginScreenExtensionManifestV2AvailabilityProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~LoginScreenExtensionManifestV2AvailabilityProtoDefaultTypeInternal() {}
+  union {
+    LoginScreenExtensionManifestV2AvailabilityProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LoginScreenExtensionManifestV2AvailabilityProtoDefaultTypeInternal _LoginScreenExtensionManifestV2AvailabilityProto_default_instance_;
 PROTOBUF_CONSTEXPR LoginScreenLocalesProto::LoginScreenLocalesProto(
     ::_pbi::ConstantInitialized)
   : login_screen_locales_(){}
@@ -1891,7 +1903,8 @@ PROTOBUF_CONSTEXPR ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
   , device_printing_client_name_template_(nullptr)
   , device_report_xdr_events_(nullptr)
   , keyboard_backlight_color_(nullptr)
-  , device_hindi_inscript_layout_enabled_(nullptr){}
+  , device_hindi_inscript_layout_enabled_(nullptr)
+  , login_screen_extension_manifest_v2_availability_(nullptr){}
 struct ChromeDeviceSettingsProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ChromeDeviceSettingsProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -20044,6 +20057,186 @@ std::string DeviceLoginScreenExtensionsProto::GetTypeName() const {
 
 // ===================================================================
 
+class LoginScreenExtensionManifestV2AvailabilityProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<LoginScreenExtensionManifestV2AvailabilityProto>()._has_bits_);
+  static void set_has_login_screen_extension_manifest_v2_availability(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+LoginScreenExtensionManifestV2AvailabilityProto::LoginScreenExtensionManifestV2AvailabilityProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.LoginScreenExtensionManifestV2AvailabilityProto)
+}
+LoginScreenExtensionManifestV2AvailabilityProto::LoginScreenExtensionManifestV2AvailabilityProto(const LoginScreenExtensionManifestV2AvailabilityProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  login_screen_extension_manifest_v2_availability_ = from.login_screen_extension_manifest_v2_availability_;
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.LoginScreenExtensionManifestV2AvailabilityProto)
+}
+
+inline void LoginScreenExtensionManifestV2AvailabilityProto::SharedCtor() {
+login_screen_extension_manifest_v2_availability_ = false;
+}
+
+LoginScreenExtensionManifestV2AvailabilityProto::~LoginScreenExtensionManifestV2AvailabilityProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.LoginScreenExtensionManifestV2AvailabilityProto)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void LoginScreenExtensionManifestV2AvailabilityProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void LoginScreenExtensionManifestV2AvailabilityProto::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void LoginScreenExtensionManifestV2AvailabilityProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.LoginScreenExtensionManifestV2AvailabilityProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  login_screen_extension_manifest_v2_availability_ = false;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* LoginScreenExtensionManifestV2AvailabilityProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional bool login_screen_extension_manifest_v2_availability = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_login_screen_extension_manifest_v2_availability(&has_bits);
+          login_screen_extension_manifest_v2_availability_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* LoginScreenExtensionManifestV2AvailabilityProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.LoginScreenExtensionManifestV2AvailabilityProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional bool login_screen_extension_manifest_v2_availability = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_login_screen_extension_manifest_v2_availability(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.LoginScreenExtensionManifestV2AvailabilityProto)
+  return target;
+}
+
+size_t LoginScreenExtensionManifestV2AvailabilityProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.LoginScreenExtensionManifestV2AvailabilityProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional bool login_screen_extension_manifest_v2_availability = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void LoginScreenExtensionManifestV2AvailabilityProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const LoginScreenExtensionManifestV2AvailabilityProto*>(
+      &from));
+}
+
+void LoginScreenExtensionManifestV2AvailabilityProto::MergeFrom(const LoginScreenExtensionManifestV2AvailabilityProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.LoginScreenExtensionManifestV2AvailabilityProto)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_login_screen_extension_manifest_v2_availability()) {
+    _internal_set_login_screen_extension_manifest_v2_availability(from._internal_login_screen_extension_manifest_v2_availability());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void LoginScreenExtensionManifestV2AvailabilityProto::CopyFrom(const LoginScreenExtensionManifestV2AvailabilityProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.LoginScreenExtensionManifestV2AvailabilityProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool LoginScreenExtensionManifestV2AvailabilityProto::IsInitialized() const {
+  return true;
+}
+
+void LoginScreenExtensionManifestV2AvailabilityProto::InternalSwap(LoginScreenExtensionManifestV2AvailabilityProto* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(login_screen_extension_manifest_v2_availability_, other->login_screen_extension_manifest_v2_availability_);
+}
+
+std::string LoginScreenExtensionManifestV2AvailabilityProto::GetTypeName() const {
+  return "enterprise_management.LoginScreenExtensionManifestV2AvailabilityProto";
+}
+
+
+// ===================================================================
+
 class LoginScreenLocalesProto::_Internal {
  public:
 };
@@ -33334,6 +33527,10 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_device_hindi_inscript_layout_enabled(HasBits* has_bits) {
     (*has_bits)[4] |= 256u;
   }
+  static const ::enterprise_management::LoginScreenExtensionManifestV2AvailabilityProto& login_screen_extension_manifest_v2_availability(const ChromeDeviceSettingsProto* msg);
+  static void set_has_login_screen_extension_manifest_v2_availability(HasBits* has_bits) {
+    (*has_bits)[4] |= 512u;
+  }
 };
 
 const ::enterprise_management::DevicePolicyRefreshRateProto&
@@ -33883,6 +34080,10 @@ ChromeDeviceSettingsProto::_Internal::keyboard_backlight_color(const ChromeDevic
 const ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto&
 ChromeDeviceSettingsProto::_Internal::device_hindi_inscript_layout_enabled(const ChromeDeviceSettingsProto* msg) {
   return *msg->device_hindi_inscript_layout_enabled_;
+}
+const ::enterprise_management::LoginScreenExtensionManifestV2AvailabilityProto&
+ChromeDeviceSettingsProto::_Internal::login_screen_extension_manifest_v2_availability(const ChromeDeviceSettingsProto* msg) {
+  return *msg->login_screen_extension_manifest_v2_availability_;
 }
 void ChromeDeviceSettingsProto::clear_device_login_screen_system_info_enforced() {
   if (device_login_screen_system_info_enforced_ != nullptr) device_login_screen_system_info_enforced_->Clear();
@@ -34635,14 +34836,19 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
   } else {
     device_hindi_inscript_layout_enabled_ = nullptr;
   }
+  if (from._internal_has_login_screen_extension_manifest_v2_availability()) {
+    login_screen_extension_manifest_v2_availability_ = new ::enterprise_management::LoginScreenExtensionManifestV2AvailabilityProto(*from.login_screen_extension_manifest_v2_availability_);
+  } else {
+    login_screen_extension_manifest_v2_availability_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.ChromeDeviceSettingsProto)
 }
 
 inline void ChromeDeviceSettingsProto::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&device_policy_refresh_rate_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&device_hindi_inscript_layout_enabled_) -
-    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(device_hindi_inscript_layout_enabled_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&login_screen_extension_manifest_v2_availability_) -
+    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(login_screen_extension_manifest_v2_availability_));
 }
 
 ChromeDeviceSettingsProto::~ChromeDeviceSettingsProto() {
@@ -34793,6 +34999,7 @@ inline void ChromeDeviceSettingsProto::SharedDtor() {
   if (this != internal_default_instance()) delete device_report_xdr_events_;
   if (this != internal_default_instance()) delete keyboard_backlight_color_;
   if (this != internal_default_instance()) delete device_hindi_inscript_layout_enabled_;
+  if (this != internal_default_instance()) delete login_screen_extension_manifest_v2_availability_;
 }
 
 void ChromeDeviceSettingsProto::SetCachedSize(int size) const {
@@ -35388,9 +35595,15 @@ void ChromeDeviceSettingsProto::Clear() {
       keyboard_backlight_color_->Clear();
     }
   }
-  if (cached_has_bits & 0x00000100u) {
-    GOOGLE_DCHECK(device_hindi_inscript_layout_enabled_ != nullptr);
-    device_hindi_inscript_layout_enabled_->Clear();
+  if (cached_has_bits & 0x00000300u) {
+    if (cached_has_bits & 0x00000100u) {
+      GOOGLE_DCHECK(device_hindi_inscript_layout_enabled_ != nullptr);
+      device_hindi_inscript_layout_enabled_->Clear();
+    }
+    if (cached_has_bits & 0x00000200u) {
+      GOOGLE_DCHECK(login_screen_extension_manifest_v2_availability_ != nullptr);
+      login_screen_extension_manifest_v2_availability_->Clear();
+    }
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -36498,6 +36711,14 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.LoginScreenExtensionManifestV2AvailabilityProto login_screen_extension_manifest_v2_availability = 141;
+      case 141:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
+          ptr = ctx->ParseMessage(_internal_mutable_login_screen_extension_manifest_v2_availability(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -37489,6 +37710,13 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(140, _Internal::device_hindi_inscript_layout_enabled(this),
         _Internal::device_hindi_inscript_layout_enabled(this).GetCachedSize(), target, stream);
+  }
+
+  // optional .enterprise_management.LoginScreenExtensionManifestV2AvailabilityProto login_screen_extension_manifest_v2_availability = 141;
+  if (cached_has_bits & 0x00000200u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(141, _Internal::login_screen_extension_manifest_v2_availability(this),
+        _Internal::login_screen_extension_manifest_v2_availability(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -38498,13 +38726,22 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
     }
 
   }
-  // optional .enterprise_management.DeviceHindiInscriptLayoutEnabledProto device_hindi_inscript_layout_enabled = 140;
-  if (cached_has_bits & 0x00000100u) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *device_hindi_inscript_layout_enabled_);
-  }
+  if (cached_has_bits & 0x00000300u) {
+    // optional .enterprise_management.DeviceHindiInscriptLayoutEnabledProto device_hindi_inscript_layout_enabled = 140;
+    if (cached_has_bits & 0x00000100u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *device_hindi_inscript_layout_enabled_);
+    }
 
+    // optional .enterprise_management.LoginScreenExtensionManifestV2AvailabilityProto login_screen_extension_manifest_v2_availability = 141;
+    if (cached_has_bits & 0x00000200u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *login_screen_extension_manifest_v2_availability_);
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -38972,8 +39209,13 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
       _internal_mutable_keyboard_backlight_color()->::enterprise_management::KeyboardBacklightColorProto::MergeFrom(from._internal_keyboard_backlight_color());
     }
   }
-  if (cached_has_bits & 0x00000100u) {
-    _internal_mutable_device_hindi_inscript_layout_enabled()->::enterprise_management::DeviceHindiInscriptLayoutEnabledProto::MergeFrom(from._internal_device_hindi_inscript_layout_enabled());
+  if (cached_has_bits & 0x00000300u) {
+    if (cached_has_bits & 0x00000100u) {
+      _internal_mutable_device_hindi_inscript_layout_enabled()->::enterprise_management::DeviceHindiInscriptLayoutEnabledProto::MergeFrom(from._internal_device_hindi_inscript_layout_enabled());
+    }
+    if (cached_has_bits & 0x00000200u) {
+      _internal_mutable_login_screen_extension_manifest_v2_availability()->::enterprise_management::LoginScreenExtensionManifestV2AvailabilityProto::MergeFrom(from._internal_login_screen_extension_manifest_v2_availability());
+    }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -38998,8 +39240,8 @@ void ChromeDeviceSettingsProto::InternalSwap(ChromeDeviceSettingsProto* other) {
   swap(_has_bits_[3], other->_has_bits_[3]);
   swap(_has_bits_[4], other->_has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_hindi_inscript_layout_enabled_)
-      + sizeof(ChromeDeviceSettingsProto::device_hindi_inscript_layout_enabled_)
+      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, login_screen_extension_manifest_v2_availability_)
+      + sizeof(ChromeDeviceSettingsProto::login_screen_extension_manifest_v2_availability_)
       - PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_policy_refresh_rate_)>(
           reinterpret_cast<char*>(&device_policy_refresh_rate_),
           reinterpret_cast<char*>(&other->device_policy_refresh_rate_));
@@ -39276,6 +39518,10 @@ Arena::CreateMaybeMessage< ::enterprise_management::NetworkThrottlingEnabledProt
 template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceLoginScreenExtensionsProto*
 Arena::CreateMaybeMessage< ::enterprise_management::DeviceLoginScreenExtensionsProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::DeviceLoginScreenExtensionsProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::LoginScreenExtensionManifestV2AvailabilityProto*
+Arena::CreateMaybeMessage< ::enterprise_management::LoginScreenExtensionManifestV2AvailabilityProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::LoginScreenExtensionManifestV2AvailabilityProto >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::LoginScreenLocalesProto*
 Arena::CreateMaybeMessage< ::enterprise_management::LoginScreenLocalesProto >(Arena* arena) {
