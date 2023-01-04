@@ -961,6 +961,7 @@ class UpdateParams final :
     kOmahaUrlFieldNumber = 2,
     kUpdateFlagsFieldNumber = 3,
     kSkipApplyingFieldNumber = 4,
+    kForceFwUpdateFieldNumber = 5,
   };
   // string app_version = 1;
   void clear_app_version();
@@ -1017,6 +1018,15 @@ class UpdateParams final :
   void _internal_set_skip_applying(bool value);
   public:
 
+  // bool force_fw_update = 5;
+  void clear_force_fw_update();
+  bool force_fw_update() const;
+  void set_force_fw_update(bool value);
+  private:
+  bool _internal_force_fw_update() const;
+  void _internal_set_force_fw_update(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:update_engine.UpdateParams)
  private:
   class _Internal;
@@ -1028,6 +1038,7 @@ class UpdateParams final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr omaha_url_;
   ::update_engine::UpdateFlags* update_flags_;
   bool skip_applying_;
+  bool force_fw_update_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_update_5fengine_2eproto;
 };
@@ -1872,6 +1883,26 @@ inline void UpdateParams::_internal_set_skip_applying(bool value) {
 inline void UpdateParams::set_skip_applying(bool value) {
   _internal_set_skip_applying(value);
   // @@protoc_insertion_point(field_set:update_engine.UpdateParams.skip_applying)
+}
+
+// bool force_fw_update = 5;
+inline void UpdateParams::clear_force_fw_update() {
+  force_fw_update_ = false;
+}
+inline bool UpdateParams::_internal_force_fw_update() const {
+  return force_fw_update_;
+}
+inline bool UpdateParams::force_fw_update() const {
+  // @@protoc_insertion_point(field_get:update_engine.UpdateParams.force_fw_update)
+  return _internal_force_fw_update();
+}
+inline void UpdateParams::_internal_set_force_fw_update(bool value) {
+  
+  force_fw_update_ = value;
+}
+inline void UpdateParams::set_force_fw_update(bool value) {
+  _internal_set_force_fw_update(value);
+  // @@protoc_insertion_point(field_set:update_engine.UpdateParams.force_fw_update)
 }
 
 // -------------------------------------------------------------------

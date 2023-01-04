@@ -84,7 +84,8 @@ constexpr UpdateParams::UpdateParams(
   : app_version_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , omaha_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , update_flags_(nullptr)
-  , skip_applying_(false){}
+  , skip_applying_(false)
+  , force_fw_update_(false){}
 struct UpdateParamsDefaultTypeInternal {
   constexpr UpdateParamsDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -1466,7 +1467,9 @@ UpdateParams::UpdateParams(const UpdateParams& from)
   } else {
     update_flags_ = nullptr;
   }
-  skip_applying_ = from.skip_applying_;
+  ::memcpy(&skip_applying_, &from.skip_applying_,
+    static_cast<size_t>(reinterpret_cast<char*>(&force_fw_update_) -
+    reinterpret_cast<char*>(&skip_applying_)) + sizeof(force_fw_update_));
   // @@protoc_insertion_point(copy_constructor:update_engine.UpdateParams)
 }
 
@@ -1481,8 +1484,8 @@ omaha_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAl
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&update_flags_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&skip_applying_) -
-    reinterpret_cast<char*>(&update_flags_)) + sizeof(skip_applying_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&force_fw_update_) -
+    reinterpret_cast<char*>(&update_flags_)) + sizeof(force_fw_update_));
 }
 
 UpdateParams::~UpdateParams() {
@@ -1521,7 +1524,9 @@ void UpdateParams::Clear() {
     delete update_flags_;
   }
   update_flags_ = nullptr;
-  skip_applying_ = false;
+  ::memset(&skip_applying_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&force_fw_update_) -
+      reinterpret_cast<char*>(&skip_applying_)) + sizeof(force_fw_update_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -1563,6 +1568,14 @@ const char* UpdateParams::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           skip_applying_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool force_fw_update = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          force_fw_update_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1630,6 +1643,12 @@ uint8_t* UpdateParams::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_skip_applying(), target);
   }
 
+  // bool force_fw_update = 5;
+  if (this->_internal_force_fw_update() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(5, this->_internal_force_fw_update(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1672,6 +1691,11 @@ size_t UpdateParams::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // bool force_fw_update = 5;
+  if (this->_internal_force_fw_update() != 0) {
+    total_size += 1 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -1704,6 +1728,9 @@ void UpdateParams::MergeFrom(const UpdateParams& from) {
   if (from._internal_skip_applying() != 0) {
     _internal_set_skip_applying(from._internal_skip_applying());
   }
+  if (from._internal_force_fw_update() != 0) {
+    _internal_set_force_fw_update(from._internal_force_fw_update());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -1734,8 +1761,8 @@ void UpdateParams::InternalSwap(UpdateParams* other) {
       &other->omaha_url_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(UpdateParams, skip_applying_)
-      + sizeof(UpdateParams::skip_applying_)
+      PROTOBUF_FIELD_OFFSET(UpdateParams, force_fw_update_)
+      + sizeof(UpdateParams::force_fw_update_)
       - PROTOBUF_FIELD_OFFSET(UpdateParams, update_flags_)>(
           reinterpret_cast<char*>(&update_flags_),
           reinterpret_cast<char*>(&other->update_flags_));
