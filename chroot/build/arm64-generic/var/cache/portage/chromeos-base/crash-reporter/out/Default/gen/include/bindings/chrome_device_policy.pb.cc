@@ -175,6 +175,18 @@ struct NetworkHostnameProtoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NetworkHostnameProtoDefaultTypeInternal _NetworkHostnameProto_default_instance_;
+constexpr DeviceHindiInscriptLayoutEnabledProto::DeviceHindiInscriptLayoutEnabledProto(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : enabled_(false){}
+struct DeviceHindiInscriptLayoutEnabledProtoDefaultTypeInternal {
+  constexpr DeviceHindiInscriptLayoutEnabledProtoDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~DeviceHindiInscriptLayoutEnabledProtoDefaultTypeInternal() {}
+  union {
+    DeviceHindiInscriptLayoutEnabledProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DeviceHindiInscriptLayoutEnabledProtoDefaultTypeInternal _DeviceHindiInscriptLayoutEnabledProto_default_instance_;
 constexpr HostnameUserConfigurableProto::HostnameUserConfigurableProto(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : device_hostname_user_configurable_(false){}
@@ -1617,18 +1629,18 @@ struct DevicePciPeripheralDataAccessEnabledProtoV2DefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DevicePciPeripheralDataAccessEnabledProtoV2DefaultTypeInternal _DevicePciPeripheralDataAccessEnabledProtoV2_default_instance_;
-constexpr DeviceBorealisAllowedProto::DeviceBorealisAllowedProto(
+constexpr OBSOLETE_DeviceBorealisAllowedProto::OBSOLETE_DeviceBorealisAllowedProto(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : allowed_(true){}
-struct DeviceBorealisAllowedProtoDefaultTypeInternal {
-  constexpr DeviceBorealisAllowedProtoDefaultTypeInternal()
+struct OBSOLETE_DeviceBorealisAllowedProtoDefaultTypeInternal {
+  constexpr OBSOLETE_DeviceBorealisAllowedProtoDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~DeviceBorealisAllowedProtoDefaultTypeInternal() {}
+  ~OBSOLETE_DeviceBorealisAllowedProtoDefaultTypeInternal() {}
   union {
-    DeviceBorealisAllowedProto _instance;
+    OBSOLETE_DeviceBorealisAllowedProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DeviceBorealisAllowedProtoDefaultTypeInternal _DeviceBorealisAllowedProto_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OBSOLETE_DeviceBorealisAllowedProtoDefaultTypeInternal _OBSOLETE_DeviceBorealisAllowedProto_default_instance_;
 constexpr DeviceAllowedBluetoothServicesProto::DeviceAllowedBluetoothServicesProto(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : allowlist_(){}
@@ -1874,7 +1886,8 @@ constexpr ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
   , device_login_screen_context_aware_access_signals_allowlist_(nullptr)
   , device_printing_client_name_template_(nullptr)
   , device_report_xdr_events_(nullptr)
-  , keyboard_backlight_color_(nullptr){}
+  , keyboard_backlight_color_(nullptr)
+  , device_hindi_inscript_layout_enabled_(nullptr){}
 struct ChromeDeviceSettingsProtoDefaultTypeInternal {
   constexpr ChromeDeviceSettingsProtoDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -6092,6 +6105,193 @@ void NetworkHostnameProto::InternalSwap(NetworkHostnameProto* other) {
 
 std::string NetworkHostnameProto::GetTypeName() const {
   return "enterprise_management.NetworkHostnameProto";
+}
+
+
+// ===================================================================
+
+class DeviceHindiInscriptLayoutEnabledProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<DeviceHindiInscriptLayoutEnabledProto>()._has_bits_);
+  static void set_has_enabled(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+DeviceHindiInscriptLayoutEnabledProto::DeviceHindiInscriptLayoutEnabledProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.DeviceHindiInscriptLayoutEnabledProto)
+}
+DeviceHindiInscriptLayoutEnabledProto::DeviceHindiInscriptLayoutEnabledProto(const DeviceHindiInscriptLayoutEnabledProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  enabled_ = from.enabled_;
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceHindiInscriptLayoutEnabledProto)
+}
+
+inline void DeviceHindiInscriptLayoutEnabledProto::SharedCtor() {
+enabled_ = false;
+}
+
+DeviceHindiInscriptLayoutEnabledProto::~DeviceHindiInscriptLayoutEnabledProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.DeviceHindiInscriptLayoutEnabledProto)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void DeviceHindiInscriptLayoutEnabledProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void DeviceHindiInscriptLayoutEnabledProto::ArenaDtor(void* object) {
+  DeviceHindiInscriptLayoutEnabledProto* _this = reinterpret_cast< DeviceHindiInscriptLayoutEnabledProto* >(object);
+  (void)_this;
+}
+void DeviceHindiInscriptLayoutEnabledProto::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void DeviceHindiInscriptLayoutEnabledProto::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void DeviceHindiInscriptLayoutEnabledProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.DeviceHindiInscriptLayoutEnabledProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  enabled_ = false;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* DeviceHindiInscriptLayoutEnabledProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional bool enabled = 1 [default = false];
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_enabled(&has_bits);
+          enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DeviceHindiInscriptLayoutEnabledProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.DeviceHindiInscriptLayoutEnabledProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional bool enabled = 1 [default = false];
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_enabled(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.DeviceHindiInscriptLayoutEnabledProto)
+  return target;
+}
+
+size_t DeviceHindiInscriptLayoutEnabledProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.DeviceHindiInscriptLayoutEnabledProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional bool enabled = 1 [default = false];
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DeviceHindiInscriptLayoutEnabledProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const DeviceHindiInscriptLayoutEnabledProto*>(
+      &from));
+}
+
+void DeviceHindiInscriptLayoutEnabledProto::MergeFrom(const DeviceHindiInscriptLayoutEnabledProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.DeviceHindiInscriptLayoutEnabledProto)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_enabled()) {
+    _internal_set_enabled(from._internal_enabled());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void DeviceHindiInscriptLayoutEnabledProto::CopyFrom(const DeviceHindiInscriptLayoutEnabledProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.DeviceHindiInscriptLayoutEnabledProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DeviceHindiInscriptLayoutEnabledProto::IsInitialized() const {
+  return true;
+}
+
+void DeviceHindiInscriptLayoutEnabledProto::InternalSwap(DeviceHindiInscriptLayoutEnabledProto* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(enabled_, other->enabled_);
+}
+
+std::string DeviceHindiInscriptLayoutEnabledProto::GetTypeName() const {
+  return "enterprise_management.DeviceHindiInscriptLayoutEnabledProto";
 }
 
 
@@ -31692,58 +31892,58 @@ std::string DevicePciPeripheralDataAccessEnabledProtoV2::GetTypeName() const {
 
 // ===================================================================
 
-class DeviceBorealisAllowedProto::_Internal {
+class OBSOLETE_DeviceBorealisAllowedProto::_Internal {
  public:
-  using HasBits = decltype(std::declval<DeviceBorealisAllowedProto>()._has_bits_);
+  using HasBits = decltype(std::declval<OBSOLETE_DeviceBorealisAllowedProto>()._has_bits_);
   static void set_has_allowed(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-DeviceBorealisAllowedProto::DeviceBorealisAllowedProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+OBSOLETE_DeviceBorealisAllowedProto::OBSOLETE_DeviceBorealisAllowedProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:enterprise_management.DeviceBorealisAllowedProto)
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
 }
-DeviceBorealisAllowedProto::DeviceBorealisAllowedProto(const DeviceBorealisAllowedProto& from)
+OBSOLETE_DeviceBorealisAllowedProto::OBSOLETE_DeviceBorealisAllowedProto(const OBSOLETE_DeviceBorealisAllowedProto& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   allowed_ = from.allowed_;
-  // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceBorealisAllowedProto)
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
 }
 
-inline void DeviceBorealisAllowedProto::SharedCtor() {
+inline void OBSOLETE_DeviceBorealisAllowedProto::SharedCtor() {
 allowed_ = true;
 }
 
-DeviceBorealisAllowedProto::~DeviceBorealisAllowedProto() {
-  // @@protoc_insertion_point(destructor:enterprise_management.DeviceBorealisAllowedProto)
+OBSOLETE_DeviceBorealisAllowedProto::~OBSOLETE_DeviceBorealisAllowedProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
 }
 
-inline void DeviceBorealisAllowedProto::SharedDtor() {
+inline void OBSOLETE_DeviceBorealisAllowedProto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void DeviceBorealisAllowedProto::ArenaDtor(void* object) {
-  DeviceBorealisAllowedProto* _this = reinterpret_cast< DeviceBorealisAllowedProto* >(object);
+void OBSOLETE_DeviceBorealisAllowedProto::ArenaDtor(void* object) {
+  OBSOLETE_DeviceBorealisAllowedProto* _this = reinterpret_cast< OBSOLETE_DeviceBorealisAllowedProto* >(object);
   (void)_this;
 }
-void DeviceBorealisAllowedProto::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void OBSOLETE_DeviceBorealisAllowedProto::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void DeviceBorealisAllowedProto::SetCachedSize(int size) const {
+void OBSOLETE_DeviceBorealisAllowedProto::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void DeviceBorealisAllowedProto::Clear() {
-// @@protoc_insertion_point(message_clear_start:enterprise_management.DeviceBorealisAllowedProto)
+void OBSOLETE_DeviceBorealisAllowedProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -31753,7 +31953,7 @@ void DeviceBorealisAllowedProto::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* DeviceBorealisAllowedProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* OBSOLETE_DeviceBorealisAllowedProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -31793,9 +31993,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* DeviceBorealisAllowedProto::_InternalSerialize(
+uint8_t* OBSOLETE_DeviceBorealisAllowedProto::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.DeviceBorealisAllowedProto)
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -31810,12 +32010,12 @@ uint8_t* DeviceBorealisAllowedProto::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.DeviceBorealisAllowedProto)
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
   return target;
 }
 
-size_t DeviceBorealisAllowedProto::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:enterprise_management.DeviceBorealisAllowedProto)
+size_t OBSOLETE_DeviceBorealisAllowedProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -31836,14 +32036,14 @@ size_t DeviceBorealisAllowedProto::ByteSizeLong() const {
   return total_size;
 }
 
-void DeviceBorealisAllowedProto::CheckTypeAndMergeFrom(
+void OBSOLETE_DeviceBorealisAllowedProto::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const DeviceBorealisAllowedProto*>(
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const OBSOLETE_DeviceBorealisAllowedProto*>(
       &from));
 }
 
-void DeviceBorealisAllowedProto::MergeFrom(const DeviceBorealisAllowedProto& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.DeviceBorealisAllowedProto)
+void OBSOLETE_DeviceBorealisAllowedProto::MergeFrom(const OBSOLETE_DeviceBorealisAllowedProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -31854,26 +32054,26 @@ void DeviceBorealisAllowedProto::MergeFrom(const DeviceBorealisAllowedProto& fro
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void DeviceBorealisAllowedProto::CopyFrom(const DeviceBorealisAllowedProto& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.DeviceBorealisAllowedProto)
+void OBSOLETE_DeviceBorealisAllowedProto::CopyFrom(const OBSOLETE_DeviceBorealisAllowedProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool DeviceBorealisAllowedProto::IsInitialized() const {
+bool OBSOLETE_DeviceBorealisAllowedProto::IsInitialized() const {
   return true;
 }
 
-void DeviceBorealisAllowedProto::InternalSwap(DeviceBorealisAllowedProto* other) {
+void OBSOLETE_DeviceBorealisAllowedProto::InternalSwap(OBSOLETE_DeviceBorealisAllowedProto* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   swap(allowed_, other->allowed_);
 }
 
-std::string DeviceBorealisAllowedProto::GetTypeName() const {
-  return "enterprise_management.DeviceBorealisAllowedProto";
+std::string OBSOLETE_DeviceBorealisAllowedProto::GetTypeName() const {
+  return "enterprise_management.OBSOLETE_DeviceBorealisAllowedProto";
 }
 
 
@@ -34042,7 +34242,7 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_device_pci_peripheral_data_access_enabled(HasBits* has_bits) {
     (*has_bits)[3] |= 262144u;
   }
-  static const ::enterprise_management::DeviceBorealisAllowedProto& device_borealis_allowed(const ChromeDeviceSettingsProto* msg);
+  static const ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto& device_borealis_allowed(const ChromeDeviceSettingsProto* msg);
   static void set_has_device_borealis_allowed(HasBits* has_bits) {
     (*has_bits)[3] |= 524288u;
   }
@@ -34125,6 +34325,10 @@ class ChromeDeviceSettingsProto::_Internal {
   static const ::enterprise_management::KeyboardBacklightColorProto& keyboard_backlight_color(const ChromeDeviceSettingsProto* msg);
   static void set_has_keyboard_backlight_color(HasBits* has_bits) {
     (*has_bits)[4] |= 128u;
+  }
+  static const ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto& device_hindi_inscript_layout_enabled(const ChromeDeviceSettingsProto* msg);
+  static void set_has_device_hindi_inscript_layout_enabled(HasBits* has_bits) {
+    (*has_bits)[4] |= 256u;
   }
 };
 
@@ -34588,7 +34792,7 @@ const ::enterprise_management::DevicePciPeripheralDataAccessEnabledProto&
 ChromeDeviceSettingsProto::_Internal::device_pci_peripheral_data_access_enabled(const ChromeDeviceSettingsProto* msg) {
   return *msg->device_pci_peripheral_data_access_enabled_;
 }
-const ::enterprise_management::DeviceBorealisAllowedProto&
+const ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto&
 ChromeDeviceSettingsProto::_Internal::device_borealis_allowed(const ChromeDeviceSettingsProto* msg) {
   return *msg->device_borealis_allowed_;
 }
@@ -34671,6 +34875,10 @@ ChromeDeviceSettingsProto::_Internal::device_report_xdr_events(const ChromeDevic
 const ::enterprise_management::KeyboardBacklightColorProto&
 ChromeDeviceSettingsProto::_Internal::keyboard_backlight_color(const ChromeDeviceSettingsProto* msg) {
   return *msg->keyboard_backlight_color_;
+}
+const ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto&
+ChromeDeviceSettingsProto::_Internal::device_hindi_inscript_layout_enabled(const ChromeDeviceSettingsProto* msg) {
+  return *msg->device_hindi_inscript_layout_enabled_;
 }
 void ChromeDeviceSettingsProto::clear_device_login_screen_system_info_enforced() {
   if (device_login_screen_system_info_enforced_ != nullptr) device_login_screen_system_info_enforced_->Clear();
@@ -35317,7 +35525,7 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
     device_pci_peripheral_data_access_enabled_ = nullptr;
   }
   if (from._internal_has_device_borealis_allowed()) {
-    device_borealis_allowed_ = new ::enterprise_management::DeviceBorealisAllowedProto(*from.device_borealis_allowed_);
+    device_borealis_allowed_ = new ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto(*from.device_borealis_allowed_);
   } else {
     device_borealis_allowed_ = nullptr;
   }
@@ -35421,14 +35629,19 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
   } else {
     keyboard_backlight_color_ = nullptr;
   }
+  if (from._internal_has_device_hindi_inscript_layout_enabled()) {
+    device_hindi_inscript_layout_enabled_ = new ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto(*from.device_hindi_inscript_layout_enabled_);
+  } else {
+    device_hindi_inscript_layout_enabled_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.ChromeDeviceSettingsProto)
 }
 
 inline void ChromeDeviceSettingsProto::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&device_policy_refresh_rate_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&keyboard_backlight_color_) -
-    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(keyboard_backlight_color_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&device_hindi_inscript_layout_enabled_) -
+    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(device_hindi_inscript_layout_enabled_));
 }
 
 ChromeDeviceSettingsProto::~ChromeDeviceSettingsProto() {
@@ -35576,6 +35789,7 @@ inline void ChromeDeviceSettingsProto::SharedDtor() {
   if (this != internal_default_instance()) delete device_printing_client_name_template_;
   if (this != internal_default_instance()) delete device_report_xdr_events_;
   if (this != internal_default_instance()) delete keyboard_backlight_color_;
+  if (this != internal_default_instance()) delete device_hindi_inscript_layout_enabled_;
 }
 
 void ChromeDeviceSettingsProto::ArenaDtor(void* object) {
@@ -36176,6 +36390,10 @@ void ChromeDeviceSettingsProto::Clear() {
       GOOGLE_DCHECK(keyboard_backlight_color_ != nullptr);
       keyboard_backlight_color_->Clear();
     }
+  }
+  if (cached_has_bits & 0x00000100u) {
+    GOOGLE_DCHECK(device_hindi_inscript_layout_enabled_ != nullptr);
+    device_hindi_inscript_layout_enabled_->Clear();
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -37107,7 +37325,7 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::PROTOBU
         } else
           goto handle_unusual;
         continue;
-      // optional .enterprise_management.DeviceBorealisAllowedProto device_borealis_allowed = 119;
+      // optional .enterprise_management.OBSOLETE_DeviceBorealisAllowedProto device_borealis_allowed = 119 [deprecated = true];
       case 119:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 186)) {
           ptr = ctx->ParseMessage(_internal_mutable_device_borealis_allowed(), ptr);
@@ -37271,6 +37489,14 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::PROTOBU
       case 139:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
           ptr = ctx->ParseMessage(_internal_mutable_keyboard_backlight_color(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.DeviceHindiInscriptLayoutEnabledProto device_hindi_inscript_layout_enabled = 140;
+      case 140:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
+          ptr = ctx->ParseMessage(_internal_mutable_device_hindi_inscript_layout_enabled(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -38228,7 +38454,7 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
         118, _Internal::device_pci_peripheral_data_access_enabled(this), target, stream);
   }
 
-  // optional .enterprise_management.DeviceBorealisAllowedProto device_borealis_allowed = 119;
+  // optional .enterprise_management.OBSOLETE_DeviceBorealisAllowedProto device_borealis_allowed = 119 [deprecated = true];
   if (cached_has_bits & 0x00080000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -38395,6 +38621,14 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
         139, _Internal::keyboard_backlight_color(this), target, stream);
+  }
+
+  // optional .enterprise_management.DeviceHindiInscriptLayoutEnabledProto device_hindi_inscript_layout_enabled = 140;
+  if (cached_has_bits & 0x00000100u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        140, _Internal::device_hindi_inscript_layout_enabled(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -39251,7 +39485,7 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
           *device_pci_peripheral_data_access_enabled_);
     }
 
-    // optional .enterprise_management.DeviceBorealisAllowedProto device_borealis_allowed = 119;
+    // optional .enterprise_management.OBSOLETE_DeviceBorealisAllowedProto device_borealis_allowed = 119 [deprecated = true];
     if (cached_has_bits & 0x00080000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -39404,6 +39638,13 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
     }
 
   }
+  // optional .enterprise_management.DeviceHindiInscriptLayoutEnabledProto device_hindi_inscript_layout_enabled = 140;
+  if (cached_has_bits & 0x00000100u) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *device_hindi_inscript_layout_enabled_);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -39803,7 +40044,7 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
       _internal_mutable_device_pci_peripheral_data_access_enabled()->::enterprise_management::DevicePciPeripheralDataAccessEnabledProto::MergeFrom(from._internal_device_pci_peripheral_data_access_enabled());
     }
     if (cached_has_bits & 0x00080000u) {
-      _internal_mutable_device_borealis_allowed()->::enterprise_management::DeviceBorealisAllowedProto::MergeFrom(from._internal_device_borealis_allowed());
+      _internal_mutable_device_borealis_allowed()->::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto::MergeFrom(from._internal_device_borealis_allowed());
     }
     if (cached_has_bits & 0x00100000u) {
       _internal_mutable_device_allowed_bluetooth_services()->::enterprise_management::DeviceAllowedBluetoothServicesProto::MergeFrom(from._internal_device_allowed_bluetooth_services());
@@ -39871,6 +40112,9 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
       _internal_mutable_keyboard_backlight_color()->::enterprise_management::KeyboardBacklightColorProto::MergeFrom(from._internal_keyboard_backlight_color());
     }
   }
+  if (cached_has_bits & 0x00000100u) {
+    _internal_mutable_device_hindi_inscript_layout_enabled()->::enterprise_management::DeviceHindiInscriptLayoutEnabledProto::MergeFrom(from._internal_device_hindi_inscript_layout_enabled());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -39894,8 +40138,8 @@ void ChromeDeviceSettingsProto::InternalSwap(ChromeDeviceSettingsProto* other) {
   swap(_has_bits_[3], other->_has_bits_[3]);
   swap(_has_bits_[4], other->_has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, keyboard_backlight_color_)
-      + sizeof(ChromeDeviceSettingsProto::keyboard_backlight_color_)
+      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_hindi_inscript_layout_enabled_)
+      + sizeof(ChromeDeviceSettingsProto::device_hindi_inscript_layout_enabled_)
       - PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_policy_refresh_rate_)>(
           reinterpret_cast<char*>(&device_policy_refresh_rate_),
           reinterpret_cast<char*>(&other->device_policy_refresh_rate_));
@@ -39947,6 +40191,9 @@ template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceOpenNetworkConfigura
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::NetworkHostnameProto* Arena::CreateMaybeMessage< ::enterprise_management::NetworkHostnameProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::NetworkHostnameProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* Arena::CreateMaybeMessage< ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::HostnameUserConfigurableProto* Arena::CreateMaybeMessage< ::enterprise_management::HostnameUserConfigurableProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::HostnameUserConfigurableProto >(arena);
@@ -40272,8 +40519,8 @@ template<> PROTOBUF_NOINLINE ::enterprise_management::DevicePciPeripheralDataAcc
 template<> PROTOBUF_NOINLINE ::enterprise_management::DevicePciPeripheralDataAccessEnabledProtoV2* Arena::CreateMaybeMessage< ::enterprise_management::DevicePciPeripheralDataAccessEnabledProtoV2 >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::DevicePciPeripheralDataAccessEnabledProtoV2 >(arena);
 }
-template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceBorealisAllowedProto* Arena::CreateMaybeMessage< ::enterprise_management::DeviceBorealisAllowedProto >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::enterprise_management::DeviceBorealisAllowedProto >(arena);
+template<> PROTOBUF_NOINLINE ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* Arena::CreateMaybeMessage< ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceAllowedBluetoothServicesProto* Arena::CreateMaybeMessage< ::enterprise_management::DeviceAllowedBluetoothServicesProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::DeviceAllowedBluetoothServicesProto >(arena);

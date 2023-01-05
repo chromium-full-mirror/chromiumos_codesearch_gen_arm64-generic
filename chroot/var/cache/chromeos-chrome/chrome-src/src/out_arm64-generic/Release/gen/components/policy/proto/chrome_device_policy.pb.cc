@@ -1645,18 +1645,18 @@ struct DevicePciPeripheralDataAccessEnabledProtoV2DefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DevicePciPeripheralDataAccessEnabledProtoV2DefaultTypeInternal _DevicePciPeripheralDataAccessEnabledProtoV2_default_instance_;
-PROTOBUF_CONSTEXPR OBSOLETE_DeviceBorealisAllowedProto::OBSOLETE_DeviceBorealisAllowedProto(
+PROTOBUF_CONSTEXPR DeviceBorealisAllowedProto::DeviceBorealisAllowedProto(
     ::_pbi::ConstantInitialized)
   : allowed_(true){}
-struct OBSOLETE_DeviceBorealisAllowedProtoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR OBSOLETE_DeviceBorealisAllowedProtoDefaultTypeInternal()
+struct DeviceBorealisAllowedProtoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DeviceBorealisAllowedProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~OBSOLETE_DeviceBorealisAllowedProtoDefaultTypeInternal() {}
+  ~DeviceBorealisAllowedProtoDefaultTypeInternal() {}
   union {
-    OBSOLETE_DeviceBorealisAllowedProto _instance;
+    DeviceBorealisAllowedProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OBSOLETE_DeviceBorealisAllowedProtoDefaultTypeInternal _OBSOLETE_DeviceBorealisAllowedProto_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceBorealisAllowedProtoDefaultTypeInternal _DeviceBorealisAllowedProto_default_instance_;
 PROTOBUF_CONSTEXPR DeviceAllowedBluetoothServicesProto::DeviceAllowedBluetoothServicesProto(
     ::_pbi::ConstantInitialized)
   : allowlist_(){}
@@ -31160,34 +31160,34 @@ std::string DevicePciPeripheralDataAccessEnabledProtoV2::GetTypeName() const {
 
 // ===================================================================
 
-class OBSOLETE_DeviceBorealisAllowedProto::_Internal {
+class DeviceBorealisAllowedProto::_Internal {
  public:
-  using HasBits = decltype(std::declval<OBSOLETE_DeviceBorealisAllowedProto>()._has_bits_);
+  using HasBits = decltype(std::declval<DeviceBorealisAllowedProto>()._has_bits_);
   static void set_has_allowed(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-OBSOLETE_DeviceBorealisAllowedProto::OBSOLETE_DeviceBorealisAllowedProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+DeviceBorealisAllowedProto::DeviceBorealisAllowedProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.DeviceBorealisAllowedProto)
 }
-OBSOLETE_DeviceBorealisAllowedProto::OBSOLETE_DeviceBorealisAllowedProto(const OBSOLETE_DeviceBorealisAllowedProto& from)
+DeviceBorealisAllowedProto::DeviceBorealisAllowedProto(const DeviceBorealisAllowedProto& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   allowed_ = from.allowed_;
-  // @@protoc_insertion_point(copy_constructor:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceBorealisAllowedProto)
 }
 
-inline void OBSOLETE_DeviceBorealisAllowedProto::SharedCtor() {
+inline void DeviceBorealisAllowedProto::SharedCtor() {
 allowed_ = true;
 }
 
-OBSOLETE_DeviceBorealisAllowedProto::~OBSOLETE_DeviceBorealisAllowedProto() {
-  // @@protoc_insertion_point(destructor:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
+DeviceBorealisAllowedProto::~DeviceBorealisAllowedProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.DeviceBorealisAllowedProto)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
@@ -31195,16 +31195,16 @@ OBSOLETE_DeviceBorealisAllowedProto::~OBSOLETE_DeviceBorealisAllowedProto() {
   SharedDtor();
 }
 
-inline void OBSOLETE_DeviceBorealisAllowedProto::SharedDtor() {
+inline void DeviceBorealisAllowedProto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void OBSOLETE_DeviceBorealisAllowedProto::SetCachedSize(int size) const {
+void DeviceBorealisAllowedProto::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void OBSOLETE_DeviceBorealisAllowedProto::Clear() {
-// @@protoc_insertion_point(message_clear_start:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
+void DeviceBorealisAllowedProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.DeviceBorealisAllowedProto)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -31214,7 +31214,7 @@ void OBSOLETE_DeviceBorealisAllowedProto::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* OBSOLETE_DeviceBorealisAllowedProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* DeviceBorealisAllowedProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -31254,9 +31254,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* OBSOLETE_DeviceBorealisAllowedProto::_InternalSerialize(
+uint8_t* DeviceBorealisAllowedProto::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.DeviceBorealisAllowedProto)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -31271,12 +31271,12 @@ uint8_t* OBSOLETE_DeviceBorealisAllowedProto::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.DeviceBorealisAllowedProto)
   return target;
 }
 
-size_t OBSOLETE_DeviceBorealisAllowedProto::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
+size_t DeviceBorealisAllowedProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.DeviceBorealisAllowedProto)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -31297,14 +31297,14 @@ size_t OBSOLETE_DeviceBorealisAllowedProto::ByteSizeLong() const {
   return total_size;
 }
 
-void OBSOLETE_DeviceBorealisAllowedProto::CheckTypeAndMergeFrom(
+void DeviceBorealisAllowedProto::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const OBSOLETE_DeviceBorealisAllowedProto*>(
+  MergeFrom(*::_pbi::DownCast<const DeviceBorealisAllowedProto*>(
       &from));
 }
 
-void OBSOLETE_DeviceBorealisAllowedProto::MergeFrom(const OBSOLETE_DeviceBorealisAllowedProto& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
+void DeviceBorealisAllowedProto::MergeFrom(const DeviceBorealisAllowedProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.DeviceBorealisAllowedProto)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -31315,26 +31315,26 @@ void OBSOLETE_DeviceBorealisAllowedProto::MergeFrom(const OBSOLETE_DeviceBoreali
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void OBSOLETE_DeviceBorealisAllowedProto::CopyFrom(const OBSOLETE_DeviceBorealisAllowedProto& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
+void DeviceBorealisAllowedProto::CopyFrom(const DeviceBorealisAllowedProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.DeviceBorealisAllowedProto)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool OBSOLETE_DeviceBorealisAllowedProto::IsInitialized() const {
+bool DeviceBorealisAllowedProto::IsInitialized() const {
   return true;
 }
 
-void OBSOLETE_DeviceBorealisAllowedProto::InternalSwap(OBSOLETE_DeviceBorealisAllowedProto* other) {
+void DeviceBorealisAllowedProto::InternalSwap(DeviceBorealisAllowedProto* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   swap(allowed_, other->allowed_);
 }
 
-std::string OBSOLETE_DeviceBorealisAllowedProto::GetTypeName() const {
-  return "enterprise_management.OBSOLETE_DeviceBorealisAllowedProto";
+std::string DeviceBorealisAllowedProto::GetTypeName() const {
+  return "enterprise_management.DeviceBorealisAllowedProto";
 }
 
 
@@ -33439,7 +33439,7 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_device_pci_peripheral_data_access_enabled(HasBits* has_bits) {
     (*has_bits)[3] |= 262144u;
   }
-  static const ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto& device_borealis_allowed(const ChromeDeviceSettingsProto* msg);
+  static const ::enterprise_management::DeviceBorealisAllowedProto& device_borealis_allowed(const ChromeDeviceSettingsProto* msg);
   static void set_has_device_borealis_allowed(HasBits* has_bits) {
     (*has_bits)[3] |= 524288u;
   }
@@ -33993,7 +33993,7 @@ const ::enterprise_management::DevicePciPeripheralDataAccessEnabledProto&
 ChromeDeviceSettingsProto::_Internal::device_pci_peripheral_data_access_enabled(const ChromeDeviceSettingsProto* msg) {
   return *msg->device_pci_peripheral_data_access_enabled_;
 }
-const ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto&
+const ::enterprise_management::DeviceBorealisAllowedProto&
 ChromeDeviceSettingsProto::_Internal::device_borealis_allowed(const ChromeDeviceSettingsProto* msg) {
   return *msg->device_borealis_allowed_;
 }
@@ -34727,7 +34727,7 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
     device_pci_peripheral_data_access_enabled_ = nullptr;
   }
   if (from._internal_has_device_borealis_allowed()) {
-    device_borealis_allowed_ = new ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto(*from.device_borealis_allowed_);
+    device_borealis_allowed_ = new ::enterprise_management::DeviceBorealisAllowedProto(*from.device_borealis_allowed_);
   } else {
     device_borealis_allowed_ = nullptr;
   }
@@ -36535,7 +36535,7 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
-      // optional .enterprise_management.OBSOLETE_DeviceBorealisAllowedProto device_borealis_allowed = 119 [deprecated = true];
+      // optional .enterprise_management.DeviceBorealisAllowedProto device_borealis_allowed = 119;
       case 119:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 186)) {
           ptr = ctx->ParseMessage(_internal_mutable_device_borealis_allowed(), ptr);
@@ -37557,7 +37557,7 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
         _Internal::device_pci_peripheral_data_access_enabled(this).GetCachedSize(), target, stream);
   }
 
-  // optional .enterprise_management.OBSOLETE_DeviceBorealisAllowedProto device_borealis_allowed = 119 [deprecated = true];
+  // optional .enterprise_management.DeviceBorealisAllowedProto device_borealis_allowed = 119;
   if (cached_has_bits & 0x00080000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(119, _Internal::device_borealis_allowed(this),
@@ -38573,7 +38573,7 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
           *device_pci_peripheral_data_access_enabled_);
     }
 
-    // optional .enterprise_management.OBSOLETE_DeviceBorealisAllowedProto device_borealis_allowed = 119 [deprecated = true];
+    // optional .enterprise_management.DeviceBorealisAllowedProto device_borealis_allowed = 119;
     if (cached_has_bits & 0x00080000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -39141,7 +39141,7 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
       _internal_mutable_device_pci_peripheral_data_access_enabled()->::enterprise_management::DevicePciPeripheralDataAccessEnabledProto::MergeFrom(from._internal_device_pci_peripheral_data_access_enabled());
     }
     if (cached_has_bits & 0x00080000u) {
-      _internal_mutable_device_borealis_allowed()->::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto::MergeFrom(from._internal_device_borealis_allowed());
+      _internal_mutable_device_borealis_allowed()->::enterprise_management::DeviceBorealisAllowedProto::MergeFrom(from._internal_device_borealis_allowed());
     }
     if (cached_has_bits & 0x00100000u) {
       _internal_mutable_device_allowed_bluetooth_services()->::enterprise_management::DeviceAllowedBluetoothServicesProto::MergeFrom(from._internal_device_allowed_bluetooth_services());
@@ -39747,9 +39747,9 @@ template<> PROTOBUF_NOINLINE ::enterprise_management::DevicePciPeripheralDataAcc
 Arena::CreateMaybeMessage< ::enterprise_management::DevicePciPeripheralDataAccessEnabledProtoV2 >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::DevicePciPeripheralDataAccessEnabledProtoV2 >(arena);
 }
-template<> PROTOBUF_NOINLINE ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto*
-Arena::CreateMaybeMessage< ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto >(arena);
+template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceBorealisAllowedProto*
+Arena::CreateMaybeMessage< ::enterprise_management::DeviceBorealisAllowedProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::DeviceBorealisAllowedProto >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceAllowedBluetoothServicesProto*
 Arena::CreateMaybeMessage< ::enterprise_management::DeviceAllowedBluetoothServicesProto >(Arena* arena) {

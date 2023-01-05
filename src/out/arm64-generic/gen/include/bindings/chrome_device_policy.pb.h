@@ -46,7 +46,7 @@ struct TableStruct_chrome_5fdevice_5fpolicy_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[132]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[133]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -110,9 +110,6 @@ extern DeviceBatteryChargeModeProtoDefaultTypeInternal _DeviceBatteryChargeModeP
 class DeviceBootOnAcProto;
 struct DeviceBootOnAcProtoDefaultTypeInternal;
 extern DeviceBootOnAcProtoDefaultTypeInternal _DeviceBootOnAcProto_default_instance_;
-class DeviceBorealisAllowedProto;
-struct DeviceBorealisAllowedProtoDefaultTypeInternal;
-extern DeviceBorealisAllowedProtoDefaultTypeInternal _DeviceBorealisAllowedProto_default_instance_;
 class DeviceCrostiniArcAdbSideloadingAllowedProto;
 struct DeviceCrostiniArcAdbSideloadingAllowedProtoDefaultTypeInternal;
 extern DeviceCrostiniArcAdbSideloadingAllowedProtoDefaultTypeInternal _DeviceCrostiniArcAdbSideloadingAllowedProto_default_instance_;
@@ -143,6 +140,9 @@ extern DeviceGpoCacheLifetimeProtoDefaultTypeInternal _DeviceGpoCacheLifetimePro
 class DeviceHeartbeatSettingsProto;
 struct DeviceHeartbeatSettingsProtoDefaultTypeInternal;
 extern DeviceHeartbeatSettingsProtoDefaultTypeInternal _DeviceHeartbeatSettingsProto_default_instance_;
+class DeviceHindiInscriptLayoutEnabledProto;
+struct DeviceHindiInscriptLayoutEnabledProtoDefaultTypeInternal;
+extern DeviceHindiInscriptLayoutEnabledProtoDefaultTypeInternal _DeviceHindiInscriptLayoutEnabledProto_default_instance_;
 class DeviceI18nShortcutsEnabledProto;
 struct DeviceI18nShortcutsEnabledProtoDefaultTypeInternal;
 extern DeviceI18nShortcutsEnabledProtoDefaultTypeInternal _DeviceI18nShortcutsEnabledProto_default_instance_;
@@ -341,6 +341,9 @@ extern OBSOLETE_AppPackEntryProtoDefaultTypeInternal _OBSOLETE_AppPackEntryProto
 class OBSOLETE_AppPackProto;
 struct OBSOLETE_AppPackProtoDefaultTypeInternal;
 extern OBSOLETE_AppPackProtoDefaultTypeInternal _OBSOLETE_AppPackProto_default_instance_;
+class OBSOLETE_DeviceBorealisAllowedProto;
+struct OBSOLETE_DeviceBorealisAllowedProtoDefaultTypeInternal;
+extern OBSOLETE_DeviceBorealisAllowedProtoDefaultTypeInternal _OBSOLETE_DeviceBorealisAllowedProto_default_instance_;
 class OBSOLETE_DeviceLoginScreenIsolateOriginsProto;
 struct OBSOLETE_DeviceLoginScreenIsolateOriginsProtoDefaultTypeInternal;
 extern OBSOLETE_DeviceLoginScreenIsolateOriginsProtoDefaultTypeInternal _OBSOLETE_DeviceLoginScreenIsolateOriginsProto_default_instance_;
@@ -470,7 +473,6 @@ template<> ::enterprise_management::DeviceArcDataSnapshotHoursProto* Arena::Crea
 template<> ::enterprise_management::DeviceAuthDataCacheLifetimeProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceAuthDataCacheLifetimeProto>(Arena*);
 template<> ::enterprise_management::DeviceBatteryChargeModeProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceBatteryChargeModeProto>(Arena*);
 template<> ::enterprise_management::DeviceBootOnAcProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceBootOnAcProto>(Arena*);
-template<> ::enterprise_management::DeviceBorealisAllowedProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceBorealisAllowedProto>(Arena*);
 template<> ::enterprise_management::DeviceCrostiniArcAdbSideloadingAllowedProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceCrostiniArcAdbSideloadingAllowedProto>(Arena*);
 template<> ::enterprise_management::DeviceDebugPacketCaptureAllowedProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceDebugPacketCaptureAllowedProto>(Arena*);
 template<> ::enterprise_management::DeviceDisplayResolutionProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceDisplayResolutionProto>(Arena*);
@@ -481,6 +483,7 @@ template<> ::enterprise_management::DeviceExternalPrintServersProto* Arena::Crea
 template<> ::enterprise_management::DeviceFamilyLinkAccountsAllowedProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceFamilyLinkAccountsAllowedProto>(Arena*);
 template<> ::enterprise_management::DeviceGpoCacheLifetimeProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceGpoCacheLifetimeProto>(Arena*);
 template<> ::enterprise_management::DeviceHeartbeatSettingsProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceHeartbeatSettingsProto>(Arena*);
+template<> ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceHindiInscriptLayoutEnabledProto>(Arena*);
 template<> ::enterprise_management::DeviceI18nShortcutsEnabledProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceI18nShortcutsEnabledProto>(Arena*);
 template<> ::enterprise_management::DeviceKerberosEncryptionTypesProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceKerberosEncryptionTypesProto>(Arena*);
 template<> ::enterprise_management::DeviceKeylockerForStorageEncryptionEnabledProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceKeylockerForStorageEncryptionEnabledProto>(Arena*);
@@ -547,6 +550,7 @@ template<> ::enterprise_management::NetworkHostnameProto* Arena::CreateMaybeMess
 template<> ::enterprise_management::NetworkThrottlingEnabledProto* Arena::CreateMaybeMessage<::enterprise_management::NetworkThrottlingEnabledProto>(Arena*);
 template<> ::enterprise_management::OBSOLETE_AppPackEntryProto* Arena::CreateMaybeMessage<::enterprise_management::OBSOLETE_AppPackEntryProto>(Arena*);
 template<> ::enterprise_management::OBSOLETE_AppPackProto* Arena::CreateMaybeMessage<::enterprise_management::OBSOLETE_AppPackProto>(Arena*);
+template<> ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* Arena::CreateMaybeMessage<::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto>(Arena*);
 template<> ::enterprise_management::OBSOLETE_DeviceLoginScreenIsolateOriginsProto* Arena::CreateMaybeMessage<::enterprise_management::OBSOLETE_DeviceLoginScreenIsolateOriginsProto>(Arena*);
 template<> ::enterprise_management::OBSOLETE_DeviceLoginScreenSitePerProcessProto* Arena::CreateMaybeMessage<::enterprise_management::OBSOLETE_DeviceLoginScreenSitePerProcessProto>(Arena*);
 template<> ::enterprise_management::OBSOLETE_DeviceProxySettingsProto* Arena::CreateMaybeMessage<::enterprise_management::OBSOLETE_DeviceProxySettingsProto>(Arena*);
@@ -3016,6 +3020,148 @@ class NetworkHostnameProto final :
 };
 // -------------------------------------------------------------------
 
+class DeviceHindiInscriptLayoutEnabledProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceHindiInscriptLayoutEnabledProto) */ {
+ public:
+  inline DeviceHindiInscriptLayoutEnabledProto() : DeviceHindiInscriptLayoutEnabledProto(nullptr) {}
+  ~DeviceHindiInscriptLayoutEnabledProto() override;
+  explicit constexpr DeviceHindiInscriptLayoutEnabledProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  DeviceHindiInscriptLayoutEnabledProto(const DeviceHindiInscriptLayoutEnabledProto& from);
+  DeviceHindiInscriptLayoutEnabledProto(DeviceHindiInscriptLayoutEnabledProto&& from) noexcept
+    : DeviceHindiInscriptLayoutEnabledProto() {
+    *this = ::std::move(from);
+  }
+
+  inline DeviceHindiInscriptLayoutEnabledProto& operator=(const DeviceHindiInscriptLayoutEnabledProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DeviceHindiInscriptLayoutEnabledProto& operator=(DeviceHindiInscriptLayoutEnabledProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const DeviceHindiInscriptLayoutEnabledProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const DeviceHindiInscriptLayoutEnabledProto* internal_default_instance() {
+    return reinterpret_cast<const DeviceHindiInscriptLayoutEnabledProto*>(
+               &_DeviceHindiInscriptLayoutEnabledProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    13;
+
+  friend void swap(DeviceHindiInscriptLayoutEnabledProto& a, DeviceHindiInscriptLayoutEnabledProto& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DeviceHindiInscriptLayoutEnabledProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(DeviceHindiInscriptLayoutEnabledProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  DeviceHindiInscriptLayoutEnabledProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<DeviceHindiInscriptLayoutEnabledProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const DeviceHindiInscriptLayoutEnabledProto& from);
+  void MergeFrom(const DeviceHindiInscriptLayoutEnabledProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(DeviceHindiInscriptLayoutEnabledProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "enterprise_management.DeviceHindiInscriptLayoutEnabledProto";
+  }
+  protected:
+  explicit DeviceHindiInscriptLayoutEnabledProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEnabledFieldNumber = 1,
+  };
+  // optional bool enabled = 1 [default = false];
+  bool has_enabled() const;
+  private:
+  bool _internal_has_enabled() const;
+  public:
+  void clear_enabled();
+  bool enabled() const;
+  void set_enabled(bool value);
+  private:
+  bool _internal_enabled() const;
+  void _internal_set_enabled(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:enterprise_management.DeviceHindiInscriptLayoutEnabledProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  bool enabled_;
+  friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
+};
+// -------------------------------------------------------------------
+
 class HostnameUserConfigurableProto final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.HostnameUserConfigurableProto) */ {
  public:
@@ -3062,7 +3208,7 @@ class HostnameUserConfigurableProto final :
                &_HostnameUserConfigurableProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    14;
 
   friend void swap(HostnameUserConfigurableProto& a, HostnameUserConfigurableProto& b) {
     a.Swap(&b);
@@ -3204,7 +3350,7 @@ class DeviceReportingProto final :
                &_DeviceReportingProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    15;
 
   friend void swap(DeviceReportingProto& a, DeviceReportingProto& b) {
     a.Swap(&b);
@@ -3906,7 +4052,7 @@ class EphemeralUsersEnabledProto final :
                &_EphemeralUsersEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    16;
 
   friend void swap(EphemeralUsersEnabledProto& a, EphemeralUsersEnabledProto& b) {
     a.Swap(&b);
@@ -4048,7 +4194,7 @@ class DeviceKeylockerForStorageEncryptionEnabledProto final :
                &_DeviceKeylockerForStorageEncryptionEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    17;
 
   friend void swap(DeviceKeylockerForStorageEncryptionEnabledProto& a, DeviceKeylockerForStorageEncryptionEnabledProto& b) {
     a.Swap(&b);
@@ -4190,7 +4336,7 @@ class OBSOLETE_AppPackEntryProto final :
                &_OBSOLETE_AppPackEntryProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    18;
 
   friend void swap(OBSOLETE_AppPackEntryProto& a, OBSOLETE_AppPackEntryProto& b) {
     a.Swap(&b);
@@ -4372,7 +4518,7 @@ class OBSOLETE_AppPackProto final :
                &_OBSOLETE_AppPackProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    19;
 
   friend void swap(OBSOLETE_AppPackProto& a, OBSOLETE_AppPackProto& b) {
     a.Swap(&b);
@@ -4518,7 +4664,7 @@ class OBSOLETE_PinnedAppsProto final :
                &_OBSOLETE_PinnedAppsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    20;
 
   friend void swap(OBSOLETE_PinnedAppsProto& a, OBSOLETE_PinnedAppsProto& b) {
     a.Swap(&b);
@@ -4670,7 +4816,7 @@ class OBSOLETE_ForcedLogoutTimeoutsProto final :
                &_OBSOLETE_ForcedLogoutTimeoutsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    21;
 
   friend void swap(OBSOLETE_ForcedLogoutTimeoutsProto& a, OBSOLETE_ForcedLogoutTimeoutsProto& b) {
     a.Swap(&b);
@@ -4827,7 +4973,7 @@ class OBSOLETE_ScreenSaverProto final :
                &_OBSOLETE_ScreenSaverProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    22;
 
   friend void swap(OBSOLETE_ScreenSaverProto& a, OBSOLETE_ScreenSaverProto& b) {
     a.Swap(&b);
@@ -4989,7 +5135,7 @@ class AutoUpdateSettingsProto final :
                &_AutoUpdateSettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    23;
 
   friend void swap(AutoUpdateSettingsProto& a, AutoUpdateSettingsProto& b) {
     a.Swap(&b);
@@ -5482,7 +5628,7 @@ class OBSOLETE_StartUpUrlsProto final :
                &_OBSOLETE_StartUpUrlsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    24;
 
   friend void swap(OBSOLETE_StartUpUrlsProto& a, OBSOLETE_StartUpUrlsProto& b) {
     a.Swap(&b);
@@ -5634,7 +5780,7 @@ class SystemTimezoneProto final :
                &_SystemTimezoneProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    25;
 
   friend void swap(SystemTimezoneProto& a, SystemTimezoneProto& b) {
     a.Swap(&b);
@@ -5828,7 +5974,7 @@ class SystemUse24HourClockProto final :
                &_SystemUse24HourClockProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    26;
 
   friend void swap(SystemUse24HourClockProto& a, SystemUse24HourClockProto& b) {
     a.Swap(&b);
@@ -5970,7 +6116,7 @@ class KioskAppInfoProto final :
                &_KioskAppInfoProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    27;
 
   friend void swap(KioskAppInfoProto& a, KioskAppInfoProto& b) {
     a.Swap(&b);
@@ -6137,7 +6283,7 @@ class AndroidKioskAppInfoProto final :
                &_AndroidKioskAppInfoProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    28;
 
   friend void swap(AndroidKioskAppInfoProto& a, AndroidKioskAppInfoProto& b) {
     a.Swap(&b);
@@ -6344,7 +6490,7 @@ class WebKioskAppInfoProto final :
                &_WebKioskAppInfoProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    29;
 
   friend void swap(WebKioskAppInfoProto& a, WebKioskAppInfoProto& b) {
     a.Swap(&b);
@@ -6531,7 +6677,7 @@ class DeviceLocalAccountInfoProto final :
                &_DeviceLocalAccountInfoProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    30;
 
   friend void swap(DeviceLocalAccountInfoProto& a, DeviceLocalAccountInfoProto& b) {
     a.Swap(&b);
@@ -6805,7 +6951,7 @@ class DeviceLocalAccountsProto final :
                &_DeviceLocalAccountsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    30;
+    31;
 
   friend void swap(DeviceLocalAccountsProto& a, DeviceLocalAccountsProto& b) {
     a.Swap(&b);
@@ -7017,7 +7163,7 @@ class ManagedGuestSessionPrivacyWarningsProto final :
                &_ManagedGuestSessionPrivacyWarningsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    31;
+    32;
 
   friend void swap(ManagedGuestSessionPrivacyWarningsProto& a, ManagedGuestSessionPrivacyWarningsProto& b) {
     a.Swap(&b);
@@ -7159,7 +7305,7 @@ class AllowRedeemChromeOsRegistrationOffersProto final :
                &_AllowRedeemChromeOsRegistrationOffersProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    32;
+    33;
 
   friend void swap(AllowRedeemChromeOsRegistrationOffersProto& a, AllowRedeemChromeOsRegistrationOffersProto& b) {
     a.Swap(&b);
@@ -7301,7 +7447,7 @@ class FeatureFlagsProto final :
                &_FeatureFlagsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    33;
+    34;
 
   friend void swap(FeatureFlagsProto& a, FeatureFlagsProto& b) {
     a.Swap(&b);
@@ -7479,7 +7625,7 @@ class UptimeLimitProto final :
                &_UptimeLimitProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    34;
+    35;
 
   friend void swap(UptimeLimitProto& a, UptimeLimitProto& b) {
     a.Swap(&b);
@@ -7636,7 +7782,7 @@ class VariationsParameterProto final :
                &_VariationsParameterProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    35;
+    36;
 
   friend void swap(VariationsParameterProto& a, VariationsParameterProto& b) {
     a.Swap(&b);
@@ -7783,7 +7929,7 @@ class AttestationSettingsProto final :
                &_AttestationSettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    36;
+    37;
 
   friend void swap(AttestationSettingsProto& a, AttestationSettingsProto& b) {
     a.Swap(&b);
@@ -7940,7 +8086,7 @@ class AccessibilitySettingsProto final :
                &_AccessibilitySettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    37;
+    38;
 
   friend void swap(AccessibilitySettingsProto& a, AccessibilitySettingsProto& b) {
     a.Swap(&b);
@@ -8693,7 +8839,7 @@ class OBSOLETE_SupervisedUsersSettingsProto final :
                &_OBSOLETE_SupervisedUsersSettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    38;
+    39;
 
   friend void swap(OBSOLETE_SupervisedUsersSettingsProto& a, OBSOLETE_SupervisedUsersSettingsProto& b) {
     a.Swap(&b);
@@ -8835,7 +8981,7 @@ class LoginScreenPowerManagementProto final :
                &_LoginScreenPowerManagementProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    39;
+    40;
 
   friend void swap(LoginScreenPowerManagementProto& a, LoginScreenPowerManagementProto& b) {
     a.Swap(&b);
@@ -8982,7 +9128,7 @@ class AutoCleanupSettigsProto final :
                &_AutoCleanupSettigsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    40;
+    41;
 
   friend void swap(AutoCleanupSettigsProto& a, AutoCleanupSettigsProto& b) {
     a.Swap(&b);
@@ -9129,7 +9275,7 @@ class SystemSettingsProto final :
                &_SystemSettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    41;
+    42;
 
   friend void swap(SystemSettingsProto& a, SystemSettingsProto& b) {
     a.Swap(&b);
@@ -9271,7 +9417,7 @@ class SAMLSettingsProto final :
                &_SAMLSettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    42;
+    43;
 
   friend void swap(SAMLSettingsProto& a, SAMLSettingsProto& b) {
     a.Swap(&b);
@@ -9433,7 +9579,7 @@ class SAMLUsernameProto final :
                &_SAMLUsernameProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    43;
+    44;
 
   friend void swap(SAMLUsernameProto& a, SAMLUsernameProto& b) {
     a.Swap(&b);
@@ -9580,7 +9726,7 @@ class RebootOnShutdownProto final :
                &_RebootOnShutdownProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    44;
+    45;
 
   friend void swap(RebootOnShutdownProto& a, RebootOnShutdownProto& b) {
     a.Swap(&b);
@@ -9722,7 +9868,7 @@ class DeviceHeartbeatSettingsProto final :
                &_DeviceHeartbeatSettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    45;
+    46;
 
   friend void swap(DeviceHeartbeatSettingsProto& a, DeviceHeartbeatSettingsProto& b) {
     a.Swap(&b);
@@ -9879,7 +10025,7 @@ class ExtensionCacheSizeProto final :
                &_ExtensionCacheSizeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    46;
+    47;
 
   friend void swap(ExtensionCacheSizeProto& a, ExtensionCacheSizeProto& b) {
     a.Swap(&b);
@@ -10021,7 +10167,7 @@ class LoginScreenDomainAutoCompleteProto final :
                &_LoginScreenDomainAutoCompleteProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    47;
+    48;
 
   friend void swap(LoginScreenDomainAutoCompleteProto& a, LoginScreenDomainAutoCompleteProto& b) {
     a.Swap(&b);
@@ -10168,7 +10314,7 @@ class DeviceLogUploadSettingsProto final :
                &_DeviceLogUploadSettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    48;
+    49;
 
   friend void swap(DeviceLogUploadSettingsProto& a, DeviceLogUploadSettingsProto& b) {
     a.Swap(&b);
@@ -10310,7 +10456,7 @@ class DisplayRotationDefaultProto final :
                &_DisplayRotationDefaultProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    49;
+    50;
 
   friend void swap(DisplayRotationDefaultProto& a, DisplayRotationDefaultProto& b) {
     a.Swap(&b);
@@ -10482,7 +10628,7 @@ class DeviceLoginScreenPrivacyScreenEnabledProto final :
                &_DeviceLoginScreenPrivacyScreenEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    50;
+    51;
 
   friend void swap(DeviceLoginScreenPrivacyScreenEnabledProto& a, DeviceLoginScreenPrivacyScreenEnabledProto& b) {
     a.Swap(&b);
@@ -10624,7 +10770,7 @@ class DeviceDisplayResolutionProto final :
                &_DeviceDisplayResolutionProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    51;
+    52;
 
   friend void swap(DeviceDisplayResolutionProto& a, DeviceDisplayResolutionProto& b) {
     a.Swap(&b);
@@ -10771,7 +10917,7 @@ class AllowKioskAppControlChromeVersionProto final :
                &_AllowKioskAppControlChromeVersionProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    52;
+    53;
 
   friend void swap(AllowKioskAppControlChromeVersionProto& a, AllowKioskAppControlChromeVersionProto& b) {
     a.Swap(&b);
@@ -10913,7 +11059,7 @@ class LoginAuthenticationBehaviorProto final :
                &_LoginAuthenticationBehaviorProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    53;
+    54;
 
   friend void swap(LoginAuthenticationBehaviorProto& a, LoginAuthenticationBehaviorProto& b) {
     a.Swap(&b);
@@ -11081,7 +11227,7 @@ class UsbDeviceIdProto final :
                &_UsbDeviceIdProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    54;
+    55;
 
   friend void swap(UsbDeviceIdProto& a, UsbDeviceIdProto& b) {
     a.Swap(&b);
@@ -11238,7 +11384,7 @@ class UsbDetachableWhitelistProto final :
                &_UsbDetachableWhitelistProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    55;
+    56;
 
   friend void swap(UsbDetachableWhitelistProto& a, UsbDetachableWhitelistProto& b) {
     a.Swap(&b);
@@ -11384,7 +11530,7 @@ class UsbDeviceIdInclusiveProto final :
                &_UsbDeviceIdInclusiveProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    56;
+    57;
 
   friend void swap(UsbDeviceIdInclusiveProto& a, UsbDeviceIdInclusiveProto& b) {
     a.Swap(&b);
@@ -11541,7 +11687,7 @@ class UsbDetachableAllowlistProto final :
                &_UsbDetachableAllowlistProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    57;
+    58;
 
   friend void swap(UsbDetachableAllowlistProto& a, UsbDetachableAllowlistProto& b) {
     a.Swap(&b);
@@ -11687,7 +11833,7 @@ class AllowBluetoothProto final :
                &_AllowBluetoothProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    58;
+    59;
 
   friend void swap(AllowBluetoothProto& a, AllowBluetoothProto& b) {
     a.Swap(&b);
@@ -11829,7 +11975,7 @@ class DeviceWiFiAllowedProto final :
                &_DeviceWiFiAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    59;
+    60;
 
   friend void swap(DeviceWiFiAllowedProto& a, DeviceWiFiAllowedProto& b) {
     a.Swap(&b);
@@ -11971,7 +12117,7 @@ class DeviceQuirksDownloadEnabledProto final :
                &_DeviceQuirksDownloadEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    60;
+    61;
 
   friend void swap(DeviceQuirksDownloadEnabledProto& a, DeviceQuirksDownloadEnabledProto& b) {
     a.Swap(&b);
@@ -12113,7 +12259,7 @@ class LoginVideoCaptureAllowedUrlsProto final :
                &_LoginVideoCaptureAllowedUrlsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    61;
+    62;
 
   friend void swap(LoginVideoCaptureAllowedUrlsProto& a, LoginVideoCaptureAllowedUrlsProto& b) {
     a.Swap(&b);
@@ -12265,7 +12411,7 @@ class DeviceWiFiFastTransitionEnabledProto final :
                &_DeviceWiFiFastTransitionEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    62;
+    63;
 
   friend void swap(DeviceWiFiFastTransitionEnabledProto& a, DeviceWiFiFastTransitionEnabledProto& b) {
     a.Swap(&b);
@@ -12407,7 +12553,7 @@ class NetworkThrottlingEnabledProto final :
                &_NetworkThrottlingEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    63;
+    64;
 
   friend void swap(NetworkThrottlingEnabledProto& a, NetworkThrottlingEnabledProto& b) {
     a.Swap(&b);
@@ -12579,7 +12725,7 @@ class DeviceLoginScreenExtensionsProto final :
                &_DeviceLoginScreenExtensionsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    64;
+    65;
 
   friend void swap(DeviceLoginScreenExtensionsProto& a, DeviceLoginScreenExtensionsProto& b) {
     a.Swap(&b);
@@ -12731,7 +12877,7 @@ class LoginScreenLocalesProto final :
                &_LoginScreenLocalesProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    65;
+    66;
 
   friend void swap(LoginScreenLocalesProto& a, LoginScreenLocalesProto& b) {
     a.Swap(&b);
@@ -12883,7 +13029,7 @@ class LoginScreenInputMethodsProto final :
                &_LoginScreenInputMethodsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    66;
+    67;
 
   friend void swap(LoginScreenInputMethodsProto& a, LoginScreenInputMethodsProto& b) {
     a.Swap(&b);
@@ -13035,7 +13181,7 @@ class DeviceWallpaperImageProto final :
                &_DeviceWallpaperImageProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    67;
+    68;
 
   friend void swap(DeviceWallpaperImageProto& a, DeviceWallpaperImageProto& b) {
     a.Swap(&b);
@@ -13182,7 +13328,7 @@ class DeviceEcryptfsMigrationStrategyProto final :
                &_DeviceEcryptfsMigrationStrategyProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    68;
+    69;
 
   friend void swap(DeviceEcryptfsMigrationStrategyProto& a, DeviceEcryptfsMigrationStrategyProto& b) {
     a.Swap(&b);
@@ -13352,7 +13498,7 @@ class DeviceSecondFactorAuthenticationProto final :
                &_DeviceSecondFactorAuthenticationProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    69;
+    70;
 
   friend void swap(DeviceSecondFactorAuthenticationProto& a, DeviceSecondFactorAuthenticationProto& b) {
     a.Swap(&b);
@@ -13524,7 +13670,7 @@ class CastReceiverNameProto final :
                &_CastReceiverNameProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    70;
+    71;
 
   friend void swap(CastReceiverNameProto& a, CastReceiverNameProto& b) {
     a.Swap(&b);
@@ -13671,7 +13817,7 @@ class WeeklyTimeProto final :
                &_WeeklyTimeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    71;
+    72;
 
   friend void swap(WeeklyTimeProto& a, WeeklyTimeProto& b) {
     a.Swap(&b);
@@ -13866,7 +14012,7 @@ class WeeklyTimeIntervalProto final :
                &_WeeklyTimeIntervalProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    72;
+    73;
 
   friend void swap(WeeklyTimeIntervalProto& a, WeeklyTimeIntervalProto& b) {
     a.Swap(&b);
@@ -14033,7 +14179,7 @@ class DeviceOffHoursProto final :
                &_DeviceOffHoursProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    73;
+    74;
 
   friend void swap(DeviceOffHoursProto& a, DeviceOffHoursProto& b) {
     a.Swap(&b);
@@ -14224,7 +14370,7 @@ class DeviceNativePrintersProto final :
                &_DeviceNativePrintersProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    74;
+    75;
 
   friend void swap(DeviceNativePrintersProto& a, DeviceNativePrintersProto& b) {
     a.Swap(&b);
@@ -14371,7 +14517,7 @@ class DeviceNativePrintersAccessModeProto final :
                &_DeviceNativePrintersAccessModeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    75;
+    76;
 
   friend void swap(DeviceNativePrintersAccessModeProto& a, DeviceNativePrintersAccessModeProto& b) {
     a.Swap(&b);
@@ -14541,7 +14687,7 @@ class DeviceNativePrintersBlacklistProto final :
                &_DeviceNativePrintersBlacklistProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    76;
+    77;
 
   friend void swap(DeviceNativePrintersBlacklistProto& a, DeviceNativePrintersBlacklistProto& b) {
     a.Swap(&b);
@@ -14693,7 +14839,7 @@ class DeviceNativePrintersWhitelistProto final :
                &_DeviceNativePrintersWhitelistProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    77;
+    78;
 
   friend void swap(DeviceNativePrintersWhitelistProto& a, DeviceNativePrintersWhitelistProto& b) {
     a.Swap(&b);
@@ -14845,7 +14991,7 @@ class DevicePrintersProto final :
                &_DevicePrintersProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    78;
+    79;
 
   friend void swap(DevicePrintersProto& a, DevicePrintersProto& b) {
     a.Swap(&b);
@@ -14992,7 +15138,7 @@ class DevicePrintersAccessModeProto final :
                &_DevicePrintersAccessModeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    79;
+    80;
 
   friend void swap(DevicePrintersAccessModeProto& a, DevicePrintersAccessModeProto& b) {
     a.Swap(&b);
@@ -15162,7 +15308,7 @@ class DevicePrintersBlocklistProto final :
                &_DevicePrintersBlocklistProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    80;
+    81;
 
   friend void swap(DevicePrintersBlocklistProto& a, DevicePrintersBlocklistProto& b) {
     a.Swap(&b);
@@ -15314,7 +15460,7 @@ class DevicePrintersAllowlistProto final :
                &_DevicePrintersAllowlistProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    81;
+    82;
 
   friend void swap(DevicePrintersAllowlistProto& a, DevicePrintersAllowlistProto& b) {
     a.Swap(&b);
@@ -15466,7 +15612,7 @@ class DeviceExternalPrintServersProto final :
                &_DeviceExternalPrintServersProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    82;
+    83;
 
   friend void swap(DeviceExternalPrintServersProto& a, DeviceExternalPrintServersProto& b) {
     a.Swap(&b);
@@ -15613,7 +15759,7 @@ class DeviceExternalPrintServersAllowlistProto final :
                &_DeviceExternalPrintServersAllowlistProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    83;
+    84;
 
   friend void swap(DeviceExternalPrintServersAllowlistProto& a, DeviceExternalPrintServersAllowlistProto& b) {
     a.Swap(&b);
@@ -15765,7 +15911,7 @@ class TPMFirmwareUpdateSettingsProto final :
                &_TPMFirmwareUpdateSettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    84;
+    85;
 
   friend void swap(TPMFirmwareUpdateSettingsProto& a, TPMFirmwareUpdateSettingsProto& b) {
     a.Swap(&b);
@@ -15969,7 +16115,7 @@ class OBSOLETE_MinimumRequiredVersionProto final :
                &_OBSOLETE_MinimumRequiredVersionProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    85;
+    86;
 
   friend void swap(OBSOLETE_MinimumRequiredVersionProto& a, OBSOLETE_MinimumRequiredVersionProto& b) {
     a.Swap(&b);
@@ -16116,7 +16262,7 @@ class DeviceLoginScreenAutoSelectCertificateForUrls final :
                &_DeviceLoginScreenAutoSelectCertificateForUrls_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    86;
+    87;
 
   friend void swap(DeviceLoginScreenAutoSelectCertificateForUrls& a, DeviceLoginScreenAutoSelectCertificateForUrls& b) {
     a.Swap(&b);
@@ -16268,7 +16414,7 @@ class UnaffiliatedArcAllowedProto final :
                &_UnaffiliatedArcAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    87;
+    88;
 
   friend void swap(UnaffiliatedArcAllowedProto& a, UnaffiliatedArcAllowedProto& b) {
     a.Swap(&b);
@@ -16410,7 +16556,7 @@ class DeviceKerberosEncryptionTypesProto final :
                &_DeviceKerberosEncryptionTypesProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    88;
+    89;
 
   friend void swap(DeviceKerberosEncryptionTypesProto& a, DeviceKerberosEncryptionTypesProto& b) {
     a.Swap(&b);
@@ -16580,7 +16726,7 @@ class KeyboardBacklightColorProto final :
                &_KeyboardBacklightColorProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    89;
+    90;
 
   friend void swap(KeyboardBacklightColorProto& a, KeyboardBacklightColorProto& b) {
     a.Swap(&b);
@@ -16762,7 +16908,7 @@ class DeviceUserPolicyLoopbackProcessingModeProto final :
                &_DeviceUserPolicyLoopbackProcessingModeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    90;
+    91;
 
   friend void swap(DeviceUserPolicyLoopbackProcessingModeProto& a, DeviceUserPolicyLoopbackProcessingModeProto& b) {
     a.Swap(&b);
@@ -16932,7 +17078,7 @@ class OBSOLETE_DeviceLoginScreenIsolateOriginsProto final :
                &_OBSOLETE_DeviceLoginScreenIsolateOriginsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    91;
+    92;
 
   friend void swap(OBSOLETE_DeviceLoginScreenIsolateOriginsProto& a, OBSOLETE_DeviceLoginScreenIsolateOriginsProto& b) {
     a.Swap(&b);
@@ -17079,7 +17225,7 @@ class OBSOLETE_DeviceLoginScreenSitePerProcessProto final :
                &_OBSOLETE_DeviceLoginScreenSitePerProcessProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    92;
+    93;
 
   friend void swap(OBSOLETE_DeviceLoginScreenSitePerProcessProto& a, OBSOLETE_DeviceLoginScreenSitePerProcessProto& b) {
     a.Swap(&b);
@@ -17221,7 +17367,7 @@ class VirtualMachinesAllowedProto final :
                &_VirtualMachinesAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    93;
+    94;
 
   friend void swap(VirtualMachinesAllowedProto& a, VirtualMachinesAllowedProto& b) {
     a.Swap(&b);
@@ -17363,7 +17509,7 @@ class DeviceMachinePasswordChangeRateProto final :
                &_DeviceMachinePasswordChangeRateProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    94;
+    95;
 
   friend void swap(DeviceMachinePasswordChangeRateProto& a, DeviceMachinePasswordChangeRateProto& b) {
     a.Swap(&b);
@@ -17505,7 +17651,7 @@ class DeviceGpoCacheLifetimeProto final :
                &_DeviceGpoCacheLifetimeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    95;
+    96;
 
   friend void swap(DeviceGpoCacheLifetimeProto& a, DeviceGpoCacheLifetimeProto& b) {
     a.Swap(&b);
@@ -17647,7 +17793,7 @@ class DeviceAuthDataCacheLifetimeProto final :
                &_DeviceAuthDataCacheLifetimeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    96;
+    97;
 
   friend void swap(DeviceAuthDataCacheLifetimeProto& a, DeviceAuthDataCacheLifetimeProto& b) {
     a.Swap(&b);
@@ -17789,7 +17935,7 @@ class DeviceUnaffiliatedCrostiniAllowedProto final :
                &_DeviceUnaffiliatedCrostiniAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    97;
+    98;
 
   friend void swap(DeviceUnaffiliatedCrostiniAllowedProto& a, DeviceUnaffiliatedCrostiniAllowedProto& b) {
     a.Swap(&b);
@@ -17931,7 +18077,7 @@ class PluginVmAllowedProto final :
                &_PluginVmAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    98;
+    99;
 
   friend void swap(PluginVmAllowedProto& a, PluginVmAllowedProto& b) {
     a.Swap(&b);
@@ -18073,7 +18219,7 @@ class PluginVmLicenseKeyProto final :
                &_PluginVmLicenseKeyProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    99;
+    100;
 
   friend void swap(PluginVmLicenseKeyProto& a, PluginVmLicenseKeyProto& b) {
     a.Swap(&b);
@@ -18220,7 +18366,7 @@ class DeviceRebootOnUserSignoutProto final :
                &_DeviceRebootOnUserSignoutProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    100;
+    101;
 
   friend void swap(DeviceRebootOnUserSignoutProto& a, DeviceRebootOnUserSignoutProto& b) {
     a.Swap(&b);
@@ -18394,7 +18540,7 @@ class DeviceWilcoDtcAllowedProto final :
                &_DeviceWilcoDtcAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    101;
+    102;
 
   friend void swap(DeviceWilcoDtcAllowedProto& a, DeviceWilcoDtcAllowedProto& b) {
     a.Swap(&b);
@@ -18536,7 +18682,7 @@ class DeviceWilcoDtcConfigurationProto final :
                &_DeviceWilcoDtcConfigurationProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    102;
+    103;
 
   friend void swap(DeviceWilcoDtcConfigurationProto& a, DeviceWilcoDtcConfigurationProto& b) {
     a.Swap(&b);
@@ -18683,7 +18829,7 @@ class DevicePowerPeakShiftProto final :
                &_DevicePowerPeakShiftProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    103;
+    104;
 
   friend void swap(DevicePowerPeakShiftProto& a, DevicePowerPeakShiftProto& b) {
     a.Swap(&b);
@@ -18860,7 +19006,7 @@ class DeviceBootOnAcProto final :
                &_DeviceBootOnAcProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    104;
+    105;
 
   friend void swap(DeviceBootOnAcProto& a, DeviceBootOnAcProto& b) {
     a.Swap(&b);
@@ -19002,7 +19148,7 @@ class DeviceDockMacAddressSourceProto final :
                &_DeviceDockMacAddressSourceProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    105;
+    106;
 
   friend void swap(DeviceDockMacAddressSourceProto& a, DeviceDockMacAddressSourceProto& b) {
     a.Swap(&b);
@@ -19174,7 +19320,7 @@ class DeviceAdvancedBatteryChargeModeProto final :
                &_DeviceAdvancedBatteryChargeModeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    106;
+    107;
 
   friend void swap(DeviceAdvancedBatteryChargeModeProto& a, DeviceAdvancedBatteryChargeModeProto& b) {
     a.Swap(&b);
@@ -19336,7 +19482,7 @@ class DeviceBatteryChargeModeProto final :
                &_DeviceBatteryChargeModeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    107;
+    108;
 
   friend void swap(DeviceBatteryChargeModeProto& a, DeviceBatteryChargeModeProto& b) {
     a.Swap(&b);
@@ -19542,7 +19688,7 @@ class DeviceUsbPowerShareProto final :
                &_DeviceUsbPowerShareProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    108;
+    109;
 
   friend void swap(DeviceUsbPowerShareProto& a, DeviceUsbPowerShareProto& b) {
     a.Swap(&b);
@@ -19684,7 +19830,7 @@ class DeviceScheduledUpdateCheckProto final :
                &_DeviceScheduledUpdateCheckProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    109;
+    110;
 
   friend void swap(DeviceScheduledUpdateCheckProto& a, DeviceScheduledUpdateCheckProto& b) {
     a.Swap(&b);
@@ -19831,7 +19977,7 @@ class DevicePowerwashAllowedProto final :
                &_DevicePowerwashAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    110;
+    111;
 
   friend void swap(DevicePowerwashAllowedProto& a, DevicePowerwashAllowedProto& b) {
     a.Swap(&b);
@@ -19973,7 +20119,7 @@ class DeviceLoginScreenWebUsbAllowDevicesForUrlsProto final :
                &_DeviceLoginScreenWebUsbAllowDevicesForUrlsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    111;
+    112;
 
   friend void swap(DeviceLoginScreenWebUsbAllowDevicesForUrlsProto& a, DeviceLoginScreenWebUsbAllowDevicesForUrlsProto& b) {
     a.Swap(&b);
@@ -20120,7 +20266,7 @@ class SystemProxySettingsProto final :
                &_SystemProxySettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    112;
+    113;
 
   friend void swap(SystemProxySettingsProto& a, SystemProxySettingsProto& b) {
     a.Swap(&b);
@@ -20267,7 +20413,7 @@ class RequiredClientCertificateForDeviceProto final :
                &_RequiredClientCertificateForDeviceProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    113;
+    114;
 
   friend void swap(RequiredClientCertificateForDeviceProto& a, RequiredClientCertificateForDeviceProto& b) {
     a.Swap(&b);
@@ -20414,7 +20560,7 @@ class DeviceCrostiniArcAdbSideloadingAllowedProto final :
                &_DeviceCrostiniArcAdbSideloadingAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    114;
+    115;
 
   friend void swap(DeviceCrostiniArcAdbSideloadingAllowedProto& a, DeviceCrostiniArcAdbSideloadingAllowedProto& b) {
     a.Swap(&b);
@@ -20584,7 +20730,7 @@ class DeviceShowLowDiskSpaceNotificationProto final :
                &_DeviceShowLowDiskSpaceNotificationProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    115;
+    116;
 
   friend void swap(DeviceShowLowDiskSpaceNotificationProto& a, DeviceShowLowDiskSpaceNotificationProto& b) {
     a.Swap(&b);
@@ -20726,7 +20872,7 @@ class DeviceFamilyLinkAccountsAllowedProto final :
                &_DeviceFamilyLinkAccountsAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    116;
+    117;
 
   friend void swap(DeviceFamilyLinkAccountsAllowedProto& a, DeviceFamilyLinkAccountsAllowedProto& b) {
     a.Swap(&b);
@@ -20868,7 +21014,7 @@ class DeviceArcDataSnapshotHoursProto final :
                &_DeviceArcDataSnapshotHoursProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    117;
+    118;
 
   friend void swap(DeviceArcDataSnapshotHoursProto& a, DeviceArcDataSnapshotHoursProto& b) {
     a.Swap(&b);
@@ -21015,7 +21161,7 @@ class DeviceSystemWideTracingEnabledProto final :
                &_DeviceSystemWideTracingEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    118;
+    119;
 
   friend void swap(DeviceSystemWideTracingEnabledProto& a, DeviceSystemWideTracingEnabledProto& b) {
     a.Swap(&b);
@@ -21157,7 +21303,7 @@ class DevicePciPeripheralDataAccessEnabledProto final :
                &_DevicePciPeripheralDataAccessEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    119;
+    120;
 
   friend void swap(DevicePciPeripheralDataAccessEnabledProto& a, DevicePciPeripheralDataAccessEnabledProto& b) {
     a.Swap(&b);
@@ -21299,7 +21445,7 @@ class DevicePciPeripheralDataAccessEnabledProtoV2 final :
                &_DevicePciPeripheralDataAccessEnabledProtoV2_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    120;
+    121;
 
   friend void swap(DevicePciPeripheralDataAccessEnabledProtoV2& a, DevicePciPeripheralDataAccessEnabledProtoV2& b) {
     a.Swap(&b);
@@ -21395,24 +21541,24 @@ class DevicePciPeripheralDataAccessEnabledProtoV2 final :
 };
 // -------------------------------------------------------------------
 
-class DeviceBorealisAllowedProto final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceBorealisAllowedProto) */ {
+class OBSOLETE_DeviceBorealisAllowedProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto) */ {
  public:
-  inline DeviceBorealisAllowedProto() : DeviceBorealisAllowedProto(nullptr) {}
-  ~DeviceBorealisAllowedProto() override;
-  explicit constexpr DeviceBorealisAllowedProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline OBSOLETE_DeviceBorealisAllowedProto() : OBSOLETE_DeviceBorealisAllowedProto(nullptr) {}
+  ~OBSOLETE_DeviceBorealisAllowedProto() override;
+  explicit constexpr OBSOLETE_DeviceBorealisAllowedProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  DeviceBorealisAllowedProto(const DeviceBorealisAllowedProto& from);
-  DeviceBorealisAllowedProto(DeviceBorealisAllowedProto&& from) noexcept
-    : DeviceBorealisAllowedProto() {
+  OBSOLETE_DeviceBorealisAllowedProto(const OBSOLETE_DeviceBorealisAllowedProto& from);
+  OBSOLETE_DeviceBorealisAllowedProto(OBSOLETE_DeviceBorealisAllowedProto&& from) noexcept
+    : OBSOLETE_DeviceBorealisAllowedProto() {
     *this = ::std::move(from);
   }
 
-  inline DeviceBorealisAllowedProto& operator=(const DeviceBorealisAllowedProto& from) {
+  inline OBSOLETE_DeviceBorealisAllowedProto& operator=(const OBSOLETE_DeviceBorealisAllowedProto& from) {
     CopyFrom(from);
     return *this;
   }
-  inline DeviceBorealisAllowedProto& operator=(DeviceBorealisAllowedProto&& from) noexcept {
+  inline OBSOLETE_DeviceBorealisAllowedProto& operator=(OBSOLETE_DeviceBorealisAllowedProto&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -21433,20 +21579,20 @@ class DeviceBorealisAllowedProto final :
     return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const DeviceBorealisAllowedProto& default_instance() {
+  static const OBSOLETE_DeviceBorealisAllowedProto& default_instance() {
     return *internal_default_instance();
   }
-  static inline const DeviceBorealisAllowedProto* internal_default_instance() {
-    return reinterpret_cast<const DeviceBorealisAllowedProto*>(
-               &_DeviceBorealisAllowedProto_default_instance_);
+  static inline const OBSOLETE_DeviceBorealisAllowedProto* internal_default_instance() {
+    return reinterpret_cast<const OBSOLETE_DeviceBorealisAllowedProto*>(
+               &_OBSOLETE_DeviceBorealisAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    121;
+    122;
 
-  friend void swap(DeviceBorealisAllowedProto& a, DeviceBorealisAllowedProto& b) {
+  friend void swap(OBSOLETE_DeviceBorealisAllowedProto& a, OBSOLETE_DeviceBorealisAllowedProto& b) {
     a.Swap(&b);
   }
-  inline void Swap(DeviceBorealisAllowedProto* other) {
+  inline void Swap(OBSOLETE_DeviceBorealisAllowedProto* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -21459,7 +21605,7 @@ class DeviceBorealisAllowedProto final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(DeviceBorealisAllowedProto* other) {
+  void UnsafeArenaSwap(OBSOLETE_DeviceBorealisAllowedProto* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -21467,12 +21613,12 @@ class DeviceBorealisAllowedProto final :
 
   // implements Message ----------------------------------------------
 
-  DeviceBorealisAllowedProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<DeviceBorealisAllowedProto>(arena);
+  OBSOLETE_DeviceBorealisAllowedProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<OBSOLETE_DeviceBorealisAllowedProto>(arena);
   }
   void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const DeviceBorealisAllowedProto& from);
-  void MergeFrom(const DeviceBorealisAllowedProto& from);
+  void CopyFrom(const OBSOLETE_DeviceBorealisAllowedProto& from);
+  void MergeFrom(const OBSOLETE_DeviceBorealisAllowedProto& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -21486,15 +21632,15 @@ class DeviceBorealisAllowedProto final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(DeviceBorealisAllowedProto* other);
+  void InternalSwap(OBSOLETE_DeviceBorealisAllowedProto* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "enterprise_management.DeviceBorealisAllowedProto";
+    return "enterprise_management.OBSOLETE_DeviceBorealisAllowedProto";
   }
   protected:
-  explicit DeviceBorealisAllowedProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit OBSOLETE_DeviceBorealisAllowedProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -21523,7 +21669,7 @@ class DeviceBorealisAllowedProto final :
   void _internal_set_allowed(bool value);
   public:
 
-  // @@protoc_insertion_point(class_scope:enterprise_management.DeviceBorealisAllowedProto)
+  // @@protoc_insertion_point(class_scope:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
  private:
   class _Internal;
 
@@ -21583,7 +21729,7 @@ class DeviceAllowedBluetoothServicesProto final :
                &_DeviceAllowedBluetoothServicesProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    122;
+    123;
 
   friend void swap(DeviceAllowedBluetoothServicesProto& a, DeviceAllowedBluetoothServicesProto& b) {
     a.Swap(&b);
@@ -21735,7 +21881,7 @@ class DeviceDebugPacketCaptureAllowedProto final :
                &_DeviceDebugPacketCaptureAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    123;
+    124;
 
   friend void swap(DeviceDebugPacketCaptureAllowedProto& a, DeviceDebugPacketCaptureAllowedProto& b) {
     a.Swap(&b);
@@ -21877,7 +22023,7 @@ class DeviceScheduledRebootProto final :
                &_DeviceScheduledRebootProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    124;
+    125;
 
   friend void swap(DeviceScheduledRebootProto& a, DeviceScheduledRebootProto& b) {
     a.Swap(&b);
@@ -22024,7 +22170,7 @@ class DeviceRestrictedManagedGuestSessionEnabledProto final :
                &_DeviceRestrictedManagedGuestSessionEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    125;
+    126;
 
   friend void swap(DeviceRestrictedManagedGuestSessionEnabledProto& a, DeviceRestrictedManagedGuestSessionEnabledProto& b) {
     a.Swap(&b);
@@ -22166,7 +22312,7 @@ class DeviceI18nShortcutsEnabledProto final :
                &_DeviceI18nShortcutsEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    126;
+    127;
 
   friend void swap(DeviceI18nShortcutsEnabledProto& a, DeviceI18nShortcutsEnabledProto& b) {
     a.Swap(&b);
@@ -22308,7 +22454,7 @@ class RevenDeviceHWDataUsageEnabledProto final :
                &_RevenDeviceHWDataUsageEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    127;
+    128;
 
   friend void swap(RevenDeviceHWDataUsageEnabledProto& a, RevenDeviceHWDataUsageEnabledProto& b) {
     a.Swap(&b);
@@ -22450,7 +22596,7 @@ class DeviceLoginScreenWebUILazyLoadingProto final :
                &_DeviceLoginScreenWebUILazyLoadingProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    128;
+    129;
 
   friend void swap(DeviceLoginScreenWebUILazyLoadingProto& a, DeviceLoginScreenWebUILazyLoadingProto& b) {
     a.Swap(&b);
@@ -22592,7 +22738,7 @@ class EncryptedReportingPipelineConfigurationProto final :
                &_EncryptedReportingPipelineConfigurationProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    129;
+    130;
 
   friend void swap(EncryptedReportingPipelineConfigurationProto& a, EncryptedReportingPipelineConfigurationProto& b) {
     a.Swap(&b);
@@ -22734,7 +22880,7 @@ class DeviceReportXDREventsProto final :
                &_DeviceReportXDREventsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    130;
+    131;
 
   friend void swap(DeviceReportXDREventsProto& a, DeviceReportXDREventsProto& b) {
     a.Swap(&b);
@@ -22876,7 +23022,7 @@ class ChromeDeviceSettingsProto final :
                &_ChromeDeviceSettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    131;
+    132;
 
   friend void swap(ChromeDeviceSettingsProto& a, ChromeDeviceSettingsProto& b) {
     a.Swap(&b);
@@ -23079,6 +23225,7 @@ class ChromeDeviceSettingsProto final :
     kDevicePrintingClientNameTemplateFieldNumber = 137,
     kDeviceReportXdrEventsFieldNumber = 138,
     kKeyboardBacklightColorFieldNumber = 139,
+    kDeviceHindiInscriptLayoutEnabledFieldNumber = 140,
   };
   // optional .enterprise_management.DevicePolicyRefreshRateProto device_policy_refresh_rate = 1;
   bool has_device_policy_refresh_rate() const;
@@ -25150,23 +25297,23 @@ class ChromeDeviceSettingsProto final :
       ::enterprise_management::DevicePciPeripheralDataAccessEnabledProto* device_pci_peripheral_data_access_enabled);
   ::enterprise_management::DevicePciPeripheralDataAccessEnabledProto* unsafe_arena_release_device_pci_peripheral_data_access_enabled();
 
-  // optional .enterprise_management.DeviceBorealisAllowedProto device_borealis_allowed = 119;
-  bool has_device_borealis_allowed() const;
+  // optional .enterprise_management.OBSOLETE_DeviceBorealisAllowedProto device_borealis_allowed = 119 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_device_borealis_allowed() const;
   private:
   bool _internal_has_device_borealis_allowed() const;
   public:
-  void clear_device_borealis_allowed();
-  const ::enterprise_management::DeviceBorealisAllowedProto& device_borealis_allowed() const;
-  PROTOBUF_NODISCARD ::enterprise_management::DeviceBorealisAllowedProto* release_device_borealis_allowed();
-  ::enterprise_management::DeviceBorealisAllowedProto* mutable_device_borealis_allowed();
-  void set_allocated_device_borealis_allowed(::enterprise_management::DeviceBorealisAllowedProto* device_borealis_allowed);
+  PROTOBUF_DEPRECATED void clear_device_borealis_allowed();
+  PROTOBUF_DEPRECATED const ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto& device_borealis_allowed() const;
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* release_device_borealis_allowed();
+  PROTOBUF_DEPRECATED ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* mutable_device_borealis_allowed();
+  PROTOBUF_DEPRECATED void set_allocated_device_borealis_allowed(::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* device_borealis_allowed);
   private:
-  const ::enterprise_management::DeviceBorealisAllowedProto& _internal_device_borealis_allowed() const;
-  ::enterprise_management::DeviceBorealisAllowedProto* _internal_mutable_device_borealis_allowed();
+  const ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto& _internal_device_borealis_allowed() const;
+  ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* _internal_mutable_device_borealis_allowed();
   public:
-  void unsafe_arena_set_allocated_device_borealis_allowed(
-      ::enterprise_management::DeviceBorealisAllowedProto* device_borealis_allowed);
-  ::enterprise_management::DeviceBorealisAllowedProto* unsafe_arena_release_device_borealis_allowed();
+  PROTOBUF_DEPRECATED void unsafe_arena_set_allocated_device_borealis_allowed(
+      ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* device_borealis_allowed);
+  PROTOBUF_DEPRECATED ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* unsafe_arena_release_device_borealis_allowed();
 
   // optional .enterprise_management.DeviceAllowedBluetoothServicesProto device_allowed_bluetooth_services = 120;
   bool has_device_allowed_bluetooth_services() const;
@@ -25528,6 +25675,24 @@ class ChromeDeviceSettingsProto final :
       ::enterprise_management::KeyboardBacklightColorProto* keyboard_backlight_color);
   ::enterprise_management::KeyboardBacklightColorProto* unsafe_arena_release_keyboard_backlight_color();
 
+  // optional .enterprise_management.DeviceHindiInscriptLayoutEnabledProto device_hindi_inscript_layout_enabled = 140;
+  bool has_device_hindi_inscript_layout_enabled() const;
+  private:
+  bool _internal_has_device_hindi_inscript_layout_enabled() const;
+  public:
+  void clear_device_hindi_inscript_layout_enabled();
+  const ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto& device_hindi_inscript_layout_enabled() const;
+  PROTOBUF_NODISCARD ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* release_device_hindi_inscript_layout_enabled();
+  ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* mutable_device_hindi_inscript_layout_enabled();
+  void set_allocated_device_hindi_inscript_layout_enabled(::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* device_hindi_inscript_layout_enabled);
+  private:
+  const ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto& _internal_device_hindi_inscript_layout_enabled() const;
+  ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* _internal_mutable_device_hindi_inscript_layout_enabled();
+  public:
+  void unsafe_arena_set_allocated_device_hindi_inscript_layout_enabled(
+      ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* device_hindi_inscript_layout_enabled);
+  ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* unsafe_arena_release_device_hindi_inscript_layout_enabled();
+
   // @@protoc_insertion_point(class_scope:enterprise_management.ChromeDeviceSettingsProto)
  private:
   class _Internal;
@@ -25652,7 +25817,7 @@ class ChromeDeviceSettingsProto final :
   ::enterprise_management::BooleanPolicyProto* device_allow_mgs_to_store_display_properties_;
   ::enterprise_management::DeviceSystemWideTracingEnabledProto* device_system_wide_tracing_enabled_;
   ::enterprise_management::DevicePciPeripheralDataAccessEnabledProto* device_pci_peripheral_data_access_enabled_;
-  ::enterprise_management::DeviceBorealisAllowedProto* device_borealis_allowed_;
+  ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* device_borealis_allowed_;
   ::enterprise_management::DeviceAllowedBluetoothServicesProto* device_allowed_bluetooth_services_;
   ::enterprise_management::DeviceDebugPacketCaptureAllowedProto* device_debug_packet_capture_allowed_;
   ::enterprise_management::DeviceScheduledRebootProto* device_scheduled_reboot_;
@@ -25673,6 +25838,7 @@ class ChromeDeviceSettingsProto final :
   ::enterprise_management::StringPolicyProto* device_printing_client_name_template_;
   ::enterprise_management::DeviceReportXDREventsProto* device_report_xdr_events_;
   ::enterprise_management::KeyboardBacklightColorProto* keyboard_backlight_color_;
+  ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* device_hindi_inscript_layout_enabled_;
   friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // ===================================================================
@@ -26658,6 +26824,38 @@ inline void NetworkHostnameProto::set_allocated_device_hostname_template(std::st
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.NetworkHostnameProto.device_hostname_template)
+}
+
+// -------------------------------------------------------------------
+
+// DeviceHindiInscriptLayoutEnabledProto
+
+// optional bool enabled = 1 [default = false];
+inline bool DeviceHindiInscriptLayoutEnabledProto::_internal_has_enabled() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool DeviceHindiInscriptLayoutEnabledProto::has_enabled() const {
+  return _internal_has_enabled();
+}
+inline void DeviceHindiInscriptLayoutEnabledProto::clear_enabled() {
+  enabled_ = false;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline bool DeviceHindiInscriptLayoutEnabledProto::_internal_enabled() const {
+  return enabled_;
+}
+inline bool DeviceHindiInscriptLayoutEnabledProto::enabled() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceHindiInscriptLayoutEnabledProto.enabled)
+  return _internal_enabled();
+}
+inline void DeviceHindiInscriptLayoutEnabledProto::_internal_set_enabled(bool value) {
+  _has_bits_[0] |= 0x00000001u;
+  enabled_ = value;
+}
+inline void DeviceHindiInscriptLayoutEnabledProto::set_enabled(bool value) {
+  _internal_set_enabled(value);
+  // @@protoc_insertion_point(field_set:enterprise_management.DeviceHindiInscriptLayoutEnabledProto.enabled)
 }
 
 // -------------------------------------------------------------------
@@ -37576,34 +37774,34 @@ inline void DevicePciPeripheralDataAccessEnabledProtoV2::set_enabled(bool value)
 
 // -------------------------------------------------------------------
 
-// DeviceBorealisAllowedProto
+// OBSOLETE_DeviceBorealisAllowedProto
 
 // optional bool allowed = 1 [default = true];
-inline bool DeviceBorealisAllowedProto::_internal_has_allowed() const {
+inline bool OBSOLETE_DeviceBorealisAllowedProto::_internal_has_allowed() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool DeviceBorealisAllowedProto::has_allowed() const {
+inline bool OBSOLETE_DeviceBorealisAllowedProto::has_allowed() const {
   return _internal_has_allowed();
 }
-inline void DeviceBorealisAllowedProto::clear_allowed() {
+inline void OBSOLETE_DeviceBorealisAllowedProto::clear_allowed() {
   allowed_ = true;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline bool DeviceBorealisAllowedProto::_internal_allowed() const {
+inline bool OBSOLETE_DeviceBorealisAllowedProto::_internal_allowed() const {
   return allowed_;
 }
-inline bool DeviceBorealisAllowedProto::allowed() const {
-  // @@protoc_insertion_point(field_get:enterprise_management.DeviceBorealisAllowedProto.allowed)
+inline bool OBSOLETE_DeviceBorealisAllowedProto::allowed() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto.allowed)
   return _internal_allowed();
 }
-inline void DeviceBorealisAllowedProto::_internal_set_allowed(bool value) {
+inline void OBSOLETE_DeviceBorealisAllowedProto::_internal_set_allowed(bool value) {
   _has_bits_[0] |= 0x00000001u;
   allowed_ = value;
 }
-inline void DeviceBorealisAllowedProto::set_allowed(bool value) {
+inline void OBSOLETE_DeviceBorealisAllowedProto::set_allowed(bool value) {
   _internal_set_allowed(value);
-  // @@protoc_insertion_point(field_set:enterprise_management.DeviceBorealisAllowedProto.allowed)
+  // @@protoc_insertion_point(field_set:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto.allowed)
 }
 
 // -------------------------------------------------------------------
@@ -48320,7 +48518,7 @@ inline void ChromeDeviceSettingsProto::set_allocated_device_pci_peripheral_data_
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_pci_peripheral_data_access_enabled)
 }
 
-// optional .enterprise_management.DeviceBorealisAllowedProto device_borealis_allowed = 119;
+// optional .enterprise_management.OBSOLETE_DeviceBorealisAllowedProto device_borealis_allowed = 119 [deprecated = true];
 inline bool ChromeDeviceSettingsProto::_internal_has_device_borealis_allowed() const {
   bool value = (_has_bits_[3] & 0x00080000u) != 0;
   PROTOBUF_ASSUME(!value || device_borealis_allowed_ != nullptr);
@@ -48333,17 +48531,17 @@ inline void ChromeDeviceSettingsProto::clear_device_borealis_allowed() {
   if (device_borealis_allowed_ != nullptr) device_borealis_allowed_->Clear();
   _has_bits_[3] &= ~0x00080000u;
 }
-inline const ::enterprise_management::DeviceBorealisAllowedProto& ChromeDeviceSettingsProto::_internal_device_borealis_allowed() const {
-  const ::enterprise_management::DeviceBorealisAllowedProto* p = device_borealis_allowed_;
-  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DeviceBorealisAllowedProto&>(
-      ::enterprise_management::_DeviceBorealisAllowedProto_default_instance_);
+inline const ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto& ChromeDeviceSettingsProto::_internal_device_borealis_allowed() const {
+  const ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* p = device_borealis_allowed_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto&>(
+      ::enterprise_management::_OBSOLETE_DeviceBorealisAllowedProto_default_instance_);
 }
-inline const ::enterprise_management::DeviceBorealisAllowedProto& ChromeDeviceSettingsProto::device_borealis_allowed() const {
+inline const ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto& ChromeDeviceSettingsProto::device_borealis_allowed() const {
   // @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_borealis_allowed)
   return _internal_device_borealis_allowed();
 }
 inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_borealis_allowed(
-    ::enterprise_management::DeviceBorealisAllowedProto* device_borealis_allowed) {
+    ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* device_borealis_allowed) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_borealis_allowed_);
   }
@@ -48355,9 +48553,9 @@ inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_boreali
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_borealis_allowed)
 }
-inline ::enterprise_management::DeviceBorealisAllowedProto* ChromeDeviceSettingsProto::release_device_borealis_allowed() {
+inline ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* ChromeDeviceSettingsProto::release_device_borealis_allowed() {
   _has_bits_[3] &= ~0x00080000u;
-  ::enterprise_management::DeviceBorealisAllowedProto* temp = device_borealis_allowed_;
+  ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* temp = device_borealis_allowed_;
   device_borealis_allowed_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -48370,34 +48568,34 @@ inline ::enterprise_management::DeviceBorealisAllowedProto* ChromeDeviceSettings
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::enterprise_management::DeviceBorealisAllowedProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_borealis_allowed() {
+inline ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_borealis_allowed() {
   // @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_borealis_allowed)
   _has_bits_[3] &= ~0x00080000u;
-  ::enterprise_management::DeviceBorealisAllowedProto* temp = device_borealis_allowed_;
+  ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* temp = device_borealis_allowed_;
   device_borealis_allowed_ = nullptr;
   return temp;
 }
-inline ::enterprise_management::DeviceBorealisAllowedProto* ChromeDeviceSettingsProto::_internal_mutable_device_borealis_allowed() {
+inline ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* ChromeDeviceSettingsProto::_internal_mutable_device_borealis_allowed() {
   _has_bits_[3] |= 0x00080000u;
   if (device_borealis_allowed_ == nullptr) {
-    auto* p = CreateMaybeMessage<::enterprise_management::DeviceBorealisAllowedProto>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto>(GetArenaForAllocation());
     device_borealis_allowed_ = p;
   }
   return device_borealis_allowed_;
 }
-inline ::enterprise_management::DeviceBorealisAllowedProto* ChromeDeviceSettingsProto::mutable_device_borealis_allowed() {
-  ::enterprise_management::DeviceBorealisAllowedProto* _msg = _internal_mutable_device_borealis_allowed();
+inline ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* ChromeDeviceSettingsProto::mutable_device_borealis_allowed() {
+  ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* _msg = _internal_mutable_device_borealis_allowed();
   // @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_borealis_allowed)
   return _msg;
 }
-inline void ChromeDeviceSettingsProto::set_allocated_device_borealis_allowed(::enterprise_management::DeviceBorealisAllowedProto* device_borealis_allowed) {
+inline void ChromeDeviceSettingsProto::set_allocated_device_borealis_allowed(::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto* device_borealis_allowed) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete device_borealis_allowed_;
   }
   if (device_borealis_allowed) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::enterprise_management::DeviceBorealisAllowedProto>::GetOwningArena(device_borealis_allowed);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto>::GetOwningArena(device_borealis_allowed);
     if (message_arena != submessage_arena) {
       device_borealis_allowed = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, device_borealis_allowed, submessage_arena);
@@ -50198,9 +50396,101 @@ inline void ChromeDeviceSettingsProto::set_allocated_keyboard_backlight_color(::
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.keyboard_backlight_color)
 }
 
+// optional .enterprise_management.DeviceHindiInscriptLayoutEnabledProto device_hindi_inscript_layout_enabled = 140;
+inline bool ChromeDeviceSettingsProto::_internal_has_device_hindi_inscript_layout_enabled() const {
+  bool value = (_has_bits_[4] & 0x00000100u) != 0;
+  PROTOBUF_ASSUME(!value || device_hindi_inscript_layout_enabled_ != nullptr);
+  return value;
+}
+inline bool ChromeDeviceSettingsProto::has_device_hindi_inscript_layout_enabled() const {
+  return _internal_has_device_hindi_inscript_layout_enabled();
+}
+inline void ChromeDeviceSettingsProto::clear_device_hindi_inscript_layout_enabled() {
+  if (device_hindi_inscript_layout_enabled_ != nullptr) device_hindi_inscript_layout_enabled_->Clear();
+  _has_bits_[4] &= ~0x00000100u;
+}
+inline const ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto& ChromeDeviceSettingsProto::_internal_device_hindi_inscript_layout_enabled() const {
+  const ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* p = device_hindi_inscript_layout_enabled_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto&>(
+      ::enterprise_management::_DeviceHindiInscriptLayoutEnabledProto_default_instance_);
+}
+inline const ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto& ChromeDeviceSettingsProto::device_hindi_inscript_layout_enabled() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_hindi_inscript_layout_enabled)
+  return _internal_device_hindi_inscript_layout_enabled();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_hindi_inscript_layout_enabled(
+    ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* device_hindi_inscript_layout_enabled) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_hindi_inscript_layout_enabled_);
+  }
+  device_hindi_inscript_layout_enabled_ = device_hindi_inscript_layout_enabled;
+  if (device_hindi_inscript_layout_enabled) {
+    _has_bits_[4] |= 0x00000100u;
+  } else {
+    _has_bits_[4] &= ~0x00000100u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_hindi_inscript_layout_enabled)
+}
+inline ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* ChromeDeviceSettingsProto::release_device_hindi_inscript_layout_enabled() {
+  _has_bits_[4] &= ~0x00000100u;
+  ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* temp = device_hindi_inscript_layout_enabled_;
+  device_hindi_inscript_layout_enabled_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_hindi_inscript_layout_enabled() {
+  // @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_hindi_inscript_layout_enabled)
+  _has_bits_[4] &= ~0x00000100u;
+  ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* temp = device_hindi_inscript_layout_enabled_;
+  device_hindi_inscript_layout_enabled_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* ChromeDeviceSettingsProto::_internal_mutable_device_hindi_inscript_layout_enabled() {
+  _has_bits_[4] |= 0x00000100u;
+  if (device_hindi_inscript_layout_enabled_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::DeviceHindiInscriptLayoutEnabledProto>(GetArenaForAllocation());
+    device_hindi_inscript_layout_enabled_ = p;
+  }
+  return device_hindi_inscript_layout_enabled_;
+}
+inline ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* ChromeDeviceSettingsProto::mutable_device_hindi_inscript_layout_enabled() {
+  ::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* _msg = _internal_mutable_device_hindi_inscript_layout_enabled();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_hindi_inscript_layout_enabled)
+  return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_device_hindi_inscript_layout_enabled(::enterprise_management::DeviceHindiInscriptLayoutEnabledProto* device_hindi_inscript_layout_enabled) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete device_hindi_inscript_layout_enabled_;
+  }
+  if (device_hindi_inscript_layout_enabled) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::enterprise_management::DeviceHindiInscriptLayoutEnabledProto>::GetOwningArena(device_hindi_inscript_layout_enabled);
+    if (message_arena != submessage_arena) {
+      device_hindi_inscript_layout_enabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, device_hindi_inscript_layout_enabled, submessage_arena);
+    }
+    _has_bits_[4] |= 0x00000100u;
+  } else {
+    _has_bits_[4] &= ~0x00000100u;
+  }
+  device_hindi_inscript_layout_enabled_ = device_hindi_inscript_layout_enabled;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_hindi_inscript_layout_enabled)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

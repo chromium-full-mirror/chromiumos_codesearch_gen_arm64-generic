@@ -57,6 +57,20 @@ struct ShaderCacheMountStatusDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ShaderCacheMountStatusDefaultTypeInternal _ShaderCacheMountStatus_default_instance_;
+constexpr UnmountRequest::UnmountRequest(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : vm_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , vm_owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , steam_app_id_(uint64_t{0u}){}
+struct UnmountRequestDefaultTypeInternal {
+  constexpr UnmountRequestDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~UnmountRequestDefaultTypeInternal() {}
+  union {
+    UnmountRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UnmountRequestDefaultTypeInternal _UnmountRequest_default_instance_;
 }  // namespace shadercached
 namespace shadercached {
 
@@ -902,6 +916,281 @@ std::string ShaderCacheMountStatus::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class UnmountRequest::_Internal {
+ public:
+};
+
+UnmountRequest::UnmountRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:shadercached.UnmountRequest)
+}
+UnmountRequest::UnmountRequest(const UnmountRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  vm_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    vm_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_vm_name().empty()) {
+    vm_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_vm_name(), 
+      GetArenaForAllocation());
+  }
+  vm_owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    vm_owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_vm_owner_id().empty()) {
+    vm_owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_vm_owner_id(), 
+      GetArenaForAllocation());
+  }
+  steam_app_id_ = from.steam_app_id_;
+  // @@protoc_insertion_point(copy_constructor:shadercached.UnmountRequest)
+}
+
+inline void UnmountRequest::SharedCtor() {
+vm_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  vm_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+vm_owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  vm_owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+steam_app_id_ = uint64_t{0u};
+}
+
+UnmountRequest::~UnmountRequest() {
+  // @@protoc_insertion_point(destructor:shadercached.UnmountRequest)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void UnmountRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  vm_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  vm_owner_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void UnmountRequest::ArenaDtor(void* object) {
+  UnmountRequest* _this = reinterpret_cast< UnmountRequest* >(object);
+  (void)_this;
+}
+void UnmountRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void UnmountRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void UnmountRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:shadercached.UnmountRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  vm_name_.ClearToEmpty();
+  vm_owner_id_.ClearToEmpty();
+  steam_app_id_ = uint64_t{0u};
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* UnmountRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string vm_name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_vm_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string vm_owner_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_vm_owner_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint64 steam_app_id = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          steam_app_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* UnmountRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:shadercached.UnmountRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string vm_name = 1;
+  if (!this->_internal_vm_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_vm_name().data(), static_cast<int>(this->_internal_vm_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "shadercached.UnmountRequest.vm_name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_vm_name(), target);
+  }
+
+  // string vm_owner_id = 2;
+  if (!this->_internal_vm_owner_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_vm_owner_id().data(), static_cast<int>(this->_internal_vm_owner_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "shadercached.UnmountRequest.vm_owner_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_vm_owner_id(), target);
+  }
+
+  // uint64 steam_app_id = 3;
+  if (this->_internal_steam_app_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(3, this->_internal_steam_app_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:shadercached.UnmountRequest)
+  return target;
+}
+
+size_t UnmountRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:shadercached.UnmountRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string vm_name = 1;
+  if (!this->_internal_vm_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_vm_name());
+  }
+
+  // string vm_owner_id = 2;
+  if (!this->_internal_vm_owner_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_vm_owner_id());
+  }
+
+  // uint64 steam_app_id = 3;
+  if (this->_internal_steam_app_id() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_steam_app_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void UnmountRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const UnmountRequest*>(
+      &from));
+}
+
+void UnmountRequest::MergeFrom(const UnmountRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:shadercached.UnmountRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_vm_name().empty()) {
+    _internal_set_vm_name(from._internal_vm_name());
+  }
+  if (!from._internal_vm_owner_id().empty()) {
+    _internal_set_vm_owner_id(from._internal_vm_owner_id());
+  }
+  if (from._internal_steam_app_id() != 0) {
+    _internal_set_steam_app_id(from._internal_steam_app_id());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void UnmountRequest::CopyFrom(const UnmountRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:shadercached.UnmountRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UnmountRequest::IsInitialized() const {
+  return true;
+}
+
+void UnmountRequest::InternalSwap(UnmountRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &vm_name_, lhs_arena,
+      &other->vm_name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &vm_owner_id_, lhs_arena,
+      &other->vm_owner_id_, rhs_arena
+  );
+  swap(steam_app_id_, other->steam_app_id_);
+}
+
+std::string UnmountRequest::GetTypeName() const {
+  return "shadercached.UnmountRequest";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace shadercached
 PROTOBUF_NAMESPACE_OPEN
@@ -913,6 +1202,9 @@ template<> PROTOBUF_NOINLINE ::shadercached::UninstallRequest* Arena::CreateMayb
 }
 template<> PROTOBUF_NOINLINE ::shadercached::ShaderCacheMountStatus* Arena::CreateMaybeMessage< ::shadercached::ShaderCacheMountStatus >(Arena* arena) {
   return Arena::CreateMessageInternal< ::shadercached::ShaderCacheMountStatus >(arena);
+}
+template<> PROTOBUF_NOINLINE ::shadercached::UnmountRequest* Arena::CreateMaybeMessage< ::shadercached::UnmountRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::shadercached::UnmountRequest >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

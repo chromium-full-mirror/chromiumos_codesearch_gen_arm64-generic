@@ -146,12 +146,14 @@ enum RlweUseCase : int {
   CROS_FRESNEL_FIRST_ACTIVE = 15,
   CROS_FRESNEL_7DAY_ACTIVE = 16,
   CROS_FRESNEL_28DAY_ACTIVE = 17,
+  CROS_FRESNEL_CHURN_MONTHLY_COHORT = 19,
+  CROS_FRESNEL_CHURN_MONTHLY_OBSERVATION = 20,
   RlweUseCase_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   RlweUseCase_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool RlweUseCase_IsValid(int value);
 constexpr RlweUseCase RlweUseCase_MIN = RLWE_USE_CASE_UNDEFINED;
-constexpr RlweUseCase RlweUseCase_MAX = CROS_FRESNEL_28DAY_ACTIVE;
+constexpr RlweUseCase RlweUseCase_MAX = CROS_FRESNEL_CHURN_MONTHLY_OBSERVATION;
 constexpr int RlweUseCase_ARRAYSIZE = RlweUseCase_MAX + 1;
 
 const std::string& RlweUseCase_Name(RlweUseCase value);
