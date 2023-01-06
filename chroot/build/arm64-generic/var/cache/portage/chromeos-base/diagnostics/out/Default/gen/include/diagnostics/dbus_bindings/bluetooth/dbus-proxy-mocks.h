@@ -28,6 +28,20 @@ class Adapter1ProxyMock : public Adapter1ProxyInterface {
   Adapter1ProxyMock(const Adapter1ProxyMock&) = delete;
   Adapter1ProxyMock& operator=(const Adapter1ProxyMock&) = delete;
 
+  MOCK_METHOD2(StartDiscovery,
+               bool(brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(StartDiscoveryAsync,
+               void(base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD2(StopDiscovery,
+               bool(brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(StopDiscoveryAsync,
+               void(base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_CONST_METHOD0(address, const std::string&());
   MOCK_CONST_METHOD0(is_address_valid, bool());
   MOCK_CONST_METHOD0(name, const std::string&());

@@ -40,6 +40,28 @@ class Adapter1ProxyInterface {
  public:
   virtual ~Adapter1ProxyInterface() = default;
 
+  // This method starts the device discovery session.
+  virtual bool StartDiscovery(
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // This method starts the device discovery session.
+  virtual void StartDiscoveryAsync(
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // This method will cancel any previous StartDiscovery transaction.
+  virtual bool StopDiscovery(
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // This method will cancel any previous StartDiscovery transaction.
+  virtual void StopDiscoveryAsync(
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   static const char* AddressName() { return "Address"; }
   virtual const std::string& address() const = 0;
   virtual bool is_address_valid() const = 0;
@@ -144,6 +166,62 @@ class Adapter1Proxy final : public Adapter1ProxyInterface {
 
   const PropertySet* GetProperties() const { return &(*property_set_); }
   PropertySet* GetProperties() { return &(*property_set_); }
+
+  // This method starts the device discovery session.
+  bool StartDiscovery(
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.bluez.Adapter1",
+        "StartDiscovery",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // This method starts the device discovery session.
+  void StartDiscoveryAsync(
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.bluez.Adapter1",
+        "StartDiscovery",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  // This method will cancel any previous StartDiscovery transaction.
+  bool StopDiscovery(
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.bluez.Adapter1",
+        "StopDiscovery",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // This method will cancel any previous StartDiscovery transaction.
+  void StopDiscoveryAsync(
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.bluez.Adapter1",
+        "StopDiscovery",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
 
   const std::string& address() const override {
     return property_set_->address.value();

@@ -111,11 +111,13 @@ enum PrivateComputingUseCase : int {
   USE_CASE_UNSPECIFIED = 0,
   CROS_FRESNEL_DAILY = 1,
   CROS_FRESNEL_FIRST_ACTIVE = 2,
-  CROS_FRESNEL_28DAY_ACTIVE = 3
+  CROS_FRESNEL_28DAY_ACTIVE = 3,
+  CROS_FRESNEL_CHURN_MONTHLY_COHORT = 4,
+  CROS_FRESNEL_CHURN_MONTHLY_OBSERVATION = 5
 };
 bool PrivateComputingUseCase_IsValid(int value);
 constexpr PrivateComputingUseCase PrivateComputingUseCase_MIN = USE_CASE_UNSPECIFIED;
-constexpr PrivateComputingUseCase PrivateComputingUseCase_MAX = CROS_FRESNEL_28DAY_ACTIVE;
+constexpr PrivateComputingUseCase PrivateComputingUseCase_MAX = CROS_FRESNEL_CHURN_MONTHLY_OBSERVATION;
 constexpr int PrivateComputingUseCase_ARRAYSIZE = PrivateComputingUseCase_MAX + 1;
 
 const std::string& PrivateComputingUseCase_Name(PrivateComputingUseCase value);

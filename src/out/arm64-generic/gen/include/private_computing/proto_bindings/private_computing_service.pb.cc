@@ -194,32 +194,40 @@ bool PrivateComputingUseCase_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> PrivateComputingUseCase_strings[4] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> PrivateComputingUseCase_strings[6] = {};
 
 static const char PrivateComputingUseCase_names[] =
   "CROS_FRESNEL_28DAY_ACTIVE"
+  "CROS_FRESNEL_CHURN_MONTHLY_COHORT"
+  "CROS_FRESNEL_CHURN_MONTHLY_OBSERVATION"
   "CROS_FRESNEL_DAILY"
   "CROS_FRESNEL_FIRST_ACTIVE"
   "USE_CASE_UNSPECIFIED";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry PrivateComputingUseCase_entries[] = {
   { {PrivateComputingUseCase_names + 0, 25}, 3 },
-  { {PrivateComputingUseCase_names + 25, 18}, 1 },
-  { {PrivateComputingUseCase_names + 43, 25}, 2 },
-  { {PrivateComputingUseCase_names + 68, 20}, 0 },
+  { {PrivateComputingUseCase_names + 25, 33}, 4 },
+  { {PrivateComputingUseCase_names + 58, 38}, 5 },
+  { {PrivateComputingUseCase_names + 96, 18}, 1 },
+  { {PrivateComputingUseCase_names + 114, 25}, 2 },
+  { {PrivateComputingUseCase_names + 139, 20}, 0 },
 };
 
 static const int PrivateComputingUseCase_entries_by_number[] = {
-  3, // 0 -> USE_CASE_UNSPECIFIED
-  1, // 1 -> CROS_FRESNEL_DAILY
-  2, // 2 -> CROS_FRESNEL_FIRST_ACTIVE
+  5, // 0 -> USE_CASE_UNSPECIFIED
+  3, // 1 -> CROS_FRESNEL_DAILY
+  4, // 2 -> CROS_FRESNEL_FIRST_ACTIVE
   0, // 3 -> CROS_FRESNEL_28DAY_ACTIVE
+  1, // 4 -> CROS_FRESNEL_CHURN_MONTHLY_COHORT
+  2, // 5 -> CROS_FRESNEL_CHURN_MONTHLY_OBSERVATION
 };
 
 const std::string& PrivateComputingUseCase_Name(
@@ -228,12 +236,12 @@ const std::string& PrivateComputingUseCase_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           PrivateComputingUseCase_entries,
           PrivateComputingUseCase_entries_by_number,
-          4, PrivateComputingUseCase_strings);
+          6, PrivateComputingUseCase_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       PrivateComputingUseCase_entries,
       PrivateComputingUseCase_entries_by_number,
-      4, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      PrivateComputingUseCase_strings[idx].get();
 }
@@ -241,7 +249,7 @@ bool PrivateComputingUseCase_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PrivateComputingUseCase* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      PrivateComputingUseCase_entries, 4, name, &int_value);
+      PrivateComputingUseCase_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<PrivateComputingUseCase>(int_value);
   }
