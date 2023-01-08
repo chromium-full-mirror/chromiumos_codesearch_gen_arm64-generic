@@ -1319,38 +1319,54 @@ bool CalibrationComponentStatus_CalibrationStatus_IsValid(int value) {
     case 3:
     case 4:
     case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CalibrationComponentStatus_CalibrationStatus_strings[6] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CalibrationComponentStatus_CalibrationStatus_strings[10] = {};
 
 static const char CalibrationComponentStatus_CalibrationStatus_names[] =
+  "RMAD_CALIBRATION_CALIBBIAS_CACHED"
+  "RMAD_CALIBRATION_CALIBBIAS_CALCULATED"
   "RMAD_CALIBRATION_COMPLETE"
   "RMAD_CALIBRATION_FAILED"
+  "RMAD_CALIBRATION_GET_ORIGINAL_CALIBBIAS"
   "RMAD_CALIBRATION_IN_PROGRESS"
+  "RMAD_CALIBRATION_SENSOR_DATA_RECEIVED"
   "RMAD_CALIBRATION_SKIP"
   "RMAD_CALIBRATION_UNKNOWN"
   "RMAD_CALIBRATION_WAITING";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CalibrationComponentStatus_CalibrationStatus_entries[] = {
-  { {CalibrationComponentStatus_CalibrationStatus_names + 0, 25}, 3 },
-  { {CalibrationComponentStatus_CalibrationStatus_names + 25, 23}, 4 },
-  { {CalibrationComponentStatus_CalibrationStatus_names + 48, 28}, 2 },
-  { {CalibrationComponentStatus_CalibrationStatus_names + 76, 21}, 5 },
-  { {CalibrationComponentStatus_CalibrationStatus_names + 97, 24}, 0 },
-  { {CalibrationComponentStatus_CalibrationStatus_names + 121, 24}, 1 },
+  { {CalibrationComponentStatus_CalibrationStatus_names + 0, 33}, 9 },
+  { {CalibrationComponentStatus_CalibrationStatus_names + 33, 37}, 8 },
+  { {CalibrationComponentStatus_CalibrationStatus_names + 70, 25}, 3 },
+  { {CalibrationComponentStatus_CalibrationStatus_names + 95, 23}, 4 },
+  { {CalibrationComponentStatus_CalibrationStatus_names + 118, 39}, 6 },
+  { {CalibrationComponentStatus_CalibrationStatus_names + 157, 28}, 2 },
+  { {CalibrationComponentStatus_CalibrationStatus_names + 185, 37}, 7 },
+  { {CalibrationComponentStatus_CalibrationStatus_names + 222, 21}, 5 },
+  { {CalibrationComponentStatus_CalibrationStatus_names + 243, 24}, 0 },
+  { {CalibrationComponentStatus_CalibrationStatus_names + 267, 24}, 1 },
 };
 
 static const int CalibrationComponentStatus_CalibrationStatus_entries_by_number[] = {
-  4, // 0 -> RMAD_CALIBRATION_UNKNOWN
-  5, // 1 -> RMAD_CALIBRATION_WAITING
-  2, // 2 -> RMAD_CALIBRATION_IN_PROGRESS
-  0, // 3 -> RMAD_CALIBRATION_COMPLETE
-  1, // 4 -> RMAD_CALIBRATION_FAILED
-  3, // 5 -> RMAD_CALIBRATION_SKIP
+  8, // 0 -> RMAD_CALIBRATION_UNKNOWN
+  9, // 1 -> RMAD_CALIBRATION_WAITING
+  5, // 2 -> RMAD_CALIBRATION_IN_PROGRESS
+  2, // 3 -> RMAD_CALIBRATION_COMPLETE
+  3, // 4 -> RMAD_CALIBRATION_FAILED
+  7, // 5 -> RMAD_CALIBRATION_SKIP
+  4, // 6 -> RMAD_CALIBRATION_GET_ORIGINAL_CALIBBIAS
+  6, // 7 -> RMAD_CALIBRATION_SENSOR_DATA_RECEIVED
+  1, // 8 -> RMAD_CALIBRATION_CALIBBIAS_CALCULATED
+  0, // 9 -> RMAD_CALIBRATION_CALIBBIAS_CACHED
 };
 
 const std::string& CalibrationComponentStatus_CalibrationStatus_Name(
@@ -1359,12 +1375,12 @@ const std::string& CalibrationComponentStatus_CalibrationStatus_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           CalibrationComponentStatus_CalibrationStatus_entries,
           CalibrationComponentStatus_CalibrationStatus_entries_by_number,
-          6, CalibrationComponentStatus_CalibrationStatus_strings);
+          10, CalibrationComponentStatus_CalibrationStatus_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       CalibrationComponentStatus_CalibrationStatus_entries,
       CalibrationComponentStatus_CalibrationStatus_entries_by_number,
-      6, value);
+      10, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      CalibrationComponentStatus_CalibrationStatus_strings[idx].get();
 }
@@ -1372,7 +1388,7 @@ bool CalibrationComponentStatus_CalibrationStatus_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CalibrationComponentStatus_CalibrationStatus* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      CalibrationComponentStatus_CalibrationStatus_entries, 6, name, &int_value);
+      CalibrationComponentStatus_CalibrationStatus_entries, 10, name, &int_value);
   if (success) {
     *value = static_cast<CalibrationComponentStatus_CalibrationStatus>(int_value);
   }
@@ -1385,6 +1401,10 @@ constexpr CalibrationComponentStatus_CalibrationStatus CalibrationComponentStatu
 constexpr CalibrationComponentStatus_CalibrationStatus CalibrationComponentStatus::RMAD_CALIBRATION_COMPLETE;
 constexpr CalibrationComponentStatus_CalibrationStatus CalibrationComponentStatus::RMAD_CALIBRATION_FAILED;
 constexpr CalibrationComponentStatus_CalibrationStatus CalibrationComponentStatus::RMAD_CALIBRATION_SKIP;
+constexpr CalibrationComponentStatus_CalibrationStatus CalibrationComponentStatus::RMAD_CALIBRATION_GET_ORIGINAL_CALIBBIAS;
+constexpr CalibrationComponentStatus_CalibrationStatus CalibrationComponentStatus::RMAD_CALIBRATION_SENSOR_DATA_RECEIVED;
+constexpr CalibrationComponentStatus_CalibrationStatus CalibrationComponentStatus::RMAD_CALIBRATION_CALIBBIAS_CALCULATED;
+constexpr CalibrationComponentStatus_CalibrationStatus CalibrationComponentStatus::RMAD_CALIBRATION_CALIBBIAS_CACHED;
 constexpr CalibrationComponentStatus_CalibrationStatus CalibrationComponentStatus::CalibrationStatus_MIN;
 constexpr CalibrationComponentStatus_CalibrationStatus CalibrationComponentStatus::CalibrationStatus_MAX;
 constexpr int CalibrationComponentStatus::CalibrationStatus_ARRAYSIZE;
