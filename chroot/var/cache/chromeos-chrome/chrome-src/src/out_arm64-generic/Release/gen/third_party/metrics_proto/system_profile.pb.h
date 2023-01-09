@@ -658,11 +658,42 @@ enum SystemProfileProto_ComponentId : int {
   SystemProfileProto_ComponentId_AUTOFILL_REGEX_CONSTANTS = 28,
   SystemProfileProto_ComponentId_WEBVIEW_APPS_PACKAGE_NAMES_ALLOWLIST = 29,
   SystemProfileProto_ComponentId_MEDIA_FOUNDATION_WIDEVINE_CDM = 30,
-  SystemProfileProto_ComponentId_CROWD_DENY = 31
+  SystemProfileProto_ComponentId_CROWD_DENY = 31,
+  SystemProfileProto_ComponentId_APP_PROVISIONING = 32,
+  SystemProfileProto_ComponentId_AUTOFILL_STATES = 33,
+  SystemProfileProto_ComponentId_CLIENT_SIDE_PHISHING = 34,
+  SystemProfileProto_ComponentId_COMMERCE_HEURISTICS = 35,
+  SystemProfileProto_ComponentId_CROW_DOMAIN_LIST = 36,
+  SystemProfileProto_ComponentId_DEMO_MODE_APP = 37,
+  SystemProfileProto_ComponentId_DESKTOP_SCREENSHOT_EDITOR = 38,
+  SystemProfileProto_ComponentId_DESKTOP_SHARING_HUB = 39,
+  SystemProfileProto_ComponentId_FIRST_PARTY_SETS = 40,
+  SystemProfileProto_ComponentId_HYPHENATION = 41,
+  SystemProfileProto_ComponentId_INTERVENTION_POLICY_DATABASE = 42,
+  SystemProfileProto_ComponentId_LACROS_DOGFOOD_BETA = 43,
+  SystemProfileProto_ComponentId_LACROS_DOGFOOD_CANARY = 44,
+  SystemProfileProto_ComponentId_LACROS_DOGFOOD_DEV = 45,
+  SystemProfileProto_ComponentId_LACROS_DOGFOOD_STABLE = 46,
+  SystemProfileProto_ComponentId_MEI_PRELOAD = 47,
+  SystemProfileProto_ComponentId_PKI_METADATA = 48,
+  SystemProfileProto_ComponentId_REAL_TIME_URL_CHECKS_ALLOWLIST = 49,
+  SystemProfileProto_ComponentId_RECOVERY_IMPROVED = 50,
+  SystemProfileProto_ComponentId_SAFETY_TIPS = 51,
+  SystemProfileProto_ComponentId_SCREEN_AI = 52,
+  SystemProfileProto_ComponentId_SMART_DIM = 53,
+  SystemProfileProto_ComponentId_SODA = 54,
+  SystemProfileProto_ComponentId_SODA_DE_DE = 55,
+  SystemProfileProto_ComponentId_SODA_EN_US = 56,
+  SystemProfileProto_ComponentId_SODA_ES_ES = 57,
+  SystemProfileProto_ComponentId_SODA_FR_FR = 58,
+  SystemProfileProto_ComponentId_SODA_IT_IT = 59,
+  SystemProfileProto_ComponentId_SODA_JA_JP = 60,
+  SystemProfileProto_ComponentId_THIRD_PARTY_MODULE_LIST = 61,
+  SystemProfileProto_ComponentId_TRUST_TOKEN_KEY_COMMITMENTS = 62
 };
 bool SystemProfileProto_ComponentId_IsValid(int value);
 constexpr SystemProfileProto_ComponentId SystemProfileProto_ComponentId_ComponentId_MIN = SystemProfileProto_ComponentId_UNKNOWN;
-constexpr SystemProfileProto_ComponentId SystemProfileProto_ComponentId_ComponentId_MAX = SystemProfileProto_ComponentId_CROWD_DENY;
+constexpr SystemProfileProto_ComponentId SystemProfileProto_ComponentId_ComponentId_MAX = SystemProfileProto_ComponentId_TRUST_TOKEN_KEY_COMMITMENTS;
 constexpr int SystemProfileProto_ComponentId_ComponentId_ARRAYSIZE = SystemProfileProto_ComponentId_ComponentId_MAX + 1;
 
 const std::string& SystemProfileProto_ComponentId_Name(SystemProfileProto_ComponentId value);
@@ -6935,6 +6966,68 @@ class SystemProfileProto final :
     SystemProfileProto_ComponentId_MEDIA_FOUNDATION_WIDEVINE_CDM;
   static constexpr ComponentId CROWD_DENY =
     SystemProfileProto_ComponentId_CROWD_DENY;
+  static constexpr ComponentId APP_PROVISIONING =
+    SystemProfileProto_ComponentId_APP_PROVISIONING;
+  static constexpr ComponentId AUTOFILL_STATES =
+    SystemProfileProto_ComponentId_AUTOFILL_STATES;
+  static constexpr ComponentId CLIENT_SIDE_PHISHING =
+    SystemProfileProto_ComponentId_CLIENT_SIDE_PHISHING;
+  static constexpr ComponentId COMMERCE_HEURISTICS =
+    SystemProfileProto_ComponentId_COMMERCE_HEURISTICS;
+  static constexpr ComponentId CROW_DOMAIN_LIST =
+    SystemProfileProto_ComponentId_CROW_DOMAIN_LIST;
+  static constexpr ComponentId DEMO_MODE_APP =
+    SystemProfileProto_ComponentId_DEMO_MODE_APP;
+  static constexpr ComponentId DESKTOP_SCREENSHOT_EDITOR =
+    SystemProfileProto_ComponentId_DESKTOP_SCREENSHOT_EDITOR;
+  static constexpr ComponentId DESKTOP_SHARING_HUB =
+    SystemProfileProto_ComponentId_DESKTOP_SHARING_HUB;
+  static constexpr ComponentId FIRST_PARTY_SETS =
+    SystemProfileProto_ComponentId_FIRST_PARTY_SETS;
+  static constexpr ComponentId HYPHENATION =
+    SystemProfileProto_ComponentId_HYPHENATION;
+  static constexpr ComponentId INTERVENTION_POLICY_DATABASE =
+    SystemProfileProto_ComponentId_INTERVENTION_POLICY_DATABASE;
+  static constexpr ComponentId LACROS_DOGFOOD_BETA =
+    SystemProfileProto_ComponentId_LACROS_DOGFOOD_BETA;
+  static constexpr ComponentId LACROS_DOGFOOD_CANARY =
+    SystemProfileProto_ComponentId_LACROS_DOGFOOD_CANARY;
+  static constexpr ComponentId LACROS_DOGFOOD_DEV =
+    SystemProfileProto_ComponentId_LACROS_DOGFOOD_DEV;
+  static constexpr ComponentId LACROS_DOGFOOD_STABLE =
+    SystemProfileProto_ComponentId_LACROS_DOGFOOD_STABLE;
+  static constexpr ComponentId MEI_PRELOAD =
+    SystemProfileProto_ComponentId_MEI_PRELOAD;
+  static constexpr ComponentId PKI_METADATA =
+    SystemProfileProto_ComponentId_PKI_METADATA;
+  static constexpr ComponentId REAL_TIME_URL_CHECKS_ALLOWLIST =
+    SystemProfileProto_ComponentId_REAL_TIME_URL_CHECKS_ALLOWLIST;
+  static constexpr ComponentId RECOVERY_IMPROVED =
+    SystemProfileProto_ComponentId_RECOVERY_IMPROVED;
+  static constexpr ComponentId SAFETY_TIPS =
+    SystemProfileProto_ComponentId_SAFETY_TIPS;
+  static constexpr ComponentId SCREEN_AI =
+    SystemProfileProto_ComponentId_SCREEN_AI;
+  static constexpr ComponentId SMART_DIM =
+    SystemProfileProto_ComponentId_SMART_DIM;
+  static constexpr ComponentId SODA =
+    SystemProfileProto_ComponentId_SODA;
+  static constexpr ComponentId SODA_DE_DE =
+    SystemProfileProto_ComponentId_SODA_DE_DE;
+  static constexpr ComponentId SODA_EN_US =
+    SystemProfileProto_ComponentId_SODA_EN_US;
+  static constexpr ComponentId SODA_ES_ES =
+    SystemProfileProto_ComponentId_SODA_ES_ES;
+  static constexpr ComponentId SODA_FR_FR =
+    SystemProfileProto_ComponentId_SODA_FR_FR;
+  static constexpr ComponentId SODA_IT_IT =
+    SystemProfileProto_ComponentId_SODA_IT_IT;
+  static constexpr ComponentId SODA_JA_JP =
+    SystemProfileProto_ComponentId_SODA_JA_JP;
+  static constexpr ComponentId THIRD_PARTY_MODULE_LIST =
+    SystemProfileProto_ComponentId_THIRD_PARTY_MODULE_LIST;
+  static constexpr ComponentId TRUST_TOKEN_KEY_COMMITMENTS =
+    SystemProfileProto_ComponentId_TRUST_TOKEN_KEY_COMMITMENTS;
   static inline bool ComponentId_IsValid(int value) {
     return SystemProfileProto_ComponentId_IsValid(value);
   }

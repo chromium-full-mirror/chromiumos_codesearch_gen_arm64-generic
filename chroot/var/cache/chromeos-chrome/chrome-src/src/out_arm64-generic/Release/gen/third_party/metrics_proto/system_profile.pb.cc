@@ -2159,41 +2159,103 @@ bool SystemProfileProto_ComponentId_IsValid(int value) {
     case 29:
     case 30:
     case 31:
+    case 32:
+    case 33:
+    case 34:
+    case 35:
+    case 36:
+    case 37:
+    case 38:
+    case 39:
+    case 40:
+    case 41:
+    case 42:
+    case 43:
+    case 44:
+    case 45:
+    case 46:
+    case 47:
+    case 48:
+    case 49:
+    case 50:
+    case 51:
+    case 52:
+    case 53:
+    case 54:
+    case 55:
+    case 56:
+    case 57:
+    case 58:
+    case 59:
+    case 60:
+    case 61:
+    case 62:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemProfileProto_ComponentId_strings[31] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemProfileProto_ComponentId_strings[62] = {};
 
 static const char SystemProfileProto_ComponentId_names[] =
+  "APP_PROVISIONING"
   "AUTOFILL_REGEX_CONSTANTS"
+  "AUTOFILL_STATES"
   "CELLULAR"
+  "CLIENT_SIDE_PHISHING"
+  "COMMERCE_HEURISTICS"
   "CRL_SET"
   "CROS_SMART_DIM"
   "CROS_TERMINA"
   "CROWD_DENY"
+  "CROW_DOMAIN_LIST"
+  "DEMO_MODE_APP"
   "DEMO_MODE_RESOURCES"
+  "DESKTOP_SCREENSHOT_EDITOR"
+  "DESKTOP_SHARING_HUB"
   "DOWNLOADABLE_STRINGS"
   "EPSON_INKJET_PRINTER_ESCPR"
   "FILE_TYPE_POLICIES"
+  "FIRST_PARTY_SETS"
+  "HYPHENATION"
+  "INTERVENTION_POLICY_DATABASE"
+  "LACROS_DOGFOOD_BETA"
+  "LACROS_DOGFOOD_CANARY"
+  "LACROS_DOGFOOD_DEV"
+  "LACROS_DOGFOOD_STABLE"
   "MEDIA_FOUNDATION_WIDEVINE_CDM"
+  "MEI_PRELOAD"
   "ON_DEVICE_HEAD_SUGGEST"
   "OPTIMIZATION_HINTS"
   "ORIGIN_TRIALS"
   "PEPPER_FLASH"
   "PEPPER_FLASH_CHROMEOS"
+  "PKI_METADATA"
   "PNACL"
+  "REAL_TIME_URL_CHECKS_ALLOWLIST"
   "RECOVERY"
+  "RECOVERY_IMPROVED"
   "RTANALYTICS_FULL"
   "RTANALYTICS_LIGHT"
+  "SAFETY_TIPS"
+  "SCREEN_AI"
+  "SMART_DIM"
+  "SODA"
+  "SODA_DE_DE"
+  "SODA_EN_US"
+  "SODA_ES_ES"
+  "SODA_FR_FR"
+  "SODA_IT_IT"
+  "SODA_JA_JP"
   "SPEECH_SYNTHESIS_SV_SE"
   "SSL_ERROR_ASSISTANT"
   "STAR_CUPS_DRIVER"
   "STH_SET"
   "SUBRESOURCE_FILTER"
   "SW_REPORTER"
+  "THIRD_PARTY_MODULE_LIST"
+  "TRUST_TOKEN_KEY_COMMITMENTS"
   "UNKNOWN"
   "VR_ASSETS"
   "WEBVIEW_APPS_PACKAGE_NAMES_ALLOWLIST"
@@ -2201,71 +2263,133 @@ static const char SystemProfileProto_ComponentId_names[] =
   "ZXCVBN_DATA";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SystemProfileProto_ComponentId_entries[] = {
-  { {SystemProfileProto_ComponentId_names + 0, 24}, 28 },
-  { {SystemProfileProto_ComponentId_names + 24, 8}, 23 },
-  { {SystemProfileProto_ComponentId_names + 32, 7}, 10 },
-  { {SystemProfileProto_ComponentId_names + 39, 14}, 26 },
-  { {SystemProfileProto_ComponentId_names + 53, 12}, 15 },
-  { {SystemProfileProto_ComponentId_names + 65, 10}, 31 },
-  { {SystemProfileProto_ComponentId_names + 75, 19}, 24 },
-  { {SystemProfileProto_ComponentId_names + 94, 20}, 19 },
-  { {SystemProfileProto_ComponentId_names + 114, 26}, 14 },
-  { {SystemProfileProto_ComponentId_names + 140, 18}, 2 },
-  { {SystemProfileProto_ComponentId_names + 158, 29}, 30 },
-  { {SystemProfileProto_ComponentId_names + 187, 22}, 25 },
-  { {SystemProfileProto_ComponentId_names + 209, 18}, 18 },
-  { {SystemProfileProto_ComponentId_names + 227, 13}, 3 },
-  { {SystemProfileProto_ComponentId_names + 240, 12}, 4 },
-  { {SystemProfileProto_ComponentId_names + 252, 21}, 5 },
-  { {SystemProfileProto_ComponentId_names + 273, 5}, 6 },
-  { {SystemProfileProto_ComponentId_names + 278, 8}, 7 },
-  { {SystemProfileProto_ComponentId_names + 286, 16}, 22 },
-  { {SystemProfileProto_ComponentId_names + 302, 17}, 21 },
-  { {SystemProfileProto_ComponentId_names + 319, 22}, 17 },
-  { {SystemProfileProto_ComponentId_names + 341, 19}, 8 },
-  { {SystemProfileProto_ComponentId_names + 360, 16}, 16 },
-  { {SystemProfileProto_ComponentId_names + 376, 7}, 9 },
-  { {SystemProfileProto_ComponentId_names + 383, 18}, 11 },
-  { {SystemProfileProto_ComponentId_names + 401, 11}, 12 },
-  { {SystemProfileProto_ComponentId_names + 412, 7}, 1 },
-  { {SystemProfileProto_ComponentId_names + 419, 9}, 20 },
-  { {SystemProfileProto_ComponentId_names + 428, 36}, 29 },
-  { {SystemProfileProto_ComponentId_names + 464, 12}, 13 },
-  { {SystemProfileProto_ComponentId_names + 476, 11}, 27 },
+  { {SystemProfileProto_ComponentId_names + 0, 16}, 32 },
+  { {SystemProfileProto_ComponentId_names + 16, 24}, 28 },
+  { {SystemProfileProto_ComponentId_names + 40, 15}, 33 },
+  { {SystemProfileProto_ComponentId_names + 55, 8}, 23 },
+  { {SystemProfileProto_ComponentId_names + 63, 20}, 34 },
+  { {SystemProfileProto_ComponentId_names + 83, 19}, 35 },
+  { {SystemProfileProto_ComponentId_names + 102, 7}, 10 },
+  { {SystemProfileProto_ComponentId_names + 109, 14}, 26 },
+  { {SystemProfileProto_ComponentId_names + 123, 12}, 15 },
+  { {SystemProfileProto_ComponentId_names + 135, 10}, 31 },
+  { {SystemProfileProto_ComponentId_names + 145, 16}, 36 },
+  { {SystemProfileProto_ComponentId_names + 161, 13}, 37 },
+  { {SystemProfileProto_ComponentId_names + 174, 19}, 24 },
+  { {SystemProfileProto_ComponentId_names + 193, 25}, 38 },
+  { {SystemProfileProto_ComponentId_names + 218, 19}, 39 },
+  { {SystemProfileProto_ComponentId_names + 237, 20}, 19 },
+  { {SystemProfileProto_ComponentId_names + 257, 26}, 14 },
+  { {SystemProfileProto_ComponentId_names + 283, 18}, 2 },
+  { {SystemProfileProto_ComponentId_names + 301, 16}, 40 },
+  { {SystemProfileProto_ComponentId_names + 317, 11}, 41 },
+  { {SystemProfileProto_ComponentId_names + 328, 28}, 42 },
+  { {SystemProfileProto_ComponentId_names + 356, 19}, 43 },
+  { {SystemProfileProto_ComponentId_names + 375, 21}, 44 },
+  { {SystemProfileProto_ComponentId_names + 396, 18}, 45 },
+  { {SystemProfileProto_ComponentId_names + 414, 21}, 46 },
+  { {SystemProfileProto_ComponentId_names + 435, 29}, 30 },
+  { {SystemProfileProto_ComponentId_names + 464, 11}, 47 },
+  { {SystemProfileProto_ComponentId_names + 475, 22}, 25 },
+  { {SystemProfileProto_ComponentId_names + 497, 18}, 18 },
+  { {SystemProfileProto_ComponentId_names + 515, 13}, 3 },
+  { {SystemProfileProto_ComponentId_names + 528, 12}, 4 },
+  { {SystemProfileProto_ComponentId_names + 540, 21}, 5 },
+  { {SystemProfileProto_ComponentId_names + 561, 12}, 48 },
+  { {SystemProfileProto_ComponentId_names + 573, 5}, 6 },
+  { {SystemProfileProto_ComponentId_names + 578, 30}, 49 },
+  { {SystemProfileProto_ComponentId_names + 608, 8}, 7 },
+  { {SystemProfileProto_ComponentId_names + 616, 17}, 50 },
+  { {SystemProfileProto_ComponentId_names + 633, 16}, 22 },
+  { {SystemProfileProto_ComponentId_names + 649, 17}, 21 },
+  { {SystemProfileProto_ComponentId_names + 666, 11}, 51 },
+  { {SystemProfileProto_ComponentId_names + 677, 9}, 52 },
+  { {SystemProfileProto_ComponentId_names + 686, 9}, 53 },
+  { {SystemProfileProto_ComponentId_names + 695, 4}, 54 },
+  { {SystemProfileProto_ComponentId_names + 699, 10}, 55 },
+  { {SystemProfileProto_ComponentId_names + 709, 10}, 56 },
+  { {SystemProfileProto_ComponentId_names + 719, 10}, 57 },
+  { {SystemProfileProto_ComponentId_names + 729, 10}, 58 },
+  { {SystemProfileProto_ComponentId_names + 739, 10}, 59 },
+  { {SystemProfileProto_ComponentId_names + 749, 10}, 60 },
+  { {SystemProfileProto_ComponentId_names + 759, 22}, 17 },
+  { {SystemProfileProto_ComponentId_names + 781, 19}, 8 },
+  { {SystemProfileProto_ComponentId_names + 800, 16}, 16 },
+  { {SystemProfileProto_ComponentId_names + 816, 7}, 9 },
+  { {SystemProfileProto_ComponentId_names + 823, 18}, 11 },
+  { {SystemProfileProto_ComponentId_names + 841, 11}, 12 },
+  { {SystemProfileProto_ComponentId_names + 852, 23}, 61 },
+  { {SystemProfileProto_ComponentId_names + 875, 27}, 62 },
+  { {SystemProfileProto_ComponentId_names + 902, 7}, 1 },
+  { {SystemProfileProto_ComponentId_names + 909, 9}, 20 },
+  { {SystemProfileProto_ComponentId_names + 918, 36}, 29 },
+  { {SystemProfileProto_ComponentId_names + 954, 12}, 13 },
+  { {SystemProfileProto_ComponentId_names + 966, 11}, 27 },
 };
 
 static const int SystemProfileProto_ComponentId_entries_by_number[] = {
-  26, // 1 -> UNKNOWN
-  9, // 2 -> FILE_TYPE_POLICIES
-  13, // 3 -> ORIGIN_TRIALS
-  14, // 4 -> PEPPER_FLASH
-  15, // 5 -> PEPPER_FLASH_CHROMEOS
-  16, // 6 -> PNACL
-  17, // 7 -> RECOVERY
-  21, // 8 -> SSL_ERROR_ASSISTANT
-  23, // 9 -> STH_SET
-  2, // 10 -> CRL_SET
-  24, // 11 -> SUBRESOURCE_FILTER
-  25, // 12 -> SW_REPORTER
-  29, // 13 -> WIDEVINE_CDM
-  8, // 14 -> EPSON_INKJET_PRINTER_ESCPR
-  4, // 15 -> CROS_TERMINA
-  22, // 16 -> STAR_CUPS_DRIVER
-  20, // 17 -> SPEECH_SYNTHESIS_SV_SE
-  12, // 18 -> OPTIMIZATION_HINTS
-  7, // 19 -> DOWNLOADABLE_STRINGS
-  27, // 20 -> VR_ASSETS
-  19, // 21 -> RTANALYTICS_LIGHT
-  18, // 22 -> RTANALYTICS_FULL
-  1, // 23 -> CELLULAR
-  6, // 24 -> DEMO_MODE_RESOURCES
-  11, // 25 -> ON_DEVICE_HEAD_SUGGEST
-  3, // 26 -> CROS_SMART_DIM
-  30, // 27 -> ZXCVBN_DATA
-  0, // 28 -> AUTOFILL_REGEX_CONSTANTS
-  28, // 29 -> WEBVIEW_APPS_PACKAGE_NAMES_ALLOWLIST
-  10, // 30 -> MEDIA_FOUNDATION_WIDEVINE_CDM
-  5, // 31 -> CROWD_DENY
+  57, // 1 -> UNKNOWN
+  17, // 2 -> FILE_TYPE_POLICIES
+  29, // 3 -> ORIGIN_TRIALS
+  30, // 4 -> PEPPER_FLASH
+  31, // 5 -> PEPPER_FLASH_CHROMEOS
+  33, // 6 -> PNACL
+  35, // 7 -> RECOVERY
+  50, // 8 -> SSL_ERROR_ASSISTANT
+  52, // 9 -> STH_SET
+  6, // 10 -> CRL_SET
+  53, // 11 -> SUBRESOURCE_FILTER
+  54, // 12 -> SW_REPORTER
+  60, // 13 -> WIDEVINE_CDM
+  16, // 14 -> EPSON_INKJET_PRINTER_ESCPR
+  8, // 15 -> CROS_TERMINA
+  51, // 16 -> STAR_CUPS_DRIVER
+  49, // 17 -> SPEECH_SYNTHESIS_SV_SE
+  28, // 18 -> OPTIMIZATION_HINTS
+  15, // 19 -> DOWNLOADABLE_STRINGS
+  58, // 20 -> VR_ASSETS
+  38, // 21 -> RTANALYTICS_LIGHT
+  37, // 22 -> RTANALYTICS_FULL
+  3, // 23 -> CELLULAR
+  12, // 24 -> DEMO_MODE_RESOURCES
+  27, // 25 -> ON_DEVICE_HEAD_SUGGEST
+  7, // 26 -> CROS_SMART_DIM
+  61, // 27 -> ZXCVBN_DATA
+  1, // 28 -> AUTOFILL_REGEX_CONSTANTS
+  59, // 29 -> WEBVIEW_APPS_PACKAGE_NAMES_ALLOWLIST
+  25, // 30 -> MEDIA_FOUNDATION_WIDEVINE_CDM
+  9, // 31 -> CROWD_DENY
+  0, // 32 -> APP_PROVISIONING
+  2, // 33 -> AUTOFILL_STATES
+  4, // 34 -> CLIENT_SIDE_PHISHING
+  5, // 35 -> COMMERCE_HEURISTICS
+  10, // 36 -> CROW_DOMAIN_LIST
+  11, // 37 -> DEMO_MODE_APP
+  13, // 38 -> DESKTOP_SCREENSHOT_EDITOR
+  14, // 39 -> DESKTOP_SHARING_HUB
+  18, // 40 -> FIRST_PARTY_SETS
+  19, // 41 -> HYPHENATION
+  20, // 42 -> INTERVENTION_POLICY_DATABASE
+  21, // 43 -> LACROS_DOGFOOD_BETA
+  22, // 44 -> LACROS_DOGFOOD_CANARY
+  23, // 45 -> LACROS_DOGFOOD_DEV
+  24, // 46 -> LACROS_DOGFOOD_STABLE
+  26, // 47 -> MEI_PRELOAD
+  32, // 48 -> PKI_METADATA
+  34, // 49 -> REAL_TIME_URL_CHECKS_ALLOWLIST
+  36, // 50 -> RECOVERY_IMPROVED
+  39, // 51 -> SAFETY_TIPS
+  40, // 52 -> SCREEN_AI
+  41, // 53 -> SMART_DIM
+  42, // 54 -> SODA
+  43, // 55 -> SODA_DE_DE
+  44, // 56 -> SODA_EN_US
+  45, // 57 -> SODA_ES_ES
+  46, // 58 -> SODA_FR_FR
+  47, // 59 -> SODA_IT_IT
+  48, // 60 -> SODA_JA_JP
+  55, // 61 -> THIRD_PARTY_MODULE_LIST
+  56, // 62 -> TRUST_TOKEN_KEY_COMMITMENTS
 };
 
 const std::string& SystemProfileProto_ComponentId_Name(
@@ -2274,12 +2398,12 @@ const std::string& SystemProfileProto_ComponentId_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           SystemProfileProto_ComponentId_entries,
           SystemProfileProto_ComponentId_entries_by_number,
-          31, SystemProfileProto_ComponentId_strings);
+          62, SystemProfileProto_ComponentId_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       SystemProfileProto_ComponentId_entries,
       SystemProfileProto_ComponentId_entries_by_number,
-      31, value);
+      62, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      SystemProfileProto_ComponentId_strings[idx].get();
 }
@@ -2287,7 +2411,7 @@ bool SystemProfileProto_ComponentId_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_ComponentId* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      SystemProfileProto_ComponentId_entries, 31, name, &int_value);
+      SystemProfileProto_ComponentId_entries, 62, name, &int_value);
   if (success) {
     *value = static_cast<SystemProfileProto_ComponentId>(int_value);
   }
@@ -2325,6 +2449,37 @@ constexpr SystemProfileProto_ComponentId SystemProfileProto::AUTOFILL_REGEX_CONS
 constexpr SystemProfileProto_ComponentId SystemProfileProto::WEBVIEW_APPS_PACKAGE_NAMES_ALLOWLIST;
 constexpr SystemProfileProto_ComponentId SystemProfileProto::MEDIA_FOUNDATION_WIDEVINE_CDM;
 constexpr SystemProfileProto_ComponentId SystemProfileProto::CROWD_DENY;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::APP_PROVISIONING;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::AUTOFILL_STATES;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::CLIENT_SIDE_PHISHING;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::COMMERCE_HEURISTICS;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::CROW_DOMAIN_LIST;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::DEMO_MODE_APP;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::DESKTOP_SCREENSHOT_EDITOR;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::DESKTOP_SHARING_HUB;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::FIRST_PARTY_SETS;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::HYPHENATION;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::INTERVENTION_POLICY_DATABASE;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::LACROS_DOGFOOD_BETA;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::LACROS_DOGFOOD_CANARY;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::LACROS_DOGFOOD_DEV;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::LACROS_DOGFOOD_STABLE;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::MEI_PRELOAD;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::PKI_METADATA;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::REAL_TIME_URL_CHECKS_ALLOWLIST;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::RECOVERY_IMPROVED;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::SAFETY_TIPS;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::SCREEN_AI;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::SMART_DIM;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::SODA;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::SODA_DE_DE;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::SODA_EN_US;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::SODA_ES_ES;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::SODA_FR_FR;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::SODA_IT_IT;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::SODA_JA_JP;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::THIRD_PARTY_MODULE_LIST;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::TRUST_TOKEN_KEY_COMMITMENTS;
 constexpr SystemProfileProto_ComponentId SystemProfileProto::ComponentId_MIN;
 constexpr SystemProfileProto_ComponentId SystemProfileProto::ComponentId_MAX;
 constexpr int SystemProfileProto::ComponentId_ARRAYSIZE;
