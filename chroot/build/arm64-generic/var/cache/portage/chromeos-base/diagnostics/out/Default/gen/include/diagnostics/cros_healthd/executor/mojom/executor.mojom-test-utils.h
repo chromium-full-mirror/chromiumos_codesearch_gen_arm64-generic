@@ -17,6 +17,9 @@ namespace mojom {
 
 class  ProcessControlInterceptorForTesting : public ProcessControl {
   virtual ProcessControl* GetForwardingInterface() = 0;
+  void GetStdout(GetStdoutCallback callback) override;
+  void GetStderr(GetStderrCallback callback) override;
+  void GetReturnCode(GetReturnCodeCallback callback) override;
 };
 class  ProcessControlAsyncWaiter {
  public:
@@ -26,6 +29,15 @@ class  ProcessControlAsyncWaiter {
   ProcessControlAsyncWaiter& operator=(const ProcessControlAsyncWaiter&) = delete;
 
   ~ProcessControlAsyncWaiter();
+  void GetStdout(
+      ::mojo::ScopedHandle* out_stdout);
+  ::mojo::ScopedHandle GetStdout();
+  void GetStderr(
+      ::mojo::ScopedHandle* out_stderr);
+  ::mojo::ScopedHandle GetStderr();
+  void GetReturnCode(
+      int32_t* out_return_code);
+  int32_t GetReturnCode();
 
  private:
   ProcessControl* const proxy_;
@@ -59,6 +71,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void GetInfo(const std::string& interface_name, GetInfoCallback callback) override;
   void GetScanDump(const std::string& interface_name, GetScanDumpCallback callback) override;
   void RunMemtester(uint32_t test_mem_kib, RunMemtesterCallback callback) override;
+  void RunMemtesterV2(uint32_t test_mem_kib, ::mojo::PendingReceiver<ProcessControl> receiver) override;
   void KillMemtester() override;
   void GetProcessIOContents(const std::vector<uint32_t>& pids, GetProcessIOContentsCallback callback) override;
   void ReadMsr(uint32_t msr_reg, uint32_t cpu_index, ReadMsrCallback callback) override;

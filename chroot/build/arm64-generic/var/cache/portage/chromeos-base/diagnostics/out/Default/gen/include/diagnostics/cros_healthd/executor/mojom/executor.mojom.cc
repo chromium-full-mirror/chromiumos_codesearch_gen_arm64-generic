@@ -196,6 +196,17 @@ const char ProcessControl::Name_[] = "ash.cros_healthd.mojom.ProcessControl";
 
 ProcessControl::IPCStableHashFunction ProcessControl::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kProcessControl_GetStdout_Name: {
+      return &ProcessControl::GetStdout_Sym::IPCStableHash;
+    }
+    case internal::kProcessControl_GetStderr_Name: {
+      return &ProcessControl::GetStderr_Sym::IPCStableHash;
+    }
+    case internal::kProcessControl_GetReturnCode_Name: {
+      return &ProcessControl::GetReturnCode_Sym::IPCStableHash;
+    }
+  }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
 }
@@ -203,6 +214,26 @@ ProcessControl::IPCStableHashFunction ProcessControl::MessageToMethodInfo_(mojo:
 
 const char* ProcessControl::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kProcessControl_GetStdout_Name:
+            return "Receive ash::cros_healthd::mojom::ProcessControl::GetStdout";
+      case internal::kProcessControl_GetStderr_Name:
+            return "Receive ash::cros_healthd::mojom::ProcessControl::GetStderr";
+      case internal::kProcessControl_GetReturnCode_Name:
+            return "Receive ash::cros_healthd::mojom::ProcessControl::GetReturnCode";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kProcessControl_GetStdout_Name:
+            return "Receive reply ash::cros_healthd::mojom::ProcessControl::GetStdout";
+      case internal::kProcessControl_GetStderr_Name:
+            return "Receive reply ash::cros_healthd::mojom::ProcessControl::GetStderr";
+      case internal::kProcessControl_GetReturnCode_Name:
+            return "Receive reply ash::cros_healthd::mojom::ProcessControl::GetReturnCode";
+    }
+  }
   return "Receive unknown mojo message";
 #else
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
@@ -215,16 +246,559 @@ const char* ProcessControl::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
+uint32_t ProcessControl::GetStdout_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::ProcessControl::GetStdout");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t ProcessControl::GetStderr_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::ProcessControl::GetStderr");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t ProcessControl::GetReturnCode_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::ProcessControl::GetReturnCode");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
+
+class ProcessControl_GetStdout_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  ProcessControl_GetStdout_ForwardToCallback(
+      ProcessControl::GetStdoutCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  ProcessControl_GetStdout_ForwardToCallback(const ProcessControl_GetStdout_ForwardToCallback&) = delete;
+  ProcessControl_GetStdout_ForwardToCallback& operator=(const ProcessControl_GetStdout_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  ProcessControl::GetStdoutCallback callback_;
+};
+
+class ProcessControl_GetStderr_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  ProcessControl_GetStderr_ForwardToCallback(
+      ProcessControl::GetStderrCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  ProcessControl_GetStderr_ForwardToCallback(const ProcessControl_GetStderr_ForwardToCallback&) = delete;
+  ProcessControl_GetStderr_ForwardToCallback& operator=(const ProcessControl_GetStderr_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  ProcessControl::GetStderrCallback callback_;
+};
+
+class ProcessControl_GetReturnCode_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  ProcessControl_GetReturnCode_ForwardToCallback(
+      ProcessControl::GetReturnCodeCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  ProcessControl_GetReturnCode_ForwardToCallback(const ProcessControl_GetReturnCode_ForwardToCallback&) = delete;
+  ProcessControl_GetReturnCode_ForwardToCallback& operator=(const ProcessControl_GetReturnCode_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  ProcessControl::GetReturnCodeCallback callback_;
+};
 
 ProcessControlProxy::ProcessControlProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
+}
+
+void ProcessControlProxy::GetStdout(
+    GetStdoutCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::ProcessControl::GetStdout");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kProcessControl_GetStdout_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::ProcessControl_GetStdout_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ProcessControl::Name_);
+  message.set_method_name("GetStdout");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new ProcessControl_GetStdout_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ProcessControlProxy::GetStderr(
+    GetStderrCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::ProcessControl::GetStderr");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kProcessControl_GetStderr_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::ProcessControl_GetStderr_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ProcessControl::Name_);
+  message.set_method_name("GetStderr");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new ProcessControl_GetStderr_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ProcessControlProxy::GetReturnCode(
+    GetReturnCodeCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::ProcessControl::GetReturnCode");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kProcessControl_GetReturnCode_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::ProcessControl_GetReturnCode_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ProcessControl::Name_);
+  message.set_method_name("GetReturnCode");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new ProcessControl_GetReturnCode_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+class ProcessControl_GetStdout_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static ProcessControl::GetStdoutCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<ProcessControl_GetStdout_ProxyToResponder> proxy(
+        new ProcessControl_GetStdout_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&ProcessControl_GetStdout_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~ProcessControl_GetStdout_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  ProcessControl_GetStdout_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "ProcessControl::GetStdoutCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::mojo::ScopedHandle in_stdout);
+};
+
+bool ProcessControl_GetStdout_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::ProcessControl_GetStdout_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::ProcessControl_GetStdout_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::mojo::ScopedHandle p_stdout = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+  ProcessControl_GetStdout_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_stdout = input_data_view.TakeStdout();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        ProcessControl::Name_, 0, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_stdout));
+  return true;
+}
+
+void ProcessControl_GetStdout_ProxyToResponder::Run(
+    ::mojo::ScopedHandle in_stdout) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::ProcessControl::GetStdout", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("stdout"), in_stdout,
+                        "<value of type ::mojo::ScopedHandle>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kProcessControl_GetStdout_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::ProcessControl_GetStdout_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::ScopedHandle>(
+      in_stdout, &params->stdout, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->stdout),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid stdout in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ProcessControl::Name_);
+  message.set_method_name("GetStdout");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class ProcessControl_GetStderr_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static ProcessControl::GetStderrCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<ProcessControl_GetStderr_ProxyToResponder> proxy(
+        new ProcessControl_GetStderr_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&ProcessControl_GetStderr_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~ProcessControl_GetStderr_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  ProcessControl_GetStderr_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "ProcessControl::GetStderrCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::mojo::ScopedHandle in_stderr);
+};
+
+bool ProcessControl_GetStderr_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::ProcessControl_GetStderr_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::ProcessControl_GetStderr_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::mojo::ScopedHandle p_stderr = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+  ProcessControl_GetStderr_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_stderr = input_data_view.TakeStderr();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        ProcessControl::Name_, 1, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_stderr));
+  return true;
+}
+
+void ProcessControl_GetStderr_ProxyToResponder::Run(
+    ::mojo::ScopedHandle in_stderr) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::ProcessControl::GetStderr", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("stderr"), in_stderr,
+                        "<value of type ::mojo::ScopedHandle>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kProcessControl_GetStderr_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::ProcessControl_GetStderr_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::ScopedHandle>(
+      in_stderr, &params->stderr, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->stderr),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid stderr in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ProcessControl::Name_);
+  message.set_method_name("GetStderr");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class ProcessControl_GetReturnCode_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static ProcessControl::GetReturnCodeCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<ProcessControl_GetReturnCode_ProxyToResponder> proxy(
+        new ProcessControl_GetReturnCode_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&ProcessControl_GetReturnCode_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~ProcessControl_GetReturnCode_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  ProcessControl_GetReturnCode_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "ProcessControl::GetReturnCodeCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      int32_t in_return_code);
+};
+
+bool ProcessControl_GetReturnCode_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::ProcessControl_GetReturnCode_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::ProcessControl_GetReturnCode_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  int32_t p_return_code = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  ProcessControl_GetReturnCode_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_return_code = input_data_view.return_code();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        ProcessControl::Name_, 2, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_return_code));
+  return true;
+}
+
+void ProcessControl_GetReturnCode_ProxyToResponder::Run(
+    int32_t in_return_code) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::ProcessControl::GetReturnCode", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("return_code"), in_return_code,
+                        "<value of type int32_t>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kProcessControl_GetReturnCode_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::ProcessControl_GetReturnCode_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->return_code = in_return_code;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ProcessControl::Name_);
+  message.set_method_name("GetReturnCode");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
 }
 
 // static
 bool ProcessControlStubDispatch::Accept(
     ProcessControl* impl,
     mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kProcessControl_GetStdout_Name: {
+      break;
+    }
+    case internal::kProcessControl_GetStderr_Name: {
+      break;
+    }
+    case internal::kProcessControl_GetReturnCode_Name: {
+      break;
+    }
+  }
   return false;
 }
 
@@ -233,16 +807,108 @@ bool ProcessControlStubDispatch::AcceptWithResponder(
     ProcessControl* impl,
     mojo::Message* message,
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kProcessControl_GetStdout_Name: {
+
+      internal::ProcessControl_GetStdout_Params_Data* params =
+          reinterpret_cast<
+              internal::ProcessControl_GetStdout_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ProcessControl_GetStdout_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ProcessControl::Name_, 0, false);
+        return false;
+      }
+      ProcessControl::GetStdoutCallback callback =
+          ProcessControl_GetStdout_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetStdout(std::move(callback));
+      return true;
+    }
+    case internal::kProcessControl_GetStderr_Name: {
+
+      internal::ProcessControl_GetStderr_Params_Data* params =
+          reinterpret_cast<
+              internal::ProcessControl_GetStderr_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ProcessControl_GetStderr_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ProcessControl::Name_, 1, false);
+        return false;
+      }
+      ProcessControl::GetStderrCallback callback =
+          ProcessControl_GetStderr_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetStderr(std::move(callback));
+      return true;
+    }
+    case internal::kProcessControl_GetReturnCode_Name: {
+
+      internal::ProcessControl_GetReturnCode_Params_Data* params =
+          reinterpret_cast<
+              internal::ProcessControl_GetReturnCode_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ProcessControl_GetReturnCode_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ProcessControl::Name_, 2, false);
+        return false;
+      }
+      ProcessControl::GetReturnCodeCallback callback =
+          ProcessControl_GetReturnCode_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetReturnCode(std::move(callback));
+      return true;
+    }
+  }
   return false;
 }
 
 
+static const mojo::internal::GenericValidationInfo kProcessControlValidationInfo[] = {
+    {&internal::ProcessControl_GetStdout_Params_Data::Validate,
+     &internal::ProcessControl_GetStdout_ResponseParams_Data::Validate},
+    {&internal::ProcessControl_GetStderr_Params_Data::Validate,
+     &internal::ProcessControl_GetStderr_ResponseParams_Data::Validate},
+    {&internal::ProcessControl_GetReturnCode_Params_Data::Validate,
+     &internal::ProcessControl_GetReturnCode_ResponseParams_Data::Validate},
+};
 
 bool ProcessControlRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::ash::cros_healthd::mojom::ProcessControl::Name_;
-  return mojo::internal::ValidateRequestGeneric(message, name, {});
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kProcessControlValidationInfo);
 }
 
+bool ProcessControlResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::ProcessControl::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kProcessControlValidationInfo);
+}
 const char AudioJackObserver::Name_[] = "ash.cros_healthd.mojom.AudioJackObserver";
 
 AudioJackObserver::IPCStableHashFunction AudioJackObserver::MessageToMethodInfo_(mojo::Message& message) {
@@ -490,6 +1156,9 @@ Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& me
     case internal::kExecutor_RunMemtester_Name: {
       return &Executor::RunMemtester_Sym::IPCStableHash;
     }
+    case internal::kExecutor_RunMemtesterV2_Name: {
+      return &Executor::RunMemtesterV2_Sym::IPCStableHash;
+    }
     case internal::kExecutor_KillMemtester_Name: {
       return &Executor::KillMemtester_Sym::IPCStableHash;
     }
@@ -549,6 +1218,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Executor::GetScanDump";
       case internal::kExecutor_RunMemtester_Name:
             return "Receive ash::cros_healthd::mojom::Executor::RunMemtester";
+      case internal::kExecutor_RunMemtesterV2_Name:
+            return "Receive ash::cros_healthd::mojom::Executor::RunMemtesterV2";
       case internal::kExecutor_KillMemtester_Name:
             return "Receive ash::cros_healthd::mojom::Executor::KillMemtester";
       case internal::kExecutor_GetProcessIOContents_Name:
@@ -588,6 +1259,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Executor::GetScanDump";
       case internal::kExecutor_RunMemtester_Name:
             return "Receive reply ash::cros_healthd::mojom::Executor::RunMemtester";
+      case internal::kExecutor_RunMemtesterV2_Name:
+            return "Receive reply ash::cros_healthd::mojom::Executor::RunMemtesterV2";
       case internal::kExecutor_KillMemtester_Name:
             return "Receive reply ash::cros_healthd::mojom::Executor::KillMemtester";
       case internal::kExecutor_GetProcessIOContents_Name:
@@ -700,6 +1373,19 @@ uint32_t Executor::RunMemtester_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::Executor::RunMemtester");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::RunMemtesterV2_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::RunMemtesterV2");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1368,6 +2054,53 @@ void ExecutorProxy::RunMemtester(
       new Executor_RunMemtester_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ExecutorProxy::RunMemtesterV2(
+    uint32_t in_test_mem_kib, ::mojo::PendingReceiver<ProcessControl> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Executor::RunMemtesterV2", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("test_mem_kib"), in_test_mem_kib,
+                        "<value of type uint32_t>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<ProcessControl>>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_RunMemtesterV2_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_RunMemtesterV2_Params_Data> params(
+          message);
+  params.Allocate();
+  params->test_mem_kib = in_test_mem_kib;
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in Executor.RunMemtesterV2 request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("RunMemtesterV2");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void ExecutorProxy::KillMemtester(
@@ -2633,7 +3366,7 @@ bool Executor_GetProcessIOContents_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 7, true);
+        Executor::Name_, 8, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2759,7 +3492,7 @@ bool Executor_ReadMsr_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 8, true);
+        Executor::Name_, 9, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2879,7 +3612,7 @@ bool Executor_GetUEFISecureBootContent_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 9, true);
+        Executor::Name_, 10, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3003,7 +3736,7 @@ bool Executor_GetUEFIPlatformSizeContent_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 10, true);
+        Executor::Name_, 11, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3127,7 +3860,7 @@ bool Executor_GetLidAngle_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 11, true);
+        Executor::Name_, 12, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3254,7 +3987,7 @@ bool Executor_GetFingerprintFrame_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 12, true);
+        Executor::Name_, 13, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3392,7 +4125,7 @@ bool Executor_GetFingerprintInfo_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 13, true);
+        Executor::Name_, 14, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3527,7 +4260,7 @@ bool Executor_SetLedColor_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 14, true);
+        Executor::Name_, 15, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3647,7 +4380,7 @@ bool Executor_ResetLedColor_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 15, true);
+        Executor::Name_, 16, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3767,7 +4500,7 @@ bool Executor_GetHciDeviceConfig_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 16, true);
+        Executor::Name_, 17, true);
     return false;
   }
   if (!callback_.is_null())
@@ -3851,6 +4584,38 @@ bool ExecutorStubDispatch::Accept(
     case internal::kExecutor_RunMemtester_Name: {
       break;
     }
+    case internal::kExecutor_RunMemtesterV2_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Executor_RunMemtesterV2_Params_Data* params =
+          reinterpret_cast<internal::Executor_RunMemtesterV2_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      uint32_t p_test_mem_kib = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      ::mojo::PendingReceiver<ProcessControl> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<ProcessControl>>();
+      Executor_RunMemtesterV2_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_test_mem_kib = input_data_view.test_mem_kib();
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 6, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunMemtesterV2(
+std::move(p_test_mem_kib), 
+std::move(p_receiver));
+      return true;
+    }
     case internal::kExecutor_KillMemtester_Name: {
 
       DCHECK(message->is_serialized());
@@ -3865,7 +4630,7 @@ bool ExecutorStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 6, false);
+            Executor::Name_, 7, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -3927,7 +4692,7 @@ bool ExecutorStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 17, false);
+            Executor::Name_, 18, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -4116,6 +4881,9 @@ std::move(p_interface_name), std::move(callback));
 std::move(p_test_mem_kib), std::move(callback));
       return true;
     }
+    case internal::kExecutor_RunMemtesterV2_Name: {
+      break;
+    }
     case internal::kExecutor_KillMemtester_Name: {
       break;
     }
@@ -4136,7 +4904,7 @@ std::move(p_test_mem_kib), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 7, false);
+            Executor::Name_, 8, false);
         return false;
       }
       Executor::GetProcessIOContentsCallback callback =
@@ -4168,7 +4936,7 @@ std::move(p_pids), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 8, false);
+            Executor::Name_, 9, false);
         return false;
       }
       Executor::ReadMsrCallback callback =
@@ -4195,7 +4963,7 @@ std::move(p_cpu_index), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 9, false);
+            Executor::Name_, 10, false);
         return false;
       }
       Executor::GetUEFISecureBootContentCallback callback =
@@ -4220,7 +4988,7 @@ std::move(p_cpu_index), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 10, false);
+            Executor::Name_, 11, false);
         return false;
       }
       Executor::GetUEFIPlatformSizeContentCallback callback =
@@ -4245,7 +5013,7 @@ std::move(p_cpu_index), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 11, false);
+            Executor::Name_, 12, false);
         return false;
       }
       Executor::GetLidAngleCallback callback =
@@ -4273,7 +5041,7 @@ std::move(p_cpu_index), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 12, false);
+            Executor::Name_, 13, false);
         return false;
       }
       Executor::GetFingerprintFrameCallback callback =
@@ -4299,7 +5067,7 @@ std::move(p_type), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 13, false);
+            Executor::Name_, 14, false);
         return false;
       }
       Executor::GetFingerprintInfoCallback callback =
@@ -4330,7 +5098,7 @@ std::move(p_type), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 14, false);
+            Executor::Name_, 15, false);
         return false;
       }
       Executor::SetLedColorCallback callback =
@@ -4360,7 +5128,7 @@ std::move(p_color), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 15, false);
+            Executor::Name_, 16, false);
         return false;
       }
       Executor::ResetLedColorCallback callback =
@@ -4386,7 +5154,7 @@ std::move(p_name), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 16, false);
+            Executor::Name_, 17, false);
         return false;
       }
       Executor::GetHciDeviceConfigCallback callback =
@@ -4418,6 +5186,8 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
      &internal::Executor_GetScanDump_ResponseParams_Data::Validate},
     {&internal::Executor_RunMemtester_Params_Data::Validate,
      &internal::Executor_RunMemtester_ResponseParams_Data::Validate},
+    {&internal::Executor_RunMemtesterV2_Params_Data::Validate,
+     nullptr /* no response */},
     {&internal::Executor_KillMemtester_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::Executor_GetProcessIOContents_Params_Data::Validate,
@@ -4524,10 +5294,88 @@ namespace cros_healthd {
 namespace mojom {
 
 
+void ProcessControlInterceptorForTesting::GetStdout(GetStdoutCallback callback) {
+  GetForwardingInterface()->GetStdout(std::move(callback));
+}
+void ProcessControlInterceptorForTesting::GetStderr(GetStderrCallback callback) {
+  GetForwardingInterface()->GetStderr(std::move(callback));
+}
+void ProcessControlInterceptorForTesting::GetReturnCode(GetReturnCodeCallback callback) {
+  GetForwardingInterface()->GetReturnCode(std::move(callback));
+}
 ProcessControlAsyncWaiter::ProcessControlAsyncWaiter(
     ProcessControl* proxy) : proxy_(proxy) {}
 
 ProcessControlAsyncWaiter::~ProcessControlAsyncWaiter() = default;
+
+void ProcessControlAsyncWaiter::GetStdout(
+    ::mojo::ScopedHandle* out_stdout) {
+  base::RunLoop loop;
+  proxy_->GetStdout(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::mojo::ScopedHandle* out_stdout
+,
+             ::mojo::ScopedHandle stdout) {*out_stdout = std::move(stdout);
+            loop->Quit();
+          },
+          &loop,
+          out_stdout));
+  loop.Run();
+}
+
+::mojo::ScopedHandle ProcessControlAsyncWaiter::GetStdout(
+    ) {
+  ::mojo::ScopedHandle async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+  GetStdout(&async_wait_result);
+  return async_wait_result;
+}
+
+void ProcessControlAsyncWaiter::GetStderr(
+    ::mojo::ScopedHandle* out_stderr) {
+  base::RunLoop loop;
+  proxy_->GetStderr(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::mojo::ScopedHandle* out_stderr
+,
+             ::mojo::ScopedHandle stderr) {*out_stderr = std::move(stderr);
+            loop->Quit();
+          },
+          &loop,
+          out_stderr));
+  loop.Run();
+}
+
+::mojo::ScopedHandle ProcessControlAsyncWaiter::GetStderr(
+    ) {
+  ::mojo::ScopedHandle async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+  GetStderr(&async_wait_result);
+  return async_wait_result;
+}
+
+void ProcessControlAsyncWaiter::GetReturnCode(
+    int32_t* out_return_code) {
+  base::RunLoop loop;
+  proxy_->GetReturnCode(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             int32_t* out_return_code
+,
+             int32_t return_code) {*out_return_code = std::move(return_code);
+            loop->Quit();
+          },
+          &loop,
+          out_return_code));
+  loop.Run();
+}
+
+int32_t ProcessControlAsyncWaiter::GetReturnCode(
+    ) {
+  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  GetReturnCode(&async_wait_result);
+  return async_wait_result;
+}
 
 
 
@@ -4563,6 +5411,9 @@ void ExecutorInterceptorForTesting::GetScanDump(const std::string& interface_nam
 }
 void ExecutorInterceptorForTesting::RunMemtester(uint32_t test_mem_kib, RunMemtesterCallback callback) {
   GetForwardingInterface()->RunMemtester(std::move(test_mem_kib), std::move(callback));
+}
+void ExecutorInterceptorForTesting::RunMemtesterV2(uint32_t test_mem_kib, ::mojo::PendingReceiver<ProcessControl> receiver) {
+  GetForwardingInterface()->RunMemtesterV2(std::move(test_mem_kib), std::move(receiver));
 }
 void ExecutorInterceptorForTesting::KillMemtester() {
   GetForwardingInterface()->KillMemtester();

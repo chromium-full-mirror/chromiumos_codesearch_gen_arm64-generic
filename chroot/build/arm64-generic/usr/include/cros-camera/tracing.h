@@ -32,12 +32,15 @@ void CROS_CAMERA_EXPORT InitializeCameraTrace();
 constexpr char kCameraTraceCategoryAutoFraming[] = "camera.auto_framing";
 constexpr char kCameraTraceCategoryCommon[] = "camera.common";
 constexpr char kCameraTraceCategoryFaceDetection[] = "camera.face_detection";
+constexpr char kCameraTraceCategoryFrameAnnotator[] = "camera.frame_annotator";
 constexpr char kCameraTraceCategoryGcamAe[] = "camera.gcam_ae";
 constexpr char kCameraTraceCategoryGpuDebug[] = "camera.gpu.debug";
 constexpr char kCameraTraceCategoryGpu[] = "camera.gpu";
 constexpr char kCameraTraceCategoryHalAdapter[] = "camera.hal_adapter";
 constexpr char kCameraTraceCategoryHdrnetDebug[] = "camera.hdrnet.debug";
 constexpr char kCameraTraceCategoryHdrnet[] = "camera.hdrnet";
+constexpr char kCameraTraceCategoryJpegDebug[] = "camera.jpeg.debug";
+constexpr char kCameraTraceCategoryJpeg[] = "camera.jpeg";
 constexpr char kCameraTraceCategoryUsbHal[] = "camera.usb_hal";
 constexpr char kCameraTraceCategoryZsl[] = "camera.zsl";
 
@@ -68,6 +71,8 @@ PERFETTO_DEFINE_CATEGORIES(
         .SetDescription("Events from common CrOS Camera library"),
     perfetto::Category(cros::kCameraTraceCategoryFaceDetection)
         .SetDescription("Events from CrOS Face Detection"),
+    perfetto::Category(cros::kCameraTraceCategoryFrameAnnotator)
+        .SetDescription("Events from CrOS Camera frame annotator"),
     perfetto::Category(cros::kCameraTraceCategoryGcamAe)
         .SetDescription("Events from CrOS Gcam AE pipeline"),
     perfetto::Category(cros::kCameraTraceCategoryGpuDebug)
@@ -82,6 +87,11 @@ PERFETTO_DEFINE_CATEGORIES(
         .SetTags("debug"),
     perfetto::Category(cros::kCameraTraceCategoryHdrnet)
         .SetDescription("Events from CrOS HDRnet pipeline"),
+    perfetto::Category(cros::kCameraTraceCategoryJpegDebug)
+        .SetDescription("Events from CrOS JPEG codec (debug)")
+        .SetTags("debug"),
+    perfetto::Category(cros::kCameraTraceCategoryJpeg)
+        .SetDescription("Events from CrOS JPEG codec"),
     perfetto::Category(cros::kCameraTraceCategoryUsbHal)
         .SetDescription("Events from CrOS Camera USB HAL"),
     perfetto::Category(cros::kCameraTraceCategoryZsl)

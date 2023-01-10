@@ -22,6 +22,102 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 namespace internal {
+class  ProcessControl_GetStdout_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<ProcessControl_GetStdout_Params_Data>;
+
+  ProcessControl_GetStdout_Params_Data();
+  ~ProcessControl_GetStdout_Params_Data() = delete;
+};
+static_assert(sizeof(ProcessControl_GetStdout_Params_Data) == 8,
+              "Bad sizeof(ProcessControl_GetStdout_Params_Data)");
+class  ProcessControl_GetStdout_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data stdout;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<ProcessControl_GetStdout_ResponseParams_Data>;
+
+  ProcessControl_GetStdout_ResponseParams_Data();
+  ~ProcessControl_GetStdout_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(ProcessControl_GetStdout_ResponseParams_Data) == 16,
+              "Bad sizeof(ProcessControl_GetStdout_ResponseParams_Data)");
+class  ProcessControl_GetStderr_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<ProcessControl_GetStderr_Params_Data>;
+
+  ProcessControl_GetStderr_Params_Data();
+  ~ProcessControl_GetStderr_Params_Data() = delete;
+};
+static_assert(sizeof(ProcessControl_GetStderr_Params_Data) == 8,
+              "Bad sizeof(ProcessControl_GetStderr_Params_Data)");
+class  ProcessControl_GetStderr_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data stderr;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<ProcessControl_GetStderr_ResponseParams_Data>;
+
+  ProcessControl_GetStderr_ResponseParams_Data();
+  ~ProcessControl_GetStderr_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(ProcessControl_GetStderr_ResponseParams_Data) == 16,
+              "Bad sizeof(ProcessControl_GetStderr_ResponseParams_Data)");
+class  ProcessControl_GetReturnCode_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<ProcessControl_GetReturnCode_Params_Data>;
+
+  ProcessControl_GetReturnCode_Params_Data();
+  ~ProcessControl_GetReturnCode_Params_Data() = delete;
+};
+static_assert(sizeof(ProcessControl_GetReturnCode_Params_Data) == 8,
+              "Bad sizeof(ProcessControl_GetReturnCode_Params_Data)");
+class  ProcessControl_GetReturnCode_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t return_code;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<ProcessControl_GetReturnCode_ResponseParams_Data>;
+
+  ProcessControl_GetReturnCode_ResponseParams_Data();
+  ~ProcessControl_GetReturnCode_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(ProcessControl_GetReturnCode_ResponseParams_Data) == 16,
+              "Bad sizeof(ProcessControl_GetReturnCode_ResponseParams_Data)");
 class  AudioJackObserver_OnAdd_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -243,6 +339,23 @@ class  Executor_RunMemtester_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_RunMemtester_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_RunMemtester_ResponseParams_Data)");
+class  Executor_RunMemtesterV2_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint32_t test_mem_kib;
+  mojo::internal::Handle_Data receiver;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_RunMemtesterV2_Params_Data>;
+
+  Executor_RunMemtesterV2_Params_Data();
+  ~Executor_RunMemtesterV2_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_RunMemtesterV2_Params_Data) == 16,
+              "Bad sizeof(Executor_RunMemtesterV2_Params_Data)");
 class  Executor_KillMemtester_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -601,6 +714,123 @@ static_assert(sizeof(Executor_MonitorAudioJack_Params_Data) == 24,
 }  // namespace internal
 
 
+class ProcessControl_GetStdout_ParamsDataView {
+ public:
+  ProcessControl_GetStdout_ParamsDataView() = default;
+
+  ProcessControl_GetStdout_ParamsDataView(
+      internal::ProcessControl_GetStdout_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::ProcessControl_GetStdout_Params_Data* data_ = nullptr;
+};
+
+
+
+class ProcessControl_GetStdout_ResponseParamsDataView {
+ public:
+  ProcessControl_GetStdout_ResponseParamsDataView() = default;
+
+  ProcessControl_GetStdout_ResponseParamsDataView(
+      internal::ProcessControl_GetStdout_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  mojo::ScopedHandle TakeStdout() {
+    mojo::ScopedHandle result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::ScopedHandle>(
+            &data_->stdout, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::ProcessControl_GetStdout_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class ProcessControl_GetStderr_ParamsDataView {
+ public:
+  ProcessControl_GetStderr_ParamsDataView() = default;
+
+  ProcessControl_GetStderr_ParamsDataView(
+      internal::ProcessControl_GetStderr_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::ProcessControl_GetStderr_Params_Data* data_ = nullptr;
+};
+
+
+
+class ProcessControl_GetStderr_ResponseParamsDataView {
+ public:
+  ProcessControl_GetStderr_ResponseParamsDataView() = default;
+
+  ProcessControl_GetStderr_ResponseParamsDataView(
+      internal::ProcessControl_GetStderr_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  mojo::ScopedHandle TakeStderr() {
+    mojo::ScopedHandle result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::ScopedHandle>(
+            &data_->stderr, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::ProcessControl_GetStderr_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class ProcessControl_GetReturnCode_ParamsDataView {
+ public:
+  ProcessControl_GetReturnCode_ParamsDataView() = default;
+
+  ProcessControl_GetReturnCode_ParamsDataView(
+      internal::ProcessControl_GetReturnCode_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::ProcessControl_GetReturnCode_Params_Data* data_ = nullptr;
+};
+
+
+
+class ProcessControl_GetReturnCode_ResponseParamsDataView {
+ public:
+  ProcessControl_GetReturnCode_ResponseParamsDataView() = default;
+
+  ProcessControl_GetReturnCode_ResponseParamsDataView(
+      internal::ProcessControl_GetReturnCode_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  int32_t return_code() const {
+    return data_->return_code;
+  }
+ private:
+  internal::ProcessControl_GetReturnCode_ResponseParams_Data* data_ = nullptr;
+};
+
+
+
 class AudioJackObserver_OnAdd_ParamsDataView {
  public:
   AudioJackObserver_OnAdd_ParamsDataView() = default;
@@ -922,6 +1152,35 @@ class Executor_RunMemtester_ResponseParamsDataView {
   }
  private:
   internal::Executor_RunMemtester_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class Executor_RunMemtesterV2_ParamsDataView {
+ public:
+  Executor_RunMemtesterV2_ParamsDataView() = default;
+
+  Executor_RunMemtesterV2_ParamsDataView(
+      internal::Executor_RunMemtesterV2_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  uint32_t test_mem_kib() const {
+    return data_->test_mem_kib;
+  }
+  template <typename UserType>
+  UserType TakeReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Executor_RunMemtesterV2_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1540,6 +1799,18 @@ class Executor_MonitorAudioJack_ParamsDataView {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 inline void Executor_GetFanSpeed_ResponseParamsDataView::GetResultDataView(
     ExecutedProcessResultDataView* output) {
   auto pointer = data_->result.Get();
@@ -1605,6 +1876,8 @@ inline void Executor_RunMemtester_ResponseParamsDataView::GetResultDataView(
   auto pointer = data_->result.Get();
   *output = ExecutedProcessResultDataView(pointer, message_);
 }
+
+
 
 
 

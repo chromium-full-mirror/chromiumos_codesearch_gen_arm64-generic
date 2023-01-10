@@ -48,6 +48,7 @@ template <typename ImplRefTraits>
 class ProcessControlStub;
 
 class ProcessControlRequestValidator;
+class ProcessControlResponseValidator;
 
 
 class ProcessControl
@@ -69,15 +70,42 @@ class ProcessControl
   using Stub_ = ProcessControlStub<ImplRefTraits>;
 
   using RequestValidator_ = ProcessControlRequestValidator;
-  using ResponseValidator_ = mojo::PassThroughFilter;
+  using ResponseValidator_ = ProcessControlResponseValidator;
   enum MethodMinVersions : uint32_t {
+    kGetStdoutMinVersion = 0,
+    kGetStderrMinVersion = 0,
+    kGetReturnCodeMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
+  struct GetStdout_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetStderr_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetReturnCode_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~ProcessControl() = default;
+
+
+  using GetStdoutCallback = base::OnceCallback<void(::mojo::ScopedHandle)>;
+  
+  virtual void GetStdout(GetStdoutCallback callback) = 0;
+
+
+  using GetStderrCallback = base::OnceCallback<void(::mojo::ScopedHandle)>;
+  
+  virtual void GetStderr(GetStderrCallback callback) = 0;
+
+
+  using GetReturnCodeCallback = base::OnceCallback<void(int32_t)>;
+  
+  virtual void GetReturnCode(GetReturnCodeCallback callback) = 0;
 };
 
 class AudioJackObserverProxy;
@@ -168,6 +196,7 @@ class Executor
     kGetInfoMinVersion = 0,
     kGetScanDumpMinVersion = 0,
     kRunMemtesterMinVersion = 0,
+    kRunMemtesterV2MinVersion = 0,
     kKillMemtesterMinVersion = 0,
     kGetProcessIOContentsMinVersion = 0,
     kReadMsrMinVersion = 0,
@@ -201,6 +230,9 @@ class Executor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunMemtester_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunMemtesterV2_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct KillMemtester_Sym {
@@ -273,6 +305,9 @@ class Executor
   virtual void RunMemtester(uint32_t test_mem_kib, RunMemtesterCallback callback) = 0;
 
   
+  virtual void RunMemtesterV2(uint32_t test_mem_kib, ::mojo::PendingReceiver<ProcessControl> receiver) = 0;
+
+  
   virtual void KillMemtester() = 0;
 
 
@@ -337,6 +372,12 @@ class  ProcessControlProxy
   using InterfaceType = ProcessControl;
 
   explicit ProcessControlProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void GetStdout(GetStdoutCallback callback) final;
+  
+  void GetStderr(GetStderrCallback callback) final;
+  
+  void GetReturnCode(GetReturnCodeCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -379,6 +420,8 @@ class  ExecutorProxy
   void GetScanDump(const std::string& interface_name, GetScanDumpCallback callback) final;
   
   void RunMemtester(uint32_t test_mem_kib, RunMemtesterCallback callback) final;
+  
+  void RunMemtesterV2(uint32_t test_mem_kib, ::mojo::PendingReceiver<ProcessControl> receiver) final;
   
   void KillMemtester() final;
   
@@ -539,6 +582,10 @@ class  AudioJackObserverRequestValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 class  ExecutorRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  ProcessControlResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
