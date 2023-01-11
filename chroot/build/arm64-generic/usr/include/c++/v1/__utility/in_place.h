@@ -16,7 +16,6 @@
 #  pragma GCC system_header
 #endif
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 #if _LIBCPP_STD_VER > 14
@@ -44,17 +43,16 @@ template <class _Tp> struct __is_inplace_type_imp : false_type {};
 template <class _Tp> struct __is_inplace_type_imp<in_place_type_t<_Tp>> : true_type {};
 
 template <class _Tp>
-using __is_inplace_type = __is_inplace_type_imp<__uncvref_t<_Tp>>;
+using __is_inplace_type = __is_inplace_type_imp<__remove_cvref_t<_Tp>>;
 
 template <class _Tp> struct __is_inplace_index_imp : false_type {};
 template <size_t _Idx> struct __is_inplace_index_imp<in_place_index_t<_Idx>> : true_type {};
 
 template <class _Tp>
-using __is_inplace_index = __is_inplace_index_imp<__uncvref_t<_Tp>>;
+using __is_inplace_index = __is_inplace_index_imp<__remove_cvref_t<_Tp>>;
 
 #endif // _LIBCPP_STD_VER > 14
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___UTILITY_IN_PLACE_H

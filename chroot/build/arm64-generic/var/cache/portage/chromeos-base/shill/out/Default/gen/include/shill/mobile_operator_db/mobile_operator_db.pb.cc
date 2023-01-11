@@ -375,26 +375,30 @@ bool MobileAPN_ApnType_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
+    case 2:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> MobileAPN_ApnType_strings[2] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> MobileAPN_ApnType_strings[3] = {};
 
 static const char MobileAPN_ApnType_names[] =
   "DEFAULT"
+  "DUN"
   "IA";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry MobileAPN_ApnType_entries[] = {
   { {MobileAPN_ApnType_names + 0, 7}, 0 },
-  { {MobileAPN_ApnType_names + 7, 2}, 1 },
+  { {MobileAPN_ApnType_names + 7, 3}, 2 },
+  { {MobileAPN_ApnType_names + 10, 2}, 1 },
 };
 
 static const int MobileAPN_ApnType_entries_by_number[] = {
   0, // 0 -> DEFAULT
-  1, // 1 -> IA
+  2, // 1 -> IA
+  1, // 2 -> DUN
 };
 
 const std::string& MobileAPN_ApnType_Name(
@@ -403,12 +407,12 @@ const std::string& MobileAPN_ApnType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           MobileAPN_ApnType_entries,
           MobileAPN_ApnType_entries_by_number,
-          2, MobileAPN_ApnType_strings);
+          3, MobileAPN_ApnType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       MobileAPN_ApnType_entries,
       MobileAPN_ApnType_entries_by_number,
-      2, value);
+      3, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      MobileAPN_ApnType_strings[idx].get();
 }
@@ -416,7 +420,7 @@ bool MobileAPN_ApnType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, MobileAPN_ApnType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      MobileAPN_ApnType_entries, 2, name, &int_value);
+      MobileAPN_ApnType_entries, 3, name, &int_value);
   if (success) {
     *value = static_cast<MobileAPN_ApnType>(int_value);
   }
@@ -425,6 +429,7 @@ bool MobileAPN_ApnType_Parse(
 #if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr MobileAPN_ApnType MobileAPN::DEFAULT;
 constexpr MobileAPN_ApnType MobileAPN::IA;
+constexpr MobileAPN_ApnType MobileAPN::DUN;
 constexpr MobileAPN_ApnType MobileAPN::ApnType_MIN;
 constexpr MobileAPN_ApnType MobileAPN::ApnType_MAX;
 constexpr int MobileAPN::ApnType_ARRAYSIZE;

@@ -18,18 +18,16 @@
 #  pragma GCC system_header
 #endif
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 #if _LIBCPP_STD_VER > 14
 template <class _Tp>
-_LIBCPP_NODISCARD_EXT constexpr add_const_t<_Tp>& as_const(_Tp& __t) noexcept { return __t; }
+_LIBCPP_NODISCARD_EXT _LIBCPP_HIDE_FROM_ABI constexpr add_const_t<_Tp>& as_const(_Tp& __t) noexcept { return __t; }
 
 template <class _Tp>
 void as_const(const _Tp&&) = delete;
 #endif
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___UTILITY_AS_CONST_H

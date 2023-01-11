@@ -162,11 +162,12 @@ bool MobileAPN_IpType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, MobileAPN_IpType* value);
 enum MobileAPN_ApnType : int {
   MobileAPN_ApnType_DEFAULT = 0,
-  MobileAPN_ApnType_IA = 1
+  MobileAPN_ApnType_IA = 1,
+  MobileAPN_ApnType_DUN = 2
 };
 bool MobileAPN_ApnType_IsValid(int value);
 constexpr MobileAPN_ApnType MobileAPN_ApnType_ApnType_MIN = MobileAPN_ApnType_DEFAULT;
-constexpr MobileAPN_ApnType MobileAPN_ApnType_ApnType_MAX = MobileAPN_ApnType_IA;
+constexpr MobileAPN_ApnType MobileAPN_ApnType_ApnType_MAX = MobileAPN_ApnType_DUN;
 constexpr int MobileAPN_ApnType_ApnType_ARRAYSIZE = MobileAPN_ApnType_ApnType_MAX + 1;
 
 const std::string& MobileAPN_ApnType_Name(MobileAPN_ApnType value);
@@ -936,6 +937,8 @@ class MobileAPN final :
     MobileAPN_ApnType_DEFAULT;
   static constexpr ApnType IA =
     MobileAPN_ApnType_IA;
+  static constexpr ApnType DUN =
+    MobileAPN_ApnType_DUN;
   static inline bool ApnType_IsValid(int value) {
     return MobileAPN_ApnType_IsValid(value);
   }

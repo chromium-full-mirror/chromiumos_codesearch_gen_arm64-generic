@@ -15,9 +15,6 @@ namespace mojom {
 namespace internal {
 
 
-constexpr uint32_t kProcessControl_GetStdout_Name = 0;
-constexpr uint32_t kProcessControl_GetStderr_Name = 1;
-constexpr uint32_t kProcessControl_GetReturnCode_Name = 2;
 constexpr uint32_t kAudioJackObserver_OnAdd_Name = 0;
 constexpr uint32_t kAudioJackObserver_OnRemove_Name = 1;
 constexpr uint32_t kExecutor_GetFanSpeed_Name = 0;
@@ -26,19 +23,18 @@ constexpr uint32_t kExecutor_GetLink_Name = 2;
 constexpr uint32_t kExecutor_GetInfo_Name = 3;
 constexpr uint32_t kExecutor_GetScanDump_Name = 4;
 constexpr uint32_t kExecutor_RunMemtester_Name = 5;
-constexpr uint32_t kExecutor_RunMemtesterV2_Name = 6;
-constexpr uint32_t kExecutor_KillMemtester_Name = 7;
-constexpr uint32_t kExecutor_GetProcessIOContents_Name = 8;
-constexpr uint32_t kExecutor_ReadMsr_Name = 9;
-constexpr uint32_t kExecutor_GetUEFISecureBootContent_Name = 10;
-constexpr uint32_t kExecutor_GetUEFIPlatformSizeContent_Name = 11;
-constexpr uint32_t kExecutor_GetLidAngle_Name = 12;
-constexpr uint32_t kExecutor_GetFingerprintFrame_Name = 13;
-constexpr uint32_t kExecutor_GetFingerprintInfo_Name = 14;
-constexpr uint32_t kExecutor_SetLedColor_Name = 15;
-constexpr uint32_t kExecutor_ResetLedColor_Name = 16;
-constexpr uint32_t kExecutor_GetHciDeviceConfig_Name = 17;
-constexpr uint32_t kExecutor_MonitorAudioJack_Name = 18;
+constexpr uint32_t kExecutor_KillMemtester_Name = 6;
+constexpr uint32_t kExecutor_GetProcessIOContents_Name = 7;
+constexpr uint32_t kExecutor_ReadMsr_Name = 8;
+constexpr uint32_t kExecutor_GetUEFISecureBootContent_Name = 9;
+constexpr uint32_t kExecutor_GetUEFIPlatformSizeContent_Name = 10;
+constexpr uint32_t kExecutor_GetLidAngle_Name = 11;
+constexpr uint32_t kExecutor_GetFingerprintFrame_Name = 12;
+constexpr uint32_t kExecutor_GetFingerprintInfo_Name = 13;
+constexpr uint32_t kExecutor_SetLedColor_Name = 14;
+constexpr uint32_t kExecutor_ResetLedColor_Name = 15;
+constexpr uint32_t kExecutor_GetHciDeviceConfig_Name = 16;
+constexpr uint32_t kExecutor_MonitorAudioJack_Name = 17;
 
 }  // namespace internal
 }  // namespace mojom
