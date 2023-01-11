@@ -18,23 +18,21 @@
 #  pragma GCC system_header
 #endif
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 template <class _Tp>
 _LIBCPP_NODISCARD_EXT inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR _Tp&&
-forward(typename remove_reference<_Tp>::type& __t) _NOEXCEPT {
+forward(__libcpp_remove_reference_t<_Tp>& __t) _NOEXCEPT {
   return static_cast<_Tp&&>(__t);
 }
 
 template <class _Tp>
 _LIBCPP_NODISCARD_EXT inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR _Tp&&
-forward(typename remove_reference<_Tp>::type&& __t) _NOEXCEPT {
+forward(__libcpp_remove_reference_t<_Tp>&& __t) _NOEXCEPT {
   static_assert(!is_lvalue_reference<_Tp>::value, "cannot forward an rvalue as an lvalue");
   return static_cast<_Tp&&>(__t);
 }
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___UTILITY_FORWARD_H

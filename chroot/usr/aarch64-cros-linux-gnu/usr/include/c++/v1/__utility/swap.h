@@ -19,7 +19,6 @@
 #  pragma GCC system_header
 #endif
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 #ifndef _LIBCPP_CXX03_LANG
@@ -31,7 +30,7 @@ using __swap_result_t = void;
 #endif
 
 template <class _Tp>
-inline _LIBCPP_INLINE_VISIBILITY __swap_result_t<_Tp> _LIBCPP_CONSTEXPR_AFTER_CXX17 swap(_Tp& __x, _Tp& __y)
+inline _LIBCPP_INLINE_VISIBILITY __swap_result_t<_Tp> _LIBCPP_CONSTEXPR_SINCE_CXX20 swap(_Tp& __x, _Tp& __y)
     _NOEXCEPT_(is_nothrow_move_constructible<_Tp>::value&& is_nothrow_move_assignable<_Tp>::value) {
   _Tp __t(_VSTD::move(__x));
   __x = _VSTD::move(__y);
@@ -39,7 +38,7 @@ inline _LIBCPP_INLINE_VISIBILITY __swap_result_t<_Tp> _LIBCPP_CONSTEXPR_AFTER_CX
 }
 
 template <class _Tp, size_t _Np>
-inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX17 typename enable_if<__is_swappable<_Tp>::value>::type
+inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_SINCE_CXX20 typename enable_if<__is_swappable<_Tp>::value>::type
 swap(_Tp (&__a)[_Np], _Tp (&__b)[_Np]) _NOEXCEPT_(__is_nothrow_swappable<_Tp>::value) {
   for (size_t __i = 0; __i != _Np; ++__i) {
     swap(__a[__i], __b[__i]);
@@ -47,6 +46,5 @@ swap(_Tp (&__a)[_Np], _Tp (&__b)[_Np]) _NOEXCEPT_(__is_nothrow_swappable<_Tp>::v
 }
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___UTILITY_SWAP_H
