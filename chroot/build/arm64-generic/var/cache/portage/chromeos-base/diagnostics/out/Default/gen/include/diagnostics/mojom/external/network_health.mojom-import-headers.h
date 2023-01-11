@@ -6,7 +6,7 @@
 
 #ifndef DIAGNOSTICS_MOJOM_EXTERNAL_NETWORK_HEALTH_MOJOM_IMPORT_HEADERS_H_
 #define DIAGNOSTICS_MOJOM_EXTERNAL_NETWORK_HEALTH_MOJOM_IMPORT_HEADERS_H_
-#include "diagnostics/mojom/external/network_types.mojom.h"
-#include "diagnostics/mojom/external/network_types.mojom-import-headers.h"
+#include "diagnostics/mojom/external/network_health_types.mojom.h"
+#include "diagnostics/mojom/external/network_health_types.mojom-import-headers.h"
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_NETWORK_HEALTH_MOJOM_IMPORT_HEADERS_H_

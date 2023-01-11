@@ -24,7 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared-internal.h"
-#include "diagnostics/mojom/external/network_health.mojom-shared.h"
+#include "diagnostics/mojom/external/network_health_types.mojom-shared.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom-shared.h"
 
 

@@ -17,8 +17,8 @@ namespace mojom {
 
 class  NetworkEventsObserverInterceptorForTesting : public NetworkEventsObserver {
   virtual NetworkEventsObserver* GetForwardingInterface() = 0;
-  void OnConnectionStateChanged(const std::string& guid, NetworkState state) override;
-  void OnSignalStrengthChanged(const std::string& guid, UInt32ValuePtr signal_strength) override;
+  void OnConnectionStateChanged(const std::string& guid, ::chromeos::network_health::mojom::NetworkState state) override;
+  void OnSignalStrengthChanged(const std::string& guid, ::chromeos::network_health::mojom::UInt32ValuePtr signal_strength) override;
 };
 class  NetworkEventsObserverAsyncWaiter {
  public:
@@ -49,11 +49,11 @@ class  NetworkHealthServiceAsyncWaiter {
 
   ~NetworkHealthServiceAsyncWaiter();
   void GetNetworkList(
-      std::vector<NetworkPtr>* out_networks);
-  std::vector<NetworkPtr> GetNetworkList();
+      std::vector<::chromeos::network_health::mojom::NetworkPtr>* out_networks);
+  std::vector<::chromeos::network_health::mojom::NetworkPtr> GetNetworkList();
   void GetHealthSnapshot(
-      NetworkHealthStatePtr* out_state);
-  NetworkHealthStatePtr GetHealthSnapshot();
+      ::chromeos::network_health::mojom::NetworkHealthStatePtr* out_state);
+  ::chromeos::network_health::mojom::NetworkHealthStatePtr GetHealthSnapshot();
 
  private:
   NetworkHealthService* const proxy_;

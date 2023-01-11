@@ -6,8 +6,8 @@
 
 #ifndef DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_PROBE_MOJOM_IMPORT_HEADERS_H_
 #define DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_PROBE_MOJOM_IMPORT_HEADERS_H_
-#include "diagnostics/mojom/external/network_health.mojom.h"
-#include "diagnostics/mojom/external/network_health.mojom-import-headers.h"
+#include "diagnostics/mojom/external/network_health_types.mojom.h"
+#include "diagnostics/mojom/external/network_health_types.mojom-import-headers.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom-import-headers.h"
 

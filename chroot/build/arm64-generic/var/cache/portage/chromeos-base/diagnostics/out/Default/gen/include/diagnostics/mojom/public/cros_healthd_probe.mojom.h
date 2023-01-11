@@ -25,7 +25,7 @@
 
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-forward.h"
-#include "diagnostics/mojom/external/network_health.mojom.h"
+#include "diagnostics/mojom/external/network_health_types.mojom.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom.h"
 #include <string>
 #include <vector>

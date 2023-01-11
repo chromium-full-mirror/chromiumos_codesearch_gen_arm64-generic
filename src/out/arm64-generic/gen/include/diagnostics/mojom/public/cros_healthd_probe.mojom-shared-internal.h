@@ -10,7 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
-#include "diagnostics/mojom/external/network_health.mojom-shared-internal.h"
+#include "diagnostics/mojom/external/network_health_types.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"

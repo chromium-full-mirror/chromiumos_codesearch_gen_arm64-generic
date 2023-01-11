@@ -50,275 +50,6 @@
 namespace chromeos {
 namespace network_health {
 namespace mojom {
-UInt32Value::UInt32Value()
-    : value() {}
-
-UInt32Value::UInt32Value(
-    uint32_t value_in)
-    : value(std::move(value_in)) {}
-
-UInt32Value::~UInt32Value() = default;
-size_t UInt32Value::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->value);
-  return seed;
-}
-
-void UInt32Value::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "value"), this->value,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type uint32_t>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool UInt32Value::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-SignalStrengthStats::SignalStrengthStats()
-    : average(),
-      deviation(),
-      samples() {}
-
-SignalStrengthStats::SignalStrengthStats(
-    float average_in,
-    float deviation_in,
-    std::vector<uint8_t> samples_in)
-    : average(std::move(average_in)),
-      deviation(std::move(deviation_in)),
-      samples(std::move(samples_in)) {}
-
-SignalStrengthStats::~SignalStrengthStats() = default;
-
-void SignalStrengthStats::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "average"), this->average,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type float>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "deviation"), this->deviation,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type float>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "samples"), this->samples,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<uint8_t>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool SignalStrengthStats::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-Network::Network()
-    : type(),
-      state(),
-      guid(),
-      name(),
-      mac_address(),
-      signal_strength(),
-      ipv4_address(),
-      ipv6_addresses(),
-      portal_state(::chromeos::network_config::mojom::PortalState::kUnknown),
-      signal_strength_stats() {}
-
-Network::Network(
-    ::chromeos::network_config::mojom::NetworkType type_in,
-    NetworkState state_in,
-    const absl::optional<std::string>& guid_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& mac_address_in,
-    UInt32ValuePtr signal_strength_in,
-    const absl::optional<std::string>& ipv4_address_in,
-    std::vector<std::string> ipv6_addresses_in,
-    ::chromeos::network_config::mojom::PortalState portal_state_in)
-    : type(std::move(type_in)),
-      state(std::move(state_in)),
-      guid(std::move(guid_in)),
-      name(std::move(name_in)),
-      mac_address(std::move(mac_address_in)),
-      signal_strength(std::move(signal_strength_in)),
-      ipv4_address(std::move(ipv4_address_in)),
-      ipv6_addresses(std::move(ipv6_addresses_in)),
-      portal_state(std::move(portal_state_in)),
-      signal_strength_stats() {}
-
-Network::Network(
-    ::chromeos::network_config::mojom::NetworkType type_in,
-    NetworkState state_in,
-    const absl::optional<std::string>& guid_in,
-    const absl::optional<std::string>& name_in,
-    const absl::optional<std::string>& mac_address_in,
-    UInt32ValuePtr signal_strength_in,
-    const absl::optional<std::string>& ipv4_address_in,
-    std::vector<std::string> ipv6_addresses_in,
-    ::chromeos::network_config::mojom::PortalState portal_state_in,
-    SignalStrengthStatsPtr signal_strength_stats_in)
-    : type(std::move(type_in)),
-      state(std::move(state_in)),
-      guid(std::move(guid_in)),
-      name(std::move(name_in)),
-      mac_address(std::move(mac_address_in)),
-      signal_strength(std::move(signal_strength_in)),
-      ipv4_address(std::move(ipv4_address_in)),
-      ipv6_addresses(std::move(ipv6_addresses_in)),
-      portal_state(std::move(portal_state_in)),
-      signal_strength_stats(std::move(signal_strength_stats_in)) {}
-
-Network::~Network() = default;
-
-void Network::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "type"), this->type,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::network_config::mojom::NetworkType>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "state"), this->state,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type NetworkState>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "guid"), this->guid,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "name"), this->name,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "mac_address"), this->mac_address,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "signal_strength"), this->signal_strength,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type UInt32ValuePtr>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "ipv4_address"), this->ipv4_address,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "ipv6_addresses"), this->ipv6_addresses,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "portal_state"), this->portal_state,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::network_config::mojom::PortalState>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "signal_strength_stats"), this->signal_strength_stats,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type SignalStrengthStatsPtr>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool Network::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-NetworkHealthState::NetworkHealthState()
-    : networks() {}
-
-NetworkHealthState::NetworkHealthState(
-    std::vector<NetworkPtr> networks_in)
-    : networks(std::move(networks_in)) {}
-
-NetworkHealthState::~NetworkHealthState() = default;
-
-void NetworkHealthState::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "networks"), this->networks,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type std::vector<NetworkPtr>>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool NetworkHealthState::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
 const char NetworkEventsObserver::Name_[] = "chromeos.network_health.mojom.NetworkEventsObserver";
 
 NetworkEventsObserver::IPCStableHashFunction NetworkEventsObserver::MessageToMethodInfo_(mojo::Message& message) {
@@ -399,7 +130,7 @@ NetworkEventsObserverProxy::NetworkEventsObserverProxy(mojo::MessageReceiverWith
 }
 
 void NetworkEventsObserverProxy::OnConnectionStateChanged(
-    const std::string& in_guid, NetworkState in_state) {
+    const std::string& in_guid, ::chromeos::network_health::mojom::NetworkState in_state) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::network_health::mojom::NetworkEventsObserver::OnConnectionStateChanged", "input_parameters",
@@ -410,7 +141,7 @@ void NetworkEventsObserverProxy::OnConnectionStateChanged(
                         "<value of type const std::string&>");
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("state"), in_state,
-                        "<value of type NetworkState>");
+                        "<value of type ::chromeos::network_health::mojom::NetworkState>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -452,7 +183,7 @@ void NetworkEventsObserverProxy::OnConnectionStateChanged(
 }
 
 void NetworkEventsObserverProxy::OnSignalStrengthChanged(
-    const std::string& in_guid, UInt32ValuePtr in_signal_strength) {
+    const std::string& in_guid, ::chromeos::network_health::mojom::UInt32ValuePtr in_signal_strength) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::network_health::mojom::NetworkEventsObserver::OnSignalStrengthChanged", "input_parameters",
@@ -463,7 +194,7 @@ void NetworkEventsObserverProxy::OnSignalStrengthChanged(
                         "<value of type const std::string&>");
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("signal_strength"), in_signal_strength,
-                        "<value of type UInt32ValuePtr>");
+                        "<value of type ::chromeos::network_health::mojom::UInt32ValuePtr>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -527,7 +258,7 @@ bool NetworkEventsObserverStubDispatch::Accept(
       
       bool success = true;
       std::string p_guid = mojo::DefaultConstructTraits::CreateInstance<std::string>();
-      NetworkState p_state = mojo::DefaultConstructTraits::CreateInstance<NetworkState>();
+      ::chromeos::network_health::mojom::NetworkState p_state = mojo::DefaultConstructTraits::CreateInstance<::chromeos::network_health::mojom::NetworkState>();
       NetworkEventsObserver_OnConnectionStateChanged_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadGuid(&p_guid))
@@ -557,7 +288,7 @@ std::move(p_state));
       
       bool success = true;
       std::string p_guid = mojo::DefaultConstructTraits::CreateInstance<std::string>();
-      UInt32ValuePtr p_signal_strength = mojo::DefaultConstructTraits::CreateInstance<UInt32ValuePtr>();
+      ::chromeos::network_health::mojom::UInt32ValuePtr p_signal_strength = mojo::DefaultConstructTraits::CreateInstance<::chromeos::network_health::mojom::UInt32ValuePtr>();
       NetworkEventsObserver_OnSignalStrengthChanged_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadGuid(&p_guid))
@@ -891,7 +622,7 @@ class NetworkHealthService_GetNetworkList_ProxyToResponder : public ::mojo::inte
 #endif
 
   void Run(
-      std::vector<NetworkPtr> in_networks);
+      std::vector<::chromeos::network_health::mojom::NetworkPtr> in_networks);
 };
 
 bool NetworkHealthService_GetNetworkList_ForwardToCallback::Accept(
@@ -904,7 +635,7 @@ bool NetworkHealthService_GetNetworkList_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<NetworkPtr> p_networks = mojo::DefaultConstructTraits::CreateInstance<std::vector<NetworkPtr>>();
+  std::vector<::chromeos::network_health::mojom::NetworkPtr> p_networks = mojo::DefaultConstructTraits::CreateInstance<std::vector<::chromeos::network_health::mojom::NetworkPtr>>();
   NetworkHealthService_GetNetworkList_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadNetworks(&p_networks))
@@ -923,7 +654,7 @@ std::move(p_networks));
 }
 
 void NetworkHealthService_GetNetworkList_ProxyToResponder::Run(
-    std::vector<NetworkPtr> in_networks) {
+    std::vector<::chromeos::network_health::mojom::NetworkPtr> in_networks) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::network_health::mojom::NetworkHealthService::GetNetworkList", "async_response_parameters",
@@ -931,7 +662,7 @@ void NetworkHealthService_GetNetworkList_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("networks"), in_networks,
-                        "<value of type std::vector<NetworkPtr>>");
+                        "<value of type std::vector<::chromeos::network_health::mojom::NetworkPtr>>");
    });
 #endif
   
@@ -1017,7 +748,7 @@ class NetworkHealthService_GetHealthSnapshot_ProxyToResponder : public ::mojo::i
 #endif
 
   void Run(
-      NetworkHealthStatePtr in_state);
+      ::chromeos::network_health::mojom::NetworkHealthStatePtr in_state);
 };
 
 bool NetworkHealthService_GetHealthSnapshot_ForwardToCallback::Accept(
@@ -1030,7 +761,7 @@ bool NetworkHealthService_GetHealthSnapshot_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  NetworkHealthStatePtr p_state = mojo::DefaultConstructTraits::CreateInstance<NetworkHealthStatePtr>();
+  ::chromeos::network_health::mojom::NetworkHealthStatePtr p_state = mojo::DefaultConstructTraits::CreateInstance<::chromeos::network_health::mojom::NetworkHealthStatePtr>();
   NetworkHealthService_GetHealthSnapshot_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadState(&p_state))
@@ -1049,7 +780,7 @@ std::move(p_state));
 }
 
 void NetworkHealthService_GetHealthSnapshot_ProxyToResponder::Run(
-    NetworkHealthStatePtr in_state) {
+    ::chromeos::network_health::mojom::NetworkHealthStatePtr in_state) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::network_health::mojom::NetworkHealthService::GetHealthSnapshot", "async_response_parameters",
@@ -1057,7 +788,7 @@ void NetworkHealthService_GetHealthSnapshot_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("state"), in_state,
-                        "<value of type NetworkHealthStatePtr>");
+                        "<value of type ::chromeos::network_health::mojom::NetworkHealthStatePtr>");
    });
 #endif
   
@@ -1237,84 +968,6 @@ bool NetworkHealthServiceResponseValidator::Accept(mojo::Message* message) {
 
 namespace mojo {
 
-
-// static
-bool StructTraits<::chromeos::network_health::mojom::UInt32Value::DataView, ::chromeos::network_health::mojom::UInt32ValuePtr>::Read(
-    ::chromeos::network_health::mojom::UInt32Value::DataView input,
-    ::chromeos::network_health::mojom::UInt32ValuePtr* output) {
-  bool success = true;
-  ::chromeos::network_health::mojom::UInt32ValuePtr result(::chromeos::network_health::mojom::UInt32Value::New());
-  
-      if (success)
-        result->value = input.value();
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::chromeos::network_health::mojom::SignalStrengthStats::DataView, ::chromeos::network_health::mojom::SignalStrengthStatsPtr>::Read(
-    ::chromeos::network_health::mojom::SignalStrengthStats::DataView input,
-    ::chromeos::network_health::mojom::SignalStrengthStatsPtr* output) {
-  bool success = true;
-  ::chromeos::network_health::mojom::SignalStrengthStatsPtr result(::chromeos::network_health::mojom::SignalStrengthStats::New());
-  
-      if (success)
-        result->average = input.average();
-      if (success)
-        result->deviation = input.deviation();
-      if (success && !input.ReadSamples(&result->samples))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::chromeos::network_health::mojom::Network::DataView, ::chromeos::network_health::mojom::NetworkPtr>::Read(
-    ::chromeos::network_health::mojom::Network::DataView input,
-    ::chromeos::network_health::mojom::NetworkPtr* output) {
-  bool success = true;
-  ::chromeos::network_health::mojom::NetworkPtr result(::chromeos::network_health::mojom::Network::New());
-  
-      if (success && !input.ReadType(&result->type))
-        success = false;
-      if (success && !input.ReadState(&result->state))
-        success = false;
-      if (success && !input.ReadGuid(&result->guid))
-        success = false;
-      if (success && !input.ReadName(&result->name))
-        success = false;
-      if (success && !input.ReadMacAddress(&result->mac_address))
-        success = false;
-      if (success && !input.ReadSignalStrength(&result->signal_strength))
-        success = false;
-      if (success && !input.ReadIpv4Address(&result->ipv4_address))
-        success = false;
-      if (success && !input.ReadIpv6Addresses(&result->ipv6_addresses))
-        success = false;
-      if (success && !input.ReadPortalState(&result->portal_state))
-        success = false;
-      if (success && !input.ReadSignalStrengthStats(&result->signal_strength_stats))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::chromeos::network_health::mojom::NetworkHealthState::DataView, ::chromeos::network_health::mojom::NetworkHealthStatePtr>::Read(
-    ::chromeos::network_health::mojom::NetworkHealthState::DataView input,
-    ::chromeos::network_health::mojom::NetworkHealthStatePtr* output) {
-  bool success = true;
-  ::chromeos::network_health::mojom::NetworkHealthStatePtr result(::chromeos::network_health::mojom::NetworkHealthState::New());
-  
-      if (success && !input.ReadNetworks(&result->networks))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
 }  // namespace mojo
 
 
@@ -1327,10 +980,10 @@ namespace network_health {
 namespace mojom {
 
 
-void NetworkEventsObserverInterceptorForTesting::OnConnectionStateChanged(const std::string& guid, NetworkState state) {
+void NetworkEventsObserverInterceptorForTesting::OnConnectionStateChanged(const std::string& guid, ::chromeos::network_health::mojom::NetworkState state) {
   GetForwardingInterface()->OnConnectionStateChanged(std::move(guid), std::move(state));
 }
-void NetworkEventsObserverInterceptorForTesting::OnSignalStrengthChanged(const std::string& guid, UInt32ValuePtr signal_strength) {
+void NetworkEventsObserverInterceptorForTesting::OnSignalStrengthChanged(const std::string& guid, ::chromeos::network_health::mojom::UInt32ValuePtr signal_strength) {
   GetForwardingInterface()->OnSignalStrengthChanged(std::move(guid), std::move(signal_strength));
 }
 NetworkEventsObserverAsyncWaiter::NetworkEventsObserverAsyncWaiter(
@@ -1356,14 +1009,14 @@ NetworkHealthServiceAsyncWaiter::NetworkHealthServiceAsyncWaiter(
 NetworkHealthServiceAsyncWaiter::~NetworkHealthServiceAsyncWaiter() = default;
 
 void NetworkHealthServiceAsyncWaiter::GetNetworkList(
-    std::vector<NetworkPtr>* out_networks) {
+    std::vector<::chromeos::network_health::mojom::NetworkPtr>* out_networks) {
   base::RunLoop loop;
   proxy_->GetNetworkList(
       base::BindOnce(
           [](base::RunLoop* loop,
-             std::vector<NetworkPtr>* out_networks
+             std::vector<::chromeos::network_health::mojom::NetworkPtr>* out_networks
 ,
-             std::vector<NetworkPtr> networks) {*out_networks = std::move(networks);
+             std::vector<::chromeos::network_health::mojom::NetworkPtr> networks) {*out_networks = std::move(networks);
             loop->Quit();
           },
           &loop,
@@ -1371,22 +1024,22 @@ void NetworkHealthServiceAsyncWaiter::GetNetworkList(
   loop.Run();
 }
 
-std::vector<NetworkPtr> NetworkHealthServiceAsyncWaiter::GetNetworkList(
+std::vector<::chromeos::network_health::mojom::NetworkPtr> NetworkHealthServiceAsyncWaiter::GetNetworkList(
     ) {
-  std::vector<NetworkPtr> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<NetworkPtr>>();
+  std::vector<::chromeos::network_health::mojom::NetworkPtr> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<::chromeos::network_health::mojom::NetworkPtr>>();
   GetNetworkList(&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkHealthServiceAsyncWaiter::GetHealthSnapshot(
-    NetworkHealthStatePtr* out_state) {
+    ::chromeos::network_health::mojom::NetworkHealthStatePtr* out_state) {
   base::RunLoop loop;
   proxy_->GetHealthSnapshot(
       base::BindOnce(
           [](base::RunLoop* loop,
-             NetworkHealthStatePtr* out_state
+             ::chromeos::network_health::mojom::NetworkHealthStatePtr* out_state
 ,
-             NetworkHealthStatePtr state) {*out_state = std::move(state);
+             ::chromeos::network_health::mojom::NetworkHealthStatePtr state) {*out_state = std::move(state);
             loop->Quit();
           },
           &loop,
@@ -1394,9 +1047,9 @@ void NetworkHealthServiceAsyncWaiter::GetHealthSnapshot(
   loop.Run();
 }
 
-NetworkHealthStatePtr NetworkHealthServiceAsyncWaiter::GetHealthSnapshot(
+::chromeos::network_health::mojom::NetworkHealthStatePtr NetworkHealthServiceAsyncWaiter::GetHealthSnapshot(
     ) {
-  NetworkHealthStatePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<NetworkHealthStatePtr>();
+  ::chromeos::network_health::mojom::NetworkHealthStatePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::chromeos::network_health::mojom::NetworkHealthStatePtr>();
   GetHealthSnapshot(&async_wait_result);
   return async_wait_result;
 }
