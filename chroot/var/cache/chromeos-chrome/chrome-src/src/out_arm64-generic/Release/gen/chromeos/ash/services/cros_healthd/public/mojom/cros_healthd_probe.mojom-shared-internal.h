@@ -11,7 +11,7 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-shared-internal.h"
-#include "chromeos/services/network_health/public/mojom/network_health.mojom-shared-internal.h"
+#include "chromeos/services/network_health/public/mojom/network_health_types.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 

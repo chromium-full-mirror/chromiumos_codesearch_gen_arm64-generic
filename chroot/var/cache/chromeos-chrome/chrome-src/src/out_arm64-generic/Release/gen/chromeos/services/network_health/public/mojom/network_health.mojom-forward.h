@@ -7,14 +7,13 @@
 #ifndef CHROMEOS_SERVICES_NETWORK_HEALTH_PUBLIC_MOJOM_NETWORK_HEALTH_MOJOM_FORWARD_H_
 #define CHROMEOS_SERVICES_NETWORK_HEALTH_PUBLIC_MOJOM_NETWORK_HEALTH_MOJOM_FORWARD_H_
 
-#include <stdint.h>
 
-#include "mojo/public/cpp/bindings/struct_forward.h"
+
+
 
 #include "mojo/public/cpp/bindings/deprecated_interface_types_forward.h"
 
 
-#include "mojo/public/interfaces/bindings/native_struct.mojom-forward.h"
 
 
 
@@ -24,28 +23,6 @@
 namespace chromeos {
 namespace network_health {
 namespace mojom {
-class UInt32ValueDataView;
-
-class SignalStrengthStatsDataView;
-
-class NetworkDataView;
-
-class NetworkHealthStateDataView;
-
-
-enum class NetworkState : int32_t;
-class UInt32Value;
-using UInt32ValuePtr = mojo::InlinedStructPtr<UInt32Value>;
-
-class SignalStrengthStats;
-using SignalStrengthStatsPtr = mojo::StructPtr<SignalStrengthStats>;
-
-class Network;
-using NetworkPtr = mojo::StructPtr<Network>;
-
-class NetworkHealthState;
-using NetworkHealthStatePtr = mojo::StructPtr<NetworkHealthState>;
-
 class NetworkEventsObserver;
 
 class NetworkHealthService;

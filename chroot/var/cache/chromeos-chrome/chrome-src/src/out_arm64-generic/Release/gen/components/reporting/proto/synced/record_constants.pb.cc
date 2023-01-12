@@ -46,19 +46,21 @@ bool Destination_IsValid(int value) {
     case 23:
     case 24:
     case 25:
+    case 26:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Destination_strings[25] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Destination_strings[26] = {};
 
 static const char Destination_names[] =
   "ADDED_REMOVED_EVENTS"
   "ARC_INSTALL"
   "CRD_EVENTS"
   "CROS_SECURITY_AGENT"
+  "CROS_SECURITY_NETWORK"
   "CROS_SECURITY_PROCESS"
   "DLP_EVENTS"
   "EVENT_METRIC"
@@ -86,55 +88,57 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Destination_entries[] 
   { {Destination_names + 20, 11}, 4 },
   { {Destination_names + 31, 10}, 18 },
   { {Destination_names + 41, 19}, 22 },
-  { {Destination_names + 60, 21}, 23 },
-  { {Destination_names + 81, 10}, 11 },
-  { {Destination_names + 91, 12}, 16 },
-  { {Destination_names + 103, 19}, 10 },
-  { {Destination_names + 122, 17}, 6 },
-  { {Destination_names + 139, 16}, 13 },
-  { {Destination_names + 155, 11}, 14 },
-  { {Destination_names + 166, 11}, 25 },
-  { {Destination_names + 177, 18}, 21 },
-  { {Destination_names + 195, 19}, 12 },
-  { {Destination_names + 214, 21}, 2 },
-  { {Destination_names + 235, 9}, 24 },
-  { {Destination_names + 244, 17}, 19 },
-  { {Destination_names + 261, 17}, 5 },
-  { {Destination_names + 278, 10}, 9 },
-  { {Destination_names + 288, 16}, 7 },
-  { {Destination_names + 304, 17}, 20 },
-  { {Destination_names + 321, 16}, 15 },
-  { {Destination_names + 337, 21}, 0 },
-  { {Destination_names + 358, 13}, 1 },
-  { {Destination_names + 371, 11}, 3 },
+  { {Destination_names + 60, 21}, 26 },
+  { {Destination_names + 81, 21}, 23 },
+  { {Destination_names + 102, 10}, 11 },
+  { {Destination_names + 112, 12}, 16 },
+  { {Destination_names + 124, 19}, 10 },
+  { {Destination_names + 143, 17}, 6 },
+  { {Destination_names + 160, 16}, 13 },
+  { {Destination_names + 176, 11}, 14 },
+  { {Destination_names + 187, 11}, 25 },
+  { {Destination_names + 198, 18}, 21 },
+  { {Destination_names + 216, 19}, 12 },
+  { {Destination_names + 235, 21}, 2 },
+  { {Destination_names + 256, 9}, 24 },
+  { {Destination_names + 265, 17}, 19 },
+  { {Destination_names + 282, 17}, 5 },
+  { {Destination_names + 299, 10}, 9 },
+  { {Destination_names + 309, 16}, 7 },
+  { {Destination_names + 325, 17}, 20 },
+  { {Destination_names + 342, 16}, 15 },
+  { {Destination_names + 358, 21}, 0 },
+  { {Destination_names + 379, 13}, 1 },
+  { {Destination_names + 392, 11}, 3 },
 };
 
 static const int Destination_entries_by_number[] = {
-  22, // 0 -> UNDEFINED_DESTINATION
-  23, // 1 -> UPLOAD_EVENTS
-  14, // 2 -> MEET_DEVICE_TELEMETRY
-  24, // 3 -> WEB_PROTECT
+  23, // 0 -> UNDEFINED_DESTINATION
+  24, // 1 -> UPLOAD_EVENTS
+  15, // 2 -> MEET_DEVICE_TELEMETRY
+  25, // 3 -> WEB_PROTECT
   1, // 4 -> ARC_INSTALL
-  17, // 5 -> POLICY_VALIDATION
-  8, // 6 -> EXTENSION_INSTALL
-  19, // 7 -> REPORTING_RECORD
-  18, // 9 -> PRINT_JOBS
-  7, // 10 -> EXTENSIONS_WORKFLOW
-  5, // 11 -> DLP_EVENTS
-  13, // 12 -> LOGIN_LOGOUT_EVENTS
-  9, // 13 -> HEARTBEAT_EVENTS
-  10, // 14 -> INFO_METRIC
-  21, // 15 -> TELEMETRY_METRIC
-  6, // 16 -> EVENT_METRIC
+  18, // 5 -> POLICY_VALIDATION
+  9, // 6 -> EXTENSION_INSTALL
+  20, // 7 -> REPORTING_RECORD
+  19, // 9 -> PRINT_JOBS
+  8, // 10 -> EXTENSIONS_WORKFLOW
+  6, // 11 -> DLP_EVENTS
+  14, // 12 -> LOGIN_LOGOUT_EVENTS
+  10, // 13 -> HEARTBEAT_EVENTS
+  11, // 14 -> INFO_METRIC
+  22, // 15 -> TELEMETRY_METRIC
+  7, // 16 -> EVENT_METRIC
   0, // 17 -> ADDED_REMOVED_EVENTS
   2, // 18 -> CRD_EVENTS
-  16, // 19 -> PERIPHERAL_EVENTS
-  20, // 20 -> SUSPICIOUS_EVENTS
-  12, // 21 -> LOCK_UNLOCK_EVENTS
+  17, // 19 -> PERIPHERAL_EVENTS
+  21, // 20 -> SUSPICIOUS_EVENTS
+  13, // 21 -> LOCK_UNLOCK_EVENTS
   3, // 22 -> CROS_SECURITY_AGENT
-  4, // 23 -> CROS_SECURITY_PROCESS
-  15, // 24 -> OS_EVENTS
-  11, // 25 -> LEGACY_TECH
+  5, // 23 -> CROS_SECURITY_PROCESS
+  16, // 24 -> OS_EVENTS
+  12, // 25 -> LEGACY_TECH
+  4, // 26 -> CROS_SECURITY_NETWORK
 };
 
 const std::string& Destination_Name(
@@ -143,12 +147,12 @@ const std::string& Destination_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Destination_entries,
           Destination_entries_by_number,
-          25, Destination_strings);
+          26, Destination_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Destination_entries,
       Destination_entries_by_number,
-      25, value);
+      26, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Destination_strings[idx].get();
 }
@@ -156,7 +160,7 @@ bool Destination_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Destination* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Destination_entries, 25, name, &int_value);
+      Destination_entries, 26, name, &int_value);
   if (success) {
     *value = static_cast<Destination>(int_value);
   }

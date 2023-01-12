@@ -8,7 +8,7 @@
 #define CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_PROBE_MOJOM_IMPORT_HEADERS_H_
 #include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-import-headers.h"
-#include "chromeos/services/network_health/public/mojom/network_health.mojom.h"
-#include "chromeos/services/network_health/public/mojom/network_health.mojom-import-headers.h"
+#include "chromeos/services/network_health/public/mojom/network_health_types.mojom.h"
+#include "chromeos/services/network_health/public/mojom/network_health_types.mojom-import-headers.h"
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_PROBE_MOJOM_IMPORT_HEADERS_H_

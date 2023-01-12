@@ -939,7 +939,8 @@ struct DeviceLoginScreenExtensionsProtoDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceLoginScreenExtensionsProtoDefaultTypeInternal _DeviceLoginScreenExtensionsProto_default_instance_;
 PROTOBUF_CONSTEXPR LoginScreenExtensionManifestV2AvailabilityProto::LoginScreenExtensionManifestV2AvailabilityProto(
     ::_pbi::ConstantInitialized)
-  : login_screen_extension_manifest_v2_availability_(false){}
+  : login_screen_extension_manifest_v2_availability_(0)
+{}
 struct LoginScreenExtensionManifestV2AvailabilityProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR LoginScreenExtensionManifestV2AvailabilityProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -1645,18 +1646,18 @@ struct DevicePciPeripheralDataAccessEnabledProtoV2DefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DevicePciPeripheralDataAccessEnabledProtoV2DefaultTypeInternal _DevicePciPeripheralDataAccessEnabledProtoV2_default_instance_;
-PROTOBUF_CONSTEXPR DeviceBorealisAllowedProto::DeviceBorealisAllowedProto(
+PROTOBUF_CONSTEXPR OBSOLETE_DeviceBorealisAllowedProto::OBSOLETE_DeviceBorealisAllowedProto(
     ::_pbi::ConstantInitialized)
   : allowed_(true){}
-struct DeviceBorealisAllowedProtoDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR DeviceBorealisAllowedProtoDefaultTypeInternal()
+struct OBSOLETE_DeviceBorealisAllowedProtoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR OBSOLETE_DeviceBorealisAllowedProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~DeviceBorealisAllowedProtoDefaultTypeInternal() {}
+  ~OBSOLETE_DeviceBorealisAllowedProtoDefaultTypeInternal() {}
   union {
-    DeviceBorealisAllowedProto _instance;
+    OBSOLETE_DeviceBorealisAllowedProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceBorealisAllowedProtoDefaultTypeInternal _DeviceBorealisAllowedProto_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OBSOLETE_DeviceBorealisAllowedProtoDefaultTypeInternal _OBSOLETE_DeviceBorealisAllowedProto_default_instance_;
 PROTOBUF_CONSTEXPR DeviceAllowedBluetoothServicesProto::DeviceAllowedBluetoothServicesProto(
     ::_pbi::ConstantInitialized)
   : allowlist_(){}
@@ -2454,6 +2455,74 @@ constexpr LoginAuthenticationBehaviorProto_LoginBehavior LoginAuthenticationBeha
 constexpr LoginAuthenticationBehaviorProto_LoginBehavior LoginAuthenticationBehaviorProto::LoginBehavior_MIN;
 constexpr LoginAuthenticationBehaviorProto_LoginBehavior LoginAuthenticationBehaviorProto::LoginBehavior_MAX;
 constexpr int LoginAuthenticationBehaviorProto::LoginBehavior_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool LoginScreenExtensionManifestV2AvailabilityProto_Availability_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> LoginScreenExtensionManifestV2AvailabilityProto_Availability_strings[4] = {};
+
+static const char LoginScreenExtensionManifestV2AvailabilityProto_Availability_names[] =
+  "DEFAULT"
+  "DISABLE"
+  "ENABLE"
+  "ENABLE_FOR_FORCED_EXTENSIONS";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry LoginScreenExtensionManifestV2AvailabilityProto_Availability_entries[] = {
+  { {LoginScreenExtensionManifestV2AvailabilityProto_Availability_names + 0, 7}, 0 },
+  { {LoginScreenExtensionManifestV2AvailabilityProto_Availability_names + 7, 7}, 1 },
+  { {LoginScreenExtensionManifestV2AvailabilityProto_Availability_names + 14, 6}, 2 },
+  { {LoginScreenExtensionManifestV2AvailabilityProto_Availability_names + 20, 28}, 3 },
+};
+
+static const int LoginScreenExtensionManifestV2AvailabilityProto_Availability_entries_by_number[] = {
+  0, // 0 -> DEFAULT
+  1, // 1 -> DISABLE
+  2, // 2 -> ENABLE
+  3, // 3 -> ENABLE_FOR_FORCED_EXTENSIONS
+};
+
+const std::string& LoginScreenExtensionManifestV2AvailabilityProto_Availability_Name(
+    LoginScreenExtensionManifestV2AvailabilityProto_Availability value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          LoginScreenExtensionManifestV2AvailabilityProto_Availability_entries,
+          LoginScreenExtensionManifestV2AvailabilityProto_Availability_entries_by_number,
+          4, LoginScreenExtensionManifestV2AvailabilityProto_Availability_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      LoginScreenExtensionManifestV2AvailabilityProto_Availability_entries,
+      LoginScreenExtensionManifestV2AvailabilityProto_Availability_entries_by_number,
+      4, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     LoginScreenExtensionManifestV2AvailabilityProto_Availability_strings[idx].get();
+}
+bool LoginScreenExtensionManifestV2AvailabilityProto_Availability_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, LoginScreenExtensionManifestV2AvailabilityProto_Availability* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      LoginScreenExtensionManifestV2AvailabilityProto_Availability_entries, 4, name, &int_value);
+  if (success) {
+    *value = static_cast<LoginScreenExtensionManifestV2AvailabilityProto_Availability>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr LoginScreenExtensionManifestV2AvailabilityProto_Availability LoginScreenExtensionManifestV2AvailabilityProto::DEFAULT;
+constexpr LoginScreenExtensionManifestV2AvailabilityProto_Availability LoginScreenExtensionManifestV2AvailabilityProto::DISABLE;
+constexpr LoginScreenExtensionManifestV2AvailabilityProto_Availability LoginScreenExtensionManifestV2AvailabilityProto::ENABLE;
+constexpr LoginScreenExtensionManifestV2AvailabilityProto_Availability LoginScreenExtensionManifestV2AvailabilityProto::ENABLE_FOR_FORCED_EXTENSIONS;
+constexpr LoginScreenExtensionManifestV2AvailabilityProto_Availability LoginScreenExtensionManifestV2AvailabilityProto::Availability_MIN;
+constexpr LoginScreenExtensionManifestV2AvailabilityProto_Availability LoginScreenExtensionManifestV2AvailabilityProto::Availability_MAX;
+constexpr int LoginScreenExtensionManifestV2AvailabilityProto::Availability_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool DeviceEcryptfsMigrationStrategyProto_MigrationStrategy_IsValid(int value) {
   switch (value) {
@@ -20080,7 +20149,7 @@ LoginScreenExtensionManifestV2AvailabilityProto::LoginScreenExtensionManifestV2A
 }
 
 inline void LoginScreenExtensionManifestV2AvailabilityProto::SharedCtor() {
-login_screen_extension_manifest_v2_availability_ = false;
+login_screen_extension_manifest_v2_availability_ = 0;
 }
 
 LoginScreenExtensionManifestV2AvailabilityProto::~LoginScreenExtensionManifestV2AvailabilityProto() {
@@ -20106,7 +20175,7 @@ void LoginScreenExtensionManifestV2AvailabilityProto::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  login_screen_extension_manifest_v2_availability_ = false;
+  login_screen_extension_manifest_v2_availability_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -20118,12 +20187,16 @@ const char* LoginScreenExtensionManifestV2AvailabilityProto::_InternalParse(cons
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional bool login_screen_extension_manifest_v2_availability = 1;
+      // optional .enterprise_management.LoginScreenExtensionManifestV2AvailabilityProto.Availability login_screen_extension_manifest_v2_availability = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _Internal::set_has_login_screen_extension_manifest_v2_availability(&has_bits);
-          login_screen_extension_manifest_v2_availability_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::LoginScreenExtensionManifestV2AvailabilityProto_Availability_IsValid(val))) {
+            _internal_set_login_screen_extension_manifest_v2_availability(static_cast<::enterprise_management::LoginScreenExtensionManifestV2AvailabilityProto_Availability>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
         } else
           goto handle_unusual;
         continue;
@@ -20158,10 +20231,11 @@ uint8_t* LoginScreenExtensionManifestV2AvailabilityProto::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional bool login_screen_extension_manifest_v2_availability = 1;
+  // optional .enterprise_management.LoginScreenExtensionManifestV2AvailabilityProto.Availability login_screen_extension_manifest_v2_availability = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_login_screen_extension_manifest_v2_availability(), target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_login_screen_extension_manifest_v2_availability(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -20180,10 +20254,11 @@ size_t LoginScreenExtensionManifestV2AvailabilityProto::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional bool login_screen_extension_manifest_v2_availability = 1;
+  // optional .enterprise_management.LoginScreenExtensionManifestV2AvailabilityProto.Availability login_screen_extension_manifest_v2_availability = 1;
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += 1 + 1;
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_login_screen_extension_manifest_v2_availability());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -31160,34 +31235,34 @@ std::string DevicePciPeripheralDataAccessEnabledProtoV2::GetTypeName() const {
 
 // ===================================================================
 
-class DeviceBorealisAllowedProto::_Internal {
+class OBSOLETE_DeviceBorealisAllowedProto::_Internal {
  public:
-  using HasBits = decltype(std::declval<DeviceBorealisAllowedProto>()._has_bits_);
+  using HasBits = decltype(std::declval<OBSOLETE_DeviceBorealisAllowedProto>()._has_bits_);
   static void set_has_allowed(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-DeviceBorealisAllowedProto::DeviceBorealisAllowedProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+OBSOLETE_DeviceBorealisAllowedProto::OBSOLETE_DeviceBorealisAllowedProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:enterprise_management.DeviceBorealisAllowedProto)
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
 }
-DeviceBorealisAllowedProto::DeviceBorealisAllowedProto(const DeviceBorealisAllowedProto& from)
+OBSOLETE_DeviceBorealisAllowedProto::OBSOLETE_DeviceBorealisAllowedProto(const OBSOLETE_DeviceBorealisAllowedProto& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   allowed_ = from.allowed_;
-  // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceBorealisAllowedProto)
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
 }
 
-inline void DeviceBorealisAllowedProto::SharedCtor() {
+inline void OBSOLETE_DeviceBorealisAllowedProto::SharedCtor() {
 allowed_ = true;
 }
 
-DeviceBorealisAllowedProto::~DeviceBorealisAllowedProto() {
-  // @@protoc_insertion_point(destructor:enterprise_management.DeviceBorealisAllowedProto)
+OBSOLETE_DeviceBorealisAllowedProto::~OBSOLETE_DeviceBorealisAllowedProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
   (void)arena;
     return;
@@ -31195,16 +31270,16 @@ DeviceBorealisAllowedProto::~DeviceBorealisAllowedProto() {
   SharedDtor();
 }
 
-inline void DeviceBorealisAllowedProto::SharedDtor() {
+inline void OBSOLETE_DeviceBorealisAllowedProto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void DeviceBorealisAllowedProto::SetCachedSize(int size) const {
+void OBSOLETE_DeviceBorealisAllowedProto::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void DeviceBorealisAllowedProto::Clear() {
-// @@protoc_insertion_point(message_clear_start:enterprise_management.DeviceBorealisAllowedProto)
+void OBSOLETE_DeviceBorealisAllowedProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -31214,7 +31289,7 @@ void DeviceBorealisAllowedProto::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* DeviceBorealisAllowedProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* OBSOLETE_DeviceBorealisAllowedProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -31254,9 +31329,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* DeviceBorealisAllowedProto::_InternalSerialize(
+uint8_t* OBSOLETE_DeviceBorealisAllowedProto::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.DeviceBorealisAllowedProto)
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -31271,12 +31346,12 @@ uint8_t* DeviceBorealisAllowedProto::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.DeviceBorealisAllowedProto)
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
   return target;
 }
 
-size_t DeviceBorealisAllowedProto::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:enterprise_management.DeviceBorealisAllowedProto)
+size_t OBSOLETE_DeviceBorealisAllowedProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -31297,14 +31372,14 @@ size_t DeviceBorealisAllowedProto::ByteSizeLong() const {
   return total_size;
 }
 
-void DeviceBorealisAllowedProto::CheckTypeAndMergeFrom(
+void OBSOLETE_DeviceBorealisAllowedProto::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const DeviceBorealisAllowedProto*>(
+  MergeFrom(*::_pbi::DownCast<const OBSOLETE_DeviceBorealisAllowedProto*>(
       &from));
 }
 
-void DeviceBorealisAllowedProto::MergeFrom(const DeviceBorealisAllowedProto& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.DeviceBorealisAllowedProto)
+void OBSOLETE_DeviceBorealisAllowedProto::MergeFrom(const OBSOLETE_DeviceBorealisAllowedProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -31315,26 +31390,26 @@ void DeviceBorealisAllowedProto::MergeFrom(const DeviceBorealisAllowedProto& fro
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void DeviceBorealisAllowedProto::CopyFrom(const DeviceBorealisAllowedProto& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.DeviceBorealisAllowedProto)
+void OBSOLETE_DeviceBorealisAllowedProto::CopyFrom(const OBSOLETE_DeviceBorealisAllowedProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.OBSOLETE_DeviceBorealisAllowedProto)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool DeviceBorealisAllowedProto::IsInitialized() const {
+bool OBSOLETE_DeviceBorealisAllowedProto::IsInitialized() const {
   return true;
 }
 
-void DeviceBorealisAllowedProto::InternalSwap(DeviceBorealisAllowedProto* other) {
+void OBSOLETE_DeviceBorealisAllowedProto::InternalSwap(OBSOLETE_DeviceBorealisAllowedProto* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   swap(allowed_, other->allowed_);
 }
 
-std::string DeviceBorealisAllowedProto::GetTypeName() const {
-  return "enterprise_management.DeviceBorealisAllowedProto";
+std::string OBSOLETE_DeviceBorealisAllowedProto::GetTypeName() const {
+  return "enterprise_management.OBSOLETE_DeviceBorealisAllowedProto";
 }
 
 
@@ -33439,7 +33514,7 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_device_pci_peripheral_data_access_enabled(HasBits* has_bits) {
     (*has_bits)[3] |= 262144u;
   }
-  static const ::enterprise_management::DeviceBorealisAllowedProto& device_borealis_allowed(const ChromeDeviceSettingsProto* msg);
+  static const ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto& device_borealis_allowed(const ChromeDeviceSettingsProto* msg);
   static void set_has_device_borealis_allowed(HasBits* has_bits) {
     (*has_bits)[3] |= 524288u;
   }
@@ -33993,7 +34068,7 @@ const ::enterprise_management::DevicePciPeripheralDataAccessEnabledProto&
 ChromeDeviceSettingsProto::_Internal::device_pci_peripheral_data_access_enabled(const ChromeDeviceSettingsProto* msg) {
   return *msg->device_pci_peripheral_data_access_enabled_;
 }
-const ::enterprise_management::DeviceBorealisAllowedProto&
+const ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto&
 ChromeDeviceSettingsProto::_Internal::device_borealis_allowed(const ChromeDeviceSettingsProto* msg) {
   return *msg->device_borealis_allowed_;
 }
@@ -34727,7 +34802,7 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
     device_pci_peripheral_data_access_enabled_ = nullptr;
   }
   if (from._internal_has_device_borealis_allowed()) {
-    device_borealis_allowed_ = new ::enterprise_management::DeviceBorealisAllowedProto(*from.device_borealis_allowed_);
+    device_borealis_allowed_ = new ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto(*from.device_borealis_allowed_);
   } else {
     device_borealis_allowed_ = nullptr;
   }
@@ -36535,7 +36610,7 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
-      // optional .enterprise_management.DeviceBorealisAllowedProto device_borealis_allowed = 119;
+      // optional .enterprise_management.OBSOLETE_DeviceBorealisAllowedProto device_borealis_allowed = 119 [deprecated = true];
       case 119:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 186)) {
           ptr = ctx->ParseMessage(_internal_mutable_device_borealis_allowed(), ptr);
@@ -37557,7 +37632,7 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
         _Internal::device_pci_peripheral_data_access_enabled(this).GetCachedSize(), target, stream);
   }
 
-  // optional .enterprise_management.DeviceBorealisAllowedProto device_borealis_allowed = 119;
+  // optional .enterprise_management.OBSOLETE_DeviceBorealisAllowedProto device_borealis_allowed = 119 [deprecated = true];
   if (cached_has_bits & 0x00080000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(119, _Internal::device_borealis_allowed(this),
@@ -38573,7 +38648,7 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
           *device_pci_peripheral_data_access_enabled_);
     }
 
-    // optional .enterprise_management.DeviceBorealisAllowedProto device_borealis_allowed = 119;
+    // optional .enterprise_management.OBSOLETE_DeviceBorealisAllowedProto device_borealis_allowed = 119 [deprecated = true];
     if (cached_has_bits & 0x00080000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -39141,7 +39216,7 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
       _internal_mutable_device_pci_peripheral_data_access_enabled()->::enterprise_management::DevicePciPeripheralDataAccessEnabledProto::MergeFrom(from._internal_device_pci_peripheral_data_access_enabled());
     }
     if (cached_has_bits & 0x00080000u) {
-      _internal_mutable_device_borealis_allowed()->::enterprise_management::DeviceBorealisAllowedProto::MergeFrom(from._internal_device_borealis_allowed());
+      _internal_mutable_device_borealis_allowed()->::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto::MergeFrom(from._internal_device_borealis_allowed());
     }
     if (cached_has_bits & 0x00100000u) {
       _internal_mutable_device_allowed_bluetooth_services()->::enterprise_management::DeviceAllowedBluetoothServicesProto::MergeFrom(from._internal_device_allowed_bluetooth_services());
@@ -39747,9 +39822,9 @@ template<> PROTOBUF_NOINLINE ::enterprise_management::DevicePciPeripheralDataAcc
 Arena::CreateMaybeMessage< ::enterprise_management::DevicePciPeripheralDataAccessEnabledProtoV2 >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::DevicePciPeripheralDataAccessEnabledProtoV2 >(arena);
 }
-template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceBorealisAllowedProto*
-Arena::CreateMaybeMessage< ::enterprise_management::DeviceBorealisAllowedProto >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::enterprise_management::DeviceBorealisAllowedProto >(arena);
+template<> PROTOBUF_NOINLINE ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto*
+Arena::CreateMaybeMessage< ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::OBSOLETE_DeviceBorealisAllowedProto >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceAllowedBluetoothServicesProto*
 Arena::CreateMaybeMessage< ::enterprise_management::DeviceAllowedBluetoothServicesProto >(Arena* arena) {

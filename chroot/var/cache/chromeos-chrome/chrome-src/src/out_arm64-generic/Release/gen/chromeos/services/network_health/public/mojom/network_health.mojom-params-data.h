@@ -47,7 +47,7 @@ class  NetworkEventsObserver_OnSignalStrengthChanged_Params_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> guid;
-  mojo::internal::Pointer<internal::UInt32Value_Data> signal_strength;
+  mojo::internal::Pointer<::chromeos::network_health::mojom::internal::UInt32Value_Data> signal_strength;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkEventsObserver_OnSignalStrengthChanged_Params_Data>;
@@ -63,7 +63,7 @@ class  NetworkEventsObserver_OnNetworkListChanged_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Network_Data>>> networks;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::chromeos::network_health::mojom::internal::Network_Data>>> networks;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkEventsObserver_OnNetworkListChanged_Params_Data>;
@@ -110,7 +110,7 @@ class  NetworkHealthService_GetNetworkList_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Network_Data>>> networks;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::chromeos::network_health::mojom::internal::Network_Data>>> networks;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkHealthService_GetNetworkList_ResponseParams_Data>;
@@ -141,7 +141,7 @@ class  NetworkHealthService_GetHealthSnapshot_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::NetworkHealthState_Data> state;
+  mojo::internal::Pointer<::chromeos::network_health::mojom::internal::NetworkHealthState_Data> state;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkHealthService_GetHealthSnapshot_ResponseParams_Data>;
@@ -212,7 +212,7 @@ class NetworkEventsObserver_OnConnectionStateChanged_ParamsDataView {
     return mojo::internal::Deserialize<::chromeos::network_health::mojom::NetworkState>(
         data_value, output);
   }
-  NetworkState state() const {
+  ::chromeos::network_health::mojom::NetworkState state() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::chromeos::network_health::mojom::NetworkState>(data_->state));
   }
@@ -244,7 +244,7 @@ class NetworkEventsObserver_OnSignalStrengthChanged_ParamsDataView {
         pointer, output, message_);
   }
   inline void GetSignalStrengthDataView(
-      UInt32ValueDataView* output);
+      ::chromeos::network_health::mojom::UInt32ValueDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadSignalStrength(UserType* output) {
@@ -271,7 +271,7 @@ class NetworkEventsObserver_OnNetworkListChanged_ParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetNetworksDataView(
-      mojo::ArrayDataView<NetworkDataView>* output);
+      mojo::ArrayDataView<::chromeos::network_health::mojom::NetworkDataView>* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadNetworks(UserType* output) {
@@ -340,7 +340,7 @@ class NetworkHealthService_GetNetworkList_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetNetworksDataView(
-      mojo::ArrayDataView<NetworkDataView>* output);
+      mojo::ArrayDataView<::chromeos::network_health::mojom::NetworkDataView>* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadNetworks(UserType* output) {
@@ -383,7 +383,7 @@ class NetworkHealthService_GetHealthSnapshot_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetStateDataView(
-      NetworkHealthStateDataView* output);
+      ::chromeos::network_health::mojom::NetworkHealthStateDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadState(UserType* output) {
@@ -454,16 +454,16 @@ inline void NetworkEventsObserver_OnSignalStrengthChanged_ParamsDataView::GetGui
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void NetworkEventsObserver_OnSignalStrengthChanged_ParamsDataView::GetSignalStrengthDataView(
-    UInt32ValueDataView* output) {
+    ::chromeos::network_health::mojom::UInt32ValueDataView* output) {
   auto pointer = data_->signal_strength.Get();
-  *output = UInt32ValueDataView(pointer, message_);
+  *output = ::chromeos::network_health::mojom::UInt32ValueDataView(pointer, message_);
 }
 
 
 inline void NetworkEventsObserver_OnNetworkListChanged_ParamsDataView::GetNetworksDataView(
-    mojo::ArrayDataView<NetworkDataView>* output) {
+    mojo::ArrayDataView<::chromeos::network_health::mojom::NetworkDataView>* output) {
   auto pointer = data_->networks.Get();
-  *output = mojo::ArrayDataView<NetworkDataView>(pointer, message_);
+  *output = mojo::ArrayDataView<::chromeos::network_health::mojom::NetworkDataView>(pointer, message_);
 }
 
 
@@ -472,18 +472,18 @@ inline void NetworkEventsObserver_OnNetworkListChanged_ParamsDataView::GetNetwor
 
 
 inline void NetworkHealthService_GetNetworkList_ResponseParamsDataView::GetNetworksDataView(
-    mojo::ArrayDataView<NetworkDataView>* output) {
+    mojo::ArrayDataView<::chromeos::network_health::mojom::NetworkDataView>* output) {
   auto pointer = data_->networks.Get();
-  *output = mojo::ArrayDataView<NetworkDataView>(pointer, message_);
+  *output = mojo::ArrayDataView<::chromeos::network_health::mojom::NetworkDataView>(pointer, message_);
 }
 
 
 
 
 inline void NetworkHealthService_GetHealthSnapshot_ResponseParamsDataView::GetStateDataView(
-    NetworkHealthStateDataView* output) {
+    ::chromeos::network_health::mojom::NetworkHealthStateDataView* output) {
   auto pointer = data_->state.Get();
-  *output = NetworkHealthStateDataView(pointer, message_);
+  *output = ::chromeos::network_health::mojom::NetworkHealthStateDataView(pointer, message_);
 }
 
 
