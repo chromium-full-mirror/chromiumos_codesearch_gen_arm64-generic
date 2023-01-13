@@ -322,6 +322,7 @@ class StartArcMiniInstanceRequest final :
     kEnableNotificationsRefreshFieldNumber = 13,
     kEnableTtsCachingFieldNumber = 14,
     kEnableConsumerAutoUpdateToggleFieldNumber = 15,
+    kHostUreadaheadGenerationFieldNumber = 16,
     kLcdDensityFieldNumber = 2,
   };
   // optional bool native_bridge_experiment = 1 [default = false];
@@ -506,6 +507,19 @@ class StartArcMiniInstanceRequest final :
   void _internal_set_enable_consumer_auto_update_toggle(bool value);
   public:
 
+  // optional bool host_ureadahead_generation = 16 [default = false];
+  bool has_host_ureadahead_generation() const;
+  private:
+  bool _internal_has_host_ureadahead_generation() const;
+  public:
+  void clear_host_ureadahead_generation();
+  bool host_ureadahead_generation() const;
+  void set_host_ureadahead_generation(bool value);
+  private:
+  bool _internal_host_ureadahead_generation() const;
+  void _internal_set_host_ureadahead_generation(bool value);
+  public:
+
   // optional int32 lcd_density = 2 [default = -1];
   bool has_lcd_density() const;
   private:
@@ -542,6 +556,7 @@ class StartArcMiniInstanceRequest final :
   bool enable_notifications_refresh_;
   bool enable_tts_caching_;
   bool enable_consumer_auto_update_toggle_;
+  bool host_ureadahead_generation_;
   int32_t lcd_density_;
   friend struct ::TableStruct_arc_2eproto;
 };
@@ -1019,7 +1034,7 @@ inline void StartArcMiniInstanceRequest::set_native_bridge_experiment(bool value
 
 // optional int32 lcd_density = 2 [default = -1];
 inline bool StartArcMiniInstanceRequest::_internal_has_lcd_density() const {
-  bool value = (_has_bits_[0] & 0x00004000u) != 0;
+  bool value = (_has_bits_[0] & 0x00008000u) != 0;
   return value;
 }
 inline bool StartArcMiniInstanceRequest::has_lcd_density() const {
@@ -1027,7 +1042,7 @@ inline bool StartArcMiniInstanceRequest::has_lcd_density() const {
 }
 inline void StartArcMiniInstanceRequest::clear_lcd_density() {
   lcd_density_ = -1;
-  _has_bits_[0] &= ~0x00004000u;
+  _has_bits_[0] &= ~0x00008000u;
 }
 inline int32_t StartArcMiniInstanceRequest::_internal_lcd_density() const {
   return lcd_density_;
@@ -1037,7 +1052,7 @@ inline int32_t StartArcMiniInstanceRequest::lcd_density() const {
   return _internal_lcd_density();
 }
 inline void StartArcMiniInstanceRequest::_internal_set_lcd_density(int32_t value) {
-  _has_bits_[0] |= 0x00004000u;
+  _has_bits_[0] |= 0x00008000u;
   lcd_density_ = value;
 }
 inline void StartArcMiniInstanceRequest::set_lcd_density(int32_t value) {
@@ -1409,6 +1424,34 @@ inline void StartArcMiniInstanceRequest::_internal_set_enable_consumer_auto_upda
 inline void StartArcMiniInstanceRequest::set_enable_consumer_auto_update_toggle(bool value) {
   _internal_set_enable_consumer_auto_update_toggle(value);
   // @@protoc_insertion_point(field_set:arc.StartArcMiniInstanceRequest.enable_consumer_auto_update_toggle)
+}
+
+// optional bool host_ureadahead_generation = 16 [default = false];
+inline bool StartArcMiniInstanceRequest::_internal_has_host_ureadahead_generation() const {
+  bool value = (_has_bits_[0] & 0x00004000u) != 0;
+  return value;
+}
+inline bool StartArcMiniInstanceRequest::has_host_ureadahead_generation() const {
+  return _internal_has_host_ureadahead_generation();
+}
+inline void StartArcMiniInstanceRequest::clear_host_ureadahead_generation() {
+  host_ureadahead_generation_ = false;
+  _has_bits_[0] &= ~0x00004000u;
+}
+inline bool StartArcMiniInstanceRequest::_internal_host_ureadahead_generation() const {
+  return host_ureadahead_generation_;
+}
+inline bool StartArcMiniInstanceRequest::host_ureadahead_generation() const {
+  // @@protoc_insertion_point(field_get:arc.StartArcMiniInstanceRequest.host_ureadahead_generation)
+  return _internal_host_ureadahead_generation();
+}
+inline void StartArcMiniInstanceRequest::_internal_set_host_ureadahead_generation(bool value) {
+  _has_bits_[0] |= 0x00004000u;
+  host_ureadahead_generation_ = value;
+}
+inline void StartArcMiniInstanceRequest::set_host_ureadahead_generation(bool value) {
+  _internal_set_host_ureadahead_generation(value);
+  // @@protoc_insertion_point(field_set:arc.StartArcMiniInstanceRequest.host_ureadahead_generation)
 }
 
 // -------------------------------------------------------------------

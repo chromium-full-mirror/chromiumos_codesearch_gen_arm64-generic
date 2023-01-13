@@ -1058,11 +1058,16 @@ void AuthSession::OnMigrationUssCreated(
     LOG(ERROR) << "Failed to create migration AuthInput.";
     ReportVkToUssMigrationStatus(VkToUssMigrationStatus::kFailedInput);
     std::move(on_done).Run(std::move(pre_migration_status));
+    return;
   }
 
+  // If |vault_keyset_| has an empty label legacy label from GetLabel() is
+  // passed for the USS wrapped block, wheres the backup VaultKeyset is created
+  // with the same labelless |key_data_|. Since the old VaultKeyset is
+  // clobbered, the file index and the label will be the same.
   auto create_callback = base::BindOnce(
       &AuthSession::PersistAuthFactorToUserSecretStashOnMigration,
-      weak_factory_.GetWeakPtr(), auth_factor_type, key_data_.label(),
+      weak_factory_.GetWeakPtr(), auth_factor_type, vault_keyset_->GetLabel(),
       auth_factor_metadata, migration_auth_input_status.value(), key_data_,
       std::move(migration_performance_timer), std::move(on_done),
       std::move(pre_migration_status));
@@ -2299,6 +2304,7 @@ void AuthSession::PersistAuthFactorToUserSecretStashOnMigration(
                << " is failed in PersistAuthFactorToUserSecretStashImpl";
     ReportVkToUssMigrationStatus(VkToUssMigrationStatus::kFailedPersist);
     std::move(on_done).Run(std::move(pre_migration_status));
+    return;
   }
 
   // Migration completed with success. Now mark the VaultKeyset migrated.
@@ -2328,6 +2334,7 @@ void AuthSession::PersistAuthFactorToUserSecretStashOnMigration(
     ReportVkToUssMigrationStatus(
         VkToUssMigrationStatus::kFailedRecordingMigrated);
     std::move(on_done).Run(std::move(pre_migration_status));
+    return;
   }
 
   LOG(INFO) << "USS migration completed for VaultKeyset with label: "
