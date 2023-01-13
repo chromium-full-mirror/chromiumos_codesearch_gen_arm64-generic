@@ -311,6 +311,38 @@ bool AudioEventInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+AudioJackEventInfo::AudioJackEventInfo()
+    : state() {}
+
+AudioJackEventInfo::AudioJackEventInfo(
+    AudioJackEventInfo::State state_in)
+    : state(std::move(state_in)) {}
+
+AudioJackEventInfo::~AudioJackEventInfo() = default;
+size_t AudioJackEventInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->state);
+  return seed;
+}
+
+void AudioJackEventInfo::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "state"), this->state,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type AudioJackEventInfo::State>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool AudioJackEventInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 EventInfo::EventInfo() : tag_(Tag::kDefaultType) {
   data_.default_type = uint8_t();
 }
@@ -394,6 +426,17 @@ void EventInfo::set_audio_event_info(
         std::move(audio_event_info));
   }
 }
+void EventInfo::set_audio_jack_event_info(
+    AudioJackEventInfoPtr audio_jack_event_info) {
+  if (tag_ == Tag::kAudioJackEventInfo) {
+    *(data_.audio_jack_event_info) = std::move(audio_jack_event_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kAudioJackEventInfo;
+    data_.audio_jack_event_info = new AudioJackEventInfoPtr(
+        std::move(audio_jack_event_info));
+  }
+}
 
 void EventInfo::DestroyActive() {
   switch (tag_) {
@@ -424,6 +467,10 @@ void EventInfo::DestroyActive() {
     case Tag::kAudioEventInfo:
 
       delete data_.audio_event_info;
+      break;
+    case Tag::kAudioJackEventInfo:
+
+      delete data_.audio_jack_event_info;
       break;
   }
 }
@@ -2707,6 +2754,20 @@ bool StructTraits<::ash::cros_healthd::mojom::AudioEventInfo::DataView, ::ash::c
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::AudioJackEventInfo::DataView, ::ash::cros_healthd::mojom::AudioJackEventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::AudioJackEventInfo::DataView input,
+    ::ash::cros_healthd::mojom::AudioJackEventInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::AudioJackEventInfoPtr result(::ash::cros_healthd::mojom::AudioJackEventInfo::New());
+  
+      if (success && !input.ReadState(&result->state))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView, ::ash::cros_healthd::mojom::EventInfoPtr>::Read(
     ::ash::cros_healthd::mojom::EventInfo::DataView input,
@@ -2771,6 +2832,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView, ::ash::cros_he
 
       *output = UnionType::NewAudioEventInfo(
           std::move(result_audio_event_info));
+      break;
+    }
+    case Tag::kAudioJackEventInfo: {
+      ::ash::cros_healthd::mojom::AudioJackEventInfoPtr result_audio_jack_event_info;
+      if (!input.ReadAudioJackEventInfo(&result_audio_jack_event_info))
+        return false;
+
+      *output = UnionType::NewAudioJackEventInfo(
+          std::move(result_audio_jack_event_info));
       break;
     }
     default:
