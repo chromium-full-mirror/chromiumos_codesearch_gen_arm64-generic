@@ -6,7 +6,7 @@
 
 #include "headless/public/devtools/domains/tracing.h"
 
-#include "base/bind.h"
+#include "base/functional/bind.h"
 #include "headless/public/util/error_reporter.h"
 
 namespace headless {

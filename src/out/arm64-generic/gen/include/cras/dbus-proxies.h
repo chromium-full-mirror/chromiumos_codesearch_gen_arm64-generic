@@ -823,6 +823,20 @@ class ControlProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Returns the number of active output streams,
+  // excluding those from Chrome and LaCrOS.
+  virtual bool GetNumberOfNonChromeOutputStreams(
+      int32_t* out_num_non_chrome_output_streams,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns the number of active output streams,
+  // excluding those from Chrome and LaCrOS.
+  virtual void GetNumberOfNonChromeOutputStreamsAsync(
+      base::OnceCallback<void(int32_t /*num_non_chrome_output_streams*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual void RegisterOutputVolumeChangedSignalHandler(
       const base::RepeatingCallback<void(int32_t)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -2814,6 +2828,37 @@ class ControlProxy final : public ControlProxyInterface {
         dbus_object_proxy_,
         "org.chromium.cras.Control",
         "IsInternalCardDetected",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  // Returns the number of active output streams,
+  // excluding those from Chrome and LaCrOS.
+  bool GetNumberOfNonChromeOutputStreams(
+      int32_t* out_num_non_chrome_output_streams,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "GetNumberOfNonChromeOutputStreams",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_num_non_chrome_output_streams);
+  }
+
+  // Returns the number of active output streams,
+  // excluding those from Chrome and LaCrOS.
+  void GetNumberOfNonChromeOutputStreamsAsync(
+      base::OnceCallback<void(int32_t /*num_non_chrome_output_streams*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "GetNumberOfNonChromeOutputStreams",
         std::move(success_callback),
         std::move(error_callback));
   }

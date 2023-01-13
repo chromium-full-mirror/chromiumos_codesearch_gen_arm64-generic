@@ -7,7 +7,7 @@
 #ifndef HEADLESS_PUBLIC_DEVTOOLS_DOMAINS_LOG_H_
 #define HEADLESS_PUBLIC_DEVTOOLS_DOMAINS_LOG_H_
 
-#include "base/callback.h"
+#include "base/functional/callback.h"
 #include "base/observer_list.h"
 #include "base/values.h"
 #include "headless/public/devtools/domains/types_dom.h"

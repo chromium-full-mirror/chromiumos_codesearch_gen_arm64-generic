@@ -7,7 +7,7 @@
 #ifndef HEADLESS_PUBLIC_DEVTOOLS_DOMAINS_SCHEMA_H_
 #define HEADLESS_PUBLIC_DEVTOOLS_DOMAINS_SCHEMA_H_
 
-#include "base/callback.h"
+#include "base/functional/callback.h"
 #include "base/observer_list.h"
 #include "base/values.h"
 #include "headless/public/devtools/domains/types_schema.h"
