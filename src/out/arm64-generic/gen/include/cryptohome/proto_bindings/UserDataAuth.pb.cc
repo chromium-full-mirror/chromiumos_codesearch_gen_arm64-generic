@@ -1688,7 +1688,8 @@ struct AddAuthFactorReplyDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AddAuthFactorReplyDefaultTypeInternal _AddAuthFactorReply_default_instance_;
 constexpr AuthenticateAuthFactorRequest::AuthenticateAuthFactorRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : auth_session_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  : auth_factor_labels_()
+  , auth_session_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , auth_factor_label_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , auth_input_(nullptr){}
 struct AuthenticateAuthFactorRequestDefaultTypeInternal {
@@ -29900,7 +29901,8 @@ void AuthenticateAuthFactorRequest::clear_auth_input() {
 }
 AuthenticateAuthFactorRequest::AuthenticateAuthFactorRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  auth_factor_labels_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -29908,7 +29910,8 @@ AuthenticateAuthFactorRequest::AuthenticateAuthFactorRequest(::PROTOBUF_NAMESPAC
   // @@protoc_insertion_point(arena_constructor:user_data_auth.AuthenticateAuthFactorRequest)
 }
 AuthenticateAuthFactorRequest::AuthenticateAuthFactorRequest(const AuthenticateAuthFactorRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      auth_factor_labels_(from.auth_factor_labels_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   auth_session_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -29976,6 +29979,7 @@ void AuthenticateAuthFactorRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  auth_factor_labels_.Clear();
   auth_session_id_.ClearToEmpty();
   auth_factor_label_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && auth_input_ != nullptr) {
@@ -30015,6 +30019,21 @@ const char* AuthenticateAuthFactorRequest::_InternalParse(const char* ptr, ::PRO
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_auth_input(), ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string auth_factor_labels = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_auth_factor_labels();
+            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -30071,6 +30090,16 @@ uint8_t* AuthenticateAuthFactorRequest::_InternalSerialize(
         3, _Internal::auth_input(this), target, stream);
   }
 
+  // repeated string auth_factor_labels = 4;
+  for (int i = 0, n = this->_internal_auth_factor_labels_size(); i < n; i++) {
+    const auto& s = this->_internal_auth_factor_labels(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "user_data_auth.AuthenticateAuthFactorRequest.auth_factor_labels");
+    target = stream->WriteString(4, s, target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -30086,6 +30115,14 @@ size_t AuthenticateAuthFactorRequest::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated string auth_factor_labels = 4;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(auth_factor_labels_.size());
+  for (int i = 0, n = auth_factor_labels_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      auth_factor_labels_.Get(i));
+  }
 
   // bytes auth_session_id = 1;
   if (!this->_internal_auth_session_id().empty()) {
@@ -30128,6 +30165,7 @@ void AuthenticateAuthFactorRequest::MergeFrom(const AuthenticateAuthFactorReques
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  auth_factor_labels_.MergeFrom(from.auth_factor_labels_);
   if (!from._internal_auth_session_id().empty()) {
     _internal_set_auth_session_id(from._internal_auth_session_id());
   }
@@ -30156,6 +30194,7 @@ void AuthenticateAuthFactorRequest::InternalSwap(AuthenticateAuthFactorRequest* 
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  auth_factor_labels_.InternalSwap(&other->auth_factor_labels_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &auth_session_id_, lhs_arena,

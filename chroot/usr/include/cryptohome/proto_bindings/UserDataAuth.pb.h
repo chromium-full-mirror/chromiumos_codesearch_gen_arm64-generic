@@ -19312,10 +19312,35 @@ class AuthenticateAuthFactorRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kAuthFactorLabelsFieldNumber = 4,
     kAuthSessionIdFieldNumber = 1,
     kAuthFactorLabelFieldNumber = 2,
     kAuthInputFieldNumber = 3,
   };
+  // repeated string auth_factor_labels = 4;
+  int auth_factor_labels_size() const;
+  private:
+  int _internal_auth_factor_labels_size() const;
+  public:
+  void clear_auth_factor_labels();
+  const std::string& auth_factor_labels(int index) const;
+  std::string* mutable_auth_factor_labels(int index);
+  void set_auth_factor_labels(int index, const std::string& value);
+  void set_auth_factor_labels(int index, std::string&& value);
+  void set_auth_factor_labels(int index, const char* value);
+  void set_auth_factor_labels(int index, const char* value, size_t size);
+  std::string* add_auth_factor_labels();
+  void add_auth_factor_labels(const std::string& value);
+  void add_auth_factor_labels(std::string&& value);
+  void add_auth_factor_labels(const char* value);
+  void add_auth_factor_labels(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& auth_factor_labels() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_auth_factor_labels();
+  private:
+  const std::string& _internal_auth_factor_labels(int index) const;
+  std::string* _internal_add_auth_factor_labels();
+  public:
+
   // bytes auth_session_id = 1;
   void clear_auth_session_id();
   const std::string& auth_session_id() const;
@@ -19369,6 +19394,7 @@ class AuthenticateAuthFactorRequest final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> auth_factor_labels_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr auth_session_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr auth_factor_label_;
   ::user_data_auth::AuthInput* auth_input_;
@@ -33126,6 +33152,81 @@ inline void AuthenticateAuthFactorRequest::set_allocated_auth_input(::user_data_
   }
   auth_input_ = auth_input;
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.AuthenticateAuthFactorRequest.auth_input)
+}
+
+// repeated string auth_factor_labels = 4;
+inline int AuthenticateAuthFactorRequest::_internal_auth_factor_labels_size() const {
+  return auth_factor_labels_.size();
+}
+inline int AuthenticateAuthFactorRequest::auth_factor_labels_size() const {
+  return _internal_auth_factor_labels_size();
+}
+inline void AuthenticateAuthFactorRequest::clear_auth_factor_labels() {
+  auth_factor_labels_.Clear();
+}
+inline std::string* AuthenticateAuthFactorRequest::add_auth_factor_labels() {
+  std::string* _s = _internal_add_auth_factor_labels();
+  // @@protoc_insertion_point(field_add_mutable:user_data_auth.AuthenticateAuthFactorRequest.auth_factor_labels)
+  return _s;
+}
+inline const std::string& AuthenticateAuthFactorRequest::_internal_auth_factor_labels(int index) const {
+  return auth_factor_labels_.Get(index);
+}
+inline const std::string& AuthenticateAuthFactorRequest::auth_factor_labels(int index) const {
+  // @@protoc_insertion_point(field_get:user_data_auth.AuthenticateAuthFactorRequest.auth_factor_labels)
+  return _internal_auth_factor_labels(index);
+}
+inline std::string* AuthenticateAuthFactorRequest::mutable_auth_factor_labels(int index) {
+  // @@protoc_insertion_point(field_mutable:user_data_auth.AuthenticateAuthFactorRequest.auth_factor_labels)
+  return auth_factor_labels_.Mutable(index);
+}
+inline void AuthenticateAuthFactorRequest::set_auth_factor_labels(int index, const std::string& value) {
+  auth_factor_labels_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.AuthenticateAuthFactorRequest.auth_factor_labels)
+}
+inline void AuthenticateAuthFactorRequest::set_auth_factor_labels(int index, std::string&& value) {
+  auth_factor_labels_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:user_data_auth.AuthenticateAuthFactorRequest.auth_factor_labels)
+}
+inline void AuthenticateAuthFactorRequest::set_auth_factor_labels(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  auth_factor_labels_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:user_data_auth.AuthenticateAuthFactorRequest.auth_factor_labels)
+}
+inline void AuthenticateAuthFactorRequest::set_auth_factor_labels(int index, const char* value, size_t size) {
+  auth_factor_labels_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:user_data_auth.AuthenticateAuthFactorRequest.auth_factor_labels)
+}
+inline std::string* AuthenticateAuthFactorRequest::_internal_add_auth_factor_labels() {
+  return auth_factor_labels_.Add();
+}
+inline void AuthenticateAuthFactorRequest::add_auth_factor_labels(const std::string& value) {
+  auth_factor_labels_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:user_data_auth.AuthenticateAuthFactorRequest.auth_factor_labels)
+}
+inline void AuthenticateAuthFactorRequest::add_auth_factor_labels(std::string&& value) {
+  auth_factor_labels_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:user_data_auth.AuthenticateAuthFactorRequest.auth_factor_labels)
+}
+inline void AuthenticateAuthFactorRequest::add_auth_factor_labels(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  auth_factor_labels_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:user_data_auth.AuthenticateAuthFactorRequest.auth_factor_labels)
+}
+inline void AuthenticateAuthFactorRequest::add_auth_factor_labels(const char* value, size_t size) {
+  auth_factor_labels_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:user_data_auth.AuthenticateAuthFactorRequest.auth_factor_labels)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+AuthenticateAuthFactorRequest::auth_factor_labels() const {
+  // @@protoc_insertion_point(field_list:user_data_auth.AuthenticateAuthFactorRequest.auth_factor_labels)
+  return auth_factor_labels_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+AuthenticateAuthFactorRequest::mutable_auth_factor_labels() {
+  // @@protoc_insertion_point(field_mutable_list:user_data_auth.AuthenticateAuthFactorRequest.auth_factor_labels)
+  return &auth_factor_labels_;
 }
 
 // -------------------------------------------------------------------

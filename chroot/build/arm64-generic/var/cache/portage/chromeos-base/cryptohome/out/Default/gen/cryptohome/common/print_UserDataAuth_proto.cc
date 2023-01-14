@@ -3573,6 +3573,14 @@ std::string GetProtoDebugStringWithIndent(
           .c_str());
   output += "\n";
 
+  output += indent + "  auth_factor_labels: {";
+  for (int i = 0; i < value.auth_factor_labels_size(); ++i) {
+    if (i > 0) {
+      base::StringAppendF(&output, ", ");
+    }
+    base::StringAppendF(&output, "%s", value.auth_factor_labels(i).c_str());
+  }
+  output += "}\n";
   output += indent + "}\n";
   return output;
 }
