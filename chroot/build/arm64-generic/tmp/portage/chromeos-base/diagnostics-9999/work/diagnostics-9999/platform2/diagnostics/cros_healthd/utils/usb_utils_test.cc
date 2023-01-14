@@ -10,7 +10,7 @@
 #include <base/strings/string_split.h>
 #include <brillo/udev/mock_udev_device.h>
 
-#include "diagnostics/common/file_test_utils.h"
+#include "diagnostics/base/file_test_utils.h"
 #include "diagnostics/cros_healthd/utils/usb_utils.h"
 #include "diagnostics/cros_healthd/utils/usb_utils_constants.h"
 
@@ -39,7 +39,6 @@ class UsbUtilsTest : public BaseFileTest {
   ~UsbUtilsTest() = default;
 
   void SetUp() override {
-    CreateTestRoot();
     dev_ = std::make_unique<brillo::MockUdevDevice>();
     CreateUsbDevice(/*layer=*/0);
   }

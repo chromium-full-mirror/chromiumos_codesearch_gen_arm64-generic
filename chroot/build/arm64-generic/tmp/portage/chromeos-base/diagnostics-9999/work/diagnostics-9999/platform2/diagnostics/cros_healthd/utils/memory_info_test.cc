@@ -7,7 +7,7 @@
 
 #include <string>
 
-#include "diagnostics/common/file_test_utils.h"
+#include "diagnostics/base/file_test_utils.h"
 #include "diagnostics/cros_healthd/utils/memory_info.h"
 
 namespace diagnostics {
@@ -18,8 +18,6 @@ class MemoryInfoTest : public BaseFileTest {
   MemoryInfoTest() = default;
   MemoryInfoTest(const MemoryInfoTest&) = delete;
   MemoryInfoTest& operator=(const MemoryInfoTest&) = delete;
-
-  void SetUp() override { CreateTestRoot(); }
 
   void SetMockMemoryInfo(const std::string& info) {
     SetFile({"proc", "meminfo"}, info);

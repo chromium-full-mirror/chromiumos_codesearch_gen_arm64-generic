@@ -2678,8 +2678,6 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CertProvAuthorizeInstructionDef
 constexpr CertProvProofOfPossessionInstruction::CertProvProofOfPossessionInstruction(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : data_to_sign_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , hashing_algorithm_(0)
-
   , signing_algorithm_(0)
 {}
 struct CertProvProofOfPossessionInstructionDefaultTypeInternal {
@@ -64212,9 +64210,9 @@ const char* CertProvUploadProofOfPossessionRequest::_InternalParse(const char* p
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional bytes signature = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+      // optional bytes signature = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_signature();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -64252,10 +64250,10 @@ uint8_t* CertProvUploadProofOfPossessionRequest::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional bytes signature = 2;
+  // optional bytes signature = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_signature(), target);
+        1, this->_internal_signature(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -64274,7 +64272,7 @@ size_t CertProvUploadProofOfPossessionRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional bytes signature = 2;
+  // optional bytes signature = 1;
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -64551,11 +64549,8 @@ std::string CertProvAuthorizeInstruction::GetTypeName() const {
 class CertProvProofOfPossessionInstruction::_Internal {
  public:
   using HasBits = decltype(std::declval<CertProvProofOfPossessionInstruction>()._has_bits_);
-  static void set_has_hashing_algorithm(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
-  }
   static void set_has_signing_algorithm(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 2u;
   }
   static void set_has_data_to_sign(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -64583,9 +64578,7 @@ CertProvProofOfPossessionInstruction::CertProvProofOfPossessionInstruction(const
     data_to_sign_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_data_to_sign(), 
       GetArenaForAllocation());
   }
-  ::memcpy(&hashing_algorithm_, &from.hashing_algorithm_,
-    static_cast<size_t>(reinterpret_cast<char*>(&signing_algorithm_) -
-    reinterpret_cast<char*>(&hashing_algorithm_)) + sizeof(signing_algorithm_));
+  signing_algorithm_ = from.signing_algorithm_;
   // @@protoc_insertion_point(copy_constructor:enterprise_management.CertProvProofOfPossessionInstruction)
 }
 
@@ -64594,10 +64587,7 @@ data_to_sign_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStrin
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   data_to_sign_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&hashing_algorithm_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&signing_algorithm_) -
-    reinterpret_cast<char*>(&hashing_algorithm_)) + sizeof(signing_algorithm_));
+signing_algorithm_ = 0;
 }
 
 CertProvProofOfPossessionInstruction::~CertProvProofOfPossessionInstruction() {
@@ -64632,11 +64622,7 @@ void CertProvProofOfPossessionInstruction::Clear() {
   if (cached_has_bits & 0x00000001u) {
     data_to_sign_.ClearNonDefaultToEmpty();
   }
-  if (cached_has_bits & 0x00000006u) {
-    ::memset(&hashing_algorithm_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&signing_algorithm_) -
-        reinterpret_cast<char*>(&hashing_algorithm_)) + sizeof(signing_algorithm_));
-  }
+  signing_algorithm_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -64648,35 +64634,22 @@ const char* CertProvProofOfPossessionInstruction::_InternalParse(const char* ptr
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .enterprise_management.HashingAlgorithm hashing_algorithm = 1;
+      // optional .enterprise_management.SigningAlgorithm signing_algorithm = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::HashingAlgorithm_IsValid(val))) {
-            _internal_set_hashing_algorithm(static_cast<::enterprise_management::HashingAlgorithm>(val));
+          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::SigningAlgorithm_IsValid(val))) {
+            _internal_set_signing_algorithm(static_cast<::enterprise_management::SigningAlgorithm>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
         } else
           goto handle_unusual;
         continue;
-      // optional .enterprise_management.SigningAlgorithm signing_algorithm = 2;
+      // optional bytes data_to_sign = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::SigningAlgorithm_IsValid(val))) {
-            _internal_set_signing_algorithm(static_cast<::enterprise_management::SigningAlgorithm>(val));
-          } else {
-            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
-          }
-        } else
-          goto handle_unusual;
-        continue;
-      // optional bytes data_to_sign = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_data_to_sign();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -64714,24 +64687,17 @@ uint8_t* CertProvProofOfPossessionInstruction::_InternalSerialize(
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional .enterprise_management.HashingAlgorithm hashing_algorithm = 1;
+  // optional .enterprise_management.SigningAlgorithm signing_algorithm = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_hashing_algorithm(), target);
+      1, this->_internal_signing_algorithm(), target);
   }
 
-  // optional .enterprise_management.SigningAlgorithm signing_algorithm = 2;
-  if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-      2, this->_internal_signing_algorithm(), target);
-  }
-
-  // optional bytes data_to_sign = 3;
+  // optional bytes data_to_sign = 2;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteBytesMaybeAliased(
-        3, this->_internal_data_to_sign(), target);
+        2, this->_internal_data_to_sign(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -64751,22 +64717,16 @@ size_t CertProvProofOfPossessionInstruction::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
-    // optional bytes data_to_sign = 3;
+  if (cached_has_bits & 0x00000003u) {
+    // optional bytes data_to_sign = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
           this->_internal_data_to_sign());
     }
 
-    // optional .enterprise_management.HashingAlgorithm hashing_algorithm = 1;
+    // optional .enterprise_management.SigningAlgorithm signing_algorithm = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_hashing_algorithm());
-    }
-
-    // optional .enterprise_management.SigningAlgorithm signing_algorithm = 2;
-    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_signing_algorithm());
     }
@@ -64793,14 +64753,11 @@ void CertProvProofOfPossessionInstruction::MergeFrom(const CertProvProofOfPosses
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_data_to_sign(from._internal_data_to_sign());
     }
     if (cached_has_bits & 0x00000002u) {
-      hashing_algorithm_ = from.hashing_algorithm_;
-    }
-    if (cached_has_bits & 0x00000004u) {
       signing_algorithm_ = from.signing_algorithm_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -64830,12 +64787,7 @@ void CertProvProofOfPossessionInstruction::InternalSwap(CertProvProofOfPossessio
       &data_to_sign_, lhs_arena,
       &other->data_to_sign_, rhs_arena
   );
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CertProvProofOfPossessionInstruction, signing_algorithm_)
-      + sizeof(CertProvProofOfPossessionInstruction::signing_algorithm_)
-      - PROTOBUF_FIELD_OFFSET(CertProvProofOfPossessionInstruction, hashing_algorithm_)>(
-          reinterpret_cast<char*>(&hashing_algorithm_),
-          reinterpret_cast<char*>(&other->hashing_algorithm_));
+  swap(signing_algorithm_, other->signing_algorithm_);
 }
 
 std::string CertProvProofOfPossessionInstruction::GetTypeName() const {

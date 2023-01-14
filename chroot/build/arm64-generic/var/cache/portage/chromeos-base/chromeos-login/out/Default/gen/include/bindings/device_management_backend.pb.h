@@ -39306,9 +39306,9 @@ class CertProvUploadProofOfPossessionRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kSignatureFieldNumber = 2,
+    kSignatureFieldNumber = 1,
   };
-  // optional bytes signature = 2;
+  // optional bytes signature = 1;
   bool has_signature() const;
   private:
   bool _internal_has_signature() const;
@@ -39600,11 +39600,10 @@ class CertProvProofOfPossessionInstruction final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kDataToSignFieldNumber = 3,
-    kHashingAlgorithmFieldNumber = 1,
-    kSigningAlgorithmFieldNumber = 2,
+    kDataToSignFieldNumber = 2,
+    kSigningAlgorithmFieldNumber = 1,
   };
-  // optional bytes data_to_sign = 3;
+  // optional bytes data_to_sign = 2;
   bool has_data_to_sign() const;
   private:
   bool _internal_has_data_to_sign() const;
@@ -39622,20 +39621,7 @@ class CertProvProofOfPossessionInstruction final :
   std::string* _internal_mutable_data_to_sign();
   public:
 
-  // optional .enterprise_management.HashingAlgorithm hashing_algorithm = 1;
-  bool has_hashing_algorithm() const;
-  private:
-  bool _internal_has_hashing_algorithm() const;
-  public:
-  void clear_hashing_algorithm();
-  ::enterprise_management::HashingAlgorithm hashing_algorithm() const;
-  void set_hashing_algorithm(::enterprise_management::HashingAlgorithm value);
-  private:
-  ::enterprise_management::HashingAlgorithm _internal_hashing_algorithm() const;
-  void _internal_set_hashing_algorithm(::enterprise_management::HashingAlgorithm value);
-  public:
-
-  // optional .enterprise_management.SigningAlgorithm signing_algorithm = 2;
+  // optional .enterprise_management.SigningAlgorithm signing_algorithm = 1;
   bool has_signing_algorithm() const;
   private:
   bool _internal_has_signing_algorithm() const;
@@ -39658,7 +39644,6 @@ class CertProvProofOfPossessionInstruction final :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr data_to_sign_;
-  int hashing_algorithm_;
   int signing_algorithm_;
   friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };
@@ -77618,7 +77603,7 @@ inline void CertProvAuthorizeRequest::set_allocated_va_challenge_response(std::s
 
 // CertProvUploadProofOfPossessionRequest
 
-// optional bytes signature = 2;
+// optional bytes signature = 1;
 inline bool CertProvUploadProofOfPossessionRequest::_internal_has_signature() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -77764,38 +77749,9 @@ inline void CertProvAuthorizeInstruction::set_allocated_va_challenge(std::string
 
 // CertProvProofOfPossessionInstruction
 
-// optional .enterprise_management.HashingAlgorithm hashing_algorithm = 1;
-inline bool CertProvProofOfPossessionInstruction::_internal_has_hashing_algorithm() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
-  return value;
-}
-inline bool CertProvProofOfPossessionInstruction::has_hashing_algorithm() const {
-  return _internal_has_hashing_algorithm();
-}
-inline void CertProvProofOfPossessionInstruction::clear_hashing_algorithm() {
-  hashing_algorithm_ = 0;
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline ::enterprise_management::HashingAlgorithm CertProvProofOfPossessionInstruction::_internal_hashing_algorithm() const {
-  return static_cast< ::enterprise_management::HashingAlgorithm >(hashing_algorithm_);
-}
-inline ::enterprise_management::HashingAlgorithm CertProvProofOfPossessionInstruction::hashing_algorithm() const {
-  // @@protoc_insertion_point(field_get:enterprise_management.CertProvProofOfPossessionInstruction.hashing_algorithm)
-  return _internal_hashing_algorithm();
-}
-inline void CertProvProofOfPossessionInstruction::_internal_set_hashing_algorithm(::enterprise_management::HashingAlgorithm value) {
-  assert(::enterprise_management::HashingAlgorithm_IsValid(value));
-  _has_bits_[0] |= 0x00000002u;
-  hashing_algorithm_ = value;
-}
-inline void CertProvProofOfPossessionInstruction::set_hashing_algorithm(::enterprise_management::HashingAlgorithm value) {
-  _internal_set_hashing_algorithm(value);
-  // @@protoc_insertion_point(field_set:enterprise_management.CertProvProofOfPossessionInstruction.hashing_algorithm)
-}
-
-// optional .enterprise_management.SigningAlgorithm signing_algorithm = 2;
+// optional .enterprise_management.SigningAlgorithm signing_algorithm = 1;
 inline bool CertProvProofOfPossessionInstruction::_internal_has_signing_algorithm() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline bool CertProvProofOfPossessionInstruction::has_signing_algorithm() const {
@@ -77803,7 +77759,7 @@ inline bool CertProvProofOfPossessionInstruction::has_signing_algorithm() const 
 }
 inline void CertProvProofOfPossessionInstruction::clear_signing_algorithm() {
   signing_algorithm_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline ::enterprise_management::SigningAlgorithm CertProvProofOfPossessionInstruction::_internal_signing_algorithm() const {
   return static_cast< ::enterprise_management::SigningAlgorithm >(signing_algorithm_);
@@ -77814,7 +77770,7 @@ inline ::enterprise_management::SigningAlgorithm CertProvProofOfPossessionInstru
 }
 inline void CertProvProofOfPossessionInstruction::_internal_set_signing_algorithm(::enterprise_management::SigningAlgorithm value) {
   assert(::enterprise_management::SigningAlgorithm_IsValid(value));
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000002u;
   signing_algorithm_ = value;
 }
 inline void CertProvProofOfPossessionInstruction::set_signing_algorithm(::enterprise_management::SigningAlgorithm value) {
@@ -77822,7 +77778,7 @@ inline void CertProvProofOfPossessionInstruction::set_signing_algorithm(::enterp
   // @@protoc_insertion_point(field_set:enterprise_management.CertProvProofOfPossessionInstruction.signing_algorithm)
 }
 
-// optional bytes data_to_sign = 3;
+// optional bytes data_to_sign = 2;
 inline bool CertProvProofOfPossessionInstruction::_internal_has_data_to_sign() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
