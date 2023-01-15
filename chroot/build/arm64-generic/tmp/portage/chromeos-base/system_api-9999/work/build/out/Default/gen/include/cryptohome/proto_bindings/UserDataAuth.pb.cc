@@ -607,21 +607,9 @@ struct AuthFactorWithStatusDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AuthFactorWithStatusDefaultTypeInternal _AuthFactorWithStatus_default_instance_;
-constexpr StartAuthSessionReply_KeyLabelDataEntry_DoNotUse::StartAuthSessionReply_KeyLabelDataEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
-struct StartAuthSessionReply_KeyLabelDataEntry_DoNotUseDefaultTypeInternal {
-  constexpr StartAuthSessionReply_KeyLabelDataEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~StartAuthSessionReply_KeyLabelDataEntry_DoNotUseDefaultTypeInternal() {}
-  union {
-    StartAuthSessionReply_KeyLabelDataEntry_DoNotUse _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StartAuthSessionReply_KeyLabelDataEntry_DoNotUseDefaultTypeInternal _StartAuthSessionReply_KeyLabelDataEntry_DoNotUse_default_instance_;
 constexpr StartAuthSessionReply::StartAuthSessionReply(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : key_label_data_()
-  , auth_factors_()
+  : auth_factors_()
   , auth_session_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , error_info_(nullptr)
   , error_(0)
@@ -12749,15 +12737,6 @@ std::string AuthFactorWithStatus::GetTypeName() const {
 
 // ===================================================================
 
-StartAuthSessionReply_KeyLabelDataEntry_DoNotUse::StartAuthSessionReply_KeyLabelDataEntry_DoNotUse() {}
-StartAuthSessionReply_KeyLabelDataEntry_DoNotUse::StartAuthSessionReply_KeyLabelDataEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
-    : SuperType(arena) {}
-void StartAuthSessionReply_KeyLabelDataEntry_DoNotUse::MergeFrom(const StartAuthSessionReply_KeyLabelDataEntry_DoNotUse& other) {
-  MergeFromInternal(other);
-}
-
-// ===================================================================
-
 class StartAuthSessionReply::_Internal {
  public:
   static const ::user_data_auth::CryptohomeErrorInfo& error_info(const StartAuthSessionReply* msg);
@@ -12767,16 +12746,12 @@ const ::user_data_auth::CryptohomeErrorInfo&
 StartAuthSessionReply::_Internal::error_info(const StartAuthSessionReply* msg) {
   return *msg->error_info_;
 }
-void StartAuthSessionReply::clear_key_label_data() {
-  key_label_data_.Clear();
-}
 void StartAuthSessionReply::clear_auth_factors() {
   auth_factors_.Clear();
 }
 StartAuthSessionReply::StartAuthSessionReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  key_label_data_(arena),
   auth_factors_(arena) {
   SharedCtor();
   if (!is_message_owned) {
@@ -12788,7 +12763,6 @@ StartAuthSessionReply::StartAuthSessionReply(const StartAuthSessionReply& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       auth_factors_(from.auth_factors_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  key_label_data_.MergeFrom(from.key_label_data_);
   auth_session_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     auth_session_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
@@ -12848,7 +12822,6 @@ void StartAuthSessionReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  key_label_data_.Clear();
   auth_factors_.Clear();
   auth_session_id_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
@@ -12890,19 +12863,6 @@ const char* StartAuthSessionReply::_InternalParse(const char* ptr, ::PROTOBUF_NA
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           user_exists_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // map<string, .cryptohome.KeyData> key_label_data = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(&key_label_data_, ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -12975,48 +12935,6 @@ uint8_t* StartAuthSessionReply::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_user_exists(), target);
   }
 
-  // map<string, .cryptohome.KeyData> key_label_data = 4;
-  if (!this->_internal_key_label_data().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::cryptohome::KeyData >::const_pointer
-        ConstPtr;
-    typedef ConstPtr SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByDerefFirst<SortItem> Less;
-    struct Utf8Check {
-      static void Check(ConstPtr p) {
-        (void)p;
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-          p->first.data(), static_cast<int>(p->first.length()),
-          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-          "user_data_auth.StartAuthSessionReply.KeyLabelDataEntry.key");
-      }
-    };
-
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_key_label_data().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_key_label_data().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::cryptohome::KeyData >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, ::cryptohome::KeyData >::const_iterator
-          it = this->_internal_key_label_data().begin();
-          it != this->_internal_key_label_data().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = StartAuthSessionReply_KeyLabelDataEntry_DoNotUse::Funcs::InternalSerialize(4, items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second, target, stream);
-        Utf8Check::Check(&(*items[static_cast<ptrdiff_t>(i)]));
-      }
-    } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, ::cryptohome::KeyData >::const_iterator
-          it = this->_internal_key_label_data().begin();
-          it != this->_internal_key_label_data().end(); ++it) {
-        target = StartAuthSessionReply_KeyLabelDataEntry_DoNotUse::Funcs::InternalSerialize(4, it->first, it->second, target, stream);
-        Utf8Check::Check(&(*it));
-      }
-    }
-  }
-
   // repeated .user_data_auth.AuthFactor auth_factors = 5;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->_internal_auth_factors_size()); i < n; i++) {
@@ -13048,15 +12966,6 @@ size_t StartAuthSessionReply::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
-
-  // map<string, .cryptohome.KeyData> key_label_data = 4;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_key_label_data_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< std::string, ::cryptohome::KeyData >::const_iterator
-      it = this->_internal_key_label_data().begin();
-      it != this->_internal_key_label_data().end(); ++it) {
-    total_size += StartAuthSessionReply_KeyLabelDataEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
-  }
 
   // repeated .user_data_auth.AuthFactor auth_factors = 5;
   total_size += 1UL * this->_internal_auth_factors_size();
@@ -13110,7 +13019,6 @@ void StartAuthSessionReply::MergeFrom(const StartAuthSessionReply& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  key_label_data_.MergeFrom(from.key_label_data_);
   auth_factors_.MergeFrom(from.auth_factors_);
   if (!from._internal_auth_session_id().empty()) {
     _internal_set_auth_session_id(from._internal_auth_session_id());
@@ -13143,7 +13051,6 @@ void StartAuthSessionReply::InternalSwap(StartAuthSessionReply* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  key_label_data_.InternalSwap(&other->key_label_data_);
   auth_factors_.InternalSwap(&other->auth_factors_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
@@ -35712,9 +35619,6 @@ template<> PROTOBUF_NOINLINE ::user_data_auth::StartAuthSessionRequest* Arena::C
 }
 template<> PROTOBUF_NOINLINE ::user_data_auth::AuthFactorWithStatus* Arena::CreateMaybeMessage< ::user_data_auth::AuthFactorWithStatus >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::AuthFactorWithStatus >(arena);
-}
-template<> PROTOBUF_NOINLINE ::user_data_auth::StartAuthSessionReply_KeyLabelDataEntry_DoNotUse* Arena::CreateMaybeMessage< ::user_data_auth::StartAuthSessionReply_KeyLabelDataEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::user_data_auth::StartAuthSessionReply_KeyLabelDataEntry_DoNotUse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::user_data_auth::StartAuthSessionReply* Arena::CreateMaybeMessage< ::user_data_auth::StartAuthSessionReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::StartAuthSessionReply >(arena);
