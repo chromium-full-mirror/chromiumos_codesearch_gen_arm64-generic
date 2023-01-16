@@ -56,8 +56,6 @@ class DeviceInterface {
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<>> response,
       const std::string& in_1,
       const std::string& in_2) = 0;
-  virtual bool RenewDHCPLease(
-      brillo::ErrorPtr* error) = 0;
   virtual void Reset(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<>> response) = 0;
   virtual bool RequestRoam(
@@ -119,10 +117,6 @@ class DeviceAdaptor {
         "ChangePin",
         base::Unretained(interface_),
         &DeviceInterface::ChangePin);
-    itf->AddSimpleMethodHandlerWithError(
-        "RenewDHCPLease",
-        base::Unretained(interface_),
-        &DeviceInterface::RenewDHCPLease);
     itf->AddMethodHandler(
         "Reset",
         base::Unretained(interface_),
@@ -181,8 +175,6 @@ class DeviceAdaptor {
         "    <method name=\"ChangePin\">\n"
         "      <arg name=\"\" type=\"s\" direction=\"in\"/>\n"
         "      <arg name=\"\" type=\"s\" direction=\"in\"/>\n"
-        "    </method>\n"
-        "    <method name=\"RenewDHCPLease\">\n"
         "    </method>\n"
         "    <method name=\"Reset\">\n"
         "    </method>\n"

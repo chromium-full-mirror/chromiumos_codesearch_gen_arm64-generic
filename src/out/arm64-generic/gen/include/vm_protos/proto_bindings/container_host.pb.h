@@ -51,7 +51,7 @@ struct TableStruct_container_5fhost_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[35]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[36]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -156,6 +156,9 @@ extern UninstallPackageProgressInfoDefaultTypeInternal _UninstallPackageProgress
 class UninstallShaderCacheRequest;
 struct UninstallShaderCacheRequestDefaultTypeInternal;
 extern UninstallShaderCacheRequestDefaultTypeInternal _UninstallShaderCacheRequest_default_instance_;
+class UnmountShaderCacheRequest;
+struct UnmountShaderCacheRequestDefaultTypeInternal;
+extern UnmountShaderCacheRequestDefaultTypeInternal _UnmountShaderCacheRequest_default_instance_;
 class UpdateApplicationListRequest;
 struct UpdateApplicationListRequestDefaultTypeInternal;
 extern UpdateApplicationListRequestDefaultTypeInternal _UpdateApplicationListRequest_default_instance_;
@@ -200,6 +203,7 @@ template<> ::vm_tools::container::SelectFileResponse* Arena::CreateMaybeMessage<
 template<> ::vm_tools::container::UninhibitScreensaverInfo* Arena::CreateMaybeMessage<::vm_tools::container::UninhibitScreensaverInfo>(Arena*);
 template<> ::vm_tools::container::UninstallPackageProgressInfo* Arena::CreateMaybeMessage<::vm_tools::container::UninstallPackageProgressInfo>(Arena*);
 template<> ::vm_tools::container::UninstallShaderCacheRequest* Arena::CreateMaybeMessage<::vm_tools::container::UninstallShaderCacheRequest>(Arena*);
+template<> ::vm_tools::container::UnmountShaderCacheRequest* Arena::CreateMaybeMessage<::vm_tools::container::UnmountShaderCacheRequest>(Arena*);
 template<> ::vm_tools::container::UpdateApplicationListRequest* Arena::CreateMaybeMessage<::vm_tools::container::UpdateApplicationListRequest>(Arena*);
 template<> ::vm_tools::container::UpdateMimeTypesRequest* Arena::CreateMaybeMessage<::vm_tools::container::UpdateMimeTypesRequest>(Arena*);
 template<> ::vm_tools::container::UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse* Arena::CreateMaybeMessage<::vm_tools::container::UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse>(Arena*);
@@ -6000,6 +6004,179 @@ class UninstallShaderCacheRequest final :
 };
 // -------------------------------------------------------------------
 
+class UnmountShaderCacheRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vm_tools.container.UnmountShaderCacheRequest) */ {
+ public:
+  inline UnmountShaderCacheRequest() : UnmountShaderCacheRequest(nullptr) {}
+  ~UnmountShaderCacheRequest() override;
+  explicit constexpr UnmountShaderCacheRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UnmountShaderCacheRequest(const UnmountShaderCacheRequest& from);
+  UnmountShaderCacheRequest(UnmountShaderCacheRequest&& from) noexcept
+    : UnmountShaderCacheRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline UnmountShaderCacheRequest& operator=(const UnmountShaderCacheRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UnmountShaderCacheRequest& operator=(UnmountShaderCacheRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const UnmountShaderCacheRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UnmountShaderCacheRequest* internal_default_instance() {
+    return reinterpret_cast<const UnmountShaderCacheRequest*>(
+               &_UnmountShaderCacheRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    33;
+
+  friend void swap(UnmountShaderCacheRequest& a, UnmountShaderCacheRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UnmountShaderCacheRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UnmountShaderCacheRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UnmountShaderCacheRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UnmountShaderCacheRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const UnmountShaderCacheRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const UnmountShaderCacheRequest& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UnmountShaderCacheRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.container.UnmountShaderCacheRequest";
+  }
+  protected:
+  explicit UnmountShaderCacheRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTokenFieldNumber = 1,
+    kSteamAppIdFieldNumber = 2,
+    kWaitFieldNumber = 3,
+  };
+  // string token = 1;
+  void clear_token();
+  const std::string& token() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_token(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_token();
+  PROTOBUF_NODISCARD std::string* release_token();
+  void set_allocated_token(std::string* token);
+  private:
+  const std::string& _internal_token() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_token(const std::string& value);
+  std::string* _internal_mutable_token();
+  public:
+
+  // uint64 steam_app_id = 2;
+  void clear_steam_app_id();
+  uint64_t steam_app_id() const;
+  void set_steam_app_id(uint64_t value);
+  private:
+  uint64_t _internal_steam_app_id() const;
+  void _internal_set_steam_app_id(uint64_t value);
+  public:
+
+  // bool wait = 3;
+  void clear_wait();
+  bool wait() const;
+  void set_wait(bool value);
+  private:
+  bool _internal_wait() const;
+  void _internal_set_wait(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.container.UnmountShaderCacheRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
+  uint64_t steam_app_id_;
+  bool wait_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_container_5fhost_2eproto;
+};
+// -------------------------------------------------------------------
+
 class InhibitScreensaverInfo final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vm_tools.container.InhibitScreensaverInfo) */ {
  public:
@@ -6048,7 +6225,7 @@ class InhibitScreensaverInfo final :
                &_InhibitScreensaverInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    33;
+    34;
 
   friend void swap(InhibitScreensaverInfo& a, InhibitScreensaverInfo& b) {
     a.Swap(&b);
@@ -6242,7 +6419,7 @@ class UninhibitScreensaverInfo final :
                &_UninhibitScreensaverInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    34;
+    35;
 
   friend void swap(UninhibitScreensaverInfo& a, UninhibitScreensaverInfo& b) {
     a.Swap(&b);
@@ -9982,6 +10159,101 @@ inline void UninstallShaderCacheRequest::set_steam_app_id(uint64_t value) {
 
 // -------------------------------------------------------------------
 
+// UnmountShaderCacheRequest
+
+// string token = 1;
+inline void UnmountShaderCacheRequest::clear_token() {
+  token_.ClearToEmpty();
+}
+inline const std::string& UnmountShaderCacheRequest::token() const {
+  // @@protoc_insertion_point(field_get:vm_tools.container.UnmountShaderCacheRequest.token)
+  return _internal_token();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void UnmountShaderCacheRequest::set_token(ArgT0&& arg0, ArgT... args) {
+ 
+ token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.container.UnmountShaderCacheRequest.token)
+}
+inline std::string* UnmountShaderCacheRequest::mutable_token() {
+  std::string* _s = _internal_mutable_token();
+  // @@protoc_insertion_point(field_mutable:vm_tools.container.UnmountShaderCacheRequest.token)
+  return _s;
+}
+inline const std::string& UnmountShaderCacheRequest::_internal_token() const {
+  return token_.Get();
+}
+inline void UnmountShaderCacheRequest::_internal_set_token(const std::string& value) {
+  
+  token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* UnmountShaderCacheRequest::_internal_mutable_token() {
+  
+  return token_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* UnmountShaderCacheRequest::release_token() {
+  // @@protoc_insertion_point(field_release:vm_tools.container.UnmountShaderCacheRequest.token)
+  return token_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void UnmountShaderCacheRequest::set_allocated_token(std::string* token) {
+  if (token != nullptr) {
+    
+  } else {
+    
+  }
+  token_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), token,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (token_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.container.UnmountShaderCacheRequest.token)
+}
+
+// uint64 steam_app_id = 2;
+inline void UnmountShaderCacheRequest::clear_steam_app_id() {
+  steam_app_id_ = uint64_t{0u};
+}
+inline uint64_t UnmountShaderCacheRequest::_internal_steam_app_id() const {
+  return steam_app_id_;
+}
+inline uint64_t UnmountShaderCacheRequest::steam_app_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.container.UnmountShaderCacheRequest.steam_app_id)
+  return _internal_steam_app_id();
+}
+inline void UnmountShaderCacheRequest::_internal_set_steam_app_id(uint64_t value) {
+  
+  steam_app_id_ = value;
+}
+inline void UnmountShaderCacheRequest::set_steam_app_id(uint64_t value) {
+  _internal_set_steam_app_id(value);
+  // @@protoc_insertion_point(field_set:vm_tools.container.UnmountShaderCacheRequest.steam_app_id)
+}
+
+// bool wait = 3;
+inline void UnmountShaderCacheRequest::clear_wait() {
+  wait_ = false;
+}
+inline bool UnmountShaderCacheRequest::_internal_wait() const {
+  return wait_;
+}
+inline bool UnmountShaderCacheRequest::wait() const {
+  // @@protoc_insertion_point(field_get:vm_tools.container.UnmountShaderCacheRequest.wait)
+  return _internal_wait();
+}
+inline void UnmountShaderCacheRequest::_internal_set_wait(bool value) {
+  
+  wait_ = value;
+}
+inline void UnmountShaderCacheRequest::set_wait(bool value) {
+  _internal_set_wait(value);
+  // @@protoc_insertion_point(field_set:vm_tools.container.UnmountShaderCacheRequest.wait)
+}
+
+// -------------------------------------------------------------------
+
 // InhibitScreensaverInfo
 
 // string token = 1;
@@ -10235,6 +10507,8 @@ inline void UninhibitScreensaverInfo::set_cookie(int32_t value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

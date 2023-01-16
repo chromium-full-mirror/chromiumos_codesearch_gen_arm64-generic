@@ -43,6 +43,7 @@ static const char* ContainerListener_method_names[] = {
   "/vm_tools.container.ContainerListener/ReportMetrics",
   "/vm_tools.container.ContainerListener/InstallShaderCache",
   "/vm_tools.container.ContainerListener/UninstallShaderCache",
+  "/vm_tools.container.ContainerListener/UnmountShaderCache",
   "/vm_tools.container.ContainerListener/InhibitScreensaver",
   "/vm_tools.container.ContainerListener/UninhibitScreensaver",
 };
@@ -74,8 +75,9 @@ ContainerListener::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& 
   , rpcmethod_ReportMetrics_(ContainerListener_method_names[17], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_InstallShaderCache_(ContainerListener_method_names[18], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_UninstallShaderCache_(ContainerListener_method_names[19], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_InhibitScreensaver_(ContainerListener_method_names[20], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_UninhibitScreensaver_(ContainerListener_method_names[21], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UnmountShaderCache_(ContainerListener_method_names[20], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_InhibitScreensaver_(ContainerListener_method_names[21], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UninhibitScreensaver_(ContainerListener_method_names[22], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status ContainerListener::Stub::ContainerReady(::grpc::ClientContext* context, const ::vm_tools::container::ContainerStartupInfo& request, ::vm_tools::EmptyMessage* response) {
@@ -538,6 +540,29 @@ void ContainerListener::Stub::async::UninstallShaderCache(::grpc::ClientContext*
   return result;
 }
 
+::grpc::Status ContainerListener::Stub::UnmountShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest& request, ::vm_tools::EmptyMessage* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::UnmountShaderCacheRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UnmountShaderCache_, context, request, response);
+}
+
+void ContainerListener::Stub::async::UnmountShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::container::UnmountShaderCacheRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UnmountShaderCache_, context, request, response, std::move(f));
+}
+
+void ContainerListener::Stub::async::UnmountShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UnmountShaderCache_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* ContainerListener::Stub::PrepareAsyncUnmountShaderCacheRaw(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::container::UnmountShaderCacheRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UnmountShaderCache_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* ContainerListener::Stub::AsyncUnmountShaderCacheRaw(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUnmountShaderCacheRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
 ::grpc::Status ContainerListener::Stub::InhibitScreensaver(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo& request, ::vm_tools::EmptyMessage* response) {
   return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::InhibitScreensaverInfo, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_InhibitScreensaver_, context, request, response);
 }
@@ -788,6 +813,16 @@ ContainerListener::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ContainerListener_method_names[20],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< ContainerListener::Service, ::vm_tools::container::UnmountShaderCacheRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](ContainerListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::container::UnmountShaderCacheRequest* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->UnmountShaderCache(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      ContainerListener_method_names[21],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ContainerListener::Service, ::vm_tools::container::InhibitScreensaverInfo, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ContainerListener::Service* service,
              ::grpc::ServerContext* ctx,
@@ -796,7 +831,7 @@ ContainerListener::Service::Service() {
                return service->InhibitScreensaver(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
-      ContainerListener_method_names[21],
+      ContainerListener_method_names[22],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< ContainerListener::Service, ::vm_tools::container::UninhibitScreensaverInfo, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](ContainerListener::Service* service,
@@ -944,6 +979,13 @@ ContainerListener::Service::~Service() {
 }
 
 ::grpc::Status ContainerListener::Service::UninstallShaderCache(::grpc::ServerContext* context, const ::vm_tools::container::UninstallShaderCacheRequest* request, ::vm_tools::EmptyMessage* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status ContainerListener::Service::UnmountShaderCache(::grpc::ServerContext* context, const ::vm_tools::container::UnmountShaderCacheRequest* request, ::vm_tools::EmptyMessage* response) {
   (void) context;
   (void) request;
   (void) response;

@@ -152,15 +152,6 @@ class DeviceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  virtual bool RenewDHCPLease(
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void RenewDHCPLeaseAsync(
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   virtual bool Reset(
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -554,32 +545,6 @@ class DeviceProxy final : public DeviceProxyInterface {
         std::move(error_callback),
         in_1,
         in_2);
-  }
-
-  bool RenewDHCPLease(
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.flimflam.Device",
-        "RenewDHCPLease",
-        error);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error);
-  }
-
-  void RenewDHCPLeaseAsync(
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.flimflam.Device",
-        "RenewDHCPLease",
-        std::move(success_callback),
-        std::move(error_callback));
   }
 
   bool Reset(

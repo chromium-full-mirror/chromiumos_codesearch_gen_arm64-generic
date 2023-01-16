@@ -124,13 +124,6 @@ class DeviceProxyMock : public DeviceProxyInterface {
                     base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
-  MOCK_METHOD2(RenewDHCPLease,
-               bool(brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD3(RenewDHCPLeaseAsync,
-               void(base::OnceCallback<void()> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
   MOCK_METHOD2(Reset,
                bool(brillo::ErrorPtr* /*error*/,
                     int /*timeout_ms*/));

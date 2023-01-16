@@ -210,6 +210,14 @@ class ContainerListener final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>> PrepareAsyncUninstallShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UninstallShaderCacheRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>>(PrepareAsyncUninstallShaderCacheRaw(context, request, cq));
     }
+    // Called by the VM to trigger Shader DLC uninstall.
+    virtual ::grpc::Status UnmountShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest& request, ::vm_tools::EmptyMessage* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>> AsyncUnmountShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>>(AsyncUnmountShaderCacheRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>> PrepareAsyncUnmountShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>>(PrepareAsyncUnmountShaderCacheRaw(context, request, cq));
+    }
     // Called by VM to inhibit sleep.
     virtual ::grpc::Status InhibitScreensaver(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo& request, ::vm_tools::EmptyMessage* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>> AsyncInhibitScreensaver(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo& request, ::grpc::CompletionQueue* cq) {
@@ -297,6 +305,9 @@ class ContainerListener final {
       // Called by the VM to trigger Shader DLC uninstall.
       virtual void UninstallShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UninstallShaderCacheRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
       virtual void UninstallShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UninstallShaderCacheRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Called by the VM to trigger Shader DLC uninstall.
+      virtual void UnmountShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UnmountShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Called by VM to inhibit sleep.
       virtual void InhibitScreensaver(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
       virtual void InhibitScreensaver(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
@@ -348,6 +359,8 @@ class ContainerListener final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* PrepareAsyncInstallShaderCacheRaw(::grpc::ClientContext* context, const ::vm_tools::container::InstallShaderCacheRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* AsyncUninstallShaderCacheRaw(::grpc::ClientContext* context, const ::vm_tools::container::UninstallShaderCacheRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* PrepareAsyncUninstallShaderCacheRaw(::grpc::ClientContext* context, const ::vm_tools::container::UninstallShaderCacheRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* AsyncUnmountShaderCacheRaw(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* PrepareAsyncUnmountShaderCacheRaw(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* AsyncInhibitScreensaverRaw(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* PrepareAsyncInhibitScreensaverRaw(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* AsyncUninhibitScreensaverRaw(::grpc::ClientContext* context, const ::vm_tools::container::UninhibitScreensaverInfo& request, ::grpc::CompletionQueue* cq) = 0;
@@ -496,6 +509,13 @@ class ContainerListener final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>> PrepareAsyncUninstallShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UninstallShaderCacheRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>>(PrepareAsyncUninstallShaderCacheRaw(context, request, cq));
     }
+    ::grpc::Status UnmountShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest& request, ::vm_tools::EmptyMessage* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>> AsyncUnmountShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>>(AsyncUnmountShaderCacheRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>> PrepareAsyncUnmountShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>>(PrepareAsyncUnmountShaderCacheRaw(context, request, cq));
+    }
     ::grpc::Status InhibitScreensaver(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo& request, ::vm_tools::EmptyMessage* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>> AsyncInhibitScreensaver(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>>(AsyncInhibitScreensaverRaw(context, request, cq));
@@ -553,6 +573,8 @@ class ContainerListener final {
       void InstallShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::InstallShaderCacheRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UninstallShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UninstallShaderCacheRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
       void UninstallShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UninstallShaderCacheRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void UnmountShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void UnmountShaderCache(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void InhibitScreensaver(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
       void InhibitScreensaver(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UninhibitScreensaver(::grpc::ClientContext* context, const ::vm_tools::container::UninhibitScreensaverInfo* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
@@ -608,6 +630,8 @@ class ContainerListener final {
     ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* PrepareAsyncInstallShaderCacheRaw(::grpc::ClientContext* context, const ::vm_tools::container::InstallShaderCacheRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* AsyncUninstallShaderCacheRaw(::grpc::ClientContext* context, const ::vm_tools::container::UninstallShaderCacheRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* PrepareAsyncUninstallShaderCacheRaw(::grpc::ClientContext* context, const ::vm_tools::container::UninstallShaderCacheRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* AsyncUnmountShaderCacheRaw(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* PrepareAsyncUnmountShaderCacheRaw(::grpc::ClientContext* context, const ::vm_tools::container::UnmountShaderCacheRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* AsyncInhibitScreensaverRaw(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* PrepareAsyncInhibitScreensaverRaw(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* AsyncUninhibitScreensaverRaw(::grpc::ClientContext* context, const ::vm_tools::container::UninhibitScreensaverInfo& request, ::grpc::CompletionQueue* cq) override;
@@ -632,6 +656,7 @@ class ContainerListener final {
     const ::grpc::internal::RpcMethod rpcmethod_ReportMetrics_;
     const ::grpc::internal::RpcMethod rpcmethod_InstallShaderCache_;
     const ::grpc::internal::RpcMethod rpcmethod_UninstallShaderCache_;
+    const ::grpc::internal::RpcMethod rpcmethod_UnmountShaderCache_;
     const ::grpc::internal::RpcMethod rpcmethod_InhibitScreensaver_;
     const ::grpc::internal::RpcMethod rpcmethod_UninhibitScreensaver_;
   };
@@ -689,6 +714,8 @@ class ContainerListener final {
     virtual ::grpc::Status InstallShaderCache(::grpc::ServerContext* context, const ::vm_tools::container::InstallShaderCacheRequest* request, ::vm_tools::EmptyMessage* response);
     // Called by the VM to trigger Shader DLC uninstall.
     virtual ::grpc::Status UninstallShaderCache(::grpc::ServerContext* context, const ::vm_tools::container::UninstallShaderCacheRequest* request, ::vm_tools::EmptyMessage* response);
+    // Called by the VM to trigger Shader DLC uninstall.
+    virtual ::grpc::Status UnmountShaderCache(::grpc::ServerContext* context, const ::vm_tools::container::UnmountShaderCacheRequest* request, ::vm_tools::EmptyMessage* response);
     // Called by VM to inhibit sleep.
     virtual ::grpc::Status InhibitScreensaver(::grpc::ServerContext* context, const ::vm_tools::container::InhibitScreensaverInfo* request, ::vm_tools::EmptyMessage* response);
     // Called by VM to uninhibit sleep.
@@ -1095,12 +1122,32 @@ class ContainerListener final {
     }
   };
   template <class BaseClass>
+  class WithAsyncMethod_UnmountShaderCache : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_UnmountShaderCache() {
+      ::grpc::Service::MarkMethodAsync(20);
+    }
+    ~WithAsyncMethod_UnmountShaderCache() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UnmountShaderCache(::grpc::ServerContext* /*context*/, const ::vm_tools::container::UnmountShaderCacheRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUnmountShaderCache(::grpc::ServerContext* context, ::vm_tools::container::UnmountShaderCacheRequest* request, ::grpc::ServerAsyncResponseWriter< ::vm_tools::EmptyMessage>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithAsyncMethod_InhibitScreensaver : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_InhibitScreensaver() {
-      ::grpc::Service::MarkMethodAsync(20);
+      ::grpc::Service::MarkMethodAsync(21);
     }
     ~WithAsyncMethod_InhibitScreensaver() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1111,7 +1158,7 @@ class ContainerListener final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestInhibitScreensaver(::grpc::ServerContext* context, ::vm_tools::container::InhibitScreensaverInfo* request, ::grpc::ServerAsyncResponseWriter< ::vm_tools::EmptyMessage>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -1120,7 +1167,7 @@ class ContainerListener final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UninhibitScreensaver() {
-      ::grpc::Service::MarkMethodAsync(21);
+      ::grpc::Service::MarkMethodAsync(22);
     }
     ~WithAsyncMethod_UninhibitScreensaver() override {
       BaseClassMustBeDerivedFromService(this);
@@ -1131,10 +1178,10 @@ class ContainerListener final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestUninhibitScreensaver(::grpc::ServerContext* context, ::vm_tools::container::UninhibitScreensaverInfo* request, ::grpc::ServerAsyncResponseWriter< ::vm_tools::EmptyMessage>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(22, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_ContainerReady<WithAsyncMethod_ContainerShutdown<WithAsyncMethod_UpdateApplicationList<WithAsyncMethod_PendingUpdateApplicationListCalls<WithAsyncMethod_OpenUrl<WithAsyncMethod_InstallLinuxPackageProgress<WithAsyncMethod_UninstallPackageProgress<WithAsyncMethod_ApplyAnsiblePlaybookProgress<WithAsyncMethod_OpenTerminal<WithAsyncMethod_UpdateMimeTypes<WithAsyncMethod_FileWatchTriggered<WithAsyncMethod_LowDiskSpaceTriggered<WithAsyncMethod_ForwardSecurityKeyMessage<WithAsyncMethod_SelectFile<WithAsyncMethod_GetDiskInfo<WithAsyncMethod_RequestSpace<WithAsyncMethod_ReleaseSpace<WithAsyncMethod_ReportMetrics<WithAsyncMethod_InstallShaderCache<WithAsyncMethod_UninstallShaderCache<WithAsyncMethod_InhibitScreensaver<WithAsyncMethod_UninhibitScreensaver<Service > > > > > > > > > > > > > > > > > > > > > > AsyncService;
+  typedef WithAsyncMethod_ContainerReady<WithAsyncMethod_ContainerShutdown<WithAsyncMethod_UpdateApplicationList<WithAsyncMethod_PendingUpdateApplicationListCalls<WithAsyncMethod_OpenUrl<WithAsyncMethod_InstallLinuxPackageProgress<WithAsyncMethod_UninstallPackageProgress<WithAsyncMethod_ApplyAnsiblePlaybookProgress<WithAsyncMethod_OpenTerminal<WithAsyncMethod_UpdateMimeTypes<WithAsyncMethod_FileWatchTriggered<WithAsyncMethod_LowDiskSpaceTriggered<WithAsyncMethod_ForwardSecurityKeyMessage<WithAsyncMethod_SelectFile<WithAsyncMethod_GetDiskInfo<WithAsyncMethod_RequestSpace<WithAsyncMethod_ReleaseSpace<WithAsyncMethod_ReportMetrics<WithAsyncMethod_InstallShaderCache<WithAsyncMethod_UninstallShaderCache<WithAsyncMethod_UnmountShaderCache<WithAsyncMethod_InhibitScreensaver<WithAsyncMethod_UninhibitScreensaver<Service > > > > > > > > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_ContainerReady : public BaseClass {
    private:
@@ -1676,18 +1723,45 @@ class ContainerListener final {
       ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::container::UninstallShaderCacheRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithCallbackMethod_UnmountShaderCache : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UnmountShaderCache() {
+      ::grpc::Service::MarkMethodCallback(20,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::UnmountShaderCacheRequest, ::vm_tools::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::container::UnmountShaderCacheRequest* request, ::vm_tools::EmptyMessage* response) { return this->UnmountShaderCache(context, request, response); }));}
+    void SetMessageAllocatorFor_UnmountShaderCache(
+        ::grpc::MessageAllocator< ::vm_tools::container::UnmountShaderCacheRequest, ::vm_tools::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(20);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::UnmountShaderCacheRequest, ::vm_tools::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UnmountShaderCache() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UnmountShaderCache(::grpc::ServerContext* /*context*/, const ::vm_tools::container::UnmountShaderCacheRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UnmountShaderCache(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::container::UnmountShaderCacheRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithCallbackMethod_InhibitScreensaver : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_InhibitScreensaver() {
-      ::grpc::Service::MarkMethodCallback(20,
+      ::grpc::Service::MarkMethodCallback(21,
           new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::InhibitScreensaverInfo, ::vm_tools::EmptyMessage>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::vm_tools::container::InhibitScreensaverInfo* request, ::vm_tools::EmptyMessage* response) { return this->InhibitScreensaver(context, request, response); }));}
     void SetMessageAllocatorFor_InhibitScreensaver(
         ::grpc::MessageAllocator< ::vm_tools::container::InhibitScreensaverInfo, ::vm_tools::EmptyMessage>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(20);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(21);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::InhibitScreensaverInfo, ::vm_tools::EmptyMessage>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1708,13 +1782,13 @@ class ContainerListener final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_UninhibitScreensaver() {
-      ::grpc::Service::MarkMethodCallback(21,
+      ::grpc::Service::MarkMethodCallback(22,
           new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::UninhibitScreensaverInfo, ::vm_tools::EmptyMessage>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::vm_tools::container::UninhibitScreensaverInfo* request, ::vm_tools::EmptyMessage* response) { return this->UninhibitScreensaver(context, request, response); }));}
     void SetMessageAllocatorFor_UninhibitScreensaver(
         ::grpc::MessageAllocator< ::vm_tools::container::UninhibitScreensaverInfo, ::vm_tools::EmptyMessage>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(21);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(22);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::UninhibitScreensaverInfo, ::vm_tools::EmptyMessage>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -1729,7 +1803,7 @@ class ContainerListener final {
     virtual ::grpc::ServerUnaryReactor* UninhibitScreensaver(
       ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::container::UninhibitScreensaverInfo* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_ContainerReady<WithCallbackMethod_ContainerShutdown<WithCallbackMethod_UpdateApplicationList<WithCallbackMethod_PendingUpdateApplicationListCalls<WithCallbackMethod_OpenUrl<WithCallbackMethod_InstallLinuxPackageProgress<WithCallbackMethod_UninstallPackageProgress<WithCallbackMethod_ApplyAnsiblePlaybookProgress<WithCallbackMethod_OpenTerminal<WithCallbackMethod_UpdateMimeTypes<WithCallbackMethod_FileWatchTriggered<WithCallbackMethod_LowDiskSpaceTriggered<WithCallbackMethod_ForwardSecurityKeyMessage<WithCallbackMethod_SelectFile<WithCallbackMethod_GetDiskInfo<WithCallbackMethod_RequestSpace<WithCallbackMethod_ReleaseSpace<WithCallbackMethod_ReportMetrics<WithCallbackMethod_InstallShaderCache<WithCallbackMethod_UninstallShaderCache<WithCallbackMethod_InhibitScreensaver<WithCallbackMethod_UninhibitScreensaver<Service > > > > > > > > > > > > > > > > > > > > > > CallbackService;
+  typedef WithCallbackMethod_ContainerReady<WithCallbackMethod_ContainerShutdown<WithCallbackMethod_UpdateApplicationList<WithCallbackMethod_PendingUpdateApplicationListCalls<WithCallbackMethod_OpenUrl<WithCallbackMethod_InstallLinuxPackageProgress<WithCallbackMethod_UninstallPackageProgress<WithCallbackMethod_ApplyAnsiblePlaybookProgress<WithCallbackMethod_OpenTerminal<WithCallbackMethod_UpdateMimeTypes<WithCallbackMethod_FileWatchTriggered<WithCallbackMethod_LowDiskSpaceTriggered<WithCallbackMethod_ForwardSecurityKeyMessage<WithCallbackMethod_SelectFile<WithCallbackMethod_GetDiskInfo<WithCallbackMethod_RequestSpace<WithCallbackMethod_ReleaseSpace<WithCallbackMethod_ReportMetrics<WithCallbackMethod_InstallShaderCache<WithCallbackMethod_UninstallShaderCache<WithCallbackMethod_UnmountShaderCache<WithCallbackMethod_InhibitScreensaver<WithCallbackMethod_UninhibitScreensaver<Service > > > > > > > > > > > > > > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ContainerReady : public BaseClass {
@@ -2072,12 +2146,29 @@ class ContainerListener final {
     }
   };
   template <class BaseClass>
+  class WithGenericMethod_UnmountShaderCache : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_UnmountShaderCache() {
+      ::grpc::Service::MarkMethodGeneric(20);
+    }
+    ~WithGenericMethod_UnmountShaderCache() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UnmountShaderCache(::grpc::ServerContext* /*context*/, const ::vm_tools::container::UnmountShaderCacheRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
   class WithGenericMethod_InhibitScreensaver : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_InhibitScreensaver() {
-      ::grpc::Service::MarkMethodGeneric(20);
+      ::grpc::Service::MarkMethodGeneric(21);
     }
     ~WithGenericMethod_InhibitScreensaver() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2094,7 +2185,7 @@ class ContainerListener final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UninhibitScreensaver() {
-      ::grpc::Service::MarkMethodGeneric(21);
+      ::grpc::Service::MarkMethodGeneric(22);
     }
     ~WithGenericMethod_UninhibitScreensaver() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2506,12 +2597,32 @@ class ContainerListener final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_UnmountShaderCache : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_UnmountShaderCache() {
+      ::grpc::Service::MarkMethodRaw(20);
+    }
+    ~WithRawMethod_UnmountShaderCache() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UnmountShaderCache(::grpc::ServerContext* /*context*/, const ::vm_tools::container::UnmountShaderCacheRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUnmountShaderCache(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawMethod_InhibitScreensaver : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_InhibitScreensaver() {
-      ::grpc::Service::MarkMethodRaw(20);
+      ::grpc::Service::MarkMethodRaw(21);
     }
     ~WithRawMethod_InhibitScreensaver() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2522,7 +2633,7 @@ class ContainerListener final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestInhibitScreensaver(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(20, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2531,7 +2642,7 @@ class ContainerListener final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UninhibitScreensaver() {
-      ::grpc::Service::MarkMethodRaw(21);
+      ::grpc::Service::MarkMethodRaw(22);
     }
     ~WithRawMethod_UninhibitScreensaver() override {
       BaseClassMustBeDerivedFromService(this);
@@ -2542,7 +2653,7 @@ class ContainerListener final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestUninhibitScreensaver(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(21, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(22, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2986,12 +3097,34 @@ class ContainerListener final {
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_UnmountShaderCache : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UnmountShaderCache() {
+      ::grpc::Service::MarkMethodRawCallback(20,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UnmountShaderCache(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UnmountShaderCache() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UnmountShaderCache(::grpc::ServerContext* /*context*/, const ::vm_tools::container::UnmountShaderCacheRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UnmountShaderCache(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithRawCallbackMethod_InhibitScreensaver : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_InhibitScreensaver() {
-      ::grpc::Service::MarkMethodRawCallback(20,
+      ::grpc::Service::MarkMethodRawCallback(21,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->InhibitScreensaver(context, request, response); }));
@@ -3013,7 +3146,7 @@ class ContainerListener final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_UninhibitScreensaver() {
-      ::grpc::Service::MarkMethodRawCallback(21,
+      ::grpc::Service::MarkMethodRawCallback(22,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UninhibitScreensaver(context, request, response); }));
@@ -3570,12 +3703,39 @@ class ContainerListener final {
     virtual ::grpc::Status StreamedUninstallShaderCache(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::vm_tools::container::UninstallShaderCacheRequest,::vm_tools::EmptyMessage>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
+  class WithStreamedUnaryMethod_UnmountShaderCache : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_UnmountShaderCache() {
+      ::grpc::Service::MarkMethodStreamed(20,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::container::UnmountShaderCacheRequest, ::vm_tools::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::container::UnmountShaderCacheRequest, ::vm_tools::EmptyMessage>* streamer) {
+                       return this->StreamedUnmountShaderCache(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_UnmountShaderCache() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status UnmountShaderCache(::grpc::ServerContext* /*context*/, const ::vm_tools::container::UnmountShaderCacheRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedUnmountShaderCache(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::vm_tools::container::UnmountShaderCacheRequest,::vm_tools::EmptyMessage>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_InhibitScreensaver : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_InhibitScreensaver() {
-      ::grpc::Service::MarkMethodStreamed(20,
+      ::grpc::Service::MarkMethodStreamed(21,
         new ::grpc::internal::StreamedUnaryHandler<
           ::vm_tools::container::InhibitScreensaverInfo, ::vm_tools::EmptyMessage>(
             [this](::grpc::ServerContext* context,
@@ -3602,7 +3762,7 @@ class ContainerListener final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UninhibitScreensaver() {
-      ::grpc::Service::MarkMethodStreamed(21,
+      ::grpc::Service::MarkMethodStreamed(22,
         new ::grpc::internal::StreamedUnaryHandler<
           ::vm_tools::container::UninhibitScreensaverInfo, ::vm_tools::EmptyMessage>(
             [this](::grpc::ServerContext* context,
@@ -3623,9 +3783,9 @@ class ContainerListener final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedUninhibitScreensaver(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::vm_tools::container::UninhibitScreensaverInfo,::vm_tools::EmptyMessage>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_ContainerReady<WithStreamedUnaryMethod_ContainerShutdown<WithStreamedUnaryMethod_UpdateApplicationList<WithStreamedUnaryMethod_PendingUpdateApplicationListCalls<WithStreamedUnaryMethod_OpenUrl<WithStreamedUnaryMethod_InstallLinuxPackageProgress<WithStreamedUnaryMethod_UninstallPackageProgress<WithStreamedUnaryMethod_ApplyAnsiblePlaybookProgress<WithStreamedUnaryMethod_OpenTerminal<WithStreamedUnaryMethod_UpdateMimeTypes<WithStreamedUnaryMethod_FileWatchTriggered<WithStreamedUnaryMethod_LowDiskSpaceTriggered<WithStreamedUnaryMethod_ForwardSecurityKeyMessage<WithStreamedUnaryMethod_SelectFile<WithStreamedUnaryMethod_GetDiskInfo<WithStreamedUnaryMethod_RequestSpace<WithStreamedUnaryMethod_ReleaseSpace<WithStreamedUnaryMethod_ReportMetrics<WithStreamedUnaryMethod_InstallShaderCache<WithStreamedUnaryMethod_UninstallShaderCache<WithStreamedUnaryMethod_InhibitScreensaver<WithStreamedUnaryMethod_UninhibitScreensaver<Service > > > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_ContainerReady<WithStreamedUnaryMethod_ContainerShutdown<WithStreamedUnaryMethod_UpdateApplicationList<WithStreamedUnaryMethod_PendingUpdateApplicationListCalls<WithStreamedUnaryMethod_OpenUrl<WithStreamedUnaryMethod_InstallLinuxPackageProgress<WithStreamedUnaryMethod_UninstallPackageProgress<WithStreamedUnaryMethod_ApplyAnsiblePlaybookProgress<WithStreamedUnaryMethod_OpenTerminal<WithStreamedUnaryMethod_UpdateMimeTypes<WithStreamedUnaryMethod_FileWatchTriggered<WithStreamedUnaryMethod_LowDiskSpaceTriggered<WithStreamedUnaryMethod_ForwardSecurityKeyMessage<WithStreamedUnaryMethod_SelectFile<WithStreamedUnaryMethod_GetDiskInfo<WithStreamedUnaryMethod_RequestSpace<WithStreamedUnaryMethod_ReleaseSpace<WithStreamedUnaryMethod_ReportMetrics<WithStreamedUnaryMethod_InstallShaderCache<WithStreamedUnaryMethod_UninstallShaderCache<WithStreamedUnaryMethod_UnmountShaderCache<WithStreamedUnaryMethod_InhibitScreensaver<WithStreamedUnaryMethod_UninhibitScreensaver<Service > > > > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_ContainerReady<WithStreamedUnaryMethod_ContainerShutdown<WithStreamedUnaryMethod_UpdateApplicationList<WithStreamedUnaryMethod_PendingUpdateApplicationListCalls<WithStreamedUnaryMethod_OpenUrl<WithStreamedUnaryMethod_InstallLinuxPackageProgress<WithStreamedUnaryMethod_UninstallPackageProgress<WithStreamedUnaryMethod_ApplyAnsiblePlaybookProgress<WithStreamedUnaryMethod_OpenTerminal<WithStreamedUnaryMethod_UpdateMimeTypes<WithStreamedUnaryMethod_FileWatchTriggered<WithStreamedUnaryMethod_LowDiskSpaceTriggered<WithStreamedUnaryMethod_ForwardSecurityKeyMessage<WithStreamedUnaryMethod_SelectFile<WithStreamedUnaryMethod_GetDiskInfo<WithStreamedUnaryMethod_RequestSpace<WithStreamedUnaryMethod_ReleaseSpace<WithStreamedUnaryMethod_ReportMetrics<WithStreamedUnaryMethod_InstallShaderCache<WithStreamedUnaryMethod_UninstallShaderCache<WithStreamedUnaryMethod_InhibitScreensaver<WithStreamedUnaryMethod_UninhibitScreensaver<Service > > > > > > > > > > > > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_ContainerReady<WithStreamedUnaryMethod_ContainerShutdown<WithStreamedUnaryMethod_UpdateApplicationList<WithStreamedUnaryMethod_PendingUpdateApplicationListCalls<WithStreamedUnaryMethod_OpenUrl<WithStreamedUnaryMethod_InstallLinuxPackageProgress<WithStreamedUnaryMethod_UninstallPackageProgress<WithStreamedUnaryMethod_ApplyAnsiblePlaybookProgress<WithStreamedUnaryMethod_OpenTerminal<WithStreamedUnaryMethod_UpdateMimeTypes<WithStreamedUnaryMethod_FileWatchTriggered<WithStreamedUnaryMethod_LowDiskSpaceTriggered<WithStreamedUnaryMethod_ForwardSecurityKeyMessage<WithStreamedUnaryMethod_SelectFile<WithStreamedUnaryMethod_GetDiskInfo<WithStreamedUnaryMethod_RequestSpace<WithStreamedUnaryMethod_ReleaseSpace<WithStreamedUnaryMethod_ReportMetrics<WithStreamedUnaryMethod_InstallShaderCache<WithStreamedUnaryMethod_UninstallShaderCache<WithStreamedUnaryMethod_UnmountShaderCache<WithStreamedUnaryMethod_InhibitScreensaver<WithStreamedUnaryMethod_UninhibitScreensaver<Service > > > > > > > > > > > > > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace container
