@@ -360,12 +360,10 @@ class SessionManagerInterfaceProxyInterface {
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual bool StartRemoteDeviceWipe(
-      const std::vector<uint8_t>& in_signed_command,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void StartRemoteDeviceWipeAsync(
-      const std::vector<uint8_t>& in_signed_command,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -1614,7 +1612,6 @@ class SessionManagerInterfaceProxy final : public SessionManagerInterfaceProxyIn
   }
 
   bool StartRemoteDeviceWipe(
-      const std::vector<uint8_t>& in_signed_command,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -1622,14 +1619,12 @@ class SessionManagerInterfaceProxy final : public SessionManagerInterfaceProxyIn
         dbus_object_proxy_,
         "org.chromium.SessionManagerInterface",
         "StartRemoteDeviceWipe",
-        error,
-        in_signed_command);
+        error);
     return response && brillo::dbus_utils::ExtractMethodCallResults(
         response.get(), error);
   }
 
   void StartRemoteDeviceWipeAsync(
-      const std::vector<uint8_t>& in_signed_command,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -1639,8 +1634,7 @@ class SessionManagerInterfaceProxy final : public SessionManagerInterfaceProxyIn
         "org.chromium.SessionManagerInterface",
         "StartRemoteDeviceWipe",
         std::move(success_callback),
-        std::move(error_callback),
-        in_signed_command);
+        std::move(error_callback));
   }
 
   bool ClearForcedReEnrollmentVpd(

@@ -102,9 +102,9 @@ class SessionManagerInterfaceInterface {
       uint32_t in_mode) = 0;
   virtual bool StartDeviceWipe(
       brillo::ErrorPtr* error) = 0;
-  virtual bool StartRemoteDeviceWipe(
-      brillo::ErrorPtr* error,
-      const std::vector<uint8_t>& in_signed_command) = 0;
+  virtual void StartRemoteDeviceWipe(
+      dbus::MethodCall* method_call,
+      brillo::dbus_utils::ResponseSender sender) = 0;
   virtual void ClearForcedReEnrollmentVpd(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<>> response) = 0;
   virtual bool StartTPMFirmwareUpdate(
@@ -291,7 +291,7 @@ class SessionManagerInterfaceAdaptor {
         "StartDeviceWipe",
         base::Unretained(interface_),
         &SessionManagerInterfaceInterface::StartDeviceWipe);
-    itf->AddSimpleMethodHandlerWithError(
+    itf->AddRawMethodHandler(
         "StartRemoteDeviceWipe",
         base::Unretained(interface_),
         &SessionManagerInterfaceInterface::StartRemoteDeviceWipe);
@@ -534,7 +534,6 @@ class SessionManagerInterfaceAdaptor {
         "    <method name=\"StartDeviceWipe\">\n"
         "    </method>\n"
         "    <method name=\"StartRemoteDeviceWipe\">\n"
-        "      <arg name=\"signed_command\" type=\"ay\" direction=\"in\"/>\n"
         "    </method>\n"
         "    <method name=\"ClearForcedReEnrollmentVpd\">\n"
         "    </method>\n"

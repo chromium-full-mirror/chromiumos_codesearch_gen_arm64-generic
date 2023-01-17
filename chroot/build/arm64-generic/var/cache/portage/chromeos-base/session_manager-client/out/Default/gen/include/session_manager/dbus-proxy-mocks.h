@@ -293,13 +293,11 @@ class SessionManagerInterfaceProxyMock : public SessionManagerInterfaceProxyInte
                void(base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
-  MOCK_METHOD3(StartRemoteDeviceWipe,
-               bool(const std::vector<uint8_t>& /*in_signed_command*/,
-                    brillo::ErrorPtr* /*error*/,
+  MOCK_METHOD2(StartRemoteDeviceWipe,
+               bool(brillo::ErrorPtr* /*error*/,
                     int /*timeout_ms*/));
-  MOCK_METHOD4(StartRemoteDeviceWipeAsync,
-               void(const std::vector<uint8_t>& /*in_signed_command*/,
-                    base::OnceCallback<void()> /*success_callback*/,
+  MOCK_METHOD3(StartRemoteDeviceWipeAsync,
+               void(base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
   MOCK_METHOD2(ClearForcedReEnrollmentVpd,
