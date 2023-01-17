@@ -45,7 +45,7 @@ struct TableStruct_security_5fxdr_5fevents_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[12]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[15]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -68,6 +68,12 @@ extern FileImageDefaultTypeInternal _FileImage_default_instance_;
 class Namespaces;
 struct NamespacesDefaultTypeInternal;
 extern NamespacesDefaultTypeInternal _Namespaces_default_instance_;
+class NetworkFlowEvent;
+struct NetworkFlowEventDefaultTypeInternal;
+extern NetworkFlowEventDefaultTypeInternal _NetworkFlowEvent_default_instance_;
+class NetworkSocketListenEvent;
+struct NetworkSocketListenEventDefaultTypeInternal;
+extern NetworkSocketListenEventDefaultTypeInternal _NetworkSocketListenEvent_default_instance_;
 class Process;
 struct ProcessDefaultTypeInternal;
 extern ProcessDefaultTypeInternal _Process_default_instance_;
@@ -86,6 +92,9 @@ extern TcbAttributes_SecurityChipDefaultTypeInternal _TcbAttributes_SecurityChip
 class XdrAgentEvent;
 struct XdrAgentEventDefaultTypeInternal;
 extern XdrAgentEventDefaultTypeInternal _XdrAgentEvent_default_instance_;
+class XdrNetworkEvent;
+struct XdrNetworkEventDefaultTypeInternal;
+extern XdrNetworkEventDefaultTypeInternal _XdrNetworkEvent_default_instance_;
 class XdrProcessEvent;
 struct XdrProcessEventDefaultTypeInternal;
 extern XdrProcessEventDefaultTypeInternal _XdrProcessEvent_default_instance_;
@@ -97,12 +106,15 @@ template<> ::cros_xdr::reporting::AgentStartEvent* Arena::CreateMaybeMessage<::c
 template<> ::cros_xdr::reporting::CommonEventDataFields* Arena::CreateMaybeMessage<::cros_xdr::reporting::CommonEventDataFields>(Arena*);
 template<> ::cros_xdr::reporting::FileImage* Arena::CreateMaybeMessage<::cros_xdr::reporting::FileImage>(Arena*);
 template<> ::cros_xdr::reporting::Namespaces* Arena::CreateMaybeMessage<::cros_xdr::reporting::Namespaces>(Arena*);
+template<> ::cros_xdr::reporting::NetworkFlowEvent* Arena::CreateMaybeMessage<::cros_xdr::reporting::NetworkFlowEvent>(Arena*);
+template<> ::cros_xdr::reporting::NetworkSocketListenEvent* Arena::CreateMaybeMessage<::cros_xdr::reporting::NetworkSocketListenEvent>(Arena*);
 template<> ::cros_xdr::reporting::Process* Arena::CreateMaybeMessage<::cros_xdr::reporting::Process>(Arena*);
 template<> ::cros_xdr::reporting::ProcessExecEvent* Arena::CreateMaybeMessage<::cros_xdr::reporting::ProcessExecEvent>(Arena*);
 template<> ::cros_xdr::reporting::ProcessTerminateEvent* Arena::CreateMaybeMessage<::cros_xdr::reporting::ProcessTerminateEvent>(Arena*);
 template<> ::cros_xdr::reporting::TcbAttributes* Arena::CreateMaybeMessage<::cros_xdr::reporting::TcbAttributes>(Arena*);
 template<> ::cros_xdr::reporting::TcbAttributes_SecurityChip* Arena::CreateMaybeMessage<::cros_xdr::reporting::TcbAttributes_SecurityChip>(Arena*);
 template<> ::cros_xdr::reporting::XdrAgentEvent* Arena::CreateMaybeMessage<::cros_xdr::reporting::XdrAgentEvent>(Arena*);
+template<> ::cros_xdr::reporting::XdrNetworkEvent* Arena::CreateMaybeMessage<::cros_xdr::reporting::XdrNetworkEvent>(Arena*);
 template<> ::cros_xdr::reporting::XdrProcessEvent* Arena::CreateMaybeMessage<::cros_xdr::reporting::XdrProcessEvent>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace cros_xdr {
@@ -148,6 +160,69 @@ inline const std::string& TcbAttributes_FirmwareSecureBoot_Name(T enum_t_value) 
 }
 bool TcbAttributes_FirmwareSecureBoot_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, TcbAttributes_FirmwareSecureBoot* value);
+enum NetworkFlowEvent_Direction : int {
+  NetworkFlowEvent_Direction_DIRECTION_UNKNOWN = 0,
+  NetworkFlowEvent_Direction_INCOMING = 1,
+  NetworkFlowEvent_Direction_OUTGOING = 2
+};
+bool NetworkFlowEvent_Direction_IsValid(int value);
+constexpr NetworkFlowEvent_Direction NetworkFlowEvent_Direction_Direction_MIN = NetworkFlowEvent_Direction_DIRECTION_UNKNOWN;
+constexpr NetworkFlowEvent_Direction NetworkFlowEvent_Direction_Direction_MAX = NetworkFlowEvent_Direction_OUTGOING;
+constexpr int NetworkFlowEvent_Direction_Direction_ARRAYSIZE = NetworkFlowEvent_Direction_Direction_MAX + 1;
+
+const std::string& NetworkFlowEvent_Direction_Name(NetworkFlowEvent_Direction value);
+template<typename T>
+inline const std::string& NetworkFlowEvent_Direction_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, NetworkFlowEvent_Direction>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function NetworkFlowEvent_Direction_Name.");
+  return NetworkFlowEvent_Direction_Name(static_cast<NetworkFlowEvent_Direction>(enum_t_value));
+}
+bool NetworkFlowEvent_Direction_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, NetworkFlowEvent_Direction* value);
+enum NetworkFlowEvent_ApplicationProtocol : int {
+  NetworkFlowEvent_ApplicationProtocol_APPLICATION_PROTOCOL_UNKNOWN = 0,
+  NetworkFlowEvent_ApplicationProtocol_HTTP = 1,
+  NetworkFlowEvent_ApplicationProtocol_HTTPS = 2,
+  NetworkFlowEvent_ApplicationProtocol_DNS = 3
+};
+bool NetworkFlowEvent_ApplicationProtocol_IsValid(int value);
+constexpr NetworkFlowEvent_ApplicationProtocol NetworkFlowEvent_ApplicationProtocol_ApplicationProtocol_MIN = NetworkFlowEvent_ApplicationProtocol_APPLICATION_PROTOCOL_UNKNOWN;
+constexpr NetworkFlowEvent_ApplicationProtocol NetworkFlowEvent_ApplicationProtocol_ApplicationProtocol_MAX = NetworkFlowEvent_ApplicationProtocol_DNS;
+constexpr int NetworkFlowEvent_ApplicationProtocol_ApplicationProtocol_ARRAYSIZE = NetworkFlowEvent_ApplicationProtocol_ApplicationProtocol_MAX + 1;
+
+const std::string& NetworkFlowEvent_ApplicationProtocol_Name(NetworkFlowEvent_ApplicationProtocol value);
+template<typename T>
+inline const std::string& NetworkFlowEvent_ApplicationProtocol_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, NetworkFlowEvent_ApplicationProtocol>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function NetworkFlowEvent_ApplicationProtocol_Name.");
+  return NetworkFlowEvent_ApplicationProtocol_Name(static_cast<NetworkFlowEvent_ApplicationProtocol>(enum_t_value));
+}
+bool NetworkFlowEvent_ApplicationProtocol_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, NetworkFlowEvent_ApplicationProtocol* value);
+enum NetworkProtocol : int {
+  NETWORK_PROTOCOL_UNKNOWN = 0,
+  TCP = 1,
+  UDP = 2,
+  ICMP = 3,
+  RAW = 4
+};
+bool NetworkProtocol_IsValid(int value);
+constexpr NetworkProtocol NetworkProtocol_MIN = NETWORK_PROTOCOL_UNKNOWN;
+constexpr NetworkProtocol NetworkProtocol_MAX = RAW;
+constexpr int NetworkProtocol_ARRAYSIZE = NetworkProtocol_MAX + 1;
+
+const std::string& NetworkProtocol_Name(NetworkProtocol value);
+template<typename T>
+inline const std::string& NetworkProtocol_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, NetworkProtocol>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function NetworkProtocol_Name.");
+  return NetworkProtocol_Name(static_cast<NetworkProtocol>(enum_t_value));
+}
+bool NetworkProtocol_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, NetworkProtocol* value);
 // ===================================================================
 
 class CommonEventDataFields final :
@@ -2636,6 +2711,879 @@ class XdrProcessEvent final :
   } message_type_;
   uint32_t _oneof_case_[1];
 
+  friend struct ::TableStruct_security_5fxdr_5fevents_2eproto;
+};
+// -------------------------------------------------------------------
+
+class XdrNetworkEvent final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.XdrNetworkEvent) */ {
+ public:
+  inline XdrNetworkEvent() : XdrNetworkEvent(nullptr) {}
+  ~XdrNetworkEvent() override;
+  explicit constexpr XdrNetworkEvent(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  XdrNetworkEvent(const XdrNetworkEvent& from);
+  XdrNetworkEvent(XdrNetworkEvent&& from) noexcept
+    : XdrNetworkEvent() {
+    *this = ::std::move(from);
+  }
+
+  inline XdrNetworkEvent& operator=(const XdrNetworkEvent& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline XdrNetworkEvent& operator=(XdrNetworkEvent&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const XdrNetworkEvent& default_instance() {
+    return *internal_default_instance();
+  }
+  enum MessageTypeCase {
+    kNetworkFlow = 2,
+    kSocketListen = 3,
+    MESSAGE_TYPE_NOT_SET = 0,
+  };
+
+  static inline const XdrNetworkEvent* internal_default_instance() {
+    return reinterpret_cast<const XdrNetworkEvent*>(
+               &_XdrNetworkEvent_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    12;
+
+  friend void swap(XdrNetworkEvent& a, XdrNetworkEvent& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(XdrNetworkEvent* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(XdrNetworkEvent* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  XdrNetworkEvent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<XdrNetworkEvent>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const XdrNetworkEvent& from);
+  void MergeFrom(const XdrNetworkEvent& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(XdrNetworkEvent* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "cros_xdr.reporting.XdrNetworkEvent";
+  }
+  protected:
+  explicit XdrNetworkEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCommonFieldNumber = 1,
+    kNetworkFlowFieldNumber = 2,
+    kSocketListenFieldNumber = 3,
+  };
+  // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+  bool has_common() const;
+  private:
+  bool _internal_has_common() const;
+  public:
+  void clear_common();
+  const ::cros_xdr::reporting::CommonEventDataFields& common() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::CommonEventDataFields* release_common();
+  ::cros_xdr::reporting::CommonEventDataFields* mutable_common();
+  void set_allocated_common(::cros_xdr::reporting::CommonEventDataFields* common);
+  private:
+  const ::cros_xdr::reporting::CommonEventDataFields& _internal_common() const;
+  ::cros_xdr::reporting::CommonEventDataFields* _internal_mutable_common();
+  public:
+  void unsafe_arena_set_allocated_common(
+      ::cros_xdr::reporting::CommonEventDataFields* common);
+  ::cros_xdr::reporting::CommonEventDataFields* unsafe_arena_release_common();
+
+  // .cros_xdr.reporting.NetworkFlowEvent network_flow = 2;
+  bool has_network_flow() const;
+  private:
+  bool _internal_has_network_flow() const;
+  public:
+  void clear_network_flow();
+  const ::cros_xdr::reporting::NetworkFlowEvent& network_flow() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::NetworkFlowEvent* release_network_flow();
+  ::cros_xdr::reporting::NetworkFlowEvent* mutable_network_flow();
+  void set_allocated_network_flow(::cros_xdr::reporting::NetworkFlowEvent* network_flow);
+  private:
+  const ::cros_xdr::reporting::NetworkFlowEvent& _internal_network_flow() const;
+  ::cros_xdr::reporting::NetworkFlowEvent* _internal_mutable_network_flow();
+  public:
+  void unsafe_arena_set_allocated_network_flow(
+      ::cros_xdr::reporting::NetworkFlowEvent* network_flow);
+  ::cros_xdr::reporting::NetworkFlowEvent* unsafe_arena_release_network_flow();
+
+  // .cros_xdr.reporting.NetworkSocketListenEvent socket_listen = 3;
+  bool has_socket_listen() const;
+  private:
+  bool _internal_has_socket_listen() const;
+  public:
+  void clear_socket_listen();
+  const ::cros_xdr::reporting::NetworkSocketListenEvent& socket_listen() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::NetworkSocketListenEvent* release_socket_listen();
+  ::cros_xdr::reporting::NetworkSocketListenEvent* mutable_socket_listen();
+  void set_allocated_socket_listen(::cros_xdr::reporting::NetworkSocketListenEvent* socket_listen);
+  private:
+  const ::cros_xdr::reporting::NetworkSocketListenEvent& _internal_socket_listen() const;
+  ::cros_xdr::reporting::NetworkSocketListenEvent* _internal_mutable_socket_listen();
+  public:
+  void unsafe_arena_set_allocated_socket_listen(
+      ::cros_xdr::reporting::NetworkSocketListenEvent* socket_listen);
+  ::cros_xdr::reporting::NetworkSocketListenEvent* unsafe_arena_release_socket_listen();
+
+  void clear_message_type();
+  MessageTypeCase message_type_case() const;
+  // @@protoc_insertion_point(class_scope:cros_xdr.reporting.XdrNetworkEvent)
+ private:
+  class _Internal;
+  void set_has_network_flow();
+  void set_has_socket_listen();
+
+  inline bool has_message_type() const;
+  inline void clear_has_message_type();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::cros_xdr::reporting::CommonEventDataFields* common_;
+  union MessageTypeUnion {
+    constexpr MessageTypeUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::cros_xdr::reporting::NetworkFlowEvent* network_flow_;
+    ::cros_xdr::reporting::NetworkSocketListenEvent* socket_listen_;
+  } message_type_;
+  uint32_t _oneof_case_[1];
+
+  friend struct ::TableStruct_security_5fxdr_5fevents_2eproto;
+};
+// -------------------------------------------------------------------
+
+class NetworkFlowEvent final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.NetworkFlowEvent) */ {
+ public:
+  inline NetworkFlowEvent() : NetworkFlowEvent(nullptr) {}
+  ~NetworkFlowEvent() override;
+  explicit constexpr NetworkFlowEvent(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NetworkFlowEvent(const NetworkFlowEvent& from);
+  NetworkFlowEvent(NetworkFlowEvent&& from) noexcept
+    : NetworkFlowEvent() {
+    *this = ::std::move(from);
+  }
+
+  inline NetworkFlowEvent& operator=(const NetworkFlowEvent& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NetworkFlowEvent& operator=(NetworkFlowEvent&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const NetworkFlowEvent& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NetworkFlowEvent* internal_default_instance() {
+    return reinterpret_cast<const NetworkFlowEvent*>(
+               &_NetworkFlowEvent_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    13;
+
+  friend void swap(NetworkFlowEvent& a, NetworkFlowEvent& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(NetworkFlowEvent* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NetworkFlowEvent* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  NetworkFlowEvent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<NetworkFlowEvent>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const NetworkFlowEvent& from);
+  void MergeFrom(const NetworkFlowEvent& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(NetworkFlowEvent* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "cros_xdr.reporting.NetworkFlowEvent";
+  }
+  protected:
+  explicit NetworkFlowEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef NetworkFlowEvent_Direction Direction;
+  static constexpr Direction DIRECTION_UNKNOWN =
+    NetworkFlowEvent_Direction_DIRECTION_UNKNOWN;
+  static constexpr Direction INCOMING =
+    NetworkFlowEvent_Direction_INCOMING;
+  static constexpr Direction OUTGOING =
+    NetworkFlowEvent_Direction_OUTGOING;
+  static inline bool Direction_IsValid(int value) {
+    return NetworkFlowEvent_Direction_IsValid(value);
+  }
+  static constexpr Direction Direction_MIN =
+    NetworkFlowEvent_Direction_Direction_MIN;
+  static constexpr Direction Direction_MAX =
+    NetworkFlowEvent_Direction_Direction_MAX;
+  static constexpr int Direction_ARRAYSIZE =
+    NetworkFlowEvent_Direction_Direction_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& Direction_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, Direction>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function Direction_Name.");
+    return NetworkFlowEvent_Direction_Name(enum_t_value);
+  }
+  static inline bool Direction_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      Direction* value) {
+    return NetworkFlowEvent_Direction_Parse(name, value);
+  }
+
+  typedef NetworkFlowEvent_ApplicationProtocol ApplicationProtocol;
+  static constexpr ApplicationProtocol APPLICATION_PROTOCOL_UNKNOWN =
+    NetworkFlowEvent_ApplicationProtocol_APPLICATION_PROTOCOL_UNKNOWN;
+  static constexpr ApplicationProtocol HTTP =
+    NetworkFlowEvent_ApplicationProtocol_HTTP;
+  static constexpr ApplicationProtocol HTTPS =
+    NetworkFlowEvent_ApplicationProtocol_HTTPS;
+  static constexpr ApplicationProtocol DNS =
+    NetworkFlowEvent_ApplicationProtocol_DNS;
+  static inline bool ApplicationProtocol_IsValid(int value) {
+    return NetworkFlowEvent_ApplicationProtocol_IsValid(value);
+  }
+  static constexpr ApplicationProtocol ApplicationProtocol_MIN =
+    NetworkFlowEvent_ApplicationProtocol_ApplicationProtocol_MIN;
+  static constexpr ApplicationProtocol ApplicationProtocol_MAX =
+    NetworkFlowEvent_ApplicationProtocol_ApplicationProtocol_MAX;
+  static constexpr int ApplicationProtocol_ARRAYSIZE =
+    NetworkFlowEvent_ApplicationProtocol_ApplicationProtocol_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& ApplicationProtocol_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, ApplicationProtocol>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function ApplicationProtocol_Name.");
+    return NetworkFlowEvent_ApplicationProtocol_Name(enum_t_value);
+  }
+  static inline bool ApplicationProtocol_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      ApplicationProtocol* value) {
+    return NetworkFlowEvent_ApplicationProtocol_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCommunityIdV1FieldNumber = 3,
+    kLocalIpFieldNumber = 4,
+    kRemoteIpFieldNumber = 6,
+    kRemoteHostnameFieldNumber = 10,
+    kHttpHostFieldNumber = 14,
+    kSniHostFieldNumber = 15,
+    kParentProcessFieldNumber = 1,
+    kProcessFieldNumber = 2,
+    kLocalPortFieldNumber = 5,
+    kRemotePortFieldNumber = 7,
+    kProtocolFieldNumber = 8,
+    kDirectionFieldNumber = 9,
+    kRxBytesFieldNumber = 11,
+    kTxBytesFieldNumber = 12,
+    kApplicationProtocolFieldNumber = 13,
+  };
+  // optional string community_id_v1 = 3;
+  bool has_community_id_v1() const;
+  private:
+  bool _internal_has_community_id_v1() const;
+  public:
+  void clear_community_id_v1();
+  const std::string& community_id_v1() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_community_id_v1(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_community_id_v1();
+  PROTOBUF_NODISCARD std::string* release_community_id_v1();
+  void set_allocated_community_id_v1(std::string* community_id_v1);
+  private:
+  const std::string& _internal_community_id_v1() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_community_id_v1(const std::string& value);
+  std::string* _internal_mutable_community_id_v1();
+  public:
+
+  // optional string local_ip = 4;
+  bool has_local_ip() const;
+  private:
+  bool _internal_has_local_ip() const;
+  public:
+  void clear_local_ip();
+  const std::string& local_ip() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_local_ip(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_local_ip();
+  PROTOBUF_NODISCARD std::string* release_local_ip();
+  void set_allocated_local_ip(std::string* local_ip);
+  private:
+  const std::string& _internal_local_ip() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_local_ip(const std::string& value);
+  std::string* _internal_mutable_local_ip();
+  public:
+
+  // optional string remote_ip = 6;
+  bool has_remote_ip() const;
+  private:
+  bool _internal_has_remote_ip() const;
+  public:
+  void clear_remote_ip();
+  const std::string& remote_ip() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_remote_ip(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_remote_ip();
+  PROTOBUF_NODISCARD std::string* release_remote_ip();
+  void set_allocated_remote_ip(std::string* remote_ip);
+  private:
+  const std::string& _internal_remote_ip() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_remote_ip(const std::string& value);
+  std::string* _internal_mutable_remote_ip();
+  public:
+
+  // optional string remote_hostname = 10;
+  bool has_remote_hostname() const;
+  private:
+  bool _internal_has_remote_hostname() const;
+  public:
+  void clear_remote_hostname();
+  const std::string& remote_hostname() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_remote_hostname(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_remote_hostname();
+  PROTOBUF_NODISCARD std::string* release_remote_hostname();
+  void set_allocated_remote_hostname(std::string* remote_hostname);
+  private:
+  const std::string& _internal_remote_hostname() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_remote_hostname(const std::string& value);
+  std::string* _internal_mutable_remote_hostname();
+  public:
+
+  // optional string http_host = 14;
+  bool has_http_host() const;
+  private:
+  bool _internal_has_http_host() const;
+  public:
+  void clear_http_host();
+  const std::string& http_host() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_http_host(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_http_host();
+  PROTOBUF_NODISCARD std::string* release_http_host();
+  void set_allocated_http_host(std::string* http_host);
+  private:
+  const std::string& _internal_http_host() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_http_host(const std::string& value);
+  std::string* _internal_mutable_http_host();
+  public:
+
+  // optional string sni_host = 15;
+  bool has_sni_host() const;
+  private:
+  bool _internal_has_sni_host() const;
+  public:
+  void clear_sni_host();
+  const std::string& sni_host() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_sni_host(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_sni_host();
+  PROTOBUF_NODISCARD std::string* release_sni_host();
+  void set_allocated_sni_host(std::string* sni_host);
+  private:
+  const std::string& _internal_sni_host() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_sni_host(const std::string& value);
+  std::string* _internal_mutable_sni_host();
+  public:
+
+  // optional .cros_xdr.reporting.Process parent_process = 1;
+  bool has_parent_process() const;
+  private:
+  bool _internal_has_parent_process() const;
+  public:
+  void clear_parent_process();
+  const ::cros_xdr::reporting::Process& parent_process() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::Process* release_parent_process();
+  ::cros_xdr::reporting::Process* mutable_parent_process();
+  void set_allocated_parent_process(::cros_xdr::reporting::Process* parent_process);
+  private:
+  const ::cros_xdr::reporting::Process& _internal_parent_process() const;
+  ::cros_xdr::reporting::Process* _internal_mutable_parent_process();
+  public:
+  void unsafe_arena_set_allocated_parent_process(
+      ::cros_xdr::reporting::Process* parent_process);
+  ::cros_xdr::reporting::Process* unsafe_arena_release_parent_process();
+
+  // optional .cros_xdr.reporting.Process process = 2;
+  bool has_process() const;
+  private:
+  bool _internal_has_process() const;
+  public:
+  void clear_process();
+  const ::cros_xdr::reporting::Process& process() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::Process* release_process();
+  ::cros_xdr::reporting::Process* mutable_process();
+  void set_allocated_process(::cros_xdr::reporting::Process* process);
+  private:
+  const ::cros_xdr::reporting::Process& _internal_process() const;
+  ::cros_xdr::reporting::Process* _internal_mutable_process();
+  public:
+  void unsafe_arena_set_allocated_process(
+      ::cros_xdr::reporting::Process* process);
+  ::cros_xdr::reporting::Process* unsafe_arena_release_process();
+
+  // optional uint64 local_port = 5;
+  bool has_local_port() const;
+  private:
+  bool _internal_has_local_port() const;
+  public:
+  void clear_local_port();
+  uint64_t local_port() const;
+  void set_local_port(uint64_t value);
+  private:
+  uint64_t _internal_local_port() const;
+  void _internal_set_local_port(uint64_t value);
+  public:
+
+  // optional uint64 remote_port = 7;
+  bool has_remote_port() const;
+  private:
+  bool _internal_has_remote_port() const;
+  public:
+  void clear_remote_port();
+  uint64_t remote_port() const;
+  void set_remote_port(uint64_t value);
+  private:
+  uint64_t _internal_remote_port() const;
+  void _internal_set_remote_port(uint64_t value);
+  public:
+
+  // optional .cros_xdr.reporting.NetworkProtocol protocol = 8;
+  bool has_protocol() const;
+  private:
+  bool _internal_has_protocol() const;
+  public:
+  void clear_protocol();
+  ::cros_xdr::reporting::NetworkProtocol protocol() const;
+  void set_protocol(::cros_xdr::reporting::NetworkProtocol value);
+  private:
+  ::cros_xdr::reporting::NetworkProtocol _internal_protocol() const;
+  void _internal_set_protocol(::cros_xdr::reporting::NetworkProtocol value);
+  public:
+
+  // optional .cros_xdr.reporting.NetworkFlowEvent.Direction direction = 9;
+  bool has_direction() const;
+  private:
+  bool _internal_has_direction() const;
+  public:
+  void clear_direction();
+  ::cros_xdr::reporting::NetworkFlowEvent_Direction direction() const;
+  void set_direction(::cros_xdr::reporting::NetworkFlowEvent_Direction value);
+  private:
+  ::cros_xdr::reporting::NetworkFlowEvent_Direction _internal_direction() const;
+  void _internal_set_direction(::cros_xdr::reporting::NetworkFlowEvent_Direction value);
+  public:
+
+  // optional uint64 rx_bytes = 11;
+  bool has_rx_bytes() const;
+  private:
+  bool _internal_has_rx_bytes() const;
+  public:
+  void clear_rx_bytes();
+  uint64_t rx_bytes() const;
+  void set_rx_bytes(uint64_t value);
+  private:
+  uint64_t _internal_rx_bytes() const;
+  void _internal_set_rx_bytes(uint64_t value);
+  public:
+
+  // optional uint64 tx_bytes = 12;
+  bool has_tx_bytes() const;
+  private:
+  bool _internal_has_tx_bytes() const;
+  public:
+  void clear_tx_bytes();
+  uint64_t tx_bytes() const;
+  void set_tx_bytes(uint64_t value);
+  private:
+  uint64_t _internal_tx_bytes() const;
+  void _internal_set_tx_bytes(uint64_t value);
+  public:
+
+  // optional .cros_xdr.reporting.NetworkFlowEvent.ApplicationProtocol application_protocol = 13;
+  bool has_application_protocol() const;
+  private:
+  bool _internal_has_application_protocol() const;
+  public:
+  void clear_application_protocol();
+  ::cros_xdr::reporting::NetworkFlowEvent_ApplicationProtocol application_protocol() const;
+  void set_application_protocol(::cros_xdr::reporting::NetworkFlowEvent_ApplicationProtocol value);
+  private:
+  ::cros_xdr::reporting::NetworkFlowEvent_ApplicationProtocol _internal_application_protocol() const;
+  void _internal_set_application_protocol(::cros_xdr::reporting::NetworkFlowEvent_ApplicationProtocol value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:cros_xdr.reporting.NetworkFlowEvent)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr community_id_v1_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr local_ip_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr remote_ip_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr remote_hostname_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr http_host_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sni_host_;
+  ::cros_xdr::reporting::Process* parent_process_;
+  ::cros_xdr::reporting::Process* process_;
+  uint64_t local_port_;
+  uint64_t remote_port_;
+  int protocol_;
+  int direction_;
+  uint64_t rx_bytes_;
+  uint64_t tx_bytes_;
+  int application_protocol_;
+  friend struct ::TableStruct_security_5fxdr_5fevents_2eproto;
+};
+// -------------------------------------------------------------------
+
+class NetworkSocketListenEvent final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.NetworkSocketListenEvent) */ {
+ public:
+  inline NetworkSocketListenEvent() : NetworkSocketListenEvent(nullptr) {}
+  ~NetworkSocketListenEvent() override;
+  explicit constexpr NetworkSocketListenEvent(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NetworkSocketListenEvent(const NetworkSocketListenEvent& from);
+  NetworkSocketListenEvent(NetworkSocketListenEvent&& from) noexcept
+    : NetworkSocketListenEvent() {
+    *this = ::std::move(from);
+  }
+
+  inline NetworkSocketListenEvent& operator=(const NetworkSocketListenEvent& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NetworkSocketListenEvent& operator=(NetworkSocketListenEvent&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const NetworkSocketListenEvent& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NetworkSocketListenEvent* internal_default_instance() {
+    return reinterpret_cast<const NetworkSocketListenEvent*>(
+               &_NetworkSocketListenEvent_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    14;
+
+  friend void swap(NetworkSocketListenEvent& a, NetworkSocketListenEvent& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(NetworkSocketListenEvent* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NetworkSocketListenEvent* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  NetworkSocketListenEvent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<NetworkSocketListenEvent>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const NetworkSocketListenEvent& from);
+  void MergeFrom(const NetworkSocketListenEvent& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(NetworkSocketListenEvent* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "cros_xdr.reporting.NetworkSocketListenEvent";
+  }
+  protected:
+  explicit NetworkSocketListenEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kBindAddrFieldNumber = 4,
+    kParentProcessFieldNumber = 1,
+    kProcessFieldNumber = 2,
+    kBindPortFieldNumber = 5,
+    kProtocolFieldNumber = 3,
+  };
+  // optional string bind_addr = 4;
+  bool has_bind_addr() const;
+  private:
+  bool _internal_has_bind_addr() const;
+  public:
+  void clear_bind_addr();
+  const std::string& bind_addr() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_bind_addr(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_bind_addr();
+  PROTOBUF_NODISCARD std::string* release_bind_addr();
+  void set_allocated_bind_addr(std::string* bind_addr);
+  private:
+  const std::string& _internal_bind_addr() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_bind_addr(const std::string& value);
+  std::string* _internal_mutable_bind_addr();
+  public:
+
+  // optional .cros_xdr.reporting.Process parent_process = 1;
+  bool has_parent_process() const;
+  private:
+  bool _internal_has_parent_process() const;
+  public:
+  void clear_parent_process();
+  const ::cros_xdr::reporting::Process& parent_process() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::Process* release_parent_process();
+  ::cros_xdr::reporting::Process* mutable_parent_process();
+  void set_allocated_parent_process(::cros_xdr::reporting::Process* parent_process);
+  private:
+  const ::cros_xdr::reporting::Process& _internal_parent_process() const;
+  ::cros_xdr::reporting::Process* _internal_mutable_parent_process();
+  public:
+  void unsafe_arena_set_allocated_parent_process(
+      ::cros_xdr::reporting::Process* parent_process);
+  ::cros_xdr::reporting::Process* unsafe_arena_release_parent_process();
+
+  // optional .cros_xdr.reporting.Process process = 2;
+  bool has_process() const;
+  private:
+  bool _internal_has_process() const;
+  public:
+  void clear_process();
+  const ::cros_xdr::reporting::Process& process() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::Process* release_process();
+  ::cros_xdr::reporting::Process* mutable_process();
+  void set_allocated_process(::cros_xdr::reporting::Process* process);
+  private:
+  const ::cros_xdr::reporting::Process& _internal_process() const;
+  ::cros_xdr::reporting::Process* _internal_mutable_process();
+  public:
+  void unsafe_arena_set_allocated_process(
+      ::cros_xdr::reporting::Process* process);
+  ::cros_xdr::reporting::Process* unsafe_arena_release_process();
+
+  // optional uint64 bind_port = 5;
+  bool has_bind_port() const;
+  private:
+  bool _internal_has_bind_port() const;
+  public:
+  void clear_bind_port();
+  uint64_t bind_port() const;
+  void set_bind_port(uint64_t value);
+  private:
+  uint64_t _internal_bind_port() const;
+  void _internal_set_bind_port(uint64_t value);
+  public:
+
+  // optional .cros_xdr.reporting.NetworkProtocol protocol = 3;
+  bool has_protocol() const;
+  private:
+  bool _internal_has_protocol() const;
+  public:
+  void clear_protocol();
+  ::cros_xdr::reporting::NetworkProtocol protocol() const;
+  void set_protocol(::cros_xdr::reporting::NetworkProtocol value);
+  private:
+  ::cros_xdr::reporting::NetworkProtocol _internal_protocol() const;
+  void _internal_set_protocol(::cros_xdr::reporting::NetworkProtocol value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:cros_xdr.reporting.NetworkSocketListenEvent)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr bind_addr_;
+  ::cros_xdr::reporting::Process* parent_process_;
+  ::cros_xdr::reporting::Process* process_;
+  uint64_t bind_port_;
+  int protocol_;
   friend struct ::TableStruct_security_5fxdr_5fevents_2eproto;
 };
 // ===================================================================
@@ -5559,9 +6507,1373 @@ inline void XdrProcessEvent::clear_has_message_type() {
 inline XdrProcessEvent::MessageTypeCase XdrProcessEvent::message_type_case() const {
   return XdrProcessEvent::MessageTypeCase(_oneof_case_[0]);
 }
+// -------------------------------------------------------------------
+
+// XdrNetworkEvent
+
+// optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+inline bool XdrNetworkEvent::_internal_has_common() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || common_ != nullptr);
+  return value;
+}
+inline bool XdrNetworkEvent::has_common() const {
+  return _internal_has_common();
+}
+inline void XdrNetworkEvent::clear_common() {
+  if (common_ != nullptr) common_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::cros_xdr::reporting::CommonEventDataFields& XdrNetworkEvent::_internal_common() const {
+  const ::cros_xdr::reporting::CommonEventDataFields* p = common_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::CommonEventDataFields&>(
+      ::cros_xdr::reporting::_CommonEventDataFields_default_instance_);
+}
+inline const ::cros_xdr::reporting::CommonEventDataFields& XdrNetworkEvent::common() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.XdrNetworkEvent.common)
+  return _internal_common();
+}
+inline void XdrNetworkEvent::unsafe_arena_set_allocated_common(
+    ::cros_xdr::reporting::CommonEventDataFields* common) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_);
+  }
+  common_ = common;
+  if (common) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.XdrNetworkEvent.common)
+}
+inline ::cros_xdr::reporting::CommonEventDataFields* XdrNetworkEvent::release_common() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::cros_xdr::reporting::CommonEventDataFields* temp = common_;
+  common_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::cros_xdr::reporting::CommonEventDataFields* XdrNetworkEvent::unsafe_arena_release_common() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.XdrNetworkEvent.common)
+  _has_bits_[0] &= ~0x00000001u;
+  ::cros_xdr::reporting::CommonEventDataFields* temp = common_;
+  common_ = nullptr;
+  return temp;
+}
+inline ::cros_xdr::reporting::CommonEventDataFields* XdrNetworkEvent::_internal_mutable_common() {
+  _has_bits_[0] |= 0x00000001u;
+  if (common_ == nullptr) {
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::CommonEventDataFields>(GetArenaForAllocation());
+    common_ = p;
+  }
+  return common_;
+}
+inline ::cros_xdr::reporting::CommonEventDataFields* XdrNetworkEvent::mutable_common() {
+  ::cros_xdr::reporting::CommonEventDataFields* _msg = _internal_mutable_common();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.XdrNetworkEvent.common)
+  return _msg;
+}
+inline void XdrNetworkEvent::set_allocated_common(::cros_xdr::reporting::CommonEventDataFields* common) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete common_;
+  }
+  if (common) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::CommonEventDataFields>::GetOwningArena(common);
+    if (message_arena != submessage_arena) {
+      common = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  common_ = common;
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.XdrNetworkEvent.common)
+}
+
+// .cros_xdr.reporting.NetworkFlowEvent network_flow = 2;
+inline bool XdrNetworkEvent::_internal_has_network_flow() const {
+  return message_type_case() == kNetworkFlow;
+}
+inline bool XdrNetworkEvent::has_network_flow() const {
+  return _internal_has_network_flow();
+}
+inline void XdrNetworkEvent::set_has_network_flow() {
+  _oneof_case_[0] = kNetworkFlow;
+}
+inline void XdrNetworkEvent::clear_network_flow() {
+  if (_internal_has_network_flow()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete message_type_.network_flow_;
+    }
+    clear_has_message_type();
+  }
+}
+inline ::cros_xdr::reporting::NetworkFlowEvent* XdrNetworkEvent::release_network_flow() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.XdrNetworkEvent.network_flow)
+  if (_internal_has_network_flow()) {
+    clear_has_message_type();
+      ::cros_xdr::reporting::NetworkFlowEvent* temp = message_type_.network_flow_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    message_type_.network_flow_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::cros_xdr::reporting::NetworkFlowEvent& XdrNetworkEvent::_internal_network_flow() const {
+  return _internal_has_network_flow()
+      ? *message_type_.network_flow_
+      : reinterpret_cast< ::cros_xdr::reporting::NetworkFlowEvent&>(::cros_xdr::reporting::_NetworkFlowEvent_default_instance_);
+}
+inline const ::cros_xdr::reporting::NetworkFlowEvent& XdrNetworkEvent::network_flow() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.XdrNetworkEvent.network_flow)
+  return _internal_network_flow();
+}
+inline ::cros_xdr::reporting::NetworkFlowEvent* XdrNetworkEvent::unsafe_arena_release_network_flow() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:cros_xdr.reporting.XdrNetworkEvent.network_flow)
+  if (_internal_has_network_flow()) {
+    clear_has_message_type();
+    ::cros_xdr::reporting::NetworkFlowEvent* temp = message_type_.network_flow_;
+    message_type_.network_flow_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void XdrNetworkEvent::unsafe_arena_set_allocated_network_flow(::cros_xdr::reporting::NetworkFlowEvent* network_flow) {
+  clear_message_type();
+  if (network_flow) {
+    set_has_network_flow();
+    message_type_.network_flow_ = network_flow;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.XdrNetworkEvent.network_flow)
+}
+inline ::cros_xdr::reporting::NetworkFlowEvent* XdrNetworkEvent::_internal_mutable_network_flow() {
+  if (!_internal_has_network_flow()) {
+    clear_message_type();
+    set_has_network_flow();
+    message_type_.network_flow_ = CreateMaybeMessage< ::cros_xdr::reporting::NetworkFlowEvent >(GetArenaForAllocation());
+  }
+  return message_type_.network_flow_;
+}
+inline ::cros_xdr::reporting::NetworkFlowEvent* XdrNetworkEvent::mutable_network_flow() {
+  ::cros_xdr::reporting::NetworkFlowEvent* _msg = _internal_mutable_network_flow();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.XdrNetworkEvent.network_flow)
+  return _msg;
+}
+
+// .cros_xdr.reporting.NetworkSocketListenEvent socket_listen = 3;
+inline bool XdrNetworkEvent::_internal_has_socket_listen() const {
+  return message_type_case() == kSocketListen;
+}
+inline bool XdrNetworkEvent::has_socket_listen() const {
+  return _internal_has_socket_listen();
+}
+inline void XdrNetworkEvent::set_has_socket_listen() {
+  _oneof_case_[0] = kSocketListen;
+}
+inline void XdrNetworkEvent::clear_socket_listen() {
+  if (_internal_has_socket_listen()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete message_type_.socket_listen_;
+    }
+    clear_has_message_type();
+  }
+}
+inline ::cros_xdr::reporting::NetworkSocketListenEvent* XdrNetworkEvent::release_socket_listen() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.XdrNetworkEvent.socket_listen)
+  if (_internal_has_socket_listen()) {
+    clear_has_message_type();
+      ::cros_xdr::reporting::NetworkSocketListenEvent* temp = message_type_.socket_listen_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    message_type_.socket_listen_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::cros_xdr::reporting::NetworkSocketListenEvent& XdrNetworkEvent::_internal_socket_listen() const {
+  return _internal_has_socket_listen()
+      ? *message_type_.socket_listen_
+      : reinterpret_cast< ::cros_xdr::reporting::NetworkSocketListenEvent&>(::cros_xdr::reporting::_NetworkSocketListenEvent_default_instance_);
+}
+inline const ::cros_xdr::reporting::NetworkSocketListenEvent& XdrNetworkEvent::socket_listen() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.XdrNetworkEvent.socket_listen)
+  return _internal_socket_listen();
+}
+inline ::cros_xdr::reporting::NetworkSocketListenEvent* XdrNetworkEvent::unsafe_arena_release_socket_listen() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:cros_xdr.reporting.XdrNetworkEvent.socket_listen)
+  if (_internal_has_socket_listen()) {
+    clear_has_message_type();
+    ::cros_xdr::reporting::NetworkSocketListenEvent* temp = message_type_.socket_listen_;
+    message_type_.socket_listen_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void XdrNetworkEvent::unsafe_arena_set_allocated_socket_listen(::cros_xdr::reporting::NetworkSocketListenEvent* socket_listen) {
+  clear_message_type();
+  if (socket_listen) {
+    set_has_socket_listen();
+    message_type_.socket_listen_ = socket_listen;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.XdrNetworkEvent.socket_listen)
+}
+inline ::cros_xdr::reporting::NetworkSocketListenEvent* XdrNetworkEvent::_internal_mutable_socket_listen() {
+  if (!_internal_has_socket_listen()) {
+    clear_message_type();
+    set_has_socket_listen();
+    message_type_.socket_listen_ = CreateMaybeMessage< ::cros_xdr::reporting::NetworkSocketListenEvent >(GetArenaForAllocation());
+  }
+  return message_type_.socket_listen_;
+}
+inline ::cros_xdr::reporting::NetworkSocketListenEvent* XdrNetworkEvent::mutable_socket_listen() {
+  ::cros_xdr::reporting::NetworkSocketListenEvent* _msg = _internal_mutable_socket_listen();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.XdrNetworkEvent.socket_listen)
+  return _msg;
+}
+
+inline bool XdrNetworkEvent::has_message_type() const {
+  return message_type_case() != MESSAGE_TYPE_NOT_SET;
+}
+inline void XdrNetworkEvent::clear_has_message_type() {
+  _oneof_case_[0] = MESSAGE_TYPE_NOT_SET;
+}
+inline XdrNetworkEvent::MessageTypeCase XdrNetworkEvent::message_type_case() const {
+  return XdrNetworkEvent::MessageTypeCase(_oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
+// NetworkFlowEvent
+
+// optional .cros_xdr.reporting.Process parent_process = 1;
+inline bool NetworkFlowEvent::_internal_has_parent_process() const {
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  PROTOBUF_ASSUME(!value || parent_process_ != nullptr);
+  return value;
+}
+inline bool NetworkFlowEvent::has_parent_process() const {
+  return _internal_has_parent_process();
+}
+inline void NetworkFlowEvent::clear_parent_process() {
+  if (parent_process_ != nullptr) parent_process_->Clear();
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline const ::cros_xdr::reporting::Process& NetworkFlowEvent::_internal_parent_process() const {
+  const ::cros_xdr::reporting::Process* p = parent_process_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::Process&>(
+      ::cros_xdr::reporting::_Process_default_instance_);
+}
+inline const ::cros_xdr::reporting::Process& NetworkFlowEvent::parent_process() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkFlowEvent.parent_process)
+  return _internal_parent_process();
+}
+inline void NetworkFlowEvent::unsafe_arena_set_allocated_parent_process(
+    ::cros_xdr::reporting::Process* parent_process) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(parent_process_);
+  }
+  parent_process_ = parent_process;
+  if (parent_process) {
+    _has_bits_[0] |= 0x00000040u;
+  } else {
+    _has_bits_[0] &= ~0x00000040u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.NetworkFlowEvent.parent_process)
+}
+inline ::cros_xdr::reporting::Process* NetworkFlowEvent::release_parent_process() {
+  _has_bits_[0] &= ~0x00000040u;
+  ::cros_xdr::reporting::Process* temp = parent_process_;
+  parent_process_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::cros_xdr::reporting::Process* NetworkFlowEvent::unsafe_arena_release_parent_process() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.NetworkFlowEvent.parent_process)
+  _has_bits_[0] &= ~0x00000040u;
+  ::cros_xdr::reporting::Process* temp = parent_process_;
+  parent_process_ = nullptr;
+  return temp;
+}
+inline ::cros_xdr::reporting::Process* NetworkFlowEvent::_internal_mutable_parent_process() {
+  _has_bits_[0] |= 0x00000040u;
+  if (parent_process_ == nullptr) {
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::Process>(GetArenaForAllocation());
+    parent_process_ = p;
+  }
+  return parent_process_;
+}
+inline ::cros_xdr::reporting::Process* NetworkFlowEvent::mutable_parent_process() {
+  ::cros_xdr::reporting::Process* _msg = _internal_mutable_parent_process();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.NetworkFlowEvent.parent_process)
+  return _msg;
+}
+inline void NetworkFlowEvent::set_allocated_parent_process(::cros_xdr::reporting::Process* parent_process) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete parent_process_;
+  }
+  if (parent_process) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::Process>::GetOwningArena(parent_process);
+    if (message_arena != submessage_arena) {
+      parent_process = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, parent_process, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000040u;
+  } else {
+    _has_bits_[0] &= ~0x00000040u;
+  }
+  parent_process_ = parent_process;
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.NetworkFlowEvent.parent_process)
+}
+
+// optional .cros_xdr.reporting.Process process = 2;
+inline bool NetworkFlowEvent::_internal_has_process() const {
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
+  PROTOBUF_ASSUME(!value || process_ != nullptr);
+  return value;
+}
+inline bool NetworkFlowEvent::has_process() const {
+  return _internal_has_process();
+}
+inline void NetworkFlowEvent::clear_process() {
+  if (process_ != nullptr) process_->Clear();
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline const ::cros_xdr::reporting::Process& NetworkFlowEvent::_internal_process() const {
+  const ::cros_xdr::reporting::Process* p = process_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::Process&>(
+      ::cros_xdr::reporting::_Process_default_instance_);
+}
+inline const ::cros_xdr::reporting::Process& NetworkFlowEvent::process() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkFlowEvent.process)
+  return _internal_process();
+}
+inline void NetworkFlowEvent::unsafe_arena_set_allocated_process(
+    ::cros_xdr::reporting::Process* process) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(process_);
+  }
+  process_ = process;
+  if (process) {
+    _has_bits_[0] |= 0x00000080u;
+  } else {
+    _has_bits_[0] &= ~0x00000080u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.NetworkFlowEvent.process)
+}
+inline ::cros_xdr::reporting::Process* NetworkFlowEvent::release_process() {
+  _has_bits_[0] &= ~0x00000080u;
+  ::cros_xdr::reporting::Process* temp = process_;
+  process_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::cros_xdr::reporting::Process* NetworkFlowEvent::unsafe_arena_release_process() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.NetworkFlowEvent.process)
+  _has_bits_[0] &= ~0x00000080u;
+  ::cros_xdr::reporting::Process* temp = process_;
+  process_ = nullptr;
+  return temp;
+}
+inline ::cros_xdr::reporting::Process* NetworkFlowEvent::_internal_mutable_process() {
+  _has_bits_[0] |= 0x00000080u;
+  if (process_ == nullptr) {
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::Process>(GetArenaForAllocation());
+    process_ = p;
+  }
+  return process_;
+}
+inline ::cros_xdr::reporting::Process* NetworkFlowEvent::mutable_process() {
+  ::cros_xdr::reporting::Process* _msg = _internal_mutable_process();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.NetworkFlowEvent.process)
+  return _msg;
+}
+inline void NetworkFlowEvent::set_allocated_process(::cros_xdr::reporting::Process* process) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete process_;
+  }
+  if (process) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::Process>::GetOwningArena(process);
+    if (message_arena != submessage_arena) {
+      process = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, process, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000080u;
+  } else {
+    _has_bits_[0] &= ~0x00000080u;
+  }
+  process_ = process;
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.NetworkFlowEvent.process)
+}
+
+// optional string community_id_v1 = 3;
+inline bool NetworkFlowEvent::_internal_has_community_id_v1() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool NetworkFlowEvent::has_community_id_v1() const {
+  return _internal_has_community_id_v1();
+}
+inline void NetworkFlowEvent::clear_community_id_v1() {
+  community_id_v1_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& NetworkFlowEvent::community_id_v1() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkFlowEvent.community_id_v1)
+  return _internal_community_id_v1();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void NetworkFlowEvent::set_community_id_v1(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ community_id_v1_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.NetworkFlowEvent.community_id_v1)
+}
+inline std::string* NetworkFlowEvent::mutable_community_id_v1() {
+  std::string* _s = _internal_mutable_community_id_v1();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.NetworkFlowEvent.community_id_v1)
+  return _s;
+}
+inline const std::string& NetworkFlowEvent::_internal_community_id_v1() const {
+  return community_id_v1_.Get();
+}
+inline void NetworkFlowEvent::_internal_set_community_id_v1(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  community_id_v1_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* NetworkFlowEvent::_internal_mutable_community_id_v1() {
+  _has_bits_[0] |= 0x00000001u;
+  return community_id_v1_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* NetworkFlowEvent::release_community_id_v1() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.NetworkFlowEvent.community_id_v1)
+  if (!_internal_has_community_id_v1()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = community_id_v1_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (community_id_v1_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    community_id_v1_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void NetworkFlowEvent::set_allocated_community_id_v1(std::string* community_id_v1) {
+  if (community_id_v1 != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  community_id_v1_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), community_id_v1,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (community_id_v1_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    community_id_v1_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.NetworkFlowEvent.community_id_v1)
+}
+
+// optional string local_ip = 4;
+inline bool NetworkFlowEvent::_internal_has_local_ip() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool NetworkFlowEvent::has_local_ip() const {
+  return _internal_has_local_ip();
+}
+inline void NetworkFlowEvent::clear_local_ip() {
+  local_ip_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& NetworkFlowEvent::local_ip() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkFlowEvent.local_ip)
+  return _internal_local_ip();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void NetworkFlowEvent::set_local_ip(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000002u;
+ local_ip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.NetworkFlowEvent.local_ip)
+}
+inline std::string* NetworkFlowEvent::mutable_local_ip() {
+  std::string* _s = _internal_mutable_local_ip();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.NetworkFlowEvent.local_ip)
+  return _s;
+}
+inline const std::string& NetworkFlowEvent::_internal_local_ip() const {
+  return local_ip_.Get();
+}
+inline void NetworkFlowEvent::_internal_set_local_ip(const std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  local_ip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* NetworkFlowEvent::_internal_mutable_local_ip() {
+  _has_bits_[0] |= 0x00000002u;
+  return local_ip_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* NetworkFlowEvent::release_local_ip() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.NetworkFlowEvent.local_ip)
+  if (!_internal_has_local_ip()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  auto* p = local_ip_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (local_ip_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    local_ip_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void NetworkFlowEvent::set_allocated_local_ip(std::string* local_ip) {
+  if (local_ip != nullptr) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  local_ip_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), local_ip,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (local_ip_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    local_ip_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.NetworkFlowEvent.local_ip)
+}
+
+// optional uint64 local_port = 5;
+inline bool NetworkFlowEvent::_internal_has_local_port() const {
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
+  return value;
+}
+inline bool NetworkFlowEvent::has_local_port() const {
+  return _internal_has_local_port();
+}
+inline void NetworkFlowEvent::clear_local_port() {
+  local_port_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline uint64_t NetworkFlowEvent::_internal_local_port() const {
+  return local_port_;
+}
+inline uint64_t NetworkFlowEvent::local_port() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkFlowEvent.local_port)
+  return _internal_local_port();
+}
+inline void NetworkFlowEvent::_internal_set_local_port(uint64_t value) {
+  _has_bits_[0] |= 0x00000100u;
+  local_port_ = value;
+}
+inline void NetworkFlowEvent::set_local_port(uint64_t value) {
+  _internal_set_local_port(value);
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.NetworkFlowEvent.local_port)
+}
+
+// optional string remote_ip = 6;
+inline bool NetworkFlowEvent::_internal_has_remote_ip() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool NetworkFlowEvent::has_remote_ip() const {
+  return _internal_has_remote_ip();
+}
+inline void NetworkFlowEvent::clear_remote_ip() {
+  remote_ip_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& NetworkFlowEvent::remote_ip() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkFlowEvent.remote_ip)
+  return _internal_remote_ip();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void NetworkFlowEvent::set_remote_ip(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000004u;
+ remote_ip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.NetworkFlowEvent.remote_ip)
+}
+inline std::string* NetworkFlowEvent::mutable_remote_ip() {
+  std::string* _s = _internal_mutable_remote_ip();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.NetworkFlowEvent.remote_ip)
+  return _s;
+}
+inline const std::string& NetworkFlowEvent::_internal_remote_ip() const {
+  return remote_ip_.Get();
+}
+inline void NetworkFlowEvent::_internal_set_remote_ip(const std::string& value) {
+  _has_bits_[0] |= 0x00000004u;
+  remote_ip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* NetworkFlowEvent::_internal_mutable_remote_ip() {
+  _has_bits_[0] |= 0x00000004u;
+  return remote_ip_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* NetworkFlowEvent::release_remote_ip() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.NetworkFlowEvent.remote_ip)
+  if (!_internal_has_remote_ip()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000004u;
+  auto* p = remote_ip_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (remote_ip_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    remote_ip_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void NetworkFlowEvent::set_allocated_remote_ip(std::string* remote_ip) {
+  if (remote_ip != nullptr) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  remote_ip_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), remote_ip,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (remote_ip_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    remote_ip_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.NetworkFlowEvent.remote_ip)
+}
+
+// optional uint64 remote_port = 7;
+inline bool NetworkFlowEvent::_internal_has_remote_port() const {
+  bool value = (_has_bits_[0] & 0x00000200u) != 0;
+  return value;
+}
+inline bool NetworkFlowEvent::has_remote_port() const {
+  return _internal_has_remote_port();
+}
+inline void NetworkFlowEvent::clear_remote_port() {
+  remote_port_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00000200u;
+}
+inline uint64_t NetworkFlowEvent::_internal_remote_port() const {
+  return remote_port_;
+}
+inline uint64_t NetworkFlowEvent::remote_port() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkFlowEvent.remote_port)
+  return _internal_remote_port();
+}
+inline void NetworkFlowEvent::_internal_set_remote_port(uint64_t value) {
+  _has_bits_[0] |= 0x00000200u;
+  remote_port_ = value;
+}
+inline void NetworkFlowEvent::set_remote_port(uint64_t value) {
+  _internal_set_remote_port(value);
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.NetworkFlowEvent.remote_port)
+}
+
+// optional .cros_xdr.reporting.NetworkProtocol protocol = 8;
+inline bool NetworkFlowEvent::_internal_has_protocol() const {
+  bool value = (_has_bits_[0] & 0x00000400u) != 0;
+  return value;
+}
+inline bool NetworkFlowEvent::has_protocol() const {
+  return _internal_has_protocol();
+}
+inline void NetworkFlowEvent::clear_protocol() {
+  protocol_ = 0;
+  _has_bits_[0] &= ~0x00000400u;
+}
+inline ::cros_xdr::reporting::NetworkProtocol NetworkFlowEvent::_internal_protocol() const {
+  return static_cast< ::cros_xdr::reporting::NetworkProtocol >(protocol_);
+}
+inline ::cros_xdr::reporting::NetworkProtocol NetworkFlowEvent::protocol() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkFlowEvent.protocol)
+  return _internal_protocol();
+}
+inline void NetworkFlowEvent::_internal_set_protocol(::cros_xdr::reporting::NetworkProtocol value) {
+  assert(::cros_xdr::reporting::NetworkProtocol_IsValid(value));
+  _has_bits_[0] |= 0x00000400u;
+  protocol_ = value;
+}
+inline void NetworkFlowEvent::set_protocol(::cros_xdr::reporting::NetworkProtocol value) {
+  _internal_set_protocol(value);
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.NetworkFlowEvent.protocol)
+}
+
+// optional .cros_xdr.reporting.NetworkFlowEvent.Direction direction = 9;
+inline bool NetworkFlowEvent::_internal_has_direction() const {
+  bool value = (_has_bits_[0] & 0x00000800u) != 0;
+  return value;
+}
+inline bool NetworkFlowEvent::has_direction() const {
+  return _internal_has_direction();
+}
+inline void NetworkFlowEvent::clear_direction() {
+  direction_ = 0;
+  _has_bits_[0] &= ~0x00000800u;
+}
+inline ::cros_xdr::reporting::NetworkFlowEvent_Direction NetworkFlowEvent::_internal_direction() const {
+  return static_cast< ::cros_xdr::reporting::NetworkFlowEvent_Direction >(direction_);
+}
+inline ::cros_xdr::reporting::NetworkFlowEvent_Direction NetworkFlowEvent::direction() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkFlowEvent.direction)
+  return _internal_direction();
+}
+inline void NetworkFlowEvent::_internal_set_direction(::cros_xdr::reporting::NetworkFlowEvent_Direction value) {
+  assert(::cros_xdr::reporting::NetworkFlowEvent_Direction_IsValid(value));
+  _has_bits_[0] |= 0x00000800u;
+  direction_ = value;
+}
+inline void NetworkFlowEvent::set_direction(::cros_xdr::reporting::NetworkFlowEvent_Direction value) {
+  _internal_set_direction(value);
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.NetworkFlowEvent.direction)
+}
+
+// optional string remote_hostname = 10;
+inline bool NetworkFlowEvent::_internal_has_remote_hostname() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool NetworkFlowEvent::has_remote_hostname() const {
+  return _internal_has_remote_hostname();
+}
+inline void NetworkFlowEvent::clear_remote_hostname() {
+  remote_hostname_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline const std::string& NetworkFlowEvent::remote_hostname() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkFlowEvent.remote_hostname)
+  return _internal_remote_hostname();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void NetworkFlowEvent::set_remote_hostname(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000008u;
+ remote_hostname_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.NetworkFlowEvent.remote_hostname)
+}
+inline std::string* NetworkFlowEvent::mutable_remote_hostname() {
+  std::string* _s = _internal_mutable_remote_hostname();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.NetworkFlowEvent.remote_hostname)
+  return _s;
+}
+inline const std::string& NetworkFlowEvent::_internal_remote_hostname() const {
+  return remote_hostname_.Get();
+}
+inline void NetworkFlowEvent::_internal_set_remote_hostname(const std::string& value) {
+  _has_bits_[0] |= 0x00000008u;
+  remote_hostname_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* NetworkFlowEvent::_internal_mutable_remote_hostname() {
+  _has_bits_[0] |= 0x00000008u;
+  return remote_hostname_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* NetworkFlowEvent::release_remote_hostname() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.NetworkFlowEvent.remote_hostname)
+  if (!_internal_has_remote_hostname()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000008u;
+  auto* p = remote_hostname_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (remote_hostname_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    remote_hostname_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void NetworkFlowEvent::set_allocated_remote_hostname(std::string* remote_hostname) {
+  if (remote_hostname != nullptr) {
+    _has_bits_[0] |= 0x00000008u;
+  } else {
+    _has_bits_[0] &= ~0x00000008u;
+  }
+  remote_hostname_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), remote_hostname,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (remote_hostname_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    remote_hostname_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.NetworkFlowEvent.remote_hostname)
+}
+
+// optional uint64 rx_bytes = 11;
+inline bool NetworkFlowEvent::_internal_has_rx_bytes() const {
+  bool value = (_has_bits_[0] & 0x00001000u) != 0;
+  return value;
+}
+inline bool NetworkFlowEvent::has_rx_bytes() const {
+  return _internal_has_rx_bytes();
+}
+inline void NetworkFlowEvent::clear_rx_bytes() {
+  rx_bytes_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00001000u;
+}
+inline uint64_t NetworkFlowEvent::_internal_rx_bytes() const {
+  return rx_bytes_;
+}
+inline uint64_t NetworkFlowEvent::rx_bytes() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkFlowEvent.rx_bytes)
+  return _internal_rx_bytes();
+}
+inline void NetworkFlowEvent::_internal_set_rx_bytes(uint64_t value) {
+  _has_bits_[0] |= 0x00001000u;
+  rx_bytes_ = value;
+}
+inline void NetworkFlowEvent::set_rx_bytes(uint64_t value) {
+  _internal_set_rx_bytes(value);
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.NetworkFlowEvent.rx_bytes)
+}
+
+// optional uint64 tx_bytes = 12;
+inline bool NetworkFlowEvent::_internal_has_tx_bytes() const {
+  bool value = (_has_bits_[0] & 0x00002000u) != 0;
+  return value;
+}
+inline bool NetworkFlowEvent::has_tx_bytes() const {
+  return _internal_has_tx_bytes();
+}
+inline void NetworkFlowEvent::clear_tx_bytes() {
+  tx_bytes_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00002000u;
+}
+inline uint64_t NetworkFlowEvent::_internal_tx_bytes() const {
+  return tx_bytes_;
+}
+inline uint64_t NetworkFlowEvent::tx_bytes() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkFlowEvent.tx_bytes)
+  return _internal_tx_bytes();
+}
+inline void NetworkFlowEvent::_internal_set_tx_bytes(uint64_t value) {
+  _has_bits_[0] |= 0x00002000u;
+  tx_bytes_ = value;
+}
+inline void NetworkFlowEvent::set_tx_bytes(uint64_t value) {
+  _internal_set_tx_bytes(value);
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.NetworkFlowEvent.tx_bytes)
+}
+
+// optional .cros_xdr.reporting.NetworkFlowEvent.ApplicationProtocol application_protocol = 13;
+inline bool NetworkFlowEvent::_internal_has_application_protocol() const {
+  bool value = (_has_bits_[0] & 0x00004000u) != 0;
+  return value;
+}
+inline bool NetworkFlowEvent::has_application_protocol() const {
+  return _internal_has_application_protocol();
+}
+inline void NetworkFlowEvent::clear_application_protocol() {
+  application_protocol_ = 0;
+  _has_bits_[0] &= ~0x00004000u;
+}
+inline ::cros_xdr::reporting::NetworkFlowEvent_ApplicationProtocol NetworkFlowEvent::_internal_application_protocol() const {
+  return static_cast< ::cros_xdr::reporting::NetworkFlowEvent_ApplicationProtocol >(application_protocol_);
+}
+inline ::cros_xdr::reporting::NetworkFlowEvent_ApplicationProtocol NetworkFlowEvent::application_protocol() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkFlowEvent.application_protocol)
+  return _internal_application_protocol();
+}
+inline void NetworkFlowEvent::_internal_set_application_protocol(::cros_xdr::reporting::NetworkFlowEvent_ApplicationProtocol value) {
+  assert(::cros_xdr::reporting::NetworkFlowEvent_ApplicationProtocol_IsValid(value));
+  _has_bits_[0] |= 0x00004000u;
+  application_protocol_ = value;
+}
+inline void NetworkFlowEvent::set_application_protocol(::cros_xdr::reporting::NetworkFlowEvent_ApplicationProtocol value) {
+  _internal_set_application_protocol(value);
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.NetworkFlowEvent.application_protocol)
+}
+
+// optional string http_host = 14;
+inline bool NetworkFlowEvent::_internal_has_http_host() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool NetworkFlowEvent::has_http_host() const {
+  return _internal_has_http_host();
+}
+inline void NetworkFlowEvent::clear_http_host() {
+  http_host_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline const std::string& NetworkFlowEvent::http_host() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkFlowEvent.http_host)
+  return _internal_http_host();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void NetworkFlowEvent::set_http_host(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000010u;
+ http_host_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.NetworkFlowEvent.http_host)
+}
+inline std::string* NetworkFlowEvent::mutable_http_host() {
+  std::string* _s = _internal_mutable_http_host();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.NetworkFlowEvent.http_host)
+  return _s;
+}
+inline const std::string& NetworkFlowEvent::_internal_http_host() const {
+  return http_host_.Get();
+}
+inline void NetworkFlowEvent::_internal_set_http_host(const std::string& value) {
+  _has_bits_[0] |= 0x00000010u;
+  http_host_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* NetworkFlowEvent::_internal_mutable_http_host() {
+  _has_bits_[0] |= 0x00000010u;
+  return http_host_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* NetworkFlowEvent::release_http_host() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.NetworkFlowEvent.http_host)
+  if (!_internal_has_http_host()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000010u;
+  auto* p = http_host_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (http_host_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    http_host_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void NetworkFlowEvent::set_allocated_http_host(std::string* http_host) {
+  if (http_host != nullptr) {
+    _has_bits_[0] |= 0x00000010u;
+  } else {
+    _has_bits_[0] &= ~0x00000010u;
+  }
+  http_host_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), http_host,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (http_host_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    http_host_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.NetworkFlowEvent.http_host)
+}
+
+// optional string sni_host = 15;
+inline bool NetworkFlowEvent::_internal_has_sni_host() const {
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  return value;
+}
+inline bool NetworkFlowEvent::has_sni_host() const {
+  return _internal_has_sni_host();
+}
+inline void NetworkFlowEvent::clear_sni_host() {
+  sni_host_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline const std::string& NetworkFlowEvent::sni_host() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkFlowEvent.sni_host)
+  return _internal_sni_host();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void NetworkFlowEvent::set_sni_host(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000020u;
+ sni_host_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.NetworkFlowEvent.sni_host)
+}
+inline std::string* NetworkFlowEvent::mutable_sni_host() {
+  std::string* _s = _internal_mutable_sni_host();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.NetworkFlowEvent.sni_host)
+  return _s;
+}
+inline const std::string& NetworkFlowEvent::_internal_sni_host() const {
+  return sni_host_.Get();
+}
+inline void NetworkFlowEvent::_internal_set_sni_host(const std::string& value) {
+  _has_bits_[0] |= 0x00000020u;
+  sni_host_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* NetworkFlowEvent::_internal_mutable_sni_host() {
+  _has_bits_[0] |= 0x00000020u;
+  return sni_host_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* NetworkFlowEvent::release_sni_host() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.NetworkFlowEvent.sni_host)
+  if (!_internal_has_sni_host()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000020u;
+  auto* p = sni_host_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (sni_host_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    sni_host_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void NetworkFlowEvent::set_allocated_sni_host(std::string* sni_host) {
+  if (sni_host != nullptr) {
+    _has_bits_[0] |= 0x00000020u;
+  } else {
+    _has_bits_[0] &= ~0x00000020u;
+  }
+  sni_host_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), sni_host,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (sni_host_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    sni_host_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.NetworkFlowEvent.sni_host)
+}
+
+// -------------------------------------------------------------------
+
+// NetworkSocketListenEvent
+
+// optional .cros_xdr.reporting.Process parent_process = 1;
+inline bool NetworkSocketListenEvent::_internal_has_parent_process() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || parent_process_ != nullptr);
+  return value;
+}
+inline bool NetworkSocketListenEvent::has_parent_process() const {
+  return _internal_has_parent_process();
+}
+inline void NetworkSocketListenEvent::clear_parent_process() {
+  if (parent_process_ != nullptr) parent_process_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::cros_xdr::reporting::Process& NetworkSocketListenEvent::_internal_parent_process() const {
+  const ::cros_xdr::reporting::Process* p = parent_process_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::Process&>(
+      ::cros_xdr::reporting::_Process_default_instance_);
+}
+inline const ::cros_xdr::reporting::Process& NetworkSocketListenEvent::parent_process() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkSocketListenEvent.parent_process)
+  return _internal_parent_process();
+}
+inline void NetworkSocketListenEvent::unsafe_arena_set_allocated_parent_process(
+    ::cros_xdr::reporting::Process* parent_process) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(parent_process_);
+  }
+  parent_process_ = parent_process;
+  if (parent_process) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.NetworkSocketListenEvent.parent_process)
+}
+inline ::cros_xdr::reporting::Process* NetworkSocketListenEvent::release_parent_process() {
+  _has_bits_[0] &= ~0x00000002u;
+  ::cros_xdr::reporting::Process* temp = parent_process_;
+  parent_process_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::cros_xdr::reporting::Process* NetworkSocketListenEvent::unsafe_arena_release_parent_process() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.NetworkSocketListenEvent.parent_process)
+  _has_bits_[0] &= ~0x00000002u;
+  ::cros_xdr::reporting::Process* temp = parent_process_;
+  parent_process_ = nullptr;
+  return temp;
+}
+inline ::cros_xdr::reporting::Process* NetworkSocketListenEvent::_internal_mutable_parent_process() {
+  _has_bits_[0] |= 0x00000002u;
+  if (parent_process_ == nullptr) {
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::Process>(GetArenaForAllocation());
+    parent_process_ = p;
+  }
+  return parent_process_;
+}
+inline ::cros_xdr::reporting::Process* NetworkSocketListenEvent::mutable_parent_process() {
+  ::cros_xdr::reporting::Process* _msg = _internal_mutable_parent_process();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.NetworkSocketListenEvent.parent_process)
+  return _msg;
+}
+inline void NetworkSocketListenEvent::set_allocated_parent_process(::cros_xdr::reporting::Process* parent_process) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete parent_process_;
+  }
+  if (parent_process) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::Process>::GetOwningArena(parent_process);
+    if (message_arena != submessage_arena) {
+      parent_process = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, parent_process, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  parent_process_ = parent_process;
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.NetworkSocketListenEvent.parent_process)
+}
+
+// optional .cros_xdr.reporting.Process process = 2;
+inline bool NetworkSocketListenEvent::_internal_has_process() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  PROTOBUF_ASSUME(!value || process_ != nullptr);
+  return value;
+}
+inline bool NetworkSocketListenEvent::has_process() const {
+  return _internal_has_process();
+}
+inline void NetworkSocketListenEvent::clear_process() {
+  if (process_ != nullptr) process_->Clear();
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const ::cros_xdr::reporting::Process& NetworkSocketListenEvent::_internal_process() const {
+  const ::cros_xdr::reporting::Process* p = process_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::Process&>(
+      ::cros_xdr::reporting::_Process_default_instance_);
+}
+inline const ::cros_xdr::reporting::Process& NetworkSocketListenEvent::process() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkSocketListenEvent.process)
+  return _internal_process();
+}
+inline void NetworkSocketListenEvent::unsafe_arena_set_allocated_process(
+    ::cros_xdr::reporting::Process* process) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(process_);
+  }
+  process_ = process;
+  if (process) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.NetworkSocketListenEvent.process)
+}
+inline ::cros_xdr::reporting::Process* NetworkSocketListenEvent::release_process() {
+  _has_bits_[0] &= ~0x00000004u;
+  ::cros_xdr::reporting::Process* temp = process_;
+  process_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::cros_xdr::reporting::Process* NetworkSocketListenEvent::unsafe_arena_release_process() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.NetworkSocketListenEvent.process)
+  _has_bits_[0] &= ~0x00000004u;
+  ::cros_xdr::reporting::Process* temp = process_;
+  process_ = nullptr;
+  return temp;
+}
+inline ::cros_xdr::reporting::Process* NetworkSocketListenEvent::_internal_mutable_process() {
+  _has_bits_[0] |= 0x00000004u;
+  if (process_ == nullptr) {
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::Process>(GetArenaForAllocation());
+    process_ = p;
+  }
+  return process_;
+}
+inline ::cros_xdr::reporting::Process* NetworkSocketListenEvent::mutable_process() {
+  ::cros_xdr::reporting::Process* _msg = _internal_mutable_process();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.NetworkSocketListenEvent.process)
+  return _msg;
+}
+inline void NetworkSocketListenEvent::set_allocated_process(::cros_xdr::reporting::Process* process) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete process_;
+  }
+  if (process) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::Process>::GetOwningArena(process);
+    if (message_arena != submessage_arena) {
+      process = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, process, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  process_ = process;
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.NetworkSocketListenEvent.process)
+}
+
+// optional .cros_xdr.reporting.NetworkProtocol protocol = 3;
+inline bool NetworkSocketListenEvent::_internal_has_protocol() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool NetworkSocketListenEvent::has_protocol() const {
+  return _internal_has_protocol();
+}
+inline void NetworkSocketListenEvent::clear_protocol() {
+  protocol_ = 0;
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline ::cros_xdr::reporting::NetworkProtocol NetworkSocketListenEvent::_internal_protocol() const {
+  return static_cast< ::cros_xdr::reporting::NetworkProtocol >(protocol_);
+}
+inline ::cros_xdr::reporting::NetworkProtocol NetworkSocketListenEvent::protocol() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkSocketListenEvent.protocol)
+  return _internal_protocol();
+}
+inline void NetworkSocketListenEvent::_internal_set_protocol(::cros_xdr::reporting::NetworkProtocol value) {
+  assert(::cros_xdr::reporting::NetworkProtocol_IsValid(value));
+  _has_bits_[0] |= 0x00000010u;
+  protocol_ = value;
+}
+inline void NetworkSocketListenEvent::set_protocol(::cros_xdr::reporting::NetworkProtocol value) {
+  _internal_set_protocol(value);
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.NetworkSocketListenEvent.protocol)
+}
+
+// optional string bind_addr = 4;
+inline bool NetworkSocketListenEvent::_internal_has_bind_addr() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool NetworkSocketListenEvent::has_bind_addr() const {
+  return _internal_has_bind_addr();
+}
+inline void NetworkSocketListenEvent::clear_bind_addr() {
+  bind_addr_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& NetworkSocketListenEvent::bind_addr() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkSocketListenEvent.bind_addr)
+  return _internal_bind_addr();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void NetworkSocketListenEvent::set_bind_addr(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ bind_addr_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.NetworkSocketListenEvent.bind_addr)
+}
+inline std::string* NetworkSocketListenEvent::mutable_bind_addr() {
+  std::string* _s = _internal_mutable_bind_addr();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.NetworkSocketListenEvent.bind_addr)
+  return _s;
+}
+inline const std::string& NetworkSocketListenEvent::_internal_bind_addr() const {
+  return bind_addr_.Get();
+}
+inline void NetworkSocketListenEvent::_internal_set_bind_addr(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  bind_addr_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* NetworkSocketListenEvent::_internal_mutable_bind_addr() {
+  _has_bits_[0] |= 0x00000001u;
+  return bind_addr_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* NetworkSocketListenEvent::release_bind_addr() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.NetworkSocketListenEvent.bind_addr)
+  if (!_internal_has_bind_addr()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = bind_addr_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (bind_addr_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    bind_addr_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void NetworkSocketListenEvent::set_allocated_bind_addr(std::string* bind_addr) {
+  if (bind_addr != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  bind_addr_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), bind_addr,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (bind_addr_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    bind_addr_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.NetworkSocketListenEvent.bind_addr)
+}
+
+// optional uint64 bind_port = 5;
+inline bool NetworkSocketListenEvent::_internal_has_bind_port() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool NetworkSocketListenEvent::has_bind_port() const {
+  return _internal_has_bind_port();
+}
+inline void NetworkSocketListenEvent::clear_bind_port() {
+  bind_port_ = uint64_t{0u};
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline uint64_t NetworkSocketListenEvent::_internal_bind_port() const {
+  return bind_port_;
+}
+inline uint64_t NetworkSocketListenEvent::bind_port() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.NetworkSocketListenEvent.bind_port)
+  return _internal_bind_port();
+}
+inline void NetworkSocketListenEvent::_internal_set_bind_port(uint64_t value) {
+  _has_bits_[0] |= 0x00000008u;
+  bind_port_ = value;
+}
+inline void NetworkSocketListenEvent::set_bind_port(uint64_t value) {
+  _internal_set_bind_port(value);
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.NetworkSocketListenEvent.bind_port)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -5594,6 +7906,9 @@ PROTOBUF_NAMESPACE_OPEN
 
 template <> struct is_proto_enum< ::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind> : ::std::true_type {};
 template <> struct is_proto_enum< ::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot> : ::std::true_type {};
+template <> struct is_proto_enum< ::cros_xdr::reporting::NetworkFlowEvent_Direction> : ::std::true_type {};
+template <> struct is_proto_enum< ::cros_xdr::reporting::NetworkFlowEvent_ApplicationProtocol> : ::std::true_type {};
+template <> struct is_proto_enum< ::cros_xdr::reporting::NetworkProtocol> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 
