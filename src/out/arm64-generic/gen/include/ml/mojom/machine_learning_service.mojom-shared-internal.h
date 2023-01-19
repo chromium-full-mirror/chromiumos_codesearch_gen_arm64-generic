@@ -13,6 +13,7 @@
 #include "ml/mojom/document_scanner.mojom-shared-internal.h"
 #include "ml/mojom/grammar_checker.mojom-shared-internal.h"
 #include "ml/mojom/handwriting_recognizer.mojom-shared-internal.h"
+#include "ml/mojom/image_content_annotation.mojom-shared-internal.h"
 #include "ml/mojom/model.mojom-shared-internal.h"
 #include "ml/mojom/soda.mojom-shared-internal.h"
 #include "ml/mojom/text_classifier.mojom-shared-internal.h"
