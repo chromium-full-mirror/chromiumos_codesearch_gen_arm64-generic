@@ -36,6 +36,8 @@ class PowerEventInfoDataView;
 
 class AudioEventInfoDataView;
 
+class AudioJackEventInfoDataView;
+
 class EventInfoDataView;
 
 enum class EventCategoryEnum : int32_t;
@@ -51,6 +53,8 @@ enum class BluetoothEventInfo_State : int32_t;
 enum class PowerEventInfo_State : int32_t;
 
 enum class AudioEventInfo_State : int32_t;
+
+enum class AudioJackEventInfo_State : int32_t;
 class UsbEventInfo;
 using UsbEventInfoPtr = mojo::StructPtr<UsbEventInfo>;
 
@@ -68,6 +72,9 @@ using PowerEventInfoPtr = mojo::InlinedStructPtr<PowerEventInfo>;
 
 class AudioEventInfo;
 using AudioEventInfoPtr = mojo::InlinedStructPtr<AudioEventInfo>;
+
+class AudioJackEventInfo;
+using AudioJackEventInfoPtr = mojo::InlinedStructPtr<AudioJackEventInfo>;
 
 class EventInfo;
 

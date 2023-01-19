@@ -1337,11 +1337,11 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   //// This is a separator block at value 2300
   //// See location_db.py for more info.
   //////////////////////////////////////////////////
-  /* ./auth_session_manager.cc */
+  /* =Obsolete= */
   kLocAuthSessionManagerCreateFailed = 2300,
   /* ./auth_session_manager.cc */
   kLocAuthSessionManagerTokenCollision = 2301,
-  /* ./auth_session.cc */
+  /* =Obsolete= */
   kLocAuthSessionCreateInitializedFail = 2302,
   /* ./smart_card_verifier.cc */
   kLocSmartCardVerifierNoKeyService = 2303,
@@ -1433,6 +1433,8 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocPinWeaverAuthBlockNullLeManagerInIsSupported = 2726,
   /* ./auth_blocks/pin_weaver_auth_block.cc */
   kLocPinWeaverAuthBlockNoKeyLoaderInIsSupported = 2727,
+  /* ./auth_session.cc */
+  kLocAuthSessionNoVkInAddKeyset = 2728,
   //////////////////////////////////////////////////
   //// This is a separator block at value 2900
   //// See location_db.py for more info.

@@ -276,30 +276,6 @@ class UserDataAuthInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  virtual bool AddCredentials(
-      const user_data_auth::AddCredentialsRequest& in_request,
-      user_data_auth::AddCredentialsReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void AddCredentialsAsync(
-      const user_data_auth::AddCredentialsRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::AddCredentialsReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual bool UpdateCredential(
-      const user_data_auth::UpdateCredentialRequest& in_request,
-      user_data_auth::UpdateCredentialReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void UpdateCredentialAsync(
-      const user_data_auth::UpdateCredentialRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::UpdateCredentialReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   virtual bool AuthenticateAuthSession(
       const user_data_auth::AuthenticateAuthSessionRequest& in_request,
       user_data_auth::AuthenticateAuthSessionReply* out_reply,
@@ -1225,68 +1201,6 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "StartAuthSession",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
-  bool AddCredentials(
-      const user_data_auth::AddCredentialsRequest& in_request,
-      user_data_auth::AddCredentialsReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "AddCredentials",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void AddCredentialsAsync(
-      const user_data_auth::AddCredentialsRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::AddCredentialsReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "AddCredentials",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
-  bool UpdateCredential(
-      const user_data_auth::UpdateCredentialRequest& in_request,
-      user_data_auth::UpdateCredentialReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "UpdateCredential",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void UpdateCredentialAsync(
-      const user_data_auth::UpdateCredentialRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::UpdateCredentialReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "UpdateCredential",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

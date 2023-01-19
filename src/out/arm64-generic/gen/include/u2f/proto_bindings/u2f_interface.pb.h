@@ -45,7 +45,7 @@ struct TableStruct_u2f_5finterface_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[22]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[24]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -97,6 +97,12 @@ extern HasCredentialsRequestDefaultTypeInternal _HasCredentialsRequest_default_i
 class HasCredentialsResponse;
 struct HasCredentialsResponseDefaultTypeInternal;
 extern HasCredentialsResponseDefaultTypeInternal _HasCredentialsResponse_default_instance_;
+class IsPlatformAuthenticatorInitializedRequest;
+struct IsPlatformAuthenticatorInitializedRequestDefaultTypeInternal;
+extern IsPlatformAuthenticatorInitializedRequestDefaultTypeInternal _IsPlatformAuthenticatorInitializedRequest_default_instance_;
+class IsPlatformAuthenticatorInitializedResponse;
+struct IsPlatformAuthenticatorInitializedResponseDefaultTypeInternal;
+extern IsPlatformAuthenticatorInitializedResponseDefaultTypeInternal _IsPlatformAuthenticatorInitializedResponse_default_instance_;
 class IsU2fEnabledRequest;
 struct IsU2fEnabledRequestDefaultTypeInternal;
 extern IsU2fEnabledRequestDefaultTypeInternal _IsU2fEnabledRequest_default_instance_;
@@ -135,6 +141,8 @@ template<> ::u2f::GetSupportedFeaturesRequest* Arena::CreateMaybeMessage<::u2f::
 template<> ::u2f::GetSupportedFeaturesResponse* Arena::CreateMaybeMessage<::u2f::GetSupportedFeaturesResponse>(Arena*);
 template<> ::u2f::HasCredentialsRequest* Arena::CreateMaybeMessage<::u2f::HasCredentialsRequest>(Arena*);
 template<> ::u2f::HasCredentialsResponse* Arena::CreateMaybeMessage<::u2f::HasCredentialsResponse>(Arena*);
+template<> ::u2f::IsPlatformAuthenticatorInitializedRequest* Arena::CreateMaybeMessage<::u2f::IsPlatformAuthenticatorInitializedRequest>(Arena*);
+template<> ::u2f::IsPlatformAuthenticatorInitializedResponse* Arena::CreateMaybeMessage<::u2f::IsPlatformAuthenticatorInitializedResponse>(Arena*);
 template<> ::u2f::IsU2fEnabledRequest* Arena::CreateMaybeMessage<::u2f::IsU2fEnabledRequest>(Arena*);
 template<> ::u2f::IsU2fEnabledResponse* Arena::CreateMaybeMessage<::u2f::IsU2fEnabledResponse>(Arena*);
 template<> ::u2f::IsUvpaaRequest* Arena::CreateMaybeMessage<::u2f::IsUvpaaRequest>(Arena*);
@@ -2283,6 +2291,253 @@ class CancelWebAuthnFlowResponse final :
 };
 // -------------------------------------------------------------------
 
+class IsPlatformAuthenticatorInitializedRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:u2f.IsPlatformAuthenticatorInitializedRequest) */ {
+ public:
+  inline IsPlatformAuthenticatorInitializedRequest() : IsPlatformAuthenticatorInitializedRequest(nullptr) {}
+  ~IsPlatformAuthenticatorInitializedRequest() override;
+  explicit constexpr IsPlatformAuthenticatorInitializedRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  IsPlatformAuthenticatorInitializedRequest(const IsPlatformAuthenticatorInitializedRequest& from);
+  IsPlatformAuthenticatorInitializedRequest(IsPlatformAuthenticatorInitializedRequest&& from) noexcept
+    : IsPlatformAuthenticatorInitializedRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline IsPlatformAuthenticatorInitializedRequest& operator=(const IsPlatformAuthenticatorInitializedRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline IsPlatformAuthenticatorInitializedRequest& operator=(IsPlatformAuthenticatorInitializedRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const IsPlatformAuthenticatorInitializedRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const IsPlatformAuthenticatorInitializedRequest* internal_default_instance() {
+    return reinterpret_cast<const IsPlatformAuthenticatorInitializedRequest*>(
+               &_IsPlatformAuthenticatorInitializedRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(IsPlatformAuthenticatorInitializedRequest& a, IsPlatformAuthenticatorInitializedRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(IsPlatformAuthenticatorInitializedRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(IsPlatformAuthenticatorInitializedRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  IsPlatformAuthenticatorInitializedRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<IsPlatformAuthenticatorInitializedRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const IsPlatformAuthenticatorInitializedRequest& from);
+  void MergeFrom(const IsPlatformAuthenticatorInitializedRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(IsPlatformAuthenticatorInitializedRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "u2f.IsPlatformAuthenticatorInitializedRequest";
+  }
+  protected:
+  explicit IsPlatformAuthenticatorInitializedRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:u2f.IsPlatformAuthenticatorInitializedRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_u2f_5finterface_2eproto;
+};
+// -------------------------------------------------------------------
+
+class IsPlatformAuthenticatorInitializedResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:u2f.IsPlatformAuthenticatorInitializedResponse) */ {
+ public:
+  inline IsPlatformAuthenticatorInitializedResponse() : IsPlatformAuthenticatorInitializedResponse(nullptr) {}
+  ~IsPlatformAuthenticatorInitializedResponse() override;
+  explicit constexpr IsPlatformAuthenticatorInitializedResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  IsPlatformAuthenticatorInitializedResponse(const IsPlatformAuthenticatorInitializedResponse& from);
+  IsPlatformAuthenticatorInitializedResponse(IsPlatformAuthenticatorInitializedResponse&& from) noexcept
+    : IsPlatformAuthenticatorInitializedResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline IsPlatformAuthenticatorInitializedResponse& operator=(const IsPlatformAuthenticatorInitializedResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline IsPlatformAuthenticatorInitializedResponse& operator=(IsPlatformAuthenticatorInitializedResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const IsPlatformAuthenticatorInitializedResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const IsPlatformAuthenticatorInitializedResponse* internal_default_instance() {
+    return reinterpret_cast<const IsPlatformAuthenticatorInitializedResponse*>(
+               &_IsPlatformAuthenticatorInitializedResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  friend void swap(IsPlatformAuthenticatorInitializedResponse& a, IsPlatformAuthenticatorInitializedResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(IsPlatformAuthenticatorInitializedResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(IsPlatformAuthenticatorInitializedResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  IsPlatformAuthenticatorInitializedResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<IsPlatformAuthenticatorInitializedResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const IsPlatformAuthenticatorInitializedResponse& from);
+  void MergeFrom(const IsPlatformAuthenticatorInitializedResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(IsPlatformAuthenticatorInitializedResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "u2f.IsPlatformAuthenticatorInitializedResponse";
+  }
+  protected:
+  explicit IsPlatformAuthenticatorInitializedResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kInitializedFieldNumber = 1,
+  };
+  // bool initialized = 1;
+  void clear_initialized();
+  bool initialized() const;
+  void set_initialized(bool value);
+  private:
+  bool _internal_initialized() const;
+  void _internal_set_initialized(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:u2f.IsPlatformAuthenticatorInitializedResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  bool initialized_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_u2f_5finterface_2eproto;
+};
+// -------------------------------------------------------------------
+
 class IsUvpaaRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:u2f.IsUvpaaRequest) */ {
  public:
@@ -2322,7 +2577,7 @@ class IsUvpaaRequest final :
                &_IsUvpaaRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(IsUvpaaRequest& a, IsUvpaaRequest& b) {
     a.Swap(&b);
@@ -2439,7 +2694,7 @@ class IsUvpaaResponse final :
                &_IsUvpaaResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(IsUvpaaResponse& a, IsUvpaaResponse& b) {
     a.Swap(&b);
@@ -2569,7 +2824,7 @@ class IsU2fEnabledRequest final :
                &_IsU2fEnabledRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
   friend void swap(IsU2fEnabledRequest& a, IsU2fEnabledRequest& b) {
     a.Swap(&b);
@@ -2686,7 +2941,7 @@ class IsU2fEnabledResponse final :
                &_IsU2fEnabledResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    15;
 
   friend void swap(IsU2fEnabledResponse& a, IsU2fEnabledResponse& b) {
     a.Swap(&b);
@@ -2816,7 +3071,7 @@ class CountCredentialsInTimeRangeRequest final :
                &_CountCredentialsInTimeRangeRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   friend void swap(CountCredentialsInTimeRangeRequest& a, CountCredentialsInTimeRangeRequest& b) {
     a.Swap(&b);
@@ -2957,7 +3212,7 @@ class CountCredentialsInTimeRangeResponse final :
                &_CountCredentialsInTimeRangeResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    17;
 
   friend void swap(CountCredentialsInTimeRangeResponse& a, CountCredentialsInTimeRangeResponse& b) {
     a.Swap(&b);
@@ -3128,7 +3383,7 @@ class DeleteCredentialsInTimeRangeRequest final :
                &_DeleteCredentialsInTimeRangeRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    18;
 
   friend void swap(DeleteCredentialsInTimeRangeRequest& a, DeleteCredentialsInTimeRangeRequest& b) {
     a.Swap(&b);
@@ -3269,7 +3524,7 @@ class DeleteCredentialsInTimeRangeResponse final :
                &_DeleteCredentialsInTimeRangeResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    19;
 
   friend void swap(DeleteCredentialsInTimeRangeResponse& a, DeleteCredentialsInTimeRangeResponse& b) {
     a.Swap(&b);
@@ -3440,7 +3695,7 @@ class GetAlgorithmsRequest final :
                &_GetAlgorithmsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    20;
 
   friend void swap(GetAlgorithmsRequest& a, GetAlgorithmsRequest& b) {
     a.Swap(&b);
@@ -3557,7 +3812,7 @@ class GetAlgorithmsResponse final :
                &_GetAlgorithmsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    21;
 
   friend void swap(GetAlgorithmsResponse& a, GetAlgorithmsResponse& b) {
     a.Swap(&b);
@@ -3740,7 +3995,7 @@ class GetSupportedFeaturesRequest final :
                &_GetSupportedFeaturesRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    22;
 
   friend void swap(GetSupportedFeaturesRequest& a, GetSupportedFeaturesRequest& b) {
     a.Swap(&b);
@@ -3857,7 +4112,7 @@ class GetSupportedFeaturesResponse final :
                &_GetSupportedFeaturesResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    23;
 
   friend void swap(GetSupportedFeaturesResponse& a, GetSupportedFeaturesResponse& b) {
     a.Swap(&b);
@@ -5606,6 +5861,34 @@ inline void CancelWebAuthnFlowResponse::set_canceled(bool value) {
 
 // -------------------------------------------------------------------
 
+// IsPlatformAuthenticatorInitializedRequest
+
+// -------------------------------------------------------------------
+
+// IsPlatformAuthenticatorInitializedResponse
+
+// bool initialized = 1;
+inline void IsPlatformAuthenticatorInitializedResponse::clear_initialized() {
+  initialized_ = false;
+}
+inline bool IsPlatformAuthenticatorInitializedResponse::_internal_initialized() const {
+  return initialized_;
+}
+inline bool IsPlatformAuthenticatorInitializedResponse::initialized() const {
+  // @@protoc_insertion_point(field_get:u2f.IsPlatformAuthenticatorInitializedResponse.initialized)
+  return _internal_initialized();
+}
+inline void IsPlatformAuthenticatorInitializedResponse::_internal_set_initialized(bool value) {
+  
+  initialized_ = value;
+}
+inline void IsPlatformAuthenticatorInitializedResponse::set_initialized(bool value) {
+  _internal_set_initialized(value);
+  // @@protoc_insertion_point(field_set:u2f.IsPlatformAuthenticatorInitializedResponse.initialized)
+}
+
+// -------------------------------------------------------------------
+
 // IsUvpaaRequest
 
 // -------------------------------------------------------------------
@@ -5942,6 +6225,10 @@ inline void GetSupportedFeaturesResponse::set_support_lacros(bool value) {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

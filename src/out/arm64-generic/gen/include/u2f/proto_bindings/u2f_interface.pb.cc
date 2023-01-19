@@ -167,6 +167,29 @@ struct CancelWebAuthnFlowResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CancelWebAuthnFlowResponseDefaultTypeInternal _CancelWebAuthnFlowResponse_default_instance_;
+constexpr IsPlatformAuthenticatorInitializedRequest::IsPlatformAuthenticatorInitializedRequest(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+struct IsPlatformAuthenticatorInitializedRequestDefaultTypeInternal {
+  constexpr IsPlatformAuthenticatorInitializedRequestDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~IsPlatformAuthenticatorInitializedRequestDefaultTypeInternal() {}
+  union {
+    IsPlatformAuthenticatorInitializedRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT IsPlatformAuthenticatorInitializedRequestDefaultTypeInternal _IsPlatformAuthenticatorInitializedRequest_default_instance_;
+constexpr IsPlatformAuthenticatorInitializedResponse::IsPlatformAuthenticatorInitializedResponse(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : initialized_(false){}
+struct IsPlatformAuthenticatorInitializedResponseDefaultTypeInternal {
+  constexpr IsPlatformAuthenticatorInitializedResponseDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~IsPlatformAuthenticatorInitializedResponseDefaultTypeInternal() {}
+  union {
+    IsPlatformAuthenticatorInitializedResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT IsPlatformAuthenticatorInitializedResponseDefaultTypeInternal _IsPlatformAuthenticatorInitializedResponse_default_instance_;
 constexpr IsUvpaaRequest::IsUvpaaRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
 struct IsUvpaaRequestDefaultTypeInternal {
@@ -3882,6 +3905,325 @@ std::string CancelWebAuthnFlowResponse::GetTypeName() const {
 
 // ===================================================================
 
+class IsPlatformAuthenticatorInitializedRequest::_Internal {
+ public:
+};
+
+IsPlatformAuthenticatorInitializedRequest::IsPlatformAuthenticatorInitializedRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:u2f.IsPlatformAuthenticatorInitializedRequest)
+}
+IsPlatformAuthenticatorInitializedRequest::IsPlatformAuthenticatorInitializedRequest(const IsPlatformAuthenticatorInitializedRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:u2f.IsPlatformAuthenticatorInitializedRequest)
+}
+
+inline void IsPlatformAuthenticatorInitializedRequest::SharedCtor() {
+}
+
+IsPlatformAuthenticatorInitializedRequest::~IsPlatformAuthenticatorInitializedRequest() {
+  // @@protoc_insertion_point(destructor:u2f.IsPlatformAuthenticatorInitializedRequest)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void IsPlatformAuthenticatorInitializedRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void IsPlatformAuthenticatorInitializedRequest::ArenaDtor(void* object) {
+  IsPlatformAuthenticatorInitializedRequest* _this = reinterpret_cast< IsPlatformAuthenticatorInitializedRequest* >(object);
+  (void)_this;
+}
+void IsPlatformAuthenticatorInitializedRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void IsPlatformAuthenticatorInitializedRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void IsPlatformAuthenticatorInitializedRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:u2f.IsPlatformAuthenticatorInitializedRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* IsPlatformAuthenticatorInitializedRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* IsPlatformAuthenticatorInitializedRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:u2f.IsPlatformAuthenticatorInitializedRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:u2f.IsPlatformAuthenticatorInitializedRequest)
+  return target;
+}
+
+size_t IsPlatformAuthenticatorInitializedRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:u2f.IsPlatformAuthenticatorInitializedRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void IsPlatformAuthenticatorInitializedRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const IsPlatformAuthenticatorInitializedRequest*>(
+      &from));
+}
+
+void IsPlatformAuthenticatorInitializedRequest::MergeFrom(const IsPlatformAuthenticatorInitializedRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:u2f.IsPlatformAuthenticatorInitializedRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void IsPlatformAuthenticatorInitializedRequest::CopyFrom(const IsPlatformAuthenticatorInitializedRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:u2f.IsPlatformAuthenticatorInitializedRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool IsPlatformAuthenticatorInitializedRequest::IsInitialized() const {
+  return true;
+}
+
+void IsPlatformAuthenticatorInitializedRequest::InternalSwap(IsPlatformAuthenticatorInitializedRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+}
+
+std::string IsPlatformAuthenticatorInitializedRequest::GetTypeName() const {
+  return "u2f.IsPlatformAuthenticatorInitializedRequest";
+}
+
+
+// ===================================================================
+
+class IsPlatformAuthenticatorInitializedResponse::_Internal {
+ public:
+};
+
+IsPlatformAuthenticatorInitializedResponse::IsPlatformAuthenticatorInitializedResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:u2f.IsPlatformAuthenticatorInitializedResponse)
+}
+IsPlatformAuthenticatorInitializedResponse::IsPlatformAuthenticatorInitializedResponse(const IsPlatformAuthenticatorInitializedResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  initialized_ = from.initialized_;
+  // @@protoc_insertion_point(copy_constructor:u2f.IsPlatformAuthenticatorInitializedResponse)
+}
+
+inline void IsPlatformAuthenticatorInitializedResponse::SharedCtor() {
+initialized_ = false;
+}
+
+IsPlatformAuthenticatorInitializedResponse::~IsPlatformAuthenticatorInitializedResponse() {
+  // @@protoc_insertion_point(destructor:u2f.IsPlatformAuthenticatorInitializedResponse)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void IsPlatformAuthenticatorInitializedResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void IsPlatformAuthenticatorInitializedResponse::ArenaDtor(void* object) {
+  IsPlatformAuthenticatorInitializedResponse* _this = reinterpret_cast< IsPlatformAuthenticatorInitializedResponse* >(object);
+  (void)_this;
+}
+void IsPlatformAuthenticatorInitializedResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void IsPlatformAuthenticatorInitializedResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void IsPlatformAuthenticatorInitializedResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:u2f.IsPlatformAuthenticatorInitializedResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  initialized_ = false;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* IsPlatformAuthenticatorInitializedResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bool initialized = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          initialized_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* IsPlatformAuthenticatorInitializedResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:u2f.IsPlatformAuthenticatorInitializedResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool initialized = 1;
+  if (this->_internal_initialized() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_initialized(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:u2f.IsPlatformAuthenticatorInitializedResponse)
+  return target;
+}
+
+size_t IsPlatformAuthenticatorInitializedResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:u2f.IsPlatformAuthenticatorInitializedResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bool initialized = 1;
+  if (this->_internal_initialized() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void IsPlatformAuthenticatorInitializedResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const IsPlatformAuthenticatorInitializedResponse*>(
+      &from));
+}
+
+void IsPlatformAuthenticatorInitializedResponse::MergeFrom(const IsPlatformAuthenticatorInitializedResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:u2f.IsPlatformAuthenticatorInitializedResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_initialized() != 0) {
+    _internal_set_initialized(from._internal_initialized());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void IsPlatformAuthenticatorInitializedResponse::CopyFrom(const IsPlatformAuthenticatorInitializedResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:u2f.IsPlatformAuthenticatorInitializedResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool IsPlatformAuthenticatorInitializedResponse::IsInitialized() const {
+  return true;
+}
+
+void IsPlatformAuthenticatorInitializedResponse::InternalSwap(IsPlatformAuthenticatorInitializedResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(initialized_, other->initialized_);
+}
+
+std::string IsPlatformAuthenticatorInitializedResponse::GetTypeName() const {
+  return "u2f.IsPlatformAuthenticatorInitializedResponse";
+}
+
+
+// ===================================================================
+
 class IsUvpaaRequest::_Internal {
  public:
 };
@@ -6073,6 +6415,12 @@ template<> PROTOBUF_NOINLINE ::u2f::CancelWebAuthnFlowRequest* Arena::CreateMayb
 }
 template<> PROTOBUF_NOINLINE ::u2f::CancelWebAuthnFlowResponse* Arena::CreateMaybeMessage< ::u2f::CancelWebAuthnFlowResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::u2f::CancelWebAuthnFlowResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::u2f::IsPlatformAuthenticatorInitializedRequest* Arena::CreateMaybeMessage< ::u2f::IsPlatformAuthenticatorInitializedRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::u2f::IsPlatformAuthenticatorInitializedRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::u2f::IsPlatformAuthenticatorInitializedResponse* Arena::CreateMaybeMessage< ::u2f::IsPlatformAuthenticatorInitializedResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::u2f::IsPlatformAuthenticatorInitializedResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::u2f::IsUvpaaRequest* Arena::CreateMaybeMessage< ::u2f::IsUvpaaRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::u2f::IsUvpaaRequest >(arena);

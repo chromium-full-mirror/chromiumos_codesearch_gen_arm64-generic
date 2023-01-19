@@ -121,12 +121,19 @@ enum class RoutineType : int32_t {
   kArcPing = 14,
   kMinValue = 0,
   kMaxValue = 14,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, RoutineType value);
 inline bool IsKnownEnumValue(RoutineType value) {
   return internal::RoutineType_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline RoutineType ToKnownEnumValue(RoutineType value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return RoutineType::kDefaultValue;
 }
 
 
@@ -139,12 +146,19 @@ enum class RoutineVerdict : int32_t {
   kNotRun = 2,
   kMinValue = 0,
   kMaxValue = 2,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, RoutineVerdict value);
 inline bool IsKnownEnumValue(RoutineVerdict value) {
   return internal::RoutineVerdict_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline RoutineVerdict ToKnownEnumValue(RoutineVerdict value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return RoutineVerdict::kDefaultValue;
 }
 
 
@@ -153,12 +167,19 @@ enum class LanConnectivityProblem : int32_t {
   kNoLanConnectivity = 0,
   kMinValue = 0,
   kMaxValue = 0,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, LanConnectivityProblem value);
 inline bool IsKnownEnumValue(LanConnectivityProblem value) {
   return internal::LanConnectivityProblem_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline LanConnectivityProblem ToKnownEnumValue(LanConnectivityProblem value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return LanConnectivityProblem::kDefaultValue;
 }
 
 
@@ -167,12 +188,19 @@ enum class SignalStrengthProblem : int32_t {
   kWeakSignal = 0,
   kMinValue = 0,
   kMaxValue = 0,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, SignalStrengthProblem value);
 inline bool IsKnownEnumValue(SignalStrengthProblem value) {
   return internal::SignalStrengthProblem_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline SignalStrengthProblem ToKnownEnumValue(SignalStrengthProblem value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return SignalStrengthProblem::kDefaultValue;
 }
 
 
@@ -189,12 +217,19 @@ enum class GatewayCanBePingedProblem : int32_t {
   kNonDefaultNetworksAboveLatencyThreshold = 4,
   kMinValue = 0,
   kMaxValue = 4,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, GatewayCanBePingedProblem value);
 inline bool IsKnownEnumValue(GatewayCanBePingedProblem value) {
   return internal::GatewayCanBePingedProblem_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline GatewayCanBePingedProblem ToKnownEnumValue(GatewayCanBePingedProblem value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return GatewayCanBePingedProblem::kDefaultValue;
 }
 
 
@@ -209,12 +244,19 @@ enum class HasSecureWiFiConnectionProblem : int32_t {
   kUnknownSecurityType = 3,
   kMinValue = 0,
   kMaxValue = 3,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, HasSecureWiFiConnectionProblem value);
 inline bool IsKnownEnumValue(HasSecureWiFiConnectionProblem value) {
   return internal::HasSecureWiFiConnectionProblem_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline HasSecureWiFiConnectionProblem ToKnownEnumValue(HasSecureWiFiConnectionProblem value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return HasSecureWiFiConnectionProblem::kDefaultValue;
 }
 
 
@@ -227,12 +269,19 @@ enum class DnsResolverPresentProblem : int32_t {
   DEPRECATED_kEmptyNameServers = 2,
   kMinValue = 0,
   kMaxValue = 2,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, DnsResolverPresentProblem value);
 inline bool IsKnownEnumValue(DnsResolverPresentProblem value) {
   return internal::DnsResolverPresentProblem_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline DnsResolverPresentProblem ToKnownEnumValue(DnsResolverPresentProblem value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return DnsResolverPresentProblem::kDefaultValue;
 }
 
 
@@ -245,12 +294,19 @@ enum class DnsLatencyProblem : int32_t {
   kSignificantlyAboveThreshold = 2,
   kMinValue = 0,
   kMaxValue = 2,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, DnsLatencyProblem value);
 inline bool IsKnownEnumValue(DnsLatencyProblem value) {
   return internal::DnsLatencyProblem_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline DnsLatencyProblem ToKnownEnumValue(DnsLatencyProblem value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return DnsLatencyProblem::kDefaultValue;
 }
 
 
@@ -259,12 +315,19 @@ enum class DnsResolutionProblem : int32_t {
   kFailedToResolveHost = 0,
   kMinValue = 0,
   kMaxValue = 0,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, DnsResolutionProblem value);
 inline bool IsKnownEnumValue(DnsResolutionProblem value) {
   return internal::DnsResolutionProblem_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline DnsResolutionProblem ToKnownEnumValue(DnsResolutionProblem value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return DnsResolutionProblem::kDefaultValue;
 }
 
 
@@ -283,12 +346,19 @@ enum class CaptivePortalProblem : int32_t {
   kNoInternet = 5,
   kMinValue = 0,
   kMaxValue = 5,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, CaptivePortalProblem value);
 inline bool IsKnownEnumValue(CaptivePortalProblem value) {
   return internal::CaptivePortalProblem_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline CaptivePortalProblem ToKnownEnumValue(CaptivePortalProblem value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return CaptivePortalProblem::kDefaultValue;
 }
 
 
@@ -301,12 +371,19 @@ enum class HttpFirewallProblem : int32_t {
   kPotentialFirewall = 2,
   kMinValue = 0,
   kMaxValue = 2,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, HttpFirewallProblem value);
 inline bool IsKnownEnumValue(HttpFirewallProblem value) {
   return internal::HttpFirewallProblem_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline HttpFirewallProblem ToKnownEnumValue(HttpFirewallProblem value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return HttpFirewallProblem::kDefaultValue;
 }
 
 
@@ -319,12 +396,19 @@ enum class HttpsFirewallProblem : int32_t {
   kPotentialFirewall = 2,
   kMinValue = 0,
   kMaxValue = 2,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, HttpsFirewallProblem value);
 inline bool IsKnownEnumValue(HttpsFirewallProblem value) {
   return internal::HttpsFirewallProblem_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline HttpsFirewallProblem ToKnownEnumValue(HttpsFirewallProblem value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return HttpsFirewallProblem::kDefaultValue;
 }
 
 
@@ -339,12 +423,19 @@ enum class HttpsLatencyProblem : int32_t {
   kVeryHighLatency = 3,
   kMinValue = 0,
   kMaxValue = 3,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, HttpsLatencyProblem value);
 inline bool IsKnownEnumValue(HttpsLatencyProblem value) {
   return internal::HttpsLatencyProblem_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline HttpsLatencyProblem ToKnownEnumValue(HttpsLatencyProblem value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return HttpsLatencyProblem::kDefaultValue;
 }
 
 
@@ -357,12 +448,19 @@ enum class VideoConferencingProblem : int32_t {
   kMediaFailure = 2,
   kMinValue = 0,
   kMaxValue = 2,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, VideoConferencingProblem value);
 inline bool IsKnownEnumValue(VideoConferencingProblem value) {
   return internal::VideoConferencingProblem_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline VideoConferencingProblem ToKnownEnumValue(VideoConferencingProblem value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return VideoConferencingProblem::kDefaultValue;
 }
 
 
@@ -379,12 +477,19 @@ enum class ArcHttpProblem : int32_t {
   kFailedHttpRequests = 4,
   kMinValue = 0,
   kMaxValue = 4,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, ArcHttpProblem value);
 inline bool IsKnownEnumValue(ArcHttpProblem value) {
   return internal::ArcHttpProblem_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline ArcHttpProblem ToKnownEnumValue(ArcHttpProblem value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return ArcHttpProblem::kDefaultValue;
 }
 
 
@@ -401,12 +506,19 @@ enum class ArcDnsResolutionProblem : int32_t {
   kFailedDnsQueries = 4,
   kMinValue = 0,
   kMaxValue = 4,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, ArcDnsResolutionProblem value);
 inline bool IsKnownEnumValue(ArcDnsResolutionProblem value) {
   return internal::ArcDnsResolutionProblem_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline ArcDnsResolutionProblem ToKnownEnumValue(ArcDnsResolutionProblem value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return ArcDnsResolutionProblem::kDefaultValue;
 }
 
 
@@ -429,12 +541,19 @@ enum class ArcPingProblem : int32_t {
   kNonDefaultNetworksAboveLatencyThreshold = 7,
   kMinValue = 0,
   kMaxValue = 7,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, ArcPingProblem value);
 inline bool IsKnownEnumValue(ArcPingProblem value) {
   return internal::ArcPingProblem_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline ArcPingProblem ToKnownEnumValue(ArcPingProblem value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return ArcPingProblem::kDefaultValue;
 }
 // Interface base classes. They are used for type safety check.
 class NetworkDiagnosticsRoutinesInterfaceBase {};

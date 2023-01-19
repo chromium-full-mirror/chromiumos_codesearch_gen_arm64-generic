@@ -108,12 +108,19 @@ enum class NetworkState : int32_t {
   kOnline = 7,
   kMinValue = 0,
   kMaxValue = 7,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, NetworkState value);
 inline bool IsKnownEnumValue(NetworkState value) {
   return internal::NetworkState_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline NetworkState ToKnownEnumValue(NetworkState value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return NetworkState::kDefaultValue;
 }
 
 

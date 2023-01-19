@@ -1,4 +1,5 @@
 // Automatic generation of D-Bus interfaces:
+//  - org.chromium.bluetooth.Bluetooth
 //  - org.bluez.Adapter1
 //  - org.chromium.bluetooth.Manager
 #ifndef ____CHROMEOS_DBUS_BINDING___BUILD_ARM64_GENERIC_VAR_CACHE_PORTAGE_CHROMEOS_BASE_SHILL_OUT_DEFAULT_GEN_INCLUDE_BLUETOOTH_DBUS_PROXIES_H
@@ -24,6 +25,151 @@
 #include <dbus/object_manager.h>
 #include <dbus/object_path.h>
 #include <dbus/object_proxy.h>
+
+namespace org {
+namespace chromium {
+namespace bluetooth {
+
+// Abstract interface proxy for org::chromium::bluetooth::Bluetooth.
+class BluetoothProxyInterface {
+ public:
+  virtual ~BluetoothProxyInterface() = default;
+
+  virtual bool GetProfileConnectionState(
+      const std::vector<uint8_t>& in_profile,
+      uint32_t* out_state,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void GetProfileConnectionStateAsync(
+      const std::vector<uint8_t>& in_profile,
+      base::OnceCallback<void(uint32_t /*state*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool IsDiscovering(
+      bool* out_discovering,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void IsDiscoveringAsync(
+      base::OnceCallback<void(bool /*discovering*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual const dbus::ObjectPath& GetObjectPath() const = 0;
+  virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
+};
+
+}  // namespace bluetooth
+}  // namespace chromium
+}  // namespace org
+
+namespace org {
+namespace chromium {
+namespace bluetooth {
+
+// Interface proxy for org::chromium::bluetooth::Bluetooth.
+class BluetoothProxy final : public BluetoothProxyInterface {
+ public:
+  BluetoothProxy(
+      const scoped_refptr<dbus::Bus>& bus,
+      const std::string& service_name,
+      const dbus::ObjectPath& object_path) :
+          bus_{bus},
+          service_name_{service_name},
+          object_path_{object_path},
+          dbus_object_proxy_{
+              bus_->GetObjectProxy(service_name_, object_path_)} {
+  }
+
+  BluetoothProxy(const BluetoothProxy&) = delete;
+  BluetoothProxy& operator=(const BluetoothProxy&) = delete;
+
+  ~BluetoothProxy() override {
+  }
+
+  void ReleaseObjectProxy(base::OnceClosure callback) {
+    bus_->RemoveObjectProxy(service_name_, object_path_, std::move(callback));
+  }
+
+  const dbus::ObjectPath& GetObjectPath() const override {
+    return object_path_;
+  }
+
+  dbus::ObjectProxy* GetObjectProxy() const override {
+    return dbus_object_proxy_;
+  }
+
+  bool GetProfileConnectionState(
+      const std::vector<uint8_t>& in_profile,
+      uint32_t* out_state,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "GetProfileConnectionState",
+        error,
+        in_profile);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_state);
+  }
+
+  void GetProfileConnectionStateAsync(
+      const std::vector<uint8_t>& in_profile,
+      base::OnceCallback<void(uint32_t /*state*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "GetProfileConnectionState",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_profile);
+  }
+
+  bool IsDiscovering(
+      bool* out_discovering,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "IsDiscovering",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_discovering);
+  }
+
+  void IsDiscoveringAsync(
+      base::OnceCallback<void(bool /*discovering*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Bluetooth",
+        "IsDiscovering",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+ private:
+  scoped_refptr<dbus::Bus> bus_;
+  std::string service_name_;
+  dbus::ObjectPath object_path_;
+  dbus::ObjectProxy* dbus_object_proxy_;
+
+};
+
+}  // namespace bluetooth
+}  // namespace chromium
+}  // namespace org
 
 namespace org {
 namespace bluez {
@@ -158,6 +304,16 @@ class ManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool GetDefaultAdapter(
+      int32_t* out_hci,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void GetDefaultAdapterAsync(
+      base::OnceCallback<void(int32_t /*hci*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
 };
@@ -250,6 +406,33 @@ class ManagerProxy final : public ManagerProxyInterface {
         dbus_object_proxy_,
         "org.chromium.bluetooth.Manager",
         "GetAvailableAdapters",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  bool GetDefaultAdapter(
+      int32_t* out_hci,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Manager",
+        "GetDefaultAdapter",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_hci);
+  }
+
+  void GetDefaultAdapterAsync(
+      base::OnceCallback<void(int32_t /*hci*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.bluetooth.Manager",
+        "GetDefaultAdapter",
         std::move(success_callback),
         std::move(error_callback));
   }

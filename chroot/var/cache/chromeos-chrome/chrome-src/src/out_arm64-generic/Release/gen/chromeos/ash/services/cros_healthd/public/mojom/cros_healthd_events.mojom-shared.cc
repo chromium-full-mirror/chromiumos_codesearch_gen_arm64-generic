@@ -39,6 +39,8 @@ static NOINLINE const char* EventCategoryEnumToStringHelper(EventCategoryEnum va
       return "kPower";
     case EventCategoryEnum::kAudio:
       return "kAudio";
+    case EventCategoryEnum::kAudioJack:
+      return "kAudioJack";
     default:
       return nullptr;
   }
@@ -228,6 +230,32 @@ std::ostream& operator<<(std::ostream& os, AudioEventInfo_State value) {
   return os << AudioEventInfo_StateToString(value);
 }
 
+static NOINLINE const char* AudioJackEventInfo_StateToStringHelper(AudioJackEventInfo_State value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case AudioJackEventInfo_State::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case AudioJackEventInfo_State::kAdd:
+      return "kAdd";
+    case AudioJackEventInfo_State::kRemove:
+      return "kRemove";
+    default:
+      return nullptr;
+  }
+}
+
+std::string AudioJackEventInfo_StateToString(AudioJackEventInfo_State value) {
+  const char *str = AudioJackEventInfo_StateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown AudioJackEventInfo_State value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, AudioJackEventInfo_State value) {
+  return os << AudioJackEventInfo_StateToString(value);
+}
+
 namespace internal {
 // static
 bool EventInfo_Data::Validate(
@@ -317,6 +345,16 @@ bool EventInfo_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_audio_event_info, validation_context))
+        return false;
+      return true;
+    }
+    case EventInfo_Tag::kAudioJackEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_audio_jack_event_info, 8, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_audio_jack_event_info, validation_context))
         return false;
       return true;
     }
@@ -532,6 +570,34 @@ bool AudioEventInfo_Data::Validate(
 }
 
 AudioEventInfo_Data::AudioEventInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool AudioJackEventInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AudioJackEventInfo_Data* object =
+      static_cast<const AudioJackEventInfo_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::AudioJackEventInfo_State_Data
+        ::Validate(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+AudioJackEventInfo_Data::AudioJackEventInfo_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1109,6 +1175,16 @@ namespace perfetto {
 void TraceFormatTraits<::ash::cros_healthd::mojom::AudioEventInfo_State>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::AudioEventInfo_State value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::AudioEventInfo_StateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::AudioJackEventInfo_State>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::AudioJackEventInfo_State value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::AudioJackEventInfo_StateToString(value));
 }
 
 } // namespace perfetto

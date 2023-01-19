@@ -30,6 +30,7 @@ class LidEventInfo_Data;
 class BluetoothEventInfo_Data;
 class PowerEventInfo_Data;
 class AudioEventInfo_Data;
+class AudioJackEventInfo_Data;
 class EventInfo_Data;
 
 struct EventCategoryEnum_Data {
@@ -45,6 +46,7 @@ struct EventCategoryEnum_Data {
       case 4:
       case 5:
       case 6:
+      case 7:
         return true;
     }
     return false;
@@ -219,6 +221,31 @@ struct AudioEventInfo_State_Data {
   }
 };
 
+struct AudioJackEventInfo_State_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 #pragma pack(push, 1)
 
 
@@ -264,6 +291,8 @@ class  EventInfo_Data {
     kPowerEventInfo,
     
     kAudioEventInfo,
+    
+    kAudioJackEventInfo,
   };
 
   // A note on layout:
@@ -278,6 +307,7 @@ class  EventInfo_Data {
     mojo::internal::Pointer<internal::BluetoothEventInfo_Data> f_bluetooth_event_info;
     mojo::internal::Pointer<internal::PowerEventInfo_Data> f_power_event_info;
     mojo::internal::Pointer<internal::AudioEventInfo_Data> f_audio_event_info;
+    mojo::internal::Pointer<internal::AudioJackEventInfo_Data> f_audio_jack_event_info;
     uint64_t unknown;
   };
 
@@ -585,6 +615,55 @@ struct AudioEventInfo_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     AudioEventInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  AudioJackEventInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<AudioJackEventInfo_Data>;
+
+  AudioJackEventInfo_Data();
+  ~AudioJackEventInfo_Data() = delete;
+};
+static_assert(sizeof(AudioJackEventInfo_Data) == 16,
+              "Bad sizeof(AudioJackEventInfo_Data)");
+// Used by AudioJackEventInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct AudioJackEventInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  AudioJackEventInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~AudioJackEventInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<AudioJackEventInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    AudioJackEventInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

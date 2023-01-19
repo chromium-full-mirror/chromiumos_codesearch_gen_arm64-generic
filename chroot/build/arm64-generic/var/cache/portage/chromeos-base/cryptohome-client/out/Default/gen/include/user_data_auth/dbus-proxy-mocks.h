@@ -228,26 +228,6 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
                     base::OnceCallback<void(const user_data_auth::StartAuthSessionReply& /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
-  MOCK_METHOD4(AddCredentials,
-               bool(const user_data_auth::AddCredentialsRequest& /*in_request*/,
-                    user_data_auth::AddCredentialsReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(AddCredentialsAsync,
-               void(const user_data_auth::AddCredentialsRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::AddCredentialsReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(UpdateCredential,
-               bool(const user_data_auth::UpdateCredentialRequest& /*in_request*/,
-                    user_data_auth::UpdateCredentialReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(UpdateCredentialAsync,
-               void(const user_data_auth::UpdateCredentialRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::UpdateCredentialReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
   MOCK_METHOD4(AuthenticateAuthSession,
                bool(const user_data_auth::AuthenticateAuthSessionRequest& /*in_request*/,
                     user_data_auth::AuthenticateAuthSessionReply* /*out_reply*/,

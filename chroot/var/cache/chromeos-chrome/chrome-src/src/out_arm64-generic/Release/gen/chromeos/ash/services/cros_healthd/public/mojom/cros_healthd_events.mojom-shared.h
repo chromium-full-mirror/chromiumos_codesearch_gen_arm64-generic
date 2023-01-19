@@ -47,6 +47,8 @@ class PowerEventInfoDataView;
 
 class AudioEventInfoDataView;
 
+class AudioJackEventInfoDataView;
+
 class EventInfoDataView;
 
 
@@ -100,6 +102,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioEventInfoDataView> {
 };
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioJackEventInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::AudioJackEventInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::EventInfoDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::EventInfo_Data;
   using DataAsArrayElement = Data;
@@ -130,8 +139,10 @@ enum class EventCategoryEnum : int32_t {
   kPower = 5,
   
   kAudio = 6,
+  
+  kAudioJack = 7,
   kMinValue = 0,
-  kMaxValue = 6,
+  kMaxValue = 7,
   kDefaultValue = 0
 };
 
@@ -311,6 +322,31 @@ inline AudioEventInfo_State ToKnownEnumValue(AudioEventInfo_State value) {
     return value;
   }
   return AudioEventInfo_State::kDefaultValue;
+}
+
+
+enum class AudioJackEventInfo_State : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kAdd = 1,
+  
+  kRemove = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, AudioJackEventInfo_State value);
+inline bool IsKnownEnumValue(AudioJackEventInfo_State value) {
+  return internal::AudioJackEventInfo_State_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline AudioJackEventInfo_State ToKnownEnumValue(AudioJackEventInfo_State value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return AudioJackEventInfo_State::kDefaultValue;
 }
 // Interface base classes. They are used for type safety check.
 class CrosHealthdBluetoothObserverInterfaceBase {};
@@ -581,6 +617,32 @@ class AudioEventInfoDataView {
 
 
 
+class AudioJackEventInfoDataView {
+ public:
+  AudioJackEventInfoDataView() = default;
+
+  AudioJackEventInfoDataView(
+      internal::AudioJackEventInfo_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioJackEventInfo_State>(
+        data_value, output);
+  }
+  AudioJackEventInfo_State state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::AudioJackEventInfo_State>(data_->state));
+  }
+ private:
+  internal::AudioJackEventInfo_Data* data_ = nullptr;
+};
+
+
+
 class EventInfoDataView {
  public:
   using Tag = internal::EventInfo_Data::EventInfo_Tag;
@@ -670,6 +732,17 @@ class EventInfoDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioEventInfoDataView>(
         data_->data.f_audio_event_info.Get(), output, message_);
   }
+  bool is_audio_jack_event_info() const { return data_->tag == Tag::kAudioJackEventInfo; }
+  inline void GetAudioJackEventInfoDataView(
+      AudioJackEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadAudioJackEventInfo(UserType* output) const {
+    
+    CHECK(is_audio_jack_event_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioJackEventInfoDataView>(
+        data_->data.f_audio_jack_event_info.Get(), output, message_);
+  }
 
  private:
   internal::EventInfo_Data* data_ = nullptr;
@@ -711,6 +784,10 @@ struct hash<::ash::cros_healthd::mojom::PowerEventInfo_State>
 template <>
 struct hash<::ash::cros_healthd::mojom::AudioEventInfo_State>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::AudioEventInfo_State> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::AudioJackEventInfo_State>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::AudioJackEventInfo_State> {};
 
 }  // namespace std
 
@@ -851,6 +928,26 @@ struct Serializer<::ash::cros_healthd::mojom::AudioEventInfo_State, MaybeConstUs
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::AudioEventInfo_State>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::AudioJackEventInfo_State, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::AudioJackEventInfo_State, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::AudioJackEventInfo_State>(input)), output);
   }
 };
 
@@ -1086,6 +1183,37 @@ struct Serializer<::ash::cros_healthd::mojom::AudioEventInfoDataView, MaybeConst
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::AudioJackEventInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::AudioJackEventInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::AudioJackEventInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioJackEventInfo_State>(
+        Traits::state(input), &fragment->state);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::AudioJackEventInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::AudioJackEventInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::EventInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::ash::cros_healthd::mojom::EventInfoDataView, UserType>;
@@ -1209,6 +1337,22 @@ struct Serializer<::ash::cros_healthd::mojom::EventInfoDataView, MaybeConstUserT
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kAudioJackEventInfo: {
+        decltype(Traits::audio_jack_event_info(input))
+            in_audio_jack_event_info = Traits::audio_jack_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_audio_jack_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioJackEventInfoDataView>(
+            in_audio_jack_event_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null audio_jack_event_info in EventInfo union");
+        fragment->data.f_audio_jack_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -1259,6 +1403,8 @@ inline void UsbEventInfoDataView::GetCategoriesDataView(
 
 
 
+
+
 inline void EventInfoDataView::GetUsbEventInfoDataView(
     UsbEventInfoDataView* output) const {
   CHECK(is_usb_event_info());
@@ -1288,6 +1434,11 @@ inline void EventInfoDataView::GetAudioEventInfoDataView(
     AudioEventInfoDataView* output) const {
   CHECK(is_audio_event_info());
   *output = AudioEventInfoDataView(data_->data.f_audio_event_info.Get(), message_);
+}
+inline void EventInfoDataView::GetAudioJackEventInfoDataView(
+    AudioJackEventInfoDataView* output) const {
+  CHECK(is_audio_jack_event_info());
+  *output = AudioJackEventInfoDataView(data_->data.f_audio_jack_event_info.Get(), message_);
 }
 
 
@@ -1357,6 +1508,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::AudioEventInfo_State> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::AudioEventInfo_State value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::AudioJackEventInfo_State> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::AudioJackEventInfo_State value);
 };
 
 } // namespace perfetto

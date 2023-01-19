@@ -16,9 +16,17 @@ BluetoothAdapterStateChanged& BluetoothAdapterStateChanged::SetBootId(const std:
   return *this;
 }
 
+std::string BluetoothAdapterStateChanged::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
 BluetoothAdapterStateChanged& BluetoothAdapterStateChanged::SetSystemTime(const int64_t value) {
   AddIntMetric(kSystemTimeNameHash, value);
   return *this;
+}
+
+int64_t BluetoothAdapterStateChanged::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
 }
 
 BluetoothAdapterStateChanged& BluetoothAdapterStateChanged::SetIsFloss(const int64_t value) {
@@ -26,9 +34,17 @@ BluetoothAdapterStateChanged& BluetoothAdapterStateChanged::SetIsFloss(const int
   return *this;
 }
 
+int64_t BluetoothAdapterStateChanged::GetIsFlossForTest() const {
+  return GetIntMetricForTest(kIsFlossNameHash);
+}
+
 BluetoothAdapterStateChanged& BluetoothAdapterStateChanged::SetAdapterState(const int64_t value) {
   AddIntMetric(kAdapterStateNameHash, value);
   return *this;
+}
+
+int64_t BluetoothAdapterStateChanged::GetAdapterStateForTest() const {
+  return GetIntMetricForTest(kAdapterStateNameHash);
 }
 
 BluetoothPairingStateChanged::BluetoothPairingStateChanged() :
@@ -39,9 +55,17 @@ BluetoothPairingStateChanged& BluetoothPairingStateChanged::SetBootId(const std:
   return *this;
 }
 
+std::string BluetoothPairingStateChanged::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
 BluetoothPairingStateChanged& BluetoothPairingStateChanged::SetSystemTime(const int64_t value) {
   AddIntMetric(kSystemTimeNameHash, value);
   return *this;
+}
+
+int64_t BluetoothPairingStateChanged::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
 }
 
 BluetoothPairingStateChanged& BluetoothPairingStateChanged::SetDeviceId(const std::string& value) {
@@ -49,14 +73,26 @@ BluetoothPairingStateChanged& BluetoothPairingStateChanged::SetDeviceId(const st
   return *this;
 }
 
+std::string BluetoothPairingStateChanged::GetDeviceIdForTest() const {
+  return GetHmacMetricForTest(kDeviceIdNameHash);
+}
+
 BluetoothPairingStateChanged& BluetoothPairingStateChanged::SetDeviceType(const int64_t value) {
   AddIntMetric(kDeviceTypeNameHash, value);
   return *this;
 }
 
+int64_t BluetoothPairingStateChanged::GetDeviceTypeForTest() const {
+  return GetIntMetricForTest(kDeviceTypeNameHash);
+}
+
 BluetoothPairingStateChanged& BluetoothPairingStateChanged::SetPairingState(const int64_t value) {
   AddIntMetric(kPairingStateNameHash, value);
   return *this;
+}
+
+int64_t BluetoothPairingStateChanged::GetPairingStateForTest() const {
+  return GetIntMetricForTest(kPairingStateNameHash);
 }
 
 BluetoothAclConnectionStateChanged::BluetoothAclConnectionStateChanged() :
@@ -67,9 +103,17 @@ BluetoothAclConnectionStateChanged& BluetoothAclConnectionStateChanged::SetBootI
   return *this;
 }
 
+std::string BluetoothAclConnectionStateChanged::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
 BluetoothAclConnectionStateChanged& BluetoothAclConnectionStateChanged::SetSystemTime(const int64_t value) {
   AddIntMetric(kSystemTimeNameHash, value);
   return *this;
+}
+
+int64_t BluetoothAclConnectionStateChanged::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
 }
 
 BluetoothAclConnectionStateChanged& BluetoothAclConnectionStateChanged::SetIsFloss(const int64_t value) {
@@ -77,9 +121,17 @@ BluetoothAclConnectionStateChanged& BluetoothAclConnectionStateChanged::SetIsFlo
   return *this;
 }
 
+int64_t BluetoothAclConnectionStateChanged::GetIsFlossForTest() const {
+  return GetIntMetricForTest(kIsFlossNameHash);
+}
+
 BluetoothAclConnectionStateChanged& BluetoothAclConnectionStateChanged::SetDeviceId(const std::string& value) {
   AddHmacMetric(kDeviceIdNameHash, value);
   return *this;
+}
+
+std::string BluetoothAclConnectionStateChanged::GetDeviceIdForTest() const {
+  return GetHmacMetricForTest(kDeviceIdNameHash);
 }
 
 BluetoothAclConnectionStateChanged& BluetoothAclConnectionStateChanged::SetDeviceType(const int64_t value) {
@@ -87,9 +139,17 @@ BluetoothAclConnectionStateChanged& BluetoothAclConnectionStateChanged::SetDevic
   return *this;
 }
 
+int64_t BluetoothAclConnectionStateChanged::GetDeviceTypeForTest() const {
+  return GetIntMetricForTest(kDeviceTypeNameHash);
+}
+
 BluetoothAclConnectionStateChanged& BluetoothAclConnectionStateChanged::SetConnectionDirection(const int64_t value) {
   AddIntMetric(kConnectionDirectionNameHash, value);
   return *this;
+}
+
+int64_t BluetoothAclConnectionStateChanged::GetConnectionDirectionForTest() const {
+  return GetIntMetricForTest(kConnectionDirectionNameHash);
 }
 
 BluetoothAclConnectionStateChanged& BluetoothAclConnectionStateChanged::SetConnectionInitiator(const int64_t value) {
@@ -97,14 +157,26 @@ BluetoothAclConnectionStateChanged& BluetoothAclConnectionStateChanged::SetConne
   return *this;
 }
 
+int64_t BluetoothAclConnectionStateChanged::GetConnectionInitiatorForTest() const {
+  return GetIntMetricForTest(kConnectionInitiatorNameHash);
+}
+
 BluetoothAclConnectionStateChanged& BluetoothAclConnectionStateChanged::SetStateChangeType(const int64_t value) {
   AddIntMetric(kStateChangeTypeNameHash, value);
   return *this;
 }
 
+int64_t BluetoothAclConnectionStateChanged::GetStateChangeTypeForTest() const {
+  return GetIntMetricForTest(kStateChangeTypeNameHash);
+}
+
 BluetoothAclConnectionStateChanged& BluetoothAclConnectionStateChanged::SetAclConnectionState(const int64_t value) {
   AddIntMetric(kAclConnectionStateNameHash, value);
   return *this;
+}
+
+int64_t BluetoothAclConnectionStateChanged::GetAclConnectionStateForTest() const {
+  return GetIntMetricForTest(kAclConnectionStateNameHash);
 }
 
 BluetoothProfileConnectionStateChanged::BluetoothProfileConnectionStateChanged() :
@@ -115,9 +187,17 @@ BluetoothProfileConnectionStateChanged& BluetoothProfileConnectionStateChanged::
   return *this;
 }
 
+std::string BluetoothProfileConnectionStateChanged::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
 BluetoothProfileConnectionStateChanged& BluetoothProfileConnectionStateChanged::SetSystemTime(const int64_t value) {
   AddIntMetric(kSystemTimeNameHash, value);
   return *this;
+}
+
+int64_t BluetoothProfileConnectionStateChanged::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
 }
 
 BluetoothProfileConnectionStateChanged& BluetoothProfileConnectionStateChanged::SetDeviceId(const std::string& value) {
@@ -125,9 +205,17 @@ BluetoothProfileConnectionStateChanged& BluetoothProfileConnectionStateChanged::
   return *this;
 }
 
+std::string BluetoothProfileConnectionStateChanged::GetDeviceIdForTest() const {
+  return GetHmacMetricForTest(kDeviceIdNameHash);
+}
+
 BluetoothProfileConnectionStateChanged& BluetoothProfileConnectionStateChanged::SetStateChangeType(const int64_t value) {
   AddIntMetric(kStateChangeTypeNameHash, value);
   return *this;
+}
+
+int64_t BluetoothProfileConnectionStateChanged::GetStateChangeTypeForTest() const {
+  return GetIntMetricForTest(kStateChangeTypeNameHash);
 }
 
 BluetoothProfileConnectionStateChanged& BluetoothProfileConnectionStateChanged::SetProfile(const int64_t value) {
@@ -135,9 +223,17 @@ BluetoothProfileConnectionStateChanged& BluetoothProfileConnectionStateChanged::
   return *this;
 }
 
+int64_t BluetoothProfileConnectionStateChanged::GetProfileForTest() const {
+  return GetIntMetricForTest(kProfileNameHash);
+}
+
 BluetoothProfileConnectionStateChanged& BluetoothProfileConnectionStateChanged::SetProfileConnectionState(const int64_t value) {
   AddIntMetric(kProfileConnectionStateNameHash, value);
   return *this;
+}
+
+int64_t BluetoothProfileConnectionStateChanged::GetProfileConnectionStateForTest() const {
+  return GetIntMetricForTest(kProfileConnectionStateNameHash);
 }
 
 BluetoothDeviceInfoReport::BluetoothDeviceInfoReport() :
@@ -148,9 +244,17 @@ BluetoothDeviceInfoReport& BluetoothDeviceInfoReport::SetBootId(const std::strin
   return *this;
 }
 
+std::string BluetoothDeviceInfoReport::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
 BluetoothDeviceInfoReport& BluetoothDeviceInfoReport::SetSystemTime(const int64_t value) {
   AddIntMetric(kSystemTimeNameHash, value);
   return *this;
+}
+
+int64_t BluetoothDeviceInfoReport::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
 }
 
 BluetoothDeviceInfoReport& BluetoothDeviceInfoReport::SetDeviceId(const std::string& value) {
@@ -158,9 +262,17 @@ BluetoothDeviceInfoReport& BluetoothDeviceInfoReport::SetDeviceId(const std::str
   return *this;
 }
 
+std::string BluetoothDeviceInfoReport::GetDeviceIdForTest() const {
+  return GetHmacMetricForTest(kDeviceIdNameHash);
+}
+
 BluetoothDeviceInfoReport& BluetoothDeviceInfoReport::SetDeviceType(const int64_t value) {
   AddIntMetric(kDeviceTypeNameHash, value);
   return *this;
+}
+
+int64_t BluetoothDeviceInfoReport::GetDeviceTypeForTest() const {
+  return GetIntMetricForTest(kDeviceTypeNameHash);
 }
 
 BluetoothDeviceInfoReport& BluetoothDeviceInfoReport::SetDeviceClass(const int64_t value) {
@@ -168,9 +280,17 @@ BluetoothDeviceInfoReport& BluetoothDeviceInfoReport::SetDeviceClass(const int64
   return *this;
 }
 
+int64_t BluetoothDeviceInfoReport::GetDeviceClassForTest() const {
+  return GetIntMetricForTest(kDeviceClassNameHash);
+}
+
 BluetoothDeviceInfoReport& BluetoothDeviceInfoReport::SetDeviceCategory(const int64_t value) {
   AddIntMetric(kDeviceCategoryNameHash, value);
   return *this;
+}
+
+int64_t BluetoothDeviceInfoReport::GetDeviceCategoryForTest() const {
+  return GetIntMetricForTest(kDeviceCategoryNameHash);
 }
 
 BluetoothDeviceInfoReport& BluetoothDeviceInfoReport::SetVendorId(const int64_t value) {
@@ -178,9 +298,17 @@ BluetoothDeviceInfoReport& BluetoothDeviceInfoReport::SetVendorId(const int64_t 
   return *this;
 }
 
+int64_t BluetoothDeviceInfoReport::GetVendorIdForTest() const {
+  return GetIntMetricForTest(kVendorIdNameHash);
+}
+
 BluetoothDeviceInfoReport& BluetoothDeviceInfoReport::SetVendorIdSource(const int64_t value) {
   AddIntMetric(kVendorIdSourceNameHash, value);
   return *this;
+}
+
+int64_t BluetoothDeviceInfoReport::GetVendorIdSourceForTest() const {
+  return GetIntMetricForTest(kVendorIdSourceNameHash);
 }
 
 BluetoothDeviceInfoReport& BluetoothDeviceInfoReport::SetProductId(const int64_t value) {
@@ -188,9 +316,17 @@ BluetoothDeviceInfoReport& BluetoothDeviceInfoReport::SetProductId(const int64_t
   return *this;
 }
 
+int64_t BluetoothDeviceInfoReport::GetProductIdForTest() const {
+  return GetIntMetricForTest(kProductIdNameHash);
+}
+
 BluetoothDeviceInfoReport& BluetoothDeviceInfoReport::SetProductVersion(const int64_t value) {
   AddIntMetric(kProductVersionNameHash, value);
   return *this;
+}
+
+int64_t BluetoothDeviceInfoReport::GetProductVersionForTest() const {
+  return GetIntMetricForTest(kProductVersionNameHash);
 }
 
 BluetoothAudioQualityReport::BluetoothAudioQualityReport() :
@@ -201,9 +337,17 @@ BluetoothAudioQualityReport& BluetoothAudioQualityReport::SetBootId(const std::s
   return *this;
 }
 
+std::string BluetoothAudioQualityReport::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
 BluetoothAudioQualityReport& BluetoothAudioQualityReport::SetSystemTime(const int64_t value) {
   AddIntMetric(kSystemTimeNameHash, value);
   return *this;
+}
+
+int64_t BluetoothAudioQualityReport::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
 }
 
 BluetoothAudioQualityReport& BluetoothAudioQualityReport::SetDeviceId(const std::string& value) {
@@ -211,9 +355,17 @@ BluetoothAudioQualityReport& BluetoothAudioQualityReport::SetDeviceId(const std:
   return *this;
 }
 
+std::string BluetoothAudioQualityReport::GetDeviceIdForTest() const {
+  return GetHmacMetricForTest(kDeviceIdNameHash);
+}
+
 BluetoothAudioQualityReport& BluetoothAudioQualityReport::SetProfile(const int64_t value) {
   AddIntMetric(kProfileNameHash, value);
   return *this;
+}
+
+int64_t BluetoothAudioQualityReport::GetProfileForTest() const {
+  return GetIntMetricForTest(kProfileNameHash);
 }
 
 BluetoothAudioQualityReport& BluetoothAudioQualityReport::SetQualityType(const int64_t value) {
@@ -221,9 +373,17 @@ BluetoothAudioQualityReport& BluetoothAudioQualityReport::SetQualityType(const i
   return *this;
 }
 
+int64_t BluetoothAudioQualityReport::GetQualityTypeForTest() const {
+  return GetIntMetricForTest(kQualityTypeNameHash);
+}
+
 BluetoothAudioQualityReport& BluetoothAudioQualityReport::SetAverage(const int64_t value) {
   AddIntMetric(kAverageNameHash, value);
   return *this;
+}
+
+int64_t BluetoothAudioQualityReport::GetAverageForTest() const {
+  return GetIntMetricForTest(kAverageNameHash);
 }
 
 BluetoothAudioQualityReport& BluetoothAudioQualityReport::SetStdDev(const int64_t value) {
@@ -231,9 +391,17 @@ BluetoothAudioQualityReport& BluetoothAudioQualityReport::SetStdDev(const int64_
   return *this;
 }
 
+int64_t BluetoothAudioQualityReport::GetStdDevForTest() const {
+  return GetIntMetricForTest(kStdDevNameHash);
+}
+
 BluetoothAudioQualityReport& BluetoothAudioQualityReport::SetPercentile95(const int64_t value) {
   AddIntMetric(kPercentile95NameHash, value);
   return *this;
+}
+
+int64_t BluetoothAudioQualityReport::GetPercentile95ForTest() const {
+  return GetIntMetricForTest(kPercentile95NameHash);
 }
 
 BluetoothChipsetInfoReport::BluetoothChipsetInfoReport() :
@@ -244,9 +412,17 @@ BluetoothChipsetInfoReport& BluetoothChipsetInfoReport::SetBootId(const std::str
   return *this;
 }
 
+std::string BluetoothChipsetInfoReport::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
 BluetoothChipsetInfoReport& BluetoothChipsetInfoReport::SetVendorId(const int64_t value) {
   AddIntMetric(kVendorIdNameHash, value);
   return *this;
+}
+
+int64_t BluetoothChipsetInfoReport::GetVendorIdForTest() const {
+  return GetIntMetricForTest(kVendorIdNameHash);
 }
 
 BluetoothChipsetInfoReport& BluetoothChipsetInfoReport::SetProductId(const int64_t value) {
@@ -254,14 +430,26 @@ BluetoothChipsetInfoReport& BluetoothChipsetInfoReport::SetProductId(const int64
   return *this;
 }
 
+int64_t BluetoothChipsetInfoReport::GetProductIdForTest() const {
+  return GetIntMetricForTest(kProductIdNameHash);
+}
+
 BluetoothChipsetInfoReport& BluetoothChipsetInfoReport::SetTransport(const int64_t value) {
   AddIntMetric(kTransportNameHash, value);
   return *this;
 }
 
+int64_t BluetoothChipsetInfoReport::GetTransportForTest() const {
+  return GetIntMetricForTest(kTransportNameHash);
+}
+
 BluetoothChipsetInfoReport& BluetoothChipsetInfoReport::SetChipsetStringHashValue(const int64_t value) {
   AddIntMetric(kChipsetStringHashValueNameHash, value);
   return *this;
+}
+
+int64_t BluetoothChipsetInfoReport::GetChipsetStringHashValueForTest() const {
+  return GetIntMetricForTest(kChipsetStringHashValueNameHash);
 }
 
 }  // namespace bluetooth
@@ -276,9 +464,17 @@ BluetoothDeviceInfo& BluetoothDeviceInfo::SetDeviceType(const int64_t value) {
   return *this;
 }
 
+int64_t BluetoothDeviceInfo::GetDeviceTypeForTest() const {
+  return GetIntMetricForTest(kDeviceTypeNameHash);
+}
+
 BluetoothDeviceInfo& BluetoothDeviceInfo::SetDeviceClass(const int64_t value) {
   AddIntMetric(kDeviceClassNameHash, value);
   return *this;
+}
+
+int64_t BluetoothDeviceInfo::GetDeviceClassForTest() const {
+  return GetIntMetricForTest(kDeviceClassNameHash);
 }
 
 BluetoothDeviceInfo& BluetoothDeviceInfo::SetDeviceCategory(const int64_t value) {
@@ -286,9 +482,17 @@ BluetoothDeviceInfo& BluetoothDeviceInfo::SetDeviceCategory(const int64_t value)
   return *this;
 }
 
+int64_t BluetoothDeviceInfo::GetDeviceCategoryForTest() const {
+  return GetIntMetricForTest(kDeviceCategoryNameHash);
+}
+
 BluetoothDeviceInfo& BluetoothDeviceInfo::SetVendorId(const int64_t value) {
   AddIntMetric(kVendorIdNameHash, value);
   return *this;
+}
+
+int64_t BluetoothDeviceInfo::GetVendorIdForTest() const {
+  return GetIntMetricForTest(kVendorIdNameHash);
 }
 
 BluetoothDeviceInfo& BluetoothDeviceInfo::SetVendorIdSource(const int64_t value) {
@@ -296,14 +500,26 @@ BluetoothDeviceInfo& BluetoothDeviceInfo::SetVendorIdSource(const int64_t value)
   return *this;
 }
 
+int64_t BluetoothDeviceInfo::GetVendorIdSourceForTest() const {
+  return GetIntMetricForTest(kVendorIdSourceNameHash);
+}
+
 BluetoothDeviceInfo& BluetoothDeviceInfo::SetProductId(const int64_t value) {
   AddIntMetric(kProductIdNameHash, value);
   return *this;
 }
 
+int64_t BluetoothDeviceInfo::GetProductIdForTest() const {
+  return GetIntMetricForTest(kProductIdNameHash);
+}
+
 BluetoothDeviceInfo& BluetoothDeviceInfo::SetProductVersion(const int64_t value) {
   AddIntMetric(kProductVersionNameHash, value);
   return *this;
+}
+
+int64_t BluetoothDeviceInfo::GetProductVersionForTest() const {
+  return GetIntMetricForTest(kProductVersionNameHash);
 }
 
 }  // namespace bluetooth_device
@@ -318,9 +534,17 @@ BluetoothChipsetInfo& BluetoothChipsetInfo::SetVendorId(const int64_t value) {
   return *this;
 }
 
+int64_t BluetoothChipsetInfo::GetVendorIdForTest() const {
+  return GetIntMetricForTest(kVendorIdNameHash);
+}
+
 BluetoothChipsetInfo& BluetoothChipsetInfo::SetProductId(const int64_t value) {
   AddIntMetric(kProductIdNameHash, value);
   return *this;
+}
+
+int64_t BluetoothChipsetInfo::GetProductIdForTest() const {
+  return GetIntMetricForTest(kProductIdNameHash);
 }
 
 BluetoothChipsetInfo& BluetoothChipsetInfo::SetTransport(const int64_t value) {
@@ -328,9 +552,17 @@ BluetoothChipsetInfo& BluetoothChipsetInfo::SetTransport(const int64_t value) {
   return *this;
 }
 
+int64_t BluetoothChipsetInfo::GetTransportForTest() const {
+  return GetIntMetricForTest(kTransportNameHash);
+}
+
 BluetoothChipsetInfo& BluetoothChipsetInfo::SetChipsetString(const std::string& value) {
   AddRawStringMetric(kChipsetStringNameHash, value);
   return *this;
+}
+
+std::string BluetoothChipsetInfo::GetChipsetStringForTest() const {
+  return GetRawStringMetricForTest(kChipsetStringNameHash);
 }
 
 }  // namespace bluetooth_chipset
@@ -345,14 +577,26 @@ HwVerificationReport& HwVerificationReport::SetIsCompliant(const int64_t value) 
   return *this;
 }
 
+int64_t HwVerificationReport::GetIsCompliantForTest() const {
+  return GetIntMetricForTest(kIsCompliantNameHash);
+}
+
 HwVerificationReport& HwVerificationReport::SetQualificationStatusDisplayPanel(const int64_t value) {
   AddIntMetric(kQualificationStatusDisplayPanelNameHash, value);
   return *this;
 }
 
+int64_t HwVerificationReport::GetQualificationStatusDisplayPanelForTest() const {
+  return GetIntMetricForTest(kQualificationStatusDisplayPanelNameHash);
+}
+
 HwVerificationReport& HwVerificationReport::SetQualificationStatusStorage(const int64_t value) {
   AddIntMetric(kQualificationStatusStorageNameHash, value);
   return *this;
+}
+
+int64_t HwVerificationReport::GetQualificationStatusStorageForTest() const {
+  return GetIntMetricForTest(kQualificationStatusStorageNameHash);
 }
 
 ComponentInfo::ComponentInfo() :
@@ -363,9 +607,17 @@ ComponentInfo& ComponentInfo::SetComponentCategory(const int64_t value) {
   return *this;
 }
 
+int64_t ComponentInfo::GetComponentCategoryForTest() const {
+  return GetIntMetricForTest(kComponentCategoryNameHash);
+}
+
 ComponentInfo& ComponentInfo::SetDisplayPanelVendor(const int64_t value) {
   AddIntMetric(kDisplayPanelVendorNameHash, value);
   return *this;
+}
+
+int64_t ComponentInfo::GetDisplayPanelVendorForTest() const {
+  return GetIntMetricForTest(kDisplayPanelVendorNameHash);
 }
 
 ComponentInfo& ComponentInfo::SetDisplayPanelProductId(const int64_t value) {
@@ -373,9 +625,17 @@ ComponentInfo& ComponentInfo::SetDisplayPanelProductId(const int64_t value) {
   return *this;
 }
 
+int64_t ComponentInfo::GetDisplayPanelProductIdForTest() const {
+  return GetIntMetricForTest(kDisplayPanelProductIdNameHash);
+}
+
 ComponentInfo& ComponentInfo::SetDisplayPanelHeight(const int64_t value) {
   AddIntMetric(kDisplayPanelHeightNameHash, value);
   return *this;
+}
+
+int64_t ComponentInfo::GetDisplayPanelHeightForTest() const {
+  return GetIntMetricForTest(kDisplayPanelHeightNameHash);
 }
 
 ComponentInfo& ComponentInfo::SetDisplayPanelWidth(const int64_t value) {
@@ -383,9 +643,17 @@ ComponentInfo& ComponentInfo::SetDisplayPanelWidth(const int64_t value) {
   return *this;
 }
 
+int64_t ComponentInfo::GetDisplayPanelWidthForTest() const {
+  return GetIntMetricForTest(kDisplayPanelWidthNameHash);
+}
+
 ComponentInfo& ComponentInfo::SetStorageMmcManfid(const int64_t value) {
   AddIntMetric(kStorageMmcManfidNameHash, value);
   return *this;
+}
+
+int64_t ComponentInfo::GetStorageMmcManfidForTest() const {
+  return GetIntMetricForTest(kStorageMmcManfidNameHash);
 }
 
 ComponentInfo& ComponentInfo::SetStorageMmcHwrev(const int64_t value) {
@@ -393,9 +661,17 @@ ComponentInfo& ComponentInfo::SetStorageMmcHwrev(const int64_t value) {
   return *this;
 }
 
+int64_t ComponentInfo::GetStorageMmcHwrevForTest() const {
+  return GetIntMetricForTest(kStorageMmcHwrevNameHash);
+}
+
 ComponentInfo& ComponentInfo::SetStorageMmcOemid(const int64_t value) {
   AddIntMetric(kStorageMmcOemidNameHash, value);
   return *this;
+}
+
+int64_t ComponentInfo::GetStorageMmcOemidForTest() const {
+  return GetIntMetricForTest(kStorageMmcOemidNameHash);
 }
 
 ComponentInfo& ComponentInfo::SetStorageMmcPrv(const int64_t value) {
@@ -403,9 +679,17 @@ ComponentInfo& ComponentInfo::SetStorageMmcPrv(const int64_t value) {
   return *this;
 }
 
+int64_t ComponentInfo::GetStorageMmcPrvForTest() const {
+  return GetIntMetricForTest(kStorageMmcPrvNameHash);
+}
+
 ComponentInfo& ComponentInfo::SetStoragePciVendor(const int64_t value) {
   AddIntMetric(kStoragePciVendorNameHash, value);
   return *this;
+}
+
+int64_t ComponentInfo::GetStoragePciVendorForTest() const {
+  return GetIntMetricForTest(kStoragePciVendorNameHash);
 }
 
 ComponentInfo& ComponentInfo::SetStoragePciDevice(const int64_t value) {
@@ -413,9 +697,17 @@ ComponentInfo& ComponentInfo::SetStoragePciDevice(const int64_t value) {
   return *this;
 }
 
+int64_t ComponentInfo::GetStoragePciDeviceForTest() const {
+  return GetIntMetricForTest(kStoragePciDeviceNameHash);
+}
+
 ComponentInfo& ComponentInfo::SetStoragePciClass(const int64_t value) {
   AddIntMetric(kStoragePciClassNameHash, value);
   return *this;
+}
+
+int64_t ComponentInfo::GetStoragePciClassForTest() const {
+  return GetIntMetricForTest(kStoragePciClassNameHash);
 }
 
 }  // namespace hardware_verifier
@@ -430,9 +722,17 @@ CellularConnectionAttempt& CellularConnectionAttempt::Setapn_id(const int64_t va
   return *this;
 }
 
+int64_t CellularConnectionAttempt::Getapn_idForTest() const {
+  return GetIntMetricForTest(kapn_idNameHash);
+}
+
 CellularConnectionAttempt& CellularConnectionAttempt::Setipv4_config_method(const int64_t value) {
   AddIntMetric(kipv4_config_methodNameHash, value);
   return *this;
+}
+
+int64_t CellularConnectionAttempt::Getipv4_config_methodForTest() const {
+  return GetIntMetricForTest(kipv4_config_methodNameHash);
 }
 
 CellularConnectionAttempt& CellularConnectionAttempt::Setipv6_config_method(const int64_t value) {
@@ -440,9 +740,17 @@ CellularConnectionAttempt& CellularConnectionAttempt::Setipv6_config_method(cons
   return *this;
 }
 
+int64_t CellularConnectionAttempt::Getipv6_config_methodForTest() const {
+  return GetIntMetricForTest(kipv6_config_methodNameHash);
+}
+
 CellularConnectionAttempt& CellularConnectionAttempt::Setconnect_result(const int64_t value) {
   AddIntMetric(kconnect_resultNameHash, value);
   return *this;
+}
+
+int64_t CellularConnectionAttempt::Getconnect_resultForTest() const {
+  return GetIntMetricForTest(kconnect_resultNameHash);
 }
 
 CellularConnectionAttempt& CellularConnectionAttempt::Sethome_mccmnc(const int64_t value) {
@@ -450,9 +758,17 @@ CellularConnectionAttempt& CellularConnectionAttempt::Sethome_mccmnc(const int64
   return *this;
 }
 
+int64_t CellularConnectionAttempt::Gethome_mccmncForTest() const {
+  return GetIntMetricForTest(khome_mccmncNameHash);
+}
+
 CellularConnectionAttempt& CellularConnectionAttempt::Setserving_mccmnc(const int64_t value) {
   AddIntMetric(kserving_mccmncNameHash, value);
   return *this;
+}
+
+int64_t CellularConnectionAttempt::Getserving_mccmncForTest() const {
+  return GetIntMetricForTest(kserving_mccmncNameHash);
 }
 
 CellularConnectionAttempt& CellularConnectionAttempt::Setroaming_state(const int64_t value) {
@@ -460,9 +776,17 @@ CellularConnectionAttempt& CellularConnectionAttempt::Setroaming_state(const int
   return *this;
 }
 
+int64_t CellularConnectionAttempt::Getroaming_stateForTest() const {
+  return GetIntMetricForTest(kroaming_stateNameHash);
+}
+
 CellularConnectionAttempt& CellularConnectionAttempt::Setapn_types(const int64_t value) {
   AddIntMetric(kapn_typesNameHash, value);
   return *this;
+}
+
+int64_t CellularConnectionAttempt::Getapn_typesForTest() const {
+  return GetIntMetricForTest(kapn_typesNameHash);
 }
 
 CellularConnectionAttempt& CellularConnectionAttempt::Setapn_source(const int64_t value) {
@@ -470,9 +794,17 @@ CellularConnectionAttempt& CellularConnectionAttempt::Setapn_source(const int64_
   return *this;
 }
 
+int64_t CellularConnectionAttempt::Getapn_sourceForTest() const {
+  return GetIntMetricForTest(kapn_sourceNameHash);
+}
+
 CellularConnectionAttempt& CellularConnectionAttempt::Settech_used(const int64_t value) {
   AddIntMetric(ktech_usedNameHash, value);
   return *this;
+}
+
+int64_t CellularConnectionAttempt::Gettech_usedForTest() const {
+  return GetIntMetricForTest(ktech_usedNameHash);
 }
 
 CellularConnectionAttempt& CellularConnectionAttempt::Seticcid_length(const int64_t value) {
@@ -480,9 +812,17 @@ CellularConnectionAttempt& CellularConnectionAttempt::Seticcid_length(const int6
   return *this;
 }
 
+int64_t CellularConnectionAttempt::Geticcid_lengthForTest() const {
+  return GetIntMetricForTest(kiccid_lengthNameHash);
+}
+
 CellularConnectionAttempt& CellularConnectionAttempt::Setsim_type(const int64_t value) {
   AddIntMetric(ksim_typeNameHash, value);
   return *this;
+}
+
+int64_t CellularConnectionAttempt::Getsim_typeForTest() const {
+  return GetIntMetricForTest(ksim_typeNameHash);
 }
 
 CellularConnectionAttempt& CellularConnectionAttempt::Setmodem_state(const int64_t value) {
@@ -490,9 +830,17 @@ CellularConnectionAttempt& CellularConnectionAttempt::Setmodem_state(const int64
   return *this;
 }
 
+int64_t CellularConnectionAttempt::Getmodem_stateForTest() const {
+  return GetIntMetricForTest(kmodem_stateNameHash);
+}
+
 CellularConnectionAttempt& CellularConnectionAttempt::Setconnect_time(const int64_t value) {
   AddIntMetric(kconnect_timeNameHash, value);
   return *this;
+}
+
+int64_t CellularConnectionAttempt::Getconnect_timeForTest() const {
+  return GetIntMetricForTest(kconnect_timeNameHash);
 }
 
 CellularConnectionAttempt& CellularConnectionAttempt::Setscan_connect_time(const int64_t value) {
@@ -500,9 +848,17 @@ CellularConnectionAttempt& CellularConnectionAttempt::Setscan_connect_time(const
   return *this;
 }
 
+int64_t CellularConnectionAttempt::Getscan_connect_timeForTest() const {
+  return GetIntMetricForTest(kscan_connect_timeNameHash);
+}
+
 CellularConnectionAttempt& CellularConnectionAttempt::Setdetailed_error(const int64_t value) {
   AddIntMetric(kdetailed_errorNameHash, value);
   return *this;
+}
+
+int64_t CellularConnectionAttempt::Getdetailed_errorForTest() const {
+  return GetIntMetricForTest(kdetailed_errorNameHash);
 }
 
 CellularConnectionAttempt& CellularConnectionAttempt::Setgid1(const int64_t value) {
@@ -510,9 +866,17 @@ CellularConnectionAttempt& CellularConnectionAttempt::Setgid1(const int64_t valu
   return *this;
 }
 
+int64_t CellularConnectionAttempt::Getgid1ForTest() const {
+  return GetIntMetricForTest(kgid1NameHash);
+}
+
 CellularConnectionAttempt& CellularConnectionAttempt::Setuse_apn_revamp_ui(const int64_t value) {
   AddIntMetric(kuse_apn_revamp_uiNameHash, value);
   return *this;
+}
+
+int64_t CellularConnectionAttempt::Getuse_apn_revamp_uiForTest() const {
+  return GetIntMetricForTest(kuse_apn_revamp_uiNameHash);
 }
 
 ModemFwdFwInstallResult::ModemFwdFwInstallResult() :
@@ -523,9 +887,17 @@ ModemFwdFwInstallResult& ModemFwdFwInstallResult::Setfirmware_types(const int64_
   return *this;
 }
 
+int64_t ModemFwdFwInstallResult::Getfirmware_typesForTest() const {
+  return GetIntMetricForTest(kfirmware_typesNameHash);
+}
+
 ModemFwdFwInstallResult& ModemFwdFwInstallResult::Setfw_install_result(const int64_t value) {
   AddIntMetric(kfw_install_resultNameHash, value);
   return *this;
+}
+
+int64_t ModemFwdFwInstallResult::Getfw_install_resultForTest() const {
+  return GetIntMetricForTest(kfw_install_resultNameHash);
 }
 
 HermesOp::HermesOp() :
@@ -536,14 +908,26 @@ HermesOp& HermesOp::SetOperation(const int64_t value) {
   return *this;
 }
 
+int64_t HermesOp::GetOperationForTest() const {
+  return GetIntMetricForTest(kOperationNameHash);
+}
+
 HermesOp& HermesOp::SetResult(const int64_t value) {
   AddIntMetric(kResultNameHash, value);
   return *this;
 }
 
+int64_t HermesOp::GetResultForTest() const {
+  return GetIntMetricForTest(kResultNameHash);
+}
+
 HermesOp& HermesOp::Sethome_mccmnc(const int64_t value) {
   AddIntMetric(khome_mccmncNameHash, value);
   return *this;
+}
+
+int64_t HermesOp::Gethome_mccmncForTest() const {
+  return GetIntMetricForTest(khome_mccmncNameHash);
 }
 
 }  // namespace cellular
@@ -558,9 +942,17 @@ ShimlessRmaReport& ShimlessRmaReport::SetOverallTime(const double value) {
   return *this;
 }
 
+double ShimlessRmaReport::GetOverallTimeForTest() const {
+  return GetDoubleMetricForTest(kOverallTimeNameHash);
+}
+
 ShimlessRmaReport& ShimlessRmaReport::SetRunningTime(const double value) {
   AddDoubleMetric(kRunningTimeNameHash, value);
   return *this;
+}
+
+double ShimlessRmaReport::GetRunningTimeForTest() const {
+  return GetDoubleMetricForTest(kRunningTimeNameHash);
 }
 
 ShimlessRmaReport& ShimlessRmaReport::SetIsComplete(const int64_t value) {
@@ -568,9 +960,17 @@ ShimlessRmaReport& ShimlessRmaReport::SetIsComplete(const int64_t value) {
   return *this;
 }
 
+int64_t ShimlessRmaReport::GetIsCompleteForTest() const {
+  return GetIntMetricForTest(kIsCompleteNameHash);
+}
+
 ShimlessRmaReport& ShimlessRmaReport::SetRoVerificationStatus(const int64_t value) {
   AddIntMetric(kRoVerificationStatusNameHash, value);
   return *this;
+}
+
+int64_t ShimlessRmaReport::GetRoVerificationStatusForTest() const {
+  return GetIntMetricForTest(kRoVerificationStatusNameHash);
 }
 
 ShimlessRmaReport& ShimlessRmaReport::SetReturningOwner(const int64_t value) {
@@ -578,14 +978,26 @@ ShimlessRmaReport& ShimlessRmaReport::SetReturningOwner(const int64_t value) {
   return *this;
 }
 
+int64_t ShimlessRmaReport::GetReturningOwnerForTest() const {
+  return GetIntMetricForTest(kReturningOwnerNameHash);
+}
+
 ShimlessRmaReport& ShimlessRmaReport::SetMainboardReplacement(const int64_t value) {
   AddIntMetric(kMainboardReplacementNameHash, value);
   return *this;
 }
 
+int64_t ShimlessRmaReport::GetMainboardReplacementForTest() const {
+  return GetIntMetricForTest(kMainboardReplacementNameHash);
+}
+
 ShimlessRmaReport& ShimlessRmaReport::SetWriteProtectDisableMethod(const int64_t value) {
   AddIntMetric(kWriteProtectDisableMethodNameHash, value);
   return *this;
+}
+
+int64_t ShimlessRmaReport::GetWriteProtectDisableMethodForTest() const {
+  return GetIntMetricForTest(kWriteProtectDisableMethodNameHash);
 }
 
 ReplacedComponent::ReplacedComponent() :
@@ -596,12 +1008,20 @@ ReplacedComponent& ReplacedComponent::SetComponentCategory(const int64_t value) 
   return *this;
 }
 
+int64_t ReplacedComponent::GetComponentCategoryForTest() const {
+  return GetIntMetricForTest(kComponentCategoryNameHash);
+}
+
 OccurredError::OccurredError() :
   ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
 OccurredError::~OccurredError() = default;
 OccurredError& OccurredError::SetErrorType(const int64_t value) {
   AddIntMetric(kErrorTypeNameHash, value);
   return *this;
+}
+
+int64_t OccurredError::GetErrorTypeForTest() const {
+  return GetIntMetricForTest(kErrorTypeNameHash);
 }
 
 AdditionalActivity::AdditionalActivity() :
@@ -612,6 +1032,10 @@ AdditionalActivity& AdditionalActivity::SetActivityType(const int64_t value) {
   return *this;
 }
 
+int64_t AdditionalActivity::GetActivityTypeForTest() const {
+  return GetIntMetricForTest(kActivityTypeNameHash);
+}
+
 ShimlessRmaStateReport::ShimlessRmaStateReport() :
   ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
 ShimlessRmaStateReport::~ShimlessRmaStateReport() = default;
@@ -620,9 +1044,17 @@ ShimlessRmaStateReport& ShimlessRmaStateReport::SetStateCase(const int64_t value
   return *this;
 }
 
+int64_t ShimlessRmaStateReport::GetStateCaseForTest() const {
+  return GetIntMetricForTest(kStateCaseNameHash);
+}
+
 ShimlessRmaStateReport& ShimlessRmaStateReport::SetIsAborted(const int64_t value) {
   AddIntMetric(kIsAbortedNameHash, value);
   return *this;
+}
+
+int64_t ShimlessRmaStateReport::GetIsAbortedForTest() const {
+  return GetIntMetricForTest(kIsAbortedNameHash);
 }
 
 ShimlessRmaStateReport& ShimlessRmaStateReport::SetOverallTime(const double value) {
@@ -630,9 +1062,17 @@ ShimlessRmaStateReport& ShimlessRmaStateReport::SetOverallTime(const double valu
   return *this;
 }
 
+double ShimlessRmaStateReport::GetOverallTimeForTest() const {
+  return GetDoubleMetricForTest(kOverallTimeNameHash);
+}
+
 ShimlessRmaStateReport& ShimlessRmaStateReport::SetTransitionCount(const int64_t value) {
   AddIntMetric(kTransitionCountNameHash, value);
   return *this;
+}
+
+int64_t ShimlessRmaStateReport::GetTransitionCountForTest() const {
+  return GetIntMetricForTest(kTransitionCountNameHash);
 }
 
 ShimlessRmaStateReport& ShimlessRmaStateReport::SetGetLogCount(const int64_t value) {
@@ -640,9 +1080,17 @@ ShimlessRmaStateReport& ShimlessRmaStateReport::SetGetLogCount(const int64_t val
   return *this;
 }
 
+int64_t ShimlessRmaStateReport::GetGetLogCountForTest() const {
+  return GetIntMetricForTest(kGetLogCountNameHash);
+}
+
 ShimlessRmaStateReport& ShimlessRmaStateReport::SetSaveLogCount(const int64_t value) {
   AddIntMetric(kSaveLogCountNameHash, value);
   return *this;
+}
+
+int64_t ShimlessRmaStateReport::GetSaveLogCountForTest() const {
+  return GetIntMetricForTest(kSaveLogCountNameHash);
 }
 
 }  // namespace rmad
@@ -657,9 +1105,17 @@ WiFiChipsetInfo& WiFiChipsetInfo::SetEventVersion(const int64_t value) {
   return *this;
 }
 
+int64_t WiFiChipsetInfo::GetEventVersionForTest() const {
+  return GetIntMetricForTest(kEventVersionNameHash);
+}
+
 WiFiChipsetInfo& WiFiChipsetInfo::SetVendorId(const int64_t value) {
   AddIntMetric(kVendorIdNameHash, value);
   return *this;
+}
+
+int64_t WiFiChipsetInfo::GetVendorIdForTest() const {
+  return GetIntMetricForTest(kVendorIdNameHash);
 }
 
 WiFiChipsetInfo& WiFiChipsetInfo::SetProductId(const int64_t value) {
@@ -667,9 +1123,17 @@ WiFiChipsetInfo& WiFiChipsetInfo::SetProductId(const int64_t value) {
   return *this;
 }
 
+int64_t WiFiChipsetInfo::GetProductIdForTest() const {
+  return GetIntMetricForTest(kProductIdNameHash);
+}
+
 WiFiChipsetInfo& WiFiChipsetInfo::SetSubsystemId(const int64_t value) {
   AddIntMetric(kSubsystemIdNameHash, value);
   return *this;
+}
+
+int64_t WiFiChipsetInfo::GetSubsystemIdForTest() const {
+  return GetIntMetricForTest(kSubsystemIdNameHash);
 }
 
 }  // namespace wi_fi_chipset
@@ -684,9 +1148,17 @@ WiFiAPInfo& WiFiAPInfo::SetEventVersion(const int64_t value) {
   return *this;
 }
 
+int64_t WiFiAPInfo::GetEventVersionForTest() const {
+  return GetIntMetricForTest(kEventVersionNameHash);
+}
+
 WiFiAPInfo& WiFiAPInfo::SetAPOUI(const int64_t value) {
   AddIntMetric(kAPOUINameHash, value);
   return *this;
+}
+
+int64_t WiFiAPInfo::GetAPOUIForTest() const {
+  return GetIntMetricForTest(kAPOUINameHash);
 }
 
 }  // namespace wi_fi_ap
@@ -701,9 +1173,17 @@ WiFiAdapterStateChanged& WiFiAdapterStateChanged::SetBootId(const std::string& v
   return *this;
 }
 
+std::string WiFiAdapterStateChanged::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
 WiFiAdapterStateChanged& WiFiAdapterStateChanged::SetSystemTime(const int64_t value) {
   AddIntMetric(kSystemTimeNameHash, value);
   return *this;
+}
+
+int64_t WiFiAdapterStateChanged::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
 }
 
 WiFiAdapterStateChanged& WiFiAdapterStateChanged::SetEventVersion(const int64_t value) {
@@ -711,9 +1191,17 @@ WiFiAdapterStateChanged& WiFiAdapterStateChanged::SetEventVersion(const int64_t 
   return *this;
 }
 
+int64_t WiFiAdapterStateChanged::GetEventVersionForTest() const {
+  return GetIntMetricForTest(kEventVersionNameHash);
+}
+
 WiFiAdapterStateChanged& WiFiAdapterStateChanged::SetAdapterState(const int64_t value) {
   AddIntMetric(kAdapterStateNameHash, value);
   return *this;
+}
+
+int64_t WiFiAdapterStateChanged::GetAdapterStateForTest() const {
+  return GetIntMetricForTest(kAdapterStateNameHash);
 }
 
 WiFiAdapterStateChanged& WiFiAdapterStateChanged::SetVendorId(const int64_t value) {
@@ -721,14 +1209,26 @@ WiFiAdapterStateChanged& WiFiAdapterStateChanged::SetVendorId(const int64_t valu
   return *this;
 }
 
+int64_t WiFiAdapterStateChanged::GetVendorIdForTest() const {
+  return GetIntMetricForTest(kVendorIdNameHash);
+}
+
 WiFiAdapterStateChanged& WiFiAdapterStateChanged::SetProductId(const int64_t value) {
   AddIntMetric(kProductIdNameHash, value);
   return *this;
 }
 
+int64_t WiFiAdapterStateChanged::GetProductIdForTest() const {
+  return GetIntMetricForTest(kProductIdNameHash);
+}
+
 WiFiAdapterStateChanged& WiFiAdapterStateChanged::SetSubsystemId(const int64_t value) {
   AddIntMetric(kSubsystemIdNameHash, value);
   return *this;
+}
+
+int64_t WiFiAdapterStateChanged::GetSubsystemIdForTest() const {
+  return GetIntMetricForTest(kSubsystemIdNameHash);
 }
 
 WiFiConnectionAttempt::WiFiConnectionAttempt() :
@@ -739,9 +1239,17 @@ WiFiConnectionAttempt& WiFiConnectionAttempt::SetBootId(const std::string& value
   return *this;
 }
 
+std::string WiFiConnectionAttempt::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetSystemTime(const int64_t value) {
   AddIntMetric(kSystemTimeNameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionAttempt::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
 }
 
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetEventVersion(const int64_t value) {
@@ -749,9 +1257,17 @@ WiFiConnectionAttempt& WiFiConnectionAttempt::SetEventVersion(const int64_t valu
   return *this;
 }
 
+int64_t WiFiConnectionAttempt::GetEventVersionForTest() const {
+  return GetIntMetricForTest(kEventVersionNameHash);
+}
+
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetSessionTag(const int64_t value) {
   AddIntMetric(kSessionTagNameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionAttempt::GetSessionTagForTest() const {
+  return GetIntMetricForTest(kSessionTagNameHash);
 }
 
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAttemptType(const int64_t value) {
@@ -759,9 +1275,17 @@ WiFiConnectionAttempt& WiFiConnectionAttempt::SetAttemptType(const int64_t value
   return *this;
 }
 
+int64_t WiFiConnectionAttempt::GetAttemptTypeForTest() const {
+  return GetIntMetricForTest(kAttemptTypeNameHash);
+}
+
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAPPhyMode(const int64_t value) {
   AddIntMetric(kAPPhyModeNameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionAttempt::GetAPPhyModeForTest() const {
+  return GetIntMetricForTest(kAPPhyModeNameHash);
 }
 
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAPSecurityMode(const int64_t value) {
@@ -769,9 +1293,17 @@ WiFiConnectionAttempt& WiFiConnectionAttempt::SetAPSecurityMode(const int64_t va
   return *this;
 }
 
+int64_t WiFiConnectionAttempt::GetAPSecurityModeForTest() const {
+  return GetIntMetricForTest(kAPSecurityModeNameHash);
+}
+
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAPSecurityEAPInnerProtocol(const int64_t value) {
   AddIntMetric(kAPSecurityEAPInnerProtocolNameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionAttempt::GetAPSecurityEAPInnerProtocolForTest() const {
+  return GetIntMetricForTest(kAPSecurityEAPInnerProtocolNameHash);
 }
 
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAPSecurityEAPOuterProtocol(const int64_t value) {
@@ -779,9 +1311,17 @@ WiFiConnectionAttempt& WiFiConnectionAttempt::SetAPSecurityEAPOuterProtocol(cons
   return *this;
 }
 
+int64_t WiFiConnectionAttempt::GetAPSecurityEAPOuterProtocolForTest() const {
+  return GetIntMetricForTest(kAPSecurityEAPOuterProtocolNameHash);
+}
+
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAPBand(const int64_t value) {
   AddIntMetric(kAPBandNameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionAttempt::GetAPBandForTest() const {
+  return GetIntMetricForTest(kAPBandNameHash);
 }
 
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAPChannel(const int64_t value) {
@@ -789,9 +1329,17 @@ WiFiConnectionAttempt& WiFiConnectionAttempt::SetAPChannel(const int64_t value) 
   return *this;
 }
 
+int64_t WiFiConnectionAttempt::GetAPChannelForTest() const {
+  return GetIntMetricForTest(kAPChannelNameHash);
+}
+
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetRSSI(const int64_t value) {
   AddIntMetric(kRSSINameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionAttempt::GetRSSIForTest() const {
+  return GetIntMetricForTest(kRSSINameHash);
 }
 
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetSSID(const std::string& value) {
@@ -799,9 +1347,17 @@ WiFiConnectionAttempt& WiFiConnectionAttempt::SetSSID(const std::string& value) 
   return *this;
 }
 
+std::string WiFiConnectionAttempt::GetSSIDForTest() const {
+  return GetHmacMetricForTest(kSSIDNameHash);
+}
+
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetSSIDProvisioningMode(const int64_t value) {
   AddIntMetric(kSSIDProvisioningModeNameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionAttempt::GetSSIDProvisioningModeForTest() const {
+  return GetIntMetricForTest(kSSIDProvisioningModeNameHash);
 }
 
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetSSIDHidden(const int64_t value) {
@@ -809,9 +1365,17 @@ WiFiConnectionAttempt& WiFiConnectionAttempt::SetSSIDHidden(const int64_t value)
   return *this;
 }
 
+int64_t WiFiConnectionAttempt::GetSSIDHiddenForTest() const {
+  return GetIntMetricForTest(kSSIDHiddenNameHash);
+}
+
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetBSSID(const std::string& value) {
   AddHmacMetric(kBSSIDNameHash, value);
   return *this;
+}
+
+std::string WiFiConnectionAttempt::GetBSSIDForTest() const {
+  return GetHmacMetricForTest(kBSSIDNameHash);
 }
 
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAPOUI(const int64_t value) {
@@ -819,9 +1383,17 @@ WiFiConnectionAttempt& WiFiConnectionAttempt::SetAPOUI(const int64_t value) {
   return *this;
 }
 
+int64_t WiFiConnectionAttempt::GetAPOUIForTest() const {
+  return GetIntMetricForTest(kAPOUINameHash);
+}
+
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAP_80211krv_NLSSupport(const int64_t value) {
   AddIntMetric(kAP_80211krv_NLSSupportNameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionAttempt::GetAP_80211krv_NLSSupportForTest() const {
+  return GetIntMetricForTest(kAP_80211krv_NLSSupportNameHash);
 }
 
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAP_80211krv_OTA_FTSupport(const int64_t value) {
@@ -829,9 +1401,17 @@ WiFiConnectionAttempt& WiFiConnectionAttempt::SetAP_80211krv_OTA_FTSupport(const
   return *this;
 }
 
+int64_t WiFiConnectionAttempt::GetAP_80211krv_OTA_FTSupportForTest() const {
+  return GetIntMetricForTest(kAP_80211krv_OTA_FTSupportNameHash);
+}
+
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAP_80211krv_OTDS_FTSupport(const int64_t value) {
   AddIntMetric(kAP_80211krv_OTDS_FTSupportNameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionAttempt::GetAP_80211krv_OTDS_FTSupportForTest() const {
+  return GetIntMetricForTest(kAP_80211krv_OTDS_FTSupportNameHash);
 }
 
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAP_80211krv_DMSSupport(const int64_t value) {
@@ -839,9 +1419,17 @@ WiFiConnectionAttempt& WiFiConnectionAttempt::SetAP_80211krv_DMSSupport(const in
   return *this;
 }
 
+int64_t WiFiConnectionAttempt::GetAP_80211krv_DMSSupportForTest() const {
+  return GetIntMetricForTest(kAP_80211krv_DMSSupportNameHash);
+}
+
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAP_80211krv_BSSMaxIdleSupport(const int64_t value) {
   AddIntMetric(kAP_80211krv_BSSMaxIdleSupportNameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionAttempt::GetAP_80211krv_BSSMaxIdleSupportForTest() const {
+  return GetIntMetricForTest(kAP_80211krv_BSSMaxIdleSupportNameHash);
 }
 
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAP_80211krv_BSSTMSupport(const int64_t value) {
@@ -849,9 +1437,17 @@ WiFiConnectionAttempt& WiFiConnectionAttempt::SetAP_80211krv_BSSTMSupport(const 
   return *this;
 }
 
+int64_t WiFiConnectionAttempt::GetAP_80211krv_BSSTMSupportForTest() const {
+  return GetIntMetricForTest(kAP_80211krv_BSSTMSupportNameHash);
+}
+
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAP_HS20Support(const int64_t value) {
   AddIntMetric(kAP_HS20SupportNameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionAttempt::GetAP_HS20SupportForTest() const {
+  return GetIntMetricForTest(kAP_HS20SupportNameHash);
 }
 
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAP_HS20Version(const int64_t value) {
@@ -859,9 +1455,17 @@ WiFiConnectionAttempt& WiFiConnectionAttempt::SetAP_HS20Version(const int64_t va
   return *this;
 }
 
+int64_t WiFiConnectionAttempt::GetAP_HS20VersionForTest() const {
+  return GetIntMetricForTest(kAP_HS20VersionNameHash);
+}
+
 WiFiConnectionAttempt& WiFiConnectionAttempt::SetAP_MBOSupport(const int64_t value) {
   AddIntMetric(kAP_MBOSupportNameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionAttempt::GetAP_MBOSupportForTest() const {
+  return GetIntMetricForTest(kAP_MBOSupportNameHash);
 }
 
 WiFiConnectionAttemptResult::WiFiConnectionAttemptResult() :
@@ -872,9 +1476,17 @@ WiFiConnectionAttemptResult& WiFiConnectionAttemptResult::SetBootId(const std::s
   return *this;
 }
 
+std::string WiFiConnectionAttemptResult::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
 WiFiConnectionAttemptResult& WiFiConnectionAttemptResult::SetSystemTime(const int64_t value) {
   AddIntMetric(kSystemTimeNameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionAttemptResult::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
 }
 
 WiFiConnectionAttemptResult& WiFiConnectionAttemptResult::SetEventVersion(const int64_t value) {
@@ -882,14 +1494,26 @@ WiFiConnectionAttemptResult& WiFiConnectionAttemptResult::SetEventVersion(const 
   return *this;
 }
 
+int64_t WiFiConnectionAttemptResult::GetEventVersionForTest() const {
+  return GetIntMetricForTest(kEventVersionNameHash);
+}
+
 WiFiConnectionAttemptResult& WiFiConnectionAttemptResult::SetSessionTag(const int64_t value) {
   AddIntMetric(kSessionTagNameHash, value);
   return *this;
 }
 
+int64_t WiFiConnectionAttemptResult::GetSessionTagForTest() const {
+  return GetIntMetricForTest(kSessionTagNameHash);
+}
+
 WiFiConnectionAttemptResult& WiFiConnectionAttemptResult::SetResultCode(const int64_t value) {
   AddIntMetric(kResultCodeNameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionAttemptResult::GetResultCodeForTest() const {
+  return GetIntMetricForTest(kResultCodeNameHash);
 }
 
 WiFiIPConnectivityStatus::WiFiIPConnectivityStatus() :
@@ -900,9 +1524,17 @@ WiFiIPConnectivityStatus& WiFiIPConnectivityStatus::SetBootId(const std::string&
   return *this;
 }
 
+std::string WiFiIPConnectivityStatus::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
 WiFiIPConnectivityStatus& WiFiIPConnectivityStatus::SetSystemTime(const int64_t value) {
   AddIntMetric(kSystemTimeNameHash, value);
   return *this;
+}
+
+int64_t WiFiIPConnectivityStatus::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
 }
 
 WiFiIPConnectivityStatus& WiFiIPConnectivityStatus::SetEventVersion(const int64_t value) {
@@ -910,14 +1542,26 @@ WiFiIPConnectivityStatus& WiFiIPConnectivityStatus::SetEventVersion(const int64_
   return *this;
 }
 
+int64_t WiFiIPConnectivityStatus::GetEventVersionForTest() const {
+  return GetIntMetricForTest(kEventVersionNameHash);
+}
+
 WiFiIPConnectivityStatus& WiFiIPConnectivityStatus::SetIPConnectivityStatus(const int64_t value) {
   AddIntMetric(kIPConnectivityStatusNameHash, value);
   return *this;
 }
 
+int64_t WiFiIPConnectivityStatus::GetIPConnectivityStatusForTest() const {
+  return GetIntMetricForTest(kIPConnectivityStatusNameHash);
+}
+
 WiFiIPConnectivityStatus& WiFiIPConnectivityStatus::SetIPConnectivityType(const int64_t value) {
   AddIntMetric(kIPConnectivityTypeNameHash, value);
   return *this;
+}
+
+int64_t WiFiIPConnectivityStatus::GetIPConnectivityTypeForTest() const {
+  return GetIntMetricForTest(kIPConnectivityTypeNameHash);
 }
 
 WiFiPortalDetectionStatus::WiFiPortalDetectionStatus() :
@@ -928,9 +1572,17 @@ WiFiPortalDetectionStatus& WiFiPortalDetectionStatus::SetBootId(const std::strin
   return *this;
 }
 
+std::string WiFiPortalDetectionStatus::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
 WiFiPortalDetectionStatus& WiFiPortalDetectionStatus::SetSystemTime(const int64_t value) {
   AddIntMetric(kSystemTimeNameHash, value);
   return *this;
+}
+
+int64_t WiFiPortalDetectionStatus::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
 }
 
 WiFiPortalDetectionStatus& WiFiPortalDetectionStatus::SetEventVersion(const int64_t value) {
@@ -938,9 +1590,17 @@ WiFiPortalDetectionStatus& WiFiPortalDetectionStatus::SetEventVersion(const int6
   return *this;
 }
 
+int64_t WiFiPortalDetectionStatus::GetEventVersionForTest() const {
+  return GetIntMetricForTest(kEventVersionNameHash);
+}
+
 WiFiPortalDetectionStatus& WiFiPortalDetectionStatus::SetPortalDetectionStatus(const int64_t value) {
   AddIntMetric(kPortalDetectionStatusNameHash, value);
   return *this;
+}
+
+int64_t WiFiPortalDetectionStatus::GetPortalDetectionStatusForTest() const {
+  return GetIntMetricForTest(kPortalDetectionStatusNameHash);
 }
 
 WiFiConnectionEnd::WiFiConnectionEnd() :
@@ -951,9 +1611,17 @@ WiFiConnectionEnd& WiFiConnectionEnd::SetBootId(const std::string& value) {
   return *this;
 }
 
+std::string WiFiConnectionEnd::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
 WiFiConnectionEnd& WiFiConnectionEnd::SetSystemTime(const int64_t value) {
   AddIntMetric(kSystemTimeNameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionEnd::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
 }
 
 WiFiConnectionEnd& WiFiConnectionEnd::SetEventVersion(const int64_t value) {
@@ -961,9 +1629,17 @@ WiFiConnectionEnd& WiFiConnectionEnd::SetEventVersion(const int64_t value) {
   return *this;
 }
 
+int64_t WiFiConnectionEnd::GetEventVersionForTest() const {
+  return GetIntMetricForTest(kEventVersionNameHash);
+}
+
 WiFiConnectionEnd& WiFiConnectionEnd::SetSessionTag(const int64_t value) {
   AddIntMetric(kSessionTagNameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionEnd::GetSessionTagForTest() const {
+  return GetIntMetricForTest(kSessionTagNameHash);
 }
 
 WiFiConnectionEnd& WiFiConnectionEnd::SetDisconnectionType(const int64_t value) {
@@ -971,9 +1647,17 @@ WiFiConnectionEnd& WiFiConnectionEnd::SetDisconnectionType(const int64_t value) 
   return *this;
 }
 
+int64_t WiFiConnectionEnd::GetDisconnectionTypeForTest() const {
+  return GetIntMetricForTest(kDisconnectionTypeNameHash);
+}
+
 WiFiConnectionEnd& WiFiConnectionEnd::SetDisconnectionReasonCode(const int64_t value) {
   AddIntMetric(kDisconnectionReasonCodeNameHash, value);
   return *this;
+}
+
+int64_t WiFiConnectionEnd::GetDisconnectionReasonCodeForTest() const {
+  return GetIntMetricForTest(kDisconnectionReasonCodeNameHash);
 }
 
 WiFiLinkQualityTrigger::WiFiLinkQualityTrigger() :
@@ -984,9 +1668,17 @@ WiFiLinkQualityTrigger& WiFiLinkQualityTrigger::SetBootId(const std::string& val
   return *this;
 }
 
+std::string WiFiLinkQualityTrigger::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
 WiFiLinkQualityTrigger& WiFiLinkQualityTrigger::SetSystemTime(const int64_t value) {
   AddIntMetric(kSystemTimeNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityTrigger::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
 }
 
 WiFiLinkQualityTrigger& WiFiLinkQualityTrigger::SetEventVersion(const int64_t value) {
@@ -994,14 +1686,26 @@ WiFiLinkQualityTrigger& WiFiLinkQualityTrigger::SetEventVersion(const int64_t va
   return *this;
 }
 
+int64_t WiFiLinkQualityTrigger::GetEventVersionForTest() const {
+  return GetIntMetricForTest(kEventVersionNameHash);
+}
+
 WiFiLinkQualityTrigger& WiFiLinkQualityTrigger::SetSessionTag(const int64_t value) {
   AddIntMetric(kSessionTagNameHash, value);
   return *this;
 }
 
+int64_t WiFiLinkQualityTrigger::GetSessionTagForTest() const {
+  return GetIntMetricForTest(kSessionTagNameHash);
+}
+
 WiFiLinkQualityTrigger& WiFiLinkQualityTrigger::SetType(const int64_t value) {
   AddIntMetric(kTypeNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityTrigger::GetTypeForTest() const {
+  return GetIntMetricForTest(kTypeNameHash);
 }
 
 WiFiLinkQualityReport::WiFiLinkQualityReport() :
@@ -1012,9 +1716,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetBootId(const std::string& value
   return *this;
 }
 
+std::string WiFiLinkQualityReport::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetSystemTime(const int64_t value) {
   AddIntMetric(kSystemTimeNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetEventVersion(const int64_t value) {
@@ -1022,9 +1734,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetEventVersion(const int64_t valu
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetEventVersionForTest() const {
+  return GetIntMetricForTest(kEventVersionNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetSessionTag(const int64_t value) {
   AddIntMetric(kSessionTagNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetSessionTagForTest() const {
+  return GetIntMetricForTest(kSessionTagNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXPackets(const int64_t value) {
@@ -1032,9 +1752,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXPackets(const int64_t value) 
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetRXPacketsForTest() const {
+  return GetIntMetricForTest(kRXPacketsNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXBytes(const int64_t value) {
   AddIntMetric(kRXBytesNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetRXBytesForTest() const {
+  return GetIntMetricForTest(kRXBytesNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXPackets(const int64_t value) {
@@ -1042,9 +1770,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXPackets(const int64_t value) 
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetTXPacketsForTest() const {
+  return GetIntMetricForTest(kTXPacketsNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXBytes(const int64_t value) {
   AddIntMetric(kTXBytesNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetTXBytesForTest() const {
+  return GetIntMetricForTest(kTXBytesNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXRetries(const int64_t value) {
@@ -1052,9 +1788,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXRetries(const int64_t value) 
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetTXRetriesForTest() const {
+  return GetIntMetricForTest(kTXRetriesNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXFailures(const int64_t value) {
   AddIntMetric(kTXFailuresNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetTXFailuresForTest() const {
+  return GetIntMetricForTest(kTXFailuresNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXDrops(const int64_t value) {
@@ -1062,9 +1806,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXDrops(const int64_t value) {
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetRXDropsForTest() const {
+  return GetIntMetricForTest(kRXDropsNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetChain0Signal(const int64_t value) {
   AddIntMetric(kChain0SignalNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetChain0SignalForTest() const {
+  return GetIntMetricForTest(kChain0SignalNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetChain0SignalAvg(const int64_t value) {
@@ -1072,9 +1824,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetChain0SignalAvg(const int64_t v
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetChain0SignalAvgForTest() const {
+  return GetIntMetricForTest(kChain0SignalAvgNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetChain1Signal(const int64_t value) {
   AddIntMetric(kChain1SignalNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetChain1SignalForTest() const {
+  return GetIntMetricForTest(kChain1SignalNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetChain1SignalAvg(const int64_t value) {
@@ -1082,9 +1842,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetChain1SignalAvg(const int64_t v
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetChain1SignalAvgForTest() const {
+  return GetIntMetricForTest(kChain1SignalAvgNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetBeaconSignalAvg(const int64_t value) {
   AddIntMetric(kBeaconSignalAvgNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetBeaconSignalAvgForTest() const {
+  return GetIntMetricForTest(kBeaconSignalAvgNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetBeaconsReceived(const int64_t value) {
@@ -1092,9 +1860,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetBeaconsReceived(const int64_t v
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetBeaconsReceivedForTest() const {
+  return GetIntMetricForTest(kBeaconsReceivedNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetBeaconsLost(const int64_t value) {
   AddIntMetric(kBeaconsLostNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetBeaconsLostForTest() const {
+  return GetIntMetricForTest(kBeaconsLostNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetExpectedThroughput(const int64_t value) {
@@ -1102,9 +1878,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetExpectedThroughput(const int64_
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetExpectedThroughputForTest() const {
+  return GetIntMetricForTest(kExpectedThroughputNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXRate(const int64_t value) {
   AddIntMetric(kRXRateNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetRXRateForTest() const {
+  return GetIntMetricForTest(kRXRateNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXMCS(const int64_t value) {
@@ -1112,9 +1896,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXMCS(const int64_t value) {
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetRXMCSForTest() const {
+  return GetIntMetricForTest(kRXMCSNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXChannelWidth(const int64_t value) {
   AddIntMetric(kRXChannelWidthNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetRXChannelWidthForTest() const {
+  return GetIntMetricForTest(kRXChannelWidthNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXMode(const int64_t value) {
@@ -1122,9 +1914,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXMode(const int64_t value) {
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetRXModeForTest() const {
+  return GetIntMetricForTest(kRXModeNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXGuardInterval(const int64_t value) {
   AddIntMetric(kRXGuardIntervalNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetRXGuardIntervalForTest() const {
+  return GetIntMetricForTest(kRXGuardIntervalNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXNSS(const int64_t value) {
@@ -1132,9 +1932,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXNSS(const int64_t value) {
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetRXNSSForTest() const {
+  return GetIntMetricForTest(kRXNSSNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetRXDCM(const int64_t value) {
   AddIntMetric(kRXDCMNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetRXDCMForTest() const {
+  return GetIntMetricForTest(kRXDCMNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXRate(const int64_t value) {
@@ -1142,9 +1950,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXRate(const int64_t value) {
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetTXRateForTest() const {
+  return GetIntMetricForTest(kTXRateNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXMCS(const int64_t value) {
   AddIntMetric(kTXMCSNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetTXMCSForTest() const {
+  return GetIntMetricForTest(kTXMCSNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXChannelWidth(const int64_t value) {
@@ -1152,9 +1968,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXChannelWidth(const int64_t va
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetTXChannelWidthForTest() const {
+  return GetIntMetricForTest(kTXChannelWidthNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXMode(const int64_t value) {
   AddIntMetric(kTXModeNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetTXModeForTest() const {
+  return GetIntMetricForTest(kTXModeNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXGuardInterval(const int64_t value) {
@@ -1162,9 +1986,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXGuardInterval(const int64_t v
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetTXGuardIntervalForTest() const {
+  return GetIntMetricForTest(kTXGuardIntervalNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXNSS(const int64_t value) {
   AddIntMetric(kTXNSSNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetTXNSSForTest() const {
+  return GetIntMetricForTest(kTXNSSNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXDCM(const int64_t value) {
@@ -1172,9 +2004,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetTXDCM(const int64_t value) {
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetTXDCMForTest() const {
+  return GetIntMetricForTest(kTXDCMNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetBTEnabled(const int64_t value) {
   AddIntMetric(kBTEnabledNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetBTEnabledForTest() const {
+  return GetIntMetricForTest(kBTEnabledNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetBTStack(const int64_t value) {
@@ -1182,9 +2022,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetBTStack(const int64_t value) {
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetBTStackForTest() const {
+  return GetIntMetricForTest(kBTStackNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetBTHFP(const int64_t value) {
   AddIntMetric(kBTHFPNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetBTHFPForTest() const {
+  return GetIntMetricForTest(kBTHFPNameHash);
 }
 
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetBTA2DP(const int64_t value) {
@@ -1192,9 +2040,17 @@ WiFiLinkQualityReport& WiFiLinkQualityReport::SetBTA2DP(const int64_t value) {
   return *this;
 }
 
+int64_t WiFiLinkQualityReport::GetBTA2DPForTest() const {
+  return GetIntMetricForTest(kBTA2DPNameHash);
+}
+
 WiFiLinkQualityReport& WiFiLinkQualityReport::SetBTActivelyScanning(const int64_t value) {
   AddIntMetric(kBTActivelyScanningNameHash, value);
   return *this;
+}
+
+int64_t WiFiLinkQualityReport::GetBTActivelyScanningForTest() const {
+  return GetIntMetricForTest(kBTActivelyScanningNameHash);
 }
 
 }  // namespace wi_fi
@@ -1209,14 +2065,26 @@ TestEventOne& TestEventOne::SetTestMetricOne(const std::string& value) {
   return *this;
 }
 
+std::string TestEventOne::GetTestMetricOneForTest() const {
+  return GetHmacMetricForTest(kTestMetricOneNameHash);
+}
+
 TestEventOne& TestEventOne::SetTestMetricTwo(const int64_t value) {
   AddIntMetric(kTestMetricTwoNameHash, value);
   return *this;
 }
 
+int64_t TestEventOne::GetTestMetricTwoForTest() const {
+  return GetIntMetricForTest(kTestMetricTwoNameHash);
+}
+
 TestEventOne& TestEventOne::SetTestMetricThree(const double value) {
   AddDoubleMetric(kTestMetricThreeNameHash, value);
   return *this;
+}
+
+double TestEventOne::GetTestMetricThreeForTest() const {
+  return GetDoubleMetricForTest(kTestMetricThreeNameHash);
 }
 
 TestEventTwo::TestEventTwo() :
@@ -1225,6 +2093,10 @@ TestEventTwo::~TestEventTwo() = default;
 TestEventTwo& TestEventTwo::SetTestMetricThree(const int64_t value) {
   AddIntMetric(kTestMetricThreeNameHash, value);
   return *this;
+}
+
+int64_t TestEventTwo::GetTestMetricThreeForTest() const {
+  return GetIntMetricForTest(kTestMetricThreeNameHash);
 }
 
 }  // namespace test_project_one
@@ -1237,6 +2109,10 @@ TestEventThree::~TestEventThree() = default;
 TestEventThree& TestEventThree::SetTestMetricFour(const std::string& value) {
   AddHmacMetric(kTestMetricFourNameHash, value);
   return *this;
+}
+
+std::string TestEventThree::GetTestMetricFourForTest() const {
+  return GetHmacMetricForTest(kTestMetricFourNameHash);
 }
 
 }  // namespace test_project_two

@@ -87,12 +87,6 @@ class UserDataAuthInterfaceInterface {
   virtual void StartAuthSession(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::StartAuthSessionReply>> response,
       const user_data_auth::StartAuthSessionRequest& in_request) = 0;
-  virtual void AddCredentials(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::AddCredentialsReply>> response,
-      const user_data_auth::AddCredentialsRequest& in_request) = 0;
-  virtual void UpdateCredential(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::UpdateCredentialReply>> response,
-      const user_data_auth::UpdateCredentialRequest& in_request) = 0;
   virtual void AuthenticateAuthSession(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::AuthenticateAuthSessionReply>> response,
       const user_data_auth::AuthenticateAuthSessionRequest& in_request) = 0;
@@ -243,14 +237,6 @@ class UserDataAuthInterfaceAdaptor {
         "StartAuthSession",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::StartAuthSession);
-    itf->AddMethodHandler(
-        "AddCredentials",
-        base::Unretained(interface_),
-        &UserDataAuthInterfaceInterface::AddCredentials);
-    itf->AddMethodHandler(
-        "UpdateCredential",
-        base::Unretained(interface_),
-        &UserDataAuthInterfaceInterface::UpdateCredential);
     itf->AddMethodHandler(
         "AuthenticateAuthSession",
         base::Unretained(interface_),
@@ -436,14 +422,6 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"StartAuthSession\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"AddCredentials\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"UpdateCredential\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
