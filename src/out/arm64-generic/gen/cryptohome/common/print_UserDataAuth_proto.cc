@@ -1647,66 +1647,6 @@ std::string GetProtoDebugStringWithIndent(const StartAuthSessionReply& value,
   return output;
 }
 
-std::string GetProtoDebugString(const AddCredentialsRequest& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(const AddCredentialsRequest& value,
-                                          int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  authorization: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.authorization(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  add_more_credentials: ";
-  base::StringAppendF(&output, "%s",
-                      value.add_more_credentials() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(const AddCredentialsReply& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(const AddCredentialsReply& value,
-                                          int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
 std::string GetProtoDebugString(const AuthenticateAuthSessionRequest& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }
@@ -1879,65 +1819,6 @@ std::string GetProtoDebugStringWithIndent(const ExtendAuthSessionReply& value,
                         value.seconds_left(), value.seconds_left());
     output += "\n";
   }
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(const UpdateCredentialRequest& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(const UpdateCredentialRequest& value,
-                                          int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  old_credential_label: ";
-  base::StringAppendF(&output, "%s", value.old_credential_label().c_str());
-  output += "\n";
-
-  output += indent + "  authorization: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.authorization(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(const UpdateCredentialReply& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(const UpdateCredentialReply& value,
-                                          int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
   output += indent + "}\n";
   return output;
 }

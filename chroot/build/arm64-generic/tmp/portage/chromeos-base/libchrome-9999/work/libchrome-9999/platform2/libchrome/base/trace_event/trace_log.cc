@@ -2107,6 +2107,15 @@ void TraceLog::UpdateProcessLabel(int label_id,
   if (!current_label.length())
     return RemoveProcessLabel(label_id);
 
+#if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
+  if (perfetto_libchrome::Tracing::IsInitialized()) {
+    auto track = perfetto_libchrome::ProcessTrack::Current();
+    auto desc = track.Serialize();
+    desc.mutable_process()->add_process_labels(current_label);
+    perfetto_libchrome::TrackEvent::SetTrackDescriptor(track, std::move(desc));
+  }
+#endif
+
   AutoLock lock(lock_);
   process_labels_[label_id] = current_label;
 }

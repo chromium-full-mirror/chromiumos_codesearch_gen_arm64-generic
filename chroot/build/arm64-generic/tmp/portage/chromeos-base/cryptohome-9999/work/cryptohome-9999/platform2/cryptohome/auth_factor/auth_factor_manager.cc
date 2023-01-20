@@ -137,7 +137,7 @@ flatbuffers::Offset<SerializedSmartCardMetadata> SerializeMetadataToOffset(
     const SmartCardAuthFactorMetadata& smart_card_metadata,
     flatbuffers::FlatBufferBuilder* builder) {
   auto public_key_offset = hwsec_foundation::ToFlatBuffer<brillo::Blob>()(
-      builder, smart_card_metadata.public_key_spki_der);
+      builder, *smart_card_metadata.public_key_spki_der);
   SerializedSmartCardMetadataBuilder metadata_builder(*builder);
   metadata_builder.add_public_key_spki_der(public_key_offset);
   return metadata_builder.Finish();
@@ -415,6 +415,15 @@ AuthFactorManager::LoadAuthFactor(const std::string& obfuscated_username,
                << " for " << obfuscated_username;
     return MakeStatus<CryptohomeError>(
         CRYPTOHOME_ERR_LOC(kLocAuthFactorManagerReadFailedInLoad),
+        ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+        user_data_auth::CRYPTOHOME_ERROR_BACKING_STORE_FAILURE);
+  }
+  // This check is redundant to the flatbuffer parsing below, but we check it
+  // here in order to distinguish "empty file" from "corrupted file" in metrics
+  // and logs.
+  if (file_contents.empty()) {
+    return MakeStatus<CryptohomeError>(
+        CRYPTOHOME_ERR_LOC(kLocAuthFactorManagerEmptyReadInLoad),
         ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
         user_data_auth::CRYPTOHOME_ERROR_BACKING_STORE_FAILURE);
   }
