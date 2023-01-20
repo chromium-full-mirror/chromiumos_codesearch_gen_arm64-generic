@@ -438,7 +438,7 @@ void AuthSession::CreateAndPersistVaultKeyset(
   }
 
   CryptohomeStatus status =
-      AddVaultKeyset(key_data,
+      AddVaultKeyset(key_data.label(), key_data,
                      !auth_factor_map_.HasFactorWithStorage(
                          AuthFactorStorageType::kVaultKeyset),
                      VaultKeysetIntent{.backup = false}, std::move(key_blobs),
@@ -475,6 +475,7 @@ void AuthSession::CreateAndPersistVaultKeyset(
 }
 
 CryptohomeStatus AuthSession::AddVaultKeyset(
+    const std::string& key_label,
     const KeyData& key_data,
     bool is_initial_keyset,
     VaultKeysetIntent vk_backup_intent,
@@ -522,7 +523,7 @@ CryptohomeStatus AuthSession::AddVaultKeyset(
     user_data_auth::CryptohomeErrorCode error =
         static_cast<user_data_auth::CryptohomeErrorCode>(
             keyset_management_->AddKeysetWithKeyBlobs(
-                vk_backup_intent, obfuscated_username_, key_data,
+                vk_backup_intent, obfuscated_username_, key_label, key_data,
                 *vault_keyset_.get(), std::move(*key_blobs.get()),
                 std::move(auth_state), true /*clobber*/));
     if (error != user_data_auth::CRYPTOHOME_ERROR_NOT_SET) {
@@ -530,8 +531,7 @@ CryptohomeStatus AuthSession::AddVaultKeyset(
           CRYPTOHOME_ERR_LOC(kLocAuthSessionAddFailedInAddKeyset),
           ErrorActionSet({ErrorAction::kReboot}), error);
     }
-    LOG(INFO) << "AuthSession: added additional keyset " << key_data.label()
-              << ".";
+    LOG(INFO) << "AuthSession: added additional keyset " << key_label << ".";
   }
 
   return OkStatus<CryptohomeError>();
@@ -961,16 +961,47 @@ void AuthSession::AuthenticateAuthFactor(
   std::optional<AuthFactorMap::ValueView> stored_auth_factor =
       auth_factor_map_.Find(request.auth_factor_label());
 
+  // Make a copy of the auth factor metadata, using either the stored factor or
+  // the verifier as the source of data, if they exist.
+  AuthFactorMetadata metadata;
+  if (stored_auth_factor) {
+    metadata = stored_auth_factor->auth_factor().metadata();
+  } else if (verifier) {
+    metadata = verifier->auth_factor_metadata();
+  }
+
+  // Ensure that if a label is supplied, the requested type matches what we have
+  // on disk for the user.
+  //
+  // Note that if we cannot find a stored AuthFactor then this test is skipped.
+  // This can happen with emphemeral users or verify-only auth factors.
+  //
+  // We have to special case kiosk keysets, because for old vault keyset factors
+  // the underlying data may not be marked as a kiosk and so it will show up as
+  // a password auth factor instead. In that case we treat the request as
+  // authoritative, and instead bypass the check and fix up the metadata.
+  if (stored_auth_factor &&
+      *request_auth_factor_type != stored_auth_factor->auth_factor().type()) {
+    if (stored_auth_factor->storage_type() ==
+            AuthFactorStorageType::kVaultKeyset &&
+        request_auth_factor_type == AuthFactorType::kKiosk) {
+      metadata.metadata = KioskAuthFactorMetadata();
+    } else {
+      LOG(ERROR) << "Unexpected mismatch in type from label and auth_input.";
+      std::move(on_done).Run(MakeStatus<CryptohomeError>(
+          CRYPTOHOME_ERR_LOC(kLocAuthSessionMismatchedAuthTypes),
+          ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+          user_data_auth::CryptohomeErrorCode::
+              CRYPTOHOME_ERROR_INVALID_ARGUMENT));
+      return;
+    }
+  }
+
   // Construct the auth input. If a factor is available, use it to construct the
   // input, otherwise use the verifier. If neither are available then just make
   // one with no metadata.
   AuthInput auth_input;
   {
-    const AuthFactorMetadata& metadata =
-        stored_auth_factor ? stored_auth_factor->auth_factor().metadata()
-                           : (verifier ? verifier->auth_factor_metadata()
-                                       : AuthFactorMetadata());
-
     CryptohomeStatusOr<AuthInput> auth_input_status =
         CreateAuthInputForAuthentication(request.auth_input(), metadata);
     if (!auth_input_status.ok()) {
@@ -982,25 +1013,6 @@ void AuthSession::AuthenticateAuthFactor(
       return;
     }
     auth_input = std::move(*auth_input_status);
-  }
-
-  // Ensure that if a label is supplied, the requested type matches what we have
-  // on disk for the user.
-  // Note that if we cannot find a stored AuthFactor then this test is skipped.
-  // This can happen in the case of ephemeral users now, later with legacy
-  // fingerprint check for verification intent.
-  // TODO(b/243808147): Don't special-case kiosk, after the factor loading code
-  // is fixed to not backfill missing types.
-  if (stored_auth_factor &&
-      *request_auth_factor_type != stored_auth_factor->auth_factor().type() &&
-      request_auth_factor_type != AuthFactorType::kKiosk) {
-    LOG(ERROR) << "Unexpected mismatch in type from label and auth_input.";
-    std::move(on_done).Run(MakeStatus<CryptohomeError>(
-        CRYPTOHOME_ERR_LOC(kLocAuthSessionMismatchedAuthTypes),
-        ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
-        user_data_auth::CryptohomeErrorCode::
-            CRYPTOHOME_ERROR_INVALID_ARGUMENT));
-    return;
   }
 
   // If suitable, attempt lightweight authentication via a credential verifier.
@@ -1058,8 +1070,6 @@ void AuthSession::AuthenticateAuthFactor(
       std::make_unique<AuthSessionPerformanceTimer>(
           kAuthSessionAuthenticateAuthFactorVKTimer);
 
-  std::optional<AuthFactorMetadata> metadata =
-      stored_auth_factor->auth_factor().metadata();
   // Note that we pass the request's type and label instead of the AuthFactor's
   // one, because legacy VKs could not contain these fields.
   AuthenticateViaVaultKeysetAndMigrateToUss(
@@ -2041,12 +2051,13 @@ void AuthSession::PersistAuthFactorToUserSecretStashOnMigration(
     CryptoStatus callback_error,
     std::unique_ptr<KeyBlobs> key_blobs,
     std::unique_ptr<AuthBlockState> auth_block_state) {
+  // During the migration existing VaultKeyset should be recreated with the
+  // backup VaultKeyset logic.
   CryptohomeStatus status = PersistAuthFactorToUserSecretStashImpl(
       auth_factor_type, auth_factor_label, auth_factor_metadata, auth_input,
       key_data, std::move(auth_session_performance_timer),
       std::move(callback_error), std::move(key_blobs),
       std::move(auth_block_state));
-
   if (!status.ok()) {
     LOG(ERROR) << "USS migration of VaultKeyset with label "
                << auth_factor_label << " is failed: " << status;
@@ -2068,12 +2079,14 @@ void AuthSession::PersistAuthFactorToUserSecretStashOnMigration(
   // non-authenticated (encrypted) VaultKeyset object since it is costly to
   // create a new KeyBlob and encrypt the VaultKeyset again.
   bool migration_persisted = false;
+
   std::unique_ptr<VaultKeyset> vk = keyset_management_->GetVaultKeyset(
       obfuscated_username_, auth_factor_label);
   if (vk) {
     vk->MarkMigrated(/*migrated=*/true);
     migration_persisted = vk->Save(vk->GetSourceFile());
   }
+
   if (!migration_persisted) {
     LOG(ERROR)
         << "USS migration of VaultKeyset with label " << auth_factor_label
@@ -2206,7 +2219,7 @@ CryptohomeStatus AuthSession::PersistAuthFactorToUserSecretStashImpl(
   if (enable_create_backup_vk_with_uss_) {
     // Clobbering is on by default, so if USS&AuthFactor is added for migration
     // this will convert a regular VaultKeyset to a backup VaultKeyset.
-    status = AddVaultKeyset(key_data, /*is_initial_keyset=*/
+    status = AddVaultKeyset(auth_factor_label, key_data, /*is_initial_keyset=*/
                             auth_factor_map_.empty(),
                             VaultKeysetIntent{.backup = true},
                             std::move(key_blobs), std::move(auth_block_state));
