@@ -388,41 +388,6 @@ class  MachineLearningService_CreateWebPlatformModelLoader_ResponseParams_Data {
 };
 static_assert(sizeof(MachineLearningService_CreateWebPlatformModelLoader_ResponseParams_Data) == 16,
               "Bad sizeof(MachineLearningService_CreateWebPlatformModelLoader_ResponseParams_Data)");
-class  MachineLearningService_LoadImageAnnotator_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::machine_learning::mojom::internal::ImageAnnotatorConfig_Data> config;
-  mojo::internal::Handle_Data receiver;
-  uint8_t padfinal_[4];
-
- private:
-  friend class mojo::internal::MessageFragment<MachineLearningService_LoadImageAnnotator_Params_Data>;
-
-  MachineLearningService_LoadImageAnnotator_Params_Data();
-  ~MachineLearningService_LoadImageAnnotator_Params_Data() = delete;
-};
-static_assert(sizeof(MachineLearningService_LoadImageAnnotator_Params_Data) == 24,
-              "Bad sizeof(MachineLearningService_LoadImageAnnotator_Params_Data)");
-class  MachineLearningService_LoadImageAnnotator_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  int32_t result;
-  uint8_t padfinal_[4];
-
- private:
-  friend class mojo::internal::MessageFragment<MachineLearningService_LoadImageAnnotator_ResponseParams_Data>;
-
-  MachineLearningService_LoadImageAnnotator_ResponseParams_Data();
-  ~MachineLearningService_LoadImageAnnotator_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(MachineLearningService_LoadImageAnnotator_ResponseParams_Data) == 16,
-              "Bad sizeof(MachineLearningService_LoadImageAnnotator_ResponseParams_Data)");
 class  MachineLearningService_REMOVED_4_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1119,68 +1084,6 @@ class MachineLearningService_CreateWebPlatformModelLoader_ResponseParamsDataView
 
 
 
-class MachineLearningService_LoadImageAnnotator_ParamsDataView {
- public:
-  MachineLearningService_LoadImageAnnotator_ParamsDataView() = default;
-
-  MachineLearningService_LoadImageAnnotator_ParamsDataView(
-      internal::MachineLearningService_LoadImageAnnotator_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetConfigDataView(
-      ::chromeos::machine_learning::mojom::ImageAnnotatorConfigDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadConfig(UserType* output) {
-    
-    auto* pointer = data_->config.Get();
-    return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::ImageAnnotatorConfigDataView>(
-        pointer, output, message_);
-  }
-  template <typename UserType>
-  UserType TakeReceiver() {
-    UserType result;
-    bool ret =
-        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::chromeos::machine_learning::mojom::ImageContentAnnotatorInterfaceBase>>(
-            &data_->receiver, &result, message_);
-    DCHECK(ret);
-    return result;
-  }
- private:
-  internal::MachineLearningService_LoadImageAnnotator_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-
-class MachineLearningService_LoadImageAnnotator_ResponseParamsDataView {
- public:
-  MachineLearningService_LoadImageAnnotator_ResponseParamsDataView() = default;
-
-  MachineLearningService_LoadImageAnnotator_ResponseParamsDataView(
-      internal::MachineLearningService_LoadImageAnnotator_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  template <typename UserType>
-  [[nodiscard]] bool ReadResult(UserType* output) const {
-    auto data_value = data_->result;
-    return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::LoadModelResult>(
-        data_value, output);
-  }
-  LoadModelResult result() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::machine_learning::mojom::LoadModelResult>(data_->result));
-  }
- private:
-  internal::MachineLearningService_LoadImageAnnotator_ResponseParams_Data* data_ = nullptr;
-};
-
-
-
 class MachineLearningService_REMOVED_4_ParamsDataView {
  public:
   MachineLearningService_REMOVED_4_ParamsDataView() = default;
@@ -1321,15 +1224,6 @@ inline void MachineLearningService_CreateWebPlatformModelLoader_ParamsDataView::
     ::ml::model_loader::mojom::CreateModelLoaderOptionsDataView* output) {
   auto pointer = data_->options.Get();
   *output = ::ml::model_loader::mojom::CreateModelLoaderOptionsDataView(pointer, message_);
-}
-
-
-
-
-inline void MachineLearningService_LoadImageAnnotator_ParamsDataView::GetConfigDataView(
-    ::chromeos::machine_learning::mojom::ImageAnnotatorConfigDataView* output) {
-  auto pointer = data_->config.Get();
-  *output = ::chromeos::machine_learning::mojom::ImageAnnotatorConfigDataView(pointer, message_);
 }
 
 

@@ -26,7 +26,6 @@ constexpr uint32_t kMachineLearningService_LoadTextSuggester_Name = 8;
 constexpr uint32_t kMachineLearningService_LoadWebPlatformHandwritingModel_Name = 9;
 constexpr uint32_t kMachineLearningService_LoadDocumentScanner_Name = 10;
 constexpr uint32_t kMachineLearningService_CreateWebPlatformModelLoader_Name = 11;
-constexpr uint32_t kMachineLearningService_LoadImageAnnotator_Name = 12;
 constexpr uint32_t kMachineLearningService_REMOVED_4_Name = 4;
 
 }  // namespace internal

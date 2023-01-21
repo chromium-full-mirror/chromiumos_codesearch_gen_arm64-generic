@@ -12,8 +12,6 @@
 #include "ml/mojom/grammar_checker.mojom-import-headers.h"
 #include "ml/mojom/handwriting_recognizer.mojom.h"
 #include "ml/mojom/handwriting_recognizer.mojom-import-headers.h"
-#include "ml/mojom/image_content_annotation.mojom.h"
-#include "ml/mojom/image_content_annotation.mojom-import-headers.h"
 #include "ml/mojom/model.mojom.h"
 #include "ml/mojom/model.mojom-import-headers.h"
 #include "ml/mojom/soda.mojom.h"

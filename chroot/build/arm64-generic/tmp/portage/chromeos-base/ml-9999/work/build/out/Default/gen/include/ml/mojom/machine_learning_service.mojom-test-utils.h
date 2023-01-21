@@ -28,7 +28,6 @@ class  MachineLearningServiceInterceptorForTesting : public MachineLearningServi
   void LoadWebPlatformHandwritingModel(::chromeos::machine_learning::web_platform::mojom::HandwritingModelConstraintPtr constraint, ::mojo::PendingReceiver<::chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer> receiver, LoadWebPlatformHandwritingModelCallback callback) override;
   void LoadDocumentScanner(::mojo::PendingReceiver<::chromeos::machine_learning::mojom::DocumentScanner> receiver, ::chromeos::machine_learning::mojom::DocumentScannerConfigPtr config, LoadDocumentScannerCallback callback) override;
   void CreateWebPlatformModelLoader(::mojo::PendingReceiver<::ml::model_loader::mojom::ModelLoader> receiver, ::ml::model_loader::mojom::CreateModelLoaderOptionsPtr options, CreateWebPlatformModelLoaderCallback callback) override;
-  void LoadImageAnnotator(::chromeos::machine_learning::mojom::ImageAnnotatorConfigPtr config, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::ImageContentAnnotator> receiver, LoadImageAnnotatorCallback callback) override;
   void REMOVED_4(::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver, REMOVED_4Callback callback) override;
 };
 class  MachineLearningServiceAsyncWaiter {
@@ -69,9 +68,6 @@ class  MachineLearningServiceAsyncWaiter {
   void CreateWebPlatformModelLoader(
       ::mojo::PendingReceiver<::ml::model_loader::mojom::ModelLoader> receiver, ::ml::model_loader::mojom::CreateModelLoaderOptionsPtr options, ::ml::model_loader::mojom::CreateModelLoaderResult* out_result);
   ::ml::model_loader::mojom::CreateModelLoaderResult CreateWebPlatformModelLoader(::mojo::PendingReceiver<::ml::model_loader::mojom::ModelLoader> receiver, ::ml::model_loader::mojom::CreateModelLoaderOptionsPtr options);
-  void LoadImageAnnotator(
-      ::chromeos::machine_learning::mojom::ImageAnnotatorConfigPtr config, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::ImageContentAnnotator> receiver, LoadModelResult* out_result);
-  LoadModelResult LoadImageAnnotator(::chromeos::machine_learning::mojom::ImageAnnotatorConfigPtr config, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::ImageContentAnnotator> receiver);
   void REMOVED_4(
       ::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver, LoadModelResult* out_result);
   LoadModelResult REMOVED_4(::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver);
