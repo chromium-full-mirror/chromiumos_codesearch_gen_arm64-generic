@@ -189,6 +189,441 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  NvmeDeviceInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<NvmeDeviceInfo, T>::value>;
+  using DataView = NvmeDeviceInfoDataView;
+  using Data_ = internal::NvmeDeviceInfo_Data;
+
+  template <typename... Args>
+  static NvmeDeviceInfoPtr New(Args&&... args) {
+    return NvmeDeviceInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static NvmeDeviceInfoPtr From(const U& u) {
+    return mojo::TypeConverter<NvmeDeviceInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, NvmeDeviceInfo>::Convert(*this);
+  }
+
+
+  NvmeDeviceInfo();
+
+  NvmeDeviceInfo(
+      uint32_t subsystem_vendor,
+      uint32_t subsystem_device,
+      uint8_t pcie_rev,
+      uint64_t firmware_rev);
+
+
+  ~NvmeDeviceInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = NvmeDeviceInfoPtr>
+  NvmeDeviceInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, NvmeDeviceInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, NvmeDeviceInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        NvmeDeviceInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        NvmeDeviceInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::NvmeDeviceInfo_UnserializedMessageContext<
+            UserType, NvmeDeviceInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<NvmeDeviceInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return NvmeDeviceInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::NvmeDeviceInfo_UnserializedMessageContext<
+            UserType, NvmeDeviceInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<NvmeDeviceInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint32_t subsystem_vendor;
+  
+  uint32_t subsystem_device;
+  
+  uint8_t pcie_rev;
+  
+  uint64_t firmware_rev;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, NvmeDeviceInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, NvmeDeviceInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, NvmeDeviceInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, NvmeDeviceInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  EmmcDeviceInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<EmmcDeviceInfo, T>::value>;
+  using DataView = EmmcDeviceInfoDataView;
+  using Data_ = internal::EmmcDeviceInfo_Data;
+
+  template <typename... Args>
+  static EmmcDeviceInfoPtr New(Args&&... args) {
+    return EmmcDeviceInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static EmmcDeviceInfoPtr From(const U& u) {
+    return mojo::TypeConverter<EmmcDeviceInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, EmmcDeviceInfo>::Convert(*this);
+  }
+
+
+  EmmcDeviceInfo();
+
+  EmmcDeviceInfo(
+      uint16_t manfid,
+      uint64_t pnm,
+      uint8_t prv,
+      uint64_t fwrev);
+
+
+  ~EmmcDeviceInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = EmmcDeviceInfoPtr>
+  EmmcDeviceInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, EmmcDeviceInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, EmmcDeviceInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        EmmcDeviceInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        EmmcDeviceInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::EmmcDeviceInfo_UnserializedMessageContext<
+            UserType, EmmcDeviceInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<EmmcDeviceInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return EmmcDeviceInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::EmmcDeviceInfo_UnserializedMessageContext<
+            UserType, EmmcDeviceInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<EmmcDeviceInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint16_t manfid;
+  
+  uint64_t pnm;
+  
+  uint8_t prv;
+  
+  uint64_t fwrev;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, EmmcDeviceInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, EmmcDeviceInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, EmmcDeviceInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, EmmcDeviceInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  UfsDeviceInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<UfsDeviceInfo, T>::value>;
+  using DataView = UfsDeviceInfoDataView;
+  using Data_ = internal::UfsDeviceInfo_Data;
+
+  template <typename... Args>
+  static UfsDeviceInfoPtr New(Args&&... args) {
+    return UfsDeviceInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static UfsDeviceInfoPtr From(const U& u) {
+    return mojo::TypeConverter<UfsDeviceInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, UfsDeviceInfo>::Convert(*this);
+  }
+
+
+  UfsDeviceInfo();
+
+  UfsDeviceInfo(
+      uint16_t jedec_manfid,
+      uint64_t fwrev);
+
+
+  ~UfsDeviceInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = UfsDeviceInfoPtr>
+  UfsDeviceInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, UfsDeviceInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, UfsDeviceInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        UfsDeviceInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        UfsDeviceInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::UfsDeviceInfo_UnserializedMessageContext<
+            UserType, UfsDeviceInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<UfsDeviceInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return UfsDeviceInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::UfsDeviceInfo_UnserializedMessageContext<
+            UserType, UfsDeviceInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<UfsDeviceInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint16_t jedec_manfid;
+  
+  uint64_t fwrev;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, UfsDeviceInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, UfsDeviceInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, UfsDeviceInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, UfsDeviceInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 
 class  VirtualizationInfo {
@@ -4194,6 +4629,175 @@ class  BlockDeviceFirmware {
 
 
 
+class  BlockDeviceInfo {
+ public:
+  using DataView = BlockDeviceInfoDataView;
+  using Data_ = internal::BlockDeviceInfo_Data;
+  using Tag = Data_::BlockDeviceInfo_Tag;
+
+  template <typename... Args>
+  static BlockDeviceInfoPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |unrecognized|.
+  static BlockDeviceInfoPtr
+  NewUnrecognized(
+      bool unrecognized) {
+    auto result = BlockDeviceInfoPtr(absl::in_place);
+    result->set_unrecognized(std::move(unrecognized));
+    return result;
+  }
+  // Construct an instance holding |nvme_device_info|.
+  static BlockDeviceInfoPtr
+  NewNvmeDeviceInfo(
+      NvmeDeviceInfoPtr nvme_device_info) {
+    auto result = BlockDeviceInfoPtr(absl::in_place);
+    result->set_nvme_device_info(std::move(nvme_device_info));
+    return result;
+  }
+  // Construct an instance holding |emmc_device_info|.
+  static BlockDeviceInfoPtr
+  NewEmmcDeviceInfo(
+      EmmcDeviceInfoPtr emmc_device_info) {
+    auto result = BlockDeviceInfoPtr(absl::in_place);
+    result->set_emmc_device_info(std::move(emmc_device_info));
+    return result;
+  }
+  // Construct an instance holding |ufs_device_info|.
+  static BlockDeviceInfoPtr
+  NewUfsDeviceInfo(
+      UfsDeviceInfoPtr ufs_device_info) {
+    auto result = BlockDeviceInfoPtr(absl::in_place);
+    result->set_ufs_device_info(std::move(ufs_device_info));
+    return result;
+  }
+
+  template <typename U>
+  static BlockDeviceInfoPtr From(const U& u) {
+    return mojo::TypeConverter<BlockDeviceInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, BlockDeviceInfo>::Convert(*this);
+  }
+
+  BlockDeviceInfo();
+  ~BlockDeviceInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = BlockDeviceInfoPtr>
+  BlockDeviceInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, BlockDeviceInfo>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, BlockDeviceInfo>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_unrecognized() const { return tag_ == Tag::kUnrecognized; }
+
+  
+  bool get_unrecognized() const {
+    CHECK(tag_ == Tag::kUnrecognized);
+    return data_.unrecognized;
+  }
+
+  
+  void set_unrecognized(
+      bool unrecognized);
+  
+  bool is_nvme_device_info() const { return tag_ == Tag::kNvmeDeviceInfo; }
+
+  
+  NvmeDeviceInfoPtr& get_nvme_device_info() const {
+    CHECK(tag_ == Tag::kNvmeDeviceInfo);
+    return *(data_.nvme_device_info);
+  }
+
+  
+  void set_nvme_device_info(
+      NvmeDeviceInfoPtr nvme_device_info);
+  
+  bool is_emmc_device_info() const { return tag_ == Tag::kEmmcDeviceInfo; }
+
+  
+  EmmcDeviceInfoPtr& get_emmc_device_info() const {
+    CHECK(tag_ == Tag::kEmmcDeviceInfo);
+    return *(data_.emmc_device_info);
+  }
+
+  
+  void set_emmc_device_info(
+      EmmcDeviceInfoPtr emmc_device_info);
+  
+  bool is_ufs_device_info() const { return tag_ == Tag::kUfsDeviceInfo; }
+
+  
+  UfsDeviceInfoPtr& get_ufs_device_info() const {
+    CHECK(tag_ == Tag::kUfsDeviceInfo);
+    return *(data_.ufs_device_info);
+  }
+
+  
+  void set_ufs_device_info(
+      UfsDeviceInfoPtr ufs_device_info);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        BlockDeviceInfo::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<BlockDeviceInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    bool unrecognized;
+    NvmeDeviceInfoPtr* nvme_device_info;
+    EmmcDeviceInfoPtr* emmc_device_info;
+    UfsDeviceInfoPtr* ufs_device_info;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
 class  CpuResult {
  public:
   using DataView = CpuResultDataView;
@@ -7530,6 +8134,9 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+
+
 class  NonRemovableBlockDeviceInfo {
  public:
   template <typename T>
@@ -7563,6 +8170,26 @@ class  NonRemovableBlockDeviceInfo {
       uint64_t write_time_seconds_since_last_boot,
       uint64_t io_time_seconds_since_last_boot,
       ::ash::cros_healthd::mojom::NullableUint64Ptr discard_time_seconds_since_last_boot,
+      BlockDeviceVendorPtr vendor_id,
+      BlockDeviceProductPtr product_id,
+      BlockDeviceRevisionPtr revision,
+      const std::string& name,
+      uint64_t size,
+      BlockDeviceFirmwarePtr firmware_version,
+      const std::string& type,
+      StorageDevicePurpose purpose,
+      const std::string& path,
+      uint8_t manufacturer_id,
+      uint32_t serial);
+
+  NonRemovableBlockDeviceInfo(
+      uint64_t bytes_read_since_last_boot,
+      uint64_t bytes_written_since_last_boot,
+      uint64_t read_time_seconds_since_last_boot,
+      uint64_t write_time_seconds_since_last_boot,
+      uint64_t io_time_seconds_since_last_boot,
+      ::ash::cros_healthd::mojom::NullableUint64Ptr discard_time_seconds_since_last_boot,
+      BlockDeviceInfoPtr device_info,
       BlockDeviceVendorPtr vendor_id,
       BlockDeviceProductPtr product_id,
       BlockDeviceRevisionPtr revision,
@@ -7661,6 +8288,8 @@ NonRemovableBlockDeviceInfo& operator=(const NonRemovableBlockDeviceInfo&) = del
   uint64_t io_time_seconds_since_last_boot;
   
   ::ash::cros_healthd::mojom::NullableUint64Ptr discard_time_seconds_since_last_boot;
+  
+  BlockDeviceInfoPtr device_info;
   
   BlockDeviceVendorPtr vendor_id;
   
@@ -9220,6 +9849,15 @@ class  VpdInfo {
       const absl::optional<std::string>& sku_number,
       const absl::optional<std::string>& model_name);
 
+  VpdInfo(
+      const absl::optional<std::string>& serial_number,
+      const absl::optional<std::string>& region,
+      const absl::optional<std::string>& mfg_date,
+      const absl::optional<std::string>& activate_date,
+      const absl::optional<std::string>& sku_number,
+      const absl::optional<std::string>& model_name,
+      const absl::optional<std::string>& oem_name);
+
 
   ~VpdInfo();
 
@@ -9304,6 +9942,8 @@ class  VpdInfo {
   absl::optional<std::string> sku_number;
   
   absl::optional<std::string> model_name;
+  
+  absl::optional<std::string> oem_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -13769,6 +14409,45 @@ bool BlockDeviceFirmware::Equals(const T& other) const {
   return false;
 }
 template <typename UnionPtrType>
+BlockDeviceInfoPtr BlockDeviceInfo::Clone() const {
+  switch (tag_) {
+    case Tag::kUnrecognized:
+      return NewUnrecognized(
+          mojo::Clone(data_.unrecognized));
+    case Tag::kNvmeDeviceInfo:
+      return NewNvmeDeviceInfo(
+          mojo::Clone(*data_.nvme_device_info));
+    case Tag::kEmmcDeviceInfo:
+      return NewEmmcDeviceInfo(
+          mojo::Clone(*data_.emmc_device_info));
+    case Tag::kUfsDeviceInfo:
+      return NewUfsDeviceInfo(
+          mojo::Clone(*data_.ufs_device_info));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, BlockDeviceInfo>::value>::type*>
+bool BlockDeviceInfo::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kUnrecognized:
+      return mojo::Equals(data_.unrecognized, other.data_.unrecognized);
+    case Tag::kNvmeDeviceInfo:
+      return mojo::Equals(*(data_.nvme_device_info), *(other.data_.nvme_device_info));
+    case Tag::kEmmcDeviceInfo:
+      return mojo::Equals(*(data_.emmc_device_info), *(other.data_.emmc_device_info));
+    case Tag::kUfsDeviceInfo:
+      return mojo::Equals(*(data_.ufs_device_info), *(other.data_.ufs_device_info));
+  }
+
+  return false;
+}
+template <typename UnionPtrType>
 CpuResultPtr CpuResult::Clone() const {
   switch (tag_) {
     case Tag::kCpuInfo:
@@ -14740,6 +15419,121 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+NvmeDeviceInfoPtr NvmeDeviceInfo::Clone() const {
+  return New(
+      mojo::Clone(subsystem_vendor),
+      mojo::Clone(subsystem_device),
+      mojo::Clone(pcie_rev),
+      mojo::Clone(firmware_rev)
+  );
+}
+
+template <typename T, NvmeDeviceInfo::EnableIfSame<T>*>
+bool NvmeDeviceInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->subsystem_vendor, other_struct.subsystem_vendor))
+    return false;
+  if (!mojo::Equals(this->subsystem_device, other_struct.subsystem_device))
+    return false;
+  if (!mojo::Equals(this->pcie_rev, other_struct.pcie_rev))
+    return false;
+  if (!mojo::Equals(this->firmware_rev, other_struct.firmware_rev))
+    return false;
+  return true;
+}
+
+template <typename T, NvmeDeviceInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.subsystem_vendor < rhs.subsystem_vendor)
+    return true;
+  if (rhs.subsystem_vendor < lhs.subsystem_vendor)
+    return false;
+  if (lhs.subsystem_device < rhs.subsystem_device)
+    return true;
+  if (rhs.subsystem_device < lhs.subsystem_device)
+    return false;
+  if (lhs.pcie_rev < rhs.pcie_rev)
+    return true;
+  if (rhs.pcie_rev < lhs.pcie_rev)
+    return false;
+  if (lhs.firmware_rev < rhs.firmware_rev)
+    return true;
+  if (rhs.firmware_rev < lhs.firmware_rev)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+EmmcDeviceInfoPtr EmmcDeviceInfo::Clone() const {
+  return New(
+      mojo::Clone(manfid),
+      mojo::Clone(pnm),
+      mojo::Clone(prv),
+      mojo::Clone(fwrev)
+  );
+}
+
+template <typename T, EmmcDeviceInfo::EnableIfSame<T>*>
+bool EmmcDeviceInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->manfid, other_struct.manfid))
+    return false;
+  if (!mojo::Equals(this->pnm, other_struct.pnm))
+    return false;
+  if (!mojo::Equals(this->prv, other_struct.prv))
+    return false;
+  if (!mojo::Equals(this->fwrev, other_struct.fwrev))
+    return false;
+  return true;
+}
+
+template <typename T, EmmcDeviceInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.manfid < rhs.manfid)
+    return true;
+  if (rhs.manfid < lhs.manfid)
+    return false;
+  if (lhs.pnm < rhs.pnm)
+    return true;
+  if (rhs.pnm < lhs.pnm)
+    return false;
+  if (lhs.prv < rhs.prv)
+    return true;
+  if (rhs.prv < lhs.prv)
+    return false;
+  if (lhs.fwrev < rhs.fwrev)
+    return true;
+  if (rhs.fwrev < lhs.fwrev)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+UfsDeviceInfoPtr UfsDeviceInfo::Clone() const {
+  return New(
+      mojo::Clone(jedec_manfid),
+      mojo::Clone(fwrev)
+  );
+}
+
+template <typename T, UfsDeviceInfo::EnableIfSame<T>*>
+bool UfsDeviceInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->jedec_manfid, other_struct.jedec_manfid))
+    return false;
+  if (!mojo::Equals(this->fwrev, other_struct.fwrev))
+    return false;
+  return true;
+}
+
+template <typename T, UfsDeviceInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.jedec_manfid < rhs.jedec_manfid)
+    return true;
+  if (rhs.jedec_manfid < lhs.jedec_manfid)
+    return false;
+  if (lhs.fwrev < rhs.fwrev)
+    return true;
+  if (rhs.fwrev < lhs.fwrev)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 NonRemovableBlockDeviceInfoPtr NonRemovableBlockDeviceInfo::Clone() const {
   return New(
       mojo::Clone(bytes_read_since_last_boot),
@@ -14748,6 +15542,7 @@ NonRemovableBlockDeviceInfoPtr NonRemovableBlockDeviceInfo::Clone() const {
       mojo::Clone(write_time_seconds_since_last_boot),
       mojo::Clone(io_time_seconds_since_last_boot),
       mojo::Clone(discard_time_seconds_since_last_boot),
+      mojo::Clone(device_info),
       mojo::Clone(vendor_id),
       mojo::Clone(product_id),
       mojo::Clone(revision),
@@ -14775,6 +15570,8 @@ bool NonRemovableBlockDeviceInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->io_time_seconds_since_last_boot, other_struct.io_time_seconds_since_last_boot))
     return false;
   if (!mojo::Equals(this->discard_time_seconds_since_last_boot, other_struct.discard_time_seconds_since_last_boot))
+    return false;
+  if (!mojo::Equals(this->device_info, other_struct.device_info))
     return false;
   if (!mojo::Equals(this->vendor_id, other_struct.vendor_id))
     return false;
@@ -14826,6 +15623,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.discard_time_seconds_since_last_boot < rhs.discard_time_seconds_since_last_boot)
     return true;
   if (rhs.discard_time_seconds_since_last_boot < lhs.discard_time_seconds_since_last_boot)
+    return false;
+  if (lhs.device_info < rhs.device_info)
+    return true;
+  if (rhs.device_info < lhs.device_info)
     return false;
   if (lhs.vendor_id < rhs.vendor_id)
     return true;
@@ -15812,7 +16613,8 @@ VpdInfoPtr VpdInfo::Clone() const {
       mojo::Clone(mfg_date),
       mojo::Clone(activate_date),
       mojo::Clone(sku_number),
-      mojo::Clone(model_name)
+      mojo::Clone(model_name),
+      mojo::Clone(oem_name)
   );
 }
 
@@ -15829,6 +16631,8 @@ bool VpdInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->sku_number, other_struct.sku_number))
     return false;
   if (!mojo::Equals(this->model_name, other_struct.model_name))
+    return false;
+  if (!mojo::Equals(this->oem_name, other_struct.oem_name))
     return false;
   return true;
 }
@@ -15858,6 +16662,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.model_name < rhs.model_name)
     return true;
   if (rhs.model_name < lhs.model_name)
+    return false;
+  if (lhs.oem_name < rhs.oem_name)
+    return true;
+  if (rhs.oem_name < lhs.oem_name)
     return false;
   return false;
 }
@@ -17939,6 +18747,86 @@ struct  StructTraits<::ash::cros_healthd::mojom::BatteryInfo::DataView,
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::NvmeDeviceInfo::DataView,
+                                         ::ash::cros_healthd::mojom::NvmeDeviceInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::NvmeDeviceInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::NvmeDeviceInfoPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::NvmeDeviceInfo::subsystem_vendor) subsystem_vendor(
+      const ::ash::cros_healthd::mojom::NvmeDeviceInfoPtr& input) {
+    return input->subsystem_vendor;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::NvmeDeviceInfo::subsystem_device) subsystem_device(
+      const ::ash::cros_healthd::mojom::NvmeDeviceInfoPtr& input) {
+    return input->subsystem_device;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::NvmeDeviceInfo::pcie_rev) pcie_rev(
+      const ::ash::cros_healthd::mojom::NvmeDeviceInfoPtr& input) {
+    return input->pcie_rev;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::NvmeDeviceInfo::firmware_rev) firmware_rev(
+      const ::ash::cros_healthd::mojom::NvmeDeviceInfoPtr& input) {
+    return input->firmware_rev;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::NvmeDeviceInfo::DataView input, ::ash::cros_healthd::mojom::NvmeDeviceInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::EmmcDeviceInfo::DataView,
+                                         ::ash::cros_healthd::mojom::EmmcDeviceInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::EmmcDeviceInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::EmmcDeviceInfoPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::EmmcDeviceInfo::manfid) manfid(
+      const ::ash::cros_healthd::mojom::EmmcDeviceInfoPtr& input) {
+    return input->manfid;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::EmmcDeviceInfo::pnm) pnm(
+      const ::ash::cros_healthd::mojom::EmmcDeviceInfoPtr& input) {
+    return input->pnm;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::EmmcDeviceInfo::prv) prv(
+      const ::ash::cros_healthd::mojom::EmmcDeviceInfoPtr& input) {
+    return input->prv;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::EmmcDeviceInfo::fwrev) fwrev(
+      const ::ash::cros_healthd::mojom::EmmcDeviceInfoPtr& input) {
+    return input->fwrev;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::EmmcDeviceInfo::DataView input, ::ash::cros_healthd::mojom::EmmcDeviceInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::UfsDeviceInfo::DataView,
+                                         ::ash::cros_healthd::mojom::UfsDeviceInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::UfsDeviceInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::UfsDeviceInfoPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::UfsDeviceInfo::jedec_manfid) jedec_manfid(
+      const ::ash::cros_healthd::mojom::UfsDeviceInfoPtr& input) {
+    return input->jedec_manfid;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::UfsDeviceInfo::fwrev) fwrev(
+      const ::ash::cros_healthd::mojom::UfsDeviceInfoPtr& input) {
+    return input->fwrev;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::UfsDeviceInfo::DataView input, ::ash::cros_healthd::mojom::UfsDeviceInfoPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::DataView,
                                          ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) { return !input; }
@@ -17972,6 +18860,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::Da
   static const decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::discard_time_seconds_since_last_boot)& discard_time_seconds_since_last_boot(
       const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->discard_time_seconds_since_last_boot;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::device_info)& device_info(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+    return input->device_info;
   }
 
   static const decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::vendor_id)& vendor_id(
@@ -18717,6 +19610,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::VpdInfo::DataView,
   static const decltype(::ash::cros_healthd::mojom::VpdInfo::model_name)& model_name(
       const ::ash::cros_healthd::mojom::VpdInfoPtr& input) {
     return input->model_name;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::VpdInfo::oem_name)& oem_name(
+      const ::ash::cros_healthd::mojom::VpdInfoPtr& input) {
+    return input->oem_name;
   }
 
   static bool Read(::ash::cros_healthd::mojom::VpdInfo::DataView input, ::ash::cros_healthd::mojom::VpdInfoPtr* output);
@@ -20199,6 +21097,36 @@ struct  UnionTraits<::ash::cros_healthd::mojom::BlockDeviceFirmware::DataView,
   }
 
   static bool Read(::ash::cros_healthd::mojom::BlockDeviceFirmware::DataView input, ::ash::cros_healthd::mojom::BlockDeviceFirmwarePtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::ash::cros_healthd::mojom::BlockDeviceInfo::DataView,
+                                        ::ash::cros_healthd::mojom::BlockDeviceInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BlockDeviceInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BlockDeviceInfoPtr* output) { output->reset(); }
+
+  static ::ash::cros_healthd::mojom::BlockDeviceInfo::Tag GetTag(const ::ash::cros_healthd::mojom::BlockDeviceInfoPtr& input) {
+    return input->which();
+  }
+
+  static  bool unrecognized(const ::ash::cros_healthd::mojom::BlockDeviceInfoPtr& input) {
+    return input->get_unrecognized();
+  }
+
+  static const ::ash::cros_healthd::mojom::NvmeDeviceInfoPtr& nvme_device_info(const ::ash::cros_healthd::mojom::BlockDeviceInfoPtr& input) {
+    return input->get_nvme_device_info();
+  }
+
+  static const ::ash::cros_healthd::mojom::EmmcDeviceInfoPtr& emmc_device_info(const ::ash::cros_healthd::mojom::BlockDeviceInfoPtr& input) {
+    return input->get_emmc_device_info();
+  }
+
+  static const ::ash::cros_healthd::mojom::UfsDeviceInfoPtr& ufs_device_info(const ::ash::cros_healthd::mojom::BlockDeviceInfoPtr& input) {
+    return input->get_ufs_device_info();
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::BlockDeviceInfo::DataView input, ::ash::cros_healthd::mojom::BlockDeviceInfoPtr* output);
 };
 
 

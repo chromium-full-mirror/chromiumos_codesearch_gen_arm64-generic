@@ -1145,6 +1145,73 @@ bool BlockDeviceFirmware_Data::Validate(
   }
 }
 // static
+bool BlockDeviceInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const BlockDeviceInfo_Data* object = static_cast<const BlockDeviceInfo_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case BlockDeviceInfo_Tag::kUnrecognized: {
+
+      return true;
+    }
+    case BlockDeviceInfo_Tag::kNvmeDeviceInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_nvme_device_info, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_nvme_device_info, validation_context))
+        return false;
+      return true;
+    }
+    case BlockDeviceInfo_Tag::kEmmcDeviceInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_emmc_device_info, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_emmc_device_info, validation_context))
+        return false;
+      return true;
+    }
+    case BlockDeviceInfo_Tag::kUfsDeviceInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_ufs_device_info, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_ufs_device_info, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      return true;
+    }
+  }
+}
+// static
 bool CpuResult_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context,
@@ -2636,13 +2703,86 @@ BatteryInfo_Data::BatteryInfo_Data()
 
 
 // static
-bool NonRemovableBlockDeviceInfo_Data::Validate(
+bool NvmeDeviceInfo_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 168, validation_context)) {
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const NvmeDeviceInfo_Data* object =
+      static_cast<const NvmeDeviceInfo_Data*>(data);
+
+  return true;
+}
+
+NvmeDeviceInfo_Data::NvmeDeviceInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool EmmcDeviceInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const EmmcDeviceInfo_Data* object =
+      static_cast<const EmmcDeviceInfo_Data*>(data);
+
+  return true;
+}
+
+EmmcDeviceInfo_Data::EmmcDeviceInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool UfsDeviceInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UfsDeviceInfo_Data* object =
+      static_cast<const UfsDeviceInfo_Data*>(data);
+
+  return true;
+}
+
+UfsDeviceInfo_Data::UfsDeviceInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool NonRemovableBlockDeviceInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 168 },
+    { 1, 184 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -2719,12 +2859,17 @@ bool NonRemovableBlockDeviceInfo_Data::Validate(
                                          &path_validate_params)) {
     return false;
   }
+  if (object->header_.version < 1)
+    return true;
+
+  if (!mojo::internal::ValidateInlinedUnion(object->device_info, validation_context))
+    return false;
 
   return true;
 }
 
 NonRemovableBlockDeviceInfo_Data::NonRemovableBlockDeviceInfo_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 1}) {}
 
 
 // static
@@ -3673,8 +3818,12 @@ bool VpdInfo_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 56, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 56 },
+    { 1, 64 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -3724,12 +3873,21 @@ bool VpdInfo_Data::Validate(
                                          &model_name_validate_params)) {
     return false;
   }
+  if (object->header_.version < 1)
+    return true;
+
+  constexpr const mojo::internal::ContainerValidateParams& oem_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->oem_name, validation_context,
+                                         &oem_name_validate_params)) {
+    return false;
+  }
 
   return true;
 }
 
 VpdInfo_Data::VpdInfo_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 1}) {}
 
 
 // static

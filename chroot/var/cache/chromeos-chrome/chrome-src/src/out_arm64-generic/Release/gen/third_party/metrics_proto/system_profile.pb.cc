@@ -53,7 +53,7 @@ PROTOBUF_CONSTEXPR SystemProfileProto_OS::SystemProfileProto_OS(
   , build_number_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , kernel_version_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , arc_(nullptr)
-  , is_jailbroken_(false)
+  , deprecated_is_jailbroken_(false)
   , dark_mode_state_(0)
 
   , xdg_session_type_(0)
@@ -383,6 +383,7 @@ PROTOBUF_CONSTEXPR SystemProfileProto_ChromeComponent::SystemProfileProto_Chrome
     ::_pbi::ConstantInitialized)
   : version_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , omaha_fingerprint_(0u)
+  , cohort_hash_(0u)
   , component_id_(1)
 {}
 struct SystemProfileProto_ChromeComponentDefaultTypeInternal {
@@ -3115,7 +3116,7 @@ class SystemProfileProto_OS::_Internal {
   static void set_has_build_fingerprint(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
-  static void set_has_is_jailbroken(HasBits* has_bits) {
+  static void set_has_deprecated_is_jailbroken(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
   static void set_has_build_number(HasBits* has_bits) {
@@ -3198,9 +3199,9 @@ SystemProfileProto_OS::SystemProfileProto_OS(const SystemProfileProto_OS& from)
   } else {
     arc_ = nullptr;
   }
-  ::memcpy(&is_jailbroken_, &from.is_jailbroken_,
+  ::memcpy(&deprecated_is_jailbroken_, &from.deprecated_is_jailbroken_,
     static_cast<size_t>(reinterpret_cast<char*>(&xdg_current_desktop_) -
-    reinterpret_cast<char*>(&is_jailbroken_)) + sizeof(xdg_current_desktop_));
+    reinterpret_cast<char*>(&deprecated_is_jailbroken_)) + sizeof(xdg_current_desktop_));
   // @@protoc_insertion_point(copy_constructor:metrics.SystemProfileProto.OS)
 }
 
@@ -3283,9 +3284,9 @@ void SystemProfileProto_OS::Clear() {
     }
   }
   if (cached_has_bits & 0x000000c0u) {
-    ::memset(&is_jailbroken_, 0, static_cast<size_t>(
+    ::memset(&deprecated_is_jailbroken_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&dark_mode_state_) -
-        reinterpret_cast<char*>(&is_jailbroken_)) + sizeof(dark_mode_state_));
+        reinterpret_cast<char*>(&deprecated_is_jailbroken_)) + sizeof(dark_mode_state_));
   }
   if (cached_has_bits & 0x00000300u) {
     ::memset(&xdg_session_type_, 0, static_cast<size_t>(
@@ -3330,11 +3331,11 @@ const char* SystemProfileProto_OS::_InternalParse(const char* ptr, ::_pbi::Parse
         } else
           goto handle_unusual;
         continue;
-      // optional bool is_jailbroken = 4;
+      // optional bool DEPRECATED_is_jailbroken = 4 [deprecated = true];
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          _Internal::set_has_is_jailbroken(&has_bits);
-          is_jailbroken_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _Internal::set_has_deprecated_is_jailbroken(&has_bits);
+          deprecated_is_jailbroken_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3453,10 +3454,10 @@ uint8_t* SystemProfileProto_OS::_InternalSerialize(
         3, this->_internal_build_fingerprint(), target);
   }
 
-  // optional bool is_jailbroken = 4;
+  // optional bool DEPRECATED_is_jailbroken = 4 [deprecated = true];
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_is_jailbroken(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_deprecated_is_jailbroken(), target);
   }
 
   // optional string build_number = 5;
@@ -3559,7 +3560,7 @@ size_t SystemProfileProto_OS::ByteSizeLong() const {
           *arc_);
     }
 
-    // optional bool is_jailbroken = 4;
+    // optional bool DEPRECATED_is_jailbroken = 4 [deprecated = true];
     if (cached_has_bits & 0x00000040u) {
       total_size += 1 + 1;
     }
@@ -3626,7 +3627,7 @@ void SystemProfileProto_OS::MergeFrom(const SystemProfileProto_OS& from) {
       _internal_mutable_arc()->::metrics::SystemProfileProto_OS_Arc::MergeFrom(from._internal_arc());
     }
     if (cached_has_bits & 0x00000040u) {
-      is_jailbroken_ = from.is_jailbroken_;
+      deprecated_is_jailbroken_ = from.deprecated_is_jailbroken_;
     }
     if (cached_has_bits & 0x00000080u) {
       dark_mode_state_ = from.dark_mode_state_;
@@ -10442,13 +10443,16 @@ class SystemProfileProto_ChromeComponent::_Internal {
  public:
   using HasBits = decltype(std::declval<SystemProfileProto_ChromeComponent>()._has_bits_);
   static void set_has_component_id(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 8u;
   }
   static void set_has_version(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_omaha_fingerprint(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
+  }
+  static void set_has_cohort_hash(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
   }
 };
 
@@ -10481,7 +10485,10 @@ version_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   version_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-omaha_fingerprint_ = 0u;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&omaha_fingerprint_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&cohort_hash_) -
+    reinterpret_cast<char*>(&omaha_fingerprint_)) + sizeof(cohort_hash_));
 component_id_ = 1;
 }
 
@@ -10513,8 +10520,10 @@ void SystemProfileProto_ChromeComponent::Clear() {
   if (cached_has_bits & 0x00000001u) {
     version_.ClearNonDefaultToEmpty();
   }
-  if (cached_has_bits & 0x00000006u) {
-    omaha_fingerprint_ = 0u;
+  if (cached_has_bits & 0x0000000eu) {
+    ::memset(&omaha_fingerprint_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&cohort_hash_) -
+        reinterpret_cast<char*>(&omaha_fingerprint_)) + sizeof(cohort_hash_));
     component_id_ = 1;
   }
   _has_bits_.Clear();
@@ -10559,6 +10568,15 @@ const char* SystemProfileProto_ChromeComponent::_InternalParse(const char* ptr, 
         } else
           goto handle_unusual;
         continue;
+      // optional fixed32 cohort_hash = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 37)) {
+          _Internal::set_has_cohort_hash(&has_bits);
+          cohort_hash_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<uint32_t>(ptr);
+          ptr += sizeof(uint32_t);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -10591,7 +10609,7 @@ uint8_t* SystemProfileProto_ChromeComponent::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional .metrics.SystemProfileProto.ComponentId component_id = 1 [default = UNKNOWN];
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_component_id(), target);
@@ -10607,6 +10625,12 @@ uint8_t* SystemProfileProto_ChromeComponent::_InternalSerialize(
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteFixed32ToArray(3, this->_internal_omaha_fingerprint(), target);
+  }
+
+  // optional fixed32 cohort_hash = 4;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteFixed32ToArray(4, this->_internal_cohort_hash(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -10626,7 +10650,7 @@ size_t SystemProfileProto_ChromeComponent::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     // optional string version = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -10639,8 +10663,13 @@ size_t SystemProfileProto_ChromeComponent::ByteSizeLong() const {
       total_size += 1 + 4;
     }
 
-    // optional .metrics.SystemProfileProto.ComponentId component_id = 1 [default = UNKNOWN];
+    // optional fixed32 cohort_hash = 4;
     if (cached_has_bits & 0x00000004u) {
+      total_size += 1 + 4;
+    }
+
+    // optional .metrics.SystemProfileProto.ComponentId component_id = 1 [default = UNKNOWN];
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_component_id());
     }
@@ -10667,7 +10696,7 @@ void SystemProfileProto_ChromeComponent::MergeFrom(const SystemProfileProto_Chro
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_version(from._internal_version());
     }
@@ -10675,6 +10704,9 @@ void SystemProfileProto_ChromeComponent::MergeFrom(const SystemProfileProto_Chro
       omaha_fingerprint_ = from.omaha_fingerprint_;
     }
     if (cached_has_bits & 0x00000004u) {
+      cohort_hash_ = from.cohort_hash_;
+    }
+    if (cached_has_bits & 0x00000008u) {
       component_id_ = from.component_id_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -10703,7 +10735,12 @@ void SystemProfileProto_ChromeComponent::InternalSwap(SystemProfileProto_ChromeC
       &version_, lhs_arena,
       &other->version_, rhs_arena
   );
-  swap(omaha_fingerprint_, other->omaha_fingerprint_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(SystemProfileProto_ChromeComponent, cohort_hash_)
+      + sizeof(SystemProfileProto_ChromeComponent::cohort_hash_)
+      - PROTOBUF_FIELD_OFFSET(SystemProfileProto_ChromeComponent, omaha_fingerprint_)>(
+          reinterpret_cast<char*>(&omaha_fingerprint_),
+          reinterpret_cast<char*>(&other->omaha_fingerprint_));
   swap(component_id_, other->component_id_);
 }
 

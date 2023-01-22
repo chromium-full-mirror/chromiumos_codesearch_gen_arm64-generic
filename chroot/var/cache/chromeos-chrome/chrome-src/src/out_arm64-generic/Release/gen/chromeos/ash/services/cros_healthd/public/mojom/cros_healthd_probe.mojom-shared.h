@@ -44,6 +44,12 @@ class ProcessInfoDataView;
 
 class BatteryInfoDataView;
 
+class NvmeDeviceInfoDataView;
+
+class EmmcDeviceInfoDataView;
+
+class UfsDeviceInfoDataView;
+
 class NonRemovableBlockDeviceInfoDataView;
 
 class CpuInfoDataView;
@@ -165,6 +171,7 @@ class BlockDeviceVendorDataView;
 class BlockDeviceProductDataView;
 class BlockDeviceRevisionDataView;
 class BlockDeviceFirmwareDataView;
+class BlockDeviceInfoDataView;
 class CpuResultDataView;
 class TimezoneResultDataView;
 class MemoryResultDataView;
@@ -220,6 +227,27 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::ProcessInfoDataView> {
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::BatteryInfoDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::BatteryInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::NvmeDeviceInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::NvmeDeviceInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::EmmcDeviceInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::EmmcDeviceInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::UfsDeviceInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::UfsDeviceInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -668,6 +696,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::BlockDeviceRevisionDataView> 
 template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::BlockDeviceFirmwareDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::BlockDeviceFirmware_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BlockDeviceInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BlockDeviceInfo_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
@@ -1880,6 +1915,84 @@ static_assert(
 
 
 
+class NvmeDeviceInfoDataView {
+ public:
+  NvmeDeviceInfoDataView() = default;
+
+  NvmeDeviceInfoDataView(
+      internal::NvmeDeviceInfo_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint32_t subsystem_vendor() const {
+    return data_->subsystem_vendor;
+  }
+  uint32_t subsystem_device() const {
+    return data_->subsystem_device;
+  }
+  uint8_t pcie_rev() const {
+    return data_->pcie_rev;
+  }
+  uint64_t firmware_rev() const {
+    return data_->firmware_rev;
+  }
+ private:
+  internal::NvmeDeviceInfo_Data* data_ = nullptr;
+};
+
+
+
+class EmmcDeviceInfoDataView {
+ public:
+  EmmcDeviceInfoDataView() = default;
+
+  EmmcDeviceInfoDataView(
+      internal::EmmcDeviceInfo_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint16_t manfid() const {
+    return data_->manfid;
+  }
+  uint64_t pnm() const {
+    return data_->pnm;
+  }
+  uint8_t prv() const {
+    return data_->prv;
+  }
+  uint64_t fwrev() const {
+    return data_->fwrev;
+  }
+ private:
+  internal::EmmcDeviceInfo_Data* data_ = nullptr;
+};
+
+
+
+class UfsDeviceInfoDataView {
+ public:
+  UfsDeviceInfoDataView() = default;
+
+  UfsDeviceInfoDataView(
+      internal::UfsDeviceInfo_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint16_t jedec_manfid() const {
+    return data_->jedec_manfid;
+  }
+  uint64_t fwrev() const {
+    return data_->fwrev;
+  }
+ private:
+  internal::UfsDeviceInfo_Data* data_ = nullptr;
+};
+
+
+
 class NonRemovableBlockDeviceInfoDataView {
  public:
   NonRemovableBlockDeviceInfoDataView() = default;
@@ -2013,6 +2126,27 @@ static_assert(
   }
   uint32_t serial() const {
     return data_->serial;
+  }
+  inline void GetDeviceInfoDataView(
+      BlockDeviceInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDeviceInfo(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::BlockDeviceInfoDataView, UserType>(),
+    "Attempting to read the optional `device_info` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadDeviceInfo` instead "
+    "of `ReadDeviceInfo if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1 && !data_->device_info.is_null()
+                    ? &data_->device_info : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BlockDeviceInfoDataView>(
+        pointer, output, message_);
   }
  private:
   internal::NonRemovableBlockDeviceInfo_Data* data_ = nullptr;
@@ -3418,6 +3552,27 @@ static_assert(
     "of `ReadModelName if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->model_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetOemNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOemName(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `oem_name` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadOemName` instead "
+    "of `ReadOemName if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->oem_name.Get() : nullptr;
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
@@ -6529,6 +6684,70 @@ class BlockDeviceFirmwareDataView {
 
 
 
+class BlockDeviceInfoDataView {
+ public:
+  using Tag = internal::BlockDeviceInfo_Data::BlockDeviceInfo_Tag;
+
+  BlockDeviceInfoDataView() = default;
+
+  BlockDeviceInfoDataView(
+      internal::BlockDeviceInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_unrecognized() const { return data_->tag == Tag::kUnrecognized; }
+  bool unrecognized() const {
+    CHECK(is_unrecognized());
+    return data_->data.f_unrecognized;
+  }
+  bool is_nvme_device_info() const { return data_->tag == Tag::kNvmeDeviceInfo; }
+  inline void GetNvmeDeviceInfoDataView(
+      NvmeDeviceInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadNvmeDeviceInfo(UserType* output) const {
+    
+    CHECK(is_nvme_device_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NvmeDeviceInfoDataView>(
+        data_->data.f_nvme_device_info.Get(), output, message_);
+  }
+  bool is_emmc_device_info() const { return data_->tag == Tag::kEmmcDeviceInfo; }
+  inline void GetEmmcDeviceInfoDataView(
+      EmmcDeviceInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadEmmcDeviceInfo(UserType* output) const {
+    
+    CHECK(is_emmc_device_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::EmmcDeviceInfoDataView>(
+        data_->data.f_emmc_device_info.Get(), output, message_);
+  }
+  bool is_ufs_device_info() const { return data_->tag == Tag::kUfsDeviceInfo; }
+  inline void GetUfsDeviceInfoDataView(
+      UfsDeviceInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadUfsDeviceInfo(UserType* output) const {
+    
+    CHECK(is_ufs_device_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UfsDeviceInfoDataView>(
+        data_->data.f_ufs_device_info.Get(), output, message_);
+  }
+
+ private:
+  internal::BlockDeviceInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 class CpuResultDataView {
  public:
   using Tag = internal::CpuResult_Data::CpuResult_Tag;
@@ -8426,6 +8645,103 @@ struct Serializer<::ash::cros_healthd::mojom::BatteryInfoDataView, MaybeConstUse
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::NvmeDeviceInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::NvmeDeviceInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::NvmeDeviceInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->subsystem_vendor = Traits::subsystem_vendor(input);
+    fragment->subsystem_device = Traits::subsystem_device(input);
+    fragment->pcie_rev = Traits::pcie_rev(input);
+    fragment->firmware_rev = Traits::firmware_rev(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::NvmeDeviceInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::NvmeDeviceInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::EmmcDeviceInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::EmmcDeviceInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::EmmcDeviceInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->manfid = Traits::manfid(input);
+    fragment->pnm = Traits::pnm(input);
+    fragment->prv = Traits::prv(input);
+    fragment->fwrev = Traits::fwrev(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::EmmcDeviceInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::EmmcDeviceInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::UfsDeviceInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::UfsDeviceInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::UfsDeviceInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->jedec_manfid = Traits::jedec_manfid(input);
+    fragment->fwrev = Traits::fwrev(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::UfsDeviceInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::UfsDeviceInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataView, UserType>;
@@ -8530,6 +8846,12 @@ struct Serializer<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataVie
         "null path in NonRemovableBlockDeviceInfo struct");
     fragment->manufacturer_id = Traits::manufacturer_id(input);
     fragment->serial = Traits::serial(input);
+    decltype(Traits::device_info(input)) in_device_info = Traits::device_info(input);
+    mojo::internal::MessageFragment<decltype(fragment->device_info)>
+        device_info_fragment(fragment.message());
+    device_info_fragment.Claim(&fragment->device_info);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BlockDeviceInfoDataView>(
+        in_device_info, device_info_fragment, true);
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::NonRemovableBlockDeviceInfo_Data* input,
@@ -9739,6 +10061,14 @@ struct Serializer<::ash::cros_healthd::mojom::VpdInfoDataView, MaybeConstUserTyp
         in_model_name, model_name_fragment);
     fragment->model_name.Set(
         model_name_fragment.is_null() ? nullptr : model_name_fragment.data());
+    decltype(Traits::oem_name(input)) in_oem_name = Traits::oem_name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->oem_name)::BaseType> oem_name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_oem_name, oem_name_fragment);
+    fragment->oem_name.Set(
+        oem_name_fragment.is_null() ? nullptr : oem_name_fragment.data());
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::VpdInfo_Data* input,
@@ -12383,6 +12713,101 @@ struct Serializer<::ash::cros_healthd::mojom::BlockDeviceFirmwareDataView, Maybe
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::BlockDeviceInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::BlockDeviceInfoDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::BlockDeviceInfo_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::BlockDeviceInfoDataView::Tag::kUnrecognized: {
+        decltype(Traits::unrecognized(input))
+            in_unrecognized = Traits::unrecognized(input);
+        fragment->data.f_unrecognized = in_unrecognized;
+        break;
+      }
+      case ::ash::cros_healthd::mojom::BlockDeviceInfoDataView::Tag::kNvmeDeviceInfo: {
+        decltype(Traits::nvme_device_info(input))
+            in_nvme_device_info = Traits::nvme_device_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_nvme_device_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::NvmeDeviceInfoDataView>(
+            in_nvme_device_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null nvme_device_info in BlockDeviceInfo union");
+        fragment->data.f_nvme_device_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::BlockDeviceInfoDataView::Tag::kEmmcDeviceInfo: {
+        decltype(Traits::emmc_device_info(input))
+            in_emmc_device_info = Traits::emmc_device_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_emmc_device_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::EmmcDeviceInfoDataView>(
+            in_emmc_device_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null emmc_device_info in BlockDeviceInfo union");
+        fragment->data.f_emmc_device_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::BlockDeviceInfoDataView::Tag::kUfsDeviceInfo: {
+        decltype(Traits::ufs_device_info(input))
+            in_ufs_device_info = Traits::ufs_device_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_ufs_device_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::UfsDeviceInfoDataView>(
+            in_ufs_device_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null ufs_device_info in BlockDeviceInfo union");
+        fragment->data.f_ufs_device_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BlockDeviceInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::BlockDeviceInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::CpuResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::ash::cros_healthd::mojom::CpuResultDataView, UserType>;
@@ -14061,6 +14486,12 @@ inline void BatteryInfoDataView::GetTemperatureDataView(
 }
 
 
+
+
+
+
+
+
 inline void NonRemovableBlockDeviceInfoDataView::GetDiscardTimeSecondsSinceLastBootDataView(
     ::ash::cros_healthd::mojom::NullableUint64DataView* output) {
   auto pointer = data_->discard_time_seconds_since_last_boot.Get();
@@ -14100,6 +14531,12 @@ inline void NonRemovableBlockDeviceInfoDataView::GetPathDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->path.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+inline void NonRemovableBlockDeviceInfoDataView::GetDeviceInfoDataView(
+    BlockDeviceInfoDataView* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? &data_->device_info : nullptr;
+  *output = BlockDeviceInfoDataView(pointer, message_);
 }
 
 
@@ -14416,6 +14853,12 @@ inline void VpdInfoDataView::GetSkuNumberDataView(
 inline void VpdInfoDataView::GetModelNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->model_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void VpdInfoDataView::GetOemNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->oem_name.Get() : nullptr;
   *output = mojo::StringDataView(pointer, message_);
 }
 
@@ -15123,6 +15566,22 @@ inline void NonRemovableBlockDeviceResultDataView::GetErrorDataView(
 
 
 
+
+inline void BlockDeviceInfoDataView::GetNvmeDeviceInfoDataView(
+    NvmeDeviceInfoDataView* output) const {
+  CHECK(is_nvme_device_info());
+  *output = NvmeDeviceInfoDataView(data_->data.f_nvme_device_info.Get(), message_);
+}
+inline void BlockDeviceInfoDataView::GetEmmcDeviceInfoDataView(
+    EmmcDeviceInfoDataView* output) const {
+  CHECK(is_emmc_device_info());
+  *output = EmmcDeviceInfoDataView(data_->data.f_emmc_device_info.Get(), message_);
+}
+inline void BlockDeviceInfoDataView::GetUfsDeviceInfoDataView(
+    UfsDeviceInfoDataView* output) const {
+  CHECK(is_ufs_device_info());
+  *output = UfsDeviceInfoDataView(data_->data.f_ufs_device_info.Get(), message_);
+}
 
 inline void CpuResultDataView::GetCpuInfoDataView(
     CpuInfoDataView* output) const {

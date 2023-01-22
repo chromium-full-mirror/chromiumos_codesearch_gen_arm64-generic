@@ -1301,8 +1301,8 @@ class CORE_EXPORT TrustTokenParams : public ::crdtp::ProtocolObject<TrustTokenPa
 public:
     ~TrustTokenParams() override { }
 
-    String getType() { return m_type; }
-    void setType(const String& value) { m_type = value; }
+    String getOperation() { return m_operation; }
+    void setOperation(const String& value) { m_operation = value; }
 
     struct CORE_EXPORT RefreshPolicyEnum {
         static const char* UseCached;
@@ -1321,16 +1321,16 @@ public:
     public:
         enum {
             NoFieldsSet = 0,
-            TypeSet = 1 << 1,
+            OperationSet = 1 << 1,
             RefreshPolicySet = 1 << 2,
-            AllFieldsSet = (TypeSet | RefreshPolicySet | 0)};
+            AllFieldsSet = (OperationSet | RefreshPolicySet | 0)};
 
 
-        TrustTokenParamsBuilder<STATE | TypeSet>& setType(const String& value)
+        TrustTokenParamsBuilder<STATE | OperationSet>& setOperation(const String& value)
         {
-            static_assert(!(STATE & TypeSet), "property type should not be set yet");
-            m_result->setType(value);
-            return castState<TypeSet>();
+            static_assert(!(STATE & OperationSet), "property operation should not be set yet");
+            m_result->setOperation(value);
+            return castState<OperationSet>();
         }
 
         TrustTokenParamsBuilder<STATE | RefreshPolicySet>& setRefreshPolicy(const String& value)
@@ -1376,7 +1376,7 @@ private:
     {
     }
 
-    String m_type;
+    String m_operation;
     String m_refreshPolicy;
     Maybe<protocol::Array<String>> m_issuers;
 };

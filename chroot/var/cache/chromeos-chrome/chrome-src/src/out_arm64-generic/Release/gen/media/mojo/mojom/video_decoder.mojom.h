@@ -113,6 +113,9 @@ class VideoDecoder
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = true;
+  static inline constexpr uint32_t kSyncMethodOrdinals[] = {
+    0
+  };
   static constexpr bool HasUninterruptableMethods_ = false;
 
   using Base_ = VideoDecoderInterfaceBase;
@@ -156,6 +159,10 @@ class VideoDecoder
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~VideoDecoder() = default;
 
+  // Sync method. This signature is used by the client side; the service side
+  // should implement the signature with callback below.
+  
+  virtual bool GetSupportedConfigs(std::vector<::media::SupportedVideoDecoderConfig>* out_supported_configs, ::media::VideoDecoderType* out_decoder_type);
 
   using GetSupportedConfigsCallback = base::OnceCallback<void(const std::vector<::media::SupportedVideoDecoderConfig>&, ::media::VideoDecoderType)>;
   
@@ -265,6 +272,8 @@ class  VideoDecoderProxy
   using InterfaceType = VideoDecoder;
 
   explicit VideoDecoderProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  bool GetSupportedConfigs(std::vector<::media::SupportedVideoDecoderConfig>* out_supported_configs, ::media::VideoDecoderType* out_decoder_type) final;
   
   void GetSupportedConfigs(GetSupportedConfigsCallback callback) final;
   

@@ -349,12 +349,12 @@ const char* TrustTokenParams::RefreshPolicyEnum::UseCached = "UseCached";
 const char* TrustTokenParams::RefreshPolicyEnum::Refresh = "Refresh";
 CRDTP_BEGIN_DESERIALIZER(TrustTokenParams)
     CRDTP_DESERIALIZE_FIELD_OPT("issuers", m_issuers),
+    CRDTP_DESERIALIZE_FIELD("operation", m_operation),
     CRDTP_DESERIALIZE_FIELD("refreshPolicy", m_refreshPolicy),
-    CRDTP_DESERIALIZE_FIELD("type", m_type),
 CRDTP_END_DESERIALIZER()
 
 CRDTP_BEGIN_SERIALIZER(TrustTokenParams)
-    CRDTP_SERIALIZE_FIELD("type", m_type);
+    CRDTP_SERIALIZE_FIELD("operation", m_operation);
     CRDTP_SERIALIZE_FIELD("refreshPolicy", m_refreshPolicy);
     CRDTP_SERIALIZE_FIELD("issuers", m_issuers);
 CRDTP_END_SERIALIZER();

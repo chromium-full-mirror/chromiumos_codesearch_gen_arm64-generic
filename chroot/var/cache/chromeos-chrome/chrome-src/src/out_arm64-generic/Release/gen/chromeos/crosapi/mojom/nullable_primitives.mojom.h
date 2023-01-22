@@ -318,6 +318,144 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  UInt8Value {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<UInt8Value, T>::value>;
+  using DataView = UInt8ValueDataView;
+  using Data_ = internal::UInt8Value_Data;
+
+  template <typename... Args>
+  static UInt8ValuePtr New(Args&&... args) {
+    return UInt8ValuePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static UInt8ValuePtr From(const U& u) {
+    return mojo::TypeConverter<UInt8ValuePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, UInt8Value>::Convert(*this);
+  }
+
+
+  UInt8Value();
+
+  explicit UInt8Value(
+      uint8_t value);
+
+
+  ~UInt8Value();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = UInt8ValuePtr>
+  UInt8ValuePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, UInt8Value::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, UInt8Value::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        UInt8Value::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        UInt8Value::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::UInt8Value_UnserializedMessageContext<
+            UserType, UInt8Value::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<UInt8Value::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return UInt8Value::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::UInt8Value_UnserializedMessageContext<
+            UserType, UInt8Value::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<UInt8Value::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint8_t value;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, UInt8Value::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, UInt8Value::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, UInt8Value::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, UInt8Value::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  UInt32Value {
  public:
   template <typename T>
@@ -735,6 +873,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 template <typename StructPtrType>
 DoubleValuePtr DoubleValue::Clone() const {
   return New(
@@ -772,6 +911,28 @@ bool Int64Value::Equals(const T& other_struct) const {
 }
 
 template <typename T, Int64Value::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.value < rhs.value)
+    return true;
+  if (rhs.value < lhs.value)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+UInt8ValuePtr UInt8Value::Clone() const {
+  return New(
+      mojo::Clone(value)
+  );
+}
+
+template <typename T, UInt8Value::EnableIfSame<T>*>
+bool UInt8Value::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->value, other_struct.value))
+    return false;
+  return true;
+}
+
+template <typename T, UInt8Value::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
   if (lhs.value < rhs.value)
     return true;
@@ -880,6 +1041,21 @@ struct  StructTraits<::crosapi::mojom::Int64Value::DataView,
   }
 
   static bool Read(::crosapi::mojom::Int64Value::DataView input, ::crosapi::mojom::Int64ValuePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::crosapi::mojom::UInt8Value::DataView,
+                                         ::crosapi::mojom::UInt8ValuePtr> {
+  static bool IsNull(const ::crosapi::mojom::UInt8ValuePtr& input) { return !input; }
+  static void SetToNull(::crosapi::mojom::UInt8ValuePtr* output) { output->reset(); }
+
+  static decltype(::crosapi::mojom::UInt8Value::value) value(
+      const ::crosapi::mojom::UInt8ValuePtr& input) {
+    return input->value;
+  }
+
+  static bool Read(::crosapi::mojom::UInt8Value::DataView input, ::crosapi::mojom::UInt8ValuePtr* output);
 };
 
 

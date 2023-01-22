@@ -113,6 +113,38 @@ bool Int64Value::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+UInt8Value::UInt8Value()
+    : value() {}
+
+UInt8Value::UInt8Value(
+    uint8_t value_in)
+    : value(std::move(value_in)) {}
+
+UInt8Value::~UInt8Value() = default;
+size_t UInt8Value::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->value);
+  return seed;
+}
+
+void UInt8Value::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "value"), this->value,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool UInt8Value::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 UInt32Value::UInt32Value()
     : value() {}
 
@@ -238,6 +270,20 @@ bool StructTraits<::crosapi::mojom::Int64Value::DataView, ::crosapi::mojom::Int6
     ::crosapi::mojom::Int64ValuePtr* output) {
   bool success = true;
   ::crosapi::mojom::Int64ValuePtr result(::crosapi::mojom::Int64Value::New());
+  
+      if (success)
+        result->value = input.value();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::crosapi::mojom::UInt8Value::DataView, ::crosapi::mojom::UInt8ValuePtr>::Read(
+    ::crosapi::mojom::UInt8Value::DataView input,
+    ::crosapi::mojom::UInt8ValuePtr* output) {
+  bool success = true;
+  ::crosapi::mojom::UInt8ValuePtr result(::crosapi::mojom::UInt8Value::New());
   
       if (success)
         result->value = input.value();

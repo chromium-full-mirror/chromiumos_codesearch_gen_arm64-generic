@@ -32,6 +32,12 @@ class ProcessInfoDataView;
 
 class BatteryInfoDataView;
 
+class NvmeDeviceInfoDataView;
+
+class EmmcDeviceInfoDataView;
+
+class UfsDeviceInfoDataView;
+
 class NonRemovableBlockDeviceInfoDataView;
 
 class CpuInfoDataView;
@@ -153,6 +159,7 @@ class BlockDeviceVendorDataView;
 class BlockDeviceProductDataView;
 class BlockDeviceRevisionDataView;
 class BlockDeviceFirmwareDataView;
+class BlockDeviceInfoDataView;
 class CpuResultDataView;
 class TimezoneResultDataView;
 class MemoryResultDataView;
@@ -232,6 +239,15 @@ using ProcessInfoPtr = mojo::StructPtr<ProcessInfo>;
 
 class BatteryInfo;
 using BatteryInfoPtr = mojo::StructPtr<BatteryInfo>;
+
+class NvmeDeviceInfo;
+using NvmeDeviceInfoPtr = mojo::InlinedStructPtr<NvmeDeviceInfo>;
+
+class EmmcDeviceInfo;
+using EmmcDeviceInfoPtr = mojo::InlinedStructPtr<EmmcDeviceInfo>;
+
+class UfsDeviceInfo;
+using UfsDeviceInfoPtr = mojo::InlinedStructPtr<UfsDeviceInfo>;
 
 class NonRemovableBlockDeviceInfo;
 using NonRemovableBlockDeviceInfoPtr = mojo::StructPtr<NonRemovableBlockDeviceInfo>;
@@ -431,6 +447,10 @@ using BlockDeviceRevisionPtr = mojo::InlinedStructPtr<BlockDeviceRevision>;
 class BlockDeviceFirmware;
 
 using BlockDeviceFirmwarePtr = mojo::InlinedStructPtr<BlockDeviceFirmware>;
+
+class BlockDeviceInfo;
+
+using BlockDeviceInfoPtr = mojo::StructPtr<BlockDeviceInfo>;
 
 class CpuResult;
 

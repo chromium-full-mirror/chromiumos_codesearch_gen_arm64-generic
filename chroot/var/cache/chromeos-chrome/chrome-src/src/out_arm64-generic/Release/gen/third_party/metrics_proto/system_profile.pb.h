@@ -1306,7 +1306,7 @@ class SystemProfileProto_OS final :
     kBuildNumberFieldNumber = 5,
     kKernelVersionFieldNumber = 6,
     kArcFieldNumber = 7,
-    kIsJailbrokenFieldNumber = 4,
+    kDEPRECATEDIsJailbrokenFieldNumber = 4,
     kDarkModeStateFieldNumber = 8,
     kXdgSessionTypeFieldNumber = 9,
     kXdgCurrentDesktopFieldNumber = 10,
@@ -1419,17 +1419,17 @@ class SystemProfileProto_OS final :
       ::metrics::SystemProfileProto_OS_Arc* arc);
   ::metrics::SystemProfileProto_OS_Arc* unsafe_arena_release_arc();
 
-  // optional bool is_jailbroken = 4;
-  bool has_is_jailbroken() const;
+  // optional bool DEPRECATED_is_jailbroken = 4 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_deprecated_is_jailbroken() const;
   private:
-  bool _internal_has_is_jailbroken() const;
+  bool _internal_has_deprecated_is_jailbroken() const;
   public:
-  void clear_is_jailbroken();
-  bool is_jailbroken() const;
-  void set_is_jailbroken(bool value);
+  PROTOBUF_DEPRECATED void clear_deprecated_is_jailbroken();
+  PROTOBUF_DEPRECATED bool deprecated_is_jailbroken() const;
+  PROTOBUF_DEPRECATED void set_deprecated_is_jailbroken(bool value);
   private:
-  bool _internal_is_jailbroken() const;
-  void _internal_set_is_jailbroken(bool value);
+  bool _internal_deprecated_is_jailbroken() const;
+  void _internal_set_deprecated_is_jailbroken(bool value);
   public:
 
   // optional .metrics.SystemProfileProto.OS.DarkModeState dark_mode_state = 8 [default = UNKNOWN];
@@ -1486,7 +1486,7 @@ class SystemProfileProto_OS final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr build_number_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr kernel_version_;
   ::metrics::SystemProfileProto_OS_Arc* arc_;
-  bool is_jailbroken_;
+  bool deprecated_is_jailbroken_;
   int dark_mode_state_;
   int xdg_session_type_;
   int xdg_current_desktop_;
@@ -6038,6 +6038,7 @@ class SystemProfileProto_ChromeComponent final :
   enum : int {
     kVersionFieldNumber = 2,
     kOmahaFingerprintFieldNumber = 3,
+    kCohortHashFieldNumber = 4,
     kComponentIdFieldNumber = 1,
   };
   // optional string version = 2;
@@ -6071,6 +6072,19 @@ class SystemProfileProto_ChromeComponent final :
   void _internal_set_omaha_fingerprint(uint32_t value);
   public:
 
+  // optional fixed32 cohort_hash = 4;
+  bool has_cohort_hash() const;
+  private:
+  bool _internal_has_cohort_hash() const;
+  public:
+  void clear_cohort_hash();
+  uint32_t cohort_hash() const;
+  void set_cohort_hash(uint32_t value);
+  private:
+  uint32_t _internal_cohort_hash() const;
+  void _internal_set_cohort_hash(uint32_t value);
+  public:
+
   // optional .metrics.SystemProfileProto.ComponentId component_id = 1 [default = UNKNOWN];
   bool has_component_id() const;
   private:
@@ -6095,6 +6109,7 @@ class SystemProfileProto_ChromeComponent final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr version_;
   uint32_t omaha_fingerprint_;
+  uint32_t cohort_hash_;
   int component_id_;
   friend struct ::TableStruct_system_5fprofile_2eproto;
 };
@@ -8220,32 +8235,32 @@ inline void SystemProfileProto_OS::set_allocated_build_fingerprint(std::string* 
   // @@protoc_insertion_point(field_set_allocated:metrics.SystemProfileProto.OS.build_fingerprint)
 }
 
-// optional bool is_jailbroken = 4;
-inline bool SystemProfileProto_OS::_internal_has_is_jailbroken() const {
+// optional bool DEPRECATED_is_jailbroken = 4 [deprecated = true];
+inline bool SystemProfileProto_OS::_internal_has_deprecated_is_jailbroken() const {
   bool value = (_has_bits_[0] & 0x00000040u) != 0;
   return value;
 }
-inline bool SystemProfileProto_OS::has_is_jailbroken() const {
-  return _internal_has_is_jailbroken();
+inline bool SystemProfileProto_OS::has_deprecated_is_jailbroken() const {
+  return _internal_has_deprecated_is_jailbroken();
 }
-inline void SystemProfileProto_OS::clear_is_jailbroken() {
-  is_jailbroken_ = false;
+inline void SystemProfileProto_OS::clear_deprecated_is_jailbroken() {
+  deprecated_is_jailbroken_ = false;
   _has_bits_[0] &= ~0x00000040u;
 }
-inline bool SystemProfileProto_OS::_internal_is_jailbroken() const {
-  return is_jailbroken_;
+inline bool SystemProfileProto_OS::_internal_deprecated_is_jailbroken() const {
+  return deprecated_is_jailbroken_;
 }
-inline bool SystemProfileProto_OS::is_jailbroken() const {
-  // @@protoc_insertion_point(field_get:metrics.SystemProfileProto.OS.is_jailbroken)
-  return _internal_is_jailbroken();
+inline bool SystemProfileProto_OS::deprecated_is_jailbroken() const {
+  // @@protoc_insertion_point(field_get:metrics.SystemProfileProto.OS.DEPRECATED_is_jailbroken)
+  return _internal_deprecated_is_jailbroken();
 }
-inline void SystemProfileProto_OS::_internal_set_is_jailbroken(bool value) {
+inline void SystemProfileProto_OS::_internal_set_deprecated_is_jailbroken(bool value) {
   _has_bits_[0] |= 0x00000040u;
-  is_jailbroken_ = value;
+  deprecated_is_jailbroken_ = value;
 }
-inline void SystemProfileProto_OS::set_is_jailbroken(bool value) {
-  _internal_set_is_jailbroken(value);
-  // @@protoc_insertion_point(field_set:metrics.SystemProfileProto.OS.is_jailbroken)
+inline void SystemProfileProto_OS::set_deprecated_is_jailbroken(bool value) {
+  _internal_set_deprecated_is_jailbroken(value);
+  // @@protoc_insertion_point(field_set:metrics.SystemProfileProto.OS.DEPRECATED_is_jailbroken)
 }
 
 // optional string build_number = 5;
@@ -13471,7 +13486,7 @@ inline void SystemProfileProto_AntiVirusProduct::set_product_state(::metrics::Sy
 
 // optional .metrics.SystemProfileProto.ComponentId component_id = 1 [default = UNKNOWN];
 inline bool SystemProfileProto_ChromeComponent::_internal_has_component_id() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool SystemProfileProto_ChromeComponent::has_component_id() const {
@@ -13479,7 +13494,7 @@ inline bool SystemProfileProto_ChromeComponent::has_component_id() const {
 }
 inline void SystemProfileProto_ChromeComponent::clear_component_id() {
   component_id_ = 1;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline ::metrics::SystemProfileProto_ComponentId SystemProfileProto_ChromeComponent::_internal_component_id() const {
   return static_cast< ::metrics::SystemProfileProto_ComponentId >(component_id_);
@@ -13490,7 +13505,7 @@ inline ::metrics::SystemProfileProto_ComponentId SystemProfileProto_ChromeCompon
 }
 inline void SystemProfileProto_ChromeComponent::_internal_set_component_id(::metrics::SystemProfileProto_ComponentId value) {
   assert(::metrics::SystemProfileProto_ComponentId_IsValid(value));
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   component_id_ = value;
 }
 inline void SystemProfileProto_ChromeComponent::set_component_id(::metrics::SystemProfileProto_ComponentId value) {
@@ -13592,6 +13607,34 @@ inline void SystemProfileProto_ChromeComponent::_internal_set_omaha_fingerprint(
 inline void SystemProfileProto_ChromeComponent::set_omaha_fingerprint(uint32_t value) {
   _internal_set_omaha_fingerprint(value);
   // @@protoc_insertion_point(field_set:metrics.SystemProfileProto.ChromeComponent.omaha_fingerprint)
+}
+
+// optional fixed32 cohort_hash = 4;
+inline bool SystemProfileProto_ChromeComponent::_internal_has_cohort_hash() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool SystemProfileProto_ChromeComponent::has_cohort_hash() const {
+  return _internal_has_cohort_hash();
+}
+inline void SystemProfileProto_ChromeComponent::clear_cohort_hash() {
+  cohort_hash_ = 0u;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline uint32_t SystemProfileProto_ChromeComponent::_internal_cohort_hash() const {
+  return cohort_hash_;
+}
+inline uint32_t SystemProfileProto_ChromeComponent::cohort_hash() const {
+  // @@protoc_insertion_point(field_get:metrics.SystemProfileProto.ChromeComponent.cohort_hash)
+  return _internal_cohort_hash();
+}
+inline void SystemProfileProto_ChromeComponent::_internal_set_cohort_hash(uint32_t value) {
+  _has_bits_[0] |= 0x00000004u;
+  cohort_hash_ = value;
+}
+inline void SystemProfileProto_ChromeComponent::set_cohort_hash(uint32_t value) {
+  _internal_set_cohort_hash(value);
+  // @@protoc_insertion_point(field_set:metrics.SystemProfileProto.ChromeComponent.cohort_hash)
 }
 
 // -------------------------------------------------------------------

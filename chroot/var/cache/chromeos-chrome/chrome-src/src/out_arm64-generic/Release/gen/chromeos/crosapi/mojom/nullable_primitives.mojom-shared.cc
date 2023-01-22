@@ -71,6 +71,29 @@ Int64Value_Data::Int64Value_Data()
 
 
 // static
+bool UInt8Value_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UInt8Value_Data* object =
+      static_cast<const UInt8Value_Data*>(data);
+
+  return true;
+}
+
+UInt8Value_Data::UInt8Value_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool UInt32Value_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

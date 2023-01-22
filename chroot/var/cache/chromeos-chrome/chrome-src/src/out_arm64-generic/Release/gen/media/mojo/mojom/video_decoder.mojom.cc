@@ -515,6 +515,27 @@ uint32_t VideoDecoder::OnOverlayInfoChanged_Sym::IPCStableHash() {
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
+bool VideoDecoder::GetSupportedConfigs(std::vector<::media::SupportedVideoDecoderConfig>* out_supported_configs, ::media::VideoDecoderType* out_decoder_type) {
+  NOTREACHED();
+  return false;
+}
+class VideoDecoder_GetSupportedConfigs_HandleSyncResponse
+    : public mojo::MessageReceiver {
+ public:
+  VideoDecoder_GetSupportedConfigs_HandleSyncResponse(
+      bool* result, std::vector<::media::SupportedVideoDecoderConfig>* out_supported_configs, ::media::VideoDecoderType* out_decoder_type)
+      : result_(result), out_supported_configs_(out_supported_configs), out_decoder_type_(out_decoder_type) {
+    DCHECK(!*result_);
+  }
+
+  VideoDecoder_GetSupportedConfigs_HandleSyncResponse(const VideoDecoder_GetSupportedConfigs_HandleSyncResponse&) = delete;
+  VideoDecoder_GetSupportedConfigs_HandleSyncResponse& operator=(const VideoDecoder_GetSupportedConfigs_HandleSyncResponse&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  bool* result_;
+  std::vector<::media::SupportedVideoDecoderConfig>* out_supported_configs_;
+  ::media::VideoDecoderType* out_decoder_type_;};
 
 class VideoDecoder_GetSupportedConfigs_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -582,6 +603,55 @@ class VideoDecoder_Reset_ForwardToCallback
 
 VideoDecoderProxy::VideoDecoderProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
+}
+bool VideoDecoderProxy::GetSupportedConfigs(
+    std::vector<::media::SupportedVideoDecoderConfig>* out_param_supported_configs, ::media::VideoDecoderType* out_param_decoder_type) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT_BEGIN0("mojom", "Call media::mojom::VideoDecoder::GetSupportedConfigs (sync)");
+#else
+  TRACE_EVENT0("mojom", "VideoDecoder::GetSupportedConfigs");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = true;
+  const bool kAllowInterrupt =
+      true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kVideoDecoder_GetSupportedConfigs_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::media::mojom::internal::VideoDecoder_GetSupportedConfigs_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(VideoDecoder::Name_);
+  message.set_method_name("GetSupportedConfigs");
+#endif
+
+  bool result = false;
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new VideoDecoder_GetSupportedConfigs_HandleSyncResponse(
+          &result, out_param_supported_configs, out_param_decoder_type));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT_END1(
+    "mojom", "VideoDecoder::GetSupportedConfigs", "sync_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("supported_configs"), out_param_supported_configs,
+                        "<value of type const std::vector<::media::SupportedVideoDecoderConfig>&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("decoder_type"), out_param_decoder_type,
+                        "<value of type ::media::VideoDecoderType>");
+   });
+#endif
+  return result;
 }
 
 void VideoDecoderProxy::GetSupportedConfigs(
@@ -1033,6 +1103,35 @@ void VideoDecoder_GetSupportedConfigs_ProxyToResponder::Run(
   // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
+}
+bool VideoDecoder_GetSupportedConfigs_HandleSyncResponse::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::VideoDecoder_GetSupportedConfigs_ResponseParams_Data* params =
+      reinterpret_cast<internal::VideoDecoder_GetSupportedConfigs_ResponseParams_Data*>(
+          message->mutable_payload());
+  
+  bool success = true;
+  std::vector<::media::SupportedVideoDecoderConfig> p_supported_configs = mojo::DefaultConstructTraits::CreateInstance<std::vector<::media::SupportedVideoDecoderConfig>>();
+  ::media::VideoDecoderType p_decoder_type = mojo::DefaultConstructTraits::CreateInstance<::media::VideoDecoderType>();
+  VideoDecoder_GetSupportedConfigs_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadSupportedConfigs(&p_supported_configs))
+    success = false;
+  if (success && !input_data_view.ReadDecoderType(&p_decoder_type))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        VideoDecoder::Name_, 0, true);
+    return false;
+  }
+  *out_supported_configs_ = std::move(p_supported_configs);
+  *out_decoder_type_ = std::move(p_decoder_type);
+  *result_ = true;
+  return true;
 }
 class VideoDecoder_Initialize_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
