@@ -105,6 +105,24 @@ inline const std::string& ScanResult_Name(T enum_t_value) {
 }
 bool ScanResult_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ScanResult* value);
+enum BiometricsManagerStatus : int {
+  INITIALIZED = 1
+};
+bool BiometricsManagerStatus_IsValid(int value);
+constexpr BiometricsManagerStatus BiometricsManagerStatus_MIN = INITIALIZED;
+constexpr BiometricsManagerStatus BiometricsManagerStatus_MAX = INITIALIZED;
+constexpr int BiometricsManagerStatus_ARRAYSIZE = BiometricsManagerStatus_MAX + 1;
+
+const std::string& BiometricsManagerStatus_Name(BiometricsManagerStatus value);
+template<typename T>
+inline const std::string& BiometricsManagerStatus_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, BiometricsManagerStatus>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function BiometricsManagerStatus_Name.");
+  return BiometricsManagerStatus_Name(static_cast<BiometricsManagerStatus>(enum_t_value));
+}
+bool BiometricsManagerStatus_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, BiometricsManagerStatus* value);
 // ===================================================================
 
 
@@ -129,6 +147,7 @@ PROTOBUF_NAMESPACE_OPEN
 
 template <> struct is_proto_enum< ::biod::FingerprintError> : ::std::true_type {};
 template <> struct is_proto_enum< ::biod::ScanResult> : ::std::true_type {};
+template <> struct is_proto_enum< ::biod::BiometricsManagerStatus> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

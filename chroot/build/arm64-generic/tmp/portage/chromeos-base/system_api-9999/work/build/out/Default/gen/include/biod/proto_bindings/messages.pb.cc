@@ -80,6 +80,19 @@ struct StartAuthSessionReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StartAuthSessionReplyDefaultTypeInternal _StartAuthSessionReply_default_instance_;
+constexpr BiometricsManagerStatusChanged::BiometricsManagerStatusChanged(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : status_(1)
+{}
+struct BiometricsManagerStatusChangedDefaultTypeInternal {
+  constexpr BiometricsManagerStatusChangedDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~BiometricsManagerStatusChangedDefaultTypeInternal() {}
+  union {
+    BiometricsManagerStatusChanged _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT BiometricsManagerStatusChangedDefaultTypeInternal _BiometricsManagerStatusChanged_default_instance_;
 constexpr FpPublicKey::FpPublicKey(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : x_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
@@ -1508,6 +1521,199 @@ void StartAuthSessionReply::InternalSwap(StartAuthSessionReply* other) {
 
 std::string StartAuthSessionReply::GetTypeName() const {
   return "biod.StartAuthSessionReply";
+}
+
+
+// ===================================================================
+
+class BiometricsManagerStatusChanged::_Internal {
+ public:
+  using HasBits = decltype(std::declval<BiometricsManagerStatusChanged>()._has_bits_);
+  static void set_has_status(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+BiometricsManagerStatusChanged::BiometricsManagerStatusChanged(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:biod.BiometricsManagerStatusChanged)
+}
+BiometricsManagerStatusChanged::BiometricsManagerStatusChanged(const BiometricsManagerStatusChanged& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  status_ = from.status_;
+  // @@protoc_insertion_point(copy_constructor:biod.BiometricsManagerStatusChanged)
+}
+
+inline void BiometricsManagerStatusChanged::SharedCtor() {
+status_ = 1;
+}
+
+BiometricsManagerStatusChanged::~BiometricsManagerStatusChanged() {
+  // @@protoc_insertion_point(destructor:biod.BiometricsManagerStatusChanged)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void BiometricsManagerStatusChanged::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void BiometricsManagerStatusChanged::ArenaDtor(void* object) {
+  BiometricsManagerStatusChanged* _this = reinterpret_cast< BiometricsManagerStatusChanged* >(object);
+  (void)_this;
+}
+void BiometricsManagerStatusChanged::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void BiometricsManagerStatusChanged::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void BiometricsManagerStatusChanged::Clear() {
+// @@protoc_insertion_point(message_clear_start:biod.BiometricsManagerStatusChanged)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  status_ = 1;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* BiometricsManagerStatusChanged::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .biod.BiometricsManagerStatus status = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::biod::BiometricsManagerStatus_IsValid(val))) {
+            _internal_set_status(static_cast<::biod::BiometricsManagerStatus>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* BiometricsManagerStatusChanged::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:biod.BiometricsManagerStatusChanged)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .biod.BiometricsManagerStatus status = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_status(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:biod.BiometricsManagerStatusChanged)
+  return target;
+}
+
+size_t BiometricsManagerStatusChanged::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:biod.BiometricsManagerStatusChanged)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .biod.BiometricsManagerStatus status = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_status());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void BiometricsManagerStatusChanged::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const BiometricsManagerStatusChanged*>(
+      &from));
+}
+
+void BiometricsManagerStatusChanged::MergeFrom(const BiometricsManagerStatusChanged& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:biod.BiometricsManagerStatusChanged)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_status()) {
+    _internal_set_status(from._internal_status());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void BiometricsManagerStatusChanged::CopyFrom(const BiometricsManagerStatusChanged& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:biod.BiometricsManagerStatusChanged)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool BiometricsManagerStatusChanged::IsInitialized() const {
+  return true;
+}
+
+void BiometricsManagerStatusChanged::InternalSwap(BiometricsManagerStatusChanged* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(status_, other->status_);
+}
+
+std::string BiometricsManagerStatusChanged::GetTypeName() const {
+  return "biod.BiometricsManagerStatusChanged";
 }
 
 
@@ -3406,6 +3612,9 @@ template<> PROTOBUF_NOINLINE ::biod::StartEnrollSessionReply* Arena::CreateMaybe
 }
 template<> PROTOBUF_NOINLINE ::biod::StartAuthSessionReply* Arena::CreateMaybeMessage< ::biod::StartAuthSessionReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::biod::StartAuthSessionReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::biod::BiometricsManagerStatusChanged* Arena::CreateMaybeMessage< ::biod::BiometricsManagerStatusChanged >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::biod::BiometricsManagerStatusChanged >(arena);
 }
 template<> PROTOBUF_NOINLINE ::biod::FpPublicKey* Arena::CreateMaybeMessage< ::biod::FpPublicKey >(Arena* arena) {
   return Arena::CreateMessageInternal< ::biod::FpPublicKey >(arena);

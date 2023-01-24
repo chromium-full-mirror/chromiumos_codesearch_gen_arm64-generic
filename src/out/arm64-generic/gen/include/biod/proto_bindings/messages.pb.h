@@ -46,7 +46,7 @@ struct TableStruct_messages_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[10]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[11]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -62,6 +62,9 @@ extern AuthenticateCredentialReplyDefaultTypeInternal _AuthenticateCredentialRep
 class AuthenticateCredentialRequest;
 struct AuthenticateCredentialRequestDefaultTypeInternal;
 extern AuthenticateCredentialRequestDefaultTypeInternal _AuthenticateCredentialRequest_default_instance_;
+class BiometricsManagerStatusChanged;
+struct BiometricsManagerStatusChangedDefaultTypeInternal;
+extern BiometricsManagerStatusChangedDefaultTypeInternal _BiometricsManagerStatusChanged_default_instance_;
 class CreateCredentialReply;
 struct CreateCredentialReplyDefaultTypeInternal;
 extern CreateCredentialReplyDefaultTypeInternal _CreateCredentialReply_default_instance_;
@@ -88,6 +91,7 @@ PROTOBUF_NAMESPACE_OPEN
 template<> ::biod::AuthScanDone* Arena::CreateMaybeMessage<::biod::AuthScanDone>(Arena*);
 template<> ::biod::AuthenticateCredentialReply* Arena::CreateMaybeMessage<::biod::AuthenticateCredentialReply>(Arena*);
 template<> ::biod::AuthenticateCredentialRequest* Arena::CreateMaybeMessage<::biod::AuthenticateCredentialRequest>(Arena*);
+template<> ::biod::BiometricsManagerStatusChanged* Arena::CreateMaybeMessage<::biod::BiometricsManagerStatusChanged>(Arena*);
 template<> ::biod::CreateCredentialReply* Arena::CreateMaybeMessage<::biod::CreateCredentialReply>(Arena*);
 template<> ::biod::CreateCredentialRequest* Arena::CreateMaybeMessage<::biod::CreateCredentialRequest>(Arena*);
 template<> ::biod::EnrollScanDone* Arena::CreateMaybeMessage<::biod::EnrollScanDone>(Arena*);
@@ -948,6 +952,148 @@ class StartAuthSessionReply final :
 };
 // -------------------------------------------------------------------
 
+class BiometricsManagerStatusChanged final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:biod.BiometricsManagerStatusChanged) */ {
+ public:
+  inline BiometricsManagerStatusChanged() : BiometricsManagerStatusChanged(nullptr) {}
+  ~BiometricsManagerStatusChanged() override;
+  explicit constexpr BiometricsManagerStatusChanged(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  BiometricsManagerStatusChanged(const BiometricsManagerStatusChanged& from);
+  BiometricsManagerStatusChanged(BiometricsManagerStatusChanged&& from) noexcept
+    : BiometricsManagerStatusChanged() {
+    *this = ::std::move(from);
+  }
+
+  inline BiometricsManagerStatusChanged& operator=(const BiometricsManagerStatusChanged& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline BiometricsManagerStatusChanged& operator=(BiometricsManagerStatusChanged&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const BiometricsManagerStatusChanged& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const BiometricsManagerStatusChanged* internal_default_instance() {
+    return reinterpret_cast<const BiometricsManagerStatusChanged*>(
+               &_BiometricsManagerStatusChanged_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(BiometricsManagerStatusChanged& a, BiometricsManagerStatusChanged& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(BiometricsManagerStatusChanged* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(BiometricsManagerStatusChanged* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  BiometricsManagerStatusChanged* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<BiometricsManagerStatusChanged>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const BiometricsManagerStatusChanged& from);
+  void MergeFrom(const BiometricsManagerStatusChanged& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(BiometricsManagerStatusChanged* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "biod.BiometricsManagerStatusChanged";
+  }
+  protected:
+  explicit BiometricsManagerStatusChanged(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kStatusFieldNumber = 1,
+  };
+  // optional .biod.BiometricsManagerStatus status = 1;
+  bool has_status() const;
+  private:
+  bool _internal_has_status() const;
+  public:
+  void clear_status();
+  ::biod::BiometricsManagerStatus status() const;
+  void set_status(::biod::BiometricsManagerStatus value);
+  private:
+  ::biod::BiometricsManagerStatus _internal_status() const;
+  void _internal_set_status(::biod::BiometricsManagerStatus value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:biod.BiometricsManagerStatusChanged)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  int status_;
+  friend struct ::TableStruct_messages_2eproto;
+};
+// -------------------------------------------------------------------
+
 class FpPublicKey final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:biod.FpPublicKey) */ {
  public:
@@ -994,7 +1140,7 @@ class FpPublicKey final :
                &_FpPublicKey_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(FpPublicKey& a, FpPublicKey& b) {
     a.Swap(&b);
@@ -1161,7 +1307,7 @@ class CreateCredentialRequest final :
                &_CreateCredentialRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(CreateCredentialRequest& a, CreateCredentialRequest& b) {
     a.Swap(&b);
@@ -1388,7 +1534,7 @@ class CreateCredentialReply final :
                &_CreateCredentialReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(CreateCredentialReply& a, CreateCredentialReply& b) {
     a.Swap(&b);
@@ -1646,7 +1792,7 @@ class AuthenticateCredentialRequest final :
                &_AuthenticateCredentialRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(AuthenticateCredentialRequest& a, AuthenticateCredentialRequest& b) {
     a.Swap(&b);
@@ -1853,7 +1999,7 @@ class AuthenticateCredentialReply final :
                &_AuthenticateCredentialReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(AuthenticateCredentialReply& a, AuthenticateCredentialReply& b) {
     a.Swap(&b);
@@ -2475,6 +2621,39 @@ inline void StartAuthSessionReply::_internal_set_error(::biod::FingerprintError 
 inline void StartAuthSessionReply::set_error(::biod::FingerprintError value) {
   _internal_set_error(value);
   // @@protoc_insertion_point(field_set:biod.StartAuthSessionReply.error)
+}
+
+// -------------------------------------------------------------------
+
+// BiometricsManagerStatusChanged
+
+// optional .biod.BiometricsManagerStatus status = 1;
+inline bool BiometricsManagerStatusChanged::_internal_has_status() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool BiometricsManagerStatusChanged::has_status() const {
+  return _internal_has_status();
+}
+inline void BiometricsManagerStatusChanged::clear_status() {
+  status_ = 1;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::biod::BiometricsManagerStatus BiometricsManagerStatusChanged::_internal_status() const {
+  return static_cast< ::biod::BiometricsManagerStatus >(status_);
+}
+inline ::biod::BiometricsManagerStatus BiometricsManagerStatusChanged::status() const {
+  // @@protoc_insertion_point(field_get:biod.BiometricsManagerStatusChanged.status)
+  return _internal_status();
+}
+inline void BiometricsManagerStatusChanged::_internal_set_status(::biod::BiometricsManagerStatus value) {
+  assert(::biod::BiometricsManagerStatus_IsValid(value));
+  _has_bits_[0] |= 0x00000001u;
+  status_ = value;
+}
+inline void BiometricsManagerStatusChanged::set_status(::biod::BiometricsManagerStatus value) {
+  _internal_set_status(value);
+  // @@protoc_insertion_point(field_set:biod.BiometricsManagerStatusChanged.status)
 }
 
 // -------------------------------------------------------------------
@@ -3982,6 +4161,8 @@ inline void AuthenticateCredentialReply::set_allocated_record_id(std::string* re
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
