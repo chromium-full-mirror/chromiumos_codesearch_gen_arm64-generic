@@ -14,7 +14,7 @@ HandwritingRecognizer CreateHandwritingRecognizer();
 typedef decltype(&CreateHandwritingRecognizer) CreateHandwritingRecognizerFn;
 
 // Loads the recognizer from the specified model and data file paths. Also
-// initializes the recognizer and runs a dummy example to warm up the
+// initializes the recognizer and runs a trivial example to warm up the
 // recognizer.
 bool LoadHandwritingRecognizer(HandwritingRecognizer recognizer,
                                const char* options_data, int options_size,
