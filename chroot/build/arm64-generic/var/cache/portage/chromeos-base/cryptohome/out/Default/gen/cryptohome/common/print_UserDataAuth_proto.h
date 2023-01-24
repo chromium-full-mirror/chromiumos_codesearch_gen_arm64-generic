@@ -231,16 +231,6 @@ std::string GetProtoDebugStringWithIndent(const StartAuthSessionReply& value,
 BRILLO_EXPORT std::string GetProtoDebugString(
     const StartAuthSessionReply& value);
 std::string GetProtoDebugStringWithIndent(
-    const AuthenticateAuthSessionRequest& value,
-    int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const AuthenticateAuthSessionRequest& value);
-std::string GetProtoDebugStringWithIndent(
-    const AuthenticateAuthSessionReply& value,
-    int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const AuthenticateAuthSessionReply& value);
-std::string GetProtoDebugStringWithIndent(
     const InvalidateAuthSessionRequest& value,
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(

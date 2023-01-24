@@ -45,7 +45,7 @@ struct TableStruct_private_5fcomputing_5fservice_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[7]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -55,6 +55,9 @@ namespace private_computing {
 class ActiveStatus;
 struct ActiveStatusDefaultTypeInternal;
 extern ActiveStatusDefaultTypeInternal _ActiveStatus_default_instance_;
+class ChurnObservationStatus;
+struct ChurnObservationStatusDefaultTypeInternal;
+extern ChurnObservationStatusDefaultTypeInternal _ChurnObservationStatus_default_instance_;
 class GetStatusResponse;
 struct GetStatusResponseDefaultTypeInternal;
 extern GetStatusResponseDefaultTypeInternal _GetStatusResponse_default_instance_;
@@ -73,6 +76,7 @@ extern SaveStatusResponseDefaultTypeInternal _SaveStatusResponse_default_instanc
 }  // namespace private_computing
 PROTOBUF_NAMESPACE_OPEN
 template<> ::private_computing::ActiveStatus* Arena::CreateMaybeMessage<::private_computing::ActiveStatus>(Arena*);
+template<> ::private_computing::ChurnObservationStatus* Arena::CreateMaybeMessage<::private_computing::ChurnObservationStatus>(Arena*);
 template<> ::private_computing::GetStatusResponse* Arena::CreateMaybeMessage<::private_computing::GetStatusResponse>(Arena*);
 template<> ::private_computing::PrivateComputingClientRegressionTestData* Arena::CreateMaybeMessage<::private_computing::PrivateComputingClientRegressionTestData>(Arena*);
 template<> ::private_computing::PrivateComputingClientRegressionTestData_TestCase* Arena::CreateMaybeMessage<::private_computing::PrivateComputingClientRegressionTestData_TestCase>(Arena*);
@@ -132,6 +136,178 @@ bool PrivateComputingUseCase_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PrivateComputingUseCase* value);
 // ===================================================================
 
+class ChurnObservationStatus final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:private_computing.ChurnObservationStatus) */ {
+ public:
+  inline ChurnObservationStatus() : ChurnObservationStatus(nullptr) {}
+  ~ChurnObservationStatus() override;
+  explicit constexpr ChurnObservationStatus(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ChurnObservationStatus(const ChurnObservationStatus& from);
+  ChurnObservationStatus(ChurnObservationStatus&& from) noexcept
+    : ChurnObservationStatus() {
+    *this = ::std::move(from);
+  }
+
+  inline ChurnObservationStatus& operator=(const ChurnObservationStatus& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ChurnObservationStatus& operator=(ChurnObservationStatus&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const ChurnObservationStatus& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ChurnObservationStatus* internal_default_instance() {
+    return reinterpret_cast<const ChurnObservationStatus*>(
+               &_ChurnObservationStatus_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(ChurnObservationStatus& a, ChurnObservationStatus& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ChurnObservationStatus* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ChurnObservationStatus* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ChurnObservationStatus* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ChurnObservationStatus>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ChurnObservationStatus& from);
+  void MergeFrom(const ChurnObservationStatus& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ChurnObservationStatus* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "private_computing.ChurnObservationStatus";
+  }
+  protected:
+  explicit ChurnObservationStatus(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIsActiveCurrentPeriodMinus0FieldNumber = 1,
+    kIsActiveCurrentPeriodMinus1FieldNumber = 2,
+    kIsActiveCurrentPeriodMinus2FieldNumber = 3,
+  };
+  // optional bool is_active_current_period_minus_0 = 1;
+  bool has_is_active_current_period_minus_0() const;
+  private:
+  bool _internal_has_is_active_current_period_minus_0() const;
+  public:
+  void clear_is_active_current_period_minus_0();
+  bool is_active_current_period_minus_0() const;
+  void set_is_active_current_period_minus_0(bool value);
+  private:
+  bool _internal_is_active_current_period_minus_0() const;
+  void _internal_set_is_active_current_period_minus_0(bool value);
+  public:
+
+  // optional bool is_active_current_period_minus_1 = 2;
+  bool has_is_active_current_period_minus_1() const;
+  private:
+  bool _internal_has_is_active_current_period_minus_1() const;
+  public:
+  void clear_is_active_current_period_minus_1();
+  bool is_active_current_period_minus_1() const;
+  void set_is_active_current_period_minus_1(bool value);
+  private:
+  bool _internal_is_active_current_period_minus_1() const;
+  void _internal_set_is_active_current_period_minus_1(bool value);
+  public:
+
+  // optional bool is_active_current_period_minus_2 = 3;
+  bool has_is_active_current_period_minus_2() const;
+  private:
+  bool _internal_has_is_active_current_period_minus_2() const;
+  public:
+  void clear_is_active_current_period_minus_2();
+  bool is_active_current_period_minus_2() const;
+  void set_is_active_current_period_minus_2(bool value);
+  private:
+  bool _internal_is_active_current_period_minus_2() const;
+  void _internal_set_is_active_current_period_minus_2(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:private_computing.ChurnObservationStatus)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  bool is_active_current_period_minus_0_;
+  bool is_active_current_period_minus_1_;
+  bool is_active_current_period_minus_2_;
+  friend struct ::TableStruct_private_5fcomputing_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ActiveStatus final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:private_computing.ActiveStatus) */ {
  public:
@@ -173,12 +349,18 @@ class ActiveStatus final :
   static const ActiveStatus& default_instance() {
     return *internal_default_instance();
   }
+  enum PingDateOrStatusCase {
+    kLastPingDate = 3,
+    kPeriodStatus = 4,
+    PING_DATE_OR_STATUS_NOT_SET = 0,
+  };
+
   static inline const ActiveStatus* internal_default_instance() {
     return reinterpret_cast<const ActiveStatus*>(
                &_ActiveStatus_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    1;
 
   friend void swap(ActiveStatus& a, ActiveStatus& b) {
     a.Swap(&b);
@@ -246,8 +428,9 @@ class ActiveStatus final :
 
   enum : int {
     kLastPingUtcDateFieldNumber = 2,
-    kLastPingDateFieldNumber = 3,
     kUseCaseFieldNumber = 1,
+    kLastPingDateFieldNumber = 3,
+    kPeriodStatusFieldNumber = 4,
   };
   // optional string last_ping_utc_date = 2 [deprecated = true];
   PROTOBUF_DEPRECATED bool has_last_ping_utc_date() const;
@@ -267,7 +450,20 @@ class ActiveStatus final :
   std::string* _internal_mutable_last_ping_utc_date();
   public:
 
-  // optional string last_ping_date = 3;
+  // optional .private_computing.PrivateComputingUseCase use_case = 1;
+  bool has_use_case() const;
+  private:
+  bool _internal_has_use_case() const;
+  public:
+  void clear_use_case();
+  ::private_computing::PrivateComputingUseCase use_case() const;
+  void set_use_case(::private_computing::PrivateComputingUseCase value);
+  private:
+  ::private_computing::PrivateComputingUseCase _internal_use_case() const;
+  void _internal_set_use_case(::private_computing::PrivateComputingUseCase value);
+  public:
+
+  // string last_ping_date = 3;
   bool has_last_ping_date() const;
   private:
   bool _internal_has_last_ping_date() const;
@@ -285,22 +481,34 @@ class ActiveStatus final :
   std::string* _internal_mutable_last_ping_date();
   public:
 
-  // optional .private_computing.PrivateComputingUseCase use_case = 1;
-  bool has_use_case() const;
+  // .private_computing.ChurnObservationStatus period_status = 4;
+  bool has_period_status() const;
   private:
-  bool _internal_has_use_case() const;
+  bool _internal_has_period_status() const;
   public:
-  void clear_use_case();
-  ::private_computing::PrivateComputingUseCase use_case() const;
-  void set_use_case(::private_computing::PrivateComputingUseCase value);
+  void clear_period_status();
+  const ::private_computing::ChurnObservationStatus& period_status() const;
+  PROTOBUF_NODISCARD ::private_computing::ChurnObservationStatus* release_period_status();
+  ::private_computing::ChurnObservationStatus* mutable_period_status();
+  void set_allocated_period_status(::private_computing::ChurnObservationStatus* period_status);
   private:
-  ::private_computing::PrivateComputingUseCase _internal_use_case() const;
-  void _internal_set_use_case(::private_computing::PrivateComputingUseCase value);
+  const ::private_computing::ChurnObservationStatus& _internal_period_status() const;
+  ::private_computing::ChurnObservationStatus* _internal_mutable_period_status();
   public:
+  void unsafe_arena_set_allocated_period_status(
+      ::private_computing::ChurnObservationStatus* period_status);
+  ::private_computing::ChurnObservationStatus* unsafe_arena_release_period_status();
 
+  void clear_ping_date_or_status();
+  PingDateOrStatusCase ping_date_or_status_case() const;
   // @@protoc_insertion_point(class_scope:private_computing.ActiveStatus)
  private:
   class _Internal;
+  void set_has_last_ping_date();
+  void set_has_period_status();
+
+  inline bool has_ping_date_or_status() const;
+  inline void clear_has_ping_date_or_status();
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
@@ -308,8 +516,15 @@ class ActiveStatus final :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr last_ping_utc_date_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr last_ping_date_;
   int use_case_;
+  union PingDateOrStatusUnion {
+    constexpr PingDateOrStatusUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr last_ping_date_;
+    ::private_computing::ChurnObservationStatus* period_status_;
+  } ping_date_or_status_;
+  uint32_t _oneof_case_[1];
+
   friend struct ::TableStruct_private_5fcomputing_5fservice_2eproto;
 };
 // -------------------------------------------------------------------
@@ -360,7 +575,7 @@ class SaveStatusRequest final :
                &_SaveStatusRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(SaveStatusRequest& a, SaveStatusRequest& b) {
     a.Swap(&b);
@@ -506,7 +721,7 @@ class SaveStatusResponse final :
                &_SaveStatusResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(SaveStatusResponse& a, SaveStatusResponse& b) {
     a.Swap(&b);
@@ -653,7 +868,7 @@ class GetStatusResponse final :
                &_GetStatusResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(GetStatusResponse& a, GetStatusResponse& b) {
     a.Swap(&b);
@@ -820,7 +1035,7 @@ class PrivateComputingClientRegressionTestData_TestCase final :
                &_PrivateComputingClientRegressionTestData_TestCase_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(PrivateComputingClientRegressionTestData_TestCase& a, PrivateComputingClientRegressionTestData_TestCase& b) {
     a.Swap(&b);
@@ -1002,7 +1217,7 @@ class PrivateComputingClientRegressionTestData final :
                &_PrivateComputingClientRegressionTestData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(PrivateComputingClientRegressionTestData& a, PrivateComputingClientRegressionTestData& b) {
     a.Swap(&b);
@@ -1151,11 +1366,99 @@ class PrivateComputingClientRegressionTestData final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// ChurnObservationStatus
+
+// optional bool is_active_current_period_minus_0 = 1;
+inline bool ChurnObservationStatus::_internal_has_is_active_current_period_minus_0() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool ChurnObservationStatus::has_is_active_current_period_minus_0() const {
+  return _internal_has_is_active_current_period_minus_0();
+}
+inline void ChurnObservationStatus::clear_is_active_current_period_minus_0() {
+  is_active_current_period_minus_0_ = false;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline bool ChurnObservationStatus::_internal_is_active_current_period_minus_0() const {
+  return is_active_current_period_minus_0_;
+}
+inline bool ChurnObservationStatus::is_active_current_period_minus_0() const {
+  // @@protoc_insertion_point(field_get:private_computing.ChurnObservationStatus.is_active_current_period_minus_0)
+  return _internal_is_active_current_period_minus_0();
+}
+inline void ChurnObservationStatus::_internal_set_is_active_current_period_minus_0(bool value) {
+  _has_bits_[0] |= 0x00000001u;
+  is_active_current_period_minus_0_ = value;
+}
+inline void ChurnObservationStatus::set_is_active_current_period_minus_0(bool value) {
+  _internal_set_is_active_current_period_minus_0(value);
+  // @@protoc_insertion_point(field_set:private_computing.ChurnObservationStatus.is_active_current_period_minus_0)
+}
+
+// optional bool is_active_current_period_minus_1 = 2;
+inline bool ChurnObservationStatus::_internal_has_is_active_current_period_minus_1() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool ChurnObservationStatus::has_is_active_current_period_minus_1() const {
+  return _internal_has_is_active_current_period_minus_1();
+}
+inline void ChurnObservationStatus::clear_is_active_current_period_minus_1() {
+  is_active_current_period_minus_1_ = false;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline bool ChurnObservationStatus::_internal_is_active_current_period_minus_1() const {
+  return is_active_current_period_minus_1_;
+}
+inline bool ChurnObservationStatus::is_active_current_period_minus_1() const {
+  // @@protoc_insertion_point(field_get:private_computing.ChurnObservationStatus.is_active_current_period_minus_1)
+  return _internal_is_active_current_period_minus_1();
+}
+inline void ChurnObservationStatus::_internal_set_is_active_current_period_minus_1(bool value) {
+  _has_bits_[0] |= 0x00000002u;
+  is_active_current_period_minus_1_ = value;
+}
+inline void ChurnObservationStatus::set_is_active_current_period_minus_1(bool value) {
+  _internal_set_is_active_current_period_minus_1(value);
+  // @@protoc_insertion_point(field_set:private_computing.ChurnObservationStatus.is_active_current_period_minus_1)
+}
+
+// optional bool is_active_current_period_minus_2 = 3;
+inline bool ChurnObservationStatus::_internal_has_is_active_current_period_minus_2() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool ChurnObservationStatus::has_is_active_current_period_minus_2() const {
+  return _internal_has_is_active_current_period_minus_2();
+}
+inline void ChurnObservationStatus::clear_is_active_current_period_minus_2() {
+  is_active_current_period_minus_2_ = false;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline bool ChurnObservationStatus::_internal_is_active_current_period_minus_2() const {
+  return is_active_current_period_minus_2_;
+}
+inline bool ChurnObservationStatus::is_active_current_period_minus_2() const {
+  // @@protoc_insertion_point(field_get:private_computing.ChurnObservationStatus.is_active_current_period_minus_2)
+  return _internal_is_active_current_period_minus_2();
+}
+inline void ChurnObservationStatus::_internal_set_is_active_current_period_minus_2(bool value) {
+  _has_bits_[0] |= 0x00000004u;
+  is_active_current_period_minus_2_ = value;
+}
+inline void ChurnObservationStatus::set_is_active_current_period_minus_2(bool value) {
+  _internal_set_is_active_current_period_minus_2(value);
+  // @@protoc_insertion_point(field_set:private_computing.ChurnObservationStatus.is_active_current_period_minus_2)
+}
+
+// -------------------------------------------------------------------
+
 // ActiveStatus
 
 // optional .private_computing.PrivateComputingUseCase use_case = 1;
 inline bool ActiveStatus::_internal_has_use_case() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline bool ActiveStatus::has_use_case() const {
@@ -1163,7 +1466,7 @@ inline bool ActiveStatus::has_use_case() const {
 }
 inline void ActiveStatus::clear_use_case() {
   use_case_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline ::private_computing::PrivateComputingUseCase ActiveStatus::_internal_use_case() const {
   return static_cast< ::private_computing::PrivateComputingUseCase >(use_case_);
@@ -1174,7 +1477,7 @@ inline ::private_computing::PrivateComputingUseCase ActiveStatus::use_case() con
 }
 inline void ActiveStatus::_internal_set_use_case(::private_computing::PrivateComputingUseCase value) {
   assert(::private_computing::PrivateComputingUseCase_IsValid(value));
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000002u;
   use_case_ = value;
 }
 inline void ActiveStatus::set_use_case(::private_computing::PrivateComputingUseCase value) {
@@ -1251,27 +1554,34 @@ inline void ActiveStatus::set_allocated_last_ping_utc_date(std::string* last_pin
   // @@protoc_insertion_point(field_set_allocated:private_computing.ActiveStatus.last_ping_utc_date)
 }
 
-// optional string last_ping_date = 3;
+// string last_ping_date = 3;
 inline bool ActiveStatus::_internal_has_last_ping_date() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
-  return value;
+  return ping_date_or_status_case() == kLastPingDate;
 }
 inline bool ActiveStatus::has_last_ping_date() const {
   return _internal_has_last_ping_date();
 }
+inline void ActiveStatus::set_has_last_ping_date() {
+  _oneof_case_[0] = kLastPingDate;
+}
 inline void ActiveStatus::clear_last_ping_date() {
-  last_ping_date_.ClearToEmpty();
-  _has_bits_[0] &= ~0x00000002u;
+  if (_internal_has_last_ping_date()) {
+    ping_date_or_status_.last_ping_date_.Destroy(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+    clear_has_ping_date_or_status();
+  }
 }
 inline const std::string& ActiveStatus::last_ping_date() const {
   // @@protoc_insertion_point(field_get:private_computing.ActiveStatus.last_ping_date)
   return _internal_last_ping_date();
 }
 template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void ActiveStatus::set_last_ping_date(ArgT0&& arg0, ArgT... args) {
- _has_bits_[0] |= 0x00000002u;
- last_ping_date_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+inline void ActiveStatus::set_last_ping_date(ArgT0&& arg0, ArgT... args) {
+  if (!_internal_has_last_ping_date()) {
+    clear_ping_date_or_status();
+    set_has_last_ping_date();
+    ping_date_or_status_.last_ping_date_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  }
+  ping_date_or_status_.last_ping_date_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
   // @@protoc_insertion_point(field_set:private_computing.ActiveStatus.last_ping_date)
 }
 inline std::string* ActiveStatus::mutable_last_ping_date() {
@@ -1280,46 +1590,135 @@ inline std::string* ActiveStatus::mutable_last_ping_date() {
   return _s;
 }
 inline const std::string& ActiveStatus::_internal_last_ping_date() const {
-  return last_ping_date_.Get();
+  if (_internal_has_last_ping_date()) {
+    return ping_date_or_status_.last_ping_date_.Get();
+  }
+  return ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited();
 }
 inline void ActiveStatus::_internal_set_last_ping_date(const std::string& value) {
-  _has_bits_[0] |= 0x00000002u;
-  last_ping_date_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+  if (!_internal_has_last_ping_date()) {
+    clear_ping_date_or_status();
+    set_has_last_ping_date();
+    ping_date_or_status_.last_ping_date_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  }
+  ping_date_or_status_.last_ping_date_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
 inline std::string* ActiveStatus::_internal_mutable_last_ping_date() {
-  _has_bits_[0] |= 0x00000002u;
-  return last_ping_date_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+  if (!_internal_has_last_ping_date()) {
+    clear_ping_date_or_status();
+    set_has_last_ping_date();
+    ping_date_or_status_.last_ping_date_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  }
+  return ping_date_or_status_.last_ping_date_.Mutable(
+      ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* ActiveStatus::release_last_ping_date() {
   // @@protoc_insertion_point(field_release:private_computing.ActiveStatus.last_ping_date)
-  if (!_internal_has_last_ping_date()) {
+  if (_internal_has_last_ping_date()) {
+    clear_has_ping_date_or_status();
+    return ping_date_or_status_.last_ping_date_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+  } else {
     return nullptr;
   }
-  _has_bits_[0] &= ~0x00000002u;
-  auto* p = last_ping_date_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (last_ping_date_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
-    last_ping_date_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  return p;
 }
 inline void ActiveStatus::set_allocated_last_ping_date(std::string* last_ping_date) {
+  if (has_ping_date_or_status()) {
+    clear_ping_date_or_status();
+  }
   if (last_ping_date != nullptr) {
-    _has_bits_[0] |= 0x00000002u;
-  } else {
-    _has_bits_[0] &= ~0x00000002u;
+    set_has_last_ping_date();
+    ping_date_or_status_.last_ping_date_.UnsafeSetDefault(last_ping_date);
+    ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArenaForAllocation();
+    if (arena != nullptr) {
+      arena->Own(last_ping_date);
+    }
   }
-  last_ping_date_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), last_ping_date,
-      GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (last_ping_date_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
-    last_ping_date_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:private_computing.ActiveStatus.last_ping_date)
 }
 
+// .private_computing.ChurnObservationStatus period_status = 4;
+inline bool ActiveStatus::_internal_has_period_status() const {
+  return ping_date_or_status_case() == kPeriodStatus;
+}
+inline bool ActiveStatus::has_period_status() const {
+  return _internal_has_period_status();
+}
+inline void ActiveStatus::set_has_period_status() {
+  _oneof_case_[0] = kPeriodStatus;
+}
+inline void ActiveStatus::clear_period_status() {
+  if (_internal_has_period_status()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete ping_date_or_status_.period_status_;
+    }
+    clear_has_ping_date_or_status();
+  }
+}
+inline ::private_computing::ChurnObservationStatus* ActiveStatus::release_period_status() {
+  // @@protoc_insertion_point(field_release:private_computing.ActiveStatus.period_status)
+  if (_internal_has_period_status()) {
+    clear_has_ping_date_or_status();
+      ::private_computing::ChurnObservationStatus* temp = ping_date_or_status_.period_status_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    ping_date_or_status_.period_status_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::private_computing::ChurnObservationStatus& ActiveStatus::_internal_period_status() const {
+  return _internal_has_period_status()
+      ? *ping_date_or_status_.period_status_
+      : reinterpret_cast< ::private_computing::ChurnObservationStatus&>(::private_computing::_ChurnObservationStatus_default_instance_);
+}
+inline const ::private_computing::ChurnObservationStatus& ActiveStatus::period_status() const {
+  // @@protoc_insertion_point(field_get:private_computing.ActiveStatus.period_status)
+  return _internal_period_status();
+}
+inline ::private_computing::ChurnObservationStatus* ActiveStatus::unsafe_arena_release_period_status() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:private_computing.ActiveStatus.period_status)
+  if (_internal_has_period_status()) {
+    clear_has_ping_date_or_status();
+    ::private_computing::ChurnObservationStatus* temp = ping_date_or_status_.period_status_;
+    ping_date_or_status_.period_status_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ActiveStatus::unsafe_arena_set_allocated_period_status(::private_computing::ChurnObservationStatus* period_status) {
+  clear_ping_date_or_status();
+  if (period_status) {
+    set_has_period_status();
+    ping_date_or_status_.period_status_ = period_status;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:private_computing.ActiveStatus.period_status)
+}
+inline ::private_computing::ChurnObservationStatus* ActiveStatus::_internal_mutable_period_status() {
+  if (!_internal_has_period_status()) {
+    clear_ping_date_or_status();
+    set_has_period_status();
+    ping_date_or_status_.period_status_ = CreateMaybeMessage< ::private_computing::ChurnObservationStatus >(GetArenaForAllocation());
+  }
+  return ping_date_or_status_.period_status_;
+}
+inline ::private_computing::ChurnObservationStatus* ActiveStatus::mutable_period_status() {
+  ::private_computing::ChurnObservationStatus* _msg = _internal_mutable_period_status();
+  // @@protoc_insertion_point(field_mutable:private_computing.ActiveStatus.period_status)
+  return _msg;
+}
+
+inline bool ActiveStatus::has_ping_date_or_status() const {
+  return ping_date_or_status_case() != PING_DATE_OR_STATUS_NOT_SET;
+}
+inline void ActiveStatus::clear_has_ping_date_or_status() {
+  _oneof_case_[0] = PING_DATE_OR_STATUS_NOT_SET;
+}
+inline ActiveStatus::PingDateOrStatusCase ActiveStatus::ping_date_or_status_case() const {
+  return ActiveStatus::PingDateOrStatusCase(_oneof_case_[0]);
+}
 // -------------------------------------------------------------------
 
 // SaveStatusRequest
@@ -1810,6 +2209,8 @@ PrivateComputingClientRegressionTestData::test_cases() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

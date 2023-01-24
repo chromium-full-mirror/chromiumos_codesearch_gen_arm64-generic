@@ -87,9 +87,6 @@ class UserDataAuthInterfaceInterface {
   virtual void StartAuthSession(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::StartAuthSessionReply>> response,
       const user_data_auth::StartAuthSessionRequest& in_request) = 0;
-  virtual void AuthenticateAuthSession(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::AuthenticateAuthSessionReply>> response,
-      const user_data_auth::AuthenticateAuthSessionRequest& in_request) = 0;
   virtual void InvalidateAuthSession(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::InvalidateAuthSessionReply>> response,
       const user_data_auth::InvalidateAuthSessionRequest& in_request) = 0;
@@ -237,10 +234,6 @@ class UserDataAuthInterfaceAdaptor {
         "StartAuthSession",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::StartAuthSession);
-    itf->AddMethodHandler(
-        "AuthenticateAuthSession",
-        base::Unretained(interface_),
-        &UserDataAuthInterfaceInterface::AuthenticateAuthSession);
     itf->AddMethodHandler(
         "InvalidateAuthSession",
         base::Unretained(interface_),
@@ -422,10 +415,6 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"StartAuthSession\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"AuthenticateAuthSession\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

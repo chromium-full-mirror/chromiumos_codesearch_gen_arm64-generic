@@ -228,16 +228,6 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
                     base::OnceCallback<void(const user_data_auth::StartAuthSessionReply& /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
-  MOCK_METHOD4(AuthenticateAuthSession,
-               bool(const user_data_auth::AuthenticateAuthSessionRequest& /*in_request*/,
-                    user_data_auth::AuthenticateAuthSessionReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(AuthenticateAuthSessionAsync,
-               void(const user_data_auth::AuthenticateAuthSessionRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::AuthenticateAuthSessionReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
   MOCK_METHOD4(InvalidateAuthSession,
                bool(const user_data_auth::InvalidateAuthSessionRequest& /*in_request*/,
                     user_data_auth::InvalidateAuthSessionReply* /*out_reply*/,
