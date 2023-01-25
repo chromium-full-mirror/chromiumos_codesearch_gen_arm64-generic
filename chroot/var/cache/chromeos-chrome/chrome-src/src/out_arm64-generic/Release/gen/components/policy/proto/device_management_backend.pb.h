@@ -150,6 +150,9 @@ POLICY_PROTO_EXPORT extern CertProvProofOfPossessionInstructionDefaultTypeIntern
 class CertProvStartOrContinueRequest;
 struct CertProvStartOrContinueRequestDefaultTypeInternal;
 POLICY_PROTO_EXPORT extern CertProvStartOrContinueRequestDefaultTypeInternal _CertProvStartOrContinueRequest_default_instance_;
+class CertProvTryLaterInstruction;
+struct CertProvTryLaterInstructionDefaultTypeInternal;
+POLICY_PROTO_EXPORT extern CertProvTryLaterInstructionDefaultTypeInternal _CertProvTryLaterInstruction_default_instance_;
 class CertProvUploadProofOfPossessionRequest;
 struct CertProvUploadProofOfPossessionRequestDefaultTypeInternal;
 POLICY_PROTO_EXPORT extern CertProvUploadProofOfPossessionRequestDefaultTypeInternal _CertProvUploadProofOfPossessionRequest_default_instance_;
@@ -643,6 +646,7 @@ template<> POLICY_PROTO_EXPORT ::enterprise_management::CertProvImportCertificat
 template<> POLICY_PROTO_EXPORT ::enterprise_management::CertProvNextActionResponse* Arena::CreateMaybeMessage<::enterprise_management::CertProvNextActionResponse>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::CertProvProofOfPossessionInstruction* Arena::CreateMaybeMessage<::enterprise_management::CertProvProofOfPossessionInstruction>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::CertProvStartOrContinueRequest* Arena::CreateMaybeMessage<::enterprise_management::CertProvStartOrContinueRequest>(Arena*);
+template<> POLICY_PROTO_EXPORT ::enterprise_management::CertProvTryLaterInstruction* Arena::CreateMaybeMessage<::enterprise_management::CertProvTryLaterInstruction>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::CertProvUploadProofOfPossessionRequest* Arena::CreateMaybeMessage<::enterprise_management::CertProvUploadProofOfPossessionRequest>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::CertificateBasedDeviceRegisterRequest* Arena::CreateMaybeMessage<::enterprise_management::CertificateBasedDeviceRegisterRequest>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::CertificateBasedDeviceRegistrationData* Arena::CreateMaybeMessage<::enterprise_management::CertificateBasedDeviceRegistrationData>(Arena*);
@@ -38804,6 +38808,145 @@ friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };
 // -------------------------------------------------------------------
 
+class POLICY_PROTO_EXPORT CertProvTryLaterInstruction final :
+public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.CertProvTryLaterInstruction) */ {
+public:
+inline CertProvTryLaterInstruction() : CertProvTryLaterInstruction(nullptr) {}
+~CertProvTryLaterInstruction() override;
+explicit PROTOBUF_CONSTEXPR CertProvTryLaterInstruction(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+CertProvTryLaterInstruction(const CertProvTryLaterInstruction& from);
+CertProvTryLaterInstruction(CertProvTryLaterInstruction&& from) noexcept
+: CertProvTryLaterInstruction() {
+*this = ::std::move(from);
+}
+
+inline CertProvTryLaterInstruction& operator=(const CertProvTryLaterInstruction& from) {
+CopyFrom(from);
+return *this;
+}
+inline CertProvTryLaterInstruction& operator=(CertProvTryLaterInstruction&& from) noexcept {
+if (this == &from) return *this;
+if (GetOwningArena() == from.GetOwningArena()
+#ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+&& GetOwningArena() != nullptr
+#endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+) {
+InternalSwap(&from);
+} else {
+CopyFrom(from);
+}
+return *this;
+}
+
+inline const std::string& unknown_fields() const {
+return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+}
+inline std::string* mutable_unknown_fields() {
+return _internal_metadata_.mutable_unknown_fields<std::string>();
+}
+
+static const CertProvTryLaterInstruction& default_instance() {
+return *internal_default_instance();
+}
+static inline const CertProvTryLaterInstruction* internal_default_instance() {
+return reinterpret_cast<const CertProvTryLaterInstruction*>(
+&_CertProvTryLaterInstruction_default_instance_);
+}
+static constexpr int kIndexInFileMessages =
+176;
+
+friend void swap(CertProvTryLaterInstruction& a, CertProvTryLaterInstruction& b) {
+a.Swap(&b);
+}
+PROTOBUF_NOINLINE void Swap(CertProvTryLaterInstruction* other) {
+if (other == this) return;
+#ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+if (GetOwningArena() != nullptr &&
+GetOwningArena() == other->GetOwningArena()) {
+#else  // PROTOBUF_FORCE_COPY_IN_SWAP
+if (GetOwningArena() == other->GetOwningArena()) {
+#endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+InternalSwap(other);
+} else {
+::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+}
+}
+void UnsafeArenaSwap(CertProvTryLaterInstruction* other) {
+if (other == this) return;
+GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+InternalSwap(other);
+}
+
+// implements Message ----------------------------------------------
+
+CertProvTryLaterInstruction* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+return CreateMaybeMessage<CertProvTryLaterInstruction>(arena);
+}
+void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+void CopyFrom(const CertProvTryLaterInstruction& from);
+void MergeFrom(const CertProvTryLaterInstruction& from);
+PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+bool IsInitialized() const final;
+
+size_t ByteSizeLong() const final;
+const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+uint8_t* _InternalSerialize(
+uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+int GetCachedSize() const final { return _cached_size_.Get(); }
+
+private:
+void SharedCtor();
+void SharedDtor();
+void SetCachedSize(int size) const;
+void InternalSwap(CertProvTryLaterInstruction* other);
+
+private:
+friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+return "enterprise_management.CertProvTryLaterInstruction";
+}
+protected:
+explicit CertProvTryLaterInstruction(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+bool is_message_owned = false);
+public:
+
+std::string GetTypeName() const final;
+
+// nested types ----------------------------------------------------
+
+// accessors -------------------------------------------------------
+
+enum : int {
+kDelayMsFieldNumber = 1,
+};
+// optional int64 delay_ms = 1;
+bool has_delay_ms() const;
+private:
+bool _internal_has_delay_ms() const;
+public:
+void clear_delay_ms();
+int64_t delay_ms() const;
+void set_delay_ms(int64_t value);
+private:
+int64_t _internal_delay_ms() const;
+void _internal_set_delay_ms(int64_t value);
+public:
+
+// @@protoc_insertion_point(class_scope:enterprise_management.CertProvTryLaterInstruction)
+private:
+class _Internal;
+
+template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+typedef void InternalArenaConstructable_;
+typedef void DestructorSkippable_;
+::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+int64_t delay_ms_;
+friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
+};
+// -------------------------------------------------------------------
+
 class POLICY_PROTO_EXPORT CertProvAuthorizeInstruction final :
 public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.CertProvAuthorizeInstruction) */ {
 public:
@@ -38850,7 +38993,7 @@ return reinterpret_cast<const CertProvAuthorizeInstruction*>(
 &_CertProvAuthorizeInstruction_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-176;
+177;
 
 friend void swap(CertProvAuthorizeInstruction& a, CertProvAuthorizeInstruction& b) {
 a.Swap(&b);
@@ -38994,7 +39137,7 @@ return reinterpret_cast<const CertProvProofOfPossessionInstruction*>(
 &_CertProvProofOfPossessionInstruction_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-177;
+178;
 
 friend void swap(CertProvProofOfPossessionInstruction& a, CertProvProofOfPossessionInstruction& b) {
 a.Swap(&b);
@@ -39153,7 +39296,7 @@ return reinterpret_cast<const CertProvImportCertificateInstruction*>(
 &_CertProvImportCertificateInstruction_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-178;
+179;
 
 friend void swap(CertProvImportCertificateInstruction& a, CertProvImportCertificateInstruction& b) {
 a.Swap(&b);
@@ -39293,6 +39436,7 @@ static const CertProvNextActionResponse& default_instance() {
 return *internal_default_instance();
 }
 enum InstructionCase {
+kTryLaterInstruction = 5,
 kAuthorizeInstruction = 2,
 kProofOfPossessionInstruction = 3,
 kImportCertificateInstruction = 4,
@@ -39304,7 +39448,7 @@ return reinterpret_cast<const CertProvNextActionResponse*>(
 &_CertProvNextActionResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-179;
+180;
 
 friend void swap(CertProvNextActionResponse& a, CertProvNextActionResponse& b) {
 a.Swap(&b);
@@ -39369,6 +39513,7 @@ std::string GetTypeName() const final;
 
 enum : int {
 kInvalidationTopicFieldNumber = 1,
+kTryLaterInstructionFieldNumber = 5,
 kAuthorizeInstructionFieldNumber = 2,
 kProofOfPossessionInstructionFieldNumber = 3,
 kImportCertificateInstructionFieldNumber = 4,
@@ -39390,6 +39535,24 @@ const std::string& _internal_invalidation_topic() const;
 inline PROTOBUF_ALWAYS_INLINE void _internal_set_invalidation_topic(const std::string& value);
 std::string* _internal_mutable_invalidation_topic();
 public:
+
+// .enterprise_management.CertProvTryLaterInstruction try_later_instruction = 5;
+bool has_try_later_instruction() const;
+private:
+bool _internal_has_try_later_instruction() const;
+public:
+void clear_try_later_instruction();
+const ::enterprise_management::CertProvTryLaterInstruction& try_later_instruction() const;
+PROTOBUF_NODISCARD ::enterprise_management::CertProvTryLaterInstruction* release_try_later_instruction();
+::enterprise_management::CertProvTryLaterInstruction* mutable_try_later_instruction();
+void set_allocated_try_later_instruction(::enterprise_management::CertProvTryLaterInstruction* try_later_instruction);
+private:
+const ::enterprise_management::CertProvTryLaterInstruction& _internal_try_later_instruction() const;
+::enterprise_management::CertProvTryLaterInstruction* _internal_mutable_try_later_instruction();
+public:
+void unsafe_arena_set_allocated_try_later_instruction(
+::enterprise_management::CertProvTryLaterInstruction* try_later_instruction);
+::enterprise_management::CertProvTryLaterInstruction* unsafe_arena_release_try_later_instruction();
 
 // .enterprise_management.CertProvAuthorizeInstruction authorize_instruction = 2;
 bool has_authorize_instruction() const;
@@ -39450,6 +39613,7 @@ InstructionCase instruction_case() const;
 // @@protoc_insertion_point(class_scope:enterprise_management.CertProvNextActionResponse)
 private:
 class _Internal;
+void set_has_try_later_instruction();
 void set_has_authorize_instruction();
 void set_has_proof_of_possession_instruction();
 void set_has_import_certificate_instruction();
@@ -39466,6 +39630,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 union InstructionUnion {
 constexpr InstructionUnion() : _constinit_{} {}
 ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+::enterprise_management::CertProvTryLaterInstruction* try_later_instruction_;
 ::enterprise_management::CertProvAuthorizeInstruction* authorize_instruction_;
 ::enterprise_management::CertProvProofOfPossessionInstruction* proof_of_possession_instruction_;
 ::enterprise_management::CertProvImportCertificateInstruction* import_certificate_instruction_;
@@ -39532,7 +39697,7 @@ return reinterpret_cast<const ClientCertificateProvisioningRequest*>(
 &_ClientCertificateProvisioningRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-180;
+181;
 
 friend void swap(ClientCertificateProvisioningRequest& a, ClientCertificateProvisioningRequest& b) {
 a.Swap(&b);
@@ -39902,7 +40067,7 @@ return reinterpret_cast<const ClientCertificateProvisioningResponse*>(
 &_ClientCertificateProvisioningResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-181;
+182;
 
 friend void swap(ClientCertificateProvisioningResponse& a, ClientCertificateProvisioningResponse& b) {
 a.Swap(&b);
@@ -40194,7 +40359,7 @@ return reinterpret_cast<const BrowserPublicKeyUploadRequest*>(
 &_BrowserPublicKeyUploadRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-182;
+183;
 
 friend void swap(BrowserPublicKeyUploadRequest& a, BrowserPublicKeyUploadRequest& b) {
 a.Swap(&b);
@@ -40444,7 +40609,7 @@ return reinterpret_cast<const BrowserPublicKeyUploadResponse*>(
 &_BrowserPublicKeyUploadResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-183;
+184;
 
 friend void swap(BrowserPublicKeyUploadResponse& a, BrowserPublicKeyUploadResponse& b) {
 a.Swap(&b);
@@ -40611,7 +40776,7 @@ return reinterpret_cast<const DeviceManagementRequest*>(
 &_DeviceManagementRequest_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-184;
+185;
 
 friend void swap(DeviceManagementRequest& a, DeviceManagementRequest& b) {
 a.Swap(&b);
@@ -41515,7 +41680,7 @@ return reinterpret_cast<const DeviceManagementResponse*>(
 &_DeviceManagementResponse_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-185;
+186;
 
 friend void swap(DeviceManagementResponse& a, DeviceManagementResponse& b) {
 a.Swap(&b);
@@ -42378,7 +42543,7 @@ return reinterpret_cast<const DeviceStateRetrievalInfo*>(
 &_DeviceStateRetrievalInfo_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-186;
+187;
 
 friend void swap(DeviceStateRetrievalInfo& a, DeviceStateRetrievalInfo& b) {
 a.Swap(&b);
@@ -76848,6 +77013,38 @@ signature_.Set("", GetArenaForAllocation());
 
 // -------------------------------------------------------------------
 
+// CertProvTryLaterInstruction
+
+// optional int64 delay_ms = 1;
+inline bool CertProvTryLaterInstruction::_internal_has_delay_ms() const {
+bool value = (_has_bits_[0] & 0x00000001u) != 0;
+return value;
+}
+inline bool CertProvTryLaterInstruction::has_delay_ms() const {
+return _internal_has_delay_ms();
+}
+inline void CertProvTryLaterInstruction::clear_delay_ms() {
+delay_ms_ = int64_t{0};
+_has_bits_[0] &= ~0x00000001u;
+}
+inline int64_t CertProvTryLaterInstruction::_internal_delay_ms() const {
+return delay_ms_;
+}
+inline int64_t CertProvTryLaterInstruction::delay_ms() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CertProvTryLaterInstruction.delay_ms)
+return _internal_delay_ms();
+}
+inline void CertProvTryLaterInstruction::_internal_set_delay_ms(int64_t value) {
+_has_bits_[0] |= 0x00000001u;
+delay_ms_ = value;
+}
+inline void CertProvTryLaterInstruction::set_delay_ms(int64_t value) {
+_internal_set_delay_ms(value);
+// @@protoc_insertion_point(field_set:enterprise_management.CertProvTryLaterInstruction.delay_ms)
+}
+
+// -------------------------------------------------------------------
+
 // CertProvAuthorizeInstruction
 
 // optional bytes va_challenge = 1;
@@ -77161,6 +77358,80 @@ invalidation_topic_.Set("", GetArenaForAllocation());
 }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.CertProvNextActionResponse.invalidation_topic)
+}
+
+// .enterprise_management.CertProvTryLaterInstruction try_later_instruction = 5;
+inline bool CertProvNextActionResponse::_internal_has_try_later_instruction() const {
+return instruction_case() == kTryLaterInstruction;
+}
+inline bool CertProvNextActionResponse::has_try_later_instruction() const {
+return _internal_has_try_later_instruction();
+}
+inline void CertProvNextActionResponse::set_has_try_later_instruction() {
+_oneof_case_[0] = kTryLaterInstruction;
+}
+inline void CertProvNextActionResponse::clear_try_later_instruction() {
+if (_internal_has_try_later_instruction()) {
+if (GetArenaForAllocation() == nullptr) {
+delete instruction_.try_later_instruction_;
+}
+clear_has_instruction();
+}
+}
+inline ::enterprise_management::CertProvTryLaterInstruction* CertProvNextActionResponse::release_try_later_instruction() {
+// @@protoc_insertion_point(field_release:enterprise_management.CertProvNextActionResponse.try_later_instruction)
+if (_internal_has_try_later_instruction()) {
+clear_has_instruction();
+::enterprise_management::CertProvTryLaterInstruction* temp = instruction_.try_later_instruction_;
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+instruction_.try_later_instruction_ = nullptr;
+return temp;
+} else {
+return nullptr;
+}
+}
+inline const ::enterprise_management::CertProvTryLaterInstruction& CertProvNextActionResponse::_internal_try_later_instruction() const {
+return _internal_has_try_later_instruction()
+? *instruction_.try_later_instruction_
+: reinterpret_cast< ::enterprise_management::CertProvTryLaterInstruction&>(::enterprise_management::_CertProvTryLaterInstruction_default_instance_);
+}
+inline const ::enterprise_management::CertProvTryLaterInstruction& CertProvNextActionResponse::try_later_instruction() const {
+// @@protoc_insertion_point(field_get:enterprise_management.CertProvNextActionResponse.try_later_instruction)
+return _internal_try_later_instruction();
+}
+inline ::enterprise_management::CertProvTryLaterInstruction* CertProvNextActionResponse::unsafe_arena_release_try_later_instruction() {
+// @@protoc_insertion_point(field_unsafe_arena_release:enterprise_management.CertProvNextActionResponse.try_later_instruction)
+if (_internal_has_try_later_instruction()) {
+clear_has_instruction();
+::enterprise_management::CertProvTryLaterInstruction* temp = instruction_.try_later_instruction_;
+instruction_.try_later_instruction_ = nullptr;
+return temp;
+} else {
+return nullptr;
+}
+}
+inline void CertProvNextActionResponse::unsafe_arena_set_allocated_try_later_instruction(::enterprise_management::CertProvTryLaterInstruction* try_later_instruction) {
+clear_instruction();
+if (try_later_instruction) {
+set_has_try_later_instruction();
+instruction_.try_later_instruction_ = try_later_instruction;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.CertProvNextActionResponse.try_later_instruction)
+}
+inline ::enterprise_management::CertProvTryLaterInstruction* CertProvNextActionResponse::_internal_mutable_try_later_instruction() {
+if (!_internal_has_try_later_instruction()) {
+clear_instruction();
+set_has_try_later_instruction();
+instruction_.try_later_instruction_ = CreateMaybeMessage< ::enterprise_management::CertProvTryLaterInstruction >(GetArenaForAllocation());
+}
+return instruction_.try_later_instruction_;
+}
+inline ::enterprise_management::CertProvTryLaterInstruction* CertProvNextActionResponse::mutable_try_later_instruction() {
+::enterprise_management::CertProvTryLaterInstruction* _msg = _internal_mutable_try_later_instruction();
+// @@protoc_insertion_point(field_mutable:enterprise_management.CertProvNextActionResponse.try_later_instruction)
+return _msg;
 }
 
 // .enterprise_management.CertProvAuthorizeInstruction authorize_instruction = 2;
@@ -85614,6 +85885,8 @@ _internal_set_has_initial_state(value);
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

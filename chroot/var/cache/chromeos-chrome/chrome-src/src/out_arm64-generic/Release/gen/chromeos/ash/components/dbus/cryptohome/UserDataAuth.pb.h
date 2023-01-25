@@ -53,12 +53,6 @@ extern AddAuthFactorReplyDefaultTypeInternal _AddAuthFactorReply_default_instanc
 class AddAuthFactorRequest;
 struct AddAuthFactorRequestDefaultTypeInternal;
 extern AddAuthFactorRequestDefaultTypeInternal _AddAuthFactorRequest_default_instance_;
-class AddCredentialsReply;
-struct AddCredentialsReplyDefaultTypeInternal;
-extern AddCredentialsReplyDefaultTypeInternal _AddCredentialsReply_default_instance_;
-class AddCredentialsRequest;
-struct AddCredentialsRequestDefaultTypeInternal;
-extern AddCredentialsRequestDefaultTypeInternal _AddCredentialsRequest_default_instance_;
 class AddKeyReply;
 struct AddKeyReplyDefaultTypeInternal;
 extern AddKeyReplyDefaultTypeInternal _AddKeyReply_default_instance_;
@@ -479,12 +473,6 @@ extern UpdateAuthFactorReplyDefaultTypeInternal _UpdateAuthFactorReply_default_i
 class UpdateAuthFactorRequest;
 struct UpdateAuthFactorRequestDefaultTypeInternal;
 extern UpdateAuthFactorRequestDefaultTypeInternal _UpdateAuthFactorRequest_default_instance_;
-class UpdateCredentialReply;
-struct UpdateCredentialReplyDefaultTypeInternal;
-extern UpdateCredentialReplyDefaultTypeInternal _UpdateCredentialReply_default_instance_;
-class UpdateCredentialRequest;
-struct UpdateCredentialRequestDefaultTypeInternal;
-extern UpdateCredentialRequestDefaultTypeInternal _UpdateCredentialRequest_default_instance_;
 class UpdateCurrentUserActivityTimestampReply;
 struct UpdateCurrentUserActivityTimestampReplyDefaultTypeInternal;
 extern UpdateCurrentUserActivityTimestampReplyDefaultTypeInternal _UpdateCurrentUserActivityTimestampReply_default_instance_;
@@ -495,8 +483,6 @@ extern UpdateCurrentUserActivityTimestampRequestDefaultTypeInternal _UpdateCurre
 PROTOBUF_NAMESPACE_OPEN
 template<> ::user_data_auth::AddAuthFactorReply* Arena::CreateMaybeMessage<::user_data_auth::AddAuthFactorReply>(Arena*);
 template<> ::user_data_auth::AddAuthFactorRequest* Arena::CreateMaybeMessage<::user_data_auth::AddAuthFactorRequest>(Arena*);
-template<> ::user_data_auth::AddCredentialsReply* Arena::CreateMaybeMessage<::user_data_auth::AddCredentialsReply>(Arena*);
-template<> ::user_data_auth::AddCredentialsRequest* Arena::CreateMaybeMessage<::user_data_auth::AddCredentialsRequest>(Arena*);
 template<> ::user_data_auth::AddKeyReply* Arena::CreateMaybeMessage<::user_data_auth::AddKeyReply>(Arena*);
 template<> ::user_data_auth::AddKeyRequest* Arena::CreateMaybeMessage<::user_data_auth::AddKeyRequest>(Arena*);
 template<> ::user_data_auth::AuthEnrollmentProgress* Arena::CreateMaybeMessage<::user_data_auth::AuthEnrollmentProgress>(Arena*);
@@ -637,8 +623,6 @@ template<> ::user_data_auth::UnmountReply* Arena::CreateMaybeMessage<::user_data
 template<> ::user_data_auth::UnmountRequest* Arena::CreateMaybeMessage<::user_data_auth::UnmountRequest>(Arena*);
 template<> ::user_data_auth::UpdateAuthFactorReply* Arena::CreateMaybeMessage<::user_data_auth::UpdateAuthFactorReply>(Arena*);
 template<> ::user_data_auth::UpdateAuthFactorRequest* Arena::CreateMaybeMessage<::user_data_auth::UpdateAuthFactorRequest>(Arena*);
-template<> ::user_data_auth::UpdateCredentialReply* Arena::CreateMaybeMessage<::user_data_auth::UpdateCredentialReply>(Arena*);
-template<> ::user_data_auth::UpdateCredentialRequest* Arena::CreateMaybeMessage<::user_data_auth::UpdateCredentialRequest>(Arena*);
 template<> ::user_data_auth::UpdateCurrentUserActivityTimestampReply* Arena::CreateMaybeMessage<::user_data_auth::UpdateCurrentUserActivityTimestampReply>(Arena*);
 template<> ::user_data_auth::UpdateCurrentUserActivityTimestampRequest* Arena::CreateMaybeMessage<::user_data_auth::UpdateCurrentUserActivityTimestampRequest>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -7560,316 +7544,6 @@ class StartAuthSessionReply final :
 };
 // -------------------------------------------------------------------
 
-class AddCredentialsRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.AddCredentialsRequest) */ {
- public:
-  inline AddCredentialsRequest() : AddCredentialsRequest(nullptr) {}
-  ~AddCredentialsRequest() override;
-  explicit PROTOBUF_CONSTEXPR AddCredentialsRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  AddCredentialsRequest(const AddCredentialsRequest& from);
-  AddCredentialsRequest(AddCredentialsRequest&& from) noexcept
-    : AddCredentialsRequest() {
-    *this = ::std::move(from);
-  }
-
-  inline AddCredentialsRequest& operator=(const AddCredentialsRequest& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline AddCredentialsRequest& operator=(AddCredentialsRequest&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const AddCredentialsRequest& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const AddCredentialsRequest* internal_default_instance() {
-    return reinterpret_cast<const AddCredentialsRequest*>(
-               &_AddCredentialsRequest_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    45;
-
-  friend void swap(AddCredentialsRequest& a, AddCredentialsRequest& b) {
-    a.Swap(&b);
-  }
-  PROTOBUF_NOINLINE void Swap(AddCredentialsRequest* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(AddCredentialsRequest* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  AddCredentialsRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<AddCredentialsRequest>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const AddCredentialsRequest& from);
-  void MergeFrom(const AddCredentialsRequest& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(AddCredentialsRequest* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "user_data_auth.AddCredentialsRequest";
-  }
-  protected:
-  explicit AddCredentialsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kAuthSessionIdFieldNumber = 1,
-    kAuthorizationFieldNumber = 2,
-    kAddMoreCredentialsFieldNumber = 3,
-  };
-  // bytes auth_session_id = 1;
-  void clear_auth_session_id();
-  const std::string& auth_session_id() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_auth_session_id(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_auth_session_id();
-  PROTOBUF_NODISCARD std::string* release_auth_session_id();
-  void set_allocated_auth_session_id(std::string* auth_session_id);
-  private:
-  const std::string& _internal_auth_session_id() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_auth_session_id(const std::string& value);
-  std::string* _internal_mutable_auth_session_id();
-  public:
-
-  // .cryptohome.AuthorizationRequest authorization = 2;
-  bool has_authorization() const;
-  private:
-  bool _internal_has_authorization() const;
-  public:
-  void clear_authorization();
-  const ::cryptohome::AuthorizationRequest& authorization() const;
-  PROTOBUF_NODISCARD ::cryptohome::AuthorizationRequest* release_authorization();
-  ::cryptohome::AuthorizationRequest* mutable_authorization();
-  void set_allocated_authorization(::cryptohome::AuthorizationRequest* authorization);
-  private:
-  const ::cryptohome::AuthorizationRequest& _internal_authorization() const;
-  ::cryptohome::AuthorizationRequest* _internal_mutable_authorization();
-  public:
-  void unsafe_arena_set_allocated_authorization(
-      ::cryptohome::AuthorizationRequest* authorization);
-  ::cryptohome::AuthorizationRequest* unsafe_arena_release_authorization();
-
-  // bool add_more_credentials = 3;
-  void clear_add_more_credentials();
-  bool add_more_credentials() const;
-  void set_add_more_credentials(bool value);
-  private:
-  bool _internal_add_more_credentials() const;
-  void _internal_set_add_more_credentials(bool value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:user_data_auth.AddCredentialsRequest)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr auth_session_id_;
-  ::cryptohome::AuthorizationRequest* authorization_;
-  bool add_more_credentials_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_UserDataAuth_2eproto;
-};
-// -------------------------------------------------------------------
-
-class AddCredentialsReply final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.AddCredentialsReply) */ {
- public:
-  inline AddCredentialsReply() : AddCredentialsReply(nullptr) {}
-  ~AddCredentialsReply() override;
-  explicit PROTOBUF_CONSTEXPR AddCredentialsReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  AddCredentialsReply(const AddCredentialsReply& from);
-  AddCredentialsReply(AddCredentialsReply&& from) noexcept
-    : AddCredentialsReply() {
-    *this = ::std::move(from);
-  }
-
-  inline AddCredentialsReply& operator=(const AddCredentialsReply& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline AddCredentialsReply& operator=(AddCredentialsReply&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const AddCredentialsReply& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const AddCredentialsReply* internal_default_instance() {
-    return reinterpret_cast<const AddCredentialsReply*>(
-               &_AddCredentialsReply_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    46;
-
-  friend void swap(AddCredentialsReply& a, AddCredentialsReply& b) {
-    a.Swap(&b);
-  }
-  PROTOBUF_NOINLINE void Swap(AddCredentialsReply* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(AddCredentialsReply* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  AddCredentialsReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<AddCredentialsReply>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const AddCredentialsReply& from);
-  void MergeFrom(const AddCredentialsReply& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(AddCredentialsReply* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "user_data_auth.AddCredentialsReply";
-  }
-  protected:
-  explicit AddCredentialsReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kErrorInfoFieldNumber = 2,
-    kErrorFieldNumber = 1,
-  };
-  // .user_data_auth.CryptohomeErrorInfo error_info = 2;
-  bool has_error_info() const;
-  private:
-  bool _internal_has_error_info() const;
-  public:
-  void clear_error_info();
-  const ::user_data_auth::CryptohomeErrorInfo& error_info() const;
-  PROTOBUF_NODISCARD ::user_data_auth::CryptohomeErrorInfo* release_error_info();
-  ::user_data_auth::CryptohomeErrorInfo* mutable_error_info();
-  void set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info);
-  private:
-  const ::user_data_auth::CryptohomeErrorInfo& _internal_error_info() const;
-  ::user_data_auth::CryptohomeErrorInfo* _internal_mutable_error_info();
-  public:
-  void unsafe_arena_set_allocated_error_info(
-      ::user_data_auth::CryptohomeErrorInfo* error_info);
-  ::user_data_auth::CryptohomeErrorInfo* unsafe_arena_release_error_info();
-
-  // .user_data_auth.CryptohomeErrorCode error = 1;
-  void clear_error();
-  ::user_data_auth::CryptohomeErrorCode error() const;
-  void set_error(::user_data_auth::CryptohomeErrorCode value);
-  private:
-  ::user_data_auth::CryptohomeErrorCode _internal_error() const;
-  void _internal_set_error(::user_data_auth::CryptohomeErrorCode value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:user_data_auth.AddCredentialsReply)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::user_data_auth::CryptohomeErrorInfo* error_info_;
-  int error_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_UserDataAuth_2eproto;
-};
-// -------------------------------------------------------------------
-
 class AuthenticateAuthSessionRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.AuthenticateAuthSessionRequest) */ {
  public:
@@ -7909,7 +7583,7 @@ class AuthenticateAuthSessionRequest final :
                &_AuthenticateAuthSessionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    47;
+    45;
 
   friend void swap(AuthenticateAuthSessionRequest& a, AuthenticateAuthSessionRequest& b) {
     a.Swap(&b);
@@ -8061,7 +7735,7 @@ class AuthenticateAuthSessionReply final :
                &_AuthenticateAuthSessionReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    48;
+    46;
 
   friend void swap(AuthenticateAuthSessionReply& a, AuthenticateAuthSessionReply& b) {
     a.Swap(&b);
@@ -8235,7 +7909,7 @@ class InvalidateAuthSessionRequest final :
                &_InvalidateAuthSessionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    49;
+    47;
 
   friend void swap(InvalidateAuthSessionRequest& a, InvalidateAuthSessionRequest& b) {
     a.Swap(&b);
@@ -8367,7 +8041,7 @@ class InvalidateAuthSessionReply final :
                &_InvalidateAuthSessionReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    50;
+    48;
 
   friend void swap(InvalidateAuthSessionReply& a, InvalidateAuthSessionReply& b) {
     a.Swap(&b);
@@ -8514,7 +8188,7 @@ class ExtendAuthSessionRequest final :
                &_ExtendAuthSessionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    51;
+    49;
 
   friend void swap(ExtendAuthSessionRequest& a, ExtendAuthSessionRequest& b) {
     a.Swap(&b);
@@ -8657,7 +8331,7 @@ class ExtendAuthSessionReply final :
                &_ExtendAuthSessionReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    52;
+    50;
 
   friend void swap(ExtendAuthSessionReply& a, ExtendAuthSessionReply& b) {
     a.Swap(&b);
@@ -8781,321 +8455,6 @@ class ExtendAuthSessionReply final :
 };
 // -------------------------------------------------------------------
 
-class UpdateCredentialRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.UpdateCredentialRequest) */ {
- public:
-  inline UpdateCredentialRequest() : UpdateCredentialRequest(nullptr) {}
-  ~UpdateCredentialRequest() override;
-  explicit PROTOBUF_CONSTEXPR UpdateCredentialRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  UpdateCredentialRequest(const UpdateCredentialRequest& from);
-  UpdateCredentialRequest(UpdateCredentialRequest&& from) noexcept
-    : UpdateCredentialRequest() {
-    *this = ::std::move(from);
-  }
-
-  inline UpdateCredentialRequest& operator=(const UpdateCredentialRequest& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline UpdateCredentialRequest& operator=(UpdateCredentialRequest&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const UpdateCredentialRequest& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const UpdateCredentialRequest* internal_default_instance() {
-    return reinterpret_cast<const UpdateCredentialRequest*>(
-               &_UpdateCredentialRequest_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    53;
-
-  friend void swap(UpdateCredentialRequest& a, UpdateCredentialRequest& b) {
-    a.Swap(&b);
-  }
-  PROTOBUF_NOINLINE void Swap(UpdateCredentialRequest* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(UpdateCredentialRequest* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  UpdateCredentialRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<UpdateCredentialRequest>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const UpdateCredentialRequest& from);
-  void MergeFrom(const UpdateCredentialRequest& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(UpdateCredentialRequest* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "user_data_auth.UpdateCredentialRequest";
-  }
-  protected:
-  explicit UpdateCredentialRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kAuthSessionIdFieldNumber = 1,
-    kOldCredentialLabelFieldNumber = 2,
-    kAuthorizationFieldNumber = 3,
-  };
-  // bytes auth_session_id = 1;
-  void clear_auth_session_id();
-  const std::string& auth_session_id() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_auth_session_id(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_auth_session_id();
-  PROTOBUF_NODISCARD std::string* release_auth_session_id();
-  void set_allocated_auth_session_id(std::string* auth_session_id);
-  private:
-  const std::string& _internal_auth_session_id() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_auth_session_id(const std::string& value);
-  std::string* _internal_mutable_auth_session_id();
-  public:
-
-  // string old_credential_label = 2;
-  void clear_old_credential_label();
-  const std::string& old_credential_label() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_old_credential_label(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_old_credential_label();
-  PROTOBUF_NODISCARD std::string* release_old_credential_label();
-  void set_allocated_old_credential_label(std::string* old_credential_label);
-  private:
-  const std::string& _internal_old_credential_label() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_old_credential_label(const std::string& value);
-  std::string* _internal_mutable_old_credential_label();
-  public:
-
-  // .cryptohome.AuthorizationRequest authorization = 3;
-  bool has_authorization() const;
-  private:
-  bool _internal_has_authorization() const;
-  public:
-  void clear_authorization();
-  const ::cryptohome::AuthorizationRequest& authorization() const;
-  PROTOBUF_NODISCARD ::cryptohome::AuthorizationRequest* release_authorization();
-  ::cryptohome::AuthorizationRequest* mutable_authorization();
-  void set_allocated_authorization(::cryptohome::AuthorizationRequest* authorization);
-  private:
-  const ::cryptohome::AuthorizationRequest& _internal_authorization() const;
-  ::cryptohome::AuthorizationRequest* _internal_mutable_authorization();
-  public:
-  void unsafe_arena_set_allocated_authorization(
-      ::cryptohome::AuthorizationRequest* authorization);
-  ::cryptohome::AuthorizationRequest* unsafe_arena_release_authorization();
-
-  // @@protoc_insertion_point(class_scope:user_data_auth.UpdateCredentialRequest)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr auth_session_id_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr old_credential_label_;
-  ::cryptohome::AuthorizationRequest* authorization_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_UserDataAuth_2eproto;
-};
-// -------------------------------------------------------------------
-
-class UpdateCredentialReply final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.UpdateCredentialReply) */ {
- public:
-  inline UpdateCredentialReply() : UpdateCredentialReply(nullptr) {}
-  ~UpdateCredentialReply() override;
-  explicit PROTOBUF_CONSTEXPR UpdateCredentialReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  UpdateCredentialReply(const UpdateCredentialReply& from);
-  UpdateCredentialReply(UpdateCredentialReply&& from) noexcept
-    : UpdateCredentialReply() {
-    *this = ::std::move(from);
-  }
-
-  inline UpdateCredentialReply& operator=(const UpdateCredentialReply& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline UpdateCredentialReply& operator=(UpdateCredentialReply&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const UpdateCredentialReply& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const UpdateCredentialReply* internal_default_instance() {
-    return reinterpret_cast<const UpdateCredentialReply*>(
-               &_UpdateCredentialReply_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    54;
-
-  friend void swap(UpdateCredentialReply& a, UpdateCredentialReply& b) {
-    a.Swap(&b);
-  }
-  PROTOBUF_NOINLINE void Swap(UpdateCredentialReply* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(UpdateCredentialReply* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  UpdateCredentialReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<UpdateCredentialReply>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const UpdateCredentialReply& from);
-  void MergeFrom(const UpdateCredentialReply& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(UpdateCredentialReply* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "user_data_auth.UpdateCredentialReply";
-  }
-  protected:
-  explicit UpdateCredentialReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kErrorInfoFieldNumber = 2,
-    kErrorFieldNumber = 1,
-  };
-  // .user_data_auth.CryptohomeErrorInfo error_info = 2;
-  bool has_error_info() const;
-  private:
-  bool _internal_has_error_info() const;
-  public:
-  void clear_error_info();
-  const ::user_data_auth::CryptohomeErrorInfo& error_info() const;
-  PROTOBUF_NODISCARD ::user_data_auth::CryptohomeErrorInfo* release_error_info();
-  ::user_data_auth::CryptohomeErrorInfo* mutable_error_info();
-  void set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info);
-  private:
-  const ::user_data_auth::CryptohomeErrorInfo& _internal_error_info() const;
-  ::user_data_auth::CryptohomeErrorInfo* _internal_mutable_error_info();
-  public:
-  void unsafe_arena_set_allocated_error_info(
-      ::user_data_auth::CryptohomeErrorInfo* error_info);
-  ::user_data_auth::CryptohomeErrorInfo* unsafe_arena_release_error_info();
-
-  // .user_data_auth.CryptohomeErrorCode error = 1;
-  void clear_error();
-  ::user_data_auth::CryptohomeErrorCode error() const;
-  void set_error(::user_data_auth::CryptohomeErrorCode value);
-  private:
-  ::user_data_auth::CryptohomeErrorCode _internal_error() const;
-  void _internal_set_error(::user_data_auth::CryptohomeErrorCode value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:user_data_auth.UpdateCredentialReply)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::user_data_auth::CryptohomeErrorInfo* error_info_;
-  int error_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_UserDataAuth_2eproto;
-};
-// -------------------------------------------------------------------
-
 class CreatePersistentUserRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.CreatePersistentUserRequest) */ {
  public:
@@ -9135,7 +8494,7 @@ class CreatePersistentUserRequest final :
                &_CreatePersistentUserRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    55;
+    51;
 
   friend void swap(CreatePersistentUserRequest& a, CreatePersistentUserRequest& b) {
     a.Swap(&b);
@@ -9267,7 +8626,7 @@ class CreatePersistentUserReply final :
                &_CreatePersistentUserReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    56;
+    52;
 
   friend void swap(CreatePersistentUserReply& a, CreatePersistentUserReply& b) {
     a.Swap(&b);
@@ -9430,7 +8789,7 @@ class PrepareGuestVaultRequest final :
                &_PrepareGuestVaultRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    57;
+    53;
 
   friend void swap(PrepareGuestVaultRequest& a, PrepareGuestVaultRequest& b) {
     a.Swap(&b);
@@ -9544,7 +8903,7 @@ class PrepareGuestVaultReply final :
                &_PrepareGuestVaultReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    58;
+    54;
 
   friend void swap(PrepareGuestVaultReply& a, PrepareGuestVaultReply& b) {
     a.Swap(&b);
@@ -9707,7 +9066,7 @@ class PrepareEphemeralVaultRequest final :
                &_PrepareEphemeralVaultRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    59;
+    55;
 
   friend void swap(PrepareEphemeralVaultRequest& a, PrepareEphemeralVaultRequest& b) {
     a.Swap(&b);
@@ -9839,7 +9198,7 @@ class PrepareEphemeralVaultReply final :
                &_PrepareEphemeralVaultReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    60;
+    56;
 
   friend void swap(PrepareEphemeralVaultReply& a, PrepareEphemeralVaultReply& b) {
     a.Swap(&b);
@@ -10002,7 +9361,7 @@ class GetAuthSessionStatusRequest final :
                &_GetAuthSessionStatusRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    61;
+    57;
 
   friend void swap(GetAuthSessionStatusRequest& a, GetAuthSessionStatusRequest& b) {
     a.Swap(&b);
@@ -10134,7 +9493,7 @@ class GetAuthSessionStatusReply final :
                &_GetAuthSessionStatusReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    62;
+    58;
 
   friend void swap(GetAuthSessionStatusReply& a, GetAuthSessionStatusReply& b) {
     a.Swap(&b);
@@ -10303,7 +9662,7 @@ class PreparePersistentVaultRequest final :
                &_PreparePersistentVaultRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    63;
+    59;
 
   friend void swap(PreparePersistentVaultRequest& a, PreparePersistentVaultRequest& b) {
     a.Swap(&b);
@@ -10457,7 +9816,7 @@ class PreparePersistentVaultReply final :
                &_PreparePersistentVaultReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    64;
+    60;
 
   friend void swap(PreparePersistentVaultReply& a, PreparePersistentVaultReply& b) {
     a.Swap(&b);
@@ -10620,7 +9979,7 @@ class PrepareVaultForMigrationRequest final :
                &_PrepareVaultForMigrationRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    65;
+    61;
 
   friend void swap(PrepareVaultForMigrationRequest& a, PrepareVaultForMigrationRequest& b) {
     a.Swap(&b);
@@ -10752,7 +10111,7 @@ class PrepareVaultForMigrationReply final :
                &_PrepareVaultForMigrationReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    66;
+    62;
 
   friend void swap(PrepareVaultForMigrationReply& a, PrepareVaultForMigrationReply& b) {
     a.Swap(&b);
@@ -10915,7 +10274,7 @@ class GetArcDiskFeaturesRequest final :
                &_GetArcDiskFeaturesRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    67;
+    63;
 
   friend void swap(GetArcDiskFeaturesRequest& a, GetArcDiskFeaturesRequest& b) {
     a.Swap(&b);
@@ -11029,7 +10388,7 @@ class GetArcDiskFeaturesReply final :
                &_GetArcDiskFeaturesReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    68;
+    64;
 
   friend void swap(GetArcDiskFeaturesReply& a, GetArcDiskFeaturesReply& b) {
     a.Swap(&b);
@@ -11156,7 +10515,7 @@ class GetCurrentSpaceForArcUidRequest final :
                &_GetCurrentSpaceForArcUidRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    69;
+    65;
 
   friend void swap(GetCurrentSpaceForArcUidRequest& a, GetCurrentSpaceForArcUidRequest& b) {
     a.Swap(&b);
@@ -11283,7 +10642,7 @@ class GetCurrentSpaceForArcUidReply final :
                &_GetCurrentSpaceForArcUidReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    70;
+    66;
 
   friend void swap(GetCurrentSpaceForArcUidReply& a, GetCurrentSpaceForArcUidReply& b) {
     a.Swap(&b);
@@ -11410,7 +10769,7 @@ class GetCurrentSpaceForArcGidRequest final :
                &_GetCurrentSpaceForArcGidRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    71;
+    67;
 
   friend void swap(GetCurrentSpaceForArcGidRequest& a, GetCurrentSpaceForArcGidRequest& b) {
     a.Swap(&b);
@@ -11537,7 +10896,7 @@ class GetCurrentSpaceForArcGidReply final :
                &_GetCurrentSpaceForArcGidReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    72;
+    68;
 
   friend void swap(GetCurrentSpaceForArcGidReply& a, GetCurrentSpaceForArcGidReply& b) {
     a.Swap(&b);
@@ -11664,7 +11023,7 @@ class GetCurrentSpaceForArcProjectIdRequest final :
                &_GetCurrentSpaceForArcProjectIdRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    73;
+    69;
 
   friend void swap(GetCurrentSpaceForArcProjectIdRequest& a, GetCurrentSpaceForArcProjectIdRequest& b) {
     a.Swap(&b);
@@ -11791,7 +11150,7 @@ class GetCurrentSpaceForArcProjectIdReply final :
                &_GetCurrentSpaceForArcProjectIdReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    74;
+    70;
 
   friend void swap(GetCurrentSpaceForArcProjectIdReply& a, GetCurrentSpaceForArcProjectIdReply& b) {
     a.Swap(&b);
@@ -11918,7 +11277,7 @@ class SetMediaRWDataFileProjectIdRequest final :
                &_SetMediaRWDataFileProjectIdRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    75;
+    71;
 
   friend void swap(SetMediaRWDataFileProjectIdRequest& a, SetMediaRWDataFileProjectIdRequest& b) {
     a.Swap(&b);
@@ -12045,7 +11404,7 @@ class SetMediaRWDataFileProjectIdReply final :
                &_SetMediaRWDataFileProjectIdReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    76;
+    72;
 
   friend void swap(SetMediaRWDataFileProjectIdReply& a, SetMediaRWDataFileProjectIdReply& b) {
     a.Swap(&b);
@@ -12183,7 +11542,7 @@ class SetMediaRWDataFileProjectInheritanceFlagRequest final :
                &_SetMediaRWDataFileProjectInheritanceFlagRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    77;
+    73;
 
   friend void swap(SetMediaRWDataFileProjectInheritanceFlagRequest& a, SetMediaRWDataFileProjectInheritanceFlagRequest& b) {
     a.Swap(&b);
@@ -12310,7 +11669,7 @@ class SetMediaRWDataFileProjectInheritanceFlagReply final :
                &_SetMediaRWDataFileProjectInheritanceFlagReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    78;
+    74;
 
   friend void swap(SetMediaRWDataFileProjectInheritanceFlagReply& a, SetMediaRWDataFileProjectInheritanceFlagReply& b) {
     a.Swap(&b);
@@ -12448,7 +11807,7 @@ class TpmTokenInfo final :
                &_TpmTokenInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    79;
+    75;
 
   friend void swap(TpmTokenInfo& a, TpmTokenInfo& b) {
     a.Swap(&b);
@@ -12607,7 +11966,7 @@ class Pkcs11IsTpmTokenReadyRequest final :
                &_Pkcs11IsTpmTokenReadyRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    80;
+    76;
 
   friend void swap(Pkcs11IsTpmTokenReadyRequest& a, Pkcs11IsTpmTokenReadyRequest& b) {
     a.Swap(&b);
@@ -12721,7 +12080,7 @@ class Pkcs11IsTpmTokenReadyReply final :
                &_Pkcs11IsTpmTokenReadyReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    81;
+    77;
 
   friend void swap(Pkcs11IsTpmTokenReadyReply& a, Pkcs11IsTpmTokenReadyReply& b) {
     a.Swap(&b);
@@ -12848,7 +12207,7 @@ class Pkcs11GetTpmTokenInfoRequest final :
                &_Pkcs11GetTpmTokenInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    82;
+    78;
 
   friend void swap(Pkcs11GetTpmTokenInfoRequest& a, Pkcs11GetTpmTokenInfoRequest& b) {
     a.Swap(&b);
@@ -12980,7 +12339,7 @@ class Pkcs11GetTpmTokenInfoReply final :
                &_Pkcs11GetTpmTokenInfoReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    83;
+    79;
 
   friend void swap(Pkcs11GetTpmTokenInfoReply& a, Pkcs11GetTpmTokenInfoReply& b) {
     a.Swap(&b);
@@ -13116,7 +12475,7 @@ class Pkcs11TerminateRequest final :
                &_Pkcs11TerminateRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    84;
+    80;
 
   friend void swap(Pkcs11TerminateRequest& a, Pkcs11TerminateRequest& b) {
     a.Swap(&b);
@@ -13248,7 +12607,7 @@ class Pkcs11TerminateReply final :
                &_Pkcs11TerminateReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    85;
+    81;
 
   friend void swap(Pkcs11TerminateReply& a, Pkcs11TerminateReply& b) {
     a.Swap(&b);
@@ -13362,7 +12721,7 @@ class Pkcs11RestoreTpmTokensRequest final :
                &_Pkcs11RestoreTpmTokensRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    86;
+    82;
 
   friend void swap(Pkcs11RestoreTpmTokensRequest& a, Pkcs11RestoreTpmTokensRequest& b) {
     a.Swap(&b);
@@ -13476,7 +12835,7 @@ class Pkcs11RestoreTpmTokensReply final :
                &_Pkcs11RestoreTpmTokensReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    87;
+    83;
 
   friend void swap(Pkcs11RestoreTpmTokensReply& a, Pkcs11RestoreTpmTokensReply& b) {
     a.Swap(&b);
@@ -13590,7 +12949,7 @@ class InstallAttributesGetRequest final :
                &_InstallAttributesGetRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    88;
+    84;
 
   friend void swap(InstallAttributesGetRequest& a, InstallAttributesGetRequest& b) {
     a.Swap(&b);
@@ -13722,7 +13081,7 @@ class InstallAttributesGetReply final :
                &_InstallAttributesGetReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    89;
+    85;
 
   friend void swap(InstallAttributesGetReply& a, InstallAttributesGetReply& b) {
     a.Swap(&b);
@@ -13865,7 +13224,7 @@ class InstallAttributesSetRequest final :
                &_InstallAttributesSetRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    90;
+    86;
 
   friend void swap(InstallAttributesSetRequest& a, InstallAttributesSetRequest& b) {
     a.Swap(&b);
@@ -14013,7 +13372,7 @@ class InstallAttributesSetReply final :
                &_InstallAttributesSetReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    91;
+    87;
 
   friend void swap(InstallAttributesSetReply& a, InstallAttributesSetReply& b) {
     a.Swap(&b);
@@ -14140,7 +13499,7 @@ class InstallAttributesFinalizeRequest final :
                &_InstallAttributesFinalizeRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    92;
+    88;
 
   friend void swap(InstallAttributesFinalizeRequest& a, InstallAttributesFinalizeRequest& b) {
     a.Swap(&b);
@@ -14254,7 +13613,7 @@ class InstallAttributesFinalizeReply final :
                &_InstallAttributesFinalizeReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    93;
+    89;
 
   friend void swap(InstallAttributesFinalizeReply& a, InstallAttributesFinalizeReply& b) {
     a.Swap(&b);
@@ -14381,7 +13740,7 @@ class InstallAttributesGetStatusRequest final :
                &_InstallAttributesGetStatusRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    94;
+    90;
 
   friend void swap(InstallAttributesGetStatusRequest& a, InstallAttributesGetStatusRequest& b) {
     a.Swap(&b);
@@ -14495,7 +13854,7 @@ class InstallAttributesGetStatusReply final :
                &_InstallAttributesGetStatusReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    95;
+    91;
 
   friend void swap(InstallAttributesGetStatusReply& a, InstallAttributesGetStatusReply& b) {
     a.Swap(&b);
@@ -14655,7 +14014,7 @@ class FirmwareManagementParameters final :
                &_FirmwareManagementParameters_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    96;
+    92;
 
   friend void swap(FirmwareManagementParameters& a, FirmwareManagementParameters& b) {
     a.Swap(&b);
@@ -14798,7 +14157,7 @@ class GetFirmwareManagementParametersRequest final :
                &_GetFirmwareManagementParametersRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    97;
+    93;
 
   friend void swap(GetFirmwareManagementParametersRequest& a, GetFirmwareManagementParametersRequest& b) {
     a.Swap(&b);
@@ -14912,7 +14271,7 @@ class GetFirmwareManagementParametersReply final :
                &_GetFirmwareManagementParametersReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    98;
+    94;
 
   friend void swap(GetFirmwareManagementParametersReply& a, GetFirmwareManagementParametersReply& b) {
     a.Swap(&b);
@@ -15059,7 +14418,7 @@ class RemoveFirmwareManagementParametersRequest final :
                &_RemoveFirmwareManagementParametersRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    99;
+    95;
 
   friend void swap(RemoveFirmwareManagementParametersRequest& a, RemoveFirmwareManagementParametersRequest& b) {
     a.Swap(&b);
@@ -15173,7 +14532,7 @@ class RemoveFirmwareManagementParametersReply final :
                &_RemoveFirmwareManagementParametersReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    100;
+    96;
 
   friend void swap(RemoveFirmwareManagementParametersReply& a, RemoveFirmwareManagementParametersReply& b) {
     a.Swap(&b);
@@ -15300,7 +14659,7 @@ class SetFirmwareManagementParametersRequest final :
                &_SetFirmwareManagementParametersRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    101;
+    97;
 
   friend void swap(SetFirmwareManagementParametersRequest& a, SetFirmwareManagementParametersRequest& b) {
     a.Swap(&b);
@@ -15436,7 +14795,7 @@ class SetFirmwareManagementParametersReply final :
                &_SetFirmwareManagementParametersReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    102;
+    98;
 
   friend void swap(SetFirmwareManagementParametersReply& a, SetFirmwareManagementParametersReply& b) {
     a.Swap(&b);
@@ -15563,7 +14922,7 @@ class GetSystemSaltRequest final :
                &_GetSystemSaltRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    103;
+    99;
 
   friend void swap(GetSystemSaltRequest& a, GetSystemSaltRequest& b) {
     a.Swap(&b);
@@ -15677,7 +15036,7 @@ class GetSystemSaltReply final :
                &_GetSystemSaltReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    104;
+    100;
 
   friend void swap(GetSystemSaltReply& a, GetSystemSaltReply& b) {
     a.Swap(&b);
@@ -15809,7 +15168,7 @@ class UpdateCurrentUserActivityTimestampRequest final :
                &_UpdateCurrentUserActivityTimestampRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    105;
+    101;
 
   friend void swap(UpdateCurrentUserActivityTimestampRequest& a, UpdateCurrentUserActivityTimestampRequest& b) {
     a.Swap(&b);
@@ -15936,7 +15295,7 @@ class UpdateCurrentUserActivityTimestampReply final :
                &_UpdateCurrentUserActivityTimestampReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    106;
+    102;
 
   friend void swap(UpdateCurrentUserActivityTimestampReply& a, UpdateCurrentUserActivityTimestampReply& b) {
     a.Swap(&b);
@@ -16063,7 +15422,7 @@ class GetSanitizedUsernameRequest final :
                &_GetSanitizedUsernameRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    107;
+    103;
 
   friend void swap(GetSanitizedUsernameRequest& a, GetSanitizedUsernameRequest& b) {
     a.Swap(&b);
@@ -16195,7 +15554,7 @@ class GetSanitizedUsernameReply final :
                &_GetSanitizedUsernameReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    108;
+    104;
 
   friend void swap(GetSanitizedUsernameReply& a, GetSanitizedUsernameReply& b) {
     a.Swap(&b);
@@ -16327,7 +15686,7 @@ class GetLoginStatusRequest final :
                &_GetLoginStatusRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    109;
+    105;
 
   friend void swap(GetLoginStatusRequest& a, GetLoginStatusRequest& b) {
     a.Swap(&b);
@@ -16441,7 +15800,7 @@ class GetLoginStatusReply final :
                &_GetLoginStatusReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    110;
+    106;
 
   friend void swap(GetLoginStatusReply& a, GetLoginStatusReply& b) {
     a.Swap(&b);
@@ -16590,7 +15949,7 @@ class GetStatusStringRequest final :
                &_GetStatusStringRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    111;
+    107;
 
   friend void swap(GetStatusStringRequest& a, GetStatusStringRequest& b) {
     a.Swap(&b);
@@ -16704,7 +16063,7 @@ class GetStatusStringReply final :
                &_GetStatusStringReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    112;
+    108;
 
   friend void swap(GetStatusStringReply& a, GetStatusStringReply& b) {
     a.Swap(&b);
@@ -16836,7 +16195,7 @@ class LockToSingleUserMountUntilRebootRequest final :
                &_LockToSingleUserMountUntilRebootRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    113;
+    109;
 
   friend void swap(LockToSingleUserMountUntilRebootRequest& a, LockToSingleUserMountUntilRebootRequest& b) {
     a.Swap(&b);
@@ -16972,7 +16331,7 @@ class LockToSingleUserMountUntilRebootReply final :
                &_LockToSingleUserMountUntilRebootReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    114;
+    110;
 
   friend void swap(LockToSingleUserMountUntilRebootReply& a, LockToSingleUserMountUntilRebootReply& b) {
     a.Swap(&b);
@@ -17099,7 +16458,7 @@ class GetRsuDeviceIdReply final :
                &_GetRsuDeviceIdReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    115;
+    111;
 
   friend void swap(GetRsuDeviceIdReply& a, GetRsuDeviceIdReply& b) {
     a.Swap(&b);
@@ -17242,7 +16601,7 @@ class GetRsuDeviceIdRequest final :
                &_GetRsuDeviceIdRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    116;
+    112;
 
   friend void swap(GetRsuDeviceIdRequest& a, GetRsuDeviceIdRequest& b) {
     a.Swap(&b);
@@ -17356,7 +16715,7 @@ class CheckHealthRequest final :
                &_CheckHealthRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    117;
+    113;
 
   friend void swap(CheckHealthRequest& a, CheckHealthRequest& b) {
     a.Swap(&b);
@@ -17470,7 +16829,7 @@ class CheckHealthReply final :
                &_CheckHealthReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    118;
+    114;
 
   friend void swap(CheckHealthReply& a, CheckHealthReply& b) {
     a.Swap(&b);
@@ -17597,7 +16956,7 @@ class ResetApplicationContainerRequest final :
                &_ResetApplicationContainerRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    119;
+    115;
 
   friend void swap(ResetApplicationContainerRequest& a, ResetApplicationContainerRequest& b) {
     a.Swap(&b);
@@ -17749,7 +17108,7 @@ class ResetApplicationContainerReply final :
                &_ResetApplicationContainerReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    120;
+    116;
 
   friend void swap(ResetApplicationContainerReply& a, ResetApplicationContainerReply& b) {
     a.Swap(&b);
@@ -17896,7 +17255,7 @@ class FidoMakeCredentialRequest final :
                &_FidoMakeCredentialRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    121;
+    117;
 
   friend void swap(FidoMakeCredentialRequest& a, FidoMakeCredentialRequest& b) {
     a.Swap(&b);
@@ -18052,7 +17411,7 @@ class FidoMakeCredentialReply final :
                &_FidoMakeCredentialReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    122;
+    118;
 
   friend void swap(FidoMakeCredentialReply& a, FidoMakeCredentialReply& b) {
     a.Swap(&b);
@@ -18199,7 +17558,7 @@ class FidoGetAssertionRequest final :
                &_FidoGetAssertionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    123;
+    119;
 
   friend void swap(FidoGetAssertionRequest& a, FidoGetAssertionRequest& b) {
     a.Swap(&b);
@@ -18335,7 +17694,7 @@ class FidoGetAssertionReply final :
                &_FidoGetAssertionReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    124;
+    120;
 
   friend void swap(FidoGetAssertionReply& a, FidoGetAssertionReply& b) {
     a.Swap(&b);
@@ -18482,7 +17841,7 @@ class AddAuthFactorRequest final :
                &_AddAuthFactorRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    125;
+    121;
 
   friend void swap(AddAuthFactorRequest& a, AddAuthFactorRequest& b) {
     a.Swap(&b);
@@ -18654,7 +18013,7 @@ class AddAuthFactorReply final :
                &_AddAuthFactorReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    126;
+    122;
 
   friend void swap(AddAuthFactorReply& a, AddAuthFactorReply& b) {
     a.Swap(&b);
@@ -18801,7 +18160,7 @@ class AuthenticateAuthFactorRequest final :
                &_AuthenticateAuthFactorRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    127;
+    123;
 
   friend void swap(AuthenticateAuthFactorRequest& a, AuthenticateAuthFactorRequest& b) {
     a.Swap(&b);
@@ -18995,7 +18354,7 @@ class AuthenticateAuthFactorReply final :
                &_AuthenticateAuthFactorReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    128;
+    124;
 
   friend void swap(AuthenticateAuthFactorReply& a, AuthenticateAuthFactorReply& b) {
     a.Swap(&b);
@@ -19189,7 +18548,7 @@ class UpdateAuthFactorRequest final :
                &_UpdateAuthFactorRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    129;
+    125;
 
   friend void swap(UpdateAuthFactorRequest& a, UpdateAuthFactorRequest& b) {
     a.Swap(&b);
@@ -19377,7 +18736,7 @@ class UpdateAuthFactorReply final :
                &_UpdateAuthFactorReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    130;
+    126;
 
   friend void swap(UpdateAuthFactorReply& a, UpdateAuthFactorReply& b) {
     a.Swap(&b);
@@ -19524,7 +18883,7 @@ class RemoveAuthFactorRequest final :
                &_RemoveAuthFactorRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    131;
+    127;
 
   friend void swap(RemoveAuthFactorRequest& a, RemoveAuthFactorRequest& b) {
     a.Swap(&b);
@@ -19672,7 +19031,7 @@ class RemoveAuthFactorReply final :
                &_RemoveAuthFactorReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    132;
+    128;
 
   friend void swap(RemoveAuthFactorReply& a, RemoveAuthFactorReply& b) {
     a.Swap(&b);
@@ -19819,7 +19178,7 @@ class ListAuthFactorsRequest final :
                &_ListAuthFactorsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    133;
+    129;
 
   friend void swap(ListAuthFactorsRequest& a, ListAuthFactorsRequest& b) {
     a.Swap(&b);
@@ -19955,7 +19314,7 @@ class ListAuthFactorsReply final :
                &_ListAuthFactorsReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    134;
+    130;
 
   friend void swap(ListAuthFactorsReply& a, ListAuthFactorsReply& b) {
     a.Swap(&b);
@@ -20162,7 +19521,7 @@ class RecoveryExtendedInfoRequest final :
                &_RecoveryExtendedInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    135;
+    131;
 
   friend void swap(RecoveryExtendedInfoRequest& a, RecoveryExtendedInfoRequest& b) {
     a.Swap(&b);
@@ -20289,7 +19648,7 @@ class RecoveryExtendedInfoReply final :
                &_RecoveryExtendedInfoReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    136;
+    132;
 
   friend void swap(RecoveryExtendedInfoReply& a, RecoveryExtendedInfoReply& b) {
     a.Swap(&b);
@@ -20436,7 +19795,7 @@ class GetAuthFactorExtendedInfoRequest final :
                &_GetAuthFactorExtendedInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    137;
+    133;
 
   friend void swap(GetAuthFactorExtendedInfoRequest& a, GetAuthFactorExtendedInfoRequest& b) {
     a.Swap(&b);
@@ -20625,7 +19984,7 @@ class GetAuthFactorExtendedInfoReply final :
                &_GetAuthFactorExtendedInfoReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    138;
+    134;
 
   friend void swap(GetAuthFactorExtendedInfoReply& a, GetAuthFactorExtendedInfoReply& b) {
     a.Swap(&b);
@@ -20824,7 +20183,7 @@ class GetRecoveryRequestRequest final :
                &_GetRecoveryRequestRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    139;
+    135;
 
   friend void swap(GetRecoveryRequestRequest& a, GetRecoveryRequestRequest& b) {
     a.Swap(&b);
@@ -21073,7 +20432,7 @@ class GetRecoveryRequestReply final :
                &_GetRecoveryRequestReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    140;
+    136;
 
   friend void swap(GetRecoveryRequestReply& a, GetRecoveryRequestReply& b) {
     a.Swap(&b);
@@ -21236,7 +20595,7 @@ class PrepareAuthFactorRequest final :
                &_PrepareAuthFactorRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    141;
+    137;
 
   friend void swap(PrepareAuthFactorRequest& a, PrepareAuthFactorRequest& b) {
     a.Swap(&b);
@@ -21390,7 +20749,7 @@ class PrepareAuthFactorReply final :
                &_PrepareAuthFactorReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    142;
+    138;
 
   friend void swap(PrepareAuthFactorReply& a, PrepareAuthFactorReply& b) {
     a.Swap(&b);
@@ -21537,7 +20896,7 @@ class TerminateAuthFactorRequest final :
                &_TerminateAuthFactorRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    143;
+    139;
 
   friend void swap(TerminateAuthFactorRequest& a, TerminateAuthFactorRequest& b) {
     a.Swap(&b);
@@ -21680,7 +21039,7 @@ class TerminateAuthFactorReply final :
                &_TerminateAuthFactorReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    144;
+    140;
 
   friend void swap(TerminateAuthFactorReply& a, TerminateAuthFactorReply& b) {
     a.Swap(&b);
@@ -21832,7 +21191,7 @@ class AuthScanResult final :
                &_AuthScanResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    145;
+    141;
 
   friend void swap(AuthScanResult& a, AuthScanResult& b) {
     a.Swap(&b);
@@ -21975,7 +21334,7 @@ class FingerprintEnrollmentProgress final :
                &_FingerprintEnrollmentProgress_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    146;
+    142;
 
   friend void swap(FingerprintEnrollmentProgress& a, FingerprintEnrollmentProgress& b) {
     a.Swap(&b);
@@ -22107,7 +21466,7 @@ class AuthEnrollmentProgress final :
                &_AuthEnrollmentProgress_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    147;
+    143;
 
   friend void swap(AuthEnrollmentProgress& a, AuthEnrollmentProgress& b) {
     a.Swap(&b);
@@ -26831,279 +26190,6 @@ inline void StartAuthSessionReply::set_allocated_error_info(::user_data_auth::Cr
 
 // -------------------------------------------------------------------
 
-// AddCredentialsRequest
-
-// bytes auth_session_id = 1;
-inline void AddCredentialsRequest::clear_auth_session_id() {
-  auth_session_id_.ClearToEmpty();
-}
-inline const std::string& AddCredentialsRequest::auth_session_id() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.AddCredentialsRequest.auth_session_id)
-  return _internal_auth_session_id();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void AddCredentialsRequest::set_auth_session_id(ArgT0&& arg0, ArgT... args) {
- 
- auth_session_id_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:user_data_auth.AddCredentialsRequest.auth_session_id)
-}
-inline std::string* AddCredentialsRequest::mutable_auth_session_id() {
-  std::string* _s = _internal_mutable_auth_session_id();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.AddCredentialsRequest.auth_session_id)
-  return _s;
-}
-inline const std::string& AddCredentialsRequest::_internal_auth_session_id() const {
-  return auth_session_id_.Get();
-}
-inline void AddCredentialsRequest::_internal_set_auth_session_id(const std::string& value) {
-  
-  auth_session_id_.Set(value, GetArenaForAllocation());
-}
-inline std::string* AddCredentialsRequest::_internal_mutable_auth_session_id() {
-  
-  return auth_session_id_.Mutable(GetArenaForAllocation());
-}
-inline std::string* AddCredentialsRequest::release_auth_session_id() {
-  // @@protoc_insertion_point(field_release:user_data_auth.AddCredentialsRequest.auth_session_id)
-  return auth_session_id_.Release();
-}
-inline void AddCredentialsRequest::set_allocated_auth_session_id(std::string* auth_session_id) {
-  if (auth_session_id != nullptr) {
-    
-  } else {
-    
-  }
-  auth_session_id_.SetAllocated(auth_session_id, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (auth_session_id_.IsDefault()) {
-    auth_session_id_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.AddCredentialsRequest.auth_session_id)
-}
-
-// .cryptohome.AuthorizationRequest authorization = 2;
-inline bool AddCredentialsRequest::_internal_has_authorization() const {
-  return this != internal_default_instance() && authorization_ != nullptr;
-}
-inline bool AddCredentialsRequest::has_authorization() const {
-  return _internal_has_authorization();
-}
-inline const ::cryptohome::AuthorizationRequest& AddCredentialsRequest::_internal_authorization() const {
-  const ::cryptohome::AuthorizationRequest* p = authorization_;
-  return p != nullptr ? *p : reinterpret_cast<const ::cryptohome::AuthorizationRequest&>(
-      ::cryptohome::_AuthorizationRequest_default_instance_);
-}
-inline const ::cryptohome::AuthorizationRequest& AddCredentialsRequest::authorization() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.AddCredentialsRequest.authorization)
-  return _internal_authorization();
-}
-inline void AddCredentialsRequest::unsafe_arena_set_allocated_authorization(
-    ::cryptohome::AuthorizationRequest* authorization) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(authorization_);
-  }
-  authorization_ = authorization;
-  if (authorization) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.AddCredentialsRequest.authorization)
-}
-inline ::cryptohome::AuthorizationRequest* AddCredentialsRequest::release_authorization() {
-  
-  ::cryptohome::AuthorizationRequest* temp = authorization_;
-  authorization_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::cryptohome::AuthorizationRequest* AddCredentialsRequest::unsafe_arena_release_authorization() {
-  // @@protoc_insertion_point(field_release:user_data_auth.AddCredentialsRequest.authorization)
-  
-  ::cryptohome::AuthorizationRequest* temp = authorization_;
-  authorization_ = nullptr;
-  return temp;
-}
-inline ::cryptohome::AuthorizationRequest* AddCredentialsRequest::_internal_mutable_authorization() {
-  
-  if (authorization_ == nullptr) {
-    auto* p = CreateMaybeMessage<::cryptohome::AuthorizationRequest>(GetArenaForAllocation());
-    authorization_ = p;
-  }
-  return authorization_;
-}
-inline ::cryptohome::AuthorizationRequest* AddCredentialsRequest::mutable_authorization() {
-  ::cryptohome::AuthorizationRequest* _msg = _internal_mutable_authorization();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.AddCredentialsRequest.authorization)
-  return _msg;
-}
-inline void AddCredentialsRequest::set_allocated_authorization(::cryptohome::AuthorizationRequest* authorization) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(authorization_);
-  }
-  if (authorization) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(authorization));
-    if (message_arena != submessage_arena) {
-      authorization = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, authorization, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  authorization_ = authorization;
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.AddCredentialsRequest.authorization)
-}
-
-// bool add_more_credentials = 3;
-inline void AddCredentialsRequest::clear_add_more_credentials() {
-  add_more_credentials_ = false;
-}
-inline bool AddCredentialsRequest::_internal_add_more_credentials() const {
-  return add_more_credentials_;
-}
-inline bool AddCredentialsRequest::add_more_credentials() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.AddCredentialsRequest.add_more_credentials)
-  return _internal_add_more_credentials();
-}
-inline void AddCredentialsRequest::_internal_set_add_more_credentials(bool value) {
-  
-  add_more_credentials_ = value;
-}
-inline void AddCredentialsRequest::set_add_more_credentials(bool value) {
-  _internal_set_add_more_credentials(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.AddCredentialsRequest.add_more_credentials)
-}
-
-// -------------------------------------------------------------------
-
-// AddCredentialsReply
-
-// .user_data_auth.CryptohomeErrorCode error = 1;
-inline void AddCredentialsReply::clear_error() {
-  error_ = 0;
-}
-inline ::user_data_auth::CryptohomeErrorCode AddCredentialsReply::_internal_error() const {
-  return static_cast< ::user_data_auth::CryptohomeErrorCode >(error_);
-}
-inline ::user_data_auth::CryptohomeErrorCode AddCredentialsReply::error() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.AddCredentialsReply.error)
-  return _internal_error();
-}
-inline void AddCredentialsReply::_internal_set_error(::user_data_auth::CryptohomeErrorCode value) {
-  
-  error_ = value;
-}
-inline void AddCredentialsReply::set_error(::user_data_auth::CryptohomeErrorCode value) {
-  _internal_set_error(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.AddCredentialsReply.error)
-}
-
-// .user_data_auth.CryptohomeErrorInfo error_info = 2;
-inline bool AddCredentialsReply::_internal_has_error_info() const {
-  return this != internal_default_instance() && error_info_ != nullptr;
-}
-inline bool AddCredentialsReply::has_error_info() const {
-  return _internal_has_error_info();
-}
-inline void AddCredentialsReply::clear_error_info() {
-  if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
-    delete error_info_;
-  }
-  error_info_ = nullptr;
-}
-inline const ::user_data_auth::CryptohomeErrorInfo& AddCredentialsReply::_internal_error_info() const {
-  const ::user_data_auth::CryptohomeErrorInfo* p = error_info_;
-  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::CryptohomeErrorInfo&>(
-      ::user_data_auth::_CryptohomeErrorInfo_default_instance_);
-}
-inline const ::user_data_auth::CryptohomeErrorInfo& AddCredentialsReply::error_info() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.AddCredentialsReply.error_info)
-  return _internal_error_info();
-}
-inline void AddCredentialsReply::unsafe_arena_set_allocated_error_info(
-    ::user_data_auth::CryptohomeErrorInfo* error_info) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(error_info_);
-  }
-  error_info_ = error_info;
-  if (error_info) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.AddCredentialsReply.error_info)
-}
-inline ::user_data_auth::CryptohomeErrorInfo* AddCredentialsReply::release_error_info() {
-  
-  ::user_data_auth::CryptohomeErrorInfo* temp = error_info_;
-  error_info_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::user_data_auth::CryptohomeErrorInfo* AddCredentialsReply::unsafe_arena_release_error_info() {
-  // @@protoc_insertion_point(field_release:user_data_auth.AddCredentialsReply.error_info)
-  
-  ::user_data_auth::CryptohomeErrorInfo* temp = error_info_;
-  error_info_ = nullptr;
-  return temp;
-}
-inline ::user_data_auth::CryptohomeErrorInfo* AddCredentialsReply::_internal_mutable_error_info() {
-  
-  if (error_info_ == nullptr) {
-    auto* p = CreateMaybeMessage<::user_data_auth::CryptohomeErrorInfo>(GetArenaForAllocation());
-    error_info_ = p;
-  }
-  return error_info_;
-}
-inline ::user_data_auth::CryptohomeErrorInfo* AddCredentialsReply::mutable_error_info() {
-  ::user_data_auth::CryptohomeErrorInfo* _msg = _internal_mutable_error_info();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.AddCredentialsReply.error_info)
-  return _msg;
-}
-inline void AddCredentialsReply::set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete error_info_;
-  }
-  if (error_info) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(error_info);
-    if (message_arena != submessage_arena) {
-      error_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, error_info, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  error_info_ = error_info;
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.AddCredentialsReply.error_info)
-}
-
-// -------------------------------------------------------------------
-
 // AuthenticateAuthSessionRequest
 
 // bytes auth_session_id = 1;
@@ -27785,309 +26871,6 @@ inline void ExtendAuthSessionReply::_internal_set_seconds_left(uint32_t value) {
 inline void ExtendAuthSessionReply::set_seconds_left(uint32_t value) {
   _internal_set_seconds_left(value);
   // @@protoc_insertion_point(field_set:user_data_auth.ExtendAuthSessionReply.seconds_left)
-}
-
-// -------------------------------------------------------------------
-
-// UpdateCredentialRequest
-
-// bytes auth_session_id = 1;
-inline void UpdateCredentialRequest::clear_auth_session_id() {
-  auth_session_id_.ClearToEmpty();
-}
-inline const std::string& UpdateCredentialRequest::auth_session_id() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.UpdateCredentialRequest.auth_session_id)
-  return _internal_auth_session_id();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void UpdateCredentialRequest::set_auth_session_id(ArgT0&& arg0, ArgT... args) {
- 
- auth_session_id_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:user_data_auth.UpdateCredentialRequest.auth_session_id)
-}
-inline std::string* UpdateCredentialRequest::mutable_auth_session_id() {
-  std::string* _s = _internal_mutable_auth_session_id();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.UpdateCredentialRequest.auth_session_id)
-  return _s;
-}
-inline const std::string& UpdateCredentialRequest::_internal_auth_session_id() const {
-  return auth_session_id_.Get();
-}
-inline void UpdateCredentialRequest::_internal_set_auth_session_id(const std::string& value) {
-  
-  auth_session_id_.Set(value, GetArenaForAllocation());
-}
-inline std::string* UpdateCredentialRequest::_internal_mutable_auth_session_id() {
-  
-  return auth_session_id_.Mutable(GetArenaForAllocation());
-}
-inline std::string* UpdateCredentialRequest::release_auth_session_id() {
-  // @@protoc_insertion_point(field_release:user_data_auth.UpdateCredentialRequest.auth_session_id)
-  return auth_session_id_.Release();
-}
-inline void UpdateCredentialRequest::set_allocated_auth_session_id(std::string* auth_session_id) {
-  if (auth_session_id != nullptr) {
-    
-  } else {
-    
-  }
-  auth_session_id_.SetAllocated(auth_session_id, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (auth_session_id_.IsDefault()) {
-    auth_session_id_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.UpdateCredentialRequest.auth_session_id)
-}
-
-// string old_credential_label = 2;
-inline void UpdateCredentialRequest::clear_old_credential_label() {
-  old_credential_label_.ClearToEmpty();
-}
-inline const std::string& UpdateCredentialRequest::old_credential_label() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.UpdateCredentialRequest.old_credential_label)
-  return _internal_old_credential_label();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void UpdateCredentialRequest::set_old_credential_label(ArgT0&& arg0, ArgT... args) {
- 
- old_credential_label_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:user_data_auth.UpdateCredentialRequest.old_credential_label)
-}
-inline std::string* UpdateCredentialRequest::mutable_old_credential_label() {
-  std::string* _s = _internal_mutable_old_credential_label();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.UpdateCredentialRequest.old_credential_label)
-  return _s;
-}
-inline const std::string& UpdateCredentialRequest::_internal_old_credential_label() const {
-  return old_credential_label_.Get();
-}
-inline void UpdateCredentialRequest::_internal_set_old_credential_label(const std::string& value) {
-  
-  old_credential_label_.Set(value, GetArenaForAllocation());
-}
-inline std::string* UpdateCredentialRequest::_internal_mutable_old_credential_label() {
-  
-  return old_credential_label_.Mutable(GetArenaForAllocation());
-}
-inline std::string* UpdateCredentialRequest::release_old_credential_label() {
-  // @@protoc_insertion_point(field_release:user_data_auth.UpdateCredentialRequest.old_credential_label)
-  return old_credential_label_.Release();
-}
-inline void UpdateCredentialRequest::set_allocated_old_credential_label(std::string* old_credential_label) {
-  if (old_credential_label != nullptr) {
-    
-  } else {
-    
-  }
-  old_credential_label_.SetAllocated(old_credential_label, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (old_credential_label_.IsDefault()) {
-    old_credential_label_.Set("", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.UpdateCredentialRequest.old_credential_label)
-}
-
-// .cryptohome.AuthorizationRequest authorization = 3;
-inline bool UpdateCredentialRequest::_internal_has_authorization() const {
-  return this != internal_default_instance() && authorization_ != nullptr;
-}
-inline bool UpdateCredentialRequest::has_authorization() const {
-  return _internal_has_authorization();
-}
-inline const ::cryptohome::AuthorizationRequest& UpdateCredentialRequest::_internal_authorization() const {
-  const ::cryptohome::AuthorizationRequest* p = authorization_;
-  return p != nullptr ? *p : reinterpret_cast<const ::cryptohome::AuthorizationRequest&>(
-      ::cryptohome::_AuthorizationRequest_default_instance_);
-}
-inline const ::cryptohome::AuthorizationRequest& UpdateCredentialRequest::authorization() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.UpdateCredentialRequest.authorization)
-  return _internal_authorization();
-}
-inline void UpdateCredentialRequest::unsafe_arena_set_allocated_authorization(
-    ::cryptohome::AuthorizationRequest* authorization) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(authorization_);
-  }
-  authorization_ = authorization;
-  if (authorization) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.UpdateCredentialRequest.authorization)
-}
-inline ::cryptohome::AuthorizationRequest* UpdateCredentialRequest::release_authorization() {
-  
-  ::cryptohome::AuthorizationRequest* temp = authorization_;
-  authorization_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::cryptohome::AuthorizationRequest* UpdateCredentialRequest::unsafe_arena_release_authorization() {
-  // @@protoc_insertion_point(field_release:user_data_auth.UpdateCredentialRequest.authorization)
-  
-  ::cryptohome::AuthorizationRequest* temp = authorization_;
-  authorization_ = nullptr;
-  return temp;
-}
-inline ::cryptohome::AuthorizationRequest* UpdateCredentialRequest::_internal_mutable_authorization() {
-  
-  if (authorization_ == nullptr) {
-    auto* p = CreateMaybeMessage<::cryptohome::AuthorizationRequest>(GetArenaForAllocation());
-    authorization_ = p;
-  }
-  return authorization_;
-}
-inline ::cryptohome::AuthorizationRequest* UpdateCredentialRequest::mutable_authorization() {
-  ::cryptohome::AuthorizationRequest* _msg = _internal_mutable_authorization();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.UpdateCredentialRequest.authorization)
-  return _msg;
-}
-inline void UpdateCredentialRequest::set_allocated_authorization(::cryptohome::AuthorizationRequest* authorization) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(authorization_);
-  }
-  if (authorization) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(authorization));
-    if (message_arena != submessage_arena) {
-      authorization = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, authorization, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  authorization_ = authorization;
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.UpdateCredentialRequest.authorization)
-}
-
-// -------------------------------------------------------------------
-
-// UpdateCredentialReply
-
-// .user_data_auth.CryptohomeErrorCode error = 1;
-inline void UpdateCredentialReply::clear_error() {
-  error_ = 0;
-}
-inline ::user_data_auth::CryptohomeErrorCode UpdateCredentialReply::_internal_error() const {
-  return static_cast< ::user_data_auth::CryptohomeErrorCode >(error_);
-}
-inline ::user_data_auth::CryptohomeErrorCode UpdateCredentialReply::error() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.UpdateCredentialReply.error)
-  return _internal_error();
-}
-inline void UpdateCredentialReply::_internal_set_error(::user_data_auth::CryptohomeErrorCode value) {
-  
-  error_ = value;
-}
-inline void UpdateCredentialReply::set_error(::user_data_auth::CryptohomeErrorCode value) {
-  _internal_set_error(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.UpdateCredentialReply.error)
-}
-
-// .user_data_auth.CryptohomeErrorInfo error_info = 2;
-inline bool UpdateCredentialReply::_internal_has_error_info() const {
-  return this != internal_default_instance() && error_info_ != nullptr;
-}
-inline bool UpdateCredentialReply::has_error_info() const {
-  return _internal_has_error_info();
-}
-inline void UpdateCredentialReply::clear_error_info() {
-  if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
-    delete error_info_;
-  }
-  error_info_ = nullptr;
-}
-inline const ::user_data_auth::CryptohomeErrorInfo& UpdateCredentialReply::_internal_error_info() const {
-  const ::user_data_auth::CryptohomeErrorInfo* p = error_info_;
-  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::CryptohomeErrorInfo&>(
-      ::user_data_auth::_CryptohomeErrorInfo_default_instance_);
-}
-inline const ::user_data_auth::CryptohomeErrorInfo& UpdateCredentialReply::error_info() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.UpdateCredentialReply.error_info)
-  return _internal_error_info();
-}
-inline void UpdateCredentialReply::unsafe_arena_set_allocated_error_info(
-    ::user_data_auth::CryptohomeErrorInfo* error_info) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(error_info_);
-  }
-  error_info_ = error_info;
-  if (error_info) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.UpdateCredentialReply.error_info)
-}
-inline ::user_data_auth::CryptohomeErrorInfo* UpdateCredentialReply::release_error_info() {
-  
-  ::user_data_auth::CryptohomeErrorInfo* temp = error_info_;
-  error_info_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::user_data_auth::CryptohomeErrorInfo* UpdateCredentialReply::unsafe_arena_release_error_info() {
-  // @@protoc_insertion_point(field_release:user_data_auth.UpdateCredentialReply.error_info)
-  
-  ::user_data_auth::CryptohomeErrorInfo* temp = error_info_;
-  error_info_ = nullptr;
-  return temp;
-}
-inline ::user_data_auth::CryptohomeErrorInfo* UpdateCredentialReply::_internal_mutable_error_info() {
-  
-  if (error_info_ == nullptr) {
-    auto* p = CreateMaybeMessage<::user_data_auth::CryptohomeErrorInfo>(GetArenaForAllocation());
-    error_info_ = p;
-  }
-  return error_info_;
-}
-inline ::user_data_auth::CryptohomeErrorInfo* UpdateCredentialReply::mutable_error_info() {
-  ::user_data_auth::CryptohomeErrorInfo* _msg = _internal_mutable_error_info();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.UpdateCredentialReply.error_info)
-  return _msg;
-}
-inline void UpdateCredentialReply::set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete error_info_;
-  }
-  if (error_info) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(error_info);
-    if (message_arena != submessage_arena) {
-      error_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, error_info, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  error_info_ = error_info;
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.UpdateCredentialReply.error_info)
 }
 
 // -------------------------------------------------------------------
@@ -35510,14 +34293,6 @@ inline AuthEnrollmentProgress::ProgressCase AuthEnrollmentProgress::progress_cas
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
