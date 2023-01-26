@@ -2471,6 +2471,7 @@ enum ec_led_id {
 #define EC_LED_FLAGS_AUTO BIT(1) /* Switch LED back to automatic control */
 
 enum ec_led_colors {
+	EC_LED_COLOR_INVALID = -1,
 	EC_LED_COLOR_RED = 0,
 	EC_LED_COLOR_GREEN,
 	EC_LED_COLOR_BLUE,
@@ -7849,7 +7850,7 @@ enum boot_time_param {
 	RESET_CNT,
 };
 
-struct ap_boot_time_data {
+struct ec_response_get_boot_time {
 	uint64_t timestamp[RESET_CNT];
 	uint16_t cnt;
 } __ec_align4;
