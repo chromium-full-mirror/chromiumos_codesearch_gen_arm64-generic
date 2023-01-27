@@ -39,6 +39,8 @@ class Int64ValueDataView;
 
 class UInt8ValueDataView;
 
+class UInt16ValueDataView;
+
 class UInt32ValueDataView;
 
 class UInt64ValueDataView;
@@ -70,6 +72,13 @@ struct MojomTypeTraits<::crosapi::mojom::Int64ValueDataView> {
 template <>
 struct MojomTypeTraits<::crosapi::mojom::UInt8ValueDataView> {
   using Data = ::crosapi::mojom::internal::UInt8Value_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::crosapi::mojom::UInt16ValueDataView> {
+  using Data = ::crosapi::mojom::internal::UInt16Value_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -156,6 +165,25 @@ class UInt8ValueDataView {
   }
  private:
   internal::UInt8Value_Data* data_ = nullptr;
+};
+
+
+
+class UInt16ValueDataView {
+ public:
+  UInt16ValueDataView() = default;
+
+  UInt16ValueDataView(
+      internal::UInt16Value_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint16_t value() const {
+    return data_->value;
+  }
+ private:
+  internal::UInt16Value_Data* data_ = nullptr;
 };
 
 
@@ -320,6 +348,36 @@ struct Serializer<::crosapi::mojom::UInt8ValueDataView, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::crosapi::mojom::UInt16ValueDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::crosapi::mojom::UInt16ValueDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::crosapi::mojom::internal::UInt16Value_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->value = Traits::value(input);
+  }
+
+  static bool Deserialize(::crosapi::mojom::internal::UInt16Value_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::crosapi::mojom::UInt16ValueDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::crosapi::mojom::UInt32ValueDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::crosapi::mojom::UInt32ValueDataView, UserType>;
@@ -411,6 +469,8 @@ struct Serializer<::crosapi::mojom::BoolValueDataView, MaybeConstUserType> {
 
 namespace crosapi {
 namespace mojom {
+
+
 
 
 

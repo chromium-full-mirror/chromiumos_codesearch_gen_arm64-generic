@@ -26,6 +26,7 @@ namespace internal {
 class DoubleValue_Data;
 class Int64Value_Data;
 class UInt8Value_Data;
+class UInt16Value_Data;
 class UInt32Value_Data;
 class UInt64Value_Data;
 class BoolValue_Data;
@@ -176,6 +177,55 @@ struct UInt8Value_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     UInt8Value_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  UInt16Value_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint16_t value;
+  uint8_t padfinal_[6];
+
+ private:
+  friend class mojo::internal::MessageFragment<UInt16Value_Data>;
+
+  UInt16Value_Data();
+  ~UInt16Value_Data() = delete;
+};
+static_assert(sizeof(UInt16Value_Data) == 16,
+              "Bad sizeof(UInt16Value_Data)");
+// Used by UInt16Value::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct UInt16Value_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  UInt16Value_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~UInt16Value_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<UInt16Value_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    UInt16Value_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  UInt32Value_Data {
  public:
   static bool Validate(const void* data,

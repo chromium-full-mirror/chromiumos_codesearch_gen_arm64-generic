@@ -598,6 +598,8 @@ PowerSupply::~PowerSupply() {
 
 void PowerSupply::Init(
     const base::FilePath& power_supply_path,
+    const base::FilePath& cros_ec_path,
+    ec::EcCommandFactoryInterface* ec_command_factory,
     PrefsInterface* prefs,
     UdevInterface* udev,
     system::DBusWrapperInterface* dbus_wrapper,
@@ -607,6 +609,8 @@ void PowerSupply::Init(
 
   prefs_ = prefs;
   power_supply_path_ = power_supply_path;
+  cros_ec_path_ = cros_ec_path;
+  ec_command_factory_ = ec_command_factory;
 
   dbus_wrapper_ = dbus_wrapper;
   dbus_wrapper->ExportMethod(
@@ -777,22 +781,24 @@ bool PowerSupply::GetDisplayStateOfChargeFromEC(double* display_soc) {
   if (!import_display_soc_)
     return false;
 
-  base::ScopedFD ec_fd = base::ScopedFD(open(ec::kCrosEcPath, O_RDWR));
+  base::ScopedFD ec_fd =
+      base::ScopedFD(open(cros_ec_path_.value().c_str(), O_RDWR));
 
   if (!ec_fd.is_valid()) {
-    PLOG(ERROR) << "Failed to open " << ec::kCrosEcPath;
+    // This is expect on systems without the CrOS EC.
+    LOG(INFO) << "Failed to open " << cros_ec_path_;
     return false;
   }
 
-  ec::DisplayStateOfChargeCommand cmd;
-  if (!cmd.Run(ec_fd.get())) {
+  auto cmd = ec_command_factory_->DisplayStateOfChargeCommand();
+  if (!cmd->Run(ec_fd.get())) {
     // This is expected if EC doesn't export display SoC.
     LOG(INFO) << "Failed to read display SoC from EC";
     return false;
   }
 
   if (display_soc != nullptr) {
-    *display_soc = cmd.CurrentPercentCharge();
+    *display_soc = cmd->CurrentPercentCharge();
   }
 
   return true;
@@ -1263,14 +1269,22 @@ bool PowerSupply::UpdateBatteryPercentagesAndState(PowerStatus* status) {
   double display_soc;
   bool is_full;
   if (GetDisplayStateOfChargeFromEC(&display_soc)) {
-    // If display_soc is 0%, read it again in case of a bad reading.
-    if (display_soc == 0.0) {
-      GetDisplayStateOfChargeFromEC(&display_soc);
-    }
-
     // Error out for bad display percentages. We'll try again later.
     if (display_soc < 0.0 || 100.0 < display_soc) {
       LOG(ERROR) << "Received bad value of display SoC: " << display_soc;
+      return false;
+    }
+
+    // If |display_soc| is 0, check that it's not a false 0 reading by comparing
+    // it to |status->battery_percentage|. |low_battery_shutdown_percent_| maps
+    // to a |display_soc| value of 0, so if |status->battery_percentage_| is
+    // greater than that (plus 1.0 for race conditions), error out.
+    if (display_soc == 0.0 &&
+        status->battery_percentage > (low_battery_shutdown_percent_ + 1.0)) {
+      LOG(ERROR) << "Display and battery percentage values have too much of a "
+                 << "discrepancy. battery_percentage is "
+                 << status->battery_percentage
+                 << " and display_battery_percentage is " << display_soc;
       return false;
     }
 

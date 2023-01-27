@@ -29,6 +29,8 @@ class Int64ValueDataView;
 
 class UInt8ValueDataView;
 
+class UInt16ValueDataView;
+
 class UInt32ValueDataView;
 
 class UInt64ValueDataView;
@@ -43,6 +45,9 @@ using Int64ValuePtr = mojo::InlinedStructPtr<Int64Value>;
 
 class UInt8Value;
 using UInt8ValuePtr = mojo::InlinedStructPtr<UInt8Value>;
+
+class UInt16Value;
+using UInt16ValuePtr = mojo::InlinedStructPtr<UInt16Value>;
 
 class UInt32Value;
 using UInt32ValuePtr = mojo::InlinedStructPtr<UInt32Value>;
