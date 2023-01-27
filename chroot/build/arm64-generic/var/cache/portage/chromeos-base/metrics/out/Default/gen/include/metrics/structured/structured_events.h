@@ -15,7 +15,7 @@ namespace metrics {
 namespace structured {
 namespace events {
 
-constexpr uint64_t kProjectNameHashes[] = {UINT64_C(9074739597929991885), UINT64_C(11181229631788078243), UINT64_C(1745381000935843040), UINT64_C(8206859287963243715), UINT64_C(11294265225635075664), UINT64_C(16881314472396226433), UINT64_C(5876808001962504629), UINT64_C(4320592646346933548), UINT64_C(7302676440391025918), UINT64_C(4690103929823698613), UINT64_C(9675127341789951965)};
+constexpr uint64_t kProjectNameHashes[] = {UINT64_C(9074739597929991885), UINT64_C(11181229631788078243), UINT64_C(1745381000935843040), UINT64_C(8206859287963243715), UINT64_C(11294265225635075664), UINT64_C(16881314472396226433), UINT64_C(5876808001962504629), UINT64_C(17922303533051575891), UINT64_C(4320592646346933548), UINT64_C(7302676440391025918), UINT64_C(4690103929823698613), UINT64_C(9675127341789951965)};
 
 namespace bluetooth {
 
@@ -735,6 +735,43 @@ class BRILLO_EXPORT ShimlessRmaStateReport final : public ::metrics::structured:
 };
 
 }  // namespace rmad
+
+namespace usb_device {
+
+class BRILLO_EXPORT UsbDeviceInfo final : public ::metrics::structured::EventBase {
+ public:
+  UsbDeviceInfo();
+  ~UsbDeviceInfo() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(10597249090784089806);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(17922303533051575891);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_RAW_STRING;
+
+  static constexpr uint64_t kVendorIdNameHash = UINT64_C(7982341394845147735);
+  UsbDeviceInfo& SetVendorId(const int64_t value);
+  int64_t GetVendorIdForTest() const;
+
+  static constexpr uint64_t kVendorNameNameHash = UINT64_C(14838106656619457772);
+  UsbDeviceInfo& SetVendorName(const std::string& value);
+  std::string GetVendorNameForTest() const;
+
+  static constexpr uint64_t kProductIdNameHash = UINT64_C(3765840483194334735);
+  UsbDeviceInfo& SetProductId(const int64_t value);
+  int64_t GetProductIdForTest() const;
+
+  static constexpr uint64_t kProductNameNameHash = UINT64_C(400454577602154052);
+  UsbDeviceInfo& SetProductName(const std::string& value);
+  std::string GetProductNameForTest() const;
+
+  static constexpr uint64_t kDeviceClassNameHash = UINT64_C(4411699667986879574);
+  UsbDeviceInfo& SetDeviceClass(const int64_t value);
+  int64_t GetDeviceClassForTest() const;
+
+};
+
+}  // namespace usb_device
 
 namespace wi_fi_chipset {
 

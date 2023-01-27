@@ -39202,7 +39202,6 @@ std::string GetTypeName() const final;
 
 enum : int {
 kDataToSignFieldNumber = 2,
-kSigningAlgorithmFieldNumber = 1,
 };
 // optional bytes data_to_sign = 2;
 bool has_data_to_sign() const;
@@ -39222,19 +39221,6 @@ inline PROTOBUF_ALWAYS_INLINE void _internal_set_data_to_sign(const std::string&
 std::string* _internal_mutable_data_to_sign();
 public:
 
-// optional .enterprise_management.SigningAlgorithm signing_algorithm = 1;
-bool has_signing_algorithm() const;
-private:
-bool _internal_has_signing_algorithm() const;
-public:
-void clear_signing_algorithm();
-::enterprise_management::SigningAlgorithm signing_algorithm() const;
-void set_signing_algorithm(::enterprise_management::SigningAlgorithm value);
-private:
-::enterprise_management::SigningAlgorithm _internal_signing_algorithm() const;
-void _internal_set_signing_algorithm(::enterprise_management::SigningAlgorithm value);
-public:
-
 // @@protoc_insertion_point(class_scope:enterprise_management.CertProvProofOfPossessionInstruction)
 private:
 class _Internal;
@@ -39245,7 +39231,6 @@ typedef void DestructorSkippable_;
 ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
 mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr data_to_sign_;
-int signing_algorithm_;
 friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };
 // -------------------------------------------------------------------
@@ -77118,35 +77103,6 @@ va_challenge_.Set("", GetArenaForAllocation());
 // -------------------------------------------------------------------
 
 // CertProvProofOfPossessionInstruction
-
-// optional .enterprise_management.SigningAlgorithm signing_algorithm = 1;
-inline bool CertProvProofOfPossessionInstruction::_internal_has_signing_algorithm() const {
-bool value = (_has_bits_[0] & 0x00000002u) != 0;
-return value;
-}
-inline bool CertProvProofOfPossessionInstruction::has_signing_algorithm() const {
-return _internal_has_signing_algorithm();
-}
-inline void CertProvProofOfPossessionInstruction::clear_signing_algorithm() {
-signing_algorithm_ = 0;
-_has_bits_[0] &= ~0x00000002u;
-}
-inline ::enterprise_management::SigningAlgorithm CertProvProofOfPossessionInstruction::_internal_signing_algorithm() const {
-return static_cast< ::enterprise_management::SigningAlgorithm >(signing_algorithm_);
-}
-inline ::enterprise_management::SigningAlgorithm CertProvProofOfPossessionInstruction::signing_algorithm() const {
-// @@protoc_insertion_point(field_get:enterprise_management.CertProvProofOfPossessionInstruction.signing_algorithm)
-return _internal_signing_algorithm();
-}
-inline void CertProvProofOfPossessionInstruction::_internal_set_signing_algorithm(::enterprise_management::SigningAlgorithm value) {
-assert(::enterprise_management::SigningAlgorithm_IsValid(value));
-_has_bits_[0] |= 0x00000002u;
-signing_algorithm_ = value;
-}
-inline void CertProvProofOfPossessionInstruction::set_signing_algorithm(::enterprise_management::SigningAlgorithm value) {
-_internal_set_signing_algorithm(value);
-// @@protoc_insertion_point(field_set:enterprise_management.CertProvProofOfPossessionInstruction.signing_algorithm)
-}
 
 // optional bytes data_to_sign = 2;
 inline bool CertProvProofOfPossessionInstruction::_internal_has_data_to_sign() const {

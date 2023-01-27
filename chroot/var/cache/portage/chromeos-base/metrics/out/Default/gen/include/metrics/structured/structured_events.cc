@@ -1095,6 +1095,58 @@ int64_t ShimlessRmaStateReport::GetSaveLogCountForTest() const {
 
 }  // namespace rmad
 
+namespace usb_device {
+
+UsbDeviceInfo::UsbDeviceInfo() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+UsbDeviceInfo::~UsbDeviceInfo() = default;
+UsbDeviceInfo& UsbDeviceInfo::SetVendorId(const int64_t value) {
+  AddIntMetric(kVendorIdNameHash, value);
+  return *this;
+}
+
+int64_t UsbDeviceInfo::GetVendorIdForTest() const {
+  return GetIntMetricForTest(kVendorIdNameHash);
+}
+
+UsbDeviceInfo& UsbDeviceInfo::SetVendorName(const std::string& value) {
+  AddRawStringMetric(kVendorNameNameHash, value);
+  return *this;
+}
+
+std::string UsbDeviceInfo::GetVendorNameForTest() const {
+  return GetRawStringMetricForTest(kVendorNameNameHash);
+}
+
+UsbDeviceInfo& UsbDeviceInfo::SetProductId(const int64_t value) {
+  AddIntMetric(kProductIdNameHash, value);
+  return *this;
+}
+
+int64_t UsbDeviceInfo::GetProductIdForTest() const {
+  return GetIntMetricForTest(kProductIdNameHash);
+}
+
+UsbDeviceInfo& UsbDeviceInfo::SetProductName(const std::string& value) {
+  AddRawStringMetric(kProductNameNameHash, value);
+  return *this;
+}
+
+std::string UsbDeviceInfo::GetProductNameForTest() const {
+  return GetRawStringMetricForTest(kProductNameNameHash);
+}
+
+UsbDeviceInfo& UsbDeviceInfo::SetDeviceClass(const int64_t value) {
+  AddIntMetric(kDeviceClassNameHash, value);
+  return *this;
+}
+
+int64_t UsbDeviceInfo::GetDeviceClassForTest() const {
+  return GetIntMetricForTest(kDeviceClassNameHash);
+}
+
+}  // namespace usb_device
+
 namespace wi_fi_chipset {
 
 WiFiChipsetInfo::WiFiChipsetInfo() :
