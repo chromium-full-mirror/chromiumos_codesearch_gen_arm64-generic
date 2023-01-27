@@ -761,10 +761,29 @@ class SequenceInformation final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kGenerationGuidFieldNumber = 4,
     kSequencingIdFieldNumber = 1,
     kGenerationIdFieldNumber = 2,
     kPriorityFieldNumber = 3,
   };
+  // optional string generation_guid = 4;
+  bool has_generation_guid() const;
+  private:
+  bool _internal_has_generation_guid() const;
+  public:
+  void clear_generation_guid();
+  const std::string& generation_guid() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_generation_guid(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_generation_guid();
+  PROTOBUF_NODISCARD std::string* release_generation_guid();
+  void set_allocated_generation_guid(std::string* generation_guid);
+  private:
+  const std::string& _internal_generation_guid() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_generation_guid(const std::string& value);
+  std::string* _internal_mutable_generation_guid();
+  public:
+
   // optional int64 sequencing_id = 1;
   bool has_sequencing_id() const;
   private:
@@ -813,6 +832,7 @@ class SequenceInformation final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr generation_guid_;
   int64_t sequencing_id_;
   int64_t generation_id_;
   int priority_;
@@ -1974,7 +1994,7 @@ inline void EncryptionInfo::set_public_key_id(int64_t value) {
 
 // optional int64 sequencing_id = 1;
 inline bool SequenceInformation::_internal_has_sequencing_id() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline bool SequenceInformation::has_sequencing_id() const {
@@ -1982,7 +2002,7 @@ inline bool SequenceInformation::has_sequencing_id() const {
 }
 inline void SequenceInformation::clear_sequencing_id() {
   sequencing_id_ = int64_t{0};
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline int64_t SequenceInformation::_internal_sequencing_id() const {
   return sequencing_id_;
@@ -1992,7 +2012,7 @@ inline int64_t SequenceInformation::sequencing_id() const {
   return _internal_sequencing_id();
 }
 inline void SequenceInformation::_internal_set_sequencing_id(int64_t value) {
-  _has_bits_[0] |= 0x00000001u;
+  _has_bits_[0] |= 0x00000002u;
   sequencing_id_ = value;
 }
 inline void SequenceInformation::set_sequencing_id(int64_t value) {
@@ -2002,7 +2022,7 @@ inline void SequenceInformation::set_sequencing_id(int64_t value) {
 
 // optional int64 generation_id = 2;
 inline bool SequenceInformation::_internal_has_generation_id() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
 inline bool SequenceInformation::has_generation_id() const {
@@ -2010,7 +2030,7 @@ inline bool SequenceInformation::has_generation_id() const {
 }
 inline void SequenceInformation::clear_generation_id() {
   generation_id_ = int64_t{0};
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline int64_t SequenceInformation::_internal_generation_id() const {
   return generation_id_;
@@ -2020,7 +2040,7 @@ inline int64_t SequenceInformation::generation_id() const {
   return _internal_generation_id();
 }
 inline void SequenceInformation::_internal_set_generation_id(int64_t value) {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   generation_id_ = value;
 }
 inline void SequenceInformation::set_generation_id(int64_t value) {
@@ -2030,7 +2050,7 @@ inline void SequenceInformation::set_generation_id(int64_t value) {
 
 // optional .reporting.Priority priority = 3;
 inline bool SequenceInformation::_internal_has_priority() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool SequenceInformation::has_priority() const {
@@ -2038,7 +2058,7 @@ inline bool SequenceInformation::has_priority() const {
 }
 inline void SequenceInformation::clear_priority() {
   priority_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline ::reporting::Priority SequenceInformation::_internal_priority() const {
   return static_cast< ::reporting::Priority >(priority_);
@@ -2049,12 +2069,80 @@ inline ::reporting::Priority SequenceInformation::priority() const {
 }
 inline void SequenceInformation::_internal_set_priority(::reporting::Priority value) {
   assert(::reporting::Priority_IsValid(value));
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   priority_ = value;
 }
 inline void SequenceInformation::set_priority(::reporting::Priority value) {
   _internal_set_priority(value);
   // @@protoc_insertion_point(field_set:reporting.SequenceInformation.priority)
+}
+
+// optional string generation_guid = 4;
+inline bool SequenceInformation::_internal_has_generation_guid() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool SequenceInformation::has_generation_guid() const {
+  return _internal_has_generation_guid();
+}
+inline void SequenceInformation::clear_generation_guid() {
+  generation_guid_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& SequenceInformation::generation_guid() const {
+  // @@protoc_insertion_point(field_get:reporting.SequenceInformation.generation_guid)
+  return _internal_generation_guid();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SequenceInformation::set_generation_guid(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ generation_guid_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:reporting.SequenceInformation.generation_guid)
+}
+inline std::string* SequenceInformation::mutable_generation_guid() {
+  std::string* _s = _internal_mutable_generation_guid();
+  // @@protoc_insertion_point(field_mutable:reporting.SequenceInformation.generation_guid)
+  return _s;
+}
+inline const std::string& SequenceInformation::_internal_generation_guid() const {
+  return generation_guid_.Get();
+}
+inline void SequenceInformation::_internal_set_generation_guid(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  generation_guid_.Set(value, GetArenaForAllocation());
+}
+inline std::string* SequenceInformation::_internal_mutable_generation_guid() {
+  _has_bits_[0] |= 0x00000001u;
+  return generation_guid_.Mutable(GetArenaForAllocation());
+}
+inline std::string* SequenceInformation::release_generation_guid() {
+  // @@protoc_insertion_point(field_release:reporting.SequenceInformation.generation_guid)
+  if (!_internal_has_generation_guid()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = generation_guid_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (generation_guid_.IsDefault()) {
+    generation_guid_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void SequenceInformation::set_allocated_generation_guid(std::string* generation_guid) {
+  if (generation_guid != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  generation_guid_.SetAllocated(generation_guid, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (generation_guid_.IsDefault()) {
+    generation_guid_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:reporting.SequenceInformation.generation_guid)
 }
 
 // -------------------------------------------------------------------

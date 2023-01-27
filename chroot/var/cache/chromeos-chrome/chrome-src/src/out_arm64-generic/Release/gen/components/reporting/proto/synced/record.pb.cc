@@ -64,7 +64,8 @@ struct EncryptionInfoDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EncryptionInfoDefaultTypeInternal _EncryptionInfo_default_instance_;
 PROTOBUF_CONSTEXPR SequenceInformation::SequenceInformation(
     ::_pbi::ConstantInitialized)
-  : sequencing_id_(int64_t{0})
+  : generation_guid_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , sequencing_id_(int64_t{0})
   , generation_id_(int64_t{0})
   , priority_(0)
 {}
@@ -1085,13 +1086,16 @@ class SequenceInformation::_Internal {
  public:
   using HasBits = decltype(std::declval<SequenceInformation>()._has_bits_);
   static void set_has_sequencing_id(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
-  static void set_has_generation_id(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static void set_has_priority(HasBits* has_bits) {
+  static void set_has_generation_id(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
+  }
+  static void set_has_priority(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_generation_guid(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
   }
 };
 
@@ -1105,6 +1109,14 @@ SequenceInformation::SequenceInformation(const SequenceInformation& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  generation_guid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    generation_guid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_generation_guid()) {
+    generation_guid_.Set(from._internal_generation_guid(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&sequencing_id_, &from.sequencing_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&priority_) -
     reinterpret_cast<char*>(&sequencing_id_)) + sizeof(priority_));
@@ -1112,6 +1124,10 @@ SequenceInformation::SequenceInformation(const SequenceInformation& from)
 }
 
 inline void SequenceInformation::SharedCtor() {
+generation_guid_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  generation_guid_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&sequencing_id_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&priority_) -
@@ -1129,6 +1145,7 @@ SequenceInformation::~SequenceInformation() {
 
 inline void SequenceInformation::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  generation_guid_.Destroy();
 }
 
 void SequenceInformation::SetCachedSize(int size) const {
@@ -1142,7 +1159,10 @@ void SequenceInformation::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x00000001u) {
+    generation_guid_.ClearNonDefaultToEmpty();
+  }
+  if (cached_has_bits & 0x0000000eu) {
     ::memset(&sequencing_id_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&priority_) -
         reinterpret_cast<char*>(&sequencing_id_)) + sizeof(priority_));
@@ -1189,6 +1209,15 @@ const char* SequenceInformation::_InternalParse(const char* ptr, ::_pbi::ParseCo
         } else
           goto handle_unusual;
         continue;
+      // optional string generation_guid = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_generation_guid();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -1221,22 +1250,28 @@ uint8_t* SequenceInformation::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional int64 sequencing_id = 1;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_sequencing_id(), target);
   }
 
   // optional int64 generation_id = 2;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_generation_id(), target);
   }
 
   // optional .reporting.Priority priority = 3;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_priority(), target);
+  }
+
+  // optional string generation_guid = 4;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_generation_guid(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1256,19 +1291,26 @@ size_t SequenceInformation::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
-    // optional int64 sequencing_id = 1;
+  if (cached_has_bits & 0x0000000fu) {
+    // optional string generation_guid = 4;
     if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_generation_guid());
+    }
+
+    // optional int64 sequencing_id = 1;
+    if (cached_has_bits & 0x00000002u) {
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_sequencing_id());
     }
 
     // optional int64 generation_id = 2;
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_generation_id());
     }
 
     // optional .reporting.Priority priority = 3;
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_priority());
     }
@@ -1295,14 +1337,17 @@ void SequenceInformation::MergeFrom(const SequenceInformation& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      sequencing_id_ = from.sequencing_id_;
+      _internal_set_generation_guid(from._internal_generation_guid());
     }
     if (cached_has_bits & 0x00000002u) {
-      generation_id_ = from.generation_id_;
+      sequencing_id_ = from.sequencing_id_;
     }
     if (cached_has_bits & 0x00000004u) {
+      generation_id_ = from.generation_id_;
+    }
+    if (cached_has_bits & 0x00000008u) {
       priority_ = from.priority_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -1323,8 +1368,14 @@ bool SequenceInformation::IsInitialized() const {
 
 void SequenceInformation::InternalSwap(SequenceInformation* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &generation_guid_, lhs_arena,
+      &other->generation_guid_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(SequenceInformation, priority_)
       + sizeof(SequenceInformation::priority_)

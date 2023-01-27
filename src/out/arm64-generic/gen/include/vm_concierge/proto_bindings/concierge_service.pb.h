@@ -839,6 +839,7 @@ class VirtualMachineSpec final :
     kInitrdFieldNumber = 4,
     kToolsDlcIdFieldNumber = 5,
     kWaylandServerFieldNumber = 6,
+    kBiosDlcIdFieldNumber = 7,
   };
   // string kernel = 1;
   void clear_kernel();
@@ -924,6 +925,20 @@ class VirtualMachineSpec final :
   std::string* _internal_mutable_wayland_server();
   public:
 
+  // string bios_dlc_id = 7;
+  void clear_bios_dlc_id();
+  const std::string& bios_dlc_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_bios_dlc_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_bios_dlc_id();
+  PROTOBUF_NODISCARD std::string* release_bios_dlc_id();
+  void set_allocated_bios_dlc_id(std::string* bios_dlc_id);
+  private:
+  const std::string& _internal_bios_dlc_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_bios_dlc_id(const std::string& value);
+  std::string* _internal_mutable_bios_dlc_id();
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.VirtualMachineSpec)
  private:
   class _Internal;
@@ -937,6 +952,7 @@ class VirtualMachineSpec final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr initrd_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr tools_dlc_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr wayland_server_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr bios_dlc_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
@@ -13009,6 +13025,57 @@ inline void VirtualMachineSpec::set_allocated_wayland_server(std::string* waylan
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.VirtualMachineSpec.wayland_server)
+}
+
+// string bios_dlc_id = 7;
+inline void VirtualMachineSpec::clear_bios_dlc_id() {
+  bios_dlc_id_.ClearToEmpty();
+}
+inline const std::string& VirtualMachineSpec::bios_dlc_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.VirtualMachineSpec.bios_dlc_id)
+  return _internal_bios_dlc_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void VirtualMachineSpec::set_bios_dlc_id(ArgT0&& arg0, ArgT... args) {
+ 
+ bios_dlc_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.VirtualMachineSpec.bios_dlc_id)
+}
+inline std::string* VirtualMachineSpec::mutable_bios_dlc_id() {
+  std::string* _s = _internal_mutable_bios_dlc_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.VirtualMachineSpec.bios_dlc_id)
+  return _s;
+}
+inline const std::string& VirtualMachineSpec::_internal_bios_dlc_id() const {
+  return bios_dlc_id_.Get();
+}
+inline void VirtualMachineSpec::_internal_set_bios_dlc_id(const std::string& value) {
+  
+  bios_dlc_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* VirtualMachineSpec::_internal_mutable_bios_dlc_id() {
+  
+  return bios_dlc_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* VirtualMachineSpec::release_bios_dlc_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.VirtualMachineSpec.bios_dlc_id)
+  return bios_dlc_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void VirtualMachineSpec::set_allocated_bios_dlc_id(std::string* bios_dlc_id) {
+  if (bios_dlc_id != nullptr) {
+    
+  } else {
+    
+  }
+  bios_dlc_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), bios_dlc_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (bios_dlc_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    bios_dlc_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.VirtualMachineSpec.bios_dlc_id)
 }
 
 // -------------------------------------------------------------------
