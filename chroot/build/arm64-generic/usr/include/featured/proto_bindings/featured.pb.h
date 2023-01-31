@@ -29,7 +29,6 @@
 #include <google/protobuf/message_lite.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
-#include <google/protobuf/timestamp.pb.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_featured_2eproto
@@ -503,9 +502,9 @@ class SeedDetails final :
     kPermanentConsistencyCountryFieldNumber = 6,
     kSessionConsistencyCountryFieldNumber = 7,
     kSignatureFieldNumber = 8,
-    kDateFieldNumber = 2,
-    kFetchTimeFieldNumber = 3,
+    kDateFieldNumber = 9,
     kMilestoneFieldNumber = 5,
+    kFetchTimeFieldNumber = 10,
   };
   // string compressed_data = 1;
   void clear_compressed_data();
@@ -577,41 +576,14 @@ class SeedDetails final :
   std::string* _internal_mutable_signature();
   public:
 
-  // .google.protobuf.Timestamp date = 2;
-  bool has_date() const;
-  private:
-  bool _internal_has_date() const;
-  public:
+  // int64 date = 9;
   void clear_date();
-  const ::PROTOBUF_NAMESPACE_ID::Timestamp& date() const;
-  PROTOBUF_NODISCARD ::PROTOBUF_NAMESPACE_ID::Timestamp* release_date();
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* mutable_date();
-  void set_allocated_date(::PROTOBUF_NAMESPACE_ID::Timestamp* date);
+  int64_t date() const;
+  void set_date(int64_t value);
   private:
-  const ::PROTOBUF_NAMESPACE_ID::Timestamp& _internal_date() const;
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_date();
+  int64_t _internal_date() const;
+  void _internal_set_date(int64_t value);
   public:
-  void unsafe_arena_set_allocated_date(
-      ::PROTOBUF_NAMESPACE_ID::Timestamp* date);
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_date();
-
-  // .google.protobuf.Timestamp fetch_time = 3;
-  bool has_fetch_time() const;
-  private:
-  bool _internal_has_fetch_time() const;
-  public:
-  void clear_fetch_time();
-  const ::PROTOBUF_NAMESPACE_ID::Timestamp& fetch_time() const;
-  PROTOBUF_NODISCARD ::PROTOBUF_NAMESPACE_ID::Timestamp* release_fetch_time();
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* mutable_fetch_time();
-  void set_allocated_fetch_time(::PROTOBUF_NAMESPACE_ID::Timestamp* fetch_time);
-  private:
-  const ::PROTOBUF_NAMESPACE_ID::Timestamp& _internal_fetch_time() const;
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* _internal_mutable_fetch_time();
-  public:
-  void unsafe_arena_set_allocated_fetch_time(
-      ::PROTOBUF_NAMESPACE_ID::Timestamp* fetch_time);
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* unsafe_arena_release_fetch_time();
 
   // int32 milestone = 5;
   void clear_milestone();
@@ -620,6 +592,15 @@ class SeedDetails final :
   private:
   int32_t _internal_milestone() const;
   void _internal_set_milestone(int32_t value);
+  public:
+
+  // int64 fetch_time = 10;
+  void clear_fetch_time();
+  int64_t fetch_time() const;
+  void set_fetch_time(int64_t value);
+  private:
+  int64_t _internal_fetch_time() const;
+  void _internal_set_fetch_time(int64_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:featured.SeedDetails)
@@ -634,9 +615,9 @@ class SeedDetails final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr permanent_consistency_country_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr session_consistency_country_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr signature_;
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* date_;
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* fetch_time_;
+  int64_t date_;
   int32_t milestone_;
+  int64_t fetch_time_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_featured_2eproto;
 };
@@ -1093,178 +1074,6 @@ inline void SeedDetails::set_allocated_compressed_data(std::string* compressed_d
   // @@protoc_insertion_point(field_set_allocated:featured.SeedDetails.compressed_data)
 }
 
-// .google.protobuf.Timestamp date = 2;
-inline bool SeedDetails::_internal_has_date() const {
-  return this != internal_default_instance() && date_ != nullptr;
-}
-inline bool SeedDetails::has_date() const {
-  return _internal_has_date();
-}
-inline const ::PROTOBUF_NAMESPACE_ID::Timestamp& SeedDetails::_internal_date() const {
-  const ::PROTOBUF_NAMESPACE_ID::Timestamp* p = date_;
-  return p != nullptr ? *p : reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Timestamp&>(
-      ::PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
-}
-inline const ::PROTOBUF_NAMESPACE_ID::Timestamp& SeedDetails::date() const {
-  // @@protoc_insertion_point(field_get:featured.SeedDetails.date)
-  return _internal_date();
-}
-inline void SeedDetails::unsafe_arena_set_allocated_date(
-    ::PROTOBUF_NAMESPACE_ID::Timestamp* date) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(date_);
-  }
-  date_ = date;
-  if (date) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:featured.SeedDetails.date)
-}
-inline ::PROTOBUF_NAMESPACE_ID::Timestamp* SeedDetails::release_date() {
-  
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* temp = date_;
-  date_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::PROTOBUF_NAMESPACE_ID::Timestamp* SeedDetails::unsafe_arena_release_date() {
-  // @@protoc_insertion_point(field_release:featured.SeedDetails.date)
-  
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* temp = date_;
-  date_ = nullptr;
-  return temp;
-}
-inline ::PROTOBUF_NAMESPACE_ID::Timestamp* SeedDetails::_internal_mutable_date() {
-  
-  if (date_ == nullptr) {
-    auto* p = CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::Timestamp>(GetArenaForAllocation());
-    date_ = p;
-  }
-  return date_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::Timestamp* SeedDetails::mutable_date() {
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* _msg = _internal_mutable_date();
-  // @@protoc_insertion_point(field_mutable:featured.SeedDetails.date)
-  return _msg;
-}
-inline void SeedDetails::set_allocated_date(::PROTOBUF_NAMESPACE_ID::Timestamp* date) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(date_);
-  }
-  if (date) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
-            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(date));
-    if (message_arena != submessage_arena) {
-      date = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, date, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  date_ = date;
-  // @@protoc_insertion_point(field_set_allocated:featured.SeedDetails.date)
-}
-
-// .google.protobuf.Timestamp fetch_time = 3;
-inline bool SeedDetails::_internal_has_fetch_time() const {
-  return this != internal_default_instance() && fetch_time_ != nullptr;
-}
-inline bool SeedDetails::has_fetch_time() const {
-  return _internal_has_fetch_time();
-}
-inline const ::PROTOBUF_NAMESPACE_ID::Timestamp& SeedDetails::_internal_fetch_time() const {
-  const ::PROTOBUF_NAMESPACE_ID::Timestamp* p = fetch_time_;
-  return p != nullptr ? *p : reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Timestamp&>(
-      ::PROTOBUF_NAMESPACE_ID::_Timestamp_default_instance_);
-}
-inline const ::PROTOBUF_NAMESPACE_ID::Timestamp& SeedDetails::fetch_time() const {
-  // @@protoc_insertion_point(field_get:featured.SeedDetails.fetch_time)
-  return _internal_fetch_time();
-}
-inline void SeedDetails::unsafe_arena_set_allocated_fetch_time(
-    ::PROTOBUF_NAMESPACE_ID::Timestamp* fetch_time) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(fetch_time_);
-  }
-  fetch_time_ = fetch_time;
-  if (fetch_time) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:featured.SeedDetails.fetch_time)
-}
-inline ::PROTOBUF_NAMESPACE_ID::Timestamp* SeedDetails::release_fetch_time() {
-  
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* temp = fetch_time_;
-  fetch_time_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::PROTOBUF_NAMESPACE_ID::Timestamp* SeedDetails::unsafe_arena_release_fetch_time() {
-  // @@protoc_insertion_point(field_release:featured.SeedDetails.fetch_time)
-  
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* temp = fetch_time_;
-  fetch_time_ = nullptr;
-  return temp;
-}
-inline ::PROTOBUF_NAMESPACE_ID::Timestamp* SeedDetails::_internal_mutable_fetch_time() {
-  
-  if (fetch_time_ == nullptr) {
-    auto* p = CreateMaybeMessage<::PROTOBUF_NAMESPACE_ID::Timestamp>(GetArenaForAllocation());
-    fetch_time_ = p;
-  }
-  return fetch_time_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::Timestamp* SeedDetails::mutable_fetch_time() {
-  ::PROTOBUF_NAMESPACE_ID::Timestamp* _msg = _internal_mutable_fetch_time();
-  // @@protoc_insertion_point(field_mutable:featured.SeedDetails.fetch_time)
-  return _msg;
-}
-inline void SeedDetails::set_allocated_fetch_time(::PROTOBUF_NAMESPACE_ID::Timestamp* fetch_time) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(fetch_time_);
-  }
-  if (fetch_time) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
-            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(fetch_time));
-    if (message_arena != submessage_arena) {
-      fetch_time = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, fetch_time, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  fetch_time_ = fetch_time;
-  // @@protoc_insertion_point(field_set_allocated:featured.SeedDetails.fetch_time)
-}
-
 // string locale = 4;
 inline void SeedDetails::clear_locale() {
   locale_.ClearToEmpty();
@@ -1487,6 +1296,46 @@ inline void SeedDetails::set_allocated_signature(std::string* signature) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:featured.SeedDetails.signature)
+}
+
+// int64 date = 9;
+inline void SeedDetails::clear_date() {
+  date_ = int64_t{0};
+}
+inline int64_t SeedDetails::_internal_date() const {
+  return date_;
+}
+inline int64_t SeedDetails::date() const {
+  // @@protoc_insertion_point(field_get:featured.SeedDetails.date)
+  return _internal_date();
+}
+inline void SeedDetails::_internal_set_date(int64_t value) {
+  
+  date_ = value;
+}
+inline void SeedDetails::set_date(int64_t value) {
+  _internal_set_date(value);
+  // @@protoc_insertion_point(field_set:featured.SeedDetails.date)
+}
+
+// int64 fetch_time = 10;
+inline void SeedDetails::clear_fetch_time() {
+  fetch_time_ = int64_t{0};
+}
+inline int64_t SeedDetails::_internal_fetch_time() const {
+  return fetch_time_;
+}
+inline int64_t SeedDetails::fetch_time() const {
+  // @@protoc_insertion_point(field_get:featured.SeedDetails.fetch_time)
+  return _internal_fetch_time();
+}
+inline void SeedDetails::_internal_set_fetch_time(int64_t value) {
+  
+  fetch_time_ = value;
+}
+inline void SeedDetails::set_fetch_time(int64_t value) {
+  _internal_set_fetch_time(value);
+  // @@protoc_insertion_point(field_set:featured.SeedDetails.fetch_time)
 }
 
 // -------------------------------------------------------------------

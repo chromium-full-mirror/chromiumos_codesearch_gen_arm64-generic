@@ -11,6 +11,88 @@ namespace structured {
 namespace events {
 namespace v2 {
 
+namespace fast_pair {
+
+PairingStart::PairingStart() :
+  ::metrics::structured::Event("FastPair",
+                               "PairingStart",
+                               false) {}
+PairingStart::~PairingStart() = default;
+
+PairingStart& PairingStart::SetProtocol(const int64_t value) {
+  AddMetric("Protocol", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+PairingStart& PairingStart::SetFastPairVersion(const int64_t value) {
+  AddMetric("FastPairVersion", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+PairingStart& PairingStart::SetModelId(const int64_t value) {
+  AddMetric("ModelId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+PairingComplete::PairingComplete() :
+  ::metrics::structured::Event("FastPair",
+                               "PairingComplete",
+                               false) {}
+PairingComplete::~PairingComplete() = default;
+
+PairingComplete& PairingComplete::SetProtocol(const int64_t value) {
+  AddMetric("Protocol", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+PairingComplete& PairingComplete::SetFastPairVersion(const int64_t value) {
+  AddMetric("FastPairVersion", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+PairingComplete& PairingComplete::SetModelId(const int64_t value) {
+  AddMetric("ModelId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+PairFailure::PairFailure() :
+  ::metrics::structured::Event("FastPair",
+                               "PairFailure",
+                               false) {}
+PairFailure::~PairFailure() = default;
+
+PairFailure& PairFailure::SetProtocol(const int64_t value) {
+  AddMetric("Protocol", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+PairFailure& PairFailure::SetFastPairVersion(const int64_t value) {
+  AddMetric("FastPairVersion", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+PairFailure& PairFailure::SetReason(const int64_t value) {
+  AddMetric("Reason", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+PairFailure& PairFailure::SetModelId(const int64_t value) {
+  AddMetric("ModelId", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+}  // namespace fast_pair
+
 namespace hindsight {
 
 CrOSActionEvent_FileOpened::CrOSActionEvent_FileOpened() :

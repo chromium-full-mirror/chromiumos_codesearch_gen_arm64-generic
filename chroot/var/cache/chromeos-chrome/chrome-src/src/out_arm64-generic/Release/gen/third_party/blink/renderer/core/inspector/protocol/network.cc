@@ -1076,7 +1076,7 @@ void Frontend::requestWillBeSentExtraInfo(const String& requestId, std::unique_p
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Network.requestWillBeSentExtraInfo", serializer.Finish()));
 }
 
-void Frontend::responseReceivedExtraInfo(const String& requestId, std::unique_ptr<protocol::Array<protocol::Network::BlockedSetCookieWithReason>> blockedCookies, std::unique_ptr<protocol::Network::Headers> headers, const String& resourceIPAddressSpace, int statusCode, Maybe<String> headersText)
+void Frontend::responseReceivedExtraInfo(const String& requestId, std::unique_ptr<protocol::Array<protocol::Network::BlockedSetCookieWithReason>> blockedCookies, std::unique_ptr<protocol::Network::Headers> headers, const String& resourceIPAddressSpace, int statusCode, Maybe<String> headersText, Maybe<String> cookiePartitionKey, Maybe<bool> cookiePartitionKeyOpaque)
 {
     if (!frontend_channel_)
         return;
@@ -1087,6 +1087,8 @@ void Frontend::responseReceivedExtraInfo(const String& requestId, std::unique_pt
     serializer.AddField(crdtp::MakeSpan("resourceIPAddressSpace"), resourceIPAddressSpace);
     serializer.AddField(crdtp::MakeSpan("statusCode"), statusCode);
     serializer.AddField(crdtp::MakeSpan("headersText"), headersText);
+    serializer.AddField(crdtp::MakeSpan("cookiePartitionKey"), cookiePartitionKey);
+    serializer.AddField(crdtp::MakeSpan("cookiePartitionKeyOpaque"), cookiePartitionKeyOpaque);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Network.responseReceivedExtraInfo", serializer.Finish()));
 }
 

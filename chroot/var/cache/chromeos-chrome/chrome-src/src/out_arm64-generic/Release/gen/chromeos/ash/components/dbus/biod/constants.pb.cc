@@ -173,6 +173,53 @@ bool ScanResult_Parse(
   }
   return success;
 }
+bool BiometricsManagerStatus_IsValid(int value) {
+  switch (value) {
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> BiometricsManagerStatus_strings[1] = {};
+
+static const char BiometricsManagerStatus_names[] =
+  "INITIALIZED";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry BiometricsManagerStatus_entries[] = {
+  { {BiometricsManagerStatus_names + 0, 11}, 1 },
+};
+
+static const int BiometricsManagerStatus_entries_by_number[] = {
+  0, // 1 -> INITIALIZED
+};
+
+const std::string& BiometricsManagerStatus_Name(
+    BiometricsManagerStatus value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          BiometricsManagerStatus_entries,
+          BiometricsManagerStatus_entries_by_number,
+          1, BiometricsManagerStatus_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      BiometricsManagerStatus_entries,
+      BiometricsManagerStatus_entries_by_number,
+      1, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     BiometricsManagerStatus_strings[idx].get();
+}
+bool BiometricsManagerStatus_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, BiometricsManagerStatus* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      BiometricsManagerStatus_entries, 1, name, &int_value);
+  if (success) {
+    *value = static_cast<BiometricsManagerStatus>(int_value);
+  }
+  return success;
+}
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace biod

@@ -15,6 +15,41 @@ namespace structured {
 namespace events {
 namespace v2 {
 
+namespace fast_pair {
+
+class PairingStart final : public ::metrics::structured::Event {
+ public:
+  PairingStart();
+  ~PairingStart() override;
+
+    PairingStart& SetProtocol(const int64_t value);
+  PairingStart& SetFastPairVersion(const int64_t value);
+  PairingStart& SetModelId(const int64_t value);
+};
+
+class PairingComplete final : public ::metrics::structured::Event {
+ public:
+  PairingComplete();
+  ~PairingComplete() override;
+
+    PairingComplete& SetProtocol(const int64_t value);
+  PairingComplete& SetFastPairVersion(const int64_t value);
+  PairingComplete& SetModelId(const int64_t value);
+};
+
+class PairFailure final : public ::metrics::structured::Event {
+ public:
+  PairFailure();
+  ~PairFailure() override;
+
+    PairFailure& SetProtocol(const int64_t value);
+  PairFailure& SetFastPairVersion(const int64_t value);
+  PairFailure& SetReason(const int64_t value);
+  PairFailure& SetModelId(const int64_t value);
+};
+
+}  // namespace fast_pair
+
 namespace hindsight {
 
 class CrOSActionEvent_FileOpened final : public ::metrics::structured::Event {

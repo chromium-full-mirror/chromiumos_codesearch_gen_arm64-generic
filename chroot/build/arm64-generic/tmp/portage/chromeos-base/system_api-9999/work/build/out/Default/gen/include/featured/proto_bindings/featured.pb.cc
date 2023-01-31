@@ -48,9 +48,9 @@ constexpr SeedDetails::SeedDetails(
   , permanent_consistency_country_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , session_consistency_country_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , signature_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , date_(nullptr)
-  , fetch_time_(nullptr)
-  , milestone_(0){}
+  , date_(int64_t{0})
+  , milestone_(0)
+  , fetch_time_(int64_t{0}){}
 struct SeedDetailsDefaultTypeInternal {
   constexpr SeedDetailsDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -589,30 +589,8 @@ std::string FeatureOverride::GetTypeName() const {
 
 class SeedDetails::_Internal {
  public:
-  static const ::PROTOBUF_NAMESPACE_ID::Timestamp& date(const SeedDetails* msg);
-  static const ::PROTOBUF_NAMESPACE_ID::Timestamp& fetch_time(const SeedDetails* msg);
 };
 
-const ::PROTOBUF_NAMESPACE_ID::Timestamp&
-SeedDetails::_Internal::date(const SeedDetails* msg) {
-  return *msg->date_;
-}
-const ::PROTOBUF_NAMESPACE_ID::Timestamp&
-SeedDetails::_Internal::fetch_time(const SeedDetails* msg) {
-  return *msg->fetch_time_;
-}
-void SeedDetails::clear_date() {
-  if (GetArenaForAllocation() == nullptr && date_ != nullptr) {
-    delete date_;
-  }
-  date_ = nullptr;
-}
-void SeedDetails::clear_fetch_time() {
-  if (GetArenaForAllocation() == nullptr && fetch_time_ != nullptr) {
-    delete fetch_time_;
-  }
-  fetch_time_ = nullptr;
-}
 SeedDetails::SeedDetails(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -665,17 +643,9 @@ SeedDetails::SeedDetails(const SeedDetails& from)
     signature_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_signature(), 
       GetArenaForAllocation());
   }
-  if (from._internal_has_date()) {
-    date_ = new ::PROTOBUF_NAMESPACE_ID::Timestamp(*from.date_);
-  } else {
-    date_ = nullptr;
-  }
-  if (from._internal_has_fetch_time()) {
-    fetch_time_ = new ::PROTOBUF_NAMESPACE_ID::Timestamp(*from.fetch_time_);
-  } else {
-    fetch_time_ = nullptr;
-  }
-  milestone_ = from.milestone_;
+  ::memcpy(&date_, &from.date_,
+    static_cast<size_t>(reinterpret_cast<char*>(&fetch_time_) -
+    reinterpret_cast<char*>(&date_)) + sizeof(fetch_time_));
   // @@protoc_insertion_point(copy_constructor:featured.SeedDetails)
 }
 
@@ -702,8 +672,8 @@ signature_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAl
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&date_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&milestone_) -
-    reinterpret_cast<char*>(&date_)) + sizeof(milestone_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&fetch_time_) -
+    reinterpret_cast<char*>(&date_)) + sizeof(fetch_time_));
 }
 
 SeedDetails::~SeedDetails() {
@@ -720,8 +690,6 @@ inline void SeedDetails::SharedDtor() {
   permanent_consistency_country_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   session_consistency_country_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   signature_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete date_;
-  if (this != internal_default_instance()) delete fetch_time_;
 }
 
 void SeedDetails::ArenaDtor(void* object) {
@@ -745,15 +713,9 @@ void SeedDetails::Clear() {
   permanent_consistency_country_.ClearToEmpty();
   session_consistency_country_.ClearToEmpty();
   signature_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && date_ != nullptr) {
-    delete date_;
-  }
-  date_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && fetch_time_ != nullptr) {
-    delete fetch_time_;
-  }
-  fetch_time_ = nullptr;
-  milestone_ = 0;
+  ::memset(&date_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&fetch_time_) -
+      reinterpret_cast<char*>(&date_)) + sizeof(fetch_time_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -769,22 +731,6 @@ const char* SeedDetails::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
           auto str = _internal_mutable_compressed_data();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // .google.protobuf.Timestamp date = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_date(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // .google.protobuf.Timestamp fetch_time = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_fetch_time(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -837,6 +783,22 @@ const char* SeedDetails::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
         } else
           goto handle_unusual;
         continue;
+      // int64 date = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          date_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int64 fetch_time = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+          fetch_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -874,22 +836,6 @@ uint8_t* SeedDetails::_InternalSerialize(
       "featured.SeedDetails.compressed_data");
     target = stream->WriteStringMaybeAliased(
         1, this->_internal_compressed_data(), target);
-  }
-
-  // .google.protobuf.Timestamp date = 2;
-  if (this->_internal_has_date()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::date(this), target, stream);
-  }
-
-  // .google.protobuf.Timestamp fetch_time = 3;
-  if (this->_internal_has_fetch_time()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::fetch_time(this), target, stream);
   }
 
   // string locale = 4;
@@ -936,6 +882,18 @@ uint8_t* SeedDetails::_InternalSerialize(
       "featured.SeedDetails.signature");
     target = stream->WriteStringMaybeAliased(
         8, this->_internal_signature(), target);
+  }
+
+  // int64 date = 9;
+  if (this->_internal_date() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(9, this->_internal_date(), target);
+  }
+
+  // int64 fetch_time = 10;
+  if (this->_internal_fetch_time() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(10, this->_internal_fetch_time(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -989,23 +947,19 @@ size_t SeedDetails::ByteSizeLong() const {
         this->_internal_signature());
   }
 
-  // .google.protobuf.Timestamp date = 2;
-  if (this->_internal_has_date()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *date_);
-  }
-
-  // .google.protobuf.Timestamp fetch_time = 3;
-  if (this->_internal_has_fetch_time()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *fetch_time_);
+  // int64 date = 9;
+  if (this->_internal_date() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_date());
   }
 
   // int32 milestone = 5;
   if (this->_internal_milestone() != 0) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_milestone());
+  }
+
+  // int64 fetch_time = 10;
+  if (this->_internal_fetch_time() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_fetch_time());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1043,14 +997,14 @@ void SeedDetails::MergeFrom(const SeedDetails& from) {
   if (!from._internal_signature().empty()) {
     _internal_set_signature(from._internal_signature());
   }
-  if (from._internal_has_date()) {
-    _internal_mutable_date()->::PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(from._internal_date());
-  }
-  if (from._internal_has_fetch_time()) {
-    _internal_mutable_fetch_time()->::PROTOBUF_NAMESPACE_ID::Timestamp::MergeFrom(from._internal_fetch_time());
+  if (from._internal_date() != 0) {
+    _internal_set_date(from._internal_date());
   }
   if (from._internal_milestone() != 0) {
     _internal_set_milestone(from._internal_milestone());
+  }
+  if (from._internal_fetch_time() != 0) {
+    _internal_set_fetch_time(from._internal_fetch_time());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -1097,8 +1051,8 @@ void SeedDetails::InternalSwap(SeedDetails* other) {
       &other->signature_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SeedDetails, milestone_)
-      + sizeof(SeedDetails::milestone_)
+      PROTOBUF_FIELD_OFFSET(SeedDetails, fetch_time_)
+      + sizeof(SeedDetails::fetch_time_)
       - PROTOBUF_FIELD_OFFSET(SeedDetails, date_)>(
           reinterpret_cast<char*>(&date_),
           reinterpret_cast<char*>(&other->date_));

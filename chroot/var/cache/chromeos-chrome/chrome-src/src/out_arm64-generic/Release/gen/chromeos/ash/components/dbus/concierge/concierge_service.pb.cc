@@ -26,7 +26,8 @@ PROTOBUF_CONSTEXPR VirtualMachineSpec::VirtualMachineSpec(
   , dlc_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , initrd_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , tools_dlc_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , wayland_server_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+  , wayland_server_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , bios_dlc_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
 struct VirtualMachineSpecDefaultTypeInternal {
   PROTOBUF_CONSTEXPR VirtualMachineSpecDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -2217,6 +2218,14 @@ VirtualMachineSpec::VirtualMachineSpec(const VirtualMachineSpec& from)
     wayland_server_.Set(from._internal_wayland_server(), 
       GetArenaForAllocation());
   }
+  bios_dlc_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    bios_dlc_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_bios_dlc_id().empty()) {
+    bios_dlc_id_.Set(from._internal_bios_dlc_id(), 
+      GetArenaForAllocation());
+  }
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.VirtualMachineSpec)
 }
 
@@ -2245,6 +2254,10 @@ wayland_server_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   wayland_server_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+bios_dlc_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  bios_dlc_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 VirtualMachineSpec::~VirtualMachineSpec() {
@@ -2264,6 +2277,7 @@ inline void VirtualMachineSpec::SharedDtor() {
   initrd_.Destroy();
   tools_dlc_id_.Destroy();
   wayland_server_.Destroy();
+  bios_dlc_id_.Destroy();
 }
 
 void VirtualMachineSpec::SetCachedSize(int size) const {
@@ -2282,6 +2296,7 @@ void VirtualMachineSpec::Clear() {
   initrd_.ClearToEmpty();
   tools_dlc_id_.ClearToEmpty();
   wayland_server_.ClearToEmpty();
+  bios_dlc_id_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -2345,6 +2360,16 @@ const char* VirtualMachineSpec::_InternalParse(const char* ptr, ::_pbi::ParseCon
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_wayland_server();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string bios_dlc_id = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          auto str = _internal_mutable_bios_dlc_id();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
@@ -2440,6 +2465,16 @@ uint8_t* VirtualMachineSpec::_InternalSerialize(
         6, this->_internal_wayland_server(), target);
   }
 
+  // string bios_dlc_id = 7;
+  if (!this->_internal_bios_dlc_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_bios_dlc_id().data(), static_cast<int>(this->_internal_bios_dlc_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.VirtualMachineSpec.bios_dlc_id");
+    target = stream->WriteStringMaybeAliased(
+        7, this->_internal_bios_dlc_id(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2498,6 +2533,13 @@ size_t VirtualMachineSpec::ByteSizeLong() const {
         this->_internal_wayland_server());
   }
 
+  // string bios_dlc_id = 7;
+  if (!this->_internal_bios_dlc_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_bios_dlc_id());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -2535,6 +2577,9 @@ void VirtualMachineSpec::MergeFrom(const VirtualMachineSpec& from) {
   }
   if (!from._internal_wayland_server().empty()) {
     _internal_set_wayland_server(from._internal_wayland_server());
+  }
+  if (!from._internal_bios_dlc_id().empty()) {
+    _internal_set_bios_dlc_id(from._internal_bios_dlc_id());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -2578,6 +2623,10 @@ void VirtualMachineSpec::InternalSwap(VirtualMachineSpec* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &wayland_server_, lhs_arena,
       &other->wayland_server_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &bios_dlc_id_, lhs_arena,
+      &other->bios_dlc_id_, rhs_arena
   );
 }
 

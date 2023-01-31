@@ -7713,6 +7713,8 @@ class Producer;
 // together with system traces, useful to correlate on the timeline system
 // events (e.g. scheduling slices from the kernel) with in-app events.
 namespace internal {
+
+// Full backend (with producer and consumer)
 class PERFETTO_EXPORT_COMPONENT SystemTracingBackend : public TracingBackend {
  public:
   static TracingBackend* GetInstance();
@@ -7725,6 +7727,22 @@ class PERFETTO_EXPORT_COMPONENT SystemTracingBackend : public TracingBackend {
 
  private:
   SystemTracingBackend();
+};
+
+// Producer only backend.
+class PERFETTO_EXPORT_COMPONENT SystemTracingProducerOnlyBackend
+    : public TracingBackend {
+ public:
+  static TracingBackend* GetInstance();
+
+  // TracingBackend implementation.
+  std::unique_ptr<ProducerEndpoint> ConnectProducer(
+      const ConnectProducerArgs&) override;
+  std::unique_ptr<ConsumerEndpoint> ConnectConsumer(
+      const ConnectConsumerArgs&) override;
+
+ private:
+  SystemTracingProducerOnlyBackend();
 };
 
 }  // namespace internal
@@ -7907,6 +7925,17 @@ struct TracingInitArgs {
   // already active.
   bool supports_multiple_data_source_instances = true;
 
+  // If this flag is set the default clock for taking timestamps is overridden
+  // with CLOCK_MONOTONIC_RAW on platforms that support it.
+  bool use_monotonic_raw_clock = false;
+
+  // This flag can be set to false in order to avoid enabling the system
+  // consumer in Tracing::Initialize(), so that the linker can remove the unused
+  // consumer IPC implementation to reduce binary size. When this option is
+  // false, calling Tracing::NewTrace() on the system backend will fail. This
+  // setting only has an effect if kSystemBackend is specified in |backends|.
+  bool enable_system_consumer = true;
+
  protected:
   friend class Tracing;
   friend class internal::TracingMuxerImpl;
@@ -7916,11 +7945,13 @@ struct TracingInitArgs {
   bool operator==(const TracingInitArgs& other) const {
     return std::tie(backends, custom_backend, platform, shmem_size_hint_kb,
                     shmem_page_size_hint_kb, in_process_backend_factory_,
-                    system_backend_factory_, dcheck_is_on_) ==
+                    system_backend_factory_, dcheck_is_on_,
+                    enable_system_consumer) ==
            std::tie(other.backends, other.custom_backend, other.platform,
                     other.shmem_size_hint_kb, other.shmem_page_size_hint_kb,
                     other.in_process_backend_factory_,
-                    other.system_backend_factory_, other.dcheck_is_on_);
+                    other.system_backend_factory_, other.dcheck_is_on_,
+                    other.enable_system_consumer);
   }
 
   using BackendFactoryFunction = TracingBackend* (*)();
@@ -7953,8 +7984,13 @@ class PERFETTO_EXPORT_COMPONENT Tracing {
           &internal::InProcessTracingBackend::GetInstance;
     }
     if (args.backends & kSystemBackend) {
-      args_copy.system_backend_factory_ =
-          &internal::SystemTracingBackend::GetInstance;
+      if (args.enable_system_consumer) {
+        args_copy.system_backend_factory_ =
+            &internal::SystemTracingBackend::GetInstance;
+      } else {
+        args_copy.system_backend_factory_ =
+            &internal::SystemTracingProducerOnlyBackend::GetInstance;
+      }
     }
     InitializeInternal(args_copy);
   }
@@ -7964,8 +8000,6 @@ class PERFETTO_EXPORT_COMPONENT Tracing {
 
   // Start a new tracing session using the given tracing backend. Use
   // |kUnspecifiedBackend| to select an available backend automatically.
-  // For the moment this can be used only when initializing tracing in
-  // kInProcess mode. For the system mode use the 'bin/perfetto' cmdline client.
   static std::unique_ptr<TracingSession> NewTrace(
       BackendType = kUnspecifiedBackend);
 
@@ -10537,6 +10571,11 @@ class TracePacket : public ::protozero::Message {
 
 // gen_amalgamated expanded: #include "protos/perfetto/trace/trace_packet.pbzero.h"
 
+// DEPRECATED: Instead of using this macro, prefer specifying symbol linkage
+// attributes explicitly using the `_WITH_ATTRS` macro variants (e.g.,
+// PERFETTO_DECLARE_DATA_SOURCE_STATIC_MEMBERS_WITH_ATTRS). This avoids
+// potential macro definition collisions between two libraries using Perfetto.
+//
 // PERFETTO_COMPONENT_EXPORT is used to mark symbols in Perfetto's headers
 // (typically templates) that are defined by the user outside of Perfetto and
 // should be made visible outside the current module. (e.g., in Chrome's
@@ -11195,6 +11234,9 @@ void SleepMicroseconds(unsigned interval_us);
 
 TimeNanos GetWallTimeNs();
 TimeNanos GetThreadCPUTimeNs();
+inline TimeNanos GetWallTimeRawNs() {
+  return GetWallTimeNs();
+}
 
 // TODO: Clock that counts time during suspend is not implemented on Windows.
 inline TimeNanos GetBootTimeNs() {
@@ -11212,6 +11254,10 @@ inline TimeNanos GetWallTimeNs() {
 
   static uint64_t monotonic_timebase_factor = init_time_factor();
   return TimeNanos(mach_absolute_time() * monotonic_timebase_factor);
+}
+
+inline TimeNanos GetWallTimeRawNs() {
+  return GetWallTimeNs();
 }
 
 // TODO: Clock that counts time during suspend is not implemented on Mac.
@@ -11244,6 +11290,10 @@ inline TimeNanos GetWallTimeNs() {
   return TimeNanos(static_cast<uint64_t>(emscripten_get_now()) * 1000000);
 }
 
+inline TimeNanos GetWallTimeRawNs() {
+  return GetWallTimeNs();
+}
+
 inline TimeNanos GetThreadCPUTimeNs() {
   return TimeNanos(0);
 }
@@ -11260,6 +11310,10 @@ inline TimeNanos GetBootTimeNs() {
 // GetWallTimeNs(), but to prevent false hope we leave it unimplemented.
 
 inline TimeNanos GetWallTimeNs() {
+  return TimeNanos(0);
+}
+
+inline TimeNanos GetWallTimeRawNs() {
   return TimeNanos(0);
 }
 
@@ -11295,6 +11349,10 @@ inline TimeNanos GetBootTimeNs() {
 
 inline TimeNanos GetWallTimeNs() {
   return GetTimeInternalNs(kWallTimeClockSource);
+}
+
+inline TimeNanos GetWallTimeRawNs() {
+  return GetTimeInternalNs(CLOCK_MONOTONIC_RAW);
 }
 
 inline TimeNanos GetThreadCPUTimeNs() {
@@ -16039,14 +16097,9 @@ class PERFETTO_EXPORT_COMPONENT TrackEventInternal {
 
   static TraceTimestamp GetTraceTime();
 
-  // Get the clock used by GetTimeNs().
-  static constexpr protos::pbzero::BuiltinClock GetClockId() {
-#if !PERFETTO_BUILDFLAG(PERFETTO_OS_APPLE) && \
-    !PERFETTO_BUILDFLAG(PERFETTO_OS_WIN)
-    return protos::pbzero::BUILTIN_CLOCK_BOOTTIME;
-#else
-    return protos::pbzero::BUILTIN_CLOCK_MONOTONIC;
-#endif
+  static inline protos::pbzero::BuiltinClock GetClockId() { return clock_; }
+  static inline void SetClockId(protos::pbzero::BuiltinClock clock) {
+    clock_ = clock;
   }
 
   static int GetSessionCount();
@@ -16077,6 +16130,8 @@ class PERFETTO_EXPORT_COMPONENT TrackEventInternal {
       perfetto::DynamicString name);
 
   static std::atomic<int> session_count_;
+
+  static protos::pbzero::BuiltinClock clock_;
 };
 
 template <typename TraceContext>
@@ -16095,7 +16150,7 @@ TrackEventTlsState::TrackEventTlsState(const TraceContext& trace_context) {
   }
   if (disable_incremental_timestamps) {
     if (timestamp_unit_multiplier == 1) {
-      default_clock = TrackEventInternal::GetClockId();
+      default_clock = static_cast<uint32_t>(TrackEventInternal::GetClockId());
     } else {
       default_clock = TrackEventIncrementalState::kClockIdAbsolute;
     }
@@ -18099,14 +18154,13 @@ class TrackEventDataSource
 //   byte 0                      byte 1
 //   (inst0, inst1, ..., inst7), (inst0, inst1, ..., inst7)
 //
-#define PERFETTO_INTERNAL_DECLARE_CATEGORIES(...)                             \
+#define PERFETTO_INTERNAL_DECLARE_CATEGORIES(attrs, ...)                      \
   namespace internal {                                                        \
   constexpr ::perfetto::Category kCategories[] = {__VA_ARGS__};               \
   constexpr size_t kCategoryCount =                                           \
       sizeof(kCategories) / sizeof(kCategories[0]);                           \
   /* The per-instance enable/disable state per category */                    \
-  PERFETTO_COMPONENT_EXPORT extern std::atomic<uint8_t>                       \
-      g_category_state_storage[kCategoryCount];                               \
+  attrs extern std::atomic<uint8_t> g_category_state_storage[kCategoryCount]; \
   /* The category registry which mediates access to the above structures. */  \
   /* The registry is used for two purposes: */                                \
   /**/                                                                        \
@@ -18127,32 +18181,29 @@ class TrackEventDataSource
   /* TODO(skyostil): Unify these using a C++17 inline constexpr variable. */  \
   constexpr ::perfetto::internal::TrackEventCategoryRegistry                  \
       kConstExprCategoryRegistry(kCategoryCount, &kCategories[0], nullptr);   \
-  PERFETTO_COMPONENT_EXPORT extern const ::perfetto::internal::               \
-      TrackEventCategoryRegistry kCategoryRegistry;                           \
+  attrs extern const ::perfetto::internal::TrackEventCategoryRegistry         \
+      kCategoryRegistry;                                                      \
   static_assert(kConstExprCategoryRegistry.ValidateCategories(),              \
                 "Invalid category names found");                              \
   }  // namespace internal
 
 // In a .cc file, declares storage for each category's runtime state.
-#define PERFETTO_INTERNAL_CATEGORY_STORAGE()             \
-  namespace internal {                                   \
-  PERFETTO_COMPONENT_EXPORT std::atomic<uint8_t>         \
-      g_category_state_storage[kCategoryCount];          \
-  PERFETTO_EXPORT_COMPONENT const ::perfetto::internal:: \
-      TrackEventCategoryRegistry kCategoryRegistry(      \
-          kCategoryCount,                                \
-          &kCategories[0],                               \
-          &g_category_state_storage[0]);                 \
+#define PERFETTO_INTERNAL_CATEGORY_STORAGE(attrs)                      \
+  namespace internal {                                                 \
+  attrs std::atomic<uint8_t> g_category_state_storage[kCategoryCount]; \
+  attrs const ::perfetto::internal::TrackEventCategoryRegistry         \
+      kCategoryRegistry(kCategoryCount,                                \
+                        &kCategories[0],                               \
+                        &g_category_state_storage[0]);                 \
   }  // namespace internal
 
 // Defines the TrackEvent data source for the current track event namespace.
 // `virtual ~TrackEvent` is added to avoid `-Wweak-vtables` warning.
 // Learn more : aosp/2019906
-#define PERFETTO_INTERNAL_DECLARE_TRACK_EVENT_DATA_SOURCE() \
-  struct PERFETTO_COMPONENT_EXPORT TrackEvent               \
-      : public ::perfetto::internal::TrackEventDataSource<  \
-            TrackEvent, &internal::kCategoryRegistry> {     \
-    virtual ~TrackEvent();                                  \
+#define PERFETTO_INTERNAL_DECLARE_TRACK_EVENT_DATA_SOURCE(attrs)               \
+  struct attrs TrackEvent : public ::perfetto::internal::TrackEventDataSource< \
+                                TrackEvent, &internal::kCategoryRegistry> {    \
+    virtual ~TrackEvent();                                                     \
   }
 
 #define PERFETTO_INTERNAL_DEFINE_TRACK_EVENT_DATA_SOURCE() \
@@ -18162,9 +18213,9 @@ class TrackEventDataSource
 // index into the current category registry. A build error will be generated if
 // the category hasn't been registered or added to the list of allowed dynamic
 // categories. See PERFETTO_DEFINE_CATEGORIES.
-#define PERFETTO_GET_CATEGORY_INDEX(category)                                  \
-  ::PERFETTO_TRACK_EVENT_NAMESPACE::internal::kConstExprCategoryRegistry.Find( \
-      category,                                                                \
+#define PERFETTO_GET_CATEGORY_INDEX(category)                                \
+  PERFETTO_TRACK_EVENT_NAMESPACE::internal::kConstExprCategoryRegistry.Find( \
+      category,                                                              \
       ::PERFETTO_TRACK_EVENT_NAMESPACE::internal::IsDynamicCategory(category))
 
 // Generate a unique variable name with a given prefix.
@@ -18176,14 +18227,15 @@ class TrackEventDataSource
 // if so, emits one trace event with the given arguments.
 #define PERFETTO_INTERNAL_TRACK_EVENT(category, name, ...)                     \
   do {                                                                         \
-    perfetto::internal::ValidateEventNameType<decltype(name)>();               \
-    namespace tns = ::PERFETTO_TRACK_EVENT_NAMESPACE;                          \
+    ::perfetto::internal::ValidateEventNameType<decltype(name)>();             \
+    namespace tns = PERFETTO_TRACK_EVENT_NAMESPACE;                            \
     /* Compute the category index outside the lambda to work around a */       \
     /* GCC 7 bug */                                                            \
     static constexpr auto PERFETTO_UID(                                        \
         kCatIndex_ADD_TO_PERFETTO_DEFINE_CATEGORIES_IF_FAILS_) =               \
         PERFETTO_GET_CATEGORY_INDEX(category);                                 \
-    if (tns::internal::IsDynamicCategory(category)) {                          \
+    if (::PERFETTO_TRACK_EVENT_NAMESPACE::internal::IsDynamicCategory(         \
+            category)) {                                                       \
       tns::TrackEvent::CallIfEnabled(                                          \
           [&](uint32_t instances) PERFETTO_NO_THREAD_SAFETY_ANALYSIS {         \
             tns::TrackEvent::TraceForCategory(instances, category, name,       \
@@ -18238,12 +18290,32 @@ class TrackEventDataSource
     }()                                                                       \
   }
 
-#define PERFETTO_INTERNAL_CATEGORY_ENABLED(category)                         \
-  (::PERFETTO_TRACK_EVENT_NAMESPACE::internal::IsDynamicCategory(category)   \
-       ? ::PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent::                      \
-             IsDynamicCategoryEnabled(::perfetto::DynamicCategory(category)) \
-       : ::PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent::IsCategoryEnabled(    \
+#if PERFETTO_BUILDFLAG(PERFETTO_COMPILER_GCC)
+// On GCC versions <9 there's a bug that prevents using captured constant
+// variables in constexpr evaluation inside a lambda:
+// https://gcc.gnu.org/bugzilla/show_bug.cgi?id=82643
+// TODO(khokhlov): Remove this fallback after Perfetto moves to a more recent
+// GCC version.
+#define PERFETTO_INTERNAL_CATEGORY_ENABLED(category)                           \
+  (::PERFETTO_TRACK_EVENT_NAMESPACE::internal::IsDynamicCategory(category)     \
+       ? PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent::IsDynamicCategoryEnabled( \
+             ::perfetto::DynamicCategory(category))                            \
+       : PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent::IsCategoryEnabled(        \
              PERFETTO_GET_CATEGORY_INDEX(category)))
+#else  // !PERFETTO_BUILDFLAG(PERFETTO_COMPILER_GCC)
+#define PERFETTO_INTERNAL_CATEGORY_ENABLED(category)                     \
+  [&]() -> bool {                                                        \
+    using PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent;                    \
+    using ::PERFETTO_TRACK_EVENT_NAMESPACE::internal::IsDynamicCategory; \
+    constexpr auto PERFETTO_UID(index) =                                 \
+        PERFETTO_GET_CATEGORY_INDEX(category);                           \
+    constexpr auto PERFETTO_UID(dynamic) = IsDynamicCategory(category);  \
+    return PERFETTO_UID(dynamic)                                         \
+               ? TrackEvent::IsDynamicCategoryEnabled(                   \
+                     ::perfetto::DynamicCategory(category))              \
+               : TrackEvent::IsCategoryEnabled(PERFETTO_UID(index));     \
+  }()
+#endif  // !PERFETTO_BUILDFLAG(PERFETTO_COMPILER_GCC)
 
 // Emits an empty trace packet into the trace to ensure that the service can
 // safely read the last event from the trace buffer. This can be used to
@@ -18255,12 +18327,12 @@ class TrackEventDataSource
 // read the last trace packet from an incomplete SMB chunk (crbug.com/1021571
 // and b/162206162) when scraping the SMB. Adding an empty trace packet ensures
 // that all prior events can be scraped by the service.
-#define PERFETTO_INTERNAL_ADD_EMPTY_EVENT()                                  \
-  do {                                                                       \
-    ::PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent::Trace(                     \
-        [](::PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent::TraceContext ctx) { \
-          ctx.AddEmptyTracePacket();                                         \
-        });                                                                  \
+#define PERFETTO_INTERNAL_ADD_EMPTY_EVENT()                                \
+  do {                                                                     \
+    PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent::Trace(                     \
+        [](PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent::TraceContext ctx) { \
+          ctx.AddEmptyTracePacket();                                       \
+        });                                                                \
   } while (false)
 
 #endif  // INCLUDE_PERFETTO_TRACING_INTERNAL_TRACK_EVENT_MACROS_H_
@@ -18382,6 +18454,9 @@ class TrackEventDataSource
 //  '----------------------------------'
 //
 
+// DEPRECATED: Please use PERFETTO_DEFINE_CATEGORIES_IN_NAMESPACE to implement
+// multiple track event category sets in one program.
+//
 // Each compilation unit can be in exactly one track event namespace,
 // allowing the overall program to use multiple track event data sources and
 // category lists if necessary. Use this macro to select the namespace for the
@@ -18391,7 +18466,7 @@ class TrackEventDataSource
 // registration (see quickstart above) needs to happen for both namespaces
 // separately.
 #ifndef PERFETTO_TRACK_EVENT_NAMESPACE
-#define PERFETTO_TRACK_EVENT_NAMESPACE perfetto
+#define PERFETTO_TRACK_EVENT_NAMESPACE perfetto_track_event
 #endif
 
 // Deprecated; see perfetto::Category().
@@ -18436,28 +18511,85 @@ constexpr bool IsDynamicCategory(const ::perfetto::DynamicCategory&) {
   PERFETTO_INTERNAL_SWALLOW_SEMICOLON()
 
 // Register the set of available categories by passing a list of categories to
-// this macro: PERFETTO_CATEGORY(cat1), PERFETTO_CATEGORY(cat2), ...
-#define PERFETTO_DEFINE_CATEGORIES(...)                        \
-  namespace PERFETTO_TRACK_EVENT_NAMESPACE {                   \
-  /* The list of category names */                             \
-  PERFETTO_INTERNAL_DECLARE_CATEGORIES(__VA_ARGS__)            \
-  /* The track event data source for this set of categories */ \
-  PERFETTO_INTERNAL_DECLARE_TRACK_EVENT_DATA_SOURCE();         \
-  } /* namespace PERFETTO_TRACK_EVENT_NAMESPACE */             \
-  PERFETTO_DECLARE_DATA_SOURCE_STATIC_MEMBERS(                 \
-      PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent,              \
-      perfetto::internal::TrackEventDataSourceTraits)
+// this macro: perfetto::Category("cat1"), perfetto::Category("cat2"), ...
+// `ns` is the name of the namespace in which the categories should be declared.
+// `attrs` are linkage attributes for the underlying data source. See
+// PERFETTO_DECLARE_DATA_SOURCE_STATIC_MEMBERS_WITH_ATTRS.
+//
+// Implementation note: the extra namespace (PERFETTO_TRACK_EVENT_NAMESPACE) is
+// kept here only for backward compatibility.
+#define PERFETTO_DEFINE_CATEGORIES_IN_NAMESPACE_WITH_ATTRS(ns, attrs, ...) \
+  namespace ns {                                                           \
+  namespace PERFETTO_TRACK_EVENT_NAMESPACE {                               \
+  /* The list of category names */                                         \
+  PERFETTO_INTERNAL_DECLARE_CATEGORIES(attrs, __VA_ARGS__)                 \
+  /* The track event data source for this set of categories */             \
+  PERFETTO_INTERNAL_DECLARE_TRACK_EVENT_DATA_SOURCE(attrs);                \
+  } /* namespace PERFETTO_TRACK_EVENT_NAMESPACE  */                        \
+  using PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent;                        \
+  } /* namespace ns */                                                     \
+  PERFETTO_DECLARE_DATA_SOURCE_STATIC_MEMBERS_WITH_ATTRS(                  \
+      attrs, ns::PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent,               \
+      ::perfetto::internal::TrackEventDataSourceTraits)
+
+// Register the set of available categories by passing a list of categories to
+// this macro: perfetto::Category("cat1"), perfetto::Category("cat2"), ...
+// `ns` is the name of the namespace in which the categories should be declared.
+#define PERFETTO_DEFINE_CATEGORIES_IN_NAMESPACE(ns, ...) \
+  PERFETTO_DEFINE_CATEGORIES_IN_NAMESPACE_WITH_ATTRS(    \
+      ns, PERFETTO_COMPONENT_EXPORT, __VA_ARGS__)
+
+// Make categories in a given namespace the default ones used by track events
+// for the current translation unit. Can only be used *once* in a given global
+// or namespace scope.
+#define PERFETTO_USE_CATEGORIES_FROM_NAMESPACE(ns)                         \
+  namespace PERFETTO_TRACK_EVENT_NAMESPACE {                               \
+  using ::ns::PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent;                  \
+  namespace internal {                                                     \
+  using ::ns::PERFETTO_TRACK_EVENT_NAMESPACE::internal::kCategoryRegistry; \
+  using ::ns::PERFETTO_TRACK_EVENT_NAMESPACE::internal::                   \
+      kConstExprCategoryRegistry;                                          \
+  } /* namespace internal */                                               \
+  } /* namespace PERFETTO_TRACK_EVENT_NAMESPACE */                         \
+  PERFETTO_INTERNAL_SWALLOW_SEMICOLON()
+
+// Make categories in a given namespace the default ones used by track events
+// for the current block scope. Can only be used in a function or block scope.
+#define PERFETTO_USE_CATEGORIES_FROM_NAMESPACE_SCOPED(ns) \
+  namespace PERFETTO_TRACK_EVENT_NAMESPACE = ns::PERFETTO_TRACK_EVENT_NAMESPACE
+
+// Register categories in the default (global) namespace. Warning: only one set
+// of global categories can be defined in a single program. Create namespaced
+// categories with PERFETTO_DEFINE_CATEGORIES_IN_NAMESPACE to work around this
+// limitation.
+#define PERFETTO_DEFINE_CATEGORIES(...)                           \
+  PERFETTO_DEFINE_CATEGORIES_IN_NAMESPACE(perfetto, __VA_ARGS__); \
+  PERFETTO_USE_CATEGORIES_FROM_NAMESPACE(perfetto)
+
+// Allocate storage for each category by using this macro once per track event
+// namespace. `ns` is the name of the namespace in which the categories should
+// be declared and `attrs` specify linkage attributes for the data source.
+#define PERFETTO_TRACK_EVENT_STATIC_STORAGE_IN_NAMESPACE_WITH_ATTRS(ns, attrs) \
+  namespace ns {                                                               \
+  namespace PERFETTO_TRACK_EVENT_NAMESPACE {                                   \
+  PERFETTO_INTERNAL_CATEGORY_STORAGE(attrs)                                    \
+  PERFETTO_INTERNAL_DEFINE_TRACK_EVENT_DATA_SOURCE()                           \
+  } /* namespace PERFETTO_TRACK_EVENT_NAMESPACE */                             \
+  } /* namespace ns */                                                         \
+  PERFETTO_DEFINE_DATA_SOURCE_STATIC_MEMBERS_WITH_ATTRS(                       \
+      attrs, ns::PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent,                   \
+      ::perfetto::internal::TrackEventDataSourceTraits)
 
 // Allocate storage for each category by using this macro once per track event
 // namespace.
-#define PERFETTO_TRACK_EVENT_STATIC_STORAGE()        \
-  namespace PERFETTO_TRACK_EVENT_NAMESPACE {         \
-  PERFETTO_INTERNAL_CATEGORY_STORAGE()               \
-  PERFETTO_INTERNAL_DEFINE_TRACK_EVENT_DATA_SOURCE() \
-  } /* namespace PERFETTO_TRACK_EVENT_NAMESPACE */   \
-  PERFETTO_DEFINE_DATA_SOURCE_STATIC_MEMBERS(        \
-      PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent,    \
-      perfetto::internal::TrackEventDataSourceTraits)
+#define PERFETTO_TRACK_EVENT_STATIC_STORAGE_IN_NAMESPACE(ns)   \
+  PERFETTO_TRACK_EVENT_STATIC_STORAGE_IN_NAMESPACE_WITH_ATTRS( \
+      ns, PERFETTO_COMPONENT_EXPORT)
+
+// Allocate storage for each category by using this macro once per track event
+// namespace.
+#define PERFETTO_TRACK_EVENT_STATIC_STORAGE() \
+  PERFETTO_TRACK_EVENT_STATIC_STORAGE_IN_NAMESPACE(perfetto)
 
 // Ignore GCC warning about a missing argument for a variadic macro parameter.
 #if defined(__GNUC__) || defined(__clang__)
@@ -20167,7 +20299,7 @@ inline ::perfetto::StaticString GetEventNameTypeForLegacyEvents(
     static int PERFETTO_UID(prev) = -1;                              \
     int PERFETTO_UID(curr) =                                         \
         ::perfetto::internal::TrackEventInternal::GetSessionCount(); \
-    if (::PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent::IsEnabled() && \
+    if (PERFETTO_TRACK_EVENT_NAMESPACE::TrackEvent::IsEnabled() &&   \
         (PERFETTO_UID(prev) != PERFETTO_UID(curr))) {                \
       *(ret) = true;                                                 \
       PERFETTO_UID(prev) = PERFETTO_UID(curr);                       \
@@ -20202,29 +20334,29 @@ inline ::perfetto::StaticString GetEventNameTypeForLegacyEvents(
 // non-zero indicates at least one tracing session for this category is active.
 // Note that callers should not make any assumptions at what each bit represents
 // in the status byte. Does not support dynamic categories.
-#define TRACE_EVENT_API_GET_CATEGORY_GROUP_ENABLED(category)                \
-  reinterpret_cast<const uint8_t*>(                                         \
-      [&] {                                                                 \
-        static_assert(                                                      \
-            !std::is_same<::perfetto::DynamicCategory,                      \
-                          decltype(category)>::value,                       \
-            "Enabled flag pointers are not supported for dynamic trace "    \
-            "categories.");                                                 \
-      },                                                                    \
-      PERFETTO_TRACK_EVENT_NAMESPACE::internal::kCategoryRegistry           \
-          .GetCategoryState(                                                \
-              ::PERFETTO_TRACK_EVENT_NAMESPACE::internal::kCategoryRegistry \
+#define TRACE_EVENT_API_GET_CATEGORY_GROUP_ENABLED(category)              \
+  reinterpret_cast<const uint8_t*>(                                       \
+      [&] {                                                               \
+        static_assert(                                                    \
+            !std::is_same<::perfetto::DynamicCategory,                    \
+                          decltype(category)>::value,                     \
+            "Enabled flag pointers are not supported for dynamic trace "  \
+            "categories.");                                               \
+      },                                                                  \
+      PERFETTO_TRACK_EVENT_NAMESPACE::internal::kCategoryRegistry         \
+          .GetCategoryState(                                              \
+              PERFETTO_TRACK_EVENT_NAMESPACE::internal::kCategoryRegistry \
                   .Find(category, /*is_dynamic=*/false)))
 
 // Given a pointer returned by TRACE_EVENT_API_GET_CATEGORY_GROUP_ENABLED,
 // yields a pointer to the name of the corresponding category group.
-#define TRACE_EVENT_API_GET_CATEGORY_GROUP_NAME(category_enabled_ptr)       \
-  ::PERFETTO_TRACK_EVENT_NAMESPACE::internal::kCategoryRegistry             \
-      .GetCategory(                                                         \
-          category_enabled_ptr -                                            \
-          reinterpret_cast<const uint8_t*>(                                 \
-              ::PERFETTO_TRACK_EVENT_NAMESPACE::internal::kCategoryRegistry \
-                  .GetCategoryState(0u)))                                   \
+#define TRACE_EVENT_API_GET_CATEGORY_GROUP_NAME(category_enabled_ptr)     \
+  PERFETTO_TRACK_EVENT_NAMESPACE::internal::kCategoryRegistry             \
+      .GetCategory(                                                       \
+          category_enabled_ptr -                                          \
+          reinterpret_cast<const uint8_t*>(                               \
+              PERFETTO_TRACK_EVENT_NAMESPACE::internal::kCategoryRegistry \
+                  .GetCategoryState(0u)))                                 \
       ->name
 
 #endif  // PERFETTO_ENABLE_LEGACY_TRACE_EVENTS
@@ -31600,6 +31732,7 @@ namespace pbzero {
 class FtraceConfig_CompactSchedConfig;
 class FtraceConfig_PrintFilter;
 class FtraceConfig_PrintFilter_Rule;
+class FtraceConfig_PrintFilter_Rule_AtraceMessage;
 namespace perfetto_pbzero_enum_FtraceConfig {
 enum KsymsMemPolicy : int32_t;
 }  // namespace perfetto_pbzero_enum_FtraceConfig
@@ -31634,7 +31767,7 @@ const char* FtraceConfig_KsymsMemPolicy_Name(::perfetto::protos::pbzero::FtraceC
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class FtraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/23, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class FtraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/24, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   FtraceConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit FtraceConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -31673,6 +31806,8 @@ class FtraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_I
   ::protozero::RepeatedFieldIterator<::protozero::ConstChars> function_graph_roots() const { return GetRepeated<::protozero::ConstChars>(21); }
   bool has_preserve_ftrace_buffer() const { return at<23>().valid(); }
   bool preserve_ftrace_buffer() const { return at<23>().as_bool(); }
+  bool has_use_monotonic_raw_clock() const { return at<24>().valid(); }
+  bool use_monotonic_raw_clock() const { return at<24>().as_bool(); }
 };
 
 class FtraceConfig : public ::protozero::Message {
@@ -31696,6 +31831,7 @@ class FtraceConfig : public ::protozero::Message {
     kFunctionFiltersFieldNumber = 20,
     kFunctionGraphRootsFieldNumber = 21,
     kPreserveFtraceBufferFieldNumber = 23,
+    kUseMonotonicRawClockFieldNumber = 24,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.FtraceConfig"; }
 
@@ -32162,6 +32298,31 @@ class FtraceConfig : public ::protozero::Message {
       ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
+
+  using FieldMetadata_UseMonotonicRawClock =
+    ::protozero::proto_utils::FieldMetadata<
+      24,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      FtraceConfig>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_UseMonotonicRawClock kUseMonotonicRawClock() { return {}; }
+  void set_use_monotonic_raw_clock(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_UseMonotonicRawClock::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
 };
 
 class FtraceConfig_PrintFilter_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
@@ -32205,13 +32366,15 @@ class FtraceConfig_PrintFilter : public ::protozero::Message {
 
 };
 
-class FtraceConfig_PrintFilter_Rule_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class FtraceConfig_PrintFilter_Rule_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   FtraceConfig_PrintFilter_Rule_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit FtraceConfig_PrintFilter_Rule_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit FtraceConfig_PrintFilter_Rule_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_prefix() const { return at<1>().valid(); }
   ::protozero::ConstChars prefix() const { return at<1>().as_string(); }
+  bool has_atrace_msg() const { return at<3>().valid(); }
+  ::protozero::ConstBytes atrace_msg() const { return at<3>().as_bytes(); }
   bool has_allow() const { return at<2>().valid(); }
   bool allow() const { return at<2>().as_bool(); }
 };
@@ -32221,10 +32384,12 @@ class FtraceConfig_PrintFilter_Rule : public ::protozero::Message {
   using Decoder = FtraceConfig_PrintFilter_Rule_Decoder;
   enum : int32_t {
     kPrefixFieldNumber = 1,
+    kAtraceMsgFieldNumber = 3,
     kAllowFieldNumber = 2,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.FtraceConfig.PrintFilter.Rule"; }
 
+  using AtraceMessage = ::perfetto::protos::pbzero::FtraceConfig_PrintFilter_Rule_AtraceMessage;
 
   using FieldMetadata_Prefix =
     ::protozero::proto_utils::FieldMetadata<
@@ -32257,6 +32422,27 @@ class FtraceConfig_PrintFilter_Rule : public ::protozero::Message {
         ::Append(*this, field_id, value);
   }
 
+  using FieldMetadata_AtraceMsg =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      FtraceConfig_PrintFilter_Rule_AtraceMessage,
+      FtraceConfig_PrintFilter_Rule>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_AtraceMsg kAtraceMsg() { return {}; }
+  template <typename T = FtraceConfig_PrintFilter_Rule_AtraceMessage> T* set_atrace_msg() {
+    return BeginNestedMessage<T>(3);
+  }
+
+
   using FieldMetadata_Allow =
     ::protozero::proto_utils::FieldMetadata<
       2,
@@ -32279,6 +32465,90 @@ class FtraceConfig_PrintFilter_Rule : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class FtraceConfig_PrintFilter_Rule_AtraceMessage_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  FtraceConfig_PrintFilter_Rule_AtraceMessage_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit FtraceConfig_PrintFilter_Rule_AtraceMessage_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit FtraceConfig_PrintFilter_Rule_AtraceMessage_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_type() const { return at<1>().valid(); }
+  ::protozero::ConstChars type() const { return at<1>().as_string(); }
+  bool has_prefix() const { return at<2>().valid(); }
+  ::protozero::ConstChars prefix() const { return at<2>().as_string(); }
+};
+
+class FtraceConfig_PrintFilter_Rule_AtraceMessage : public ::protozero::Message {
+ public:
+  using Decoder = FtraceConfig_PrintFilter_Rule_AtraceMessage_Decoder;
+  enum : int32_t {
+    kTypeFieldNumber = 1,
+    kPrefixFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.FtraceConfig.PrintFilter.Rule.AtraceMessage"; }
+
+
+  using FieldMetadata_Type =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      FtraceConfig_PrintFilter_Rule_AtraceMessage>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Type kType() { return {}; }
+  void set_type(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_Type::kFieldId, data, size);
+  }
+  void set_type(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_Type::kFieldId, chars.data, chars.size);
+  }
+  void set_type(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Prefix =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      FtraceConfig_PrintFilter_Rule_AtraceMessage>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Prefix kPrefix() { return {}; }
+  void set_prefix(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_Prefix::kFieldId, data, size);
+  }
+  void set_prefix(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_Prefix::kFieldId, chars.data, chars.size);
+  }
+  void set_prefix(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_Prefix::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
         ::Append(*this, field_id, value);
   }
 };
@@ -63481,10 +63751,11 @@ enum FtraceClock : int32_t {
   FTRACE_CLOCK_UNKNOWN = 1,
   FTRACE_CLOCK_GLOBAL = 2,
   FTRACE_CLOCK_LOCAL = 3,
+  FTRACE_CLOCK_MONO_RAW = 4,
 };
 
 constexpr FtraceClock FtraceClock_MIN = FtraceClock::FTRACE_CLOCK_UNSPECIFIED;
-constexpr FtraceClock FtraceClock_MAX = FtraceClock::FTRACE_CLOCK_LOCAL;
+constexpr FtraceClock FtraceClock_MAX = FtraceClock::FTRACE_CLOCK_MONO_RAW;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -63501,6 +63772,9 @@ const char* FtraceClock_Name(::perfetto::protos::pbzero::FtraceClock value) {
 
   case ::perfetto::protos::pbzero::FtraceClock::FTRACE_CLOCK_LOCAL:
     return "FTRACE_CLOCK_LOCAL";
+
+  case ::perfetto::protos::pbzero::FtraceClock::FTRACE_CLOCK_MONO_RAW:
+    return "FTRACE_CLOCK_MONO_RAW";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -165862,6 +166136,7 @@ namespace gen {
 class FtraceConfig;
 class FtraceConfig_PrintFilter;
 class FtraceConfig_PrintFilter_Rule;
+class FtraceConfig_PrintFilter_Rule_AtraceMessage;
 class FtraceConfig_CompactSchedConfig;
 enum FtraceConfig_KsymsMemPolicy : int;
 }  // namespace perfetto
@@ -165909,6 +166184,7 @@ class PERFETTO_EXPORT_COMPONENT FtraceConfig : public ::protozero::CppMessageObj
     kFunctionFiltersFieldNumber = 20,
     kFunctionGraphRootsFieldNumber = 21,
     kPreserveFtraceBufferFieldNumber = 23,
+    kUseMonotonicRawClockFieldNumber = 24,
   };
 
   FtraceConfig();
@@ -166011,6 +166287,10 @@ class PERFETTO_EXPORT_COMPONENT FtraceConfig : public ::protozero::CppMessageObj
   bool preserve_ftrace_buffer() const { return preserve_ftrace_buffer_; }
   void set_preserve_ftrace_buffer(bool value) { preserve_ftrace_buffer_ = value; _has_field_.set(23); }
 
+  bool has_use_monotonic_raw_clock() const { return _has_field_[24]; }
+  bool use_monotonic_raw_clock() const { return use_monotonic_raw_clock_; }
+  void set_use_monotonic_raw_clock(bool value) { use_monotonic_raw_clock_ = value; _has_field_.set(24); }
+
  private:
   std::vector<std::string> ftrace_events_;
   std::vector<std::string> atrace_categories_;
@@ -166029,12 +166309,13 @@ class PERFETTO_EXPORT_COMPONENT FtraceConfig : public ::protozero::CppMessageObj
   std::vector<std::string> function_filters_;
   std::vector<std::string> function_graph_roots_;
   bool preserve_ftrace_buffer_{};
+  bool use_monotonic_raw_clock_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<24> _has_field_{};
+  std::bitset<25> _has_field_{};
 };
 
 
@@ -166078,8 +166359,10 @@ class PERFETTO_EXPORT_COMPONENT FtraceConfig_PrintFilter : public ::protozero::C
 
 class PERFETTO_EXPORT_COMPONENT FtraceConfig_PrintFilter_Rule : public ::protozero::CppMessageObj {
  public:
+  using AtraceMessage = FtraceConfig_PrintFilter_Rule_AtraceMessage;
   enum FieldNumbers {
     kPrefixFieldNumber = 1,
+    kAtraceMsgFieldNumber = 3,
     kAllowFieldNumber = 2,
   };
 
@@ -166101,13 +166384,59 @@ class PERFETTO_EXPORT_COMPONENT FtraceConfig_PrintFilter_Rule : public ::protoze
   const std::string& prefix() const { return prefix_; }
   void set_prefix(const std::string& value) { prefix_ = value; _has_field_.set(1); }
 
+  bool has_atrace_msg() const { return _has_field_[3]; }
+  const FtraceConfig_PrintFilter_Rule_AtraceMessage& atrace_msg() const { return *atrace_msg_; }
+  FtraceConfig_PrintFilter_Rule_AtraceMessage* mutable_atrace_msg() { _has_field_.set(3); return atrace_msg_.get(); }
+
   bool has_allow() const { return _has_field_[2]; }
   bool allow() const { return allow_; }
   void set_allow(bool value) { allow_ = value; _has_field_.set(2); }
 
  private:
   std::string prefix_{};
+  ::protozero::CopyablePtr<FtraceConfig_PrintFilter_Rule_AtraceMessage> atrace_msg_;
   bool allow_{};
+
+  // Allows to preserve unknown protobuf fields for compatibility
+  // with future versions of .proto files.
+  std::string unknown_fields_;
+
+  std::bitset<4> _has_field_{};
+};
+
+
+class PERFETTO_EXPORT_COMPONENT FtraceConfig_PrintFilter_Rule_AtraceMessage : public ::protozero::CppMessageObj {
+ public:
+  enum FieldNumbers {
+    kTypeFieldNumber = 1,
+    kPrefixFieldNumber = 2,
+  };
+
+  FtraceConfig_PrintFilter_Rule_AtraceMessage();
+  ~FtraceConfig_PrintFilter_Rule_AtraceMessage() override;
+  FtraceConfig_PrintFilter_Rule_AtraceMessage(FtraceConfig_PrintFilter_Rule_AtraceMessage&&) noexcept;
+  FtraceConfig_PrintFilter_Rule_AtraceMessage& operator=(FtraceConfig_PrintFilter_Rule_AtraceMessage&&);
+  FtraceConfig_PrintFilter_Rule_AtraceMessage(const FtraceConfig_PrintFilter_Rule_AtraceMessage&);
+  FtraceConfig_PrintFilter_Rule_AtraceMessage& operator=(const FtraceConfig_PrintFilter_Rule_AtraceMessage&);
+  bool operator==(const FtraceConfig_PrintFilter_Rule_AtraceMessage&) const;
+  bool operator!=(const FtraceConfig_PrintFilter_Rule_AtraceMessage& other) const { return !(*this == other); }
+
+  bool ParseFromArray(const void*, size_t) override;
+  std::string SerializeAsString() const override;
+  std::vector<uint8_t> SerializeAsArray() const override;
+  void Serialize(::protozero::Message*) const;
+
+  bool has_type() const { return _has_field_[1]; }
+  const std::string& type() const { return type_; }
+  void set_type(const std::string& value) { type_ = value; _has_field_.set(1); }
+
+  bool has_prefix() const { return _has_field_[2]; }
+  const std::string& prefix() const { return prefix_; }
+  void set_prefix(const std::string& value) { prefix_ = value; _has_field_.set(2); }
+
+ private:
+  std::string type_{};
+  std::string prefix_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
