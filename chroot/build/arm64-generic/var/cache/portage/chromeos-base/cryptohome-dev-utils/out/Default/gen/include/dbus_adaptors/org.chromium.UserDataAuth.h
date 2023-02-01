@@ -42,9 +42,6 @@ class UserDataAuthInterfaceInterface {
   virtual void ListKeys(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::ListKeysReply>> response,
       const user_data_auth::ListKeysRequest& in_request) = 0;
-  virtual void GetKeyData(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetKeyDataReply>> response,
-      const user_data_auth::GetKeyDataRequest& in_request) = 0;
   virtual void CheckKey(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::CheckKeyReply>> response,
       const user_data_auth::CheckKeyRequest& in_request) = 0;
@@ -174,10 +171,6 @@ class UserDataAuthInterfaceAdaptor {
         "ListKeys",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::ListKeys);
-    itf->AddMethodHandler(
-        "GetKeyData",
-        base::Unretained(interface_),
-        &UserDataAuthInterfaceInterface::GetKeyData);
     itf->AddMethodHandler(
         "CheckKey",
         base::Unretained(interface_),
@@ -355,10 +348,6 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"ListKeys\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"GetKeyData\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

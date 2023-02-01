@@ -92,12 +92,6 @@ BRILLO_EXPORT std::string GetProtoDebugString(const ListKeysRequest& value);
 std::string GetProtoDebugStringWithIndent(const ListKeysReply& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const ListKeysReply& value);
-std::string GetProtoDebugStringWithIndent(const GetKeyDataRequest& value,
-                                          int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(const GetKeyDataRequest& value);
-std::string GetProtoDebugStringWithIndent(const GetKeyDataReply& value,
-                                          int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(const GetKeyDataReply& value);
 std::string GetProtoDebugStringWithIndent(const CheckKeyRequest& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const CheckKeyRequest& value);

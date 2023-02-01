@@ -78,16 +78,6 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
                     base::OnceCallback<void(const user_data_auth::ListKeysReply& /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
-  MOCK_METHOD4(GetKeyData,
-               bool(const user_data_auth::GetKeyDataRequest& /*in_request*/,
-                    user_data_auth::GetKeyDataReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetKeyDataAsync,
-               void(const user_data_auth::GetKeyDataRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetKeyDataReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
   MOCK_METHOD4(CheckKey,
                bool(const user_data_auth::CheckKeyRequest& /*in_request*/,
                     user_data_auth::CheckKeyReply* /*out_reply*/,

@@ -299,13 +299,13 @@ void ReplyWithAuthenticationResult(
   DCHECK(auth_session);
   DCHECK(!on_done.is_null());
   user_data_auth::AuthenticateAuthFactorReply reply;
-  reply.set_authenticated(auth_session->GetStatus() ==
+  reply.set_authenticated(auth_session->status() ==
                           AuthStatus::kAuthStatusAuthenticated);
   for (AuthIntent auth_intent : auth_session->authorized_intents()) {
     reply.add_authorized_for(AuthIntentToProto(auth_intent));
   }
 
-  if (auth_session->GetStatus() == AuthStatus::kAuthStatusAuthenticated) {
+  if (auth_session->status() == AuthStatus::kAuthStatusAuthenticated) {
     reply.set_seconds_left(auth_session->GetRemainingTime().InSeconds());
   }
 
@@ -1524,7 +1524,7 @@ void UserDataAuth::DoMount(
                   CRYPTOHOME_INVALID_AUTH_SESSION_TOKEN));
       return;
     }
-    if (auth_session->GetStatus() != AuthStatus::kAuthStatusAuthenticated) {
+    if (auth_session->status() != AuthStatus::kAuthStatusAuthenticated) {
       reply.set_error(user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT);
       LOG(ERROR) << "AuthSession is not authenticated";
       ReplyWithError(
@@ -2431,7 +2431,7 @@ MountStatus UserDataAuth::AttemptUserMount(
   }
 
   // Cannot proceed with mount if the AuthSession is not authenticated yet.
-  if (auth_session->GetStatus() != AuthStatus::kAuthStatusAuthenticated) {
+  if (auth_session->status() != AuthStatus::kAuthStatusAuthenticated) {
     return MakeStatus<CryptohomeMountError>(
         CRYPTOHOME_ERR_LOC(kLocUserDataAuthNotAuthedInAttemptUserMountAS),
         ErrorActionSet(
@@ -3069,45 +3069,6 @@ user_data_auth::ListKeysReply UserDataAuth::ListKeys(
   *reply.mutable_labels() = {labels_out.begin(), labels_out.end()};
   PopulateReplyWithError(OkStatus<CryptohomeError>(), &reply);
   return reply;
-}
-
-user_data_auth::CryptohomeErrorCode UserDataAuth::GetKeyData(
-    const user_data_auth::GetKeyDataRequest& request,
-    KeyData* data_out,
-    bool* found) {
-  AssertOnMountThread();
-
-  if (!request.has_account_id()) {
-    // Note that authorization request is currently not required.
-    LOG(ERROR) << "GetKeyDataRequest must have account_id.";
-    return user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT;
-  }
-
-  std::string account_id = GetAccountId(request.account_id());
-  if (account_id.empty()) {
-    LOG(ERROR) << "GetKeyDataRequest must have vaid account_id.";
-    return user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT;
-  }
-
-  if (!request.has_key()) {
-    LOG(ERROR) << "No key attributes provided in GetKeyDataRequest.";
-    return user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT;
-  }
-
-  const std::string obfuscated_username = SanitizeUserName(account_id);
-  if (!homedirs_->Exists(obfuscated_username)) {
-    return user_data_auth::CRYPTOHOME_ERROR_ACCOUNT_NOT_FOUND;
-  }
-
-  // Requests only support using the key label at present.
-  std::unique_ptr<VaultKeyset> vk(keyset_management_->GetVaultKeyset(
-      obfuscated_username, request.key().data().label()));
-  *found = (vk != nullptr);
-  if (*found) {
-    *data_out = vk->GetKeyDataOrDefault();
-  }
-
-  return user_data_auth::CRYPTOHOME_ERROR_NOT_SET;
 }
 
 user_data_auth::RemoveReply UserDataAuth::Remove(
@@ -3984,7 +3945,7 @@ void UserDataAuth::SetKeyDataForUserSession(AuthSession* auth_session,
   }
 
   // Ensure AuthSession is authenticated.
-  if (auth_session->GetStatus() != AuthStatus::kAuthStatusAuthenticated) {
+  if (auth_session->status() != AuthStatus::kAuthStatusAuthenticated) {
     LOG(WARNING) << "SetCredential failed as auth session is not authenticated "
                     "for user: "
                  << auth_session->obfuscated_username();
@@ -4086,7 +4047,7 @@ CryptohomeStatusOr<AuthSession*> UserDataAuth::GetAuthenticatedAuthSession(
   }
 
   // Check if the AuthSession is properly authenticated.
-  if (auth_session->GetStatus() != AuthStatus::kAuthStatusAuthenticated) {
+  if (auth_session->status() != AuthStatus::kAuthStatusAuthenticated) {
     LOG(ERROR) << "AuthSession is not authenticated.";
     return MakeStatus<CryptohomeError>(
         CRYPTOHOME_ERR_LOC(kLocUserDataAuthSessionNotAuthedInGetAuthedAS),
@@ -5002,12 +4963,10 @@ void UserDataAuth::GetAuthSessionStatusImpl(
   // Default is invalid unless there is evidence otherwise.
   reply.set_status(user_data_auth::AUTH_SESSION_STATUS_INVALID_AUTH_SESSION);
 
-  if (auth_session->GetStatus() ==
-      AuthStatus::kAuthStatusFurtherFactorRequired) {
+  if (auth_session->status() == AuthStatus::kAuthStatusFurtherFactorRequired) {
     reply.set_status(
         user_data_auth::AUTH_SESSION_STATUS_FURTHER_FACTOR_REQUIRED);
-  } else if (auth_session->GetStatus() ==
-             AuthStatus::kAuthStatusAuthenticated) {
+  } else if (auth_session->status() == AuthStatus::kAuthStatusAuthenticated) {
     reply.set_time_left(auth_session->GetRemainingTime().InSeconds());
     reply.set_status(user_data_auth::AUTH_SESSION_STATUS_AUTHENTICATED);
   }
