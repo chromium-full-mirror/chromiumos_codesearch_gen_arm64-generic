@@ -52,6 +52,7 @@
 #include "cryptohome/credentials_test_util.h"
 #include "cryptohome/cryptohome_common.h"
 #include "cryptohome/error/cryptohome_mount_error.h"
+#include "cryptohome/filesystem_layout.h"
 #include "cryptohome/mock_credential_verifier.h"
 #include "cryptohome/mock_cryptohome_keys_manager.h"
 #include "cryptohome/mock_fingerprint_manager.h"
@@ -5589,6 +5590,17 @@ class UserDataAuthApiTest : public UserDataAuthTest {
     return reply_future.Get();
   }
 
+  std::optional<user_data_auth::PrepareGuestVaultReply> PrepareGuestVaultSync(
+      const user_data_auth::PrepareGuestVaultRequest& in_request) {
+    TestFuture<user_data_auth::PrepareGuestVaultReply> reply_future;
+    userdataauth_->PrepareGuestVault(
+        in_request,
+        reply_future
+            .GetCallback<const user_data_auth::PrepareGuestVaultReply&>());
+    RunUntilIdle();
+    return reply_future.Get();
+  }
+
  protected:
   // Mock mount factory for mocking Mount objects.
   MockMountFactory mount_factory_;
@@ -5771,6 +5783,26 @@ TEST_F(UserDataAuthApiTest, MountFailed) {
                    user_data_auth::PossibleAction::POSSIBLY_POWERWASH})));
 }
 
+TEST_F(UserDataAuthApiTest, GuestMountFailed) {
+  // Ensure that the guest mount fails.
+  scoped_refptr<MockMount> mount = new MockMount();
+  EXPECT_CALL(*mount, MountEphemeralCryptohome(_))
+      .WillOnce(ReturnError<StorageError>(FROM_HERE, kTestErrorString,
+                                          MOUNT_ERROR_FATAL, false));
+  new_mounts_.push_back(mount.get());
+
+  // Make the call to check that it failed correctly.
+  user_data_auth::PrepareGuestVaultRequest prepare_req;
+  std::optional<user_data_auth::PrepareGuestVaultReply> prepare_reply =
+      PrepareGuestVaultSync(prepare_req);
+  ASSERT_TRUE(prepare_reply.has_value());
+  EXPECT_THAT(prepare_reply->error_info(),
+              HasPossibleActions(std::set(
+                  {user_data_auth::PossibleAction::POSSIBLY_RETRY,
+                   user_data_auth::PossibleAction::POSSIBLY_REBOOT,
+                   user_data_auth::PossibleAction::POSSIBLY_POWERWASH})));
+}
+
 TEST_F(UserDataAuthApiTest, EphemeralMountFailed) {
   // Prepare an auth session for ephemeral mount.
   std::optional<std::string> session_id = GetTestUnauthedAuthSession(
@@ -5799,6 +5831,165 @@ TEST_F(UserDataAuthApiTest, EphemeralMountFailed) {
                   {user_data_auth::PossibleAction::POSSIBLY_RETRY,
                    user_data_auth::PossibleAction::POSSIBLY_REBOOT,
                    user_data_auth::PossibleAction::POSSIBLY_POWERWASH})));
+}
+
+// This is designed to trigger the unrecoverable vault flow.
+TEST_F(UserDataAuthApiTest, VaultWithoutAuth) {
+  // Mock that the user exists.
+  base::FilePath upath = UserPath(SanitizeUserName(kUsername1));
+  EXPECT_CALL(platform_, DirectoryExists(upath)).WillOnce(Return(true));
+
+  // Call StartAuthSession and it should fail.
+  user_data_auth::StartAuthSessionRequest req;
+  req.mutable_account_id()->set_account_id(kUsername1);
+  req.set_intent(user_data_auth::AuthIntent::AUTH_INTENT_DECRYPT);
+  req.set_flags(user_data_auth::AuthSessionFlags::AUTH_SESSION_FLAGS_NONE);
+  std::optional<user_data_auth::StartAuthSessionReply> reply =
+      StartAuthSessionSync(req);
+  ASSERT_TRUE(reply.has_value());
+
+  EXPECT_THAT(
+      reply->error_info(),
+      HasPossibleAction(user_data_auth::PossibleAction::POSSIBLY_DELETE_VAULT));
+}
+
+// This is designed to trigger FailureReason::COULD_NOT_MOUNT_CRYPTOHOME on
+// Chromium side for AuthenticateAuthFactor().
+TEST_F(UserDataAuthApiTest, AuthAuthFactorWithoutLabel) {
+  // Prepare an account.
+  ASSERT_TRUE(CreateTestUser());
+
+  // Call AuthenticateAuthFactor with an empty label.
+  std::optional<std::string> session_id = GetTestUnauthedAuthSession();
+  ASSERT_TRUE(session_id.has_value());
+
+  user_data_auth::AuthenticateAuthFactorRequest auth_request;
+  auth_request.set_auth_session_id(session_id.value());
+  // Intentionally set empty label.
+  auth_request.set_auth_factor_label("");
+  auth_request.mutable_auth_input()->mutable_password_input()->set_secret(
+      kPassword1);
+
+  std::optional<user_data_auth::AuthenticateAuthFactorReply> auth_reply =
+      AuthenticateAuthFactorSync(auth_request);
+
+  // Should result is POSSIBLY_DEV_CHECK_UNEXPECTED_STATE.
+  ASSERT_TRUE(auth_reply.has_value());
+  EXPECT_THAT(
+      auth_reply->error_info(),
+      HasPossibleAction(
+          user_data_auth::PossibleAction::POSSIBLY_DEV_CHECK_UNEXPECTED_STATE));
+}
+
+// This is designed to trigger FailureReason::COULD_NOT_MOUNT_CRYPTOHOME on
+// Chromium side for CreatePersistentUserAlreadyExist().
+TEST_F(UserDataAuthApiTest, CreatePeristentUserAlreadyExist) {
+  // Setup auth session.
+  std::optional<std::string> session_id = GetTestUnauthedAuthSession();
+  ASSERT_TRUE(session_id.has_value());
+
+  // Call CreatePersistentUser() while the user already exists.
+  EXPECT_CALL(homedirs_, CryptohomeExists(_)).WillOnce(ReturnValue(true));
+  user_data_auth::CreatePersistentUserRequest create_request;
+  create_request.set_auth_session_id(session_id.value());
+
+  std::optional<user_data_auth::CreatePersistentUserReply> create_reply =
+      CreatePersistentUserSync(create_request);
+  ASSERT_TRUE(create_reply.has_value());
+  EXPECT_THAT(
+      create_reply->error_info(),
+      HasPossibleActions(std::set(
+          {user_data_auth::PossibleAction::POSSIBLY_DEV_CHECK_UNEXPECTED_STATE,
+           user_data_auth::PossibleAction::POSSIBLY_DELETE_VAULT})));
+}
+
+// This is designed to trigger FailureReason::COULD_NOT_MOUNT_CRYPTOHOME on
+// Chromium side for PreparePersistentVault().
+TEST_F(UserDataAuthApiTest, PreparePersistentVaultWithoutUser) {
+  // Prepare an account.
+  ASSERT_TRUE(CreateTestUser());
+  std::optional<std::string> session_id = GetTestAuthedAuthSession();
+  ASSERT_TRUE(session_id.has_value());
+
+  // Vault doesn't exist.
+  EXPECT_CALL(homedirs_, Exists(_)).WillOnce(Return(false));
+
+  // Make the call to check that the result is correct.
+  user_data_auth::PreparePersistentVaultRequest prepare_req;
+  prepare_req.set_auth_session_id(session_id.value());
+  std::optional<user_data_auth::PreparePersistentVaultReply> prepare_reply =
+      PreparePersistentVaultSync(prepare_req);
+
+  ASSERT_TRUE(prepare_reply.has_value());
+  EXPECT_THAT(
+      prepare_reply->error_info(),
+      HasPossibleActions(std::set(
+          {user_data_auth::PossibleAction::POSSIBLY_DEV_CHECK_UNEXPECTED_STATE,
+           user_data_auth::PossibleAction::POSSIBLY_REBOOT,
+           user_data_auth::PossibleAction::POSSIBLY_DELETE_VAULT,
+           user_data_auth::PossibleAction::POSSIBLY_POWERWASH})));
+}
+
+// This is designed to trigger FailureReason::COULD_NOT_MOUNT_CRYPTOHOME on
+// Chromium side for PrepareEphemeralVault().
+TEST_F(UserDataAuthApiTest, EphemeralMountWithRegularSession) {
+  // Prepare an auth session for ephemeral mount, note that we intentionally
+  // does not specify it as ephemeral.
+  std::optional<std::string> session_id = GetTestUnauthedAuthSession(
+      user_data_auth::AuthIntent::AUTH_INTENT_DECRYPT,
+      user_data_auth::AuthSessionFlags::AUTH_SESSION_FLAGS_NONE);
+  ASSERT_TRUE(session_id.has_value());
+
+  // Make the call to check that it fails due to the session not being
+  // ephemeral.
+  user_data_auth::PrepareEphemeralVaultRequest prepare_req;
+  prepare_req.set_auth_session_id(session_id.value());
+  std::optional<user_data_auth::PrepareEphemeralVaultReply> prepare_reply =
+      PrepareEphemeralVaultSync(prepare_req);
+
+  ASSERT_TRUE(prepare_reply.has_value());
+  EXPECT_THAT(
+      prepare_reply->error_info(),
+      HasPossibleActions(std::set(
+          {user_data_auth::PossibleAction::POSSIBLY_DEV_CHECK_UNEXPECTED_STATE,
+           user_data_auth::PossibleAction::POSSIBLY_REBOOT,
+           user_data_auth::PossibleAction::POSSIBLY_POWERWASH})));
+}
+
+// This is designed to trigger FailureReason::COULD_NOT_MOUNT_CRYPTOHOME on
+// Chromium side for PrepareGuestVault().
+TEST_F(UserDataAuthApiTest, MountGuestWithOtherMounts) {
+  // Create test user and mount the vault.
+  ASSERT_TRUE(CreateTestUser());
+  std::optional<std::string> session_id = GetTestAuthedAuthSession();
+  ASSERT_TRUE(session_id.has_value());
+
+  // Setup the mount.
+  scoped_refptr<MockMount> mount = new MockMount();
+  EXPECT_CALL(*mount, MountCryptohome(_, _, _))
+      .WillOnce(ReturnOk<StorageError>());
+  new_mounts_.push_back(mount.get());
+
+  EXPECT_CALL(homedirs_, Exists(_)).WillOnce(Return(true));
+  EXPECT_CALL(disk_cleanup_, FreeDiskSpaceDuringLogin(_))
+      .WillRepeatedly(Return(true));
+
+  user_data_auth::PreparePersistentVaultRequest prepare_req;
+  prepare_req.set_auth_session_id(session_id.value());
+  std::optional<user_data_auth::PreparePersistentVaultReply> prepare_reply =
+      PreparePersistentVaultSync(prepare_req);
+  ASSERT_TRUE(prepare_reply.has_value());
+  ASSERT_EQ(prepare_reply->error_info().primary_action(),
+            user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
+
+  // Try to mount the guest vault and it should fail.
+  user_data_auth::PrepareGuestVaultRequest guest_req;
+  std::optional<user_data_auth::PrepareGuestVaultReply> guest_reply =
+      PrepareGuestVaultSync(guest_req);
+  ASSERT_TRUE(guest_reply.has_value());
+  EXPECT_THAT(guest_reply->error_info(),
+              HasPossibleActions(
+                  std::set({user_data_auth::PossibleAction::POSSIBLY_REBOOT})));
 }
 
 }  // namespace cryptohome

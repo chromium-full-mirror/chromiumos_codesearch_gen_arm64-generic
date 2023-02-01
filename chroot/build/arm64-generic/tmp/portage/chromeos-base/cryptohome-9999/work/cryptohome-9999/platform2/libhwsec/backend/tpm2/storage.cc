@@ -41,7 +41,7 @@ struct SpaceInfo {
   NoDefault<bool> write_with_owner_auth;
   NoDefault<bool> read_with_owner_auth;
   NoDefault<bool> lock_after_write;
-  NoDefault<bool> prepare_if_write_locked;
+  NoDefault<bool> prepare_if_not_writable;
   std::optional<Attributes> init_attributes;
   Attributes require_attributes;
   Attributes deny_attributes;
@@ -105,7 +105,7 @@ StatusOr<SpaceInfo> GetSpaceInfo(Space space) {
           .write_with_owner_auth = false,
           .read_with_owner_auth = false,
           .lock_after_write = true,
-          .prepare_if_write_locked = true,
+          .prepare_if_not_writable = true,
           .init_attributes = kFwmpInitAttributes,
           .require_attributes = kFwmpRequireAttributes,
       };
@@ -115,7 +115,7 @@ StatusOr<SpaceInfo> GetSpaceInfo(Space space) {
           .write_with_owner_auth = true,
           .read_with_owner_auth = false,
           .lock_after_write = false,
-          .prepare_if_write_locked = false,
+          .prepare_if_not_writable = false,
           .require_attributes = kPlatformFwmpRequireAttributes,
           .deny_attributes = kPlatformFwmpDenyAttributes,
       };
@@ -125,7 +125,7 @@ StatusOr<SpaceInfo> GetSpaceInfo(Space space) {
           .write_with_owner_auth = false,
           .read_with_owner_auth = false,
           .lock_after_write = true,
-          .prepare_if_write_locked = true,
+          .prepare_if_not_writable = true,
           .init_attributes = kInstallAttributesInitAttributes,
           .require_attributes = kInstallAttributesRequireAttributes,
           .owner_dependency = tpm_manager::kTpmOwnerDependency_Nvram,
@@ -136,7 +136,7 @@ StatusOr<SpaceInfo> GetSpaceInfo(Space space) {
           .write_with_owner_auth = false,
           .read_with_owner_auth = false,
           .lock_after_write = false,
-          .prepare_if_write_locked = false,
+          .prepare_if_not_writable = false,
           .init_attributes = kBootlockboxInitAttributes,
           .owner_dependency = tpm_manager::kTpmOwnerDependency_Bootlockbox,
       };
@@ -146,7 +146,7 @@ StatusOr<SpaceInfo> GetSpaceInfo(Space space) {
           .write_with_owner_auth = false,
           .read_with_owner_auth = false,
           .lock_after_write = false,
-          .prepare_if_write_locked = false,
+          .prepare_if_not_writable = false,
           .require_attributes = kEnterpriseRollbackRequireAttributes,
       };
     default:
@@ -302,13 +302,13 @@ StatusOr<StorageTpm2::ReadyState> StorageTpm2::IsReady(Space space) {
 
   if (detail_info.is_write_locked) {
     // We don't need to remove the dependency for locked space.
-    return ReadyState::kWriteLocked;
+    return ReadyState::kReadable;
   }
 
   RETURN_IF_ERROR(
       CheckAndRemoveDependency(backend_.GetProxy().GetTpmManager(), space_info))
       .WithStatus<TPMError>("Failed to check and remove dependency");
-  return ReadyState::kReady;
+  return ReadyState::kReadableAndWritable;
 }
 
 Status StorageTpm2::Prepare(Space space, uint32_t size) {
@@ -317,12 +317,12 @@ Status StorageTpm2::Prepare(Space space, uint32_t size) {
 
   ASSIGN_OR_RETURN(const SpaceInfo& space_info, GetSpaceInfo(space));
 
-  if (ready_state == ReadyState::kReady) {
+  if (ready_state == ReadyState::kReadableAndWritable) {
     return OkStatus();
   }
 
-  if (ready_state == ReadyState::kWriteLocked &&
-      !space_info.prepare_if_write_locked) {
+  if (ready_state == ReadyState::kReadable &&
+      !space_info.prepare_if_not_writable) {
     return OkStatus();
   }
 
@@ -408,6 +408,23 @@ Status StorageTpm2::Store(Space space, const brillo::Blob& blob) {
 Status StorageTpm2::Lock(Space space, LockOptions options) {
   ASSIGN_OR_RETURN(const SpaceInfo& space_info, GetSpaceInfo(space));
 
+  ASSIGN_OR_RETURN(
+      const DetailSpaceInfo& detail_info,
+      GetDetailSpaceInfo(backend_.GetProxy().GetTpmNvram(), space_info),
+      _.WithStatus<TPMError>("Failed to get detail space info"));
+  // If the space is already read-locked we don't have to read-lock it again.
+  if (detail_info.is_read_locked) {
+    options.read_lock = false;
+  }
+  // If the space is already write-locked we don't have to write-lock it again.
+  if (detail_info.is_write_locked) {
+    options.write_lock = false;
+  }
+  // This case will result in a no-op lock command, returning early instead.
+  if (!options.read_lock && !options.write_lock) {
+    return OkStatus();
+  }
+
   tpm_manager::LockSpaceRequest request;
   request.set_index(space_info.index);
   request.set_lock_write(options.write_lock);
@@ -420,24 +437,7 @@ Status StorageTpm2::Lock(Space space, LockOptions options) {
         .Wrap(std::move(err));
   }
 
-  RETURN_IF_ERROR(MakeStatus<TPMNvramError>(reply.result()));
-
-  ASSIGN_OR_RETURN(
-      const DetailSpaceInfo& detail_info,
-      GetDetailSpaceInfo(backend_.GetProxy().GetTpmNvram(), space_info),
-      _.WithStatus<TPMError>("Failed to get detail space info"));
-
-  if (options.read_lock && !detail_info.is_read_locked) {
-    return MakeStatus<TPMError>("Space did not read lock as expected",
-                                TPMRetryAction::kNoRetry);
-  }
-
-  if (options.write_lock && !detail_info.is_write_locked) {
-    return MakeStatus<TPMError>("Space did not write lock as expected",
-                                TPMRetryAction::kNoRetry);
-  }
-
-  return OkStatus();
+  return MakeStatus<TPMNvramError>(reply.result());
 }
 
 Status StorageTpm2::Destroy(Space space) {
