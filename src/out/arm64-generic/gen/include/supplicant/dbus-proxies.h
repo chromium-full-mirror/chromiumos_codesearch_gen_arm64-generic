@@ -565,6 +565,10 @@ class InterfaceProxyInterface {
       const base::RepeatingCallback<void(const dbus::ObjectPath&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
 
+  virtual void RegisterPskMismatchSignalHandler(
+      base::RepeatingClosure signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
   static const char* CapabilitiesName() { return "Capabilities"; }
   virtual const brillo::VariantDictionary& capabilities() const = 0;
   virtual bool is_capabilities_valid() const = 0;
@@ -879,6 +883,17 @@ class InterfaceProxy final : public InterfaceProxyInterface {
         dbus_object_proxy_,
         "fi.w1.wpa_supplicant1.Interface",
         "StationRemoved",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterPskMismatchSignalHandler(
+      base::RepeatingClosure signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "fi.w1.wpa_supplicant1.Interface",
+        "PskMismatch",
         signal_callback,
         std::move(on_connected_callback));
   }

@@ -46,6 +46,7 @@ template <typename ImplRefTraits>
 class Camera3CallbackOpsStub;
 
 class Camera3CallbackOpsRequestValidator;
+class Camera3CallbackOpsResponseValidator;
 
 
 class Camera3CallbackOps
@@ -56,7 +57,7 @@ class Camera3CallbackOps
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 5;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -67,10 +68,12 @@ class Camera3CallbackOps
   using Stub_ = Camera3CallbackOpsStub<ImplRefTraits>;
 
   using RequestValidator_ = Camera3CallbackOpsRequestValidator;
-  using ResponseValidator_ = mojo::PassThroughFilter;
+  using ResponseValidator_ = Camera3CallbackOpsResponseValidator;
   enum MethodMinVersions : uint32_t {
     kProcessCaptureResultMinVersion = 0,
     kNotifyMinVersion = 0,
+    kRequestStreamBuffersMinVersion = 5,
+    kReturnStreamBuffersMinVersion = 5,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -82,6 +85,12 @@ class Camera3CallbackOps
   struct Notify_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct RequestStreamBuffers_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ReturnStreamBuffers_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~Camera3CallbackOps() = default;
 
@@ -90,6 +99,14 @@ class Camera3CallbackOps
 
   
   virtual void Notify(Camera3NotifyMsgPtr msg) = 0;
+
+
+  using RequestStreamBuffersCallback = base::OnceCallback<void(Camera3BufferRequestStatus, absl::optional<std::vector<Camera3StreamBufferRetPtr>>)>;
+  
+  virtual void RequestStreamBuffers(std::vector<Camera3BufferRequestPtr> buffer_reqs, RequestStreamBuffersCallback callback) = 0;
+
+  
+  virtual void ReturnStreamBuffers(std::vector<Camera3StreamBufferPtr> buffers) = 0;
 };
 
 class Camera3DeviceOpsProxy;
@@ -109,7 +126,7 @@ class Camera3DeviceOps
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 3;
+  static constexpr uint32_t Version_ = 5;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -131,6 +148,7 @@ class Camera3DeviceOps
     kRegisterBufferMinVersion = 0,
     kCloseMinVersion = 0,
     kConfigureStreamsAndGetAllocatedBuffersMinVersion = 3,
+    kSignalStreamFlushMinVersion = 5,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -161,6 +179,9 @@ class Camera3DeviceOps
     NOINLINE static uint32_t IPCStableHash();
   };
   struct ConfigureStreamsAndGetAllocatedBuffers_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SignalStreamFlush_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -210,6 +231,9 @@ class Camera3DeviceOps
   using ConfigureStreamsAndGetAllocatedBuffersCallback = base::OnceCallback<void(int32_t, Camera3StreamConfigurationPtr, base::flat_map<uint64_t, std::vector<Camera3StreamBufferPtr>>)>;
   
   virtual void ConfigureStreamsAndGetAllocatedBuffers(Camera3StreamConfigurationPtr config, ConfigureStreamsAndGetAllocatedBuffersCallback callback) = 0;
+
+  
+  virtual void SignalStreamFlush(const std::vector<uint64_t>& stream_ids) = 0;
 };
 
 
@@ -224,6 +248,10 @@ class  Camera3CallbackOpsProxy
   void ProcessCaptureResult(Camera3CaptureResultPtr result) final;
   
   void Notify(Camera3NotifyMsgPtr msg) final;
+  
+  void RequestStreamBuffers(std::vector<Camera3BufferRequestPtr> buffer_reqs, RequestStreamBuffersCallback callback) final;
+  
+  void ReturnStreamBuffers(std::vector<Camera3StreamBufferPtr> buffers) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -255,6 +283,8 @@ class  Camera3DeviceOpsProxy
   void Close(CloseCallback callback) final;
   
   void ConfigureStreamsAndGetAllocatedBuffers(Camera3StreamConfigurationPtr config, ConfigureStreamsAndGetAllocatedBuffersCallback callback) final;
+  
+  void SignalStreamFlush(const std::vector<uint64_t>& stream_ids) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -346,6 +376,10 @@ class  Camera3CallbackOpsRequestValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 class  Camera3DeviceOpsRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  Camera3CallbackOpsResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
@@ -777,6 +811,148 @@ bool operator>(const T& lhs, const T& rhs) {
 }
 
 template <typename T, Camera3ShutterMsg::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+class  Camera3BufferRequest {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<Camera3BufferRequest, T>::value>;
+  using DataView = Camera3BufferRequestDataView;
+  using Data_ = internal::Camera3BufferRequest_Data;
+
+  template <typename... Args>
+  static Camera3BufferRequestPtr New(Args&&... args) {
+    return Camera3BufferRequestPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static Camera3BufferRequestPtr From(const U& u) {
+    return mojo::TypeConverter<Camera3BufferRequestPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, Camera3BufferRequest>::Convert(*this);
+  }
+
+
+  Camera3BufferRequest();
+
+  Camera3BufferRequest(
+      uint64_t stream_id,
+      uint32_t num_buffers_requested);
+
+
+  ~Camera3BufferRequest();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = Camera3BufferRequestPtr>
+  Camera3BufferRequestPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, Camera3BufferRequest::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, Camera3BufferRequest::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        Camera3BufferRequest::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        Camera3BufferRequest::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::Camera3BufferRequest_UnserializedMessageContext<
+            UserType, Camera3BufferRequest::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<Camera3BufferRequest::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return Camera3BufferRequest::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::Camera3BufferRequest_UnserializedMessageContext<
+            UserType, Camera3BufferRequest::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<Camera3BufferRequest::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint64_t stream_id;
+  
+  uint32_t num_buffers_requested;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, Camera3BufferRequest::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, Camera3BufferRequest::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, Camera3BufferRequest::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, Camera3BufferRequest::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -1748,6 +1924,147 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+class  Camera3StreamBufferRet {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<Camera3StreamBufferRet, T>::value>;
+  using DataView = Camera3StreamBufferRetDataView;
+  using Data_ = internal::Camera3StreamBufferRet_Data;
+
+  template <typename... Args>
+  static Camera3StreamBufferRetPtr New(Args&&... args) {
+    return Camera3StreamBufferRetPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static Camera3StreamBufferRetPtr From(const U& u) {
+    return mojo::TypeConverter<Camera3StreamBufferRetPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, Camera3StreamBufferRet>::Convert(*this);
+  }
+
+
+  Camera3StreamBufferRet();
+
+  Camera3StreamBufferRet(
+      uint64_t stream_id,
+      Camera3StreamBufferReqStatus status,
+      absl::optional<std::vector<Camera3StreamBufferPtr>> output_buffers);
+
+Camera3StreamBufferRet(const Camera3StreamBufferRet&) = delete;
+Camera3StreamBufferRet& operator=(const Camera3StreamBufferRet&) = delete;
+
+  ~Camera3StreamBufferRet();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = Camera3StreamBufferRetPtr>
+  Camera3StreamBufferRetPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, Camera3StreamBufferRet::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, Camera3StreamBufferRet::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        Camera3StreamBufferRet::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::Camera3StreamBufferRet_UnserializedMessageContext<
+            UserType, Camera3StreamBufferRet::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<Camera3StreamBufferRet::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return Camera3StreamBufferRet::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::Camera3StreamBufferRet_UnserializedMessageContext<
+            UserType, Camera3StreamBufferRet::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<Camera3StreamBufferRet::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint64_t stream_id;
+  
+  Camera3StreamBufferReqStatus status;
+  
+  absl::optional<std::vector<Camera3StreamBufferPtr>> output_buffers;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, Camera3StreamBufferRet::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, Camera3StreamBufferRet::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, Camera3StreamBufferRet::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, Camera3StreamBufferRet::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  Camera3PhyscamMetadata {
  public:
   template <typename T>
@@ -2608,6 +2925,71 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+Camera3BufferRequestPtr Camera3BufferRequest::Clone() const {
+  return New(
+      mojo::Clone(stream_id),
+      mojo::Clone(num_buffers_requested)
+  );
+}
+
+template <typename T, Camera3BufferRequest::EnableIfSame<T>*>
+bool Camera3BufferRequest::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->stream_id, other_struct.stream_id))
+    return false;
+  if (!mojo::Equals(this->num_buffers_requested, other_struct.num_buffers_requested))
+    return false;
+  return true;
+}
+
+template <typename T, Camera3BufferRequest::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.stream_id < rhs.stream_id)
+    return true;
+  if (rhs.stream_id < lhs.stream_id)
+    return false;
+  if (lhs.num_buffers_requested < rhs.num_buffers_requested)
+    return true;
+  if (rhs.num_buffers_requested < lhs.num_buffers_requested)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+Camera3StreamBufferRetPtr Camera3StreamBufferRet::Clone() const {
+  return New(
+      mojo::Clone(stream_id),
+      mojo::Clone(status),
+      mojo::Clone(output_buffers)
+  );
+}
+
+template <typename T, Camera3StreamBufferRet::EnableIfSame<T>*>
+bool Camera3StreamBufferRet::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->stream_id, other_struct.stream_id))
+    return false;
+  if (!mojo::Equals(this->status, other_struct.status))
+    return false;
+  if (!mojo::Equals(this->output_buffers, other_struct.output_buffers))
+    return false;
+  return true;
+}
+
+template <typename T, Camera3StreamBufferRet::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.stream_id < rhs.stream_id)
+    return true;
+  if (rhs.stream_id < lhs.stream_id)
+    return false;
+  if (lhs.status < rhs.status)
+    return true;
+  if (rhs.status < lhs.status)
+    return false;
+  if (lhs.output_buffers < rhs.output_buffers)
+    return true;
+  if (rhs.output_buffers < lhs.output_buffers)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 Camera3PhyscamMetadataPtr Camera3PhyscamMetadata::Clone() const {
   return New(
       mojo::Clone(id),
@@ -3013,6 +3395,51 @@ struct  StructTraits<::cros::mojom::Camera3NotifyMsg::DataView,
   }
 
   static bool Read(::cros::mojom::Camera3NotifyMsg::DataView input, ::cros::mojom::Camera3NotifyMsgPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::cros::mojom::Camera3BufferRequest::DataView,
+                                         ::cros::mojom::Camera3BufferRequestPtr> {
+  static bool IsNull(const ::cros::mojom::Camera3BufferRequestPtr& input) { return !input; }
+  static void SetToNull(::cros::mojom::Camera3BufferRequestPtr* output) { output->reset(); }
+
+  static decltype(::cros::mojom::Camera3BufferRequest::stream_id) stream_id(
+      const ::cros::mojom::Camera3BufferRequestPtr& input) {
+    return input->stream_id;
+  }
+
+  static decltype(::cros::mojom::Camera3BufferRequest::num_buffers_requested) num_buffers_requested(
+      const ::cros::mojom::Camera3BufferRequestPtr& input) {
+    return input->num_buffers_requested;
+  }
+
+  static bool Read(::cros::mojom::Camera3BufferRequest::DataView input, ::cros::mojom::Camera3BufferRequestPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::cros::mojom::Camera3StreamBufferRet::DataView,
+                                         ::cros::mojom::Camera3StreamBufferRetPtr> {
+  static bool IsNull(const ::cros::mojom::Camera3StreamBufferRetPtr& input) { return !input; }
+  static void SetToNull(::cros::mojom::Camera3StreamBufferRetPtr* output) { output->reset(); }
+
+  static decltype(::cros::mojom::Camera3StreamBufferRet::stream_id) stream_id(
+      const ::cros::mojom::Camera3StreamBufferRetPtr& input) {
+    return input->stream_id;
+  }
+
+  static decltype(::cros::mojom::Camera3StreamBufferRet::status) status(
+      const ::cros::mojom::Camera3StreamBufferRetPtr& input) {
+    return input->status;
+  }
+
+  static  decltype(::cros::mojom::Camera3StreamBufferRet::output_buffers)& output_buffers(
+       ::cros::mojom::Camera3StreamBufferRetPtr& input) {
+    return input->output_buffers;
+  }
+
+  static bool Read(::cros::mojom::Camera3StreamBufferRet::DataView input, ::cros::mojom::Camera3StreamBufferRetPtr* output);
 };
 
 

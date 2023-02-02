@@ -53,6 +53,56 @@ class  Camera3CallbackOps_Notify_Params_Data {
 };
 static_assert(sizeof(Camera3CallbackOps_Notify_Params_Data) == 16,
               "Bad sizeof(Camera3CallbackOps_Notify_Params_Data)");
+class  Camera3CallbackOps_RequestStreamBuffers_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Camera3BufferRequest_Data>>> buffer_reqs;
+
+ private:
+  friend class mojo::internal::MessageFragment<Camera3CallbackOps_RequestStreamBuffers_Params_Data>;
+
+  Camera3CallbackOps_RequestStreamBuffers_Params_Data();
+  ~Camera3CallbackOps_RequestStreamBuffers_Params_Data() = delete;
+};
+static_assert(sizeof(Camera3CallbackOps_RequestStreamBuffers_Params_Data) == 16,
+              "Bad sizeof(Camera3CallbackOps_RequestStreamBuffers_Params_Data)");
+class  Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t result;
+  uint8_t pad0_[4];
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Camera3StreamBufferRet_Data>>> returned_buf_reqs;
+
+ private:
+  friend class mojo::internal::MessageFragment<Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data>;
+
+  Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data();
+  ~Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data) == 24,
+              "Bad sizeof(Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data)");
+class  Camera3CallbackOps_ReturnStreamBuffers_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Camera3StreamBuffer_Data>>> buffers;
+
+ private:
+  friend class mojo::internal::MessageFragment<Camera3CallbackOps_ReturnStreamBuffers_Params_Data>;
+
+  Camera3CallbackOps_ReturnStreamBuffers_Params_Data();
+  ~Camera3CallbackOps_ReturnStreamBuffers_Params_Data() = delete;
+};
+static_assert(sizeof(Camera3CallbackOps_ReturnStreamBuffers_Params_Data) == 16,
+              "Bad sizeof(Camera3CallbackOps_ReturnStreamBuffers_Params_Data)");
 class  Camera3DeviceOps_Initialize_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -344,6 +394,22 @@ class  Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ResponseParams_Da
 };
 static_assert(sizeof(Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ResponseParams_Data) == 32,
               "Bad sizeof(Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ResponseParams_Data)");
+class  Camera3DeviceOps_SignalStreamFlush_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint64_t>> stream_ids;
+
+ private:
+  friend class mojo::internal::MessageFragment<Camera3DeviceOps_SignalStreamFlush_Params_Data>;
+
+  Camera3DeviceOps_SignalStreamFlush_Params_Data();
+  ~Camera3DeviceOps_SignalStreamFlush_Params_Data() = delete;
+};
+static_assert(sizeof(Camera3DeviceOps_SignalStreamFlush_Params_Data) == 16,
+              "Bad sizeof(Camera3DeviceOps_SignalStreamFlush_Params_Data)");
 
 }  // namespace internal
 
@@ -397,6 +463,107 @@ class Camera3CallbackOps_Notify_ParamsDataView {
   }
  private:
   internal::Camera3CallbackOps_Notify_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class Camera3CallbackOps_RequestStreamBuffers_ParamsDataView {
+ public:
+  Camera3CallbackOps_RequestStreamBuffers_ParamsDataView() = default;
+
+  Camera3CallbackOps_RequestStreamBuffers_ParamsDataView(
+      internal::Camera3CallbackOps_RequestStreamBuffers_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetBufferReqsDataView(
+      mojo::ArrayDataView<Camera3BufferRequestDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBufferReqs(UserType* output) {
+    
+    auto* pointer = data_->buffer_reqs.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::cros::mojom::Camera3BufferRequestDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Camera3CallbackOps_RequestStreamBuffers_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class Camera3CallbackOps_RequestStreamBuffers_ResponseParamsDataView {
+ public:
+  Camera3CallbackOps_RequestStreamBuffers_ResponseParamsDataView() = default;
+
+  Camera3CallbackOps_RequestStreamBuffers_ResponseParamsDataView(
+      internal::Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) const {
+    auto data_value = data_->result;
+    return mojo::internal::Deserialize<::cros::mojom::Camera3BufferRequestStatus>(
+        data_value, output);
+  }
+  Camera3BufferRequestStatus result() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::cros::mojom::Camera3BufferRequestStatus>(data_->result));
+  }
+  inline void GetReturnedBufReqsDataView(
+      mojo::ArrayDataView<Camera3StreamBufferRetDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadReturnedBufReqs(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<::cros::mojom::Camera3StreamBufferRetDataView>, UserType>(),
+    "Attempting to read the optional `returned_buf_reqs` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadReturnedBufReqs` instead "
+    "of `ReadReturnedBufReqs if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->returned_buf_reqs.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::cros::mojom::Camera3StreamBufferRetDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Camera3CallbackOps_RequestStreamBuffers_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class Camera3CallbackOps_ReturnStreamBuffers_ParamsDataView {
+ public:
+  Camera3CallbackOps_ReturnStreamBuffers_ParamsDataView() = default;
+
+  Camera3CallbackOps_ReturnStreamBuffers_ParamsDataView(
+      internal::Camera3CallbackOps_ReturnStreamBuffers_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetBuffersDataView(
+      mojo::ArrayDataView<Camera3StreamBufferDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBuffers(UserType* output) {
+    
+    auto* pointer = data_->buffers.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::cros::mojom::Camera3StreamBufferDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Camera3CallbackOps_ReturnStreamBuffers_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -892,6 +1059,33 @@ static_assert(
 };
 
 
+
+class Camera3DeviceOps_SignalStreamFlush_ParamsDataView {
+ public:
+  Camera3DeviceOps_SignalStreamFlush_ParamsDataView() = default;
+
+  Camera3DeviceOps_SignalStreamFlush_ParamsDataView(
+      internal::Camera3DeviceOps_SignalStreamFlush_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetStreamIdsDataView(
+      mojo::ArrayDataView<uint64_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadStreamIds(UserType* output) {
+    
+    auto* pointer = data_->stream_ids.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<uint64_t>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Camera3DeviceOps_SignalStreamFlush_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 inline void Camera3CallbackOps_ProcessCaptureResult_ParamsDataView::GetResultDataView(
     Camera3CaptureResultDataView* output) {
   auto pointer = data_->result.Get();
@@ -903,6 +1097,27 @@ inline void Camera3CallbackOps_Notify_ParamsDataView::GetMsgDataView(
     Camera3NotifyMsgDataView* output) {
   auto pointer = data_->msg.Get();
   *output = Camera3NotifyMsgDataView(pointer, message_);
+}
+
+
+inline void Camera3CallbackOps_RequestStreamBuffers_ParamsDataView::GetBufferReqsDataView(
+    mojo::ArrayDataView<Camera3BufferRequestDataView>* output) {
+  auto pointer = data_->buffer_reqs.Get();
+  *output = mojo::ArrayDataView<Camera3BufferRequestDataView>(pointer, message_);
+}
+
+
+inline void Camera3CallbackOps_RequestStreamBuffers_ResponseParamsDataView::GetReturnedBufReqsDataView(
+    mojo::ArrayDataView<Camera3StreamBufferRetDataView>* output) {
+  auto pointer = data_->returned_buf_reqs.Get();
+  *output = mojo::ArrayDataView<Camera3StreamBufferRetDataView>(pointer, message_);
+}
+
+
+inline void Camera3CallbackOps_ReturnStreamBuffers_ParamsDataView::GetBuffersDataView(
+    mojo::ArrayDataView<Camera3StreamBufferDataView>* output) {
+  auto pointer = data_->buffers.Get();
+  *output = mojo::ArrayDataView<Camera3StreamBufferDataView>(pointer, message_);
 }
 
 
@@ -987,6 +1202,13 @@ inline void Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ResponsePara
     mojo::MapDataView<uint64_t, mojo::ArrayDataView<Camera3StreamBufferDataView>>* output) {
   auto pointer = data_->allocated_buffers.Get();
   *output = mojo::MapDataView<uint64_t, mojo::ArrayDataView<Camera3StreamBufferDataView>>(pointer, message_);
+}
+
+
+inline void Camera3DeviceOps_SignalStreamFlush_ParamsDataView::GetStreamIdsDataView(
+    mojo::ArrayDataView<uint64_t>* output) {
+  auto pointer = data_->stream_ids.Get();
+  *output = mojo::ArrayDataView<uint64_t>(pointer, message_);
 }
 
 }  // namespace mojom

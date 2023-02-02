@@ -16,6 +16,8 @@ namespace internal {
 
 constexpr uint32_t kCamera3CallbackOps_ProcessCaptureResult_Name = 0;
 constexpr uint32_t kCamera3CallbackOps_Notify_Name = 1;
+constexpr uint32_t kCamera3CallbackOps_RequestStreamBuffers_Name = 2;
+constexpr uint32_t kCamera3CallbackOps_ReturnStreamBuffers_Name = 3;
 constexpr uint32_t kCamera3DeviceOps_Initialize_Name = 0;
 constexpr uint32_t kCamera3DeviceOps_ConfigureStreams_Name = 1;
 constexpr uint32_t kCamera3DeviceOps_ConstructDefaultRequestSettings_Name = 2;
@@ -25,6 +27,7 @@ constexpr uint32_t kCamera3DeviceOps_Flush_Name = 5;
 constexpr uint32_t kCamera3DeviceOps_RegisterBuffer_Name = 6;
 constexpr uint32_t kCamera3DeviceOps_Close_Name = 7;
 constexpr uint32_t kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name = 8;
+constexpr uint32_t kCamera3DeviceOps_SignalStreamFlush_Name = 9;
 
 }  // namespace internal
 }  // namespace mojom
