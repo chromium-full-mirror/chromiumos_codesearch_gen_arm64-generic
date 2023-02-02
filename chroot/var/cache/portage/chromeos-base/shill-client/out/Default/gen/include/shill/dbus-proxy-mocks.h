@@ -11,7 +11,7 @@
 #include <string>
 #include <vector>
 
-#include <base/callback_forward.h>
+#include <base/functional/callback_forward.h>
 #include <base/logging.h>
 #include <brillo/any.h>
 #include <brillo/errors/error.h>

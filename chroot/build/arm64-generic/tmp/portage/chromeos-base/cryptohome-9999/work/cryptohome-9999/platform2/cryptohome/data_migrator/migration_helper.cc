@@ -18,9 +18,9 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include <base/bind.h>
 #include <base/files/file.h>
 #include <base/files/file_path.h>
+#include <base/functional/bind.h>
 #include <base/logging.h>
 #include <base/message_loop/message_pump_type.h>
 #include <base/strings/string_number_conversions.h>
@@ -491,10 +491,10 @@ bool MigrationHelper::MigrateDir(const base::FilePath& child,
 
   for (base::FilePath entry = enumerator->Next(); !entry.empty();
        entry = enumerator->Next()) {
-    const FileEnumerator::FileInfo& entry_info = enumerator->GetInfo();
     const base::FilePath& new_child = child.Append(entry.BaseName());
-    mode_t mode = entry_info.stat().st_mode;
-    if (!delegate_->ShouldMigrateFile(new_child)) {
+    base::stat_wrapper_t stat = enumerator->GetInfo().stat();
+    if (!delegate_->ShouldMigrateFile(new_child) ||
+        !delegate_->ConvertFileMetadata(&stat)) {
       // Delete paths which should be skipped
       if (!platform_->DeletePathRecursively(entry)) {
         PLOG(ERROR) << "Failed to delete " << entry.value();
@@ -504,8 +504,10 @@ bool MigrationHelper::MigrateDir(const base::FilePath& child,
       continue;
     }
 
+    FileEnumerator::FileInfo entry_info(from_base_path_.Append(new_child),
+                                        stat);
     IncrementChildCount(child);
-    if (S_ISDIR(mode)) {
+    if (S_ISDIR(stat.st_mode)) {
       // Directory.
       if (!MigrateDir(new_child, entry_info))
         return false;
@@ -808,23 +810,25 @@ bool MigrationHelper::CopyExtendedAttributes(const base::FilePath& child) {
     return false;
   }
 
-  for (const std::string& name : xattr_names) {
-    if (name == delegate_->GetMtimeXattrName() ||
-        name == delegate_->GetAtimeXattrName() || name == kSourceURLXattrName ||
-        name == kReferrerURLXattrName) {
+  for (const std::string& name_from : xattr_names) {
+    if (name_from == delegate_->GetMtimeXattrName() ||
+        name_from == delegate_->GetAtimeXattrName() ||
+        name_from == kSourceURLXattrName ||
+        name_from == kReferrerURLXattrName) {
       continue;
     }
     std::string value;
-    if (!platform_->GetExtendedFileAttributeAsString(from, name, &value)) {
+    if (!platform_->GetExtendedFileAttributeAsString(from, name_from, &value)) {
       RecordFileErrorWithCurrentErrno(kMigrationFailedAtGetAttribute, child);
       return false;
     }
-    if (!platform_->SetExtendedFileAttribute(to, name, value.data(),
+    const std::string name_to = delegate_->ConvertXattrName(name_from);
+    if (!platform_->SetExtendedFileAttribute(to, name_to, value.data(),
                                              value.length())) {
       bool nospace_error = errno == ENOSPC;
       RecordFileErrorWithCurrentErrno(kMigrationFailedAtSetAttribute, child);
       if (nospace_error) {
-        ReportTotalXattrSize(to, name.length() + 1 + value.length());
+        ReportTotalXattrSize(to, name_to.length() + 1 + value.length());
       }
       return false;
     }

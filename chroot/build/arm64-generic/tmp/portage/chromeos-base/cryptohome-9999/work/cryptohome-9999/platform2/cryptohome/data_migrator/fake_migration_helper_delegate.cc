@@ -26,8 +26,14 @@ void FakeMigrationHelperDelegate::AddDenylistedPath(
   denylisted_paths_.insert(path);
 }
 
-void FakeMigrationHelperDelegate::ClearDenylistedPaths() {
-  denylisted_paths_.clear();
+void FakeMigrationHelperDelegate::AddXattrMapping(const std::string& name_from,
+                                                  const std::string& name_to) {
+  xattr_mappings_[name_from] = name_to;
+}
+
+void FakeMigrationHelperDelegate::AddUidMapping(
+    uid_t uid_from, const std::optional<uid_t>& uid_to) {
+  uid_mappings_[uid_from] = uid_to;
 }
 
 bool FakeMigrationHelperDelegate::ShouldMigrateFile(
@@ -45,6 +51,28 @@ std::string FakeMigrationHelperDelegate::GetMtimeXattrName() {
 
 std::string FakeMigrationHelperDelegate::GetAtimeXattrName() {
   return kAtimeXattrName;
+}
+
+bool FakeMigrationHelperDelegate::ConvertFileMetadata(
+    base::stat_wrapper_t* stat) {
+  auto iter = uid_mappings_.find(stat->st_uid);
+  if (iter != uid_mappings_.end()) {
+    if (iter->second.has_value()) {
+      stat->st_uid = iter->second.value();
+      return true;
+    }
+    return false;
+  }
+  return true;
+}
+
+std::string FakeMigrationHelperDelegate::ConvertXattrName(
+    const std::string& name) {
+  auto iter = xattr_mappings_.find(name);
+  if (iter != xattr_mappings_.end()) {
+    return iter->second;
+  }
+  return name;
 }
 
 }  // namespace cryptohome::data_migrator
