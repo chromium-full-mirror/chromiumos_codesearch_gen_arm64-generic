@@ -41,11 +41,6 @@
 #include "camera/mojo/gpu/mjpeg_decode_accelerator.mojom-test-utils.h"
 
 
-#ifndef CAMERA_MOJO_GPU_MJPEG_DECODE_ACCELERATOR_MOJOM_JUMBO_H_
-#define CAMERA_MOJO_GPU_MJPEG_DECODE_ACCELERATOR_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace cros {
 namespace mojom {

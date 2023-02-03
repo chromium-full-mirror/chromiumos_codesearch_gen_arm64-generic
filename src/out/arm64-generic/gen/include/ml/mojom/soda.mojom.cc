@@ -39,12 +39,7 @@
 
 #include "ml/mojom/soda.mojom-import-headers.h"
 #include "ml/mojom/soda.mojom-test-utils.h"
-
-
-#ifndef ML_MOJOM_SODA_MOJOM_JUMBO_H_
-#define ML_MOJOM_SODA_MOJOM_JUMBO_H_
 #include "ml/mojom/time_mojom_traits.h"
-#endif
 
 
 

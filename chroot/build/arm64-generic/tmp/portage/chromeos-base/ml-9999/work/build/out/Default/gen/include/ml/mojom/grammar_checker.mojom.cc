@@ -41,11 +41,6 @@
 #include "ml/mojom/grammar_checker.mojom-test-utils.h"
 
 
-#ifndef ML_MOJOM_GRAMMAR_CHECKER_MOJOM_JUMBO_H_
-#define ML_MOJOM_GRAMMAR_CHECKER_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chromeos {
 namespace machine_learning {

@@ -181,12 +181,6 @@ class BASE_EXPORT GSL_OWNER Value {
  public:
   using BlobStorage = std::vector<uint8_t>;
 
-  // Like `DictStorage`, but with std::unique_ptr in the mapped type. This is
-  // due to legacy reasons, and should be replaced with
-  // flat_map<std::string, Value> once no caller relies on stability of pointers
-  // anymore.
-  using LegacyDictStorage = flat_map<std::string, std::unique_ptr<Value>>;
-
   class Dict;
   class List;
 
@@ -198,7 +192,7 @@ class BASE_EXPORT GSL_OWNER Value {
     STRING,
     BINARY,
     DICT,
-    // TODO(https://crbug.com/1291670): Deprecated and will be removed.
+    // TODO(b/267596976): Deprecated and will be removed.
     DICTIONARY = DICT,
     LIST,
     // Note: Do not add more types. See the file-level comment above for why.
@@ -511,6 +505,11 @@ class BASE_EXPORT GSL_OWNER Value {
 
     absl::optional<Value> ExtractByDottedPath(StringPiece path);
 
+    // Estimates dynamic memory usage. Requires tracing support
+    // (enable_base_tracing gn flag), otherwise always returns 0. See
+    // base/trace_event/memory_usage_estimator.h for more info.
+    size_t EstimateMemoryUsage() const;
+
     // Serializes to a string for logging and debug purposes.
     std::string DebugString() const;
 
@@ -527,11 +526,14 @@ class BASE_EXPORT GSL_OWNER Value {
     BASE_EXPORT friend bool operator<=(const Dict& lhs, const Dict& rhs);
     BASE_EXPORT friend bool operator>=(const Dict& lhs, const Dict& rhs);
 
-    // For legacy access to the internal storage type.
+    // For legacy access to the internal storage type. DEPRECATED; remove when
+    // no longer used.
     friend Value;
 
     explicit Dict(const flat_map<std::string, std::unique_ptr<Value>>& storage);
 
+    // TODO(dcheng): Replace with `flat_map<std::string, Value>` once no caller
+    // relies on stability of pointers anymore.
     flat_map<std::string, std::unique_ptr<Value>> storage_;
   };
 
@@ -663,7 +665,8 @@ class BASE_EXPORT GSL_OWNER Value {
     BASE_EXPORT friend bool operator<=(const List& lhs, const List& rhs);
     BASE_EXPORT friend bool operator>=(const List& lhs, const List& rhs);
 
-    // For legacy access to the internal storage type.
+    // For legacy access to the internal storage type. DEPRECATED; remove when
+    // no longer used.
     friend Value;
 
     explicit List(const std::vector<Value>& storage);
@@ -1059,11 +1062,6 @@ class BASE_EXPORT GSL_OWNER Value {
   auto Visit(Visitor&& visitor) const {
     return absl::visit(std::forward<Visitor>(visitor), data_);
   }
-
- protected:
-  // Checked convenience accessors for dict and list.
-  const LegacyDictStorage& dict() const { return GetDict().storage_; }
-  LegacyDictStorage& dict() { return GetDict().storage_; }
 
  private:
   // For access to DoubleStorage.

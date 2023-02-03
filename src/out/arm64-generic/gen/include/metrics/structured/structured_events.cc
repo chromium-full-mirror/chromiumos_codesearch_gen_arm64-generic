@@ -452,6 +452,72 @@ int64_t BluetoothChipsetInfoReport::GetChipsetStringHashValueForTest() const {
   return GetIntMetricForTest(kChipsetStringHashValueNameHash);
 }
 
+BluetoothA2dpAudioOverrun::BluetoothA2dpAudioOverrun() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+BluetoothA2dpAudioOverrun::~BluetoothA2dpAudioOverrun() = default;
+BluetoothA2dpAudioOverrun& BluetoothA2dpAudioOverrun::SetBootId(const std::string& value) {
+  AddHmacMetric(kBootIdNameHash, value);
+  return *this;
+}
+
+std::string BluetoothA2dpAudioOverrun::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
+BluetoothA2dpAudioOverrun& BluetoothA2dpAudioOverrun::SetSystemTime(const int64_t value) {
+  AddIntMetric(kSystemTimeNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothA2dpAudioOverrun::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
+}
+
+BluetoothA2dpAudioOverrun& BluetoothA2dpAudioOverrun::SetDeviceId(const std::string& value) {
+  AddHmacMetric(kDeviceIdNameHash, value);
+  return *this;
+}
+
+std::string BluetoothA2dpAudioOverrun::GetDeviceIdForTest() const {
+  return GetHmacMetricForTest(kDeviceIdNameHash);
+}
+
+BluetoothA2dpAudioOverrun& BluetoothA2dpAudioOverrun::SetEncodingInterval(const int64_t value) {
+  AddIntMetric(kEncodingIntervalNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothA2dpAudioOverrun::GetEncodingIntervalForTest() const {
+  return GetIntMetricForTest(kEncodingIntervalNameHash);
+}
+
+BluetoothA2dpAudioOverrun& BluetoothA2dpAudioOverrun::SetDroppedBuffers(const int64_t value) {
+  AddIntMetric(kDroppedBuffersNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothA2dpAudioOverrun::GetDroppedBuffersForTest() const {
+  return GetIntMetricForTest(kDroppedBuffersNameHash);
+}
+
+BluetoothA2dpAudioOverrun& BluetoothA2dpAudioOverrun::SetDroppedFrames(const int64_t value) {
+  AddIntMetric(kDroppedFramesNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothA2dpAudioOverrun::GetDroppedFramesForTest() const {
+  return GetIntMetricForTest(kDroppedFramesNameHash);
+}
+
+BluetoothA2dpAudioOverrun& BluetoothA2dpAudioOverrun::SetDroppedBytes(const int64_t value) {
+  AddIntMetric(kDroppedBytesNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothA2dpAudioOverrun::GetDroppedBytesForTest() const {
+  return GetIntMetricForTest(kDroppedBytesNameHash);
+}
+
 }  // namespace bluetooth
 
 namespace bluetooth_device {

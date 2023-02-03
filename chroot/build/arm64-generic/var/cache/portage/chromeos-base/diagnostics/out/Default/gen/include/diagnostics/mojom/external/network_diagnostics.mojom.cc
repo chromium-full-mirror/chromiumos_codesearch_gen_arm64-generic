@@ -39,12 +39,7 @@
 
 #include "diagnostics/mojom/external/network_diagnostics.mojom-import-headers.h"
 #include "diagnostics/mojom/external/network_diagnostics.mojom-test-utils.h"
-
-
-#ifndef DIAGNOSTICS_MOJOM_EXTERNAL_NETWORK_DIAGNOSTICS_MOJOM_JUMBO_H_
-#define DIAGNOSTICS_MOJOM_EXTERNAL_NETWORK_DIAGNOSTICS_MOJOM_JUMBO_H_
 #include "diagnostics/mojom/external/time_mojom_traits.h"
-#endif
 
 
 

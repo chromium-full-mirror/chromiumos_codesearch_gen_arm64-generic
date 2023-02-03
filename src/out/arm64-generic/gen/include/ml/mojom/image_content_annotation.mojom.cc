@@ -41,11 +41,6 @@
 #include "ml/mojom/image_content_annotation.mojom-test-utils.h"
 
 
-#ifndef ML_MOJOM_IMAGE_CONTENT_ANNOTATION_MOJOM_JUMBO_H_
-#define ML_MOJOM_IMAGE_CONTENT_ANNOTATION_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chromeos {
 namespace machine_learning {

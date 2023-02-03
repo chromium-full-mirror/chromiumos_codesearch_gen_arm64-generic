@@ -41,11 +41,6 @@
 #include "ml/mojom/tensor.mojom-test-utils.h"
 
 
-#ifndef ML_MOJOM_TENSOR_MOJOM_JUMBO_H_
-#define ML_MOJOM_TENSOR_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chromeos {
 namespace machine_learning {

@@ -41,11 +41,6 @@
 #include "camera/mojo/gpu/dmabuf.mojom-test-utils.h"
 
 
-#ifndef CAMERA_MOJO_GPU_DMABUF_MOJOM_JUMBO_H_
-#define CAMERA_MOJO_GPU_DMABUF_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace cros {
 namespace mojom {

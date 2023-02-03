@@ -966,6 +966,10 @@ class  RoutineArgument {
 
   RoutineArgument();
   ~RoutineArgument();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  RoutineArgument(const RoutineArgument& other) = delete;
+  RoutineArgument& operator=(const RoutineArgument& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -1096,6 +1100,10 @@ class  RoutineStateUnion {
 
   RoutineStateUnion();
   ~RoutineStateUnion();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  RoutineStateUnion(const RoutineStateUnion& other) = delete;
+  RoutineStateUnion& operator=(const RoutineStateUnion& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -1240,6 +1248,10 @@ class  RoutineDetail {
 
   RoutineDetail();
   ~RoutineDetail();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  RoutineDetail(const RoutineDetail& other) = delete;
+  RoutineDetail& operator=(const RoutineDetail& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy

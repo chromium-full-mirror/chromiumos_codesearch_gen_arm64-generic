@@ -508,6 +508,10 @@ class  SpeechRecognizerEvent {
 
   SpeechRecognizerEvent();
   ~SpeechRecognizerEvent();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  SpeechRecognizerEvent(const SpeechRecognizerEvent& other) = delete;
+  SpeechRecognizerEvent& operator=(const SpeechRecognizerEvent& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy

@@ -41,11 +41,6 @@
 #include "camera/mojo/camera_common.mojom-test-utils.h"
 
 
-#ifndef CAMERA_MOJO_CAMERA_COMMON_MOJOM_JUMBO_H_
-#define CAMERA_MOJO_CAMERA_COMMON_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace cros {
 namespace mojom {

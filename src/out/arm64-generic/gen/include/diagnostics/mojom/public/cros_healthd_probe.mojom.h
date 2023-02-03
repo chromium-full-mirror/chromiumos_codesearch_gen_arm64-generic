@@ -3578,6 +3578,10 @@ class  ProcessResult {
 
   ProcessResult();
   ~ProcessResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  ProcessResult(const ProcessResult& other) = delete;
+  ProcessResult& operator=(const ProcessResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -3704,6 +3708,10 @@ class  BatteryResult {
 
   BatteryResult();
   ~BatteryResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  BatteryResult(const BatteryResult& other) = delete;
+  BatteryResult& operator=(const BatteryResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -3830,6 +3838,10 @@ class  NonRemovableBlockDeviceResult {
 
   NonRemovableBlockDeviceResult();
   ~NonRemovableBlockDeviceResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  NonRemovableBlockDeviceResult(const NonRemovableBlockDeviceResult& other) = delete;
+  NonRemovableBlockDeviceResult& operator=(const NonRemovableBlockDeviceResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -4690,6 +4702,10 @@ class  BlockDeviceInfo {
 
   BlockDeviceInfo();
   ~BlockDeviceInfo();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  BlockDeviceInfo(const BlockDeviceInfo& other) = delete;
+  BlockDeviceInfo& operator=(const BlockDeviceInfo& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -4843,6 +4859,10 @@ class  CpuResult {
 
   CpuResult();
   ~CpuResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  CpuResult(const CpuResult& other) = delete;
+  CpuResult& operator=(const CpuResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -4969,6 +4989,10 @@ class  TimezoneResult {
 
   TimezoneResult();
   ~TimezoneResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  TimezoneResult(const TimezoneResult& other) = delete;
+  TimezoneResult& operator=(const TimezoneResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -5096,6 +5120,10 @@ class  MemoryResult {
 
   MemoryResult();
   ~MemoryResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  MemoryResult(const MemoryResult& other) = delete;
+  MemoryResult& operator=(const MemoryResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -5222,6 +5250,10 @@ class  BacklightResult {
 
   BacklightResult();
   ~BacklightResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  BacklightResult(const BacklightResult& other) = delete;
+  BacklightResult& operator=(const BacklightResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -5348,6 +5380,10 @@ class  FanResult {
 
   FanResult();
   ~FanResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  FanResult(const FanResult& other) = delete;
+  FanResult& operator=(const FanResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -5474,6 +5510,10 @@ class  StatefulPartitionResult {
 
   StatefulPartitionResult();
   ~StatefulPartitionResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  StatefulPartitionResult(const StatefulPartitionResult& other) = delete;
+  StatefulPartitionResult& operator=(const StatefulPartitionResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -5601,6 +5641,10 @@ class  BluetoothResult {
 
   BluetoothResult();
   ~BluetoothResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  BluetoothResult(const BluetoothResult& other) = delete;
+  BluetoothResult& operator=(const BluetoothResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -5719,6 +5763,10 @@ class  DEPRECATE_SystemResult {
 
   DEPRECATE_SystemResult();
   ~DEPRECATE_SystemResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  DEPRECATE_SystemResult(const DEPRECATE_SystemResult& other) = delete;
+  DEPRECATE_SystemResult& operator=(const DEPRECATE_SystemResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -5833,6 +5881,10 @@ class  SystemResult {
 
   SystemResult();
   ~SystemResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  SystemResult(const SystemResult& other) = delete;
+  SystemResult& operator=(const SystemResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -5959,6 +6011,10 @@ class  NetworkResult {
 
   NetworkResult();
   ~NetworkResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  NetworkResult(const NetworkResult& other) = delete;
+  NetworkResult& operator=(const NetworkResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -6085,6 +6141,10 @@ class  NetworkInterfaceResult {
 
   NetworkInterfaceResult();
   ~NetworkInterfaceResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  NetworkInterfaceResult(const NetworkInterfaceResult& other) = delete;
+  NetworkInterfaceResult& operator=(const NetworkInterfaceResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -6203,6 +6263,10 @@ class  NetworkInterfaceInfo {
 
   NetworkInterfaceInfo();
   ~NetworkInterfaceInfo();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  NetworkInterfaceInfo(const NetworkInterfaceInfo& other) = delete;
+  NetworkInterfaceInfo& operator=(const NetworkInterfaceInfo& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -6316,6 +6380,10 @@ class  AudioResult {
 
   AudioResult();
   ~AudioResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  AudioResult(const AudioResult& other) = delete;
+  AudioResult& operator=(const AudioResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -6442,6 +6510,10 @@ class  AudioHardwareResult {
 
   AudioHardwareResult();
   ~AudioHardwareResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  AudioHardwareResult(const AudioHardwareResult& other) = delete;
+  AudioHardwareResult& operator=(const AudioHardwareResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -6568,6 +6640,10 @@ class  BootPerformanceResult {
 
   BootPerformanceResult();
   ~BootPerformanceResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  BootPerformanceResult(const BootPerformanceResult& other) = delete;
+  BootPerformanceResult& operator=(const BootPerformanceResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -6695,6 +6771,10 @@ class  BusResult {
 
   BusResult();
   ~BusResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  BusResult(const BusResult& other) = delete;
+  BusResult& operator=(const BusResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -6837,6 +6917,10 @@ class  BusInfo {
 
   BusInfo();
   ~BusInfo();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  BusInfo(const BusInfo& other) = delete;
+  BusInfo& operator=(const BusInfo& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -6989,6 +7073,10 @@ class  TpmResult {
 
   TpmResult();
   ~TpmResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  TpmResult(const TpmResult& other) = delete;
+  TpmResult& operator=(const TpmResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -7115,6 +7203,10 @@ class  GraphicsResult {
 
   GraphicsResult();
   ~GraphicsResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  GraphicsResult(const GraphicsResult& other) = delete;
+  GraphicsResult& operator=(const GraphicsResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -7241,6 +7333,10 @@ class  DisplayResult {
 
   DisplayResult();
   ~DisplayResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  DisplayResult(const DisplayResult& other) = delete;
+  DisplayResult& operator=(const DisplayResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -7367,6 +7463,10 @@ class  InputResult {
 
   InputResult();
   ~InputResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  InputResult(const InputResult& other) = delete;
+  InputResult& operator=(const InputResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -7493,6 +7593,10 @@ class  SensorResult {
 
   SensorResult();
   ~SensorResult();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  SensorResult(const SensorResult& other) = delete;
+  SensorResult& operator=(const SensorResult& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy

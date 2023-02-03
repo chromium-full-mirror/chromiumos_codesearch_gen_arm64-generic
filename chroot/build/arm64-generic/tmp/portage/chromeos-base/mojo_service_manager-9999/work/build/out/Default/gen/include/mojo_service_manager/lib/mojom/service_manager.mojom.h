@@ -870,6 +870,10 @@ class  ErrorOrServiceState {
 
   ErrorOrServiceState();
   ~ErrorOrServiceState();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  ErrorOrServiceState(const ErrorOrServiceState& other) = delete;
+  ErrorOrServiceState& operator=(const ErrorOrServiceState& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy
@@ -1018,6 +1022,10 @@ class  ServiceState {
 
   ServiceState();
   ~ServiceState();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  ServiceState(const ServiceState& other) = delete;
+  ServiceState& operator=(const ServiceState& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy

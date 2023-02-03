@@ -41,11 +41,6 @@
 #include "mojo/public/mojom/base/memory_allocator_dump_cross_process_uid.mojom-test-utils.h"
 
 
-#ifndef MOJO_PUBLIC_MOJOM_BASE_MEMORY_ALLOCATOR_DUMP_CROSS_PROCESS_UID_MOJOM_JUMBO_H_
-#define MOJO_PUBLIC_MOJOM_BASE_MEMORY_ALLOCATOR_DUMP_CROSS_PROCESS_UID_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace mojo_base {
 namespace mojom {

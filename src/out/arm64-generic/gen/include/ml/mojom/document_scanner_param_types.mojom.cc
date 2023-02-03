@@ -15,11 +15,6 @@
 
 
 
-#ifndef ML_MOJOM_DOCUMENT_SCANNER_PARAM_TYPES_MOJOM_JUMBO_H_
-#define ML_MOJOM_DOCUMENT_SCANNER_PARAM_TYPES_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chromeos {
 namespace machine_learning {

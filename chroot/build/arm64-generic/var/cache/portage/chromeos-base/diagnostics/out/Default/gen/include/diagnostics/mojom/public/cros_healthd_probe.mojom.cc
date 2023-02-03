@@ -41,11 +41,6 @@
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-test-utils.h"
 
 
-#ifndef DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_PROBE_MOJOM_JUMBO_H_
-#define DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_PROBE_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace ash {
 namespace cros_healthd {

@@ -41,11 +41,6 @@
 #include "iioservice/mojo/cros_sensor_service.mojom-test-utils.h"
 
 
-#ifndef IIOSERVICE_MOJO_CROS_SENSOR_SERVICE_MOJOM_JUMBO_H_
-#define IIOSERVICE_MOJO_CROS_SENSOR_SERVICE_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace cros {
 namespace mojom {

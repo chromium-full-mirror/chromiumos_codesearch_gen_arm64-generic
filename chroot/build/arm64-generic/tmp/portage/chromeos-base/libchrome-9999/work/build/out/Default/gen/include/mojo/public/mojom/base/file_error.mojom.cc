@@ -15,11 +15,6 @@
 
 
 
-#ifndef MOJO_PUBLIC_MOJOM_BASE_FILE_ERROR_MOJOM_JUMBO_H_
-#define MOJO_PUBLIC_MOJOM_BASE_FILE_ERROR_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace mojo_base {
 namespace mojom {

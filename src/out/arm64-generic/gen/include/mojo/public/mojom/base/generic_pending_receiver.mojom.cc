@@ -41,11 +41,6 @@
 #include "mojo/public/mojom/base/generic_pending_receiver.mojom-test-utils.h"
 
 
-#ifndef MOJO_PUBLIC_MOJOM_BASE_GENERIC_PENDING_RECEIVER_MOJOM_JUMBO_H_
-#define MOJO_PUBLIC_MOJOM_BASE_GENERIC_PENDING_RECEIVER_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace mojo_base {
 namespace mojom {

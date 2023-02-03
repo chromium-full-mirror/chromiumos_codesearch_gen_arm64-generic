@@ -41,11 +41,6 @@
 #include "ml/mojom/shared_memory.mojom-test-utils.h"
 
 
-#ifndef ML_MOJOM_SHARED_MEMORY_MOJOM_JUMBO_H_
-#define ML_MOJOM_SHARED_MEMORY_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace mojo_base {
 namespace mojom {

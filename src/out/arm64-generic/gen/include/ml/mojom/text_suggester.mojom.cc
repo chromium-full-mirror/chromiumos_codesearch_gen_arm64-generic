@@ -41,11 +41,6 @@
 #include "ml/mojom/text_suggester.mojom-test-utils.h"
 
 
-#ifndef ML_MOJOM_TEXT_SUGGESTER_MOJOM_JUMBO_H_
-#define ML_MOJOM_TEXT_SUGGESTER_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chromeos {
 namespace machine_learning {

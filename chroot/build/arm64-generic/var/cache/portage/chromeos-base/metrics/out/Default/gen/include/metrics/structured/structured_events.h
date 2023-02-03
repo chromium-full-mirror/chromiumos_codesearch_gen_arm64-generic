@@ -298,6 +298,47 @@ class BRILLO_EXPORT BluetoothChipsetInfoReport final : public ::metrics::structu
 
 };
 
+class BRILLO_EXPORT BluetoothA2dpAudioOverrun final : public ::metrics::structured::EventBase {
+ public:
+  BluetoothA2dpAudioOverrun();
+  ~BluetoothA2dpAudioOverrun() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(7375723148381645329);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(9074739597929991885);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kBootIdNameHash = UINT64_C(9983133050293312198);
+  BluetoothA2dpAudioOverrun& SetBootId(const std::string& value);
+  std::string GetBootIdForTest() const;
+
+  static constexpr uint64_t kSystemTimeNameHash = UINT64_C(5430963162341175395);
+  BluetoothA2dpAudioOverrun& SetSystemTime(const int64_t value);
+  int64_t GetSystemTimeForTest() const;
+
+  static constexpr uint64_t kDeviceIdNameHash = UINT64_C(14998742047592455339);
+  BluetoothA2dpAudioOverrun& SetDeviceId(const std::string& value);
+  std::string GetDeviceIdForTest() const;
+
+  static constexpr uint64_t kEncodingIntervalNameHash = UINT64_C(3606412102905407189);
+  BluetoothA2dpAudioOverrun& SetEncodingInterval(const int64_t value);
+  int64_t GetEncodingIntervalForTest() const;
+
+  static constexpr uint64_t kDroppedBuffersNameHash = UINT64_C(5021913592946419848);
+  BluetoothA2dpAudioOverrun& SetDroppedBuffers(const int64_t value);
+  int64_t GetDroppedBuffersForTest() const;
+
+  static constexpr uint64_t kDroppedFramesNameHash = UINT64_C(5995504238522425793);
+  BluetoothA2dpAudioOverrun& SetDroppedFrames(const int64_t value);
+  int64_t GetDroppedFramesForTest() const;
+
+  static constexpr uint64_t kDroppedBytesNameHash = UINT64_C(12141048787197260247);
+  BluetoothA2dpAudioOverrun& SetDroppedBytes(const int64_t value);
+  int64_t GetDroppedBytesForTest() const;
+
+};
+
 }  // namespace bluetooth
 
 namespace bluetooth_device {

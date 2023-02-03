@@ -490,8 +490,7 @@ void Daemon::Init() {
           delegate_->CreateKeyboardBacklightController(
               keyboard_backlight_.get(), prefs_.get(),
               light_sensor_manager_->GetSensorForKeyboardBacklight(),
-              dbus_wrapper_.get(), display_backlight_controller_.get(),
-              lid_state, tablet_mode);
+              dbus_wrapper_.get(), lid_state, tablet_mode);
       all_backlight_controllers_.push_back(
           keyboard_backlight_controller_.get());
     }
@@ -1249,20 +1248,15 @@ void Daemon::OnPowerStatusUpdate() {
   state_controller_->HandlePowerSourceChange(power_source);
   thermal_event_handler_->HandlePowerSourceChange(power_source);
 
-  if (status.battery_is_present && status.battery_below_shutdown_threshold) {
-    if (factory_mode_) {
-      LOG(INFO) << "Battery is low, but not shutting down in factory mode";
-    } else {
-      LOG(INFO) << "Shutting down due to low battery ("
-                << base::StringPrintf("%0.2f", status.battery_percentage)
-                << "%, "
-                << util::TimeDeltaToString(status.battery_time_to_empty)
-                << " until empty, "
-                << base::StringPrintf("%0.3f",
-                                      status.observed_battery_charge_rate)
-                << "A observed charge rate)";
-      ShutDown(ShutdownMode::POWER_OFF, ShutdownReason::LOW_BATTERY);
-    }
+  if (status.battery_below_shutdown_threshold) {
+    LOG(INFO) << "Shutting down due to low battery ("
+              << base::StringPrintf("%0.2f", status.battery_percentage) << "%, "
+              << util::TimeDeltaToString(status.battery_time_to_empty)
+              << " until empty, "
+              << base::StringPrintf("%0.3f",
+                                    status.observed_battery_charge_rate)
+              << "A observed charge rate)";
+    ShutDown(ShutdownMode::POWER_OFF, ShutdownReason::LOW_BATTERY);
   }
 }
 

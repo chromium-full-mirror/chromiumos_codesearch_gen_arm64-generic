@@ -41,11 +41,6 @@
 #include "camera/mojo/algorithm/camera_algorithm.mojom-test-utils.h"
 
 
-#ifndef CAMERA_MOJO_ALGORITHM_CAMERA_ALGORITHM_MOJOM_JUMBO_H_
-#define CAMERA_MOJO_ALGORITHM_CAMERA_ALGORITHM_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace cros {
 namespace mojom {

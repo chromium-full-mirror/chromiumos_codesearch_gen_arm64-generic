@@ -39,13 +39,8 @@
 
 #include "smbfs/mojom/smbfs.mojom-import-headers.h"
 #include "smbfs/mojom/smbfs.mojom-test-utils.h"
-
-
-#ifndef SMBFS_MOJOM_SMBFS_MOJOM_JUMBO_H_
-#define SMBFS_MOJOM_SMBFS_MOJOM_JUMBO_H_
 #include "smbfs/mojom/file_path_mojom_traits.h"
 #include "smbfs/mojom/password_mojom_traits.h"
-#endif
 
 
 

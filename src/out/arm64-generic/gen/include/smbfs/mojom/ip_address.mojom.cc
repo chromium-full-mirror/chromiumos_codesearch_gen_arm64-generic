@@ -41,11 +41,6 @@
 #include "smbfs/mojom/ip_address.mojom-test-utils.h"
 
 
-#ifndef SMBFS_MOJOM_IP_ADDRESS_MOJOM_JUMBO_H_
-#define SMBFS_MOJOM_IP_ADDRESS_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace smbfs {
 namespace mojom {

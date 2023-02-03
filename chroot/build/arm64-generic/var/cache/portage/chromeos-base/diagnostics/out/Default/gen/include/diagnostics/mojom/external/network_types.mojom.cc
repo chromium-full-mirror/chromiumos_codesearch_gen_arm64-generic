@@ -15,11 +15,6 @@
 
 
 
-#ifndef DIAGNOSTICS_MOJOM_EXTERNAL_NETWORK_TYPES_MOJOM_JUMBO_H_
-#define DIAGNOSTICS_MOJOM_EXTERNAL_NETWORK_TYPES_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chromeos {
 namespace network_config {

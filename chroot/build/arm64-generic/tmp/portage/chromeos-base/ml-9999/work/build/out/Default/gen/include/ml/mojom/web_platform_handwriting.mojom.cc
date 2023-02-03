@@ -39,12 +39,7 @@
 
 #include "ml/mojom/web_platform_handwriting.mojom-import-headers.h"
 #include "ml/mojom/web_platform_handwriting.mojom-test-utils.h"
-
-
-#ifndef ML_MOJOM_WEB_PLATFORM_HANDWRITING_MOJOM_JUMBO_H_
-#define ML_MOJOM_WEB_PLATFORM_HANDWRITING_MOJOM_JUMBO_H_
 #include "ml/mojom/time_mojom_traits.h"
-#endif
 
 
 

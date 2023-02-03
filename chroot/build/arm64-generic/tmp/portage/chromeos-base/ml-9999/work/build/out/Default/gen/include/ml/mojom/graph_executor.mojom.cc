@@ -41,11 +41,6 @@
 #include "ml/mojom/graph_executor.mojom-test-utils.h"
 
 
-#ifndef ML_MOJOM_GRAPH_EXECUTOR_MOJOM_JUMBO_H_
-#define ML_MOJOM_GRAPH_EXECUTOR_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chromeos {
 namespace machine_learning {

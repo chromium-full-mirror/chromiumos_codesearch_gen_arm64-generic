@@ -41,11 +41,6 @@
 #include "camera/mojo/unguessable_token.mojom-test-utils.h"
 
 
-#ifndef CAMERA_MOJO_UNGUESSABLE_TOKEN_MOJOM_JUMBO_H_
-#define CAMERA_MOJO_UNGUESSABLE_TOKEN_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace mojo_base {
 namespace mojom {

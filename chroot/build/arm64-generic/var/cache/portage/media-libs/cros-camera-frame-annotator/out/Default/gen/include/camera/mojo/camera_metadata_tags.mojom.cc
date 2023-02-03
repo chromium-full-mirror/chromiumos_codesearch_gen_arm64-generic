@@ -15,11 +15,6 @@
 
 
 
-#ifndef CAMERA_MOJO_CAMERA_METADATA_TAGS_MOJOM_JUMBO_H_
-#define CAMERA_MOJO_CAMERA_METADATA_TAGS_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace cros {
 namespace mojom {

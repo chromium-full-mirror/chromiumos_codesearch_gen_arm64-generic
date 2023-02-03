@@ -41,11 +41,6 @@
 #include "mojo/public/mojom/base/process_id.mojom-test-utils.h"
 
 
-#ifndef MOJO_PUBLIC_MOJOM_BASE_PROCESS_ID_MOJOM_JUMBO_H_
-#define MOJO_PUBLIC_MOJOM_BASE_PROCESS_ID_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace mojo_base {
 namespace mojom {

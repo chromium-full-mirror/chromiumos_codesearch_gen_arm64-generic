@@ -41,11 +41,6 @@
 #include "arc/vm/libvda/gpu/mojom/gfx.mojom-test-utils.h"
 
 
-#ifndef ARC_VM_LIBVDA_GPU_MOJOM_GFX_MOJOM_JUMBO_H_
-#define ARC_VM_LIBVDA_GPU_MOJOM_GFX_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace arc {
 namespace mojom {

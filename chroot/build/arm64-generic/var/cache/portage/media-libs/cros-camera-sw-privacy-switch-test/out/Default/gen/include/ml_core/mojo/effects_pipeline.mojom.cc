@@ -41,11 +41,6 @@
 #include "ml_core/mojo/effects_pipeline.mojom-test-utils.h"
 
 
-#ifndef ML_CORE_MOJO_EFFECTS_PIPELINE_MOJOM_JUMBO_H_
-#define ML_CORE_MOJO_EFFECTS_PIPELINE_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace cros {
 namespace mojom {

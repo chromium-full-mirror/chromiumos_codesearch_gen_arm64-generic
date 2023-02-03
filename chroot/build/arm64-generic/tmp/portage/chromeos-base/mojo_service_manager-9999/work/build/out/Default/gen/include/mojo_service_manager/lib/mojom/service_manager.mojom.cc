@@ -39,12 +39,7 @@
 
 #include "mojo_service_manager/lib/mojom/service_manager.mojom-import-headers.h"
 #include "mojo_service_manager/lib/mojom/service_manager.mojom-test-utils.h"
-
-
-#ifndef MOJO_SERVICE_MANAGER_LIB_MOJOM_SERVICE_MANAGER_MOJOM_JUMBO_H_
-#define MOJO_SERVICE_MANAGER_LIB_MOJOM_SERVICE_MANAGER_MOJOM_JUMBO_H_
 #include "mojo_service_manager/lib/mojom/time_mojom_traits.h"
-#endif
 
 
 

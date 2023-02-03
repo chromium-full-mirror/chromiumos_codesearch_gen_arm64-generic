@@ -41,11 +41,6 @@
 #include "diagnostics/mojom/public/wilco_ec.mojom-test-utils.h"
 
 
-#ifndef DIAGNOSTICS_MOJOM_PUBLIC_WILCO_EC_MOJOM_JUMBO_H_
-#define DIAGNOSTICS_MOJOM_PUBLIC_WILCO_EC_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace ash {
 namespace cros_healthd {

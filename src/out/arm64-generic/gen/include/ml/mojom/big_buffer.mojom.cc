@@ -41,11 +41,6 @@
 #include "ml/mojom/big_buffer.mojom-test-utils.h"
 
 
-#ifndef ML_MOJOM_BIG_BUFFER_MOJOM_JUMBO_H_
-#define ML_MOJOM_BIG_BUFFER_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace mojo_base {
 namespace mojom {

@@ -39,12 +39,7 @@
 
 #include "ml/mojom/text_classifier.mojom-import-headers.h"
 #include "ml/mojom/text_classifier.mojom-test-utils.h"
-
-
-#ifndef ML_MOJOM_TEXT_CLASSIFIER_MOJOM_JUMBO_H_
-#define ML_MOJOM_TEXT_CLASSIFIER_MOJOM_JUMBO_H_
 #include "ml/mojom/time_mojom_traits.h"
-#endif
 
 
 

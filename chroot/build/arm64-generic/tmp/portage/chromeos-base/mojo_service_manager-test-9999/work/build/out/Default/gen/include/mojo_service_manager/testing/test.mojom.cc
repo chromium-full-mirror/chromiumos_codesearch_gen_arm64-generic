@@ -41,11 +41,6 @@
 #include "mojo_service_manager/testing/test.mojom-test-utils.h"
 
 
-#ifndef MOJO_SERVICE_MANAGER_TESTING_TEST_MOJOM_JUMBO_H_
-#define MOJO_SERVICE_MANAGER_TESTING_TEST_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chromeos {
 namespace mojo_service_manager {
