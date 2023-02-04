@@ -33,6 +33,7 @@ constexpr StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(
   , enable_tts_caching_(false)
   , enable_consumer_auto_update_toggle_(false)
   , host_ureadahead_generation_(false)
+  , enable_privacy_hub_for_chrome_(false)
   , lcd_density_(-1){}
 struct StartArcMiniInstanceRequestDefaultTypeInternal {
   constexpr StartArcMiniInstanceRequestDefaultTypeInternal()
@@ -345,7 +346,7 @@ class StartArcMiniInstanceRequest::_Internal {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_lcd_density(HasBits* has_bits) {
-    (*has_bits)[0] |= 32768u;
+    (*has_bits)[0] |= 65536u;
   }
   static void set_has_arc_file_picker_experiment(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
@@ -389,6 +390,9 @@ class StartArcMiniInstanceRequest::_Internal {
   static void set_has_host_ureadahead_generation(HasBits* has_bits) {
     (*has_bits)[0] |= 16384u;
   }
+  static void set_has_enable_privacy_hub_for_chrome(HasBits* has_bits) {
+    (*has_bits)[0] |= 32768u;
+  }
 };
 
 StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -413,8 +417,8 @@ StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(const StartArcMiniInsta
 inline void StartArcMiniInstanceRequest::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&native_bridge_experiment_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&host_ureadahead_generation_) -
-    reinterpret_cast<char*>(&native_bridge_experiment_)) + sizeof(host_ureadahead_generation_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&enable_privacy_hub_for_chrome_) -
+    reinterpret_cast<char*>(&native_bridge_experiment_)) + sizeof(enable_privacy_hub_for_chrome_));
 lcd_density_ = -1;
 }
 
@@ -453,10 +457,10 @@ void StartArcMiniInstanceRequest::Clear() {
   }
   if (cached_has_bits & 0x0000ff00u) {
     ::memset(&disable_download_provider_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&host_ureadahead_generation_) -
-        reinterpret_cast<char*>(&disable_download_provider_)) + sizeof(host_ureadahead_generation_));
-    lcd_density_ = -1;
+        reinterpret_cast<char*>(&enable_privacy_hub_for_chrome_) -
+        reinterpret_cast<char*>(&disable_download_provider_)) + sizeof(enable_privacy_hub_for_chrome_));
   }
+  lcd_density_ = -1;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -620,6 +624,15 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTO
         } else
           goto handle_unusual;
         continue;
+      // optional bool enable_privacy_hub_for_chrome = 17 [default = false];
+      case 17:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 136)) {
+          _Internal::set_has_enable_privacy_hub_for_chrome(&has_bits);
+          enable_privacy_hub_for_chrome_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -658,7 +671,7 @@ uint8_t* StartArcMiniInstanceRequest::_InternalSerialize(
   }
 
   // optional int32 lcd_density = 2 [default = -1];
-  if (cached_has_bits & 0x00008000u) {
+  if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_lcd_density(), target);
   }
@@ -747,6 +760,12 @@ uint8_t* StartArcMiniInstanceRequest::_InternalSerialize(
   if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(16, this->_internal_host_ureadahead_generation(), target);
+  }
+
+  // optional bool enable_privacy_hub_for_chrome = 17 [default = false];
+  if (cached_has_bits & 0x00008000u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(17, this->_internal_enable_privacy_hub_for_chrome(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -846,12 +865,17 @@ size_t StartArcMiniInstanceRequest::ByteSizeLong() const {
       total_size += 2 + 1;
     }
 
-    // optional int32 lcd_density = 2 [default = -1];
+    // optional bool enable_privacy_hub_for_chrome = 17 [default = false];
     if (cached_has_bits & 0x00008000u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_lcd_density());
+      total_size += 2 + 1;
     }
 
   }
+  // optional int32 lcd_density = 2 [default = -1];
+  if (cached_has_bits & 0x00010000u) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_lcd_density());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -923,9 +947,12 @@ void StartArcMiniInstanceRequest::MergeFrom(const StartArcMiniInstanceRequest& f
       host_ureadahead_generation_ = from.host_ureadahead_generation_;
     }
     if (cached_has_bits & 0x00008000u) {
-      lcd_density_ = from.lcd_density_;
+      enable_privacy_hub_for_chrome_ = from.enable_privacy_hub_for_chrome_;
     }
     _has_bits_[0] |= cached_has_bits;
+  }
+  if (cached_has_bits & 0x00010000u) {
+    _internal_set_lcd_density(from._internal_lcd_density());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -946,8 +973,8 @@ void StartArcMiniInstanceRequest::InternalSwap(StartArcMiniInstanceRequest* othe
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartArcMiniInstanceRequest, host_ureadahead_generation_)
-      + sizeof(StartArcMiniInstanceRequest::host_ureadahead_generation_)
+      PROTOBUF_FIELD_OFFSET(StartArcMiniInstanceRequest, enable_privacy_hub_for_chrome_)
+      + sizeof(StartArcMiniInstanceRequest::enable_privacy_hub_for_chrome_)
       - PROTOBUF_FIELD_OFFSET(StartArcMiniInstanceRequest, native_bridge_experiment_)>(
           reinterpret_cast<char*>(&native_bridge_experiment_),
           reinterpret_cast<char*>(&other->native_bridge_experiment_));

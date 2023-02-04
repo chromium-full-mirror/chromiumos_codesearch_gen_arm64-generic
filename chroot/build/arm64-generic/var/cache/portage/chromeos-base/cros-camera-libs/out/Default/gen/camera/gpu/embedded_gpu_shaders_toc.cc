@@ -216,6 +216,21 @@ void main() {
 }
 )cc_embed_data";
 
+const char subsample_chroma_frag[] = R"cc_embed_data(#version 310 es
+
+precision highp float;
+
+layout(binding = 0) uniform highp sampler2D uInputUvTexture;
+
+layout(location = 0) in highp vec2 vTexCoord;
+layout(location = 0) out highp vec4 outColor;
+
+void main() {
+  vec2 uv = texture(uInputUvTexture, vTexCoord).rg;
+  outColor = vec4(uv, 0.0, 0.0);
+}
+)cc_embed_data";
+
 const char yuv_to_yuv_frag[] = R"cc_embed_data(#version 310 es
 
 precision highp float;
@@ -288,6 +303,9 @@ cros::EmbeddedFileToc GetEmbeddedGpuShadersToc() {
   toc.insert(
       {"rgba_to_nv12.frag",
        cros::EmbeddedFileEntry(rgba_to_nv12_frag, sizeof(rgba_to_nv12_frag))});
+  toc.insert({"subsample_chroma.frag",
+              cros::EmbeddedFileEntry(subsample_chroma_frag,
+                                      sizeof(subsample_chroma_frag))});
   toc.insert(
       {"yuv_to_yuv.frag",
        cros::EmbeddedFileEntry(yuv_to_yuv_frag, sizeof(yuv_to_yuv_frag))});
