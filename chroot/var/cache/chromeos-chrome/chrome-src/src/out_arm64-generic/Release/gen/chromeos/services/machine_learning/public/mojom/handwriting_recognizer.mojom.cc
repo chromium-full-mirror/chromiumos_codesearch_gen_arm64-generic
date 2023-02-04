@@ -41,11 +41,6 @@
 #include "chromeos/services/machine_learning/public/mojom/handwriting_recognizer.mojom-test-utils.h"
 
 
-#ifndef CHROMEOS_SERVICES_MACHINE_LEARNING_PUBLIC_MOJOM_HANDWRITING_RECOGNIZER_MOJOM_JUMBO_H_
-#define CHROMEOS_SERVICES_MACHINE_LEARNING_PUBLIC_MOJOM_HANDWRITING_RECOGNIZER_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chromeos {
 namespace machine_learning {

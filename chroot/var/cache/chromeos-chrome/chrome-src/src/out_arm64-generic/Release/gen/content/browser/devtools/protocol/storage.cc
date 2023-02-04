@@ -317,7 +317,6 @@ public:
     void untrackIndexedDBForOrigin(const crdtp::Dispatchable& dispatchable);
     void untrackIndexedDBForStorageKey(const crdtp::Dispatchable& dispatchable);
     void getTrustTokens(const crdtp::Dispatchable& dispatchable);
-    void clearTrustTokens(const crdtp::Dispatchable& dispatchable);
     void getInterestGroupDetails(const crdtp::Dispatchable& dispatchable);
     void setInterestGroupTracking(const crdtp::Dispatchable& dispatchable);
     void getSharedStorageMetadata(const crdtp::Dispatchable& dispatchable);
@@ -354,10 +353,6 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
     {
           crdtp::SpanFrom("clearSharedStorageEntries"),
           &DomainDispatcherImpl::clearSharedStorageEntries
-    },
-    {
-          crdtp::SpanFrom("clearTrustTokens"),
-          &DomainDispatcherImpl::clearTrustTokens
     },
     {
           crdtp::SpanFrom("deleteSharedStorageEntry"),
@@ -1179,57 +1174,6 @@ void DomainDispatcherImpl::getTrustTokens(const crdtp::Dispatchable& dispatchabl
     // Prepare input parameters.
 
     m_backend->GetTrustTokens(std::make_unique<GetTrustTokensCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
-}
-
-class ClearTrustTokensCallbackImpl : public Backend::ClearTrustTokensCallback, public DomainDispatcher::Callback {
-public:
-    ClearTrustTokensCallbackImpl(std::unique_ptr<DomainDispatcher::WeakPtr> backendImpl, int callId, crdtp::span<uint8_t> message)
-        : DomainDispatcher::Callback(std::move(backendImpl), callId,
-crdtp::SpanFrom("Storage.clearTrustTokens"), message) { }
-
-    void sendSuccess(bool didDeleteTokens) override
-    {
-        crdtp::ObjectSerializer serializer;
-        serializer.AddField(crdtp::MakeSpan("didDeleteTokens"), didDeleteTokens);
-        sendIfActive(serializer.Finish(), DispatchResponse::Success());
-    }
-
-    void fallThrough() override
-    {
-        fallThroughIfActive();
-    }
-
-    void sendFailure(const DispatchResponse& response) override
-    {
-        DCHECK(response.IsError());
-        sendIfActive(nullptr, response);
-    }
-};
-
-namespace {
-
-struct clearTrustTokensParams : public crdtp::DeserializableProtocolObject<clearTrustTokensParams> {
-    String issuerOrigin;
-    DECLARE_DESERIALIZATION_SUPPORT();
-};
-
-CRDTP_BEGIN_DESERIALIZER(clearTrustTokensParams)
-    CRDTP_DESERIALIZE_FIELD("issuerOrigin", issuerOrigin),
-CRDTP_END_DESERIALIZER()
-
-}  // namespace
-
-void DomainDispatcherImpl::clearTrustTokens(const crdtp::Dispatchable& dispatchable)
-{
-    // Prepare input parameters.
-    auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
-    clearTrustTokensParams params;
-    if (!clearTrustTokensParams::Deserialize(&deserializer, &params)) {
-      ReportInvalidParams(dispatchable, deserializer);
-      return;
-    }
-
-    m_backend->ClearTrustTokens(params.issuerOrigin, std::make_unique<ClearTrustTokensCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
 }
 
 class GetInterestGroupDetailsCallbackImpl : public Backend::GetInterestGroupDetailsCallback, public DomainDispatcher::Callback {

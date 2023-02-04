@@ -41,11 +41,6 @@
 #include "media/capture/video/chromeos/mojom/cros_camera_service.mojom-test-utils.h"
 
 
-#ifndef MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CROS_CAMERA_SERVICE_MOJOM_JUMBO_H_
-#define MEDIA_CAPTURE_VIDEO_CHROMEOS_MOJOM_CROS_CAMERA_SERVICE_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace cros {
 namespace mojom {

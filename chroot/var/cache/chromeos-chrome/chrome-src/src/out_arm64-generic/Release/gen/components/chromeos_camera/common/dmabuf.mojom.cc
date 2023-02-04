@@ -41,11 +41,6 @@
 #include "components/chromeos_camera/common/dmabuf.mojom-test-utils.h"
 
 
-#ifndef COMPONENTS_CHROMEOS_CAMERA_COMMON_DMABUF_MOJOM_JUMBO_H_
-#define COMPONENTS_CHROMEOS_CAMERA_COMMON_DMABUF_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chromeos_camera {
 namespace mojom {

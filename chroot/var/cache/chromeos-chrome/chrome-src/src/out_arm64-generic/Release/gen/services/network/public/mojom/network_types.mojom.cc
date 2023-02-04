@@ -15,11 +15,6 @@
 
 
 
-#ifndef SERVICES_NETWORK_PUBLIC_MOJOM_NETWORK_TYPES_MOJOM_JUMBO_H_
-#define SERVICES_NETWORK_PUBLIC_MOJOM_NETWORK_TYPES_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace network {
 namespace mojom {

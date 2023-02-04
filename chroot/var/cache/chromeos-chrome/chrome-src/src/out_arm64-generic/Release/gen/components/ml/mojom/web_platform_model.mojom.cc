@@ -41,11 +41,6 @@
 #include "components/ml/mojom/web_platform_model.mojom-test-utils.h"
 
 
-#ifndef COMPONENTS_ML_MOJOM_WEB_PLATFORM_MODEL_MOJOM_JUMBO_H_
-#define COMPONENTS_ML_MOJOM_WEB_PLATFORM_MODEL_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace ml {
 namespace model_loader {

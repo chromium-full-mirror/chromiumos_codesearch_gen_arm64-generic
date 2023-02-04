@@ -12,6 +12,8 @@
 #include "chromeos/services/machine_learning/public/mojom/grammar_checker.mojom-import-headers.h"
 #include "chromeos/services/machine_learning/public/mojom/handwriting_recognizer.mojom.h"
 #include "chromeos/services/machine_learning/public/mojom/handwriting_recognizer.mojom-import-headers.h"
+#include "chromeos/services/machine_learning/public/mojom/image_content_annotation.mojom.h"
+#include "chromeos/services/machine_learning/public/mojom/image_content_annotation.mojom-import-headers.h"
 #include "chromeos/services/machine_learning/public/mojom/model.mojom.h"
 #include "chromeos/services/machine_learning/public/mojom/model.mojom-import-headers.h"
 #include "chromeos/services/machine_learning/public/mojom/soda.mojom.h"

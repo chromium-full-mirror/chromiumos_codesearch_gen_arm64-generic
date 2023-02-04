@@ -107,9 +107,6 @@ void ExperimentalDomain::UntrackIndexedDBForStorageKey(std::unique_ptr<UntrackIn
 void ExperimentalDomain::GetTrustTokens(std::unique_ptr<GetTrustTokensParams> params, base::OnceCallback<void(std::unique_ptr<GetTrustTokensResult>)> callback) {
   dispatcher_->SendMessage("Storage.getTrustTokens", params->Serialize(), base::BindOnce(&Domain::HandleGetTrustTokensResponse, std::move(callback)));
 }
-void ExperimentalDomain::ClearTrustTokens(std::unique_ptr<ClearTrustTokensParams> params, base::OnceCallback<void(std::unique_ptr<ClearTrustTokensResult>)> callback) {
-  dispatcher_->SendMessage("Storage.clearTrustTokens", params->Serialize(), base::BindOnce(&Domain::HandleClearTrustTokensResponse, std::move(callback)));
-}
 void ExperimentalDomain::GetInterestGroupDetails(std::unique_ptr<GetInterestGroupDetailsParams> params, base::OnceCallback<void(std::unique_ptr<GetInterestGroupDetailsResult>)> callback) {
   dispatcher_->SendMessage("Storage.getInterestGroupDetails", params->Serialize(), base::BindOnce(&Domain::HandleGetInterestGroupDetailsResponse, std::move(callback)));
 }
@@ -390,21 +387,6 @@ void Domain::HandleGetTrustTokensResponse(base::OnceCallback<void(std::unique_pt
   }
   ErrorReporter errors;
   std::unique_ptr<GetTrustTokensResult> result = GetTrustTokensResult::Parse(response, &errors);
-  DCHECK(!errors.HasErrors()) << errors.ToString();
-  std::move(callback).Run(std::move(result));
-}
-
-// static
-void Domain::HandleClearTrustTokensResponse(base::OnceCallback<void(std::unique_ptr<ClearTrustTokensResult>)> callback, const base::Value& response) {
-  if (callback.is_null())
-    return;
-  // This is an error response.
-  if (response.is_none()) {
-    std::move(callback).Run(nullptr);
-    return;
-  }
-  ErrorReporter errors;
-  std::unique_ptr<ClearTrustTokensResult> result = ClearTrustTokensResult::Parse(response, &errors);
   DCHECK(!errors.HasErrors()) << errors.ToString();
   std::move(callback).Run(std::move(result));
 }

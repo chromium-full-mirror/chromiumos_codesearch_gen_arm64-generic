@@ -186,7 +186,7 @@ bool Params::Keys::Populate(
     }
     return true;
   }
-  if (value.type() == base::Value::Type::DICTIONARY) {
+  if (value.type() == base::Value::Type::DICT) {
     {
       if (!value.is_dict()) {
         return false;

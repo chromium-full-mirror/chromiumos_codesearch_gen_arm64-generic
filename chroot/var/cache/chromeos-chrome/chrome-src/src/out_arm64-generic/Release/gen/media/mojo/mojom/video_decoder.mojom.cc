@@ -39,12 +39,7 @@
 
 #include "media/mojo/mojom/video_decoder.mojom-import-headers.h"
 #include "media/mojo/mojom/video_decoder.mojom-test-utils.h"
-
-
-#ifndef MEDIA_MOJO_MOJOM_VIDEO_DECODER_MOJOM_JUMBO_H_
-#define MEDIA_MOJO_MOJOM_VIDEO_DECODER_MOJOM_JUMBO_H_
 #include "media/mojo/mojom/video_decoder_config_mojom_traits.h"
-#endif
 
 
 

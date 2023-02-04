@@ -41,11 +41,6 @@
 #include "ash/components/arc/mojom/video_frame_pool.mojom-test-utils.h"
 
 
-#ifndef ASH_COMPONENTS_ARC_MOJOM_VIDEO_FRAME_POOL_MOJOM_JUMBO_H_
-#define ASH_COMPONENTS_ARC_MOJOM_VIDEO_FRAME_POOL_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace arc {
 namespace mojom {

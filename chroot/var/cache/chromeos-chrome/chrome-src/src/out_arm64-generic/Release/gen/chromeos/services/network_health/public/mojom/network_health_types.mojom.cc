@@ -41,11 +41,6 @@
 #include "chromeos/services/network_health/public/mojom/network_health_types.mojom-test-utils.h"
 
 
-#ifndef CHROMEOS_SERVICES_NETWORK_HEALTH_PUBLIC_MOJOM_NETWORK_HEALTH_TYPES_MOJOM_JUMBO_H_
-#define CHROMEOS_SERVICES_NETWORK_HEALTH_PUBLIC_MOJOM_NETWORK_HEALTH_TYPES_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chromeos {
 namespace network_health {

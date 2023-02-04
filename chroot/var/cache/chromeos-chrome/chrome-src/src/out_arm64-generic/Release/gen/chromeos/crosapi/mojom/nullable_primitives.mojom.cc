@@ -41,11 +41,6 @@
 #include "chromeos/crosapi/mojom/nullable_primitives.mojom-test-utils.h"
 
 
-#ifndef CHROMEOS_CROSAPI_MOJOM_NULLABLE_PRIMITIVES_MOJOM_JUMBO_H_
-#define CHROMEOS_CROSAPI_MOJOM_NULLABLE_PRIMITIVES_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace crosapi {
 namespace mojom {

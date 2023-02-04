@@ -41,11 +41,6 @@
 #include "chrome/common/network_diagnostics.mojom-test-utils.h"
 
 
-#ifndef CHROME_COMMON_NETWORK_DIAGNOSTICS_MOJOM_JUMBO_H_
-#define CHROME_COMMON_NETWORK_DIAGNOSTICS_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chrome {
 namespace mojom {

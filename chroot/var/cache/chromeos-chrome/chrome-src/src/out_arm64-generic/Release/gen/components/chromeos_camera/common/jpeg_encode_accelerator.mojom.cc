@@ -41,11 +41,6 @@
 #include "components/chromeos_camera/common/jpeg_encode_accelerator.mojom-test-utils.h"
 
 
-#ifndef COMPONENTS_CHROMEOS_CAMERA_COMMON_JPEG_ENCODE_ACCELERATOR_MOJOM_JUMBO_H_
-#define COMPONENTS_CHROMEOS_CAMERA_COMMON_JPEG_ENCODE_ACCELERATOR_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chromeos_camera {
 namespace mojom {

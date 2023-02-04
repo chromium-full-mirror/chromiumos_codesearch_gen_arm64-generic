@@ -41,11 +41,6 @@
 #include "chromeos/components/sensors/mojom/cros_sensor_service.mojom-test-utils.h"
 
 
-#ifndef CHROMEOS_COMPONENTS_SENSORS_MOJOM_CROS_SENSOR_SERVICE_MOJOM_JUMBO_H_
-#define CHROMEOS_COMPONENTS_SENSORS_MOJOM_CROS_SENSOR_SERVICE_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chromeos {
 namespace sensors {

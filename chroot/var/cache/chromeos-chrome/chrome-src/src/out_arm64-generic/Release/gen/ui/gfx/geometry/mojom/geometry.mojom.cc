@@ -41,11 +41,6 @@
 #include "ui/gfx/geometry/mojom/geometry.mojom-test-utils.h"
 
 
-#ifndef UI_GFX_GEOMETRY_MOJOM_GEOMETRY_MOJOM_JUMBO_H_
-#define UI_GFX_GEOMETRY_MOJOM_GEOMETRY_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace gfx {
 namespace mojom {

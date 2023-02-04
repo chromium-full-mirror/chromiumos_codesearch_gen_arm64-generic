@@ -41,11 +41,6 @@
 #include "chromeos/services/machine_learning/public/mojom/document_scanner.mojom-test-utils.h"
 
 
-#ifndef CHROMEOS_SERVICES_MACHINE_LEARNING_PUBLIC_MOJOM_DOCUMENT_SCANNER_MOJOM_JUMBO_H_
-#define CHROMEOS_SERVICES_MACHINE_LEARNING_PUBLIC_MOJOM_DOCUMENT_SCANNER_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chromeos {
 namespace machine_learning {

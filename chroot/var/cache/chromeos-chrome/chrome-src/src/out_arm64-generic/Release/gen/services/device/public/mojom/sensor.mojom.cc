@@ -41,11 +41,6 @@
 #include "services/device/public/mojom/sensor.mojom-test-utils.h"
 
 
-#ifndef SERVICES_DEVICE_PUBLIC_MOJOM_SENSOR_MOJOM_JUMBO_H_
-#define SERVICES_DEVICE_PUBLIC_MOJOM_SENSOR_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace device {
 namespace mojom {

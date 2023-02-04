@@ -511,6 +511,10 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextEntityData {
 
   TextEntityData();
   ~TextEntityData();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  TextEntityData(const TextEntityData& other) = delete;
+  TextEntityData& operator=(const TextEntityData& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy

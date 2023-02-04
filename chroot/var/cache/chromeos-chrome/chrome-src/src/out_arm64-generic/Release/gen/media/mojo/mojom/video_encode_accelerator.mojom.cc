@@ -41,11 +41,6 @@
 #include "media/mojo/mojom/video_encode_accelerator.mojom-test-utils.h"
 
 
-#ifndef MEDIA_MOJO_MOJOM_VIDEO_ENCODE_ACCELERATOR_MOJOM_JUMBO_H_
-#define MEDIA_MOJO_MOJOM_VIDEO_ENCODE_ACCELERATOR_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace media {
 namespace mojom {

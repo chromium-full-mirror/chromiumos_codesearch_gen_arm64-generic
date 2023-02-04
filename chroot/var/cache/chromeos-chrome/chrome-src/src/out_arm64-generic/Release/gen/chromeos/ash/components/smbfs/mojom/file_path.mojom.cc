@@ -41,11 +41,6 @@
 #include "chromeos/ash/components/smbfs/mojom/file_path.mojom-test-utils.h"
 
 
-#ifndef CHROMEOS_ASH_COMPONENTS_SMBFS_MOJOM_FILE_PATH_MOJOM_JUMBO_H_
-#define CHROMEOS_ASH_COMPONENTS_SMBFS_MOJOM_FILE_PATH_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace smbfs {
 namespace mojom {

@@ -964,14 +964,6 @@ public:
         virtual ~GetTrustTokensCallback() { }
     };
     virtual void GetTrustTokens(std::unique_ptr<GetTrustTokensCallback> callback) = 0;
-    class CONTENT_EXPORT ClearTrustTokensCallback {
-    public:
-        virtual void sendSuccess(bool didDeleteTokens) = 0;
-        virtual void sendFailure(const DispatchResponse&) = 0;
-        virtual void fallThrough() = 0;
-        virtual ~ClearTrustTokensCallback() { }
-    };
-    virtual void ClearTrustTokens(const String& in_issuerOrigin, std::unique_ptr<ClearTrustTokensCallback> callback) = 0;
     class CONTENT_EXPORT GetInterestGroupDetailsCallback {
     public:
         virtual void sendSuccess(std::unique_ptr<protocol::Storage::InterestGroupDetails> details) = 0;

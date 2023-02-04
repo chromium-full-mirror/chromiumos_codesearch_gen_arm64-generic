@@ -41,11 +41,6 @@
 #include "third_party/blink/public/mojom/chromeos/system_extensions/managed_device_health_services/telemetry/nullable_primitives.mojom-test-utils.h"
 
 
-#ifndef THIRD_PARTY_BLINK_PUBLIC_MOJOM_CHROMEOS_SYSTEM_EXTENSIONS_MANAGED_DEVICE_HEALTH_SERVICES_TELEMETRY_NULLABLE_PRIMITIVES_MOJOM_JUMBO_H_
-#define THIRD_PARTY_BLINK_PUBLIC_MOJOM_CHROMEOS_SYSTEM_EXTENSIONS_MANAGED_DEVICE_HEALTH_SERVICES_TELEMETRY_NULLABLE_PRIMITIVES_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace blink {
 namespace mojom {

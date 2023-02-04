@@ -101,7 +101,6 @@ class HEADLESS_EXPORT Domain {
   static void HandleUntrackIndexedDBForOriginResponse(base::OnceCallback<void(std::unique_ptr<UntrackIndexedDBForOriginResult>)> callback, const base::Value& response);
   static void HandleUntrackIndexedDBForStorageKeyResponse(base::OnceCallback<void(std::unique_ptr<UntrackIndexedDBForStorageKeyResult>)> callback, const base::Value& response);
   static void HandleGetTrustTokensResponse(base::OnceCallback<void(std::unique_ptr<GetTrustTokensResult>)> callback, const base::Value& response);
-  static void HandleClearTrustTokensResponse(base::OnceCallback<void(std::unique_ptr<ClearTrustTokensResult>)> callback, const base::Value& response);
   static void HandleGetInterestGroupDetailsResponse(base::OnceCallback<void(std::unique_ptr<GetInterestGroupDetailsResult>)> callback, const base::Value& response);
   static void HandleSetInterestGroupTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetInterestGroupTrackingResult>)> callback, const base::Value& response);
   static void HandleGetSharedStorageMetadataResponse(base::OnceCallback<void(std::unique_ptr<GetSharedStorageMetadataResult>)> callback, const base::Value& response);
@@ -195,10 +194,6 @@ class ExperimentalDomain : public Domain {
   // Returns the number of stored Trust Tokens per issuer for the
   // current browsing context.
   void GetTrustTokens(std::unique_ptr<GetTrustTokensParams> params, base::OnceCallback<void(std::unique_ptr<GetTrustTokensResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetTrustTokensResult>)>());
-
-  // Removes all Trust Tokens issued by the provided issuerOrigin.
-  // Leaves other stored data, including the issuer's Redemption Records, intact.
-  void ClearTrustTokens(std::unique_ptr<ClearTrustTokensParams> params, base::OnceCallback<void(std::unique_ptr<ClearTrustTokensResult>)> callback = base::OnceCallback<void(std::unique_ptr<ClearTrustTokensResult>)>());
 
   // Gets details for a named interest group.
   void GetInterestGroupDetails(std::unique_ptr<GetInterestGroupDetailsParams> params, base::OnceCallback<void(std::unique_ptr<GetInterestGroupDetailsResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetInterestGroupDetailsResult>)>());

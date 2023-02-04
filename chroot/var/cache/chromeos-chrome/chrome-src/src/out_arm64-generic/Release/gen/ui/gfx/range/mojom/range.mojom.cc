@@ -41,11 +41,6 @@
 #include "ui/gfx/range/mojom/range.mojom-test-utils.h"
 
 
-#ifndef UI_GFX_RANGE_MOJOM_RANGE_MOJOM_JUMBO_H_
-#define UI_GFX_RANGE_MOJOM_RANGE_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace gfx {
 namespace mojom {

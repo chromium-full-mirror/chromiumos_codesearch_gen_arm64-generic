@@ -41,11 +41,6 @@
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom-test-utils.h"
 
 
-#ifndef MOJO_PUBLIC_INTERFACES_BINDINGS_INTERFACE_CONTROL_MESSAGES_MOJOM_JUMBO_H_
-#define MOJO_PUBLIC_INTERFACES_BINDINGS_INTERFACE_CONTROL_MESSAGES_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace mojo {
 namespace interface_control {

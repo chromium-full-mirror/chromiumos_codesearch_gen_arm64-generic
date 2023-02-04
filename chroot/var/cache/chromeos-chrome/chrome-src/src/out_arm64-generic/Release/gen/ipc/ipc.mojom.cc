@@ -41,11 +41,6 @@
 #include "ipc/ipc.mojom-test-utils.h"
 
 
-#ifndef IPC_IPC_MOJOM_JUMBO_H_
-#define IPC_IPC_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace IPC {
 namespace mojom {

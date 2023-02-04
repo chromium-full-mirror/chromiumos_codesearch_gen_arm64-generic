@@ -842,6 +842,10 @@ class  Camera3NotifyMsgMessage {
 
   Camera3NotifyMsgMessage();
   ~Camera3NotifyMsgMessage();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  Camera3NotifyMsgMessage(const Camera3NotifyMsgMessage& other) = delete;
+  Camera3NotifyMsgMessage& operator=(const Camera3NotifyMsgMessage& other) = delete;
 
   // Clone() is a template so it is only instantiated if it is used. Thus, the
   // bindings generator does not need to know whether Clone() or copy

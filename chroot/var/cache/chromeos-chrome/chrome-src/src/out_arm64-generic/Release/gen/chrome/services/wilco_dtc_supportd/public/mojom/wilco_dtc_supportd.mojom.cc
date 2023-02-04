@@ -41,11 +41,6 @@
 #include "chrome/services/wilco_dtc_supportd/public/mojom/wilco_dtc_supportd.mojom-test-utils.h"
 
 
-#ifndef CHROME_SERVICES_WILCO_DTC_SUPPORTD_PUBLIC_MOJOM_WILCO_DTC_SUPPORTD_MOJOM_JUMBO_H_
-#define CHROME_SERVICES_WILCO_DTC_SUPPORTD_PUBLIC_MOJOM_WILCO_DTC_SUPPORTD_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chromeos {
 namespace wilco_dtc_supportd {

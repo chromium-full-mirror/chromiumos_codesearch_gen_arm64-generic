@@ -41,11 +41,6 @@
 #include "chromeos/ash/services/rollback_network_config/public/mojom/rollback_network_config.mojom-test-utils.h"
 
 
-#ifndef CHROMEOS_ASH_SERVICES_ROLLBACK_NETWORK_CONFIG_PUBLIC_MOJOM_ROLLBACK_NETWORK_CONFIG_MOJOM_JUMBO_H_
-#define CHROMEOS_ASH_SERVICES_ROLLBACK_NETWORK_CONFIG_PUBLIC_MOJOM_ROLLBACK_NETWORK_CONFIG_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace ash {
 namespace rollback_network_config {

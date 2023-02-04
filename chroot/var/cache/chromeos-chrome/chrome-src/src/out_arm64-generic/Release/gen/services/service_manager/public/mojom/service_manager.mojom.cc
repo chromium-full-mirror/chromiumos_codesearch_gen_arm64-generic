@@ -41,11 +41,6 @@
 #include "services/service_manager/public/mojom/service_manager.mojom-test-utils.h"
 
 
-#ifndef SERVICES_SERVICE_MANAGER_PUBLIC_MOJOM_SERVICE_MANAGER_MOJOM_JUMBO_H_
-#define SERVICES_SERVICE_MANAGER_PUBLIC_MOJOM_SERVICE_MANAGER_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace service_manager {
 namespace mojom {

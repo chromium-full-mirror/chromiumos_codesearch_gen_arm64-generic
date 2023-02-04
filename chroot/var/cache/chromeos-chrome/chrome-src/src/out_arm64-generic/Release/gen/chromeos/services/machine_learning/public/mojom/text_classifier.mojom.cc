@@ -41,11 +41,6 @@
 #include "chromeos/services/machine_learning/public/mojom/text_classifier.mojom-test-utils.h"
 
 
-#ifndef CHROMEOS_SERVICES_MACHINE_LEARNING_PUBLIC_MOJOM_TEXT_CLASSIFIER_MOJOM_JUMBO_H_
-#define CHROMEOS_SERVICES_MACHINE_LEARNING_PUBLIC_MOJOM_TEXT_CLASSIFIER_MOJOM_JUMBO_H_
-#endif
-
-
 
 namespace chromeos {
 namespace machine_learning {
