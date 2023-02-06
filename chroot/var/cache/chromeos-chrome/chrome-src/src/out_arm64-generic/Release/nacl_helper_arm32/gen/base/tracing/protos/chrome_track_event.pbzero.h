@@ -1203,13 +1203,14 @@ enum TaskType : int32_t {
   TASK_TYPE_INTERNAL_POST_MESSAGE_FORWARDING = 79,
   TASK_TYPE_INTERNAL_NAVIGATION_CANCELLATION = 80,
   TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION = 81,
+  TASK_TYPE_STORAGE = 82,
 };
 } // namespace perfetto_pbzero_enum_RendererMainThreadTaskExecution
 using RendererMainThreadTaskExecution_TaskType = perfetto_pbzero_enum_RendererMainThreadTaskExecution::TaskType;
 
 
 constexpr RendererMainThreadTaskExecution_TaskType RendererMainThreadTaskExecution_TaskType_MIN = RendererMainThreadTaskExecution_TaskType::TASK_TYPE_UNKNOWN;
-constexpr RendererMainThreadTaskExecution_TaskType RendererMainThreadTaskExecution_TaskType_MAX = RendererMainThreadTaskExecution_TaskType::TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION;
+constexpr RendererMainThreadTaskExecution_TaskType RendererMainThreadTaskExecution_TaskType_MAX = RendererMainThreadTaskExecution_TaskType::TASK_TYPE_STORAGE;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -1430,6 +1431,9 @@ const char* RendererMainThreadTaskExecution_TaskType_Name(::perfetto::protos::pb
 
   case ::perfetto::protos::pbzero::RendererMainThreadTaskExecution_TaskType::TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION:
     return "TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION";
+
+  case ::perfetto::protos::pbzero::RendererMainThreadTaskExecution_TaskType::TASK_TYPE_STORAGE:
+    return "TASK_TYPE_STORAGE";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -3877,6 +3881,7 @@ class RendererMainThreadTaskExecution : public ::protozero::Message {
   static const TaskType TASK_TYPE_INTERNAL_POST_MESSAGE_FORWARDING = TaskType::TASK_TYPE_INTERNAL_POST_MESSAGE_FORWARDING;
   static const TaskType TASK_TYPE_INTERNAL_NAVIGATION_CANCELLATION = TaskType::TASK_TYPE_INTERNAL_NAVIGATION_CANCELLATION;
   static const TaskType TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION = TaskType::TASK_TYPE_LOW_PRIORITY_SCRIPT_EXECUTION;
+  static const TaskType TASK_TYPE_STORAGE = TaskType::TASK_TYPE_STORAGE;
   static const FrameType FRAME_TYPE_UNSPECIFIED = FrameType::FRAME_TYPE_UNSPECIFIED;
   static const FrameType FRAME_TYPE_MAIN_FRAME = FrameType::FRAME_TYPE_MAIN_FRAME;
   static const FrameType FRAME_TYPE_SAME_ORIGIN_SUBFRAME = FrameType::FRAME_TYPE_SAME_ORIGIN_SUBFRAME;
