@@ -192,8 +192,6 @@ class BASE_EXPORT GSL_OWNER Value {
     STRING,
     BINARY,
     DICT,
-    // TODO(b/267596976): Deprecated and will be removed.
-    DICTIONARY = DICT,
     LIST,
     // Note: Do not add more types. See the file-level comment above for why.
   };
@@ -665,10 +663,6 @@ class BASE_EXPORT GSL_OWNER Value {
     BASE_EXPORT friend bool operator<=(const List& lhs, const List& rhs);
     BASE_EXPORT friend bool operator>=(const List& lhs, const List& rhs);
 
-    // For legacy access to the internal storage type. DEPRECATED; remove when
-    // no longer used.
-    friend Value;
-
     explicit List(const std::vector<Value>& storage);
 
     std::vector<Value> storage_;
@@ -681,17 +675,7 @@ class BASE_EXPORT GSL_OWNER Value {
   // DEPRECATED: prefer `Value::List::Append()`.
   void Append(Value&& value);
   // DEPRECATED: prefer `Value::List::Append()`.
-  void Append(bool value);
-  template <typename T>
-  void Append(const T* ptr) = delete;
-  // DEPRECATED: prefer `Value::List::Append()`.
-  void Append(int value);
-  // DEPRECATED: prefer `Value::List::Append()`.
-  void Append(double value);
-  // DEPRECATED: prefer `Value::List::Append()`.
   void Append(StringPiece value);
-  // DEPRECATED: prefer `Value::List::Append()`.
-  void Append(StringPiece16 value);
   // DEPRECATED: prefer `Value::List::Append()`.
   void Append(const char* value);
   // DEPRECATED: prefer `Value::List::Append()`.
@@ -748,7 +732,7 @@ class BASE_EXPORT GSL_OWNER Value {
   // DEPRECATED: Prefer `Value::Dict::Set()`.
   Value* SetKey(StringPiece key, Value&& value);
 
-  // `Set`Type>Key` looks up `key` in the underlying dictionary and associates a
+  // `Set<Type>Key` looks up `key` in the underlying dictionary and associates a
   // corresponding Value() constructed from the second parameter. Compared to
   // `SetKey()`, this avoids un-necessary temporary `Value()` creation, as well
   // ambiguities in the value type.

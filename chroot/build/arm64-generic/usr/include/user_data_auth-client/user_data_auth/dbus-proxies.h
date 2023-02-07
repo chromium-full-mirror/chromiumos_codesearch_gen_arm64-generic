@@ -108,30 +108,6 @@ class UserDataAuthInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  virtual bool AddKey(
-      const user_data_auth::AddKeyRequest& in_request,
-      user_data_auth::AddKeyReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void AddKeyAsync(
-      const user_data_auth::AddKeyRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::AddKeyReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual bool RemoveKey(
-      const user_data_auth::RemoveKeyRequest& in_request,
-      user_data_auth::RemoveKeyReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void RemoveKeyAsync(
-      const user_data_auth::RemoveKeyRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::RemoveKeyReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   virtual bool StartFingerprintAuthSession(
       const user_data_auth::StartFingerprintAuthSessionRequest& in_request,
       user_data_auth::StartFingerprintAuthSessionReply* out_reply,
@@ -743,68 +719,6 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "CheckKey",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
-  bool AddKey(
-      const user_data_auth::AddKeyRequest& in_request,
-      user_data_auth::AddKeyReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "AddKey",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void AddKeyAsync(
-      const user_data_auth::AddKeyRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::AddKeyReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "AddKey",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
-  bool RemoveKey(
-      const user_data_auth::RemoveKeyRequest& in_request,
-      user_data_auth::RemoveKeyReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "RemoveKey",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void RemoveKeyAsync(
-      const user_data_auth::RemoveKeyRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::RemoveKeyReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "RemoveKey",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

@@ -195,14 +195,10 @@ constexpr struct {
                       {"binary-protobuf", OutputFormat::kBinaryProtobuf}};
 constexpr char kOutputFormatSwitch[] = "output-format";
 constexpr char kActionSwitch[] = "action";
-constexpr const char* kActions[] = {"mount_ex",
-                                    "mount_guest_ex",
-                                    "unmount",
+constexpr const char* kActions[] = {"unmount",
                                     "is_mounted",
                                     "check_key_ex",
-                                    "remove_key_ex",
                                     "list_keys_ex",
-                                    "add_key_ex",
                                     "update_key_ex",
                                     "remove",
                                     "obfuscate_user",
@@ -288,14 +284,10 @@ constexpr const char* kActions[] = {"mount_ex",
                                     "reset_application_container",
                                     nullptr};
 enum ActionEnum {
-  ACTION_MOUNT_EX,
-  ACTION_MOUNT_GUEST_EX,
   ACTION_UNMOUNT,
   ACTION_MOUNTED,
   ACTION_CHECK_KEY_EX,
-  ACTION_REMOVE_KEY_EX,
   ACTION_LIST_KEYS_EX,
-  ACTION_ADD_KEY_EX,
   ACTION_UPDATE_KEY_EX,
   ACTION_REMOVE,
   ACTION_OBFUSCATE_USER,
@@ -385,11 +377,7 @@ constexpr char kPasswordSwitch[] = "password";
 constexpr char kFingerprintSwitch[] = "fingerprint";
 constexpr char kKeyLabelSwitch[] = "key_label";
 constexpr char kNewKeyLabelSwitch[] = "new_key_label";
-constexpr char kRemoveKeyLabelSwitch[] = "remove_key_label";
-constexpr char kNewPasswordSwitch[] = "new_password";
 constexpr char kForceSwitch[] = "force";
-constexpr char kCreateSwitch[] = "create";
-constexpr char kCreateEmptyLabelSwitch[] = "create_empty_label";
 constexpr char kAttrNameSwitch[] = "name";
 constexpr char kAttrPrefixSwitch[] = "prefix";
 constexpr char kAttrValueSwitch[] = "value";
@@ -401,11 +389,8 @@ constexpr char kCrosCoreSwitch[] = "cros_core";
 constexpr char kFlagsSwitch[] = "flags";
 constexpr char kDevKeyHashSwitch[] = "developer_key_hash";
 constexpr char kEcryptfsSwitch[] = "ecryptfs";
-constexpr char kToMigrateFromEcryptfsSwitch[] = "to_migrate_from_ecryptfs";
 constexpr char kMinimalMigration[] = "minimal_migration";
 constexpr char kPublicMount[] = "public_mount";
-constexpr char kKeyPolicySwitch[] = "key_policy";
-constexpr char kKeyPolicyLECredential[] = "le";
 constexpr char kProfileSwitch[] = "profile";
 constexpr char kIgnoreCache[] = "ignore_cache";
 constexpr char kRestoreKeyInHexSwitch[] = "restore_key_in_hex";
@@ -656,24 +641,6 @@ bool BuildStartAuthSessionRequest(
     }
     req.set_intent(intent);
   }
-  return true;
-}
-
-bool SetLeCredentialPolicyIfNeeded(Printer& printer,
-                                   const base::CommandLine& cl,
-                                   cryptohome::Key* key) {
-  if (!cl.HasSwitch(switches::kKeyPolicySwitch)) {
-    return true;
-  }
-
-  if (cl.GetSwitchValueASCII(switches::kKeyPolicySwitch) !=
-      switches::kKeyPolicyLECredential) {
-    printer.PrintHumanOutput("Unknown key policy.\n");
-    return false;
-  }
-
-  cryptohome::KeyData* data = key->mutable_data();
-  data->mutable_policy()->set_low_entropy_credential(true);
   return true;
 }
 
@@ -1056,92 +1023,9 @@ int main(int argc, char** argv) {
 
   cryptohome::Platform platform;
 
-  if (!strcmp(switches::kActions[switches::ACTION_MOUNT_EX], action.c_str())) {
-    bool is_public_mount = cl->HasSwitch(switches::kPublicMount);
-    user_data_auth::MountRequest req;
-
-    if (cl->HasSwitch(switches::kAuthSessionId)) {
-      std::string auth_session_id_hex, auth_session_id;
-      if (GetAuthSessionId(printer, cl, &auth_session_id_hex)) {
-        base::HexStringToString(auth_session_id_hex.c_str(), &auth_session_id);
-        req.set_auth_session_id(auth_session_id);
-      }
-    } else {
-      if (!BuildAccountId(printer, cl, req.mutable_account()))
-        return 1;
-      if (!BuildAuthorization(printer, cl, &misc_proxy, !is_public_mount,
-                              req.mutable_authorization()))
-        return 1;
-    }
-
-    req.set_require_ephemeral(cl->HasSwitch(switches::kEnsureEphemeralSwitch));
-    req.set_to_migrate_from_ecryptfs(
-        cl->HasSwitch(switches::kToMigrateFromEcryptfsSwitch));
-    req.set_public_mount(is_public_mount);
-    if (cl->HasSwitch(switches::kCreateSwitch)) {
-      user_data_auth::CreateRequest* create = req.mutable_create();
-      if (cl->HasSwitch(switches::kPublicMount)) {
-        cryptohome::Key* key = create->add_keys();
-        key->mutable_data()->set_label(
-            req.authorization().key().data().label());
-      } else if (cl->HasSwitch(switches::kCreateEmptyLabelSwitch)) {
-        // Cryptohome will create a VK with an empty label if it's not set in
-        // `authorization`. Pass the label in `create`, as Cryptohome would
-        // refuse the call otherwise.
-        *create->add_keys() = req.authorization().key();
-        req.mutable_authorization()->mutable_key()->mutable_data()->set_label(
-            "");
-      } else {
-        create->set_copy_authorization_key(true);
-      }
-      if (cl->HasSwitch(switches::kEcryptfsSwitch)) {
-        create->set_force_ecryptfs(true);
-      }
-    }
-
-    user_data_auth::MountReply reply;
-    brillo::ErrorPtr error;
-    if (!userdataauth_proxy.Mount(req, &reply, &error, timeout_ms) || error) {
-      printer.PrintFormattedHumanOutput(
-          "MountEx call failed: %s", BrilloErrorToString(error.get()).c_str());
-      return 1;
-    }
-    printer.PrintReplyProtobuf(reply);
-    if (reply.error() !=
-        user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_SET) {
-      printer.PrintHumanOutput("Mount failed.\n");
-      return reply.error();
-    }
-    printer.PrintHumanOutput("Mount succeeded.\n");
-  } else if (!strcmp(switches::kActions[switches::ACTION_MOUNT_GUEST_EX],
-                     action.c_str())) {
-    user_data_auth::MountReply reply;
-    user_data_auth::MountRequest req;
-    brillo::ErrorPtr error;
-
-    // This is for information. Do not fail if mount namespace is not ready.
-    if (!cryptohome::UserSessionMountNamespaceExists()) {
-      printer.PrintFormattedHumanOutput(
-          "User session mount namespace at %s has not been created yet.\n",
-          cryptohome::kUserSessionMountNamespacePath);
-    }
-
-    req.set_guest_mount(true);
-    if (!userdataauth_proxy.Mount(req, &reply, &error, timeout_ms) || error) {
-      printer.PrintFormattedHumanOutput(
-          "Mount call failed: %s", BrilloErrorToString(error.get()).c_str());
-      return 1;
-    }
-    printer.PrintReplyProtobuf(reply);
-    if (reply.error() !=
-        user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_SET) {
-      printer.PrintHumanOutput("Mount failed.\n");
-      return reply.error();
-    }
-    printer.PrintHumanOutput("Mount succeeded.\n");
-  } else if (!strcmp(switches::kActions
-                         [switches::ACTION_START_FINGERPRINT_AUTH_SESSION],
-                     action.c_str())) {
+  if (!strcmp(
+          switches::kActions[switches::ACTION_START_FINGERPRINT_AUTH_SESSION],
+          action.c_str())) {
     user_data_auth::StartFingerprintAuthSessionRequest req;
     if (!BuildAccountId(printer, cl, req.mutable_account_id()))
       return 1;
@@ -1177,35 +1061,6 @@ int main(int argc, char** argv) {
       return 1;
     }
     // EndFingerprintAuthSession always succeeds.
-  } else if (!strcmp(switches::kActions[switches::ACTION_REMOVE_KEY_EX],
-                     action.c_str())) {
-    user_data_auth::RemoveKeyRequest req;
-    if (!BuildAccountId(printer, cl, req.mutable_account_id()))
-      return 1;
-    if (!BuildAuthorization(printer, cl, &misc_proxy,
-                            true /* need_credential */,
-                            req.mutable_authorization_request()))
-      return 1;
-
-    cryptohome::KeyData* data = req.mutable_key()->mutable_data();
-    data->set_label(cl->GetSwitchValueASCII(switches::kRemoveKeyLabelSwitch));
-
-    user_data_auth::RemoveKeyReply reply;
-    brillo::ErrorPtr error;
-    if (!userdataauth_proxy.RemoveKey(req, &reply, &error, timeout_ms) ||
-        error) {
-      printer.PrintFormattedHumanOutput(
-          "RemoveKeyEx call failed: %s",
-          BrilloErrorToString(error.get()).c_str());
-      return 1;
-    }
-    printer.PrintReplyProtobuf(reply);
-    if (reply.error() !=
-        user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_SET) {
-      printer.PrintHumanOutput("Key removal failed.\n");
-      return reply.error();
-    }
-    printer.PrintHumanOutput("Key removed.\n");
   } else if (!strcmp(switches::kActions[switches::ACTION_LIST_KEYS_EX],
                      action.c_str())) {
     user_data_auth::ListKeysRequest req;
@@ -1267,45 +1122,6 @@ int main(int argc, char** argv) {
       return reply.error();
     }
     printer.PrintHumanOutput("Key authenticated.\n");
-  } else if (!strcmp(switches::kActions[switches::ACTION_ADD_KEY_EX],
-                     action.c_str())) {
-    std::string new_password;
-    GetSecret(printer, &misc_proxy, cl, switches::kNewPasswordSwitch,
-              "Enter the new password", &new_password);
-
-    user_data_auth::AddKeyRequest req;
-    if (!BuildAccountId(printer, cl, req.mutable_account_id()))
-      return 1;
-    if (!BuildAuthorization(printer, cl, &misc_proxy,
-                            true /* need_credential */,
-                            req.mutable_authorization_request()))
-      return 1;
-
-    req.set_clobber_if_exists(cl->HasSwitch(switches::kForceSwitch));
-
-    cryptohome::Key* key = req.mutable_key();
-    key->set_secret(new_password);
-    cryptohome::KeyData* data = key->mutable_data();
-    data->set_label(cl->GetSwitchValueASCII(switches::kNewKeyLabelSwitch));
-    if (!SetLeCredentialPolicyIfNeeded(printer, *cl, key)) {
-      printer.PrintHumanOutput("Setting LECredential Policy failed.");
-      return 1;
-    }
-
-    user_data_auth::AddKeyReply reply;
-    brillo::ErrorPtr error;
-    if (!userdataauth_proxy.AddKey(req, &reply, &error, timeout_ms) || error) {
-      printer.PrintFormattedHumanOutput(
-          "AddKeyEx call failed: %s", BrilloErrorToString(error.get()).c_str());
-      return 1;
-    }
-    printer.PrintReplyProtobuf(reply);
-    if (reply.error() !=
-        user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_SET) {
-      printer.PrintHumanOutput("Key addition failed.\n");
-      return reply.error();
-    }
-    printer.PrintHumanOutput("Key added.\n");
   } else if (!strcmp(switches::kActions[switches::ACTION_REMOVE],
                      action.c_str())) {
     user_data_auth::RemoveRequest req;

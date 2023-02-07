@@ -45,12 +45,6 @@ class UserDataAuthInterfaceInterface {
   virtual void CheckKey(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::CheckKeyReply>> response,
       const user_data_auth::CheckKeyRequest& in_request) = 0;
-  virtual void AddKey(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::AddKeyReply>> response,
-      const user_data_auth::AddKeyRequest& in_request) = 0;
-  virtual void RemoveKey(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::RemoveKeyReply>> response,
-      const user_data_auth::RemoveKeyRequest& in_request) = 0;
   virtual void StartFingerprintAuthSession(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::StartFingerprintAuthSessionReply>> response,
       const user_data_auth::StartFingerprintAuthSessionRequest& in_request) = 0;
@@ -175,14 +169,6 @@ class UserDataAuthInterfaceAdaptor {
         "CheckKey",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::CheckKey);
-    itf->AddMethodHandler(
-        "AddKey",
-        base::Unretained(interface_),
-        &UserDataAuthInterfaceInterface::AddKey);
-    itf->AddMethodHandler(
-        "RemoveKey",
-        base::Unretained(interface_),
-        &UserDataAuthInterfaceInterface::RemoveKey);
     itf->AddMethodHandler(
         "StartFingerprintAuthSession",
         base::Unretained(interface_),
@@ -352,14 +338,6 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"CheckKey\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"AddKey\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"RemoveKey\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

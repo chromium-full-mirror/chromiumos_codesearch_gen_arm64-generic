@@ -285,7 +285,7 @@ size_t SysInfo::VMAllocationGranularity() {
   return checked_cast<size_t>(getpagesize());
 }
 
-#if !BUILDFLAG(IS_MAC)
+#if !BUILDFLAG(IS_APPLE)
 // static
 int SysInfo::NumberOfEfficientProcessorsImpl() {
 #if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_ANDROID)
@@ -322,6 +322,6 @@ int SysInfo::NumberOfEfficientProcessorsImpl() {
   return 0;
 #endif
 }
-#endif  // !BUILDFLAG(IS_MAC)
+#endif  // !BUILDFLAG(IS_APPLE)
 
 }  // namespace base

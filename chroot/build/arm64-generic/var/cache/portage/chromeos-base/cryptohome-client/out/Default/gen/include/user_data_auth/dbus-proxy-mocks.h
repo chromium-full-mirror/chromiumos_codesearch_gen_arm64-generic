@@ -88,26 +88,6 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
                     base::OnceCallback<void(const user_data_auth::CheckKeyReply& /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
-  MOCK_METHOD4(AddKey,
-               bool(const user_data_auth::AddKeyRequest& /*in_request*/,
-                    user_data_auth::AddKeyReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(AddKeyAsync,
-               void(const user_data_auth::AddKeyRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::AddKeyReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(RemoveKey,
-               bool(const user_data_auth::RemoveKeyRequest& /*in_request*/,
-                    user_data_auth::RemoveKeyReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(RemoveKeyAsync,
-               void(const user_data_auth::RemoveKeyRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::RemoveKeyReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
   MOCK_METHOD4(StartFingerprintAuthSession,
                bool(const user_data_auth::StartFingerprintAuthSessionRequest& /*in_request*/,
                     user_data_auth::StartFingerprintAuthSessionReply* /*out_reply*/,
