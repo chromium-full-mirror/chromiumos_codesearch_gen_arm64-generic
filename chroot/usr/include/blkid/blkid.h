@@ -30,8 +30,8 @@
 extern "C" {
 #endif
 
-#define BLKID_VERSION   "2.36.2"
-#define BLKID_DATE      "12-Feb-2020"
+#define BLKID_VERSION   "2.38.1"
+#define BLKID_DATE      "04-Aug-2022"
 
 /**
  * blkid_dev:
@@ -253,6 +253,11 @@ extern blkid_loff_t blkid_probe_get_sectors(blkid_probe pr)
 			__ul_attribute__((nonnull));
 
 extern int blkid_probe_get_fd(blkid_probe pr)
+			__ul_attribute__((nonnull));
+
+extern int blkid_probe_set_hint(blkid_probe pr, const char *name, uint64_t value)
+			__ul_attribute__((nonnull));
+extern void blkid_probe_reset_hints(blkid_probe pr)
 			__ul_attribute__((nonnull));
 
 /*

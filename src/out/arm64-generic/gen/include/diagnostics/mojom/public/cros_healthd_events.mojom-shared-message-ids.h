@@ -35,6 +35,8 @@ constexpr uint32_t kCrosHealthdThunderboltObserver_OnAuthorized_Name = 2;
 constexpr uint32_t kCrosHealthdThunderboltObserver_OnUnAuthorized_Name = 3;
 constexpr uint32_t kCrosHealthdUsbObserver_OnAdd_Name = 0;
 constexpr uint32_t kCrosHealthdUsbObserver_OnRemove_Name = 1;
+constexpr uint32_t kCrosHealthdSdCardObserver_OnAdd_Name = 0;
+constexpr uint32_t kCrosHealthdSdCardObserver_OnRemove_Name = 1;
 constexpr uint32_t kEventObserver_OnEvent_Name = 0;
 
 }  // namespace internal

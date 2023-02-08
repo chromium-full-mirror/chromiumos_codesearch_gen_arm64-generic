@@ -44,6 +44,11 @@ std::string GetProtoDebugStringWithIndent(const PinAuthInput& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const PinAuthInput& value);
 std::string GetProtoDebugStringWithIndent(
+    const CryptohomeRecoveryAuthInput::LedgerInfo& value,
+    int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const CryptohomeRecoveryAuthInput::LedgerInfo& value);
+std::string GetProtoDebugStringWithIndent(
     const CryptohomeRecoveryAuthInput& value,
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(

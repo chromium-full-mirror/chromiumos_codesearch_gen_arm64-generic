@@ -9,8 +9,9 @@
 #include <string>
 
 #include <base/logging.h>
-#include <metrics/metrics_library.h>
 #include <mojo/public/cpp/bindings/struct_ptr.h>
+
+#include "diagnostics/cros_healthd/utils/metrics_utils_constants.h"
 
 namespace diagnostics {
 
@@ -24,52 +25,52 @@ std::optional<std::string> GetMetricName(mojom::ProbeCategoryEnum category) {
       // No metric name for the unknown category.
       return std::nullopt;
     case mojom::ProbeCategoryEnum::kBattery:
-      return "ChromeOS.Healthd.TelemetryResult.Battery";
+      return metrics_name::kTelemetryResultBattery;
     case mojom::ProbeCategoryEnum::kCpu:
-      return "ChromeOS.Healthd.TelemetryResult.Cpu";
+      return metrics_name::kTelemetryResultCpu;
     case mojom::ProbeCategoryEnum::kNonRemovableBlockDevices:
-      return "ChromeOS.Healthd.TelemetryResult.BlockDevice";
+      return metrics_name::kTelemetryResultBlockDevice;
     case mojom::ProbeCategoryEnum::kTimezone:
-      return "ChromeOS.Healthd.TelemetryResult.Timezone";
+      return metrics_name::kTelemetryResultTimezone;
     case mojom::ProbeCategoryEnum::kMemory:
-      return "ChromeOS.Healthd.TelemetryResult.Memory";
+      return metrics_name::kTelemetryResultMemory;
     case mojom::ProbeCategoryEnum::kBacklight:
-      return "ChromeOS.Healthd.TelemetryResult.Backlight";
+      return metrics_name::kTelemetryResultBacklight;
     case mojom::ProbeCategoryEnum::kFan:
-      return "ChromeOS.Healthd.TelemetryResult.Fan";
+      return metrics_name::kTelemetryResultFan;
     case mojom::ProbeCategoryEnum::kStatefulPartition:
-      return "ChromeOS.Healthd.TelemetryResult.StatefulPartition";
+      return metrics_name::kTelemetryResultStatefulPartition;
     case mojom::ProbeCategoryEnum::kBluetooth:
-      return "ChromeOS.Healthd.TelemetryResult.Bluetooth";
+      return metrics_name::kTelemetryResultBluetooth;
     case mojom::ProbeCategoryEnum::kSystem:
-      return "ChromeOS.Healthd.TelemetryResult.System";
+      return metrics_name::kTelemetryResultSystem;
     case mojom::ProbeCategoryEnum::kNetwork:
-      return "ChromeOS.Healthd.TelemetryResult.Network";
+      return metrics_name::kTelemetryResultNetwork;
     case mojom::ProbeCategoryEnum::kAudio:
-      return "ChromeOS.Healthd.TelemetryResult.Audio";
+      return metrics_name::kTelemetryResultAudio;
     case mojom::ProbeCategoryEnum::kBootPerformance:
-      return "ChromeOS.Healthd.TelemetryResult.BootPerformance";
+      return metrics_name::kTelemetryResultBootPerformance;
     case mojom::ProbeCategoryEnum::kBus:
-      return "ChromeOS.Healthd.TelemetryResult.Bus";
+      return metrics_name::kTelemetryResultBus;
     case mojom::ProbeCategoryEnum::kTpm:
-      return "ChromeOS.Healthd.TelemetryResult.Tpm";
+      return metrics_name::kTelemetryResultTpm;
     case mojom::ProbeCategoryEnum::kNetworkInterface:
-      return "ChromeOS.Healthd.TelemetryResult.NetworkInterface";
+      return metrics_name::kTelemetryResultNetworkInterface;
     case mojom::ProbeCategoryEnum::kGraphics:
-      return "ChromeOS.Healthd.TelemetryResult.Graphics";
+      return metrics_name::kTelemetryResultGraphics;
     case mojom::ProbeCategoryEnum::kDisplay:
-      return "ChromeOS.Healthd.TelemetryResult.Display";
+      return metrics_name::kTelemetryResultDisplay;
     case mojom::ProbeCategoryEnum::kInput:
-      return "ChromeOS.Healthd.TelemetryResult.Input";
+      return metrics_name::kTelemetryResultInput;
     case mojom::ProbeCategoryEnum::kAudioHardware:
-      return "ChromeOS.Healthd.TelemetryResult.AudioHardware";
+      return metrics_name::kTelemetryResultAudioHardware;
     case mojom::ProbeCategoryEnum::kSensor:
-      return "ChromeOS.Healthd.TelemetryResult.Sensor";
+      return metrics_name::kTelemetryResultSensor;
   }
 }
 
 template <typename S>
-void SendOneTelemetryResultToUMA(MetricsLibrary* metrics,
+void SendOneTelemetryResultToUMA(MetricsLibraryInterface* metrics,
                                  mojom::ProbeCategoryEnum category,
                                  const mojo::StructPtr<S>& struct_ptr) {
   std::optional<std::string> metrics_name = GetMetricName(category);
@@ -94,14 +95,13 @@ void SendOneTelemetryResultToUMA(MetricsLibrary* metrics,
 }  // namespace
 
 void SendTelemetryResultToUMA(
+    MetricsLibraryInterface* metrics,
     const std::set<mojom::ProbeCategoryEnum>& requested_categories,
     const mojom::TelemetryInfoPtr& info) {
   if (info.is_null()) {
     LOG(WARNING) << "Cannot send a null telemetry result to UMA.";
     return;
   }
-
-  MetricsLibrary metrics;
 
   for (const auto category : requested_categories) {
     switch (category) {
@@ -110,92 +110,92 @@ void SendTelemetryResultToUMA(
         break;
       }
       case mojom::ProbeCategoryEnum::kBattery: {
-        SendOneTelemetryResultToUMA(&metrics, category, info->battery_result);
+        SendOneTelemetryResultToUMA(metrics, category, info->battery_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kCpu: {
-        SendOneTelemetryResultToUMA(&metrics, category, info->cpu_result);
+        SendOneTelemetryResultToUMA(metrics, category, info->cpu_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kNonRemovableBlockDevices: {
-        SendOneTelemetryResultToUMA(&metrics, category,
+        SendOneTelemetryResultToUMA(metrics, category,
                                     info->block_device_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kTimezone: {
-        SendOneTelemetryResultToUMA(&metrics, category, info->timezone_result);
+        SendOneTelemetryResultToUMA(metrics, category, info->timezone_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kMemory: {
-        SendOneTelemetryResultToUMA(&metrics, category, info->memory_result);
+        SendOneTelemetryResultToUMA(metrics, category, info->memory_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kBacklight: {
-        SendOneTelemetryResultToUMA(&metrics, category, info->backlight_result);
+        SendOneTelemetryResultToUMA(metrics, category, info->backlight_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kFan: {
-        SendOneTelemetryResultToUMA(&metrics, category, info->fan_result);
+        SendOneTelemetryResultToUMA(metrics, category, info->fan_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kStatefulPartition: {
-        SendOneTelemetryResultToUMA(&metrics, category,
+        SendOneTelemetryResultToUMA(metrics, category,
                                     info->stateful_partition_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kBluetooth: {
-        SendOneTelemetryResultToUMA(&metrics, category, info->bluetooth_result);
+        SendOneTelemetryResultToUMA(metrics, category, info->bluetooth_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kSystem: {
-        SendOneTelemetryResultToUMA(&metrics, category, info->system_result);
+        SendOneTelemetryResultToUMA(metrics, category, info->system_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kNetwork: {
-        SendOneTelemetryResultToUMA(&metrics, category, info->network_result);
+        SendOneTelemetryResultToUMA(metrics, category, info->network_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kAudio: {
-        SendOneTelemetryResultToUMA(&metrics, category, info->audio_result);
+        SendOneTelemetryResultToUMA(metrics, category, info->audio_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kBootPerformance: {
-        SendOneTelemetryResultToUMA(&metrics, category,
+        SendOneTelemetryResultToUMA(metrics, category,
                                     info->boot_performance_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kBus: {
-        SendOneTelemetryResultToUMA(&metrics, category, info->bus_result);
+        SendOneTelemetryResultToUMA(metrics, category, info->bus_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kTpm: {
-        SendOneTelemetryResultToUMA(&metrics, category, info->tpm_result);
+        SendOneTelemetryResultToUMA(metrics, category, info->tpm_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kNetworkInterface: {
-        SendOneTelemetryResultToUMA(&metrics, category,
+        SendOneTelemetryResultToUMA(metrics, category,
                                     info->network_interface_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kGraphics: {
-        SendOneTelemetryResultToUMA(&metrics, category, info->graphics_result);
+        SendOneTelemetryResultToUMA(metrics, category, info->graphics_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kDisplay: {
-        SendOneTelemetryResultToUMA(&metrics, category, info->display_result);
+        SendOneTelemetryResultToUMA(metrics, category, info->display_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kInput: {
-        SendOneTelemetryResultToUMA(&metrics, category, info->input_result);
+        SendOneTelemetryResultToUMA(metrics, category, info->input_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kAudioHardware: {
-        SendOneTelemetryResultToUMA(&metrics, category,
+        SendOneTelemetryResultToUMA(metrics, category,
                                     info->audio_hardware_result);
         break;
       }
       case mojom::ProbeCategoryEnum::kSensor: {
-        SendOneTelemetryResultToUMA(&metrics, category, info->sensor_result);
+        SendOneTelemetryResultToUMA(metrics, category, info->sensor_result);
         break;
       }
     }

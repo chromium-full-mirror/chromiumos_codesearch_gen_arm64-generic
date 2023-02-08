@@ -160,6 +160,38 @@ std::string GetProtoDebugStringWithIndent(const PinAuthInput& value,
   return output;
 }
 
+std::string GetProtoDebugString(
+    const CryptohomeRecoveryAuthInput::LedgerInfo& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const CryptohomeRecoveryAuthInput::LedgerInfo& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  name: ";
+  base::StringAppendF(&output, "%s", value.name().c_str());
+  output += "\n";
+
+  output += indent + "  key_hash: ";
+  base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
+                      value.key_hash(), value.key_hash());
+  output += "\n";
+
+  output += indent + "  public_key: ";
+  base::StringAppendF(
+      &output, "%s",
+      base::HexEncode(value.public_key().data(), value.public_key().size())
+          .c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
 std::string GetProtoDebugString(const CryptohomeRecoveryAuthInput& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }
@@ -198,6 +230,13 @@ std::string GetProtoDebugStringWithIndent(
                       base::HexEncode(value.recovery_response().data(),
                                       value.recovery_response().size())
                           .c_str());
+  output += "\n";
+
+  output += indent + "  ledger_info: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.ledger_info(), indent_size + 2)
+          .c_str());
   output += "\n";
 
   output += indent + "}\n";

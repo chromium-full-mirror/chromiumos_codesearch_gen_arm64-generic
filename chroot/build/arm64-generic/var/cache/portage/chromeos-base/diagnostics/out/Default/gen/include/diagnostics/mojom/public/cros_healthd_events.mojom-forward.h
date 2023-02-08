@@ -38,6 +38,8 @@ class AudioEventInfoDataView;
 
 class AudioJackEventInfoDataView;
 
+class SdCardEventInfoDataView;
+
 class EventInfoDataView;
 
 enum class EventCategoryEnum : int32_t;
@@ -55,6 +57,8 @@ enum class PowerEventInfo_State : int32_t;
 enum class AudioEventInfo_State : int32_t;
 
 enum class AudioJackEventInfo_State : int32_t;
+
+enum class SdCardEventInfo_State : int32_t;
 class UsbEventInfo;
 using UsbEventInfoPtr = mojo::StructPtr<UsbEventInfo>;
 
@@ -76,6 +80,9 @@ using AudioEventInfoPtr = mojo::InlinedStructPtr<AudioEventInfo>;
 class AudioJackEventInfo;
 using AudioJackEventInfoPtr = mojo::InlinedStructPtr<AudioJackEventInfo>;
 
+class SdCardEventInfo;
+using SdCardEventInfoPtr = mojo::InlinedStructPtr<SdCardEventInfo>;
+
 class EventInfo;
 
 using EventInfoPtr = mojo::StructPtr<EventInfo>;
@@ -91,6 +98,8 @@ class CrosHealthdAudioObserver;
 class CrosHealthdThunderboltObserver;
 
 class CrosHealthdUsbObserver;
+
+class CrosHealthdSdCardObserver;
 
 class EventObserver;
 

@@ -408,6 +408,58 @@ class CrosHealthdUsbObserver
   virtual void OnRemove(UsbEventInfoPtr info) = 0;
 };
 
+class CrosHealthdSdCardObserverProxy;
+
+template <typename ImplRefTraits>
+class CrosHealthdSdCardObserverStub;
+
+class CrosHealthdSdCardObserverRequestValidator;
+
+
+class CrosHealthdSdCardObserver
+    : public CrosHealthdSdCardObserverInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = CrosHealthdSdCardObserverInterfaceBase;
+  using Proxy_ = CrosHealthdSdCardObserverProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = CrosHealthdSdCardObserverStub<ImplRefTraits>;
+
+  using RequestValidator_ = CrosHealthdSdCardObserverRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kOnAddMinVersion = 0,
+    kOnRemoveMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnAdd_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnRemove_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~CrosHealthdSdCardObserver() = default;
+
+  
+  virtual void OnAdd() = 0;
+
+  
+  virtual void OnRemove() = 0;
+};
+
 class EventObserverProxy;
 
 template <typename ImplRefTraits>
@@ -566,6 +618,23 @@ class  CrosHealthdUsbObserverProxy
   void OnAdd(UsbEventInfoPtr info) final;
   
   void OnRemove(UsbEventInfoPtr info) final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
+class  CrosHealthdSdCardObserverProxy
+    : public CrosHealthdSdCardObserver {
+ public:
+  using InterfaceType = CrosHealthdSdCardObserver;
+
+  explicit CrosHealthdSdCardObserverProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void OnAdd() final;
+  
+  void OnRemove() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -831,6 +900,47 @@ class CrosHealthdUsbObserverStub
  private:
   ImplPointerType sink_;
 };
+class  CrosHealthdSdCardObserverStubDispatch {
+ public:
+  static bool Accept(CrosHealthdSdCardObserver* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      CrosHealthdSdCardObserver* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<CrosHealthdSdCardObserver>>
+class CrosHealthdSdCardObserverStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  CrosHealthdSdCardObserverStub() = default;
+  ~CrosHealthdSdCardObserverStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return CrosHealthdSdCardObserverStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return CrosHealthdSdCardObserverStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
 class  EventObserverStubDispatch {
  public:
   static bool Accept(EventObserver* impl, mojo::Message* message);
@@ -893,6 +1003,10 @@ class  CrosHealthdThunderboltObserverRequestValidator : public mojo::MessageRece
   bool Accept(mojo::Message* message) override;
 };
 class  CrosHealthdUsbObserverRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  CrosHealthdSdCardObserverRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
@@ -1740,6 +1854,145 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  SdCardEventInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<SdCardEventInfo, T>::value>;
+  using DataView = SdCardEventInfoDataView;
+  using Data_ = internal::SdCardEventInfo_Data;
+  using State = SdCardEventInfo_State;
+
+  template <typename... Args>
+  static SdCardEventInfoPtr New(Args&&... args) {
+    return SdCardEventInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static SdCardEventInfoPtr From(const U& u) {
+    return mojo::TypeConverter<SdCardEventInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, SdCardEventInfo>::Convert(*this);
+  }
+
+
+  SdCardEventInfo();
+
+  explicit SdCardEventInfo(
+      SdCardEventInfo::State state);
+
+
+  ~SdCardEventInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = SdCardEventInfoPtr>
+  SdCardEventInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, SdCardEventInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, SdCardEventInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        SdCardEventInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        SdCardEventInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::SdCardEventInfo_UnserializedMessageContext<
+            UserType, SdCardEventInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<SdCardEventInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return SdCardEventInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::SdCardEventInfo_UnserializedMessageContext<
+            UserType, SdCardEventInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<SdCardEventInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  SdCardEventInfo::State state;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, SdCardEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, SdCardEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, SdCardEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, SdCardEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  EventInfo {
  public:
   using DataView = EventInfoDataView;
@@ -1818,6 +2071,14 @@ class  EventInfo {
       AudioJackEventInfoPtr audio_jack_event_info) {
     auto result = EventInfoPtr(absl::in_place);
     result->set_audio_jack_event_info(std::move(audio_jack_event_info));
+    return result;
+  }
+  // Construct an instance holding |sd_card_event_info|.
+  static EventInfoPtr
+  NewSdCardEventInfo(
+      SdCardEventInfoPtr sd_card_event_info) {
+    auto result = EventInfoPtr(absl::in_place);
+    result->set_sd_card_event_info(std::move(sd_card_event_info));
     return result;
   }
 
@@ -1958,6 +2219,18 @@ class  EventInfo {
   
   void set_audio_jack_event_info(
       AudioJackEventInfoPtr audio_jack_event_info);
+  
+  bool is_sd_card_event_info() const { return tag_ == Tag::kSdCardEventInfo; }
+
+  
+  SdCardEventInfoPtr& get_sd_card_event_info() const {
+    CHECK(tag_ == Tag::kSdCardEventInfo);
+    return *(data_.sd_card_event_info);
+  }
+
+  
+  void set_sd_card_event_info(
+      SdCardEventInfoPtr sd_card_event_info);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -1984,6 +2257,7 @@ class  EventInfo {
     PowerEventInfoPtr* power_event_info;
     AudioEventInfoPtr* audio_event_info;
     AudioJackEventInfoPtr* audio_jack_event_info;
+    SdCardEventInfoPtr* sd_card_event_info;
   };
 
   static bool Validate(const void* data,
@@ -2160,6 +2434,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 template <typename UnionPtrType>
 EventInfoPtr EventInfo::Clone() const {
   switch (tag_) {
@@ -2187,6 +2462,9 @@ EventInfoPtr EventInfo::Clone() const {
     case Tag::kAudioJackEventInfo:
       return NewAudioJackEventInfo(
           mojo::Clone(*data_.audio_jack_event_info));
+    case Tag::kSdCardEventInfo:
+      return NewSdCardEventInfo(
+          mojo::Clone(*data_.sd_card_event_info));
   }
   return nullptr;
 }
@@ -2215,6 +2493,8 @@ bool EventInfo::Equals(const T& other) const {
       return mojo::Equals(*(data_.audio_event_info), *(other.data_.audio_event_info));
     case Tag::kAudioJackEventInfo:
       return mojo::Equals(*(data_.audio_jack_event_info), *(other.data_.audio_jack_event_info));
+    case Tag::kSdCardEventInfo:
+      return mojo::Equals(*(data_.sd_card_event_info), *(other.data_.sd_card_event_info));
   }
 
   return false;
@@ -2408,6 +2688,28 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+SdCardEventInfoPtr SdCardEventInfo::Clone() const {
+  return New(
+      mojo::Clone(state)
+  );
+}
+
+template <typename T, SdCardEventInfo::EnableIfSame<T>*>
+bool SdCardEventInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->state, other_struct.state))
+    return false;
+  return true;
+}
+
+template <typename T, SdCardEventInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.state < rhs.state)
+    return true;
+  if (rhs.state < lhs.state)
+    return false;
+  return false;
+}
 
 
 }  // namespace mojom
@@ -2548,6 +2850,21 @@ struct  StructTraits<::ash::cros_healthd::mojom::AudioJackEventInfo::DataView,
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::SdCardEventInfo::DataView,
+                                         ::ash::cros_healthd::mojom::SdCardEventInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::SdCardEventInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::SdCardEventInfoPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::SdCardEventInfo::state) state(
+      const ::ash::cros_healthd::mojom::SdCardEventInfoPtr& input) {
+    return input->state;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::SdCardEventInfo::DataView input, ::ash::cros_healthd::mojom::SdCardEventInfoPtr* output);
+};
+
+
+template <>
 struct  UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView,
                                         ::ash::cros_healthd::mojom::EventInfoPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::EventInfoPtr& input) { return !input; }
@@ -2587,6 +2904,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView,
 
   static const ::ash::cros_healthd::mojom::AudioJackEventInfoPtr& audio_jack_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
     return input->get_audio_jack_event_info();
+  }
+
+  static const ::ash::cros_healthd::mojom::SdCardEventInfoPtr& sd_card_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
+    return input->get_sd_card_event_info();
   }
 
   static bool Read(::ash::cros_healthd::mojom::EventInfo::DataView input, ::ash::cros_healthd::mojom::EventInfoPtr* output);

@@ -41,6 +41,8 @@ static NOINLINE const char* EventCategoryEnumToStringHelper(EventCategoryEnum va
       return "kAudio";
     case EventCategoryEnum::kAudioJack:
       return "kAudioJack";
+    case EventCategoryEnum::kSdCard:
+      return "kSdCard";
     default:
       return nullptr;
   }
@@ -256,6 +258,32 @@ std::ostream& operator<<(std::ostream& os, AudioJackEventInfo_State value) {
   return os << AudioJackEventInfo_StateToString(value);
 }
 
+static NOINLINE const char* SdCardEventInfo_StateToStringHelper(SdCardEventInfo_State value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case SdCardEventInfo_State::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case SdCardEventInfo_State::kAdd:
+      return "kAdd";
+    case SdCardEventInfo_State::kRemove:
+      return "kRemove";
+    default:
+      return nullptr;
+  }
+}
+
+std::string SdCardEventInfo_StateToString(SdCardEventInfo_State value) {
+  const char *str = SdCardEventInfo_StateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown SdCardEventInfo_State value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, SdCardEventInfo_State value) {
+  return os << SdCardEventInfo_StateToString(value);
+}
+
 namespace internal {
 // static
 bool EventInfo_Data::Validate(
@@ -355,6 +383,16 @@ bool EventInfo_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_audio_jack_event_info, validation_context))
+        return false;
+      return true;
+    }
+    case EventInfo_Tag::kSdCardEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_sd_card_event_info, 9, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_sd_card_event_info, validation_context))
         return false;
       return true;
     }
@@ -598,6 +636,34 @@ bool AudioJackEventInfo_Data::Validate(
 }
 
 AudioJackEventInfo_Data::AudioJackEventInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool SdCardEventInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SdCardEventInfo_Data* object =
+      static_cast<const SdCardEventInfo_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::SdCardEventInfo_State_Data
+        ::Validate(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+SdCardEventInfo_Data::SdCardEventInfo_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1076,6 +1142,52 @@ CrosHealthdUsbObserver_OnRemove_Params_Data::CrosHealthdUsbObserver_OnRemove_Par
 
 
 // static
+bool CrosHealthdSdCardObserver_OnAdd_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdSdCardObserver_OnAdd_Params_Data* object =
+      static_cast<const CrosHealthdSdCardObserver_OnAdd_Params_Data*>(data);
+
+  return true;
+}
+
+CrosHealthdSdCardObserver_OnAdd_Params_Data::CrosHealthdSdCardObserver_OnAdd_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdSdCardObserver_OnRemove_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdSdCardObserver_OnRemove_Params_Data* object =
+      static_cast<const CrosHealthdSdCardObserver_OnRemove_Params_Data*>(data);
+
+  return true;
+}
+
+CrosHealthdSdCardObserver_OnRemove_Params_Data::CrosHealthdSdCardObserver_OnRemove_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool EventObserver_OnEvent_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1185,6 +1297,16 @@ namespace perfetto_libchrome {
 void TraceFormatTraits<::ash::cros_healthd::mojom::AudioJackEventInfo_State>::WriteIntoTrace(
    perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::AudioJackEventInfo_State value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::AudioJackEventInfo_StateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::SdCardEventInfo_State>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::SdCardEventInfo_State value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::SdCardEventInfo_StateToString(value));
 }
 
 } // namespace perfetto
