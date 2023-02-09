@@ -576,6 +576,35 @@ class PowerManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Get the current state of Battery Saver Mode. The |serialized_proto| arg
+  // is a serialized |power_manager::BatterySaverModeState| protobuf.
+  virtual bool GetBatterySaverModeState(
+      std::vector<uint8_t>* out_serialized_proto,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Get the current state of Battery Saver Mode. The |serialized_proto| arg
+  // is a serialized |power_manager::BatterySaverModeState| protobuf.
+  virtual void GetBatterySaverModeStateAsync(
+      base::OnceCallback<void(const std::vector<uint8_t>& /*serialized_proto*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Update the state of Battery Saver Mode. The |serialized_proto| is a
+  // serialized |power_manager::SetBatterySaverModeStateRequest| protobuf.
+  virtual bool SetBatterySaverModeState(
+      const std::vector<uint8_t>& in_serialized_proto,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Update the state of Battery Saver Mode. The |serialized_proto| is a
+  // serialized |power_manager::SetBatterySaverModeStateRequest| protobuf.
+  virtual void SetBatterySaverModeStateAsync(
+      const std::vector<uint8_t>& in_serialized_proto,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // The |external_power_type| arg is a native enum:
   // power_manager::system::ExternalPowerType.
   // The |battery_state| arg is an enum created to be compatible
@@ -597,6 +626,10 @@ class PowerManagerProxyInterface {
       base::OnceCallback<void(uint32_t /*external_power_type*/, uint32_t /*battery_state*/, double /*display_battery_percentage*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void RegisterBatterySaverModeStateChangedSignalHandler(
+      const base::RepeatingCallback<void(const std::vector<uint8_t>&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
 
   virtual void RegisterScreenBrightnessChangedSignalHandler(
       const base::RepeatingCallback<void(const std::vector<uint8_t>&)>& signal_callback,
@@ -689,6 +722,17 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
   PowerManagerProxy& operator=(const PowerManagerProxy&) = delete;
 
   ~PowerManagerProxy() override {
+  }
+
+  void RegisterBatterySaverModeStateChangedSignalHandler(
+      const base::RepeatingCallback<void(const std::vector<uint8_t>&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "BatterySaverModeStateChanged",
+        signal_callback,
+        std::move(on_connected_callback));
   }
 
   void RegisterScreenBrightnessChangedSignalHandler(
@@ -2096,6 +2140,71 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
         "GetChargeHistory",
         std::move(success_callback),
         std::move(error_callback));
+  }
+
+  // Get the current state of Battery Saver Mode. The |serialized_proto| arg
+  // is a serialized |power_manager::BatterySaverModeState| protobuf.
+  bool GetBatterySaverModeState(
+      std::vector<uint8_t>* out_serialized_proto,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "GetBatterySaverModeState",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_serialized_proto);
+  }
+
+  // Get the current state of Battery Saver Mode. The |serialized_proto| arg
+  // is a serialized |power_manager::BatterySaverModeState| protobuf.
+  void GetBatterySaverModeStateAsync(
+      base::OnceCallback<void(const std::vector<uint8_t>& /*serialized_proto*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "GetBatterySaverModeState",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  // Update the state of Battery Saver Mode. The |serialized_proto| is a
+  // serialized |power_manager::SetBatterySaverModeStateRequest| protobuf.
+  bool SetBatterySaverModeState(
+      const std::vector<uint8_t>& in_serialized_proto,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "SetBatterySaverModeState",
+        error,
+        in_serialized_proto);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // Update the state of Battery Saver Mode. The |serialized_proto| is a
+  // serialized |power_manager::SetBatterySaverModeStateRequest| protobuf.
+  void SetBatterySaverModeStateAsync(
+      const std::vector<uint8_t>& in_serialized_proto,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "SetBatterySaverModeState",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_serialized_proto);
   }
 
   // The |external_power_type| arg is a native enum:

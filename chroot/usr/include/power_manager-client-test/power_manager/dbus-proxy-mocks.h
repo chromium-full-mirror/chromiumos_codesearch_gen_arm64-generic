@@ -342,6 +342,23 @@ class PowerManagerProxyMock : public PowerManagerProxyInterface {
                void(base::OnceCallback<void(const std::vector<uint8_t>& /*serialized_proto*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD3(GetBatterySaverModeState,
+               bool(std::vector<uint8_t>* /*out_serialized_proto*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(GetBatterySaverModeStateAsync,
+               void(base::OnceCallback<void(const std::vector<uint8_t>& /*serialized_proto*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(SetBatterySaverModeState,
+               bool(const std::vector<uint8_t>& /*in_serialized_proto*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(SetBatterySaverModeStateAsync,
+               void(const std::vector<uint8_t>& /*in_serialized_proto*/,
+                    base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD5(BatteryStatePoll,
                bool(uint32_t* /*out_external_power_type*/,
                     uint32_t* /*out_battery_state*/,
@@ -352,6 +369,14 @@ class PowerManagerProxyMock : public PowerManagerProxyInterface {
                void(base::OnceCallback<void(uint32_t /*external_power_type*/, uint32_t /*battery_state*/, double /*display_battery_percentage*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  void RegisterBatterySaverModeStateChangedSignalHandler(
+    const base::RepeatingCallback<void(const std::vector<uint8_t>&)>& signal_callback,
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
+    DoRegisterBatterySaverModeStateChangedSignalHandler(signal_callback, &on_connected_callback);
+  }
+  MOCK_METHOD2(DoRegisterBatterySaverModeStateChangedSignalHandler,
+               void(const base::RepeatingCallback<void(const std::vector<uint8_t>&)>& /*signal_callback*/,
+                    dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
   void RegisterScreenBrightnessChangedSignalHandler(
     const base::RepeatingCallback<void(const std::vector<uint8_t>&)>& signal_callback,
     dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {

@@ -323,6 +323,7 @@ class StartArcMiniInstanceRequest final :
     kEnableTtsCachingFieldNumber = 14,
     kEnableConsumerAutoUpdateToggleFieldNumber = 15,
     kHostUreadaheadGenerationFieldNumber = 16,
+    kEnablePrivacyHubForChromeFieldNumber = 17,
     kLcdDensityFieldNumber = 2,
   };
   // optional bool native_bridge_experiment = 1 [default = false];
@@ -520,6 +521,19 @@ class StartArcMiniInstanceRequest final :
   void _internal_set_host_ureadahead_generation(bool value);
   public:
 
+  // optional bool enable_privacy_hub_for_chrome = 17 [default = false];
+  bool has_enable_privacy_hub_for_chrome() const;
+  private:
+  bool _internal_has_enable_privacy_hub_for_chrome() const;
+  public:
+  void clear_enable_privacy_hub_for_chrome();
+  bool enable_privacy_hub_for_chrome() const;
+  void set_enable_privacy_hub_for_chrome(bool value);
+  private:
+  bool _internal_enable_privacy_hub_for_chrome() const;
+  void _internal_set_enable_privacy_hub_for_chrome(bool value);
+  public:
+
   // optional int32 lcd_density = 2 [default = -1];
   bool has_lcd_density() const;
   private:
@@ -557,6 +571,7 @@ class StartArcMiniInstanceRequest final :
   bool enable_tts_caching_;
   bool enable_consumer_auto_update_toggle_;
   bool host_ureadahead_generation_;
+  bool enable_privacy_hub_for_chrome_;
   int32_t lcd_density_;
   friend struct ::TableStruct_arc_2eproto;
 };
@@ -1034,7 +1049,7 @@ inline void StartArcMiniInstanceRequest::set_native_bridge_experiment(bool value
 
 // optional int32 lcd_density = 2 [default = -1];
 inline bool StartArcMiniInstanceRequest::_internal_has_lcd_density() const {
-  bool value = (_has_bits_[0] & 0x00008000u) != 0;
+  bool value = (_has_bits_[0] & 0x00010000u) != 0;
   return value;
 }
 inline bool StartArcMiniInstanceRequest::has_lcd_density() const {
@@ -1042,7 +1057,7 @@ inline bool StartArcMiniInstanceRequest::has_lcd_density() const {
 }
 inline void StartArcMiniInstanceRequest::clear_lcd_density() {
   lcd_density_ = -1;
-  _has_bits_[0] &= ~0x00008000u;
+  _has_bits_[0] &= ~0x00010000u;
 }
 inline int32_t StartArcMiniInstanceRequest::_internal_lcd_density() const {
   return lcd_density_;
@@ -1052,7 +1067,7 @@ inline int32_t StartArcMiniInstanceRequest::lcd_density() const {
   return _internal_lcd_density();
 }
 inline void StartArcMiniInstanceRequest::_internal_set_lcd_density(int32_t value) {
-  _has_bits_[0] |= 0x00008000u;
+  _has_bits_[0] |= 0x00010000u;
   lcd_density_ = value;
 }
 inline void StartArcMiniInstanceRequest::set_lcd_density(int32_t value) {
@@ -1452,6 +1467,34 @@ inline void StartArcMiniInstanceRequest::_internal_set_host_ureadahead_generatio
 inline void StartArcMiniInstanceRequest::set_host_ureadahead_generation(bool value) {
   _internal_set_host_ureadahead_generation(value);
   // @@protoc_insertion_point(field_set:arc.StartArcMiniInstanceRequest.host_ureadahead_generation)
+}
+
+// optional bool enable_privacy_hub_for_chrome = 17 [default = false];
+inline bool StartArcMiniInstanceRequest::_internal_has_enable_privacy_hub_for_chrome() const {
+  bool value = (_has_bits_[0] & 0x00008000u) != 0;
+  return value;
+}
+inline bool StartArcMiniInstanceRequest::has_enable_privacy_hub_for_chrome() const {
+  return _internal_has_enable_privacy_hub_for_chrome();
+}
+inline void StartArcMiniInstanceRequest::clear_enable_privacy_hub_for_chrome() {
+  enable_privacy_hub_for_chrome_ = false;
+  _has_bits_[0] &= ~0x00008000u;
+}
+inline bool StartArcMiniInstanceRequest::_internal_enable_privacy_hub_for_chrome() const {
+  return enable_privacy_hub_for_chrome_;
+}
+inline bool StartArcMiniInstanceRequest::enable_privacy_hub_for_chrome() const {
+  // @@protoc_insertion_point(field_get:arc.StartArcMiniInstanceRequest.enable_privacy_hub_for_chrome)
+  return _internal_enable_privacy_hub_for_chrome();
+}
+inline void StartArcMiniInstanceRequest::_internal_set_enable_privacy_hub_for_chrome(bool value) {
+  _has_bits_[0] |= 0x00008000u;
+  enable_privacy_hub_for_chrome_ = value;
+}
+inline void StartArcMiniInstanceRequest::set_enable_privacy_hub_for_chrome(bool value) {
+  _internal_set_enable_privacy_hub_for_chrome(value);
+  // @@protoc_insertion_point(field_set:arc.StartArcMiniInstanceRequest.enable_privacy_hub_for_chrome)
 }
 
 // -------------------------------------------------------------------
