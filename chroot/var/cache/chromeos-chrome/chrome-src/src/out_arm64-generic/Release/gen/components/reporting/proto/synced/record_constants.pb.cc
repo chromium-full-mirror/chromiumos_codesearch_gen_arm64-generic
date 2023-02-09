@@ -47,13 +47,14 @@ bool Destination_IsValid(int value) {
     case 24:
     case 25:
     case 26:
+    case 27:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Destination_strings[26] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Destination_strings[27] = {};
 
 static const char Destination_names[] =
   "ADDED_REMOVED_EVENTS"
@@ -71,6 +72,7 @@ static const char Destination_names[] =
   "LEGACY_TECH"
   "LOCK_UNLOCK_EVENTS"
   "LOGIN_LOGOUT_EVENTS"
+  "LOG_UPLOAD"
   "MEET_DEVICE_TELEMETRY"
   "OS_EVENTS"
   "PERIPHERAL_EVENTS"
@@ -99,46 +101,48 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Destination_entries[] 
   { {Destination_names + 187, 11}, 25 },
   { {Destination_names + 198, 18}, 21 },
   { {Destination_names + 216, 19}, 12 },
-  { {Destination_names + 235, 21}, 2 },
-  { {Destination_names + 256, 9}, 24 },
-  { {Destination_names + 265, 17}, 19 },
-  { {Destination_names + 282, 17}, 5 },
-  { {Destination_names + 299, 10}, 9 },
-  { {Destination_names + 309, 16}, 7 },
-  { {Destination_names + 325, 17}, 20 },
-  { {Destination_names + 342, 16}, 15 },
-  { {Destination_names + 358, 21}, 0 },
-  { {Destination_names + 379, 13}, 1 },
-  { {Destination_names + 392, 11}, 3 },
+  { {Destination_names + 235, 10}, 27 },
+  { {Destination_names + 245, 21}, 2 },
+  { {Destination_names + 266, 9}, 24 },
+  { {Destination_names + 275, 17}, 19 },
+  { {Destination_names + 292, 17}, 5 },
+  { {Destination_names + 309, 10}, 9 },
+  { {Destination_names + 319, 16}, 7 },
+  { {Destination_names + 335, 17}, 20 },
+  { {Destination_names + 352, 16}, 15 },
+  { {Destination_names + 368, 21}, 0 },
+  { {Destination_names + 389, 13}, 1 },
+  { {Destination_names + 402, 11}, 3 },
 };
 
 static const int Destination_entries_by_number[] = {
-  23, // 0 -> UNDEFINED_DESTINATION
-  24, // 1 -> UPLOAD_EVENTS
-  15, // 2 -> MEET_DEVICE_TELEMETRY
-  25, // 3 -> WEB_PROTECT
+  24, // 0 -> UNDEFINED_DESTINATION
+  25, // 1 -> UPLOAD_EVENTS
+  16, // 2 -> MEET_DEVICE_TELEMETRY
+  26, // 3 -> WEB_PROTECT
   1, // 4 -> ARC_INSTALL
-  18, // 5 -> POLICY_VALIDATION
+  19, // 5 -> POLICY_VALIDATION
   9, // 6 -> EXTENSION_INSTALL
-  20, // 7 -> REPORTING_RECORD
-  19, // 9 -> PRINT_JOBS
+  21, // 7 -> REPORTING_RECORD
+  20, // 9 -> PRINT_JOBS
   8, // 10 -> EXTENSIONS_WORKFLOW
   6, // 11 -> DLP_EVENTS
   14, // 12 -> LOGIN_LOGOUT_EVENTS
   10, // 13 -> HEARTBEAT_EVENTS
   11, // 14 -> INFO_METRIC
-  22, // 15 -> TELEMETRY_METRIC
+  23, // 15 -> TELEMETRY_METRIC
   7, // 16 -> EVENT_METRIC
   0, // 17 -> ADDED_REMOVED_EVENTS
   2, // 18 -> CRD_EVENTS
-  17, // 19 -> PERIPHERAL_EVENTS
-  21, // 20 -> SUSPICIOUS_EVENTS
+  18, // 19 -> PERIPHERAL_EVENTS
+  22, // 20 -> SUSPICIOUS_EVENTS
   13, // 21 -> LOCK_UNLOCK_EVENTS
   3, // 22 -> CROS_SECURITY_AGENT
   5, // 23 -> CROS_SECURITY_PROCESS
-  16, // 24 -> OS_EVENTS
+  17, // 24 -> OS_EVENTS
   12, // 25 -> LEGACY_TECH
   4, // 26 -> CROS_SECURITY_NETWORK
+  15, // 27 -> LOG_UPLOAD
 };
 
 const std::string& Destination_Name(
@@ -147,12 +151,12 @@ const std::string& Destination_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Destination_entries,
           Destination_entries_by_number,
-          26, Destination_strings);
+          27, Destination_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Destination_entries,
       Destination_entries_by_number,
-      26, value);
+      27, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Destination_strings[idx].get();
 }
@@ -160,7 +164,7 @@ bool Destination_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Destination* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Destination_entries, 26, name, &int_value);
+      Destination_entries, 27, name, &int_value);
   if (success) {
     *value = static_cast<Destination>(int_value);
   }

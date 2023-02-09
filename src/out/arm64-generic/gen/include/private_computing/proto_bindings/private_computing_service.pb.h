@@ -429,6 +429,7 @@ class ActiveStatus final :
   enum : int {
     kLastPingUtcDateFieldNumber = 2,
     kUseCaseFieldNumber = 1,
+    kChurnActiveStatusFieldNumber = 5,
     kLastPingDateFieldNumber = 3,
     kPeriodStatusFieldNumber = 4,
   };
@@ -461,6 +462,19 @@ class ActiveStatus final :
   private:
   ::private_computing::PrivateComputingUseCase _internal_use_case() const;
   void _internal_set_use_case(::private_computing::PrivateComputingUseCase value);
+  public:
+
+  // optional int32 churn_active_status = 5;
+  bool has_churn_active_status() const;
+  private:
+  bool _internal_has_churn_active_status() const;
+  public:
+  void clear_churn_active_status();
+  int32_t churn_active_status() const;
+  void set_churn_active_status(int32_t value);
+  private:
+  int32_t _internal_churn_active_status() const;
+  void _internal_set_churn_active_status(int32_t value);
   public:
 
   // string last_ping_date = 3;
@@ -517,6 +531,7 @@ class ActiveStatus final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr last_ping_utc_date_;
   int use_case_;
+  int32_t churn_active_status_;
   union PingDateOrStatusUnion {
     constexpr PingDateOrStatusUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -1708,6 +1723,34 @@ inline ::private_computing::ChurnObservationStatus* ActiveStatus::mutable_period
   ::private_computing::ChurnObservationStatus* _msg = _internal_mutable_period_status();
   // @@protoc_insertion_point(field_mutable:private_computing.ActiveStatus.period_status)
   return _msg;
+}
+
+// optional int32 churn_active_status = 5;
+inline bool ActiveStatus::_internal_has_churn_active_status() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool ActiveStatus::has_churn_active_status() const {
+  return _internal_has_churn_active_status();
+}
+inline void ActiveStatus::clear_churn_active_status() {
+  churn_active_status_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline int32_t ActiveStatus::_internal_churn_active_status() const {
+  return churn_active_status_;
+}
+inline int32_t ActiveStatus::churn_active_status() const {
+  // @@protoc_insertion_point(field_get:private_computing.ActiveStatus.churn_active_status)
+  return _internal_churn_active_status();
+}
+inline void ActiveStatus::_internal_set_churn_active_status(int32_t value) {
+  _has_bits_[0] |= 0x00000004u;
+  churn_active_status_ = value;
+}
+inline void ActiveStatus::set_churn_active_status(int32_t value) {
+  _internal_set_churn_active_status(value);
+  // @@protoc_insertion_point(field_set:private_computing.ActiveStatus.churn_active_status)
 }
 
 inline bool ActiveStatus::has_ping_date_or_status() const {

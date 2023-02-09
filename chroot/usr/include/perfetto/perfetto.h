@@ -279,6 +279,10 @@
 
 #if __cplusplus >= 201703
 #define PERFETTO_IS_AT_LEAST_CPP17() 1
+#elif defined(_MSVC_LANG) && _MSVC_LANG >= 201703L
+// Without additional flags, MSVC is not standard compliant and keeps
+// __cplusplus stuck at an old value, even with C++17
+#define PERFETTO_IS_AT_LEAST_CPP17() 1
 #else
 #define PERFETTO_IS_AT_LEAST_CPP17() 0
 #endif
@@ -1266,7 +1270,9 @@ inline typename std::make_signed<T>::type ZigZagDecode(T value) {
 }
 
 template <typename T>
-inline uint8_t* WriteVarInt(T value, uint8_t* target) {
+auto ExtendValueForVarIntSerialization(T value) -> typename std::make_unsigned<
+    typename std::conditional<std::is_unsigned<T>::value, T, int64_t>::type>::
+    type {
   // If value is <= 0 we must first sign extend to int64_t (see [1]).
   // Finally we always cast to an unsigned value to to avoid arithmetic
   // (sign expanding) shifts in the while loop.
@@ -1285,6 +1291,13 @@ inline uint8_t* WriteVarInt(T value, uint8_t* target) {
 
   MaybeExtendedType extended_value = static_cast<MaybeExtendedType>(value);
   UnsignedType unsigned_value = static_cast<UnsignedType>(extended_value);
+
+  return unsigned_value;
+}
+
+template <typename T>
+inline uint8_t* WriteVarInt(T value, uint8_t* target) {
+  auto unsigned_value = ExtendValueForVarIntSerialization(value);
 
   while (unsigned_value >= 0x80) {
     *target++ = static_cast<uint8_t>(unsigned_value) | 0x80;
@@ -2423,7 +2436,7 @@ struct DataSourceState {
   // Keep this flag as the first field. This allows the compiler to directly
   // dereference the DataSourceState* pointer in the trace fast-path without
   // doing extra pointr arithmetic.
-  bool trace_lambda_enabled = false;
+  std::atomic<bool> trace_lambda_enabled = false;
 
   // The overall TracingMuxerImpl instance id, which gets incremented by
   // ResetForTesting.
@@ -10820,7 +10833,13 @@ class TracePacket : public ::protozero::Message {
 // should be made visible outside the current module. (e.g., in Chrome's
 // component build).
 #if !defined(PERFETTO_COMPONENT_EXPORT)
+#if PERFETTO_BUILDFLAG(PERFETTO_COMPILER_MSVC)
+// Workaround for C4003: not enough arguments for function-like macro invocation
+// 'PERFETTO_INTERNAL_DECLARE_TRACK_EVENT_DATA_SOURCE'
+#define PERFETTO_COMPONENT_EXPORT __declspec()
+#else
 #define PERFETTO_COMPONENT_EXPORT
+#endif
 #endif
 
 namespace perfetto {
@@ -11217,7 +11236,8 @@ class DataSource : public DataSourceBase {
         instances &= Traits::GetActiveInstances(trace_point_data)
                          ->load(std::memory_order_acquire);
         instance_state = static_state_.TryGetCached(instances, i);
-        if (!instance_state || !instance_state->trace_lambda_enabled)
+        if (!instance_state || !instance_state->trace_lambda_enabled.load(
+                                   std::memory_order_relaxed))
           continue;
         tls_inst.muxer_id_for_testing = instance_state->muxer_id_for_testing;
         tls_inst.backend_id = instance_state->backend_id;
@@ -173991,6 +174011,159 @@ struct FieldWriter<proto_utils::ProtoSchemaType::kBytes> {
 }  // namespace protozero
 
 #endif  // INCLUDE_PERFETTO_PROTOZERO_FIELD_WRITER_H_
+// gen_amalgamated begin header: include/perfetto/protozero/gen_field_helpers.h
+/*
+ * Copyright (C) 2023 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+#ifndef INCLUDE_PERFETTO_PROTOZERO_GEN_FIELD_HELPERS_H_
+#define INCLUDE_PERFETTO_PROTOZERO_GEN_FIELD_HELPERS_H_
+
+// gen_amalgamated expanded: #include "perfetto/protozero/message.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/proto_decoder.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/proto_utils.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/scattered_heap_buffer.h"
+
+namespace protozero {
+namespace internal {
+namespace gen_helpers {
+
+// This file implements some helpers used by the protobuf generated code in the
+// .gen.cc files.
+//
+// The .gen.cc generated protobuf implementation (as opposed to the .pbzero.h
+// implementation) is not zero-copy and is not supposed to be used in fast
+// paths, so most of these helpers are designed to reduce binary size.
+
+void DeserializeString(const protozero::Field& field, std::string* dst);
+
+// Read packed repeated elements (serialized as `wire_type`) from `field` into
+// the `*dst` vector. Returns false if some bytes of `field` could not be
+// interpreted correctly as `wire_type`.
+template <proto_utils::ProtoWireType wire_type, typename CppType>
+bool DeserializePackedRepeated(const protozero::Field& field,
+                               std::vector<CppType>* dst) {
+  bool parse_error = false;
+  for (::protozero::PackedRepeatedFieldIterator<wire_type, CppType> rep(
+           field.data(), field.size(), &parse_error);
+       rep; ++rep) {
+    dst->emplace_back(*rep);
+  }
+  return !parse_error;
+}
+
+extern template bool
+DeserializePackedRepeated<proto_utils::ProtoWireType::kVarInt, uint64_t>(
+    const protozero::Field& field,
+    std::vector<uint64_t>* dst);
+
+extern template bool
+DeserializePackedRepeated<proto_utils::ProtoWireType::kVarInt, int64_t>(
+    const protozero::Field& field,
+    std::vector<int64_t>* dst);
+
+extern template bool
+DeserializePackedRepeated<proto_utils::ProtoWireType::kVarInt, uint32_t>(
+    const protozero::Field& field,
+    std::vector<uint32_t>* dst);
+
+extern template bool
+DeserializePackedRepeated<proto_utils::ProtoWireType::kVarInt, int32_t>(
+    const protozero::Field& field,
+    std::vector<int32_t>* dst);
+
+// Serializers for different type of fields
+
+void SerializeTinyVarInt(uint32_t field_id, bool value, Message* msg);
+
+template <typename T>
+void SerializeExtendedVarInt(uint32_t field_id, T value, Message* msg) {
+  msg->AppendVarInt(field_id, value);
+}
+
+extern template void SerializeExtendedVarInt<uint64_t>(uint32_t field_id,
+                                                       uint64_t value,
+                                                       Message* msg);
+
+extern template void SerializeExtendedVarInt<uint32_t>(uint32_t field_id,
+                                                       uint32_t value,
+                                                       Message* msg);
+
+template <typename T>
+void SerializeVarInt(uint32_t field_id, T value, Message* msg) {
+  SerializeExtendedVarInt(
+      field_id, proto_utils::ExtendValueForVarIntSerialization(value), msg);
+}
+
+template <typename T>
+void SerializeSignedVarInt(uint32_t field_id, T value, Message* msg) {
+  SerializeVarInt(field_id, proto_utils::ZigZagEncode(value), msg);
+}
+
+template <typename T>
+void SerializeFixed(uint32_t field_id, T value, Message* msg) {
+  msg->AppendFixed(field_id, value);
+}
+
+extern template void SerializeFixed<double>(uint32_t field_id,
+                                            double value,
+                                            Message* msg);
+
+extern template void SerializeFixed<float>(uint32_t field_id,
+                                           float value,
+                                           Message* msg);
+
+extern template void SerializeFixed<uint64_t>(uint32_t field_id,
+                                              uint64_t value,
+                                              Message* msg);
+
+extern template void SerializeFixed<int64_t>(uint32_t field_id,
+                                             int64_t value,
+                                             Message* msg);
+
+extern template void SerializeFixed<uint32_t>(uint32_t field_id,
+                                              uint32_t value,
+                                              Message* msg);
+
+extern template void SerializeFixed<int32_t>(uint32_t field_id,
+                                             int32_t value,
+                                             Message* msg);
+
+void SerializeString(uint32_t field_id, const std::string& value, Message* msg);
+
+void SerializeUnknownFields(const std::string& unknown_fields, Message* msg);
+
+// Wrapper around HeapBuffered that avoids inlining.
+class MessageSerializer {
+ public:
+  MessageSerializer();
+  ~MessageSerializer();
+
+  Message* get() { return msg_.get(); }
+  std::vector<uint8_t> SerializeAsArray();
+  std::string SerializeAsString();
+
+ private:
+  HeapBuffered<Message> msg_;
+};
+
+}  // namespace gen_helpers
+}  // namespace internal
+}  // namespace protozero
+
+#endif  // INCLUDE_PERFETTO_PROTOZERO_GEN_FIELD_HELPERS_H_
 // gen_amalgamated begin header: include/perfetto/protozero/message.h
 /*
  * Copyright (C) 2017 The Android Open Source Project
@@ -175227,7 +175400,9 @@ inline typename std::make_signed<T>::type ZigZagDecode(T value) {
 }
 
 template <typename T>
-inline uint8_t* WriteVarInt(T value, uint8_t* target) {
+auto ExtendValueForVarIntSerialization(T value) -> typename std::make_unsigned<
+    typename std::conditional<std::is_unsigned<T>::value, T, int64_t>::type>::
+    type {
   // If value is <= 0 we must first sign extend to int64_t (see [1]).
   // Finally we always cast to an unsigned value to to avoid arithmetic
   // (sign expanding) shifts in the while loop.
@@ -175246,6 +175421,13 @@ inline uint8_t* WriteVarInt(T value, uint8_t* target) {
 
   MaybeExtendedType extended_value = static_cast<MaybeExtendedType>(value);
   UnsignedType unsigned_value = static_cast<UnsignedType>(extended_value);
+
+  return unsigned_value;
+}
+
+template <typename T>
+inline uint8_t* WriteVarInt(T value, uint8_t* target) {
+  auto unsigned_value = ExtendValueForVarIntSerialization(value);
 
   while (unsigned_value >= 0x80) {
     *target++ = static_cast<uint8_t>(unsigned_value) | 0x80;

@@ -33,6 +33,7 @@ constexpr ActiveStatus::ActiveStatus(
   : last_ping_utc_date_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , use_case_(0)
 
+  , churn_active_status_(0)
   , _oneof_case_{}{}
 struct ActiveStatusDefaultTypeInternal {
   constexpr ActiveStatusDefaultTypeInternal()
@@ -539,6 +540,9 @@ class ActiveStatus::_Internal {
     (*has_bits)[0] |= 1u;
   }
   static const ::private_computing::ChurnObservationStatus& period_status(const ActiveStatus* msg);
+  static void set_has_churn_active_status(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
 };
 
 const ::private_computing::ChurnObservationStatus&
@@ -581,7 +585,9 @@ ActiveStatus::ActiveStatus(const ActiveStatus& from)
     last_ping_utc_date_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_last_ping_utc_date(), 
       GetArenaForAllocation());
   }
-  use_case_ = from.use_case_;
+  ::memcpy(&use_case_, &from.use_case_,
+    static_cast<size_t>(reinterpret_cast<char*>(&churn_active_status_) -
+    reinterpret_cast<char*>(&use_case_)) + sizeof(churn_active_status_));
   clear_has_ping_date_or_status();
   switch (from.ping_date_or_status_case()) {
     case kLastPingDate: {
@@ -604,7 +610,10 @@ last_ping_utc_date_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmpt
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   last_ping_utc_date_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-use_case_ = 0;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&use_case_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&churn_active_status_) -
+    reinterpret_cast<char*>(&use_case_)) + sizeof(churn_active_status_));
 clear_has_ping_date_or_status();
 }
 
@@ -664,7 +673,11 @@ void ActiveStatus::Clear() {
   if (cached_has_bits & 0x00000001u) {
     last_ping_utc_date_.ClearNonDefaultToEmpty();
   }
-  use_case_ = 0;
+  if (cached_has_bits & 0x00000006u) {
+    ::memset(&use_case_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&churn_active_status_) -
+        reinterpret_cast<char*>(&use_case_)) + sizeof(churn_active_status_));
+  }
   clear_ping_date_or_status();
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -712,6 +725,15 @@ const char* ActiveStatus::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_period_status(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional int32 churn_active_status = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _Internal::set_has_churn_active_status(&has_bits);
+          churn_active_status_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -775,6 +797,12 @@ uint8_t* ActiveStatus::_InternalSerialize(
     }
     default: ;
   }
+  // optional int32 churn_active_status = 5;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(5, this->_internal_churn_active_status(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -792,7 +820,7 @@ size_t ActiveStatus::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     // optional string last_ping_utc_date = 2 [deprecated = true];
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -804,6 +832,11 @@ size_t ActiveStatus::ByteSizeLong() const {
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_use_case());
+    }
+
+    // optional int32 churn_active_status = 5;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_churn_active_status());
     }
 
   }
@@ -847,12 +880,15 @@ void ActiveStatus::MergeFrom(const ActiveStatus& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_last_ping_utc_date(from._internal_last_ping_utc_date());
     }
     if (cached_has_bits & 0x00000002u) {
       use_case_ = from.use_case_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      churn_active_status_ = from.churn_active_status_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -894,7 +930,12 @@ void ActiveStatus::InternalSwap(ActiveStatus* other) {
       &last_ping_utc_date_, lhs_arena,
       &other->last_ping_utc_date_, rhs_arena
   );
-  swap(use_case_, other->use_case_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ActiveStatus, churn_active_status_)
+      + sizeof(ActiveStatus::churn_active_status_)
+      - PROTOBUF_FIELD_OFFSET(ActiveStatus, use_case_)>(
+          reinterpret_cast<char*>(&use_case_),
+          reinterpret_cast<char*>(&other->use_case_));
   swap(ping_date_or_status_, other->ping_date_or_status_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
 }

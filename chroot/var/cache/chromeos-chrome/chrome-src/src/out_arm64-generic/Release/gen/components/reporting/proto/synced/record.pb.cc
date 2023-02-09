@@ -23,9 +23,10 @@ PROTOBUF_CONSTEXPR Record::Record(
   : data_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , dm_token_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , timestamp_us_(int64_t{0})
-  , reserved_space_(int64_t{0})
   , destination_(0)
-{}
+
+  , needs_local_unencrypted_copy_(false)
+  , reserved_space_(int64_t{0}){}
 struct RecordDefaultTypeInternal {
   PROTOBUF_CONSTEXPR RecordDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -85,7 +86,8 @@ PROTOBUF_CONSTEXPR EncryptedRecord::EncryptedRecord(
   , sequence_information_(nullptr)
   , compression_information_(nullptr)
   , sequencing_information_(nullptr)
-  , erp_health_data_(nullptr){}
+  , erp_health_data_(nullptr)
+  , record_copy_(nullptr){}
 struct EncryptedRecordDefaultTypeInternal {
   PROTOBUF_CONSTEXPR EncryptedRecordDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -192,7 +194,7 @@ class Record::_Internal {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_destination(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
+    (*has_bits)[0] |= 8u;
   }
   static void set_has_dm_token(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
@@ -201,7 +203,10 @@ class Record::_Internal {
     (*has_bits)[0] |= 4u;
   }
   static void set_has_reserved_space(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
+    (*has_bits)[0] |= 32u;
+  }
+  static void set_has_needs_local_unencrypted_copy(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
   }
 };
 
@@ -232,8 +237,8 @@ Record::Record(const Record& from)
       GetArenaForAllocation());
   }
   ::memcpy(&timestamp_us_, &from.timestamp_us_,
-    static_cast<size_t>(reinterpret_cast<char*>(&destination_) -
-    reinterpret_cast<char*>(&timestamp_us_)) + sizeof(destination_));
+    static_cast<size_t>(reinterpret_cast<char*>(&reserved_space_) -
+    reinterpret_cast<char*>(&timestamp_us_)) + sizeof(reserved_space_));
   // @@protoc_insertion_point(copy_constructor:reporting.Record)
 }
 
@@ -248,8 +253,8 @@ dm_token_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&timestamp_us_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&destination_) -
-    reinterpret_cast<char*>(&timestamp_us_)) + sizeof(destination_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&reserved_space_) -
+    reinterpret_cast<char*>(&timestamp_us_)) + sizeof(reserved_space_));
 }
 
 Record::~Record() {
@@ -286,10 +291,10 @@ void Record::Clear() {
       dm_token_.ClearNonDefaultToEmpty();
     }
   }
-  if (cached_has_bits & 0x0000001cu) {
+  if (cached_has_bits & 0x0000003cu) {
     ::memset(&timestamp_us_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&destination_) -
-        reinterpret_cast<char*>(&timestamp_us_)) + sizeof(destination_));
+        reinterpret_cast<char*>(&reserved_space_) -
+        reinterpret_cast<char*>(&timestamp_us_)) + sizeof(reserved_space_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -351,6 +356,15 @@ const char* Record::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
         } else
           goto handle_unusual;
         continue;
+      // optional bool needs_local_unencrypted_copy = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          _Internal::set_has_needs_local_unencrypted_copy(&has_bits);
+          needs_local_unencrypted_copy_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -389,7 +403,7 @@ uint8_t* Record::_InternalSerialize(
   }
 
   // optional .reporting.Destination destination = 2;
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_destination(), target);
@@ -408,9 +422,15 @@ uint8_t* Record::_InternalSerialize(
   }
 
   // optional int64 reserved_space = 5;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(5, this->_internal_reserved_space(), target);
+  }
+
+  // optional bool needs_local_unencrypted_copy = 6;
+  if (cached_has_bits & 0x00000010u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_needs_local_unencrypted_copy(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -430,7 +450,7 @@ size_t Record::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     // optional bytes data = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -450,15 +470,20 @@ size_t Record::ByteSizeLong() const {
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_timestamp_us());
     }
 
-    // optional int64 reserved_space = 5;
-    if (cached_has_bits & 0x00000008u) {
-      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_reserved_space());
-    }
-
     // optional .reporting.Destination destination = 2;
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_destination());
+    }
+
+    // optional bool needs_local_unencrypted_copy = 6;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += 1 + 1;
+    }
+
+    // optional int64 reserved_space = 5;
+    if (cached_has_bits & 0x00000020u) {
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_reserved_space());
     }
 
   }
@@ -483,7 +508,7 @@ void Record::MergeFrom(const Record& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_data(from._internal_data());
     }
@@ -494,10 +519,13 @@ void Record::MergeFrom(const Record& from) {
       timestamp_us_ = from.timestamp_us_;
     }
     if (cached_has_bits & 0x00000008u) {
-      reserved_space_ = from.reserved_space_;
+      destination_ = from.destination_;
     }
     if (cached_has_bits & 0x00000010u) {
-      destination_ = from.destination_;
+      needs_local_unencrypted_copy_ = from.needs_local_unencrypted_copy_;
+    }
+    if (cached_has_bits & 0x00000020u) {
+      reserved_space_ = from.reserved_space_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -530,8 +558,8 @@ void Record::InternalSwap(Record* other) {
       &other->dm_token_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Record, destination_)
-      + sizeof(Record::destination_)
+      PROTOBUF_FIELD_OFFSET(Record, reserved_space_)
+      + sizeof(Record::reserved_space_)
       - PROTOBUF_FIELD_OFFSET(Record, timestamp_us_)>(
           reinterpret_cast<char*>(&timestamp_us_),
           reinterpret_cast<char*>(&other->timestamp_us_));
@@ -1417,6 +1445,10 @@ class EncryptedRecord::_Internal {
   static void set_has_erp_health_data(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
   }
+  static const ::reporting::Record& record_copy(const EncryptedRecord* msg);
+  static void set_has_record_copy(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
+  }
 };
 
 const ::reporting::EncryptionInfo&
@@ -1438,6 +1470,10 @@ EncryptedRecord::_Internal::sequencing_information(const EncryptedRecord* msg) {
 const ::reporting::ERPHealthData&
 EncryptedRecord::_Internal::erp_health_data(const EncryptedRecord* msg) {
   return *msg->erp_health_data_;
+}
+const ::reporting::Record&
+EncryptedRecord::_Internal::record_copy(const EncryptedRecord* msg) {
+  return *msg->record_copy_;
 }
 void EncryptedRecord::clear_erp_health_data() {
   if (erp_health_data_ != nullptr) erp_health_data_->Clear();
@@ -1486,6 +1522,11 @@ EncryptedRecord::EncryptedRecord(const EncryptedRecord& from)
   } else {
     erp_health_data_ = nullptr;
   }
+  if (from._internal_has_record_copy()) {
+    record_copy_ = new ::reporting::Record(*from.record_copy_);
+  } else {
+    record_copy_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:reporting.EncryptedRecord)
 }
 
@@ -1496,8 +1537,8 @@ encrypted_wrapped_record_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&encryption_info_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&erp_health_data_) -
-    reinterpret_cast<char*>(&encryption_info_)) + sizeof(erp_health_data_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&record_copy_) -
+    reinterpret_cast<char*>(&encryption_info_)) + sizeof(record_copy_));
 }
 
 EncryptedRecord::~EncryptedRecord() {
@@ -1517,6 +1558,7 @@ inline void EncryptedRecord::SharedDtor() {
   if (this != internal_default_instance()) delete compression_information_;
   if (this != internal_default_instance()) delete sequencing_information_;
   if (this != internal_default_instance()) delete erp_health_data_;
+  if (this != internal_default_instance()) delete record_copy_;
 }
 
 void EncryptedRecord::SetCachedSize(int size) const {
@@ -1530,7 +1572,7 @@ void EncryptedRecord::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
       encrypted_wrapped_record_.ClearNonDefaultToEmpty();
     }
@@ -1553,6 +1595,10 @@ void EncryptedRecord::Clear() {
     if (cached_has_bits & 0x00000020u) {
       GOOGLE_DCHECK(erp_health_data_ != nullptr);
       erp_health_data_->Clear();
+    }
+    if (cached_has_bits & 0x00000040u) {
+      GOOGLE_DCHECK(record_copy_ != nullptr);
+      record_copy_->Clear();
     }
   }
   _has_bits_.Clear();
@@ -1611,6 +1657,14 @@ const char* EncryptedRecord::_InternalParse(const char* ptr, ::_pbi::ParseContex
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_erp_health_data(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .reporting.Record record_copy = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          ptr = ctx->ParseMessage(_internal_mutable_record_copy(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1687,6 +1741,13 @@ uint8_t* EncryptedRecord::_InternalSerialize(
         _Internal::erp_health_data(this).GetCachedSize(), target, stream);
   }
 
+  // optional .reporting.Record record_copy = 7;
+  if (cached_has_bits & 0x00000040u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(7, _Internal::record_copy(this),
+        _Internal::record_copy(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1704,7 +1765,7 @@ size_t EncryptedRecord::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     // optional bytes encrypted_wrapped_record = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -1747,6 +1808,13 @@ size_t EncryptedRecord::ByteSizeLong() const {
           *erp_health_data_);
     }
 
+    // optional .reporting.Record record_copy = 7;
+    if (cached_has_bits & 0x00000040u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *record_copy_);
+    }
+
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -1769,7 +1837,7 @@ void EncryptedRecord::MergeFrom(const EncryptedRecord& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_encrypted_wrapped_record(from._internal_encrypted_wrapped_record());
     }
@@ -1787,6 +1855,9 @@ void EncryptedRecord::MergeFrom(const EncryptedRecord& from) {
     }
     if (cached_has_bits & 0x00000020u) {
       _internal_mutable_erp_health_data()->::reporting::ERPHealthData::MergeFrom(from._internal_erp_health_data());
+    }
+    if (cached_has_bits & 0x00000040u) {
+      _internal_mutable_record_copy()->::reporting::Record::MergeFrom(from._internal_record_copy());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -1814,8 +1885,8 @@ void EncryptedRecord::InternalSwap(EncryptedRecord* other) {
       &other->encrypted_wrapped_record_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(EncryptedRecord, erp_health_data_)
-      + sizeof(EncryptedRecord::erp_health_data_)
+      PROTOBUF_FIELD_OFFSET(EncryptedRecord, record_copy_)
+      + sizeof(EncryptedRecord::record_copy_)
       - PROTOBUF_FIELD_OFFSET(EncryptedRecord, encryption_info_)>(
           reinterpret_cast<char*>(&encryption_info_),
           reinterpret_cast<char*>(&other->encryption_info_));

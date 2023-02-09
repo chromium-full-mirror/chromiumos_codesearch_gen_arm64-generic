@@ -35,7 +35,7 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocUserDataAuthNoEphemeralMountForOwner = 104,
   /* ./userdataauth.cc */
   kLocUserDataAuthEphemeralMountWithoutCreate = 105,
-  /* ./userdataauth.cc */
+  /* =Obsolete= */
   kLocUserDataAuthMountAuthSessionNotFound = 106,
   /* ./userdataauth.cc */
   kLocUserDataAuthMountAuthSessionNotAuthed = 107,
@@ -1357,6 +1357,10 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocSmartCardVerifierCannotVerify = 2307,
   /* ./challenge_credentials/challenge_credentials_helper_impl.cc */
   kLocChalCredHelperTpmUnavailableInCheckTpmStatus = 2308,
+  /* ./auth_session_manager.cc */
+  kLocAuthSessionManagerAuthSessionActive = 2309,
+  /* ./auth_session_manager.cc */
+  kLocAuthSessionManagerAuthSessionNotFound = 2310,
   //////////////////////////////////////////////////
   //// This is a separator block at value 2500
   //// See location_db.py for more info.
@@ -1441,6 +1445,12 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocAuthFactorManagerEmptyReadInLoad = 2729,
   /* ./user_secret_stash.cc */
   kLocUSSEmptySerializedInGetContainerFromFB = 2730,
+  /* ./auth_session.cc */
+  kLocAuthSessionDeleteOldBackupFailedInUpdateWithUSS = 2731,
+  /* ./auth_session.cc */
+  kLocAuthSessionRemoveFailedInCleanUpBackupKeyset = 2732,
+  /* ./auth_session.cc */
+  kLocAuthSessionNoBackupFlagInCleanUpBackupKeyset = 2733,
   //////////////////////////////////////////////////
   //// This is a separator block at value 2900
   //// See location_db.py for more info.

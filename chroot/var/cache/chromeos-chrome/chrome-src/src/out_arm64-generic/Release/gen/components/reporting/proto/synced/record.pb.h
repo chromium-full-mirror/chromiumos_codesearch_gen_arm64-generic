@@ -212,8 +212,9 @@ class Record final :
     kDataFieldNumber = 1,
     kDmTokenFieldNumber = 3,
     kTimestampUsFieldNumber = 4,
-    kReservedSpaceFieldNumber = 5,
     kDestinationFieldNumber = 2,
+    kNeedsLocalUnencryptedCopyFieldNumber = 6,
+    kReservedSpaceFieldNumber = 5,
   };
   // optional bytes data = 1;
   bool has_data() const;
@@ -264,19 +265,6 @@ class Record final :
   void _internal_set_timestamp_us(int64_t value);
   public:
 
-  // optional int64 reserved_space = 5;
-  bool has_reserved_space() const;
-  private:
-  bool _internal_has_reserved_space() const;
-  public:
-  void clear_reserved_space();
-  int64_t reserved_space() const;
-  void set_reserved_space(int64_t value);
-  private:
-  int64_t _internal_reserved_space() const;
-  void _internal_set_reserved_space(int64_t value);
-  public:
-
   // optional .reporting.Destination destination = 2;
   bool has_destination() const;
   private:
@@ -288,6 +276,32 @@ class Record final :
   private:
   ::reporting::Destination _internal_destination() const;
   void _internal_set_destination(::reporting::Destination value);
+  public:
+
+  // optional bool needs_local_unencrypted_copy = 6;
+  bool has_needs_local_unencrypted_copy() const;
+  private:
+  bool _internal_has_needs_local_unencrypted_copy() const;
+  public:
+  void clear_needs_local_unencrypted_copy();
+  bool needs_local_unencrypted_copy() const;
+  void set_needs_local_unencrypted_copy(bool value);
+  private:
+  bool _internal_needs_local_unencrypted_copy() const;
+  void _internal_set_needs_local_unencrypted_copy(bool value);
+  public:
+
+  // optional int64 reserved_space = 5;
+  bool has_reserved_space() const;
+  private:
+  bool _internal_has_reserved_space() const;
+  public:
+  void clear_reserved_space();
+  int64_t reserved_space() const;
+  void set_reserved_space(int64_t value);
+  private:
+  int64_t _internal_reserved_space() const;
+  void _internal_set_reserved_space(int64_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:reporting.Record)
@@ -302,8 +316,9 @@ class Record final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr data_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr dm_token_;
   int64_t timestamp_us_;
-  int64_t reserved_space_;
   int destination_;
+  bool needs_local_unencrypted_copy_;
+  int64_t reserved_space_;
   friend struct ::TableStruct_components_2freporting_2fproto_2fsynced_2frecord_2eproto;
 };
 // -------------------------------------------------------------------
@@ -956,6 +971,7 @@ class EncryptedRecord final :
     kCompressionInformationFieldNumber = 4,
     kSequencingInformationFieldNumber = 5,
     kErpHealthDataFieldNumber = 6,
+    kRecordCopyFieldNumber = 7,
   };
   // optional bytes encrypted_wrapped_record = 1;
   bool has_encrypted_wrapped_record() const;
@@ -1065,6 +1081,24 @@ class EncryptedRecord final :
       ::reporting::ERPHealthData* erp_health_data);
   ::reporting::ERPHealthData* unsafe_arena_release_erp_health_data();
 
+  // optional .reporting.Record record_copy = 7;
+  bool has_record_copy() const;
+  private:
+  bool _internal_has_record_copy() const;
+  public:
+  void clear_record_copy();
+  const ::reporting::Record& record_copy() const;
+  PROTOBUF_NODISCARD ::reporting::Record* release_record_copy();
+  ::reporting::Record* mutable_record_copy();
+  void set_allocated_record_copy(::reporting::Record* record_copy);
+  private:
+  const ::reporting::Record& _internal_record_copy() const;
+  ::reporting::Record* _internal_mutable_record_copy();
+  public:
+  void unsafe_arena_set_allocated_record_copy(
+      ::reporting::Record* record_copy);
+  ::reporting::Record* unsafe_arena_release_record_copy();
+
   // @@protoc_insertion_point(class_scope:reporting.EncryptedRecord)
  private:
   class _Internal;
@@ -1080,6 +1114,7 @@ class EncryptedRecord final :
   ::reporting::CompressionInformation* compression_information_;
   ::reporting::SequenceInformation* sequencing_information_;
   ::reporting::ERPHealthData* erp_health_data_;
+  ::reporting::Record* record_copy_;
   friend struct ::TableStruct_components_2freporting_2fproto_2fsynced_2frecord_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1507,7 +1542,7 @@ inline void Record::set_allocated_data(std::string* data) {
 
 // optional .reporting.Destination destination = 2;
 inline bool Record::_internal_has_destination() const {
-  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool Record::has_destination() const {
@@ -1515,7 +1550,7 @@ inline bool Record::has_destination() const {
 }
 inline void Record::clear_destination() {
   destination_ = 0;
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline ::reporting::Destination Record::_internal_destination() const {
   return static_cast< ::reporting::Destination >(destination_);
@@ -1526,7 +1561,7 @@ inline ::reporting::Destination Record::destination() const {
 }
 inline void Record::_internal_set_destination(::reporting::Destination value) {
   assert(::reporting::Destination_IsValid(value));
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000008u;
   destination_ = value;
 }
 inline void Record::set_destination(::reporting::Destination value) {
@@ -1632,7 +1667,7 @@ inline void Record::set_timestamp_us(int64_t value) {
 
 // optional int64 reserved_space = 5;
 inline bool Record::_internal_has_reserved_space() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
 inline bool Record::has_reserved_space() const {
@@ -1640,7 +1675,7 @@ inline bool Record::has_reserved_space() const {
 }
 inline void Record::clear_reserved_space() {
   reserved_space_ = int64_t{0};
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline int64_t Record::_internal_reserved_space() const {
   return reserved_space_;
@@ -1650,12 +1685,40 @@ inline int64_t Record::reserved_space() const {
   return _internal_reserved_space();
 }
 inline void Record::_internal_set_reserved_space(int64_t value) {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000020u;
   reserved_space_ = value;
 }
 inline void Record::set_reserved_space(int64_t value) {
   _internal_set_reserved_space(value);
   // @@protoc_insertion_point(field_set:reporting.Record.reserved_space)
+}
+
+// optional bool needs_local_unencrypted_copy = 6;
+inline bool Record::_internal_has_needs_local_unencrypted_copy() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool Record::has_needs_local_unencrypted_copy() const {
+  return _internal_has_needs_local_unencrypted_copy();
+}
+inline void Record::clear_needs_local_unencrypted_copy() {
+  needs_local_unencrypted_copy_ = false;
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline bool Record::_internal_needs_local_unencrypted_copy() const {
+  return needs_local_unencrypted_copy_;
+}
+inline bool Record::needs_local_unencrypted_copy() const {
+  // @@protoc_insertion_point(field_get:reporting.Record.needs_local_unencrypted_copy)
+  return _internal_needs_local_unencrypted_copy();
+}
+inline void Record::_internal_set_needs_local_unencrypted_copy(bool value) {
+  _has_bits_[0] |= 0x00000010u;
+  needs_local_unencrypted_copy_ = value;
+}
+inline void Record::set_needs_local_unencrypted_copy(bool value) {
+  _internal_set_needs_local_unencrypted_copy(value);
+  // @@protoc_insertion_point(field_set:reporting.Record.needs_local_unencrypted_copy)
 }
 
 // -------------------------------------------------------------------
@@ -2662,6 +2725,96 @@ inline void EncryptedRecord::set_allocated_erp_health_data(::reporting::ERPHealt
   }
   erp_health_data_ = erp_health_data;
   // @@protoc_insertion_point(field_set_allocated:reporting.EncryptedRecord.erp_health_data)
+}
+
+// optional .reporting.Record record_copy = 7;
+inline bool EncryptedRecord::_internal_has_record_copy() const {
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  PROTOBUF_ASSUME(!value || record_copy_ != nullptr);
+  return value;
+}
+inline bool EncryptedRecord::has_record_copy() const {
+  return _internal_has_record_copy();
+}
+inline void EncryptedRecord::clear_record_copy() {
+  if (record_copy_ != nullptr) record_copy_->Clear();
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline const ::reporting::Record& EncryptedRecord::_internal_record_copy() const {
+  const ::reporting::Record* p = record_copy_;
+  return p != nullptr ? *p : reinterpret_cast<const ::reporting::Record&>(
+      ::reporting::_Record_default_instance_);
+}
+inline const ::reporting::Record& EncryptedRecord::record_copy() const {
+  // @@protoc_insertion_point(field_get:reporting.EncryptedRecord.record_copy)
+  return _internal_record_copy();
+}
+inline void EncryptedRecord::unsafe_arena_set_allocated_record_copy(
+    ::reporting::Record* record_copy) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(record_copy_);
+  }
+  record_copy_ = record_copy;
+  if (record_copy) {
+    _has_bits_[0] |= 0x00000040u;
+  } else {
+    _has_bits_[0] &= ~0x00000040u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.EncryptedRecord.record_copy)
+}
+inline ::reporting::Record* EncryptedRecord::release_record_copy() {
+  _has_bits_[0] &= ~0x00000040u;
+  ::reporting::Record* temp = record_copy_;
+  record_copy_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::reporting::Record* EncryptedRecord::unsafe_arena_release_record_copy() {
+  // @@protoc_insertion_point(field_release:reporting.EncryptedRecord.record_copy)
+  _has_bits_[0] &= ~0x00000040u;
+  ::reporting::Record* temp = record_copy_;
+  record_copy_ = nullptr;
+  return temp;
+}
+inline ::reporting::Record* EncryptedRecord::_internal_mutable_record_copy() {
+  _has_bits_[0] |= 0x00000040u;
+  if (record_copy_ == nullptr) {
+    auto* p = CreateMaybeMessage<::reporting::Record>(GetArenaForAllocation());
+    record_copy_ = p;
+  }
+  return record_copy_;
+}
+inline ::reporting::Record* EncryptedRecord::mutable_record_copy() {
+  ::reporting::Record* _msg = _internal_mutable_record_copy();
+  // @@protoc_insertion_point(field_mutable:reporting.EncryptedRecord.record_copy)
+  return _msg;
+}
+inline void EncryptedRecord::set_allocated_record_copy(::reporting::Record* record_copy) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete record_copy_;
+  }
+  if (record_copy) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(record_copy);
+    if (message_arena != submessage_arena) {
+      record_copy = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, record_copy, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000040u;
+  } else {
+    _has_bits_[0] &= ~0x00000040u;
+  }
+  record_copy_ = record_copy;
+  // @@protoc_insertion_point(field_set_allocated:reporting.EncryptedRecord.record_copy)
 }
 
 // -------------------------------------------------------------------

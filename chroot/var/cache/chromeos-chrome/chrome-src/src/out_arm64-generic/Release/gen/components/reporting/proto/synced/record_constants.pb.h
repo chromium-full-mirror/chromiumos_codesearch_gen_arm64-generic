@@ -71,11 +71,12 @@ enum Destination : int {
   CROS_SECURITY_PROCESS = 23,
   OS_EVENTS = 24,
   LEGACY_TECH = 25,
-  CROS_SECURITY_NETWORK = 26
+  CROS_SECURITY_NETWORK = 26,
+  LOG_UPLOAD = 27
 };
 bool Destination_IsValid(int value);
 constexpr Destination Destination_MIN = UNDEFINED_DESTINATION;
-constexpr Destination Destination_MAX = CROS_SECURITY_NETWORK;
+constexpr Destination Destination_MAX = LOG_UPLOAD;
 constexpr int Destination_ARRAYSIZE = Destination_MAX + 1;
 
 const std::string& Destination_Name(Destination value);
