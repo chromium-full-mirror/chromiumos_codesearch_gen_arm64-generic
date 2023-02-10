@@ -6,8 +6,10 @@
 #include <utility>
 
 #include "diagnostics/cros_healthd/event_aggregator.h"
+#include "diagnostics/cros_healthd/events/audio_events_impl.h"
 #include "diagnostics/cros_healthd/events/audio_jack_events_impl.h"
 #include "diagnostics/cros_healthd/events/lid_events_impl.h"
+#include "diagnostics/cros_healthd/events/power_events_impl.h"
 #include "diagnostics/cros_healthd/events/udev_events_impl.h"
 
 namespace diagnostics {
@@ -25,6 +27,8 @@ EventAggregator::EventAggregator(Context* context) : context_(context) {
   }
   lid_events_ = std::make_unique<LidEventsImpl>(context_);
   audio_jack_events_ = std::make_unique<AudioJackEventsImpl>(context_);
+  power_events_ = std::make_unique<PowerEventsImpl>(context_);
+  audio_events_ = std::make_unique<AudioEventsImpl>(context_);
 }
 
 EventAggregator::~EventAggregator() = default;
@@ -49,10 +53,10 @@ void EventAggregator::AddObserver(
       NOTIMPLEMENTED();
       break;
     case mojom::EventCategoryEnum::kPower:
-      NOTIMPLEMENTED();
+      power_events_->AddObserver(std::move(observer));
       break;
     case mojom::EventCategoryEnum::kAudio:
-      NOTIMPLEMENTED();
+      audio_events_->AddObserver(std::move(observer));
       break;
     case mojom::EventCategoryEnum::kAudioJack:
       audio_jack_events_->AddObserver(std::move(observer));
@@ -71,6 +75,16 @@ void EventAggregator::AddObserver(
 void EventAggregator::AddObserver(
     mojo::PendingRemote<mojom::CrosHealthdThunderboltObserver> observer) {
   udev_events_->AddThunderboltObserver(std::move(observer));
+}
+
+void EventAggregator::AddObserver(
+    mojo::PendingRemote<mojom::CrosHealthdPowerObserver> observer) {
+  power_events_->AddObserver(std::move(observer));
+}
+
+void EventAggregator::AddObserver(
+    mojo::PendingRemote<mojom::CrosHealthdAudioObserver> observer) {
+  audio_events_->AddObserver(std::move(observer));
 }
 
 }  // namespace diagnostics

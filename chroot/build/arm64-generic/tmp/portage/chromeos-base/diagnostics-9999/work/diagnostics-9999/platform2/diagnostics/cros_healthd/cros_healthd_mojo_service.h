@@ -13,9 +13,7 @@
 #include <mojo/public/cpp/bindings/receiver_set.h>
 
 #include "diagnostics/cros_healthd/event_aggregator.h"
-#include "diagnostics/cros_healthd/events/audio_events.h"
 #include "diagnostics/cros_healthd/events/bluetooth_events.h"
-#include "diagnostics/cros_healthd/events/power_events.h"
 #include "diagnostics/cros_healthd/fetch_aggregator.h"
 #include "diagnostics/cros_healthd/utils/mojo_service_provider.h"
 #include "diagnostics/mojom/external/network_health.mojom.h"
@@ -37,14 +35,10 @@ class CrosHealthdMojoService final
   // |fetch_aggregator| - responsible for fulfilling probe requests.
   // |event_aggregator| - responsible for fulfilling event requests.
   // |bluetooth_events| - BluetoothEvents implementation.
-  // |power_events| - PowerEvents implementation.
-  // |audio_events| - AudioEvents implementation.
   CrosHealthdMojoService(Context* context,
                          FetchAggregator* fetch_aggregator,
                          EventAggregator* event_aggregator,
-                         BluetoothEvents* bluetooth_events,
-                         PowerEvents* power_events,
-                         AudioEvents* audio_events);
+                         BluetoothEvents* bluetooth_events);
   CrosHealthdMojoService(const CrosHealthdMojoService&) = delete;
   CrosHealthdMojoService& operator=(const CrosHealthdMojoService&) = delete;
   ~CrosHealthdMojoService() override;
@@ -133,8 +127,6 @@ class CrosHealthdMojoService final
   FetchAggregator* fetch_aggregator_;
   EventAggregator* event_aggregator_;
   BluetoothEvents* const bluetooth_events_ = nullptr;
-  PowerEvents* const power_events_ = nullptr;
-  AudioEvents* const audio_events_ = nullptr;
 };
 
 }  // namespace diagnostics

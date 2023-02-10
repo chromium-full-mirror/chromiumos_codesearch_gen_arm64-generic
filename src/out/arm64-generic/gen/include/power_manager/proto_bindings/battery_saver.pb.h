@@ -68,11 +68,12 @@ namespace power_manager {
 enum BatterySaverModeState_Cause : int {
   BatterySaverModeState_Cause_CAUSE_UNSPECIFIED = 0,
   BatterySaverModeState_Cause_CAUSE_USER_ENABLED = 1,
-  BatterySaverModeState_Cause_CAUSE_USER_DISABLED = 2
+  BatterySaverModeState_Cause_CAUSE_USER_DISABLED = 2,
+  BatterySaverModeState_Cause_CAUSE_STATE_RESTORED = 3
 };
 bool BatterySaverModeState_Cause_IsValid(int value);
 constexpr BatterySaverModeState_Cause BatterySaverModeState_Cause_Cause_MIN = BatterySaverModeState_Cause_CAUSE_UNSPECIFIED;
-constexpr BatterySaverModeState_Cause BatterySaverModeState_Cause_Cause_MAX = BatterySaverModeState_Cause_CAUSE_USER_DISABLED;
+constexpr BatterySaverModeState_Cause BatterySaverModeState_Cause_Cause_MAX = BatterySaverModeState_Cause_CAUSE_STATE_RESTORED;
 constexpr int BatterySaverModeState_Cause_Cause_ARRAYSIZE = BatterySaverModeState_Cause_Cause_MAX + 1;
 
 const std::string& BatterySaverModeState_Cause_Name(BatterySaverModeState_Cause value);
@@ -346,6 +347,8 @@ class BatterySaverModeState final :
     BatterySaverModeState_Cause_CAUSE_USER_ENABLED;
   static constexpr Cause CAUSE_USER_DISABLED =
     BatterySaverModeState_Cause_CAUSE_USER_DISABLED;
+  static constexpr Cause CAUSE_STATE_RESTORED =
+    BatterySaverModeState_Cause_CAUSE_STATE_RESTORED;
   static inline bool Cause_IsValid(int value) {
     return BatterySaverModeState_Cause_IsValid(value);
   }

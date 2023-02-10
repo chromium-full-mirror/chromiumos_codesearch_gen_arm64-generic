@@ -47,29 +47,33 @@ bool BatterySaverModeState_Cause_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> BatterySaverModeState_Cause_strings[3] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> BatterySaverModeState_Cause_strings[4] = {};
 
 static const char BatterySaverModeState_Cause_names[] =
+  "CAUSE_STATE_RESTORED"
   "CAUSE_UNSPECIFIED"
   "CAUSE_USER_DISABLED"
   "CAUSE_USER_ENABLED";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry BatterySaverModeState_Cause_entries[] = {
-  { {BatterySaverModeState_Cause_names + 0, 17}, 0 },
-  { {BatterySaverModeState_Cause_names + 17, 19}, 2 },
-  { {BatterySaverModeState_Cause_names + 36, 18}, 1 },
+  { {BatterySaverModeState_Cause_names + 0, 20}, 3 },
+  { {BatterySaverModeState_Cause_names + 20, 17}, 0 },
+  { {BatterySaverModeState_Cause_names + 37, 19}, 2 },
+  { {BatterySaverModeState_Cause_names + 56, 18}, 1 },
 };
 
 static const int BatterySaverModeState_Cause_entries_by_number[] = {
-  0, // 0 -> CAUSE_UNSPECIFIED
-  2, // 1 -> CAUSE_USER_ENABLED
-  1, // 2 -> CAUSE_USER_DISABLED
+  1, // 0 -> CAUSE_UNSPECIFIED
+  3, // 1 -> CAUSE_USER_ENABLED
+  2, // 2 -> CAUSE_USER_DISABLED
+  0, // 3 -> CAUSE_STATE_RESTORED
 };
 
 const std::string& BatterySaverModeState_Cause_Name(
@@ -78,12 +82,12 @@ const std::string& BatterySaverModeState_Cause_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           BatterySaverModeState_Cause_entries,
           BatterySaverModeState_Cause_entries_by_number,
-          3, BatterySaverModeState_Cause_strings);
+          4, BatterySaverModeState_Cause_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       BatterySaverModeState_Cause_entries,
       BatterySaverModeState_Cause_entries_by_number,
-      3, value);
+      4, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      BatterySaverModeState_Cause_strings[idx].get();
 }
@@ -91,7 +95,7 @@ bool BatterySaverModeState_Cause_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, BatterySaverModeState_Cause* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      BatterySaverModeState_Cause_entries, 3, name, &int_value);
+      BatterySaverModeState_Cause_entries, 4, name, &int_value);
   if (success) {
     *value = static_cast<BatterySaverModeState_Cause>(int_value);
   }
@@ -101,6 +105,7 @@ bool BatterySaverModeState_Cause_Parse(
 constexpr BatterySaverModeState_Cause BatterySaverModeState::CAUSE_UNSPECIFIED;
 constexpr BatterySaverModeState_Cause BatterySaverModeState::CAUSE_USER_ENABLED;
 constexpr BatterySaverModeState_Cause BatterySaverModeState::CAUSE_USER_DISABLED;
+constexpr BatterySaverModeState_Cause BatterySaverModeState::CAUSE_STATE_RESTORED;
 constexpr BatterySaverModeState_Cause BatterySaverModeState::Cause_MIN;
 constexpr BatterySaverModeState_Cause BatterySaverModeState::Cause_MAX;
 constexpr int BatterySaverModeState::Cause_ARRAYSIZE;

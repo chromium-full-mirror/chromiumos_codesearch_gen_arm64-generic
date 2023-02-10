@@ -549,6 +549,8 @@ void Daemon::Init() {
                                  ec_helper_.get(), lid_state, tablet_mode,
                                  DisplayMode::NORMAL, prefs_.get());
 
+  battery_saver_controller_.Init(*dbus_wrapper_);
+
   const PowerSource power_source =
       power_status.line_power_on ? PowerSource::AC : PowerSource::BATTERY;
   state_controller_->Init(state_controller_delegate_.get(), prefs_.get(),
@@ -621,20 +623,6 @@ void Daemon::Init() {
   // Enable EC to send WLC event.
   // Kernel will create udev events on WLC status change.
   system::EnableCrosEcDeviceEvent(EC_DEVICE_EVENT_WLC, true);
-
-  // Ensure the deprecated flag `turn_on_for_user_activity` is not clear, in
-  // preparation for removing it completely and hard-coding it to always
-  // on.
-  //
-  // TODO(b/260034799): Remove this check and the flag itself.
-  {
-    bool turn_on_for_user_activity = true;
-    prefs_->GetBool(kKeyboardBacklightTurnOnForUserActivityPref,
-                    &turn_on_for_user_activity);
-    CHECK(turn_on_for_user_activity)
-        << "Deprecated flag 'keyboard_backlight_turn_on_for_user_activity' "
-           "overridden to false. Please report at b/260034799.";
-  }
 
   // Call this last to ensure that all of our members are already initialized.
   OnPowerStatusUpdate();

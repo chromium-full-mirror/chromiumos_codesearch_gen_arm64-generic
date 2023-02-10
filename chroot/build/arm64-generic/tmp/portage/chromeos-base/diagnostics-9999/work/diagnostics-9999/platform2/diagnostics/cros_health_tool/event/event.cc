@@ -97,7 +97,8 @@ int event_main(int argc, char** argv) {
                                          mojom::EventCategoryEnum::kLid);
       break;
     case EventCategory::kPower:
-      event_subscriber.SubscribeToPowerEvents();
+      event_subscriber.SubscribeToEvents(run_loop.QuitClosure(),
+                                         mojom::EventCategoryEnum::kPower);
       break;
     case EventCategory::kBluetooth:
       event_subscriber.SubscribeToBluetoothEvents();
@@ -106,7 +107,8 @@ int event_main(int argc, char** argv) {
       event_subscriber.SubscribeToNetworkEvents();
       break;
     case EventCategory::kAudio:
-      event_subscriber.SubscribeToAudioEvents();
+      event_subscriber.SubscribeToEvents(run_loop.QuitClosure(),
+                                         mojom::EventCategoryEnum::kAudio);
       break;
     case EventCategory::kThunderbolt:
       event_subscriber.SubscribeToEvents(
