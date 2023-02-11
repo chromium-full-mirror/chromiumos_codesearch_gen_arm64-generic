@@ -3863,4 +3863,25 @@ std::string GetProtoDebugStringWithIndent(const AuthEnrollmentProgress& value,
   return output;
 }
 
+std::string GetProtoDebugString(const AuthScanDone& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const AuthScanDone& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  scan_result: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.scan_result(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
 }  // namespace user_data_auth

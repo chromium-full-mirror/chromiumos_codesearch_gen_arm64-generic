@@ -654,6 +654,9 @@ std::string GetProtoDebugStringWithIndent(const AuthEnrollmentProgress& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const AuthEnrollmentProgress& value);
+std::string GetProtoDebugStringWithIndent(const AuthScanDone& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const AuthScanDone& value);
 
 }  // namespace user_data_auth
 

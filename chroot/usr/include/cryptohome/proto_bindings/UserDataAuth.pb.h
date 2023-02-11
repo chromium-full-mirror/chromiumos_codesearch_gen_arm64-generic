@@ -49,7 +49,7 @@ struct TableStruct_UserDataAuth_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[136]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[137]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -68,6 +68,9 @@ extern AuthEnrollmentProgressDefaultTypeInternal _AuthEnrollmentProgress_default
 class AuthFactorWithStatus;
 struct AuthFactorWithStatusDefaultTypeInternal;
 extern AuthFactorWithStatusDefaultTypeInternal _AuthFactorWithStatus_default_instance_;
+class AuthScanDone;
+struct AuthScanDoneDefaultTypeInternal;
+extern AuthScanDoneDefaultTypeInternal _AuthScanDone_default_instance_;
 class AuthScanResult;
 struct AuthScanResultDefaultTypeInternal;
 extern AuthScanResultDefaultTypeInternal _AuthScanResult_default_instance_;
@@ -470,6 +473,7 @@ template<> ::user_data_auth::AddAuthFactorReply* Arena::CreateMaybeMessage<::use
 template<> ::user_data_auth::AddAuthFactorRequest* Arena::CreateMaybeMessage<::user_data_auth::AddAuthFactorRequest>(Arena*);
 template<> ::user_data_auth::AuthEnrollmentProgress* Arena::CreateMaybeMessage<::user_data_auth::AuthEnrollmentProgress>(Arena*);
 template<> ::user_data_auth::AuthFactorWithStatus* Arena::CreateMaybeMessage<::user_data_auth::AuthFactorWithStatus>(Arena*);
+template<> ::user_data_auth::AuthScanDone* Arena::CreateMaybeMessage<::user_data_auth::AuthScanDone>(Arena*);
 template<> ::user_data_auth::AuthScanResult* Arena::CreateMaybeMessage<::user_data_auth::AuthScanResult>(Arena*);
 template<> ::user_data_auth::AuthenticateAuthFactorReply* Arena::CreateMaybeMessage<::user_data_auth::AuthenticateAuthFactorReply>(Arena*);
 template<> ::user_data_auth::AuthenticateAuthFactorRequest* Arena::CreateMaybeMessage<::user_data_auth::AuthenticateAuthFactorRequest>(Arena*);
@@ -20723,6 +20727,145 @@ class AuthEnrollmentProgress final :
 
   friend struct ::TableStruct_UserDataAuth_2eproto;
 };
+// -------------------------------------------------------------------
+
+class AuthScanDone final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.AuthScanDone) */ {
+ public:
+  inline AuthScanDone() : AuthScanDone(nullptr) {}
+  ~AuthScanDone() override;
+  explicit constexpr AuthScanDone(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AuthScanDone(const AuthScanDone& from);
+  AuthScanDone(AuthScanDone&& from) noexcept
+    : AuthScanDone() {
+    *this = ::std::move(from);
+  }
+
+  inline AuthScanDone& operator=(const AuthScanDone& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AuthScanDone& operator=(AuthScanDone&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const AuthScanDone& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AuthScanDone* internal_default_instance() {
+    return reinterpret_cast<const AuthScanDone*>(
+               &_AuthScanDone_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    136;
+
+  friend void swap(AuthScanDone& a, AuthScanDone& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AuthScanDone* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AuthScanDone* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AuthScanDone* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<AuthScanDone>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const AuthScanDone& from);
+  void MergeFrom(const AuthScanDone& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AuthScanDone* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.AuthScanDone";
+  }
+  protected:
+  explicit AuthScanDone(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kScanResultFieldNumber = 1,
+  };
+  // .user_data_auth.AuthScanResult scan_result = 1;
+  bool has_scan_result() const;
+  private:
+  bool _internal_has_scan_result() const;
+  public:
+  void clear_scan_result();
+  const ::user_data_auth::AuthScanResult& scan_result() const;
+  PROTOBUF_NODISCARD ::user_data_auth::AuthScanResult* release_scan_result();
+  ::user_data_auth::AuthScanResult* mutable_scan_result();
+  void set_allocated_scan_result(::user_data_auth::AuthScanResult* scan_result);
+  private:
+  const ::user_data_auth::AuthScanResult& _internal_scan_result() const;
+  ::user_data_auth::AuthScanResult* _internal_mutable_scan_result();
+  public:
+  void unsafe_arena_set_allocated_scan_result(
+      ::user_data_auth::AuthScanResult* scan_result);
+  ::user_data_auth::AuthScanResult* unsafe_arena_release_scan_result();
+
+  // @@protoc_insertion_point(class_scope:user_data_auth.AuthScanDone)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::user_data_auth::AuthScanResult* scan_result_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_UserDataAuth_2eproto;
+};
 // ===================================================================
 
 
@@ -32289,9 +32432,105 @@ inline void AuthEnrollmentProgress::clear_has_progress() {
 inline AuthEnrollmentProgress::ProgressCase AuthEnrollmentProgress::progress_case() const {
   return AuthEnrollmentProgress::ProgressCase(_oneof_case_[0]);
 }
+// -------------------------------------------------------------------
+
+// AuthScanDone
+
+// .user_data_auth.AuthScanResult scan_result = 1;
+inline bool AuthScanDone::_internal_has_scan_result() const {
+  return this != internal_default_instance() && scan_result_ != nullptr;
+}
+inline bool AuthScanDone::has_scan_result() const {
+  return _internal_has_scan_result();
+}
+inline void AuthScanDone::clear_scan_result() {
+  if (GetArenaForAllocation() == nullptr && scan_result_ != nullptr) {
+    delete scan_result_;
+  }
+  scan_result_ = nullptr;
+}
+inline const ::user_data_auth::AuthScanResult& AuthScanDone::_internal_scan_result() const {
+  const ::user_data_auth::AuthScanResult* p = scan_result_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::AuthScanResult&>(
+      ::user_data_auth::_AuthScanResult_default_instance_);
+}
+inline const ::user_data_auth::AuthScanResult& AuthScanDone::scan_result() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.AuthScanDone.scan_result)
+  return _internal_scan_result();
+}
+inline void AuthScanDone::unsafe_arena_set_allocated_scan_result(
+    ::user_data_auth::AuthScanResult* scan_result) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(scan_result_);
+  }
+  scan_result_ = scan_result;
+  if (scan_result) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.AuthScanDone.scan_result)
+}
+inline ::user_data_auth::AuthScanResult* AuthScanDone::release_scan_result() {
+  
+  ::user_data_auth::AuthScanResult* temp = scan_result_;
+  scan_result_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::AuthScanResult* AuthScanDone::unsafe_arena_release_scan_result() {
+  // @@protoc_insertion_point(field_release:user_data_auth.AuthScanDone.scan_result)
+  
+  ::user_data_auth::AuthScanResult* temp = scan_result_;
+  scan_result_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::AuthScanResult* AuthScanDone::_internal_mutable_scan_result() {
+  
+  if (scan_result_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::AuthScanResult>(GetArenaForAllocation());
+    scan_result_ = p;
+  }
+  return scan_result_;
+}
+inline ::user_data_auth::AuthScanResult* AuthScanDone::mutable_scan_result() {
+  ::user_data_auth::AuthScanResult* _msg = _internal_mutable_scan_result();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.AuthScanDone.scan_result)
+  return _msg;
+}
+inline void AuthScanDone::set_allocated_scan_result(::user_data_auth::AuthScanResult* scan_result) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete scan_result_;
+  }
+  if (scan_result) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::user_data_auth::AuthScanResult>::GetOwningArena(scan_result);
+    if (message_arena != submessage_arena) {
+      scan_result = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, scan_result, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  scan_result_ = scan_result;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.AuthScanDone.scan_result)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
