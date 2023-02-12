@@ -6149,6 +6149,8 @@ class CreateDiskImageRequest final :
 
   enum : int {
     kParamsFieldNumber = 7,
+    kMkfsOptsFieldNumber = 10,
+    kTune2FsOptsFieldNumber = 11,
     kCryptohomeIdFieldNumber = 1,
     kVmNameFieldNumber = 2,
     kDiskSizeFieldNumber = 3,
@@ -6180,6 +6182,54 @@ class CreateDiskImageRequest final :
   private:
   const std::string& _internal_params(int index) const;
   std::string* _internal_add_params();
+  public:
+
+  // repeated string mkfs_opts = 10;
+  int mkfs_opts_size() const;
+  private:
+  int _internal_mkfs_opts_size() const;
+  public:
+  void clear_mkfs_opts();
+  const std::string& mkfs_opts(int index) const;
+  std::string* mutable_mkfs_opts(int index);
+  void set_mkfs_opts(int index, const std::string& value);
+  void set_mkfs_opts(int index, std::string&& value);
+  void set_mkfs_opts(int index, const char* value);
+  void set_mkfs_opts(int index, const char* value, size_t size);
+  std::string* add_mkfs_opts();
+  void add_mkfs_opts(const std::string& value);
+  void add_mkfs_opts(std::string&& value);
+  void add_mkfs_opts(const char* value);
+  void add_mkfs_opts(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& mkfs_opts() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_mkfs_opts();
+  private:
+  const std::string& _internal_mkfs_opts(int index) const;
+  std::string* _internal_add_mkfs_opts();
+  public:
+
+  // repeated string tune2fs_opts = 11;
+  int tune2fs_opts_size() const;
+  private:
+  int _internal_tune2fs_opts_size() const;
+  public:
+  void clear_tune2fs_opts();
+  const std::string& tune2fs_opts(int index) const;
+  std::string* mutable_tune2fs_opts(int index);
+  void set_tune2fs_opts(int index, const std::string& value);
+  void set_tune2fs_opts(int index, std::string&& value);
+  void set_tune2fs_opts(int index, const char* value);
+  void set_tune2fs_opts(int index, const char* value, size_t size);
+  std::string* add_tune2fs_opts();
+  void add_tune2fs_opts(const std::string& value);
+  void add_tune2fs_opts(std::string&& value);
+  void add_tune2fs_opts(const char* value);
+  void add_tune2fs_opts(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& tune2fs_opts() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_tune2fs_opts();
+  private:
+  const std::string& _internal_tune2fs_opts(int index) const;
+  std::string* _internal_add_tune2fs_opts();
   public:
 
   // string cryptohome_id = 1;
@@ -6272,6 +6322,8 @@ class CreateDiskImageRequest final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> params_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> mkfs_opts_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> tune2fs_opts_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr cryptohome_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_name_;
   uint64_t disk_size_;
@@ -18253,6 +18305,156 @@ inline void CreateDiskImageRequest::_internal_set_storage_ballooning(bool value)
 inline void CreateDiskImageRequest::set_storage_ballooning(bool value) {
   _internal_set_storage_ballooning(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.CreateDiskImageRequest.storage_ballooning)
+}
+
+// repeated string mkfs_opts = 10;
+inline int CreateDiskImageRequest::_internal_mkfs_opts_size() const {
+  return mkfs_opts_.size();
+}
+inline int CreateDiskImageRequest::mkfs_opts_size() const {
+  return _internal_mkfs_opts_size();
+}
+inline void CreateDiskImageRequest::clear_mkfs_opts() {
+  mkfs_opts_.Clear();
+}
+inline std::string* CreateDiskImageRequest::add_mkfs_opts() {
+  std::string* _s = _internal_add_mkfs_opts();
+  // @@protoc_insertion_point(field_add_mutable:vm_tools.concierge.CreateDiskImageRequest.mkfs_opts)
+  return _s;
+}
+inline const std::string& CreateDiskImageRequest::_internal_mkfs_opts(int index) const {
+  return mkfs_opts_.Get(index);
+}
+inline const std::string& CreateDiskImageRequest::mkfs_opts(int index) const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.CreateDiskImageRequest.mkfs_opts)
+  return _internal_mkfs_opts(index);
+}
+inline std::string* CreateDiskImageRequest::mutable_mkfs_opts(int index) {
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.CreateDiskImageRequest.mkfs_opts)
+  return mkfs_opts_.Mutable(index);
+}
+inline void CreateDiskImageRequest::set_mkfs_opts(int index, const std::string& value) {
+  mkfs_opts_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.CreateDiskImageRequest.mkfs_opts)
+}
+inline void CreateDiskImageRequest::set_mkfs_opts(int index, std::string&& value) {
+  mkfs_opts_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.CreateDiskImageRequest.mkfs_opts)
+}
+inline void CreateDiskImageRequest::set_mkfs_opts(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  mkfs_opts_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:vm_tools.concierge.CreateDiskImageRequest.mkfs_opts)
+}
+inline void CreateDiskImageRequest::set_mkfs_opts(int index, const char* value, size_t size) {
+  mkfs_opts_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:vm_tools.concierge.CreateDiskImageRequest.mkfs_opts)
+}
+inline std::string* CreateDiskImageRequest::_internal_add_mkfs_opts() {
+  return mkfs_opts_.Add();
+}
+inline void CreateDiskImageRequest::add_mkfs_opts(const std::string& value) {
+  mkfs_opts_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:vm_tools.concierge.CreateDiskImageRequest.mkfs_opts)
+}
+inline void CreateDiskImageRequest::add_mkfs_opts(std::string&& value) {
+  mkfs_opts_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:vm_tools.concierge.CreateDiskImageRequest.mkfs_opts)
+}
+inline void CreateDiskImageRequest::add_mkfs_opts(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  mkfs_opts_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:vm_tools.concierge.CreateDiskImageRequest.mkfs_opts)
+}
+inline void CreateDiskImageRequest::add_mkfs_opts(const char* value, size_t size) {
+  mkfs_opts_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:vm_tools.concierge.CreateDiskImageRequest.mkfs_opts)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+CreateDiskImageRequest::mkfs_opts() const {
+  // @@protoc_insertion_point(field_list:vm_tools.concierge.CreateDiskImageRequest.mkfs_opts)
+  return mkfs_opts_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+CreateDiskImageRequest::mutable_mkfs_opts() {
+  // @@protoc_insertion_point(field_mutable_list:vm_tools.concierge.CreateDiskImageRequest.mkfs_opts)
+  return &mkfs_opts_;
+}
+
+// repeated string tune2fs_opts = 11;
+inline int CreateDiskImageRequest::_internal_tune2fs_opts_size() const {
+  return tune2fs_opts_.size();
+}
+inline int CreateDiskImageRequest::tune2fs_opts_size() const {
+  return _internal_tune2fs_opts_size();
+}
+inline void CreateDiskImageRequest::clear_tune2fs_opts() {
+  tune2fs_opts_.Clear();
+}
+inline std::string* CreateDiskImageRequest::add_tune2fs_opts() {
+  std::string* _s = _internal_add_tune2fs_opts();
+  // @@protoc_insertion_point(field_add_mutable:vm_tools.concierge.CreateDiskImageRequest.tune2fs_opts)
+  return _s;
+}
+inline const std::string& CreateDiskImageRequest::_internal_tune2fs_opts(int index) const {
+  return tune2fs_opts_.Get(index);
+}
+inline const std::string& CreateDiskImageRequest::tune2fs_opts(int index) const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.CreateDiskImageRequest.tune2fs_opts)
+  return _internal_tune2fs_opts(index);
+}
+inline std::string* CreateDiskImageRequest::mutable_tune2fs_opts(int index) {
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.CreateDiskImageRequest.tune2fs_opts)
+  return tune2fs_opts_.Mutable(index);
+}
+inline void CreateDiskImageRequest::set_tune2fs_opts(int index, const std::string& value) {
+  tune2fs_opts_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.CreateDiskImageRequest.tune2fs_opts)
+}
+inline void CreateDiskImageRequest::set_tune2fs_opts(int index, std::string&& value) {
+  tune2fs_opts_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.CreateDiskImageRequest.tune2fs_opts)
+}
+inline void CreateDiskImageRequest::set_tune2fs_opts(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  tune2fs_opts_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:vm_tools.concierge.CreateDiskImageRequest.tune2fs_opts)
+}
+inline void CreateDiskImageRequest::set_tune2fs_opts(int index, const char* value, size_t size) {
+  tune2fs_opts_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:vm_tools.concierge.CreateDiskImageRequest.tune2fs_opts)
+}
+inline std::string* CreateDiskImageRequest::_internal_add_tune2fs_opts() {
+  return tune2fs_opts_.Add();
+}
+inline void CreateDiskImageRequest::add_tune2fs_opts(const std::string& value) {
+  tune2fs_opts_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:vm_tools.concierge.CreateDiskImageRequest.tune2fs_opts)
+}
+inline void CreateDiskImageRequest::add_tune2fs_opts(std::string&& value) {
+  tune2fs_opts_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:vm_tools.concierge.CreateDiskImageRequest.tune2fs_opts)
+}
+inline void CreateDiskImageRequest::add_tune2fs_opts(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  tune2fs_opts_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:vm_tools.concierge.CreateDiskImageRequest.tune2fs_opts)
+}
+inline void CreateDiskImageRequest::add_tune2fs_opts(const char* value, size_t size) {
+  tune2fs_opts_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:vm_tools.concierge.CreateDiskImageRequest.tune2fs_opts)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+CreateDiskImageRequest::tune2fs_opts() const {
+  // @@protoc_insertion_point(field_list:vm_tools.concierge.CreateDiskImageRequest.tune2fs_opts)
+  return tune2fs_opts_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+CreateDiskImageRequest::mutable_tune2fs_opts() {
+  // @@protoc_insertion_point(field_mutable_list:vm_tools.concierge.CreateDiskImageRequest.tune2fs_opts)
+  return &tune2fs_opts_;
 }
 
 // -------------------------------------------------------------------
