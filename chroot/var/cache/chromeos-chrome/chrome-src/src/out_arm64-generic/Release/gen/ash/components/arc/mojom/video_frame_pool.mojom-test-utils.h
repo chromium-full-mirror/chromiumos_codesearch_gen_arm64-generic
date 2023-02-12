@@ -38,7 +38,7 @@ class  VideoFramePoolAsyncWaiter {
 
 class  VideoFramePoolClientInterceptorForTesting : public VideoFramePoolClient {
   virtual VideoFramePoolClient* GetForwardingInterface() = 0;
-  void RequestVideoFrames(media::VideoPixelFormat format, const gfx::Size& coded_size, const ::gfx::Rect& visible_rect, uint32_t num_frames) override;
+  void RequestVideoFrames(::media::VideoPixelFormat format, const ::gfx::Size& coded_size, const ::gfx::Rect& visible_rect, uint32_t num_frames) override;
 };
 class  VideoFramePoolClientAsyncWaiter {
  public:

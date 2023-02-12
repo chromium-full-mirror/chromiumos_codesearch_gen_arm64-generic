@@ -475,6 +475,7 @@ class ChromeUserMetricsExtension final :
     kSessionIdFieldNumber = 2,
     kProductFieldNumber = 10,
     kUserIdFieldNumber = 24,
+    kRecordIdFieldNumber = 28,
   };
   // repeated .metrics.UserActionEventProto user_action_event = 4;
   int user_action_event_size() const;
@@ -816,6 +817,19 @@ class ChromeUserMetricsExtension final :
   void _internal_set_user_id(uint64_t value);
   public:
 
+  // optional int64 record_id = 28;
+  bool has_record_id() const;
+  private:
+  bool _internal_has_record_id() const;
+  public:
+  void clear_record_id();
+  int64_t record_id() const;
+  void set_record_id(int64_t value);
+  private:
+  int64_t _internal_record_id() const;
+  void _internal_set_record_id(int64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:metrics.ChromeUserMetricsExtension)
  private:
   class _Internal;
@@ -845,6 +859,7 @@ class ChromeUserMetricsExtension final :
   int32_t session_id_;
   int32_t product_;
   uint64_t user_id_;
+  int64_t record_id_;
   friend struct ::TableStruct_chrome_5fuser_5fmetrics_5fextension_2eproto;
 };
 // ===================================================================
@@ -1057,6 +1072,34 @@ inline void ChromeUserMetricsExtension::_internal_set_user_id(uint64_t value) {
 inline void ChromeUserMetricsExtension::set_user_id(uint64_t value) {
   _internal_set_user_id(value);
   // @@protoc_insertion_point(field_set:metrics.ChromeUserMetricsExtension.user_id)
+}
+
+// optional int64 record_id = 28;
+inline bool ChromeUserMetricsExtension::_internal_has_record_id() const {
+  bool value = (_has_bits_[0] & 0x00001000u) != 0;
+  return value;
+}
+inline bool ChromeUserMetricsExtension::has_record_id() const {
+  return _internal_has_record_id();
+}
+inline void ChromeUserMetricsExtension::clear_record_id() {
+  record_id_ = int64_t{0};
+  _has_bits_[0] &= ~0x00001000u;
+}
+inline int64_t ChromeUserMetricsExtension::_internal_record_id() const {
+  return record_id_;
+}
+inline int64_t ChromeUserMetricsExtension::record_id() const {
+  // @@protoc_insertion_point(field_get:metrics.ChromeUserMetricsExtension.record_id)
+  return _internal_record_id();
+}
+inline void ChromeUserMetricsExtension::_internal_set_record_id(int64_t value) {
+  _has_bits_[0] |= 0x00001000u;
+  record_id_ = value;
+}
+inline void ChromeUserMetricsExtension::set_record_id(int64_t value) {
+  _internal_set_record_id(value);
+  // @@protoc_insertion_point(field_set:metrics.ChromeUserMetricsExtension.record_id)
 }
 
 // optional .metrics.ChromeUserMetricsExtension.RealLocalTime time_log_created = 25;

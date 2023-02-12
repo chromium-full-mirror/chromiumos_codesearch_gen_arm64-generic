@@ -55,6 +55,9 @@ extern CommonMetadataDefaultTypeInternal _CommonMetadata_default_instance_;
 class CryptohomeRecoveryAuthInput;
 struct CryptohomeRecoveryAuthInputDefaultTypeInternal;
 extern CryptohomeRecoveryAuthInputDefaultTypeInternal _CryptohomeRecoveryAuthInput_default_instance_;
+class CryptohomeRecoveryAuthInput_LedgerInfo;
+struct CryptohomeRecoveryAuthInput_LedgerInfoDefaultTypeInternal;
+extern CryptohomeRecoveryAuthInput_LedgerInfoDefaultTypeInternal _CryptohomeRecoveryAuthInput_LedgerInfo_default_instance_;
 class CryptohomeRecoveryMetadata;
 struct CryptohomeRecoveryMetadataDefaultTypeInternal;
 extern CryptohomeRecoveryMetadataDefaultTypeInternal _CryptohomeRecoveryMetadata_default_instance_;
@@ -100,6 +103,7 @@ template<> ::user_data_auth::AuthFactor* Arena::CreateMaybeMessage<::user_data_a
 template<> ::user_data_auth::AuthInput* Arena::CreateMaybeMessage<::user_data_auth::AuthInput>(Arena*);
 template<> ::user_data_auth::CommonMetadata* Arena::CreateMaybeMessage<::user_data_auth::CommonMetadata>(Arena*);
 template<> ::user_data_auth::CryptohomeRecoveryAuthInput* Arena::CreateMaybeMessage<::user_data_auth::CryptohomeRecoveryAuthInput>(Arena*);
+template<> ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* Arena::CreateMaybeMessage<::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo>(Arena*);
 template<> ::user_data_auth::CryptohomeRecoveryMetadata* Arena::CreateMaybeMessage<::user_data_auth::CryptohomeRecoveryMetadata>(Arena*);
 template<> ::user_data_auth::FingerprintAuthInput* Arena::CreateMaybeMessage<::user_data_auth::FingerprintAuthInput>(Arena*);
 template<> ::user_data_auth::FingerprintMetadata* Arena::CreateMaybeMessage<::user_data_auth::FingerprintMetadata>(Arena*);
@@ -478,6 +482,165 @@ class PinAuthInput final :
 };
 // -------------------------------------------------------------------
 
+class CryptohomeRecoveryAuthInput_LedgerInfo final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo) */ {
+ public:
+  inline CryptohomeRecoveryAuthInput_LedgerInfo() : CryptohomeRecoveryAuthInput_LedgerInfo(nullptr) {}
+  ~CryptohomeRecoveryAuthInput_LedgerInfo() override;
+  explicit PROTOBUF_CONSTEXPR CryptohomeRecoveryAuthInput_LedgerInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CryptohomeRecoveryAuthInput_LedgerInfo(const CryptohomeRecoveryAuthInput_LedgerInfo& from);
+  CryptohomeRecoveryAuthInput_LedgerInfo(CryptohomeRecoveryAuthInput_LedgerInfo&& from) noexcept
+    : CryptohomeRecoveryAuthInput_LedgerInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline CryptohomeRecoveryAuthInput_LedgerInfo& operator=(const CryptohomeRecoveryAuthInput_LedgerInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CryptohomeRecoveryAuthInput_LedgerInfo& operator=(CryptohomeRecoveryAuthInput_LedgerInfo&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const CryptohomeRecoveryAuthInput_LedgerInfo& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CryptohomeRecoveryAuthInput_LedgerInfo* internal_default_instance() {
+    return reinterpret_cast<const CryptohomeRecoveryAuthInput_LedgerInfo*>(
+               &_CryptohomeRecoveryAuthInput_LedgerInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(CryptohomeRecoveryAuthInput_LedgerInfo& a, CryptohomeRecoveryAuthInput_LedgerInfo& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(CryptohomeRecoveryAuthInput_LedgerInfo* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CryptohomeRecoveryAuthInput_LedgerInfo* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CryptohomeRecoveryAuthInput_LedgerInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CryptohomeRecoveryAuthInput_LedgerInfo>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const CryptohomeRecoveryAuthInput_LedgerInfo& from);
+  void MergeFrom(const CryptohomeRecoveryAuthInput_LedgerInfo& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(CryptohomeRecoveryAuthInput_LedgerInfo* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo";
+  }
+  protected:
+  explicit CryptohomeRecoveryAuthInput_LedgerInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kPublicKeyFieldNumber = 3,
+    kKeyHashFieldNumber = 2,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // bytes public_key = 3;
+  void clear_public_key();
+  const std::string& public_key() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_public_key(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_public_key();
+  PROTOBUF_NODISCARD std::string* release_public_key();
+  void set_allocated_public_key(std::string* public_key);
+  private:
+  const std::string& _internal_public_key() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_public_key(const std::string& value);
+  std::string* _internal_mutable_public_key();
+  public:
+
+  // uint32 key_hash = 2;
+  void clear_key_hash();
+  uint32_t key_hash() const;
+  void set_key_hash(uint32_t value);
+  private:
+  uint32_t _internal_key_hash() const;
+  void _internal_set_key_hash(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr public_key_;
+  uint32_t key_hash_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_auth_5ffactor_2eproto;
+};
+// -------------------------------------------------------------------
+
 class CryptohomeRecoveryAuthInput final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.CryptohomeRecoveryAuthInput) */ {
  public:
@@ -517,7 +680,7 @@ class CryptohomeRecoveryAuthInput final :
                &_CryptohomeRecoveryAuthInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(CryptohomeRecoveryAuthInput& a, CryptohomeRecoveryAuthInput& b) {
     a.Swap(&b);
@@ -578,6 +741,8 @@ class CryptohomeRecoveryAuthInput final :
 
   // nested types ----------------------------------------------------
 
+  typedef CryptohomeRecoveryAuthInput_LedgerInfo LedgerInfo;
+
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -586,6 +751,7 @@ class CryptohomeRecoveryAuthInput final :
     kDeviceUserIdFieldNumber = 3,
     kEpochResponseFieldNumber = 4,
     kRecoveryResponseFieldNumber = 5,
+    kLedgerInfoFieldNumber = 6,
   };
   // bytes mediator_pub_key = 1;
   void clear_mediator_pub_key();
@@ -657,6 +823,24 @@ class CryptohomeRecoveryAuthInput final :
   std::string* _internal_mutable_recovery_response();
   public:
 
+  // .user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo ledger_info = 6;
+  bool has_ledger_info() const;
+  private:
+  bool _internal_has_ledger_info() const;
+  public:
+  void clear_ledger_info();
+  const ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo& ledger_info() const;
+  PROTOBUF_NODISCARD ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* release_ledger_info();
+  ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* mutable_ledger_info();
+  void set_allocated_ledger_info(::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* ledger_info);
+  private:
+  const ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo& _internal_ledger_info() const;
+  ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* _internal_mutable_ledger_info();
+  public:
+  void unsafe_arena_set_allocated_ledger_info(
+      ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* ledger_info);
+  ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* unsafe_arena_release_ledger_info();
+
   // @@protoc_insertion_point(class_scope:user_data_auth.CryptohomeRecoveryAuthInput)
  private:
   class _Internal;
@@ -669,6 +853,7 @@ class CryptohomeRecoveryAuthInput final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr device_user_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr epoch_response_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr recovery_response_;
+  ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* ledger_info_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_auth_5ffactor_2eproto;
 };
@@ -713,7 +898,7 @@ class KioskAuthInput final :
                &_KioskAuthInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(KioskAuthInput& a, KioskAuthInput& b) {
     a.Swap(&b);
@@ -827,7 +1012,7 @@ class SmartCardAuthInput final :
                &_SmartCardAuthInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(SmartCardAuthInput& a, SmartCardAuthInput& b) {
     a.Swap(&b);
@@ -979,7 +1164,7 @@ class LegacyFingerprintAuthInput final :
                &_LegacyFingerprintAuthInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(LegacyFingerprintAuthInput& a, LegacyFingerprintAuthInput& b) {
     a.Swap(&b);
@@ -1093,7 +1278,7 @@ class FingerprintAuthInput final :
                &_FingerprintAuthInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(FingerprintAuthInput& a, FingerprintAuthInput& b) {
     a.Swap(&b);
@@ -1218,7 +1403,7 @@ class AuthInput final :
                &_AuthInput_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(AuthInput& a, AuthInput& b) {
     a.Swap(&b);
@@ -1492,7 +1677,7 @@ class PasswordMetadata final :
                &_PasswordMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(PasswordMetadata& a, PasswordMetadata& b) {
     a.Swap(&b);
@@ -1606,7 +1791,7 @@ class PinMetadata final :
                &_PinMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(PinMetadata& a, PinMetadata& b) {
     a.Swap(&b);
@@ -1733,7 +1918,7 @@ class CryptohomeRecoveryMetadata final :
                &_CryptohomeRecoveryMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   friend void swap(CryptohomeRecoveryMetadata& a, CryptohomeRecoveryMetadata& b) {
     a.Swap(&b);
@@ -1847,7 +2032,7 @@ class KioskMetadata final :
                &_KioskMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   friend void swap(KioskMetadata& a, KioskMetadata& b) {
     a.Swap(&b);
@@ -1961,7 +2146,7 @@ class SmartCardMetadata final :
                &_SmartCardMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    13;
 
   friend void swap(SmartCardMetadata& a, SmartCardMetadata& b) {
     a.Swap(&b);
@@ -2093,7 +2278,7 @@ class CommonMetadata final :
                &_CommonMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    14;
 
   friend void swap(CommonMetadata& a, CommonMetadata& b) {
     a.Swap(&b);
@@ -2241,7 +2426,7 @@ class LegacyFingerprintMetadata final :
                &_LegacyFingerprintMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    15;
 
   friend void swap(LegacyFingerprintMetadata& a, LegacyFingerprintMetadata& b) {
     a.Swap(&b);
@@ -2355,7 +2540,7 @@ class FingerprintMetadata final :
                &_FingerprintMetadata_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    16;
 
   friend void swap(FingerprintMetadata& a, FingerprintMetadata& b) {
     a.Swap(&b);
@@ -2480,7 +2665,7 @@ class AuthFactor final :
                &_AuthFactor_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    17;
 
   friend void swap(AuthFactor& a, AuthFactor& b) {
     a.Swap(&b);
@@ -2877,6 +3062,130 @@ inline void PinAuthInput::set_allocated_secret(std::string* secret) {
 
 // -------------------------------------------------------------------
 
+// CryptohomeRecoveryAuthInput_LedgerInfo
+
+// string name = 1;
+inline void CryptohomeRecoveryAuthInput_LedgerInfo::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& CryptohomeRecoveryAuthInput_LedgerInfo::name() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CryptohomeRecoveryAuthInput_LedgerInfo::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo.name)
+}
+inline std::string* CryptohomeRecoveryAuthInput_LedgerInfo::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo.name)
+  return _s;
+}
+inline const std::string& CryptohomeRecoveryAuthInput_LedgerInfo::_internal_name() const {
+  return name_.Get();
+}
+inline void CryptohomeRecoveryAuthInput_LedgerInfo::_internal_set_name(const std::string& value) {
+  
+  name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CryptohomeRecoveryAuthInput_LedgerInfo::_internal_mutable_name() {
+  
+  return name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CryptohomeRecoveryAuthInput_LedgerInfo::release_name() {
+  // @@protoc_insertion_point(field_release:user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo.name)
+  return name_.Release();
+}
+inline void CryptohomeRecoveryAuthInput_LedgerInfo::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (name_.IsDefault()) {
+    name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo.name)
+}
+
+// uint32 key_hash = 2;
+inline void CryptohomeRecoveryAuthInput_LedgerInfo::clear_key_hash() {
+  key_hash_ = 0u;
+}
+inline uint32_t CryptohomeRecoveryAuthInput_LedgerInfo::_internal_key_hash() const {
+  return key_hash_;
+}
+inline uint32_t CryptohomeRecoveryAuthInput_LedgerInfo::key_hash() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo.key_hash)
+  return _internal_key_hash();
+}
+inline void CryptohomeRecoveryAuthInput_LedgerInfo::_internal_set_key_hash(uint32_t value) {
+  
+  key_hash_ = value;
+}
+inline void CryptohomeRecoveryAuthInput_LedgerInfo::set_key_hash(uint32_t value) {
+  _internal_set_key_hash(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo.key_hash)
+}
+
+// bytes public_key = 3;
+inline void CryptohomeRecoveryAuthInput_LedgerInfo::clear_public_key() {
+  public_key_.ClearToEmpty();
+}
+inline const std::string& CryptohomeRecoveryAuthInput_LedgerInfo::public_key() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo.public_key)
+  return _internal_public_key();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CryptohomeRecoveryAuthInput_LedgerInfo::set_public_key(ArgT0&& arg0, ArgT... args) {
+ 
+ public_key_.SetBytes(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo.public_key)
+}
+inline std::string* CryptohomeRecoveryAuthInput_LedgerInfo::mutable_public_key() {
+  std::string* _s = _internal_mutable_public_key();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo.public_key)
+  return _s;
+}
+inline const std::string& CryptohomeRecoveryAuthInput_LedgerInfo::_internal_public_key() const {
+  return public_key_.Get();
+}
+inline void CryptohomeRecoveryAuthInput_LedgerInfo::_internal_set_public_key(const std::string& value) {
+  
+  public_key_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CryptohomeRecoveryAuthInput_LedgerInfo::_internal_mutable_public_key() {
+  
+  return public_key_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CryptohomeRecoveryAuthInput_LedgerInfo::release_public_key() {
+  // @@protoc_insertion_point(field_release:user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo.public_key)
+  return public_key_.Release();
+}
+inline void CryptohomeRecoveryAuthInput_LedgerInfo::set_allocated_public_key(std::string* public_key) {
+  if (public_key != nullptr) {
+    
+  } else {
+    
+  }
+  public_key_.SetAllocated(public_key, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (public_key_.IsDefault()) {
+    public_key_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo.public_key)
+}
+
+// -------------------------------------------------------------------
+
 // CryptohomeRecoveryAuthInput
 
 // bytes mediator_pub_key = 1;
@@ -3127,6 +3436,96 @@ inline void CryptohomeRecoveryAuthInput::set_allocated_recovery_response(std::st
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.CryptohomeRecoveryAuthInput.recovery_response)
+}
+
+// .user_data_auth.CryptohomeRecoveryAuthInput.LedgerInfo ledger_info = 6;
+inline bool CryptohomeRecoveryAuthInput::_internal_has_ledger_info() const {
+  return this != internal_default_instance() && ledger_info_ != nullptr;
+}
+inline bool CryptohomeRecoveryAuthInput::has_ledger_info() const {
+  return _internal_has_ledger_info();
+}
+inline void CryptohomeRecoveryAuthInput::clear_ledger_info() {
+  if (GetArenaForAllocation() == nullptr && ledger_info_ != nullptr) {
+    delete ledger_info_;
+  }
+  ledger_info_ = nullptr;
+}
+inline const ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo& CryptohomeRecoveryAuthInput::_internal_ledger_info() const {
+  const ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* p = ledger_info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo&>(
+      ::user_data_auth::_CryptohomeRecoveryAuthInput_LedgerInfo_default_instance_);
+}
+inline const ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo& CryptohomeRecoveryAuthInput::ledger_info() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.CryptohomeRecoveryAuthInput.ledger_info)
+  return _internal_ledger_info();
+}
+inline void CryptohomeRecoveryAuthInput::unsafe_arena_set_allocated_ledger_info(
+    ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* ledger_info) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(ledger_info_);
+  }
+  ledger_info_ = ledger_info;
+  if (ledger_info) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.CryptohomeRecoveryAuthInput.ledger_info)
+}
+inline ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* CryptohomeRecoveryAuthInput::release_ledger_info() {
+  
+  ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* temp = ledger_info_;
+  ledger_info_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* CryptohomeRecoveryAuthInput::unsafe_arena_release_ledger_info() {
+  // @@protoc_insertion_point(field_release:user_data_auth.CryptohomeRecoveryAuthInput.ledger_info)
+  
+  ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* temp = ledger_info_;
+  ledger_info_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* CryptohomeRecoveryAuthInput::_internal_mutable_ledger_info() {
+  
+  if (ledger_info_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo>(GetArenaForAllocation());
+    ledger_info_ = p;
+  }
+  return ledger_info_;
+}
+inline ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* CryptohomeRecoveryAuthInput::mutable_ledger_info() {
+  ::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* _msg = _internal_mutable_ledger_info();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.CryptohomeRecoveryAuthInput.ledger_info)
+  return _msg;
+}
+inline void CryptohomeRecoveryAuthInput::set_allocated_ledger_info(::user_data_auth::CryptohomeRecoveryAuthInput_LedgerInfo* ledger_info) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete ledger_info_;
+  }
+  if (ledger_info) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(ledger_info);
+    if (message_arena != submessage_arena) {
+      ledger_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, ledger_info, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  ledger_info_ = ledger_info;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.CryptohomeRecoveryAuthInput.ledger_info)
 }
 
 // -------------------------------------------------------------------
@@ -4665,6 +5064,8 @@ inline AuthFactor::MetadataCase AuthFactor::metadata_case() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

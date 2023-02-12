@@ -19,7 +19,7 @@ class  VideoDecodeAcceleratorInterceptorForTesting : public VideoDecodeAccelerat
   void Initialize(VideoDecodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoDecodeClient> client, InitializeCallback callback) override;
   void Decode(BitstreamBufferPtr bitstream_buffer) override;
   void AssignPictureBuffers(uint32_t count) override;
-  void ImportBufferForPicture(int32_t picture_buffer_id, ::arc::mojom::HalPixelFormat format, ::mojo::ScopedHandle handle_fd, std::vector<arc::VideoFramePlane> planes, BufferModifierPtr modifier) override;
+  void ImportBufferForPicture(int32_t picture_buffer_id, ::arc::mojom::HalPixelFormat format, ::mojo::ScopedHandle handle_fd, std::vector<::arc::VideoFramePlane> planes, BufferModifierPtr modifier) override;
   void ReusePictureBuffer(int32_t picture_buffer_id) override;
   void Reset(ResetCallback callback) override;
   void Flush(FlushCallback callback) override;

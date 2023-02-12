@@ -359,9 +359,9 @@ class  VideoFrameLayout {
   VideoFrameLayout();
 
   VideoFrameLayout(
-      media::VideoPixelFormat format,
-      const gfx::Size& coded_size,
-      std::vector<media::ColorPlaneLayout> planes,
+      ::media::VideoPixelFormat format,
+      const ::gfx::Size& coded_size,
+      std::vector<::media::ColorPlaneLayout> planes,
       bool is_multi_planar,
       uint32_t buffer_addr_align,
       uint64_t modifier);
@@ -439,11 +439,11 @@ class  VideoFrameLayout {
   }
 
   
-  media::VideoPixelFormat format;
+  ::media::VideoPixelFormat format;
   
-  gfx::Size coded_size;
+  ::gfx::Size coded_size;
   
-  std::vector<media::ColorPlaneLayout> planes;
+  std::vector<::media::ColorPlaneLayout> planes;
   
   bool is_multi_planar;
   

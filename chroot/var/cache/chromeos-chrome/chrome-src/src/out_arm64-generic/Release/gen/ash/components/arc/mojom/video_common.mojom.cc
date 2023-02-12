@@ -137,17 +137,17 @@ bool ColorPlaneLayout::Validate(
   return Data_::Validate(data, validation_context);
 }
 VideoFrameLayout::VideoFrameLayout()
-    : format(mojo::DefaultConstructTraits::CreateInstance<media::VideoPixelFormat>()),
-      coded_size(mojo::DefaultConstructTraits::CreateInstance<gfx::Size>()),
+    : format(mojo::DefaultConstructTraits::CreateInstance<::media::VideoPixelFormat>()),
+      coded_size(mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>()),
       planes(),
       is_multi_planar(),
       buffer_addr_align(),
       modifier() {}
 
 VideoFrameLayout::VideoFrameLayout(
-    media::VideoPixelFormat format_in,
-    const gfx::Size& coded_size_in,
-    std::vector<media::ColorPlaneLayout> planes_in,
+    ::media::VideoPixelFormat format_in,
+    const ::gfx::Size& coded_size_in,
+    std::vector<::media::ColorPlaneLayout> planes_in,
     bool is_multi_planar_in,
     uint32_t buffer_addr_align_in,
     uint64_t modifier_in)
@@ -167,7 +167,7 @@ void VideoFrameLayout::WriteIntoTrace(
     dict.AddItem(
       "format"), this->format,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type media::VideoPixelFormat>"
+      "<value of type ::media::VideoPixelFormat>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -176,7 +176,7 @@ void VideoFrameLayout::WriteIntoTrace(
     dict.AddItem(
       "coded_size"), this->coded_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const gfx::Size&>"
+      "<value of type const ::gfx::Size&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -185,7 +185,7 @@ void VideoFrameLayout::WriteIntoTrace(
     dict.AddItem(
       "planes"), this->planes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::vector<media::ColorPlaneLayout>&>"
+      "<value of type const std::vector<::media::ColorPlaneLayout>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

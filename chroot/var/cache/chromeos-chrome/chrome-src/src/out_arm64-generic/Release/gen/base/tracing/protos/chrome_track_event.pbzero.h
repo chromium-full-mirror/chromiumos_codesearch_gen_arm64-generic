@@ -121,6 +121,14 @@ enum QueueName : int32_t;
 }  // namespace perfetto_pbzero_enum_SequenceManagerTask
 using SequenceManagerTask_QueueName = perfetto_pbzero_enum_SequenceManagerTask::QueueName;
 enum ShouldSwapBrowsingInstance : int32_t;
+namespace perfetto_pbzero_enum_TabSwitchMeasurement {
+enum Result : int32_t;
+}  // namespace perfetto_pbzero_enum_TabSwitchMeasurement
+using TabSwitchMeasurement_Result = perfetto_pbzero_enum_TabSwitchMeasurement::Result;
+namespace perfetto_pbzero_enum_TabSwitchMeasurement {
+enum TabState : int32_t;
+}  // namespace perfetto_pbzero_enum_TabSwitchMeasurement
+using TabSwitchMeasurement_TabState = perfetto_pbzero_enum_TabSwitchMeasurement::TabState;
 
 enum ChromeAppState : int32_t {
   APP_STATE_FOREGROUND = 1,
@@ -327,6 +335,72 @@ const char* DeviceThermalState_Name(::perfetto::protos::pbzero::DeviceThermalSta
 
   case ::perfetto::protos::pbzero::DeviceThermalState::DEVICE_THERMAL_STATE_CRITICAL:
     return "DEVICE_THERMAL_STATE_CRITICAL";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_TabSwitchMeasurement {
+enum Result : int32_t {
+  RESULT_UNSPECIFIED = 0,
+  RESULT_SUCCESS = 1,
+  RESULT_INCOMPLETE = 2,
+  RESULT_MISSED_TAB_HIDE = 3,
+};
+} // namespace perfetto_pbzero_enum_TabSwitchMeasurement
+using TabSwitchMeasurement_Result = perfetto_pbzero_enum_TabSwitchMeasurement::Result;
+
+
+constexpr TabSwitchMeasurement_Result TabSwitchMeasurement_Result_MIN = TabSwitchMeasurement_Result::RESULT_UNSPECIFIED;
+constexpr TabSwitchMeasurement_Result TabSwitchMeasurement_Result_MAX = TabSwitchMeasurement_Result::RESULT_MISSED_TAB_HIDE;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* TabSwitchMeasurement_Result_Name(::perfetto::protos::pbzero::TabSwitchMeasurement_Result value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::TabSwitchMeasurement_Result::RESULT_UNSPECIFIED:
+    return "RESULT_UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::TabSwitchMeasurement_Result::RESULT_SUCCESS:
+    return "RESULT_SUCCESS";
+
+  case ::perfetto::protos::pbzero::TabSwitchMeasurement_Result::RESULT_INCOMPLETE:
+    return "RESULT_INCOMPLETE";
+
+  case ::perfetto::protos::pbzero::TabSwitchMeasurement_Result::RESULT_MISSED_TAB_HIDE:
+    return "RESULT_MISSED_TAB_HIDE";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_TabSwitchMeasurement {
+enum TabState : int32_t {
+  STATE_UNSPECIFIED = 0,
+  STATE_WITH_SAVED_FRAMES = 1,
+  STATE_LOADED_NO_SAVED_FRAMES = 2,
+  STATE_NOT_LOADED_NO_SAVED_FRAMES = 3,
+};
+} // namespace perfetto_pbzero_enum_TabSwitchMeasurement
+using TabSwitchMeasurement_TabState = perfetto_pbzero_enum_TabSwitchMeasurement::TabState;
+
+
+constexpr TabSwitchMeasurement_TabState TabSwitchMeasurement_TabState_MIN = TabSwitchMeasurement_TabState::STATE_UNSPECIFIED;
+constexpr TabSwitchMeasurement_TabState TabSwitchMeasurement_TabState_MAX = TabSwitchMeasurement_TabState::STATE_NOT_LOADED_NO_SAVED_FRAMES;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* TabSwitchMeasurement_TabState_Name(::perfetto::protos::pbzero::TabSwitchMeasurement_TabState value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::TabSwitchMeasurement_TabState::STATE_UNSPECIFIED:
+    return "STATE_UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::TabSwitchMeasurement_TabState::STATE_WITH_SAVED_FRAMES:
+    return "STATE_WITH_SAVED_FRAMES";
+
+  case ::perfetto::protos::pbzero::TabSwitchMeasurement_TabState::STATE_LOADED_NO_SAVED_FRAMES:
+    return "STATE_LOADED_NO_SAVED_FRAMES";
+
+  case ::perfetto::protos::pbzero::TabSwitchMeasurement_TabState::STATE_NOT_LOADED_NO_SAVED_FRAMES:
+    return "STATE_NOT_LOADED_NO_SAVED_FRAMES";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -1995,6 +2069,96 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
+
+class TabSwitchMeasurement_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  TabSwitchMeasurement_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit TabSwitchMeasurement_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit TabSwitchMeasurement_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_result() const { return at<1>().valid(); }
+  int32_t result() const { return at<1>().as_int32(); }
+  bool has_tab_state() const { return at<2>().valid(); }
+  int32_t tab_state() const { return at<2>().as_int32(); }
+};
+
+class TabSwitchMeasurement : public ::protozero::Message {
+ public:
+  using Decoder = TabSwitchMeasurement_Decoder;
+  enum : int32_t {
+    kResultFieldNumber = 1,
+    kTabStateFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.TabSwitchMeasurement"; }
+
+
+  using Result = ::perfetto::protos::pbzero::TabSwitchMeasurement_Result;
+  static inline const char* Result_Name(Result value) {
+    return ::perfetto::protos::pbzero::TabSwitchMeasurement_Result_Name(value);
+  }
+
+  using TabState = ::perfetto::protos::pbzero::TabSwitchMeasurement_TabState;
+  static inline const char* TabState_Name(TabState value) {
+    return ::perfetto::protos::pbzero::TabSwitchMeasurement_TabState_Name(value);
+  }
+  static const Result RESULT_UNSPECIFIED = Result::RESULT_UNSPECIFIED;
+  static const Result RESULT_SUCCESS = Result::RESULT_SUCCESS;
+  static const Result RESULT_INCOMPLETE = Result::RESULT_INCOMPLETE;
+  static const Result RESULT_MISSED_TAB_HIDE = Result::RESULT_MISSED_TAB_HIDE;
+  static const TabState STATE_UNSPECIFIED = TabState::STATE_UNSPECIFIED;
+  static const TabState STATE_WITH_SAVED_FRAMES = TabState::STATE_WITH_SAVED_FRAMES;
+  static const TabState STATE_LOADED_NO_SAVED_FRAMES = TabState::STATE_LOADED_NO_SAVED_FRAMES;
+  static const TabState STATE_NOT_LOADED_NO_SAVED_FRAMES = TabState::STATE_NOT_LOADED_NO_SAVED_FRAMES;
+
+  using FieldMetadata_Result =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::TabSwitchMeasurement_Result,
+      TabSwitchMeasurement>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Result kResult() { return {}; }
+  void set_result(::perfetto::protos::pbzero::TabSwitchMeasurement_Result value) {
+    static constexpr uint32_t field_id = FieldMetadata_Result::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_TabState =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::TabSwitchMeasurement_TabState,
+      TabSwitchMeasurement>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_TabState kTabState() { return {}; }
+  void set_tab_state(::perfetto::protos::pbzero::TabSwitchMeasurement_TabState value) {
+    static constexpr uint32_t field_id = FieldMetadata_TabState::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+};
 
 class BlinkHighEntropyAPI_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
@@ -9855,6 +10019,27 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
   static constexpr FieldMetadata_HighEntropyApi kHighEntropyApi() { return {}; }
   template <typename T = BlinkHighEntropyAPI> T* set_high_entropy_api() {
     return BeginNestedMessage<T>(1045);
+  }
+
+
+  using FieldMetadata_TabSwitchMeasurement =
+    ::protozero::proto_utils::FieldMetadata<
+      1046,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      TabSwitchMeasurement,
+      ChromeTrackEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_TabSwitchMeasurement kTabSwitchMeasurement() { return {}; }
+  template <typename T = TabSwitchMeasurement> T* set_tab_switch_measurement() {
+    return BeginNestedMessage<T>(1046);
   }
 
 };

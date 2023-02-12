@@ -49,6 +49,8 @@ class AudioEventInfoDataView;
 
 class AudioJackEventInfoDataView;
 
+class SdCardEventInfoDataView;
+
 class EventInfoDataView;
 
 
@@ -109,6 +111,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioJackEventInfoDataView> {
 };
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::SdCardEventInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::SdCardEventInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::EventInfoDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::EventInfo_Data;
   using DataAsArrayElement = Data;
@@ -141,8 +150,10 @@ enum class EventCategoryEnum : int32_t {
   kAudio = 6,
   
   kAudioJack = 7,
+  
+  kSdCard = 8,
   kMinValue = 0,
-  kMaxValue = 7,
+  kMaxValue = 8,
   kDefaultValue = 0
 };
 
@@ -348,6 +359,31 @@ inline AudioJackEventInfo_State ToKnownEnumValue(AudioJackEventInfo_State value)
   }
   return AudioJackEventInfo_State::kDefaultValue;
 }
+
+
+enum class SdCardEventInfo_State : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kAdd = 1,
+  
+  kRemove = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, SdCardEventInfo_State value);
+inline bool IsKnownEnumValue(SdCardEventInfo_State value) {
+  return internal::SdCardEventInfo_State_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline SdCardEventInfo_State ToKnownEnumValue(SdCardEventInfo_State value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return SdCardEventInfo_State::kDefaultValue;
+}
 // Interface base classes. They are used for type safety check.
 class CrosHealthdBluetoothObserverInterfaceBase {};
 
@@ -409,6 +445,16 @@ using CrosHealthdUsbObserverAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<CrosHealthdUsbObserverInterfaceBase>;
 using CrosHealthdUsbObserverAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CrosHealthdUsbObserverInterfaceBase>;
+class CrosHealthdSdCardObserverInterfaceBase {};
+
+using CrosHealthdSdCardObserverPtrDataView =
+    mojo::InterfacePtrDataView<CrosHealthdSdCardObserverInterfaceBase>;
+using CrosHealthdSdCardObserverRequestDataView =
+    mojo::InterfaceRequestDataView<CrosHealthdSdCardObserverInterfaceBase>;
+using CrosHealthdSdCardObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<CrosHealthdSdCardObserverInterfaceBase>;
+using CrosHealthdSdCardObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<CrosHealthdSdCardObserverInterfaceBase>;
 class EventObserverInterfaceBase {};
 
 using EventObserverPtrDataView =
@@ -643,6 +689,32 @@ class AudioJackEventInfoDataView {
 
 
 
+class SdCardEventInfoDataView {
+ public:
+  SdCardEventInfoDataView() = default;
+
+  SdCardEventInfoDataView(
+      internal::SdCardEventInfo_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SdCardEventInfo_State>(
+        data_value, output);
+  }
+  SdCardEventInfo_State state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::SdCardEventInfo_State>(data_->state));
+  }
+ private:
+  internal::SdCardEventInfo_Data* data_ = nullptr;
+};
+
+
+
 class EventInfoDataView {
  public:
   using Tag = internal::EventInfo_Data::EventInfo_Tag;
@@ -743,6 +815,17 @@ class EventInfoDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioJackEventInfoDataView>(
         data_->data.f_audio_jack_event_info.Get(), output, message_);
   }
+  bool is_sd_card_event_info() const { return data_->tag == Tag::kSdCardEventInfo; }
+  inline void GetSdCardEventInfoDataView(
+      SdCardEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSdCardEventInfo(UserType* output) const {
+    
+    CHECK(is_sd_card_event_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SdCardEventInfoDataView>(
+        data_->data.f_sd_card_event_info.Get(), output, message_);
+  }
 
  private:
   internal::EventInfo_Data* data_ = nullptr;
@@ -788,6 +871,10 @@ struct hash<::ash::cros_healthd::mojom::AudioEventInfo_State>
 template <>
 struct hash<::ash::cros_healthd::mojom::AudioJackEventInfo_State>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::AudioJackEventInfo_State> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::SdCardEventInfo_State>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::SdCardEventInfo_State> {};
 
 }  // namespace std
 
@@ -948,6 +1035,26 @@ struct Serializer<::ash::cros_healthd::mojom::AudioJackEventInfo_State, MaybeCon
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::AudioJackEventInfo_State>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::SdCardEventInfo_State, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::SdCardEventInfo_State, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::SdCardEventInfo_State>(input)), output);
   }
 };
 
@@ -1214,6 +1321,37 @@ struct Serializer<::ash::cros_healthd::mojom::AudioJackEventInfoDataView, MaybeC
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::SdCardEventInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::SdCardEventInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::SdCardEventInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::SdCardEventInfo_State>(
+        Traits::state(input), &fragment->state);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::SdCardEventInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::SdCardEventInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::EventInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::ash::cros_healthd::mojom::EventInfoDataView, UserType>;
@@ -1353,6 +1491,22 @@ struct Serializer<::ash::cros_healthd::mojom::EventInfoDataView, MaybeConstUserT
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kSdCardEventInfo: {
+        decltype(Traits::sd_card_event_info(input))
+            in_sd_card_event_info = Traits::sd_card_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_sd_card_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::SdCardEventInfoDataView>(
+            in_sd_card_event_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null sd_card_event_info in EventInfo union");
+        fragment->data.f_sd_card_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -1405,6 +1559,8 @@ inline void UsbEventInfoDataView::GetCategoriesDataView(
 
 
 
+
+
 inline void EventInfoDataView::GetUsbEventInfoDataView(
     UsbEventInfoDataView* output) const {
   CHECK(is_usb_event_info());
@@ -1439,6 +1595,11 @@ inline void EventInfoDataView::GetAudioJackEventInfoDataView(
     AudioJackEventInfoDataView* output) const {
   CHECK(is_audio_jack_event_info());
   *output = AudioJackEventInfoDataView(data_->data.f_audio_jack_event_info.Get(), message_);
+}
+inline void EventInfoDataView::GetSdCardEventInfoDataView(
+    SdCardEventInfoDataView* output) const {
+  CHECK(is_sd_card_event_info());
+  *output = SdCardEventInfoDataView(data_->data.f_sd_card_event_info.Get(), message_);
 }
 
 
@@ -1517,6 +1678,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::AudioJackEventInfo_State> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::AudioJackEventInfo_State value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::SdCardEventInfo_State> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::SdCardEventInfo_State value);
 };
 
 } // namespace perfetto

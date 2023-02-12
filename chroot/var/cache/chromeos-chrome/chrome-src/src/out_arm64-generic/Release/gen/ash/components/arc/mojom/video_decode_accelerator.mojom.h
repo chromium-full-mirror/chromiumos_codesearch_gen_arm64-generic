@@ -123,7 +123,7 @@ class VideoDecodeAccelerator
   virtual void AssignPictureBuffers(uint32_t count) = 0;
 
   
-  virtual void ImportBufferForPicture(int32_t picture_buffer_id, ::arc::mojom::HalPixelFormat format, ::mojo::ScopedHandle handle_fd, std::vector<arc::VideoFramePlane> planes, BufferModifierPtr modifier) = 0;
+  virtual void ImportBufferForPicture(int32_t picture_buffer_id, ::arc::mojom::HalPixelFormat format, ::mojo::ScopedHandle handle_fd, std::vector<::arc::VideoFramePlane> planes, BufferModifierPtr modifier) = 0;
 
   
   virtual void ReusePictureBuffer(int32_t picture_buffer_id) = 0;
@@ -220,7 +220,7 @@ class  VideoDecodeAcceleratorProxy
   
   void AssignPictureBuffers(uint32_t count) final;
   
-  void ImportBufferForPicture(int32_t picture_buffer_id, ::arc::mojom::HalPixelFormat format, ::mojo::ScopedHandle handle_fd, std::vector<arc::VideoFramePlane> planes, BufferModifierPtr modifier) final;
+  void ImportBufferForPicture(int32_t picture_buffer_id, ::arc::mojom::HalPixelFormat format, ::mojo::ScopedHandle handle_fd, std::vector<::arc::VideoFramePlane> planes, BufferModifierPtr modifier) final;
   
   void ReusePictureBuffer(int32_t picture_buffer_id) final;
   
@@ -381,7 +381,7 @@ class  VideoDecodeAcceleratorConfig {
   VideoDecodeAcceleratorConfig();
 
   VideoDecodeAcceleratorConfig(
-      media::VideoCodecProfile profile,
+      ::media::VideoCodecProfile profile,
       bool secure_mode);
 
 
@@ -457,7 +457,7 @@ class  VideoDecodeAcceleratorConfig {
   }
 
   
-  media::VideoCodecProfile profile;
+  ::media::VideoCodecProfile profile;
   
   bool secure_mode;
 
@@ -948,7 +948,7 @@ class  PictureBufferFormat {
 
   PictureBufferFormat(
       uint32_t min_num_buffers,
-      const gfx::Size& coded_size);
+      const ::gfx::Size& coded_size);
 
 
   ~PictureBufferFormat();
@@ -1025,7 +1025,7 @@ class  PictureBufferFormat {
   
   uint32_t min_num_buffers;
   
-  gfx::Size coded_size;
+  ::gfx::Size coded_size;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

@@ -138,7 +138,7 @@ class VideoFramePoolClient
   virtual ~VideoFramePoolClient() = default;
 
   
-  virtual void RequestVideoFrames(media::VideoPixelFormat format, const gfx::Size& coded_size, const ::gfx::Rect& visible_rect, uint32_t num_frames) = 0;
+  virtual void RequestVideoFrames(::media::VideoPixelFormat format, const ::gfx::Size& coded_size, const ::gfx::Rect& visible_rect, uint32_t num_frames) = 0;
 };
 
 
@@ -167,7 +167,7 @@ class  VideoFramePoolClientProxy
 
   explicit VideoFramePoolClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void RequestVideoFrames(media::VideoPixelFormat format, const gfx::Size& coded_size, const ::gfx::Rect& visible_rect, uint32_t num_frames) final;
+  void RequestVideoFrames(::media::VideoPixelFormat format, const ::gfx::Size& coded_size, const ::gfx::Rect& visible_rect, uint32_t num_frames) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -303,9 +303,9 @@ class  VideoFrame {
   VideoFrame(
       int32_t id,
       ::mojo::PlatformHandle handle_fd,
-      const gfx::Size& coded_size,
+      const ::gfx::Size& coded_size,
       ::arc::mojom::HalPixelFormat format,
-      std::vector<arc::VideoFramePlane> planes,
+      std::vector<::arc::VideoFramePlane> planes,
       uint64_t modifier);
 
 VideoFrame(const VideoFrame&) = delete;
@@ -382,11 +382,11 @@ VideoFrame& operator=(const VideoFrame&) = delete;
   
   ::mojo::PlatformHandle handle_fd;
   
-  gfx::Size coded_size;
+  ::gfx::Size coded_size;
   
   ::arc::mojom::HalPixelFormat format;
   
-  std::vector<arc::VideoFramePlane> planes;
+  std::vector<::arc::VideoFramePlane> planes;
   
   uint64_t modifier;
 

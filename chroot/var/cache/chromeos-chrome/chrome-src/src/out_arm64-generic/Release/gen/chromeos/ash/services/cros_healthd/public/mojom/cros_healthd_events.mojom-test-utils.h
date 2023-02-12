@@ -137,6 +137,25 @@ class  CrosHealthdUsbObserverAsyncWaiter {
 };
 
 
+class  CrosHealthdSdCardObserverInterceptorForTesting : public CrosHealthdSdCardObserver {
+  virtual CrosHealthdSdCardObserver* GetForwardingInterface() = 0;
+  void OnAdd() override;
+  void OnRemove() override;
+};
+class  CrosHealthdSdCardObserverAsyncWaiter {
+ public:
+  explicit CrosHealthdSdCardObserverAsyncWaiter(CrosHealthdSdCardObserver* proxy);
+
+  CrosHealthdSdCardObserverAsyncWaiter(const CrosHealthdSdCardObserverAsyncWaiter&) = delete;
+  CrosHealthdSdCardObserverAsyncWaiter& operator=(const CrosHealthdSdCardObserverAsyncWaiter&) = delete;
+
+  ~CrosHealthdSdCardObserverAsyncWaiter();
+
+ private:
+  CrosHealthdSdCardObserver* const proxy_;
+};
+
+
 class  EventObserverInterceptorForTesting : public EventObserver {
   virtual EventObserver* GetForwardingInterface() = 0;
   void OnEvent(EventInfoPtr info) override;

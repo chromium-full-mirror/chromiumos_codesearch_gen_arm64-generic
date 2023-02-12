@@ -45,14 +45,14 @@
 namespace arc {
 namespace mojom {
 VideoEncodeProfile::VideoEncodeProfile()
-    : profile(mojo::DefaultConstructTraits::CreateInstance<media::VideoCodecProfile>()),
-      max_resolution(mojo::DefaultConstructTraits::CreateInstance<gfx::Size>()),
+    : profile(mojo::DefaultConstructTraits::CreateInstance<::media::VideoCodecProfile>()),
+      max_resolution(mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>()),
       max_framerate_numerator(),
       max_framerate_denominator() {}
 
 VideoEncodeProfile::VideoEncodeProfile(
-    media::VideoCodecProfile profile_in,
-    const gfx::Size& max_resolution_in,
+    ::media::VideoCodecProfile profile_in,
+    const ::gfx::Size& max_resolution_in,
     uint32_t max_framerate_numerator_in,
     uint32_t max_framerate_denominator_in)
     : profile(std::move(profile_in)),
@@ -69,7 +69,7 @@ void VideoEncodeProfile::WriteIntoTrace(
     dict.AddItem(
       "profile"), this->profile,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type media::VideoCodecProfile>"
+      "<value of type ::media::VideoCodecProfile>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -78,7 +78,7 @@ void VideoEncodeProfile::WriteIntoTrace(
     dict.AddItem(
       "max_resolution"), this->max_resolution,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const gfx::Size&>"
+      "<value of type const ::gfx::Size&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -186,9 +186,9 @@ bool VariableBitrate::Validate(
   return Data_::Validate(data, validation_context);
 }
 VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig()
-    : input_format(mojo::DefaultConstructTraits::CreateInstance<media::VideoPixelFormat>()),
-      input_visible_size(mojo::DefaultConstructTraits::CreateInstance<gfx::Size>()),
-      output_profile(mojo::DefaultConstructTraits::CreateInstance<media::VideoCodecProfile>()),
+    : input_format(mojo::DefaultConstructTraits::CreateInstance<::media::VideoPixelFormat>()),
+      input_visible_size(mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>()),
+      output_profile(mojo::DefaultConstructTraits::CreateInstance<::media::VideoCodecProfile>()),
       initial_bitrate_deprecated(),
       initial_framerate(),
       has_initial_framerate(),
@@ -198,9 +198,9 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig()
       bitrate(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::media::Bitrate>>()) {}
 
 VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
-    media::VideoPixelFormat input_format_in,
-    const gfx::Size& input_visible_size_in,
-    media::VideoCodecProfile output_profile_in,
+    ::media::VideoPixelFormat input_format_in,
+    const ::gfx::Size& input_visible_size_in,
+    ::media::VideoCodecProfile output_profile_in,
     uint32_t initial_bitrate_deprecated_in,
     uint32_t initial_framerate_in,
     bool has_initial_framerate_in,
@@ -218,9 +218,9 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
       bitrate(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::media::Bitrate>>()) {}
 
 VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
-    media::VideoPixelFormat input_format_in,
-    const gfx::Size& input_visible_size_in,
-    media::VideoCodecProfile output_profile_in,
+    ::media::VideoPixelFormat input_format_in,
+    const ::gfx::Size& input_visible_size_in,
+    ::media::VideoCodecProfile output_profile_in,
     uint32_t initial_bitrate_deprecated_in,
     uint32_t initial_framerate_in,
     bool has_initial_framerate_in,
@@ -239,9 +239,9 @@ VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
       bitrate(mojo::DefaultConstructTraits::CreateInstance<absl::optional<::media::Bitrate>>()) {}
 
 VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig(
-    media::VideoPixelFormat input_format_in,
-    const gfx::Size& input_visible_size_in,
-    media::VideoCodecProfile output_profile_in,
+    ::media::VideoPixelFormat input_format_in,
+    const ::gfx::Size& input_visible_size_in,
+    ::media::VideoCodecProfile output_profile_in,
     uint32_t initial_bitrate_deprecated_in,
     uint32_t initial_framerate_in,
     bool has_initial_framerate_in,
@@ -269,7 +269,7 @@ void VideoEncodeAcceleratorConfig::WriteIntoTrace(
     dict.AddItem(
       "input_format"), this->input_format,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type media::VideoPixelFormat>"
+      "<value of type ::media::VideoPixelFormat>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -278,7 +278,7 @@ void VideoEncodeAcceleratorConfig::WriteIntoTrace(
     dict.AddItem(
       "input_visible_size"), this->input_visible_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const gfx::Size&>"
+      "<value of type const ::gfx::Size&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -287,7 +287,7 @@ void VideoEncodeAcceleratorConfig::WriteIntoTrace(
     dict.AddItem(
       "output_profile"), this->output_profile,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type media::VideoCodecProfile>"
+      "<value of type ::media::VideoCodecProfile>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -775,7 +775,7 @@ void VideoEncodeAcceleratorProxy::Initialize(
 }
 
 void VideoEncodeAcceleratorProxy::Encode(
-    media::VideoPixelFormat in_format, ::mojo::ScopedHandle in_frame_fd, std::vector<arc::VideoFramePlane> in_planes, int64_t in_timestamp, bool in_force_keyframe, EncodeCallback callback) {
+    ::media::VideoPixelFormat in_format, ::mojo::ScopedHandle in_frame_fd, std::vector<::arc::VideoFramePlane> in_planes, int64_t in_timestamp, bool in_force_keyframe, EncodeCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoEncodeAccelerator::Encode", "input_parameters",
@@ -783,13 +783,13 @@ void VideoEncodeAcceleratorProxy::Encode(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("format"), in_format,
-                        "<value of type media::VideoPixelFormat>");
+                        "<value of type ::media::VideoPixelFormat>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("frame_fd"), in_frame_fd,
                         "<value of type ::mojo::ScopedHandle>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("planes"), in_planes,
-                        "<value of type std::vector<arc::VideoFramePlane>>");
+                        "<value of type std::vector<::arc::VideoFramePlane>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("timestamp"), in_timestamp,
                         "<value of type int64_t>");
@@ -1770,9 +1770,9 @@ std::move(p_client), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      media::VideoPixelFormat p_format = mojo::DefaultConstructTraits::CreateInstance<media::VideoPixelFormat>();
+      ::media::VideoPixelFormat p_format = mojo::DefaultConstructTraits::CreateInstance<::media::VideoPixelFormat>();
       ::mojo::ScopedHandle p_frame_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
-      std::vector<arc::VideoFramePlane> p_planes = mojo::DefaultConstructTraits::CreateInstance<std::vector<arc::VideoFramePlane>>();
+      std::vector<::arc::VideoFramePlane> p_planes = mojo::DefaultConstructTraits::CreateInstance<std::vector<::arc::VideoFramePlane>>();
       int64_t p_timestamp = mojo::DefaultConstructTraits::CreateInstance<int64_t>();
       bool p_force_keyframe = mojo::DefaultConstructTraits::CreateInstance<bool>();
       VideoEncodeAccelerator_Encode_ParamsDataView input_data_view(params, message);
@@ -1990,7 +1990,7 @@ VideoEncodeClientProxy::VideoEncodeClientProxy(mojo::MessageReceiverWithResponde
 }
 
 void VideoEncodeClientProxy::RequireBitstreamBuffers(
-    uint32_t in_input_count, const gfx::Size& in_input_coded_size, uint32_t in_output_buffer_size) {
+    uint32_t in_input_count, const ::gfx::Size& in_input_coded_size, uint32_t in_output_buffer_size) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoEncodeClient::RequireBitstreamBuffers", "input_parameters",
@@ -2001,7 +2001,7 @@ void VideoEncodeClientProxy::RequireBitstreamBuffers(
                         "<value of type uint32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("input_coded_size"), in_input_coded_size,
-                        "<value of type const gfx::Size&>");
+                        "<value of type const ::gfx::Size&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("output_buffer_size"), in_output_buffer_size,
                         "<value of type uint32_t>");
@@ -2098,7 +2098,7 @@ bool VideoEncodeClientStubDispatch::Accept(
       
       bool success = true;
       uint32_t p_input_count = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      gfx::Size p_input_coded_size = mojo::DefaultConstructTraits::CreateInstance<gfx::Size>();
+      ::gfx::Size p_input_coded_size = mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>();
       uint32_t p_output_buffer_size = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
       VideoEncodeClient_RequireBitstreamBuffers_ParamsDataView input_data_view(params, message);
       
@@ -2326,7 +2326,7 @@ void VideoEncodeAcceleratorInterceptorForTesting::GetSupportedProfiles(GetSuppor
 void VideoEncodeAcceleratorInterceptorForTesting::Initialize(const ::media::VideoEncodeAccelerator::Config& config, ::mojo::PendingRemote<VideoEncodeClient> client, InitializeCallback callback) {
   GetForwardingInterface()->Initialize(std::move(config), std::move(client), std::move(callback));
 }
-void VideoEncodeAcceleratorInterceptorForTesting::Encode(media::VideoPixelFormat format, ::mojo::ScopedHandle frame_fd, std::vector<arc::VideoFramePlane> planes, int64_t timestamp, bool force_keyframe, EncodeCallback callback) {
+void VideoEncodeAcceleratorInterceptorForTesting::Encode(::media::VideoPixelFormat format, ::mojo::ScopedHandle frame_fd, std::vector<::arc::VideoFramePlane> planes, int64_t timestamp, bool force_keyframe, EncodeCallback callback) {
   GetForwardingInterface()->Encode(std::move(format), std::move(frame_fd), std::move(planes), std::move(timestamp), std::move(force_keyframe), std::move(callback));
 }
 void VideoEncodeAcceleratorInterceptorForTesting::UseBitstreamBuffer(::mojo::ScopedHandle shmem_fd, uint32_t offset, uint32_t size, UseBitstreamBufferCallback callback) {
@@ -2393,7 +2393,7 @@ VideoEncodeAccelerator::Result VideoEncodeAcceleratorAsyncWaiter::Initialize(
 }
 
 void VideoEncodeAcceleratorAsyncWaiter::Encode(
-    media::VideoPixelFormat format, ::mojo::ScopedHandle frame_fd, std::vector<arc::VideoFramePlane> planes, int64_t timestamp, bool force_keyframe) {
+    ::media::VideoPixelFormat format, ::mojo::ScopedHandle frame_fd, std::vector<::arc::VideoFramePlane> planes, int64_t timestamp, bool force_keyframe) {
   base::RunLoop loop;
   proxy_->Encode(std::move(format),std::move(frame_fd),std::move(planes),std::move(timestamp),std::move(force_keyframe),
       base::BindOnce(
@@ -2458,7 +2458,7 @@ bool VideoEncodeAcceleratorAsyncWaiter::Flush(
 
 
 
-void VideoEncodeClientInterceptorForTesting::RequireBitstreamBuffers(uint32_t input_count, const gfx::Size& input_coded_size, uint32_t output_buffer_size) {
+void VideoEncodeClientInterceptorForTesting::RequireBitstreamBuffers(uint32_t input_count, const ::gfx::Size& input_coded_size, uint32_t output_buffer_size) {
   GetForwardingInterface()->RequireBitstreamBuffers(std::move(input_count), std::move(input_coded_size), std::move(output_buffer_size));
 }
 void VideoEncodeClientInterceptorForTesting::NotifyError(::media::VideoEncodeAccelerator::Error error) {

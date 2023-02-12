@@ -162,11 +162,11 @@ bool Picture::Validate(
 }
 PictureBufferFormat::PictureBufferFormat()
     : min_num_buffers(),
-      coded_size(mojo::DefaultConstructTraits::CreateInstance<gfx::Size>()) {}
+      coded_size(mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>()) {}
 
 PictureBufferFormat::PictureBufferFormat(
     uint32_t min_num_buffers_in,
-    const gfx::Size& coded_size_in)
+    const ::gfx::Size& coded_size_in)
     : min_num_buffers(std::move(min_num_buffers_in)),
       coded_size(std::move(coded_size_in)) {}
 
@@ -188,7 +188,7 @@ void PictureBufferFormat::WriteIntoTrace(
     dict.AddItem(
       "coded_size"), this->coded_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const gfx::Size&>"
+      "<value of type const ::gfx::Size&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -201,11 +201,11 @@ bool PictureBufferFormat::Validate(
   return Data_::Validate(data, validation_context);
 }
 VideoDecodeAcceleratorConfig::VideoDecodeAcceleratorConfig()
-    : profile(mojo::DefaultConstructTraits::CreateInstance<media::VideoCodecProfile>()),
+    : profile(mojo::DefaultConstructTraits::CreateInstance<::media::VideoCodecProfile>()),
       secure_mode() {}
 
 VideoDecodeAcceleratorConfig::VideoDecodeAcceleratorConfig(
-    media::VideoCodecProfile profile_in,
+    ::media::VideoCodecProfile profile_in,
     bool secure_mode_in)
     : profile(std::move(profile_in)),
       secure_mode(std::move(secure_mode_in)) {}
@@ -219,7 +219,7 @@ void VideoDecodeAcceleratorConfig::WriteIntoTrace(
     dict.AddItem(
       "profile"), this->profile,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type media::VideoCodecProfile>"
+      "<value of type ::media::VideoCodecProfile>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -644,7 +644,7 @@ void VideoDecodeAcceleratorProxy::AssignPictureBuffers(
 }
 
 void VideoDecodeAcceleratorProxy::ImportBufferForPicture(
-    int32_t in_picture_buffer_id, ::arc::mojom::HalPixelFormat in_format, ::mojo::ScopedHandle in_handle_fd, std::vector<arc::VideoFramePlane> in_planes, BufferModifierPtr in_modifier) {
+    int32_t in_picture_buffer_id, ::arc::mojom::HalPixelFormat in_format, ::mojo::ScopedHandle in_handle_fd, std::vector<::arc::VideoFramePlane> in_planes, BufferModifierPtr in_modifier) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoDecodeAccelerator::ImportBufferForPicture", "input_parameters",
@@ -661,7 +661,7 @@ void VideoDecodeAcceleratorProxy::ImportBufferForPicture(
                         "<value of type ::mojo::ScopedHandle>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("planes"), in_planes,
-                        "<value of type std::vector<arc::VideoFramePlane>>");
+                        "<value of type std::vector<::arc::VideoFramePlane>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("modifier"), in_modifier,
                         "<value of type BufferModifierPtr>");
@@ -1237,7 +1237,7 @@ std::move(p_count));
       int32_t p_picture_buffer_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
       ::arc::mojom::HalPixelFormat p_format = mojo::DefaultConstructTraits::CreateInstance<::arc::mojom::HalPixelFormat>();
       ::mojo::ScopedHandle p_handle_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
-      std::vector<arc::VideoFramePlane> p_planes = mojo::DefaultConstructTraits::CreateInstance<std::vector<arc::VideoFramePlane>>();
+      std::vector<::arc::VideoFramePlane> p_planes = mojo::DefaultConstructTraits::CreateInstance<std::vector<::arc::VideoFramePlane>>();
       BufferModifierPtr p_modifier = mojo::DefaultConstructTraits::CreateInstance<BufferModifierPtr>();
       VideoDecodeAccelerator_ImportBufferForPicture_ParamsDataView input_data_view(params, message);
       
@@ -2023,7 +2023,7 @@ void VideoDecodeAcceleratorInterceptorForTesting::Decode(BitstreamBufferPtr bits
 void VideoDecodeAcceleratorInterceptorForTesting::AssignPictureBuffers(uint32_t count) {
   GetForwardingInterface()->AssignPictureBuffers(std::move(count));
 }
-void VideoDecodeAcceleratorInterceptorForTesting::ImportBufferForPicture(int32_t picture_buffer_id, ::arc::mojom::HalPixelFormat format, ::mojo::ScopedHandle handle_fd, std::vector<arc::VideoFramePlane> planes, BufferModifierPtr modifier) {
+void VideoDecodeAcceleratorInterceptorForTesting::ImportBufferForPicture(int32_t picture_buffer_id, ::arc::mojom::HalPixelFormat format, ::mojo::ScopedHandle handle_fd, std::vector<::arc::VideoFramePlane> planes, BufferModifierPtr modifier) {
   GetForwardingInterface()->ImportBufferForPicture(std::move(picture_buffer_id), std::move(format), std::move(handle_fd), std::move(planes), std::move(modifier));
 }
 void VideoDecodeAcceleratorInterceptorForTesting::ReusePictureBuffer(int32_t picture_buffer_id) {

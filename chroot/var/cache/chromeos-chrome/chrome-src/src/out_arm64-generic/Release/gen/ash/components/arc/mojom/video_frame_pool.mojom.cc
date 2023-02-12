@@ -47,7 +47,7 @@ namespace mojom {
 VideoFrame::VideoFrame()
     : id(),
       handle_fd(),
-      coded_size(mojo::DefaultConstructTraits::CreateInstance<gfx::Size>()),
+      coded_size(mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>()),
       format(),
       planes(),
       modifier() {}
@@ -55,9 +55,9 @@ VideoFrame::VideoFrame()
 VideoFrame::VideoFrame(
     int32_t id_in,
     ::mojo::PlatformHandle handle_fd_in,
-    const gfx::Size& coded_size_in,
+    const ::gfx::Size& coded_size_in,
     ::arc::mojom::HalPixelFormat format_in,
-    std::vector<arc::VideoFramePlane> planes_in,
+    std::vector<::arc::VideoFramePlane> planes_in,
     uint64_t modifier_in)
     : id(std::move(id_in)),
       handle_fd(std::move(handle_fd_in)),
@@ -93,7 +93,7 @@ void VideoFrame::WriteIntoTrace(
     dict.AddItem(
       "coded_size"), this->coded_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const gfx::Size&>"
+      "<value of type const ::gfx::Size&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -111,7 +111,7 @@ void VideoFrame::WriteIntoTrace(
     dict.AddItem(
       "planes"), this->planes,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type std::vector<arc::VideoFramePlane>>"
+      "<value of type std::vector<::arc::VideoFramePlane>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -595,7 +595,7 @@ VideoFramePoolClientProxy::VideoFramePoolClientProxy(mojo::MessageReceiverWithRe
 }
 
 void VideoFramePoolClientProxy::RequestVideoFrames(
-    media::VideoPixelFormat in_format, const gfx::Size& in_coded_size, const ::gfx::Rect& in_visible_rect, uint32_t in_num_frames) {
+    ::media::VideoPixelFormat in_format, const ::gfx::Size& in_coded_size, const ::gfx::Rect& in_visible_rect, uint32_t in_num_frames) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoFramePoolClient::RequestVideoFrames", "input_parameters",
@@ -603,10 +603,10 @@ void VideoFramePoolClientProxy::RequestVideoFrames(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("format"), in_format,
-                        "<value of type media::VideoPixelFormat>");
+                        "<value of type ::media::VideoPixelFormat>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("coded_size"), in_coded_size,
-                        "<value of type const gfx::Size&>");
+                        "<value of type const ::gfx::Size&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("visible_rect"), in_visible_rect,
                         "<value of type const ::gfx::Rect&>");
@@ -678,8 +678,8 @@ bool VideoFramePoolClientStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      media::VideoPixelFormat p_format = mojo::DefaultConstructTraits::CreateInstance<media::VideoPixelFormat>();
-      gfx::Size p_coded_size = mojo::DefaultConstructTraits::CreateInstance<gfx::Size>();
+      ::media::VideoPixelFormat p_format = mojo::DefaultConstructTraits::CreateInstance<::media::VideoPixelFormat>();
+      ::gfx::Size p_coded_size = mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>();
       ::gfx::Rect p_visible_rect = mojo::DefaultConstructTraits::CreateInstance<::gfx::Rect>();
       uint32_t p_num_frames = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
       VideoFramePoolClient_RequestVideoFrames_ParamsDataView input_data_view(params, message);
@@ -819,7 +819,7 @@ bool VideoFramePoolAsyncWaiter::AddVideoFrame(
 
 
 
-void VideoFramePoolClientInterceptorForTesting::RequestVideoFrames(media::VideoPixelFormat format, const gfx::Size& coded_size, const ::gfx::Rect& visible_rect, uint32_t num_frames) {
+void VideoFramePoolClientInterceptorForTesting::RequestVideoFrames(::media::VideoPixelFormat format, const ::gfx::Size& coded_size, const ::gfx::Rect& visible_rect, uint32_t num_frames) {
   GetForwardingInterface()->RequestVideoFrames(std::move(format), std::move(coded_size), std::move(visible_rect), std::move(num_frames));
 }
 VideoFramePoolClientAsyncWaiter::VideoFramePoolClientAsyncWaiter(

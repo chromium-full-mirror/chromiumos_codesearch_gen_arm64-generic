@@ -127,7 +127,7 @@ class VideoEncodeAccelerator
 
   using EncodeCallback = base::OnceCallback<void()>;
   
-  virtual void Encode(media::VideoPixelFormat format, ::mojo::ScopedHandle frame_fd, std::vector<arc::VideoFramePlane> planes, int64_t timestamp, bool force_keyframe, EncodeCallback callback) = 0;
+  virtual void Encode(::media::VideoPixelFormat format, ::mojo::ScopedHandle frame_fd, std::vector<::arc::VideoFramePlane> planes, int64_t timestamp, bool force_keyframe, EncodeCallback callback) = 0;
 
 
   using UseBitstreamBufferCallback = base::OnceCallback<void(uint32_t, bool, int64_t)>;
@@ -192,7 +192,7 @@ class VideoEncodeClient
   virtual ~VideoEncodeClient() = default;
 
   
-  virtual void RequireBitstreamBuffers(uint32_t input_count, const gfx::Size& input_coded_size, uint32_t output_buffer_size) = 0;
+  virtual void RequireBitstreamBuffers(uint32_t input_count, const ::gfx::Size& input_coded_size, uint32_t output_buffer_size) = 0;
 
   
   virtual void NotifyError(::media::VideoEncodeAccelerator::Error error) = 0;
@@ -211,7 +211,7 @@ class  VideoEncodeAcceleratorProxy
   
   void Initialize(const ::media::VideoEncodeAccelerator::Config& config, ::mojo::PendingRemote<VideoEncodeClient> client, InitializeCallback callback) final;
   
-  void Encode(media::VideoPixelFormat format, ::mojo::ScopedHandle frame_fd, std::vector<arc::VideoFramePlane> planes, int64_t timestamp, bool force_keyframe, EncodeCallback callback) final;
+  void Encode(::media::VideoPixelFormat format, ::mojo::ScopedHandle frame_fd, std::vector<::arc::VideoFramePlane> planes, int64_t timestamp, bool force_keyframe, EncodeCallback callback) final;
   
   void UseBitstreamBuffer(::mojo::ScopedHandle shmem_fd, uint32_t offset, uint32_t size, UseBitstreamBufferCallback callback) final;
   
@@ -234,7 +234,7 @@ class  VideoEncodeClientProxy
 
   explicit VideoEncodeClientProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void RequireBitstreamBuffers(uint32_t input_count, const gfx::Size& input_coded_size, uint32_t output_buffer_size) final;
+  void RequireBitstreamBuffers(uint32_t input_count, const ::gfx::Size& input_coded_size, uint32_t output_buffer_size) final;
   
   void NotifyError(::media::VideoEncodeAccelerator::Error error) final;
 
@@ -781,8 +781,8 @@ class  VideoEncodeProfile {
   VideoEncodeProfile();
 
   VideoEncodeProfile(
-      media::VideoCodecProfile profile,
-      const gfx::Size& max_resolution,
+      ::media::VideoCodecProfile profile,
+      const ::gfx::Size& max_resolution,
       uint32_t max_framerate_numerator,
       uint32_t max_framerate_denominator);
 
@@ -859,9 +859,9 @@ class  VideoEncodeProfile {
   }
 
   
-  media::VideoCodecProfile profile;
+  ::media::VideoCodecProfile profile;
   
-  gfx::Size max_resolution;
+  ::gfx::Size max_resolution;
   
   uint32_t max_framerate_numerator;
   
@@ -929,9 +929,9 @@ class  VideoEncodeAcceleratorConfig {
   VideoEncodeAcceleratorConfig();
 
   VideoEncodeAcceleratorConfig(
-      media::VideoPixelFormat input_format,
-      const gfx::Size& input_visible_size,
-      media::VideoCodecProfile output_profile,
+      ::media::VideoPixelFormat input_format,
+      const ::gfx::Size& input_visible_size,
+      ::media::VideoCodecProfile output_profile,
       uint32_t initial_bitrate_deprecated,
       uint32_t initial_framerate,
       bool has_initial_framerate,
@@ -939,9 +939,9 @@ class  VideoEncodeAcceleratorConfig {
       bool has_h264_output_level);
 
   VideoEncodeAcceleratorConfig(
-      media::VideoPixelFormat input_format,
-      const gfx::Size& input_visible_size,
-      media::VideoCodecProfile output_profile,
+      ::media::VideoPixelFormat input_format,
+      const ::gfx::Size& input_visible_size,
+      ::media::VideoCodecProfile output_profile,
       uint32_t initial_bitrate_deprecated,
       uint32_t initial_framerate,
       bool has_initial_framerate,
@@ -950,9 +950,9 @@ class  VideoEncodeAcceleratorConfig {
       ::media::VideoEncodeAccelerator::Config::StorageType storage_type);
 
   VideoEncodeAcceleratorConfig(
-      media::VideoPixelFormat input_format,
-      const gfx::Size& input_visible_size,
-      media::VideoCodecProfile output_profile,
+      ::media::VideoPixelFormat input_format,
+      const ::gfx::Size& input_visible_size,
+      ::media::VideoCodecProfile output_profile,
       uint32_t initial_bitrate_deprecated,
       uint32_t initial_framerate,
       bool has_initial_framerate,
@@ -1034,11 +1034,11 @@ class  VideoEncodeAcceleratorConfig {
   }
 
   
-  media::VideoPixelFormat input_format;
+  ::media::VideoPixelFormat input_format;
   
-  gfx::Size input_visible_size;
+  ::gfx::Size input_visible_size;
   
-  media::VideoCodecProfile output_profile;
+  ::media::VideoCodecProfile output_profile;
   
   uint32_t initial_bitrate_deprecated;
   

@@ -324,6 +324,36 @@ class  CrosHealthdUsbObserver_OnRemove_Params_Data {
 };
 static_assert(sizeof(CrosHealthdUsbObserver_OnRemove_Params_Data) == 16,
               "Bad sizeof(CrosHealthdUsbObserver_OnRemove_Params_Data)");
+class  CrosHealthdSdCardObserver_OnAdd_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdSdCardObserver_OnAdd_Params_Data>;
+
+  CrosHealthdSdCardObserver_OnAdd_Params_Data();
+  ~CrosHealthdSdCardObserver_OnAdd_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdSdCardObserver_OnAdd_Params_Data) == 8,
+              "Bad sizeof(CrosHealthdSdCardObserver_OnAdd_Params_Data)");
+class  CrosHealthdSdCardObserver_OnRemove_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdSdCardObserver_OnRemove_Params_Data>;
+
+  CrosHealthdSdCardObserver_OnRemove_Params_Data();
+  ~CrosHealthdSdCardObserver_OnRemove_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdSdCardObserver_OnRemove_Params_Data) == 8,
+              "Bad sizeof(CrosHealthdSdCardObserver_OnRemove_Params_Data)");
 class  EventObserver_OnEvent_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -686,6 +716,38 @@ class CrosHealthdUsbObserver_OnRemove_ParamsDataView {
 
 
 
+class CrosHealthdSdCardObserver_OnAdd_ParamsDataView {
+ public:
+  CrosHealthdSdCardObserver_OnAdd_ParamsDataView() = default;
+
+  CrosHealthdSdCardObserver_OnAdd_ParamsDataView(
+      internal::CrosHealthdSdCardObserver_OnAdd_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CrosHealthdSdCardObserver_OnAdd_Params_Data* data_ = nullptr;
+};
+
+
+
+class CrosHealthdSdCardObserver_OnRemove_ParamsDataView {
+ public:
+  CrosHealthdSdCardObserver_OnRemove_ParamsDataView() = default;
+
+  CrosHealthdSdCardObserver_OnRemove_ParamsDataView(
+      internal::CrosHealthdSdCardObserver_OnRemove_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CrosHealthdSdCardObserver_OnRemove_Params_Data* data_ = nullptr;
+};
+
+
+
 class EventObserver_OnEvent_ParamsDataView {
  public:
   EventObserver_OnEvent_ParamsDataView() = default;
@@ -760,6 +822,10 @@ inline void CrosHealthdUsbObserver_OnRemove_ParamsDataView::GetInfoDataView(
   auto pointer = data_->info.Get();
   *output = UsbEventInfoDataView(pointer, message_);
 }
+
+
+
+
 
 
 inline void EventObserver_OnEvent_ParamsDataView::GetInfoDataView(

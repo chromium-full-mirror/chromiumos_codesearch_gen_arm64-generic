@@ -100,12 +100,12 @@ class VideoDecoder
   virtual ~VideoDecoder() = default;
 
 
-  using InitializeCallback = base::OnceCallback<void(media::DecoderStatus)>;
+  using InitializeCallback = base::OnceCallback<void(::media::DecoderStatus)>;
   
   virtual void Initialize(VideoDecoderConfigPtr config, ::mojo::PendingRemote<VideoDecoderClient> client, ::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool> video_frame_pool, InitializeCallback callback) = 0;
 
 
-  using DecodeCallback = base::OnceCallback<void(media::DecoderStatus)>;
+  using DecodeCallback = base::OnceCallback<void(::media::DecoderStatus)>;
   
   virtual void Decode(DecoderBufferPtr buffer, DecodeCallback callback) = 0;
 
@@ -167,7 +167,7 @@ class VideoDecoderClient
   virtual void OnVideoFrameDecoded(int32_t video_frame_id, const ::gfx::Rect& visible_rect, int64_t timestamp) = 0;
 
   
-  virtual void OnError(media::DecoderStatus status) = 0;
+  virtual void OnError(::media::DecoderStatus status) = 0;
 };
 
 
@@ -202,7 +202,7 @@ class  VideoDecoderClientProxy
   
   void OnVideoFrameDecoded(int32_t video_frame_id, const ::gfx::Rect& visible_rect, int64_t timestamp) final;
   
-  void OnError(media::DecoderStatus status) final;
+  void OnError(::media::DecoderStatus status) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -610,8 +610,8 @@ class  VideoDecoderConfig {
   VideoDecoderConfig();
 
   VideoDecoderConfig(
-      media::VideoCodecProfile profile,
-      const gfx::Size& coded_size);
+      ::media::VideoCodecProfile profile,
+      const ::gfx::Size& coded_size);
 
 
   ~VideoDecoderConfig();
@@ -686,9 +686,9 @@ class  VideoDecoderConfig {
   }
 
   
-  media::VideoCodecProfile profile;
+  ::media::VideoCodecProfile profile;
   
-  gfx::Size coded_size;
+  ::gfx::Size coded_size;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

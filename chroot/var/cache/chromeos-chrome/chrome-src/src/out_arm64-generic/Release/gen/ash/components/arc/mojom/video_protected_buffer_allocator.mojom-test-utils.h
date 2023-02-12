@@ -17,7 +17,7 @@ namespace mojom {
 class  VideoProtectedBufferAllocatorInterceptorForTesting : public VideoProtectedBufferAllocator {
   virtual VideoProtectedBufferAllocator* GetForwardingInterface() = 0;
   void AllocateProtectedSharedMemory(::mojo::ScopedHandle handle_fd, uint64_t size, AllocateProtectedSharedMemoryCallback callback) override;
-  void AllocateProtectedNativePixmap(::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, const gfx::Size& picture_size, AllocateProtectedNativePixmapCallback callback) override;
+  void AllocateProtectedNativePixmap(::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, const ::gfx::Size& picture_size, AllocateProtectedNativePixmapCallback callback) override;
   void ReleaseProtectedBuffer(::mojo::ScopedHandle handle_fd) override;
 };
 class  VideoProtectedBufferAllocatorAsyncWaiter {
@@ -32,8 +32,8 @@ class  VideoProtectedBufferAllocatorAsyncWaiter {
       ::mojo::ScopedHandle handle_fd, uint64_t size, bool* out_result);
   bool AllocateProtectedSharedMemory(::mojo::ScopedHandle handle_fd, uint64_t size);
   void AllocateProtectedNativePixmap(
-      ::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, const gfx::Size& picture_size, bool* out_result);
-  bool AllocateProtectedNativePixmap(::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, const gfx::Size& picture_size);
+      ::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, const ::gfx::Size& picture_size, bool* out_result);
+  bool AllocateProtectedNativePixmap(::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, const ::gfx::Size& picture_size);
 
  private:
   VideoProtectedBufferAllocator* const proxy_;

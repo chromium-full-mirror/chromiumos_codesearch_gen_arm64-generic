@@ -54,7 +54,8 @@ PROTOBUF_CONSTEXPR ChromeUserMetricsExtension::ChromeUserMetricsExtension(
   , client_id_(uint64_t{0u})
   , session_id_(0)
   , product_(0)
-  , user_id_(uint64_t{0u}){}
+  , user_id_(uint64_t{0u})
+  , record_id_(int64_t{0}){}
 struct ChromeUserMetricsExtensionDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ChromeUserMetricsExtensionDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -479,6 +480,9 @@ class ChromeUserMetricsExtension::_Internal {
   static void set_has_user_id(HasBits* has_bits) {
     (*has_bits)[0] |= 2048u;
   }
+  static void set_has_record_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 4096u;
+  }
   static const ::metrics::ChromeUserMetricsExtension_RealLocalTime& time_log_created(const ChromeUserMetricsExtension* msg);
   static void set_has_time_log_created(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
@@ -660,16 +664,16 @@ ChromeUserMetricsExtension::ChromeUserMetricsExtension(const ChromeUserMetricsEx
     custom_tab_session_ = nullptr;
   }
   ::memcpy(&client_id_, &from.client_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&user_id_) -
-    reinterpret_cast<char*>(&client_id_)) + sizeof(user_id_));
+    static_cast<size_t>(reinterpret_cast<char*>(&record_id_) -
+    reinterpret_cast<char*>(&client_id_)) + sizeof(record_id_));
   // @@protoc_insertion_point(copy_constructor:metrics.ChromeUserMetricsExtension)
 }
 
 inline void ChromeUserMetricsExtension::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&system_profile_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&user_id_) -
-    reinterpret_cast<char*>(&system_profile_)) + sizeof(user_id_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&record_id_) -
+    reinterpret_cast<char*>(&system_profile_)) + sizeof(record_id_));
 }
 
 ChromeUserMetricsExtension::~ChromeUserMetricsExtension() {
@@ -746,10 +750,10 @@ void ChromeUserMetricsExtension::Clear() {
       custom_tab_session_->Clear();
     }
   }
-  if (cached_has_bits & 0x00000f00u) {
+  if (cached_has_bits & 0x00001f00u) {
     ::memset(&client_id_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&user_id_) -
-        reinterpret_cast<char*>(&client_id_)) + sizeof(user_id_));
+        reinterpret_cast<char*>(&record_id_) -
+        reinterpret_cast<char*>(&client_id_)) + sizeof(record_id_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -966,6 +970,15 @@ const char* ChromeUserMetricsExtension::_InternalParse(const char* ptr, ::_pbi::
         } else
           goto handle_unusual;
         continue;
+      // optional int64 record_id = 28;
+      case 28:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 224)) {
+          _Internal::set_has_record_id(&has_bits);
+          record_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -1141,6 +1154,12 @@ uint8_t* ChromeUserMetricsExtension::_InternalSerialize(
         _Internal::custom_tab_session(this).GetCachedSize(), target, stream);
   }
 
+  // optional int64 record_id = 28;
+  if (cached_has_bits & 0x00001000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(28, this->_internal_record_id(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1272,7 +1291,7 @@ size_t ChromeUserMetricsExtension::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x00000f00u) {
+  if (cached_has_bits & 0x00001f00u) {
     // optional fixed64 client_id = 1;
     if (cached_has_bits & 0x00000100u) {
       total_size += 1 + 8;
@@ -1291,6 +1310,13 @@ size_t ChromeUserMetricsExtension::ByteSizeLong() const {
     // optional fixed64 user_id = 24;
     if (cached_has_bits & 0x00000800u) {
       total_size += 2 + 8;
+    }
+
+    // optional int64 record_id = 28;
+    if (cached_has_bits & 0x00001000u) {
+      total_size += 2 +
+        ::_pbi::WireFormatLite::Int64Size(
+          this->_internal_record_id());
     }
 
   }
@@ -1349,7 +1375,7 @@ void ChromeUserMetricsExtension::MergeFrom(const ChromeUserMetricsExtension& fro
       _internal_mutable_custom_tab_session()->::metrics::CustomTabSessionProto::MergeFrom(from._internal_custom_tab_session());
     }
   }
-  if (cached_has_bits & 0x00000f00u) {
+  if (cached_has_bits & 0x00001f00u) {
     if (cached_has_bits & 0x00000100u) {
       client_id_ = from.client_id_;
     }
@@ -1361,6 +1387,9 @@ void ChromeUserMetricsExtension::MergeFrom(const ChromeUserMetricsExtension& fro
     }
     if (cached_has_bits & 0x00000800u) {
       user_id_ = from.user_id_;
+    }
+    if (cached_has_bits & 0x00001000u) {
+      record_id_ = from.record_id_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -1391,8 +1420,8 @@ void ChromeUserMetricsExtension::InternalSwap(ChromeUserMetricsExtension* other)
   trace_log_.InternalSwap(&other->trace_log_);
   chrome_os_app_list_launch_event_.InternalSwap(&other->chrome_os_app_list_launch_event_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChromeUserMetricsExtension, user_id_)
-      + sizeof(ChromeUserMetricsExtension::user_id_)
+      PROTOBUF_FIELD_OFFSET(ChromeUserMetricsExtension, record_id_)
+      + sizeof(ChromeUserMetricsExtension::record_id_)
       - PROTOBUF_FIELD_OFFSET(ChromeUserMetricsExtension, system_profile_)>(
           reinterpret_cast<char*>(&system_profile_),
           reinterpret_cast<char*>(&other->system_profile_));

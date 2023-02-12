@@ -224,7 +224,7 @@ void VideoProtectedBufferAllocatorProxy::AllocateProtectedSharedMemory(
 }
 
 void VideoProtectedBufferAllocatorProxy::AllocateProtectedNativePixmap(
-    ::mojo::ScopedHandle in_handle_fd, ::arc::mojom::HalPixelFormat in_pixel_format, const gfx::Size& in_picture_size, AllocateProtectedNativePixmapCallback callback) {
+    ::mojo::ScopedHandle in_handle_fd, ::arc::mojom::HalPixelFormat in_pixel_format, const ::gfx::Size& in_picture_size, AllocateProtectedNativePixmapCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoProtectedBufferAllocator::AllocateProtectedNativePixmap", "input_parameters",
@@ -238,7 +238,7 @@ void VideoProtectedBufferAllocatorProxy::AllocateProtectedNativePixmap(
                         "<value of type ::arc::mojom::HalPixelFormat>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("picture_size"), in_picture_size,
-                        "<value of type const gfx::Size&>");
+                        "<value of type const ::gfx::Size&>");
    });
 #endif
   const bool kExpectsResponse = true;
@@ -650,7 +650,7 @@ std::move(p_size), std::move(callback));
       bool success = true;
       ::mojo::ScopedHandle p_handle_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
       ::arc::mojom::HalPixelFormat p_pixel_format = mojo::DefaultConstructTraits::CreateInstance<::arc::mojom::HalPixelFormat>();
-      gfx::Size p_picture_size = mojo::DefaultConstructTraits::CreateInstance<gfx::Size>();
+      ::gfx::Size p_picture_size = mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>();
       VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -725,7 +725,7 @@ namespace mojom {
 void VideoProtectedBufferAllocatorInterceptorForTesting::AllocateProtectedSharedMemory(::mojo::ScopedHandle handle_fd, uint64_t size, AllocateProtectedSharedMemoryCallback callback) {
   GetForwardingInterface()->AllocateProtectedSharedMemory(std::move(handle_fd), std::move(size), std::move(callback));
 }
-void VideoProtectedBufferAllocatorInterceptorForTesting::AllocateProtectedNativePixmap(::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, const gfx::Size& picture_size, AllocateProtectedNativePixmapCallback callback) {
+void VideoProtectedBufferAllocatorInterceptorForTesting::AllocateProtectedNativePixmap(::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, const ::gfx::Size& picture_size, AllocateProtectedNativePixmapCallback callback) {
   GetForwardingInterface()->AllocateProtectedNativePixmap(std::move(handle_fd), std::move(pixel_format), std::move(picture_size), std::move(callback));
 }
 void VideoProtectedBufferAllocatorInterceptorForTesting::ReleaseProtectedBuffer(::mojo::ScopedHandle handle_fd) {
@@ -760,7 +760,7 @@ bool VideoProtectedBufferAllocatorAsyncWaiter::AllocateProtectedSharedMemory(
 }
 
 void VideoProtectedBufferAllocatorAsyncWaiter::AllocateProtectedNativePixmap(
-    ::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, const gfx::Size& picture_size, bool* out_result) {
+    ::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, const ::gfx::Size& picture_size, bool* out_result) {
   base::RunLoop loop;
   proxy_->AllocateProtectedNativePixmap(std::move(handle_fd),std::move(pixel_format),std::move(picture_size),
       base::BindOnce(
@@ -776,7 +776,7 @@ void VideoProtectedBufferAllocatorAsyncWaiter::AllocateProtectedNativePixmap(
 }
 
 bool VideoProtectedBufferAllocatorAsyncWaiter::AllocateProtectedNativePixmap(
-    ::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, const gfx::Size& picture_size) {
+    ::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, const ::gfx::Size& picture_size) {
   bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
   AllocateProtectedNativePixmap(std::move(handle_fd),std::move(pixel_format),std::move(picture_size),&async_wait_result);
   return async_wait_result;

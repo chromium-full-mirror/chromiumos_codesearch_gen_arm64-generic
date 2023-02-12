@@ -109,12 +109,12 @@ bool Buffer::Validate(
   return Data_::Validate(data, validation_context);
 }
 VideoDecoderConfig::VideoDecoderConfig()
-    : profile(mojo::DefaultConstructTraits::CreateInstance<media::VideoCodecProfile>()),
-      coded_size(mojo::DefaultConstructTraits::CreateInstance<gfx::Size>()) {}
+    : profile(mojo::DefaultConstructTraits::CreateInstance<::media::VideoCodecProfile>()),
+      coded_size(mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>()) {}
 
 VideoDecoderConfig::VideoDecoderConfig(
-    media::VideoCodecProfile profile_in,
-    const gfx::Size& coded_size_in)
+    ::media::VideoCodecProfile profile_in,
+    const ::gfx::Size& coded_size_in)
     : profile(std::move(profile_in)),
       coded_size(std::move(coded_size_in)) {}
 
@@ -127,7 +127,7 @@ void VideoDecoderConfig::WriteIntoTrace(
     dict.AddItem(
       "profile"), this->profile,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type media::VideoCodecProfile>"
+      "<value of type ::media::VideoCodecProfile>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -136,7 +136,7 @@ void VideoDecoderConfig::WriteIntoTrace(
     dict.AddItem(
       "coded_size"), this->coded_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const gfx::Size&>"
+      "<value of type const ::gfx::Size&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -586,7 +586,7 @@ class VideoDecoder_Initialize_ProxyToResponder : public ::mojo::internal::ProxyT
 #endif
 
   void Run(
-      media::DecoderStatus in_status);
+      ::media::DecoderStatus in_status);
 };
 
 bool VideoDecoder_Initialize_ForwardToCallback::Accept(
@@ -599,7 +599,7 @@ bool VideoDecoder_Initialize_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  media::DecoderStatus p_status = mojo::DefaultConstructTraits::CreateInstance<media::DecoderStatus>();
+  ::media::DecoderStatus p_status = mojo::DefaultConstructTraits::CreateInstance<::media::DecoderStatus>();
   VideoDecoder_Initialize_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
@@ -618,7 +618,7 @@ std::move(p_status));
 }
 
 void VideoDecoder_Initialize_ProxyToResponder::Run(
-    media::DecoderStatus in_status) {
+    ::media::DecoderStatus in_status) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::VideoDecoder::Initialize", "async_response_parameters",
@@ -626,7 +626,7 @@ void VideoDecoder_Initialize_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("status"), in_status,
-                        "<value of type media::DecoderStatus>");
+                        "<value of type ::media::DecoderStatus>");
    });
 #endif
   
@@ -701,7 +701,7 @@ class VideoDecoder_Decode_ProxyToResponder : public ::mojo::internal::ProxyToRes
 #endif
 
   void Run(
-      media::DecoderStatus in_status);
+      ::media::DecoderStatus in_status);
 };
 
 bool VideoDecoder_Decode_ForwardToCallback::Accept(
@@ -714,7 +714,7 @@ bool VideoDecoder_Decode_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  media::DecoderStatus p_status = mojo::DefaultConstructTraits::CreateInstance<media::DecoderStatus>();
+  ::media::DecoderStatus p_status = mojo::DefaultConstructTraits::CreateInstance<::media::DecoderStatus>();
   VideoDecoder_Decode_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadStatus(&p_status))
@@ -733,7 +733,7 @@ std::move(p_status));
 }
 
 void VideoDecoder_Decode_ProxyToResponder::Run(
-    media::DecoderStatus in_status) {
+    ::media::DecoderStatus in_status) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply arc::mojom::VideoDecoder::Decode", "async_response_parameters",
@@ -741,7 +741,7 @@ void VideoDecoder_Decode_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("status"), in_status,
-                        "<value of type media::DecoderStatus>");
+                        "<value of type ::media::DecoderStatus>");
    });
 #endif
   
@@ -1189,7 +1189,7 @@ void VideoDecoderClientProxy::OnVideoFrameDecoded(
 }
 
 void VideoDecoderClientProxy::OnError(
-    media::DecoderStatus in_status) {
+    ::media::DecoderStatus in_status) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send arc::mojom::VideoDecoderClient::OnError", "input_parameters",
@@ -1197,7 +1197,7 @@ void VideoDecoderClientProxy::OnError(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("status"), in_status,
-                        "<value of type media::DecoderStatus>");
+                        "<value of type ::media::DecoderStatus>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -1274,7 +1274,7 @@ std::move(p_timestamp));
               message->mutable_payload());
       
       bool success = true;
-      media::DecoderStatus p_status = mojo::DefaultConstructTraits::CreateInstance<media::DecoderStatus>();
+      ::media::DecoderStatus p_status = mojo::DefaultConstructTraits::CreateInstance<::media::DecoderStatus>();
       VideoDecoderClient_OnError_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadStatus(&p_status))
@@ -1429,14 +1429,14 @@ VideoDecoderAsyncWaiter::VideoDecoderAsyncWaiter(
 VideoDecoderAsyncWaiter::~VideoDecoderAsyncWaiter() = default;
 
 void VideoDecoderAsyncWaiter::Initialize(
-    VideoDecoderConfigPtr config, ::mojo::PendingRemote<VideoDecoderClient> client, ::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool> video_frame_pool, media::DecoderStatus* out_status) {
+    VideoDecoderConfigPtr config, ::mojo::PendingRemote<VideoDecoderClient> client, ::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool> video_frame_pool, ::media::DecoderStatus* out_status) {
   base::RunLoop loop;
   proxy_->Initialize(std::move(config),std::move(client),std::move(video_frame_pool),
       base::BindOnce(
           [](base::RunLoop* loop,
-             media::DecoderStatus* out_status
+             ::media::DecoderStatus* out_status
 ,
-             media::DecoderStatus status) {*out_status = std::move(status);
+             ::media::DecoderStatus status) {*out_status = std::move(status);
             loop->Quit();
           },
           &loop,
@@ -1444,22 +1444,22 @@ void VideoDecoderAsyncWaiter::Initialize(
   loop.Run();
 }
 
-media::DecoderStatus VideoDecoderAsyncWaiter::Initialize(
+::media::DecoderStatus VideoDecoderAsyncWaiter::Initialize(
     VideoDecoderConfigPtr config, ::mojo::PendingRemote<VideoDecoderClient> client, ::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool> video_frame_pool) {
-  media::DecoderStatus async_wait_result = mojo::DefaultConstructTraits::CreateInstance<media::DecoderStatus>();
+  ::media::DecoderStatus async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::media::DecoderStatus>();
   Initialize(std::move(config),std::move(client),std::move(video_frame_pool),&async_wait_result);
   return async_wait_result;
 }
 
 void VideoDecoderAsyncWaiter::Decode(
-    DecoderBufferPtr buffer, media::DecoderStatus* out_status) {
+    DecoderBufferPtr buffer, ::media::DecoderStatus* out_status) {
   base::RunLoop loop;
   proxy_->Decode(std::move(buffer),
       base::BindOnce(
           [](base::RunLoop* loop,
-             media::DecoderStatus* out_status
+             ::media::DecoderStatus* out_status
 ,
-             media::DecoderStatus status) {*out_status = std::move(status);
+             ::media::DecoderStatus status) {*out_status = std::move(status);
             loop->Quit();
           },
           &loop,
@@ -1467,9 +1467,9 @@ void VideoDecoderAsyncWaiter::Decode(
   loop.Run();
 }
 
-media::DecoderStatus VideoDecoderAsyncWaiter::Decode(
+::media::DecoderStatus VideoDecoderAsyncWaiter::Decode(
     DecoderBufferPtr buffer) {
-  media::DecoderStatus async_wait_result = mojo::DefaultConstructTraits::CreateInstance<media::DecoderStatus>();
+  ::media::DecoderStatus async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::media::DecoderStatus>();
   Decode(std::move(buffer),&async_wait_result);
   return async_wait_result;
 }
@@ -1494,7 +1494,7 @@ void VideoDecoderAsyncWaiter::Reset(
 void VideoDecoderClientInterceptorForTesting::OnVideoFrameDecoded(int32_t video_frame_id, const ::gfx::Rect& visible_rect, int64_t timestamp) {
   GetForwardingInterface()->OnVideoFrameDecoded(std::move(video_frame_id), std::move(visible_rect), std::move(timestamp));
 }
-void VideoDecoderClientInterceptorForTesting::OnError(media::DecoderStatus status) {
+void VideoDecoderClientInterceptorForTesting::OnError(::media::DecoderStatus status) {
   GetForwardingInterface()->OnError(std::move(status));
 }
 VideoDecoderClientAsyncWaiter::VideoDecoderClientAsyncWaiter(

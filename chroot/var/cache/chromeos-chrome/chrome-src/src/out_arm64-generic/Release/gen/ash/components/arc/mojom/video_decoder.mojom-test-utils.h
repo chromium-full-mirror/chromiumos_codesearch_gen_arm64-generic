@@ -30,11 +30,11 @@ class  VideoDecoderAsyncWaiter {
 
   ~VideoDecoderAsyncWaiter();
   void Initialize(
-      VideoDecoderConfigPtr config, ::mojo::PendingRemote<VideoDecoderClient> client, ::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool> video_frame_pool, media::DecoderStatus* out_status);
-  media::DecoderStatus Initialize(VideoDecoderConfigPtr config, ::mojo::PendingRemote<VideoDecoderClient> client, ::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool> video_frame_pool);
+      VideoDecoderConfigPtr config, ::mojo::PendingRemote<VideoDecoderClient> client, ::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool> video_frame_pool, ::media::DecoderStatus* out_status);
+  ::media::DecoderStatus Initialize(VideoDecoderConfigPtr config, ::mojo::PendingRemote<VideoDecoderClient> client, ::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool> video_frame_pool);
   void Decode(
-      DecoderBufferPtr buffer, media::DecoderStatus* out_status);
-  media::DecoderStatus Decode(DecoderBufferPtr buffer);
+      DecoderBufferPtr buffer, ::media::DecoderStatus* out_status);
+  ::media::DecoderStatus Decode(DecoderBufferPtr buffer);
   void Reset(
       );
   
@@ -47,7 +47,7 @@ class  VideoDecoderAsyncWaiter {
 class  VideoDecoderClientInterceptorForTesting : public VideoDecoderClient {
   virtual VideoDecoderClient* GetForwardingInterface() = 0;
   void OnVideoFrameDecoded(int32_t video_frame_id, const ::gfx::Rect& visible_rect, int64_t timestamp) override;
-  void OnError(media::DecoderStatus status) override;
+  void OnError(::media::DecoderStatus status) override;
 };
 class  VideoDecoderClientAsyncWaiter {
  public:

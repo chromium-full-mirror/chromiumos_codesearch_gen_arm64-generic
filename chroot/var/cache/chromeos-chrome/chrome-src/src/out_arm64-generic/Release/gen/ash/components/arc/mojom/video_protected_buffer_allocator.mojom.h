@@ -101,7 +101,7 @@ class VideoProtectedBufferAllocator
 
   using AllocateProtectedNativePixmapCallback = base::OnceCallback<void(bool)>;
   
-  virtual void AllocateProtectedNativePixmap(::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, const gfx::Size& picture_size, AllocateProtectedNativePixmapCallback callback) = 0;
+  virtual void AllocateProtectedNativePixmap(::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, const ::gfx::Size& picture_size, AllocateProtectedNativePixmapCallback callback) = 0;
 
   
   virtual void ReleaseProtectedBuffer(::mojo::ScopedHandle handle_fd) = 0;
@@ -118,7 +118,7 @@ class  VideoProtectedBufferAllocatorProxy
   
   void AllocateProtectedSharedMemory(::mojo::ScopedHandle handle_fd, uint64_t size, AllocateProtectedSharedMemoryCallback callback) final;
   
-  void AllocateProtectedNativePixmap(::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, const gfx::Size& picture_size, AllocateProtectedNativePixmapCallback callback) final;
+  void AllocateProtectedNativePixmap(::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, const ::gfx::Size& picture_size, AllocateProtectedNativePixmapCallback callback) final;
   
   void ReleaseProtectedBuffer(::mojo::ScopedHandle handle_fd) final;
 

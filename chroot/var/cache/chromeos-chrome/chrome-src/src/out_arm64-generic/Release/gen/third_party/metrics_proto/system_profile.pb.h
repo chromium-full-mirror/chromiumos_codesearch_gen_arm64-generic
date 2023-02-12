@@ -267,11 +267,12 @@ enum SystemProfileProto_Hardware_FormFactor : int {
   SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_PHONE = 2,
   SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_TABLET = 3,
   SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_TV = 4,
-  SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_MEET_DEVICE = 5
+  SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_MEET_DEVICE = 5,
+  SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_AUTOMOTIVE = 6
 };
 bool SystemProfileProto_Hardware_FormFactor_IsValid(int value);
 constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware_FormFactor_FormFactor_MIN = SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_UNKNOWN;
-constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware_FormFactor_FormFactor_MAX = SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_MEET_DEVICE;
+constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware_FormFactor_FormFactor_MAX = SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_AUTOMOTIVE;
 constexpr int SystemProfileProto_Hardware_FormFactor_FormFactor_ARRAYSIZE = SystemProfileProto_Hardware_FormFactor_FormFactor_MAX + 1;
 
 const std::string& SystemProfileProto_Hardware_FormFactor_Name(SystemProfileProto_Hardware_FormFactor value);
@@ -2692,6 +2693,8 @@ class SystemProfileProto_Hardware final :
     SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_TV;
   static constexpr FormFactor FORM_FACTOR_MEET_DEVICE =
     SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_MEET_DEVICE;
+  static constexpr FormFactor FORM_FACTOR_AUTOMOTIVE =
+    SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_AUTOMOTIVE;
   static inline bool FormFactor_IsValid(int value) {
     return SystemProfileProto_Hardware_FormFactor_IsValid(value);
   }

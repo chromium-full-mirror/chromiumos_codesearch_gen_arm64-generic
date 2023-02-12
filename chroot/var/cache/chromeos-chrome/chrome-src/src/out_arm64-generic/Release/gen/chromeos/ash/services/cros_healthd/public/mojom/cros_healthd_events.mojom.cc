@@ -338,6 +338,38 @@ bool AudioJackEventInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+SdCardEventInfo::SdCardEventInfo()
+    : state() {}
+
+SdCardEventInfo::SdCardEventInfo(
+    SdCardEventInfo::State state_in)
+    : state(std::move(state_in)) {}
+
+SdCardEventInfo::~SdCardEventInfo() = default;
+size_t SdCardEventInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->state);
+  return seed;
+}
+
+void SdCardEventInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "state"), this->state,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SdCardEventInfo::State>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool SdCardEventInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 EventInfo::EventInfo() : tag_(Tag::kDefaultType) {
   data_.default_type = uint8_t();
 }
@@ -432,6 +464,17 @@ void EventInfo::set_audio_jack_event_info(
         std::move(audio_jack_event_info));
   }
 }
+void EventInfo::set_sd_card_event_info(
+    SdCardEventInfoPtr sd_card_event_info) {
+  if (tag_ == Tag::kSdCardEventInfo) {
+    *(data_.sd_card_event_info) = std::move(sd_card_event_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kSdCardEventInfo;
+    data_.sd_card_event_info = new SdCardEventInfoPtr(
+        std::move(sd_card_event_info));
+  }
+}
 
 void EventInfo::DestroyActive() {
   switch (tag_) {
@@ -466,6 +509,10 @@ void EventInfo::DestroyActive() {
     case Tag::kAudioJackEventInfo:
 
       delete data_.audio_jack_event_info;
+      break;
+    case Tag::kSdCardEventInfo:
+
+      delete data_.sd_card_event_info;
       break;
   }
 }
@@ -2479,6 +2526,230 @@ bool CrosHealthdUsbObserverRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosHealthdUsbObserverValidationInfo);
 }
 
+const char CrosHealthdSdCardObserver::Name_[] = "ash.cros_healthd.mojom.CrosHealthdSdCardObserver";
+
+CrosHealthdSdCardObserver::IPCStableHashFunction CrosHealthdSdCardObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kCrosHealthdSdCardObserver_OnAdd_Name: {
+      return &CrosHealthdSdCardObserver::OnAdd_Sym::IPCStableHash;
+    }
+    case internal::kCrosHealthdSdCardObserver_OnRemove_Name: {
+      return &CrosHealthdSdCardObserver::OnRemove_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* CrosHealthdSdCardObserver::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kCrosHealthdSdCardObserver_OnAdd_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdSdCardObserver::OnAdd";
+      case internal::kCrosHealthdSdCardObserver_OnRemove_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdSdCardObserver::OnRemove";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kCrosHealthdSdCardObserver_OnAdd_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdSdCardObserver::OnAdd";
+      case internal::kCrosHealthdSdCardObserver_OnRemove_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdSdCardObserver::OnRemove";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CrosHealthdSdCardObserver::OnAdd_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdSdCardObserver::OnAdd");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdSdCardObserver::OnRemove_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdSdCardObserver::OnRemove");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+CrosHealthdSdCardObserverProxy::CrosHealthdSdCardObserverProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void CrosHealthdSdCardObserverProxy::OnAdd(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdSdCardObserver::OnAdd");
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdSdCardObserver_OnAdd_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdSdCardObserver_OnAdd_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdSdCardObserver::Name_);
+  message.set_method_name("OnAdd");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void CrosHealthdSdCardObserverProxy::OnRemove(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdSdCardObserver::OnRemove");
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdSdCardObserver_OnRemove_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdSdCardObserver_OnRemove_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdSdCardObserver::Name_);
+  message.set_method_name("OnRemove");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool CrosHealthdSdCardObserverStubDispatch::Accept(
+    CrosHealthdSdCardObserver* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kCrosHealthdSdCardObserver_OnAdd_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CrosHealthdSdCardObserver_OnAdd_Params_Data* params =
+          reinterpret_cast<internal::CrosHealthdSdCardObserver_OnAdd_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      CrosHealthdSdCardObserver_OnAdd_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdSdCardObserver::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnAdd();
+      return true;
+    }
+    case internal::kCrosHealthdSdCardObserver_OnRemove_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CrosHealthdSdCardObserver_OnRemove_Params_Data* params =
+          reinterpret_cast<internal::CrosHealthdSdCardObserver_OnRemove_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      CrosHealthdSdCardObserver_OnRemove_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdSdCardObserver::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnRemove();
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool CrosHealthdSdCardObserverStubDispatch::AcceptWithResponder(
+    CrosHealthdSdCardObserver* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kCrosHealthdSdCardObserver_OnAdd_Name: {
+      break;
+    }
+    case internal::kCrosHealthdSdCardObserver_OnRemove_Name: {
+      break;
+    }
+  }
+  return false;
+}
+
+
+static const mojo::internal::GenericValidationInfo kCrosHealthdSdCardObserverValidationInfo[] = {
+    {&internal::CrosHealthdSdCardObserver_OnAdd_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::CrosHealthdSdCardObserver_OnRemove_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool CrosHealthdSdCardObserverRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdSdCardObserver::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosHealthdSdCardObserverValidationInfo);
+}
+
 const char EventObserver::Name_[] = "ash.cros_healthd.mojom.EventObserver";
 
 EventObserver::IPCStableHashFunction EventObserver::MessageToMethodInfo_(mojo::Message& message) {
@@ -2763,6 +3034,20 @@ bool StructTraits<::ash::cros_healthd::mojom::AudioJackEventInfo::DataView, ::as
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::SdCardEventInfo::DataView, ::ash::cros_healthd::mojom::SdCardEventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::SdCardEventInfo::DataView input,
+    ::ash::cros_healthd::mojom::SdCardEventInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::SdCardEventInfoPtr result(::ash::cros_healthd::mojom::SdCardEventInfo::New());
+  
+      if (success && !input.ReadState(&result->state))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView, ::ash::cros_healthd::mojom::EventInfoPtr>::Read(
     ::ash::cros_healthd::mojom::EventInfo::DataView input,
@@ -2836,6 +3121,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView, ::ash::cros_he
 
       *output = UnionType::NewAudioJackEventInfo(
           std::move(result_audio_jack_event_info));
+      break;
+    }
+    case Tag::kSdCardEventInfo: {
+      ::ash::cros_healthd::mojom::SdCardEventInfoPtr result_sd_card_event_info;
+      if (!input.ReadSdCardEventInfo(&result_sd_card_event_info))
+        return false;
+
+      *output = UnionType::NewSdCardEventInfo(
+          std::move(result_sd_card_event_info));
       break;
     }
     default:
@@ -2962,6 +3256,20 @@ CrosHealthdUsbObserverAsyncWaiter::CrosHealthdUsbObserverAsyncWaiter(
     CrosHealthdUsbObserver* proxy) : proxy_(proxy) {}
 
 CrosHealthdUsbObserverAsyncWaiter::~CrosHealthdUsbObserverAsyncWaiter() = default;
+
+
+
+
+void CrosHealthdSdCardObserverInterceptorForTesting::OnAdd() {
+  GetForwardingInterface()->OnAdd();
+}
+void CrosHealthdSdCardObserverInterceptorForTesting::OnRemove() {
+  GetForwardingInterface()->OnRemove();
+}
+CrosHealthdSdCardObserverAsyncWaiter::CrosHealthdSdCardObserverAsyncWaiter(
+    CrosHealthdSdCardObserver* proxy) : proxy_(proxy) {}
+
+CrosHealthdSdCardObserverAsyncWaiter::~CrosHealthdSdCardObserverAsyncWaiter() = default;
 
 
 

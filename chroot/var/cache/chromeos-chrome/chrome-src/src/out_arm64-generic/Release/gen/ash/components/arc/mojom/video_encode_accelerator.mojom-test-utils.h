@@ -18,7 +18,7 @@ class  VideoEncodeAcceleratorInterceptorForTesting : public VideoEncodeAccelerat
   virtual VideoEncodeAccelerator* GetForwardingInterface() = 0;
   void GetSupportedProfiles(GetSupportedProfilesCallback callback) override;
   void Initialize(const ::media::VideoEncodeAccelerator::Config& config, ::mojo::PendingRemote<VideoEncodeClient> client, InitializeCallback callback) override;
-  void Encode(media::VideoPixelFormat format, ::mojo::ScopedHandle frame_fd, std::vector<arc::VideoFramePlane> planes, int64_t timestamp, bool force_keyframe, EncodeCallback callback) override;
+  void Encode(::media::VideoPixelFormat format, ::mojo::ScopedHandle frame_fd, std::vector<::arc::VideoFramePlane> planes, int64_t timestamp, bool force_keyframe, EncodeCallback callback) override;
   void UseBitstreamBuffer(::mojo::ScopedHandle shmem_fd, uint32_t offset, uint32_t size, UseBitstreamBufferCallback callback) override;
   void RequestEncodingParametersChange(const ::media::Bitrate& bitrate, uint32_t framerate) override;
   void RequestEncodingParametersChangeDeprecated(uint32_t bitrate, uint32_t framerate) override;
@@ -39,7 +39,7 @@ class  VideoEncodeAcceleratorAsyncWaiter {
       const ::media::VideoEncodeAccelerator::Config& config, ::mojo::PendingRemote<VideoEncodeClient> client, VideoEncodeAccelerator::Result* out_result);
   VideoEncodeAccelerator::Result Initialize(const ::media::VideoEncodeAccelerator::Config& config, ::mojo::PendingRemote<VideoEncodeClient> client);
   void Encode(
-      media::VideoPixelFormat format, ::mojo::ScopedHandle frame_fd, std::vector<arc::VideoFramePlane> planes, int64_t timestamp, bool force_keyframe);
+      ::media::VideoPixelFormat format, ::mojo::ScopedHandle frame_fd, std::vector<::arc::VideoFramePlane> planes, int64_t timestamp, bool force_keyframe);
   
   void UseBitstreamBuffer(
       ::mojo::ScopedHandle shmem_fd, uint32_t offset, uint32_t size, uint32_t* out_payload_size, bool* out_key_frame, int64_t* out_timestamp);
@@ -55,7 +55,7 @@ class  VideoEncodeAcceleratorAsyncWaiter {
 
 class  VideoEncodeClientInterceptorForTesting : public VideoEncodeClient {
   virtual VideoEncodeClient* GetForwardingInterface() = 0;
-  void RequireBitstreamBuffers(uint32_t input_count, const gfx::Size& input_coded_size, uint32_t output_buffer_size) override;
+  void RequireBitstreamBuffers(uint32_t input_count, const ::gfx::Size& input_coded_size, uint32_t output_buffer_size) override;
   void NotifyError(::media::VideoEncodeAccelerator::Error error) override;
 };
 class  VideoEncodeClientAsyncWaiter {

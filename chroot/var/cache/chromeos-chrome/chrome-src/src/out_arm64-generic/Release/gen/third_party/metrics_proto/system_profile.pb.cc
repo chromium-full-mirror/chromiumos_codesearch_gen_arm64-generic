@@ -897,15 +897,17 @@ bool SystemProfileProto_Hardware_FormFactor_IsValid(int value) {
     case 3:
     case 4:
     case 5:
+    case 6:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemProfileProto_Hardware_FormFactor_strings[6] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemProfileProto_Hardware_FormFactor_strings[7] = {};
 
 static const char SystemProfileProto_Hardware_FormFactor_names[] =
+  "FORM_FACTOR_AUTOMOTIVE"
   "FORM_FACTOR_DESKTOP"
   "FORM_FACTOR_MEET_DEVICE"
   "FORM_FACTOR_PHONE"
@@ -914,21 +916,23 @@ static const char SystemProfileProto_Hardware_FormFactor_names[] =
   "FORM_FACTOR_UNKNOWN";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SystemProfileProto_Hardware_FormFactor_entries[] = {
-  { {SystemProfileProto_Hardware_FormFactor_names + 0, 19}, 1 },
-  { {SystemProfileProto_Hardware_FormFactor_names + 19, 23}, 5 },
-  { {SystemProfileProto_Hardware_FormFactor_names + 42, 17}, 2 },
-  { {SystemProfileProto_Hardware_FormFactor_names + 59, 18}, 3 },
-  { {SystemProfileProto_Hardware_FormFactor_names + 77, 14}, 4 },
-  { {SystemProfileProto_Hardware_FormFactor_names + 91, 19}, 0 },
+  { {SystemProfileProto_Hardware_FormFactor_names + 0, 22}, 6 },
+  { {SystemProfileProto_Hardware_FormFactor_names + 22, 19}, 1 },
+  { {SystemProfileProto_Hardware_FormFactor_names + 41, 23}, 5 },
+  { {SystemProfileProto_Hardware_FormFactor_names + 64, 17}, 2 },
+  { {SystemProfileProto_Hardware_FormFactor_names + 81, 18}, 3 },
+  { {SystemProfileProto_Hardware_FormFactor_names + 99, 14}, 4 },
+  { {SystemProfileProto_Hardware_FormFactor_names + 113, 19}, 0 },
 };
 
 static const int SystemProfileProto_Hardware_FormFactor_entries_by_number[] = {
-  5, // 0 -> FORM_FACTOR_UNKNOWN
-  0, // 1 -> FORM_FACTOR_DESKTOP
-  2, // 2 -> FORM_FACTOR_PHONE
-  3, // 3 -> FORM_FACTOR_TABLET
-  4, // 4 -> FORM_FACTOR_TV
-  1, // 5 -> FORM_FACTOR_MEET_DEVICE
+  6, // 0 -> FORM_FACTOR_UNKNOWN
+  1, // 1 -> FORM_FACTOR_DESKTOP
+  3, // 2 -> FORM_FACTOR_PHONE
+  4, // 3 -> FORM_FACTOR_TABLET
+  5, // 4 -> FORM_FACTOR_TV
+  2, // 5 -> FORM_FACTOR_MEET_DEVICE
+  0, // 6 -> FORM_FACTOR_AUTOMOTIVE
 };
 
 const std::string& SystemProfileProto_Hardware_FormFactor_Name(
@@ -937,12 +941,12 @@ const std::string& SystemProfileProto_Hardware_FormFactor_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           SystemProfileProto_Hardware_FormFactor_entries,
           SystemProfileProto_Hardware_FormFactor_entries_by_number,
-          6, SystemProfileProto_Hardware_FormFactor_strings);
+          7, SystemProfileProto_Hardware_FormFactor_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       SystemProfileProto_Hardware_FormFactor_entries,
       SystemProfileProto_Hardware_FormFactor_entries_by_number,
-      6, value);
+      7, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      SystemProfileProto_Hardware_FormFactor_strings[idx].get();
 }
@@ -950,7 +954,7 @@ bool SystemProfileProto_Hardware_FormFactor_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_Hardware_FormFactor* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      SystemProfileProto_Hardware_FormFactor_entries, 6, name, &int_value);
+      SystemProfileProto_Hardware_FormFactor_entries, 7, name, &int_value);
   if (success) {
     *value = static_cast<SystemProfileProto_Hardware_FormFactor>(int_value);
   }
@@ -963,6 +967,7 @@ constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware::FO
 constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware::FORM_FACTOR_TABLET;
 constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware::FORM_FACTOR_TV;
 constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware::FORM_FACTOR_MEET_DEVICE;
+constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware::FORM_FACTOR_AUTOMOTIVE;
 constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware::FormFactor_MIN;
 constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware::FormFactor_MAX;
 constexpr int SystemProfileProto_Hardware::FormFactor_ARRAYSIZE;
