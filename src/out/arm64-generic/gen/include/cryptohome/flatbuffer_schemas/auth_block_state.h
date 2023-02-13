@@ -170,4 +170,14 @@ struct AuthBlockState {
 
 }  // namespace cryptohome
 
+namespace cryptohome {
+
+struct FingerprintAuthBlockState {
+  std::vector<int8_t> template_id;
+  std::optional<uint64_t> gsc_secret_label;
+  brillo::SecureBlob salt;
+};
+
+}  // namespace cryptohome
+
 #endif  // CRYPTOHOME_FLATBUFFER_SCHEMAS_AUTH_BLOCK_STATE_AUTH_BLOCK_STATE_H_

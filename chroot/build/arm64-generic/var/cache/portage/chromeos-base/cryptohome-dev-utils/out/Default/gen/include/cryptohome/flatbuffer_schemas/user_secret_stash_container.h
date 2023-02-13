@@ -48,6 +48,14 @@ enum class UserSecretStashEncryptionAlgorithm : int32_t {
 
 namespace cryptohome {
 
+struct UserMetadata {
+  std::optional<uint64_t> rate_limiter_leaf_label;
+};
+
+}  // namespace cryptohome
+
+namespace cryptohome {
+
 struct UserSecretStashWrappedKeyBlock {
   std::string wrapping_id;
   std::optional<::cryptohome::UserSecretStashEncryptionAlgorithm>

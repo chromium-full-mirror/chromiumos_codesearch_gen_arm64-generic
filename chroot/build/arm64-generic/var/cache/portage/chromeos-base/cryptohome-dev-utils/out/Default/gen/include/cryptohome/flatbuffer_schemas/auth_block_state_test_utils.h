@@ -185,4 +185,18 @@ inline bool operator!=(const AuthBlockState& lhs, const AuthBlockState& rhs) {
 
 }  // namespace cryptohome
 
+namespace cryptohome {
+
+inline bool operator==(const FingerprintAuthBlockState& lhs,
+                       const FingerprintAuthBlockState& rhs) {
+  return true && lhs.template_id == rhs.template_id &&
+         lhs.gsc_secret_label == rhs.gsc_secret_label && lhs.salt == rhs.salt;
+}
+inline bool operator!=(const FingerprintAuthBlockState& lhs,
+                       const FingerprintAuthBlockState& rhs) {
+  return !(lhs == rhs);
+}
+
+}  // namespace cryptohome
+
 #endif  // CRYPTOHOME_FLATBUFFER_SCHEMAS_AUTH_BLOCK_STATE_AUTH_BLOCK_STATE_TEST_UTILS_H_

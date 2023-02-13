@@ -85,6 +85,43 @@ struct FromFlatBuffer<::cryptohome::UserSecretStashEncryptionAlgorithm> {
 namespace hwsec_foundation {
 
 template <>
+struct ToFlatBuffer<::cryptohome::UserMetadata> {
+  using ResultType =
+      flatbuffers::Offset<::cryptohome::_serialized_::UserMetadata>;
+
+  ResultType operator()(flatbuffers::FlatBufferBuilder* builder,
+                        const ::cryptohome::UserMetadata& object) const {
+    auto rate_limiter_leaf_label = ToFlatBuffer<std::optional<uint64_t>>()(
+        builder, object.rate_limiter_leaf_label);
+
+    return ::cryptohome::_serialized_::CreateUserMetadata(
+        *builder, rate_limiter_leaf_label);
+  }
+};
+
+}  // namespace hwsec_foundation
+
+namespace hwsec_foundation {
+
+template <>
+struct FromFlatBuffer<::cryptohome::UserMetadata> {
+  ::cryptohome::UserMetadata operator()(
+      const ::cryptohome::_serialized_::UserMetadata* object) const {
+    if (object == nullptr) {
+      return ::cryptohome::UserMetadata();
+    }
+    return ::cryptohome::UserMetadata{
+        .rate_limiter_leaf_label = FromFlatBuffer<std::optional<uint64_t>>()(
+            object->rate_limiter_leaf_label()),
+    };
+  }
+};
+
+}  // namespace hwsec_foundation
+
+namespace hwsec_foundation {
+
+template <>
 struct ToFlatBuffer<::cryptohome::UserSecretStashWrappedKeyBlock> {
   using ResultType = flatbuffers::Offset<
       ::cryptohome::_serialized_::UserSecretStashWrappedKeyBlock>;

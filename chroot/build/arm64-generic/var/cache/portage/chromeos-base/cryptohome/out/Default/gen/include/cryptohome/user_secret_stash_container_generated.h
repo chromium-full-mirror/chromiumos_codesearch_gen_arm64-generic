@@ -15,6 +15,9 @@ struct UserSecretStashContainerBuilder;
 struct UserSecretStashWrappedKeyBlock;
 struct UserSecretStashWrappedKeyBlockBuilder;
 
+struct UserMetadata;
+struct UserMetadataBuilder;
+
 enum class UserSecretStashEncryptionAlgorithm : int32_t {
   AES_GCM_256 = 1,
   MIN = AES_GCM_256,
@@ -265,6 +268,47 @@ inline flatbuffers::Offset<UserSecretStashWrappedKeyBlock> CreateUserSecretStash
       encrypted_key__,
       iv__,
       gcm_tag__);
+}
+
+struct UserMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef UserMetadataBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_RATE_LIMITER_LEAF_LABEL = 4
+  };
+  flatbuffers::Optional<uint64_t> rate_limiter_leaf_label() const {
+    return GetOptional<uint64_t, uint64_t>(VT_RATE_LIMITER_LEAF_LABEL);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<uint64_t>(verifier, VT_RATE_LIMITER_LEAF_LABEL) &&
+           verifier.EndTable();
+  }
+};
+
+struct UserMetadataBuilder {
+  typedef UserMetadata Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_rate_limiter_leaf_label(uint64_t rate_limiter_leaf_label) {
+    fbb_.AddElement<uint64_t>(UserMetadata::VT_RATE_LIMITER_LEAF_LABEL, rate_limiter_leaf_label);
+  }
+  explicit UserMetadataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<UserMetadata> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<UserMetadata>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<UserMetadata> CreateUserMetadata(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Optional<uint64_t> rate_limiter_leaf_label = flatbuffers::nullopt) {
+  UserMetadataBuilder builder_(_fbb);
+  if(rate_limiter_leaf_label) { builder_.add_rate_limiter_leaf_label(*rate_limiter_leaf_label); }
+  return builder_.Finish();
 }
 
 inline const cryptohome::_serialized_::UserSecretStashContainer *GetUserSecretStashContainer(const void *buf) {
