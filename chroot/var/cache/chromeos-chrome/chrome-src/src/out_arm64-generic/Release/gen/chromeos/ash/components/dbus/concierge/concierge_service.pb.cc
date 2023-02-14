@@ -464,6 +464,8 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR CreateDiskImageRequest::CreateDiskImageRequest(
     ::_pbi::ConstantInitialized)
   : params_()
+  , mkfs_opts_()
+  , tune2fs_opts_()
   , cryptohome_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , vm_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , disk_size_(uint64_t{0u})
@@ -10746,13 +10748,17 @@ class CreateDiskImageRequest::_Internal {
 CreateDiskImageRequest::CreateDiskImageRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  params_(arena) {
+  params_(arena),
+  mkfs_opts_(arena),
+  tune2fs_opts_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.CreateDiskImageRequest)
 }
 CreateDiskImageRequest::CreateDiskImageRequest(const CreateDiskImageRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      params_(from.params_) {
+      params_(from.params_),
+      mkfs_opts_(from.mkfs_opts_),
+      tune2fs_opts_(from.tune2fs_opts_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   cryptohome_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -10817,6 +10823,8 @@ void CreateDiskImageRequest::Clear() {
   (void) cached_has_bits;
 
   params_.Clear();
+  mkfs_opts_.Clear();
+  tune2fs_opts_.Clear();
   cryptohome_id_.ClearToEmpty();
   vm_name_.ClearToEmpty();
   ::memset(&disk_size_, 0, static_cast<size_t>(
@@ -10914,6 +10922,36 @@ const char* CreateDiskImageRequest::_InternalParse(const char* ptr, ::_pbi::Pars
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
           storage_ballooning_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string mkfs_opts = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_mkfs_opts();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, nullptr));
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<82>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string tune2fs_opts = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_tune2fs_opts();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, nullptr));
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<90>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -11015,6 +11053,26 @@ uint8_t* CreateDiskImageRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(9, this->_internal_storage_ballooning(), target);
   }
 
+  // repeated string mkfs_opts = 10;
+  for (int i = 0, n = this->_internal_mkfs_opts_size(); i < n; i++) {
+    const auto& s = this->_internal_mkfs_opts(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.CreateDiskImageRequest.mkfs_opts");
+    target = stream->WriteString(10, s, target);
+  }
+
+  // repeated string tune2fs_opts = 11;
+  for (int i = 0, n = this->_internal_tune2fs_opts_size(); i < n; i++) {
+    const auto& s = this->_internal_tune2fs_opts(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.CreateDiskImageRequest.tune2fs_opts");
+    target = stream->WriteString(11, s, target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -11037,6 +11095,22 @@ size_t CreateDiskImageRequest::ByteSizeLong() const {
   for (int i = 0, n = params_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
       params_.Get(i));
+  }
+
+  // repeated string mkfs_opts = 10;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(mkfs_opts_.size());
+  for (int i = 0, n = mkfs_opts_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      mkfs_opts_.Get(i));
+  }
+
+  // repeated string tune2fs_opts = 11;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(tune2fs_opts_.size());
+  for (int i = 0, n = tune2fs_opts_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      tune2fs_opts_.Get(i));
   }
 
   // string cryptohome_id = 1;
@@ -11107,6 +11181,8 @@ void CreateDiskImageRequest::MergeFrom(const CreateDiskImageRequest& from) {
   (void) cached_has_bits;
 
   params_.MergeFrom(from.params_);
+  mkfs_opts_.MergeFrom(from.mkfs_opts_);
+  tune2fs_opts_.MergeFrom(from.tune2fs_opts_);
   if (!from._internal_cryptohome_id().empty()) {
     _internal_set_cryptohome_id(from._internal_cryptohome_id());
   }
@@ -11151,6 +11227,8 @@ void CreateDiskImageRequest::InternalSwap(CreateDiskImageRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   params_.InternalSwap(&other->params_);
+  mkfs_opts_.InternalSwap(&other->mkfs_opts_);
+  tune2fs_opts_.InternalSwap(&other->tune2fs_opts_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &cryptohome_id_, lhs_arena,
       &other->cryptohome_id_, rhs_arena

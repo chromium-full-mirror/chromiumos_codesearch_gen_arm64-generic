@@ -15,7 +15,6 @@
 #include <debugd/dbus-proxy-mocks.h>
 #include <gtest/gtest.h>
 
-#include "diagnostics/common/mojo_utils.h"
 #include "diagnostics/cros_healthd/routines/emmc_lifetime/emmc_lifetime.h"
 #include "diagnostics/cros_healthd/routines/routine_test_utils.h"
 #include "diagnostics/cros_healthd/system/debugd_constants.h"
@@ -48,12 +47,8 @@ void VerifyOutput(mojo::ScopedHandle handle,
                   const uint32_t expected_device_life_time_est_typ_a,
                   const uint32_t expected_device_life_time_est_typ_b) {
   ASSERT_TRUE(handle->is_valid());
-  const auto& shm_mapping =
-      diagnostics::GetReadOnlySharedMemoryMappingFromMojoHandle(
-          std::move(handle));
-  ASSERT_TRUE(shm_mapping.IsValid());
-  const auto& json_output = base::JSONReader::Read(std::string(
-      shm_mapping.GetMemoryAs<const char>(), shm_mapping.mapped_size()));
+  const auto& json_output = base::JSONReader::Read(
+      GetStringFromValidReadOnlySharedMemoryMapping(std::move(handle)));
   const auto& output_dict = json_output->GetIfDict();
   ASSERT_NE(output_dict, nullptr);
 

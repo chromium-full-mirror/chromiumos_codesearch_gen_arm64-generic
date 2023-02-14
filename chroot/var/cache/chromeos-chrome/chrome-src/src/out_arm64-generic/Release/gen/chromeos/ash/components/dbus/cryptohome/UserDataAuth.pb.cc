@@ -1813,6 +1813,18 @@ struct AuthEnrollmentProgressDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthEnrollmentProgressDefaultTypeInternal _AuthEnrollmentProgress_default_instance_;
+PROTOBUF_CONSTEXPR AuthScanDone::AuthScanDone(
+    ::_pbi::ConstantInitialized)
+  : scan_result_(nullptr){}
+struct AuthScanDoneDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR AuthScanDoneDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~AuthScanDoneDefaultTypeInternal() {}
+  union {
+    AuthScanDone _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthScanDoneDefaultTypeInternal _AuthScanDone_default_instance_;
 }  // namespace user_data_auth
 namespace user_data_auth {
 bool GetRecoveryRequestRequest_UserType_IsValid(int value) {
@@ -31199,6 +31211,190 @@ std::string AuthEnrollmentProgress::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class AuthScanDone::_Internal {
+ public:
+  static const ::user_data_auth::AuthScanResult& scan_result(const AuthScanDone* msg);
+};
+
+const ::user_data_auth::AuthScanResult&
+AuthScanDone::_Internal::scan_result(const AuthScanDone* msg) {
+  return *msg->scan_result_;
+}
+AuthScanDone::AuthScanDone(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.AuthScanDone)
+}
+AuthScanDone::AuthScanDone(const AuthScanDone& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_scan_result()) {
+    scan_result_ = new ::user_data_auth::AuthScanResult(*from.scan_result_);
+  } else {
+    scan_result_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.AuthScanDone)
+}
+
+inline void AuthScanDone::SharedCtor() {
+scan_result_ = nullptr;
+}
+
+AuthScanDone::~AuthScanDone() {
+  // @@protoc_insertion_point(destructor:user_data_auth.AuthScanDone)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void AuthScanDone::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete scan_result_;
+}
+
+void AuthScanDone::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void AuthScanDone::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.AuthScanDone)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && scan_result_ != nullptr) {
+    delete scan_result_;
+  }
+  scan_result_ = nullptr;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* AuthScanDone::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .user_data_auth.AuthScanResult scan_result = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_scan_result(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* AuthScanDone::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.AuthScanDone)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .user_data_auth.AuthScanResult scan_result = 1;
+  if (this->_internal_has_scan_result()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::scan_result(this),
+        _Internal::scan_result(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.AuthScanDone)
+  return target;
+}
+
+size_t AuthScanDone::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.AuthScanDone)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .user_data_auth.AuthScanResult scan_result = 1;
+  if (this->_internal_has_scan_result()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *scan_result_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void AuthScanDone::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const AuthScanDone*>(
+      &from));
+}
+
+void AuthScanDone::MergeFrom(const AuthScanDone& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.AuthScanDone)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_scan_result()) {
+    _internal_mutable_scan_result()->::user_data_auth::AuthScanResult::MergeFrom(from._internal_scan_result());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AuthScanDone::CopyFrom(const AuthScanDone& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.AuthScanDone)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AuthScanDone::IsInitialized() const {
+  return true;
+}
+
+void AuthScanDone::InternalSwap(AuthScanDone* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(scan_result_, other->scan_result_);
+}
+
+std::string AuthScanDone::GetTypeName() const {
+  return "user_data_auth.AuthScanDone";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace user_data_auth
 PROTOBUF_NAMESPACE_OPEN
@@ -31745,6 +31941,10 @@ Arena::CreateMaybeMessage< ::user_data_auth::FingerprintEnrollmentProgress >(Are
 template<> PROTOBUF_NOINLINE ::user_data_auth::AuthEnrollmentProgress*
 Arena::CreateMaybeMessage< ::user_data_auth::AuthEnrollmentProgress >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::AuthEnrollmentProgress >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::AuthScanDone*
+Arena::CreateMaybeMessage< ::user_data_auth::AuthScanDone >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::AuthScanDone >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

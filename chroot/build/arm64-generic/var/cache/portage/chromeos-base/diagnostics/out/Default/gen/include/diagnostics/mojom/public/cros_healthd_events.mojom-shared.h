@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-shared-internal.h"
+#include "diagnostics/mojom/external/input.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -152,8 +153,12 @@ enum class EventCategoryEnum : int32_t {
   kAudioJack = 7,
   
   kSdCard = 8,
+  
+  kNetwork = 9,
+  
+  kKeyboardDiagnostic = 10,
   kMinValue = 0,
-  kMaxValue = 8,
+  kMaxValue = 10,
   kDefaultValue = 0
 };
 
@@ -825,6 +830,17 @@ class EventInfoDataView {
     CHECK(is_sd_card_event_info());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SdCardEventInfoDataView>(
         data_->data.f_sd_card_event_info.Get(), output, message_);
+  }
+  bool is_keyboard_diagnostic_event_info() const { return data_->tag == Tag::kKeyboardDiagnosticEventInfo; }
+  inline void GetKeyboardDiagnosticEventInfoDataView(
+      ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadKeyboardDiagnosticEventInfo(UserType* output) const {
+    
+    CHECK(is_keyboard_diagnostic_event_info());
+    return mojo::internal::Deserialize<::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoDataView>(
+        data_->data.f_keyboard_diagnostic_event_info.Get(), output, message_);
   }
 
  private:
@@ -1507,6 +1523,22 @@ struct Serializer<::ash::cros_healthd::mojom::EventInfoDataView, MaybeConstUserT
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kKeyboardDiagnosticEventInfo: {
+        decltype(Traits::keyboard_diagnostic_event_info(input))
+            in_keyboard_diagnostic_event_info = Traits::keyboard_diagnostic_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_keyboard_diagnostic_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoDataView>(
+            in_keyboard_diagnostic_event_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null keyboard_diagnostic_event_info in EventInfo union");
+        fragment->data.f_keyboard_diagnostic_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -1600,6 +1632,11 @@ inline void EventInfoDataView::GetSdCardEventInfoDataView(
     SdCardEventInfoDataView* output) const {
   CHECK(is_sd_card_event_info());
   *output = SdCardEventInfoDataView(data_->data.f_sd_card_event_info.Get(), message_);
+}
+inline void EventInfoDataView::GetKeyboardDiagnosticEventInfoDataView(
+    ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoDataView* output) const {
+  CHECK(is_keyboard_diagnostic_event_info());
+  *output = ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoDataView(data_->data.f_keyboard_diagnostic_event_info.Get(), message_);
 }
 
 

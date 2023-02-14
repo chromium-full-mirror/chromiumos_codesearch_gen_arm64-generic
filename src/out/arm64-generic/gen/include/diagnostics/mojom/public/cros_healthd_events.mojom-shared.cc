@@ -43,6 +43,10 @@ static NOINLINE const char* EventCategoryEnumToStringHelper(EventCategoryEnum va
       return "kAudioJack";
     case EventCategoryEnum::kSdCard:
       return "kSdCard";
+    case EventCategoryEnum::kNetwork:
+      return "kNetwork";
+    case EventCategoryEnum::kKeyboardDiagnostic:
+      return "kKeyboardDiagnostic";
     default:
       return nullptr;
   }
@@ -393,6 +397,16 @@ bool EventInfo_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_sd_card_event_info, validation_context))
+        return false;
+      return true;
+    }
+    case EventInfo_Tag::kKeyboardDiagnosticEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_keyboard_diagnostic_event_info, 10, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_keyboard_diagnostic_event_info, validation_context))
         return false;
       return true;
     }

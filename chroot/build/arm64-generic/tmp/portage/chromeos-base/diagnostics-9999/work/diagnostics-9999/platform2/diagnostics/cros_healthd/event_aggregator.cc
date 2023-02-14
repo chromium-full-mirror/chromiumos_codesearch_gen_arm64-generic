@@ -66,6 +66,12 @@ void EventAggregator::AddObserver(
     case mojom::EventCategoryEnum::kSdCard:
       udev_events_->AddSdCardObserver(std::move(observer));
       break;
+    case mojom::EventCategoryEnum::kNetwork:
+      NOTIMPLEMENTED();
+      break;
+    case mojom::EventCategoryEnum::kKeyboardDiagnostic:
+      event_reporter_.AddObserver(std::move(observer));
+      break;
   }
 }
 

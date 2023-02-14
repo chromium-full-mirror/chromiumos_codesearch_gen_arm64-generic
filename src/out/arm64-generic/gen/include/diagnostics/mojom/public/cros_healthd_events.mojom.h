@@ -25,6 +25,7 @@
 
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-forward.h"
+#include "diagnostics/mojom/external/input.mojom.h"
 #include <string>
 #include <vector>
 
@@ -2081,6 +2082,14 @@ class  EventInfo {
     result->set_sd_card_event_info(std::move(sd_card_event_info));
     return result;
   }
+  // Construct an instance holding |keyboard_diagnostic_event_info|.
+  static EventInfoPtr
+  NewKeyboardDiagnosticEventInfo(
+      ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr keyboard_diagnostic_event_info) {
+    auto result = EventInfoPtr(absl::in_place);
+    result->set_keyboard_diagnostic_event_info(std::move(keyboard_diagnostic_event_info));
+    return result;
+  }
 
   template <typename U>
   static EventInfoPtr From(const U& u) {
@@ -2231,6 +2240,18 @@ class  EventInfo {
   
   void set_sd_card_event_info(
       SdCardEventInfoPtr sd_card_event_info);
+  
+  bool is_keyboard_diagnostic_event_info() const { return tag_ == Tag::kKeyboardDiagnosticEventInfo; }
+
+  
+  ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr& get_keyboard_diagnostic_event_info() const {
+    CHECK(tag_ == Tag::kKeyboardDiagnosticEventInfo);
+    return *(data_.keyboard_diagnostic_event_info);
+  }
+
+  
+  void set_keyboard_diagnostic_event_info(
+      ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr keyboard_diagnostic_event_info);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -2258,6 +2279,7 @@ class  EventInfo {
     AudioEventInfoPtr* audio_event_info;
     AudioJackEventInfoPtr* audio_jack_event_info;
     SdCardEventInfoPtr* sd_card_event_info;
+    ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr* keyboard_diagnostic_event_info;
   };
 
   static bool Validate(const void* data,
@@ -2465,6 +2487,9 @@ EventInfoPtr EventInfo::Clone() const {
     case Tag::kSdCardEventInfo:
       return NewSdCardEventInfo(
           mojo::Clone(*data_.sd_card_event_info));
+    case Tag::kKeyboardDiagnosticEventInfo:
+      return NewKeyboardDiagnosticEventInfo(
+          mojo::Clone(*data_.keyboard_diagnostic_event_info));
   }
   return nullptr;
 }
@@ -2495,6 +2520,8 @@ bool EventInfo::Equals(const T& other) const {
       return mojo::Equals(*(data_.audio_jack_event_info), *(other.data_.audio_jack_event_info));
     case Tag::kSdCardEventInfo:
       return mojo::Equals(*(data_.sd_card_event_info), *(other.data_.sd_card_event_info));
+    case Tag::kKeyboardDiagnosticEventInfo:
+      return mojo::Equals(*(data_.keyboard_diagnostic_event_info), *(other.data_.keyboard_diagnostic_event_info));
   }
 
   return false;
@@ -2908,6 +2935,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView,
 
   static const ::ash::cros_healthd::mojom::SdCardEventInfoPtr& sd_card_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
     return input->get_sd_card_event_info();
+  }
+
+  static const ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr& keyboard_diagnostic_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
+    return input->get_keyboard_diagnostic_event_info();
   }
 
   static bool Read(::ash::cros_healthd::mojom::EventInfo::DataView input, ::ash::cros_healthd::mojom::EventInfoPtr* output);

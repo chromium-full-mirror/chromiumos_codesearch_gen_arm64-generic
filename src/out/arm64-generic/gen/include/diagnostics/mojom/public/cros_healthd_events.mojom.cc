@@ -475,6 +475,17 @@ void EventInfo::set_sd_card_event_info(
         std::move(sd_card_event_info));
   }
 }
+void EventInfo::set_keyboard_diagnostic_event_info(
+    ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr keyboard_diagnostic_event_info) {
+  if (tag_ == Tag::kKeyboardDiagnosticEventInfo) {
+    *(data_.keyboard_diagnostic_event_info) = std::move(keyboard_diagnostic_event_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kKeyboardDiagnosticEventInfo;
+    data_.keyboard_diagnostic_event_info = new ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr(
+        std::move(keyboard_diagnostic_event_info));
+  }
+}
 
 void EventInfo::DestroyActive() {
   switch (tag_) {
@@ -513,6 +524,10 @@ void EventInfo::DestroyActive() {
     case Tag::kSdCardEventInfo:
 
       delete data_.sd_card_event_info;
+      break;
+    case Tag::kKeyboardDiagnosticEventInfo:
+
+      delete data_.keyboard_diagnostic_event_info;
       break;
   }
 }
@@ -3130,6 +3145,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView, ::ash::cros_he
 
       *output = UnionType::NewSdCardEventInfo(
           std::move(result_sd_card_event_info));
+      break;
+    }
+    case Tag::kKeyboardDiagnosticEventInfo: {
+      ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr result_keyboard_diagnostic_event_info;
+      if (!input.ReadKeyboardDiagnosticEventInfo(&result_keyboard_diagnostic_event_info))
+        return false;
+
+      *output = UnionType::NewKeyboardDiagnosticEventInfo(
+          std::move(result_keyboard_diagnostic_event_info));
       break;
     }
     default:

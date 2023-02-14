@@ -10,6 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "diagnostics/mojom/external/input.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -49,6 +50,8 @@ struct EventCategoryEnum_Data {
       case 6:
       case 7:
       case 8:
+      case 9:
+      case 10:
         return true;
     }
     return false;
@@ -322,6 +325,8 @@ class  EventInfo_Data {
     kAudioJackEventInfo,
     
     kSdCardEventInfo,
+    
+    kKeyboardDiagnosticEventInfo,
   };
 
   // A note on layout:
@@ -338,6 +343,7 @@ class  EventInfo_Data {
     mojo::internal::Pointer<internal::AudioEventInfo_Data> f_audio_event_info;
     mojo::internal::Pointer<internal::AudioJackEventInfo_Data> f_audio_jack_event_info;
     mojo::internal::Pointer<internal::SdCardEventInfo_Data> f_sd_card_event_info;
+    mojo::internal::Pointer<::ash::diagnostics::mojom::internal::KeyboardDiagnosticEventInfo_Data> f_keyboard_diagnostic_event_info;
     uint64_t unknown;
   };
 
