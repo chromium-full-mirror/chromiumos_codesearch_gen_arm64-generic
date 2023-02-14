@@ -46,7 +46,7 @@ struct TableStruct_concierge_5fservice_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[67]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[69]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -150,6 +150,12 @@ extern GetVmLaunchAllowedRequestDefaultTypeInternal _GetVmLaunchAllowedRequest_d
 class GetVmLaunchAllowedResponse;
 struct GetVmLaunchAllowedResponseDefaultTypeInternal;
 extern GetVmLaunchAllowedResponseDefaultTypeInternal _GetVmLaunchAllowedResponse_default_instance_;
+class GetVmLogsRequest;
+struct GetVmLogsRequestDefaultTypeInternal;
+extern GetVmLogsRequestDefaultTypeInternal _GetVmLogsRequest_default_instance_;
+class GetVmLogsResponse;
+struct GetVmLogsResponseDefaultTypeInternal;
+extern GetVmLogsResponseDefaultTypeInternal _GetVmLogsResponse_default_instance_;
 class ImportDiskImageRequest;
 struct ImportDiskImageRequestDefaultTypeInternal;
 extern ImportDiskImageRequestDefaultTypeInternal _ImportDiskImageRequest_default_instance_;
@@ -290,6 +296,8 @@ template<> ::vm_tools::concierge::GetVmInfoRequest* Arena::CreateMaybeMessage<::
 template<> ::vm_tools::concierge::GetVmInfoResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmInfoResponse>(Arena*);
 template<> ::vm_tools::concierge::GetVmLaunchAllowedRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmLaunchAllowedRequest>(Arena*);
 template<> ::vm_tools::concierge::GetVmLaunchAllowedResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmLaunchAllowedResponse>(Arena*);
+template<> ::vm_tools::concierge::GetVmLogsRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmLogsRequest>(Arena*);
+template<> ::vm_tools::concierge::GetVmLogsResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmLogsResponse>(Arena*);
 template<> ::vm_tools::concierge::ImportDiskImageRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ImportDiskImageRequest>(Arena*);
 template<> ::vm_tools::concierge::ImportDiskImageResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::ImportDiskImageResponse>(Arena*);
 template<> ::vm_tools::concierge::ListUsbDeviceRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ListUsbDeviceRequest>(Arena*);
@@ -12762,6 +12770,292 @@ class GetVmLaunchAllowedResponse final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
+// -------------------------------------------------------------------
+
+class GetVmLogsRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.GetVmLogsRequest) */ {
+ public:
+  inline GetVmLogsRequest() : GetVmLogsRequest(nullptr) {}
+  ~GetVmLogsRequest() override;
+  explicit constexpr GetVmLogsRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetVmLogsRequest(const GetVmLogsRequest& from);
+  GetVmLogsRequest(GetVmLogsRequest&& from) noexcept
+    : GetVmLogsRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetVmLogsRequest& operator=(const GetVmLogsRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetVmLogsRequest& operator=(GetVmLogsRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetVmLogsRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetVmLogsRequest* internal_default_instance() {
+    return reinterpret_cast<const GetVmLogsRequest*>(
+               &_GetVmLogsRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    67;
+
+  friend void swap(GetVmLogsRequest& a, GetVmLogsRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetVmLogsRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetVmLogsRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetVmLogsRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetVmLogsRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetVmLogsRequest& from);
+  void MergeFrom(const GetVmLogsRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetVmLogsRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.GetVmLogsRequest";
+  }
+  protected:
+  explicit GetVmLogsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kOwnerIdFieldNumber = 2,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string owner_id = 2;
+  void clear_owner_id();
+  const std::string& owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner_id();
+  PROTOBUF_NODISCARD std::string* release_owner_id();
+  void set_allocated_owner_id(std::string* owner_id);
+  private:
+  const std::string& _internal_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner_id(const std::string& value);
+  std::string* _internal_mutable_owner_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.GetVmLogsRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetVmLogsResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.GetVmLogsResponse) */ {
+ public:
+  inline GetVmLogsResponse() : GetVmLogsResponse(nullptr) {}
+  ~GetVmLogsResponse() override;
+  explicit constexpr GetVmLogsResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetVmLogsResponse(const GetVmLogsResponse& from);
+  GetVmLogsResponse(GetVmLogsResponse&& from) noexcept
+    : GetVmLogsResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetVmLogsResponse& operator=(const GetVmLogsResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetVmLogsResponse& operator=(GetVmLogsResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetVmLogsResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetVmLogsResponse* internal_default_instance() {
+    return reinterpret_cast<const GetVmLogsResponse*>(
+               &_GetVmLogsResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    68;
+
+  friend void swap(GetVmLogsResponse& a, GetVmLogsResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetVmLogsResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetVmLogsResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetVmLogsResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetVmLogsResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetVmLogsResponse& from);
+  void MergeFrom(const GetVmLogsResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetVmLogsResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.GetVmLogsResponse";
+  }
+  protected:
+  explicit GetVmLogsResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kLogFieldNumber = 1,
+  };
+  // string log = 1;
+  void clear_log();
+  const std::string& log() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_log(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_log();
+  PROTOBUF_NODISCARD std::string* release_log();
+  void set_allocated_log(std::string* log);
+  private:
+  const std::string& _internal_log() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_log(const std::string& value);
+  std::string* _internal_mutable_log();
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.GetVmLogsResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr log_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
 // ===================================================================
 
 
@@ -23154,9 +23448,174 @@ inline void GetVmLaunchAllowedResponse::set_allocated_reason(std::string* reason
   // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.GetVmLaunchAllowedResponse.reason)
 }
 
+// -------------------------------------------------------------------
+
+// GetVmLogsRequest
+
+// string name = 1;
+inline void GetVmLogsRequest::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& GetVmLogsRequest::name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmLogsRequest.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetVmLogsRequest::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmLogsRequest.name)
+}
+inline std::string* GetVmLogsRequest::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.GetVmLogsRequest.name)
+  return _s;
+}
+inline const std::string& GetVmLogsRequest::_internal_name() const {
+  return name_.Get();
+}
+inline void GetVmLogsRequest::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetVmLogsRequest::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetVmLogsRequest::release_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.GetVmLogsRequest.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetVmLogsRequest::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (name_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.GetVmLogsRequest.name)
+}
+
+// string owner_id = 2;
+inline void GetVmLogsRequest::clear_owner_id() {
+  owner_id_.ClearToEmpty();
+}
+inline const std::string& GetVmLogsRequest::owner_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmLogsRequest.owner_id)
+  return _internal_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetVmLogsRequest::set_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmLogsRequest.owner_id)
+}
+inline std::string* GetVmLogsRequest::mutable_owner_id() {
+  std::string* _s = _internal_mutable_owner_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.GetVmLogsRequest.owner_id)
+  return _s;
+}
+inline const std::string& GetVmLogsRequest::_internal_owner_id() const {
+  return owner_id_.Get();
+}
+inline void GetVmLogsRequest::_internal_set_owner_id(const std::string& value) {
+  
+  owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetVmLogsRequest::_internal_mutable_owner_id() {
+  
+  return owner_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetVmLogsRequest::release_owner_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.GetVmLogsRequest.owner_id)
+  return owner_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetVmLogsRequest::set_allocated_owner_id(std::string* owner_id) {
+  if (owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  owner_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), owner_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (owner_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.GetVmLogsRequest.owner_id)
+}
+
+// -------------------------------------------------------------------
+
+// GetVmLogsResponse
+
+// string log = 1;
+inline void GetVmLogsResponse::clear_log() {
+  log_.ClearToEmpty();
+}
+inline const std::string& GetVmLogsResponse::log() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmLogsResponse.log)
+  return _internal_log();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetVmLogsResponse::set_log(ArgT0&& arg0, ArgT... args) {
+ 
+ log_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmLogsResponse.log)
+}
+inline std::string* GetVmLogsResponse::mutable_log() {
+  std::string* _s = _internal_mutable_log();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.GetVmLogsResponse.log)
+  return _s;
+}
+inline const std::string& GetVmLogsResponse::_internal_log() const {
+  return log_.Get();
+}
+inline void GetVmLogsResponse::_internal_set_log(const std::string& value) {
+  
+  log_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetVmLogsResponse::_internal_mutable_log() {
+  
+  return log_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetVmLogsResponse::release_log() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.GetVmLogsResponse.log)
+  return log_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetVmLogsResponse::set_allocated_log(std::string* log) {
+  if (log != nullptr) {
+    
+  } else {
+    
+  }
+  log_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), log,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (log_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    log_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.GetVmLogsResponse.log)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
