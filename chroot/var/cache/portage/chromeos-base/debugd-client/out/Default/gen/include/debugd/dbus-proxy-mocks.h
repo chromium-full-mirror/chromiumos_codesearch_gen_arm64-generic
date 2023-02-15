@@ -213,17 +213,6 @@ class debugdProxyMock : public debugdProxyInterface {
                void(base::OnceCallback<void(const std::map<std::string, std::string>& /*logs*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
-  MOCK_METHOD4(GetBigFeedbackLogs,
-               bool(const brillo::dbus_utils::FileDescriptor& /*in_outfd*/,
-                    const std::string& /*in_username*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD5(GetBigFeedbackLogsAsync,
-               void(const brillo::dbus_utils::FileDescriptor& /*in_outfd*/,
-                    const std::string& /*in_username*/,
-                    base::OnceCallback<void()> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
   MOCK_METHOD5(GetFeedbackLogsV2,
                bool(const brillo::dbus_utils::FileDescriptor& /*in_outfd*/,
                     const std::string& /*in_username*/,
@@ -231,6 +220,19 @@ class debugdProxyMock : public debugdProxyInterface {
                     brillo::ErrorPtr* /*error*/,
                     int /*timeout_ms*/));
   MOCK_METHOD6(GetFeedbackLogsV2Async,
+               void(const brillo::dbus_utils::FileDescriptor& /*in_outfd*/,
+                    const std::string& /*in_username*/,
+                    const std::vector<int32_t>& /*in_requested_logs*/,
+                    base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD5(GetFeedbackLogsV3,
+               bool(const brillo::dbus_utils::FileDescriptor& /*in_outfd*/,
+                    const std::string& /*in_username*/,
+                    const std::vector<int32_t>& /*in_requested_logs*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD6(GetFeedbackLogsV3Async,
                void(const brillo::dbus_utils::FileDescriptor& /*in_outfd*/,
                     const std::string& /*in_username*/,
                     const std::vector<int32_t>& /*in_requested_logs*/,

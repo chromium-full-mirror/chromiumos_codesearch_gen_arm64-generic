@@ -124,15 +124,17 @@ class debugdInterface {
   virtual std::map<std::string, std::string> GetAllLogs() = 0;
   // Fills the system logs for feedback reports in the file whose file
   // descriptor is given. This is used for logs that are so big that they
-  // exceed the limits of D-Bus returning them.
-  virtual void GetBigFeedbackLogs(
+  // exceed the limits of D-Bus returning them. Provides options to change
+  // the scope of the collected logs.
+  virtual void GetFeedbackLogsV2(
       const base::ScopedFD& in_outfd,
-      const std::string& in_username) = 0;
+      const std::string& in_username,
+      const std::vector<int32_t>& in_requested_logs) = 0;
   // Fills the system logs for feedback reports in the file whose file
   // descriptor is given. This is used for logs that are so big that they
   // exceed the limits of D-Bus returning them. Provides options to change
   // the scope of the collected logs.
-  virtual void GetFeedbackLogsV2(
+  virtual void GetFeedbackLogsV3(
       const base::ScopedFD& in_outfd,
       const std::string& in_username,
       const std::vector<int32_t>& in_requested_logs) = 0;
@@ -570,13 +572,13 @@ class debugdAdaptor {
         base::Unretained(interface_),
         &debugdInterface::GetAllLogs);
     itf->AddSimpleMethodHandler(
-        "GetBigFeedbackLogs",
-        base::Unretained(interface_),
-        &debugdInterface::GetBigFeedbackLogs);
-    itf->AddSimpleMethodHandler(
         "GetFeedbackLogsV2",
         base::Unretained(interface_),
         &debugdInterface::GetFeedbackLogsV2);
+    itf->AddSimpleMethodHandler(
+        "GetFeedbackLogsV3",
+        base::Unretained(interface_),
+        &debugdInterface::GetFeedbackLogsV3);
     itf->AddSimpleMethodHandler(
         "BackupArcBugReport",
         base::Unretained(interface_),
@@ -984,11 +986,12 @@ class debugdAdaptor {
         "    <method name=\"GetAllLogs\">\n"
         "      <arg name=\"logs\" type=\"a{ss}\" direction=\"out\"/>\n"
         "    </method>\n"
-        "    <method name=\"GetBigFeedbackLogs\">\n"
+        "    <method name=\"GetFeedbackLogsV2\">\n"
         "      <arg name=\"outfd\" type=\"h\" direction=\"in\"/>\n"
         "      <arg name=\"username\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"requested_logs\" type=\"ai\" direction=\"in\"/>\n"
         "    </method>\n"
-        "    <method name=\"GetFeedbackLogsV2\">\n"
+        "    <method name=\"GetFeedbackLogsV3\">\n"
         "      <arg name=\"outfd\" type=\"h\" direction=\"in\"/>\n"
         "      <arg name=\"username\" type=\"s\" direction=\"in\"/>\n"
         "      <arg name=\"requested_logs\" type=\"ai\" direction=\"in\"/>\n"

@@ -345,25 +345,6 @@ class debugdProxyInterface {
 
   // Fills the system logs for feedback reports in the file whose file
   // descriptor is given. This is used for logs that are so big that they
-  // exceed the limits of D-Bus returning them.
-  virtual bool GetBigFeedbackLogs(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
-      const std::string& in_username,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  // Fills the system logs for feedback reports in the file whose file
-  // descriptor is given. This is used for logs that are so big that they
-  // exceed the limits of D-Bus returning them.
-  virtual void GetBigFeedbackLogsAsync(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
-      const std::string& in_username,
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  // Fills the system logs for feedback reports in the file whose file
-  // descriptor is given. This is used for logs that are so big that they
   // exceed the limits of D-Bus returning them. Provides options to change
   // the scope of the collected logs.
   virtual bool GetFeedbackLogsV2(
@@ -378,6 +359,29 @@ class debugdProxyInterface {
   // exceed the limits of D-Bus returning them. Provides options to change
   // the scope of the collected logs.
   virtual void GetFeedbackLogsV2Async(
+      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const std::string& in_username,
+      const std::vector<int32_t>& in_requested_logs,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Fills the system logs for feedback reports in the file whose file
+  // descriptor is given. This is used for logs that are so big that they
+  // exceed the limits of D-Bus returning them. Provides options to change
+  // the scope of the collected logs.
+  virtual bool GetFeedbackLogsV3(
+      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const std::string& in_username,
+      const std::vector<int32_t>& in_requested_logs,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Fills the system logs for feedback reports in the file whose file
+  // descriptor is given. This is used for logs that are so big that they
+  // exceed the limits of D-Bus returning them. Provides options to change
+  // the scope of the collected logs.
+  virtual void GetFeedbackLogsV3Async(
       const brillo::dbus_utils::FileDescriptor& in_outfd,
       const std::string& in_username,
       const std::vector<int32_t>& in_requested_logs,
@@ -2291,46 +2295,6 @@ class debugdProxy final : public debugdProxyInterface {
 
   // Fills the system logs for feedback reports in the file whose file
   // descriptor is given. This is used for logs that are so big that they
-  // exceed the limits of D-Bus returning them.
-  bool GetBigFeedbackLogs(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
-      const std::string& in_username,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.debugd",
-        "GetBigFeedbackLogs",
-        error,
-        in_outfd,
-        in_username);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error);
-  }
-
-  // Fills the system logs for feedback reports in the file whose file
-  // descriptor is given. This is used for logs that are so big that they
-  // exceed the limits of D-Bus returning them.
-  void GetBigFeedbackLogsAsync(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
-      const std::string& in_username,
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.debugd",
-        "GetBigFeedbackLogs",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_outfd,
-        in_username);
-  }
-
-  // Fills the system logs for feedback reports in the file whose file
-  // descriptor is given. This is used for logs that are so big that they
   // exceed the limits of D-Bus returning them. Provides options to change
   // the scope of the collected logs.
   bool GetFeedbackLogsV2(
@@ -2368,6 +2332,52 @@ class debugdProxy final : public debugdProxyInterface {
         dbus_object_proxy_,
         "org.chromium.debugd",
         "GetFeedbackLogsV2",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_outfd,
+        in_username,
+        in_requested_logs);
+  }
+
+  // Fills the system logs for feedback reports in the file whose file
+  // descriptor is given. This is used for logs that are so big that they
+  // exceed the limits of D-Bus returning them. Provides options to change
+  // the scope of the collected logs.
+  bool GetFeedbackLogsV3(
+      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const std::string& in_username,
+      const std::vector<int32_t>& in_requested_logs,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "GetFeedbackLogsV3",
+        error,
+        in_outfd,
+        in_username,
+        in_requested_logs);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // Fills the system logs for feedback reports in the file whose file
+  // descriptor is given. This is used for logs that are so big that they
+  // exceed the limits of D-Bus returning them. Provides options to change
+  // the scope of the collected logs.
+  void GetFeedbackLogsV3Async(
+      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const std::string& in_username,
+      const std::vector<int32_t>& in_requested_logs,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "GetFeedbackLogsV3",
         std::move(success_callback),
         std::move(error_callback),
         in_outfd,
