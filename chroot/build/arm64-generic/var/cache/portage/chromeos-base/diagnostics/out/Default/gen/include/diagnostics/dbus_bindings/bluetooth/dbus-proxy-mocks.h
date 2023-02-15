@@ -42,6 +42,15 @@ class Adapter1ProxyMock : public Adapter1ProxyInterface {
                void(base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD3(RemoveDevice,
+               bool(const dbus::ObjectPath& /*in_device*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(RemoveDeviceAsync,
+               void(const dbus::ObjectPath& /*in_device*/,
+                    base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_CONST_METHOD0(address, const std::string&());
   MOCK_CONST_METHOD0(is_address_valid, bool());
   MOCK_CONST_METHOD0(name, const std::string&());
@@ -115,8 +124,25 @@ class Device1ProxyMock : public Device1ProxyInterface {
   Device1ProxyMock(const Device1ProxyMock&) = delete;
   Device1ProxyMock& operator=(const Device1ProxyMock&) = delete;
 
+  MOCK_METHOD2(Connect,
+               bool(brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(ConnectAsync,
+               void(base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD2(Pair,
+               bool(brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(PairAsync,
+               void(base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_CONST_METHOD0(address, const std::string&());
   MOCK_CONST_METHOD0(is_address_valid, bool());
+  MOCK_CONST_METHOD0(alias, const std::string&());
+  MOCK_CONST_METHOD0(is_alias_valid, bool());
+  MOCK_METHOD2(set_alias, void(const std::string&, base::OnceCallback<void(bool)>));
   MOCK_CONST_METHOD0(name, const std::string&());
   MOCK_CONST_METHOD0(is_name_valid, bool());
   MOCK_CONST_METHOD0(type, const std::string&());
@@ -133,6 +159,8 @@ class Device1ProxyMock : public Device1ProxyInterface {
   MOCK_CONST_METHOD0(is_uuids_valid, bool());
   MOCK_CONST_METHOD0(bluetooth_class, uint32_t());
   MOCK_CONST_METHOD0(is_bluetooth_class_valid, bool());
+  MOCK_CONST_METHOD0(paired, bool());
+  MOCK_CONST_METHOD0(is_paired_valid, bool());
   MOCK_CONST_METHOD0(connected, bool());
   MOCK_CONST_METHOD0(is_connected_valid, bool());
   MOCK_CONST_METHOD0(adapter, const dbus::ObjectPath&());

@@ -62,6 +62,21 @@ class Adapter1ProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // This removes the remote device object at the given path. It will remove
+  // also the pairing information.
+  virtual bool RemoveDevice(
+      const dbus::ObjectPath& in_device,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // This removes the remote device object at the given path. It will remove
+  // also the pairing information.
+  virtual void RemoveDeviceAsync(
+      const dbus::ObjectPath& in_device,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   static const char* AddressName() { return "Address"; }
   virtual const std::string& address() const = 0;
   virtual bool is_address_valid() const = 0;
@@ -221,6 +236,40 @@ class Adapter1Proxy final : public Adapter1ProxyInterface {
         "StopDiscovery",
         std::move(success_callback),
         std::move(error_callback));
+  }
+
+  // This removes the remote device object at the given path. It will remove
+  // also the pairing information.
+  bool RemoveDevice(
+      const dbus::ObjectPath& in_device,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.bluez.Adapter1",
+        "RemoveDevice",
+        error,
+        in_device);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // This removes the remote device object at the given path. It will remove
+  // also the pairing information.
+  void RemoveDeviceAsync(
+      const dbus::ObjectPath& in_device,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.bluez.Adapter1",
+        "RemoveDevice",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_device);
   }
 
   const std::string& address() const override {
@@ -527,9 +576,40 @@ class Device1ProxyInterface {
  public:
   virtual ~Device1ProxyInterface() = default;
 
+  // This is a generic method to connect any profiles the remote device
+  // supports that can be connected to.
+  virtual bool Connect(
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // This is a generic method to connect any profiles the remote device
+  // supports that can be connected to.
+  virtual void ConnectAsync(
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // This method will connect to the remote device, initiate pairing and then
+  // retrieve all SDP records (or GATT primary services).
+  virtual bool Pair(
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // This method will connect to the remote device, initiate pairing and then
+  // retrieve all SDP records (or GATT primary services).
+  virtual void PairAsync(
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   static const char* AddressName() { return "Address"; }
   virtual const std::string& address() const = 0;
   virtual bool is_address_valid() const = 0;
+  static const char* AliasName() { return "Alias"; }
+  virtual const std::string& alias() const = 0;
+  virtual bool is_alias_valid() const = 0;
+  virtual void set_alias(const std::string& value,
+                         base::OnceCallback<void(bool)> callback) = 0;
   static const char* NameName() { return "Name"; }
   virtual const std::string& name() const = 0;
   virtual bool is_name_valid() const = 0;
@@ -554,6 +634,9 @@ class Device1ProxyInterface {
   static const char* ClassName() { return "Class"; }
   virtual uint32_t bluetooth_class() const = 0;
   virtual bool is_bluetooth_class_valid() const = 0;
+  static const char* PairedName() { return "Paired"; }
+  virtual bool paired() const = 0;
+  virtual bool is_paired_valid() const = 0;
   static const char* ConnectedName() { return "Connected"; }
   virtual bool connected() const = 0;
   virtual bool is_connected_valid() const = 0;
@@ -585,6 +668,7 @@ class Device1Proxy final : public Device1ProxyInterface {
                             "org.bluez.Device1",
                             callback} {
       RegisterProperty(AddressName(), &address);
+      RegisterProperty(AliasName(), &alias);
       RegisterProperty(NameName(), &name);
       RegisterProperty(TypeName(), &type);
       RegisterProperty(AppearanceName(), &appearance);
@@ -593,6 +677,7 @@ class Device1Proxy final : public Device1ProxyInterface {
       RegisterProperty(MTUName(), &mtu);
       RegisterProperty(UUIDsName(), &uuids);
       RegisterProperty(ClassName(), &bluetooth_class);
+      RegisterProperty(PairedName(), &paired);
       RegisterProperty(ConnectedName(), &connected);
       RegisterProperty(AdapterName(), &adapter);
     }
@@ -600,6 +685,7 @@ class Device1Proxy final : public Device1ProxyInterface {
     PropertySet& operator=(const PropertySet&) = delete;
 
     brillo::dbus_utils::Property<std::string> address;
+    brillo::dbus_utils::Property<std::string> alias;
     brillo::dbus_utils::Property<std::string> name;
     brillo::dbus_utils::Property<std::string> type;
     brillo::dbus_utils::Property<uint16_t> appearance;
@@ -608,6 +694,7 @@ class Device1Proxy final : public Device1ProxyInterface {
     brillo::dbus_utils::Property<uint16_t> mtu;
     brillo::dbus_utils::Property<std::vector<std::string>> uuids;
     brillo::dbus_utils::Property<uint32_t> bluetooth_class;
+    brillo::dbus_utils::Property<bool> paired;
     brillo::dbus_utils::Property<bool> connected;
     brillo::dbus_utils::Property<dbus::ObjectPath> adapter;
 
@@ -650,12 +737,85 @@ class Device1Proxy final : public Device1ProxyInterface {
   const PropertySet* GetProperties() const { return &(*property_set_); }
   PropertySet* GetProperties() { return &(*property_set_); }
 
+  // This is a generic method to connect any profiles the remote device
+  // supports that can be connected to.
+  bool Connect(
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.bluez.Device1",
+        "Connect",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // This is a generic method to connect any profiles the remote device
+  // supports that can be connected to.
+  void ConnectAsync(
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.bluez.Device1",
+        "Connect",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  // This method will connect to the remote device, initiate pairing and then
+  // retrieve all SDP records (or GATT primary services).
+  bool Pair(
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.bluez.Device1",
+        "Pair",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // This method will connect to the remote device, initiate pairing and then
+  // retrieve all SDP records (or GATT primary services).
+  void PairAsync(
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.bluez.Device1",
+        "Pair",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
   const std::string& address() const override {
     return property_set_->address.value();
   }
 
   bool is_address_valid() const override {
     return property_set_->address.is_valid();
+  }
+
+  const std::string& alias() const override {
+    return property_set_->alias.value();
+  }
+
+  bool is_alias_valid() const override {
+    return property_set_->alias.is_valid();
+  }
+
+  void set_alias(const std::string& value,
+                 base::OnceCallback<void(bool)> callback) override {
+    property_set_->alias.Set(value, std::move(callback));
   }
 
   const std::string& name() const override {
@@ -720,6 +880,14 @@ class Device1Proxy final : public Device1ProxyInterface {
 
   bool is_bluetooth_class_valid() const override {
     return property_set_->bluetooth_class.is_valid();
+  }
+
+  bool paired() const override {
+    return property_set_->paired.value();
+  }
+
+  bool is_paired_valid() const override {
+    return property_set_->paired.is_valid();
   }
 
   bool connected() const override {
