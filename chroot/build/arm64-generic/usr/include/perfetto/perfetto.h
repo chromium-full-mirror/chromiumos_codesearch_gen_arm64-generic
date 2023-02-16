@@ -467,11 +467,24 @@ inline void ignore_result(const T&...) {}
 #endif
 
 // PERFETTO_SDK_EXPORT: Exports a symbol from the perfetto SDK shared library.
-#if defined(PERFETTO_IMPLEMENTATION)
+//
+// This is controlled by two defines (that likely come from the compiler command
+// line):
+// * PERFETTO_SDK_DISABLE_SHLIB_EXPORT: If this is defined, no export
+//   annotations are added. This might be useful when static linking.
+// * PERFETTO_SDK_SHLIB_IMPLEMENTATION: This must be defined when compiling the
+//   shared library itself (in order to export the symbols), but must be
+//   undefined when compiling objects that use the shared library (in order to
+//   import the symbols).
+#if !defined(PERFETTO_SDK_DISABLE_SHLIB_EXPORT)
+#if defined(PERFETTO_SHLIB_SDK_IMPLEMENTATION)
 #define PERFETTO_SDK_EXPORT PERFETTO_INTERNAL_DLL_EXPORT
 #else
 #define PERFETTO_SDK_EXPORT PERFETTO_INTERNAL_DLL_IMPORT
 #endif
+#else  // defined(PERFETTO_SDK_DISABLE_SHLIB_EXPORT)
+#define PERFETTO_SDK_EXPORT
+#endif  // defined(PERFETTO_SDK_DISABLE_SHLIB_EXPORT)
 
 #endif  // INCLUDE_PERFETTO_PUBLIC_ABI_EXPORT_H_
 /*
@@ -7661,6 +7674,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig_BufferConfig : public ::protozero::C
 
 #endif  // INCLUDE_PERFETTO_TRACING_CORE_TRACE_CONFIG_H_
 // gen_amalgamated begin header: include/perfetto/tracing/data_source.h
+// gen_amalgamated begin header: include/perfetto/tracing/internal/data_source_type.h
 // gen_amalgamated begin header: include/perfetto/tracing/internal/tracing_muxer.h
 // gen_amalgamated begin header: include/perfetto/tracing/internal/tracing_tls.h
 // gen_amalgamated begin header: include/perfetto/tracing/platform.h
@@ -8878,6 +8892,321 @@ class PERFETTO_EXPORT_COMPONENT TracingMuxer {
 }  // namespace perfetto
 
 #endif  // INCLUDE_PERFETTO_TRACING_INTERNAL_TRACING_MUXER_H_
+#ifndef INCLUDE_PERFETTO_TRACING_INTERNAL_DATA_SOURCE_TYPE_H_
+#define INCLUDE_PERFETTO_TRACING_INTERNAL_DATA_SOURCE_TYPE_H_
+
+// gen_amalgamated expanded: #include "perfetto/base/build_config.h"
+// gen_amalgamated expanded: #include "perfetto/tracing/core/forward_decls.h"
+// gen_amalgamated expanded: #include "perfetto/tracing/internal/data_source_internal.h"
+// gen_amalgamated expanded: #include "perfetto/tracing/internal/tracing_muxer.h"
+
+namespace perfetto {
+namespace internal {
+
+// Represents a data source type (not an instance).
+//
+// All the static state of a DataSource<T> lives here (including
+// DataSourceStaticState).
+//
+// The C shared library API wrapper cannot use DataSource<T>, because it needs
+// to create new data source types at runtime, so it uses this directly.
+//
+// The main reason why this intermediate class exist is to decouple the
+// DataSourceStaticState from the specific DataSource<T>. The C API cannot
+// dynamically create template instances and it needs a way to decouple those at
+// runtime.
+class DataSourceType {
+ public:
+  // Function pointer type used to create custom per instance thread local
+  // state.
+  using CreateCustomTlsFn =
+      DataSourceInstanceThreadLocalState::ObjectWithDeleter (*)(
+          DataSourceInstanceThreadLocalState* tls_inst,
+          uint32_t instance_index,
+          void* user_arg);
+  // Function pointer type used to create custom per instance thread local
+  // incremental state (which might be cleared periodically by the tracing
+  // service).
+  using CreateIncrementalStateFn =
+      DataSourceInstanceThreadLocalState::ObjectWithDeleter (*)(
+          DataSourceInstanceThreadLocalState* tls_inst,
+          uint32_t instance_index,
+          void* user_arg);
+
+  // Registers the data source type with the central tracing muxer.
+  // * `descriptor` is the data source protobuf descriptor.
+  // * `factory` is a std::function used to create instances of the data source
+  //   type.
+  // * `buffer_exhausted_policy` specifies what to do when the shared memory
+  //   buffer runs out of chunks.
+  // * `create_custom_tls_fn` and `create_incremental_state_fn` are function
+  //   pointers called to create custom state. They will receive `user_arg` as
+  //   an extra param.
+  bool Register(const DataSourceDescriptor& descriptor,
+                TracingMuxer::DataSourceFactory factory,
+                internal::DataSourceParams params,
+                BufferExhaustedPolicy buffer_exhausted_policy,
+                CreateCustomTlsFn create_custom_tls_fn,
+                CreateIncrementalStateFn create_incremental_state_fn,
+                void* user_arg) {
+    buffer_exhausted_policy_ = buffer_exhausted_policy;
+    create_custom_tls_fn_ = create_custom_tls_fn;
+    create_incremental_state_fn_ = create_incremental_state_fn;
+    user_arg_ = user_arg;
+    auto* tracing_impl = TracingMuxer::Get();
+    return tracing_impl->RegisterDataSource(descriptor, factory, params,
+                                            &state_);
+  }
+
+  // Updates the data source type descriptor.
+  void UpdateDescriptor(const DataSourceDescriptor& descriptor) {
+    auto* tracing_impl = TracingMuxer::Get();
+    tracing_impl->UpdateDataSourceDescriptor(descriptor, &state_);
+  }
+
+  // The beginning of a trace point.
+  //
+  // `tls_state` must point to a thread local variable that caches a pointer to
+  // an internal per data source type thread local state.
+  //
+  // `instances` must point to a copy of the current active instances for the
+  // data source type.
+  //
+  // `DataSourceTraits` can be used to customize the thread local storage used
+  // for the data source type.
+  //
+  // `TracePointTraits` and `trace_point_data` are customization point for
+  // getting the active instances bitmap.
+  //
+  // If this returns false, the trace point must be skipped.
+  template <typename DataSourceTraits, typename TracePointTraits>
+  bool TracePrologue(
+      DataSourceThreadLocalState** tls_state,
+      uint32_t* instances,
+      typename TracePointTraits::TracePointData trace_point_data) {
+    // See tracing_muxer.h for the structure of the TLS.
+    if (PERFETTO_UNLIKELY(!*tls_state)) {
+      *tls_state = GetOrCreateDataSourceTLS<DataSourceTraits>();
+      // If the TLS hasn't been obtained yet, it's possible that this thread
+      // hasn't observed the initialization of global state like the muxer yet.
+      // To ensure that the thread "sees" the effects of such initialization,
+      // we have to reload |instances| with an acquire fence, ensuring that any
+      // initialization performed before instances was updated is visible
+      // in this thread.
+      *instances &= TracePointTraits::GetActiveInstances(trace_point_data)
+                        ->load(std::memory_order_acquire);
+      if (!*instances)
+        return false;
+    }
+    auto* tracing_impl = TracingMuxer::Get();
+
+    // Avoid re-entering the trace point recursively.
+    if (PERFETTO_UNLIKELY((*tls_state)->root_tls->is_in_trace_point))
+      return false;
+
+    (*tls_state)->root_tls->is_in_trace_point = true;
+
+    // TracingTLS::generation is a global monotonic counter that is incremented
+    // every time a tracing session is stopped. We use that as a signal to force
+    // a slow-path garbage collection of all the trace writers for the current
+    // thread and to destroy the ones that belong to tracing sessions that have
+    // ended. This is to avoid having too many TraceWriter instances alive, each
+    // holding onto one chunk of the shared memory buffer.
+    // Rationale why memory_order_relaxed should be fine:
+    // - The TraceWriter object that we use is always constructed and destructed
+    //   on the current thread. There is no risk of accessing a half-initialized
+    //   TraceWriter (which would be really bad).
+    // - In the worst case, in the case of a race on the generation check, we
+    //   might end up using a TraceWriter for the same data source that belongs
+    //   to a stopped session. This is not really wrong, as we don't give any
+    //   guarantee on the global atomicity of the stop. In the worst case the
+    //   service will reject the data commit if this arrives too late.
+
+    if (PERFETTO_UNLIKELY(
+            (*tls_state)->root_tls->generation !=
+            tracing_impl->generation(std::memory_order_relaxed))) {
+      // Will update root_tls->generation.
+      tracing_impl->DestroyStoppedTraceWritersForCurrentThread();
+    }
+
+    return true;
+  }
+
+  // Must be called at the ending of a trace point that was not skipped.
+  void TraceEpilogue(DataSourceThreadLocalState* tls_state) {
+    tls_state->root_tls->is_in_trace_point = false;
+  }
+
+  struct InstancesIterator {
+    // A bitmap of the currenly active instances.
+    uint32_t cached_instances;
+    // The current instance index.
+    uint32_t i;
+    // The current instance. If this is `nullptr`, the iteration is over.
+    DataSourceInstanceThreadLocalState* instance;
+  };
+
+  // Returns an iterator to the active instances of this data source type.
+  //
+  // `cached_instances` is a copy of the bitmap of the active instances for this
+  // data source type (usually just a copy of ValidInstances(), but can be
+  // customized).
+  //
+  // `tls_state` is the thread local pointer obtained from TracePrologue.
+  //
+  // `TracePointTraits` and `trace_point_data` are customization point for
+  // getting the active instances bitmap.
+  template <typename TracePointTraits>
+  InstancesIterator BeginIteration(
+      uint32_t cached_instances,
+      DataSourceThreadLocalState* tls_state,
+      typename TracePointTraits::TracePointData trace_point_data)
+      PERFETTO_ALWAYS_INLINE {
+    InstancesIterator it{};
+    it.cached_instances = cached_instances;
+    FirstActiveInstance<TracePointTraits>(&it, tls_state, trace_point_data);
+    return it;
+  }
+
+  // Advances `*iterator` to point to the next active instance of this data
+  // source type.
+  //
+  // `tls_state` is the thread local pointer obtained from TracePrologue.
+  //
+  // `TracePointTraits` and `trace_point_data` are customization point for
+  // getting the active instances bitmap.
+  template <typename TracePointTraits>
+  void NextIteration(InstancesIterator* iterator,
+                     DataSourceThreadLocalState* tls_state,
+                     typename TracePointTraits::TracePointData trace_point_data)
+      PERFETTO_ALWAYS_INLINE {
+    iterator->i++;
+    FirstActiveInstance<TracePointTraits>(iterator, tls_state,
+                                          trace_point_data);
+  }
+
+  void* GetIncrementalState(
+      internal::DataSourceInstanceThreadLocalState* tls_inst,
+      uint32_t instance_index) {
+    // Recreate incremental state data if it has been reset by the service.
+    if (tls_inst->incremental_state_generation !=
+        static_state()->incremental_state_generation.load(
+            std::memory_order_relaxed)) {
+      tls_inst->incremental_state.reset();
+      CreateIncrementalState(tls_inst, instance_index);
+    }
+    return tls_inst->incremental_state.get();
+  }
+
+  std::atomic<uint32_t>* valid_instances() { return &state_.valid_instances; }
+
+  DataSourceStaticState* static_state() { return &state_; }
+
+ private:
+  void CreateIncrementalState(
+      internal::DataSourceInstanceThreadLocalState* tls_inst,
+      uint32_t instance_index) {
+    PERFETTO_DCHECK(create_incremental_state_fn_ != nullptr);
+    tls_inst->incremental_state =
+        create_incremental_state_fn_(tls_inst, instance_index, user_arg_);
+    tls_inst->incremental_state_generation =
+        static_state()->incremental_state_generation.load(
+            std::memory_order_relaxed);
+  }
+
+  void PopulateTlsInst(DataSourceInstanceThreadLocalState* tls_inst,
+                       DataSourceState* instance_state,
+                       uint32_t instance_index);
+
+  // Advances `*iterator` to the first active instance whose index is greater or
+  // equal than `iterator->i`.
+  template <typename TracePointTraits>
+  void FirstActiveInstance(
+      InstancesIterator* iterator,
+      DataSourceThreadLocalState* tls_state,
+      typename TracePointTraits::TracePointData trace_point_data) {
+    iterator->instance = nullptr;
+    for (; iterator->i < kMaxDataSourceInstances; iterator->i++) {
+      DataSourceState* instance_state =
+          state_.TryGetCached(iterator->cached_instances, iterator->i);
+      if (!instance_state)
+        continue;
+      // Even if we passed the check above, the DataSourceInstance might be
+      // still destroyed concurrently while this code runs. The code below is
+      // designed to deal with such race, as follows:
+      // - We don't access the user-defined data source instance state. The only
+      //   bits of state we use are |backend_id| and |buffer_id|.
+      // - Beyond those two integers, we access only the TraceWriter here. The
+      //   TraceWriter is always safe because it lives on the TLS.
+      // - |instance_state| is backed by static storage, so the pointer is
+      //   always valid, even after the data source instance is destroyed.
+      // - In the case of a race-on-destruction, we'll still see the latest
+      //   backend_id and buffer_id and in the worst case keep trying writing
+      //   into the tracing shared memory buffer after stopped. But this isn't
+      //   really any worse than the case of the stop IPC being delayed by the
+      //   kernel scheduler. The tracing service is robust against data commit
+      //   attemps made after tracing is stopped.
+      // There is a theoretical race that would case the wrong behavior w.r.t
+      // writing data in the wrong buffer, but it's so rare that we ignore it:
+      // if the data source is stopped and started kMaxDataSourceInstances
+      // times (so that the same id is recycled) while we are in this function,
+      // we might end up reusing the old data source's backend_id and buffer_id
+      // for the new one, because we don't see the generation change past this
+      // point. But stopping and starting tracing (even once) takes so much
+      // handshaking to make this extremely unrealistic.
+
+      auto& tls_inst = tls_state->per_instance[iterator->i];
+      if (PERFETTO_UNLIKELY(!tls_inst.trace_writer)) {
+        // Here we need an acquire barrier, which matches the release-store made
+        // by TracingMuxerImpl::SetupDataSource(), to ensure that the backend_id
+        // and buffer_id are consistent.
+        iterator->cached_instances &=
+            TracePointTraits::GetActiveInstances(trace_point_data)
+                ->load(std::memory_order_acquire);
+        instance_state =
+            state_.TryGetCached(iterator->cached_instances, iterator->i);
+        if (!instance_state || !instance_state->trace_lambda_enabled.load(
+                                   std::memory_order_relaxed))
+          continue;
+        PopulateTlsInst(&tls_inst, instance_state, iterator->i);
+      }
+      iterator->instance = &tls_inst;
+      break;
+    }
+  }
+
+  // Note that the returned object is one per-thread per-data-source-type, NOT
+  // per data-source *instance*.
+  template <typename DataSourceTraits>
+  DataSourceThreadLocalState* GetOrCreateDataSourceTLS() {
+#if PERFETTO_BUILDFLAG(PERFETTO_OS_IOS)
+    PERFETTO_FATAL("Data source TLS not supported on iOS, see b/158814068");
+#endif
+    auto* tracing_impl = TracingMuxer::Get();
+    TracingTLS* root_tls = tracing_impl->GetOrCreateTracingTLS();
+    DataSourceThreadLocalState* ds_tls =
+        DataSourceTraits::GetDataSourceTLS(&state_, root_tls);
+    // We keep re-initializing as the initialization is idempotent and not worth
+    // the code for extra checks.
+    ds_tls->static_state = &state_;
+    assert(!ds_tls->root_tls || ds_tls->root_tls == root_tls);
+    ds_tls->root_tls = root_tls;
+    return ds_tls;
+  }
+
+  DataSourceStaticState state_;
+  BufferExhaustedPolicy buffer_exhausted_policy_{};
+  CreateCustomTlsFn create_custom_tls_fn_ = nullptr;
+  CreateIncrementalStateFn create_incremental_state_fn_ = nullptr;
+  // User defined pointer that carries extra content for the fn_ callbacks
+  // above. Only used in the C shared library.
+  void* user_arg_ = nullptr;
+};
+
+}  // namespace internal
+}  // namespace perfetto
+
+#endif  // INCLUDE_PERFETTO_TRACING_INTERNAL_DATA_SOURCE_TYPE_H_
 // gen_amalgamated begin header: gen/protos/perfetto/trace/trace_packet.pbzero.h
 // Autogenerated by the ProtoZero compiler plugin. DO NOT EDIT.
 
@@ -10808,15 +11137,12 @@ class TracePacket : public ::protozero::Message {
 #include <memory>
 #include <mutex>
 
-// gen_amalgamated expanded: #include "perfetto/base/build_config.h"
-// gen_amalgamated expanded: #include "perfetto/base/compiler.h"
-// gen_amalgamated expanded: #include "perfetto/base/export.h"
-// gen_amalgamated expanded: #include "perfetto/protozero/message.h"
 // gen_amalgamated expanded: #include "perfetto/protozero/message_handle.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/buffer_exhausted_policy.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/core/forward_decls.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/internal/basic_types.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/internal/data_source_internal.h"
+// gen_amalgamated expanded: #include "perfetto/tracing/internal/data_source_type.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/internal/tracing_muxer.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/locked_handle.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/trace_writer_base.h"
@@ -10920,9 +11246,7 @@ class PERFETTO_EXPORT_COMPONENT DataSourceBase {
 
 struct DefaultDataSourceTraits {
   // |IncrementalStateType| can optionally be used store custom per-sequence
-  // incremental data (e.g., interning tables). It should have a Clear() method
-  // for when incremental state needs to be cleared. See
-  // TraceContext::GetIncrementalState().
+  // incremental data (e.g., interning tables).
   using IncrementalStateType = void;
   // |TlsStateType| can optionally be used to store custom per-sequence
   // session data, which is not reset when incremental state is cleared
@@ -10948,12 +11272,12 @@ struct DefaultDataSourceTraits {
 };
 
 // Templated base class meant to be derived by embedders to create a custom data
-// source. DataSourceType must be the type of the derived class itself, e.g.:
-// class MyDataSource : public DataSourceBase<MyDataSource> {...}.
+// source. DerivedDataSource must be the type of the derived class itself, e.g.:
+// class MyDataSource : public DataSource<MyDataSource> {...}.
 //
 // |DataSourceTraits| allows customizing the behavior of the data source. See
 // |DefaultDataSourceTraits|.
-template <typename DataSourceType,
+template <typename DerivedDataSource,
           typename DataSourceTraits = DefaultDataSourceTraits>
 class DataSource : public DataSourceBase {
   struct DefaultTracePointTraits;
@@ -11042,14 +11366,14 @@ class DataSource : public DataSourceBase {
     // immediately before calling this. The caller is supposed to check for its
     // validity before using it. After checking, the handle is guaranteed to
     // remain valid until the handle goes out of scope.
-    LockedHandle<DataSourceType> GetDataSourceLocked() const {
-      auto* internal_state = static_state_.TryGet(instance_index_);
+    LockedHandle<DerivedDataSource> GetDataSourceLocked() const {
+      auto* internal_state = type_.static_state()->TryGet(instance_index_);
       if (!internal_state)
-        return LockedHandle<DataSourceType>();
+        return LockedHandle<DerivedDataSource>();
       std::unique_lock<std::recursive_mutex> lock(internal_state->lock);
-      return LockedHandle<DataSourceType>(
+      return LockedHandle<DerivedDataSource>(
           std::move(lock),
-          static_cast<DataSourceType*>(internal_state->data_source.get()));
+          static_cast<DerivedDataSource*>(internal_state->data_source.get()));
     }
 
     // Post-condition: returned ptr will be non-null.
@@ -11060,15 +11384,8 @@ class DataSource : public DataSourceBase {
     }
 
     typename DataSourceTraits::IncrementalStateType* GetIncrementalState() {
-      // Recreate incremental state data if it has been reset by the service.
-      if (tls_inst_->incremental_state_generation !=
-          static_state_.incremental_state_generation.load(
-              std::memory_order_relaxed)) {
-        tls_inst_->incremental_state.reset();
-        CreateIncrementalState(tls_inst_);
-      }
-      return reinterpret_cast<typename DataSourceTraits::IncrementalStateType*>(
-          tls_inst_->incremental_state.get());
+      return static_cast<typename DataSourceTraits::IncrementalStateType*>(
+          type_.GetIncrementalState(tls_inst_, instance_index_));
     }
 
    private:
@@ -11111,7 +11428,8 @@ class DataSource : public DataSourceBase {
                                 {}) PERFETTO_ALWAYS_INLINE {
     // |instances| is a per-class bitmap that tells:
     // 1. If the data source is enabled at all.
-    // 2. The index of the slot within |static_state_| that holds the instance
+    // 2. The index of the slot within
+    //    internal::DataSourceStaticState::instances that holds the instance
     //    state. In turn this allows to map the data source to the tracing
     //    session and buffers.
     // memory_order_relaxed is okay because:
@@ -11138,129 +11456,27 @@ class DataSource : public DataSourceBase {
   // GetActiveInstances| to make it possible to use custom storage for
   // the data source enabled state. This is, for example, used by TrackEvent to
   // implement per-tracing category enabled states.
-  //
-  // TODO(primiano): all the stuff below should be outlined from the trace
-  // point. Or at least we should have some compile-time traits like
-  // kOptimizeBinarySize / kOptimizeTracingLatency.
   template <typename Traits = DefaultTracePointTraits, typename Lambda>
   static void TraceWithInstances(
-      uint32_t instances,
+      uint32_t cached_instances,
       Lambda tracing_fn,
       typename Traits::TracePointData trace_point_data = {}) {
-    PERFETTO_DCHECK(instances);
-    constexpr auto kMaxDataSourceInstances = internal::kMaxDataSourceInstances;
+    PERFETTO_DCHECK(cached_instances);
 
-    // See tracing_muxer.h for the structure of the TLS.
-    if (PERFETTO_UNLIKELY(!tls_state_)) {
-      // If the TLS hasn't been obtained yet, it's possible that this thread
-      // hasn't observed the initialization of global state like the muxer yet.
-      // To ensure that the thread "sees" the effects of such initialization,
-      // we have to reload |instances| with an acquire fence, ensuring that any
-      // initialization performed before instances was updated is visible
-      // in this thread.
-      instances &= Traits::GetActiveInstances(trace_point_data)
-                       ->load(std::memory_order_acquire);
-      if (!instances)
-        return;
-      tls_state_ = GetOrCreateDataSourceTLS(&static_state_);
-    }
-
-    // |tls_state_| is valid, which means that the current thread must have
-    // observed the initialization of the muxer, and obtaining it without a
-    // fence is safe.
-    auto* tracing_impl = internal::TracingMuxer::Get();
-
-    // Avoid re-entering the trace point recursively.
-    if (PERFETTO_UNLIKELY(tls_state_->root_tls->is_in_trace_point))
+    if (!type_.TracePrologue<DataSourceTraits, Traits>(
+            &tls_state_, &cached_instances, trace_point_data)) {
       return;
-    internal::ScopedReentrancyAnnotator scoped_annotator(*tls_state_->root_tls);
-
-    // TracingTLS::generation is a global monotonic counter that is incremented
-    // every time a tracing session is stopped. We use that as a signal to force
-    // a slow-path garbage collection of all the trace writers for the current
-    // thread and to destroy the ones that belong to tracing sessions that have
-    // ended. This is to avoid having too many TraceWriter instances alive, each
-    // holding onto one chunk of the shared memory buffer.
-    // Rationale why memory_order_relaxed should be fine:
-    // - The TraceWriter object that we use is always constructed and destructed
-    //   on the current thread. There is no risk of accessing a half-initialized
-    //   TraceWriter (which would be really bad).
-    // - In the worst case, in the case of a race on the generation check, we
-    //   might end up using a TraceWriter for the same data source that belongs
-    //   to a stopped session. This is not really wrong, as we don't give any
-    //   guarantee on the global atomicity of the stop. In the worst case the
-    //   service will reject the data commit if this arrives too late.
-
-    if (PERFETTO_UNLIKELY(
-            tls_state_->root_tls->generation !=
-            tracing_impl->generation(std::memory_order_relaxed))) {
-      // Will update root_tls->generation.
-      tracing_impl->DestroyStoppedTraceWritersForCurrentThread();
     }
 
-    for (uint32_t i = 0; i < kMaxDataSourceInstances; i++) {
-      internal::DataSourceState* instance_state =
-          static_state_.TryGetCached(instances, i);
-      if (!instance_state)
-        continue;
-
-      // Even if we passed the check above, the DataSourceInstance might be
-      // still destroyed concurrently while this code runs. The code below is
-      // designed to deal with such race, as follows:
-      // - We don't access the user-defined data source instance state. The only
-      //   bits of state we use are |backend_id| and |buffer_id|.
-      // - Beyond those two integers, we access only the TraceWriter here. The
-      //   TraceWriter is always safe because it lives on the TLS.
-      // - |instance_state| is backed by static storage, so the pointer is
-      //   always valid, even after the data source instance is destroyed.
-      // - In the case of a race-on-destruction, we'll still see the latest
-      //   backend_id and buffer_id and in the worst case keep trying writing
-      //   into the tracing shared memory buffer after stopped. But this isn't
-      //   really any worse than the case of the stop IPC being delayed by the
-      //   kernel scheduler. The tracing service is robust against data commit
-      //   attemps made after tracing is stopped.
-      // There is a theoretical race that would case the wrong behavior w.r.t
-      // writing data in the wrong buffer, but it's so rare that we ignore it:
-      // if the data source is stopped and started kMaxDataSourceInstances
-      // times (so that the same id is recycled) while we are in this function,
-      // we might end up reusing the old data source's backend_id and buffer_id
-      // for the new one, because we don't see the generation change past this
-      // point. But stopping and starting tracing (even once) takes so much
-      // handshaking to make this extremely unrealistic.
-
-      auto& tls_inst = tls_state_->per_instance[i];
-      if (PERFETTO_UNLIKELY(!tls_inst.trace_writer)) {
-        // Here we need an acquire barrier, which matches the release-store made
-        // by TracingMuxerImpl::SetupDataSource(), to ensure that the backend_id
-        // and buffer_id are consistent.
-        instances &= Traits::GetActiveInstances(trace_point_data)
-                         ->load(std::memory_order_acquire);
-        instance_state = static_state_.TryGetCached(instances, i);
-        if (!instance_state || !instance_state->trace_lambda_enabled.load(
-                                   std::memory_order_relaxed))
-          continue;
-        tls_inst.muxer_id_for_testing = instance_state->muxer_id_for_testing;
-        tls_inst.backend_id = instance_state->backend_id;
-        tls_inst.backend_connection_id = instance_state->backend_connection_id;
-        tls_inst.buffer_id = instance_state->buffer_id;
-        tls_inst.startup_target_buffer_reservation =
-            instance_state->startup_target_buffer_reservation.load(
-                std::memory_order_relaxed);
-        tls_inst.data_source_instance_id =
-            instance_state->data_source_instance_id;
-        tls_inst.is_intercepted = instance_state->interceptor_id != 0;
-        tls_inst.trace_writer = tracing_impl->CreateTraceWriter(
-            &static_state_, i, instance_state,
-            DataSourceType::kBufferExhaustedPolicy);
-        CreateIncrementalState(&tls_inst);
-        CreateDataSourceCustomTLS(TraceContext(&tls_inst, i));
-        // Even in the case of out-of-IDs, SharedMemoryArbiterImpl returns a
-        // NullTraceWriter. The returned pointer should never be null.
-        assert(tls_inst.trace_writer);
-      }
-
-      tracing_fn(TraceContext(&tls_inst, i));
+    for (internal::DataSourceType::InstancesIterator it =
+             type_.BeginIteration<Traits>(cached_instances, tls_state_,
+                                          trace_point_data);
+         it.instance;
+         type_.NextIteration<Traits>(&it, tls_state_, trace_point_data)) {
+      tracing_fn(TraceContext(it.instance, it.i));
     }
+
+    type_.TraceEpilogue(tls_state_);
   }
 
   // Registers the data source on all tracing backends, including ones that
@@ -11278,25 +11494,29 @@ class DataSource : public DataSourceBase {
                        const Args&... constructor_args) {
     // Silences -Wunused-variable warning in case the trace method is not used
     // by the translation unit that declares the data source.
-    (void)static_state_;
+    (void)type_;
     (void)tls_state_;
 
     auto factory = [constructor_args...]() {
       return std::unique_ptr<DataSourceBase>(
-          new DataSourceType(constructor_args...));
+          new DerivedDataSource(constructor_args...));
     };
-    auto* tracing_impl = internal::TracingMuxer::Get();
     internal::DataSourceParams params{
-        DataSourceType::kSupportsMultipleInstances,
-        DataSourceType::kRequiresCallbacksUnderLock};
-    return tracing_impl->RegisterDataSource(descriptor, factory, params,
-                                            &static_state_);
+        DerivedDataSource::kSupportsMultipleInstances,
+        DerivedDataSource::kRequiresCallbacksUnderLock};
+    return type_.Register(
+        descriptor, factory, params, DerivedDataSource::kBufferExhaustedPolicy,
+        GetCreateTlsFn(
+            static_cast<typename DataSourceTraits::TlsStateType*>(nullptr)),
+        GetCreateIncrementalStateFn(
+            static_cast<typename DataSourceTraits::IncrementalStateType*>(
+                nullptr)),
+        nullptr);
   }
 
   // Updates the data source descriptor.
   static void UpdateDescriptor(const DataSourceDescriptor& descriptor) {
-    auto* tracing_impl = internal::TracingMuxer::Get();
-    tracing_impl->UpdateDataSourceDescriptor(descriptor, &static_state_);
+    type_.UpdateDescriptor(descriptor);
   }
 
  private:
@@ -11316,80 +11536,59 @@ class DataSource : public DataSourceBase {
     // implement per-category enabled states.
     struct TracePointData {};
     static constexpr std::atomic<uint32_t>* GetActiveInstances(TracePointData) {
-      return &static_state_.valid_instances;
+      return type_.valid_instances();
     }
   };
 
-  // Create the user provided incremental state in the given thread-local
-  // storage. Note: The second parameter here is used to specialize the case
-  // where there is no incremental state type.
   template <typename T>
-  static void CreateIncrementalStateImpl(
+  static internal::DataSourceInstanceThreadLocalState::ObjectWithDeleter
+  CreateIncrementalState(internal::DataSourceInstanceThreadLocalState*,
+                         uint32_t,
+                         void*) {
+    return internal::DataSourceInstanceThreadLocalState::ObjectWithDeleter(
+        reinterpret_cast<void*>(new T()),
+        [](void* p) { delete reinterpret_cast<T*>(p); });
+  }
+
+  // The second parameter here is used to specialize the case where there is no
+  // incremental state type.
+  template <typename T>
+  static internal::DataSourceType::CreateIncrementalStateFn
+  GetCreateIncrementalStateFn(const T*) {
+    return &CreateIncrementalState<T>;
+  }
+
+  static internal::DataSourceType::CreateIncrementalStateFn
+  GetCreateIncrementalStateFn(const void*) {
+    return nullptr;
+  }
+
+  template <typename T>
+  static internal::DataSourceInstanceThreadLocalState::ObjectWithDeleter
+  CreateDataSourceCustomTls(
       internal::DataSourceInstanceThreadLocalState* tls_inst,
-      const T*) {
-    PERFETTO_DCHECK(!tls_inst->incremental_state);
-    tls_inst->incremental_state_generation =
-        static_state_.incremental_state_generation.load(
-            std::memory_order_relaxed);
-    tls_inst->incremental_state =
-        internal::DataSourceInstanceThreadLocalState::ObjectWithDeleter(
-            reinterpret_cast<void*>(new T()),
-            [](void* p) { delete reinterpret_cast<T*>(p); });
+      uint32_t instance_index,
+      void*) {
+    return internal::DataSourceInstanceThreadLocalState::ObjectWithDeleter(
+        reinterpret_cast<void*>(new T(TraceContext(tls_inst, instance_index))),
+        [](void* p) { delete reinterpret_cast<T*>(p); });
   }
 
-  static void CreateIncrementalStateImpl(
-      internal::DataSourceInstanceThreadLocalState*,
-      const void*) {}
-
-  static void CreateIncrementalState(
-      internal::DataSourceInstanceThreadLocalState* tls_inst) {
-    CreateIncrementalStateImpl(
-        tls_inst,
-        static_cast<typename DataSourceTraits::IncrementalStateType*>(nullptr));
-  }
-
-  // Create the user provided custom tls state in the given TraceContext's
-  // thread-local storage.  Note: The second parameter here is used to
-  // specialize the case where there is no incremental state type.
+  // The second parameter here is used to specialize the case where there is no
+  // tls state type.
   template <typename T>
-  static void CreateDataSourceCustomTLSImpl(const TraceContext& trace_context,
-                                            const T*) {
-    PERFETTO_DCHECK(!trace_context.tls_inst_->data_source_custom_tls);
-    trace_context.tls_inst_->data_source_custom_tls =
-        internal::DataSourceInstanceThreadLocalState::ObjectWithDeleter(
-            reinterpret_cast<void*>(new T(trace_context)),
-            [](void* p) { delete reinterpret_cast<T*>(p); });
+  static internal::DataSourceType::CreateCustomTlsFn GetCreateTlsFn(const T*) {
+    return &CreateDataSourceCustomTls<T>;
   }
 
-  static void CreateDataSourceCustomTLSImpl(const TraceContext&, const void*) {}
-
-  static void CreateDataSourceCustomTLS(const TraceContext& trace_context) {
-    CreateDataSourceCustomTLSImpl(
-        trace_context,
-        static_cast<typename DataSourceTraits::TlsStateType*>(nullptr));
+  static internal::DataSourceType::CreateCustomTlsFn GetCreateTlsFn(
+      const void*) {
+    return nullptr;
   }
 
-  // Note that the returned object is one per-thread per-data-source-type, NOT
-  // per data-source *instance*.
-  static internal::DataSourceThreadLocalState* GetOrCreateDataSourceTLS(
-      internal::DataSourceStaticState* static_state) {
-#if PERFETTO_BUILDFLAG(PERFETTO_OS_IOS)
-    PERFETTO_FATAL("Data source TLS not supported on iOS, see b/158814068");
-#endif
-    auto* tracing_impl = internal::TracingMuxer::Get();
-    internal::TracingTLS* root_tls = tracing_impl->GetOrCreateTracingTLS();
-    internal::DataSourceThreadLocalState* ds_tls =
-        DataSourceTraits::GetDataSourceTLS(static_state, root_tls);
-    // We keep re-initializing as the initialization is idempotent and not worth
-    // the code for extra checks.
-    ds_tls->static_state = static_state;
-    assert(!ds_tls->root_tls || ds_tls->root_tls == root_tls);
-    ds_tls->root_tls = root_tls;
-    return ds_tls;
-  }
-
-  // Static state. Accessed by the static Trace() method fastpaths.
-  static internal::DataSourceStaticState static_state_;
+  // The type of this data source. Accessed by the static Trace() method
+  // fastpaths.
+  static internal::DataSourceType type_;
 
   // This TLS object is a cached raw pointer and has deliberately no destructor.
   // The Platform implementation is supposed to create and manage the lifetime
@@ -11403,7 +11602,7 @@ class DataSource : public DataSourceBase {
 
 // static
 template <typename T, typename D>
-internal::DataSourceStaticState DataSource<T, D>::static_state_;
+internal::DataSourceType DataSource<T, D>::type_;
 // static
 template <typename T, typename D>
 PERFETTO_THREAD_LOCAL internal::DataSourceThreadLocalState*
@@ -11428,8 +11627,8 @@ PERFETTO_THREAD_LOCAL internal::DataSourceThreadLocalState*
 // where a component specific export macro is used.
 #define PERFETTO_DECLARE_DATA_SOURCE_STATIC_MEMBERS_WITH_ATTRS(attrs, ...) \
   template <>                                                              \
-  attrs perfetto::internal::DataSourceStaticState                          \
-      perfetto::DataSource<__VA_ARGS__>::static_state_
+  attrs perfetto::internal::DataSourceType                                 \
+      perfetto::DataSource<__VA_ARGS__>::type_
 
 // This macro must be used once for each data source in one source file to
 // allocate static storage for the data source's static state.
@@ -11447,8 +11646,8 @@ PERFETTO_THREAD_LOCAL internal::DataSourceThreadLocalState*
 // where a component specific export macro is used.
 #define PERFETTO_DEFINE_DATA_SOURCE_STATIC_MEMBERS_WITH_ATTRS(attrs, ...) \
   template <>                                                             \
-  attrs perfetto::internal::DataSourceStaticState                         \
-      perfetto::DataSource<__VA_ARGS__>::static_state_ {}
+  attrs perfetto::internal::DataSourceType                                \
+      perfetto::DataSource<__VA_ARGS__>::type_ {}
 
 #endif  // INCLUDE_PERFETTO_TRACING_DATA_SOURCE_H_
 // gen_amalgamated begin header: include/perfetto/tracing/track_event.h
@@ -17680,10 +17879,11 @@ struct TrackEventDataSourceTraits : public perfetto::DefaultDataSourceTraits {
 
 // A generic track event data source which is instantiated once per track event
 // category namespace.
-template <typename DataSourceType, const TrackEventCategoryRegistry* Registry>
+template <typename DerivedDataSource,
+          const TrackEventCategoryRegistry* Registry>
 class TrackEventDataSource
-    : public DataSource<DataSourceType, TrackEventDataSourceTraits> {
-  using Base = DataSource<DataSourceType, TrackEventDataSourceTraits>;
+    : public DataSource<DerivedDataSource, TrackEventDataSourceTraits> {
+  using Base = DataSource<DerivedDataSource, TrackEventDataSourceTraits>;
 
  public:
   static constexpr bool kRequiresCallbacksUnderLock = false;
@@ -153306,7 +153506,7 @@ namespace protos {
 namespace pbzero {
 
 
-class BatteryCounters_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class BatteryCounters_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/7, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   BatteryCounters_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit BatteryCounters_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -153321,6 +153521,10 @@ class BatteryCounters_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIEL
   int64_t current_avg_ua() const { return at<4>().as_int64(); }
   bool has_name() const { return at<5>().valid(); }
   ::protozero::ConstChars name() const { return at<5>().as_string(); }
+  bool has_energy_counter_uwh() const { return at<6>().valid(); }
+  int64_t energy_counter_uwh() const { return at<6>().as_int64(); }
+  bool has_voltage_uv() const { return at<7>().valid(); }
+  int64_t voltage_uv() const { return at<7>().as_int64(); }
 };
 
 class BatteryCounters : public ::protozero::Message {
@@ -153332,6 +153536,8 @@ class BatteryCounters : public ::protozero::Message {
     kCurrentUaFieldNumber = 3,
     kCurrentAvgUaFieldNumber = 4,
     kNameFieldNumber = 5,
+    kEnergyCounterUwhFieldNumber = 6,
+    kVoltageUvFieldNumber = 7,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.BatteryCounters"; }
 
@@ -153464,6 +153670,56 @@ class BatteryCounters : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_EnergyCounterUwh =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BatteryCounters>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_EnergyCounterUwh kEnergyCounterUwh() { return {}; }
+  void set_energy_counter_uwh(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_EnergyCounterUwh::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_VoltageUv =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BatteryCounters>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_VoltageUv kVoltageUv() { return {}; }
+  void set_voltage_uv(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_VoltageUv::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
         ::Append(*this, field_id, value);
   }
 };
