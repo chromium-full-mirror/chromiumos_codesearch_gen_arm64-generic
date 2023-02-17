@@ -44,6 +44,16 @@ class RuntimeProbeProxyMock : public RuntimeProbeProxyInterface {
                     base::OnceCallback<void(const runtime_probe::GetKnownComponentsResult& /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD4(ProbeSsfcComponents,
+               bool(const runtime_probe::ProbeSsfcComponentsRequest& /*in_request*/,
+                    runtime_probe::ProbeSsfcComponentsResponse* /*out_reply*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(ProbeSsfcComponentsAsync,
+               void(const runtime_probe::ProbeSsfcComponentsRequest& /*in_request*/,
+                    base::OnceCallback<void(const runtime_probe::ProbeSsfcComponentsResponse& /*reply*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
   MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
 };

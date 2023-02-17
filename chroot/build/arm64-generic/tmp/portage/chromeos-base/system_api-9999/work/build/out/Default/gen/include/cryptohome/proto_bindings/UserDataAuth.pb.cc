@@ -1941,13 +1941,14 @@ bool CryptohomeErrorCode_IsValid(int value) {
     case 55:
     case 56:
     case 57:
+    case 58:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CryptohomeErrorCode_strings[58] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> CryptohomeErrorCode_strings[59] = {};
 
 static const char CryptohomeErrorCode_names[] =
   "CRYPTOHOME_ADD_CREDENTIALS_FAILED"
@@ -1957,6 +1958,7 @@ static const char CryptohomeErrorCode_names[] =
   "CRYPTOHOME_ERROR_AUTHORIZATION_KEY_FAILED"
   "CRYPTOHOME_ERROR_AUTHORIZATION_KEY_NOT_FOUND"
   "CRYPTOHOME_ERROR_BACKING_STORE_FAILURE"
+  "CRYPTOHOME_ERROR_BIOMETRICS_BUSY"
   "CRYPTOHOME_ERROR_BOOT_ATTRIBUTES_CANNOT_SIGN"
   "CRYPTOHOME_ERROR_BOOT_ATTRIBUTE_NOT_FOUND"
   "CRYPTOHOME_ERROR_CANNOT_CONNECT_TO_CA"
@@ -2017,118 +2019,120 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CryptohomeErrorCode_en
   { {CryptohomeErrorCode_names + 146, 41}, 3 },
   { {CryptohomeErrorCode_names + 187, 44}, 2 },
   { {CryptohomeErrorCode_names + 231, 38}, 13 },
-  { {CryptohomeErrorCode_names + 269, 44}, 19 },
-  { {CryptohomeErrorCode_names + 313, 41}, 18 },
-  { {CryptohomeErrorCode_names + 354, 37}, 22 },
-  { {CryptohomeErrorCode_names + 391, 39}, 24 },
-  { {CryptohomeErrorCode_names + 430, 38}, 23 },
-  { {CryptohomeErrorCode_names + 468, 37}, 40 },
-  { {CryptohomeErrorCode_names + 505, 35}, 38 },
-  { {CryptohomeErrorCode_names + 540, 42}, 47 },
-  { {CryptohomeErrorCode_names + 582, 44}, 46 },
-  { {CryptohomeErrorCode_names + 626, 35}, 44 },
-  { {CryptohomeErrorCode_names + 661, 43}, 42 },
-  { {CryptohomeErrorCode_names + 704, 43}, 43 },
-  { {CryptohomeErrorCode_names + 747, 61}, 28 },
-  { {CryptohomeErrorCode_names + 808, 60}, 27 },
-  { {CryptohomeErrorCode_names + 868, 55}, 26 },
-  { {CryptohomeErrorCode_names + 923, 51}, 36 },
-  { {CryptohomeErrorCode_names + 974, 46}, 34 },
-  { {CryptohomeErrorCode_names + 1020, 46}, 35 },
-  { {CryptohomeErrorCode_names + 1066, 43}, 25 },
-  { {CryptohomeErrorCode_names + 1109, 33}, 33 },
-  { {CryptohomeErrorCode_names + 1142, 33}, 12 },
-  { {CryptohomeErrorCode_names + 1175, 30}, 15 },
-  { {CryptohomeErrorCode_names + 1205, 35}, 11 },
-  { {CryptohomeErrorCode_names + 1240, 36}, 17 },
-  { {CryptohomeErrorCode_names + 1276, 42}, 16 },
-  { {CryptohomeErrorCode_names + 1318, 35}, 31 },
-  { {CryptohomeErrorCode_names + 1353, 28}, 5 },
-  { {CryptohomeErrorCode_names + 1381, 39}, 6 },
-  { {CryptohomeErrorCode_names + 1420, 37}, 29 },
-  { {CryptohomeErrorCode_names + 1457, 52}, 30 },
-  { {CryptohomeErrorCode_names + 1509, 32}, 4 },
-  { {CryptohomeErrorCode_names + 1541, 24}, 0 },
-  { {CryptohomeErrorCode_names + 1565, 37}, 39 },
-  { {CryptohomeErrorCode_names + 1602, 31}, 57 },
-  { {CryptohomeErrorCode_names + 1633, 35}, 56 },
-  { {CryptohomeErrorCode_names + 1668, 30}, 32 },
-  { {CryptohomeErrorCode_names + 1698, 31}, 7 },
-  { {CryptohomeErrorCode_names + 1729, 32}, 8 },
-  { {CryptohomeErrorCode_names + 1761, 37}, 20 },
-  { {CryptohomeErrorCode_names + 1798, 33}, 9 },
-  { {CryptohomeErrorCode_names + 1831, 36}, 41 },
-  { {CryptohomeErrorCode_names + 1867, 45}, 51 },
-  { {CryptohomeErrorCode_names + 1912, 31}, 52 },
-  { {CryptohomeErrorCode_names + 1943, 31}, 53 },
-  { {CryptohomeErrorCode_names + 1974, 41}, 14 },
-  { {CryptohomeErrorCode_names + 2015, 54}, 37 },
-  { {CryptohomeErrorCode_names + 2069, 36}, 45 },
-  { {CryptohomeErrorCode_names + 2105, 37}, 49 },
-  { {CryptohomeErrorCode_names + 2142, 36}, 54 },
-  { {CryptohomeErrorCode_names + 2178, 37}, 48 },
-  { {CryptohomeErrorCode_names + 2215, 36}, 55 },
+  { {CryptohomeErrorCode_names + 269, 32}, 58 },
+  { {CryptohomeErrorCode_names + 301, 44}, 19 },
+  { {CryptohomeErrorCode_names + 345, 41}, 18 },
+  { {CryptohomeErrorCode_names + 386, 37}, 22 },
+  { {CryptohomeErrorCode_names + 423, 39}, 24 },
+  { {CryptohomeErrorCode_names + 462, 38}, 23 },
+  { {CryptohomeErrorCode_names + 500, 37}, 40 },
+  { {CryptohomeErrorCode_names + 537, 35}, 38 },
+  { {CryptohomeErrorCode_names + 572, 42}, 47 },
+  { {CryptohomeErrorCode_names + 614, 44}, 46 },
+  { {CryptohomeErrorCode_names + 658, 35}, 44 },
+  { {CryptohomeErrorCode_names + 693, 43}, 42 },
+  { {CryptohomeErrorCode_names + 736, 43}, 43 },
+  { {CryptohomeErrorCode_names + 779, 61}, 28 },
+  { {CryptohomeErrorCode_names + 840, 60}, 27 },
+  { {CryptohomeErrorCode_names + 900, 55}, 26 },
+  { {CryptohomeErrorCode_names + 955, 51}, 36 },
+  { {CryptohomeErrorCode_names + 1006, 46}, 34 },
+  { {CryptohomeErrorCode_names + 1052, 46}, 35 },
+  { {CryptohomeErrorCode_names + 1098, 43}, 25 },
+  { {CryptohomeErrorCode_names + 1141, 33}, 33 },
+  { {CryptohomeErrorCode_names + 1174, 33}, 12 },
+  { {CryptohomeErrorCode_names + 1207, 30}, 15 },
+  { {CryptohomeErrorCode_names + 1237, 35}, 11 },
+  { {CryptohomeErrorCode_names + 1272, 36}, 17 },
+  { {CryptohomeErrorCode_names + 1308, 42}, 16 },
+  { {CryptohomeErrorCode_names + 1350, 35}, 31 },
+  { {CryptohomeErrorCode_names + 1385, 28}, 5 },
+  { {CryptohomeErrorCode_names + 1413, 39}, 6 },
+  { {CryptohomeErrorCode_names + 1452, 37}, 29 },
+  { {CryptohomeErrorCode_names + 1489, 52}, 30 },
+  { {CryptohomeErrorCode_names + 1541, 32}, 4 },
+  { {CryptohomeErrorCode_names + 1573, 24}, 0 },
+  { {CryptohomeErrorCode_names + 1597, 37}, 39 },
+  { {CryptohomeErrorCode_names + 1634, 31}, 57 },
+  { {CryptohomeErrorCode_names + 1665, 35}, 56 },
+  { {CryptohomeErrorCode_names + 1700, 30}, 32 },
+  { {CryptohomeErrorCode_names + 1730, 31}, 7 },
+  { {CryptohomeErrorCode_names + 1761, 32}, 8 },
+  { {CryptohomeErrorCode_names + 1793, 37}, 20 },
+  { {CryptohomeErrorCode_names + 1830, 33}, 9 },
+  { {CryptohomeErrorCode_names + 1863, 36}, 41 },
+  { {CryptohomeErrorCode_names + 1899, 45}, 51 },
+  { {CryptohomeErrorCode_names + 1944, 31}, 52 },
+  { {CryptohomeErrorCode_names + 1975, 31}, 53 },
+  { {CryptohomeErrorCode_names + 2006, 41}, 14 },
+  { {CryptohomeErrorCode_names + 2047, 54}, 37 },
+  { {CryptohomeErrorCode_names + 2101, 36}, 45 },
+  { {CryptohomeErrorCode_names + 2137, 37}, 49 },
+  { {CryptohomeErrorCode_names + 2174, 36}, 54 },
+  { {CryptohomeErrorCode_names + 2210, 37}, 48 },
+  { {CryptohomeErrorCode_names + 2247, 36}, 55 },
 };
 
 static const int CryptohomeErrorCode_entries_by_number[] = {
-  38, // 0 -> CRYPTOHOME_ERROR_NOT_SET
+  39, // 0 -> CRYPTOHOME_ERROR_NOT_SET
   1, // 1 -> CRYPTOHOME_ERROR_ACCOUNT_NOT_FOUND
   5, // 2 -> CRYPTOHOME_ERROR_AUTHORIZATION_KEY_NOT_FOUND
   4, // 3 -> CRYPTOHOME_ERROR_AUTHORIZATION_KEY_FAILED
-  37, // 4 -> CRYPTOHOME_ERROR_NOT_IMPLEMENTED
-  33, // 5 -> CRYPTOHOME_ERROR_MOUNT_FATAL
-  34, // 6 -> CRYPTOHOME_ERROR_MOUNT_MOUNT_POINT_BUSY
-  43, // 7 -> CRYPTOHOME_ERROR_TPM_COMM_ERROR
-  44, // 8 -> CRYPTOHOME_ERROR_TPM_DEFEND_LOCK
-  46, // 9 -> CRYPTOHOME_ERROR_TPM_NEEDS_REBOOT
+  38, // 4 -> CRYPTOHOME_ERROR_NOT_IMPLEMENTED
+  34, // 5 -> CRYPTOHOME_ERROR_MOUNT_FATAL
+  35, // 6 -> CRYPTOHOME_ERROR_MOUNT_MOUNT_POINT_BUSY
+  44, // 7 -> CRYPTOHOME_ERROR_TPM_COMM_ERROR
+  45, // 8 -> CRYPTOHOME_ERROR_TPM_DEFEND_LOCK
+  47, // 9 -> CRYPTOHOME_ERROR_TPM_NEEDS_REBOOT
   3, // 10 -> CRYPTOHOME_ERROR_AUTHORIZATION_KEY_DENIED
-  29, // 11 -> CRYPTOHOME_ERROR_KEY_QUOTA_EXCEEDED
-  27, // 12 -> CRYPTOHOME_ERROR_KEY_LABEL_EXISTS
+  30, // 11 -> CRYPTOHOME_ERROR_KEY_QUOTA_EXCEEDED
+  28, // 12 -> CRYPTOHOME_ERROR_KEY_LABEL_EXISTS
   6, // 13 -> CRYPTOHOME_ERROR_BACKING_STORE_FAILURE
-  51, // 14 -> CRYPTOHOME_ERROR_UPDATE_SIGNATURE_INVALID
-  28, // 15 -> CRYPTOHOME_ERROR_KEY_NOT_FOUND
-  31, // 16 -> CRYPTOHOME_ERROR_LOCKBOX_SIGNATURE_INVALID
-  30, // 17 -> CRYPTOHOME_ERROR_LOCKBOX_CANNOT_SIGN
-  8, // 18 -> CRYPTOHOME_ERROR_BOOT_ATTRIBUTE_NOT_FOUND
-  7, // 19 -> CRYPTOHOME_ERROR_BOOT_ATTRIBUTES_CANNOT_SIGN
-  45, // 20 -> CRYPTOHOME_ERROR_TPM_EK_NOT_AVAILABLE
+  52, // 14 -> CRYPTOHOME_ERROR_UPDATE_SIGNATURE_INVALID
+  29, // 15 -> CRYPTOHOME_ERROR_KEY_NOT_FOUND
+  32, // 16 -> CRYPTOHOME_ERROR_LOCKBOX_SIGNATURE_INVALID
+  31, // 17 -> CRYPTOHOME_ERROR_LOCKBOX_CANNOT_SIGN
+  9, // 18 -> CRYPTOHOME_ERROR_BOOT_ATTRIBUTE_NOT_FOUND
+  8, // 19 -> CRYPTOHOME_ERROR_BOOT_ATTRIBUTES_CANNOT_SIGN
+  46, // 20 -> CRYPTOHOME_ERROR_TPM_EK_NOT_AVAILABLE
   2, // 21 -> CRYPTOHOME_ERROR_ATTESTATION_NOT_READY
-  9, // 22 -> CRYPTOHOME_ERROR_CANNOT_CONNECT_TO_CA
-  11, // 23 -> CRYPTOHOME_ERROR_CA_REFUSED_ENROLLMENT
-  10, // 24 -> CRYPTOHOME_ERROR_CA_REFUSED_CERTIFICATE
-  25, // 25 -> CRYPTOHOME_ERROR_INTERNAL_ATTESTATION_ERROR
-  21, // 26 -> CRYPTOHOME_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_INVALID
-  20, // 27 -> CRYPTOHOME_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_STORE
-  19, // 28 -> CRYPTOHOME_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_REMOVE
-  35, // 29 -> CRYPTOHOME_ERROR_MOUNT_OLD_ENCRYPTION
-  36, // 30 -> CRYPTOHOME_ERROR_MOUNT_PREVIOUS_MIGRATION_INCOMPLETE
-  32, // 31 -> CRYPTOHOME_ERROR_MIGRATE_KEY_FAILED
-  42, // 32 -> CRYPTOHOME_ERROR_REMOVE_FAILED
-  26, // 33 -> CRYPTOHOME_ERROR_INVALID_ARGUMENT
-  23, // 34 -> CRYPTOHOME_ERROR_INSTALL_ATTRIBUTES_GET_FAILED
-  24, // 35 -> CRYPTOHOME_ERROR_INSTALL_ATTRIBUTES_SET_FAILED
-  22, // 36 -> CRYPTOHOME_ERROR_INSTALL_ATTRIBUTES_FINALIZE_FAILED
-  52, // 37 -> CRYPTOHOME_ERROR_UPDATE_USER_ACTIVITY_TIMESTAMP_FAILED
-  13, // 38 -> CRYPTOHOME_ERROR_FAILED_TO_READ_PCR
-  39, // 39 -> CRYPTOHOME_ERROR_PCR_ALREADY_EXTENDED
-  12, // 40 -> CRYPTOHOME_ERROR_FAILED_TO_EXTEND_PCR
-  47, // 41 -> CRYPTOHOME_ERROR_TPM_UPDATE_REQUIRED
-  17, // 42 -> CRYPTOHOME_ERROR_FINGERPRINT_ERROR_INTERNAL
-  18, // 43 -> CRYPTOHOME_ERROR_FINGERPRINT_RETRY_REQUIRED
-  16, // 44 -> CRYPTOHOME_ERROR_FINGERPRINT_DENIED
-  53, // 45 -> CRYPTOHOME_ERROR_VAULT_UNRECOVERABLE
-  15, // 46 -> CRYPTOHOME_ERROR_FIDO_MAKE_CREDENTIAL_FAILED
-  14, // 47 -> CRYPTOHOME_ERROR_FIDO_GET_ASSERTION_FAILED
-  56, // 48 -> CRYPTOHOME_TOKEN_SERIALIZATION_FAILED
-  54, // 49 -> CRYPTOHOME_INVALID_AUTH_SESSION_TOKEN
+  10, // 22 -> CRYPTOHOME_ERROR_CANNOT_CONNECT_TO_CA
+  12, // 23 -> CRYPTOHOME_ERROR_CA_REFUSED_ENROLLMENT
+  11, // 24 -> CRYPTOHOME_ERROR_CA_REFUSED_CERTIFICATE
+  26, // 25 -> CRYPTOHOME_ERROR_INTERNAL_ATTESTATION_ERROR
+  22, // 26 -> CRYPTOHOME_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_INVALID
+  21, // 27 -> CRYPTOHOME_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_STORE
+  20, // 28 -> CRYPTOHOME_ERROR_FIRMWARE_MANAGEMENT_PARAMETERS_CANNOT_REMOVE
+  36, // 29 -> CRYPTOHOME_ERROR_MOUNT_OLD_ENCRYPTION
+  37, // 30 -> CRYPTOHOME_ERROR_MOUNT_PREVIOUS_MIGRATION_INCOMPLETE
+  33, // 31 -> CRYPTOHOME_ERROR_MIGRATE_KEY_FAILED
+  43, // 32 -> CRYPTOHOME_ERROR_REMOVE_FAILED
+  27, // 33 -> CRYPTOHOME_ERROR_INVALID_ARGUMENT
+  24, // 34 -> CRYPTOHOME_ERROR_INSTALL_ATTRIBUTES_GET_FAILED
+  25, // 35 -> CRYPTOHOME_ERROR_INSTALL_ATTRIBUTES_SET_FAILED
+  23, // 36 -> CRYPTOHOME_ERROR_INSTALL_ATTRIBUTES_FINALIZE_FAILED
+  53, // 37 -> CRYPTOHOME_ERROR_UPDATE_USER_ACTIVITY_TIMESTAMP_FAILED
+  14, // 38 -> CRYPTOHOME_ERROR_FAILED_TO_READ_PCR
+  40, // 39 -> CRYPTOHOME_ERROR_PCR_ALREADY_EXTENDED
+  13, // 40 -> CRYPTOHOME_ERROR_FAILED_TO_EXTEND_PCR
+  48, // 41 -> CRYPTOHOME_ERROR_TPM_UPDATE_REQUIRED
+  18, // 42 -> CRYPTOHOME_ERROR_FINGERPRINT_ERROR_INTERNAL
+  19, // 43 -> CRYPTOHOME_ERROR_FINGERPRINT_RETRY_REQUIRED
+  17, // 44 -> CRYPTOHOME_ERROR_FINGERPRINT_DENIED
+  54, // 45 -> CRYPTOHOME_ERROR_VAULT_UNRECOVERABLE
+  16, // 46 -> CRYPTOHOME_ERROR_FIDO_MAKE_CREDENTIAL_FAILED
+  15, // 47 -> CRYPTOHOME_ERROR_FIDO_GET_ASSERTION_FAILED
+  57, // 48 -> CRYPTOHOME_TOKEN_SERIALIZATION_FAILED
+  55, // 49 -> CRYPTOHOME_INVALID_AUTH_SESSION_TOKEN
   0, // 50 -> CRYPTOHOME_ADD_CREDENTIALS_FAILED
-  48, // 51 -> CRYPTOHOME_ERROR_UNAUTHENTICATED_AUTH_SESSION
-  49, // 52 -> CRYPTOHOME_ERROR_UNKNOWN_LEGACY
-  50, // 53 -> CRYPTOHOME_ERROR_UNUSABLE_VAULT
-  55, // 54 -> CRYPTOHOME_REMOVE_CREDENTIALS_FAILED
-  57, // 55 -> CRYPTOHOME_UPDATE_CREDENTIALS_FAILED
-  41, // 56 -> CRYPTOHOME_ERROR_RECOVERY_TRANSIENT
-  40, // 57 -> CRYPTOHOME_ERROR_RECOVERY_FATAL
+  49, // 51 -> CRYPTOHOME_ERROR_UNAUTHENTICATED_AUTH_SESSION
+  50, // 52 -> CRYPTOHOME_ERROR_UNKNOWN_LEGACY
+  51, // 53 -> CRYPTOHOME_ERROR_UNUSABLE_VAULT
+  56, // 54 -> CRYPTOHOME_REMOVE_CREDENTIALS_FAILED
+  58, // 55 -> CRYPTOHOME_UPDATE_CREDENTIALS_FAILED
+  42, // 56 -> CRYPTOHOME_ERROR_RECOVERY_TRANSIENT
+  41, // 57 -> CRYPTOHOME_ERROR_RECOVERY_FATAL
+  7, // 58 -> CRYPTOHOME_ERROR_BIOMETRICS_BUSY
 };
 
 const std::string& CryptohomeErrorCode_Name(
@@ -2137,12 +2141,12 @@ const std::string& CryptohomeErrorCode_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           CryptohomeErrorCode_entries,
           CryptohomeErrorCode_entries_by_number,
-          58, CryptohomeErrorCode_strings);
+          59, CryptohomeErrorCode_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       CryptohomeErrorCode_entries,
       CryptohomeErrorCode_entries_by_number,
-      58, value);
+      59, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      CryptohomeErrorCode_strings[idx].get();
 }
@@ -2150,7 +2154,7 @@ bool CryptohomeErrorCode_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CryptohomeErrorCode* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      CryptohomeErrorCode_entries, 58, name, &int_value);
+      CryptohomeErrorCode_entries, 59, name, &int_value);
   if (success) {
     *value = static_cast<CryptohomeErrorCode>(int_value);
   }

@@ -169,7 +169,7 @@ class VaultKeysetTest : public ::testing::Test {
   VaultKeysetTest(const VaultKeysetTest&) = delete;
   VaultKeysetTest& operator=(const VaultKeysetTest&) = delete;
 
-  virtual ~VaultKeysetTest() {}
+  ~VaultKeysetTest() override = default;
 
   static bool FindBlobInBlob(const brillo::SecureBlob& haystack,
                              const brillo::SecureBlob& needle) {
@@ -715,7 +715,7 @@ TEST_F(VaultKeysetTest, InitializeToAdd) {
   // Check if InitializeToAdd correctly copies keys
   // from parameter vault keyset to underlying data structure.
 
-  LibScryptCompatVaultKeyset vault_keyset;
+  VaultKeyset vault_keyset;
   vault_keyset.Initialize(&platform_, &crypto_);
   vault_keyset.CreateFromFileSystemKeyset(FileSystemKeyset::CreateRandom());
 
@@ -724,13 +724,16 @@ TEST_F(VaultKeysetTest, InitializeToAdd) {
   vault_keyset.SetResetIV(reset_iv);
   vault_keyset.SetFSCryptPolicyVersion(kFscryptPolicyVersion);
   vault_keyset.SetLegacyIndex(kLegacyIndex);
+  KeyBlobs key_blobs = {.vkk_key = brillo::SecureBlob(32, 'A'),
+                        .vkk_iv = brillo::SecureBlob(16, 'B'),
+                        .chaps_iv = brillo::SecureBlob(16, 'C')};
 
+  TpmBoundToPcrAuthBlockState pcr_state = {.salt = brillo::SecureBlob("salt")};
+  AuthBlockState auth_state = {.state = pcr_state};
+  ASSERT_THAT(vault_keyset.EncryptEx(key_blobs, auth_state),
+              hwsec_foundation::error::testing::IsOk());
   VaultKeyset vault_keyset_copy;
   vault_keyset_copy.InitializeToAdd(vault_keyset);
-
-  SecureBlob key(kPasswordKey);
-  ObfuscatedUsername obfuscated_username(kObfuscatedUsername);
-  ASSERT_TRUE(vault_keyset.Encrypt(key, obfuscated_username).ok());
 
   // Check that InitializeToAdd correctly copied vault_keyset fields
   // i.e. fek/fnek keys, reset seed, reset IV, and FSCrypt policy version
@@ -904,6 +907,7 @@ TEST_F(VaultKeysetTest, DecryptionTestWithKeyBlobs) {
   AuthBlockState auth_state = {.state = pcr_state};
   ASSERT_TRUE(vault_keyset.EncryptEx(key_blobs, auth_state).ok());
   EXPECT_TRUE(vault_keyset.Save(FilePath(kFilePath)));
+  EXPECT_EQ(vault_keyset.GetSourceFile(), FilePath(kFilePath));
 
   SecureBlob original_data;
   ASSERT_TRUE(vault_keyset.ToKeysBlob(&original_data));
@@ -982,6 +986,296 @@ TEST_F(VaultKeysetTest, KeyData) {
   EXPECT_TRUE(key_data3.has_policy());
   EXPECT_TRUE(key_data3.policy().has_low_entropy_credential());
   EXPECT_TRUE(key_data3.policy().low_entropy_credential());
+}
+
+TEST_F(VaultKeysetTest, TPMBoundToPCRAuthBlockTypeToVKFlagNoScrypt) {
+  VaultKeyset vault_keyset;
+  // TPMBoundToPCR test, no Scrypt derived.
+  TpmBoundToPcrAuthBlockState pcr_state = {.salt = brillo::SecureBlob("salt")};
+  AuthBlockState auth_state = {.state = pcr_state};
+  vault_keyset.SetAuthBlockState(auth_state);
+
+  // Check that the keyset was indeed wrapped by the TPM, and the
+  // keys were not derived using scrypt.
+  unsigned int crypt_flags = vault_keyset.GetFlags();
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::SCRYPT_WRAPPED));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::ECC));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::SCRYPT_DERIVED));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::LE_CREDENTIAL));
+  EXPECT_EQ(
+      0, (crypt_flags & SerializedVaultKeyset::SIGNATURE_CHALLENGE_PROTECTED));
+  EXPECT_EQ(SerializedVaultKeyset::TPM_WRAPPED,
+            (crypt_flags & SerializedVaultKeyset::TPM_WRAPPED));
+  EXPECT_EQ(SerializedVaultKeyset::PCR_BOUND,
+            (crypt_flags & SerializedVaultKeyset::PCR_BOUND));
+
+  EXPECT_FALSE(vault_keyset.HasTPMKey());
+  EXPECT_FALSE(vault_keyset.HasExtendedTPMKey());
+  EXPECT_FALSE(vault_keyset.HasTpmPublicKeyHash());
+}
+
+TEST_F(VaultKeysetTest, TPMBoundToPCRAuthBlockTypeToVKFlagScrypt) {
+  // TPMBoundToPCR test, Scrypt derived.
+  VaultKeyset vault_keyset;
+  brillo::SecureBlob tpm_key = brillo::SecureBlob("tpm_key");
+  brillo::SecureBlob extended_tpm_key = brillo::SecureBlob("extended_tpm_key");
+  brillo::SecureBlob tpm_public_key_hash =
+      brillo::SecureBlob("tpm_public_key_hash");
+
+  TpmBoundToPcrAuthBlockState pcr_state = {
+      .scrypt_derived = true,
+      .salt = brillo::SecureBlob("salt"),
+      .tpm_key = tpm_key,
+      .extended_tpm_key = extended_tpm_key,
+      .tpm_public_key_hash = tpm_public_key_hash};
+  AuthBlockState auth_state = {.state = pcr_state};
+  vault_keyset.SetAuthBlockState(auth_state);
+  // Check that the keyset was indeed wrapped by the TPM, and
+  // the keys were derived using scrypt.
+  unsigned int crypt_flags = vault_keyset.GetFlags();
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::SCRYPT_WRAPPED));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::ECC));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::LE_CREDENTIAL));
+  EXPECT_EQ(
+      0, (crypt_flags & SerializedVaultKeyset::SIGNATURE_CHALLENGE_PROTECTED));
+  EXPECT_EQ(SerializedVaultKeyset::SCRYPT_DERIVED,
+            (crypt_flags & SerializedVaultKeyset::SCRYPT_DERIVED));
+  EXPECT_EQ(SerializedVaultKeyset::TPM_WRAPPED,
+            (crypt_flags & SerializedVaultKeyset::TPM_WRAPPED));
+  EXPECT_EQ(SerializedVaultKeyset::PCR_BOUND,
+            (crypt_flags & SerializedVaultKeyset::PCR_BOUND));
+
+  EXPECT_TRUE(vault_keyset.HasTPMKey());
+  EXPECT_EQ(vault_keyset.GetTPMKey(), tpm_key);
+
+  EXPECT_TRUE(vault_keyset.HasExtendedTPMKey());
+  EXPECT_EQ(vault_keyset.GetExtendedTPMKey(), extended_tpm_key);
+
+  EXPECT_TRUE(vault_keyset.HasTpmPublicKeyHash());
+  EXPECT_EQ(vault_keyset.GetTpmPublicKeyHash(), tpm_public_key_hash);
+}
+
+TEST_F(VaultKeysetTest, TPMNotBoundToPCRAuthBlockTypeToVKFlagNoScrypt) {
+  VaultKeyset vault_keyset;
+  // TPMNotBoundToPCR test, no Scrypt derived.
+  TpmNotBoundToPcrAuthBlockState pcr_state = {.salt =
+                                                  brillo::SecureBlob("salt")};
+  AuthBlockState auth_state = {.state = pcr_state};
+  vault_keyset.SetAuthBlockState(auth_state);
+
+  // Check that the keyset was indeed wrapped by the TPM, and the
+  // keys were not derived using scrypt.
+  unsigned int crypt_flags = vault_keyset.GetFlags();
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::SCRYPT_WRAPPED));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::ECC));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::SCRYPT_DERIVED));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::LE_CREDENTIAL));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::PCR_BOUND));
+  EXPECT_EQ(
+      0, (crypt_flags & SerializedVaultKeyset::SIGNATURE_CHALLENGE_PROTECTED));
+
+  EXPECT_EQ(SerializedVaultKeyset::TPM_WRAPPED,
+            (crypt_flags & SerializedVaultKeyset::TPM_WRAPPED));
+  EXPECT_FALSE(vault_keyset.HasTPMKey());
+  EXPECT_FALSE(vault_keyset.HasTpmPublicKeyHash());
+}
+
+TEST_F(VaultKeysetTest, TPMNotBoundToPCRAuthBlockTypeToVKFlagScrypt) {
+  // TPMNotBoundToPCR test, Scrypt derived.
+  VaultKeyset vault_keyset;
+  brillo::SecureBlob tpm_key = brillo::SecureBlob("tpm_key");
+  brillo::SecureBlob tpm_public_key_hash =
+      brillo::SecureBlob("tpm_public_key_hash");
+
+  TpmNotBoundToPcrAuthBlockState pcr_state = {
+      .scrypt_derived = true,
+      .salt = brillo::SecureBlob("salt"),
+      .tpm_key = tpm_key,
+      .tpm_public_key_hash = tpm_public_key_hash};
+  AuthBlockState auth_state = {.state = pcr_state};
+  vault_keyset.SetAuthBlockState(auth_state);
+  // Check that the keyset was indeed wrapped by the TPM, and
+  // the keys were derived using scrypt.
+  unsigned int crypt_flags = vault_keyset.GetFlags();
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::SCRYPT_WRAPPED));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::ECC));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::PCR_BOUND));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::LE_CREDENTIAL));
+  EXPECT_EQ(SerializedVaultKeyset::SCRYPT_DERIVED,
+            (crypt_flags & SerializedVaultKeyset::SCRYPT_DERIVED));
+  EXPECT_EQ(SerializedVaultKeyset::TPM_WRAPPED,
+            (crypt_flags & SerializedVaultKeyset::TPM_WRAPPED));
+  EXPECT_EQ(
+      0, (crypt_flags & SerializedVaultKeyset::SIGNATURE_CHALLENGE_PROTECTED));
+
+  EXPECT_TRUE(vault_keyset.HasTPMKey());
+  EXPECT_EQ(vault_keyset.GetTPMKey(), tpm_key);
+
+  EXPECT_TRUE(vault_keyset.HasTpmPublicKeyHash());
+  EXPECT_EQ(vault_keyset.GetTpmPublicKeyHash(), tpm_public_key_hash);
+}
+
+TEST_F(VaultKeysetTest, PinWeaverAuthBlockTypeToVKFlagNoValuesSet) {
+  VaultKeyset vault_keyset;
+  // PinWeaver test, no Scrypt derived.
+  PinWeaverAuthBlockState pin_weaver_state = {.salt =
+                                                  brillo::SecureBlob("salt")};
+  AuthBlockState auth_state = {.state = pin_weaver_state};
+  vault_keyset.SetAuthBlockState(auth_state);
+
+  // Check that the keyset was indeed wrapped by Pin weave credentials.
+  unsigned int crypt_flags = vault_keyset.GetFlags();
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::SCRYPT_WRAPPED));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::ECC));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::SCRYPT_DERIVED));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::PCR_BOUND));
+  EXPECT_EQ(SerializedVaultKeyset::LE_CREDENTIAL,
+            (crypt_flags & SerializedVaultKeyset::LE_CREDENTIAL));
+  EXPECT_EQ(
+      0, (crypt_flags & SerializedVaultKeyset::SIGNATURE_CHALLENGE_PROTECTED));
+
+  EXPECT_FALSE(vault_keyset.HasLELabel());
+  EXPECT_FALSE(vault_keyset.HasResetSalt());
+}
+
+TEST_F(VaultKeysetTest, PinWeaverAuthBlockTypeToVKFlagValuesSet) {
+  // PinWeaver test.
+  VaultKeyset vault_keyset;
+  brillo::SecureBlob reset_salt = brillo::SecureBlob("reset_salt");
+  unsigned int le_label = 12345;  // random number;
+  PinWeaverAuthBlockState pin_weaver_state = {
+      .le_label = le_label,
+      .salt = brillo::SecureBlob("salt"),
+      .reset_salt = reset_salt};
+  AuthBlockState auth_state = {.state = pin_weaver_state};
+  vault_keyset.SetAuthBlockState(auth_state);
+  // Check that the keyset was indeed wrapped by the Pin weaver.
+  unsigned int crypt_flags = vault_keyset.GetFlags();
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::SCRYPT_WRAPPED));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::ECC));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::SCRYPT_DERIVED));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::PCR_BOUND));
+  EXPECT_EQ(
+      0, (crypt_flags & SerializedVaultKeyset::SIGNATURE_CHALLENGE_PROTECTED));
+  EXPECT_EQ(SerializedVaultKeyset::LE_CREDENTIAL,
+            (crypt_flags & SerializedVaultKeyset::LE_CREDENTIAL));
+
+  EXPECT_TRUE(vault_keyset.HasLELabel());
+  EXPECT_TRUE(vault_keyset.HasResetSalt());
+  EXPECT_EQ(vault_keyset.GetLELabel(), le_label);
+  EXPECT_EQ(vault_keyset.GetResetSalt(), reset_salt);
+}
+
+TEST_F(VaultKeysetTest, ScryptAuthBlockTypeToVKFlagValuesSet) {
+  // Scrypt test.
+  VaultKeyset vault_keyset;
+  ScryptAuthBlockState scrypt_state = {
+      .salt = brillo::SecureBlob("salt"),
+  };
+  AuthBlockState auth_state = {.state = scrypt_state};
+  vault_keyset.SetAuthBlockState(auth_state);
+  // Check that the keyset was indeed wrapped by SCRYPT.
+  unsigned int crypt_flags = vault_keyset.GetFlags();
+  EXPECT_EQ(SerializedVaultKeyset::SCRYPT_WRAPPED,
+            (crypt_flags & SerializedVaultKeyset::SCRYPT_WRAPPED));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::ECC));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::SCRYPT_DERIVED));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::PCR_BOUND));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::LE_CREDENTIAL));
+  EXPECT_EQ(
+      0, (crypt_flags & SerializedVaultKeyset::SIGNATURE_CHALLENGE_PROTECTED));
+}
+
+TEST_F(VaultKeysetTest, ChallengeCredentialAuthBlockTypeToVKFlagValuesSet) {
+  // ChallengeCredential test.
+  VaultKeyset vault_keyset;
+  ChallengeCredentialAuthBlockState challenge_credential_state = {
+      .keyset_challenge_info = structure::SignatureChallengeInfo{
+          .sealed_secret = hwsec::Tpm2PolicySignedData{},
+      }};
+  AuthBlockState auth_state = {.state = challenge_credential_state};
+  vault_keyset.SetAuthBlockState(auth_state);
+  // Check that the keyset was indeed wrapped by SCRYPT.
+  unsigned int crypt_flags = vault_keyset.GetFlags();
+  EXPECT_EQ(
+      SerializedVaultKeyset::SIGNATURE_CHALLENGE_PROTECTED,
+      (crypt_flags & SerializedVaultKeyset::SIGNATURE_CHALLENGE_PROTECTED));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::ECC));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::SCRYPT_DERIVED));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::PCR_BOUND));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::LE_CREDENTIAL));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::SCRYPT_WRAPPED));
+
+  EXPECT_TRUE(vault_keyset.HasSignatureChallengeInfo());
+}
+
+TEST_F(VaultKeysetTest, TpmEccAuthBlockTypeToVKFlagNoValues) {
+  VaultKeyset vault_keyset;
+  // TpmEcc test. Ensure that all fields are set to what is expected.
+  TpmEccAuthBlockState ecc_state = {.salt = brillo::SecureBlob("salt")};
+  AuthBlockState auth_state = {.state = ecc_state};
+  vault_keyset.SetAuthBlockState(auth_state);
+
+  unsigned int crypt_flags = vault_keyset.GetFlags();
+  unsigned int tpm_ecc_require_flags = SerializedVaultKeyset::TPM_WRAPPED |
+                                       SerializedVaultKeyset::SCRYPT_DERIVED |
+                                       SerializedVaultKeyset::PCR_BOUND |
+                                       SerializedVaultKeyset::ECC;
+  EXPECT_NE(0, (crypt_flags & tpm_ecc_require_flags));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::LE_CREDENTIAL));
+  EXPECT_EQ(
+      0, (crypt_flags & SerializedVaultKeyset::SIGNATURE_CHALLENGE_PROTECTED));
+
+  EXPECT_FALSE(vault_keyset.HasTPMKey());
+  EXPECT_FALSE(vault_keyset.HasExtendedTPMKey());
+  EXPECT_FALSE(vault_keyset.HasTpmPublicKeyHash());
+  EXPECT_FALSE(vault_keyset.HasPasswordRounds());
+  EXPECT_FALSE(vault_keyset.HasVkkIv());
+}
+
+TEST_F(VaultKeysetTest, TpmEccAuthBlockTypeToVKFlagHasValues) {
+  // TpmEcc test. Ensure all values are set correctly.
+  VaultKeyset vault_keyset;
+  brillo::SecureBlob tpm_key = brillo::SecureBlob("tpm_key");
+  brillo::SecureBlob extended_tpm_key = brillo::SecureBlob("extended_tpm_key");
+  brillo::SecureBlob tpm_public_key_hash =
+      brillo::SecureBlob("tpm_public_key_hash");
+  brillo::SecureBlob vkk_iv = brillo::SecureBlob("vkk_iv");
+
+  unsigned int passwords_round = 233;  // random number;.
+  TpmEccAuthBlockState ecc_state = {.salt = brillo::SecureBlob("salt"),
+                                    .vkk_iv = vkk_iv,
+                                    .auth_value_rounds = passwords_round,
+                                    .sealed_hvkkm = tpm_key,
+                                    .extended_sealed_hvkkm = extended_tpm_key,
+                                    .tpm_public_key_hash = tpm_public_key_hash};
+  AuthBlockState auth_state = {.state = ecc_state};
+  vault_keyset.SetAuthBlockState(auth_state);
+
+  unsigned int crypt_flags = vault_keyset.GetFlags();
+  unsigned int tpm_ecc_require_flags = SerializedVaultKeyset::TPM_WRAPPED |
+                                       SerializedVaultKeyset::SCRYPT_DERIVED |
+                                       SerializedVaultKeyset::PCR_BOUND |
+                                       SerializedVaultKeyset::ECC;
+  EXPECT_NE(0, (crypt_flags & tpm_ecc_require_flags));
+  EXPECT_EQ(0, (crypt_flags & SerializedVaultKeyset::LE_CREDENTIAL));
+  EXPECT_EQ(
+      0, (crypt_flags & SerializedVaultKeyset::SIGNATURE_CHALLENGE_PROTECTED));
+
+  EXPECT_TRUE(vault_keyset.HasTPMKey());
+  EXPECT_EQ(vault_keyset.GetTPMKey(), tpm_key);
+
+  EXPECT_TRUE(vault_keyset.HasExtendedTPMKey());
+  EXPECT_EQ(vault_keyset.GetExtendedTPMKey(), extended_tpm_key);
+
+  EXPECT_TRUE(vault_keyset.HasTpmPublicKeyHash());
+  EXPECT_EQ(vault_keyset.GetTpmPublicKeyHash(), tpm_public_key_hash);
+
+  EXPECT_TRUE(vault_keyset.HasPasswordRounds());
+  EXPECT_EQ(vault_keyset.GetPasswordRounds(), passwords_round);
+
+  EXPECT_TRUE(vault_keyset.HasVkkIv());
+  EXPECT_EQ(vault_keyset.GetVkkIv(), vkk_iv);
 }
 
 class LeCredentialsManagerTest : public ::testing::Test {
@@ -1221,6 +1515,10 @@ TEST_F(LeCredentialsManagerTest, EncryptWithKeyBlobs) {
   EXPECT_TRUE(pin_vault_keyset_.EncryptEx(key_blobs, auth_state).ok());
   EXPECT_TRUE(pin_vault_keyset_.HasResetSalt());
   EXPECT_FALSE(pin_vault_keyset_.HasWrappedResetSeed());
+  EXPECT_FALSE(pin_vault_keyset_.GetAuthLocked());
+
+  const SerializedVaultKeyset& serialized = pin_vault_keyset_.ToSerialized();
+  EXPECT_FALSE(serialized.key_data().policy().auth_locked());
 }
 
 TEST_F(LeCredentialsManagerTest, EncryptWithKeyBlobsFailWithBadAuthState) {

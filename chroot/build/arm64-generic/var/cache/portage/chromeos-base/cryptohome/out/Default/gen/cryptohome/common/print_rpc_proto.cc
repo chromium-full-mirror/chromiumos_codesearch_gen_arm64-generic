@@ -207,6 +207,9 @@ std::string GetProtoDebugStringWithIndent(CryptohomeErrorCode value,
   if (value == CRYPTOHOME_ERROR_RECOVERY_FATAL) {
     return "CRYPTOHOME_ERROR_RECOVERY_FATAL";
   }
+  if (value == CRYPTOHOME_ERROR_BIOMETRICS_BUSY) {
+    return "CRYPTOHOME_ERROR_BIOMETRICS_BUSY";
+  }
   return "<unknown>";
 }
 

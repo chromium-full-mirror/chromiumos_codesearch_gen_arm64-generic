@@ -689,12 +689,13 @@ enum CryptohomeErrorCode : int {
   CRYPTOHOME_UPDATE_CREDENTIALS_FAILED = 55,
   CRYPTOHOME_ERROR_RECOVERY_TRANSIENT = 56,
   CRYPTOHOME_ERROR_RECOVERY_FATAL = 57,
+  CRYPTOHOME_ERROR_BIOMETRICS_BUSY = 58,
   CryptohomeErrorCode_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   CryptohomeErrorCode_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool CryptohomeErrorCode_IsValid(int value);
 constexpr CryptohomeErrorCode CryptohomeErrorCode_MIN = CRYPTOHOME_ERROR_NOT_SET;
-constexpr CryptohomeErrorCode CryptohomeErrorCode_MAX = CRYPTOHOME_ERROR_RECOVERY_FATAL;
+constexpr CryptohomeErrorCode CryptohomeErrorCode_MAX = CRYPTOHOME_ERROR_BIOMETRICS_BUSY;
 constexpr int CryptohomeErrorCode_ARRAYSIZE = CryptohomeErrorCode_MAX + 1;
 
 const std::string& CryptohomeErrorCode_Name(CryptohomeErrorCode value);

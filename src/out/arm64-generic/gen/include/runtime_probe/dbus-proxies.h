@@ -60,6 +60,20 @@ class RuntimeProbeProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Probe SSFC components on the device.
+  virtual bool ProbeSsfcComponents(
+      const runtime_probe::ProbeSsfcComponentsRequest& in_request,
+      runtime_probe::ProbeSsfcComponentsResponse* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Probe SSFC components on the device.
+  virtual void ProbeSsfcComponentsAsync(
+      const runtime_probe::ProbeSsfcComponentsRequest& in_request,
+      base::OnceCallback<void(const runtime_probe::ProbeSsfcComponentsResponse& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
 };
@@ -158,6 +172,39 @@ class RuntimeProbeProxy final : public RuntimeProbeProxyInterface {
         dbus_object_proxy_,
         "org.chromium.RuntimeProbe",
         "GetKnownComponents",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  // Probe SSFC components on the device.
+  bool ProbeSsfcComponents(
+      const runtime_probe::ProbeSsfcComponentsRequest& in_request,
+      runtime_probe::ProbeSsfcComponentsResponse* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.RuntimeProbe",
+        "ProbeSsfcComponents",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  // Probe SSFC components on the device.
+  void ProbeSsfcComponentsAsync(
+      const runtime_probe::ProbeSsfcComponentsRequest& in_request,
+      base::OnceCallback<void(const runtime_probe::ProbeSsfcComponentsResponse& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.RuntimeProbe",
+        "ProbeSsfcComponents",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

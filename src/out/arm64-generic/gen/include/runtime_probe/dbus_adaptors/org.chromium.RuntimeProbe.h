@@ -31,6 +31,10 @@ class RuntimeProbeInterface {
   virtual void GetKnownComponents(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<runtime_probe::GetKnownComponentsResult>> response,
       const runtime_probe::GetKnownComponentsRequest& in_request) = 0;
+  // Probe SSFC components on the device.
+  virtual void ProbeSsfcComponents(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<runtime_probe::ProbeSsfcComponentsResponse>> response,
+      const runtime_probe::ProbeSsfcComponentsRequest& in_request) = 0;
 };
 
 // Interface adaptor for org::chromium::RuntimeProbe.
@@ -52,6 +56,10 @@ class RuntimeProbeAdaptor {
         "GetKnownComponents",
         base::Unretained(interface_),
         &RuntimeProbeInterface::GetKnownComponents);
+    itf->AddMethodHandler(
+        "ProbeSsfcComponents",
+        base::Unretained(interface_),
+        &RuntimeProbeInterface::ProbeSsfcComponents);
   }
 
   static dbus::ObjectPath GetObjectPath() {
@@ -66,6 +74,10 @@ class RuntimeProbeAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"GetKnownComponents\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"ProbeSsfcComponents\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

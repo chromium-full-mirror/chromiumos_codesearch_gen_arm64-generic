@@ -46,7 +46,7 @@ struct TableStruct_concierge_5fservice_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[69]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[72]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -237,6 +237,12 @@ extern SuspendVmRequestDefaultTypeInternal _SuspendVmRequest_default_instance_;
 class SuspendVmResponse;
 struct SuspendVmResponseDefaultTypeInternal;
 extern SuspendVmResponseDefaultTypeInternal _SuspendVmResponse_default_instance_;
+class SwapVmRequest;
+struct SwapVmRequestDefaultTypeInternal;
+extern SwapVmRequestDefaultTypeInternal _SwapVmRequest_default_instance_;
+class SwapVmResponse;
+struct SwapVmResponseDefaultTypeInternal;
+extern SwapVmResponseDefaultTypeInternal _SwapVmResponse_default_instance_;
 class SyncVmTimesResponse;
 struct SyncVmTimesResponseDefaultTypeInternal;
 extern SyncVmTimesResponseDefaultTypeInternal _SyncVmTimesResponse_default_instance_;
@@ -261,6 +267,9 @@ extern VmStoppedSignalDefaultTypeInternal _VmStoppedSignal_default_instance_;
 class VmStoppingSignal;
 struct VmStoppingSignalDefaultTypeInternal;
 extern VmStoppingSignalDefaultTypeInternal _VmStoppingSignal_default_instance_;
+class VmSwappingSignal;
+struct VmSwappingSignalDefaultTypeInternal;
+extern VmSwappingSignalDefaultTypeInternal _VmSwappingSignal_default_instance_;
 }  // namespace concierge
 }  // namespace vm_tools
 PROTOBUF_NAMESPACE_OPEN
@@ -325,6 +334,8 @@ template<> ::vm_tools::concierge::StopVmRequest* Arena::CreateMaybeMessage<::vm_
 template<> ::vm_tools::concierge::StopVmResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::StopVmResponse>(Arena*);
 template<> ::vm_tools::concierge::SuspendVmRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::SuspendVmRequest>(Arena*);
 template<> ::vm_tools::concierge::SuspendVmResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::SuspendVmResponse>(Arena*);
+template<> ::vm_tools::concierge::SwapVmRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::SwapVmRequest>(Arena*);
+template<> ::vm_tools::concierge::SwapVmResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::SwapVmResponse>(Arena*);
 template<> ::vm_tools::concierge::SyncVmTimesResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::SyncVmTimesResponse>(Arena*);
 template<> ::vm_tools::concierge::UsbDeviceMessage* Arena::CreateMaybeMessage<::vm_tools::concierge::UsbDeviceMessage>(Arena*);
 template<> ::vm_tools::concierge::VirtualMachineSpec* Arena::CreateMaybeMessage<::vm_tools::concierge::VirtualMachineSpec>(Arena*);
@@ -333,6 +344,7 @@ template<> ::vm_tools::concierge::VmInfo* Arena::CreateMaybeMessage<::vm_tools::
 template<> ::vm_tools::concierge::VmStartedSignal* Arena::CreateMaybeMessage<::vm_tools::concierge::VmStartedSignal>(Arena*);
 template<> ::vm_tools::concierge::VmStoppedSignal* Arena::CreateMaybeMessage<::vm_tools::concierge::VmStoppedSignal>(Arena*);
 template<> ::vm_tools::concierge::VmStoppingSignal* Arena::CreateMaybeMessage<::vm_tools::concierge::VmStoppingSignal>(Arena*);
+template<> ::vm_tools::concierge::VmSwappingSignal* Arena::CreateMaybeMessage<::vm_tools::concierge::VmSwappingSignal>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace vm_tools {
 namespace concierge {
@@ -733,6 +745,28 @@ inline const std::string& CpuRestrictionState_Name(T enum_t_value) {
 }
 bool CpuRestrictionState_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CpuRestrictionState* value);
+enum SwapOperation : int {
+  DISABLE = 0,
+  ENABLE = 1,
+  SWAPOUT = 2,
+  SwapOperation_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  SwapOperation_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool SwapOperation_IsValid(int value);
+constexpr SwapOperation SwapOperation_MIN = DISABLE;
+constexpr SwapOperation SwapOperation_MAX = SWAPOUT;
+constexpr int SwapOperation_ARRAYSIZE = SwapOperation_MAX + 1;
+
+const std::string& SwapOperation_Name(SwapOperation value);
+template<typename T>
+inline const std::string& SwapOperation_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SwapOperation>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SwapOperation_Name.");
+  return SwapOperation_Name(static_cast<SwapOperation>(enum_t_value));
+}
+bool SwapOperation_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SwapOperation* value);
 // ===================================================================
 
 class VirtualMachineSpec final :
@@ -13056,6 +13090,465 @@ class GetVmLogsResponse final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
+// -------------------------------------------------------------------
+
+class SwapVmRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.SwapVmRequest) */ {
+ public:
+  inline SwapVmRequest() : SwapVmRequest(nullptr) {}
+  ~SwapVmRequest() override;
+  explicit constexpr SwapVmRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SwapVmRequest(const SwapVmRequest& from);
+  SwapVmRequest(SwapVmRequest&& from) noexcept
+    : SwapVmRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline SwapVmRequest& operator=(const SwapVmRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SwapVmRequest& operator=(SwapVmRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const SwapVmRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SwapVmRequest* internal_default_instance() {
+    return reinterpret_cast<const SwapVmRequest*>(
+               &_SwapVmRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    69;
+
+  friend void swap(SwapVmRequest& a, SwapVmRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SwapVmRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SwapVmRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SwapVmRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SwapVmRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const SwapVmRequest& from);
+  void MergeFrom(const SwapVmRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(SwapVmRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.SwapVmRequest";
+  }
+  protected:
+  explicit SwapVmRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kOwnerIdFieldNumber = 2,
+    kOperationFieldNumber = 3,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string owner_id = 2;
+  void clear_owner_id();
+  const std::string& owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner_id();
+  PROTOBUF_NODISCARD std::string* release_owner_id();
+  void set_allocated_owner_id(std::string* owner_id);
+  private:
+  const std::string& _internal_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner_id(const std::string& value);
+  std::string* _internal_mutable_owner_id();
+  public:
+
+  // .vm_tools.concierge.SwapOperation operation = 3;
+  void clear_operation();
+  ::vm_tools::concierge::SwapOperation operation() const;
+  void set_operation(::vm_tools::concierge::SwapOperation value);
+  private:
+  ::vm_tools::concierge::SwapOperation _internal_operation() const;
+  void _internal_set_operation(::vm_tools::concierge::SwapOperation value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.SwapVmRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+  int operation_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SwapVmResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.SwapVmResponse) */ {
+ public:
+  inline SwapVmResponse() : SwapVmResponse(nullptr) {}
+  ~SwapVmResponse() override;
+  explicit constexpr SwapVmResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SwapVmResponse(const SwapVmResponse& from);
+  SwapVmResponse(SwapVmResponse&& from) noexcept
+    : SwapVmResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline SwapVmResponse& operator=(const SwapVmResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SwapVmResponse& operator=(SwapVmResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const SwapVmResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SwapVmResponse* internal_default_instance() {
+    return reinterpret_cast<const SwapVmResponse*>(
+               &_SwapVmResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    70;
+
+  friend void swap(SwapVmResponse& a, SwapVmResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SwapVmResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SwapVmResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SwapVmResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SwapVmResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const SwapVmResponse& from);
+  void MergeFrom(const SwapVmResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(SwapVmResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.SwapVmResponse";
+  }
+  protected:
+  explicit SwapVmResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFailureReasonFieldNumber = 2,
+    kSuccessFieldNumber = 1,
+  };
+  // string failure_reason = 2;
+  void clear_failure_reason();
+  const std::string& failure_reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_failure_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_failure_reason();
+  PROTOBUF_NODISCARD std::string* release_failure_reason();
+  void set_allocated_failure_reason(std::string* failure_reason);
+  private:
+  const std::string& _internal_failure_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_failure_reason(const std::string& value);
+  std::string* _internal_mutable_failure_reason();
+  public:
+
+  // bool success = 1;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.SwapVmResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr failure_reason_;
+  bool success_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class VmSwappingSignal final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.VmSwappingSignal) */ {
+ public:
+  inline VmSwappingSignal() : VmSwappingSignal(nullptr) {}
+  ~VmSwappingSignal() override;
+  explicit constexpr VmSwappingSignal(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  VmSwappingSignal(const VmSwappingSignal& from);
+  VmSwappingSignal(VmSwappingSignal&& from) noexcept
+    : VmSwappingSignal() {
+    *this = ::std::move(from);
+  }
+
+  inline VmSwappingSignal& operator=(const VmSwappingSignal& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline VmSwappingSignal& operator=(VmSwappingSignal&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const VmSwappingSignal& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const VmSwappingSignal* internal_default_instance() {
+    return reinterpret_cast<const VmSwappingSignal*>(
+               &_VmSwappingSignal_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    71;
+
+  friend void swap(VmSwappingSignal& a, VmSwappingSignal& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(VmSwappingSignal* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(VmSwappingSignal* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  VmSwappingSignal* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<VmSwappingSignal>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const VmSwappingSignal& from);
+  void MergeFrom(const VmSwappingSignal& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(VmSwappingSignal* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.VmSwappingSignal";
+  }
+  protected:
+  explicit VmSwappingSignal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kOwnerIdFieldNumber = 2,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string owner_id = 2;
+  void clear_owner_id();
+  const std::string& owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner_id();
+  PROTOBUF_NODISCARD std::string* release_owner_id();
+  void set_allocated_owner_id(std::string* owner_id);
+  private:
+  const std::string& _internal_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner_id(const std::string& value);
+  std::string* _internal_mutable_owner_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.VmSwappingSignal)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
 // ===================================================================
 
 
@@ -23609,9 +24102,322 @@ inline void GetVmLogsResponse::set_allocated_log(std::string* log) {
   // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.GetVmLogsResponse.log)
 }
 
+// -------------------------------------------------------------------
+
+// SwapVmRequest
+
+// string name = 1;
+inline void SwapVmRequest::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& SwapVmRequest::name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.SwapVmRequest.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SwapVmRequest::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.SwapVmRequest.name)
+}
+inline std::string* SwapVmRequest::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.SwapVmRequest.name)
+  return _s;
+}
+inline const std::string& SwapVmRequest::_internal_name() const {
+  return name_.Get();
+}
+inline void SwapVmRequest::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* SwapVmRequest::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* SwapVmRequest::release_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.SwapVmRequest.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void SwapVmRequest::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (name_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.SwapVmRequest.name)
+}
+
+// string owner_id = 2;
+inline void SwapVmRequest::clear_owner_id() {
+  owner_id_.ClearToEmpty();
+}
+inline const std::string& SwapVmRequest::owner_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.SwapVmRequest.owner_id)
+  return _internal_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SwapVmRequest::set_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.SwapVmRequest.owner_id)
+}
+inline std::string* SwapVmRequest::mutable_owner_id() {
+  std::string* _s = _internal_mutable_owner_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.SwapVmRequest.owner_id)
+  return _s;
+}
+inline const std::string& SwapVmRequest::_internal_owner_id() const {
+  return owner_id_.Get();
+}
+inline void SwapVmRequest::_internal_set_owner_id(const std::string& value) {
+  
+  owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* SwapVmRequest::_internal_mutable_owner_id() {
+  
+  return owner_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* SwapVmRequest::release_owner_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.SwapVmRequest.owner_id)
+  return owner_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void SwapVmRequest::set_allocated_owner_id(std::string* owner_id) {
+  if (owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  owner_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), owner_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (owner_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.SwapVmRequest.owner_id)
+}
+
+// .vm_tools.concierge.SwapOperation operation = 3;
+inline void SwapVmRequest::clear_operation() {
+  operation_ = 0;
+}
+inline ::vm_tools::concierge::SwapOperation SwapVmRequest::_internal_operation() const {
+  return static_cast< ::vm_tools::concierge::SwapOperation >(operation_);
+}
+inline ::vm_tools::concierge::SwapOperation SwapVmRequest::operation() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.SwapVmRequest.operation)
+  return _internal_operation();
+}
+inline void SwapVmRequest::_internal_set_operation(::vm_tools::concierge::SwapOperation value) {
+  
+  operation_ = value;
+}
+inline void SwapVmRequest::set_operation(::vm_tools::concierge::SwapOperation value) {
+  _internal_set_operation(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.SwapVmRequest.operation)
+}
+
+// -------------------------------------------------------------------
+
+// SwapVmResponse
+
+// bool success = 1;
+inline void SwapVmResponse::clear_success() {
+  success_ = false;
+}
+inline bool SwapVmResponse::_internal_success() const {
+  return success_;
+}
+inline bool SwapVmResponse::success() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.SwapVmResponse.success)
+  return _internal_success();
+}
+inline void SwapVmResponse::_internal_set_success(bool value) {
+  
+  success_ = value;
+}
+inline void SwapVmResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.SwapVmResponse.success)
+}
+
+// string failure_reason = 2;
+inline void SwapVmResponse::clear_failure_reason() {
+  failure_reason_.ClearToEmpty();
+}
+inline const std::string& SwapVmResponse::failure_reason() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.SwapVmResponse.failure_reason)
+  return _internal_failure_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SwapVmResponse::set_failure_reason(ArgT0&& arg0, ArgT... args) {
+ 
+ failure_reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.SwapVmResponse.failure_reason)
+}
+inline std::string* SwapVmResponse::mutable_failure_reason() {
+  std::string* _s = _internal_mutable_failure_reason();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.SwapVmResponse.failure_reason)
+  return _s;
+}
+inline const std::string& SwapVmResponse::_internal_failure_reason() const {
+  return failure_reason_.Get();
+}
+inline void SwapVmResponse::_internal_set_failure_reason(const std::string& value) {
+  
+  failure_reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* SwapVmResponse::_internal_mutable_failure_reason() {
+  
+  return failure_reason_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* SwapVmResponse::release_failure_reason() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.SwapVmResponse.failure_reason)
+  return failure_reason_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void SwapVmResponse::set_allocated_failure_reason(std::string* failure_reason) {
+  if (failure_reason != nullptr) {
+    
+  } else {
+    
+  }
+  failure_reason_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), failure_reason,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (failure_reason_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    failure_reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.SwapVmResponse.failure_reason)
+}
+
+// -------------------------------------------------------------------
+
+// VmSwappingSignal
+
+// string name = 1;
+inline void VmSwappingSignal::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& VmSwappingSignal::name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.VmSwappingSignal.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void VmSwappingSignal::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.VmSwappingSignal.name)
+}
+inline std::string* VmSwappingSignal::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.VmSwappingSignal.name)
+  return _s;
+}
+inline const std::string& VmSwappingSignal::_internal_name() const {
+  return name_.Get();
+}
+inline void VmSwappingSignal::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* VmSwappingSignal::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* VmSwappingSignal::release_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.VmSwappingSignal.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void VmSwappingSignal::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (name_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.VmSwappingSignal.name)
+}
+
+// string owner_id = 2;
+inline void VmSwappingSignal::clear_owner_id() {
+  owner_id_.ClearToEmpty();
+}
+inline const std::string& VmSwappingSignal::owner_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.VmSwappingSignal.owner_id)
+  return _internal_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void VmSwappingSignal::set_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.VmSwappingSignal.owner_id)
+}
+inline std::string* VmSwappingSignal::mutable_owner_id() {
+  std::string* _s = _internal_mutable_owner_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.VmSwappingSignal.owner_id)
+  return _s;
+}
+inline const std::string& VmSwappingSignal::_internal_owner_id() const {
+  return owner_id_.Get();
+}
+inline void VmSwappingSignal::_internal_set_owner_id(const std::string& value) {
+  
+  owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* VmSwappingSignal::_internal_mutable_owner_id() {
+  
+  return owner_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* VmSwappingSignal::release_owner_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.VmSwappingSignal.owner_id)
+  return owner_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void VmSwappingSignal::set_allocated_owner_id(std::string* owner_id) {
+  if (owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  owner_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), owner_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (owner_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.VmSwappingSignal.owner_id)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -23773,6 +24579,7 @@ template <> struct is_proto_enum< ::vm_tools::concierge::StorageLocation> : ::st
 template <> struct is_proto_enum< ::vm_tools::concierge::DiskImageStatus> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::CpuCgroup> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::CpuRestrictionState> : ::std::true_type {};
+template <> struct is_proto_enum< ::vm_tools::concierge::SwapOperation> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

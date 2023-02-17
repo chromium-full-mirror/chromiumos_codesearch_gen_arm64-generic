@@ -845,11 +845,16 @@ static_assert(
         static_cast<int>(cryptohome::CRYPTOHOME_UPDATE_CREDENTIALS_FAILED),
     "Enum member CRYPTOHOME_UPDATE_CREDENTIALS_FAILED differs between "
     "user_data_auth:: and cryptohome::");
+static_assert(
+    static_cast<int>(user_data_auth::CRYPTOHOME_ERROR_BIOMETRICS_BUSY) ==
+        static_cast<int>(cryptohome::CRYPTOHOME_ERROR_BIOMETRICS_BUSY),
+    "Enum member CRYPTOHOME_ERROR_BIOMETRICS_BUSY differs between "
+    "user_data_auth:: and cryptohome::");
 
 static_assert(
-    user_data_auth::CryptohomeErrorCode_MAX == 57,
+    user_data_auth::CryptohomeErrorCode_MAX == 58,
     "user_data_auth::CryptohomeErrorCode's element count is incorrect");
-static_assert(cryptohome::CryptohomeErrorCode_MAX == 57,
+static_assert(cryptohome::CryptohomeErrorCode_MAX == 58,
               "cryptohome::CryptohomeErrorCode's element count is incorrect");
 }  // namespace CryptohomeErrorCodeEquivalenceTest
 
@@ -5647,7 +5652,7 @@ TEST_F(UserDataAuthApiTest, EphemeralMountFailed) {
                                           MOUNT_ERROR_FATAL, false));
   new_mounts_.push_back(mount.get());
   EXPECT_CALL(homedirs_, GetPlainOwner(_))
-      .WillRepeatedly(DoAll(SetArgPointee<0>(*kUsername2), Return(true)));
+      .WillRepeatedly(DoAll(SetArgPointee<0>(kUsername2), Return(true)));
 
   // Make the call to check that the result is correct.
   user_data_auth::PrepareEphemeralVaultRequest prepare_req;

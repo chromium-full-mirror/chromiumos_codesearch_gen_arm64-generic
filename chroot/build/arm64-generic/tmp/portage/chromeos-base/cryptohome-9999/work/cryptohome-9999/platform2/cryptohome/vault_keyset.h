@@ -15,7 +15,6 @@
 #include <brillo/secure_blob.h>
 
 #include "cryptohome/crypto.h"
-#include "cryptohome/crypto_error.h"
 #include "cryptohome/cryptohome_common.h"
 #include "cryptohome/error/cryptohome_crypto_error.h"
 #include "cryptohome/flatbuffer_schemas/auth_block_state.h"
@@ -38,7 +37,7 @@ class VaultKeyset {
   VaultKeyset(VaultKeyset&&) = default;
   VaultKeyset(const VaultKeyset&) = default;
   VaultKeyset& operator=(const VaultKeyset&) = default;
-  virtual ~VaultKeyset();
+  virtual ~VaultKeyset() = default;
 
   // Does not take ownership of platform and crypto. The objects pointed to by
   // them must outlive this object.
@@ -173,6 +172,9 @@ class VaultKeyset {
   virtual void SetFSCryptPolicyVersion(int32_t policy_version);
   virtual bool HasFSCryptPolicyVersion() const;
   virtual int32_t GetFSCryptPolicyVersion() const;
+
+  virtual bool HasVkkIv() const;
+  virtual const brillo::SecureBlob& GetVkkIv() const;
 
   // Group 2. Fields containing wrapped data.
 
