@@ -77,6 +77,7 @@ class Delegate
     kSetLedColorMinVersion = 0,
     kResetLedColorMinVersion = 0,
     kMonitorAudioJackMinVersion = 0,
+    kMonitorTouchpadMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -95,6 +96,9 @@ class Delegate
     NOINLINE static uint32_t IPCStableHash();
   };
   struct MonitorAudioJack_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct MonitorTouchpad_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -122,6 +126,9 @@ class Delegate
 
   
   virtual void MonitorAudioJack(::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver> observer) = 0;
+
+  
+  virtual void MonitorTouchpad(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchpadObserver> observer) = 0;
 };
 
 
@@ -142,6 +149,8 @@ class  DelegateProxy
   void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) final;
   
   void MonitorAudioJack(::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver> observer) final;
+  
+  void MonitorTouchpad(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchpadObserver> observer) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

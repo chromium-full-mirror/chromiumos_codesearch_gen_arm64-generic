@@ -370,6 +370,308 @@ bool SdCardEventInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+TouchpadButtonEvent::TouchpadButtonEvent()
+    : button(),
+      pressed() {}
+
+TouchpadButtonEvent::TouchpadButtonEvent(
+    InputTouchButton button_in,
+    bool pressed_in)
+    : button(std::move(button_in)),
+      pressed(std::move(pressed_in)) {}
+
+TouchpadButtonEvent::~TouchpadButtonEvent() = default;
+size_t TouchpadButtonEvent::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->button);
+  seed = mojo::internal::Hash(seed, this->pressed);
+  return seed;
+}
+
+void TouchpadButtonEvent::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "button"), this->button,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type InputTouchButton>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "pressed"), this->pressed,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool TouchpadButtonEvent::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+TouchPointInfo::TouchPointInfo()
+    : tracking_id(),
+      x(),
+      y(),
+      pressure(),
+      touch_major(),
+      touch_minor() {}
+
+TouchPointInfo::TouchPointInfo(
+    uint32_t tracking_id_in,
+    uint32_t x_in,
+    uint32_t y_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr pressure_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr touch_major_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr touch_minor_in)
+    : tracking_id(std::move(tracking_id_in)),
+      x(std::move(x_in)),
+      y(std::move(y_in)),
+      pressure(std::move(pressure_in)),
+      touch_major(std::move(touch_major_in)),
+      touch_minor(std::move(touch_minor_in)) {}
+
+TouchPointInfo::~TouchPointInfo() = default;
+
+void TouchPointInfo::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "tracking_id"), this->tracking_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "x"), this->x,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "y"), this->y,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "pressure"), this->pressure,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "touch_major"), this->touch_major,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "touch_minor"), this->touch_minor,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool TouchPointInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+TouchpadTouchEvent::TouchpadTouchEvent()
+    : touch_points() {}
+
+TouchpadTouchEvent::TouchpadTouchEvent(
+    std::vector<TouchPointInfoPtr> touch_points_in)
+    : touch_points(std::move(touch_points_in)) {}
+
+TouchpadTouchEvent::~TouchpadTouchEvent() = default;
+
+void TouchpadTouchEvent::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "touch_points"), this->touch_points,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<TouchPointInfoPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool TouchpadTouchEvent::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+TouchpadConnectedEvent::TouchpadConnectedEvent()
+    : max_x(),
+      max_y(),
+      max_pressure(),
+      buttons() {}
+
+TouchpadConnectedEvent::TouchpadConnectedEvent(
+    uint32_t max_x_in,
+    uint32_t max_y_in,
+    uint32_t max_pressure_in,
+    std::vector<InputTouchButton> buttons_in)
+    : max_x(std::move(max_x_in)),
+      max_y(std::move(max_y_in)),
+      max_pressure(std::move(max_pressure_in)),
+      buttons(std::move(buttons_in)) {}
+
+TouchpadConnectedEvent::~TouchpadConnectedEvent() = default;
+
+void TouchpadConnectedEvent::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "max_x"), this->max_x,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "max_y"), this->max_y,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "max_pressure"), this->max_pressure,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "buttons"), this->buttons,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<InputTouchButton>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool TouchpadConnectedEvent::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+TouchpadEventInfo::TouchpadEventInfo() : tag_(Tag::kDefaultType) {
+  data_.default_type = uint8_t();
+}
+
+TouchpadEventInfo::~TouchpadEventInfo() {
+  DestroyActive();
+}
+
+
+void TouchpadEventInfo::set_default_type(
+    uint8_t default_type) {
+  if (tag_ != Tag::kDefaultType) {
+    DestroyActive();
+    tag_ = Tag::kDefaultType;
+  }
+  data_.default_type = default_type;
+}
+void TouchpadEventInfo::set_button_event(
+    TouchpadButtonEventPtr button_event) {
+  if (tag_ == Tag::kButtonEvent) {
+    *(data_.button_event) = std::move(button_event);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kButtonEvent;
+    data_.button_event = new TouchpadButtonEventPtr(
+        std::move(button_event));
+  }
+}
+void TouchpadEventInfo::set_touch_event(
+    TouchpadTouchEventPtr touch_event) {
+  if (tag_ == Tag::kTouchEvent) {
+    *(data_.touch_event) = std::move(touch_event);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kTouchEvent;
+    data_.touch_event = new TouchpadTouchEventPtr(
+        std::move(touch_event));
+  }
+}
+void TouchpadEventInfo::set_connected_event(
+    TouchpadConnectedEventPtr connected_event) {
+  if (tag_ == Tag::kConnectedEvent) {
+    *(data_.connected_event) = std::move(connected_event);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kConnectedEvent;
+    data_.connected_event = new TouchpadConnectedEventPtr(
+        std::move(connected_event));
+  }
+}
+
+void TouchpadEventInfo::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kDefaultType:
+
+      break;
+    case Tag::kButtonEvent:
+
+      delete data_.button_event;
+      break;
+    case Tag::kTouchEvent:
+
+      delete data_.touch_event;
+      break;
+    case Tag::kConnectedEvent:
+
+      delete data_.connected_event;
+      break;
+  }
+}
+
+bool TouchpadEventInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
 EventInfo::EventInfo() : tag_(Tag::kDefaultType) {
   data_.default_type = uint8_t();
 }
@@ -486,6 +788,17 @@ void EventInfo::set_keyboard_diagnostic_event_info(
         std::move(keyboard_diagnostic_event_info));
   }
 }
+void EventInfo::set_touchpad_event_info(
+    TouchpadEventInfoPtr touchpad_event_info) {
+  if (tag_ == Tag::kTouchpadEventInfo) {
+    *(data_.touchpad_event_info) = std::move(touchpad_event_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kTouchpadEventInfo;
+    data_.touchpad_event_info = new TouchpadEventInfoPtr(
+        std::move(touchpad_event_info));
+  }
+}
 
 void EventInfo::DestroyActive() {
   switch (tag_) {
@@ -528,6 +841,10 @@ void EventInfo::DestroyActive() {
     case Tag::kKeyboardDiagnosticEventInfo:
 
       delete data_.keyboard_diagnostic_event_info;
+      break;
+    case Tag::kTouchpadEventInfo:
+
+      delete data_.touchpad_event_info;
       break;
   }
 }
@@ -3063,6 +3380,127 @@ bool StructTraits<::ash::cros_healthd::mojom::SdCardEventInfo::DataView, ::ash::
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::TouchpadButtonEvent::DataView, ::ash::cros_healthd::mojom::TouchpadButtonEventPtr>::Read(
+    ::ash::cros_healthd::mojom::TouchpadButtonEvent::DataView input,
+    ::ash::cros_healthd::mojom::TouchpadButtonEventPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::TouchpadButtonEventPtr result(::ash::cros_healthd::mojom::TouchpadButtonEvent::New());
+  
+      if (success && !input.ReadButton(&result->button))
+        success = false;
+      if (success)
+        result->pressed = input.pressed();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::TouchPointInfo::DataView, ::ash::cros_healthd::mojom::TouchPointInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::TouchPointInfo::DataView input,
+    ::ash::cros_healthd::mojom::TouchPointInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::TouchPointInfoPtr result(::ash::cros_healthd::mojom::TouchPointInfo::New());
+  
+      if (success)
+        result->tracking_id = input.tracking_id();
+      if (success)
+        result->x = input.x();
+      if (success)
+        result->y = input.y();
+      if (success && !input.ReadPressure(&result->pressure))
+        success = false;
+      if (success && !input.ReadTouchMajor(&result->touch_major))
+        success = false;
+      if (success && !input.ReadTouchMinor(&result->touch_minor))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::TouchpadTouchEvent::DataView, ::ash::cros_healthd::mojom::TouchpadTouchEventPtr>::Read(
+    ::ash::cros_healthd::mojom::TouchpadTouchEvent::DataView input,
+    ::ash::cros_healthd::mojom::TouchpadTouchEventPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::TouchpadTouchEventPtr result(::ash::cros_healthd::mojom::TouchpadTouchEvent::New());
+  
+      if (success && !input.ReadTouchPoints(&result->touch_points))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::TouchpadConnectedEvent::DataView, ::ash::cros_healthd::mojom::TouchpadConnectedEventPtr>::Read(
+    ::ash::cros_healthd::mojom::TouchpadConnectedEvent::DataView input,
+    ::ash::cros_healthd::mojom::TouchpadConnectedEventPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::TouchpadConnectedEventPtr result(::ash::cros_healthd::mojom::TouchpadConnectedEvent::New());
+  
+      if (success)
+        result->max_x = input.max_x();
+      if (success)
+        result->max_y = input.max_y();
+      if (success)
+        result->max_pressure = input.max_pressure();
+      if (success && !input.ReadButtons(&result->buttons))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfo::DataView, ::ash::cros_healthd::mojom::TouchpadEventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::TouchpadEventInfo::DataView input,
+    ::ash::cros_healthd::mojom::TouchpadEventInfoPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::TouchpadEventInfo;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kDefaultType: {
+      *output = UnionType::NewDefaultType(input.default_type());
+      break;
+    }
+    case Tag::kButtonEvent: {
+      ::ash::cros_healthd::mojom::TouchpadButtonEventPtr result_button_event;
+      if (!input.ReadButtonEvent(&result_button_event))
+        return false;
+
+      *output = UnionType::NewButtonEvent(
+          std::move(result_button_event));
+      break;
+    }
+    case Tag::kTouchEvent: {
+      ::ash::cros_healthd::mojom::TouchpadTouchEventPtr result_touch_event;
+      if (!input.ReadTouchEvent(&result_touch_event))
+        return false;
+
+      *output = UnionType::NewTouchEvent(
+          std::move(result_touch_event));
+      break;
+    }
+    case Tag::kConnectedEvent: {
+      ::ash::cros_healthd::mojom::TouchpadConnectedEventPtr result_connected_event;
+      if (!input.ReadConnectedEvent(&result_connected_event))
+        return false;
+
+      *output = UnionType::NewConnectedEvent(
+          std::move(result_connected_event));
+      break;
+    }
+    default:
+
+      *output = UnionType::NewDefaultType({});
+      return true;
+  }
+  return true;
+}
+
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView, ::ash::cros_healthd::mojom::EventInfoPtr>::Read(
     ::ash::cros_healthd::mojom::EventInfo::DataView input,
@@ -3154,6 +3592,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView, ::ash::cros_he
 
       *output = UnionType::NewKeyboardDiagnosticEventInfo(
           std::move(result_keyboard_diagnostic_event_info));
+      break;
+    }
+    case Tag::kTouchpadEventInfo: {
+      ::ash::cros_healthd::mojom::TouchpadEventInfoPtr result_touchpad_event_info;
+      if (!input.ReadTouchpadEventInfo(&result_touchpad_event_info))
+        return false;
+
+      *output = UnionType::NewTouchpadEventInfo(
+          std::move(result_touchpad_event_info));
       break;
     }
     default:

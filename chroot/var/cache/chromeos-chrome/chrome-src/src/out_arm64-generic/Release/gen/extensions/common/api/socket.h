@@ -290,9 +290,12 @@ struct TLSVersionConstraints {
   // thisTLSVersionConstraints object.
   base::Value::Dict ToValue() const;
 
-  // The minimum and maximum acceptable versions of TLS. These will be
-  // <code>tls1</code>, <code>tls1.1</code>, <code>tls1.2</code>, or
-  // <code>tls1.3</code>.
+  // <p>The minimum and maximum acceptable versions of TLS. Supported values are
+  // <code>tls1.2</code> or <code>tls1.3</code>.</p><p>The values
+  // <code>tls1</code> and <code>tls1.1</code> are no longer supported. If |min|
+  // is set to one of these values, it will be silently clamped to
+  // <code>tls1.2</code>. If |max| is set to one of those values, or any other
+  // unrecognized value, it will be silently ignored.</p>
   absl::optional<std::string> min;
 
   absl::optional<std::string> max;

@@ -1449,6 +1449,132 @@ class  CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data 
 };
 static_assert(sizeof(CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data>;
+
+  CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data) == 8,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data>;
+
+  CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data) == 8,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> length_seconds;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data>;
+
+  CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> peripheral_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data>;
+
+  CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data)");
 class  CrosHealthdEventService_AddBluetoothObserver_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -4044,6 +4170,210 @@ class CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParamsDataVie
 
 
 
+class CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data* data_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data* data_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetLengthSecondsDataView(
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLengthSeconds(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+    "Attempting to read the optional `length_seconds` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadLengthSeconds` instead "
+    "of `ReadLengthSeconds if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->length_seconds.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPeripheralIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPeripheralId(UserType* output) {
+    
+    auto* pointer = data_->peripheral_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 class CrosHealthdEventService_AddBluetoothObserver_ParamsDataView {
  public:
   CrosHealthdEventService_AddBluetoothObserver_ParamsDataView() = default;
@@ -5006,6 +5336,52 @@ inline void CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParam
 
 
 inline void CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+}
+
+
+
+
+inline void CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+}
+
+
+
+
+inline void CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+}
+
+
+inline void CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ParamsDataView::GetLengthSecondsDataView(
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
+  auto pointer = data_->length_seconds.Get();
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+}
+
+
+inline void CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+}
+
+
+inline void CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ParamsDataView::GetPeripheralIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->peripheral_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParamsDataView::GetResponseDataView(
     ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
   *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);

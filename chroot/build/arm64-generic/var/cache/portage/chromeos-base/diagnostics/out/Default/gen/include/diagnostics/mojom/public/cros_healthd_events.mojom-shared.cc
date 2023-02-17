@@ -22,6 +22,34 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
+static NOINLINE const char* InputTouchButtonToStringHelper(InputTouchButton value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case InputTouchButton::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case InputTouchButton::kLeft:
+      return "kLeft";
+    case InputTouchButton::kMiddle:
+      return "kMiddle";
+    case InputTouchButton::kRight:
+      return "kRight";
+    default:
+      return nullptr;
+  }
+}
+
+std::string InputTouchButtonToString(InputTouchButton value) {
+  const char *str = InputTouchButtonToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown InputTouchButton value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, InputTouchButton value) {
+  return os << InputTouchButtonToString(value);
+}
+
 static NOINLINE const char* EventCategoryEnumToStringHelper(EventCategoryEnum value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -47,6 +75,8 @@ static NOINLINE const char* EventCategoryEnumToStringHelper(EventCategoryEnum va
       return "kNetwork";
     case EventCategoryEnum::kKeyboardDiagnostic:
       return "kKeyboardDiagnostic";
+    case EventCategoryEnum::kTouchpad:
+      return "kTouchpad";
     default:
       return nullptr;
   }
@@ -290,6 +320,73 @@ std::ostream& operator<<(std::ostream& os, SdCardEventInfo_State value) {
 
 namespace internal {
 // static
+bool TouchpadEventInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const TouchpadEventInfo_Data* object = static_cast<const TouchpadEventInfo_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case TouchpadEventInfo_Tag::kDefaultType: {
+
+      return true;
+    }
+    case TouchpadEventInfo_Tag::kButtonEvent: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_button_event, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_button_event, validation_context))
+        return false;
+      return true;
+    }
+    case TouchpadEventInfo_Tag::kTouchEvent: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_touch_event, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_touch_event, validation_context))
+        return false;
+      return true;
+    }
+    case TouchpadEventInfo_Tag::kConnectedEvent: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_connected_event, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_connected_event, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      return true;
+    }
+  }
+}
+// static
 bool EventInfo_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context,
@@ -407,6 +504,17 @@ bool EventInfo_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_keyboard_diagnostic_event_info, validation_context))
+        return false;
+      return true;
+    }
+    case EventInfo_Tag::kTouchpadEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_touchpad_event_info, 11, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateNonInlinedUnion(object->data.f_touchpad_event_info,
+                                                   validation_context))
         return false;
       return true;
     }
@@ -678,6 +786,134 @@ bool SdCardEventInfo_Data::Validate(
 }
 
 SdCardEventInfo_Data::SdCardEventInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TouchpadButtonEvent_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TouchpadButtonEvent_Data* object =
+      static_cast<const TouchpadButtonEvent_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::InputTouchButton_Data
+        ::Validate(object->button, validation_context))
+    return false;
+
+  return true;
+}
+
+TouchpadButtonEvent_Data::TouchpadButtonEvent_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TouchPointInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 48, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TouchPointInfo_Data* object =
+      static_cast<const TouchPointInfo_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->pressure, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->touch_major, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->touch_minor, validation_context))
+    return false;
+
+  return true;
+}
+
+TouchPointInfo_Data::TouchPointInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TouchpadTouchEvent_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TouchpadTouchEvent_Data* object =
+      static_cast<const TouchpadTouchEvent_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->touch_points, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& touch_points_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->touch_points, validation_context,
+                                         &touch_points_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+TouchpadTouchEvent_Data::TouchpadTouchEvent_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TouchpadConnectedEvent_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TouchpadConnectedEvent_Data* object =
+      static_cast<const TouchpadConnectedEvent_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->buttons, 4, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& buttons_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::InputTouchButton_Data::Validate>();
+  if (!mojo::internal::ValidateContainer(object->buttons, validation_context,
+                                         &buttons_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+TouchpadConnectedEvent_Data::TouchpadConnectedEvent_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1234,6 +1470,16 @@ EventObserver_OnEvent_Params_Data::EventObserver_OnEvent_Params_Data()
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::InputTouchButton>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::InputTouchButton value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::InputTouchButtonToString(value));
+}
+
+} // namespace perfetto
 
 namespace perfetto_libchrome {
 

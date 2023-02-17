@@ -3709,7 +3709,9 @@ PciBusInfo::PciBusInfo()
       prog_if_id(),
       vendor_id(),
       device_id(),
-      driver() {}
+      driver(),
+      sub_vendor_id(),
+      sub_device_id() {}
 
 PciBusInfo::PciBusInfo(
     uint8_t class_id_in,
@@ -3723,7 +3725,27 @@ PciBusInfo::PciBusInfo(
       prog_if_id(std::move(prog_if_id_in)),
       vendor_id(std::move(vendor_id_in)),
       device_id(std::move(device_id_in)),
-      driver(std::move(driver_in)) {}
+      driver(std::move(driver_in)),
+      sub_vendor_id(),
+      sub_device_id() {}
+
+PciBusInfo::PciBusInfo(
+    uint8_t class_id_in,
+    uint8_t subclass_id_in,
+    uint8_t prog_if_id_in,
+    uint16_t vendor_id_in,
+    uint16_t device_id_in,
+    const absl::optional<std::string>& driver_in,
+    ::ash::cros_healthd::mojom::NullableUint16Ptr sub_vendor_id_in,
+    ::ash::cros_healthd::mojom::NullableUint16Ptr sub_device_id_in)
+    : class_id(std::move(class_id_in)),
+      subclass_id(std::move(subclass_id_in)),
+      prog_if_id(std::move(prog_if_id_in)),
+      vendor_id(std::move(vendor_id_in)),
+      device_id(std::move(device_id_in)),
+      driver(std::move(driver_in)),
+      sub_vendor_id(std::move(sub_vendor_id_in)),
+      sub_device_id(std::move(sub_device_id_in)) {}
 
 PciBusInfo::~PciBusInfo() = default;
 
@@ -3780,6 +3802,24 @@ void PciBusInfo::WriteIntoTrace(
       "driver"), this->driver,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const absl::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "sub_vendor_id"), this->sub_vendor_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::ash::cros_healthd::mojom::NullableUint16Ptr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "sub_device_id"), this->sub_device_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::ash::cros_healthd::mojom::NullableUint16Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -8805,6 +8845,10 @@ bool StructTraits<::ash::cros_healthd::mojom::PciBusInfo::DataView, ::ash::cros_
       if (success)
         result->device_id = input.device_id();
       if (success && !input.ReadDriver(&result->driver))
+        success = false;
+      if (success && !input.ReadSubVendorId(&result->sub_vendor_id))
+        success = false;
+      if (success && !input.ReadSubDeviceId(&result->sub_device_id))
         success = false;
   *output = std::move(result);
   return success;

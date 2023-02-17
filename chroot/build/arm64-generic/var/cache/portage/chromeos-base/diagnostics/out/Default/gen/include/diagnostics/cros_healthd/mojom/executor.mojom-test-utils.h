@@ -63,6 +63,26 @@ class  AudioJackObserverAsyncWaiter {
 };
 
 
+class  TouchpadObserverInterceptorForTesting : public TouchpadObserver {
+  virtual TouchpadObserver* GetForwardingInterface() = 0;
+  void OnButton(::ash::cros_healthd::mojom::TouchpadButtonEventPtr button_event) override;
+  void OnTouch(::ash::cros_healthd::mojom::TouchpadTouchEventPtr touch_event) override;
+  void OnConnected(::ash::cros_healthd::mojom::TouchpadConnectedEventPtr connected_event) override;
+};
+class  TouchpadObserverAsyncWaiter {
+ public:
+  explicit TouchpadObserverAsyncWaiter(TouchpadObserver* proxy);
+
+  TouchpadObserverAsyncWaiter(const TouchpadObserverAsyncWaiter&) = delete;
+  TouchpadObserverAsyncWaiter& operator=(const TouchpadObserverAsyncWaiter&) = delete;
+
+  ~TouchpadObserverAsyncWaiter();
+
+ private:
+  TouchpadObserver* const proxy_;
+};
+
+
 class  ExecutorInterceptorForTesting : public Executor {
   virtual Executor* GetForwardingInterface() = 0;
   void GetFanSpeed(GetFanSpeedCallback callback) override;
@@ -84,6 +104,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) override;
   void GetHciDeviceConfig(GetHciDeviceConfigCallback callback) override;
   void MonitorAudioJack(::mojo::PendingRemote<AudioJackObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
+  void MonitorTouchpad(::mojo::PendingRemote<TouchpadObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
 };
 class  ExecutorAsyncWaiter {
  public:

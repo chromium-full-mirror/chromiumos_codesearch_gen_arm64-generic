@@ -45,6 +45,8 @@ class ProcessControl;
 
 class AudioJackObserver;
 
+class TouchpadObserver;
+
 class Executor;
 
 

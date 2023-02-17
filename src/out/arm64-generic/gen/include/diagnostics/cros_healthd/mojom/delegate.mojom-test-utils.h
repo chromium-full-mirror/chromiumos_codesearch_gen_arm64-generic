@@ -22,6 +22,7 @@ class  DelegateInterceptorForTesting : public Delegate {
   void SetLedColor(::ash::cros_healthd::mojom::LedName name, ::ash::cros_healthd::mojom::LedColor color, SetLedColorCallback callback) override;
   void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) override;
   void MonitorAudioJack(::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver> observer) override;
+  void MonitorTouchpad(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchpadObserver> observer) override;
 };
 class  DelegateAsyncWaiter {
  public:

@@ -1323,6 +1323,16 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocRecoveryCryptoBadPlainTextInDecryptResponse = 1910,
   /* ./cryptorecovery/recovery_crypto_impl.cc */
   kLocRecoveryCryptoBadLedgerSignedProof = 1911,
+  /* ./auth_blocks/cryptohome_recovery_auth_block.cc */
+  kLocRecoveryAuthBlockNoAuthInputInDerive = 1912,
+  /* ./auth_blocks/cryptohome_recovery_auth_block.cc */
+  kLocRecoveryAuthBlockNoEpochResponseInDerive = 1913,
+  /* ./auth_blocks/cryptohome_recovery_auth_block.cc */
+  kLocRecoveryAuthBlockNoEphPubKeyInDerive = 1914,
+  /* ./auth_blocks/cryptohome_recovery_auth_block.cc */
+  kLocRecoveryAuthBlockNoRecoveryResponseInDerive = 1915,
+  /* ./auth_blocks/cryptohome_recovery_auth_block.cc */
+  kLocRecoveryAuthBlockNoLedgerPubKeyInDerive = 1916,
   //////////////////////////////////////////////////
   //// This is a separator block at value 2100
   //// See location_db.py for more info.
@@ -1379,6 +1389,8 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocUpdateAuthInputResetSeedEmptyInVaultKeyset = 2505,
   /* ./auth_session.cc */
   kLocNoVkInAuthInputForMigration = 2506,
+  /* ./keyset_management.cc */
+  kLocKeysetManagementFailedRemoveInRemoveKeysetFile = 2507,
   //////////////////////////////////////////////////
   //// This is a separator block at value 2700
   //// See location_db.py for more info.
@@ -1449,7 +1461,7 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocAuthSessionDeleteOldBackupFailedInUpdateWithUSS = 2731,
   /* ./auth_session.cc */
   kLocAuthSessionRemoveFailedInCleanUpBackupKeyset = 2732,
-  /* ./auth_session.cc */
+  /* =Obsolete= */
   kLocAuthSessionNoBackupFlagInCleanUpBackupKeyset = 2733,
   //////////////////////////////////////////////////
   //// This is a separator block at value 2900

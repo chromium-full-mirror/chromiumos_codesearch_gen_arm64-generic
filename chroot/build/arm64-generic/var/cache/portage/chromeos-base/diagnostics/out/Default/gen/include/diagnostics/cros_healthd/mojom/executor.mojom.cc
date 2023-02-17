@@ -1128,6 +1128,373 @@ bool AudioJackObserverRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kAudioJackObserverValidationInfo);
 }
 
+const char TouchpadObserver::Name_[] = "ash.cros_healthd.mojom.TouchpadObserver";
+
+TouchpadObserver::IPCStableHashFunction TouchpadObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kTouchpadObserver_OnButton_Name: {
+      return &TouchpadObserver::OnButton_Sym::IPCStableHash;
+    }
+    case internal::kTouchpadObserver_OnTouch_Name: {
+      return &TouchpadObserver::OnTouch_Sym::IPCStableHash;
+    }
+    case internal::kTouchpadObserver_OnConnected_Name: {
+      return &TouchpadObserver::OnConnected_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* TouchpadObserver::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kTouchpadObserver_OnButton_Name:
+            return "Receive ash::cros_healthd::mojom::TouchpadObserver::OnButton";
+      case internal::kTouchpadObserver_OnTouch_Name:
+            return "Receive ash::cros_healthd::mojom::TouchpadObserver::OnTouch";
+      case internal::kTouchpadObserver_OnConnected_Name:
+            return "Receive ash::cros_healthd::mojom::TouchpadObserver::OnConnected";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kTouchpadObserver_OnButton_Name:
+            return "Receive reply ash::cros_healthd::mojom::TouchpadObserver::OnButton";
+      case internal::kTouchpadObserver_OnTouch_Name:
+            return "Receive reply ash::cros_healthd::mojom::TouchpadObserver::OnTouch";
+      case internal::kTouchpadObserver_OnConnected_Name:
+            return "Receive reply ash::cros_healthd::mojom::TouchpadObserver::OnConnected";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t TouchpadObserver::OnButton_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::TouchpadObserver::OnButton");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t TouchpadObserver::OnTouch_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::TouchpadObserver::OnTouch");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t TouchpadObserver::OnConnected_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::TouchpadObserver::OnConnected");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+TouchpadObserverProxy::TouchpadObserverProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void TouchpadObserverProxy::OnButton(
+    ::ash::cros_healthd::mojom::TouchpadButtonEventPtr in_button_event) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::TouchpadObserver::OnButton", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("button_event"), in_button_event,
+                        "<value of type ::ash::cros_healthd::mojom::TouchpadButtonEventPtr>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kTouchpadObserver_OnButton_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::TouchpadObserver_OnButton_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->button_event)::BaseType> button_event_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::TouchpadButtonEventDataView>(
+      in_button_event, button_event_fragment);
+  params->button_event.Set(
+      button_event_fragment.is_null() ? nullptr : button_event_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->button_event.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null button_event in TouchpadObserver.OnButton request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(TouchpadObserver::Name_);
+  message.set_method_name("OnButton");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void TouchpadObserverProxy::OnTouch(
+    ::ash::cros_healthd::mojom::TouchpadTouchEventPtr in_touch_event) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::TouchpadObserver::OnTouch", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("touch_event"), in_touch_event,
+                        "<value of type ::ash::cros_healthd::mojom::TouchpadTouchEventPtr>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kTouchpadObserver_OnTouch_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::TouchpadObserver_OnTouch_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->touch_event)::BaseType> touch_event_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::TouchpadTouchEventDataView>(
+      in_touch_event, touch_event_fragment);
+  params->touch_event.Set(
+      touch_event_fragment.is_null() ? nullptr : touch_event_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->touch_event.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null touch_event in TouchpadObserver.OnTouch request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(TouchpadObserver::Name_);
+  message.set_method_name("OnTouch");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void TouchpadObserverProxy::OnConnected(
+    ::ash::cros_healthd::mojom::TouchpadConnectedEventPtr in_connected_event) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::TouchpadObserver::OnConnected", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("connected_event"), in_connected_event,
+                        "<value of type ::ash::cros_healthd::mojom::TouchpadConnectedEventPtr>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kTouchpadObserver_OnConnected_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::TouchpadObserver_OnConnected_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->connected_event)::BaseType> connected_event_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::TouchpadConnectedEventDataView>(
+      in_connected_event, connected_event_fragment);
+  params->connected_event.Set(
+      connected_event_fragment.is_null() ? nullptr : connected_event_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->connected_event.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null connected_event in TouchpadObserver.OnConnected request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(TouchpadObserver::Name_);
+  message.set_method_name("OnConnected");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool TouchpadObserverStubDispatch::Accept(
+    TouchpadObserver* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kTouchpadObserver_OnButton_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::TouchpadObserver_OnButton_Params_Data* params =
+          reinterpret_cast<internal::TouchpadObserver_OnButton_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::ash::cros_healthd::mojom::TouchpadButtonEventPtr p_button_event = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::TouchpadButtonEventPtr>();
+      TouchpadObserver_OnButton_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadButtonEvent(&p_button_event))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            TouchpadObserver::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnButton(
+std::move(p_button_event));
+      return true;
+    }
+    case internal::kTouchpadObserver_OnTouch_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::TouchpadObserver_OnTouch_Params_Data* params =
+          reinterpret_cast<internal::TouchpadObserver_OnTouch_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::ash::cros_healthd::mojom::TouchpadTouchEventPtr p_touch_event = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::TouchpadTouchEventPtr>();
+      TouchpadObserver_OnTouch_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadTouchEvent(&p_touch_event))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            TouchpadObserver::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnTouch(
+std::move(p_touch_event));
+      return true;
+    }
+    case internal::kTouchpadObserver_OnConnected_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::TouchpadObserver_OnConnected_Params_Data* params =
+          reinterpret_cast<internal::TouchpadObserver_OnConnected_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::ash::cros_healthd::mojom::TouchpadConnectedEventPtr p_connected_event = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::TouchpadConnectedEventPtr>();
+      TouchpadObserver_OnConnected_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadConnectedEvent(&p_connected_event))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            TouchpadObserver::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnConnected(
+std::move(p_connected_event));
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool TouchpadObserverStubDispatch::AcceptWithResponder(
+    TouchpadObserver* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kTouchpadObserver_OnButton_Name: {
+      break;
+    }
+    case internal::kTouchpadObserver_OnTouch_Name: {
+      break;
+    }
+    case internal::kTouchpadObserver_OnConnected_Name: {
+      break;
+    }
+  }
+  return false;
+}
+
+
+static const mojo::internal::GenericValidationInfo kTouchpadObserverValidationInfo[] = {
+    {&internal::TouchpadObserver_OnButton_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::TouchpadObserver_OnTouch_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::TouchpadObserver_OnConnected_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool TouchpadObserverRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::TouchpadObserver::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kTouchpadObserverValidationInfo);
+}
+
 const char Executor::Name_[] = "ash.cros_healthd.mojom.Executor";
 
 Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& message) {
@@ -1190,6 +1557,9 @@ Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& me
     case internal::kExecutor_MonitorAudioJack_Name: {
       return &Executor::MonitorAudioJack_Sym::IPCStableHash;
     }
+    case internal::kExecutor_MonitorTouchpad_Name: {
+      return &Executor::MonitorTouchpad_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1239,6 +1609,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Executor::GetHciDeviceConfig";
       case internal::kExecutor_MonitorAudioJack_Name:
             return "Receive ash::cros_healthd::mojom::Executor::MonitorAudioJack";
+      case internal::kExecutor_MonitorTouchpad_Name:
+            return "Receive ash::cros_healthd::mojom::Executor::MonitorTouchpad";
     }
   } else {
     switch (message.name()) {
@@ -1280,6 +1652,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Executor::GetHciDeviceConfig";
       case internal::kExecutor_MonitorAudioJack_Name:
             return "Receive reply ash::cros_healthd::mojom::Executor::MonitorAudioJack";
+      case internal::kExecutor_MonitorTouchpad_Name:
+            return "Receive reply ash::cros_healthd::mojom::Executor::MonitorTouchpad";
     }
   }
   return "Receive unknown mojo message";
@@ -1537,6 +1911,19 @@ uint32_t Executor::MonitorAudioJack_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::Executor::MonitorAudioJack");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::MonitorTouchpad_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::MonitorTouchpad");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -2548,6 +2935,58 @@ void ExecutorProxy::MonitorAudioJack(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Executor::Name_);
   message.set_method_name("MonitorAudioJack");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void ExecutorProxy::MonitorTouchpad(
+    ::mojo::PendingRemote<TouchpadObserver> in_observer, ::mojo::PendingReceiver<ProcessControl> in_process_control) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Executor::MonitorTouchpad", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("observer"), in_observer,
+                        "<value of type ::mojo::PendingRemote<TouchpadObserver>>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("process_control"), in_process_control,
+                        "<value of type ::mojo::PendingReceiver<ProcessControl>>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_MonitorTouchpad_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_MonitorTouchpad_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::TouchpadObserverInterfaceBase>>(
+      in_observer, &params->observer, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->observer),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid observer in Executor.MonitorTouchpad request");
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+      in_process_control, &params->process_control, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->process_control),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid process_control in Executor.MonitorTouchpad request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("MonitorTouchpad");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -4697,6 +5136,40 @@ std::move(p_observer),
 std::move(p_process_control));
       return true;
     }
+    case internal::kExecutor_MonitorTouchpad_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Executor_MonitorTouchpad_Params_Data* params =
+          reinterpret_cast<internal::Executor_MonitorTouchpad_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingRemote<TouchpadObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<TouchpadObserver>>();
+      ::mojo::PendingReceiver<ProcessControl> p_process_control = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<ProcessControl>>();
+      Executor_MonitorTouchpad_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_observer =
+            input_data_view.TakeObserver<decltype(p_observer)>();
+      }
+      if (success) {
+        p_process_control =
+            input_data_view.TakeProcessControl<decltype(p_process_control)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 19, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->MonitorTouchpad(
+std::move(p_observer), 
+std::move(p_process_control));
+      return true;
+    }
   }
   return false;
 }
@@ -5163,6 +5636,9 @@ std::move(p_name), std::move(callback));
     case internal::kExecutor_MonitorAudioJack_Name: {
       break;
     }
+    case internal::kExecutor_MonitorTouchpad_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -5206,6 +5682,8 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
     {&internal::Executor_GetHciDeviceConfig_Params_Data::Validate,
      &internal::Executor_GetHciDeviceConfig_ResponseParams_Data::Validate},
     {&internal::Executor_MonitorAudioJack_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::Executor_MonitorTouchpad_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -5389,6 +5867,23 @@ AudioJackObserverAsyncWaiter::~AudioJackObserverAsyncWaiter() = default;
 
 
 
+void TouchpadObserverInterceptorForTesting::OnButton(::ash::cros_healthd::mojom::TouchpadButtonEventPtr button_event) {
+  GetForwardingInterface()->OnButton(std::move(button_event));
+}
+void TouchpadObserverInterceptorForTesting::OnTouch(::ash::cros_healthd::mojom::TouchpadTouchEventPtr touch_event) {
+  GetForwardingInterface()->OnTouch(std::move(touch_event));
+}
+void TouchpadObserverInterceptorForTesting::OnConnected(::ash::cros_healthd::mojom::TouchpadConnectedEventPtr connected_event) {
+  GetForwardingInterface()->OnConnected(std::move(connected_event));
+}
+TouchpadObserverAsyncWaiter::TouchpadObserverAsyncWaiter(
+    TouchpadObserver* proxy) : proxy_(proxy) {}
+
+TouchpadObserverAsyncWaiter::~TouchpadObserverAsyncWaiter() = default;
+
+
+
+
 void ExecutorInterceptorForTesting::GetFanSpeed(GetFanSpeedCallback callback) {
   GetForwardingInterface()->GetFanSpeed(std::move(callback));
 }
@@ -5445,6 +5940,9 @@ void ExecutorInterceptorForTesting::GetHciDeviceConfig(GetHciDeviceConfigCallbac
 }
 void ExecutorInterceptorForTesting::MonitorAudioJack(::mojo::PendingRemote<AudioJackObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
   GetForwardingInterface()->MonitorAudioJack(std::move(observer), std::move(process_control));
+}
+void ExecutorInterceptorForTesting::MonitorTouchpad(::mojo::PendingRemote<TouchpadObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
+  GetForwardingInterface()->MonitorTouchpad(std::move(observer), std::move(process_control));
 }
 ExecutorAsyncWaiter::ExecutorAsyncWaiter(
     Executor* proxy) : proxy_(proxy) {}

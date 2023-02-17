@@ -40,7 +40,18 @@ class AudioJackEventInfoDataView;
 
 class SdCardEventInfoDataView;
 
+class TouchpadButtonEventDataView;
+
+class TouchPointInfoDataView;
+
+class TouchpadTouchEventDataView;
+
+class TouchpadConnectedEventDataView;
+
+class TouchpadEventInfoDataView;
 class EventInfoDataView;
+
+enum class InputTouchButton : int32_t;
 
 enum class EventCategoryEnum : int32_t;
 
@@ -82,6 +93,22 @@ using AudioJackEventInfoPtr = mojo::InlinedStructPtr<AudioJackEventInfo>;
 
 class SdCardEventInfo;
 using SdCardEventInfoPtr = mojo::InlinedStructPtr<SdCardEventInfo>;
+
+class TouchpadButtonEvent;
+using TouchpadButtonEventPtr = mojo::InlinedStructPtr<TouchpadButtonEvent>;
+
+class TouchPointInfo;
+using TouchPointInfoPtr = mojo::StructPtr<TouchPointInfo>;
+
+class TouchpadTouchEvent;
+using TouchpadTouchEventPtr = mojo::StructPtr<TouchpadTouchEvent>;
+
+class TouchpadConnectedEvent;
+using TouchpadConnectedEventPtr = mojo::StructPtr<TouchpadConnectedEvent>;
+
+class TouchpadEventInfo;
+
+using TouchpadEventInfoPtr = mojo::StructPtr<TouchpadEventInfo>;
 
 class EventInfo;
 

@@ -4500,6 +4500,8 @@ class  PciBusInfo_Data {
   uint16_t vendor_id;
   uint16_t device_id;
   mojo::internal::Pointer<mojo::internal::String_Data> driver;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> sub_vendor_id;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> sub_device_id;
 
  private:
   friend class mojo::internal::MessageFragment<PciBusInfo_Data>;
@@ -4507,7 +4509,7 @@ class  PciBusInfo_Data {
   PciBusInfo_Data();
   ~PciBusInfo_Data() = delete;
 };
-static_assert(sizeof(PciBusInfo_Data) == 24,
+static_assert(sizeof(PciBusInfo_Data) == 40,
               "Bad sizeof(PciBusInfo_Data)");
 // Used by PciBusInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

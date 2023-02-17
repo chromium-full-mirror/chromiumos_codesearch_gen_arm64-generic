@@ -20,6 +20,7 @@ constexpr uint32_t kDelegate_GetFingerprintInfo_Name = 1;
 constexpr uint32_t kDelegate_SetLedColor_Name = 2;
 constexpr uint32_t kDelegate_ResetLedColor_Name = 3;
 constexpr uint32_t kDelegate_MonitorAudioJack_Name = 4;
+constexpr uint32_t kDelegate_MonitorTouchpad_Name = 5;
 
 }  // namespace internal
 }  // namespace mojom

@@ -4207,6 +4207,27 @@ class BootPerformanceInfoDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  inline void GetTpmInitializationSecondsDataView(
+      ::ash::cros_healthd::mojom::NullableDoubleDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTpmInitializationSeconds(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableDoubleDataView, UserType>(),
+    "Attempting to read the optional `tpm_initialization_seconds` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadTpmInitializationSeconds` instead "
+    "of `ReadTpmInitializationSeconds if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->tpm_initialization_seconds.Get() : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableDoubleDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::BootPerformanceInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -10612,6 +10633,14 @@ struct Serializer<::ash::cros_healthd::mojom::BootPerformanceInfoDataView, Maybe
         fragment->shutdown_reason.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null shutdown_reason in BootPerformanceInfo struct");
+    decltype(Traits::tpm_initialization_seconds(input)) in_tpm_initialization_seconds = Traits::tpm_initialization_seconds(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->tpm_initialization_seconds)::BaseType> tpm_initialization_seconds_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableDoubleDataView>(
+        in_tpm_initialization_seconds, tpm_initialization_seconds_fragment);
+    fragment->tpm_initialization_seconds.Set(
+        tpm_initialization_seconds_fragment.is_null() ? nullptr : tpm_initialization_seconds_fragment.data());
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::BootPerformanceInfo_Data* input,
@@ -15010,6 +15039,12 @@ inline void BootPerformanceInfoDataView::GetShutdownReasonDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->shutdown_reason.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+inline void BootPerformanceInfoDataView::GetTpmInitializationSecondsDataView(
+    ::ash::cros_healthd::mojom::NullableDoubleDataView* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->tpm_initialization_seconds.Get() : nullptr;
+  *output = ::ash::cros_healthd::mojom::NullableDoubleDataView(pointer, message_);
 }
 
 

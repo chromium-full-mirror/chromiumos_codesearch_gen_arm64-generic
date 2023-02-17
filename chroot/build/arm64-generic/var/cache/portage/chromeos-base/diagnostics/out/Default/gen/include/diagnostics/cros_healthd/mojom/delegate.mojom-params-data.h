@@ -170,6 +170,22 @@ class  Delegate_MonitorAudioJack_Params_Data {
 };
 static_assert(sizeof(Delegate_MonitorAudioJack_Params_Data) == 16,
               "Bad sizeof(Delegate_MonitorAudioJack_Params_Data)");
+class  Delegate_MonitorTouchpad_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_MonitorTouchpad_Params_Data>;
+
+  Delegate_MonitorTouchpad_Params_Data();
+  ~Delegate_MonitorTouchpad_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_MonitorTouchpad_Params_Data) == 16,
+              "Bad sizeof(Delegate_MonitorTouchpad_Params_Data)");
 
 }  // namespace internal
 
@@ -472,6 +488,32 @@ class Delegate_MonitorAudioJack_ParamsDataView {
 
 
 
+class Delegate_MonitorTouchpad_ParamsDataView {
+ public:
+  Delegate_MonitorTouchpad_ParamsDataView() = default;
+
+  Delegate_MonitorTouchpad_ParamsDataView(
+      internal::Delegate_MonitorTouchpad_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::TouchpadObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Delegate_MonitorTouchpad_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 
 inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
     ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output) {
@@ -515,6 +557,8 @@ inline void Delegate_ResetLedColor_ResponseParamsDataView::GetErrDataView(
   auto pointer = data_->err.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
 
 
 

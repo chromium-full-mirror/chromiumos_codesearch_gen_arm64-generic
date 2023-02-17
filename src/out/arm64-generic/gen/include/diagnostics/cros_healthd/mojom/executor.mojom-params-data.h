@@ -148,6 +148,54 @@ class  AudioJackObserver_OnRemove_Params_Data {
 };
 static_assert(sizeof(AudioJackObserver_OnRemove_Params_Data) == 8,
               "Bad sizeof(AudioJackObserver_OnRemove_Params_Data)");
+class  TouchpadObserver_OnButton_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::TouchpadButtonEvent_Data> button_event;
+
+ private:
+  friend class mojo::internal::MessageFragment<TouchpadObserver_OnButton_Params_Data>;
+
+  TouchpadObserver_OnButton_Params_Data();
+  ~TouchpadObserver_OnButton_Params_Data() = delete;
+};
+static_assert(sizeof(TouchpadObserver_OnButton_Params_Data) == 16,
+              "Bad sizeof(TouchpadObserver_OnButton_Params_Data)");
+class  TouchpadObserver_OnTouch_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::TouchpadTouchEvent_Data> touch_event;
+
+ private:
+  friend class mojo::internal::MessageFragment<TouchpadObserver_OnTouch_Params_Data>;
+
+  TouchpadObserver_OnTouch_Params_Data();
+  ~TouchpadObserver_OnTouch_Params_Data() = delete;
+};
+static_assert(sizeof(TouchpadObserver_OnTouch_Params_Data) == 16,
+              "Bad sizeof(TouchpadObserver_OnTouch_Params_Data)");
+class  TouchpadObserver_OnConnected_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::TouchpadConnectedEvent_Data> connected_event;
+
+ private:
+  friend class mojo::internal::MessageFragment<TouchpadObserver_OnConnected_Params_Data>;
+
+  TouchpadObserver_OnConnected_Params_Data();
+  ~TouchpadObserver_OnConnected_Params_Data() = delete;
+};
+static_assert(sizeof(TouchpadObserver_OnConnected_Params_Data) == 16,
+              "Bad sizeof(TouchpadObserver_OnConnected_Params_Data)");
 class  Executor_GetFanSpeed_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -710,6 +758,24 @@ class  Executor_MonitorAudioJack_Params_Data {
 };
 static_assert(sizeof(Executor_MonitorAudioJack_Params_Data) == 24,
               "Bad sizeof(Executor_MonitorAudioJack_Params_Data)");
+class  Executor_MonitorTouchpad_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+  mojo::internal::Handle_Data process_control;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_MonitorTouchpad_Params_Data>;
+
+  Executor_MonitorTouchpad_Params_Data();
+  ~Executor_MonitorTouchpad_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_MonitorTouchpad_Params_Data) == 24,
+              "Bad sizeof(Executor_MonitorTouchpad_Params_Data)");
 
 }  // namespace internal
 
@@ -859,6 +925,87 @@ class AudioJackObserver_OnRemove_ParamsDataView {
   bool is_null() const { return !data_; }
  private:
   internal::AudioJackObserver_OnRemove_Params_Data* data_ = nullptr;
+};
+
+
+
+class TouchpadObserver_OnButton_ParamsDataView {
+ public:
+  TouchpadObserver_OnButton_ParamsDataView() = default;
+
+  TouchpadObserver_OnButton_ParamsDataView(
+      internal::TouchpadObserver_OnButton_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetButtonEventDataView(
+      ::ash::cros_healthd::mojom::TouchpadButtonEventDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadButtonEvent(UserType* output) {
+    
+    auto* pointer = data_->button_event.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TouchpadButtonEventDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TouchpadObserver_OnButton_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class TouchpadObserver_OnTouch_ParamsDataView {
+ public:
+  TouchpadObserver_OnTouch_ParamsDataView() = default;
+
+  TouchpadObserver_OnTouch_ParamsDataView(
+      internal::TouchpadObserver_OnTouch_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetTouchEventDataView(
+      ::ash::cros_healthd::mojom::TouchpadTouchEventDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTouchEvent(UserType* output) {
+    
+    auto* pointer = data_->touch_event.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TouchpadTouchEventDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TouchpadObserver_OnTouch_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class TouchpadObserver_OnConnected_ParamsDataView {
+ public:
+  TouchpadObserver_OnConnected_ParamsDataView() = default;
+
+  TouchpadObserver_OnConnected_ParamsDataView(
+      internal::TouchpadObserver_OnConnected_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetConnectedEventDataView(
+      ::ash::cros_healthd::mojom::TouchpadConnectedEventDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConnectedEvent(UserType* output) {
+    
+    auto* pointer = data_->connected_event.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TouchpadConnectedEventDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TouchpadObserver_OnConnected_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -1794,6 +1941,38 @@ class Executor_MonitorAudioJack_ParamsDataView {
 
 
 
+class Executor_MonitorTouchpad_ParamsDataView {
+ public:
+  Executor_MonitorTouchpad_ParamsDataView() = default;
+
+  Executor_MonitorTouchpad_ParamsDataView(
+      internal::Executor_MonitorTouchpad_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::TouchpadObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakeProcessControl() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+            &data_->process_control, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Executor_MonitorTouchpad_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
 
 
 
@@ -1807,6 +1986,30 @@ class Executor_MonitorAudioJack_ParamsDataView {
 
 
 
+
+
+
+
+
+inline void TouchpadObserver_OnButton_ParamsDataView::GetButtonEventDataView(
+    ::ash::cros_healthd::mojom::TouchpadButtonEventDataView* output) {
+  auto pointer = data_->button_event.Get();
+  *output = ::ash::cros_healthd::mojom::TouchpadButtonEventDataView(pointer, message_);
+}
+
+
+inline void TouchpadObserver_OnTouch_ParamsDataView::GetTouchEventDataView(
+    ::ash::cros_healthd::mojom::TouchpadTouchEventDataView* output) {
+  auto pointer = data_->touch_event.Get();
+  *output = ::ash::cros_healthd::mojom::TouchpadTouchEventDataView(pointer, message_);
+}
+
+
+inline void TouchpadObserver_OnConnected_ParamsDataView::GetConnectedEventDataView(
+    ::ash::cros_healthd::mojom::TouchpadConnectedEventDataView* output) {
+  auto pointer = data_->connected_event.Get();
+  *output = ::ash::cros_healthd::mojom::TouchpadConnectedEventDataView(pointer, message_);
+}
 
 
 
@@ -1985,6 +2188,8 @@ inline void Executor_GetHciDeviceConfig_ResponseParamsDataView::GetResultDataVie
   auto pointer = data_->result.Get();
   *output = ExecutedProcessResultDataView(pointer, message_);
 }
+
+
 
 
 

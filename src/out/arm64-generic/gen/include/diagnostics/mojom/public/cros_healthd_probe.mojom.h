@@ -11522,6 +11522,18 @@ class  PciBusInfo {
       uint16_t device_id,
       const absl::optional<std::string>& driver);
 
+  PciBusInfo(
+      uint8_t class_id,
+      uint8_t subclass_id,
+      uint8_t prog_if_id,
+      uint16_t vendor_id,
+      uint16_t device_id,
+      const absl::optional<std::string>& driver,
+      ::ash::cros_healthd::mojom::NullableUint16Ptr sub_vendor_id,
+      ::ash::cros_healthd::mojom::NullableUint16Ptr sub_device_id);
+
+PciBusInfo(const PciBusInfo&) = delete;
+PciBusInfo& operator=(const PciBusInfo&) = delete;
 
   ~PciBusInfo();
 
@@ -11606,6 +11618,10 @@ class  PciBusInfo {
   uint16_t device_id;
   
   absl::optional<std::string> driver;
+  
+  ::ash::cros_healthd::mojom::NullableUint16Ptr sub_vendor_id;
+  
+  ::ash::cros_healthd::mojom::NullableUint16Ptr sub_device_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -17333,7 +17349,9 @@ PciBusInfoPtr PciBusInfo::Clone() const {
       mojo::Clone(prog_if_id),
       mojo::Clone(vendor_id),
       mojo::Clone(device_id),
-      mojo::Clone(driver)
+      mojo::Clone(driver),
+      mojo::Clone(sub_vendor_id),
+      mojo::Clone(sub_device_id)
   );
 }
 
@@ -17350,6 +17368,10 @@ bool PciBusInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->device_id, other_struct.device_id))
     return false;
   if (!mojo::Equals(this->driver, other_struct.driver))
+    return false;
+  if (!mojo::Equals(this->sub_vendor_id, other_struct.sub_vendor_id))
+    return false;
+  if (!mojo::Equals(this->sub_device_id, other_struct.sub_device_id))
     return false;
   return true;
 }
@@ -17379,6 +17401,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.driver < rhs.driver)
     return true;
   if (rhs.driver < lhs.driver)
+    return false;
+  if (lhs.sub_vendor_id < rhs.sub_vendor_id)
+    return true;
+  if (rhs.sub_vendor_id < lhs.sub_vendor_id)
+    return false;
+  if (lhs.sub_device_id < rhs.sub_device_id)
+    return true;
+  if (rhs.sub_device_id < lhs.sub_device_id)
     return false;
   return false;
 }
@@ -20167,6 +20197,16 @@ struct  StructTraits<::ash::cros_healthd::mojom::PciBusInfo::DataView,
   static const decltype(::ash::cros_healthd::mojom::PciBusInfo::driver)& driver(
       const ::ash::cros_healthd::mojom::PciBusInfoPtr& input) {
     return input->driver;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::PciBusInfo::sub_vendor_id)& sub_vendor_id(
+      const ::ash::cros_healthd::mojom::PciBusInfoPtr& input) {
+    return input->sub_vendor_id;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::PciBusInfo::sub_device_id)& sub_device_id(
+      const ::ash::cros_healthd::mojom::PciBusInfoPtr& input) {
+    return input->sub_device_id;
   }
 
   static bool Read(::ash::cros_healthd::mojom::PciBusInfo::DataView input, ::ash::cros_healthd::mojom::PciBusInfoPtr* output);

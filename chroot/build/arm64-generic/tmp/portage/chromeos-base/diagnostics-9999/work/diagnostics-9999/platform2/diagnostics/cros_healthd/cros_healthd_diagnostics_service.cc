@@ -48,6 +48,9 @@ void SetErrorRoutineUpdate(const std::string& status_message,
 // |on_terminal_status_callback| with the first terminal routine status it
 // receives.
 //
+// An exception is the kCancelling status. We'll treat it as kCancelled since
+// |SubprocRoutine| might never turning into kCancelled status.
+//
 // Terminal status mean these enums
 // - kPassed
 // - kFailed
@@ -61,15 +64,23 @@ DiagnosticRoutine::StatusChangedCallback
 WrapOnTerminalStatusCallbackAsStatusChangedCallback(
     OnTerminalStatusCallback on_terminal_status_callback) {
   return base::BindRepeating(
-      [](OnTerminalStatusCallback& on_terminal_status,
-         mojo_ipc::DiagnosticRoutineStatusEnum status) {
-        switch (status) {
+      [](OnTerminalStatusCallback& on_terminal_status_cb,
+         mojo_ipc::DiagnosticRoutineStatusEnum new_status) {
+        std::optional<mojo_ipc::DiagnosticRoutineStatusEnum> status_to_report;
+        switch (new_status) {
           // Non-terminal status.
           case mojo_ipc::DiagnosticRoutineStatusEnum::kUnknown:
           case mojo_ipc::DiagnosticRoutineStatusEnum::kReady:
           case mojo_ipc::DiagnosticRoutineStatusEnum::kRunning:
-          case mojo_ipc::DiagnosticRoutineStatusEnum::kWaiting:
+          case mojo_ipc::DiagnosticRoutineStatusEnum::kWaiting: {
+            status_to_report = std::nullopt;
+            break;
+          }
+          // A workaround for |SubprocRoutine|. The routine is supposed to be
+          // kCancelled eventually.
           case mojo_ipc::DiagnosticRoutineStatusEnum::kCancelling: {
+            status_to_report =
+                mojo_ipc::DiagnosticRoutineStatusEnum::kCancelled;
             break;
           }
           // Terminal status.
@@ -81,12 +92,13 @@ WrapOnTerminalStatusCallbackAsStatusChangedCallback(
           case mojo_ipc::DiagnosticRoutineStatusEnum::kRemoved:
           case mojo_ipc::DiagnosticRoutineStatusEnum::kUnsupported:
           case mojo_ipc::DiagnosticRoutineStatusEnum::kNotRun: {
-            // |on_terminal_status| will be null if it has already been called.
-            if (on_terminal_status) {
-              std::move(on_terminal_status).Run(status);
-            }
+            status_to_report = new_status;
             break;
           }
+        }
+        // |on_terminal_status_cb| will be null if it has already been called.
+        if (status_to_report && on_terminal_status_cb) {
+          std::move(on_terminal_status_cb).Run(status_to_report.value());
         }
       },
       base::OwnedRef(std::move(on_terminal_status_callback)));
@@ -484,6 +496,39 @@ void CrosHealthdDiagnosticsService::RunAudioSetGainRoutine(
              std::move(callback));
 }
 
+void CrosHealthdDiagnosticsService::RunBluetoothPowerRoutine(
+    RunBluetoothPowerRoutineCallback callback) {
+  RunRoutine(routine_factory_->MakeBluetoothPowerRoutine(),
+             mojo_ipc::DiagnosticRoutineEnum::kBluetoothPower,
+             std::move(callback));
+}
+
+void CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutine(
+    RunBluetoothDiscoveryRoutineCallback callback) {
+  RunRoutine(routine_factory_->MakeBluetoothDiscoveryRoutine(),
+             mojo_ipc::DiagnosticRoutineEnum::kBluetoothDiscovery,
+             std::move(callback));
+}
+
+void CrosHealthdDiagnosticsService::RunBluetoothScanningRoutine(
+    mojo_ipc::NullableUint32Ptr length_seconds,
+    RunBluetoothScanningRoutineCallback callback) {
+  std::optional<base::TimeDelta> exec_duration;
+  if (!length_seconds.is_null())
+    exec_duration = base::Seconds(length_seconds->value);
+  RunRoutine(routine_factory_->MakeBluetoothScanningRoutine(exec_duration),
+             mojo_ipc::DiagnosticRoutineEnum::kBluetoothScanning,
+             std::move(callback));
+}
+
+void CrosHealthdDiagnosticsService::RunBluetoothPairingRoutine(
+    const std::string& peripheral_id,
+    RunBluetoothPairingRoutineCallback callback) {
+  RunRoutine(routine_factory_->MakeBluetoothPairingRoutine(peripheral_id),
+             mojo_ipc::DiagnosticRoutineEnum::kBluetoothPairing,
+             std::move(callback));
+}
+
 void CrosHealthdDiagnosticsService::RunRoutine(
     std::unique_ptr<DiagnosticRoutine> routine,
     mojo_ipc::DiagnosticRoutineEnum routine_enum,
@@ -566,6 +611,10 @@ void CrosHealthdDiagnosticsService::PopulateAvailableRoutines(
       mojo_ipc::DiagnosticRoutineEnum::kSensitiveSensor,
       mojo_ipc::DiagnosticRoutineEnum::kAudioSetVolume,
       mojo_ipc::DiagnosticRoutineEnum::kAudioSetGain,
+      mojo_ipc::DiagnosticRoutineEnum::kBluetoothPower,
+      mojo_ipc::DiagnosticRoutineEnum::kBluetoothDiscovery,
+      mojo_ipc::DiagnosticRoutineEnum::kBluetoothScanning,
+      mojo_ipc::DiagnosticRoutineEnum::kBluetoothPairing,
   };
 
   if (context_->system_config()->HasBattery()) {

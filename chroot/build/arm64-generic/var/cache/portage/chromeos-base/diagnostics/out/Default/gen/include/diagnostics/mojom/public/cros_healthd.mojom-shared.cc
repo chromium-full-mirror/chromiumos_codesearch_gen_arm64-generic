@@ -2530,6 +2530,232 @@ CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data::CrosHe
 
 
 // static
+bool CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data*>(data);
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->response, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->response, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data*>(data);
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->response, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->response, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->length_seconds, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->response, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->response, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->peripheral_id, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& peripheral_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->peripheral_id, validation_context,
+                                         &peripheral_id_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->response, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->response, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CrosHealthdEventService_AddBluetoothObserver_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

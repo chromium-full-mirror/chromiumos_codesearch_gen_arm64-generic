@@ -3509,7 +3509,8 @@ BootPerformanceInfo::BootPerformanceInfo()
       boot_up_timestamp(),
       shutdown_seconds(),
       shutdown_timestamp(),
-      shutdown_reason() {}
+      shutdown_reason(),
+      tpm_initialization_seconds() {}
 
 BootPerformanceInfo::BootPerformanceInfo(
     double boot_up_seconds_in,
@@ -3521,17 +3522,24 @@ BootPerformanceInfo::BootPerformanceInfo(
       boot_up_timestamp(std::move(boot_up_timestamp_in)),
       shutdown_seconds(std::move(shutdown_seconds_in)),
       shutdown_timestamp(std::move(shutdown_timestamp_in)),
-      shutdown_reason(std::move(shutdown_reason_in)) {}
+      shutdown_reason(std::move(shutdown_reason_in)),
+      tpm_initialization_seconds() {}
+
+BootPerformanceInfo::BootPerformanceInfo(
+    double boot_up_seconds_in,
+    double boot_up_timestamp_in,
+    double shutdown_seconds_in,
+    double shutdown_timestamp_in,
+    const std::string& shutdown_reason_in,
+    ::ash::cros_healthd::mojom::NullableDoublePtr tpm_initialization_seconds_in)
+    : boot_up_seconds(std::move(boot_up_seconds_in)),
+      boot_up_timestamp(std::move(boot_up_timestamp_in)),
+      shutdown_seconds(std::move(shutdown_seconds_in)),
+      shutdown_timestamp(std::move(shutdown_timestamp_in)),
+      shutdown_reason(std::move(shutdown_reason_in)),
+      tpm_initialization_seconds(std::move(tpm_initialization_seconds_in)) {}
 
 BootPerformanceInfo::~BootPerformanceInfo() = default;
-size_t BootPerformanceInfo::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->boot_up_seconds);
-  seed = mojo::internal::Hash(seed, this->boot_up_timestamp);
-  seed = mojo::internal::Hash(seed, this->shutdown_seconds);
-  seed = mojo::internal::Hash(seed, this->shutdown_timestamp);
-  seed = mojo::internal::Hash(seed, this->shutdown_reason);
-  return seed;
-}
 
 void BootPerformanceInfo::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
@@ -3577,6 +3585,15 @@ void BootPerformanceInfo::WriteIntoTrace(
       "shutdown_reason"), this->shutdown_reason,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "tpm_initialization_seconds"), this->tpm_initialization_seconds,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::ash::cros_healthd::mojom::NullableDoublePtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -7425,19 +7442,6 @@ void BootPerformanceResult::DestroyActive() {
       break;
   }
 }
-size_t BootPerformanceResult::Hash(size_t seed) const {
-  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
-  switch (tag_) {
-
-    case Tag::kBootPerformanceInfo:
-      return mojo::internal::Hash(seed, data_.boot_performance_info);
-    case Tag::kError:
-      return mojo::internal::Hash(seed, data_.error);
-    default:
-      NOTREACHED();
-      return seed;
-  }
-}
 
 bool BootPerformanceResult::Validate(
     const void* data,
@@ -8719,6 +8723,8 @@ bool StructTraits<::ash::cros_healthd::mojom::BootPerformanceInfo::DataView, ::a
       if (success)
         result->shutdown_timestamp = input.shutdown_timestamp();
       if (success && !input.ReadShutdownReason(&result->shutdown_reason))
+        success = false;
+      if (success && !input.ReadTpmInitializationSeconds(&result->tpm_initialization_seconds))
         success = false;
   *output = std::move(result);
   return success;

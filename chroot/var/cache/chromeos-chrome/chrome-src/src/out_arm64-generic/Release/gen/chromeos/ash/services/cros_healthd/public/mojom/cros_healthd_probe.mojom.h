@@ -6663,7 +6663,6 @@ class  BootPerformanceResult {
             typename std::enable_if<std::is_same<
                 T, BootPerformanceResult>::value>::type* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
-  size_t Hash(size_t seed) const;
 
   Tag which() const {
     return tag_;
@@ -11199,6 +11198,16 @@ class  BootPerformanceInfo {
       double shutdown_timestamp,
       const std::string& shutdown_reason);
 
+  BootPerformanceInfo(
+      double boot_up_seconds,
+      double boot_up_timestamp,
+      double shutdown_seconds,
+      double shutdown_timestamp,
+      const std::string& shutdown_reason,
+      ::ash::cros_healthd::mojom::NullableDoublePtr tpm_initialization_seconds);
+
+BootPerformanceInfo(const BootPerformanceInfo&) = delete;
+BootPerformanceInfo& operator=(const BootPerformanceInfo&) = delete;
 
   ~BootPerformanceInfo();
 
@@ -11216,7 +11225,6 @@ class  BootPerformanceInfo {
 
   template <typename T, BootPerformanceInfo::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
-  size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -11282,6 +11290,8 @@ class  BootPerformanceInfo {
   double shutdown_timestamp;
   
   std::string shutdown_reason;
+  
+  ::ash::cros_healthd::mojom::NullableDoublePtr tpm_initialization_seconds;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -17201,7 +17211,8 @@ BootPerformanceInfoPtr BootPerformanceInfo::Clone() const {
       mojo::Clone(boot_up_timestamp),
       mojo::Clone(shutdown_seconds),
       mojo::Clone(shutdown_timestamp),
-      mojo::Clone(shutdown_reason)
+      mojo::Clone(shutdown_reason),
+      mojo::Clone(tpm_initialization_seconds)
   );
 }
 
@@ -17216,6 +17227,8 @@ bool BootPerformanceInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->shutdown_timestamp, other_struct.shutdown_timestamp))
     return false;
   if (!mojo::Equals(this->shutdown_reason, other_struct.shutdown_reason))
+    return false;
+  if (!mojo::Equals(this->tpm_initialization_seconds, other_struct.tpm_initialization_seconds))
     return false;
   return true;
 }
@@ -17241,6 +17254,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.shutdown_reason < rhs.shutdown_reason)
     return true;
   if (rhs.shutdown_reason < lhs.shutdown_reason)
+    return false;
+  if (lhs.tpm_initialization_seconds < rhs.tpm_initialization_seconds)
+    return true;
+  if (rhs.tpm_initialization_seconds < lhs.tpm_initialization_seconds)
     return false;
   return false;
 }
@@ -20049,6 +20066,11 @@ struct  StructTraits<::ash::cros_healthd::mojom::BootPerformanceInfo::DataView,
   static const decltype(::ash::cros_healthd::mojom::BootPerformanceInfo::shutdown_reason)& shutdown_reason(
       const ::ash::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
     return input->shutdown_reason;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::BootPerformanceInfo::tpm_initialization_seconds)& tpm_initialization_seconds(
+      const ::ash::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
+    return input->tpm_initialization_seconds;
   }
 
   static bool Read(::ash::cros_healthd::mojom::BootPerformanceInfo::DataView input, ::ash::cros_healthd::mojom::BootPerformanceInfoPtr* output);

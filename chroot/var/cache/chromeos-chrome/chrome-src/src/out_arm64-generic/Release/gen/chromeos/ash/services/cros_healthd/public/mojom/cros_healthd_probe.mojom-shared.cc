@@ -4291,8 +4291,12 @@ bool BootPerformanceInfo_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 48 },
+    { 1, 56 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -4311,12 +4315,17 @@ bool BootPerformanceInfo_Data::Validate(
                                          &shutdown_reason_validate_params)) {
     return false;
   }
+  if (object->header_.version < 1)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->tpm_initialization_seconds, validation_context))
+    return false;
 
   return true;
 }
 
 BootPerformanceInfo_Data::BootPerformanceInfo_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 1}) {}
 
 
 // static

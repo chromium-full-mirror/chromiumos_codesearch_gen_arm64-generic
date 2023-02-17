@@ -12,6 +12,7 @@
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-shared-internal.h"
+#include "diagnostics/mojom/public/cros_healthd_events.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 

@@ -82,6 +82,10 @@ class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDi
   void RunEmmcLifetimeRoutine(RunEmmcLifetimeRoutineCallback callback) override;
   void RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on, RunAudioSetVolumeRoutineCallback callback) override;
   void RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool mute_on, RunAudioSetGainRoutineCallback callback) override;
+  void RunBluetoothPowerRoutine(RunBluetoothPowerRoutineCallback callback) override;
+  void RunBluetoothDiscoveryRoutine(RunBluetoothDiscoveryRoutineCallback callback) override;
+  void RunBluetoothScanningRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunBluetoothScanningRoutineCallback callback) override;
+  void RunBluetoothPairingRoutine(const std::string& peripheral_id, RunBluetoothPairingRoutineCallback callback) override;
 };
 class  CrosHealthdDiagnosticsServiceAsyncWaiter {
  public:
@@ -214,6 +218,18 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
   void RunAudioSetGainRoutine(
       uint64_t node_id, uint8_t gain, bool mute_on, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool mute_on);
+  void RunBluetoothPowerRoutine(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBluetoothPowerRoutine();
+  void RunBluetoothDiscoveryRoutine(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBluetoothDiscoveryRoutine();
+  void RunBluetoothScanningRoutine(
+      ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBluetoothScanningRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds);
+  void RunBluetoothPairingRoutine(
+      const std::string& peripheral_id, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBluetoothPairingRoutine(const std::string& peripheral_id);
 
  private:
   CrosHealthdDiagnosticsService* const proxy_;

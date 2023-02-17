@@ -4358,6 +4358,48 @@ static_assert(
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  inline void GetSubVendorIdDataView(
+      ::ash::cros_healthd::mojom::NullableUint16DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSubVendorId(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableUint16DataView, UserType>(),
+    "Attempting to read the optional `sub_vendor_id` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSubVendorId` instead "
+    "of `ReadSubVendorId if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->sub_vendor_id.Get() : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
+        pointer, output, message_);
+  }
+  inline void GetSubDeviceIdDataView(
+      ::ash::cros_healthd::mojom::NullableUint16DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSubDeviceId(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableUint16DataView, UserType>(),
+    "Attempting to read the optional `sub_device_id` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSubDeviceId` instead "
+    "of `ReadSubDeviceId if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->sub_device_id.Get() : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
+        pointer, output, message_);
+  }
  private:
   internal::PciBusInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -10777,6 +10819,22 @@ struct Serializer<::ash::cros_healthd::mojom::PciBusInfoDataView, MaybeConstUser
         in_driver, driver_fragment);
     fragment->driver.Set(
         driver_fragment.is_null() ? nullptr : driver_fragment.data());
+    decltype(Traits::sub_vendor_id(input)) in_sub_vendor_id = Traits::sub_vendor_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->sub_vendor_id)::BaseType> sub_vendor_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
+        in_sub_vendor_id, sub_vendor_id_fragment);
+    fragment->sub_vendor_id.Set(
+        sub_vendor_id_fragment.is_null() ? nullptr : sub_vendor_id_fragment.data());
+    decltype(Traits::sub_device_id(input)) in_sub_device_id = Traits::sub_device_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->sub_device_id)::BaseType> sub_device_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
+        in_sub_device_id, sub_device_id_fragment);
+    fragment->sub_device_id.Set(
+        sub_device_id_fragment.is_null() ? nullptr : sub_device_id_fragment.data());
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::PciBusInfo_Data* input,
@@ -15104,6 +15162,18 @@ inline void PciBusInfoDataView::GetDriverDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->driver.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+inline void PciBusInfoDataView::GetSubVendorIdDataView(
+    ::ash::cros_healthd::mojom::NullableUint16DataView* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->sub_vendor_id.Get() : nullptr;
+  *output = ::ash::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
+}
+inline void PciBusInfoDataView::GetSubDeviceIdDataView(
+    ::ash::cros_healthd::mojom::NullableUint16DataView* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->sub_device_id.Get() : nullptr;
+  *output = ::ash::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
 }
 
 

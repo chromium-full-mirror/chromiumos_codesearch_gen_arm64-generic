@@ -4397,8 +4397,12 @@ bool PciBusInfo_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 24 },
+    { 1, 40 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -4413,12 +4417,22 @@ bool PciBusInfo_Data::Validate(
                                          &driver_validate_params)) {
     return false;
   }
+  if (object->header_.version < 1)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->sub_vendor_id, validation_context))
+    return false;
+  if (object->header_.version < 1)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->sub_device_id, validation_context))
+    return false;
 
   return true;
 }
 
 PciBusInfo_Data::PciBusInfo_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 1}) {}
 
 
 // static
