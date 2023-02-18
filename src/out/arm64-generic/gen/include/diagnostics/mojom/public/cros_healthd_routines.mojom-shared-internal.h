@@ -160,6 +160,8 @@ class  RoutineArgument_Data {
   enum class RoutineArgument_Tag : uint32_t {
 
     
+    kUnrecognizedArgument,
+    
     kMemory,
   };
 
@@ -168,6 +170,7 @@ class  RoutineArgument_Data {
   // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
   union MOJO_ALIGNAS(8) Union_ {
     Union_() : unknown(0) {}
+    uint8_t f_unrecognizedArgument : 1;
     mojo::internal::Pointer<internal::MemoryRoutineArgument_Data> f_memory;
     uint64_t unknown;
   };

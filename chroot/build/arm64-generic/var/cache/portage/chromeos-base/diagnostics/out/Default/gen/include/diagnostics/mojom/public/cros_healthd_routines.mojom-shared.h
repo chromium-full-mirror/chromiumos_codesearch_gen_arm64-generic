@@ -529,6 +529,11 @@ class RoutineArgumentDataView {
   }
 
   Tag tag() const { return data_->tag; }
+  bool is_unrecognizedArgument() const { return data_->tag == Tag::kUnrecognizedArgument; }
+  bool unrecognizedArgument() const {
+    CHECK(is_unrecognizedArgument());
+    return data_->data.f_unrecognizedArgument;
+  }
   bool is_memory() const { return data_->tag == Tag::kMemory; }
   inline void GetMemoryDataView(
       MemoryRoutineArgumentDataView* output) const;
@@ -1067,6 +1072,12 @@ struct Serializer<::ash::cros_healthd::mojom::RoutineArgumentDataView, MaybeCons
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kUnrecognizedArgument: {
+        decltype(Traits::unrecognizedArgument(input))
+            in_unrecognizedArgument = Traits::unrecognizedArgument(input);
+        fragment->data.f_unrecognizedArgument = in_unrecognizedArgument;
+        break;
+      }
       case ::ash::cros_healthd::mojom::RoutineArgumentDataView::Tag::kMemory: {
         decltype(Traits::memory(input))
             in_memory = Traits::memory(input);

@@ -945,6 +945,14 @@ class  RoutineArgument {
         "definition.");
     return nullptr;
   }
+  // Construct an instance holding |unrecognizedArgument|.
+  static RoutineArgumentPtr
+  NewUnrecognizedArgument(
+      bool unrecognizedArgument) {
+    auto result = RoutineArgumentPtr(absl::in_place);
+    result->set_unrecognizedArgument(std::move(unrecognizedArgument));
+    return result;
+  }
   // Construct an instance holding |memory|.
   static RoutineArgumentPtr
   NewMemory(
@@ -997,6 +1005,18 @@ class  RoutineArgument {
 
 
   
+  bool is_unrecognizedArgument() const { return tag_ == Tag::kUnrecognizedArgument; }
+
+  
+  bool get_unrecognizedArgument() const {
+    CHECK(tag_ == Tag::kUnrecognizedArgument);
+    return data_.unrecognizedArgument;
+  }
+
+  
+  void set_unrecognizedArgument(
+      bool unrecognizedArgument);
+  
   bool is_memory() const { return tag_ == Tag::kMemory; }
 
   
@@ -1026,6 +1046,7 @@ class  RoutineArgument {
   union Union_ {
     Union_() = default;
     ~Union_() = default;
+    bool unrecognizedArgument;
     MemoryRoutineArgumentPtr* memory;
   };
 
@@ -1891,6 +1912,9 @@ bool operator>=(const T& lhs, const T& rhs) {
 template <typename UnionPtrType>
 RoutineArgumentPtr RoutineArgument::Clone() const {
   switch (tag_) {
+    case Tag::kUnrecognizedArgument:
+      return NewUnrecognizedArgument(
+          mojo::Clone(data_.unrecognizedArgument));
     case Tag::kMemory:
       return NewMemory(
           mojo::Clone(*data_.memory));
@@ -1906,6 +1930,8 @@ bool RoutineArgument::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
+    case Tag::kUnrecognizedArgument:
+      return mojo::Equals(data_.unrecognizedArgument, other.data_.unrecognizedArgument);
     case Tag::kMemory:
       return mojo::Equals(*(data_.memory), *(other.data_.memory));
   }
@@ -2312,6 +2338,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView,
 
   static ::ash::cros_healthd::mojom::RoutineArgument::Tag GetTag(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
     return input->which();
+  }
+
+  static  bool unrecognizedArgument(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {
+    return input->get_unrecognizedArgument();
   }
 
   static const ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr& memory(const ::ash::cros_healthd::mojom::RoutineArgumentPtr& input) {

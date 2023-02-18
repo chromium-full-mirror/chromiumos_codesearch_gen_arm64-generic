@@ -301,8 +301,8 @@ bool MemtesterResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-RoutineArgument::RoutineArgument() : tag_(Tag::kMemory) {
-  data_.memory = new MemoryRoutineArgumentPtr;
+RoutineArgument::RoutineArgument() : tag_(Tag::kUnrecognizedArgument) {
+  data_.unrecognizedArgument = bool();
 }
 
 RoutineArgument::~RoutineArgument() {
@@ -310,6 +310,14 @@ RoutineArgument::~RoutineArgument() {
 }
 
 
+void RoutineArgument::set_unrecognizedArgument(
+    bool unrecognizedArgument) {
+  if (tag_ != Tag::kUnrecognizedArgument) {
+    DestroyActive();
+    tag_ = Tag::kUnrecognizedArgument;
+  }
+  data_.unrecognizedArgument = unrecognizedArgument;
+}
 void RoutineArgument::set_memory(
     MemoryRoutineArgumentPtr memory) {
   if (tag_ == Tag::kMemory) {
@@ -325,6 +333,9 @@ void RoutineArgument::set_memory(
 void RoutineArgument::DestroyActive() {
   switch (tag_) {
 
+    case Tag::kUnrecognizedArgument:
+
+      break;
     case Tag::kMemory:
 
       delete data_.memory;
@@ -335,6 +346,8 @@ size_t RoutineArgument::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
+    case Tag::kUnrecognizedArgument:
+      return mojo::internal::Hash(seed, data_.unrecognizedArgument);
     case Tag::kMemory:
       return mojo::internal::Hash(seed, data_.memory);
     default:
@@ -1417,6 +1430,10 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
+    case Tag::kUnrecognizedArgument: {
+      *output = UnionType::NewUnrecognizedArgument(input.unrecognizedArgument());
+      break;
+    }
     case Tag::kMemory: {
       ::ash::cros_healthd::mojom::MemoryRoutineArgumentPtr result_memory;
       if (!input.ReadMemory(&result_memory))
@@ -1428,7 +1445,8 @@ bool UnionTraits<::ash::cros_healthd::mojom::RoutineArgument::DataView, ::ash::c
     }
     default:
 
-      return false;
+      *output = UnionType::NewUnrecognizedArgument({});
+      return true;
   }
   return true;
 }

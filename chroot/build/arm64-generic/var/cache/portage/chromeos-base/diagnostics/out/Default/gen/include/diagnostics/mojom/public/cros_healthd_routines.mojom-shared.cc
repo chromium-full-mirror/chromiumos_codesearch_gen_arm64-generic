@@ -162,10 +162,14 @@ bool RoutineArgument_Data::Validate(
 
   switch (object->tag) {
 
+    case RoutineArgument_Tag::kUnrecognizedArgument: {
+
+      return true;
+    }
     case RoutineArgument_Tag::kMemory: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_memory, 1, validation_context)) {
+              object->data.f_memory, 2, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_memory, validation_context))
@@ -174,11 +178,7 @@ bool RoutineArgument_Data::Validate(
     }
     default: {
 
-      ReportValidationError(
-          validation_context,
-          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
-          "unknown tag in RoutineArgument");
-      return false;
+      return true;
     }
   }
 }
