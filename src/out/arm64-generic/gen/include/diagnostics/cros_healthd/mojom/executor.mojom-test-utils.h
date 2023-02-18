@@ -105,6 +105,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void GetHciDeviceConfig(GetHciDeviceConfigCallback callback) override;
   void MonitorAudioJack(::mojo::PendingRemote<AudioJackObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
   void MonitorTouchpad(::mojo::PendingRemote<TouchpadObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
+  void FetchBootPerformance(FetchBootPerformanceCallback callback) override;
 };
 class  ExecutorAsyncWaiter {
  public:
@@ -162,6 +163,9 @@ class  ExecutorAsyncWaiter {
   void GetHciDeviceConfig(
       ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr GetHciDeviceConfig();
+  void FetchBootPerformance(
+      ::ash::cros_healthd::mojom::BootPerformanceResultPtr* out_result);
+  ::ash::cros_healthd::mojom::BootPerformanceResultPtr FetchBootPerformance();
 
  private:
   Executor* const proxy_;

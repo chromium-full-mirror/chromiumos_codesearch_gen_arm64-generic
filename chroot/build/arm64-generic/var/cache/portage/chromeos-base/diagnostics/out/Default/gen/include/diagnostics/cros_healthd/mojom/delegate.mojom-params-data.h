@@ -186,6 +186,37 @@ class  Delegate_MonitorTouchpad_Params_Data {
 };
 static_assert(sizeof(Delegate_MonitorTouchpad_Params_Data) == 16,
               "Bad sizeof(Delegate_MonitorTouchpad_Params_Data)");
+class  Delegate_FetchBootPerformance_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_FetchBootPerformance_Params_Data>;
+
+  Delegate_FetchBootPerformance_Params_Data();
+  ~Delegate_FetchBootPerformance_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_FetchBootPerformance_Params_Data) == 8,
+              "Bad sizeof(Delegate_FetchBootPerformance_Params_Data)");
+class  Delegate_FetchBootPerformance_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  ::ash::cros_healthd::mojom::internal::BootPerformanceResult_Data result;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_FetchBootPerformance_ResponseParams_Data>;
+
+  Delegate_FetchBootPerformance_ResponseParams_Data();
+  ~Delegate_FetchBootPerformance_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_FetchBootPerformance_ResponseParams_Data) == 24,
+              "Bad sizeof(Delegate_FetchBootPerformance_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -514,6 +545,49 @@ class Delegate_MonitorTouchpad_ParamsDataView {
 
 
 
+class Delegate_FetchBootPerformance_ParamsDataView {
+ public:
+  Delegate_FetchBootPerformance_ParamsDataView() = default;
+
+  Delegate_FetchBootPerformance_ParamsDataView(
+      internal::Delegate_FetchBootPerformance_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Delegate_FetchBootPerformance_Params_Data* data_ = nullptr;
+};
+
+
+
+class Delegate_FetchBootPerformance_ResponseParamsDataView {
+ public:
+  Delegate_FetchBootPerformance_ResponseParamsDataView() = default;
+
+  Delegate_FetchBootPerformance_ResponseParamsDataView(
+      internal::Delegate_FetchBootPerformance_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      ::ash::cros_healthd::mojom::BootPerformanceResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = !data_->result.is_null() ? &data_->result : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BootPerformanceResultDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_FetchBootPerformance_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 
 inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
     ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output) {
@@ -561,6 +635,15 @@ inline void Delegate_ResetLedColor_ResponseParamsDataView::GetErrDataView(
 
 
 
+
+
+
+
+inline void Delegate_FetchBootPerformance_ResponseParamsDataView::GetResultDataView(
+    ::ash::cros_healthd::mojom::BootPerformanceResultDataView* output) {
+  auto pointer = &data_->result;
+  *output = ::ash::cros_healthd::mojom::BootPerformanceResultDataView(pointer, message_);
+}
 
 }  // namespace mojom
 }  // namespace cros_healthd

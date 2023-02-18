@@ -27,6 +27,7 @@
 #include "diagnostics/cros_healthd/mojom/delegate.mojom-forward.h"
 #include "diagnostics/cros_healthd/mojom/executor.mojom-forward.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-forward.h"
+#include "diagnostics/mojom/public/cros_healthd_probe.mojom-forward.h"
 #include <string>
 #include <vector>
 
@@ -78,6 +79,7 @@ class Delegate
     kResetLedColorMinVersion = 0,
     kMonitorAudioJackMinVersion = 0,
     kMonitorTouchpadMinVersion = 0,
+    kFetchBootPerformanceMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -99,6 +101,9 @@ class Delegate
     NOINLINE static uint32_t IPCStableHash();
   };
   struct MonitorTouchpad_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct FetchBootPerformance_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -129,6 +134,11 @@ class Delegate
 
   
   virtual void MonitorTouchpad(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchpadObserver> observer) = 0;
+
+
+  using FetchBootPerformanceCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::BootPerformanceResultPtr)>;
+  
+  virtual void FetchBootPerformance(FetchBootPerformanceCallback callback) = 0;
 };
 
 
@@ -151,6 +161,8 @@ class  DelegateProxy
   void MonitorAudioJack(::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver> observer) final;
   
   void MonitorTouchpad(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchpadObserver> observer) final;
+  
+  void FetchBootPerformance(FetchBootPerformanceCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -10,5 +10,7 @@
 #include "diagnostics/cros_healthd/mojom/executor.mojom-import-headers.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-import-headers.h"
+#include "diagnostics/mojom/public/cros_healthd_probe.mojom.h"
+#include "diagnostics/mojom/public/cros_healthd_probe.mojom-import-headers.h"
 
 #endif  // DIAGNOSTICS_CROS_HEALTHD_MOJOM_DELEGATE_MOJOM_IMPORT_HEADERS_H_

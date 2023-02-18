@@ -334,6 +334,59 @@ bool Delegate_MonitorTouchpad_Params_Data::Validate(
 Delegate_MonitorTouchpad_Params_Data::Delegate_MonitorTouchpad_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool Delegate_FetchBootPerformance_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_FetchBootPerformance_Params_Data* object =
+      static_cast<const Delegate_FetchBootPerformance_Params_Data*>(data);
+
+  return true;
+}
+
+Delegate_FetchBootPerformance_Params_Data::Delegate_FetchBootPerformance_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_FetchBootPerformance_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_FetchBootPerformance_ResponseParams_Data* object =
+      static_cast<const Delegate_FetchBootPerformance_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidateInlinedUnionNonNullable(
+          object->result, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateInlinedUnion(object->result, validation_context))
+    return false;
+
+  return true;
+}
+
+Delegate_FetchBootPerformance_ResponseParams_Data::Delegate_FetchBootPerformance_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd

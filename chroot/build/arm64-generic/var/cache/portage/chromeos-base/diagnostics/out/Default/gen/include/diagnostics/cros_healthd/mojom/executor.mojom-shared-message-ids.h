@@ -43,6 +43,7 @@ constexpr uint32_t kExecutor_ResetLedColor_Name = 16;
 constexpr uint32_t kExecutor_GetHciDeviceConfig_Name = 17;
 constexpr uint32_t kExecutor_MonitorAudioJack_Name = 18;
 constexpr uint32_t kExecutor_MonitorTouchpad_Name = 19;
+constexpr uint32_t kExecutor_FetchBootPerformance_Name = 20;
 
 }  // namespace internal
 }  // namespace mojom

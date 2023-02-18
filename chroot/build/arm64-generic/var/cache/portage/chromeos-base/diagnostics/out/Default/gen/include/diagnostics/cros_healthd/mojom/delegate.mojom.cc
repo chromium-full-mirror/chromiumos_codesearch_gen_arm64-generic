@@ -68,6 +68,9 @@ Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& me
     case internal::kDelegate_MonitorTouchpad_Name: {
       return &Delegate::MonitorTouchpad_Sym::IPCStableHash;
     }
+    case internal::kDelegate_FetchBootPerformance_Name: {
+      return &Delegate::FetchBootPerformance_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -91,6 +94,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorAudioJack";
       case internal::kDelegate_MonitorTouchpad_Name:
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorTouchpad";
+      case internal::kDelegate_FetchBootPerformance_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::FetchBootPerformance";
     }
   } else {
     switch (message.name()) {
@@ -106,6 +111,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorAudioJack";
       case internal::kDelegate_MonitorTouchpad_Name:
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorTouchpad";
+      case internal::kDelegate_FetchBootPerformance_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::FetchBootPerformance";
     }
   }
   return "Receive unknown mojo message";
@@ -198,6 +205,19 @@ uint32_t Delegate::MonitorTouchpad_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t Delegate::FetchBootPerformance_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::FetchBootPerformance");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Delegate_GetFingerprintFrame_ForwardToCallback
@@ -262,6 +282,22 @@ class Delegate_ResetLedColor_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Delegate::ResetLedColorCallback callback_;
+};
+
+class Delegate_FetchBootPerformance_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Delegate_FetchBootPerformance_ForwardToCallback(
+      Delegate::FetchBootPerformanceCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Delegate_FetchBootPerformance_ForwardToCallback(const Delegate_FetchBootPerformance_ForwardToCallback&) = delete;
+  Delegate_FetchBootPerformance_ForwardToCallback& operator=(const Delegate_FetchBootPerformance_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Delegate::FetchBootPerformanceCallback callback_;
 };
 
 DelegateProxy::DelegateProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -508,6 +544,37 @@ void DelegateProxy::MonitorTouchpad(
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void DelegateProxy::FetchBootPerformance(
+    FetchBootPerformanceCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Delegate::FetchBootPerformance");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_FetchBootPerformance_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_FetchBootPerformance_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("FetchBootPerformance");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Delegate_FetchBootPerformance_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class Delegate_GetFingerprintFrame_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -1025,6 +1092,128 @@ void Delegate_ResetLedColor_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Delegate_FetchBootPerformance_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Delegate::FetchBootPerformanceCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Delegate_FetchBootPerformance_ProxyToResponder> proxy(
+        new Delegate_FetchBootPerformance_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Delegate_FetchBootPerformance_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Delegate_FetchBootPerformance_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Delegate_FetchBootPerformance_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Delegate::FetchBootPerformanceCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::BootPerformanceResultPtr in_result);
+};
+
+bool Delegate_FetchBootPerformance_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Delegate_FetchBootPerformance_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Delegate_FetchBootPerformance_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::ash::cros_healthd::mojom::BootPerformanceResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::BootPerformanceResultPtr>();
+  Delegate_FetchBootPerformance_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Delegate::Name_, 6, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void Delegate_FetchBootPerformance_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::BootPerformanceResultPtr in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Delegate::FetchBootPerformance", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type ::ash::cros_healthd::mojom::BootPerformanceResultPtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_FetchBootPerformance_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_FetchBootPerformance_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<decltype(params->result)>
+      result_fragment(params.message());
+  result_fragment.Claim(&params->result);
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::BootPerformanceResultDataView>(
+      in_result, result_fragment, true);
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("FetchBootPerformance");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool DelegateStubDispatch::Accept(
@@ -1098,6 +1287,9 @@ std::move(p_observer));
       impl->MonitorTouchpad(
 std::move(p_observer));
       return true;
+    }
+    case internal::kDelegate_FetchBootPerformance_Name: {
+      break;
     }
   }
   return false;
@@ -1234,6 +1426,31 @@ std::move(p_name), std::move(callback));
     case internal::kDelegate_MonitorTouchpad_Name: {
       break;
     }
+    case internal::kDelegate_FetchBootPerformance_Name: {
+
+      internal::Delegate_FetchBootPerformance_Params_Data* params =
+          reinterpret_cast<
+              internal::Delegate_FetchBootPerformance_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Delegate_FetchBootPerformance_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 6, false);
+        return false;
+      }
+      Delegate::FetchBootPerformanceCallback callback =
+          Delegate_FetchBootPerformance_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->FetchBootPerformance(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -1252,6 +1469,8 @@ static const mojo::internal::GenericValidationInfo kDelegateValidationInfo[] = {
      nullptr /* no response */},
     {&internal::Delegate_MonitorTouchpad_Params_Data::Validate,
      nullptr /* no response */},
+    {&internal::Delegate_FetchBootPerformance_Params_Data::Validate,
+     &internal::Delegate_FetchBootPerformance_ResponseParams_Data::Validate},
 };
 
 bool DelegateRequestValidator::Accept(mojo::Message* message) {
@@ -1301,6 +1520,9 @@ void DelegateInterceptorForTesting::MonitorAudioJack(::mojo::PendingRemote<::ash
 }
 void DelegateInterceptorForTesting::MonitorTouchpad(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchpadObserver> observer) {
   GetForwardingInterface()->MonitorTouchpad(std::move(observer));
+}
+void DelegateInterceptorForTesting::FetchBootPerformance(FetchBootPerformanceCallback callback) {
+  GetForwardingInterface()->FetchBootPerformance(std::move(callback));
 }
 DelegateAsyncWaiter::DelegateAsyncWaiter(
     Delegate* proxy) : proxy_(proxy) {}
@@ -1394,6 +1616,29 @@ absl::optional<std::string> DelegateAsyncWaiter::ResetLedColor(
     ::ash::cros_healthd::mojom::LedName name) {
   absl::optional<std::string> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
   ResetLedColor(std::move(name),&async_wait_result);
+  return async_wait_result;
+}
+
+void DelegateAsyncWaiter::FetchBootPerformance(
+    ::ash::cros_healthd::mojom::BootPerformanceResultPtr* out_result) {
+  base::RunLoop loop;
+  proxy_->FetchBootPerformance(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::BootPerformanceResultPtr* out_result
+,
+             ::ash::cros_healthd::mojom::BootPerformanceResultPtr result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
+  loop.Run();
+}
+
+::ash::cros_healthd::mojom::BootPerformanceResultPtr DelegateAsyncWaiter::FetchBootPerformance(
+    ) {
+  ::ash::cros_healthd::mojom::BootPerformanceResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::BootPerformanceResultPtr>();
+  FetchBootPerformance(&async_wait_result);
   return async_wait_result;
 }
 

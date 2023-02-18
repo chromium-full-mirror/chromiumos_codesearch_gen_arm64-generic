@@ -24,9 +24,10 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "diagnostics/cros_healthd/mojom/executor.mojom-shared-internal.h"
-#include "diagnostics/mojom/public/nullable_primitives.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-shared.h"
+#include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared.h"
+#include "diagnostics/mojom/public/nullable_primitives.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 

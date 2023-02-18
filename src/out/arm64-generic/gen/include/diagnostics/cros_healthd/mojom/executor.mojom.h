@@ -25,9 +25,10 @@
 
 #include "diagnostics/cros_healthd/mojom/executor.mojom-shared.h"
 #include "diagnostics/cros_healthd/mojom/executor.mojom-forward.h"
-#include "diagnostics/mojom/public/nullable_primitives.mojom-forward.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-forward.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-forward.h"
+#include "diagnostics/mojom/public/cros_healthd_probe.mojom-forward.h"
+#include "diagnostics/mojom/public/nullable_primitives.mojom-forward.h"
 #include <string>
 #include <vector>
 
@@ -270,6 +271,7 @@ class Executor
     kGetHciDeviceConfigMinVersion = 0,
     kMonitorAudioJackMinVersion = 0,
     kMonitorTouchpadMinVersion = 0,
+    kFetchBootPerformanceMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -333,6 +335,9 @@ class Executor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct MonitorTouchpad_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct FetchBootPerformance_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -429,6 +434,11 @@ class Executor
 
   
   virtual void MonitorTouchpad(::mojo::PendingRemote<TouchpadObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) = 0;
+
+
+  using FetchBootPerformanceCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::BootPerformanceResultPtr)>;
+  
+  virtual void FetchBootPerformance(FetchBootPerformanceCallback callback) = 0;
 };
 
 
@@ -534,6 +544,8 @@ class  ExecutorProxy
   void MonitorAudioJack(::mojo::PendingRemote<AudioJackObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
   
   void MonitorTouchpad(::mojo::PendingRemote<TouchpadObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) final;
+  
+  void FetchBootPerformance(FetchBootPerformanceCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

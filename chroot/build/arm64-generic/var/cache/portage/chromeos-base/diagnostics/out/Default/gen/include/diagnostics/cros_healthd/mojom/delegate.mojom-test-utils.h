@@ -23,6 +23,7 @@ class  DelegateInterceptorForTesting : public Delegate {
   void ResetLedColor(::ash::cros_healthd::mojom::LedName name, ResetLedColorCallback callback) override;
   void MonitorAudioJack(::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver> observer) override;
   void MonitorTouchpad(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchpadObserver> observer) override;
+  void FetchBootPerformance(FetchBootPerformanceCallback callback) override;
 };
 class  DelegateAsyncWaiter {
  public:
@@ -44,6 +45,9 @@ class  DelegateAsyncWaiter {
   void ResetLedColor(
       ::ash::cros_healthd::mojom::LedName name, absl::optional<std::string>* out_err);
   absl::optional<std::string> ResetLedColor(::ash::cros_healthd::mojom::LedName name);
+  void FetchBootPerformance(
+      ::ash::cros_healthd::mojom::BootPerformanceResultPtr* out_result);
+  ::ash::cros_healthd::mojom::BootPerformanceResultPtr FetchBootPerformance();
 
  private:
   Delegate* const proxy_;

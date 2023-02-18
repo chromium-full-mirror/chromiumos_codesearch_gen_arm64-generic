@@ -776,6 +776,37 @@ class  Executor_MonitorTouchpad_Params_Data {
 };
 static_assert(sizeof(Executor_MonitorTouchpad_Params_Data) == 24,
               "Bad sizeof(Executor_MonitorTouchpad_Params_Data)");
+class  Executor_FetchBootPerformance_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_FetchBootPerformance_Params_Data>;
+
+  Executor_FetchBootPerformance_Params_Data();
+  ~Executor_FetchBootPerformance_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_FetchBootPerformance_Params_Data) == 8,
+              "Bad sizeof(Executor_FetchBootPerformance_Params_Data)");
+class  Executor_FetchBootPerformance_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  ::ash::cros_healthd::mojom::internal::BootPerformanceResult_Data result;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_FetchBootPerformance_ResponseParams_Data>;
+
+  Executor_FetchBootPerformance_ResponseParams_Data();
+  ~Executor_FetchBootPerformance_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_FetchBootPerformance_ResponseParams_Data) == 24,
+              "Bad sizeof(Executor_FetchBootPerformance_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -1976,6 +2007,49 @@ class Executor_MonitorTouchpad_ParamsDataView {
 
 
 
+class Executor_FetchBootPerformance_ParamsDataView {
+ public:
+  Executor_FetchBootPerformance_ParamsDataView() = default;
+
+  Executor_FetchBootPerformance_ParamsDataView(
+      internal::Executor_FetchBootPerformance_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Executor_FetchBootPerformance_Params_Data* data_ = nullptr;
+};
+
+
+
+class Executor_FetchBootPerformance_ResponseParamsDataView {
+ public:
+  Executor_FetchBootPerformance_ResponseParamsDataView() = default;
+
+  Executor_FetchBootPerformance_ResponseParamsDataView(
+      internal::Executor_FetchBootPerformance_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      ::ash::cros_healthd::mojom::BootPerformanceResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = !data_->result.is_null() ? &data_->result : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BootPerformanceResultDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_FetchBootPerformance_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 
 
 
@@ -2192,6 +2266,15 @@ inline void Executor_GetHciDeviceConfig_ResponseParamsDataView::GetResultDataVie
 
 
 
+
+
+
+
+inline void Executor_FetchBootPerformance_ResponseParamsDataView::GetResultDataView(
+    ::ash::cros_healthd::mojom::BootPerformanceResultDataView* output) {
+  auto pointer = &data_->result;
+  *output = ::ash::cros_healthd::mojom::BootPerformanceResultDataView(pointer, message_);
+}
 
 }  // namespace mojom
 }  // namespace cros_healthd
