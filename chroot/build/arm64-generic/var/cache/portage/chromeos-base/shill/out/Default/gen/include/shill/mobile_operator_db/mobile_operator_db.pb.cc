@@ -70,6 +70,7 @@ constexpr MobileAPN::MobileAPN(
   , authentication_(0)
 
   , obsolete_is_attach_apn_(false)
+  , is_required_by_carrier_spec_(false)
   , ip_type_(1)
 {}
 struct MobileAPNDefaultTypeInternal {
@@ -1374,6 +1375,9 @@ class MobileAPN::_Internal {
     (*has_bits)[0] |= 32u;
   }
   static void set_has_ip_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 128u;
+  }
+  static void set_has_is_required_by_carrier_spec(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
   static bool MissingRequiredFields(const HasBits& has_bits) {
@@ -1459,8 +1463,8 @@ password_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlr
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&authentication_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&obsolete_is_attach_apn_) -
-    reinterpret_cast<char*>(&authentication_)) + sizeof(obsolete_is_attach_apn_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&is_required_by_carrier_spec_) -
+    reinterpret_cast<char*>(&authentication_)) + sizeof(is_required_by_carrier_spec_));
 ip_type_ = 1;
 }
 
@@ -1514,10 +1518,10 @@ void MobileAPN::Clear() {
       password_.ClearNonDefaultToEmpty();
     }
   }
-  if (cached_has_bits & 0x00000070u) {
+  if (cached_has_bits & 0x000000f0u) {
     ::memset(&authentication_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&obsolete_is_attach_apn_) -
-        reinterpret_cast<char*>(&authentication_)) + sizeof(obsolete_is_attach_apn_));
+        reinterpret_cast<char*>(&is_required_by_carrier_spec_) -
+        reinterpret_cast<char*>(&authentication_)) + sizeof(is_required_by_carrier_spec_));
     ip_type_ = 1;
   }
   _has_bits_.Clear();
@@ -1663,6 +1667,15 @@ const char* MobileAPN::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
         } else
           goto handle_unusual;
         continue;
+      // optional bool is_required_by_carrier_spec = 13 [default = false];
+      case 13:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
+          _Internal::set_has_is_required_by_carrier_spec(&has_bits);
+          is_required_by_carrier_spec_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -1746,7 +1759,7 @@ uint8_t* MobileAPN::_InternalSerialize(
   }
 
   // optional .shill.mobile_operator_db.MobileAPN.IpType ip_type = 10 [default = IPV4];
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       10, this->_internal_ip_type(), target);
@@ -1765,6 +1778,12 @@ uint8_t* MobileAPN::_InternalSerialize(
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
         12, this->_internal_type(i), target);
+  }
+
+  // optional bool is_required_by_carrier_spec = 13 [default = false];
+  if (cached_has_bits & 0x00000040u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(13, this->_internal_is_required_by_carrier_spec(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1822,7 +1841,7 @@ size_t MobileAPN::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000007eu) {
+  if (cached_has_bits & 0x000000feu) {
     // optional string OBSOLETE_gateway = 4;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
@@ -1855,8 +1874,13 @@ size_t MobileAPN::ByteSizeLong() const {
       total_size += 1 + 1;
     }
 
-    // optional .shill.mobile_operator_db.MobileAPN.IpType ip_type = 10 [default = IPV4];
+    // optional bool is_required_by_carrier_spec = 13 [default = false];
     if (cached_has_bits & 0x00000040u) {
+      total_size += 1 + 1;
+    }
+
+    // optional .shill.mobile_operator_db.MobileAPN.IpType ip_type = 10 [default = IPV4];
+    if (cached_has_bits & 0x00000080u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_ip_type());
     }
@@ -1887,7 +1911,7 @@ void MobileAPN::MergeFrom(const MobileAPN& from) {
   apn_filter_.MergeFrom(from.apn_filter_);
   type_.MergeFrom(from.type_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_apn(from._internal_apn());
     }
@@ -1907,6 +1931,9 @@ void MobileAPN::MergeFrom(const MobileAPN& from) {
       obsolete_is_attach_apn_ = from.obsolete_is_attach_apn_;
     }
     if (cached_has_bits & 0x00000040u) {
+      is_required_by_carrier_spec_ = from.is_required_by_carrier_spec_;
+    }
+    if (cached_has_bits & 0x00000080u) {
       ip_type_ = from.ip_type_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -1961,8 +1988,8 @@ void MobileAPN::InternalSwap(MobileAPN* other) {
       &other->password_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(MobileAPN, obsolete_is_attach_apn_)
-      + sizeof(MobileAPN::obsolete_is_attach_apn_)
+      PROTOBUF_FIELD_OFFSET(MobileAPN, is_required_by_carrier_spec_)
+      + sizeof(MobileAPN::is_required_by_carrier_spec_)
       - PROTOBUF_FIELD_OFFSET(MobileAPN, authentication_)>(
           reinterpret_cast<char*>(&authentication_),
           reinterpret_cast<char*>(&other->authentication_));

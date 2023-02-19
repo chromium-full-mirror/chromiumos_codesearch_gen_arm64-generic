@@ -973,6 +973,7 @@ class MobileAPN final :
     kPasswordFieldNumber = 6,
     kAuthenticationFieldNumber = 8,
     kOBSOLETEIsAttachApnFieldNumber = 9,
+    kIsRequiredByCarrierSpecFieldNumber = 13,
     kIpTypeFieldNumber = 10,
   };
   // repeated .shill.mobile_operator_db.LocalizedName localized_name = 3;
@@ -1150,6 +1151,19 @@ class MobileAPN final :
   void _internal_set_obsolete_is_attach_apn(bool value);
   public:
 
+  // optional bool is_required_by_carrier_spec = 13 [default = false];
+  bool has_is_required_by_carrier_spec() const;
+  private:
+  bool _internal_has_is_required_by_carrier_spec() const;
+  public:
+  void clear_is_required_by_carrier_spec();
+  bool is_required_by_carrier_spec() const;
+  void set_is_required_by_carrier_spec(bool value);
+  private:
+  bool _internal_is_required_by_carrier_spec() const;
+  void _internal_set_is_required_by_carrier_spec(bool value);
+  public:
+
   // optional .shill.mobile_operator_db.MobileAPN.IpType ip_type = 10 [default = IPV4];
   bool has_ip_type() const;
   private:
@@ -1182,6 +1196,7 @@ class MobileAPN final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr password_;
   int authentication_;
   bool obsolete_is_attach_apn_;
+  bool is_required_by_carrier_spec_;
   int ip_type_;
   friend struct ::TableStruct_mobile_5foperator_5fdb_2eproto;
 };
@@ -3123,7 +3138,7 @@ inline void MobileAPN::set_obsolete_is_attach_apn(bool value) {
 
 // optional .shill.mobile_operator_db.MobileAPN.IpType ip_type = 10 [default = IPV4];
 inline bool MobileAPN::_internal_has_ip_type() const {
-  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
   return value;
 }
 inline bool MobileAPN::has_ip_type() const {
@@ -3131,7 +3146,7 @@ inline bool MobileAPN::has_ip_type() const {
 }
 inline void MobileAPN::clear_ip_type() {
   ip_type_ = 1;
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline ::shill::mobile_operator_db::MobileAPN_IpType MobileAPN::_internal_ip_type() const {
   return static_cast< ::shill::mobile_operator_db::MobileAPN_IpType >(ip_type_);
@@ -3142,7 +3157,7 @@ inline ::shill::mobile_operator_db::MobileAPN_IpType MobileAPN::ip_type() const 
 }
 inline void MobileAPN::_internal_set_ip_type(::shill::mobile_operator_db::MobileAPN_IpType value) {
   assert(::shill::mobile_operator_db::MobileAPN_IpType_IsValid(value));
-  _has_bits_[0] |= 0x00000040u;
+  _has_bits_[0] |= 0x00000080u;
   ip_type_ = value;
 }
 inline void MobileAPN::set_ip_type(::shill::mobile_operator_db::MobileAPN_IpType value) {
@@ -3233,6 +3248,34 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
 MobileAPN::mutable_type() {
   // @@protoc_insertion_point(field_mutable_list:shill.mobile_operator_db.MobileAPN.type)
   return _internal_mutable_type();
+}
+
+// optional bool is_required_by_carrier_spec = 13 [default = false];
+inline bool MobileAPN::_internal_has_is_required_by_carrier_spec() const {
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
+inline bool MobileAPN::has_is_required_by_carrier_spec() const {
+  return _internal_has_is_required_by_carrier_spec();
+}
+inline void MobileAPN::clear_is_required_by_carrier_spec() {
+  is_required_by_carrier_spec_ = false;
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline bool MobileAPN::_internal_is_required_by_carrier_spec() const {
+  return is_required_by_carrier_spec_;
+}
+inline bool MobileAPN::is_required_by_carrier_spec() const {
+  // @@protoc_insertion_point(field_get:shill.mobile_operator_db.MobileAPN.is_required_by_carrier_spec)
+  return _internal_is_required_by_carrier_spec();
+}
+inline void MobileAPN::_internal_set_is_required_by_carrier_spec(bool value) {
+  _has_bits_[0] |= 0x00000040u;
+  is_required_by_carrier_spec_ = value;
+}
+inline void MobileAPN::set_is_required_by_carrier_spec(bool value) {
+  _internal_set_is_required_by_carrier_spec(value);
+  // @@protoc_insertion_point(field_set:shill.mobile_operator_db.MobileAPN.is_required_by_carrier_spec)
 }
 
 // -------------------------------------------------------------------
