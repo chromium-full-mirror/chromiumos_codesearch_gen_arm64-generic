@@ -2615,32 +2615,60 @@ bool FingerprintScanResult_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> FingerprintScanResult_strings[4] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> FingerprintScanResult_strings[11] = {};
 
 static const char FingerprintScanResult_names[] =
+  "FINGERPRINT_SCAN_RESULT_ENROLL_OTHER"
   "FINGERPRINT_SCAN_RESULT_FATAL_ERROR"
+  "FINGERPRINT_SCAN_RESULT_IMMOBILE"
+  "FINGERPRINT_SCAN_RESULT_INSUFFICIENT"
   "FINGERPRINT_SCAN_RESULT_LOCKOUT"
+  "FINGERPRINT_SCAN_RESULT_PARTIAL"
   "FINGERPRINT_SCAN_RESULT_RETRY"
-  "FINGERPRINT_SCAN_RESULT_SUCCESS";
+  "FINGERPRINT_SCAN_RESULT_SENSOR_DIRTY"
+  "FINGERPRINT_SCAN_RESULT_SUCCESS"
+  "FINGERPRINT_SCAN_RESULT_TOO_FAST"
+  "FINGERPRINT_SCAN_RESULT_TOO_SLOW";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry FingerprintScanResult_entries[] = {
-  { {FingerprintScanResult_names + 0, 35}, 3 },
-  { {FingerprintScanResult_names + 35, 31}, 2 },
-  { {FingerprintScanResult_names + 66, 29}, 1 },
-  { {FingerprintScanResult_names + 95, 31}, 0 },
+  { {FingerprintScanResult_names + 0, 36}, 10 },
+  { {FingerprintScanResult_names + 36, 35}, 3 },
+  { {FingerprintScanResult_names + 71, 32}, 9 },
+  { {FingerprintScanResult_names + 103, 36}, 5 },
+  { {FingerprintScanResult_names + 139, 31}, 2 },
+  { {FingerprintScanResult_names + 170, 31}, 4 },
+  { {FingerprintScanResult_names + 201, 29}, 1 },
+  { {FingerprintScanResult_names + 230, 36}, 6 },
+  { {FingerprintScanResult_names + 266, 31}, 0 },
+  { {FingerprintScanResult_names + 297, 32}, 8 },
+  { {FingerprintScanResult_names + 329, 32}, 7 },
 };
 
 static const int FingerprintScanResult_entries_by_number[] = {
-  3, // 0 -> FINGERPRINT_SCAN_RESULT_SUCCESS
-  2, // 1 -> FINGERPRINT_SCAN_RESULT_RETRY
-  1, // 2 -> FINGERPRINT_SCAN_RESULT_LOCKOUT
-  0, // 3 -> FINGERPRINT_SCAN_RESULT_FATAL_ERROR
+  8, // 0 -> FINGERPRINT_SCAN_RESULT_SUCCESS
+  6, // 1 -> FINGERPRINT_SCAN_RESULT_RETRY
+  4, // 2 -> FINGERPRINT_SCAN_RESULT_LOCKOUT
+  1, // 3 -> FINGERPRINT_SCAN_RESULT_FATAL_ERROR
+  5, // 4 -> FINGERPRINT_SCAN_RESULT_PARTIAL
+  3, // 5 -> FINGERPRINT_SCAN_RESULT_INSUFFICIENT
+  7, // 6 -> FINGERPRINT_SCAN_RESULT_SENSOR_DIRTY
+  10, // 7 -> FINGERPRINT_SCAN_RESULT_TOO_SLOW
+  9, // 8 -> FINGERPRINT_SCAN_RESULT_TOO_FAST
+  2, // 9 -> FINGERPRINT_SCAN_RESULT_IMMOBILE
+  0, // 10 -> FINGERPRINT_SCAN_RESULT_ENROLL_OTHER
 };
 
 const std::string& FingerprintScanResult_Name(
@@ -2649,12 +2677,12 @@ const std::string& FingerprintScanResult_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           FingerprintScanResult_entries,
           FingerprintScanResult_entries_by_number,
-          4, FingerprintScanResult_strings);
+          11, FingerprintScanResult_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       FingerprintScanResult_entries,
       FingerprintScanResult_entries_by_number,
-      4, value);
+      11, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      FingerprintScanResult_strings[idx].get();
 }
@@ -2662,7 +2690,7 @@ bool FingerprintScanResult_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FingerprintScanResult* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      FingerprintScanResult_entries, 4, name, &int_value);
+      FingerprintScanResult_entries, 11, name, &int_value);
   if (success) {
     *value = static_cast<FingerprintScanResult>(int_value);
   }
