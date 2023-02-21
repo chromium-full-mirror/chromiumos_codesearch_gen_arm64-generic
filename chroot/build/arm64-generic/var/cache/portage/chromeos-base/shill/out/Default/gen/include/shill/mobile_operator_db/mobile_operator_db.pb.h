@@ -99,7 +99,7 @@ namespace mobile_operator_db {
 enum Filter_Type : int {
   Filter_Type_IMSI = 1,
   Filter_Type_ICCID = 2,
-  Filter_Type_SID = 3,
+  Filter_Type_OBSOLETE_SID = 3,
   Filter_Type_OPERATOR_NAME = 4,
   Filter_Type_MCCMNC = 5,
   Filter_Type_GID1 = 6
@@ -476,8 +476,8 @@ class Filter final :
     Filter_Type_IMSI;
   static constexpr Type ICCID =
     Filter_Type_ICCID;
-  static constexpr Type SID =
-    Filter_Type_SID;
+  static constexpr Type OBSOLETE_SID =
+    Filter_Type_OBSOLETE_SID;
   static constexpr Type OPERATOR_NAME =
     Filter_Type_OPERATOR_NAME;
   static constexpr Type MCCMNC =

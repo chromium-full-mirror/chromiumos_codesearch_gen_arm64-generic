@@ -184,23 +184,23 @@ static const char Filter_Type_names[] =
   "ICCID"
   "IMSI"
   "MCCMNC"
-  "OPERATOR_NAME"
-  "SID";
+  "OBSOLETE_SID"
+  "OPERATOR_NAME";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Filter_Type_entries[] = {
   { {Filter_Type_names + 0, 4}, 6 },
   { {Filter_Type_names + 4, 5}, 2 },
   { {Filter_Type_names + 9, 4}, 1 },
   { {Filter_Type_names + 13, 6}, 5 },
-  { {Filter_Type_names + 19, 13}, 4 },
-  { {Filter_Type_names + 32, 3}, 3 },
+  { {Filter_Type_names + 19, 12}, 3 },
+  { {Filter_Type_names + 31, 13}, 4 },
 };
 
 static const int Filter_Type_entries_by_number[] = {
   2, // 1 -> IMSI
   1, // 2 -> ICCID
-  5, // 3 -> SID
-  4, // 4 -> OPERATOR_NAME
+  4, // 3 -> OBSOLETE_SID
+  5, // 4 -> OPERATOR_NAME
   3, // 5 -> MCCMNC
   0, // 6 -> GID1
 };
@@ -233,7 +233,7 @@ bool Filter_Type_Parse(
 #if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr Filter_Type Filter::IMSI;
 constexpr Filter_Type Filter::ICCID;
-constexpr Filter_Type Filter::SID;
+constexpr Filter_Type Filter::OBSOLETE_SID;
 constexpr Filter_Type Filter::OPERATOR_NAME;
 constexpr Filter_Type Filter::MCCMNC;
 constexpr Filter_Type Filter::GID1;
