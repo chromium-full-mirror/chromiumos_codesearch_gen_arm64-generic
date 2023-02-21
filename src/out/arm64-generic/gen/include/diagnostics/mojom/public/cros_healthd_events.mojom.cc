@@ -595,6 +595,38 @@ bool TouchpadConnectedEvent::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+HdmiEventInfo::HdmiEventInfo()
+    : state() {}
+
+HdmiEventInfo::HdmiEventInfo(
+    HdmiEventInfo::State state_in)
+    : state(std::move(state_in)) {}
+
+HdmiEventInfo::~HdmiEventInfo() = default;
+size_t HdmiEventInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->state);
+  return seed;
+}
+
+void HdmiEventInfo::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "state"), this->state,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type HdmiEventInfo::State>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool HdmiEventInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 TouchpadEventInfo::TouchpadEventInfo() : tag_(Tag::kDefaultType) {
   data_.default_type = uint8_t();
 }
@@ -799,6 +831,17 @@ void EventInfo::set_touchpad_event_info(
         std::move(touchpad_event_info));
   }
 }
+void EventInfo::set_hdmi_event_info(
+    HdmiEventInfoPtr hdmi_event_info) {
+  if (tag_ == Tag::kHdmiEventInfo) {
+    *(data_.hdmi_event_info) = std::move(hdmi_event_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kHdmiEventInfo;
+    data_.hdmi_event_info = new HdmiEventInfoPtr(
+        std::move(hdmi_event_info));
+  }
+}
 
 void EventInfo::DestroyActive() {
   switch (tag_) {
@@ -845,6 +888,10 @@ void EventInfo::DestroyActive() {
     case Tag::kTouchpadEventInfo:
 
       delete data_.touchpad_event_info;
+      break;
+    case Tag::kHdmiEventInfo:
+
+      delete data_.hdmi_event_info;
       break;
   }
 }
@@ -3454,6 +3501,20 @@ bool StructTraits<::ash::cros_healthd::mojom::TouchpadConnectedEvent::DataView, 
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::HdmiEventInfo::DataView, ::ash::cros_healthd::mojom::HdmiEventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::HdmiEventInfo::DataView input,
+    ::ash::cros_healthd::mojom::HdmiEventInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::HdmiEventInfoPtr result(::ash::cros_healthd::mojom::HdmiEventInfo::New());
+  
+      if (success && !input.ReadState(&result->state))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfo::DataView, ::ash::cros_healthd::mojom::TouchpadEventInfoPtr>::Read(
     ::ash::cros_healthd::mojom::TouchpadEventInfo::DataView input,
@@ -3601,6 +3662,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView, ::ash::cros_he
 
       *output = UnionType::NewTouchpadEventInfo(
           std::move(result_touchpad_event_info));
+      break;
+    }
+    case Tag::kHdmiEventInfo: {
+      ::ash::cros_healthd::mojom::HdmiEventInfoPtr result_hdmi_event_info;
+      if (!input.ReadHdmiEventInfo(&result_hdmi_event_info))
+        return false;
+
+      *output = UnionType::NewHdmiEventInfo(
+          std::move(result_hdmi_event_info));
       break;
     }
     default:

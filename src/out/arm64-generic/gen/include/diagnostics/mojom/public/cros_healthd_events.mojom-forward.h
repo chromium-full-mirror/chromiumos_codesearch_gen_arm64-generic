@@ -48,6 +48,8 @@ class TouchpadTouchEventDataView;
 
 class TouchpadConnectedEventDataView;
 
+class HdmiEventInfoDataView;
+
 class TouchpadEventInfoDataView;
 class EventInfoDataView;
 
@@ -70,6 +72,8 @@ enum class AudioEventInfo_State : int32_t;
 enum class AudioJackEventInfo_State : int32_t;
 
 enum class SdCardEventInfo_State : int32_t;
+
+enum class HdmiEventInfo_State : int32_t;
 class UsbEventInfo;
 using UsbEventInfoPtr = mojo::StructPtr<UsbEventInfo>;
 
@@ -105,6 +109,9 @@ using TouchpadTouchEventPtr = mojo::StructPtr<TouchpadTouchEvent>;
 
 class TouchpadConnectedEvent;
 using TouchpadConnectedEventPtr = mojo::StructPtr<TouchpadConnectedEvent>;
+
+class HdmiEventInfo;
+using HdmiEventInfoPtr = mojo::InlinedStructPtr<HdmiEventInfo>;
 
 class TouchpadEventInfo;
 

@@ -61,6 +61,8 @@ class TouchpadTouchEventDataView;
 
 class TouchpadConnectedEventDataView;
 
+class HdmiEventInfoDataView;
+
 class TouchpadEventInfoDataView;
 class EventInfoDataView;
 
@@ -157,6 +159,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchpadConnectedEventDataVie
 };
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::HdmiEventInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::HdmiEventInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchpadEventInfoDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::TouchpadEventInfo_Data;
   using DataAsArrayElement = Data;
@@ -231,8 +240,10 @@ enum class EventCategoryEnum : int32_t {
   kKeyboardDiagnostic = 10,
   
   kTouchpad = 11,
+  
+  kHdmi = 12,
   kMinValue = 0,
-  kMaxValue = 11,
+  kMaxValue = 12,
   kDefaultValue = 0
 };
 
@@ -462,6 +473,31 @@ inline SdCardEventInfo_State ToKnownEnumValue(SdCardEventInfo_State value) {
     return value;
   }
   return SdCardEventInfo_State::kDefaultValue;
+}
+
+
+enum class HdmiEventInfo_State : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kAdd = 1,
+  
+  kRemove = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, HdmiEventInfo_State value);
+inline bool IsKnownEnumValue(HdmiEventInfo_State value) {
+  return internal::HdmiEventInfo_State_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline HdmiEventInfo_State ToKnownEnumValue(HdmiEventInfo_State value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return HdmiEventInfo_State::kDefaultValue;
 }
 // Interface base classes. They are used for type safety check.
 class CrosHealthdBluetoothObserverInterfaceBase {};
@@ -972,6 +1008,32 @@ class TouchpadConnectedEventDataView {
 
 
 
+class HdmiEventInfoDataView {
+ public:
+  HdmiEventInfoDataView() = default;
+
+  HdmiEventInfoDataView(
+      internal::HdmiEventInfo_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::HdmiEventInfo_State>(
+        data_value, output);
+  }
+  HdmiEventInfo_State state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::HdmiEventInfo_State>(data_->state));
+  }
+ private:
+  internal::HdmiEventInfo_Data* data_ = nullptr;
+};
+
+
+
 class TouchpadEventInfoDataView {
  public:
   using Tag = internal::TouchpadEventInfo_Data::TouchpadEventInfo_Tag;
@@ -1169,6 +1231,17 @@ class EventInfoDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TouchpadEventInfoDataView>(
         data_->data.f_touchpad_event_info.Get(), output, message_);
   }
+  bool is_hdmi_event_info() const { return data_->tag == Tag::kHdmiEventInfo; }
+  inline void GetHdmiEventInfoDataView(
+      HdmiEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadHdmiEventInfo(UserType* output) const {
+    
+    CHECK(is_hdmi_event_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::HdmiEventInfoDataView>(
+        data_->data.f_hdmi_event_info.Get(), output, message_);
+  }
 
  private:
   internal::EventInfo_Data* data_ = nullptr;
@@ -1222,6 +1295,10 @@ struct hash<::ash::cros_healthd::mojom::AudioJackEventInfo_State>
 template <>
 struct hash<::ash::cros_healthd::mojom::SdCardEventInfo_State>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::SdCardEventInfo_State> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::HdmiEventInfo_State>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::HdmiEventInfo_State> {};
 
 }  // namespace std
 
@@ -1422,6 +1499,26 @@ struct Serializer<::ash::cros_healthd::mojom::SdCardEventInfo_State, MaybeConstU
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::SdCardEventInfo_State>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::HdmiEventInfo_State, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::HdmiEventInfo_State, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::HdmiEventInfo_State>(input)), output);
   }
 };
 
@@ -1896,6 +1993,37 @@ struct Serializer<::ash::cros_healthd::mojom::TouchpadConnectedEventDataView, Ma
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::HdmiEventInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::HdmiEventInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::HdmiEventInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::HdmiEventInfo_State>(
+        Traits::state(input), &fragment->state);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::HdmiEventInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::HdmiEventInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::TouchpadEventInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfoDataView, UserType>;
@@ -2178,6 +2306,22 @@ struct Serializer<::ash::cros_healthd::mojom::EventInfoDataView, MaybeConstUserT
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kHdmiEventInfo: {
+        decltype(Traits::hdmi_event_info(input))
+            in_hdmi_event_info = Traits::hdmi_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_hdmi_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::HdmiEventInfoDataView>(
+            in_hdmi_event_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null hdmi_event_info in EventInfo union");
+        fragment->data.f_hdmi_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -2265,6 +2409,8 @@ inline void TouchpadConnectedEventDataView::GetButtonsDataView(
 }
 
 
+
+
 inline void TouchpadEventInfoDataView::GetButtonEventDataView(
     TouchpadButtonEventDataView* output) const {
   CHECK(is_button_event());
@@ -2330,6 +2476,11 @@ inline void EventInfoDataView::GetTouchpadEventInfoDataView(
     TouchpadEventInfoDataView* output) const {
   CHECK(is_touchpad_event_info());
   *output = TouchpadEventInfoDataView(data_->data.f_touchpad_event_info.Get(), message_);
+}
+inline void EventInfoDataView::GetHdmiEventInfoDataView(
+    HdmiEventInfoDataView* output) const {
+  CHECK(is_hdmi_event_info());
+  *output = HdmiEventInfoDataView(data_->data.f_hdmi_event_info.Get(), message_);
 }
 
 
@@ -2426,6 +2577,15 @@ namespace perfetto_libchrome {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::SdCardEventInfo_State> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::SdCardEventInfo_State value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::HdmiEventInfo_State> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::HdmiEventInfo_State value);
 };
 
 } // namespace perfetto

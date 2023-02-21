@@ -2139,6 +2139,145 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  HdmiEventInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<HdmiEventInfo, T>::value>;
+  using DataView = HdmiEventInfoDataView;
+  using Data_ = internal::HdmiEventInfo_Data;
+  using State = HdmiEventInfo_State;
+
+  template <typename... Args>
+  static HdmiEventInfoPtr New(Args&&... args) {
+    return HdmiEventInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static HdmiEventInfoPtr From(const U& u) {
+    return mojo::TypeConverter<HdmiEventInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, HdmiEventInfo>::Convert(*this);
+  }
+
+
+  HdmiEventInfo();
+
+  explicit HdmiEventInfo(
+      HdmiEventInfo::State state);
+
+
+  ~HdmiEventInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = HdmiEventInfoPtr>
+  HdmiEventInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, HdmiEventInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, HdmiEventInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        HdmiEventInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        HdmiEventInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::HdmiEventInfo_UnserializedMessageContext<
+            UserType, HdmiEventInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<HdmiEventInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return HdmiEventInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::HdmiEventInfo_UnserializedMessageContext<
+            UserType, HdmiEventInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<HdmiEventInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  HdmiEventInfo::State state;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, HdmiEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, HdmiEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, HdmiEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, HdmiEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  TouchpadEventInfo {
  public:
   using DataView = TouchpadEventInfoDataView;
@@ -2415,6 +2554,14 @@ class  EventInfo {
     result->set_touchpad_event_info(std::move(touchpad_event_info));
     return result;
   }
+  // Construct an instance holding |hdmi_event_info|.
+  static EventInfoPtr
+  NewHdmiEventInfo(
+      HdmiEventInfoPtr hdmi_event_info) {
+    auto result = EventInfoPtr(absl::in_place);
+    result->set_hdmi_event_info(std::move(hdmi_event_info));
+    return result;
+  }
 
   template <typename U>
   static EventInfoPtr From(const U& u) {
@@ -2589,6 +2736,18 @@ class  EventInfo {
   
   void set_touchpad_event_info(
       TouchpadEventInfoPtr touchpad_event_info);
+  
+  bool is_hdmi_event_info() const { return tag_ == Tag::kHdmiEventInfo; }
+
+  
+  HdmiEventInfoPtr& get_hdmi_event_info() const {
+    CHECK(tag_ == Tag::kHdmiEventInfo);
+    return *(data_.hdmi_event_info);
+  }
+
+  
+  void set_hdmi_event_info(
+      HdmiEventInfoPtr hdmi_event_info);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -2618,6 +2777,7 @@ class  EventInfo {
     SdCardEventInfoPtr* sd_card_event_info;
     ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr* keyboard_diagnostic_event_info;
     TouchpadEventInfoPtr* touchpad_event_info;
+    HdmiEventInfoPtr* hdmi_event_info;
   };
 
   static bool Validate(const void* data,
@@ -3235,6 +3395,7 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
 template <typename UnionPtrType>
 TouchpadEventInfoPtr TouchpadEventInfo::Clone() const {
   switch (tag_) {
@@ -3310,6 +3471,9 @@ EventInfoPtr EventInfo::Clone() const {
     case Tag::kTouchpadEventInfo:
       return NewTouchpadEventInfo(
           mojo::Clone(*data_.touchpad_event_info));
+    case Tag::kHdmiEventInfo:
+      return NewHdmiEventInfo(
+          mojo::Clone(*data_.hdmi_event_info));
   }
   return nullptr;
 }
@@ -3344,6 +3508,8 @@ bool EventInfo::Equals(const T& other) const {
       return mojo::Equals(*(data_.keyboard_diagnostic_event_info), *(other.data_.keyboard_diagnostic_event_info));
     case Tag::kTouchpadEventInfo:
       return mojo::Equals(*(data_.touchpad_event_info), *(other.data_.touchpad_event_info));
+    case Tag::kHdmiEventInfo:
+      return mojo::Equals(*(data_.hdmi_event_info), *(other.data_.hdmi_event_info));
   }
 
   return false;
@@ -3710,6 +3876,28 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+HdmiEventInfoPtr HdmiEventInfo::Clone() const {
+  return New(
+      mojo::Clone(state)
+  );
+}
+
+template <typename T, HdmiEventInfo::EnableIfSame<T>*>
+bool HdmiEventInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->state, other_struct.state))
+    return false;
+  return true;
+}
+
+template <typename T, HdmiEventInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.state < rhs.state)
+    return true;
+  if (rhs.state < lhs.state)
+    return false;
+  return false;
+}
 
 
 }  // namespace mojom
@@ -3970,6 +4158,21 @@ struct  StructTraits<::ash::cros_healthd::mojom::TouchpadConnectedEvent::DataVie
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::HdmiEventInfo::DataView,
+                                         ::ash::cros_healthd::mojom::HdmiEventInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::HdmiEventInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::HdmiEventInfoPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::HdmiEventInfo::state) state(
+      const ::ash::cros_healthd::mojom::HdmiEventInfoPtr& input) {
+    return input->state;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::HdmiEventInfo::DataView input, ::ash::cros_healthd::mojom::HdmiEventInfoPtr* output);
+};
+
+
+template <>
 struct  UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfo::DataView,
                                         ::ash::cros_healthd::mojom::TouchpadEventInfoPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::TouchpadEventInfoPtr& input) { return !input; }
@@ -4051,6 +4254,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView,
 
   static const ::ash::cros_healthd::mojom::TouchpadEventInfoPtr& touchpad_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
     return input->get_touchpad_event_info();
+  }
+
+  static const ::ash::cros_healthd::mojom::HdmiEventInfoPtr& hdmi_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
+    return input->get_hdmi_event_info();
   }
 
   static bool Read(::ash::cros_healthd::mojom::EventInfo::DataView input, ::ash::cros_healthd::mojom::EventInfoPtr* output);

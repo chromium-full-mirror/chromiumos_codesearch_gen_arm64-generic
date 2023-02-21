@@ -77,6 +77,8 @@ static NOINLINE const char* EventCategoryEnumToStringHelper(EventCategoryEnum va
       return "kKeyboardDiagnostic";
     case EventCategoryEnum::kTouchpad:
       return "kTouchpad";
+    case EventCategoryEnum::kHdmi:
+      return "kHdmi";
     default:
       return nullptr;
   }
@@ -318,6 +320,32 @@ std::ostream& operator<<(std::ostream& os, SdCardEventInfo_State value) {
   return os << SdCardEventInfo_StateToString(value);
 }
 
+static NOINLINE const char* HdmiEventInfo_StateToStringHelper(HdmiEventInfo_State value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case HdmiEventInfo_State::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case HdmiEventInfo_State::kAdd:
+      return "kAdd";
+    case HdmiEventInfo_State::kRemove:
+      return "kRemove";
+    default:
+      return nullptr;
+  }
+}
+
+std::string HdmiEventInfo_StateToString(HdmiEventInfo_State value) {
+  const char *str = HdmiEventInfo_StateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown HdmiEventInfo_State value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, HdmiEventInfo_State value) {
+  return os << HdmiEventInfo_StateToString(value);
+}
+
 namespace internal {
 // static
 bool TouchpadEventInfo_Data::Validate(
@@ -515,6 +543,16 @@ bool EventInfo_Data::Validate(
       }
       if (!mojo::internal::ValidateNonInlinedUnion(object->data.f_touchpad_event_info,
                                                    validation_context))
+        return false;
+      return true;
+    }
+    case EventInfo_Tag::kHdmiEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_hdmi_event_info, 12, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_hdmi_event_info, validation_context))
         return false;
       return true;
     }
@@ -914,6 +952,34 @@ bool TouchpadConnectedEvent_Data::Validate(
 }
 
 TouchpadConnectedEvent_Data::TouchpadConnectedEvent_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool HdmiEventInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const HdmiEventInfo_Data* object =
+      static_cast<const HdmiEventInfo_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::HdmiEventInfo_State_Data
+        ::Validate(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+HdmiEventInfo_Data::HdmiEventInfo_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1567,6 +1633,16 @@ namespace perfetto_libchrome {
 void TraceFormatTraits<::ash::cros_healthd::mojom::SdCardEventInfo_State>::WriteIntoTrace(
    perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::SdCardEventInfo_State value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::SdCardEventInfo_StateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::HdmiEventInfo_State>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::HdmiEventInfo_State value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::HdmiEventInfo_StateToString(value));
 }
 
 } // namespace perfetto

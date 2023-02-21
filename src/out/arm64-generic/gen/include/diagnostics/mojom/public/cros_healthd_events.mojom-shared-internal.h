@@ -38,6 +38,7 @@ class TouchpadButtonEvent_Data;
 class TouchPointInfo_Data;
 class TouchpadTouchEvent_Data;
 class TouchpadConnectedEvent_Data;
+class HdmiEventInfo_Data;
 class TouchpadEventInfo_Data;
 class EventInfo_Data;
 
@@ -85,6 +86,7 @@ struct EventCategoryEnum_Data {
       case 9:
       case 10:
       case 11:
+      case 12:
         return true;
     }
     return false;
@@ -309,6 +311,31 @@ struct SdCardEventInfo_State_Data {
   }
 };
 
+struct HdmiEventInfo_State_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 #pragma pack(push, 1)
 
 
@@ -420,6 +447,8 @@ class  EventInfo_Data {
     kKeyboardDiagnosticEventInfo,
     
     kTouchpadEventInfo,
+    
+    kHdmiEventInfo,
   };
 
   // A note on layout:
@@ -438,6 +467,7 @@ class  EventInfo_Data {
     mojo::internal::Pointer<internal::SdCardEventInfo_Data> f_sd_card_event_info;
     mojo::internal::Pointer<::ash::diagnostics::mojom::internal::KeyboardDiagnosticEventInfo_Data> f_keyboard_diagnostic_event_info;
     mojo::internal::Pointer<internal::TouchpadEventInfo_Data> f_touchpad_event_info;
+    mojo::internal::Pointer<internal::HdmiEventInfo_Data> f_hdmi_event_info;
     uint64_t unknown;
   };
 
@@ -1047,6 +1077,55 @@ struct TouchpadConnectedEvent_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     TouchpadConnectedEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  HdmiEventInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<HdmiEventInfo_Data>;
+
+  HdmiEventInfo_Data();
+  ~HdmiEventInfo_Data() = delete;
+};
+static_assert(sizeof(HdmiEventInfo_Data) == 16,
+              "Bad sizeof(HdmiEventInfo_Data)");
+// Used by HdmiEventInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct HdmiEventInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  HdmiEventInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~HdmiEventInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<HdmiEventInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    HdmiEventInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 
