@@ -71,12 +71,12 @@ class fwupdProxyMock : public fwupdProxyInterface {
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
   MOCK_METHOD4(GetDetails,
-               bool(const brillo::dbus_utils::FileDescriptor& /*in_handle*/,
+               bool(const base::ScopedFD& /*in_handle*/,
                     std::vector<brillo::VariantDictionary>* /*out_results*/,
                     brillo::ErrorPtr* /*error*/,
                     int /*timeout_ms*/));
   MOCK_METHOD4(GetDetailsAsync,
-               void(const brillo::dbus_utils::FileDescriptor& /*in_handle*/,
+               void(const base::ScopedFD& /*in_handle*/,
                     base::OnceCallback<void(const std::vector<brillo::VariantDictionary>& /*results*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
@@ -125,13 +125,13 @@ class fwupdProxyMock : public fwupdProxyInterface {
                     int /*timeout_ms*/));
   MOCK_METHOD5(Install,
                bool(const std::string& /*in_id*/,
-                    const brillo::dbus_utils::FileDescriptor& /*in_handle*/,
+                    const base::ScopedFD& /*in_handle*/,
                     const brillo::VariantDictionary& /*in_options*/,
                     brillo::ErrorPtr* /*error*/,
                     int /*timeout_ms*/));
   MOCK_METHOD6(InstallAsync,
                void(const std::string& /*in_id*/,
-                    const brillo::dbus_utils::FileDescriptor& /*in_handle*/,
+                    const base::ScopedFD& /*in_handle*/,
                     const brillo::VariantDictionary& /*in_options*/,
                     base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
@@ -268,14 +268,14 @@ class fwupdProxyMock : public fwupdProxyInterface {
                     int /*timeout_ms*/));
   MOCK_METHOD5(UpdateMetadata,
                bool(const std::string& /*in_remote_id*/,
-                    const brillo::dbus_utils::FileDescriptor& /*in_data*/,
-                    const brillo::dbus_utils::FileDescriptor& /*in_signature*/,
+                    const base::ScopedFD& /*in_data*/,
+                    const base::ScopedFD& /*in_signature*/,
                     brillo::ErrorPtr* /*error*/,
                     int /*timeout_ms*/));
   MOCK_METHOD6(UpdateMetadataAsync,
                void(const std::string& /*in_remote_id*/,
-                    const brillo::dbus_utils::FileDescriptor& /*in_data*/,
-                    const brillo::dbus_utils::FileDescriptor& /*in_signature*/,
+                    const base::ScopedFD& /*in_data*/,
+                    const base::ScopedFD& /*in_signature*/,
                     base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));

@@ -12,7 +12,6 @@
 #include <brillo/any.h>
 #include <brillo/dbus/dbus_object.h>
 #include <brillo/dbus/exported_object_manager.h>
-#include <brillo/dbus/file_descriptor.h>
 #include <brillo/variant_dictionary.h>
 
 namespace org {

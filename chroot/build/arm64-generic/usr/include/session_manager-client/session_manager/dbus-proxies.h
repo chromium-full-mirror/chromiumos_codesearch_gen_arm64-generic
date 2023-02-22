@@ -15,7 +15,6 @@
 #include <brillo/dbus/dbus_method_invoker.h>
 #include <brillo/dbus/dbus_property.h>
 #include <brillo/dbus/dbus_signal_handler.h>
-#include <brillo/dbus/file_descriptor.h>
 #include <brillo/errors/error.h>
 #include <brillo/variant_dictionary.h>
 #include <dbus/bus.h>
@@ -67,12 +66,12 @@ class SessionManagerInterfaceProxyInterface {
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual bool SaveLoginPassword(
-      const brillo::dbus_utils::FileDescriptor& in_password_fd,
+      const base::ScopedFD& in_password_fd,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void SaveLoginPasswordAsync(
-      const brillo::dbus_utils::FileDescriptor& in_password_fd,
+      const base::ScopedFD& in_password_fd,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -81,7 +80,7 @@ class SessionManagerInterfaceProxyInterface {
       const std::string& in_key,
       const std::vector<uint8_t>& in_metadata,
       uint64_t in_value_size,
-      const brillo::dbus_utils::FileDescriptor& in_value_fd,
+      const base::ScopedFD& in_value_fd,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -89,7 +88,7 @@ class SessionManagerInterfaceProxyInterface {
       const std::string& in_key,
       const std::vector<uint8_t>& in_metadata,
       uint64_t in_value_size,
-      const brillo::dbus_utils::FileDescriptor& in_value_fd,
+      const base::ScopedFD& in_value_fd,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -336,14 +335,14 @@ class SessionManagerInterfaceProxyInterface {
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual bool RestartJob(
-      const brillo::dbus_utils::FileDescriptor& in_cred_fd,
+      const base::ScopedFD& in_cred_fd,
       const std::vector<std::string>& in_argv,
       uint32_t in_mode,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void RestartJobAsync(
-      const brillo::dbus_utils::FileDescriptor& in_cred_fd,
+      const base::ScopedFD& in_cred_fd,
       const std::vector<std::string>& in_argv,
       uint32_t in_mode,
       base::OnceCallback<void()> success_callback,
@@ -829,7 +828,7 @@ class SessionManagerInterfaceProxy final : public SessionManagerInterfaceProxyIn
   }
 
   bool SaveLoginPassword(
-      const brillo::dbus_utils::FileDescriptor& in_password_fd,
+      const base::ScopedFD& in_password_fd,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -844,7 +843,7 @@ class SessionManagerInterfaceProxy final : public SessionManagerInterfaceProxyIn
   }
 
   void SaveLoginPasswordAsync(
-      const brillo::dbus_utils::FileDescriptor& in_password_fd,
+      const base::ScopedFD& in_password_fd,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -862,7 +861,7 @@ class SessionManagerInterfaceProxy final : public SessionManagerInterfaceProxyIn
       const std::string& in_key,
       const std::vector<uint8_t>& in_metadata,
       uint64_t in_value_size,
-      const brillo::dbus_utils::FileDescriptor& in_value_fd,
+      const base::ScopedFD& in_value_fd,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -883,7 +882,7 @@ class SessionManagerInterfaceProxy final : public SessionManagerInterfaceProxyIn
       const std::string& in_key,
       const std::vector<uint8_t>& in_metadata,
       uint64_t in_value_size,
-      const brillo::dbus_utils::FileDescriptor& in_value_fd,
+      const base::ScopedFD& in_value_fd,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -1548,7 +1547,7 @@ class SessionManagerInterfaceProxy final : public SessionManagerInterfaceProxyIn
   }
 
   bool RestartJob(
-      const brillo::dbus_utils::FileDescriptor& in_cred_fd,
+      const base::ScopedFD& in_cred_fd,
       const std::vector<std::string>& in_argv,
       uint32_t in_mode,
       brillo::ErrorPtr* error,
@@ -1567,7 +1566,7 @@ class SessionManagerInterfaceProxy final : public SessionManagerInterfaceProxyIn
   }
 
   void RestartJobAsync(
-      const brillo::dbus_utils::FileDescriptor& in_cred_fd,
+      const base::ScopedFD& in_cred_fd,
       const std::vector<std::string>& in_argv,
       uint32_t in_mode,
       base::OnceCallback<void()> success_callback,

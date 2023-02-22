@@ -235,6 +235,8 @@
 #ifndef INCLUDE_PERFETTO_PUBLIC_COMPILER_H_
 #define INCLUDE_PERFETTO_PUBLIC_COMPILER_H_
 
+#include <stddef.h>
+
 #if defined(__GNUC__) || defined(__clang__)
 #define PERFETTO_LIKELY(_x) __builtin_expect(!!(_x), 1)
 #define PERFETTO_UNLIKELY(_x) __builtin_expect(!!(_x), 0)
@@ -249,6 +251,14 @@
 #define PERFETTO_STATIC_CAST(TYPE, VAL) static_cast<TYPE>(VAL)
 #else
 #define PERFETTO_STATIC_CAST(TYPE, VAL) ((TYPE)(VAL))
+#endif
+
+// PERFETTO_NULL: avoids the -Wzero-as-null-pointer-constant warning when
+// writing code that needs to be compiled as C and C++.
+#ifdef __cplusplus
+#define PERFETTO_NULL nullptr
+#else
+#define PERFETTO_NULL NULL
 #endif
 
 #endif  // INCLUDE_PERFETTO_PUBLIC_COMPILER_H_
@@ -2449,7 +2459,7 @@ struct DataSourceState {
   // Keep this flag as the first field. This allows the compiler to directly
   // dereference the DataSourceState* pointer in the trace fast-path without
   // doing extra pointr arithmetic.
-  std::atomic<bool> trace_lambda_enabled = false;
+  std::atomic<bool> trace_lambda_enabled{false};
 
   // The overall TracingMuxerImpl instance id, which gets incremented by
   // ResetForTesting.
@@ -8748,6 +8758,10 @@ class TracingTLS : public Platform::ThreadLocalObject {
   // handlers. See comment in TracingTLS::~TracingTLS().
   bool is_in_trace_point = false;
 
+  // Used inside a trace point (only one trace point per thread can be active at
+  // any time) to cache the instances bitmap.
+  uint32_t cached_instances = 0;
+
   // By default all data source instances have independent thread-local state
   // (see above).
   std::array<DataSourceThreadLocalState, kMaxDataSources> data_sources_tls{};
@@ -8896,6 +8910,7 @@ class PERFETTO_EXPORT_COMPONENT TracingMuxer {
 #define INCLUDE_PERFETTO_TRACING_INTERNAL_DATA_SOURCE_TYPE_H_
 
 // gen_amalgamated expanded: #include "perfetto/base/build_config.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/core/forward_decls.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/internal/data_source_internal.h"
 // gen_amalgamated expanded: #include "perfetto/tracing/internal/tracing_muxer.h"
@@ -8915,7 +8930,7 @@ namespace internal {
 // DataSourceStaticState from the specific DataSource<T>. The C API cannot
 // dynamically create template instances and it needs a way to decouple those at
 // runtime.
-class DataSourceType {
+class PERFETTO_EXPORT_COMPONENT DataSourceType {
  public:
   // Function pointer type used to create custom per instance thread local
   // state.
@@ -9239,6 +9254,7 @@ class ChromeMetadataPacket;
 class ClockSnapshot;
 class CpuInfo;
 class DeobfuscationMapping;
+class EntityStateResidency;
 class ExtensionDescriptor;
 class FrameTimelineEvent;
 class FtraceEventBundle;
@@ -9419,6 +9435,8 @@ class TracePacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes statsd_atom() const { return at<84>().as_bytes(); }
   bool has_android_system_property() const { return at<86>().valid(); }
   ::protozero::ConstBytes android_system_property() const { return at<86>().as_bytes(); }
+  bool has_entity_state_residency() const { return at<91>().valid(); }
+  ::protozero::ConstBytes entity_state_residency() const { return at<91>().as_bytes(); }
   bool has_profiled_frame_symbols() const { return at<55>().valid(); }
   ::protozero::ConstBytes profiled_frame_symbols() const { return at<55>().as_bytes(); }
   bool has_module_symbols() const { return at<61>().valid(); }
@@ -9518,6 +9536,7 @@ class TracePacket : public ::protozero::Message {
     kAndroidGameInterventionListFieldNumber = 83,
     kStatsdAtomFieldNumber = 84,
     kAndroidSystemPropertyFieldNumber = 86,
+    kEntityStateResidencyFieldNumber = 91,
     kProfiledFrameSymbolsFieldNumber = 55,
     kModuleSymbolsFieldNumber = 61,
     kDeobfuscationMappingFieldNumber = 64,
@@ -10586,6 +10605,27 @@ class TracePacket : public ::protozero::Message {
   static constexpr FieldMetadata_AndroidSystemProperty kAndroidSystemProperty() { return {}; }
   template <typename T = AndroidSystemProperty> T* set_android_system_property() {
     return BeginNestedMessage<T>(86);
+  }
+
+
+  using FieldMetadata_EntityStateResidency =
+    ::protozero::proto_utils::FieldMetadata<
+      91,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      EntityStateResidency,
+      TracePacket>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_EntityStateResidency kEntityStateResidency() { return {}; }
+  template <typename T = EntityStateResidency> T* set_entity_state_residency() {
+    return BeginNestedMessage<T>(91);
   }
 
 
@@ -33630,7 +33670,7 @@ const char* AndroidPowerConfig_BatteryCounters_Name(::perfetto::protos::pbzero::
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class AndroidPowerConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class AndroidPowerConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   AndroidPowerConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit AndroidPowerConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -33643,6 +33683,8 @@ class AndroidPowerConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_F
   bool collect_power_rails() const { return at<3>().as_bool(); }
   bool has_collect_energy_estimation_breakdown() const { return at<4>().valid(); }
   bool collect_energy_estimation_breakdown() const { return at<4>().as_bool(); }
+  bool has_collect_entity_state_residency() const { return at<5>().valid(); }
+  bool collect_entity_state_residency() const { return at<5>().as_bool(); }
 };
 
 class AndroidPowerConfig : public ::protozero::Message {
@@ -33653,6 +33695,7 @@ class AndroidPowerConfig : public ::protozero::Message {
     kBatteryCountersFieldNumber = 2,
     kCollectPowerRailsFieldNumber = 3,
     kCollectEnergyEstimationBreakdownFieldNumber = 4,
+    kCollectEntityStateResidencyFieldNumber = 5,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.AndroidPowerConfig"; }
 
@@ -33760,6 +33803,31 @@ class AndroidPowerConfig : public ::protozero::Message {
   static constexpr FieldMetadata_CollectEnergyEstimationBreakdown kCollectEnergyEstimationBreakdown() { return {}; }
   void set_collect_energy_estimation_breakdown(bool value) {
     static constexpr uint32_t field_id = FieldMetadata_CollectEnergyEstimationBreakdown::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_CollectEntityStateResidency =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      AndroidPowerConfig>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_CollectEntityStateResidency kCollectEntityStateResidency() { return {}; }
+  void set_collect_entity_state_residency(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_CollectEntityStateResidency::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
@@ -153590,6 +153658,394 @@ class AndroidEnergyEstimationBreakdown_EnergyUidBreakdown : public ::protozero::
 } // Namespace.
 } // Namespace.
 #endif  // Include guard.
+// gen_amalgamated begin header: gen/protos/perfetto/trace/power/android_entity_state_residency.pbzero.h
+// Autogenerated by the ProtoZero compiler plugin. DO NOT EDIT.
+
+#ifndef PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_POWER_ANDROID_ENTITY_STATE_RESIDENCY_PROTO_H_
+#define PERFETTO_PROTOS_PROTOS_PERFETTO_TRACE_POWER_ANDROID_ENTITY_STATE_RESIDENCY_PROTO_H_
+
+#include <stddef.h>
+#include <stdint.h>
+
+// gen_amalgamated expanded: #include "perfetto/protozero/field_writer.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/message.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/packed_repeated_fields.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/proto_decoder.h"
+// gen_amalgamated expanded: #include "perfetto/protozero/proto_utils.h"
+
+namespace perfetto {
+namespace protos {
+namespace pbzero {
+
+class EntityStateResidency_PowerEntityState;
+class EntityStateResidency_StateResidency;
+
+class EntityStateResidency_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+ public:
+  EntityStateResidency_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit EntityStateResidency_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit EntityStateResidency_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_power_entity_state() const { return at<1>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> power_entity_state() const { return GetRepeated<::protozero::ConstBytes>(1); }
+  bool has_residency() const { return at<2>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> residency() const { return GetRepeated<::protozero::ConstBytes>(2); }
+};
+
+class EntityStateResidency : public ::protozero::Message {
+ public:
+  using Decoder = EntityStateResidency_Decoder;
+  enum : int32_t {
+    kPowerEntityStateFieldNumber = 1,
+    kResidencyFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.EntityStateResidency"; }
+
+  using PowerEntityState = ::perfetto::protos::pbzero::EntityStateResidency_PowerEntityState;
+  using StateResidency = ::perfetto::protos::pbzero::EntityStateResidency_StateResidency;
+
+  using FieldMetadata_PowerEntityState =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      EntityStateResidency_PowerEntityState,
+      EntityStateResidency>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_PowerEntityState kPowerEntityState() { return {}; }
+  template <typename T = EntityStateResidency_PowerEntityState> T* add_power_entity_state() {
+    return BeginNestedMessage<T>(1);
+  }
+
+
+  using FieldMetadata_Residency =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      EntityStateResidency_StateResidency,
+      EntityStateResidency>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Residency kResidency() { return {}; }
+  template <typename T = EntityStateResidency_StateResidency> T* add_residency() {
+    return BeginNestedMessage<T>(2);
+  }
+
+};
+
+class EntityStateResidency_StateResidency_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  EntityStateResidency_StateResidency_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit EntityStateResidency_StateResidency_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit EntityStateResidency_StateResidency_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_entity_index() const { return at<1>().valid(); }
+  int32_t entity_index() const { return at<1>().as_int32(); }
+  bool has_state_index() const { return at<2>().valid(); }
+  int32_t state_index() const { return at<2>().as_int32(); }
+  bool has_total_time_in_state_ms() const { return at<3>().valid(); }
+  uint64_t total_time_in_state_ms() const { return at<3>().as_uint64(); }
+  bool has_total_state_entry_count() const { return at<4>().valid(); }
+  uint64_t total_state_entry_count() const { return at<4>().as_uint64(); }
+  bool has_last_entry_timestamp_ms() const { return at<5>().valid(); }
+  uint64_t last_entry_timestamp_ms() const { return at<5>().as_uint64(); }
+};
+
+class EntityStateResidency_StateResidency : public ::protozero::Message {
+ public:
+  using Decoder = EntityStateResidency_StateResidency_Decoder;
+  enum : int32_t {
+    kEntityIndexFieldNumber = 1,
+    kStateIndexFieldNumber = 2,
+    kTotalTimeInStateMsFieldNumber = 3,
+    kTotalStateEntryCountFieldNumber = 4,
+    kLastEntryTimestampMsFieldNumber = 5,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.EntityStateResidency.StateResidency"; }
+
+
+  using FieldMetadata_EntityIndex =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      EntityStateResidency_StateResidency>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_EntityIndex kEntityIndex() { return {}; }
+  void set_entity_index(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_EntityIndex::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_StateIndex =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      EntityStateResidency_StateResidency>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_StateIndex kStateIndex() { return {}; }
+  void set_state_index(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_StateIndex::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_TotalTimeInStateMs =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      EntityStateResidency_StateResidency>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_TotalTimeInStateMs kTotalTimeInStateMs() { return {}; }
+  void set_total_time_in_state_ms(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_TotalTimeInStateMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_TotalStateEntryCount =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      EntityStateResidency_StateResidency>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_TotalStateEntryCount kTotalStateEntryCount() { return {}; }
+  void set_total_state_entry_count(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_TotalStateEntryCount::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LastEntryTimestampMs =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kUint64,
+      uint64_t,
+      EntityStateResidency_StateResidency>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_LastEntryTimestampMs kLastEntryTimestampMs() { return {}; }
+  void set_last_entry_timestamp_ms(uint64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_LastEntryTimestampMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class EntityStateResidency_PowerEntityState_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/4, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  EntityStateResidency_PowerEntityState_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit EntityStateResidency_PowerEntityState_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit EntityStateResidency_PowerEntityState_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_entity_index() const { return at<1>().valid(); }
+  int32_t entity_index() const { return at<1>().as_int32(); }
+  bool has_state_index() const { return at<2>().valid(); }
+  int32_t state_index() const { return at<2>().as_int32(); }
+  bool has_entity_name() const { return at<3>().valid(); }
+  ::protozero::ConstChars entity_name() const { return at<3>().as_string(); }
+  bool has_state_name() const { return at<4>().valid(); }
+  ::protozero::ConstChars state_name() const { return at<4>().as_string(); }
+};
+
+class EntityStateResidency_PowerEntityState : public ::protozero::Message {
+ public:
+  using Decoder = EntityStateResidency_PowerEntityState_Decoder;
+  enum : int32_t {
+    kEntityIndexFieldNumber = 1,
+    kStateIndexFieldNumber = 2,
+    kEntityNameFieldNumber = 3,
+    kStateNameFieldNumber = 4,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.EntityStateResidency.PowerEntityState"; }
+
+
+  using FieldMetadata_EntityIndex =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      EntityStateResidency_PowerEntityState>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_EntityIndex kEntityIndex() { return {}; }
+  void set_entity_index(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_EntityIndex::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_StateIndex =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      EntityStateResidency_PowerEntityState>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_StateIndex kStateIndex() { return {}; }
+  void set_state_index(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_StateIndex::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_EntityName =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      EntityStateResidency_PowerEntityState>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_EntityName kEntityName() { return {}; }
+  void set_entity_name(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_EntityName::kFieldId, data, size);
+  }
+  void set_entity_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_EntityName::kFieldId, chars.data, chars.size);
+  }
+  void set_entity_name(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_EntityName::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_StateName =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      EntityStateResidency_PowerEntityState>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_StateName kStateName() { return {}; }
+  void set_state_name(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_StateName::kFieldId, data, size);
+  }
+  void set_state_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_StateName::kFieldId, chars.data, chars.size);
+  }
+  void set_state_name(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_StateName::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+};
+
+} // Namespace.
+} // Namespace.
+} // Namespace.
+#endif  // Include guard.
 // gen_amalgamated begin header: gen/protos/perfetto/trace/power/battery_counters.pbzero.h
 // Autogenerated by the ProtoZero compiler plugin. DO NOT EDIT.
 
@@ -158275,6 +158731,7 @@ class ChromeMetadataPacket;
 class ClockSnapshot;
 class CpuInfo;
 class DeobfuscationMapping;
+class EntityStateResidency;
 class ExtensionDescriptor;
 class FrameTimelineEvent;
 class FtraceEventBundle;
@@ -158455,6 +158912,8 @@ class TracePacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes statsd_atom() const { return at<84>().as_bytes(); }
   bool has_android_system_property() const { return at<86>().valid(); }
   ::protozero::ConstBytes android_system_property() const { return at<86>().as_bytes(); }
+  bool has_entity_state_residency() const { return at<91>().valid(); }
+  ::protozero::ConstBytes entity_state_residency() const { return at<91>().as_bytes(); }
   bool has_profiled_frame_symbols() const { return at<55>().valid(); }
   ::protozero::ConstBytes profiled_frame_symbols() const { return at<55>().as_bytes(); }
   bool has_module_symbols() const { return at<61>().valid(); }
@@ -158554,6 +159013,7 @@ class TracePacket : public ::protozero::Message {
     kAndroidGameInterventionListFieldNumber = 83,
     kStatsdAtomFieldNumber = 84,
     kAndroidSystemPropertyFieldNumber = 86,
+    kEntityStateResidencyFieldNumber = 91,
     kProfiledFrameSymbolsFieldNumber = 55,
     kModuleSymbolsFieldNumber = 61,
     kDeobfuscationMappingFieldNumber = 64,
@@ -159622,6 +160082,27 @@ class TracePacket : public ::protozero::Message {
   static constexpr FieldMetadata_AndroidSystemProperty kAndroidSystemProperty() { return {}; }
   template <typename T = AndroidSystemProperty> T* set_android_system_property() {
     return BeginNestedMessage<T>(86);
+  }
+
+
+  using FieldMetadata_EntityStateResidency =
+    ::protozero::proto_utils::FieldMetadata<
+      91,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      EntityStateResidency,
+      TracePacket>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_EntityStateResidency kEntityStateResidency() { return {}; }
+  template <typename T = EntityStateResidency> T* set_entity_state_residency() {
+    return BeginNestedMessage<T>(91);
   }
 
 
@@ -167374,6 +167855,7 @@ class PERFETTO_EXPORT_COMPONENT AndroidPowerConfig : public ::protozero::CppMess
     kBatteryCountersFieldNumber = 2,
     kCollectPowerRailsFieldNumber = 3,
     kCollectEnergyEstimationBreakdownFieldNumber = 4,
+    kCollectEntityStateResidencyFieldNumber = 5,
   };
 
   AndroidPowerConfig();
@@ -167409,17 +167891,22 @@ class PERFETTO_EXPORT_COMPONENT AndroidPowerConfig : public ::protozero::CppMess
   bool collect_energy_estimation_breakdown() const { return collect_energy_estimation_breakdown_; }
   void set_collect_energy_estimation_breakdown(bool value) { collect_energy_estimation_breakdown_ = value; _has_field_.set(4); }
 
+  bool has_collect_entity_state_residency() const { return _has_field_[5]; }
+  bool collect_entity_state_residency() const { return collect_entity_state_residency_; }
+  void set_collect_entity_state_residency(bool value) { collect_entity_state_residency_ = value; _has_field_.set(5); }
+
  private:
   uint32_t battery_poll_ms_{};
   std::vector<AndroidPowerConfig_BatteryCounters> battery_counters_;
   bool collect_power_rails_{};
   bool collect_energy_estimation_breakdown_{};
+  bool collect_entity_state_residency_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<5> _has_field_{};
+  std::bitset<6> _has_field_{};
 };
 
 }  // namespace perfetto

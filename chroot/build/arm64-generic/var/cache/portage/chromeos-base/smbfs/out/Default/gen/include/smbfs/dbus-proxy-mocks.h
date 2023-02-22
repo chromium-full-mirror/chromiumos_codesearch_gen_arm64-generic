@@ -26,12 +26,12 @@ class SmbFsProxyMock : public SmbFsProxyInterface {
 
   MOCK_METHOD4(OpenIpcChannel,
                bool(const std::string& /*in_identity*/,
-                    const brillo::dbus_utils::FileDescriptor& /*in_socket*/,
+                    const base::ScopedFD& /*in_socket*/,
                     brillo::ErrorPtr* /*error*/,
                     int /*timeout_ms*/));
   MOCK_METHOD5(OpenIpcChannelAsync,
                void(const std::string& /*in_identity*/,
-                    const brillo::dbus_utils::FileDescriptor& /*in_socket*/,
+                    const base::ScopedFD& /*in_socket*/,
                     base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));

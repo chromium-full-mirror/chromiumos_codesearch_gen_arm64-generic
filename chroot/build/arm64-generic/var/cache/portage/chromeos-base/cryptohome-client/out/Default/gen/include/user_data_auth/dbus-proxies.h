@@ -19,7 +19,6 @@
 #include <brillo/dbus/dbus_method_invoker.h>
 #include <brillo/dbus/dbus_property.h>
 #include <brillo/dbus/dbus_signal_handler.h>
-#include <brillo/dbus/file_descriptor.h>
 #include <brillo/errors/error.h>
 #include <brillo/variant_dictionary.h>
 #include <dbus/bus.h>
@@ -1691,28 +1690,28 @@ class ArcQuotaProxyInterface {
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual bool SetMediaRWDataFileProjectId(
-      const brillo::dbus_utils::FileDescriptor& in_fd,
+      const base::ScopedFD& in_fd,
       const user_data_auth::SetMediaRWDataFileProjectIdRequest& in_request,
       user_data_auth::SetMediaRWDataFileProjectIdReply* out_reply,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void SetMediaRWDataFileProjectIdAsync(
-      const brillo::dbus_utils::FileDescriptor& in_fd,
+      const base::ScopedFD& in_fd,
       const user_data_auth::SetMediaRWDataFileProjectIdRequest& in_request,
       base::OnceCallback<void(const user_data_auth::SetMediaRWDataFileProjectIdReply& /*reply*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual bool SetMediaRWDataFileProjectInheritanceFlag(
-      const brillo::dbus_utils::FileDescriptor& in_fd,
+      const base::ScopedFD& in_fd,
       const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest& in_request,
       user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply* out_reply,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void SetMediaRWDataFileProjectInheritanceFlagAsync(
-      const brillo::dbus_utils::FileDescriptor& in_fd,
+      const base::ScopedFD& in_fd,
       const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest& in_request,
       base::OnceCallback<void(const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply& /*reply*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
@@ -1880,7 +1879,7 @@ class ArcQuotaProxy final : public ArcQuotaProxyInterface {
   }
 
   bool SetMediaRWDataFileProjectId(
-      const brillo::dbus_utils::FileDescriptor& in_fd,
+      const base::ScopedFD& in_fd,
       const user_data_auth::SetMediaRWDataFileProjectIdRequest& in_request,
       user_data_auth::SetMediaRWDataFileProjectIdReply* out_reply,
       brillo::ErrorPtr* error,
@@ -1898,7 +1897,7 @@ class ArcQuotaProxy final : public ArcQuotaProxyInterface {
   }
 
   void SetMediaRWDataFileProjectIdAsync(
-      const brillo::dbus_utils::FileDescriptor& in_fd,
+      const base::ScopedFD& in_fd,
       const user_data_auth::SetMediaRWDataFileProjectIdRequest& in_request,
       base::OnceCallback<void(const user_data_auth::SetMediaRWDataFileProjectIdReply& /*reply*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
@@ -1915,7 +1914,7 @@ class ArcQuotaProxy final : public ArcQuotaProxyInterface {
   }
 
   bool SetMediaRWDataFileProjectInheritanceFlag(
-      const brillo::dbus_utils::FileDescriptor& in_fd,
+      const base::ScopedFD& in_fd,
       const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest& in_request,
       user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply* out_reply,
       brillo::ErrorPtr* error,
@@ -1933,7 +1932,7 @@ class ArcQuotaProxy final : public ArcQuotaProxyInterface {
   }
 
   void SetMediaRWDataFileProjectInheritanceFlagAsync(
-      const brillo::dbus_utils::FileDescriptor& in_fd,
+      const base::ScopedFD& in_fd,
       const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagRequest& in_request,
       base::OnceCallback<void(const user_data_auth::SetMediaRWDataFileProjectInheritanceFlagReply& /*reply*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,

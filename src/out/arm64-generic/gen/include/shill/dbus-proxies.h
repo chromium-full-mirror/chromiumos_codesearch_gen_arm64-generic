@@ -21,7 +21,6 @@
 #include <brillo/dbus/dbus_method_invoker.h>
 #include <brillo/dbus/dbus_property.h>
 #include <brillo/dbus/dbus_signal_handler.h>
-#include <brillo/dbus/file_descriptor.h>
 #include <brillo/errors/error.h>
 #include <brillo/variant_dictionary.h>
 #include <dbus/bus.h>

@@ -12,7 +12,6 @@
 #include <brillo/any.h>
 #include <brillo/dbus/dbus_object.h>
 #include <brillo/dbus/exported_object_manager.h>
-#include <brillo/dbus/file_descriptor.h>
 #include <brillo/variant_dictionary.h>
 
 namespace org {
@@ -44,7 +43,7 @@ class SessionManagerInterfaceInterface {
       brillo::ErrorPtr* error,
       const std::string& in_key,
       uint64_t* out_value_size,
-      brillo::dbus_utils::FileDescriptor* out_value_fd) = 0;
+      base::ScopedFD* out_value_fd) = 0;
   virtual bool LoginScreenStorageListKeys(
       brillo::ErrorPtr* error,
       std::vector<std::string>* out_keys) = 0;

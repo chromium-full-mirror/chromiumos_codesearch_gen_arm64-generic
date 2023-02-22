@@ -12,7 +12,6 @@
 #include <brillo/any.h>
 #include <brillo/dbus/dbus_object.h>
 #include <brillo/dbus/exported_object_manager.h>
-#include <brillo/dbus/file_descriptor.h>
 #include <brillo/variant_dictionary.h>
 
 namespace org {
@@ -32,7 +31,7 @@ class DlpInterface {
       const std::vector<uint8_t>& in_request) = 0;
   // Requests access to the file to be copied/uploaded to the given destination.
   virtual void RequestFileAccess(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::vector<uint8_t>, brillo::dbus_utils::FileDescriptor>> response,
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::vector<uint8_t>, base::ScopedFD>> response,
       const std::vector<uint8_t>& in_request) = 0;
   // Returns sources for the requested files.
   virtual void GetFilesSources(

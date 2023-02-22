@@ -15,7 +15,6 @@
 #include <brillo/dbus/dbus_method_invoker.h>
 #include <brillo/dbus/dbus_property.h>
 #include <brillo/dbus/dbus_signal_handler.h>
-#include <brillo/dbus/file_descriptor.h>
 #include <brillo/errors/error.h>
 #include <brillo/variant_dictionary.h>
 #include <dbus/bus.h>
@@ -92,7 +91,7 @@ class ManagerProxyInterface {
   //   Output file descriptor. PNG image data will be written to this fd.
   virtual bool GetNextImage(
       const std::vector<uint8_t>& in_get_next_image_request,
-      const brillo::dbus_utils::FileDescriptor& in_out_fd,
+      const base::ScopedFD& in_out_fd,
       std::vector<uint8_t>* out_get_next_image_response,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -108,7 +107,7 @@ class ManagerProxyInterface {
   //   Output file descriptor. PNG image data will be written to this fd.
   virtual void GetNextImageAsync(
       const std::vector<uint8_t>& in_get_next_image_request,
-      const brillo::dbus_utils::FileDescriptor& in_out_fd,
+      const base::ScopedFD& in_out_fd,
       base::OnceCallback<void(const std::vector<uint8_t>& /*get_next_image_response*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -302,7 +301,7 @@ class ManagerProxy final : public ManagerProxyInterface {
   //   Output file descriptor. PNG image data will be written to this fd.
   bool GetNextImage(
       const std::vector<uint8_t>& in_get_next_image_request,
-      const brillo::dbus_utils::FileDescriptor& in_out_fd,
+      const base::ScopedFD& in_out_fd,
       std::vector<uint8_t>* out_get_next_image_response,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -329,7 +328,7 @@ class ManagerProxy final : public ManagerProxyInterface {
   //   Output file descriptor. PNG image data will be written to this fd.
   void GetNextImageAsync(
       const std::vector<uint8_t>& in_get_next_image_request,
-      const brillo::dbus_utils::FileDescriptor& in_out_fd,
+      const base::ScopedFD& in_out_fd,
       base::OnceCallback<void(const std::vector<uint8_t>& /*get_next_image_response*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {

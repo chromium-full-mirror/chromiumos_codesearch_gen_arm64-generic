@@ -12,7 +12,6 @@
 #include <brillo/any.h>
 #include <brillo/dbus/dbus_object.h>
 #include <brillo/dbus/exported_object_manager.h>
-#include <brillo/dbus/file_descriptor.h>
 #include <brillo/variant_dictionary.h>
 
 namespace org {
@@ -408,8 +407,8 @@ class debugdInterface {
       brillo::ErrorPtr* error,
       const std::string& in_probe_statement,
       int32_t in_log_level,
-      brillo::dbus_utils::FileDescriptor* out_result_fd,
-      brillo::dbus_utils::FileDescriptor* out_error_fd) = 0;
+      base::ScopedFD* out_result_fd,
+      base::ScopedFD* out_error_fd) = 0;
   // Set the scheduler configuration policy.
   virtual bool SetSchedulerConfigurationV2(
       brillo::ErrorPtr* error,

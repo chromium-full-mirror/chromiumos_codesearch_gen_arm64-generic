@@ -15,7 +15,6 @@
 #include <brillo/dbus/dbus_method_invoker.h>
 #include <brillo/dbus/dbus_property.h>
 #include <brillo/dbus/dbus_signal_handler.h>
-#include <brillo/dbus/file_descriptor.h>
 #include <brillo/errors/error.h>
 #include <brillo/variant_dictionary.h>
 #include <dbus/bus.h>
@@ -68,7 +67,7 @@ class PermissionBrokerProxyInterface {
   virtual bool ClaimDevicePath(
       const std::string& in_path,
       uint32_t in_drop_privileges_mask,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::ScopedFD* out_fd,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -85,7 +84,7 @@ class PermissionBrokerProxyInterface {
   virtual void ClaimDevicePathAsync(
       const std::string& in_path,
       uint32_t in_drop_privileges_mask,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::OnceCallback<void(const base::ScopedFD& /*fd*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -106,7 +105,7 @@ class PermissionBrokerProxyInterface {
   virtual bool OpenPathAndRegisterClient(
       const std::string& in_path,
       uint32_t in_drop_privileges_mask,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::ScopedFD* out_fd,
       std::string* out_client_id,
       brillo::ErrorPtr* error,
@@ -128,7 +127,7 @@ class PermissionBrokerProxyInterface {
   virtual void OpenPathAndRegisterClientAsync(
       const std::string& in_path,
       uint32_t in_drop_privileges_mask,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::OnceCallback<void(const base::ScopedFD& /*fd*/, const std::string& /*client_id*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -202,7 +201,7 @@ class PermissionBrokerProxyInterface {
   virtual bool RequestTcpPortAccess(
       uint16_t in_port,
       const std::string& in_interface,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       bool* out_allowed,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -210,7 +209,7 @@ class PermissionBrokerProxyInterface {
   virtual void RequestTcpPortAccessAsync(
       uint16_t in_port,
       const std::string& in_interface,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::OnceCallback<void(bool /*allowed*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -218,7 +217,7 @@ class PermissionBrokerProxyInterface {
   virtual bool RequestUdpPortAccess(
       uint16_t in_port,
       const std::string& in_interface,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       bool* out_allowed,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -226,21 +225,21 @@ class PermissionBrokerProxyInterface {
   virtual void RequestUdpPortAccessAsync(
       uint16_t in_port,
       const std::string& in_interface,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::OnceCallback<void(bool /*allowed*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual bool RequestLoopbackTcpPortLockdown(
       uint16_t in_port,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       bool* out_allowed,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void RequestLoopbackTcpPortLockdownAsync(
       uint16_t in_port,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::OnceCallback<void(bool /*allowed*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -290,7 +289,7 @@ class PermissionBrokerProxyInterface {
       const std::string& in_interface,
       const std::string& in_dst_ip,
       uint16_t in_dst_port,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       bool* out_allowed,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -300,7 +299,7 @@ class PermissionBrokerProxyInterface {
       const std::string& in_interface,
       const std::string& in_dst_ip,
       uint16_t in_dst_port,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::OnceCallback<void(bool /*allowed*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -310,7 +309,7 @@ class PermissionBrokerProxyInterface {
       const std::string& in_interface,
       const std::string& in_dst_ip,
       uint16_t in_dst_port,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       bool* out_allowed,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -320,7 +319,7 @@ class PermissionBrokerProxyInterface {
       const std::string& in_interface,
       const std::string& in_dst_ip,
       uint16_t in_dst_port,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::OnceCallback<void(bool /*allowed*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -464,7 +463,7 @@ class PermissionBrokerProxy final : public PermissionBrokerProxyInterface {
   bool ClaimDevicePath(
       const std::string& in_path,
       uint32_t in_drop_privileges_mask,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::ScopedFD* out_fd,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -493,7 +492,7 @@ class PermissionBrokerProxy final : public PermissionBrokerProxyInterface {
   void ClaimDevicePathAsync(
       const std::string& in_path,
       uint32_t in_drop_privileges_mask,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::OnceCallback<void(const base::ScopedFD& /*fd*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -525,7 +524,7 @@ class PermissionBrokerProxy final : public PermissionBrokerProxyInterface {
   bool OpenPathAndRegisterClient(
       const std::string& in_path,
       uint32_t in_drop_privileges_mask,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::ScopedFD* out_fd,
       std::string* out_client_id,
       brillo::ErrorPtr* error,
@@ -559,7 +558,7 @@ class PermissionBrokerProxy final : public PermissionBrokerProxyInterface {
   void OpenPathAndRegisterClientAsync(
       const std::string& in_path,
       uint32_t in_drop_privileges_mask,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::OnceCallback<void(const base::ScopedFD& /*fd*/, const std::string& /*client_id*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -709,7 +708,7 @@ class PermissionBrokerProxy final : public PermissionBrokerProxyInterface {
   bool RequestTcpPortAccess(
       uint16_t in_port,
       const std::string& in_interface,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       bool* out_allowed,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -729,7 +728,7 @@ class PermissionBrokerProxy final : public PermissionBrokerProxyInterface {
   void RequestTcpPortAccessAsync(
       uint16_t in_port,
       const std::string& in_interface,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::OnceCallback<void(bool /*allowed*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -748,7 +747,7 @@ class PermissionBrokerProxy final : public PermissionBrokerProxyInterface {
   bool RequestUdpPortAccess(
       uint16_t in_port,
       const std::string& in_interface,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       bool* out_allowed,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -768,7 +767,7 @@ class PermissionBrokerProxy final : public PermissionBrokerProxyInterface {
   void RequestUdpPortAccessAsync(
       uint16_t in_port,
       const std::string& in_interface,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::OnceCallback<void(bool /*allowed*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -786,7 +785,7 @@ class PermissionBrokerProxy final : public PermissionBrokerProxyInterface {
 
   bool RequestLoopbackTcpPortLockdown(
       uint16_t in_port,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       bool* out_allowed,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -804,7 +803,7 @@ class PermissionBrokerProxy final : public PermissionBrokerProxyInterface {
 
   void RequestLoopbackTcpPortLockdownAsync(
       uint16_t in_port,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::OnceCallback<void(bool /*allowed*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -925,7 +924,7 @@ class PermissionBrokerProxy final : public PermissionBrokerProxyInterface {
       const std::string& in_interface,
       const std::string& in_dst_ip,
       uint16_t in_dst_port,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       bool* out_allowed,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -949,7 +948,7 @@ class PermissionBrokerProxy final : public PermissionBrokerProxyInterface {
       const std::string& in_interface,
       const std::string& in_dst_ip,
       uint16_t in_dst_port,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::OnceCallback<void(bool /*allowed*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -972,7 +971,7 @@ class PermissionBrokerProxy final : public PermissionBrokerProxyInterface {
       const std::string& in_interface,
       const std::string& in_dst_ip,
       uint16_t in_dst_port,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       bool* out_allowed,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -996,7 +995,7 @@ class PermissionBrokerProxy final : public PermissionBrokerProxyInterface {
       const std::string& in_interface,
       const std::string& in_dst_ip,
       uint16_t in_dst_port,
-      const brillo::dbus_utils::FileDescriptor& in_lifeline_fd,
+      const base::ScopedFD& in_lifeline_fd,
       base::OnceCallback<void(bool /*allowed*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {

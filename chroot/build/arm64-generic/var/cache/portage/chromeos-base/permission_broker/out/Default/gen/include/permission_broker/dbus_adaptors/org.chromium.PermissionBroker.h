@@ -12,7 +12,6 @@
 #include <brillo/any.h>
 #include <brillo/dbus/dbus_object.h>
 #include <brillo/dbus/exported_object_manager.h>
-#include <brillo/dbus/file_descriptor.h>
 #include <brillo/variant_dictionary.h>
 
 namespace org {
@@ -28,7 +27,7 @@ class PermissionBrokerInterface {
   virtual bool OpenPath(
       brillo::ErrorPtr* error,
       const std::string& in_path,
-      brillo::dbus_utils::FileDescriptor* out_fd) = 0;
+      base::ScopedFD* out_fd) = 0;
   // The |drop_privileges_mask| is a bit mask indicating which interface
   // numbers of a USB device are allowed. The interface number 0 corresponds
   // to the LSB of the mask. A device which has an ADB interface and other
@@ -43,7 +42,7 @@ class PermissionBrokerInterface {
       const std::string& in_path,
       uint32_t in_drop_privileges_mask,
       const base::ScopedFD& in_lifeline_fd,
-      brillo::dbus_utils::FileDescriptor* out_fd) = 0;
+      base::ScopedFD* out_fd) = 0;
   // This API is for a client to register with the Permission Broker to
   // make requests to detach/reattach USB device interfaces in the future.
   // The |drop_privileges_mask| is a bit mask indicating which interface
@@ -62,7 +61,7 @@ class PermissionBrokerInterface {
       const std::string& in_path,
       uint32_t in_drop_privileges_mask,
       const base::ScopedFD& in_lifeline_fd,
-      brillo::dbus_utils::FileDescriptor* out_fd,
+      base::ScopedFD* out_fd,
       std::string* out_client_id) = 0;
   // This API is for the client with |client_id| to detach the interface
   // |iface_num| at the USB device associated with it.

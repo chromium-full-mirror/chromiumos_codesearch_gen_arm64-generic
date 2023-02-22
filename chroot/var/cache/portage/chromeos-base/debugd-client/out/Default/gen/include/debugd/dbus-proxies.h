@@ -15,7 +15,6 @@
 #include <brillo/dbus/dbus_method_invoker.h>
 #include <brillo/dbus/dbus_property.h>
 #include <brillo/dbus/dbus_signal_handler.h>
-#include <brillo/dbus/file_descriptor.h>
 #include <brillo/errors/error.h>
 #include <brillo/variant_dictionary.h>
 #include <dbus/bus.h>
@@ -37,7 +36,7 @@ class debugdProxyInterface {
   // string functions as a handle for this particular ping. Multiple pings
   // can be running at once.
   virtual bool PingStart(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_destination,
       const brillo::VariantDictionary& in_options,
       std::string* out_handle,
@@ -49,7 +48,7 @@ class debugdProxyInterface {
   // string functions as a handle for this particular ping. Multiple pings
   // can be running at once.
   virtual void PingStartAsync(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_destination,
       const brillo::VariantDictionary& in_options,
       base::OnceCallback<void(const std::string& /*handle*/)> success_callback,
@@ -88,13 +87,13 @@ class debugdProxyInterface {
 
   // Stop system/kernel tracing and write the collected event data.
   virtual bool SystraceStop(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   // Stop system/kernel tracing and write the collected event data.
   virtual void SystraceStopAsync(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -114,7 +113,7 @@ class debugdProxyInterface {
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual bool TracePathStart(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_destination,
       const brillo::VariantDictionary& in_options,
       std::string* out_handle,
@@ -122,7 +121,7 @@ class debugdProxyInterface {
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void TracePathStartAsync(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_destination,
       const brillo::VariantDictionary& in_options,
       base::OnceCallback<void(const std::string& /*handle*/)> success_callback,
@@ -215,7 +214,7 @@ class debugdProxyInterface {
   virtual bool GetPerfOutputFd(
       uint32_t in_duration_sec,
       const std::vector<std::string>& in_perf_args,
-      const brillo::dbus_utils::FileDescriptor& in_stdout,
+      const base::ScopedFD& in_stdout,
       uint64_t* out_session_id,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -231,7 +230,7 @@ class debugdProxyInterface {
   virtual void GetPerfOutputFdAsync(
       uint32_t in_duration_sec,
       const std::vector<std::string>& in_perf_args,
-      const brillo::dbus_utils::FileDescriptor& in_stdout,
+      const base::ScopedFD& in_stdout,
       base::OnceCallback<void(uint64_t /*session_id*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -264,7 +263,7 @@ class debugdProxyInterface {
   virtual bool GetPerfOutputV2(
       const std::vector<std::string>& in_quipper_args,
       bool in_disable_cpu_idle,
-      const brillo::dbus_utils::FileDescriptor& in_stdout,
+      const base::ScopedFD& in_stdout,
       uint64_t* out_session_id,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -280,7 +279,7 @@ class debugdProxyInterface {
   virtual void GetPerfOutputV2Async(
       const std::vector<std::string>& in_quipper_args,
       bool in_disable_cpu_idle,
-      const brillo::dbus_utils::FileDescriptor& in_stdout,
+      const base::ScopedFD& in_stdout,
       base::OnceCallback<void(uint64_t /*session_id*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -289,7 +288,7 @@ class debugdProxyInterface {
   // supplied file descriptor.
   virtual bool DumpDebugLogs(
       bool in_is_compressed,
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -297,7 +296,7 @@ class debugdProxyInterface {
   // supplied file descriptor.
   virtual void DumpDebugLogsAsync(
       bool in_is_compressed,
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -348,7 +347,7 @@ class debugdProxyInterface {
   // exceed the limits of D-Bus returning them. Provides options to change
   // the scope of the collected logs.
   virtual bool GetFeedbackLogsV2(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_username,
       const std::vector<int32_t>& in_requested_logs,
       brillo::ErrorPtr* error,
@@ -359,7 +358,7 @@ class debugdProxyInterface {
   // exceed the limits of D-Bus returning them. Provides options to change
   // the scope of the collected logs.
   virtual void GetFeedbackLogsV2Async(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_username,
       const std::vector<int32_t>& in_requested_logs,
       base::OnceCallback<void()> success_callback,
@@ -371,7 +370,7 @@ class debugdProxyInterface {
   // exceed the limits of D-Bus returning them. Provides options to change
   // the scope of the collected logs.
   virtual bool GetFeedbackLogsV3(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_username,
       const std::vector<int32_t>& in_requested_logs,
       brillo::ErrorPtr* error,
@@ -382,7 +381,7 @@ class debugdProxyInterface {
   // exceed the limits of D-Bus returning them. Provides options to change
   // the scope of the collected logs.
   virtual void GetFeedbackLogsV3Async(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_username,
       const std::vector<int32_t>& in_requested_logs,
       base::OnceCallback<void()> success_callback,
@@ -635,7 +634,7 @@ class debugdProxyInterface {
 
   // Starts running memtester.
   virtual bool MemtesterStart(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       uint32_t in_memory,
       std::string* out_status,
       brillo::ErrorPtr* error,
@@ -643,7 +642,7 @@ class debugdProxyInterface {
 
   // Starts running memtester.
   virtual void MemtesterStartAsync(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       uint32_t in_memory,
       base::OnceCallback<void(const std::string& /*status*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
@@ -664,14 +663,14 @@ class debugdProxyInterface {
 
   // Starts running badblocks test.
   virtual bool BadblocksStart(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       std::string* out_status,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   // Starts running badblocks test.
   virtual void BadblocksStartAsync(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       base::OnceCallback<void(const std::string& /*status*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -701,8 +700,8 @@ class debugdProxyInterface {
   // packet capture.  The name of the output packet capture file is sent
   // to the output file descriptor.
   virtual bool PacketCaptureStart(
-      const brillo::dbus_utils::FileDescriptor& in_statfd,
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_statfd,
+      const base::ScopedFD& in_outfd,
       const brillo::VariantDictionary& in_options,
       std::string* out_handle,
       brillo::ErrorPtr* error,
@@ -720,8 +719,8 @@ class debugdProxyInterface {
   // packet capture.  The name of the output packet capture file is sent
   // to the output file descriptor.
   virtual void PacketCaptureStartAsync(
-      const brillo::dbus_utils::FileDescriptor& in_statfd,
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_statfd,
+      const base::ScopedFD& in_outfd,
       const brillo::VariantDictionary& in_options,
       base::OnceCallback<void(const std::string& /*handle*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
@@ -767,7 +766,7 @@ class debugdProxyInterface {
   // Uploads a single crash report immediately. Crash report data is
   // contained in the message.
   virtual bool UploadSingleCrash(
-      const std::vector<std::tuple<std::string, brillo::dbus_utils::FileDescriptor>>& in_files,
+      const std::vector<std::tuple<std::string, base::ScopedFD>>& in_files,
       bool in_consent_already_checked_by_crash_reporter,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -775,7 +774,7 @@ class debugdProxyInterface {
   // Uploads a single crash report immediately. Crash report data is
   // contained in the message.
   virtual void UploadSingleCrashAsync(
-      const std::vector<std::tuple<std::string, brillo::dbus_utils::FileDescriptor>>& in_files,
+      const std::vector<std::tuple<std::string, base::ScopedFD>>& in_files,
       bool in_consent_already_checked_by_crash_reporter,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
@@ -1202,7 +1201,7 @@ class debugdProxyInterface {
 
   // Run a shill debug script in a sandboxed environment.
   virtual bool RunShillScriptStart(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_script,
       const std::vector<std::string>& in_script_args,
       std::string* out_handle,
@@ -1211,7 +1210,7 @@ class debugdProxyInterface {
 
   // Run a shill debug script in a sandboxed environment.
   virtual void RunShillScriptStartAsync(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_script,
       const std::vector<std::string>& in_script_args,
       base::OnceCallback<void(const std::string& /*handle*/)> success_callback,
@@ -1277,7 +1276,7 @@ class debugdProxyInterface {
   // device's FW is not up-to-date) and verifying AP and EC RO FW integrity
   // of the device.
   virtual bool UpdateAndVerifyFWOnUsbStart(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_image_file,
       const std::string& in_ro_db_dir,
       std::string* out_handle,
@@ -1288,7 +1287,7 @@ class debugdProxyInterface {
   // device's FW is not up-to-date) and verifying AP and EC RO FW integrity
   // of the device.
   virtual void UpdateAndVerifyFWOnUsbStartAsync(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_image_file,
       const std::string& in_ro_db_dir,
       base::OnceCallback<void(const std::string& /*handle*/)> success_callback,
@@ -1631,7 +1630,7 @@ class debugdProxy final : public debugdProxyInterface {
   // string functions as a handle for this particular ping. Multiple pings
   // can be running at once.
   bool PingStart(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_destination,
       const brillo::VariantDictionary& in_options,
       std::string* out_handle,
@@ -1655,7 +1654,7 @@ class debugdProxy final : public debugdProxyInterface {
   // string functions as a handle for this particular ping. Multiple pings
   // can be running at once.
   void PingStartAsync(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_destination,
       const brillo::VariantDictionary& in_options,
       base::OnceCallback<void(const std::string& /*handle*/)> success_callback,
@@ -1743,7 +1742,7 @@ class debugdProxy final : public debugdProxyInterface {
 
   // Stop system/kernel tracing and write the collected event data.
   bool SystraceStop(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -1759,7 +1758,7 @@ class debugdProxy final : public debugdProxyInterface {
 
   // Stop system/kernel tracing and write the collected event data.
   void SystraceStopAsync(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -1805,7 +1804,7 @@ class debugdProxy final : public debugdProxyInterface {
   }
 
   bool TracePathStart(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_destination,
       const brillo::VariantDictionary& in_options,
       std::string* out_handle,
@@ -1825,7 +1824,7 @@ class debugdProxy final : public debugdProxyInterface {
   }
 
   void TracePathStartAsync(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_destination,
       const brillo::VariantDictionary& in_options,
       base::OnceCallback<void(const std::string& /*handle*/)> success_callback,
@@ -2024,7 +2023,7 @@ class debugdProxy final : public debugdProxyInterface {
   bool GetPerfOutputFd(
       uint32_t in_duration_sec,
       const std::vector<std::string>& in_perf_args,
-      const brillo::dbus_utils::FileDescriptor& in_stdout,
+      const base::ScopedFD& in_stdout,
       uint64_t* out_session_id,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -2052,7 +2051,7 @@ class debugdProxy final : public debugdProxyInterface {
   void GetPerfOutputFdAsync(
       uint32_t in_duration_sec,
       const std::vector<std::string>& in_perf_args,
-      const brillo::dbus_utils::FileDescriptor& in_stdout,
+      const base::ScopedFD& in_stdout,
       base::OnceCallback<void(uint64_t /*session_id*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -2115,7 +2114,7 @@ class debugdProxy final : public debugdProxyInterface {
   bool GetPerfOutputV2(
       const std::vector<std::string>& in_quipper_args,
       bool in_disable_cpu_idle,
-      const brillo::dbus_utils::FileDescriptor& in_stdout,
+      const base::ScopedFD& in_stdout,
       uint64_t* out_session_id,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -2143,7 +2142,7 @@ class debugdProxy final : public debugdProxyInterface {
   void GetPerfOutputV2Async(
       const std::vector<std::string>& in_quipper_args,
       bool in_disable_cpu_idle,
-      const brillo::dbus_utils::FileDescriptor& in_stdout,
+      const base::ScopedFD& in_stdout,
       base::OnceCallback<void(uint64_t /*session_id*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -2163,7 +2162,7 @@ class debugdProxy final : public debugdProxyInterface {
   // supplied file descriptor.
   bool DumpDebugLogs(
       bool in_is_compressed,
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -2182,7 +2181,7 @@ class debugdProxy final : public debugdProxyInterface {
   // supplied file descriptor.
   void DumpDebugLogsAsync(
       bool in_is_compressed,
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -2298,7 +2297,7 @@ class debugdProxy final : public debugdProxyInterface {
   // exceed the limits of D-Bus returning them. Provides options to change
   // the scope of the collected logs.
   bool GetFeedbackLogsV2(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_username,
       const std::vector<int32_t>& in_requested_logs,
       brillo::ErrorPtr* error,
@@ -2321,7 +2320,7 @@ class debugdProxy final : public debugdProxyInterface {
   // exceed the limits of D-Bus returning them. Provides options to change
   // the scope of the collected logs.
   void GetFeedbackLogsV2Async(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_username,
       const std::vector<int32_t>& in_requested_logs,
       base::OnceCallback<void()> success_callback,
@@ -2344,7 +2343,7 @@ class debugdProxy final : public debugdProxyInterface {
   // exceed the limits of D-Bus returning them. Provides options to change
   // the scope of the collected logs.
   bool GetFeedbackLogsV3(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_username,
       const std::vector<int32_t>& in_requested_logs,
       brillo::ErrorPtr* error,
@@ -2367,7 +2366,7 @@ class debugdProxy final : public debugdProxyInterface {
   // exceed the limits of D-Bus returning them. Provides options to change
   // the scope of the collected logs.
   void GetFeedbackLogsV3Async(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_username,
       const std::vector<int32_t>& in_requested_logs,
       base::OnceCallback<void()> success_callback,
@@ -2943,7 +2942,7 @@ class debugdProxy final : public debugdProxyInterface {
 
   // Starts running memtester.
   bool MemtesterStart(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       uint32_t in_memory,
       std::string* out_status,
       brillo::ErrorPtr* error,
@@ -2962,7 +2961,7 @@ class debugdProxy final : public debugdProxyInterface {
 
   // Starts running memtester.
   void MemtesterStartAsync(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       uint32_t in_memory,
       base::OnceCallback<void(const std::string& /*status*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
@@ -3012,7 +3011,7 @@ class debugdProxy final : public debugdProxyInterface {
 
   // Starts running badblocks test.
   bool BadblocksStart(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       std::string* out_status,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -3029,7 +3028,7 @@ class debugdProxy final : public debugdProxyInterface {
 
   // Starts running badblocks test.
   void BadblocksStartAsync(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       base::OnceCallback<void(const std::string& /*status*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -3087,8 +3086,8 @@ class debugdProxy final : public debugdProxyInterface {
   // packet capture.  The name of the output packet capture file is sent
   // to the output file descriptor.
   bool PacketCaptureStart(
-      const brillo::dbus_utils::FileDescriptor& in_statfd,
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_statfd,
+      const base::ScopedFD& in_outfd,
       const brillo::VariantDictionary& in_options,
       std::string* out_handle,
       brillo::ErrorPtr* error,
@@ -3118,8 +3117,8 @@ class debugdProxy final : public debugdProxyInterface {
   // packet capture.  The name of the output packet capture file is sent
   // to the output file descriptor.
   void PacketCaptureStartAsync(
-      const brillo::dbus_utils::FileDescriptor& in_statfd,
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_statfd,
+      const base::ScopedFD& in_outfd,
       const brillo::VariantDictionary& in_options,
       base::OnceCallback<void(const std::string& /*handle*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
@@ -3229,7 +3228,7 @@ class debugdProxy final : public debugdProxyInterface {
   // Uploads a single crash report immediately. Crash report data is
   // contained in the message.
   bool UploadSingleCrash(
-      const std::vector<std::tuple<std::string, brillo::dbus_utils::FileDescriptor>>& in_files,
+      const std::vector<std::tuple<std::string, base::ScopedFD>>& in_files,
       bool in_consent_already_checked_by_crash_reporter,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -3248,7 +3247,7 @@ class debugdProxy final : public debugdProxyInterface {
   // Uploads a single crash report immediately. Crash report data is
   // contained in the message.
   void UploadSingleCrashAsync(
-      const std::vector<std::tuple<std::string, brillo::dbus_utils::FileDescriptor>>& in_files,
+      const std::vector<std::tuple<std::string, base::ScopedFD>>& in_files,
       bool in_consent_already_checked_by_crash_reporter,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
@@ -4199,7 +4198,7 @@ class debugdProxy final : public debugdProxyInterface {
 
   // Run a shill debug script in a sandboxed environment.
   bool RunShillScriptStart(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_script,
       const std::vector<std::string>& in_script_args,
       std::string* out_handle,
@@ -4220,7 +4219,7 @@ class debugdProxy final : public debugdProxyInterface {
 
   // Run a shill debug script in a sandboxed environment.
   void RunShillScriptStartAsync(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_script,
       const std::vector<std::string>& in_script_args,
       base::OnceCallback<void(const std::string& /*handle*/)> success_callback,
@@ -4371,7 +4370,7 @@ class debugdProxy final : public debugdProxyInterface {
   // device's FW is not up-to-date) and verifying AP and EC RO FW integrity
   // of the device.
   bool UpdateAndVerifyFWOnUsbStart(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_image_file,
       const std::string& in_ro_db_dir,
       std::string* out_handle,
@@ -4394,7 +4393,7 @@ class debugdProxy final : public debugdProxyInterface {
   // device's FW is not up-to-date) and verifying AP and EC RO FW integrity
   // of the device.
   void UpdateAndVerifyFWOnUsbStartAsync(
-      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const base::ScopedFD& in_outfd,
       const std::string& in_image_file,
       const std::string& in_ro_db_dir,
       base::OnceCallback<void(const std::string& /*handle*/)> success_callback,

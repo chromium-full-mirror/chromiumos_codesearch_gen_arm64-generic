@@ -15,7 +15,6 @@
 #include <brillo/dbus/dbus_method_invoker.h>
 #include <brillo/dbus/dbus_property.h>
 #include <brillo/dbus/dbus_signal_handler.h>
-#include <brillo/dbus/file_descriptor.h>
 #include <brillo/errors/error.h>
 #include <brillo/variant_dictionary.h>
 #include <dbus/bus.h>
@@ -89,13 +88,13 @@ class fwupdProxyInterface {
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual bool GetDetails(
-      const brillo::dbus_utils::FileDescriptor& in_handle,
+      const base::ScopedFD& in_handle,
       std::vector<brillo::VariantDictionary>* out_results,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void GetDetailsAsync(
-      const brillo::dbus_utils::FileDescriptor& in_handle,
+      const base::ScopedFD& in_handle,
       base::OnceCallback<void(const std::vector<brillo::VariantDictionary>& /*results*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -155,14 +154,14 @@ class fwupdProxyInterface {
 
   virtual bool Install(
       const std::string& in_id,
-      const brillo::dbus_utils::FileDescriptor& in_handle,
+      const base::ScopedFD& in_handle,
       const brillo::VariantDictionary& in_options,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void InstallAsync(
       const std::string& in_id,
-      const brillo::dbus_utils::FileDescriptor& in_handle,
+      const base::ScopedFD& in_handle,
       const brillo::VariantDictionary& in_options,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
@@ -328,15 +327,15 @@ class fwupdProxyInterface {
 
   virtual bool UpdateMetadata(
       const std::string& in_remote_id,
-      const brillo::dbus_utils::FileDescriptor& in_data,
-      const brillo::dbus_utils::FileDescriptor& in_signature,
+      const base::ScopedFD& in_data,
+      const base::ScopedFD& in_signature,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void UpdateMetadataAsync(
       const std::string& in_remote_id,
-      const brillo::dbus_utils::FileDescriptor& in_data,
-      const brillo::dbus_utils::FileDescriptor& in_signature,
+      const base::ScopedFD& in_data,
+      const base::ScopedFD& in_signature,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -757,7 +756,7 @@ class fwupdProxy final : public fwupdProxyInterface {
   }
 
   bool GetDetails(
-      const brillo::dbus_utils::FileDescriptor& in_handle,
+      const base::ScopedFD& in_handle,
       std::vector<brillo::VariantDictionary>* out_results,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -773,7 +772,7 @@ class fwupdProxy final : public fwupdProxyInterface {
   }
 
   void GetDetailsAsync(
-      const brillo::dbus_utils::FileDescriptor& in_handle,
+      const base::ScopedFD& in_handle,
       base::OnceCallback<void(const std::vector<brillo::VariantDictionary>& /*results*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -931,7 +930,7 @@ class fwupdProxy final : public fwupdProxyInterface {
 
   bool Install(
       const std::string& in_id,
-      const brillo::dbus_utils::FileDescriptor& in_handle,
+      const base::ScopedFD& in_handle,
       const brillo::VariantDictionary& in_options,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -950,7 +949,7 @@ class fwupdProxy final : public fwupdProxyInterface {
 
   void InstallAsync(
       const std::string& in_id,
-      const brillo::dbus_utils::FileDescriptor& in_handle,
+      const base::ScopedFD& in_handle,
       const brillo::VariantDictionary& in_options,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
@@ -1393,8 +1392,8 @@ class fwupdProxy final : public fwupdProxyInterface {
 
   bool UpdateMetadata(
       const std::string& in_remote_id,
-      const brillo::dbus_utils::FileDescriptor& in_data,
-      const brillo::dbus_utils::FileDescriptor& in_signature,
+      const base::ScopedFD& in_data,
+      const base::ScopedFD& in_signature,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -1412,8 +1411,8 @@ class fwupdProxy final : public fwupdProxyInterface {
 
   void UpdateMetadataAsync(
       const std::string& in_remote_id,
-      const brillo::dbus_utils::FileDescriptor& in_data,
-      const brillo::dbus_utils::FileDescriptor& in_signature,
+      const base::ScopedFD& in_data,
+      const base::ScopedFD& in_signature,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {

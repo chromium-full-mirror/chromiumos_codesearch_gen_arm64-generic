@@ -15,7 +15,6 @@
 #include <brillo/dbus/dbus_method_invoker.h>
 #include <brillo/dbus/dbus_property.h>
 #include <brillo/dbus/dbus_signal_handler.h>
-#include <brillo/dbus/file_descriptor.h>
 #include <brillo/errors/error.h>
 #include <brillo/variant_dictionary.h>
 #include <dbus/bus.h>
@@ -34,13 +33,13 @@ class SmbFsProxyInterface {
 
   virtual bool OpenIpcChannel(
       const std::string& in_identity,
-      const brillo::dbus_utils::FileDescriptor& in_socket,
+      const base::ScopedFD& in_socket,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void OpenIpcChannelAsync(
       const std::string& in_identity,
-      const brillo::dbus_utils::FileDescriptor& in_socket,
+      const base::ScopedFD& in_socket,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -87,7 +86,7 @@ class SmbFsProxy final : public SmbFsProxyInterface {
 
   bool OpenIpcChannel(
       const std::string& in_identity,
-      const brillo::dbus_utils::FileDescriptor& in_socket,
+      const base::ScopedFD& in_socket,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -104,7 +103,7 @@ class SmbFsProxy final : public SmbFsProxyInterface {
 
   void OpenIpcChannelAsync(
       const std::string& in_identity,
-      const brillo::dbus_utils::FileDescriptor& in_socket,
+      const base::ScopedFD& in_socket,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {

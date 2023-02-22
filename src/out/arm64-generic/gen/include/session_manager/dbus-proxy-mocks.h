@@ -53,11 +53,11 @@ class SessionManagerInterfaceProxyMock : public SessionManagerInterfaceProxyInte
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
   MOCK_METHOD3(SaveLoginPassword,
-               bool(const brillo::dbus_utils::FileDescriptor& /*in_password_fd*/,
+               bool(const base::ScopedFD& /*in_password_fd*/,
                     brillo::ErrorPtr* /*error*/,
                     int /*timeout_ms*/));
   MOCK_METHOD4(SaveLoginPasswordAsync,
-               void(const brillo::dbus_utils::FileDescriptor& /*in_password_fd*/,
+               void(const base::ScopedFD& /*in_password_fd*/,
                     base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
@@ -65,14 +65,14 @@ class SessionManagerInterfaceProxyMock : public SessionManagerInterfaceProxyInte
                bool(const std::string& /*in_key*/,
                     const std::vector<uint8_t>& /*in_metadata*/,
                     uint64_t /*in_value_size*/,
-                    const brillo::dbus_utils::FileDescriptor& /*in_value_fd*/,
+                    const base::ScopedFD& /*in_value_fd*/,
                     brillo::ErrorPtr* /*error*/,
                     int /*timeout_ms*/));
   MOCK_METHOD7(LoginScreenStorageStoreAsync,
                void(const std::string& /*in_key*/,
                     const std::vector<uint8_t>& /*in_metadata*/,
                     uint64_t /*in_value_size*/,
-                    const brillo::dbus_utils::FileDescriptor& /*in_value_fd*/,
+                    const base::ScopedFD& /*in_value_fd*/,
                     base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
@@ -274,13 +274,13 @@ class SessionManagerInterfaceProxyMock : public SessionManagerInterfaceProxyInte
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
   MOCK_METHOD5(RestartJob,
-               bool(const brillo::dbus_utils::FileDescriptor& /*in_cred_fd*/,
+               bool(const base::ScopedFD& /*in_cred_fd*/,
                     const std::vector<std::string>& /*in_argv*/,
                     uint32_t /*in_mode*/,
                     brillo::ErrorPtr* /*error*/,
                     int /*timeout_ms*/));
   MOCK_METHOD6(RestartJobAsync,
-               void(const brillo::dbus_utils::FileDescriptor& /*in_cred_fd*/,
+               void(const base::ScopedFD& /*in_cred_fd*/,
                     const std::vector<std::string>& /*in_argv*/,
                     uint32_t /*in_mode*/,
                     base::OnceCallback<void()> /*success_callback*/,
