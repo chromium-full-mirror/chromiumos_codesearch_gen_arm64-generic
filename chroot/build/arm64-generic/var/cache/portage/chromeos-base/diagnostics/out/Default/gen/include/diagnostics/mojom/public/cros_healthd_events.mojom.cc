@@ -627,6 +627,92 @@ bool HdmiEventInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+TouchscreenTouchEvent::TouchscreenTouchEvent()
+    : touch_points() {}
+
+TouchscreenTouchEvent::TouchscreenTouchEvent(
+    std::vector<TouchPointInfoPtr> touch_points_in)
+    : touch_points(std::move(touch_points_in)) {}
+
+TouchscreenTouchEvent::~TouchscreenTouchEvent() = default;
+
+void TouchscreenTouchEvent::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "touch_points"), this->touch_points,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::vector<TouchPointInfoPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool TouchscreenTouchEvent::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+TouchscreenConnectedEvent::TouchscreenConnectedEvent()
+    : max_x(),
+      max_y(),
+      max_pressure() {}
+
+TouchscreenConnectedEvent::TouchscreenConnectedEvent(
+    uint32_t max_x_in,
+    uint32_t max_y_in,
+    uint32_t max_pressure_in)
+    : max_x(std::move(max_x_in)),
+      max_y(std::move(max_y_in)),
+      max_pressure(std::move(max_pressure_in)) {}
+
+TouchscreenConnectedEvent::~TouchscreenConnectedEvent() = default;
+size_t TouchscreenConnectedEvent::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->max_x);
+  seed = mojo::internal::Hash(seed, this->max_y);
+  seed = mojo::internal::Hash(seed, this->max_pressure);
+  return seed;
+}
+
+void TouchscreenConnectedEvent::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "max_x"), this->max_x,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "max_y"), this->max_y,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "max_pressure"), this->max_pressure,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool TouchscreenConnectedEvent::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 TouchpadEventInfo::TouchpadEventInfo() : tag_(Tag::kDefaultType) {
   data_.default_type = uint8_t();
 }
@@ -700,6 +786,68 @@ void TouchpadEventInfo::DestroyActive() {
 }
 
 bool TouchpadEventInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
+TouchscreenEventInfo::TouchscreenEventInfo() : tag_(Tag::kDefaultType) {
+  data_.default_type = uint8_t();
+}
+
+TouchscreenEventInfo::~TouchscreenEventInfo() {
+  DestroyActive();
+}
+
+
+void TouchscreenEventInfo::set_default_type(
+    uint8_t default_type) {
+  if (tag_ != Tag::kDefaultType) {
+    DestroyActive();
+    tag_ = Tag::kDefaultType;
+  }
+  data_.default_type = default_type;
+}
+void TouchscreenEventInfo::set_touch_event(
+    TouchscreenTouchEventPtr touch_event) {
+  if (tag_ == Tag::kTouchEvent) {
+    *(data_.touch_event) = std::move(touch_event);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kTouchEvent;
+    data_.touch_event = new TouchscreenTouchEventPtr(
+        std::move(touch_event));
+  }
+}
+void TouchscreenEventInfo::set_connected_event(
+    TouchscreenConnectedEventPtr connected_event) {
+  if (tag_ == Tag::kConnectedEvent) {
+    *(data_.connected_event) = std::move(connected_event);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kConnectedEvent;
+    data_.connected_event = new TouchscreenConnectedEventPtr(
+        std::move(connected_event));
+  }
+}
+
+void TouchscreenEventInfo::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kDefaultType:
+
+      break;
+    case Tag::kTouchEvent:
+
+      delete data_.touch_event;
+      break;
+    case Tag::kConnectedEvent:
+
+      delete data_.connected_event;
+      break;
+  }
+}
+
+bool TouchscreenEventInfo::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
@@ -842,6 +990,17 @@ void EventInfo::set_hdmi_event_info(
         std::move(hdmi_event_info));
   }
 }
+void EventInfo::set_touchscreen_event_info(
+    TouchscreenEventInfoPtr touchscreen_event_info) {
+  if (tag_ == Tag::kTouchscreenEventInfo) {
+    *(data_.touchscreen_event_info) = std::move(touchscreen_event_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kTouchscreenEventInfo;
+    data_.touchscreen_event_info = new TouchscreenEventInfoPtr(
+        std::move(touchscreen_event_info));
+  }
+}
 
 void EventInfo::DestroyActive() {
   switch (tag_) {
@@ -892,6 +1051,10 @@ void EventInfo::DestroyActive() {
     case Tag::kHdmiEventInfo:
 
       delete data_.hdmi_event_info;
+      break;
+    case Tag::kTouchscreenEventInfo:
+
+      delete data_.touchscreen_event_info;
       break;
   }
 }
@@ -3515,6 +3678,38 @@ bool StructTraits<::ash::cros_healthd::mojom::HdmiEventInfo::DataView, ::ash::cr
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::TouchscreenTouchEvent::DataView, ::ash::cros_healthd::mojom::TouchscreenTouchEventPtr>::Read(
+    ::ash::cros_healthd::mojom::TouchscreenTouchEvent::DataView input,
+    ::ash::cros_healthd::mojom::TouchscreenTouchEventPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::TouchscreenTouchEventPtr result(::ash::cros_healthd::mojom::TouchscreenTouchEvent::New());
+  
+      if (success && !input.ReadTouchPoints(&result->touch_points))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::TouchscreenConnectedEvent::DataView, ::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr>::Read(
+    ::ash::cros_healthd::mojom::TouchscreenConnectedEvent::DataView input,
+    ::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr result(::ash::cros_healthd::mojom::TouchscreenConnectedEvent::New());
+  
+      if (success)
+        result->max_x = input.max_x();
+      if (success)
+        result->max_y = input.max_y();
+      if (success)
+        result->max_pressure = input.max_pressure();
+  *output = std::move(result);
+  return success;
+}
+
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfo::DataView, ::ash::cros_healthd::mojom::TouchpadEventInfoPtr>::Read(
     ::ash::cros_healthd::mojom::TouchpadEventInfo::DataView input,
@@ -3547,6 +3742,44 @@ bool UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfo::DataView, ::ash:
     }
     case Tag::kConnectedEvent: {
       ::ash::cros_healthd::mojom::TouchpadConnectedEventPtr result_connected_event;
+      if (!input.ReadConnectedEvent(&result_connected_event))
+        return false;
+
+      *output = UnionType::NewConnectedEvent(
+          std::move(result_connected_event));
+      break;
+    }
+    default:
+
+      *output = UnionType::NewDefaultType({});
+      return true;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::TouchscreenEventInfo::DataView, ::ash::cros_healthd::mojom::TouchscreenEventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::TouchscreenEventInfo::DataView input,
+    ::ash::cros_healthd::mojom::TouchscreenEventInfoPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::TouchscreenEventInfo;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kDefaultType: {
+      *output = UnionType::NewDefaultType(input.default_type());
+      break;
+    }
+    case Tag::kTouchEvent: {
+      ::ash::cros_healthd::mojom::TouchscreenTouchEventPtr result_touch_event;
+      if (!input.ReadTouchEvent(&result_touch_event))
+        return false;
+
+      *output = UnionType::NewTouchEvent(
+          std::move(result_touch_event));
+      break;
+    }
+    case Tag::kConnectedEvent: {
+      ::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr result_connected_event;
       if (!input.ReadConnectedEvent(&result_connected_event))
         return false;
 
@@ -3671,6 +3904,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView, ::ash::cros_he
 
       *output = UnionType::NewHdmiEventInfo(
           std::move(result_hdmi_event_info));
+      break;
+    }
+    case Tag::kTouchscreenEventInfo: {
+      ::ash::cros_healthd::mojom::TouchscreenEventInfoPtr result_touchscreen_event_info;
+      if (!input.ReadTouchscreenEventInfo(&result_touchscreen_event_info))
+        return false;
+
+      *output = UnionType::NewTouchscreenEventInfo(
+          std::move(result_touchscreen_event_info));
       break;
     }
     default:

@@ -446,6 +446,66 @@ TouchpadObserver_OnConnected_Params_Data::TouchpadObserver_OnConnected_Params_Da
 
 
 // static
+bool TouchscreenObserver_OnTouch_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TouchscreenObserver_OnTouch_Params_Data* object =
+      static_cast<const TouchscreenObserver_OnTouch_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->touch_event, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->touch_event, validation_context))
+    return false;
+
+  return true;
+}
+
+TouchscreenObserver_OnTouch_Params_Data::TouchscreenObserver_OnTouch_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TouchscreenObserver_OnConnected_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TouchscreenObserver_OnConnected_Params_Data* object =
+      static_cast<const TouchscreenObserver_OnConnected_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->connected_event, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->connected_event, validation_context))
+    return false;
+
+  return true;
+}
+
+TouchscreenObserver_OnConnected_Params_Data::TouchscreenObserver_OnConnected_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Executor_GetFanSpeed_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1566,6 +1626,47 @@ bool Executor_FetchBootPerformance_ResponseParams_Data::Validate(
 }
 
 Executor_FetchBootPerformance_ResponseParams_Data::Executor_FetchBootPerformance_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_MonitorTouchscreen_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_MonitorTouchscreen_Params_Data* object =
+      static_cast<const Executor_MonitorTouchscreen_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->observer, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->process_control, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->process_control,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_MonitorTouchscreen_Params_Data::Executor_MonitorTouchscreen_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

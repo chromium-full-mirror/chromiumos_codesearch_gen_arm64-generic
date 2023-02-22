@@ -79,6 +79,8 @@ static NOINLINE const char* EventCategoryEnumToStringHelper(EventCategoryEnum va
       return "kTouchpad";
     case EventCategoryEnum::kHdmi:
       return "kHdmi";
+    case EventCategoryEnum::kTouchscreen:
+      return "kTouchscreen";
     default:
       return nullptr;
   }
@@ -415,6 +417,63 @@ bool TouchpadEventInfo_Data::Validate(
   }
 }
 // static
+bool TouchscreenEventInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const TouchscreenEventInfo_Data* object = static_cast<const TouchscreenEventInfo_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case TouchscreenEventInfo_Tag::kDefaultType: {
+
+      return true;
+    }
+    case TouchscreenEventInfo_Tag::kTouchEvent: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_touch_event, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_touch_event, validation_context))
+        return false;
+      return true;
+    }
+    case TouchscreenEventInfo_Tag::kConnectedEvent: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_connected_event, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_connected_event, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      return true;
+    }
+  }
+}
+// static
 bool EventInfo_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context,
@@ -553,6 +612,17 @@ bool EventInfo_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_hdmi_event_info, validation_context))
+        return false;
+      return true;
+    }
+    case EventInfo_Tag::kTouchscreenEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_touchscreen_event_info, 13, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateNonInlinedUnion(object->data.f_touchscreen_event_info,
+                                                   validation_context))
         return false;
       return true;
     }
@@ -980,6 +1050,63 @@ bool HdmiEventInfo_Data::Validate(
 }
 
 HdmiEventInfo_Data::HdmiEventInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TouchscreenTouchEvent_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TouchscreenTouchEvent_Data* object =
+      static_cast<const TouchscreenTouchEvent_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->touch_points, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& touch_points_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->touch_points, validation_context,
+                                         &touch_points_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+TouchscreenTouchEvent_Data::TouchscreenTouchEvent_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TouchscreenConnectedEvent_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TouchscreenConnectedEvent_Data* object =
+      static_cast<const TouchscreenConnectedEvent_Data*>(data);
+
+  return true;
+}
+
+TouchscreenConnectedEvent_Data::TouchscreenConnectedEvent_Data()
     : header_({sizeof(*this), 0}) {}
 
 

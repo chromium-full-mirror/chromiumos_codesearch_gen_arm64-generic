@@ -2278,6 +2278,151 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+class  TouchscreenConnectedEvent {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<TouchscreenConnectedEvent, T>::value>;
+  using DataView = TouchscreenConnectedEventDataView;
+  using Data_ = internal::TouchscreenConnectedEvent_Data;
+
+  template <typename... Args>
+  static TouchscreenConnectedEventPtr New(Args&&... args) {
+    return TouchscreenConnectedEventPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static TouchscreenConnectedEventPtr From(const U& u) {
+    return mojo::TypeConverter<TouchscreenConnectedEventPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, TouchscreenConnectedEvent>::Convert(*this);
+  }
+
+
+  TouchscreenConnectedEvent();
+
+  TouchscreenConnectedEvent(
+      uint32_t max_x,
+      uint32_t max_y,
+      uint32_t max_pressure);
+
+
+  ~TouchscreenConnectedEvent();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = TouchscreenConnectedEventPtr>
+  TouchscreenConnectedEventPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, TouchscreenConnectedEvent::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, TouchscreenConnectedEvent::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        TouchscreenConnectedEvent::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        TouchscreenConnectedEvent::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::TouchscreenConnectedEvent_UnserializedMessageContext<
+            UserType, TouchscreenConnectedEvent::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<TouchscreenConnectedEvent::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return TouchscreenConnectedEvent::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::TouchscreenConnectedEvent_UnserializedMessageContext<
+            UserType, TouchscreenConnectedEvent::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<TouchscreenConnectedEvent::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint32_t max_x;
+  
+  uint32_t max_y;
+  
+  uint32_t max_pressure;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, TouchscreenConnectedEvent::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, TouchscreenConnectedEvent::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, TouchscreenConnectedEvent::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, TouchscreenConnectedEvent::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  TouchpadEventInfo {
  public:
   using DataView = TouchpadEventInfoDataView;
@@ -2450,6 +2595,157 @@ class  TouchpadEventInfo {
 
 
 
+class  TouchscreenEventInfo {
+ public:
+  using DataView = TouchscreenEventInfoDataView;
+  using Data_ = internal::TouchscreenEventInfo_Data;
+  using Tag = Data_::TouchscreenEventInfo_Tag;
+
+  template <typename... Args>
+  static TouchscreenEventInfoPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
+    return nullptr;
+  }
+  // Construct an instance holding |default_type|.
+  static TouchscreenEventInfoPtr
+  NewDefaultType(
+      uint8_t default_type) {
+    auto result = TouchscreenEventInfoPtr(absl::in_place);
+    result->set_default_type(std::move(default_type));
+    return result;
+  }
+  // Construct an instance holding |touch_event|.
+  static TouchscreenEventInfoPtr
+  NewTouchEvent(
+      TouchscreenTouchEventPtr touch_event) {
+    auto result = TouchscreenEventInfoPtr(absl::in_place);
+    result->set_touch_event(std::move(touch_event));
+    return result;
+  }
+  // Construct an instance holding |connected_event|.
+  static TouchscreenEventInfoPtr
+  NewConnectedEvent(
+      TouchscreenConnectedEventPtr connected_event) {
+    auto result = TouchscreenEventInfoPtr(absl::in_place);
+    result->set_connected_event(std::move(connected_event));
+    return result;
+  }
+
+  template <typename U>
+  static TouchscreenEventInfoPtr From(const U& u) {
+    return mojo::TypeConverter<TouchscreenEventInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, TouchscreenEventInfo>::Convert(*this);
+  }
+
+  TouchscreenEventInfo();
+  ~TouchscreenEventInfo();
+  // Delete the copy constructor and copy assignment operators because `data_`
+  // contains raw pointers that must not be copied.
+  TouchscreenEventInfo(const TouchscreenEventInfo& other) = delete;
+  TouchscreenEventInfo& operator=(const TouchscreenEventInfo& other) = delete;
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = TouchscreenEventInfoPtr>
+  TouchscreenEventInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, TouchscreenEventInfo>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, TouchscreenEventInfo>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_default_type() const { return tag_ == Tag::kDefaultType; }
+
+  
+  uint8_t get_default_type() const {
+    CHECK(tag_ == Tag::kDefaultType);
+    return data_.default_type;
+  }
+
+  
+  void set_default_type(
+      uint8_t default_type);
+  
+  bool is_touch_event() const { return tag_ == Tag::kTouchEvent; }
+
+  
+  TouchscreenTouchEventPtr& get_touch_event() const {
+    CHECK(tag_ == Tag::kTouchEvent);
+    return *(data_.touch_event);
+  }
+
+  
+  void set_touch_event(
+      TouchscreenTouchEventPtr touch_event);
+  
+  bool is_connected_event() const { return tag_ == Tag::kConnectedEvent; }
+
+  
+  TouchscreenConnectedEventPtr& get_connected_event() const {
+    CHECK(tag_ == Tag::kConnectedEvent);
+    return *(data_.connected_event);
+  }
+
+  
+  void set_connected_event(
+      TouchscreenConnectedEventPtr connected_event);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        TouchscreenEventInfo::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<TouchscreenEventInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    uint8_t default_type;
+    TouchscreenTouchEventPtr* touch_event;
+    TouchscreenConnectedEventPtr* connected_event;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
 class  EventInfo {
  public:
   using DataView = EventInfoDataView;
@@ -2560,6 +2856,14 @@ class  EventInfo {
       HdmiEventInfoPtr hdmi_event_info) {
     auto result = EventInfoPtr(absl::in_place);
     result->set_hdmi_event_info(std::move(hdmi_event_info));
+    return result;
+  }
+  // Construct an instance holding |touchscreen_event_info|.
+  static EventInfoPtr
+  NewTouchscreenEventInfo(
+      TouchscreenEventInfoPtr touchscreen_event_info) {
+    auto result = EventInfoPtr(absl::in_place);
+    result->set_touchscreen_event_info(std::move(touchscreen_event_info));
     return result;
   }
 
@@ -2748,6 +3052,18 @@ class  EventInfo {
   
   void set_hdmi_event_info(
       HdmiEventInfoPtr hdmi_event_info);
+  
+  bool is_touchscreen_event_info() const { return tag_ == Tag::kTouchscreenEventInfo; }
+
+  
+  TouchscreenEventInfoPtr& get_touchscreen_event_info() const {
+    CHECK(tag_ == Tag::kTouchscreenEventInfo);
+    return *(data_.touchscreen_event_info);
+  }
+
+  
+  void set_touchscreen_event_info(
+      TouchscreenEventInfoPtr touchscreen_event_info);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -2778,6 +3094,7 @@ class  EventInfo {
     ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr* keyboard_diagnostic_event_info;
     TouchpadEventInfoPtr* touchpad_event_info;
     HdmiEventInfoPtr* hdmi_event_info;
+    TouchscreenEventInfoPtr* touchscreen_event_info;
   };
 
   static bool Validate(const void* data,
@@ -3396,6 +3713,146 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 
+
+
+
+
+class  TouchscreenTouchEvent {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<TouchscreenTouchEvent, T>::value>;
+  using DataView = TouchscreenTouchEventDataView;
+  using Data_ = internal::TouchscreenTouchEvent_Data;
+
+  template <typename... Args>
+  static TouchscreenTouchEventPtr New(Args&&... args) {
+    return TouchscreenTouchEventPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static TouchscreenTouchEventPtr From(const U& u) {
+    return mojo::TypeConverter<TouchscreenTouchEventPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, TouchscreenTouchEvent>::Convert(*this);
+  }
+
+
+  TouchscreenTouchEvent();
+
+  explicit TouchscreenTouchEvent(
+      std::vector<TouchPointInfoPtr> touch_points);
+
+TouchscreenTouchEvent(const TouchscreenTouchEvent&) = delete;
+TouchscreenTouchEvent& operator=(const TouchscreenTouchEvent&) = delete;
+
+  ~TouchscreenTouchEvent();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = TouchscreenTouchEventPtr>
+  TouchscreenTouchEventPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, TouchscreenTouchEvent::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, TouchscreenTouchEvent::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        TouchscreenTouchEvent::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        TouchscreenTouchEvent::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::TouchscreenTouchEvent_UnserializedMessageContext<
+            UserType, TouchscreenTouchEvent::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<TouchscreenTouchEvent::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return TouchscreenTouchEvent::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::TouchscreenTouchEvent_UnserializedMessageContext<
+            UserType, TouchscreenTouchEvent::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<TouchscreenTouchEvent::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::vector<TouchPointInfoPtr> touch_points;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, TouchscreenTouchEvent::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, TouchscreenTouchEvent::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, TouchscreenTouchEvent::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, TouchscreenTouchEvent::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
 template <typename UnionPtrType>
 TouchpadEventInfoPtr TouchpadEventInfo::Clone() const {
   switch (tag_) {
@@ -3427,6 +3884,40 @@ bool TouchpadEventInfo::Equals(const T& other) const {
       return mojo::Equals(data_.default_type, other.data_.default_type);
     case Tag::kButtonEvent:
       return mojo::Equals(*(data_.button_event), *(other.data_.button_event));
+    case Tag::kTouchEvent:
+      return mojo::Equals(*(data_.touch_event), *(other.data_.touch_event));
+    case Tag::kConnectedEvent:
+      return mojo::Equals(*(data_.connected_event), *(other.data_.connected_event));
+  }
+
+  return false;
+}
+template <typename UnionPtrType>
+TouchscreenEventInfoPtr TouchscreenEventInfo::Clone() const {
+  switch (tag_) {
+    case Tag::kDefaultType:
+      return NewDefaultType(
+          mojo::Clone(data_.default_type));
+    case Tag::kTouchEvent:
+      return NewTouchEvent(
+          mojo::Clone(*data_.touch_event));
+    case Tag::kConnectedEvent:
+      return NewConnectedEvent(
+          mojo::Clone(*data_.connected_event));
+  }
+  return nullptr;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, TouchscreenEventInfo>::value>::type*>
+bool TouchscreenEventInfo::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::kDefaultType:
+      return mojo::Equals(data_.default_type, other.data_.default_type);
     case Tag::kTouchEvent:
       return mojo::Equals(*(data_.touch_event), *(other.data_.touch_event));
     case Tag::kConnectedEvent:
@@ -3474,6 +3965,9 @@ EventInfoPtr EventInfo::Clone() const {
     case Tag::kHdmiEventInfo:
       return NewHdmiEventInfo(
           mojo::Clone(*data_.hdmi_event_info));
+    case Tag::kTouchscreenEventInfo:
+      return NewTouchscreenEventInfo(
+          mojo::Clone(*data_.touchscreen_event_info));
   }
   return nullptr;
 }
@@ -3510,6 +4004,8 @@ bool EventInfo::Equals(const T& other) const {
       return mojo::Equals(*(data_.touchpad_event_info), *(other.data_.touchpad_event_info));
     case Tag::kHdmiEventInfo:
       return mojo::Equals(*(data_.hdmi_event_info), *(other.data_.hdmi_event_info));
+    case Tag::kTouchscreenEventInfo:
+      return mojo::Equals(*(data_.touchscreen_event_info), *(other.data_.touchscreen_event_info));
   }
 
   return false;
@@ -3898,6 +4394,64 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+TouchscreenTouchEventPtr TouchscreenTouchEvent::Clone() const {
+  return New(
+      mojo::Clone(touch_points)
+  );
+}
+
+template <typename T, TouchscreenTouchEvent::EnableIfSame<T>*>
+bool TouchscreenTouchEvent::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->touch_points, other_struct.touch_points))
+    return false;
+  return true;
+}
+
+template <typename T, TouchscreenTouchEvent::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.touch_points < rhs.touch_points)
+    return true;
+  if (rhs.touch_points < lhs.touch_points)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+TouchscreenConnectedEventPtr TouchscreenConnectedEvent::Clone() const {
+  return New(
+      mojo::Clone(max_x),
+      mojo::Clone(max_y),
+      mojo::Clone(max_pressure)
+  );
+}
+
+template <typename T, TouchscreenConnectedEvent::EnableIfSame<T>*>
+bool TouchscreenConnectedEvent::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->max_x, other_struct.max_x))
+    return false;
+  if (!mojo::Equals(this->max_y, other_struct.max_y))
+    return false;
+  if (!mojo::Equals(this->max_pressure, other_struct.max_pressure))
+    return false;
+  return true;
+}
+
+template <typename T, TouchscreenConnectedEvent::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.max_x < rhs.max_x)
+    return true;
+  if (rhs.max_x < lhs.max_x)
+    return false;
+  if (lhs.max_y < rhs.max_y)
+    return true;
+  if (rhs.max_y < lhs.max_y)
+    return false;
+  if (lhs.max_pressure < rhs.max_pressure)
+    return true;
+  if (rhs.max_pressure < lhs.max_pressure)
+    return false;
+  return false;
+}
 
 
 }  // namespace mojom
@@ -4173,6 +4727,46 @@ struct  StructTraits<::ash::cros_healthd::mojom::HdmiEventInfo::DataView,
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::TouchscreenTouchEvent::DataView,
+                                         ::ash::cros_healthd::mojom::TouchscreenTouchEventPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::TouchscreenTouchEventPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::TouchscreenTouchEventPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::TouchscreenTouchEvent::touch_points)& touch_points(
+      const ::ash::cros_healthd::mojom::TouchscreenTouchEventPtr& input) {
+    return input->touch_points;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::TouchscreenTouchEvent::DataView input, ::ash::cros_healthd::mojom::TouchscreenTouchEventPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::TouchscreenConnectedEvent::DataView,
+                                         ::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::TouchscreenConnectedEvent::max_x) max_x(
+      const ::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr& input) {
+    return input->max_x;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::TouchscreenConnectedEvent::max_y) max_y(
+      const ::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr& input) {
+    return input->max_y;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::TouchscreenConnectedEvent::max_pressure) max_pressure(
+      const ::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr& input) {
+    return input->max_pressure;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::TouchscreenConnectedEvent::DataView input, ::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr* output);
+};
+
+
+template <>
 struct  UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfo::DataView,
                                         ::ash::cros_healthd::mojom::TouchpadEventInfoPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::TouchpadEventInfoPtr& input) { return !input; }
@@ -4199,6 +4793,32 @@ struct  UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfo::DataView,
   }
 
   static bool Read(::ash::cros_healthd::mojom::TouchpadEventInfo::DataView input, ::ash::cros_healthd::mojom::TouchpadEventInfoPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::ash::cros_healthd::mojom::TouchscreenEventInfo::DataView,
+                                        ::ash::cros_healthd::mojom::TouchscreenEventInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::TouchscreenEventInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::TouchscreenEventInfoPtr* output) { output->reset(); }
+
+  static ::ash::cros_healthd::mojom::TouchscreenEventInfo::Tag GetTag(const ::ash::cros_healthd::mojom::TouchscreenEventInfoPtr& input) {
+    return input->which();
+  }
+
+  static  uint8_t default_type(const ::ash::cros_healthd::mojom::TouchscreenEventInfoPtr& input) {
+    return input->get_default_type();
+  }
+
+  static const ::ash::cros_healthd::mojom::TouchscreenTouchEventPtr& touch_event(const ::ash::cros_healthd::mojom::TouchscreenEventInfoPtr& input) {
+    return input->get_touch_event();
+  }
+
+  static const ::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr& connected_event(const ::ash::cros_healthd::mojom::TouchscreenEventInfoPtr& input) {
+    return input->get_connected_event();
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::TouchscreenEventInfo::DataView input, ::ash::cros_healthd::mojom::TouchscreenEventInfoPtr* output);
 };
 
 
@@ -4258,6 +4878,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView,
 
   static const ::ash::cros_healthd::mojom::HdmiEventInfoPtr& hdmi_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
     return input->get_hdmi_event_info();
+  }
+
+  static const ::ash::cros_healthd::mojom::TouchscreenEventInfoPtr& touchscreen_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
+    return input->get_touchscreen_event_info();
   }
 
   static bool Read(::ash::cros_healthd::mojom::EventInfo::DataView input, ::ash::cros_healthd::mojom::EventInfoPtr* output);

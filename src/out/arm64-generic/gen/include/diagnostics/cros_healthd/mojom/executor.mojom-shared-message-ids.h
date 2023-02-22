@@ -23,6 +23,8 @@ constexpr uint32_t kAudioJackObserver_OnRemove_Name = 1;
 constexpr uint32_t kTouchpadObserver_OnButton_Name = 0;
 constexpr uint32_t kTouchpadObserver_OnTouch_Name = 1;
 constexpr uint32_t kTouchpadObserver_OnConnected_Name = 2;
+constexpr uint32_t kTouchscreenObserver_OnTouch_Name = 0;
+constexpr uint32_t kTouchscreenObserver_OnConnected_Name = 1;
 constexpr uint32_t kExecutor_GetFanSpeed_Name = 0;
 constexpr uint32_t kExecutor_GetInterfaces_Name = 1;
 constexpr uint32_t kExecutor_GetLink_Name = 2;
@@ -44,6 +46,7 @@ constexpr uint32_t kExecutor_GetHciDeviceConfig_Name = 17;
 constexpr uint32_t kExecutor_MonitorAudioJack_Name = 18;
 constexpr uint32_t kExecutor_MonitorTouchpad_Name = 19;
 constexpr uint32_t kExecutor_FetchBootPerformance_Name = 20;
+constexpr uint32_t kExecutor_MonitorTouchscreen_Name = 21;
 
 }  // namespace internal
 }  // namespace mojom

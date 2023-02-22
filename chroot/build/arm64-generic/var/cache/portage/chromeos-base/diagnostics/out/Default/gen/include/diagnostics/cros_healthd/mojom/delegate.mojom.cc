@@ -71,6 +71,9 @@ Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& me
     case internal::kDelegate_FetchBootPerformance_Name: {
       return &Delegate::FetchBootPerformance_Sym::IPCStableHash;
     }
+    case internal::kDelegate_MonitorTouchscreen_Name: {
+      return &Delegate::MonitorTouchscreen_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -96,6 +99,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Delegate::MonitorTouchpad";
       case internal::kDelegate_FetchBootPerformance_Name:
             return "Receive ash::cros_healthd::mojom::Delegate::FetchBootPerformance";
+      case internal::kDelegate_MonitorTouchscreen_Name:
+            return "Receive ash::cros_healthd::mojom::Delegate::MonitorTouchscreen";
     }
   } else {
     switch (message.name()) {
@@ -113,6 +118,8 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorTouchpad";
       case internal::kDelegate_FetchBootPerformance_Name:
             return "Receive reply ash::cros_healthd::mojom::Delegate::FetchBootPerformance";
+      case internal::kDelegate_MonitorTouchscreen_Name:
+            return "Receive reply ash::cros_healthd::mojom::Delegate::MonitorTouchscreen";
     }
   }
   return "Receive unknown mojo message";
@@ -214,6 +221,19 @@ uint32_t Delegate::FetchBootPerformance_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::Delegate::FetchBootPerformance");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Delegate::MonitorTouchscreen_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Delegate::MonitorTouchscreen");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -575,6 +595,49 @@ void DelegateProxy::FetchBootPerformance(
       new Delegate_FetchBootPerformance_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void DelegateProxy::MonitorTouchscreen(
+    ::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver> in_observer) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Delegate::MonitorTouchscreen", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("observer"), in_observer,
+                        "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver>>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kDelegate_MonitorTouchscreen_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Delegate_MonitorTouchscreen_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::TouchscreenObserverInterfaceBase>>(
+      in_observer, &params->observer, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->observer),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid observer in Delegate.MonitorTouchscreen request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Delegate::Name_);
+  message.set_method_name("MonitorTouchscreen");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class Delegate_GetFingerprintFrame_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -1291,6 +1354,34 @@ std::move(p_observer));
     case internal::kDelegate_FetchBootPerformance_Name: {
       break;
     }
+    case internal::kDelegate_MonitorTouchscreen_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Delegate_MonitorTouchscreen_Params_Data* params =
+          reinterpret_cast<internal::Delegate_MonitorTouchscreen_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver>>();
+      Delegate_MonitorTouchscreen_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_observer =
+            input_data_view.TakeObserver<decltype(p_observer)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Delegate::Name_, 7, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->MonitorTouchscreen(
+std::move(p_observer));
+      return true;
+    }
   }
   return false;
 }
@@ -1451,6 +1542,9 @@ std::move(p_name), std::move(callback));
       impl->FetchBootPerformance(std::move(callback));
       return true;
     }
+    case internal::kDelegate_MonitorTouchscreen_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -1471,6 +1565,8 @@ static const mojo::internal::GenericValidationInfo kDelegateValidationInfo[] = {
      nullptr /* no response */},
     {&internal::Delegate_FetchBootPerformance_Params_Data::Validate,
      &internal::Delegate_FetchBootPerformance_ResponseParams_Data::Validate},
+    {&internal::Delegate_MonitorTouchscreen_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool DelegateRequestValidator::Accept(mojo::Message* message) {
@@ -1523,6 +1619,9 @@ void DelegateInterceptorForTesting::MonitorTouchpad(::mojo::PendingRemote<::ash:
 }
 void DelegateInterceptorForTesting::FetchBootPerformance(FetchBootPerformanceCallback callback) {
   GetForwardingInterface()->FetchBootPerformance(std::move(callback));
+}
+void DelegateInterceptorForTesting::MonitorTouchscreen(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver> observer) {
+  GetForwardingInterface()->MonitorTouchscreen(std::move(observer));
 }
 DelegateAsyncWaiter::DelegateAsyncWaiter(
     Delegate* proxy) : proxy_(proxy) {}

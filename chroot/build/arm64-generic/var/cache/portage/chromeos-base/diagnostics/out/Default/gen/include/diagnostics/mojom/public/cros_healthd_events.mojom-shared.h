@@ -63,7 +63,12 @@ class TouchpadConnectedEventDataView;
 
 class HdmiEventInfoDataView;
 
+class TouchscreenTouchEventDataView;
+
+class TouchscreenConnectedEventDataView;
+
 class TouchpadEventInfoDataView;
+class TouchscreenEventInfoDataView;
 class EventInfoDataView;
 
 
@@ -166,8 +171,29 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::HdmiEventInfoDataView> {
 };
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchscreenTouchEventDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TouchscreenTouchEvent_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchscreenConnectedEventDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TouchscreenConnectedEvent_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchpadEventInfoDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::TouchpadEventInfo_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchscreenEventInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TouchscreenEventInfo_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
@@ -242,8 +268,10 @@ enum class EventCategoryEnum : int32_t {
   kTouchpad = 11,
   
   kHdmi = 12,
+  
+  kTouchscreen = 13,
   kMinValue = 0,
-  kMaxValue = 12,
+  kMaxValue = 13,
   kDefaultValue = 0
 };
 
@@ -1034,6 +1062,58 @@ class HdmiEventInfoDataView {
 
 
 
+class TouchscreenTouchEventDataView {
+ public:
+  TouchscreenTouchEventDataView() = default;
+
+  TouchscreenTouchEventDataView(
+      internal::TouchscreenTouchEvent_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetTouchPointsDataView(
+      mojo::ArrayDataView<TouchPointInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTouchPoints(UserType* output) {
+    
+    auto* pointer = data_->touch_points.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::TouchPointInfoDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TouchscreenTouchEvent_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class TouchscreenConnectedEventDataView {
+ public:
+  TouchscreenConnectedEventDataView() = default;
+
+  TouchscreenConnectedEventDataView(
+      internal::TouchscreenConnectedEvent_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint32_t max_x() const {
+    return data_->max_x;
+  }
+  uint32_t max_y() const {
+    return data_->max_y;
+  }
+  uint32_t max_pressure() const {
+    return data_->max_pressure;
+  }
+ private:
+  internal::TouchscreenConnectedEvent_Data* data_ = nullptr;
+};
+
+
+
 class TouchpadEventInfoDataView {
  public:
   using Tag = internal::TouchpadEventInfo_Data::TouchpadEventInfo_Tag;
@@ -1093,6 +1173,59 @@ class TouchpadEventInfoDataView {
 
  private:
   internal::TouchpadEventInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class TouchscreenEventInfoDataView {
+ public:
+  using Tag = internal::TouchscreenEventInfo_Data::TouchscreenEventInfo_Tag;
+
+  TouchscreenEventInfoDataView() = default;
+
+  TouchscreenEventInfoDataView(
+      internal::TouchscreenEventInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_default_type() const { return data_->tag == Tag::kDefaultType; }
+  uint8_t default_type() const {
+    CHECK(is_default_type());
+    return data_->data.f_default_type;
+  }
+  bool is_touch_event() const { return data_->tag == Tag::kTouchEvent; }
+  inline void GetTouchEventDataView(
+      TouchscreenTouchEventDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTouchEvent(UserType* output) const {
+    
+    CHECK(is_touch_event());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TouchscreenTouchEventDataView>(
+        data_->data.f_touch_event.Get(), output, message_);
+  }
+  bool is_connected_event() const { return data_->tag == Tag::kConnectedEvent; }
+  inline void GetConnectedEventDataView(
+      TouchscreenConnectedEventDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConnectedEvent(UserType* output) const {
+    
+    CHECK(is_connected_event());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TouchscreenConnectedEventDataView>(
+        data_->data.f_connected_event.Get(), output, message_);
+  }
+
+ private:
+  internal::TouchscreenEventInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1241,6 +1374,17 @@ class EventInfoDataView {
     CHECK(is_hdmi_event_info());
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::HdmiEventInfoDataView>(
         data_->data.f_hdmi_event_info.Get(), output, message_);
+  }
+  bool is_touchscreen_event_info() const { return data_->tag == Tag::kTouchscreenEventInfo; }
+  inline void GetTouchscreenEventInfoDataView(
+      TouchscreenEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTouchscreenEventInfo(UserType* output) const {
+    
+    CHECK(is_touchscreen_event_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TouchscreenEventInfoDataView>(
+        data_->data.f_touchscreen_event_info.Get(), output, message_);
   }
 
  private:
@@ -2024,6 +2168,81 @@ struct Serializer<::ash::cros_healthd::mojom::HdmiEventInfoDataView, MaybeConstU
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::TouchscreenTouchEventDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::TouchscreenTouchEventDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::TouchscreenTouchEvent_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::touch_points(input)) in_touch_points = Traits::touch_points(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->touch_points)::BaseType>
+        touch_points_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& touch_points_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::TouchPointInfoDataView>>(
+        in_touch_points, touch_points_fragment, &touch_points_validate_params);
+    fragment->touch_points.Set(
+        touch_points_fragment.is_null() ? nullptr : touch_points_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->touch_points.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null touch_points in TouchscreenTouchEvent struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TouchscreenTouchEvent_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::TouchscreenTouchEventDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::TouchscreenConnectedEventDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::TouchscreenConnectedEventDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::TouchscreenConnectedEvent_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->max_x = Traits::max_x(input);
+    fragment->max_y = Traits::max_y(input);
+    fragment->max_pressure = Traits::max_pressure(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TouchscreenConnectedEvent_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::TouchscreenConnectedEventDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::TouchpadEventInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfoDataView, UserType>;
@@ -2109,6 +2328,85 @@ struct Serializer<::ash::cros_healthd::mojom::TouchpadEventInfoDataView, MaybeCo
       return CallSetToNullIfExists<Traits>(output);
 
     ::ash::cros_healthd::mojom::TouchpadEventInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::TouchscreenEventInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::TouchscreenEventInfoDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::TouchscreenEventInfo_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::TouchscreenEventInfoDataView::Tag::kDefaultType: {
+        decltype(Traits::default_type(input))
+            in_default_type = Traits::default_type(input);
+        fragment->data.f_default_type = in_default_type;
+        break;
+      }
+      case ::ash::cros_healthd::mojom::TouchscreenEventInfoDataView::Tag::kTouchEvent: {
+        decltype(Traits::touch_event(input))
+            in_touch_event = Traits::touch_event(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_touch_event)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::TouchscreenTouchEventDataView>(
+            in_touch_event, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null touch_event in TouchscreenEventInfo union");
+        fragment->data.f_touch_event.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::TouchscreenEventInfoDataView::Tag::kConnectedEvent: {
+        decltype(Traits::connected_event(input))
+            in_connected_event = Traits::connected_event(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_connected_event)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::TouchscreenConnectedEventDataView>(
+            in_connected_event, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null connected_event in TouchscreenEventInfo union");
+        fragment->data.f_connected_event.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TouchscreenEventInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::TouchscreenEventInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -2322,6 +2620,22 @@ struct Serializer<::ash::cros_healthd::mojom::EventInfoDataView, MaybeConstUserT
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kTouchscreenEventInfo: {
+        decltype(Traits::touchscreen_event_info(input))
+            in_touchscreen_event_info = Traits::touchscreen_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_touchscreen_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::TouchscreenEventInfoDataView>(
+            in_touchscreen_event_info, value_fragment, false);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null touchscreen_event_info in EventInfo union");
+        fragment->data.f_touchscreen_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -2411,6 +2725,15 @@ inline void TouchpadConnectedEventDataView::GetButtonsDataView(
 
 
 
+inline void TouchscreenTouchEventDataView::GetTouchPointsDataView(
+    mojo::ArrayDataView<TouchPointInfoDataView>* output) {
+  auto pointer = data_->touch_points.Get();
+  *output = mojo::ArrayDataView<TouchPointInfoDataView>(pointer, message_);
+}
+
+
+
+
 inline void TouchpadEventInfoDataView::GetButtonEventDataView(
     TouchpadButtonEventDataView* output) const {
   CHECK(is_button_event());
@@ -2425,6 +2748,17 @@ inline void TouchpadEventInfoDataView::GetConnectedEventDataView(
     TouchpadConnectedEventDataView* output) const {
   CHECK(is_connected_event());
   *output = TouchpadConnectedEventDataView(data_->data.f_connected_event.Get(), message_);
+}
+
+inline void TouchscreenEventInfoDataView::GetTouchEventDataView(
+    TouchscreenTouchEventDataView* output) const {
+  CHECK(is_touch_event());
+  *output = TouchscreenTouchEventDataView(data_->data.f_touch_event.Get(), message_);
+}
+inline void TouchscreenEventInfoDataView::GetConnectedEventDataView(
+    TouchscreenConnectedEventDataView* output) const {
+  CHECK(is_connected_event());
+  *output = TouchscreenConnectedEventDataView(data_->data.f_connected_event.Get(), message_);
 }
 
 inline void EventInfoDataView::GetUsbEventInfoDataView(
@@ -2481,6 +2815,11 @@ inline void EventInfoDataView::GetHdmiEventInfoDataView(
     HdmiEventInfoDataView* output) const {
   CHECK(is_hdmi_event_info());
   *output = HdmiEventInfoDataView(data_->data.f_hdmi_event_info.Get(), message_);
+}
+inline void EventInfoDataView::GetTouchscreenEventInfoDataView(
+    TouchscreenEventInfoDataView* output) const {
+  CHECK(is_touchscreen_event_info());
+  *output = TouchscreenEventInfoDataView(data_->data.f_touchscreen_event_info.Get(), message_);
 }
 
 

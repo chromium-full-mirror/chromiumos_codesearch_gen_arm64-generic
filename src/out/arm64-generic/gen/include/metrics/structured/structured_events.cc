@@ -518,6 +518,54 @@ int64_t BluetoothA2dpAudioOverrun::GetDroppedBytesForTest() const {
   return GetIntMetricForTest(kDroppedBytesNameHash);
 }
 
+BluetoothHfpPacketLoss::BluetoothHfpPacketLoss() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+BluetoothHfpPacketLoss::~BluetoothHfpPacketLoss() = default;
+BluetoothHfpPacketLoss& BluetoothHfpPacketLoss::SetBootId(const std::string& value) {
+  AddHmacMetric(kBootIdNameHash, value);
+  return *this;
+}
+
+std::string BluetoothHfpPacketLoss::GetBootIdForTest() const {
+  return GetHmacMetricForTest(kBootIdNameHash);
+}
+
+BluetoothHfpPacketLoss& BluetoothHfpPacketLoss::SetSystemTime(const int64_t value) {
+  AddIntMetric(kSystemTimeNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothHfpPacketLoss::GetSystemTimeForTest() const {
+  return GetIntMetricForTest(kSystemTimeNameHash);
+}
+
+BluetoothHfpPacketLoss& BluetoothHfpPacketLoss::SetDeviceId(const std::string& value) {
+  AddHmacMetric(kDeviceIdNameHash, value);
+  return *this;
+}
+
+std::string BluetoothHfpPacketLoss::GetDeviceIdForTest() const {
+  return GetHmacMetricForTest(kDeviceIdNameHash);
+}
+
+BluetoothHfpPacketLoss& BluetoothHfpPacketLoss::SetDecodedFrames(const int64_t value) {
+  AddIntMetric(kDecodedFramesNameHash, value);
+  return *this;
+}
+
+int64_t BluetoothHfpPacketLoss::GetDecodedFramesForTest() const {
+  return GetIntMetricForTest(kDecodedFramesNameHash);
+}
+
+BluetoothHfpPacketLoss& BluetoothHfpPacketLoss::SetPacketLossRatio(const double value) {
+  AddDoubleMetric(kPacketLossRatioNameHash, value);
+  return *this;
+}
+
+double BluetoothHfpPacketLoss::GetPacketLossRatioForTest() const {
+  return GetDoubleMetricForTest(kPacketLossRatioNameHash);
+}
+
 }  // namespace bluetooth
 
 namespace bluetooth_device {

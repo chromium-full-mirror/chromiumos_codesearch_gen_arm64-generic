@@ -339,6 +339,39 @@ class BRILLO_EXPORT BluetoothA2dpAudioOverrun final : public ::metrics::structur
 
 };
 
+class BRILLO_EXPORT BluetoothHfpPacketLoss final : public ::metrics::structured::EventBase {
+ public:
+  BluetoothHfpPacketLoss();
+  ~BluetoothHfpPacketLoss() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(14058296020743738184);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(9074739597929991885);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kBootIdNameHash = UINT64_C(9983133050293312198);
+  BluetoothHfpPacketLoss& SetBootId(const std::string& value);
+  std::string GetBootIdForTest() const;
+
+  static constexpr uint64_t kSystemTimeNameHash = UINT64_C(5430963162341175395);
+  BluetoothHfpPacketLoss& SetSystemTime(const int64_t value);
+  int64_t GetSystemTimeForTest() const;
+
+  static constexpr uint64_t kDeviceIdNameHash = UINT64_C(14998742047592455339);
+  BluetoothHfpPacketLoss& SetDeviceId(const std::string& value);
+  std::string GetDeviceIdForTest() const;
+
+  static constexpr uint64_t kDecodedFramesNameHash = UINT64_C(5654182682437251239);
+  BluetoothHfpPacketLoss& SetDecodedFrames(const int64_t value);
+  int64_t GetDecodedFramesForTest() const;
+
+  static constexpr uint64_t kPacketLossRatioNameHash = UINT64_C(18416157911454717678);
+  BluetoothHfpPacketLoss& SetPacketLossRatio(const double value);
+  double GetPacketLossRatioForTest() const;
+
+};
+
 }  // namespace bluetooth
 
 namespace bluetooth_device {

@@ -47,6 +47,8 @@ class AudioJackObserver;
 
 class TouchpadObserver;
 
+class TouchscreenObserver;
+
 class Executor;
 
 

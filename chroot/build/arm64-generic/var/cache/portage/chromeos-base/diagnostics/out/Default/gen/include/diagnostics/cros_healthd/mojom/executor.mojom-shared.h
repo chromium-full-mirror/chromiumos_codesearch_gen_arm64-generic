@@ -131,6 +131,16 @@ using TouchpadObserverAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<TouchpadObserverInterfaceBase>;
 using TouchpadObserverAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<TouchpadObserverInterfaceBase>;
+class TouchscreenObserverInterfaceBase {};
+
+using TouchscreenObserverPtrDataView =
+    mojo::InterfacePtrDataView<TouchscreenObserverInterfaceBase>;
+using TouchscreenObserverRequestDataView =
+    mojo::InterfaceRequestDataView<TouchscreenObserverInterfaceBase>;
+using TouchscreenObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<TouchscreenObserverInterfaceBase>;
+using TouchscreenObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<TouchscreenObserverInterfaceBase>;
 class ExecutorInterfaceBase {};
 
 using ExecutorPtrDataView =

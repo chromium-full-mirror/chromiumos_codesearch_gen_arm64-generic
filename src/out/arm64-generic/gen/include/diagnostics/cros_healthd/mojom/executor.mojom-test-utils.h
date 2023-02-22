@@ -83,6 +83,25 @@ class  TouchpadObserverAsyncWaiter {
 };
 
 
+class  TouchscreenObserverInterceptorForTesting : public TouchscreenObserver {
+  virtual TouchscreenObserver* GetForwardingInterface() = 0;
+  void OnTouch(::ash::cros_healthd::mojom::TouchscreenTouchEventPtr touch_event) override;
+  void OnConnected(::ash::cros_healthd::mojom::TouchscreenConnectedEventPtr connected_event) override;
+};
+class  TouchscreenObserverAsyncWaiter {
+ public:
+  explicit TouchscreenObserverAsyncWaiter(TouchscreenObserver* proxy);
+
+  TouchscreenObserverAsyncWaiter(const TouchscreenObserverAsyncWaiter&) = delete;
+  TouchscreenObserverAsyncWaiter& operator=(const TouchscreenObserverAsyncWaiter&) = delete;
+
+  ~TouchscreenObserverAsyncWaiter();
+
+ private:
+  TouchscreenObserver* const proxy_;
+};
+
+
 class  ExecutorInterceptorForTesting : public Executor {
   virtual Executor* GetForwardingInterface() = 0;
   void GetFanSpeed(GetFanSpeedCallback callback) override;
@@ -106,6 +125,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void MonitorAudioJack(::mojo::PendingRemote<AudioJackObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
   void MonitorTouchpad(::mojo::PendingRemote<TouchpadObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
   void FetchBootPerformance(FetchBootPerformanceCallback callback) override;
+  void MonitorTouchscreen(::mojo::PendingRemote<TouchscreenObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
 };
 class  ExecutorAsyncWaiter {
  public:

@@ -80,6 +80,7 @@ class Delegate
     kMonitorAudioJackMinVersion = 0,
     kMonitorTouchpadMinVersion = 0,
     kFetchBootPerformanceMinVersion = 0,
+    kMonitorTouchscreenMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -104,6 +105,9 @@ class Delegate
     NOINLINE static uint32_t IPCStableHash();
   };
   struct FetchBootPerformance_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct MonitorTouchscreen_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -139,6 +143,9 @@ class Delegate
   using FetchBootPerformanceCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::BootPerformanceResultPtr)>;
   
   virtual void FetchBootPerformance(FetchBootPerformanceCallback callback) = 0;
+
+  
+  virtual void MonitorTouchscreen(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver> observer) = 0;
 };
 
 
@@ -163,6 +170,8 @@ class  DelegateProxy
   void MonitorTouchpad(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchpadObserver> observer) final;
   
   void FetchBootPerformance(FetchBootPerformanceCallback callback) final;
+  
+  void MonitorTouchscreen(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver> observer) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

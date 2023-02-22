@@ -196,6 +196,38 @@ class  TouchpadObserver_OnConnected_Params_Data {
 };
 static_assert(sizeof(TouchpadObserver_OnConnected_Params_Data) == 16,
               "Bad sizeof(TouchpadObserver_OnConnected_Params_Data)");
+class  TouchscreenObserver_OnTouch_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::TouchscreenTouchEvent_Data> touch_event;
+
+ private:
+  friend class mojo::internal::MessageFragment<TouchscreenObserver_OnTouch_Params_Data>;
+
+  TouchscreenObserver_OnTouch_Params_Data();
+  ~TouchscreenObserver_OnTouch_Params_Data() = delete;
+};
+static_assert(sizeof(TouchscreenObserver_OnTouch_Params_Data) == 16,
+              "Bad sizeof(TouchscreenObserver_OnTouch_Params_Data)");
+class  TouchscreenObserver_OnConnected_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::TouchscreenConnectedEvent_Data> connected_event;
+
+ private:
+  friend class mojo::internal::MessageFragment<TouchscreenObserver_OnConnected_Params_Data>;
+
+  TouchscreenObserver_OnConnected_Params_Data();
+  ~TouchscreenObserver_OnConnected_Params_Data() = delete;
+};
+static_assert(sizeof(TouchscreenObserver_OnConnected_Params_Data) == 16,
+              "Bad sizeof(TouchscreenObserver_OnConnected_Params_Data)");
 class  Executor_GetFanSpeed_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -807,6 +839,24 @@ class  Executor_FetchBootPerformance_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_FetchBootPerformance_ResponseParams_Data) == 24,
               "Bad sizeof(Executor_FetchBootPerformance_ResponseParams_Data)");
+class  Executor_MonitorTouchscreen_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+  mojo::internal::Handle_Data process_control;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_MonitorTouchscreen_Params_Data>;
+
+  Executor_MonitorTouchscreen_Params_Data();
+  ~Executor_MonitorTouchscreen_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_MonitorTouchscreen_Params_Data) == 24,
+              "Bad sizeof(Executor_MonitorTouchscreen_Params_Data)");
 
 }  // namespace internal
 
@@ -1036,6 +1086,60 @@ class TouchpadObserver_OnConnected_ParamsDataView {
   }
  private:
   internal::TouchpadObserver_OnConnected_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class TouchscreenObserver_OnTouch_ParamsDataView {
+ public:
+  TouchscreenObserver_OnTouch_ParamsDataView() = default;
+
+  TouchscreenObserver_OnTouch_ParamsDataView(
+      internal::TouchscreenObserver_OnTouch_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetTouchEventDataView(
+      ::ash::cros_healthd::mojom::TouchscreenTouchEventDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTouchEvent(UserType* output) {
+    
+    auto* pointer = data_->touch_event.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TouchscreenTouchEventDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TouchscreenObserver_OnTouch_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class TouchscreenObserver_OnConnected_ParamsDataView {
+ public:
+  TouchscreenObserver_OnConnected_ParamsDataView() = default;
+
+  TouchscreenObserver_OnConnected_ParamsDataView(
+      internal::TouchscreenObserver_OnConnected_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetConnectedEventDataView(
+      ::ash::cros_healthd::mojom::TouchscreenConnectedEventDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConnectedEvent(UserType* output) {
+    
+    auto* pointer = data_->connected_event.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TouchscreenConnectedEventDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TouchscreenObserver_OnConnected_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -2050,6 +2154,41 @@ class Executor_FetchBootPerformance_ResponseParamsDataView {
 
 
 
+class Executor_MonitorTouchscreen_ParamsDataView {
+ public:
+  Executor_MonitorTouchscreen_ParamsDataView() = default;
+
+  Executor_MonitorTouchscreen_ParamsDataView(
+      internal::Executor_MonitorTouchscreen_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::TouchscreenObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakeProcessControl() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+            &data_->process_control, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Executor_MonitorTouchscreen_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 
 
 
@@ -2083,6 +2222,20 @@ inline void TouchpadObserver_OnConnected_ParamsDataView::GetConnectedEventDataVi
     ::ash::cros_healthd::mojom::TouchpadConnectedEventDataView* output) {
   auto pointer = data_->connected_event.Get();
   *output = ::ash::cros_healthd::mojom::TouchpadConnectedEventDataView(pointer, message_);
+}
+
+
+inline void TouchscreenObserver_OnTouch_ParamsDataView::GetTouchEventDataView(
+    ::ash::cros_healthd::mojom::TouchscreenTouchEventDataView* output) {
+  auto pointer = data_->touch_event.Get();
+  *output = ::ash::cros_healthd::mojom::TouchscreenTouchEventDataView(pointer, message_);
+}
+
+
+inline void TouchscreenObserver_OnConnected_ParamsDataView::GetConnectedEventDataView(
+    ::ash::cros_healthd::mojom::TouchscreenConnectedEventDataView* output) {
+  auto pointer = data_->connected_event.Get();
+  *output = ::ash::cros_healthd::mojom::TouchscreenConnectedEventDataView(pointer, message_);
 }
 
 
@@ -2275,6 +2428,8 @@ inline void Executor_FetchBootPerformance_ResponseParamsDataView::GetResultDataV
   auto pointer = &data_->result;
   *output = ::ash::cros_healthd::mojom::BootPerformanceResultDataView(pointer, message_);
 }
+
+
 
 }  // namespace mojom
 }  // namespace cros_healthd

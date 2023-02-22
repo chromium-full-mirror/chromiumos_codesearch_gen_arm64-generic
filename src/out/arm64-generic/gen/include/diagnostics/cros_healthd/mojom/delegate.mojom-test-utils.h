@@ -24,6 +24,7 @@ class  DelegateInterceptorForTesting : public Delegate {
   void MonitorAudioJack(::mojo::PendingRemote<::ash::cros_healthd::mojom::AudioJackObserver> observer) override;
   void MonitorTouchpad(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchpadObserver> observer) override;
   void FetchBootPerformance(FetchBootPerformanceCallback callback) override;
+  void MonitorTouchscreen(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver> observer) override;
 };
 class  DelegateAsyncWaiter {
  public:
