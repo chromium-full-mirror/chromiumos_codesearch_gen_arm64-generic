@@ -603,7 +603,7 @@ enum SnapshotDifference : int32_t {
   DIFF_NULL = 1,
   DIFF_TINT = 2,
   DIFF_TAB_COUNT = 3,
-  DIFF_OPTIONAL_BUTTON_DATA = 4,
+  DIFF_OPTIONAL_BUTTON = 4,
   DIFF_VISUAL_STATE = 5,
   DIFF_SECURITY_ICON = 6,
   DIFF_SHOWING_UPDATE_BADGE = 7,
@@ -611,16 +611,20 @@ enum SnapshotDifference : int32_t {
   DIFF_PROGRESS = 9,
   DIFF_LOCATION_BAR_WIDTH = 10,
   DIFF_URL_TEXT = 11,
-  DIFF_HOME_BUTTON_COLOR = 12,
+  DIFF_HOME_BUTTON = 12,
   DIFF_TITLE_TEXT = 13,
   DIFF_CCT_ANIMATION = 14,
+  DIFF_BOOKMARK_BUTTON = 15,
+  DIFF_BACK_BUTTON = 16,
+  DIFF_FORWARD_BUTTON = 17,
+  DIFF_RELOAD_BUTTON = 18,
 };
 } // namespace perfetto_pbzero_enum_AndroidToolbar
 using AndroidToolbar_SnapshotDifference = perfetto_pbzero_enum_AndroidToolbar::SnapshotDifference;
 
 
 constexpr AndroidToolbar_SnapshotDifference AndroidToolbar_SnapshotDifference_MIN = AndroidToolbar_SnapshotDifference::DIFF_NONE;
-constexpr AndroidToolbar_SnapshotDifference AndroidToolbar_SnapshotDifference_MAX = AndroidToolbar_SnapshotDifference::DIFF_CCT_ANIMATION;
+constexpr AndroidToolbar_SnapshotDifference AndroidToolbar_SnapshotDifference_MAX = AndroidToolbar_SnapshotDifference::DIFF_RELOAD_BUTTON;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -638,8 +642,8 @@ const char* AndroidToolbar_SnapshotDifference_Name(::perfetto::protos::pbzero::A
   case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_TAB_COUNT:
     return "DIFF_TAB_COUNT";
 
-  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_OPTIONAL_BUTTON_DATA:
-    return "DIFF_OPTIONAL_BUTTON_DATA";
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_OPTIONAL_BUTTON:
+    return "DIFF_OPTIONAL_BUTTON";
 
   case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_VISUAL_STATE:
     return "DIFF_VISUAL_STATE";
@@ -662,14 +666,26 @@ const char* AndroidToolbar_SnapshotDifference_Name(::perfetto::protos::pbzero::A
   case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_URL_TEXT:
     return "DIFF_URL_TEXT";
 
-  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_HOME_BUTTON_COLOR:
-    return "DIFF_HOME_BUTTON_COLOR";
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_HOME_BUTTON:
+    return "DIFF_HOME_BUTTON";
 
   case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_TITLE_TEXT:
     return "DIFF_TITLE_TEXT";
 
   case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_CCT_ANIMATION:
     return "DIFF_CCT_ANIMATION";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_BOOKMARK_BUTTON:
+    return "DIFF_BOOKMARK_BUTTON";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_BACK_BUTTON:
+    return "DIFF_BACK_BUTTON";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_FORWARD_BUTTON:
+    return "DIFF_FORWARD_BUTTON";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_RELOAD_BUTTON:
+    return "DIFF_RELOAD_BUTTON";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -3210,7 +3226,7 @@ class AndroidToolbar : public ::protozero::Message {
   static const SnapshotDifference DIFF_NULL = SnapshotDifference::DIFF_NULL;
   static const SnapshotDifference DIFF_TINT = SnapshotDifference::DIFF_TINT;
   static const SnapshotDifference DIFF_TAB_COUNT = SnapshotDifference::DIFF_TAB_COUNT;
-  static const SnapshotDifference DIFF_OPTIONAL_BUTTON_DATA = SnapshotDifference::DIFF_OPTIONAL_BUTTON_DATA;
+  static const SnapshotDifference DIFF_OPTIONAL_BUTTON = SnapshotDifference::DIFF_OPTIONAL_BUTTON;
   static const SnapshotDifference DIFF_VISUAL_STATE = SnapshotDifference::DIFF_VISUAL_STATE;
   static const SnapshotDifference DIFF_SECURITY_ICON = SnapshotDifference::DIFF_SECURITY_ICON;
   static const SnapshotDifference DIFF_SHOWING_UPDATE_BADGE = SnapshotDifference::DIFF_SHOWING_UPDATE_BADGE;
@@ -3218,9 +3234,13 @@ class AndroidToolbar : public ::protozero::Message {
   static const SnapshotDifference DIFF_PROGRESS = SnapshotDifference::DIFF_PROGRESS;
   static const SnapshotDifference DIFF_LOCATION_BAR_WIDTH = SnapshotDifference::DIFF_LOCATION_BAR_WIDTH;
   static const SnapshotDifference DIFF_URL_TEXT = SnapshotDifference::DIFF_URL_TEXT;
-  static const SnapshotDifference DIFF_HOME_BUTTON_COLOR = SnapshotDifference::DIFF_HOME_BUTTON_COLOR;
+  static const SnapshotDifference DIFF_HOME_BUTTON = SnapshotDifference::DIFF_HOME_BUTTON;
   static const SnapshotDifference DIFF_TITLE_TEXT = SnapshotDifference::DIFF_TITLE_TEXT;
   static const SnapshotDifference DIFF_CCT_ANIMATION = SnapshotDifference::DIFF_CCT_ANIMATION;
+  static const SnapshotDifference DIFF_BOOKMARK_BUTTON = SnapshotDifference::DIFF_BOOKMARK_BUTTON;
+  static const SnapshotDifference DIFF_BACK_BUTTON = SnapshotDifference::DIFF_BACK_BUTTON;
+  static const SnapshotDifference DIFF_FORWARD_BUTTON = SnapshotDifference::DIFF_FORWARD_BUTTON;
+  static const SnapshotDifference DIFF_RELOAD_BUTTON = SnapshotDifference::DIFF_RELOAD_BUTTON;
 
   using FieldMetadata_BlockCaptureReason =
     ::protozero::proto_utils::FieldMetadata<

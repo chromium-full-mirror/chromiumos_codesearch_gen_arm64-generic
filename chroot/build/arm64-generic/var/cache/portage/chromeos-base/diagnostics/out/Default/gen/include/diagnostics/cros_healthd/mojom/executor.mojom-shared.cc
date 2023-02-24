@@ -48,6 +48,60 @@ std::ostream& operator<<(std::ostream& os, FingerprintCaptureType value) {
   return os << FingerprintCaptureTypeToString(value);
 }
 
+static NOINLINE const char* Executor_FileToStringHelper(Executor_File value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case Executor_File::kUEFISecureBootVariable:
+      return "kUEFISecureBootVariable";
+    case Executor_File::kUEFIPlatformSize:
+      return "kUEFIPlatformSize";
+    case Executor_File::kWirelessPowerScheme:
+      return "kWirelessPowerScheme";
+    default:
+      return nullptr;
+  }
+}
+
+std::string Executor_FileToString(Executor_File value) {
+  const char *str = Executor_FileToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown Executor_File value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, Executor_File value) {
+  return os << Executor_FileToString(value);
+}
+
+static NOINLINE const char* Executor_IwCommandToStringHelper(Executor_IwCommand value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case Executor_IwCommand::kDev:
+      return "kDev";
+    case Executor_IwCommand::kLink:
+      return "kLink";
+    case Executor_IwCommand::kInfo:
+      return "kInfo";
+    case Executor_IwCommand::kScanDump:
+      return "kScanDump";
+    default:
+      return nullptr;
+  }
+}
+
+std::string Executor_IwCommandToString(Executor_IwCommand value) {
+  const char *str = Executor_IwCommandToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown Executor_IwCommand value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, Executor_IwCommand value) {
+  return os << Executor_IwCommandToString(value);
+}
+
 namespace internal {
 
 
@@ -506,6 +560,64 @@ TouchscreenObserver_OnConnected_Params_Data::TouchscreenObserver_OnConnected_Par
 
 
 // static
+bool Executor_ReadFile_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_ReadFile_Params_Data* object =
+      static_cast<const Executor_ReadFile_Params_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::Executor_File_Data
+        ::Validate(object->file_enum, validation_context))
+    return false;
+
+  return true;
+}
+
+Executor_ReadFile_Params_Data::Executor_ReadFile_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_ReadFile_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_ReadFile_ResponseParams_Data* object =
+      static_cast<const Executor_ReadFile_ResponseParams_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& content_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->content, validation_context,
+                                         &content_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_ReadFile_ResponseParams_Data::Executor_ReadFile_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Executor_GetFanSpeed_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -559,76 +671,28 @@ Executor_GetFanSpeed_ResponseParams_Data::Executor_GetFanSpeed_ResponseParams_Da
 
 
 // static
-bool Executor_GetInterfaces_Params_Data::Validate(
+bool Executor_RunIw_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const Executor_GetInterfaces_Params_Data* object =
-      static_cast<const Executor_GetInterfaces_Params_Data*>(data);
-
-  return true;
-}
-
-Executor_GetInterfaces_Params_Data::Executor_GetInterfaces_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+  [[maybe_unused]] const Executor_RunIw_Params_Data* object =
+      static_cast<const Executor_RunIw_Params_Data*>(data);
 
 
-// static
-bool Executor_GetInterfaces_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+  if (!::ash::cros_healthd::mojom::internal::Executor_IwCommand_Data
+        ::Validate(object->cmd, validation_context))
     return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Executor_GetInterfaces_ResponseParams_Data* object =
-      static_cast<const Executor_GetInterfaces_ResponseParams_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->result, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->result, validation_context))
-    return false;
-
-  return true;
-}
-
-Executor_GetInterfaces_ResponseParams_Data::Executor_GetInterfaces_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Executor_GetLink_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Executor_GetLink_Params_Data* object =
-      static_cast<const Executor_GetLink_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->interface_name, 1, validation_context)) {
+          object->interface_name, 2, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& interface_name_validate_params =
@@ -641,12 +705,12 @@ bool Executor_GetLink_Params_Data::Validate(
   return true;
 }
 
-Executor_GetLink_Params_Data::Executor_GetLink_Params_Data()
+Executor_RunIw_Params_Data::Executor_RunIw_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool Executor_GetLink_ResponseParams_Data::Validate(
+bool Executor_RunIw_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -658,8 +722,8 @@ bool Executor_GetLink_ResponseParams_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const Executor_GetLink_ResponseParams_Data* object =
-      static_cast<const Executor_GetLink_ResponseParams_Data*>(data);
+  [[maybe_unused]] const Executor_RunIw_ResponseParams_Data* object =
+      static_cast<const Executor_RunIw_ResponseParams_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->result, 1, validation_context)) {
@@ -671,135 +735,7 @@ bool Executor_GetLink_ResponseParams_Data::Validate(
   return true;
 }
 
-Executor_GetLink_ResponseParams_Data::Executor_GetLink_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Executor_GetInfo_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Executor_GetInfo_Params_Data* object =
-      static_cast<const Executor_GetInfo_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->interface_name, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& interface_name_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->interface_name, validation_context,
-                                         &interface_name_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-Executor_GetInfo_Params_Data::Executor_GetInfo_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Executor_GetInfo_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Executor_GetInfo_ResponseParams_Data* object =
-      static_cast<const Executor_GetInfo_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->result, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->result, validation_context))
-    return false;
-
-  return true;
-}
-
-Executor_GetInfo_ResponseParams_Data::Executor_GetInfo_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Executor_GetScanDump_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Executor_GetScanDump_Params_Data* object =
-      static_cast<const Executor_GetScanDump_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->interface_name, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& interface_name_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->interface_name, validation_context,
-                                         &interface_name_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-Executor_GetScanDump_Params_Data::Executor_GetScanDump_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Executor_GetScanDump_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Executor_GetScanDump_ResponseParams_Data* object =
-      static_cast<const Executor_GetScanDump_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->result, 1, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->result, validation_context))
-    return false;
-
-  return true;
-}
-
-Executor_GetScanDump_ResponseParams_Data::Executor_GetScanDump_ResponseParams_Data()
+Executor_RunIw_ResponseParams_Data::Executor_RunIw_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1025,120 +961,6 @@ bool Executor_ReadMsr_ResponseParams_Data::Validate(
 }
 
 Executor_ReadMsr_ResponseParams_Data::Executor_ReadMsr_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Executor_GetUEFISecureBootContent_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Executor_GetUEFISecureBootContent_Params_Data* object =
-      static_cast<const Executor_GetUEFISecureBootContent_Params_Data*>(data);
-
-  return true;
-}
-
-Executor_GetUEFISecureBootContent_Params_Data::Executor_GetUEFISecureBootContent_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Executor_GetUEFISecureBootContent_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Executor_GetUEFISecureBootContent_ResponseParams_Data* object =
-      static_cast<const Executor_GetUEFISecureBootContent_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->contents, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& contents_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->contents, validation_context,
-                                         &contents_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-Executor_GetUEFISecureBootContent_ResponseParams_Data::Executor_GetUEFISecureBootContent_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Executor_GetUEFIPlatformSizeContent_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Executor_GetUEFIPlatformSizeContent_Params_Data* object =
-      static_cast<const Executor_GetUEFIPlatformSizeContent_Params_Data*>(data);
-
-  return true;
-}
-
-Executor_GetUEFIPlatformSizeContent_Params_Data::Executor_GetUEFIPlatformSizeContent_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool Executor_GetUEFIPlatformSizeContent_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const Executor_GetUEFIPlatformSizeContent_ResponseParams_Data* object =
-      static_cast<const Executor_GetUEFIPlatformSizeContent_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->contents, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& contents_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->contents, validation_context,
-                                         &contents_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-Executor_GetUEFIPlatformSizeContent_ResponseParams_Data::Executor_GetUEFIPlatformSizeContent_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1680,6 +1502,26 @@ namespace perfetto_libchrome {
 void TraceFormatTraits<::ash::cros_healthd::mojom::FingerprintCaptureType>::WriteIntoTrace(
    perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::FingerprintCaptureType value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::FingerprintCaptureTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::Executor_File>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::Executor_File value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::Executor_FileToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::Executor_IwCommand>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::Executor_IwCommand value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::Executor_IwCommandToString(value));
 }
 
 } // namespace perfetto

@@ -40,10 +40,22 @@
 #include "diagnostics/cros_healthd/executor/utils/process_control.h"
 #include "diagnostics/cros_healthd/mojom/executor.mojom.h"
 #include "diagnostics/cros_healthd/process/process_with_output.h"
-#include "diagnostics/cros_healthd/routines/memory/memory_constants.h"
+#include "diagnostics/cros_healthd/routines/memory_and_cpu/constants.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom.h"
 
 namespace diagnostics {
+
+namespace path {
+namespace {
+
+constexpr char kEctoolBinary[] = "/usr/sbin/ectool";
+constexpr char kIwBinary[] = "/usr/sbin/iw";
+constexpr char kMemtesterBinary[] = "/usr/sbin/memtester";
+constexpr char kHciconfigBinary[] = "/usr/bin/hciconfig";
+constexpr char kCrosEcDevice[] = "/dev/cros_ec";
+
+}  // namespace
+}  // namespace path
 
 namespace {
 
@@ -72,86 +84,56 @@ constexpr char kReadOnlyFetchers[] = "readonly-fetchers-seccomp.policy";
 
 }  // namespace seccomp_file
 
+namespace user {
+
+// The user and group for accessing fingerprint.
+constexpr char kFingerprint[] = "healthd_fp";
+// The user and group for accessing Evdev.
+constexpr char kEvdev[] = "healthd_evdev";
+// The user and group for accessing EC.
+constexpr char kEc[] = "healthd_ec";
+
+}  // namespace user
+
 // Amount of time we wait for a process to respond to SIGTERM before killing it.
 constexpr base::TimeDelta kTerminationTimeout = base::Seconds(2);
 
 // Null capability for delegate process.
 constexpr uint64_t kNullCapability = 0;
 
-// The user and group for accessing fingerprint.
-constexpr char kFingerprintUserAndGroup[] = "healthd_fp";
-
-// The user and group for accessing Evdev.
-constexpr char kEvdevUserAndGroup[] = "healthd_evdev";
-
-// The user and group for accessing EC.
-constexpr char kEcUserAndGroup[] = "healthd_ec";
-
-// The path to ectool binary.
-constexpr char kEctoolBinary[] = "/usr/sbin/ectool";
 // The ectool command used to collect fan speed in RPM.
 constexpr char kGetFanRpmCommand[] = "pwmgetfanrpm";
 // The ectool commands used to collect lid angle.
 constexpr char kMotionSenseCommand[] = "motionsense";
 constexpr char kLidAngleCommand[] = "lid_angle";
 
-// The iw command used to collect different wireless data.
-constexpr char kIwBinary[] = "/usr/sbin/iw";
-constexpr char kIwInterfaceCommand[] = "dev";
-constexpr char kIwInfoCommand[] = "info";
-constexpr char kIwLinkCommand[] = "link";
-constexpr char kIwScanCommand[] = "scan";
-constexpr char kIwDumpCommand[] = "dump";
 // wireless interface name start with "wl" or "ml" and end it with a number. All
 // characters are in lowercase.  Max length is 16 characters.
 constexpr auto kWirelessInterfaceRegex = R"(([wm]l[a-z][a-z0-9]{1,12}[0-9]))";
-
-// The path to memtester binary.
-constexpr char kMemtesterBinary[] = "/usr/sbin/memtester";
-
-// The path to hciconfig binary.
-constexpr char kHciconfigBinary[] = "/usr/bin/hciconfig";
-
-// A read-only mount point for cros_ec.
-constexpr char kCrosEcDevice[] = "/dev/cros_ec";
 
 // Whitelist of msr registers that can be read by the ReadMsr call.
 constexpr uint32_t kMsrAccessAllowList[] = {
     cpu_msr::kIA32TmeCapability, cpu_msr::kIA32TmeActivate,
     cpu_msr::kIA32FeatureControl, cpu_msr::kVmCr};
 
-// Path to the UEFI SecureBoot file. This file can be read by root only.
-// It's one of EFI globally defined variables (EFI_GLOBAL_VARIABLE, fixed UUID
-// 8be4df61-93ca-11d2-aa0d-00e098032b8c)
-// See also:
-// https://uefi.org/sites/default/files/resources/UEFI_Spec_2_9_2021_03_18.pdf
-constexpr char kUEFISecureBootVarPath[] =
-    "/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c";
-// Path to the UEFI platform size file.
-constexpr char kUEFIPlatformSizeFile[] = "/sys/firmware/efi/fw_platform_size";
-
 // Error message when failing to launch delegate.
 constexpr char kFailToLaunchDelegate[] = "Failed to launch delegate";
 
-// Reads file and reply the result to a callback. Will reply empty string if
-// cannot read the file.
-void ReadRawFileAndReplyCallback(
-    const base::FilePath& file,
-    base::OnceCallback<void(const std::string&)> callback) {
-  std::string content = "";
-  LOG_IF(ERROR, !base::ReadFileToString(file, &content))
-      << "Failed to read file: " << file;
-  std::move(callback).Run(content);
-}
-
-// Same as above but also trim the string.
-void ReadTrimFileAndReplyCallback(
-    const base::FilePath& file,
-    base::OnceCallback<void(const std::string&)> callback) {
-  std::string content = "";
-  LOG_IF(ERROR, !ReadAndTrimString(file, &content))
-      << "Failed to read or trim file: " << file;
-  std::move(callback).Run(content);
+base::FilePath FileEnumToFilePath(mojom::Executor::File file_enum) {
+  switch (file_enum) {
+    // Path to the UEFI SecureBoot file. This file can be read by root only.
+    // It's one of EFI globally defined variables (EFI_GLOBAL_VARIABLE, fixed
+    // UUID 8be4df61-93ca-11d2-aa0d-00e098032b8c) See also:
+    // https://uefi.org/sites/default/files/resources/UEFI_Spec_2_9_2021_03_18.pdf
+    case mojom::Executor::File::kUEFISecureBootVariable:
+      return base::FilePath{
+          "/sys/firmware/efi/efivars/"
+          "SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c"};
+    case mojom::Executor::File::kUEFIPlatformSize:
+      return base::FilePath{"/sys/firmware/efi/fw_platform_size"};
+    case mojom::Executor::File::kWirelessPowerScheme:
+      return base::FilePath{"/sys/module/iwlmvm/parameters/power_scheme"};
+  }
 }
 
 // A helper to create a delegate callback which only run once and reply the
@@ -195,97 +177,73 @@ Executor::Executor(
   receiver_.set_disconnect_handler(std::move(on_disconnect));
 }
 
+void Executor::ReadFile(File file_enum, ReadFileCallback callback) {
+  base::FilePath file = FileEnumToFilePath(file_enum);
+  std::string content = "";
+  if (!base::ReadFileToString(file, &content)) {
+    PLOG(ERROR) << "Failed to read file " << file;
+    std::move(callback).Run(std::nullopt);
+    return;
+  }
+  std::move(callback).Run(content);
+}
+
 void Executor::GetFanSpeed(GetFanSpeedCallback callback) {
-  std::vector<std::string> command = {kEctoolBinary, kGetFanRpmCommand};
+  std::vector<std::string> command = {path::kEctoolBinary, kGetFanRpmCommand};
   auto process = std::make_unique<SandboxedProcess>(
-      command, seccomp_file::kFanSpeed, kEcUserAndGroup,
-      CAP_TO_MASK(CAP_SYS_RAWIO),
+      command, seccomp_file::kFanSpeed, user::kEc, CAP_TO_MASK(CAP_SYS_RAWIO),
       /*readonly_mount_points=*/
-      std::vector<base::FilePath>{base::FilePath(kCrosEcDevice)},
+      std::vector<base::FilePath>{base::FilePath(path::kCrosEcDevice)},
       /*writable_mount_points=*/std::vector<base::FilePath>{});
 
   RunAndWaitProcess(std::move(process), std::move(callback),
                     /*combine_stdout_and_stderr=*/false);
 }
 
-void Executor::GetInterfaces(GetInterfacesCallback callback) {
-  std::vector<std::string> command = {kIwBinary, kIwInterfaceCommand};
-  auto process = std::make_unique<SandboxedProcess>(
-      command, seccomp_file::kIw, kCrosHealthdSandboxUser, kNullCapability,
-      /*readonly_mount_points=*/
-      std::vector<base::FilePath>{base::FilePath(kIwBinary)},
-      /*writable_mount_points=*/
-      std::vector<base::FilePath>{}, NO_ENTER_NETWORK_NAMESPACE);
-
-  RunAndWaitProcess(std::move(process), std::move(callback),
-                    /*combine_stdout_and_stderr=*/false);
-}
-
-void Executor::GetLink(const std::string& interface_name,
-                       GetLinkCallback callback) {
+void Executor::RunIw(IwCommand cmd,
+                     const std::string& interface_name,
+                     RunIwCallback callback) {
   // Sanitize against interface_name.
-  if (!IsValidWirelessInterfaceName(interface_name)) {
-    auto result = mojom::ExecutedProcessResult::New();
-    result->err = "Illegal interface name: " + interface_name;
-    result->return_code = EXIT_FAILURE;
-    std::move(callback).Run(std::move(result));
-    return;
+  if (cmd == IwCommand::kDev) {
+    if (interface_name != "") {
+      auto result = mojom::ExecutedProcessResult::New();
+      result->err = "Dev subcommand doesn't take interface name.";
+      LOG(ERROR) << result->err;
+      result->return_code = EXIT_FAILURE;
+      std::move(callback).Run(std::move(result));
+      return;
+    }
+  } else {
+    if (!IsValidWirelessInterfaceName(interface_name)) {
+      auto result = mojom::ExecutedProcessResult::New();
+      result->err = "Illegal interface name: " + interface_name;
+      LOG(ERROR) << result->err;
+      result->return_code = EXIT_FAILURE;
+      std::move(callback).Run(std::move(result));
+      return;
+    }
   }
 
-  std::vector<std::string> command = {kIwBinary, interface_name,
-                                      kIwLinkCommand};
-  auto process = std::make_unique<SandboxedProcess>(
-      command, seccomp_file::kIw, kCrosHealthdSandboxUser, kNullCapability,
-      /*readonly_mount_points=*/
-      std::vector<base::FilePath>{base::FilePath(kIwBinary)},
-      /*writable_mount_points=*/
-      std::vector<base::FilePath>{}, NO_ENTER_NETWORK_NAMESPACE);
-
-  RunAndWaitProcess(std::move(process), std::move(callback),
-                    /*combine_stdout_and_stderr=*/false);
-}
-
-void Executor::GetInfo(const std::string& interface_name,
-                       GetInfoCallback callback) {
-  // Sanitize against interface_name.
-  if (!IsValidWirelessInterfaceName(interface_name)) {
-    auto result = mojom::ExecutedProcessResult::New();
-    result->err = "Illegal interface name: " + interface_name;
-    result->return_code = EXIT_FAILURE;
-    std::move(callback).Run(std::move(result));
-    return;
+  std::vector<std::string> command;
+  switch (cmd) {
+    case IwCommand::kDev:
+      command = {path::kIwBinary, "dev"};
+      break;
+    case IwCommand::kLink:
+      command = {path::kIwBinary, interface_name, "link"};
+      break;
+    case IwCommand::kInfo:
+      command = {path::kIwBinary, interface_name, "info"};
+      break;
+    case IwCommand::kScanDump:
+      command = {path::kIwBinary, interface_name, "scan", "dump"};
+      break;
   }
 
-  std::vector<std::string> command = {kIwBinary, interface_name,
-                                      kIwInfoCommand};
   auto process = std::make_unique<SandboxedProcess>(
       command, seccomp_file::kIw, kCrosHealthdSandboxUser, kNullCapability,
       /*readonly_mount_points=*/
-      std::vector<base::FilePath>{base::FilePath(kIwBinary)},
-      /*writable_mount_points=*/
-      std::vector<base::FilePath>{}, NO_ENTER_NETWORK_NAMESPACE);
-
-  RunAndWaitProcess(std::move(process), std::move(callback),
-                    /*combine_stdout_and_stderr=*/false);
-}
-
-void Executor::GetScanDump(const std::string& interface_name,
-                           GetScanDumpCallback callback) {
-  // Sanitize against interface_name.
-  if (!IsValidWirelessInterfaceName(interface_name)) {
-    auto result = mojom::ExecutedProcessResult::New();
-    result->err = "Illegal interface name: " + interface_name;
-    result->return_code = EXIT_FAILURE;
-    std::move(callback).Run(std::move(result));
-    return;
-  }
-
-  std::vector<std::string> command = {kIwBinary, interface_name, kIwScanCommand,
-                                      kIwDumpCommand};
-  auto process = std::make_unique<SandboxedProcess>(
-      command, seccomp_file::kIw, kCrosHealthdSandboxUser, kNullCapability,
-      /*readonly_mount_points=*/
-      std::vector<base::FilePath>{base::FilePath(kIwBinary)},
+      std::vector<base::FilePath>{},
       /*writable_mount_points=*/
       std::vector<base::FilePath>{}, NO_ENTER_NETWORK_NAMESPACE);
 
@@ -297,14 +255,15 @@ void Executor::RunMemtester(uint32_t test_mem_kib,
                             RunMemtesterCallback callback) {
   // Run with test_mem_kib memory and run for one loop.
   std::vector<std::string> command = {
-      kMemtesterBinary, base::StringPrintf("%uK", test_mem_kib), "1"};
+      path::kMemtesterBinary, base::StringPrintf("%uK", test_mem_kib), "1"};
   auto process = std::make_unique<SandboxedProcess>(
       command, seccomp_file::kMemtester, kCrosHealthdSandboxUser,
       CAP_TO_MASK(CAP_IPC_LOCK),
       /*readonly_mount_points=*/std::vector<base::FilePath>{},
       /*writable_mount_points=*/std::vector<base::FilePath>{});
 
-  RunTrackedBinary(std::move(process), std::move(callback), kMemtesterBinary);
+  RunTrackedBinary(std::move(process), std::move(callback),
+                   path::kMemtesterBinary);
 }
 
 void Executor::RunMemtesterV2(
@@ -312,7 +271,7 @@ void Executor::RunMemtesterV2(
     mojo::PendingReceiver<mojom::ProcessControl> receiver) {
   // Run with test_mem_kib memory and run for 1 loop.
   std::vector<std::string> command = {
-      kMemtesterBinary, base::StringPrintf("%uK", test_mem_kib), "1"};
+      path::kMemtesterBinary, base::StringPrintf("%uK", test_mem_kib), "1"};
   auto process = std::make_unique<SandboxedProcess>(
       command, seccomp_file::kMemtester, kCrosHealthdSandboxUser,
       CAP_TO_MASK(CAP_IPC_LOCK),
@@ -325,7 +284,7 @@ void Executor::RunMemtesterV2(
 
 void Executor::KillMemtester() {
   base::AutoLock auto_lock(lock_);
-  auto itr = tracked_processes_.find(kMemtesterBinary);
+  auto itr = tracked_processes_.find(path::kMemtesterBinary);
   if (itr == tracked_processes_.end())
     return;
 
@@ -388,25 +347,13 @@ void Executor::ReadMsr(const uint32_t msr_reg,
   std::move(callback).Run(mojom::NullableUint64::New(val));
 }
 
-void Executor::GetUEFISecureBootContent(
-    GetUEFISecureBootContentCallback callback) {
-  ReadRawFileAndReplyCallback(base::FilePath(kUEFISecureBootVarPath),
-                              std::move(callback));
-}
-
-void Executor::GetUEFIPlatformSizeContent(
-    GetUEFIPlatformSizeContentCallback callback) {
-  ReadTrimFileAndReplyCallback(base::FilePath{kUEFIPlatformSizeFile},
-                               std::move(callback));
-}
-
 void Executor::GetLidAngle(GetLidAngleCallback callback) {
-  std::vector<std::string> command = {kEctoolBinary, kMotionSenseCommand,
+  std::vector<std::string> command = {path::kEctoolBinary, kMotionSenseCommand,
                                       kLidAngleCommand};
   auto process = std::make_unique<SandboxedProcess>(
-      command, seccomp_file::kLidAngle, kEcUserAndGroup, kNullCapability,
+      command, seccomp_file::kLidAngle, user::kEc, kNullCapability,
       /*readonly_mount_points=*/
-      std::vector<base::FilePath>{base::FilePath(kCrosEcDevice)},
+      std::vector<base::FilePath>{base::FilePath(path::kCrosEcDevice)},
       /*writable_mount_points=*/std::vector<base::FilePath>{});
 
   RunAndWaitProcess(std::move(process), std::move(callback),
@@ -416,10 +363,10 @@ void Executor::GetLidAngle(GetLidAngleCallback callback) {
 void Executor::GetFingerprintFrame(mojom::FingerprintCaptureType type,
                                    GetFingerprintFrameCallback callback) {
   auto delegate = std::make_unique<DelegateProcess>(
-      seccomp_file::kFingerprint, kFingerprintUserAndGroup, kNullCapability,
+      seccomp_file::kFingerprint, user::kFingerprint, kNullCapability,
       /*readonly_mount_points=*/std::vector<base::FilePath>{},
       /*writable_mount_points=*/
-      std::vector<base::FilePath>{base::FilePath{fingerprint::kCrosFpPath}});
+      std::vector<base::FilePath>{base::FilePath{path::kCrosFpDevice}});
 
   auto* delegate_ptr = delegate.get();
   delegate_ptr->remote()->GetFingerprintFrame(
@@ -431,10 +378,10 @@ void Executor::GetFingerprintFrame(mojom::FingerprintCaptureType type,
 
 void Executor::GetFingerprintInfo(GetFingerprintInfoCallback callback) {
   auto delegate = std::make_unique<DelegateProcess>(
-      seccomp_file::kFingerprint, kFingerprintUserAndGroup, kNullCapability,
+      seccomp_file::kFingerprint, user::kFingerprint, kNullCapability,
       /*readonly_mount_points=*/std::vector<base::FilePath>{},
       /*writable_mount_points=*/
-      std::vector<base::FilePath>{base::FilePath{fingerprint::kCrosFpPath}});
+      std::vector<base::FilePath>{base::FilePath{path::kCrosFpDevice}});
 
   auto* delegate_ptr = delegate.get();
   delegate_ptr->remote()->GetFingerprintInfo(CreateOnceDelegateCallback(
@@ -447,10 +394,10 @@ void Executor::SetLedColor(mojom::LedName name,
                            mojom::LedColor color,
                            SetLedColorCallback callback) {
   auto delegate = std::make_unique<DelegateProcess>(
-      seccomp_file::kLed, kEcUserAndGroup, kNullCapability,
+      seccomp_file::kLed, user::kEc, kNullCapability,
       /*readonly_mount_points=*/std::vector<base::FilePath>{},
       /*writable_mount_points=*/
-      std::vector<base::FilePath>{base::FilePath{kCrosEcDevice}});
+      std::vector<base::FilePath>{base::FilePath{path::kCrosEcDevice}});
 
   auto* delegate_ptr = delegate.get();
   delegate_ptr->remote()->SetLedColor(
@@ -463,10 +410,10 @@ void Executor::SetLedColor(mojom::LedName name,
 void Executor::ResetLedColor(ash::cros_healthd::mojom::LedName name,
                              ResetLedColorCallback callback) {
   auto delegate = std::make_unique<DelegateProcess>(
-      seccomp_file::kLed, kEcUserAndGroup, kNullCapability,
+      seccomp_file::kLed, user::kEc, kNullCapability,
       /*readonly_mount_points=*/std::vector<base::FilePath>{},
       /*writable_mount_points=*/
-      std::vector<base::FilePath>{base::FilePath{kCrosEcDevice}});
+      std::vector<base::FilePath>{base::FilePath{path::kCrosEcDevice}});
 
   auto* delegate_ptr = delegate.get();
   delegate_ptr->remote()->ResetLedColor(
@@ -476,7 +423,7 @@ void Executor::ResetLedColor(ash::cros_healthd::mojom::LedName name,
 }
 
 void Executor::GetHciDeviceConfig(GetHciDeviceConfigCallback callback) {
-  std::vector<std::string> command = {kHciconfigBinary, "hci0"};
+  std::vector<std::string> command = {path::kHciconfigBinary, "hci0"};
   auto process = std::make_unique<SandboxedProcess>(
       command, seccomp_file::kHciconfig, kCrosHealthdSandboxUser,
       kNullCapability,
@@ -492,7 +439,7 @@ void Executor::MonitorAudioJack(
     mojo::PendingRemote<mojom::AudioJackObserver> observer,
     mojo::PendingReceiver<mojom::ProcessControl> process_control_receiver) {
   auto delegate = std::make_unique<DelegateProcess>(
-      seccomp_file::kEvdev, kEvdevUserAndGroup, kNullCapability,
+      seccomp_file::kEvdev, user::kEvdev, kNullCapability,
       /*readonly_mount_points=*/
       std::vector<base::FilePath>{base::FilePath{"/dev/input"}},
       /*writable_mount_points=*/
@@ -512,7 +459,7 @@ void Executor::MonitorTouchpad(
     mojo::PendingRemote<mojom::TouchpadObserver> observer,
     mojo::PendingReceiver<mojom::ProcessControl> process_control_receiver) {
   auto delegate = std::make_unique<DelegateProcess>(
-      seccomp_file::kEvdev, kEvdevUserAndGroup, kNullCapability,
+      seccomp_file::kEvdev, user::kEvdev, kNullCapability,
       /*readonly_mount_points=*/
       std::vector<base::FilePath>{base::FilePath{"/dev/input"}},
       /*writable_mount_points=*/
@@ -551,7 +498,7 @@ void Executor::MonitorTouchscreen(
     mojo::PendingRemote<mojom::TouchscreenObserver> observer,
     mojo::PendingReceiver<mojom::ProcessControl> process_control_receiver) {
   auto delegate = std::make_unique<DelegateProcess>(
-      seccomp_file::kEvdev, kEvdevUserAndGroup, kNullCapability,
+      seccomp_file::kEvdev, user::kEvdev, kNullCapability,
       /*readonly_mount_points=*/
       std::vector<base::FilePath>{base::FilePath{"/dev/input"}},
       /*writable_mount_points=*/

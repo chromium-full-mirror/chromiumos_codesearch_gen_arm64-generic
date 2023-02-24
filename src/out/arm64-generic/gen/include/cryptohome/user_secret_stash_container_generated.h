@@ -53,7 +53,8 @@ struct UserSecretStashContainer FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
     VT_IV = 8,
     VT_GCM_TAG = 10,
     VT_WRAPPED_KEY_BLOCKS = 12,
-    VT_CREATED_ON_OS_VERSION = 14
+    VT_CREATED_ON_OS_VERSION = 14,
+    VT_USER_METADATA = 16
   };
   flatbuffers::Optional<cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm> encryption_algorithm() const {
     return GetOptional<int32_t, cryptohome::_serialized_::UserSecretStashEncryptionAlgorithm>(VT_ENCRYPTION_ALGORITHM);
@@ -73,6 +74,9 @@ struct UserSecretStashContainer FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
   const flatbuffers::String *created_on_os_version() const {
     return GetPointer<const flatbuffers::String *>(VT_CREATED_ON_OS_VERSION);
   }
+  const cryptohome::_serialized_::UserMetadata *user_metadata() const {
+    return GetPointer<const cryptohome::_serialized_::UserMetadata *>(VT_USER_METADATA);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyField<int32_t>(verifier, VT_ENCRYPTION_ALGORITHM) &&
@@ -87,6 +91,8 @@ struct UserSecretStashContainer FLATBUFFERS_FINAL_CLASS : private flatbuffers::T
            verifier.VerifyVectorOfTables(wrapped_key_blocks()) &&
            VerifyOffset(verifier, VT_CREATED_ON_OS_VERSION) &&
            verifier.VerifyString(created_on_os_version()) &&
+           VerifyOffset(verifier, VT_USER_METADATA) &&
+           verifier.VerifyTable(user_metadata()) &&
            verifier.EndTable();
   }
 };
@@ -113,6 +119,9 @@ struct UserSecretStashContainerBuilder {
   void add_created_on_os_version(flatbuffers::Offset<flatbuffers::String> created_on_os_version) {
     fbb_.AddOffset(UserSecretStashContainer::VT_CREATED_ON_OS_VERSION, created_on_os_version);
   }
+  void add_user_metadata(flatbuffers::Offset<cryptohome::_serialized_::UserMetadata> user_metadata) {
+    fbb_.AddOffset(UserSecretStashContainer::VT_USER_METADATA, user_metadata);
+  }
   explicit UserSecretStashContainerBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -131,8 +140,10 @@ inline flatbuffers::Offset<UserSecretStashContainer> CreateUserSecretStashContai
     flatbuffers::Offset<flatbuffers::Vector<uint8_t>> iv = 0,
     flatbuffers::Offset<flatbuffers::Vector<uint8_t>> gcm_tag = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashWrappedKeyBlock>>> wrapped_key_blocks = 0,
-    flatbuffers::Offset<flatbuffers::String> created_on_os_version = 0) {
+    flatbuffers::Offset<flatbuffers::String> created_on_os_version = 0,
+    flatbuffers::Offset<cryptohome::_serialized_::UserMetadata> user_metadata = 0) {
   UserSecretStashContainerBuilder builder_(_fbb);
+  builder_.add_user_metadata(user_metadata);
   builder_.add_created_on_os_version(created_on_os_version);
   builder_.add_wrapped_key_blocks(wrapped_key_blocks);
   builder_.add_gcm_tag(gcm_tag);
@@ -149,7 +160,8 @@ inline flatbuffers::Offset<UserSecretStashContainer> CreateUserSecretStashContai
     const std::vector<uint8_t> *iv = nullptr,
     const std::vector<uint8_t> *gcm_tag = nullptr,
     const std::vector<flatbuffers::Offset<cryptohome::_serialized_::UserSecretStashWrappedKeyBlock>> *wrapped_key_blocks = nullptr,
-    const char *created_on_os_version = nullptr) {
+    const char *created_on_os_version = nullptr,
+    flatbuffers::Offset<cryptohome::_serialized_::UserMetadata> user_metadata = 0) {
   auto ciphertext__ = ciphertext ? _fbb.CreateVector<uint8_t>(*ciphertext) : 0;
   auto iv__ = iv ? _fbb.CreateVector<uint8_t>(*iv) : 0;
   auto gcm_tag__ = gcm_tag ? _fbb.CreateVector<uint8_t>(*gcm_tag) : 0;
@@ -162,7 +174,8 @@ inline flatbuffers::Offset<UserSecretStashContainer> CreateUserSecretStashContai
       iv__,
       gcm_tag__,
       wrapped_key_blocks__,
-      created_on_os_version__);
+      created_on_os_version__,
+      user_metadata);
 }
 
 struct UserSecretStashWrappedKeyBlock FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -273,14 +286,14 @@ inline flatbuffers::Offset<UserSecretStashWrappedKeyBlock> CreateUserSecretStash
 struct UserMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef UserMetadataBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_RATE_LIMITER_LEAF_LABEL = 4
+    VT_FINGERPRINT_RATE_LIMITER_ID = 4
   };
-  flatbuffers::Optional<uint64_t> rate_limiter_leaf_label() const {
-    return GetOptional<uint64_t, uint64_t>(VT_RATE_LIMITER_LEAF_LABEL);
+  flatbuffers::Optional<uint64_t> fingerprint_rate_limiter_id() const {
+    return GetOptional<uint64_t, uint64_t>(VT_FINGERPRINT_RATE_LIMITER_ID);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<uint64_t>(verifier, VT_RATE_LIMITER_LEAF_LABEL) &&
+           VerifyField<uint64_t>(verifier, VT_FINGERPRINT_RATE_LIMITER_ID) &&
            verifier.EndTable();
   }
 };
@@ -289,8 +302,8 @@ struct UserMetadataBuilder {
   typedef UserMetadata Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_rate_limiter_leaf_label(uint64_t rate_limiter_leaf_label) {
-    fbb_.AddElement<uint64_t>(UserMetadata::VT_RATE_LIMITER_LEAF_LABEL, rate_limiter_leaf_label);
+  void add_fingerprint_rate_limiter_id(uint64_t fingerprint_rate_limiter_id) {
+    fbb_.AddElement<uint64_t>(UserMetadata::VT_FINGERPRINT_RATE_LIMITER_ID, fingerprint_rate_limiter_id);
   }
   explicit UserMetadataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -305,9 +318,9 @@ struct UserMetadataBuilder {
 
 inline flatbuffers::Offset<UserMetadata> CreateUserMetadata(
     flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Optional<uint64_t> rate_limiter_leaf_label = flatbuffers::nullopt) {
+    flatbuffers::Optional<uint64_t> fingerprint_rate_limiter_id = flatbuffers::nullopt) {
   UserMetadataBuilder builder_(_fbb);
-  if(rate_limiter_leaf_label) { builder_.add_rate_limiter_leaf_label(*rate_limiter_leaf_label); }
+  if(fingerprint_rate_limiter_id) { builder_.add_fingerprint_rate_limiter_id(*fingerprint_rate_limiter_id); }
   return builder_.Finish();
 }
 

@@ -49,7 +49,7 @@ struct TableStruct_UserDataAuth_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[137]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[132]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -86,21 +86,12 @@ extern CheckHealthReplyDefaultTypeInternal _CheckHealthReply_default_instance_;
 class CheckHealthRequest;
 struct CheckHealthRequestDefaultTypeInternal;
 extern CheckHealthRequestDefaultTypeInternal _CheckHealthRequest_default_instance_;
-class CheckKeyReply;
-struct CheckKeyReplyDefaultTypeInternal;
-extern CheckKeyReplyDefaultTypeInternal _CheckKeyReply_default_instance_;
-class CheckKeyRequest;
-struct CheckKeyRequestDefaultTypeInternal;
-extern CheckKeyRequestDefaultTypeInternal _CheckKeyRequest_default_instance_;
 class CreatePersistentUserReply;
 struct CreatePersistentUserReplyDefaultTypeInternal;
 extern CreatePersistentUserReplyDefaultTypeInternal _CreatePersistentUserReply_default_instance_;
 class CreatePersistentUserRequest;
 struct CreatePersistentUserRequestDefaultTypeInternal;
 extern CreatePersistentUserRequestDefaultTypeInternal _CreatePersistentUserRequest_default_instance_;
-class CreateRequest;
-struct CreateRequestDefaultTypeInternal;
-extern CreateRequestDefaultTypeInternal _CreateRequest_default_instance_;
 class CryptohomeErrorInfo;
 struct CryptohomeErrorInfoDefaultTypeInternal;
 extern CryptohomeErrorInfoDefaultTypeInternal _CryptohomeErrorInfo_default_instance_;
@@ -308,12 +299,6 @@ extern LockToSingleUserMountUntilRebootRequestDefaultTypeInternal _LockToSingleU
 class LowDiskSpace;
 struct LowDiskSpaceDefaultTypeInternal;
 extern LowDiskSpaceDefaultTypeInternal _LowDiskSpace_default_instance_;
-class MountReply;
-struct MountReplyDefaultTypeInternal;
-extern MountReplyDefaultTypeInternal _MountReply_default_instance_;
-class MountRequest;
-struct MountRequestDefaultTypeInternal;
-extern MountRequestDefaultTypeInternal _MountRequest_default_instance_;
 class NeedsDircryptoMigrationReply;
 struct NeedsDircryptoMigrationReplyDefaultTypeInternal;
 extern NeedsDircryptoMigrationReplyDefaultTypeInternal _NeedsDircryptoMigrationReply_default_instance_;
@@ -479,11 +464,8 @@ template<> ::user_data_auth::AuthenticateAuthFactorReply* Arena::CreateMaybeMess
 template<> ::user_data_auth::AuthenticateAuthFactorRequest* Arena::CreateMaybeMessage<::user_data_auth::AuthenticateAuthFactorRequest>(Arena*);
 template<> ::user_data_auth::CheckHealthReply* Arena::CreateMaybeMessage<::user_data_auth::CheckHealthReply>(Arena*);
 template<> ::user_data_auth::CheckHealthRequest* Arena::CreateMaybeMessage<::user_data_auth::CheckHealthRequest>(Arena*);
-template<> ::user_data_auth::CheckKeyReply* Arena::CreateMaybeMessage<::user_data_auth::CheckKeyReply>(Arena*);
-template<> ::user_data_auth::CheckKeyRequest* Arena::CreateMaybeMessage<::user_data_auth::CheckKeyRequest>(Arena*);
 template<> ::user_data_auth::CreatePersistentUserReply* Arena::CreateMaybeMessage<::user_data_auth::CreatePersistentUserReply>(Arena*);
 template<> ::user_data_auth::CreatePersistentUserRequest* Arena::CreateMaybeMessage<::user_data_auth::CreatePersistentUserRequest>(Arena*);
-template<> ::user_data_auth::CreateRequest* Arena::CreateMaybeMessage<::user_data_auth::CreateRequest>(Arena*);
 template<> ::user_data_auth::CryptohomeErrorInfo* Arena::CreateMaybeMessage<::user_data_auth::CryptohomeErrorInfo>(Arena*);
 template<> ::user_data_auth::DircryptoMigrationProgress* Arena::CreateMaybeMessage<::user_data_auth::DircryptoMigrationProgress>(Arena*);
 template<> ::user_data_auth::EndFingerprintAuthSessionReply* Arena::CreateMaybeMessage<::user_data_auth::EndFingerprintAuthSessionReply>(Arena*);
@@ -553,8 +535,6 @@ template<> ::user_data_auth::ListKeysRequest* Arena::CreateMaybeMessage<::user_d
 template<> ::user_data_auth::LockToSingleUserMountUntilRebootReply* Arena::CreateMaybeMessage<::user_data_auth::LockToSingleUserMountUntilRebootReply>(Arena*);
 template<> ::user_data_auth::LockToSingleUserMountUntilRebootRequest* Arena::CreateMaybeMessage<::user_data_auth::LockToSingleUserMountUntilRebootRequest>(Arena*);
 template<> ::user_data_auth::LowDiskSpace* Arena::CreateMaybeMessage<::user_data_auth::LowDiskSpace>(Arena*);
-template<> ::user_data_auth::MountReply* Arena::CreateMaybeMessage<::user_data_auth::MountReply>(Arena*);
-template<> ::user_data_auth::MountRequest* Arena::CreateMaybeMessage<::user_data_auth::MountRequest>(Arena*);
 template<> ::user_data_auth::NeedsDircryptoMigrationReply* Arena::CreateMaybeMessage<::user_data_auth::NeedsDircryptoMigrationReply>(Arena*);
 template<> ::user_data_auth::NeedsDircryptoMigrationRequest* Arena::CreateMaybeMessage<::user_data_auth::NeedsDircryptoMigrationRequest>(Arena*);
 template<> ::user_data_auth::Pkcs11GetTpmTokenInfoReply* Arena::CreateMaybeMessage<::user_data_auth::Pkcs11GetTpmTokenInfoReply>(Arena*);
@@ -718,12 +698,13 @@ enum PrimaryAction : int {
   PRIMARY_TPM_NEEDS_REBOOT = 6,
   PRIMARY_TPM_LOCKOUT = 7,
   PRIMARY_INCORRECT_AUTH = 8,
+  PRIMARY_LE_LOCKED_OUT = 9,
   PrimaryAction_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   PrimaryAction_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool PrimaryAction_IsValid(int value);
 constexpr PrimaryAction PrimaryAction_MIN = PRIMARY_NO_ERROR;
-constexpr PrimaryAction PrimaryAction_MAX = PRIMARY_INCORRECT_AUTH;
+constexpr PrimaryAction PrimaryAction_MAX = PRIMARY_LE_LOCKED_OUT;
 constexpr int PrimaryAction_ARRAYSIZE = PrimaryAction_MAX + 1;
 
 const std::string& PrimaryAction_Name(PrimaryAction value);
@@ -910,167 +891,6 @@ bool FingerprintScanResult_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FingerprintScanResult* value);
 // ===================================================================
 
-class CreateRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.CreateRequest) */ {
- public:
-  inline CreateRequest() : CreateRequest(nullptr) {}
-  ~CreateRequest() override;
-  explicit constexpr CreateRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  CreateRequest(const CreateRequest& from);
-  CreateRequest(CreateRequest&& from) noexcept
-    : CreateRequest() {
-    *this = ::std::move(from);
-  }
-
-  inline CreateRequest& operator=(const CreateRequest& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline CreateRequest& operator=(CreateRequest&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const CreateRequest& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const CreateRequest* internal_default_instance() {
-    return reinterpret_cast<const CreateRequest*>(
-               &_CreateRequest_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    0;
-
-  friend void swap(CreateRequest& a, CreateRequest& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(CreateRequest* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(CreateRequest* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  CreateRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<CreateRequest>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const CreateRequest& from);
-  void MergeFrom(const CreateRequest& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(CreateRequest* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "user_data_auth.CreateRequest";
-  }
-  protected:
-  explicit CreateRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kKeysFieldNumber = 1,
-    kCopyAuthorizationKeyFieldNumber = 2,
-    kForceEcryptfsFieldNumber = 3,
-  };
-  // repeated .cryptohome.Key keys = 1;
-  int keys_size() const;
-  private:
-  int _internal_keys_size() const;
-  public:
-  void clear_keys();
-  ::cryptohome::Key* mutable_keys(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::cryptohome::Key >*
-      mutable_keys();
-  private:
-  const ::cryptohome::Key& _internal_keys(int index) const;
-  ::cryptohome::Key* _internal_add_keys();
-  public:
-  const ::cryptohome::Key& keys(int index) const;
-  ::cryptohome::Key* add_keys();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::cryptohome::Key >&
-      keys() const;
-
-  // bool copy_authorization_key = 2;
-  void clear_copy_authorization_key();
-  bool copy_authorization_key() const;
-  void set_copy_authorization_key(bool value);
-  private:
-  bool _internal_copy_authorization_key() const;
-  void _internal_set_copy_authorization_key(bool value);
-  public:
-
-  // bool force_ecryptfs = 3;
-  void clear_force_ecryptfs();
-  bool force_ecryptfs() const;
-  void set_force_ecryptfs(bool value);
-  private:
-  bool _internal_force_ecryptfs() const;
-  void _internal_set_force_ecryptfs(bool value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:user_data_auth.CreateRequest)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::cryptohome::Key > keys_;
-  bool copy_authorization_key_;
-  bool force_ecryptfs_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_UserDataAuth_2eproto;
-};
-// -------------------------------------------------------------------
-
 class CryptohomeErrorInfo final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.CryptohomeErrorInfo) */ {
  public:
@@ -1110,7 +930,7 @@ class CryptohomeErrorInfo final :
                &_CryptohomeErrorInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    0;
 
   friend void swap(CryptohomeErrorInfo& a, CryptohomeErrorInfo& b) {
     a.Swap(&b);
@@ -1292,7 +1112,7 @@ class IsMountedRequest final :
                &_IsMountedRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    1;
 
   friend void swap(IsMountedRequest& a, IsMountedRequest& b) {
     a.Swap(&b);
@@ -1427,7 +1247,7 @@ class IsMountedReply final :
                &_IsMountedReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    2;
 
   friend void swap(IsMountedReply& a, IsMountedReply& b) {
     a.Swap(&b);
@@ -1568,7 +1388,7 @@ class UnmountRequest final :
                &_UnmountRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    3;
 
   friend void swap(UnmountRequest& a, UnmountRequest& b) {
     a.Swap(&b);
@@ -1685,7 +1505,7 @@ class UnmountReply final :
                &_UnmountReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    4;
 
   friend void swap(UnmountReply& a, UnmountReply& b) {
     a.Swap(&b);
@@ -1796,433 +1616,6 @@ class UnmountReply final :
 };
 // -------------------------------------------------------------------
 
-class MountRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.MountRequest) */ {
- public:
-  inline MountRequest() : MountRequest(nullptr) {}
-  ~MountRequest() override;
-  explicit constexpr MountRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  MountRequest(const MountRequest& from);
-  MountRequest(MountRequest&& from) noexcept
-    : MountRequest() {
-    *this = ::std::move(from);
-  }
-
-  inline MountRequest& operator=(const MountRequest& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline MountRequest& operator=(MountRequest&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const MountRequest& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const MountRequest* internal_default_instance() {
-    return reinterpret_cast<const MountRequest*>(
-               &_MountRequest_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    6;
-
-  friend void swap(MountRequest& a, MountRequest& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(MountRequest* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(MountRequest* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  MountRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<MountRequest>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const MountRequest& from);
-  void MergeFrom(const MountRequest& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(MountRequest* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "user_data_auth.MountRequest";
-  }
-  protected:
-  explicit MountRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kAuthSessionIdFieldNumber = 9,
-    kAccountFieldNumber = 1,
-    kAuthorizationFieldNumber = 2,
-    kCreateFieldNumber = 4,
-    kRequireEphemeralFieldNumber = 3,
-    kForceDircryptoIfAvailableFieldNumber = 5,
-    kToMigrateFromEcryptfsFieldNumber = 6,
-    kPublicMountFieldNumber = 7,
-    kGuestMountFieldNumber = 8,
-  };
-  // bytes auth_session_id = 9;
-  void clear_auth_session_id();
-  const std::string& auth_session_id() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_auth_session_id(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_auth_session_id();
-  PROTOBUF_NODISCARD std::string* release_auth_session_id();
-  void set_allocated_auth_session_id(std::string* auth_session_id);
-  private:
-  const std::string& _internal_auth_session_id() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_auth_session_id(const std::string& value);
-  std::string* _internal_mutable_auth_session_id();
-  public:
-
-  // .cryptohome.AccountIdentifier account = 1;
-  bool has_account() const;
-  private:
-  bool _internal_has_account() const;
-  public:
-  void clear_account();
-  const ::cryptohome::AccountIdentifier& account() const;
-  PROTOBUF_NODISCARD ::cryptohome::AccountIdentifier* release_account();
-  ::cryptohome::AccountIdentifier* mutable_account();
-  void set_allocated_account(::cryptohome::AccountIdentifier* account);
-  private:
-  const ::cryptohome::AccountIdentifier& _internal_account() const;
-  ::cryptohome::AccountIdentifier* _internal_mutable_account();
-  public:
-  void unsafe_arena_set_allocated_account(
-      ::cryptohome::AccountIdentifier* account);
-  ::cryptohome::AccountIdentifier* unsafe_arena_release_account();
-
-  // .cryptohome.AuthorizationRequest authorization = 2;
-  bool has_authorization() const;
-  private:
-  bool _internal_has_authorization() const;
-  public:
-  void clear_authorization();
-  const ::cryptohome::AuthorizationRequest& authorization() const;
-  PROTOBUF_NODISCARD ::cryptohome::AuthorizationRequest* release_authorization();
-  ::cryptohome::AuthorizationRequest* mutable_authorization();
-  void set_allocated_authorization(::cryptohome::AuthorizationRequest* authorization);
-  private:
-  const ::cryptohome::AuthorizationRequest& _internal_authorization() const;
-  ::cryptohome::AuthorizationRequest* _internal_mutable_authorization();
-  public:
-  void unsafe_arena_set_allocated_authorization(
-      ::cryptohome::AuthorizationRequest* authorization);
-  ::cryptohome::AuthorizationRequest* unsafe_arena_release_authorization();
-
-  // .user_data_auth.CreateRequest create = 4;
-  bool has_create() const;
-  private:
-  bool _internal_has_create() const;
-  public:
-  void clear_create();
-  const ::user_data_auth::CreateRequest& create() const;
-  PROTOBUF_NODISCARD ::user_data_auth::CreateRequest* release_create();
-  ::user_data_auth::CreateRequest* mutable_create();
-  void set_allocated_create(::user_data_auth::CreateRequest* create);
-  private:
-  const ::user_data_auth::CreateRequest& _internal_create() const;
-  ::user_data_auth::CreateRequest* _internal_mutable_create();
-  public:
-  void unsafe_arena_set_allocated_create(
-      ::user_data_auth::CreateRequest* create);
-  ::user_data_auth::CreateRequest* unsafe_arena_release_create();
-
-  // bool require_ephemeral = 3;
-  void clear_require_ephemeral();
-  bool require_ephemeral() const;
-  void set_require_ephemeral(bool value);
-  private:
-  bool _internal_require_ephemeral() const;
-  void _internal_set_require_ephemeral(bool value);
-  public:
-
-  // bool force_dircrypto_if_available = 5;
-  void clear_force_dircrypto_if_available();
-  bool force_dircrypto_if_available() const;
-  void set_force_dircrypto_if_available(bool value);
-  private:
-  bool _internal_force_dircrypto_if_available() const;
-  void _internal_set_force_dircrypto_if_available(bool value);
-  public:
-
-  // bool to_migrate_from_ecryptfs = 6;
-  void clear_to_migrate_from_ecryptfs();
-  bool to_migrate_from_ecryptfs() const;
-  void set_to_migrate_from_ecryptfs(bool value);
-  private:
-  bool _internal_to_migrate_from_ecryptfs() const;
-  void _internal_set_to_migrate_from_ecryptfs(bool value);
-  public:
-
-  // bool public_mount = 7;
-  void clear_public_mount();
-  bool public_mount() const;
-  void set_public_mount(bool value);
-  private:
-  bool _internal_public_mount() const;
-  void _internal_set_public_mount(bool value);
-  public:
-
-  // bool guest_mount = 8;
-  void clear_guest_mount();
-  bool guest_mount() const;
-  void set_guest_mount(bool value);
-  private:
-  bool _internal_guest_mount() const;
-  void _internal_set_guest_mount(bool value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:user_data_auth.MountRequest)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr auth_session_id_;
-  ::cryptohome::AccountIdentifier* account_;
-  ::cryptohome::AuthorizationRequest* authorization_;
-  ::user_data_auth::CreateRequest* create_;
-  bool require_ephemeral_;
-  bool force_dircrypto_if_available_;
-  bool to_migrate_from_ecryptfs_;
-  bool public_mount_;
-  bool guest_mount_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_UserDataAuth_2eproto;
-};
-// -------------------------------------------------------------------
-
-class MountReply final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.MountReply) */ {
- public:
-  inline MountReply() : MountReply(nullptr) {}
-  ~MountReply() override;
-  explicit constexpr MountReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  MountReply(const MountReply& from);
-  MountReply(MountReply&& from) noexcept
-    : MountReply() {
-    *this = ::std::move(from);
-  }
-
-  inline MountReply& operator=(const MountReply& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline MountReply& operator=(MountReply&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const MountReply& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const MountReply* internal_default_instance() {
-    return reinterpret_cast<const MountReply*>(
-               &_MountReply_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    7;
-
-  friend void swap(MountReply& a, MountReply& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(MountReply* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(MountReply* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  MountReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<MountReply>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const MountReply& from);
-  void MergeFrom(const MountReply& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(MountReply* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "user_data_auth.MountReply";
-  }
-  protected:
-  explicit MountReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kSanitizedUsernameFieldNumber = 3,
-    kErrorInfoFieldNumber = 4,
-    kErrorFieldNumber = 1,
-    kRecreatedFieldNumber = 2,
-  };
-  // string sanitized_username = 3;
-  void clear_sanitized_username();
-  const std::string& sanitized_username() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_sanitized_username(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_sanitized_username();
-  PROTOBUF_NODISCARD std::string* release_sanitized_username();
-  void set_allocated_sanitized_username(std::string* sanitized_username);
-  private:
-  const std::string& _internal_sanitized_username() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_sanitized_username(const std::string& value);
-  std::string* _internal_mutable_sanitized_username();
-  public:
-
-  // .user_data_auth.CryptohomeErrorInfo error_info = 4;
-  bool has_error_info() const;
-  private:
-  bool _internal_has_error_info() const;
-  public:
-  void clear_error_info();
-  const ::user_data_auth::CryptohomeErrorInfo& error_info() const;
-  PROTOBUF_NODISCARD ::user_data_auth::CryptohomeErrorInfo* release_error_info();
-  ::user_data_auth::CryptohomeErrorInfo* mutable_error_info();
-  void set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info);
-  private:
-  const ::user_data_auth::CryptohomeErrorInfo& _internal_error_info() const;
-  ::user_data_auth::CryptohomeErrorInfo* _internal_mutable_error_info();
-  public:
-  void unsafe_arena_set_allocated_error_info(
-      ::user_data_auth::CryptohomeErrorInfo* error_info);
-  ::user_data_auth::CryptohomeErrorInfo* unsafe_arena_release_error_info();
-
-  // .user_data_auth.CryptohomeErrorCode error = 1;
-  void clear_error();
-  ::user_data_auth::CryptohomeErrorCode error() const;
-  void set_error(::user_data_auth::CryptohomeErrorCode value);
-  private:
-  ::user_data_auth::CryptohomeErrorCode _internal_error() const;
-  void _internal_set_error(::user_data_auth::CryptohomeErrorCode value);
-  public:
-
-  // bool recreated = 2;
-  void clear_recreated();
-  bool recreated() const;
-  void set_recreated(bool value);
-  private:
-  bool _internal_recreated() const;
-  void _internal_set_recreated(bool value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:user_data_auth.MountReply)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sanitized_username_;
-  ::user_data_auth::CryptohomeErrorInfo* error_info_;
-  int error_;
-  bool recreated_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_UserDataAuth_2eproto;
-};
-// -------------------------------------------------------------------
-
 class RemoveRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.RemoveRequest) */ {
  public:
@@ -2262,7 +1655,7 @@ class RemoveRequest final :
                &_RemoveRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    5;
 
   friend void swap(RemoveRequest& a, RemoveRequest& b) {
     a.Swap(&b);
@@ -2417,7 +1810,7 @@ class RemoveReply final :
                &_RemoveReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    6;
 
   friend void swap(RemoveReply& a, RemoveReply& b) {
     a.Swap(&b);
@@ -2567,7 +1960,7 @@ class ListKeysRequest final :
                &_ListKeysRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    7;
 
   friend void swap(ListKeysRequest& a, ListKeysRequest& b) {
     a.Swap(&b);
@@ -2726,7 +2119,7 @@ class ListKeysReply final :
                &_ListKeysReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    8;
 
   friend void swap(ListKeysReply& a, ListKeysReply& b) {
     a.Swap(&b);
@@ -2863,306 +2256,6 @@ class ListKeysReply final :
 };
 // -------------------------------------------------------------------
 
-class CheckKeyRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.CheckKeyRequest) */ {
- public:
-  inline CheckKeyRequest() : CheckKeyRequest(nullptr) {}
-  ~CheckKeyRequest() override;
-  explicit constexpr CheckKeyRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  CheckKeyRequest(const CheckKeyRequest& from);
-  CheckKeyRequest(CheckKeyRequest&& from) noexcept
-    : CheckKeyRequest() {
-    *this = ::std::move(from);
-  }
-
-  inline CheckKeyRequest& operator=(const CheckKeyRequest& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline CheckKeyRequest& operator=(CheckKeyRequest&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const CheckKeyRequest& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const CheckKeyRequest* internal_default_instance() {
-    return reinterpret_cast<const CheckKeyRequest*>(
-               &_CheckKeyRequest_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    12;
-
-  friend void swap(CheckKeyRequest& a, CheckKeyRequest& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(CheckKeyRequest* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(CheckKeyRequest* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  CheckKeyRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<CheckKeyRequest>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const CheckKeyRequest& from);
-  void MergeFrom(const CheckKeyRequest& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(CheckKeyRequest* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "user_data_auth.CheckKeyRequest";
-  }
-  protected:
-  explicit CheckKeyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kAccountIdFieldNumber = 1,
-    kAuthorizationRequestFieldNumber = 2,
-    kUnlockWebauthnSecretFieldNumber = 3,
-  };
-  // .cryptohome.AccountIdentifier account_id = 1;
-  bool has_account_id() const;
-  private:
-  bool _internal_has_account_id() const;
-  public:
-  void clear_account_id();
-  const ::cryptohome::AccountIdentifier& account_id() const;
-  PROTOBUF_NODISCARD ::cryptohome::AccountIdentifier* release_account_id();
-  ::cryptohome::AccountIdentifier* mutable_account_id();
-  void set_allocated_account_id(::cryptohome::AccountIdentifier* account_id);
-  private:
-  const ::cryptohome::AccountIdentifier& _internal_account_id() const;
-  ::cryptohome::AccountIdentifier* _internal_mutable_account_id();
-  public:
-  void unsafe_arena_set_allocated_account_id(
-      ::cryptohome::AccountIdentifier* account_id);
-  ::cryptohome::AccountIdentifier* unsafe_arena_release_account_id();
-
-  // .cryptohome.AuthorizationRequest authorization_request = 2;
-  bool has_authorization_request() const;
-  private:
-  bool _internal_has_authorization_request() const;
-  public:
-  void clear_authorization_request();
-  const ::cryptohome::AuthorizationRequest& authorization_request() const;
-  PROTOBUF_NODISCARD ::cryptohome::AuthorizationRequest* release_authorization_request();
-  ::cryptohome::AuthorizationRequest* mutable_authorization_request();
-  void set_allocated_authorization_request(::cryptohome::AuthorizationRequest* authorization_request);
-  private:
-  const ::cryptohome::AuthorizationRequest& _internal_authorization_request() const;
-  ::cryptohome::AuthorizationRequest* _internal_mutable_authorization_request();
-  public:
-  void unsafe_arena_set_allocated_authorization_request(
-      ::cryptohome::AuthorizationRequest* authorization_request);
-  ::cryptohome::AuthorizationRequest* unsafe_arena_release_authorization_request();
-
-  // bool unlock_webauthn_secret = 3;
-  void clear_unlock_webauthn_secret();
-  bool unlock_webauthn_secret() const;
-  void set_unlock_webauthn_secret(bool value);
-  private:
-  bool _internal_unlock_webauthn_secret() const;
-  void _internal_set_unlock_webauthn_secret(bool value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:user_data_auth.CheckKeyRequest)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::cryptohome::AccountIdentifier* account_id_;
-  ::cryptohome::AuthorizationRequest* authorization_request_;
-  bool unlock_webauthn_secret_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_UserDataAuth_2eproto;
-};
-// -------------------------------------------------------------------
-
-class CheckKeyReply final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.CheckKeyReply) */ {
- public:
-  inline CheckKeyReply() : CheckKeyReply(nullptr) {}
-  ~CheckKeyReply() override;
-  explicit constexpr CheckKeyReply(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  CheckKeyReply(const CheckKeyReply& from);
-  CheckKeyReply(CheckKeyReply&& from) noexcept
-    : CheckKeyReply() {
-    *this = ::std::move(from);
-  }
-
-  inline CheckKeyReply& operator=(const CheckKeyReply& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline CheckKeyReply& operator=(CheckKeyReply&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const CheckKeyReply& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const CheckKeyReply* internal_default_instance() {
-    return reinterpret_cast<const CheckKeyReply*>(
-               &_CheckKeyReply_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    13;
-
-  friend void swap(CheckKeyReply& a, CheckKeyReply& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(CheckKeyReply* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(CheckKeyReply* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  CheckKeyReply* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<CheckKeyReply>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const CheckKeyReply& from);
-  void MergeFrom(const CheckKeyReply& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(CheckKeyReply* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "user_data_auth.CheckKeyReply";
-  }
-  protected:
-  explicit CheckKeyReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kErrorFieldNumber = 1,
-  };
-  // .user_data_auth.CryptohomeErrorCode error = 1;
-  void clear_error();
-  ::user_data_auth::CryptohomeErrorCode error() const;
-  void set_error(::user_data_auth::CryptohomeErrorCode value);
-  private:
-  ::user_data_auth::CryptohomeErrorCode _internal_error() const;
-  void _internal_set_error(::user_data_auth::CryptohomeErrorCode value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:user_data_auth.CheckKeyReply)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  int error_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_UserDataAuth_2eproto;
-};
-// -------------------------------------------------------------------
-
 class StartFingerprintAuthSessionRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.StartFingerprintAuthSessionRequest) */ {
  public:
@@ -3202,7 +2295,7 @@ class StartFingerprintAuthSessionRequest final :
                &_StartFingerprintAuthSessionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    9;
 
   friend void swap(StartFingerprintAuthSessionRequest& a, StartFingerprintAuthSessionRequest& b) {
     a.Swap(&b);
@@ -3341,7 +2434,7 @@ class StartFingerprintAuthSessionReply final :
                &_StartFingerprintAuthSessionReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    10;
 
   friend void swap(StartFingerprintAuthSessionReply& a, StartFingerprintAuthSessionReply& b) {
     a.Swap(&b);
@@ -3471,7 +2564,7 @@ class EndFingerprintAuthSessionRequest final :
                &_EndFingerprintAuthSessionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    11;
 
   friend void swap(EndFingerprintAuthSessionRequest& a, EndFingerprintAuthSessionRequest& b) {
     a.Swap(&b);
@@ -3588,7 +2681,7 @@ class EndFingerprintAuthSessionReply final :
                &_EndFingerprintAuthSessionReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    12;
 
   friend void swap(EndFingerprintAuthSessionReply& a, EndFingerprintAuthSessionReply& b) {
     a.Swap(&b);
@@ -3718,7 +2811,7 @@ class GetWebAuthnSecretRequest final :
                &_GetWebAuthnSecretRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    13;
 
   friend void swap(GetWebAuthnSecretRequest& a, GetWebAuthnSecretRequest& b) {
     a.Swap(&b);
@@ -3857,7 +2950,7 @@ class GetWebAuthnSecretReply final :
                &_GetWebAuthnSecretReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    14;
 
   friend void swap(GetWebAuthnSecretReply& a, GetWebAuthnSecretReply& b) {
     a.Swap(&b);
@@ -4003,7 +3096,7 @@ class GetWebAuthnSecretHashRequest final :
                &_GetWebAuthnSecretHashRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    15;
 
   friend void swap(GetWebAuthnSecretHashRequest& a, GetWebAuthnSecretHashRequest& b) {
     a.Swap(&b);
@@ -4142,7 +3235,7 @@ class GetWebAuthnSecretHashReply final :
                &_GetWebAuthnSecretHashReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    16;
 
   friend void swap(GetWebAuthnSecretHashReply& a, GetWebAuthnSecretHashReply& b) {
     a.Swap(&b);
@@ -4288,7 +3381,7 @@ class GetHibernateSecretRequest final :
                &_GetHibernateSecretRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    17;
 
   friend void swap(GetHibernateSecretRequest& a, GetHibernateSecretRequest& b) {
     a.Swap(&b);
@@ -4443,7 +3536,7 @@ class GetHibernateSecretReply final :
                &_GetHibernateSecretReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    18;
 
   friend void swap(GetHibernateSecretReply& a, GetHibernateSecretReply& b) {
     a.Swap(&b);
@@ -4589,7 +3682,7 @@ class GetEncryptionInfoRequest final :
                &_GetEncryptionInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    19;
 
   friend void swap(GetEncryptionInfoRequest& a, GetEncryptionInfoRequest& b) {
     a.Swap(&b);
@@ -4706,7 +3799,7 @@ class GetEncryptionInfoReply final :
                &_GetEncryptionInfoReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    20;
 
   friend void swap(GetEncryptionInfoReply& a, GetEncryptionInfoReply& b) {
     a.Swap(&b);
@@ -4847,7 +3940,7 @@ class StartMigrateToDircryptoRequest final :
                &_StartMigrateToDircryptoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    21;
 
   friend void swap(StartMigrateToDircryptoRequest& a, StartMigrateToDircryptoRequest& b) {
     a.Swap(&b);
@@ -5013,7 +4106,7 @@ class StartMigrateToDircryptoReply final :
                &_StartMigrateToDircryptoReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    22;
 
   friend void swap(StartMigrateToDircryptoReply& a, StartMigrateToDircryptoReply& b) {
     a.Swap(&b);
@@ -5143,7 +4236,7 @@ class DircryptoMigrationProgress final :
                &_DircryptoMigrationProgress_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    23;
 
   friend void swap(DircryptoMigrationProgress& a, DircryptoMigrationProgress& b) {
     a.Swap(&b);
@@ -5295,7 +4388,7 @@ class NeedsDircryptoMigrationRequest final :
                &_NeedsDircryptoMigrationRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    24;
 
   friend void swap(NeedsDircryptoMigrationRequest& a, NeedsDircryptoMigrationRequest& b) {
     a.Swap(&b);
@@ -5434,7 +4527,7 @@ class NeedsDircryptoMigrationReply final :
                &_NeedsDircryptoMigrationReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    30;
+    25;
 
   friend void swap(NeedsDircryptoMigrationReply& a, NeedsDircryptoMigrationReply& b) {
     a.Swap(&b);
@@ -5575,7 +4668,7 @@ class GetSupportedKeyPoliciesRequest final :
                &_GetSupportedKeyPoliciesRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    31;
+    26;
 
   friend void swap(GetSupportedKeyPoliciesRequest& a, GetSupportedKeyPoliciesRequest& b) {
     a.Swap(&b);
@@ -5692,7 +4785,7 @@ class GetSupportedKeyPoliciesReply final :
                &_GetSupportedKeyPoliciesReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    32;
+    27;
 
   friend void swap(GetSupportedKeyPoliciesReply& a, GetSupportedKeyPoliciesReply& b) {
     a.Swap(&b);
@@ -5822,7 +4915,7 @@ class GetAccountDiskUsageRequest final :
                &_GetAccountDiskUsageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    33;
+    28;
 
   friend void swap(GetAccountDiskUsageRequest& a, GetAccountDiskUsageRequest& b) {
     a.Swap(&b);
@@ -5961,7 +5054,7 @@ class GetAccountDiskUsageReply final :
                &_GetAccountDiskUsageReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    34;
+    29;
 
   friend void swap(GetAccountDiskUsageReply& a, GetAccountDiskUsageReply& b) {
     a.Swap(&b);
@@ -6102,7 +5195,7 @@ class LowDiskSpace final :
                &_LowDiskSpace_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    35;
+    30;
 
   friend void swap(LowDiskSpace& a, LowDiskSpace& b) {
     a.Swap(&b);
@@ -6232,7 +5325,7 @@ class StartAuthSessionRequest final :
                &_StartAuthSessionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    36;
+    31;
 
   friend void swap(StartAuthSessionRequest& a, StartAuthSessionRequest& b) {
     a.Swap(&b);
@@ -6393,7 +5486,7 @@ class AuthFactorWithStatus final :
                &_AuthFactorWithStatus_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    37;
+    32;
 
   friend void swap(AuthFactorWithStatus& a, AuthFactorWithStatus& b) {
     a.Swap(&b);
@@ -6552,7 +5645,7 @@ class StartAuthSessionReply final :
                &_StartAuthSessionReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    38;
+    33;
 
   friend void swap(StartAuthSessionReply& a, StartAuthSessionReply& b) {
     a.Swap(&b);
@@ -6749,7 +5842,7 @@ class InvalidateAuthSessionRequest final :
                &_InvalidateAuthSessionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    39;
+    34;
 
   friend void swap(InvalidateAuthSessionRequest& a, InvalidateAuthSessionRequest& b) {
     a.Swap(&b);
@@ -6884,7 +5977,7 @@ class InvalidateAuthSessionReply final :
                &_InvalidateAuthSessionReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    40;
+    35;
 
   friend void swap(InvalidateAuthSessionReply& a, InvalidateAuthSessionReply& b) {
     a.Swap(&b);
@@ -7034,7 +6127,7 @@ class ExtendAuthSessionRequest final :
                &_ExtendAuthSessionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    41;
+    36;
 
   friend void swap(ExtendAuthSessionRequest& a, ExtendAuthSessionRequest& b) {
     a.Swap(&b);
@@ -7180,7 +6273,7 @@ class ExtendAuthSessionReply final :
                &_ExtendAuthSessionReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    42;
+    37;
 
   friend void swap(ExtendAuthSessionReply& a, ExtendAuthSessionReply& b) {
     a.Swap(&b);
@@ -7346,7 +6439,7 @@ class CreatePersistentUserRequest final :
                &_CreatePersistentUserRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    43;
+    38;
 
   friend void swap(CreatePersistentUserRequest& a, CreatePersistentUserRequest& b) {
     a.Swap(&b);
@@ -7481,7 +6574,7 @@ class CreatePersistentUserReply final :
                &_CreatePersistentUserReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    44;
+    39;
 
   friend void swap(CreatePersistentUserReply& a, CreatePersistentUserReply& b) {
     a.Swap(&b);
@@ -7647,7 +6740,7 @@ class PrepareGuestVaultRequest final :
                &_PrepareGuestVaultRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    45;
+    40;
 
   friend void swap(PrepareGuestVaultRequest& a, PrepareGuestVaultRequest& b) {
     a.Swap(&b);
@@ -7764,7 +6857,7 @@ class PrepareGuestVaultReply final :
                &_PrepareGuestVaultReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    46;
+    41;
 
   friend void swap(PrepareGuestVaultReply& a, PrepareGuestVaultReply& b) {
     a.Swap(&b);
@@ -7930,7 +7023,7 @@ class PrepareEphemeralVaultRequest final :
                &_PrepareEphemeralVaultRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    47;
+    42;
 
   friend void swap(PrepareEphemeralVaultRequest& a, PrepareEphemeralVaultRequest& b) {
     a.Swap(&b);
@@ -8065,7 +7158,7 @@ class PrepareEphemeralVaultReply final :
                &_PrepareEphemeralVaultReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    48;
+    43;
 
   friend void swap(PrepareEphemeralVaultReply& a, PrepareEphemeralVaultReply& b) {
     a.Swap(&b);
@@ -8231,7 +7324,7 @@ class GetAuthSessionStatusRequest final :
                &_GetAuthSessionStatusRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    49;
+    44;
 
   friend void swap(GetAuthSessionStatusRequest& a, GetAuthSessionStatusRequest& b) {
     a.Swap(&b);
@@ -8366,7 +7459,7 @@ class GetAuthSessionStatusReply final :
                &_GetAuthSessionStatusReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    50;
+    45;
 
   friend void swap(GetAuthSessionStatusReply& a, GetAuthSessionStatusReply& b) {
     a.Swap(&b);
@@ -8538,7 +7631,7 @@ class PreparePersistentVaultRequest final :
                &_PreparePersistentVaultRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    51;
+    46;
 
   friend void swap(PreparePersistentVaultRequest& a, PreparePersistentVaultRequest& b) {
     a.Swap(&b);
@@ -8695,7 +7788,7 @@ class PreparePersistentVaultReply final :
                &_PreparePersistentVaultReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    52;
+    47;
 
   friend void swap(PreparePersistentVaultReply& a, PreparePersistentVaultReply& b) {
     a.Swap(&b);
@@ -8861,7 +7954,7 @@ class PrepareVaultForMigrationRequest final :
                &_PrepareVaultForMigrationRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    53;
+    48;
 
   friend void swap(PrepareVaultForMigrationRequest& a, PrepareVaultForMigrationRequest& b) {
     a.Swap(&b);
@@ -8996,7 +8089,7 @@ class PrepareVaultForMigrationReply final :
                &_PrepareVaultForMigrationReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    54;
+    49;
 
   friend void swap(PrepareVaultForMigrationReply& a, PrepareVaultForMigrationReply& b) {
     a.Swap(&b);
@@ -9162,7 +8255,7 @@ class GetArcDiskFeaturesRequest final :
                &_GetArcDiskFeaturesRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    55;
+    50;
 
   friend void swap(GetArcDiskFeaturesRequest& a, GetArcDiskFeaturesRequest& b) {
     a.Swap(&b);
@@ -9279,7 +8372,7 @@ class GetArcDiskFeaturesReply final :
                &_GetArcDiskFeaturesReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    56;
+    51;
 
   friend void swap(GetArcDiskFeaturesReply& a, GetArcDiskFeaturesReply& b) {
     a.Swap(&b);
@@ -9409,7 +8502,7 @@ class GetCurrentSpaceForArcUidRequest final :
                &_GetCurrentSpaceForArcUidRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    57;
+    52;
 
   friend void swap(GetCurrentSpaceForArcUidRequest& a, GetCurrentSpaceForArcUidRequest& b) {
     a.Swap(&b);
@@ -9539,7 +8632,7 @@ class GetCurrentSpaceForArcUidReply final :
                &_GetCurrentSpaceForArcUidReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    58;
+    53;
 
   friend void swap(GetCurrentSpaceForArcUidReply& a, GetCurrentSpaceForArcUidReply& b) {
     a.Swap(&b);
@@ -9669,7 +8762,7 @@ class GetCurrentSpaceForArcGidRequest final :
                &_GetCurrentSpaceForArcGidRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    59;
+    54;
 
   friend void swap(GetCurrentSpaceForArcGidRequest& a, GetCurrentSpaceForArcGidRequest& b) {
     a.Swap(&b);
@@ -9799,7 +8892,7 @@ class GetCurrentSpaceForArcGidReply final :
                &_GetCurrentSpaceForArcGidReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    60;
+    55;
 
   friend void swap(GetCurrentSpaceForArcGidReply& a, GetCurrentSpaceForArcGidReply& b) {
     a.Swap(&b);
@@ -9929,7 +9022,7 @@ class GetCurrentSpaceForArcProjectIdRequest final :
                &_GetCurrentSpaceForArcProjectIdRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    61;
+    56;
 
   friend void swap(GetCurrentSpaceForArcProjectIdRequest& a, GetCurrentSpaceForArcProjectIdRequest& b) {
     a.Swap(&b);
@@ -10059,7 +9152,7 @@ class GetCurrentSpaceForArcProjectIdReply final :
                &_GetCurrentSpaceForArcProjectIdReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    62;
+    57;
 
   friend void swap(GetCurrentSpaceForArcProjectIdReply& a, GetCurrentSpaceForArcProjectIdReply& b) {
     a.Swap(&b);
@@ -10189,7 +9282,7 @@ class SetMediaRWDataFileProjectIdRequest final :
                &_SetMediaRWDataFileProjectIdRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    63;
+    58;
 
   friend void swap(SetMediaRWDataFileProjectIdRequest& a, SetMediaRWDataFileProjectIdRequest& b) {
     a.Swap(&b);
@@ -10319,7 +9412,7 @@ class SetMediaRWDataFileProjectIdReply final :
                &_SetMediaRWDataFileProjectIdReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    64;
+    59;
 
   friend void swap(SetMediaRWDataFileProjectIdReply& a, SetMediaRWDataFileProjectIdReply& b) {
     a.Swap(&b);
@@ -10460,7 +9553,7 @@ class SetMediaRWDataFileProjectInheritanceFlagRequest final :
                &_SetMediaRWDataFileProjectInheritanceFlagRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    65;
+    60;
 
   friend void swap(SetMediaRWDataFileProjectInheritanceFlagRequest& a, SetMediaRWDataFileProjectInheritanceFlagRequest& b) {
     a.Swap(&b);
@@ -10590,7 +9683,7 @@ class SetMediaRWDataFileProjectInheritanceFlagReply final :
                &_SetMediaRWDataFileProjectInheritanceFlagReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    66;
+    61;
 
   friend void swap(SetMediaRWDataFileProjectInheritanceFlagReply& a, SetMediaRWDataFileProjectInheritanceFlagReply& b) {
     a.Swap(&b);
@@ -10731,7 +9824,7 @@ class TpmTokenInfo final :
                &_TpmTokenInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    67;
+    62;
 
   friend void swap(TpmTokenInfo& a, TpmTokenInfo& b) {
     a.Swap(&b);
@@ -10893,7 +9986,7 @@ class Pkcs11IsTpmTokenReadyRequest final :
                &_Pkcs11IsTpmTokenReadyRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    68;
+    63;
 
   friend void swap(Pkcs11IsTpmTokenReadyRequest& a, Pkcs11IsTpmTokenReadyRequest& b) {
     a.Swap(&b);
@@ -11010,7 +10103,7 @@ class Pkcs11IsTpmTokenReadyReply final :
                &_Pkcs11IsTpmTokenReadyReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    69;
+    64;
 
   friend void swap(Pkcs11IsTpmTokenReadyReply& a, Pkcs11IsTpmTokenReadyReply& b) {
     a.Swap(&b);
@@ -11140,7 +10233,7 @@ class Pkcs11GetTpmTokenInfoRequest final :
                &_Pkcs11GetTpmTokenInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    70;
+    65;
 
   friend void swap(Pkcs11GetTpmTokenInfoRequest& a, Pkcs11GetTpmTokenInfoRequest& b) {
     a.Swap(&b);
@@ -11275,7 +10368,7 @@ class Pkcs11GetTpmTokenInfoReply final :
                &_Pkcs11GetTpmTokenInfoReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    71;
+    66;
 
   friend void swap(Pkcs11GetTpmTokenInfoReply& a, Pkcs11GetTpmTokenInfoReply& b) {
     a.Swap(&b);
@@ -11414,7 +10507,7 @@ class Pkcs11TerminateRequest final :
                &_Pkcs11TerminateRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    72;
+    67;
 
   friend void swap(Pkcs11TerminateRequest& a, Pkcs11TerminateRequest& b) {
     a.Swap(&b);
@@ -11549,7 +10642,7 @@ class Pkcs11TerminateReply final :
                &_Pkcs11TerminateReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    73;
+    68;
 
   friend void swap(Pkcs11TerminateReply& a, Pkcs11TerminateReply& b) {
     a.Swap(&b);
@@ -11666,7 +10759,7 @@ class Pkcs11RestoreTpmTokensRequest final :
                &_Pkcs11RestoreTpmTokensRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    74;
+    69;
 
   friend void swap(Pkcs11RestoreTpmTokensRequest& a, Pkcs11RestoreTpmTokensRequest& b) {
     a.Swap(&b);
@@ -11783,7 +10876,7 @@ class Pkcs11RestoreTpmTokensReply final :
                &_Pkcs11RestoreTpmTokensReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    75;
+    70;
 
   friend void swap(Pkcs11RestoreTpmTokensReply& a, Pkcs11RestoreTpmTokensReply& b) {
     a.Swap(&b);
@@ -11900,7 +10993,7 @@ class InstallAttributesGetRequest final :
                &_InstallAttributesGetRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    76;
+    71;
 
   friend void swap(InstallAttributesGetRequest& a, InstallAttributesGetRequest& b) {
     a.Swap(&b);
@@ -12035,7 +11128,7 @@ class InstallAttributesGetReply final :
                &_InstallAttributesGetReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    77;
+    72;
 
   friend void swap(InstallAttributesGetReply& a, InstallAttributesGetReply& b) {
     a.Swap(&b);
@@ -12181,7 +11274,7 @@ class InstallAttributesSetRequest final :
                &_InstallAttributesSetRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    78;
+    73;
 
   friend void swap(InstallAttributesSetRequest& a, InstallAttributesSetRequest& b) {
     a.Swap(&b);
@@ -12332,7 +11425,7 @@ class InstallAttributesSetReply final :
                &_InstallAttributesSetReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    79;
+    74;
 
   friend void swap(InstallAttributesSetReply& a, InstallAttributesSetReply& b) {
     a.Swap(&b);
@@ -12462,7 +11555,7 @@ class InstallAttributesFinalizeRequest final :
                &_InstallAttributesFinalizeRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    80;
+    75;
 
   friend void swap(InstallAttributesFinalizeRequest& a, InstallAttributesFinalizeRequest& b) {
     a.Swap(&b);
@@ -12579,7 +11672,7 @@ class InstallAttributesFinalizeReply final :
                &_InstallAttributesFinalizeReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    81;
+    76;
 
   friend void swap(InstallAttributesFinalizeReply& a, InstallAttributesFinalizeReply& b) {
     a.Swap(&b);
@@ -12709,7 +11802,7 @@ class InstallAttributesGetStatusRequest final :
                &_InstallAttributesGetStatusRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    82;
+    77;
 
   friend void swap(InstallAttributesGetStatusRequest& a, InstallAttributesGetStatusRequest& b) {
     a.Swap(&b);
@@ -12826,7 +11919,7 @@ class InstallAttributesGetStatusReply final :
                &_InstallAttributesGetStatusReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    83;
+    78;
 
   friend void swap(InstallAttributesGetStatusReply& a, InstallAttributesGetStatusReply& b) {
     a.Swap(&b);
@@ -12989,7 +12082,7 @@ class FirmwareManagementParameters final :
                &_FirmwareManagementParameters_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    84;
+    79;
 
   friend void swap(FirmwareManagementParameters& a, FirmwareManagementParameters& b) {
     a.Swap(&b);
@@ -13135,7 +12228,7 @@ class GetFirmwareManagementParametersRequest final :
                &_GetFirmwareManagementParametersRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    85;
+    80;
 
   friend void swap(GetFirmwareManagementParametersRequest& a, GetFirmwareManagementParametersRequest& b) {
     a.Swap(&b);
@@ -13252,7 +12345,7 @@ class GetFirmwareManagementParametersReply final :
                &_GetFirmwareManagementParametersReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    86;
+    81;
 
   friend void swap(GetFirmwareManagementParametersReply& a, GetFirmwareManagementParametersReply& b) {
     a.Swap(&b);
@@ -13402,7 +12495,7 @@ class RemoveFirmwareManagementParametersRequest final :
                &_RemoveFirmwareManagementParametersRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    87;
+    82;
 
   friend void swap(RemoveFirmwareManagementParametersRequest& a, RemoveFirmwareManagementParametersRequest& b) {
     a.Swap(&b);
@@ -13519,7 +12612,7 @@ class RemoveFirmwareManagementParametersReply final :
                &_RemoveFirmwareManagementParametersReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    88;
+    83;
 
   friend void swap(RemoveFirmwareManagementParametersReply& a, RemoveFirmwareManagementParametersReply& b) {
     a.Swap(&b);
@@ -13649,7 +12742,7 @@ class SetFirmwareManagementParametersRequest final :
                &_SetFirmwareManagementParametersRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    89;
+    84;
 
   friend void swap(SetFirmwareManagementParametersRequest& a, SetFirmwareManagementParametersRequest& b) {
     a.Swap(&b);
@@ -13788,7 +12881,7 @@ class SetFirmwareManagementParametersReply final :
                &_SetFirmwareManagementParametersReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    90;
+    85;
 
   friend void swap(SetFirmwareManagementParametersReply& a, SetFirmwareManagementParametersReply& b) {
     a.Swap(&b);
@@ -13918,7 +13011,7 @@ class GetSystemSaltRequest final :
                &_GetSystemSaltRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    91;
+    86;
 
   friend void swap(GetSystemSaltRequest& a, GetSystemSaltRequest& b) {
     a.Swap(&b);
@@ -14035,7 +13128,7 @@ class GetSystemSaltReply final :
                &_GetSystemSaltReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    92;
+    87;
 
   friend void swap(GetSystemSaltReply& a, GetSystemSaltReply& b) {
     a.Swap(&b);
@@ -14170,7 +13263,7 @@ class UpdateCurrentUserActivityTimestampRequest final :
                &_UpdateCurrentUserActivityTimestampRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    93;
+    88;
 
   friend void swap(UpdateCurrentUserActivityTimestampRequest& a, UpdateCurrentUserActivityTimestampRequest& b) {
     a.Swap(&b);
@@ -14300,7 +13393,7 @@ class UpdateCurrentUserActivityTimestampReply final :
                &_UpdateCurrentUserActivityTimestampReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    94;
+    89;
 
   friend void swap(UpdateCurrentUserActivityTimestampReply& a, UpdateCurrentUserActivityTimestampReply& b) {
     a.Swap(&b);
@@ -14430,7 +13523,7 @@ class GetSanitizedUsernameRequest final :
                &_GetSanitizedUsernameRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    95;
+    90;
 
   friend void swap(GetSanitizedUsernameRequest& a, GetSanitizedUsernameRequest& b) {
     a.Swap(&b);
@@ -14565,7 +13658,7 @@ class GetSanitizedUsernameReply final :
                &_GetSanitizedUsernameReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    96;
+    91;
 
   friend void swap(GetSanitizedUsernameReply& a, GetSanitizedUsernameReply& b) {
     a.Swap(&b);
@@ -14700,7 +13793,7 @@ class GetLoginStatusRequest final :
                &_GetLoginStatusRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    97;
+    92;
 
   friend void swap(GetLoginStatusRequest& a, GetLoginStatusRequest& b) {
     a.Swap(&b);
@@ -14817,7 +13910,7 @@ class GetLoginStatusReply final :
                &_GetLoginStatusReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    98;
+    93;
 
   friend void swap(GetLoginStatusReply& a, GetLoginStatusReply& b) {
     a.Swap(&b);
@@ -14969,7 +14062,7 @@ class GetStatusStringRequest final :
                &_GetStatusStringRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    99;
+    94;
 
   friend void swap(GetStatusStringRequest& a, GetStatusStringRequest& b) {
     a.Swap(&b);
@@ -15086,7 +14179,7 @@ class GetStatusStringReply final :
                &_GetStatusStringReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    100;
+    95;
 
   friend void swap(GetStatusStringReply& a, GetStatusStringReply& b) {
     a.Swap(&b);
@@ -15221,7 +14314,7 @@ class LockToSingleUserMountUntilRebootRequest final :
                &_LockToSingleUserMountUntilRebootRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    101;
+    96;
 
   friend void swap(LockToSingleUserMountUntilRebootRequest& a, LockToSingleUserMountUntilRebootRequest& b) {
     a.Swap(&b);
@@ -15360,7 +14453,7 @@ class LockToSingleUserMountUntilRebootReply final :
                &_LockToSingleUserMountUntilRebootReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    102;
+    97;
 
   friend void swap(LockToSingleUserMountUntilRebootReply& a, LockToSingleUserMountUntilRebootReply& b) {
     a.Swap(&b);
@@ -15490,7 +14583,7 @@ class GetRsuDeviceIdReply final :
                &_GetRsuDeviceIdReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    103;
+    98;
 
   friend void swap(GetRsuDeviceIdReply& a, GetRsuDeviceIdReply& b) {
     a.Swap(&b);
@@ -15636,7 +14729,7 @@ class GetRsuDeviceIdRequest final :
                &_GetRsuDeviceIdRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    104;
+    99;
 
   friend void swap(GetRsuDeviceIdRequest& a, GetRsuDeviceIdRequest& b) {
     a.Swap(&b);
@@ -15753,7 +14846,7 @@ class CheckHealthRequest final :
                &_CheckHealthRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    105;
+    100;
 
   friend void swap(CheckHealthRequest& a, CheckHealthRequest& b) {
     a.Swap(&b);
@@ -15870,7 +14963,7 @@ class CheckHealthReply final :
                &_CheckHealthReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    106;
+    101;
 
   friend void swap(CheckHealthReply& a, CheckHealthReply& b) {
     a.Swap(&b);
@@ -16000,7 +15093,7 @@ class ResetApplicationContainerRequest final :
                &_ResetApplicationContainerRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    107;
+    102;
 
   friend void swap(ResetApplicationContainerRequest& a, ResetApplicationContainerRequest& b) {
     a.Swap(&b);
@@ -16155,7 +15248,7 @@ class ResetApplicationContainerReply final :
                &_ResetApplicationContainerReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    108;
+    103;
 
   friend void swap(ResetApplicationContainerReply& a, ResetApplicationContainerReply& b) {
     a.Swap(&b);
@@ -16305,7 +15398,7 @@ class FidoMakeCredentialRequest final :
                &_FidoMakeCredentialRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    109;
+    104;
 
   friend void swap(FidoMakeCredentialRequest& a, FidoMakeCredentialRequest& b) {
     a.Swap(&b);
@@ -16464,7 +15557,7 @@ class FidoMakeCredentialReply final :
                &_FidoMakeCredentialReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    110;
+    105;
 
   friend void swap(FidoMakeCredentialReply& a, FidoMakeCredentialReply& b) {
     a.Swap(&b);
@@ -16614,7 +15707,7 @@ class FidoGetAssertionRequest final :
                &_FidoGetAssertionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    111;
+    106;
 
   friend void swap(FidoGetAssertionRequest& a, FidoGetAssertionRequest& b) {
     a.Swap(&b);
@@ -16753,7 +15846,7 @@ class FidoGetAssertionReply final :
                &_FidoGetAssertionReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    112;
+    107;
 
   friend void swap(FidoGetAssertionReply& a, FidoGetAssertionReply& b) {
     a.Swap(&b);
@@ -16903,7 +15996,7 @@ class AddAuthFactorRequest final :
                &_AddAuthFactorRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    113;
+    108;
 
   friend void swap(AddAuthFactorRequest& a, AddAuthFactorRequest& b) {
     a.Swap(&b);
@@ -17078,7 +16171,7 @@ class AddAuthFactorReply final :
                &_AddAuthFactorReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    114;
+    109;
 
   friend void swap(AddAuthFactorReply& a, AddAuthFactorReply& b) {
     a.Swap(&b);
@@ -17228,7 +16321,7 @@ class AuthenticateAuthFactorRequest final :
                &_AuthenticateAuthFactorRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    115;
+    110;
 
   friend void swap(AuthenticateAuthFactorRequest& a, AuthenticateAuthFactorRequest& b) {
     a.Swap(&b);
@@ -17425,7 +16518,7 @@ class AuthenticateAuthFactorReply final :
                &_AuthenticateAuthFactorReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    116;
+    111;
 
   friend void swap(AuthenticateAuthFactorReply& a, AuthenticateAuthFactorReply& b) {
     a.Swap(&b);
@@ -17622,7 +16715,7 @@ class UpdateAuthFactorRequest final :
                &_UpdateAuthFactorRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    117;
+    112;
 
   friend void swap(UpdateAuthFactorRequest& a, UpdateAuthFactorRequest& b) {
     a.Swap(&b);
@@ -17813,7 +16906,7 @@ class UpdateAuthFactorReply final :
                &_UpdateAuthFactorReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    118;
+    113;
 
   friend void swap(UpdateAuthFactorReply& a, UpdateAuthFactorReply& b) {
     a.Swap(&b);
@@ -17963,7 +17056,7 @@ class RemoveAuthFactorRequest final :
                &_RemoveAuthFactorRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    119;
+    114;
 
   friend void swap(RemoveAuthFactorRequest& a, RemoveAuthFactorRequest& b) {
     a.Swap(&b);
@@ -18114,7 +17207,7 @@ class RemoveAuthFactorReply final :
                &_RemoveAuthFactorReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    120;
+    115;
 
   friend void swap(RemoveAuthFactorReply& a, RemoveAuthFactorReply& b) {
     a.Swap(&b);
@@ -18264,7 +17357,7 @@ class ListAuthFactorsRequest final :
                &_ListAuthFactorsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    121;
+    116;
 
   friend void swap(ListAuthFactorsRequest& a, ListAuthFactorsRequest& b) {
     a.Swap(&b);
@@ -18403,7 +17496,7 @@ class ListAuthFactorsReply final :
                &_ListAuthFactorsReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    122;
+    117;
 
   friend void swap(ListAuthFactorsReply& a, ListAuthFactorsReply& b) {
     a.Swap(&b);
@@ -18613,7 +17706,7 @@ class RecoveryExtendedInfoRequest final :
                &_RecoveryExtendedInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    123;
+    118;
 
   friend void swap(RecoveryExtendedInfoRequest& a, RecoveryExtendedInfoRequest& b) {
     a.Swap(&b);
@@ -18743,7 +17836,7 @@ class RecoveryExtendedInfoReply final :
                &_RecoveryExtendedInfoReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    124;
+    119;
 
   friend void swap(RecoveryExtendedInfoReply& a, RecoveryExtendedInfoReply& b) {
     a.Swap(&b);
@@ -18893,7 +17986,7 @@ class GetAuthFactorExtendedInfoRequest final :
                &_GetAuthFactorExtendedInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    125;
+    120;
 
   friend void swap(GetAuthFactorExtendedInfoRequest& a, GetAuthFactorExtendedInfoRequest& b) {
     a.Swap(&b);
@@ -19085,7 +18178,7 @@ class GetAuthFactorExtendedInfoReply final :
                &_GetAuthFactorExtendedInfoReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    126;
+    121;
 
   friend void swap(GetAuthFactorExtendedInfoReply& a, GetAuthFactorExtendedInfoReply& b) {
     a.Swap(&b);
@@ -19287,7 +18380,7 @@ class GetRecoveryRequestRequest final :
                &_GetRecoveryRequestRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    127;
+    122;
 
   friend void swap(GetRecoveryRequestRequest& a, GetRecoveryRequestRequest& b) {
     a.Swap(&b);
@@ -19539,7 +18632,7 @@ class GetRecoveryRequestReply final :
                &_GetRecoveryRequestReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    128;
+    123;
 
   friend void swap(GetRecoveryRequestReply& a, GetRecoveryRequestReply& b) {
     a.Swap(&b);
@@ -19705,7 +18798,7 @@ class PrepareAuthFactorRequest final :
                &_PrepareAuthFactorRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    129;
+    124;
 
   friend void swap(PrepareAuthFactorRequest& a, PrepareAuthFactorRequest& b) {
     a.Swap(&b);
@@ -19862,7 +18955,7 @@ class PrepareAuthFactorReply final :
                &_PrepareAuthFactorReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    130;
+    125;
 
   friend void swap(PrepareAuthFactorReply& a, PrepareAuthFactorReply& b) {
     a.Swap(&b);
@@ -20012,7 +19105,7 @@ class TerminateAuthFactorRequest final :
                &_TerminateAuthFactorRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    131;
+    126;
 
   friend void swap(TerminateAuthFactorRequest& a, TerminateAuthFactorRequest& b) {
     a.Swap(&b);
@@ -20158,7 +19251,7 @@ class TerminateAuthFactorReply final :
                &_TerminateAuthFactorReply_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    132;
+    127;
 
   friend void swap(TerminateAuthFactorReply& a, TerminateAuthFactorReply& b) {
     a.Swap(&b);
@@ -20313,7 +19406,7 @@ class AuthScanResult final :
                &_AuthScanResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    133;
+    128;
 
   friend void swap(AuthScanResult& a, AuthScanResult& b) {
     a.Swap(&b);
@@ -20459,7 +19552,7 @@ class FingerprintEnrollmentProgress final :
                &_FingerprintEnrollmentProgress_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    134;
+    129;
 
   friend void swap(FingerprintEnrollmentProgress& a, FingerprintEnrollmentProgress& b) {
     a.Swap(&b);
@@ -20594,7 +19687,7 @@ class AuthEnrollmentProgress final :
                &_AuthEnrollmentProgress_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    135;
+    130;
 
   friend void swap(AuthEnrollmentProgress& a, AuthEnrollmentProgress& b) {
     a.Swap(&b);
@@ -20776,7 +19869,7 @@ class AuthScanDone final :
                &_AuthScanDone_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    136;
+    131;
 
   friend void swap(AuthScanDone& a, AuthScanDone& b) {
     a.Swap(&b);
@@ -20883,87 +19976,6 @@ class AuthScanDone final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// CreateRequest
-
-// repeated .cryptohome.Key keys = 1;
-inline int CreateRequest::_internal_keys_size() const {
-  return keys_.size();
-}
-inline int CreateRequest::keys_size() const {
-  return _internal_keys_size();
-}
-inline ::cryptohome::Key* CreateRequest::mutable_keys(int index) {
-  // @@protoc_insertion_point(field_mutable:user_data_auth.CreateRequest.keys)
-  return keys_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::cryptohome::Key >*
-CreateRequest::mutable_keys() {
-  // @@protoc_insertion_point(field_mutable_list:user_data_auth.CreateRequest.keys)
-  return &keys_;
-}
-inline const ::cryptohome::Key& CreateRequest::_internal_keys(int index) const {
-  return keys_.Get(index);
-}
-inline const ::cryptohome::Key& CreateRequest::keys(int index) const {
-  // @@protoc_insertion_point(field_get:user_data_auth.CreateRequest.keys)
-  return _internal_keys(index);
-}
-inline ::cryptohome::Key* CreateRequest::_internal_add_keys() {
-  return keys_.Add();
-}
-inline ::cryptohome::Key* CreateRequest::add_keys() {
-  ::cryptohome::Key* _add = _internal_add_keys();
-  // @@protoc_insertion_point(field_add:user_data_auth.CreateRequest.keys)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::cryptohome::Key >&
-CreateRequest::keys() const {
-  // @@protoc_insertion_point(field_list:user_data_auth.CreateRequest.keys)
-  return keys_;
-}
-
-// bool copy_authorization_key = 2;
-inline void CreateRequest::clear_copy_authorization_key() {
-  copy_authorization_key_ = false;
-}
-inline bool CreateRequest::_internal_copy_authorization_key() const {
-  return copy_authorization_key_;
-}
-inline bool CreateRequest::copy_authorization_key() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.CreateRequest.copy_authorization_key)
-  return _internal_copy_authorization_key();
-}
-inline void CreateRequest::_internal_set_copy_authorization_key(bool value) {
-  
-  copy_authorization_key_ = value;
-}
-inline void CreateRequest::set_copy_authorization_key(bool value) {
-  _internal_set_copy_authorization_key(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.CreateRequest.copy_authorization_key)
-}
-
-// bool force_ecryptfs = 3;
-inline void CreateRequest::clear_force_ecryptfs() {
-  force_ecryptfs_ = false;
-}
-inline bool CreateRequest::_internal_force_ecryptfs() const {
-  return force_ecryptfs_;
-}
-inline bool CreateRequest::force_ecryptfs() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.CreateRequest.force_ecryptfs)
-  return _internal_force_ecryptfs();
-}
-inline void CreateRequest::_internal_set_force_ecryptfs(bool value) {
-  
-  force_ecryptfs_ = value;
-}
-inline void CreateRequest::set_force_ecryptfs(bool value) {
-  _internal_set_force_ecryptfs(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.CreateRequest.force_ecryptfs)
-}
-
-// -------------------------------------------------------------------
-
 // CryptohomeErrorInfo
 
 // string error_id = 1;
@@ -21346,608 +20358,6 @@ inline void UnmountReply::set_allocated_error_info(::user_data_auth::CryptohomeE
   }
   error_info_ = error_info;
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.UnmountReply.error_info)
-}
-
-// -------------------------------------------------------------------
-
-// MountRequest
-
-// .cryptohome.AccountIdentifier account = 1;
-inline bool MountRequest::_internal_has_account() const {
-  return this != internal_default_instance() && account_ != nullptr;
-}
-inline bool MountRequest::has_account() const {
-  return _internal_has_account();
-}
-inline const ::cryptohome::AccountIdentifier& MountRequest::_internal_account() const {
-  const ::cryptohome::AccountIdentifier* p = account_;
-  return p != nullptr ? *p : reinterpret_cast<const ::cryptohome::AccountIdentifier&>(
-      ::cryptohome::_AccountIdentifier_default_instance_);
-}
-inline const ::cryptohome::AccountIdentifier& MountRequest::account() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.MountRequest.account)
-  return _internal_account();
-}
-inline void MountRequest::unsafe_arena_set_allocated_account(
-    ::cryptohome::AccountIdentifier* account) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(account_);
-  }
-  account_ = account;
-  if (account) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.MountRequest.account)
-}
-inline ::cryptohome::AccountIdentifier* MountRequest::release_account() {
-  
-  ::cryptohome::AccountIdentifier* temp = account_;
-  account_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::cryptohome::AccountIdentifier* MountRequest::unsafe_arena_release_account() {
-  // @@protoc_insertion_point(field_release:user_data_auth.MountRequest.account)
-  
-  ::cryptohome::AccountIdentifier* temp = account_;
-  account_ = nullptr;
-  return temp;
-}
-inline ::cryptohome::AccountIdentifier* MountRequest::_internal_mutable_account() {
-  
-  if (account_ == nullptr) {
-    auto* p = CreateMaybeMessage<::cryptohome::AccountIdentifier>(GetArenaForAllocation());
-    account_ = p;
-  }
-  return account_;
-}
-inline ::cryptohome::AccountIdentifier* MountRequest::mutable_account() {
-  ::cryptohome::AccountIdentifier* _msg = _internal_mutable_account();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.MountRequest.account)
-  return _msg;
-}
-inline void MountRequest::set_allocated_account(::cryptohome::AccountIdentifier* account) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(account_);
-  }
-  if (account) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
-            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(account));
-    if (message_arena != submessage_arena) {
-      account = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, account, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  account_ = account;
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.MountRequest.account)
-}
-
-// .cryptohome.AuthorizationRequest authorization = 2;
-inline bool MountRequest::_internal_has_authorization() const {
-  return this != internal_default_instance() && authorization_ != nullptr;
-}
-inline bool MountRequest::has_authorization() const {
-  return _internal_has_authorization();
-}
-inline const ::cryptohome::AuthorizationRequest& MountRequest::_internal_authorization() const {
-  const ::cryptohome::AuthorizationRequest* p = authorization_;
-  return p != nullptr ? *p : reinterpret_cast<const ::cryptohome::AuthorizationRequest&>(
-      ::cryptohome::_AuthorizationRequest_default_instance_);
-}
-inline const ::cryptohome::AuthorizationRequest& MountRequest::authorization() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.MountRequest.authorization)
-  return _internal_authorization();
-}
-inline void MountRequest::unsafe_arena_set_allocated_authorization(
-    ::cryptohome::AuthorizationRequest* authorization) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(authorization_);
-  }
-  authorization_ = authorization;
-  if (authorization) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.MountRequest.authorization)
-}
-inline ::cryptohome::AuthorizationRequest* MountRequest::release_authorization() {
-  
-  ::cryptohome::AuthorizationRequest* temp = authorization_;
-  authorization_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::cryptohome::AuthorizationRequest* MountRequest::unsafe_arena_release_authorization() {
-  // @@protoc_insertion_point(field_release:user_data_auth.MountRequest.authorization)
-  
-  ::cryptohome::AuthorizationRequest* temp = authorization_;
-  authorization_ = nullptr;
-  return temp;
-}
-inline ::cryptohome::AuthorizationRequest* MountRequest::_internal_mutable_authorization() {
-  
-  if (authorization_ == nullptr) {
-    auto* p = CreateMaybeMessage<::cryptohome::AuthorizationRequest>(GetArenaForAllocation());
-    authorization_ = p;
-  }
-  return authorization_;
-}
-inline ::cryptohome::AuthorizationRequest* MountRequest::mutable_authorization() {
-  ::cryptohome::AuthorizationRequest* _msg = _internal_mutable_authorization();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.MountRequest.authorization)
-  return _msg;
-}
-inline void MountRequest::set_allocated_authorization(::cryptohome::AuthorizationRequest* authorization) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(authorization_);
-  }
-  if (authorization) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
-            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(authorization));
-    if (message_arena != submessage_arena) {
-      authorization = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, authorization, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  authorization_ = authorization;
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.MountRequest.authorization)
-}
-
-// bool require_ephemeral = 3;
-inline void MountRequest::clear_require_ephemeral() {
-  require_ephemeral_ = false;
-}
-inline bool MountRequest::_internal_require_ephemeral() const {
-  return require_ephemeral_;
-}
-inline bool MountRequest::require_ephemeral() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.MountRequest.require_ephemeral)
-  return _internal_require_ephemeral();
-}
-inline void MountRequest::_internal_set_require_ephemeral(bool value) {
-  
-  require_ephemeral_ = value;
-}
-inline void MountRequest::set_require_ephemeral(bool value) {
-  _internal_set_require_ephemeral(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.MountRequest.require_ephemeral)
-}
-
-// .user_data_auth.CreateRequest create = 4;
-inline bool MountRequest::_internal_has_create() const {
-  return this != internal_default_instance() && create_ != nullptr;
-}
-inline bool MountRequest::has_create() const {
-  return _internal_has_create();
-}
-inline void MountRequest::clear_create() {
-  if (GetArenaForAllocation() == nullptr && create_ != nullptr) {
-    delete create_;
-  }
-  create_ = nullptr;
-}
-inline const ::user_data_auth::CreateRequest& MountRequest::_internal_create() const {
-  const ::user_data_auth::CreateRequest* p = create_;
-  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::CreateRequest&>(
-      ::user_data_auth::_CreateRequest_default_instance_);
-}
-inline const ::user_data_auth::CreateRequest& MountRequest::create() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.MountRequest.create)
-  return _internal_create();
-}
-inline void MountRequest::unsafe_arena_set_allocated_create(
-    ::user_data_auth::CreateRequest* create) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(create_);
-  }
-  create_ = create;
-  if (create) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.MountRequest.create)
-}
-inline ::user_data_auth::CreateRequest* MountRequest::release_create() {
-  
-  ::user_data_auth::CreateRequest* temp = create_;
-  create_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::user_data_auth::CreateRequest* MountRequest::unsafe_arena_release_create() {
-  // @@protoc_insertion_point(field_release:user_data_auth.MountRequest.create)
-  
-  ::user_data_auth::CreateRequest* temp = create_;
-  create_ = nullptr;
-  return temp;
-}
-inline ::user_data_auth::CreateRequest* MountRequest::_internal_mutable_create() {
-  
-  if (create_ == nullptr) {
-    auto* p = CreateMaybeMessage<::user_data_auth::CreateRequest>(GetArenaForAllocation());
-    create_ = p;
-  }
-  return create_;
-}
-inline ::user_data_auth::CreateRequest* MountRequest::mutable_create() {
-  ::user_data_auth::CreateRequest* _msg = _internal_mutable_create();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.MountRequest.create)
-  return _msg;
-}
-inline void MountRequest::set_allocated_create(::user_data_auth::CreateRequest* create) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete create_;
-  }
-  if (create) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::user_data_auth::CreateRequest>::GetOwningArena(create);
-    if (message_arena != submessage_arena) {
-      create = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, create, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  create_ = create;
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.MountRequest.create)
-}
-
-// bool force_dircrypto_if_available = 5;
-inline void MountRequest::clear_force_dircrypto_if_available() {
-  force_dircrypto_if_available_ = false;
-}
-inline bool MountRequest::_internal_force_dircrypto_if_available() const {
-  return force_dircrypto_if_available_;
-}
-inline bool MountRequest::force_dircrypto_if_available() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.MountRequest.force_dircrypto_if_available)
-  return _internal_force_dircrypto_if_available();
-}
-inline void MountRequest::_internal_set_force_dircrypto_if_available(bool value) {
-  
-  force_dircrypto_if_available_ = value;
-}
-inline void MountRequest::set_force_dircrypto_if_available(bool value) {
-  _internal_set_force_dircrypto_if_available(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.MountRequest.force_dircrypto_if_available)
-}
-
-// bool to_migrate_from_ecryptfs = 6;
-inline void MountRequest::clear_to_migrate_from_ecryptfs() {
-  to_migrate_from_ecryptfs_ = false;
-}
-inline bool MountRequest::_internal_to_migrate_from_ecryptfs() const {
-  return to_migrate_from_ecryptfs_;
-}
-inline bool MountRequest::to_migrate_from_ecryptfs() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.MountRequest.to_migrate_from_ecryptfs)
-  return _internal_to_migrate_from_ecryptfs();
-}
-inline void MountRequest::_internal_set_to_migrate_from_ecryptfs(bool value) {
-  
-  to_migrate_from_ecryptfs_ = value;
-}
-inline void MountRequest::set_to_migrate_from_ecryptfs(bool value) {
-  _internal_set_to_migrate_from_ecryptfs(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.MountRequest.to_migrate_from_ecryptfs)
-}
-
-// bool public_mount = 7;
-inline void MountRequest::clear_public_mount() {
-  public_mount_ = false;
-}
-inline bool MountRequest::_internal_public_mount() const {
-  return public_mount_;
-}
-inline bool MountRequest::public_mount() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.MountRequest.public_mount)
-  return _internal_public_mount();
-}
-inline void MountRequest::_internal_set_public_mount(bool value) {
-  
-  public_mount_ = value;
-}
-inline void MountRequest::set_public_mount(bool value) {
-  _internal_set_public_mount(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.MountRequest.public_mount)
-}
-
-// bool guest_mount = 8;
-inline void MountRequest::clear_guest_mount() {
-  guest_mount_ = false;
-}
-inline bool MountRequest::_internal_guest_mount() const {
-  return guest_mount_;
-}
-inline bool MountRequest::guest_mount() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.MountRequest.guest_mount)
-  return _internal_guest_mount();
-}
-inline void MountRequest::_internal_set_guest_mount(bool value) {
-  
-  guest_mount_ = value;
-}
-inline void MountRequest::set_guest_mount(bool value) {
-  _internal_set_guest_mount(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.MountRequest.guest_mount)
-}
-
-// bytes auth_session_id = 9;
-inline void MountRequest::clear_auth_session_id() {
-  auth_session_id_.ClearToEmpty();
-}
-inline const std::string& MountRequest::auth_session_id() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.MountRequest.auth_session_id)
-  return _internal_auth_session_id();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void MountRequest::set_auth_session_id(ArgT0&& arg0, ArgT... args) {
- 
- auth_session_id_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:user_data_auth.MountRequest.auth_session_id)
-}
-inline std::string* MountRequest::mutable_auth_session_id() {
-  std::string* _s = _internal_mutable_auth_session_id();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.MountRequest.auth_session_id)
-  return _s;
-}
-inline const std::string& MountRequest::_internal_auth_session_id() const {
-  return auth_session_id_.Get();
-}
-inline void MountRequest::_internal_set_auth_session_id(const std::string& value) {
-  
-  auth_session_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
-}
-inline std::string* MountRequest::_internal_mutable_auth_session_id() {
-  
-  return auth_session_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
-}
-inline std::string* MountRequest::release_auth_session_id() {
-  // @@protoc_insertion_point(field_release:user_data_auth.MountRequest.auth_session_id)
-  return auth_session_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
-}
-inline void MountRequest::set_allocated_auth_session_id(std::string* auth_session_id) {
-  if (auth_session_id != nullptr) {
-    
-  } else {
-    
-  }
-  auth_session_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), auth_session_id,
-      GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (auth_session_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
-    auth_session_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.MountRequest.auth_session_id)
-}
-
-// -------------------------------------------------------------------
-
-// MountReply
-
-// .user_data_auth.CryptohomeErrorCode error = 1;
-inline void MountReply::clear_error() {
-  error_ = 0;
-}
-inline ::user_data_auth::CryptohomeErrorCode MountReply::_internal_error() const {
-  return static_cast< ::user_data_auth::CryptohomeErrorCode >(error_);
-}
-inline ::user_data_auth::CryptohomeErrorCode MountReply::error() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.MountReply.error)
-  return _internal_error();
-}
-inline void MountReply::_internal_set_error(::user_data_auth::CryptohomeErrorCode value) {
-  
-  error_ = value;
-}
-inline void MountReply::set_error(::user_data_auth::CryptohomeErrorCode value) {
-  _internal_set_error(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.MountReply.error)
-}
-
-// bool recreated = 2;
-inline void MountReply::clear_recreated() {
-  recreated_ = false;
-}
-inline bool MountReply::_internal_recreated() const {
-  return recreated_;
-}
-inline bool MountReply::recreated() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.MountReply.recreated)
-  return _internal_recreated();
-}
-inline void MountReply::_internal_set_recreated(bool value) {
-  
-  recreated_ = value;
-}
-inline void MountReply::set_recreated(bool value) {
-  _internal_set_recreated(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.MountReply.recreated)
-}
-
-// string sanitized_username = 3;
-inline void MountReply::clear_sanitized_username() {
-  sanitized_username_.ClearToEmpty();
-}
-inline const std::string& MountReply::sanitized_username() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.MountReply.sanitized_username)
-  return _internal_sanitized_username();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void MountReply::set_sanitized_username(ArgT0&& arg0, ArgT... args) {
- 
- sanitized_username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:user_data_auth.MountReply.sanitized_username)
-}
-inline std::string* MountReply::mutable_sanitized_username() {
-  std::string* _s = _internal_mutable_sanitized_username();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.MountReply.sanitized_username)
-  return _s;
-}
-inline const std::string& MountReply::_internal_sanitized_username() const {
-  return sanitized_username_.Get();
-}
-inline void MountReply::_internal_set_sanitized_username(const std::string& value) {
-  
-  sanitized_username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
-}
-inline std::string* MountReply::_internal_mutable_sanitized_username() {
-  
-  return sanitized_username_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
-}
-inline std::string* MountReply::release_sanitized_username() {
-  // @@protoc_insertion_point(field_release:user_data_auth.MountReply.sanitized_username)
-  return sanitized_username_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
-}
-inline void MountReply::set_allocated_sanitized_username(std::string* sanitized_username) {
-  if (sanitized_username != nullptr) {
-    
-  } else {
-    
-  }
-  sanitized_username_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), sanitized_username,
-      GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (sanitized_username_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
-    sanitized_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-  }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.MountReply.sanitized_username)
-}
-
-// .user_data_auth.CryptohomeErrorInfo error_info = 4;
-inline bool MountReply::_internal_has_error_info() const {
-  return this != internal_default_instance() && error_info_ != nullptr;
-}
-inline bool MountReply::has_error_info() const {
-  return _internal_has_error_info();
-}
-inline void MountReply::clear_error_info() {
-  if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
-    delete error_info_;
-  }
-  error_info_ = nullptr;
-}
-inline const ::user_data_auth::CryptohomeErrorInfo& MountReply::_internal_error_info() const {
-  const ::user_data_auth::CryptohomeErrorInfo* p = error_info_;
-  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::CryptohomeErrorInfo&>(
-      ::user_data_auth::_CryptohomeErrorInfo_default_instance_);
-}
-inline const ::user_data_auth::CryptohomeErrorInfo& MountReply::error_info() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.MountReply.error_info)
-  return _internal_error_info();
-}
-inline void MountReply::unsafe_arena_set_allocated_error_info(
-    ::user_data_auth::CryptohomeErrorInfo* error_info) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(error_info_);
-  }
-  error_info_ = error_info;
-  if (error_info) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.MountReply.error_info)
-}
-inline ::user_data_auth::CryptohomeErrorInfo* MountReply::release_error_info() {
-  
-  ::user_data_auth::CryptohomeErrorInfo* temp = error_info_;
-  error_info_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::user_data_auth::CryptohomeErrorInfo* MountReply::unsafe_arena_release_error_info() {
-  // @@protoc_insertion_point(field_release:user_data_auth.MountReply.error_info)
-  
-  ::user_data_auth::CryptohomeErrorInfo* temp = error_info_;
-  error_info_ = nullptr;
-  return temp;
-}
-inline ::user_data_auth::CryptohomeErrorInfo* MountReply::_internal_mutable_error_info() {
-  
-  if (error_info_ == nullptr) {
-    auto* p = CreateMaybeMessage<::user_data_auth::CryptohomeErrorInfo>(GetArenaForAllocation());
-    error_info_ = p;
-  }
-  return error_info_;
-}
-inline ::user_data_auth::CryptohomeErrorInfo* MountReply::mutable_error_info() {
-  ::user_data_auth::CryptohomeErrorInfo* _msg = _internal_mutable_error_info();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.MountReply.error_info)
-  return _msg;
-}
-inline void MountReply::set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete error_info_;
-  }
-  if (error_info) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::user_data_auth::CryptohomeErrorInfo>::GetOwningArena(error_info);
-    if (message_arena != submessage_arena) {
-      error_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, error_info, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  error_info_ = error_info;
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.MountReply.error_info)
 }
 
 // -------------------------------------------------------------------
@@ -22568,226 +20978,6 @@ inline void ListKeysReply::set_allocated_error_info(::user_data_auth::Cryptohome
   }
   error_info_ = error_info;
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.ListKeysReply.error_info)
-}
-
-// -------------------------------------------------------------------
-
-// CheckKeyRequest
-
-// .cryptohome.AccountIdentifier account_id = 1;
-inline bool CheckKeyRequest::_internal_has_account_id() const {
-  return this != internal_default_instance() && account_id_ != nullptr;
-}
-inline bool CheckKeyRequest::has_account_id() const {
-  return _internal_has_account_id();
-}
-inline const ::cryptohome::AccountIdentifier& CheckKeyRequest::_internal_account_id() const {
-  const ::cryptohome::AccountIdentifier* p = account_id_;
-  return p != nullptr ? *p : reinterpret_cast<const ::cryptohome::AccountIdentifier&>(
-      ::cryptohome::_AccountIdentifier_default_instance_);
-}
-inline const ::cryptohome::AccountIdentifier& CheckKeyRequest::account_id() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.CheckKeyRequest.account_id)
-  return _internal_account_id();
-}
-inline void CheckKeyRequest::unsafe_arena_set_allocated_account_id(
-    ::cryptohome::AccountIdentifier* account_id) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(account_id_);
-  }
-  account_id_ = account_id;
-  if (account_id) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.CheckKeyRequest.account_id)
-}
-inline ::cryptohome::AccountIdentifier* CheckKeyRequest::release_account_id() {
-  
-  ::cryptohome::AccountIdentifier* temp = account_id_;
-  account_id_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::cryptohome::AccountIdentifier* CheckKeyRequest::unsafe_arena_release_account_id() {
-  // @@protoc_insertion_point(field_release:user_data_auth.CheckKeyRequest.account_id)
-  
-  ::cryptohome::AccountIdentifier* temp = account_id_;
-  account_id_ = nullptr;
-  return temp;
-}
-inline ::cryptohome::AccountIdentifier* CheckKeyRequest::_internal_mutable_account_id() {
-  
-  if (account_id_ == nullptr) {
-    auto* p = CreateMaybeMessage<::cryptohome::AccountIdentifier>(GetArenaForAllocation());
-    account_id_ = p;
-  }
-  return account_id_;
-}
-inline ::cryptohome::AccountIdentifier* CheckKeyRequest::mutable_account_id() {
-  ::cryptohome::AccountIdentifier* _msg = _internal_mutable_account_id();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.CheckKeyRequest.account_id)
-  return _msg;
-}
-inline void CheckKeyRequest::set_allocated_account_id(::cryptohome::AccountIdentifier* account_id) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(account_id_);
-  }
-  if (account_id) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
-            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(account_id));
-    if (message_arena != submessage_arena) {
-      account_id = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, account_id, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  account_id_ = account_id;
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.CheckKeyRequest.account_id)
-}
-
-// .cryptohome.AuthorizationRequest authorization_request = 2;
-inline bool CheckKeyRequest::_internal_has_authorization_request() const {
-  return this != internal_default_instance() && authorization_request_ != nullptr;
-}
-inline bool CheckKeyRequest::has_authorization_request() const {
-  return _internal_has_authorization_request();
-}
-inline const ::cryptohome::AuthorizationRequest& CheckKeyRequest::_internal_authorization_request() const {
-  const ::cryptohome::AuthorizationRequest* p = authorization_request_;
-  return p != nullptr ? *p : reinterpret_cast<const ::cryptohome::AuthorizationRequest&>(
-      ::cryptohome::_AuthorizationRequest_default_instance_);
-}
-inline const ::cryptohome::AuthorizationRequest& CheckKeyRequest::authorization_request() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.CheckKeyRequest.authorization_request)
-  return _internal_authorization_request();
-}
-inline void CheckKeyRequest::unsafe_arena_set_allocated_authorization_request(
-    ::cryptohome::AuthorizationRequest* authorization_request) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(authorization_request_);
-  }
-  authorization_request_ = authorization_request;
-  if (authorization_request) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.CheckKeyRequest.authorization_request)
-}
-inline ::cryptohome::AuthorizationRequest* CheckKeyRequest::release_authorization_request() {
-  
-  ::cryptohome::AuthorizationRequest* temp = authorization_request_;
-  authorization_request_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::cryptohome::AuthorizationRequest* CheckKeyRequest::unsafe_arena_release_authorization_request() {
-  // @@protoc_insertion_point(field_release:user_data_auth.CheckKeyRequest.authorization_request)
-  
-  ::cryptohome::AuthorizationRequest* temp = authorization_request_;
-  authorization_request_ = nullptr;
-  return temp;
-}
-inline ::cryptohome::AuthorizationRequest* CheckKeyRequest::_internal_mutable_authorization_request() {
-  
-  if (authorization_request_ == nullptr) {
-    auto* p = CreateMaybeMessage<::cryptohome::AuthorizationRequest>(GetArenaForAllocation());
-    authorization_request_ = p;
-  }
-  return authorization_request_;
-}
-inline ::cryptohome::AuthorizationRequest* CheckKeyRequest::mutable_authorization_request() {
-  ::cryptohome::AuthorizationRequest* _msg = _internal_mutable_authorization_request();
-  // @@protoc_insertion_point(field_mutable:user_data_auth.CheckKeyRequest.authorization_request)
-  return _msg;
-}
-inline void CheckKeyRequest::set_allocated_authorization_request(::cryptohome::AuthorizationRequest* authorization_request) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(authorization_request_);
-  }
-  if (authorization_request) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
-            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(authorization_request));
-    if (message_arena != submessage_arena) {
-      authorization_request = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, authorization_request, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  authorization_request_ = authorization_request;
-  // @@protoc_insertion_point(field_set_allocated:user_data_auth.CheckKeyRequest.authorization_request)
-}
-
-// bool unlock_webauthn_secret = 3;
-inline void CheckKeyRequest::clear_unlock_webauthn_secret() {
-  unlock_webauthn_secret_ = false;
-}
-inline bool CheckKeyRequest::_internal_unlock_webauthn_secret() const {
-  return unlock_webauthn_secret_;
-}
-inline bool CheckKeyRequest::unlock_webauthn_secret() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.CheckKeyRequest.unlock_webauthn_secret)
-  return _internal_unlock_webauthn_secret();
-}
-inline void CheckKeyRequest::_internal_set_unlock_webauthn_secret(bool value) {
-  
-  unlock_webauthn_secret_ = value;
-}
-inline void CheckKeyRequest::set_unlock_webauthn_secret(bool value) {
-  _internal_set_unlock_webauthn_secret(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.CheckKeyRequest.unlock_webauthn_secret)
-}
-
-// -------------------------------------------------------------------
-
-// CheckKeyReply
-
-// .user_data_auth.CryptohomeErrorCode error = 1;
-inline void CheckKeyReply::clear_error() {
-  error_ = 0;
-}
-inline ::user_data_auth::CryptohomeErrorCode CheckKeyReply::_internal_error() const {
-  return static_cast< ::user_data_auth::CryptohomeErrorCode >(error_);
-}
-inline ::user_data_auth::CryptohomeErrorCode CheckKeyReply::error() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.CheckKeyReply.error)
-  return _internal_error();
-}
-inline void CheckKeyReply::_internal_set_error(::user_data_auth::CryptohomeErrorCode value) {
-  
-  error_ = value;
-}
-inline void CheckKeyReply::set_error(::user_data_auth::CryptohomeErrorCode value) {
-  _internal_set_error(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.CheckKeyReply.error)
 }
 
 // -------------------------------------------------------------------
@@ -32537,16 +30727,6 @@ inline void AuthScanDone::set_allocated_scan_result(::user_data_auth::AuthScanRe
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

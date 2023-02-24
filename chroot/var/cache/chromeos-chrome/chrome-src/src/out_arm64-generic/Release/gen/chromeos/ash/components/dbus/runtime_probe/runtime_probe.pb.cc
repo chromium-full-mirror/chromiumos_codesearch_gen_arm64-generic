@@ -346,6 +346,56 @@ struct EdidDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EdidDefaultTypeInternal _Edid_default_instance_;
+PROTOBUF_CONSTEXPR ApI2c_Fields::ApI2c_Fields(
+    ::_pbi::ConstantInitialized)
+  : data_(0u){}
+struct ApI2c_FieldsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ApI2c_FieldsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ApI2c_FieldsDefaultTypeInternal() {}
+  union {
+    ApI2c_Fields _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ApI2c_FieldsDefaultTypeInternal _ApI2c_Fields_default_instance_;
+PROTOBUF_CONSTEXPR ApI2c::ApI2c(
+    ::_pbi::ConstantInitialized)
+  : name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , values_(nullptr){}
+struct ApI2cDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ApI2cDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ApI2cDefaultTypeInternal() {}
+  union {
+    ApI2c _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ApI2cDefaultTypeInternal _ApI2c_default_instance_;
+PROTOBUF_CONSTEXPR EcI2c_Fields::EcI2c_Fields(
+    ::_pbi::ConstantInitialized)
+  : data_(0u){}
+struct EcI2c_FieldsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR EcI2c_FieldsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~EcI2c_FieldsDefaultTypeInternal() {}
+  union {
+    EcI2c_Fields _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EcI2c_FieldsDefaultTypeInternal _EcI2c_Fields_default_instance_;
+PROTOBUF_CONSTEXPR EcI2c::EcI2c(
+    ::_pbi::ConstantInitialized)
+  : name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , values_(nullptr){}
+struct EcI2cDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR EcI2cDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~EcI2cDefaultTypeInternal() {}
+  union {
+    EcI2c _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EcI2cDefaultTypeInternal _EcI2c_default_instance_;
 PROTOBUF_CONSTEXPR ProbeResult::ProbeResult(
     ::_pbi::ConstantInitialized)
   : audio_codec_()
@@ -413,6 +463,33 @@ struct GetKnownComponentsResultDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetKnownComponentsResultDefaultTypeInternal _GetKnownComponentsResult_default_instance_;
+PROTOBUF_CONSTEXPR ProbeSsfcComponentsRequest::ProbeSsfcComponentsRequest(
+    ::_pbi::ConstantInitialized){}
+struct ProbeSsfcComponentsRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ProbeSsfcComponentsRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ProbeSsfcComponentsRequestDefaultTypeInternal() {}
+  union {
+    ProbeSsfcComponentsRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProbeSsfcComponentsRequestDefaultTypeInternal _ProbeSsfcComponentsRequest_default_instance_;
+PROTOBUF_CONSTEXPR ProbeSsfcComponentsResponse::ProbeSsfcComponentsResponse(
+    ::_pbi::ConstantInitialized)
+  : ap_i2c_()
+  , ec_i2c_()
+  , probe_config_checksum_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , error_(0)
+{}
+struct ProbeSsfcComponentsResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ProbeSsfcComponentsResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ProbeSsfcComponentsResponseDefaultTypeInternal() {}
+  union {
+    ProbeSsfcComponentsResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProbeSsfcComponentsResponseDefaultTypeInternal _ProbeSsfcComponentsResponse_default_instance_;
 }  // namespace runtime_probe
 namespace runtime_probe {
 bool ProbeRequest_SupportCategory_IsValid(int value) {
@@ -8293,6 +8370,810 @@ std::string Edid::GetTypeName() const {
 
 // ===================================================================
 
+class ApI2c_Fields::_Internal {
+ public:
+};
+
+ApI2c_Fields::ApI2c_Fields(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:runtime_probe.ApI2c.Fields)
+}
+ApI2c_Fields::ApI2c_Fields(const ApI2c_Fields& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  data_ = from.data_;
+  // @@protoc_insertion_point(copy_constructor:runtime_probe.ApI2c.Fields)
+}
+
+inline void ApI2c_Fields::SharedCtor() {
+data_ = 0u;
+}
+
+ApI2c_Fields::~ApI2c_Fields() {
+  // @@protoc_insertion_point(destructor:runtime_probe.ApI2c.Fields)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ApI2c_Fields::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ApI2c_Fields::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ApI2c_Fields::Clear() {
+// @@protoc_insertion_point(message_clear_start:runtime_probe.ApI2c.Fields)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  data_ = 0u;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ApI2c_Fields::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint32 data = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          data_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ApI2c_Fields::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:runtime_probe.ApI2c.Fields)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 data = 1;
+  if (this->_internal_data() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_data(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:runtime_probe.ApI2c.Fields)
+  return target;
+}
+
+size_t ApI2c_Fields::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:runtime_probe.ApI2c.Fields)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint32 data = 1;
+  if (this->_internal_data() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_data());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ApI2c_Fields::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ApI2c_Fields*>(
+      &from));
+}
+
+void ApI2c_Fields::MergeFrom(const ApI2c_Fields& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:runtime_probe.ApI2c.Fields)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_data() != 0) {
+    _internal_set_data(from._internal_data());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ApI2c_Fields::CopyFrom(const ApI2c_Fields& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:runtime_probe.ApI2c.Fields)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ApI2c_Fields::IsInitialized() const {
+  return true;
+}
+
+void ApI2c_Fields::InternalSwap(ApI2c_Fields* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(data_, other->data_);
+}
+
+std::string ApI2c_Fields::GetTypeName() const {
+  return "runtime_probe.ApI2c.Fields";
+}
+
+
+// ===================================================================
+
+class ApI2c::_Internal {
+ public:
+  static const ::runtime_probe::ApI2c_Fields& values(const ApI2c* msg);
+};
+
+const ::runtime_probe::ApI2c_Fields&
+ApI2c::_Internal::values(const ApI2c* msg) {
+  return *msg->values_;
+}
+ApI2c::ApI2c(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:runtime_probe.ApI2c)
+}
+ApI2c::ApI2c(const ApI2c& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_name().empty()) {
+    name_.Set(from._internal_name(), 
+      GetArenaForAllocation());
+  }
+  if (from._internal_has_values()) {
+    values_ = new ::runtime_probe::ApI2c_Fields(*from.values_);
+  } else {
+    values_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:runtime_probe.ApI2c)
+}
+
+inline void ApI2c::SharedCtor() {
+name_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+values_ = nullptr;
+}
+
+ApI2c::~ApI2c() {
+  // @@protoc_insertion_point(destructor:runtime_probe.ApI2c)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ApI2c::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  name_.Destroy();
+  if (this != internal_default_instance()) delete values_;
+}
+
+void ApI2c::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ApI2c::Clear() {
+// @@protoc_insertion_point(message_clear_start:runtime_probe.ApI2c)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  name_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && values_ != nullptr) {
+    delete values_;
+  }
+  values_ = nullptr;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ApI2c::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // .runtime_probe.ApI2c.Fields values = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_values(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ApI2c::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:runtime_probe.ApI2c)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.ApI2c.name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
+  }
+
+  // .runtime_probe.ApI2c.Fields values = 2;
+  if (this->_internal_has_values()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::values(this),
+        _Internal::values(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:runtime_probe.ApI2c)
+  return target;
+}
+
+size_t ApI2c::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:runtime_probe.ApI2c)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
+  }
+
+  // .runtime_probe.ApI2c.Fields values = 2;
+  if (this->_internal_has_values()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *values_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ApI2c::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ApI2c*>(
+      &from));
+}
+
+void ApI2c::MergeFrom(const ApI2c& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:runtime_probe.ApI2c)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_name().empty()) {
+    _internal_set_name(from._internal_name());
+  }
+  if (from._internal_has_values()) {
+    _internal_mutable_values()->::runtime_probe::ApI2c_Fields::MergeFrom(from._internal_values());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ApI2c::CopyFrom(const ApI2c& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:runtime_probe.ApI2c)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ApI2c::IsInitialized() const {
+  return true;
+}
+
+void ApI2c::InternalSwap(ApI2c* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
+  swap(values_, other->values_);
+}
+
+std::string ApI2c::GetTypeName() const {
+  return "runtime_probe.ApI2c";
+}
+
+
+// ===================================================================
+
+class EcI2c_Fields::_Internal {
+ public:
+};
+
+EcI2c_Fields::EcI2c_Fields(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:runtime_probe.EcI2c.Fields)
+}
+EcI2c_Fields::EcI2c_Fields(const EcI2c_Fields& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  data_ = from.data_;
+  // @@protoc_insertion_point(copy_constructor:runtime_probe.EcI2c.Fields)
+}
+
+inline void EcI2c_Fields::SharedCtor() {
+data_ = 0u;
+}
+
+EcI2c_Fields::~EcI2c_Fields() {
+  // @@protoc_insertion_point(destructor:runtime_probe.EcI2c.Fields)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void EcI2c_Fields::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void EcI2c_Fields::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void EcI2c_Fields::Clear() {
+// @@protoc_insertion_point(message_clear_start:runtime_probe.EcI2c.Fields)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  data_ = 0u;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* EcI2c_Fields::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // uint32 data = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          data_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* EcI2c_Fields::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:runtime_probe.EcI2c.Fields)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint32 data = 1;
+  if (this->_internal_data() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_data(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:runtime_probe.EcI2c.Fields)
+  return target;
+}
+
+size_t EcI2c_Fields::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:runtime_probe.EcI2c.Fields)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint32 data = 1;
+  if (this->_internal_data() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_data());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void EcI2c_Fields::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const EcI2c_Fields*>(
+      &from));
+}
+
+void EcI2c_Fields::MergeFrom(const EcI2c_Fields& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:runtime_probe.EcI2c.Fields)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_data() != 0) {
+    _internal_set_data(from._internal_data());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void EcI2c_Fields::CopyFrom(const EcI2c_Fields& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:runtime_probe.EcI2c.Fields)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool EcI2c_Fields::IsInitialized() const {
+  return true;
+}
+
+void EcI2c_Fields::InternalSwap(EcI2c_Fields* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(data_, other->data_);
+}
+
+std::string EcI2c_Fields::GetTypeName() const {
+  return "runtime_probe.EcI2c.Fields";
+}
+
+
+// ===================================================================
+
+class EcI2c::_Internal {
+ public:
+  static const ::runtime_probe::EcI2c_Fields& values(const EcI2c* msg);
+};
+
+const ::runtime_probe::EcI2c_Fields&
+EcI2c::_Internal::values(const EcI2c* msg) {
+  return *msg->values_;
+}
+EcI2c::EcI2c(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:runtime_probe.EcI2c)
+}
+EcI2c::EcI2c(const EcI2c& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_name().empty()) {
+    name_.Set(from._internal_name(), 
+      GetArenaForAllocation());
+  }
+  if (from._internal_has_values()) {
+    values_ = new ::runtime_probe::EcI2c_Fields(*from.values_);
+  } else {
+    values_ = nullptr;
+  }
+  // @@protoc_insertion_point(copy_constructor:runtime_probe.EcI2c)
+}
+
+inline void EcI2c::SharedCtor() {
+name_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+values_ = nullptr;
+}
+
+EcI2c::~EcI2c() {
+  // @@protoc_insertion_point(destructor:runtime_probe.EcI2c)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void EcI2c::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  name_.Destroy();
+  if (this != internal_default_instance()) delete values_;
+}
+
+void EcI2c::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void EcI2c::Clear() {
+// @@protoc_insertion_point(message_clear_start:runtime_probe.EcI2c)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  name_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && values_ != nullptr) {
+    delete values_;
+  }
+  values_ = nullptr;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* EcI2c::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // .runtime_probe.EcI2c.Fields values = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_values(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* EcI2c::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:runtime_probe.EcI2c)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.EcI2c.name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
+  }
+
+  // .runtime_probe.EcI2c.Fields values = 2;
+  if (this->_internal_has_values()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::values(this),
+        _Internal::values(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:runtime_probe.EcI2c)
+  return target;
+}
+
+size_t EcI2c::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:runtime_probe.EcI2c)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
+  }
+
+  // .runtime_probe.EcI2c.Fields values = 2;
+  if (this->_internal_has_values()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *values_);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void EcI2c::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const EcI2c*>(
+      &from));
+}
+
+void EcI2c::MergeFrom(const EcI2c& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:runtime_probe.EcI2c)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_name().empty()) {
+    _internal_set_name(from._internal_name());
+  }
+  if (from._internal_has_values()) {
+    _internal_mutable_values()->::runtime_probe::EcI2c_Fields::MergeFrom(from._internal_values());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void EcI2c::CopyFrom(const EcI2c& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:runtime_probe.EcI2c)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool EcI2c::IsInitialized() const {
+  return true;
+}
+
+void EcI2c::InternalSwap(EcI2c* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
+  swap(values_, other->values_);
+}
+
+std::string EcI2c::GetTypeName() const {
+  return "runtime_probe.EcI2c";
+}
+
+
+// ===================================================================
+
 class ProbeResult::_Internal {
  public:
 };
@@ -10258,6 +11139,430 @@ std::string GetKnownComponentsResult::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class ProbeSsfcComponentsRequest::_Internal {
+ public:
+};
+
+ProbeSsfcComponentsRequest::ProbeSsfcComponentsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:runtime_probe.ProbeSsfcComponentsRequest)
+}
+ProbeSsfcComponentsRequest::ProbeSsfcComponentsRequest(const ProbeSsfcComponentsRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:runtime_probe.ProbeSsfcComponentsRequest)
+}
+
+inline void ProbeSsfcComponentsRequest::SharedCtor() {
+}
+
+ProbeSsfcComponentsRequest::~ProbeSsfcComponentsRequest() {
+  // @@protoc_insertion_point(destructor:runtime_probe.ProbeSsfcComponentsRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ProbeSsfcComponentsRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ProbeSsfcComponentsRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ProbeSsfcComponentsRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:runtime_probe.ProbeSsfcComponentsRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ProbeSsfcComponentsRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ProbeSsfcComponentsRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:runtime_probe.ProbeSsfcComponentsRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:runtime_probe.ProbeSsfcComponentsRequest)
+  return target;
+}
+
+size_t ProbeSsfcComponentsRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:runtime_probe.ProbeSsfcComponentsRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ProbeSsfcComponentsRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ProbeSsfcComponentsRequest*>(
+      &from));
+}
+
+void ProbeSsfcComponentsRequest::MergeFrom(const ProbeSsfcComponentsRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:runtime_probe.ProbeSsfcComponentsRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ProbeSsfcComponentsRequest::CopyFrom(const ProbeSsfcComponentsRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:runtime_probe.ProbeSsfcComponentsRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ProbeSsfcComponentsRequest::IsInitialized() const {
+  return true;
+}
+
+void ProbeSsfcComponentsRequest::InternalSwap(ProbeSsfcComponentsRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+}
+
+std::string ProbeSsfcComponentsRequest::GetTypeName() const {
+  return "runtime_probe.ProbeSsfcComponentsRequest";
+}
+
+
+// ===================================================================
+
+class ProbeSsfcComponentsResponse::_Internal {
+ public:
+};
+
+ProbeSsfcComponentsResponse::ProbeSsfcComponentsResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  ap_i2c_(arena),
+  ec_i2c_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:runtime_probe.ProbeSsfcComponentsResponse)
+}
+ProbeSsfcComponentsResponse::ProbeSsfcComponentsResponse(const ProbeSsfcComponentsResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      ap_i2c_(from.ap_i2c_),
+      ec_i2c_(from.ec_i2c_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  probe_config_checksum_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    probe_config_checksum_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_probe_config_checksum().empty()) {
+    probe_config_checksum_.Set(from._internal_probe_config_checksum(), 
+      GetArenaForAllocation());
+  }
+  error_ = from.error_;
+  // @@protoc_insertion_point(copy_constructor:runtime_probe.ProbeSsfcComponentsResponse)
+}
+
+inline void ProbeSsfcComponentsResponse::SharedCtor() {
+probe_config_checksum_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  probe_config_checksum_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+error_ = 0;
+}
+
+ProbeSsfcComponentsResponse::~ProbeSsfcComponentsResponse() {
+  // @@protoc_insertion_point(destructor:runtime_probe.ProbeSsfcComponentsResponse)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ProbeSsfcComponentsResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  probe_config_checksum_.Destroy();
+}
+
+void ProbeSsfcComponentsResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ProbeSsfcComponentsResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:runtime_probe.ProbeSsfcComponentsResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ap_i2c_.Clear();
+  ec_i2c_.Clear();
+  probe_config_checksum_.ClearToEmpty();
+  error_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ProbeSsfcComponentsResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .runtime_probe.ErrorCode error = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_error(static_cast<::runtime_probe::ErrorCode>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // string probe_config_checksum = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_probe_config_checksum();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .runtime_probe.ApI2c ap_i2c = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_ap_i2c(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<90>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .runtime_probe.EcI2c ec_i2c = 12;
+      case 12:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_ec_i2c(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<98>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ProbeSsfcComponentsResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:runtime_probe.ProbeSsfcComponentsResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .runtime_probe.ErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error(), target);
+  }
+
+  // string probe_config_checksum = 2;
+  if (!this->_internal_probe_config_checksum().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_probe_config_checksum().data(), static_cast<int>(this->_internal_probe_config_checksum().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.ProbeSsfcComponentsResponse.probe_config_checksum");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_probe_config_checksum(), target);
+  }
+
+  // repeated .runtime_probe.ApI2c ap_i2c = 11;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_ap_i2c_size()); i < n; i++) {
+    const auto& repfield = this->_internal_ap_i2c(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(11, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  // repeated .runtime_probe.EcI2c ec_i2c = 12;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_ec_i2c_size()); i < n; i++) {
+    const auto& repfield = this->_internal_ec_i2c(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(12, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:runtime_probe.ProbeSsfcComponentsResponse)
+  return target;
+}
+
+size_t ProbeSsfcComponentsResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:runtime_probe.ProbeSsfcComponentsResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .runtime_probe.ApI2c ap_i2c = 11;
+  total_size += 1UL * this->_internal_ap_i2c_size();
+  for (const auto& msg : this->ap_i2c_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .runtime_probe.EcI2c ec_i2c = 12;
+  total_size += 1UL * this->_internal_ec_i2c_size();
+  for (const auto& msg : this->ec_i2c_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // string probe_config_checksum = 2;
+  if (!this->_internal_probe_config_checksum().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_probe_config_checksum());
+  }
+
+  // .runtime_probe.ErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ProbeSsfcComponentsResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ProbeSsfcComponentsResponse*>(
+      &from));
+}
+
+void ProbeSsfcComponentsResponse::MergeFrom(const ProbeSsfcComponentsResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:runtime_probe.ProbeSsfcComponentsResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  ap_i2c_.MergeFrom(from.ap_i2c_);
+  ec_i2c_.MergeFrom(from.ec_i2c_);
+  if (!from._internal_probe_config_checksum().empty()) {
+    _internal_set_probe_config_checksum(from._internal_probe_config_checksum());
+  }
+  if (from._internal_error() != 0) {
+    _internal_set_error(from._internal_error());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ProbeSsfcComponentsResponse::CopyFrom(const ProbeSsfcComponentsResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:runtime_probe.ProbeSsfcComponentsResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ProbeSsfcComponentsResponse::IsInitialized() const {
+  return true;
+}
+
+void ProbeSsfcComponentsResponse::InternalSwap(ProbeSsfcComponentsResponse* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ap_i2c_.InternalSwap(&other->ap_i2c_);
+  ec_i2c_.InternalSwap(&other->ec_i2c_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &probe_config_checksum_, lhs_arena,
+      &other->probe_config_checksum_, rhs_arena
+  );
+  swap(error_, other->error_);
+}
+
+std::string ProbeSsfcComponentsResponse::GetTypeName() const {
+  return "runtime_probe.ProbeSsfcComponentsResponse";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace runtime_probe
 PROTOBUF_NAMESPACE_OPEN
@@ -10341,6 +11646,22 @@ template<> PROTOBUF_NOINLINE ::runtime_probe::Edid*
 Arena::CreateMaybeMessage< ::runtime_probe::Edid >(Arena* arena) {
   return Arena::CreateMessageInternal< ::runtime_probe::Edid >(arena);
 }
+template<> PROTOBUF_NOINLINE ::runtime_probe::ApI2c_Fields*
+Arena::CreateMaybeMessage< ::runtime_probe::ApI2c_Fields >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::runtime_probe::ApI2c_Fields >(arena);
+}
+template<> PROTOBUF_NOINLINE ::runtime_probe::ApI2c*
+Arena::CreateMaybeMessage< ::runtime_probe::ApI2c >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::runtime_probe::ApI2c >(arena);
+}
+template<> PROTOBUF_NOINLINE ::runtime_probe::EcI2c_Fields*
+Arena::CreateMaybeMessage< ::runtime_probe::EcI2c_Fields >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::runtime_probe::EcI2c_Fields >(arena);
+}
+template<> PROTOBUF_NOINLINE ::runtime_probe::EcI2c*
+Arena::CreateMaybeMessage< ::runtime_probe::EcI2c >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::runtime_probe::EcI2c >(arena);
+}
 template<> PROTOBUF_NOINLINE ::runtime_probe::ProbeResult*
 Arena::CreateMaybeMessage< ::runtime_probe::ProbeResult >(Arena* arena) {
   return Arena::CreateMessageInternal< ::runtime_probe::ProbeResult >(arena);
@@ -10356,6 +11677,14 @@ Arena::CreateMaybeMessage< ::runtime_probe::GetKnownComponentsRequest >(Arena* a
 template<> PROTOBUF_NOINLINE ::runtime_probe::GetKnownComponentsResult*
 Arena::CreateMaybeMessage< ::runtime_probe::GetKnownComponentsResult >(Arena* arena) {
   return Arena::CreateMessageInternal< ::runtime_probe::GetKnownComponentsResult >(arena);
+}
+template<> PROTOBUF_NOINLINE ::runtime_probe::ProbeSsfcComponentsRequest*
+Arena::CreateMaybeMessage< ::runtime_probe::ProbeSsfcComponentsRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::runtime_probe::ProbeSsfcComponentsRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::runtime_probe::ProbeSsfcComponentsResponse*
+Arena::CreateMaybeMessage< ::runtime_probe::ProbeSsfcComponentsResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::runtime_probe::ProbeSsfcComponentsResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

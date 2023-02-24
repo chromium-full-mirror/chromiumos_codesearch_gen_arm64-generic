@@ -24,6 +24,8 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_events.mojom-shared-internal.h"
+#include "ash/system/diagnostics/mojom/input.mojom-shared.h"
+#include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -51,6 +53,15 @@ class AudioJackEventInfoDataView;
 
 class SdCardEventInfoDataView;
 
+class TouchpadButtonEventDataView;
+
+class TouchPointInfoDataView;
+
+class TouchpadTouchEventDataView;
+
+class TouchpadConnectedEventDataView;
+
+class TouchpadEventInfoDataView;
 class EventInfoDataView;
 
 
@@ -118,6 +129,41 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::SdCardEventInfoDataView> {
 };
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchpadButtonEventDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TouchpadButtonEvent_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchPointInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TouchPointInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchpadTouchEventDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TouchpadTouchEvent_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchpadConnectedEventDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TouchpadConnectedEvent_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchpadEventInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TouchpadEventInfo_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::EventInfoDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::EventInfo_Data;
   using DataAsArrayElement = Data;
@@ -131,6 +177,33 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::EventInfoDataView> {
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+
+
+enum class InputTouchButton : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kLeft = 1,
+  
+  kMiddle = 2,
+  
+  kRight = 3,
+  kMinValue = 0,
+  kMaxValue = 3,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, InputTouchButton value);
+inline bool IsKnownEnumValue(InputTouchButton value) {
+  return internal::InputTouchButton_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline InputTouchButton ToKnownEnumValue(InputTouchButton value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return InputTouchButton::kDefaultValue;
+}
 
 
 enum class EventCategoryEnum : int32_t {
@@ -152,8 +225,14 @@ enum class EventCategoryEnum : int32_t {
   kAudioJack = 7,
   
   kSdCard = 8,
+  
+  kNetwork = 9,
+  
+  kKeyboardDiagnostic = 10,
+  
+  kTouchpad = 11,
   kMinValue = 0,
-  kMaxValue = 8,
+  kMaxValue = 11,
   kDefaultValue = 0
 };
 
@@ -715,6 +794,248 @@ class SdCardEventInfoDataView {
 
 
 
+class TouchpadButtonEventDataView {
+ public:
+  TouchpadButtonEventDataView() = default;
+
+  TouchpadButtonEventDataView(
+      internal::TouchpadButtonEvent_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadButton(UserType* output) const {
+    auto data_value = data_->button;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::InputTouchButton>(
+        data_value, output);
+  }
+  InputTouchButton button() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::InputTouchButton>(data_->button));
+  }
+  bool pressed() const {
+    return data_->pressed;
+  }
+ private:
+  internal::TouchpadButtonEvent_Data* data_ = nullptr;
+};
+
+
+
+class TouchPointInfoDataView {
+ public:
+  TouchPointInfoDataView() = default;
+
+  TouchPointInfoDataView(
+      internal::TouchPointInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  uint32_t tracking_id() const {
+    return data_->tracking_id;
+  }
+  uint32_t x() const {
+    return data_->x;
+  }
+  uint32_t y() const {
+    return data_->y;
+  }
+  inline void GetPressureDataView(
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPressure(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+    "Attempting to read the optional `pressure` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadPressure` instead "
+    "of `ReadPressure if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->pressure.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+        pointer, output, message_);
+  }
+  inline void GetTouchMajorDataView(
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTouchMajor(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+    "Attempting to read the optional `touch_major` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadTouchMajor` instead "
+    "of `ReadTouchMajor if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->touch_major.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+        pointer, output, message_);
+  }
+  inline void GetTouchMinorDataView(
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTouchMinor(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+    "Attempting to read the optional `touch_minor` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadTouchMinor` instead "
+    "of `ReadTouchMinor if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->touch_minor.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TouchPointInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class TouchpadTouchEventDataView {
+ public:
+  TouchpadTouchEventDataView() = default;
+
+  TouchpadTouchEventDataView(
+      internal::TouchpadTouchEvent_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetTouchPointsDataView(
+      mojo::ArrayDataView<TouchPointInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTouchPoints(UserType* output) {
+    
+    auto* pointer = data_->touch_points.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::TouchPointInfoDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TouchpadTouchEvent_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class TouchpadConnectedEventDataView {
+ public:
+  TouchpadConnectedEventDataView() = default;
+
+  TouchpadConnectedEventDataView(
+      internal::TouchpadConnectedEvent_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  uint32_t max_x() const {
+    return data_->max_x;
+  }
+  uint32_t max_y() const {
+    return data_->max_y;
+  }
+  uint32_t max_pressure() const {
+    return data_->max_pressure;
+  }
+  inline void GetButtonsDataView(
+      mojo::ArrayDataView<InputTouchButton>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadButtons(UserType* output) {
+    
+    auto* pointer = data_->buttons.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::InputTouchButton>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::TouchpadConnectedEvent_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class TouchpadEventInfoDataView {
+ public:
+  using Tag = internal::TouchpadEventInfo_Data::TouchpadEventInfo_Tag;
+
+  TouchpadEventInfoDataView() = default;
+
+  TouchpadEventInfoDataView(
+      internal::TouchpadEventInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_default_type() const { return data_->tag == Tag::kDefaultType; }
+  uint8_t default_type() const {
+    CHECK(is_default_type());
+    return data_->data.f_default_type;
+  }
+  bool is_button_event() const { return data_->tag == Tag::kButtonEvent; }
+  inline void GetButtonEventDataView(
+      TouchpadButtonEventDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadButtonEvent(UserType* output) const {
+    
+    CHECK(is_button_event());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TouchpadButtonEventDataView>(
+        data_->data.f_button_event.Get(), output, message_);
+  }
+  bool is_touch_event() const { return data_->tag == Tag::kTouchEvent; }
+  inline void GetTouchEventDataView(
+      TouchpadTouchEventDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTouchEvent(UserType* output) const {
+    
+    CHECK(is_touch_event());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TouchpadTouchEventDataView>(
+        data_->data.f_touch_event.Get(), output, message_);
+  }
+  bool is_connected_event() const { return data_->tag == Tag::kConnectedEvent; }
+  inline void GetConnectedEventDataView(
+      TouchpadConnectedEventDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConnectedEvent(UserType* output) const {
+    
+    CHECK(is_connected_event());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TouchpadConnectedEventDataView>(
+        data_->data.f_connected_event.Get(), output, message_);
+  }
+
+ private:
+  internal::TouchpadEventInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 class EventInfoDataView {
  public:
   using Tag = internal::EventInfo_Data::EventInfo_Tag;
@@ -826,6 +1147,28 @@ class EventInfoDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SdCardEventInfoDataView>(
         data_->data.f_sd_card_event_info.Get(), output, message_);
   }
+  bool is_keyboard_diagnostic_event_info() const { return data_->tag == Tag::kKeyboardDiagnosticEventInfo; }
+  inline void GetKeyboardDiagnosticEventInfoDataView(
+      ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadKeyboardDiagnosticEventInfo(UserType* output) const {
+    
+    CHECK(is_keyboard_diagnostic_event_info());
+    return mojo::internal::Deserialize<::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoDataView>(
+        data_->data.f_keyboard_diagnostic_event_info.Get(), output, message_);
+  }
+  bool is_touchpad_event_info() const { return data_->tag == Tag::kTouchpadEventInfo; }
+  inline void GetTouchpadEventInfoDataView(
+      TouchpadEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTouchpadEventInfo(UserType* output) const {
+    
+    CHECK(is_touchpad_event_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TouchpadEventInfoDataView>(
+        data_->data.f_touchpad_event_info.Get(), output, message_);
+  }
 
  private:
   internal::EventInfo_Data* data_ = nullptr;
@@ -839,6 +1182,10 @@ class EventInfoDataView {
 }  // namespace ash
 
 namespace std {
+
+template <>
+struct hash<::ash::cros_healthd::mojom::InputTouchButton>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::InputTouchButton> {};
 
 template <>
 struct hash<::ash::cros_healthd::mojom::EventCategoryEnum>
@@ -879,6 +1226,26 @@ struct hash<::ash::cros_healthd::mojom::SdCardEventInfo_State>
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::InputTouchButton, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::InputTouchButton, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::InputTouchButton>(input)), output);
+  }
+};
+
+}  // namespace internal
 
 
 namespace internal {
@@ -1352,6 +1719,278 @@ struct Serializer<::ash::cros_healthd::mojom::SdCardEventInfoDataView, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::TouchpadButtonEventDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::TouchpadButtonEventDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::TouchpadButtonEvent_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::InputTouchButton>(
+        Traits::button(input), &fragment->button);
+    fragment->pressed = Traits::pressed(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TouchpadButtonEvent_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::TouchpadButtonEventDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::TouchPointInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::TouchPointInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::TouchPointInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->tracking_id = Traits::tracking_id(input);
+    fragment->x = Traits::x(input);
+    fragment->y = Traits::y(input);
+    decltype(Traits::pressure(input)) in_pressure = Traits::pressure(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->pressure)::BaseType> pressure_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+        in_pressure, pressure_fragment);
+    fragment->pressure.Set(
+        pressure_fragment.is_null() ? nullptr : pressure_fragment.data());
+    decltype(Traits::touch_major(input)) in_touch_major = Traits::touch_major(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->touch_major)::BaseType> touch_major_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+        in_touch_major, touch_major_fragment);
+    fragment->touch_major.Set(
+        touch_major_fragment.is_null() ? nullptr : touch_major_fragment.data());
+    decltype(Traits::touch_minor(input)) in_touch_minor = Traits::touch_minor(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->touch_minor)::BaseType> touch_minor_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+        in_touch_minor, touch_minor_fragment);
+    fragment->touch_minor.Set(
+        touch_minor_fragment.is_null() ? nullptr : touch_minor_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TouchPointInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::TouchPointInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::TouchpadTouchEventDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::TouchpadTouchEventDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::TouchpadTouchEvent_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::touch_points(input)) in_touch_points = Traits::touch_points(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->touch_points)::BaseType>
+        touch_points_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& touch_points_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::TouchPointInfoDataView>>(
+        in_touch_points, touch_points_fragment, &touch_points_validate_params);
+    fragment->touch_points.Set(
+        touch_points_fragment.is_null() ? nullptr : touch_points_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->touch_points.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null touch_points in TouchpadTouchEvent struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TouchpadTouchEvent_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::TouchpadTouchEventDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::TouchpadConnectedEventDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::TouchpadConnectedEventDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::TouchpadConnectedEvent_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->max_x = Traits::max_x(input);
+    fragment->max_y = Traits::max_y(input);
+    fragment->max_pressure = Traits::max_pressure(input);
+    decltype(Traits::buttons(input)) in_buttons = Traits::buttons(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->buttons)::BaseType>
+        buttons_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& buttons_validate_params =
+        mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::InputTouchButton_Data::Validate>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::InputTouchButton>>(
+        in_buttons, buttons_fragment, &buttons_validate_params);
+    fragment->buttons.Set(
+        buttons_fragment.is_null() ? nullptr : buttons_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->buttons.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null buttons in TouchpadConnectedEvent struct");
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TouchpadConnectedEvent_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::TouchpadConnectedEventDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::TouchpadEventInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfoDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::TouchpadEventInfo_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::TouchpadEventInfoDataView::Tag::kDefaultType: {
+        decltype(Traits::default_type(input))
+            in_default_type = Traits::default_type(input);
+        fragment->data.f_default_type = in_default_type;
+        break;
+      }
+      case ::ash::cros_healthd::mojom::TouchpadEventInfoDataView::Tag::kButtonEvent: {
+        decltype(Traits::button_event(input))
+            in_button_event = Traits::button_event(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_button_event)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::TouchpadButtonEventDataView>(
+            in_button_event, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null button_event in TouchpadEventInfo union");
+        fragment->data.f_button_event.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::TouchpadEventInfoDataView::Tag::kTouchEvent: {
+        decltype(Traits::touch_event(input))
+            in_touch_event = Traits::touch_event(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_touch_event)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::TouchpadTouchEventDataView>(
+            in_touch_event, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null touch_event in TouchpadEventInfo union");
+        fragment->data.f_touch_event.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::TouchpadEventInfoDataView::Tag::kConnectedEvent: {
+        decltype(Traits::connected_event(input))
+            in_connected_event = Traits::connected_event(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_connected_event)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::TouchpadConnectedEventDataView>(
+            in_connected_event, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null connected_event in TouchpadEventInfo union");
+        fragment->data.f_connected_event.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TouchpadEventInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::TouchpadEventInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::EventInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::ash::cros_healthd::mojom::EventInfoDataView, UserType>;
@@ -1507,6 +2146,38 @@ struct Serializer<::ash::cros_healthd::mojom::EventInfoDataView, MaybeConstUserT
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kKeyboardDiagnosticEventInfo: {
+        decltype(Traits::keyboard_diagnostic_event_info(input))
+            in_keyboard_diagnostic_event_info = Traits::keyboard_diagnostic_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_keyboard_diagnostic_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoDataView>(
+            in_keyboard_diagnostic_event_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null keyboard_diagnostic_event_info in EventInfo union");
+        fragment->data.f_keyboard_diagnostic_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kTouchpadEventInfo: {
+        decltype(Traits::touchpad_event_info(input))
+            in_touchpad_event_info = Traits::touchpad_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_touchpad_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::TouchpadEventInfoDataView>(
+            in_touchpad_event_info, value_fragment, false);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null touchpad_event_info in EventInfo union");
+        fragment->data.f_touchpad_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -1561,6 +2232,55 @@ inline void UsbEventInfoDataView::GetCategoriesDataView(
 
 
 
+
+
+inline void TouchPointInfoDataView::GetPressureDataView(
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
+  auto pointer = data_->pressure.Get();
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+}
+inline void TouchPointInfoDataView::GetTouchMajorDataView(
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
+  auto pointer = data_->touch_major.Get();
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+}
+inline void TouchPointInfoDataView::GetTouchMinorDataView(
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
+  auto pointer = data_->touch_minor.Get();
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+}
+
+
+inline void TouchpadTouchEventDataView::GetTouchPointsDataView(
+    mojo::ArrayDataView<TouchPointInfoDataView>* output) {
+  auto pointer = data_->touch_points.Get();
+  *output = mojo::ArrayDataView<TouchPointInfoDataView>(pointer, message_);
+}
+
+
+inline void TouchpadConnectedEventDataView::GetButtonsDataView(
+    mojo::ArrayDataView<InputTouchButton>* output) {
+  auto pointer = data_->buttons.Get();
+  *output = mojo::ArrayDataView<InputTouchButton>(pointer, message_);
+}
+
+
+inline void TouchpadEventInfoDataView::GetButtonEventDataView(
+    TouchpadButtonEventDataView* output) const {
+  CHECK(is_button_event());
+  *output = TouchpadButtonEventDataView(data_->data.f_button_event.Get(), message_);
+}
+inline void TouchpadEventInfoDataView::GetTouchEventDataView(
+    TouchpadTouchEventDataView* output) const {
+  CHECK(is_touch_event());
+  *output = TouchpadTouchEventDataView(data_->data.f_touch_event.Get(), message_);
+}
+inline void TouchpadEventInfoDataView::GetConnectedEventDataView(
+    TouchpadConnectedEventDataView* output) const {
+  CHECK(is_connected_event());
+  *output = TouchpadConnectedEventDataView(data_->data.f_connected_event.Get(), message_);
+}
+
 inline void EventInfoDataView::GetUsbEventInfoDataView(
     UsbEventInfoDataView* output) const {
   CHECK(is_usb_event_info());
@@ -1601,6 +2321,16 @@ inline void EventInfoDataView::GetSdCardEventInfoDataView(
   CHECK(is_sd_card_event_info());
   *output = SdCardEventInfoDataView(data_->data.f_sd_card_event_info.Get(), message_);
 }
+inline void EventInfoDataView::GetKeyboardDiagnosticEventInfoDataView(
+    ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoDataView* output) const {
+  CHECK(is_keyboard_diagnostic_event_info());
+  *output = ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoDataView(data_->data.f_keyboard_diagnostic_event_info.Get(), message_);
+}
+inline void EventInfoDataView::GetTouchpadEventInfoDataView(
+    TouchpadEventInfoDataView* output) const {
+  CHECK(is_touchpad_event_info());
+  *output = TouchpadEventInfoDataView(data_->data.f_touchpad_event_info.Get(), message_);
+}
 
 
 }  // namespace mojom
@@ -1609,6 +2339,15 @@ inline void EventInfoDataView::GetSdCardEventInfoDataView(
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::InputTouchButton> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::InputTouchButton value);
+};
+
+} // namespace perfetto
 
 namespace perfetto {
 

@@ -100,34 +100,6 @@ bool ListValue::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-DeprecatedDictionaryValue::DeprecatedDictionaryValue()
-    : storage() {}
-
-DeprecatedDictionaryValue::DeprecatedDictionaryValue(
-    base::flat_map<std::string, ::base::Value> storage_in)
-    : storage(std::move(storage_in)) {}
-
-DeprecatedDictionaryValue::~DeprecatedDictionaryValue() = default;
-
-void DeprecatedDictionaryValue::WriteIntoTrace(
-    perfetto::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "storage"), this->storage,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type base::flat_map<std::string, ::base::Value>>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool DeprecatedDictionaryValue::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
 Value::Value() : tag_(Tag::kNullValue) {
   data_.null_value = uint8_t();
 }
@@ -282,20 +254,6 @@ bool StructTraits<::mojo_base::mojom::ListValue::DataView, ::mojo_base::mojom::L
     ::mojo_base::mojom::ListValuePtr* output) {
   bool success = true;
   ::mojo_base::mojom::ListValuePtr result(::mojo_base::mojom::ListValue::New());
-  
-      if (success && !input.ReadStorage(&result->storage))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::mojo_base::mojom::DeprecatedDictionaryValue::DataView, ::mojo_base::mojom::DeprecatedDictionaryValuePtr>::Read(
-    ::mojo_base::mojom::DeprecatedDictionaryValue::DataView input,
-    ::mojo_base::mojom::DeprecatedDictionaryValuePtr* output) {
-  bool success = true;
-  ::mojo_base::mojom::DeprecatedDictionaryValuePtr result(::mojo_base::mojom::DeprecatedDictionaryValue::New());
   
       if (success && !input.ReadStorage(&result->storage))
         success = false;

@@ -32,18 +32,12 @@ class UserDataAuthInterfaceInterface {
   virtual void Unmount(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::UnmountReply>> response,
       const user_data_auth::UnmountRequest& in_request) = 0;
-  virtual void Mount(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::MountReply>> response,
-      const user_data_auth::MountRequest& in_request) = 0;
   virtual void Remove(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::RemoveReply>> response,
       const user_data_auth::RemoveRequest& in_request) = 0;
   virtual void ListKeys(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::ListKeysReply>> response,
       const user_data_auth::ListKeysRequest& in_request) = 0;
-  virtual void CheckKey(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::CheckKeyReply>> response,
-      const user_data_auth::CheckKeyRequest& in_request) = 0;
   virtual void StartFingerprintAuthSession(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::StartFingerprintAuthSessionReply>> response,
       const user_data_auth::StartFingerprintAuthSessionRequest& in_request) = 0;
@@ -153,10 +147,6 @@ class UserDataAuthInterfaceAdaptor {
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::Unmount);
     itf->AddMethodHandler(
-        "Mount",
-        base::Unretained(interface_),
-        &UserDataAuthInterfaceInterface::Mount);
-    itf->AddMethodHandler(
         "Remove",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::Remove);
@@ -164,10 +154,6 @@ class UserDataAuthInterfaceAdaptor {
         "ListKeys",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::ListKeys);
-    itf->AddMethodHandler(
-        "CheckKey",
-        base::Unretained(interface_),
-        &UserDataAuthInterfaceInterface::CheckKey);
     itf->AddMethodHandler(
         "StartFingerprintAuthSession",
         base::Unretained(interface_),
@@ -324,19 +310,11 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
-        "    <method name=\"Mount\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
         "    <method name=\"Remove\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"ListKeys\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"CheckKey\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

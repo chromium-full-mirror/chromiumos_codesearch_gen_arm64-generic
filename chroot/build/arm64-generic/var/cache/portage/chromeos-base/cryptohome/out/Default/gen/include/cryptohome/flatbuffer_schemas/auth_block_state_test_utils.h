@@ -190,7 +190,7 @@ namespace cryptohome {
 inline bool operator==(const FingerprintAuthBlockState& lhs,
                        const FingerprintAuthBlockState& rhs) {
   return true && lhs.template_id == rhs.template_id &&
-         lhs.gsc_secret_label == rhs.gsc_secret_label && lhs.salt == rhs.salt;
+         lhs.gsc_secret_label == rhs.gsc_secret_label;
 }
 inline bool operator!=(const FingerprintAuthBlockState& lhs,
                        const FingerprintAuthBlockState& rhs) {

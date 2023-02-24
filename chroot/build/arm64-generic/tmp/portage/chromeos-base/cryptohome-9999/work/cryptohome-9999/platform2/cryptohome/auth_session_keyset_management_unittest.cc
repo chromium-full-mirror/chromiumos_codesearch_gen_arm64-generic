@@ -62,7 +62,7 @@ using ::testing::Return;
 using base::test::TaskEnvironment;
 using base::test::TestFuture;
 using brillo::cryptohome::home::SanitizeUserName;
-using cryptohome::error::CryptohomeCryptoError;
+using cryptohome::error::CryptohomeError;
 using hwsec_foundation::error::testing::IsOk;
 using hwsec_foundation::error::testing::NotOk;
 using hwsec_foundation::error::testing::ReturnValue;
@@ -259,7 +259,7 @@ class AuthSessionTestWithKeysetManagement : public ::testing::Test {
                       const AuthInput& auth_input,
                       AuthBlock::CreateCallback create_callback) {
           std::move(create_callback)
-              .Run(OkStatus<CryptohomeCryptoError>(), std::move(key_blobs),
+              .Run(OkStatus<CryptohomeError>(), std::move(key_blobs),
                    std::move(auth_block_state));
           return true;
         });
@@ -292,7 +292,7 @@ class AuthSessionTestWithKeysetManagement : public ::testing::Test {
                                 const AuthBlockState& auth_state,
                                 AuthBlock::DeriveCallback derive_callback) {
           std::move(derive_callback)
-              .Run(OkStatus<CryptohomeCryptoError>(), std::move(key_blobs2));
+              .Run(OkStatus<CryptohomeError>(), std::move(key_blobs2));
           return true;
         });
     auto key_blobs = std::make_unique<KeyBlobs>(kKeyBlobs);
@@ -306,7 +306,7 @@ class AuthSessionTestWithKeysetManagement : public ::testing::Test {
                             const AuthInput& auth_input,
                             AuthBlock::CreateCallback create_callback) {
           std::move(create_callback)
-              .Run(OkStatus<CryptohomeCryptoError>(), std::move(key_blobs),
+              .Run(OkStatus<CryptohomeError>(), std::move(key_blobs),
                    std::move(auth_block_state));
           return true;
         });
@@ -474,7 +474,7 @@ TEST_F(AuthSessionTestWithKeysetManagement,
   auth_block_utility_.CreateKeyBlobsWithAuthBlockAsync(
       AuthBlockType::kTpmEcc, auth_input,
       base::BindLambdaForTesting(
-          [&](CryptoStatus error, std::unique_ptr<KeyBlobs> key_blobs,
+          [&](CryptohomeStatus error, std::unique_ptr<KeyBlobs> key_blobs,
               std::unique_ptr<AuthBlockState> auth_block_state) {
             ASSERT_THAT(error, IsOk());
             FallbackVaultKeyset vk;
@@ -702,12 +702,14 @@ TEST_F(AuthSessionTestWithKeysetManagement, USSEnabledCreatesBackupVKs) {
   SetUserSecretStashExperimentForTesting(/*enabled=*/true);
 
   int flags = user_data_auth::AuthSessionFlags::AUTH_SESSION_FLAGS_NONE;
-
-  CryptohomeStatusOr<InUseAuthSession> auth_session_status =
-      auth_session_manager_->CreateAuthSession(Username(kUsername), flags,
-                                               AuthIntent::kDecrypt);
-  EXPECT_TRUE(auth_session_status.ok());
-  AuthSession* auth_session = auth_session_status.value().Get();
+  AuthSession* auth_session = nullptr;
+  {
+    CryptohomeStatusOr<InUseAuthSession> auth_session_status =
+        auth_session_manager_->CreateAuthSession(Username(kUsername), flags,
+                                                 AuthIntent::kDecrypt);
+    EXPECT_TRUE(auth_session_status.ok());
+    auth_session = auth_session_status.value().Get();
+  }
 
   // Test.
   EXPECT_THAT(AuthStatus::kAuthStatusFurtherFactorRequired,
@@ -810,7 +812,7 @@ TEST_F(AuthSessionTestWithKeysetManagement, USSEnabledRemovesBackupVKs) {
        .obfuscated_username = SanitizeUserName(Username(kUsername)),
        .is_ephemeral_user = false,
        .intent = AuthIntent::kDecrypt,
-       .on_timeout = base::DoNothing(),
+       .timeout_timer = std::make_unique<base::WallClockTimer>(),
        .user_exists = false,
        .auth_factor_map = AuthFactorMap(),
        .migrate_to_user_secret_stash = false},
@@ -861,7 +863,7 @@ TEST_F(AuthSessionTestWithKeysetManagement, USSEnabledUpdateBackupVKs) {
        .obfuscated_username = SanitizeUserName(Username(kUsername)),
        .is_ephemeral_user = false,
        .intent = AuthIntent::kDecrypt,
-       .on_timeout = base::DoNothing(),
+       .timeout_timer = std::make_unique<base::WallClockTimer>(),
        .user_exists = false,
        .auth_factor_map = AuthFactorMap(),
        .migrate_to_user_secret_stash = false},
@@ -965,7 +967,7 @@ TEST_F(AuthSessionTestWithKeysetManagement,
                     AuthBlockType auth_block_type, const AuthInput& auth_input,
                     AuthBlock::CreateCallback create_callback) {
         std::move(create_callback)
-            .Run(OkStatus<CryptohomeCryptoError>(), std::move(key_blobs),
+            .Run(OkStatus<CryptohomeError>(), std::move(key_blobs),
                  std::move(auth_block_state));
         return true;
       });
@@ -994,7 +996,7 @@ TEST_F(AuthSessionTestWithKeysetManagement,
                     AuthBlockType auth_block_type, const AuthInput& auth_input,
                     AuthBlock::CreateCallback create_callback) {
         std::move(create_callback)
-            .Run(OkStatus<CryptohomeCryptoError>(), std::move(key_blobs2),
+            .Run(OkStatus<CryptohomeError>(), std::move(key_blobs2),
                  std::move(auth_block_state2));
         return true;
       });
@@ -1041,7 +1043,7 @@ TEST_F(AuthSessionTestWithKeysetManagement,
                               const AuthBlockState& auth_state,
                               AuthBlock::DeriveCallback derive_callback) {
         std::move(derive_callback)
-            .Run(OkStatus<CryptohomeCryptoError>(), std::move(key_blobs3));
+            .Run(OkStatus<CryptohomeError>(), std::move(key_blobs3));
         return true;
       });
 
@@ -1066,7 +1068,7 @@ TEST_F(AuthSessionTestWithKeysetManagement,
        .obfuscated_username = SanitizeUserName(Username(kUsername)),
        .is_ephemeral_user = false,
        .intent = AuthIntent::kDecrypt,
-       .on_timeout = base::DoNothing(),
+       .timeout_timer = std::make_unique<base::WallClockTimer>(),
        .user_exists = false,
        .auth_factor_map = AuthFactorMap(),
        .migrate_to_user_secret_stash = false},
@@ -1102,7 +1104,7 @@ TEST_F(AuthSessionTestWithKeysetManagement,
                     AuthBlockType auth_block_type, const AuthInput& auth_input,
                     AuthBlock::CreateCallback create_callback) {
         std::move(create_callback)
-            .Run(OkStatus<CryptohomeCryptoError>(), std::move(key_blobs),
+            .Run(OkStatus<CryptohomeError>(), std::move(key_blobs),
                  std::move(auth_block_state));
         return true;
       });
@@ -1157,7 +1159,7 @@ TEST_F(AuthSessionTestWithKeysetManagement,
                               const AuthBlockState& auth_state,
                               AuthBlock::DeriveCallback derive_callback) {
         std::move(derive_callback)
-            .Run(OkStatus<CryptohomeCryptoError>(), std::move(key_blobs2));
+            .Run(OkStatus<CryptohomeError>(), std::move(key_blobs2));
         return true;
       });
 

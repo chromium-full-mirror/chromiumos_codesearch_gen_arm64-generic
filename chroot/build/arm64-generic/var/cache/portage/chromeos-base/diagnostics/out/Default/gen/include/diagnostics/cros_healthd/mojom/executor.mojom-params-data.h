@@ -228,6 +228,39 @@ class  TouchscreenObserver_OnConnected_Params_Data {
 };
 static_assert(sizeof(TouchscreenObserver_OnConnected_Params_Data) == 16,
               "Bad sizeof(TouchscreenObserver_OnConnected_Params_Data)");
+class  Executor_ReadFile_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t file_enum;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_ReadFile_Params_Data>;
+
+  Executor_ReadFile_Params_Data();
+  ~Executor_ReadFile_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_ReadFile_Params_Data) == 16,
+              "Bad sizeof(Executor_ReadFile_Params_Data)");
+class  Executor_ReadFile_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> content;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_ReadFile_ResponseParams_Data>;
+
+  Executor_ReadFile_ResponseParams_Data();
+  ~Executor_ReadFile_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_ReadFile_ResponseParams_Data) == 16,
+              "Bad sizeof(Executor_ReadFile_ResponseParams_Data)");
 class  Executor_GetFanSpeed_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -259,54 +292,25 @@ class  Executor_GetFanSpeed_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_GetFanSpeed_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_GetFanSpeed_ResponseParams_Data)");
-class  Executor_GetInterfaces_Params_Data {
+class  Executor_RunIw_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_GetInterfaces_Params_Data>;
-
-  Executor_GetInterfaces_Params_Data();
-  ~Executor_GetInterfaces_Params_Data() = delete;
-};
-static_assert(sizeof(Executor_GetInterfaces_Params_Data) == 8,
-              "Bad sizeof(Executor_GetInterfaces_Params_Data)");
-class  Executor_GetInterfaces_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::ExecutedProcessResult_Data> result;
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_GetInterfaces_ResponseParams_Data>;
-
-  Executor_GetInterfaces_ResponseParams_Data();
-  ~Executor_GetInterfaces_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(Executor_GetInterfaces_ResponseParams_Data) == 16,
-              "Bad sizeof(Executor_GetInterfaces_ResponseParams_Data)");
-class  Executor_GetLink_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
+  int32_t cmd;
+  uint8_t pad0_[4];
   mojo::internal::Pointer<mojo::internal::String_Data> interface_name;
 
  private:
-  friend class mojo::internal::MessageFragment<Executor_GetLink_Params_Data>;
+  friend class mojo::internal::MessageFragment<Executor_RunIw_Params_Data>;
 
-  Executor_GetLink_Params_Data();
-  ~Executor_GetLink_Params_Data() = delete;
+  Executor_RunIw_Params_Data();
+  ~Executor_RunIw_Params_Data() = delete;
 };
-static_assert(sizeof(Executor_GetLink_Params_Data) == 16,
-              "Bad sizeof(Executor_GetLink_Params_Data)");
-class  Executor_GetLink_ResponseParams_Data {
+static_assert(sizeof(Executor_RunIw_Params_Data) == 24,
+              "Bad sizeof(Executor_RunIw_Params_Data)");
+class  Executor_RunIw_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -315,77 +319,13 @@ class  Executor_GetLink_ResponseParams_Data {
   mojo::internal::Pointer<internal::ExecutedProcessResult_Data> result;
 
  private:
-  friend class mojo::internal::MessageFragment<Executor_GetLink_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<Executor_RunIw_ResponseParams_Data>;
 
-  Executor_GetLink_ResponseParams_Data();
-  ~Executor_GetLink_ResponseParams_Data() = delete;
+  Executor_RunIw_ResponseParams_Data();
+  ~Executor_RunIw_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(Executor_GetLink_ResponseParams_Data) == 16,
-              "Bad sizeof(Executor_GetLink_ResponseParams_Data)");
-class  Executor_GetInfo_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::String_Data> interface_name;
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_GetInfo_Params_Data>;
-
-  Executor_GetInfo_Params_Data();
-  ~Executor_GetInfo_Params_Data() = delete;
-};
-static_assert(sizeof(Executor_GetInfo_Params_Data) == 16,
-              "Bad sizeof(Executor_GetInfo_Params_Data)");
-class  Executor_GetInfo_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::ExecutedProcessResult_Data> result;
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_GetInfo_ResponseParams_Data>;
-
-  Executor_GetInfo_ResponseParams_Data();
-  ~Executor_GetInfo_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(Executor_GetInfo_ResponseParams_Data) == 16,
-              "Bad sizeof(Executor_GetInfo_ResponseParams_Data)");
-class  Executor_GetScanDump_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::String_Data> interface_name;
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_GetScanDump_Params_Data>;
-
-  Executor_GetScanDump_Params_Data();
-  ~Executor_GetScanDump_Params_Data() = delete;
-};
-static_assert(sizeof(Executor_GetScanDump_Params_Data) == 16,
-              "Bad sizeof(Executor_GetScanDump_Params_Data)");
-class  Executor_GetScanDump_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::ExecutedProcessResult_Data> result;
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_GetScanDump_ResponseParams_Data>;
-
-  Executor_GetScanDump_ResponseParams_Data();
-  ~Executor_GetScanDump_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(Executor_GetScanDump_ResponseParams_Data) == 16,
-              "Bad sizeof(Executor_GetScanDump_ResponseParams_Data)");
+static_assert(sizeof(Executor_RunIw_ResponseParams_Data) == 16,
+              "Bad sizeof(Executor_RunIw_ResponseParams_Data)");
 class  Executor_RunMemtester_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -516,68 +456,6 @@ class  Executor_ReadMsr_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_ReadMsr_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_ReadMsr_ResponseParams_Data)");
-class  Executor_GetUEFISecureBootContent_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_GetUEFISecureBootContent_Params_Data>;
-
-  Executor_GetUEFISecureBootContent_Params_Data();
-  ~Executor_GetUEFISecureBootContent_Params_Data() = delete;
-};
-static_assert(sizeof(Executor_GetUEFISecureBootContent_Params_Data) == 8,
-              "Bad sizeof(Executor_GetUEFISecureBootContent_Params_Data)");
-class  Executor_GetUEFISecureBootContent_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::String_Data> contents;
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_GetUEFISecureBootContent_ResponseParams_Data>;
-
-  Executor_GetUEFISecureBootContent_ResponseParams_Data();
-  ~Executor_GetUEFISecureBootContent_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(Executor_GetUEFISecureBootContent_ResponseParams_Data) == 16,
-              "Bad sizeof(Executor_GetUEFISecureBootContent_ResponseParams_Data)");
-class  Executor_GetUEFIPlatformSizeContent_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_GetUEFIPlatformSizeContent_Params_Data>;
-
-  Executor_GetUEFIPlatformSizeContent_Params_Data();
-  ~Executor_GetUEFIPlatformSizeContent_Params_Data() = delete;
-};
-static_assert(sizeof(Executor_GetUEFIPlatformSizeContent_Params_Data) == 8,
-              "Bad sizeof(Executor_GetUEFIPlatformSizeContent_Params_Data)");
-class  Executor_GetUEFIPlatformSizeContent_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::String_Data> contents;
-
- private:
-  friend class mojo::internal::MessageFragment<Executor_GetUEFIPlatformSizeContent_ResponseParams_Data>;
-
-  Executor_GetUEFIPlatformSizeContent_ResponseParams_Data();
-  ~Executor_GetUEFIPlatformSizeContent_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(Executor_GetUEFIPlatformSizeContent_ResponseParams_Data) == 16,
-              "Bad sizeof(Executor_GetUEFIPlatformSizeContent_ResponseParams_Data)");
 class  Executor_GetLidAngle_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1145,6 +1023,69 @@ class TouchscreenObserver_OnConnected_ParamsDataView {
 
 
 
+class Executor_ReadFile_ParamsDataView {
+ public:
+  Executor_ReadFile_ParamsDataView() = default;
+
+  Executor_ReadFile_ParamsDataView(
+      internal::Executor_ReadFile_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadFileEnum(UserType* output) const {
+    auto data_value = data_->file_enum;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::Executor_File>(
+        data_value, output);
+  }
+  Executor_File file_enum() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::Executor_File>(data_->file_enum));
+  }
+ private:
+  internal::Executor_ReadFile_Params_Data* data_ = nullptr;
+};
+
+
+
+class Executor_ReadFile_ResponseParamsDataView {
+ public:
+  Executor_ReadFile_ResponseParamsDataView() = default;
+
+  Executor_ReadFile_ResponseParamsDataView(
+      internal::Executor_ReadFile_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetContentDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadContent(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `content` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadContent` instead "
+    "of `ReadContent if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->content.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_ReadFile_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 class Executor_GetFanSpeed_ParamsDataView {
  public:
   Executor_GetFanSpeed_ParamsDataView() = default;
@@ -1188,59 +1129,26 @@ class Executor_GetFanSpeed_ResponseParamsDataView {
 
 
 
-class Executor_GetInterfaces_ParamsDataView {
+class Executor_RunIw_ParamsDataView {
  public:
-  Executor_GetInterfaces_ParamsDataView() = default;
+  Executor_RunIw_ParamsDataView() = default;
 
-  Executor_GetInterfaces_ParamsDataView(
-      internal::Executor_GetInterfaces_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::Executor_GetInterfaces_Params_Data* data_ = nullptr;
-};
-
-
-
-class Executor_GetInterfaces_ResponseParamsDataView {
- public:
-  Executor_GetInterfaces_ResponseParamsDataView() = default;
-
-  Executor_GetInterfaces_ResponseParamsDataView(
-      internal::Executor_GetInterfaces_ResponseParams_Data* data,
+  Executor_RunIw_ParamsDataView(
+      internal::Executor_RunIw_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetResultDataView(
-      ExecutedProcessResultDataView* output);
-
   template <typename UserType>
-  [[nodiscard]] bool ReadResult(UserType* output) {
-    
-    auto* pointer = data_->result.Get();
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
-        pointer, output, message_);
+  [[nodiscard]] bool ReadCmd(UserType* output) const {
+    auto data_value = data_->cmd;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::Executor_IwCommand>(
+        data_value, output);
   }
- private:
-  internal::Executor_GetInterfaces_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-
-class Executor_GetLink_ParamsDataView {
- public:
-  Executor_GetLink_ParamsDataView() = default;
-
-  Executor_GetLink_ParamsDataView(
-      internal::Executor_GetLink_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
+  Executor_IwCommand cmd() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::Executor_IwCommand>(data_->cmd));
+  }
   inline void GetInterfaceNameDataView(
       mojo::StringDataView* output);
 
@@ -1252,18 +1160,18 @@ class Executor_GetLink_ParamsDataView {
         pointer, output, message_);
   }
  private:
-  internal::Executor_GetLink_Params_Data* data_ = nullptr;
+  internal::Executor_RunIw_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
 
-class Executor_GetLink_ResponseParamsDataView {
+class Executor_RunIw_ResponseParamsDataView {
  public:
-  Executor_GetLink_ResponseParamsDataView() = default;
+  Executor_RunIw_ResponseParamsDataView() = default;
 
-  Executor_GetLink_ResponseParamsDataView(
-      internal::Executor_GetLink_ResponseParams_Data* data,
+  Executor_RunIw_ResponseParamsDataView(
+      internal::Executor_RunIw_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -1279,115 +1187,7 @@ class Executor_GetLink_ResponseParamsDataView {
         pointer, output, message_);
   }
  private:
-  internal::Executor_GetLink_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-
-class Executor_GetInfo_ParamsDataView {
- public:
-  Executor_GetInfo_ParamsDataView() = default;
-
-  Executor_GetInfo_ParamsDataView(
-      internal::Executor_GetInfo_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetInterfaceNameDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadInterfaceName(UserType* output) {
-    
-    auto* pointer = data_->interface_name.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::Executor_GetInfo_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-
-class Executor_GetInfo_ResponseParamsDataView {
- public:
-  Executor_GetInfo_ResponseParamsDataView() = default;
-
-  Executor_GetInfo_ResponseParamsDataView(
-      internal::Executor_GetInfo_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetResultDataView(
-      ExecutedProcessResultDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadResult(UserType* output) {
-    
-    auto* pointer = data_->result.Get();
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::Executor_GetInfo_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-
-class Executor_GetScanDump_ParamsDataView {
- public:
-  Executor_GetScanDump_ParamsDataView() = default;
-
-  Executor_GetScanDump_ParamsDataView(
-      internal::Executor_GetScanDump_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetInterfaceNameDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadInterfaceName(UserType* output) {
-    
-    auto* pointer = data_->interface_name.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::Executor_GetScanDump_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-
-class Executor_GetScanDump_ResponseParamsDataView {
- public:
-  Executor_GetScanDump_ResponseParamsDataView() = default;
-
-  Executor_GetScanDump_ResponseParamsDataView(
-      internal::Executor_GetScanDump_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetResultDataView(
-      ExecutedProcessResultDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadResult(UserType* output) {
-    
-    auto* pointer = data_->result.Get();
-    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::Executor_GetScanDump_ResponseParams_Data* data_ = nullptr;
+  internal::Executor_RunIw_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1592,92 +1392,6 @@ static_assert(
   }
  private:
   internal::Executor_ReadMsr_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-
-class Executor_GetUEFISecureBootContent_ParamsDataView {
- public:
-  Executor_GetUEFISecureBootContent_ParamsDataView() = default;
-
-  Executor_GetUEFISecureBootContent_ParamsDataView(
-      internal::Executor_GetUEFISecureBootContent_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::Executor_GetUEFISecureBootContent_Params_Data* data_ = nullptr;
-};
-
-
-
-class Executor_GetUEFISecureBootContent_ResponseParamsDataView {
- public:
-  Executor_GetUEFISecureBootContent_ResponseParamsDataView() = default;
-
-  Executor_GetUEFISecureBootContent_ResponseParamsDataView(
-      internal::Executor_GetUEFISecureBootContent_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetContentsDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadContents(UserType* output) {
-    
-    auto* pointer = data_->contents.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::Executor_GetUEFISecureBootContent_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-
-class Executor_GetUEFIPlatformSizeContent_ParamsDataView {
- public:
-  Executor_GetUEFIPlatformSizeContent_ParamsDataView() = default;
-
-  Executor_GetUEFIPlatformSizeContent_ParamsDataView(
-      internal::Executor_GetUEFIPlatformSizeContent_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::Executor_GetUEFIPlatformSizeContent_Params_Data* data_ = nullptr;
-};
-
-
-
-class Executor_GetUEFIPlatformSizeContent_ResponseParamsDataView {
- public:
-  Executor_GetUEFIPlatformSizeContent_ResponseParamsDataView() = default;
-
-  Executor_GetUEFIPlatformSizeContent_ResponseParamsDataView(
-      internal::Executor_GetUEFIPlatformSizeContent_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetContentsDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadContents(UserType* output) {
-    
-    auto* pointer = data_->contents.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::Executor_GetUEFIPlatformSizeContent_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -2241,6 +1955,15 @@ inline void TouchscreenObserver_OnConnected_ParamsDataView::GetConnectedEventDat
 
 
 
+inline void Executor_ReadFile_ResponseParamsDataView::GetContentDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->content.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
 inline void Executor_GetFanSpeed_ResponseParamsDataView::GetResultDataView(
     ExecutedProcessResultDataView* output) {
   auto pointer = data_->result.Get();
@@ -2248,51 +1971,14 @@ inline void Executor_GetFanSpeed_ResponseParamsDataView::GetResultDataView(
 }
 
 
-
-
-inline void Executor_GetInterfaces_ResponseParamsDataView::GetResultDataView(
-    ExecutedProcessResultDataView* output) {
-  auto pointer = data_->result.Get();
-  *output = ExecutedProcessResultDataView(pointer, message_);
-}
-
-
-inline void Executor_GetLink_ParamsDataView::GetInterfaceNameDataView(
+inline void Executor_RunIw_ParamsDataView::GetInterfaceNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->interface_name.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 
 
-inline void Executor_GetLink_ResponseParamsDataView::GetResultDataView(
-    ExecutedProcessResultDataView* output) {
-  auto pointer = data_->result.Get();
-  *output = ExecutedProcessResultDataView(pointer, message_);
-}
-
-
-inline void Executor_GetInfo_ParamsDataView::GetInterfaceNameDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->interface_name.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-
-
-inline void Executor_GetInfo_ResponseParamsDataView::GetResultDataView(
-    ExecutedProcessResultDataView* output) {
-  auto pointer = data_->result.Get();
-  *output = ExecutedProcessResultDataView(pointer, message_);
-}
-
-
-inline void Executor_GetScanDump_ParamsDataView::GetInterfaceNameDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->interface_name.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-
-
-inline void Executor_GetScanDump_ResponseParamsDataView::GetResultDataView(
+inline void Executor_RunIw_ResponseParamsDataView::GetResultDataView(
     ExecutedProcessResultDataView* output) {
   auto pointer = data_->result.Get();
   *output = ExecutedProcessResultDataView(pointer, message_);
@@ -2332,24 +2018,6 @@ inline void Executor_ReadMsr_ResponseParamsDataView::GetValueDataView(
     ::ash::cros_healthd::mojom::NullableUint64DataView* output) {
   auto pointer = data_->value.Get();
   *output = ::ash::cros_healthd::mojom::NullableUint64DataView(pointer, message_);
-}
-
-
-
-
-inline void Executor_GetUEFISecureBootContent_ResponseParamsDataView::GetContentsDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->contents.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-
-
-
-
-inline void Executor_GetUEFIPlatformSizeContent_ResponseParamsDataView::GetContentsDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->contents.Get();
-  *output = mojo::StringDataView(pointer, message_);
 }
 
 

@@ -45,6 +45,7 @@
 #include "cryptohome/cryptorecovery/recovery_crypto_util.h"
 #include "cryptohome/error/cryptohome_error.h"
 #include "cryptohome/error/location_utils.h"
+#include "cryptohome/error/utilities.h"
 #include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/key_objects.h"
 #include "cryptohome/keyset_management.h"
@@ -52,6 +53,7 @@
 #include "cryptohome/smart_card_verifier.h"
 #include "cryptohome/vault_keyset.h"
 
+using cryptohome::error::ContainsActionInStack;
 using cryptohome::error::CryptohomeCryptoError;
 using cryptohome::error::CryptohomeError;
 using cryptohome::error::ErrorAction;
@@ -382,7 +384,7 @@ void AuthBlockUtilityImpl::CreateKeyBlobsWithAuthBlockAsync(
   AuthBlock* auth_block_ptr = auth_block->get();
   auto managed_callback = base::BindOnce(
       [](std::unique_ptr<AuthBlock> owned_auth_block,
-         AuthBlock::CreateCallback callback, CryptoStatus error,
+         AuthBlock::CreateCallback callback, CryptohomeStatus error,
          std::unique_ptr<KeyBlobs> key_blobs,
          std::unique_ptr<AuthBlockState> auth_block_state) {
         std::move(callback).Run(std::move(error), std::move(key_blobs),
@@ -427,7 +429,7 @@ CryptoStatus AuthBlockUtilityImpl::DeriveKeyBlobsWithAuthBlock(
   // When the pin is entered wrong and AuthBlock fails to derive the KeyBlobs
   // it doesn't make it into the VaultKeyset::Decrypt(); so auth_lock should
   // be set here.
-  if (error->local_crypto_error() == CryptoError::CE_CREDENTIAL_LOCKED) {
+  if (ContainsActionInStack(error, error::ErrorAction::kLeLockedOut)) {
     // Get the corresponding encrypted vault keyset for the user and the label
     // to set the auth_locked.
     std::unique_ptr<VaultKeyset> vk = keyset_management_->GetVaultKeyset(
@@ -477,7 +479,7 @@ void AuthBlockUtilityImpl::DeriveKeyBlobsWithAuthBlockAsync(
   AuthBlock* auth_block_ptr = auth_block->get();
   auto managed_callback = base::BindOnce(
       [](std::unique_ptr<AuthBlock> owned_auth_block,
-         AuthBlock::DeriveCallback callback, CryptoStatus error,
+         AuthBlock::DeriveCallback callback, CryptohomeStatus error,
          std::unique_ptr<KeyBlobs> key_blobs) {
         std::move(callback).Run(std::move(error), std::move(key_blobs));
       },
@@ -823,7 +825,7 @@ base::flat_set<AuthIntent> AuthBlockUtilityImpl::GetSupportedIntentsFromState(
   return supported_intents;
 }
 
-CryptoStatus AuthBlockUtilityImpl::PrepareAuthBlockForRemoval(
+CryptohomeStatus AuthBlockUtilityImpl::PrepareAuthBlockForRemoval(
     const AuthBlockState& auth_block_state) {
   AuthBlockType auth_block_type = GetAuthBlockTypeFromState(auth_block_state);
   if (auth_block_type == AuthBlockType::kMaxValue) {
@@ -839,7 +841,7 @@ CryptoStatus AuthBlockUtilityImpl::PrepareAuthBlockForRemoval(
   // removal of the AuthBlock needed. Because of this, auth_input
   // can be an empty input.
   if (auth_block_type == AuthBlockType::kChallengeCredential) {
-    return OkStatus<CryptohomeCryptoError>();
+    return OkStatus<CryptohomeError>();
   }
 
   AuthInput auth_input;

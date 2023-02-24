@@ -960,6 +960,18 @@ CrosHealthdDiagnosticsService::IPCStableHashFunction CrosHealthdDiagnosticsServi
     case internal::kCrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Name: {
       return &CrosHealthdDiagnosticsService::RunAudioSetGainRoutine_Sym::IPCStableHash;
     }
+    case internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name: {
+      return &CrosHealthdDiagnosticsService::RunBluetoothPowerRoutine_Sym::IPCStableHash;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name: {
+      return &CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutine_Sym::IPCStableHash;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name: {
+      return &CrosHealthdDiagnosticsService::RunBluetoothScanningRoutine_Sym::IPCStableHash;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name: {
+      return &CrosHealthdDiagnosticsService::RunBluetoothPairingRoutine_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1053,6 +1065,14 @@ const char* CrosHealthdDiagnosticsService::MessageToMethodName_(mojo::Message& m
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetVolumeRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Name:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetGainRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPowerRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothScanningRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPairingRoutine";
     }
   } else {
     switch (message.name()) {
@@ -1138,6 +1158,14 @@ const char* CrosHealthdDiagnosticsService::MessageToMethodName_(mojo::Message& m
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetVolumeRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Name:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetGainRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPowerRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothScanningRoutine";
+      case internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPairingRoutine";
     }
   }
   return "Receive unknown mojo message";
@@ -1681,6 +1709,58 @@ uint32_t CrosHealthdDiagnosticsService::RunAudioSetGainRoutine_Sym::IPCStableHas
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAudioSetGainRoutine");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdDiagnosticsService::RunBluetoothPowerRoutine_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPowerRoutine");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutine_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutine");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdDiagnosticsService::RunBluetoothScanningRoutine_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothScanningRoutine");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdDiagnosticsService::RunBluetoothPairingRoutine_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPairingRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -2341,6 +2421,70 @@ class CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   CrosHealthdDiagnosticsService::RunAudioSetGainRoutineCallback callback_;
+};
+
+class CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ForwardToCallback(
+      CrosHealthdDiagnosticsService::RunBluetoothPowerRoutineCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ForwardToCallback(const CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ForwardToCallback&) = delete;
+  CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ForwardToCallback& operator=(const CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosHealthdDiagnosticsService::RunBluetoothPowerRoutineCallback callback_;
+};
+
+class CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ForwardToCallback(
+      CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutineCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ForwardToCallback(const CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ForwardToCallback&) = delete;
+  CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ForwardToCallback& operator=(const CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutineCallback callback_;
+};
+
+class CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ForwardToCallback(
+      CrosHealthdDiagnosticsService::RunBluetoothScanningRoutineCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ForwardToCallback(const CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ForwardToCallback&) = delete;
+  CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ForwardToCallback& operator=(const CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosHealthdDiagnosticsService::RunBluetoothScanningRoutineCallback callback_;
+};
+
+class CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ForwardToCallback(
+      CrosHealthdDiagnosticsService::RunBluetoothPairingRoutineCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ForwardToCallback(const CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ForwardToCallback&) = delete;
+  CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ForwardToCallback& operator=(const CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosHealthdDiagnosticsService::RunBluetoothPairingRoutineCallback callback_;
 };
 
 CrosHealthdDiagnosticsServiceProxy::CrosHealthdDiagnosticsServiceProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -3883,6 +4027,162 @@ void CrosHealthdDiagnosticsServiceProxy::RunAudioSetGainRoutine(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CrosHealthdDiagnosticsServiceProxy::RunBluetoothPowerRoutine(
+    RunBluetoothPowerRoutineCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPowerRoutine");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunBluetoothPowerRoutine");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CrosHealthdDiagnosticsServiceProxy::RunBluetoothDiscoveryRoutine(
+    RunBluetoothDiscoveryRoutineCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutine");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunBluetoothDiscoveryRoutine");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CrosHealthdDiagnosticsServiceProxy::RunBluetoothScanningRoutine(
+    ::ash::cros_healthd::mojom::NullableUint32Ptr in_length_seconds, RunBluetoothScanningRoutineCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothScanningRoutine", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("length_seconds"), in_length_seconds,
+                        "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
+   });
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->length_seconds)::BaseType> length_seconds_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+      in_length_seconds, length_seconds_fragment);
+  params->length_seconds.Set(
+      length_seconds_fragment.is_null() ? nullptr : length_seconds_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunBluetoothScanningRoutine");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CrosHealthdDiagnosticsServiceProxy::RunBluetoothPairingRoutine(
+    const std::string& in_peripheral_id, RunBluetoothPairingRoutineCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPairingRoutine", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("peripheral_id"), in_peripheral_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->peripheral_id)::BaseType> peripheral_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_peripheral_id, peripheral_id_fragment);
+  params->peripheral_id.Set(
+      peripheral_id_fragment.is_null() ? nullptr : peripheral_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->peripheral_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null peripheral_id in CrosHealthdDiagnosticsService.RunBluetoothPairingRoutine request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunBluetoothPairingRoutine");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -8972,6 +9272,502 @@ void CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosHealthdDiagnosticsService::RunBluetoothPowerRoutineCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ProxyToResponder> proxy(
+        new CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosHealthdDiagnosticsService::RunBluetoothPowerRoutineCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+};
+
+bool CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosHealthdDiagnosticsService::Name_, 41, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPowerRoutine", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunBluetoothPowerRoutine");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutineCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ProxyToResponder> proxy(
+        new CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutineCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+};
+
+bool CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosHealthdDiagnosticsService::Name_, 42, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutine", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunBluetoothDiscoveryRoutine");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosHealthdDiagnosticsService::RunBluetoothScanningRoutineCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ProxyToResponder> proxy(
+        new CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosHealthdDiagnosticsService::RunBluetoothScanningRoutineCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+};
+
+bool CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosHealthdDiagnosticsService::Name_, 43, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothScanningRoutine", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunBluetoothScanningRoutine");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosHealthdDiagnosticsService::RunBluetoothPairingRoutineCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ProxyToResponder> proxy(
+        new CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosHealthdDiagnosticsService::RunBluetoothPairingRoutineCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+};
+
+bool CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosHealthdDiagnosticsService::Name_, 44, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBluetoothPairingRoutine", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("RunBluetoothPairingRoutine");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool CrosHealthdDiagnosticsServiceStubDispatch::Accept(
@@ -9099,6 +9895,18 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::Accept(
       break;
     }
     case internal::kCrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Name: {
+      break;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name: {
+      break;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name: {
+      break;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name: {
+      break;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name: {
       break;
     }
   }
@@ -10269,6 +11077,114 @@ std::move(p_gain),
 std::move(p_mute_on), std::move(callback));
       return true;
     }
+    case internal::kCrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Name: {
+
+      internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdDiagnosticsService::Name_, 41, false);
+        return false;
+      }
+      CrosHealthdDiagnosticsService::RunBluetoothPowerRoutineCallback callback =
+          CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunBluetoothPowerRoutine(std::move(callback));
+      return true;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Name: {
+
+      internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdDiagnosticsService::Name_, 42, false);
+        return false;
+      }
+      CrosHealthdDiagnosticsService::RunBluetoothDiscoveryRoutineCallback callback =
+          CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunBluetoothDiscoveryRoutine(std::move(callback));
+      return true;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Name: {
+
+      internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NullableUint32Ptr>();
+      CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadLengthSeconds(&p_length_seconds))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdDiagnosticsService::Name_, 43, false);
+        return false;
+      }
+      CrosHealthdDiagnosticsService::RunBluetoothScanningRoutineCallback callback =
+          CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunBluetoothScanningRoutine(
+std::move(p_length_seconds), std::move(callback));
+      return true;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Name: {
+
+      internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      std::string p_peripheral_id = mojo::DefaultConstructTraits::CreateInstance<std::string>();
+      CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadPeripheralId(&p_peripheral_id))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdDiagnosticsService::Name_, 44, false);
+        return false;
+      }
+      CrosHealthdDiagnosticsService::RunBluetoothPairingRoutineCallback callback =
+          CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->RunBluetoothPairingRoutine(
+std::move(p_peripheral_id), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -10357,6 +11273,14 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdDiagnosticsServic
      &internal::CrosHealthdDiagnosticsService_RunAudioSetVolumeRoutine_ResponseParams_Data::Validate},
     {&internal::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ResponseParams_Data::Validate},
+    {&internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_Params_Data::Validate,
+     &internal::CrosHealthdDiagnosticsService_RunBluetoothPowerRoutine_ResponseParams_Data::Validate},
+    {&internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_Params_Data::Validate,
+     &internal::CrosHealthdDiagnosticsService_RunBluetoothDiscoveryRoutine_ResponseParams_Data::Validate},
+    {&internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_Params_Data::Validate,
+     &internal::CrosHealthdDiagnosticsService_RunBluetoothScanningRoutine_ResponseParams_Data::Validate},
+    {&internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_Params_Data::Validate,
+     &internal::CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data::Validate},
 };
 
 bool CrosHealthdDiagnosticsServiceRequestValidator::Accept(mojo::Message* message) {
@@ -13065,6 +13989,18 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunAudioSetVolumeRoutin
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool mute_on, RunAudioSetGainRoutineCallback callback) {
   GetForwardingInterface()->RunAudioSetGainRoutine(std::move(node_id), std::move(gain), std::move(mute_on), std::move(callback));
 }
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBluetoothPowerRoutine(RunBluetoothPowerRoutineCallback callback) {
+  GetForwardingInterface()->RunBluetoothPowerRoutine(std::move(callback));
+}
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBluetoothDiscoveryRoutine(RunBluetoothDiscoveryRoutineCallback callback) {
+  GetForwardingInterface()->RunBluetoothDiscoveryRoutine(std::move(callback));
+}
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBluetoothScanningRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunBluetoothScanningRoutineCallback callback) {
+  GetForwardingInterface()->RunBluetoothScanningRoutine(std::move(length_seconds), std::move(callback));
+}
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBluetoothPairingRoutine(const std::string& peripheral_id, RunBluetoothPairingRoutineCallback callback) {
+  GetForwardingInterface()->RunBluetoothPairingRoutine(std::move(peripheral_id), std::move(callback));
+}
 CrosHealthdDiagnosticsServiceAsyncWaiter::CrosHealthdDiagnosticsServiceAsyncWaiter(
     CrosHealthdDiagnosticsService* proxy) : proxy_(proxy) {}
 
@@ -14010,6 +14946,98 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunAudioSetGainRoutine(
     uint64_t node_id, uint8_t gain, bool mute_on) {
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
   RunAudioSetGainRoutine(std::move(node_id),std::move(gain),std::move(mute_on),&async_wait_result);
+  return async_wait_result;
+}
+
+void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothPowerRoutine(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->RunBluetoothPowerRoutine(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothPowerRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  RunBluetoothPowerRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
+void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothDiscoveryRoutine(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->RunBluetoothDiscoveryRoutine(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothDiscoveryRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  RunBluetoothDiscoveryRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
+void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothScanningRoutine(
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->RunBluetoothScanningRoutine(std::move(length_seconds),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothScanningRoutine(
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  RunBluetoothScanningRoutine(std::move(length_seconds),&async_wait_result);
+  return async_wait_result;
+}
+
+void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothPairingRoutine(
+    const std::string& peripheral_id, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->RunBluetoothPairingRoutine(std::move(peripheral_id),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothPairingRoutine(
+    const std::string& peripheral_id) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  RunBluetoothPairingRoutine(std::move(peripheral_id),&async_wait_result);
   return async_wait_result;
 }
 

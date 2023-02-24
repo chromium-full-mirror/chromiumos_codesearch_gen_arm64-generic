@@ -6,5 +6,9 @@
 
 #ifndef CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_EVENTS_MOJOM_IMPORT_HEADERS_H_
 #define CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_EVENTS_MOJOM_IMPORT_HEADERS_H_
+#include "ash/system/diagnostics/mojom/input.mojom.h"
+#include "ash/system/diagnostics/mojom/input.mojom-import-headers.h"
+#include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom.h"
+#include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-import-headers.h"
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_EVENTS_MOJOM_IMPORT_HEADERS_H_

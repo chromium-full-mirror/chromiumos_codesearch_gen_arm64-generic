@@ -22,6 +22,15 @@ class SwapManagementInterface {
  public:
   virtual ~SwapManagementInterface() = default;
 
+  // Turn swap usage on (leaves config files alone).
+  virtual bool SwapStart(
+      brillo::ErrorPtr* error) = 0;
+  // Turn swap usage off (leaves config files alone).
+  virtual bool SwapStop(
+      brillo::ErrorPtr* error) = 0;
+  // Turn swap usage off and then on (leaves config files alone).
+  virtual bool SwapRestart(
+      brillo::ErrorPtr* error) = 0;
   // Enable swap file usage via config files.
   virtual std::string SwapEnable(
       int32_t in_size,
@@ -34,9 +43,6 @@ class SwapManagementInterface {
       brillo::ErrorPtr* error,
       bool in_enable,
       bool* out_result) = 0;
-  // Turn swap usage on/off (leaves config files alone).
-  virtual std::string SwapStartStop(
-      bool in_on) = 0;
   // Show current swap status.
   virtual std::string SwapStatus() = 0;
   // Persistently change the value of various parameters.
@@ -68,6 +74,18 @@ class SwapManagementAdaptor {
     brillo::dbus_utils::DBusInterface* itf =
         object->AddOrGetInterface("org.chromium.SwapManagement");
 
+    itf->AddSimpleMethodHandlerWithError(
+        "SwapStart",
+        base::Unretained(interface_),
+        &SwapManagementInterface::SwapStart);
+    itf->AddSimpleMethodHandlerWithError(
+        "SwapStop",
+        base::Unretained(interface_),
+        &SwapManagementInterface::SwapStop);
+    itf->AddSimpleMethodHandlerWithError(
+        "SwapRestart",
+        base::Unretained(interface_),
+        &SwapManagementInterface::SwapRestart);
     itf->AddSimpleMethodHandler(
         "SwapEnable",
         base::Unretained(interface_),
@@ -80,10 +98,6 @@ class SwapManagementAdaptor {
         "MGLRUSetEnable",
         base::Unretained(interface_),
         &SwapManagementInterface::MGLRUSetEnable);
-    itf->AddSimpleMethodHandler(
-        "SwapStartStop",
-        base::Unretained(interface_),
-        &SwapManagementInterface::SwapStartStop);
     itf->AddSimpleMethodHandler(
         "SwapStatus",
         base::Unretained(interface_),
@@ -117,6 +131,12 @@ class SwapManagementAdaptor {
   static const char* GetIntrospectionXml() {
     return
         "  <interface name=\"org.chromium.SwapManagement\">\n"
+        "    <method name=\"SwapStart\">\n"
+        "    </method>\n"
+        "    <method name=\"SwapStop\">\n"
+        "    </method>\n"
+        "    <method name=\"SwapRestart\">\n"
+        "    </method>\n"
         "    <method name=\"SwapEnable\">\n"
         "      <arg name=\"size\" type=\"i\" direction=\"in\"/>\n"
         "      <arg name=\"change_now\" type=\"b\" direction=\"in\"/>\n"
@@ -129,10 +149,6 @@ class SwapManagementAdaptor {
         "    <method name=\"MGLRUSetEnable\">\n"
         "      <arg name=\"enable\" type=\"b\" direction=\"in\"/>\n"
         "      <arg name=\"result\" type=\"b\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"SwapStartStop\">\n"
-        "      <arg name=\"on\" type=\"b\" direction=\"in\"/>\n"
-        "      <arg name=\"status\" type=\"s\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"SwapStatus\">\n"
         "      <arg name=\"status\" type=\"s\" direction=\"out\"/>\n"

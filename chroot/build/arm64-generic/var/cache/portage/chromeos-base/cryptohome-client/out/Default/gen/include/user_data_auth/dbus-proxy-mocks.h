@@ -48,16 +48,6 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
                     base::OnceCallback<void(const user_data_auth::UnmountReply& /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
-  MOCK_METHOD4(Mount,
-               bool(const user_data_auth::MountRequest& /*in_request*/,
-                    user_data_auth::MountReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(MountAsync,
-               void(const user_data_auth::MountRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::MountReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
   MOCK_METHOD4(Remove,
                bool(const user_data_auth::RemoveRequest& /*in_request*/,
                     user_data_auth::RemoveReply* /*out_reply*/,
@@ -76,16 +66,6 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
   MOCK_METHOD4(ListKeysAsync,
                void(const user_data_auth::ListKeysRequest& /*in_request*/,
                     base::OnceCallback<void(const user_data_auth::ListKeysReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(CheckKey,
-               bool(const user_data_auth::CheckKeyRequest& /*in_request*/,
-                    user_data_auth::CheckKeyReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(CheckKeyAsync,
-               void(const user_data_auth::CheckKeyRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::CheckKeyReply& /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
   MOCK_METHOD4(StartFingerprintAuthSession,

@@ -104,18 +104,14 @@ class  TouchscreenObserverAsyncWaiter {
 
 class  ExecutorInterceptorForTesting : public Executor {
   virtual Executor* GetForwardingInterface() = 0;
+  void ReadFile(Executor::File file_enum, ReadFileCallback callback) override;
   void GetFanSpeed(GetFanSpeedCallback callback) override;
-  void GetInterfaces(GetInterfacesCallback callback) override;
-  void GetLink(const std::string& interface_name, GetLinkCallback callback) override;
-  void GetInfo(const std::string& interface_name, GetInfoCallback callback) override;
-  void GetScanDump(const std::string& interface_name, GetScanDumpCallback callback) override;
+  void RunIw(Executor::IwCommand cmd, const std::string& interface_name, RunIwCallback callback) override;
   void RunMemtester(uint32_t test_mem_kib, RunMemtesterCallback callback) override;
   void RunMemtesterV2(uint32_t test_mem_kib, ::mojo::PendingReceiver<ProcessControl> receiver) override;
   void KillMemtester() override;
   void GetProcessIOContents(const std::vector<uint32_t>& pids, GetProcessIOContentsCallback callback) override;
   void ReadMsr(uint32_t msr_reg, uint32_t cpu_index, ReadMsrCallback callback) override;
-  void GetUEFISecureBootContent(GetUEFISecureBootContentCallback callback) override;
-  void GetUEFIPlatformSizeContent(GetUEFIPlatformSizeContentCallback callback) override;
   void GetLidAngle(GetLidAngleCallback callback) override;
   void GetFingerprintFrame(FingerprintCaptureType type, GetFingerprintFrameCallback callback) override;
   void GetFingerprintInfo(GetFingerprintInfoCallback callback) override;
@@ -135,21 +131,15 @@ class  ExecutorAsyncWaiter {
   ExecutorAsyncWaiter& operator=(const ExecutorAsyncWaiter&) = delete;
 
   ~ExecutorAsyncWaiter();
+  void ReadFile(
+      Executor::File file_enum, absl::optional<std::string>* out_content);
+  absl::optional<std::string> ReadFile(Executor::File file_enum);
   void GetFanSpeed(
       ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr GetFanSpeed();
-  void GetInterfaces(
-      ExecutedProcessResultPtr* out_result);
-  ExecutedProcessResultPtr GetInterfaces();
-  void GetLink(
-      const std::string& interface_name, ExecutedProcessResultPtr* out_result);
-  ExecutedProcessResultPtr GetLink(const std::string& interface_name);
-  void GetInfo(
-      const std::string& interface_name, ExecutedProcessResultPtr* out_result);
-  ExecutedProcessResultPtr GetInfo(const std::string& interface_name);
-  void GetScanDump(
-      const std::string& interface_name, ExecutedProcessResultPtr* out_result);
-  ExecutedProcessResultPtr GetScanDump(const std::string& interface_name);
+  void RunIw(
+      Executor::IwCommand cmd, const std::string& interface_name, ExecutedProcessResultPtr* out_result);
+  ExecutedProcessResultPtr RunIw(Executor::IwCommand cmd, const std::string& interface_name);
   void RunMemtester(
       uint32_t test_mem_kib, ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr RunMemtester(uint32_t test_mem_kib);
@@ -159,12 +149,6 @@ class  ExecutorAsyncWaiter {
   void ReadMsr(
       uint32_t msr_reg, uint32_t cpu_index, ::ash::cros_healthd::mojom::NullableUint64Ptr* out_value);
   ::ash::cros_healthd::mojom::NullableUint64Ptr ReadMsr(uint32_t msr_reg, uint32_t cpu_index);
-  void GetUEFISecureBootContent(
-      std::string* out_contents);
-  std::string GetUEFISecureBootContent();
-  void GetUEFIPlatformSizeContent(
-      std::string* out_contents);
-  std::string GetUEFIPlatformSizeContent();
   void GetLidAngle(
       ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr GetLidAngle();

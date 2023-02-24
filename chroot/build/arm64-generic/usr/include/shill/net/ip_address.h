@@ -7,6 +7,7 @@
 
 #include <netinet/in.h>
 
+#include <optional>
 #include <string>
 #include <utility>
 
@@ -84,11 +85,12 @@ class SHILL_EXPORT IPAddress {
   static std::string GetAddressFamilyName(Family family);
 
   // Returns an IPAddress that has the IP address and prefix specified by
-  // |address_string|. If the string neither has the appropriate format for
-  // IPv4 nor IPv6, this funcition will creates an IP address object whose
-  // family is unknown for an error. IP address format should be CIDR
-  // (e.g. "192.144.30.54/32").
-  static IPAddress CreateFromPrefixString(const std::string& address_string);
+  // |address_string|. IP address format should be CIDR (e.g.
+  // "192.144.30.54/32"). If |family| is specified, |address_string| will only
+  // be parsed for that |family|. std::nullopt will be returned on failure. Note
+  // that on success, the returned IPAddress object is guaranteed to be valid.
+  static std::optional<IPAddress> CreateFromPrefixString(
+      const std::string& address_string, Family family = kFamilyUnknown);
 
   // Getters and Setters
   Family family() const { return family_; }
@@ -106,8 +108,6 @@ class SHILL_EXPORT IPAddress {
 
   // Parse an IP address string.
   bool SetAddressFromString(const std::string& address_string);
-  // Parse an "address/prefix" IP address and prefix pair from a string.
-  bool SetAddressAndPrefixFromString(const std::string& address_string);
   // An uninitialized IPAddress is empty and invalid when constructed.
   // Use SetAddressToDefault() to set it to the default or "all-zeroes" address.
   void SetAddressToDefault();
@@ -172,6 +172,9 @@ class SHILL_EXPORT IPAddress {
   bool operator<(const IPAddress& b) const;
 
  private:
+  // Parse an "address/prefix" IP address and prefix pair from a string.
+  bool SetAddressAndPrefixFromString(const std::string& address_string);
+
   Family family_;
   ByteString address_;
   unsigned int prefix_;

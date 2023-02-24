@@ -1024,6 +1024,18 @@ struct DeviceScreensaverImagesProtoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceScreensaverImagesProtoDefaultTypeInternal _DeviceScreensaverImagesProto_default_instance_;
+PROTOBUF_CONSTEXPR DeviceSystemAecEnabledProto::DeviceSystemAecEnabledProto(
+    ::_pbi::ConstantInitialized)
+  : device_system_aec_enabled_(false){}
+struct DeviceSystemAecEnabledProtoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DeviceSystemAecEnabledProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DeviceSystemAecEnabledProtoDefaultTypeInternal() {}
+  union {
+    DeviceSystemAecEnabledProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceSystemAecEnabledProtoDefaultTypeInternal _DeviceSystemAecEnabledProto_default_instance_;
 PROTOBUF_CONSTEXPR DeviceScreensaverEnabledProto::DeviceScreensaverEnabledProto(
     ::_pbi::ConstantInitialized)
   : device_screensaver_enabled_(false){}
@@ -1959,7 +1971,8 @@ PROTOBUF_CONSTEXPR ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
   , device_screensaver_enabled_(nullptr)
   , device_screensaver_idle_timeout_seconds_(nullptr)
   , device_screensaver_image_display_interval_seconds_(nullptr)
-  , device_screensaver_images_(nullptr){}
+  , device_screensaver_images_(nullptr)
+  , device_system_aec_enabled_(nullptr){}
 struct ChromeDeviceSettingsProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ChromeDeviceSettingsProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -21536,6 +21549,186 @@ std::string DeviceScreensaverImagesProto::GetTypeName() const {
 
 // ===================================================================
 
+class DeviceSystemAecEnabledProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<DeviceSystemAecEnabledProto>()._has_bits_);
+  static void set_has_device_system_aec_enabled(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+DeviceSystemAecEnabledProto::DeviceSystemAecEnabledProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.DeviceSystemAecEnabledProto)
+}
+DeviceSystemAecEnabledProto::DeviceSystemAecEnabledProto(const DeviceSystemAecEnabledProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  device_system_aec_enabled_ = from.device_system_aec_enabled_;
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceSystemAecEnabledProto)
+}
+
+inline void DeviceSystemAecEnabledProto::SharedCtor() {
+device_system_aec_enabled_ = false;
+}
+
+DeviceSystemAecEnabledProto::~DeviceSystemAecEnabledProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.DeviceSystemAecEnabledProto)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DeviceSystemAecEnabledProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void DeviceSystemAecEnabledProto::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void DeviceSystemAecEnabledProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.DeviceSystemAecEnabledProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  device_system_aec_enabled_ = false;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* DeviceSystemAecEnabledProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional bool device_system_aec_enabled = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_device_system_aec_enabled(&has_bits);
+          device_system_aec_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DeviceSystemAecEnabledProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.DeviceSystemAecEnabledProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional bool device_system_aec_enabled = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_device_system_aec_enabled(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.DeviceSystemAecEnabledProto)
+  return target;
+}
+
+size_t DeviceSystemAecEnabledProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.DeviceSystemAecEnabledProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional bool device_system_aec_enabled = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DeviceSystemAecEnabledProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const DeviceSystemAecEnabledProto*>(
+      &from));
+}
+
+void DeviceSystemAecEnabledProto::MergeFrom(const DeviceSystemAecEnabledProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.DeviceSystemAecEnabledProto)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_device_system_aec_enabled()) {
+    _internal_set_device_system_aec_enabled(from._internal_device_system_aec_enabled());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void DeviceSystemAecEnabledProto::CopyFrom(const DeviceSystemAecEnabledProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.DeviceSystemAecEnabledProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DeviceSystemAecEnabledProto::IsInitialized() const {
+  return true;
+}
+
+void DeviceSystemAecEnabledProto::InternalSwap(DeviceSystemAecEnabledProto* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(device_system_aec_enabled_, other->device_system_aec_enabled_);
+}
+
+std::string DeviceSystemAecEnabledProto::GetTypeName() const {
+  return "enterprise_management.DeviceSystemAecEnabledProto";
+}
+
+
+// ===================================================================
+
 class DeviceScreensaverEnabledProto::_Internal {
  public:
   using HasBits = decltype(std::declval<DeviceScreensaverEnabledProto>()._has_bits_);
@@ -34475,6 +34668,10 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_device_screensaver_images(HasBits* has_bits) {
     (*has_bits)[4] |= 8192u;
   }
+  static const ::enterprise_management::DeviceSystemAecEnabledProto& device_system_aec_enabled(const ChromeDeviceSettingsProto* msg);
+  static void set_has_device_system_aec_enabled(HasBits* has_bits) {
+    (*has_bits)[4] |= 16384u;
+  }
 };
 
 const ::enterprise_management::DevicePolicyRefreshRateProto&
@@ -35044,6 +35241,10 @@ ChromeDeviceSettingsProto::_Internal::device_screensaver_image_display_interval_
 const ::enterprise_management::DeviceScreensaverImagesProto&
 ChromeDeviceSettingsProto::_Internal::device_screensaver_images(const ChromeDeviceSettingsProto* msg) {
   return *msg->device_screensaver_images_;
+}
+const ::enterprise_management::DeviceSystemAecEnabledProto&
+ChromeDeviceSettingsProto::_Internal::device_system_aec_enabled(const ChromeDeviceSettingsProto* msg) {
+  return *msg->device_system_aec_enabled_;
 }
 void ChromeDeviceSettingsProto::clear_device_login_screen_system_info_enforced() {
   if (device_login_screen_system_info_enforced_ != nullptr) device_login_screen_system_info_enforced_->Clear();
@@ -35821,14 +36022,19 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
   } else {
     device_screensaver_images_ = nullptr;
   }
+  if (from._internal_has_device_system_aec_enabled()) {
+    device_system_aec_enabled_ = new ::enterprise_management::DeviceSystemAecEnabledProto(*from.device_system_aec_enabled_);
+  } else {
+    device_system_aec_enabled_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.ChromeDeviceSettingsProto)
 }
 
 inline void ChromeDeviceSettingsProto::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&device_policy_refresh_rate_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&device_screensaver_images_) -
-    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(device_screensaver_images_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&device_system_aec_enabled_) -
+    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(device_system_aec_enabled_));
 }
 
 ChromeDeviceSettingsProto::~ChromeDeviceSettingsProto() {
@@ -35984,6 +36190,7 @@ inline void ChromeDeviceSettingsProto::SharedDtor() {
   if (this != internal_default_instance()) delete device_screensaver_idle_timeout_seconds_;
   if (this != internal_default_instance()) delete device_screensaver_image_display_interval_seconds_;
   if (this != internal_default_instance()) delete device_screensaver_images_;
+  if (this != internal_default_instance()) delete device_system_aec_enabled_;
 }
 
 void ChromeDeviceSettingsProto::SetCachedSize(int size) const {
@@ -36579,7 +36786,7 @@ void ChromeDeviceSettingsProto::Clear() {
       keyboard_backlight_color_->Clear();
     }
   }
-  if (cached_has_bits & 0x00003f00u) {
+  if (cached_has_bits & 0x00007f00u) {
     if (cached_has_bits & 0x00000100u) {
       GOOGLE_DCHECK(device_hindi_inscript_layout_enabled_ != nullptr);
       device_hindi_inscript_layout_enabled_->Clear();
@@ -36603,6 +36810,10 @@ void ChromeDeviceSettingsProto::Clear() {
     if (cached_has_bits & 0x00002000u) {
       GOOGLE_DCHECK(device_screensaver_images_ != nullptr);
       device_screensaver_images_->Clear();
+    }
+    if (cached_has_bits & 0x00004000u) {
+      GOOGLE_DCHECK(device_system_aec_enabled_ != nullptr);
+      device_system_aec_enabled_->Clear();
     }
   }
   _has_bits_.Clear();
@@ -37751,6 +37962,14 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.DeviceSystemAecEnabledProto device_system_aec_enabled = 146;
+      case 146:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 146)) {
+          ptr = ctx->ParseMessage(_internal_mutable_device_system_aec_enabled(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -38779,6 +38998,13 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
         _Internal::device_screensaver_images(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.DeviceSystemAecEnabledProto device_system_aec_enabled = 146;
+  if (cached_has_bits & 0x00004000u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(146, _Internal::device_system_aec_enabled(this),
+        _Internal::device_system_aec_enabled(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -39786,7 +40012,7 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
     }
 
   }
-  if (cached_has_bits & 0x00003f00u) {
+  if (cached_has_bits & 0x00007f00u) {
     // optional .enterprise_management.DeviceHindiInscriptLayoutEnabledProto device_hindi_inscript_layout_enabled = 140;
     if (cached_has_bits & 0x00000100u) {
       total_size += 2 +
@@ -39827,6 +40053,13 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *device_screensaver_images_);
+    }
+
+    // optional .enterprise_management.DeviceSystemAecEnabledProto device_system_aec_enabled = 146;
+    if (cached_has_bits & 0x00004000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *device_system_aec_enabled_);
     }
 
   }
@@ -40297,7 +40530,7 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
       _internal_mutable_keyboard_backlight_color()->::enterprise_management::KeyboardBacklightColorProto::MergeFrom(from._internal_keyboard_backlight_color());
     }
   }
-  if (cached_has_bits & 0x00003f00u) {
+  if (cached_has_bits & 0x00007f00u) {
     if (cached_has_bits & 0x00000100u) {
       _internal_mutable_device_hindi_inscript_layout_enabled()->::enterprise_management::DeviceHindiInscriptLayoutEnabledProto::MergeFrom(from._internal_device_hindi_inscript_layout_enabled());
     }
@@ -40315,6 +40548,9 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
     }
     if (cached_has_bits & 0x00002000u) {
       _internal_mutable_device_screensaver_images()->::enterprise_management::DeviceScreensaverImagesProto::MergeFrom(from._internal_device_screensaver_images());
+    }
+    if (cached_has_bits & 0x00004000u) {
+      _internal_mutable_device_system_aec_enabled()->::enterprise_management::DeviceSystemAecEnabledProto::MergeFrom(from._internal_device_system_aec_enabled());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -40340,8 +40576,8 @@ void ChromeDeviceSettingsProto::InternalSwap(ChromeDeviceSettingsProto* other) {
   swap(_has_bits_[3], other->_has_bits_[3]);
   swap(_has_bits_[4], other->_has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_screensaver_images_)
-      + sizeof(ChromeDeviceSettingsProto::device_screensaver_images_)
+      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_system_aec_enabled_)
+      + sizeof(ChromeDeviceSettingsProto::device_system_aec_enabled_)
       - PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_policy_refresh_rate_)>(
           reinterpret_cast<char*>(&device_policy_refresh_rate_),
           reinterpret_cast<char*>(&other->device_policy_refresh_rate_));
@@ -40646,6 +40882,10 @@ Arena::CreateMaybeMessage< ::enterprise_management::DeviceScreensaverImageDispla
 template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceScreensaverImagesProto*
 Arena::CreateMaybeMessage< ::enterprise_management::DeviceScreensaverImagesProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::DeviceScreensaverImagesProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceSystemAecEnabledProto*
+Arena::CreateMaybeMessage< ::enterprise_management::DeviceSystemAecEnabledProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::DeviceSystemAecEnabledProto >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceScreensaverEnabledProto*
 Arena::CreateMaybeMessage< ::enterprise_management::DeviceScreensaverEnabledProto >(Arena* arena) {

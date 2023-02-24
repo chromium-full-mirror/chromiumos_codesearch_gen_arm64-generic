@@ -29,6 +29,7 @@ class ChromeMetadataPacket;
 class ClockSnapshot;
 class CpuInfo;
 class DeobfuscationMapping;
+class EntityStateResidency;
 class ExtensionDescriptor;
 class FrameTimelineEvent;
 class FtraceEventBundle;
@@ -209,6 +210,8 @@ class TracePacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes statsd_atom() const { return at<84>().as_bytes(); }
   bool has_android_system_property() const { return at<86>().valid(); }
   ::protozero::ConstBytes android_system_property() const { return at<86>().as_bytes(); }
+  bool has_entity_state_residency() const { return at<91>().valid(); }
+  ::protozero::ConstBytes entity_state_residency() const { return at<91>().as_bytes(); }
   bool has_profiled_frame_symbols() const { return at<55>().valid(); }
   ::protozero::ConstBytes profiled_frame_symbols() const { return at<55>().as_bytes(); }
   bool has_module_symbols() const { return at<61>().valid(); }
@@ -308,6 +311,7 @@ class TracePacket : public ::protozero::Message {
     kAndroidGameInterventionListFieldNumber = 83,
     kStatsdAtomFieldNumber = 84,
     kAndroidSystemPropertyFieldNumber = 86,
+    kEntityStateResidencyFieldNumber = 91,
     kProfiledFrameSymbolsFieldNumber = 55,
     kModuleSymbolsFieldNumber = 61,
     kDeobfuscationMappingFieldNumber = 64,
@@ -1376,6 +1380,27 @@ class TracePacket : public ::protozero::Message {
   static constexpr FieldMetadata_AndroidSystemProperty kAndroidSystemProperty() { return {}; }
   template <typename T = AndroidSystemProperty> T* set_android_system_property() {
     return BeginNestedMessage<T>(86);
+  }
+
+
+  using FieldMetadata_EntityStateResidency =
+    ::protozero::proto_utils::FieldMetadata<
+      91,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      EntityStateResidency,
+      TracePacket>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_EntityStateResidency kEntityStateResidency() { return {}; }
+  template <typename T = EntityStateResidency> T* set_entity_state_residency() {
+    return BeginNestedMessage<T>(91);
   }
 
 

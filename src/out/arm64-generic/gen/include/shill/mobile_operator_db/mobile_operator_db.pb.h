@@ -1553,9 +1553,11 @@ class Data final :
     kMobileApnFieldNumber = 22,
     kUuidFieldNumber = 1,
     kCountryFieldNumber = 3,
+    kMtuFieldNumber = 7,
     kRequiresRoamingFieldNumber = 5,
     kPrioritizesNameFieldNumber = 8,
-    kMtuFieldNumber = 7,
+    kTetheringAllowedFieldNumber = 10,
+    kUseDunApnAsDefaultFieldNumber = 11,
   };
   // repeated .shill.mobile_operator_db.LocalizedName localized_name = 4;
   int localized_name_size() const;
@@ -1689,6 +1691,19 @@ class Data final :
   std::string* _internal_mutable_country();
   public:
 
+  // optional int32 mtu = 7;
+  bool has_mtu() const;
+  private:
+  bool _internal_has_mtu() const;
+  public:
+  void clear_mtu();
+  int32_t mtu() const;
+  void set_mtu(int32_t value);
+  private:
+  int32_t _internal_mtu() const;
+  void _internal_set_mtu(int32_t value);
+  public:
+
   // optional bool requires_roaming = 5 [default = false];
   bool has_requires_roaming() const;
   private:
@@ -1715,17 +1730,30 @@ class Data final :
   void _internal_set_prioritizes_name(bool value);
   public:
 
-  // optional int32 mtu = 7;
-  bool has_mtu() const;
+  // optional bool tethering_allowed = 10 [default = false];
+  bool has_tethering_allowed() const;
   private:
-  bool _internal_has_mtu() const;
+  bool _internal_has_tethering_allowed() const;
   public:
-  void clear_mtu();
-  int32_t mtu() const;
-  void set_mtu(int32_t value);
+  void clear_tethering_allowed();
+  bool tethering_allowed() const;
+  void set_tethering_allowed(bool value);
   private:
-  int32_t _internal_mtu() const;
-  void _internal_set_mtu(int32_t value);
+  bool _internal_tethering_allowed() const;
+  void _internal_set_tethering_allowed(bool value);
+  public:
+
+  // optional bool use_dun_apn_as_default = 11;
+  bool has_use_dun_apn_as_default() const;
+  private:
+  bool _internal_has_use_dun_apn_as_default() const;
+  public:
+  void clear_use_dun_apn_as_default();
+  bool use_dun_apn_as_default() const;
+  void set_use_dun_apn_as_default(bool value);
+  private:
+  bool _internal_use_dun_apn_as_default() const;
+  void _internal_set_use_dun_apn_as_default(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:shill.mobile_operator_db.Data)
@@ -1744,9 +1772,11 @@ class Data final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::shill::mobile_operator_db::MobileAPN > mobile_apn_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr uuid_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr country_;
+  int32_t mtu_;
   bool requires_roaming_;
   bool prioritizes_name_;
-  int32_t mtu_;
+  bool tethering_allowed_;
+  bool use_dun_apn_as_default_;
   friend struct ::TableStruct_mobile_5foperator_5fdb_2eproto;
 };
 // -------------------------------------------------------------------
@@ -3723,7 +3753,7 @@ Data::localized_name() const {
 
 // optional bool requires_roaming = 5 [default = false];
 inline bool Data::_internal_has_requires_roaming() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool Data::has_requires_roaming() const {
@@ -3731,7 +3761,7 @@ inline bool Data::has_requires_roaming() const {
 }
 inline void Data::clear_requires_roaming() {
   requires_roaming_ = false;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline bool Data::_internal_requires_roaming() const {
   return requires_roaming_;
@@ -3741,7 +3771,7 @@ inline bool Data::requires_roaming() const {
   return _internal_requires_roaming();
 }
 inline void Data::_internal_set_requires_roaming(bool value) {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   requires_roaming_ = value;
 }
 inline void Data::set_requires_roaming(bool value) {
@@ -3791,7 +3821,7 @@ Data::olp() const {
 
 // optional int32 mtu = 7;
 inline bool Data::_internal_has_mtu() const {
-  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
 inline bool Data::has_mtu() const {
@@ -3799,7 +3829,7 @@ inline bool Data::has_mtu() const {
 }
 inline void Data::clear_mtu() {
   mtu_ = 0;
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline int32_t Data::_internal_mtu() const {
   return mtu_;
@@ -3809,7 +3839,7 @@ inline int32_t Data::mtu() const {
   return _internal_mtu();
 }
 inline void Data::_internal_set_mtu(int32_t value) {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000004u;
   mtu_ = value;
 }
 inline void Data::set_mtu(int32_t value) {
@@ -3819,7 +3849,7 @@ inline void Data::set_mtu(int32_t value) {
 
 // optional bool prioritizes_name = 8 [default = false];
 inline bool Data::_internal_has_prioritizes_name() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
 inline bool Data::has_prioritizes_name() const {
@@ -3827,7 +3857,7 @@ inline bool Data::has_prioritizes_name() const {
 }
 inline void Data::clear_prioritizes_name() {
   prioritizes_name_ = false;
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline bool Data::_internal_prioritizes_name() const {
   return prioritizes_name_;
@@ -3837,7 +3867,7 @@ inline bool Data::prioritizes_name() const {
   return _internal_prioritizes_name();
 }
 inline void Data::_internal_set_prioritizes_name(bool value) {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000010u;
   prioritizes_name_ = value;
 }
 inline void Data::set_prioritizes_name(bool value) {
@@ -3883,6 +3913,62 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::shill::mobile_operator
 Data::roaming_filter() const {
   // @@protoc_insertion_point(field_list:shill.mobile_operator_db.Data.roaming_filter)
   return roaming_filter_;
+}
+
+// optional bool tethering_allowed = 10 [default = false];
+inline bool Data::_internal_has_tethering_allowed() const {
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  return value;
+}
+inline bool Data::has_tethering_allowed() const {
+  return _internal_has_tethering_allowed();
+}
+inline void Data::clear_tethering_allowed() {
+  tethering_allowed_ = false;
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline bool Data::_internal_tethering_allowed() const {
+  return tethering_allowed_;
+}
+inline bool Data::tethering_allowed() const {
+  // @@protoc_insertion_point(field_get:shill.mobile_operator_db.Data.tethering_allowed)
+  return _internal_tethering_allowed();
+}
+inline void Data::_internal_set_tethering_allowed(bool value) {
+  _has_bits_[0] |= 0x00000020u;
+  tethering_allowed_ = value;
+}
+inline void Data::set_tethering_allowed(bool value) {
+  _internal_set_tethering_allowed(value);
+  // @@protoc_insertion_point(field_set:shill.mobile_operator_db.Data.tethering_allowed)
+}
+
+// optional bool use_dun_apn_as_default = 11;
+inline bool Data::_internal_has_use_dun_apn_as_default() const {
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
+inline bool Data::has_use_dun_apn_as_default() const {
+  return _internal_has_use_dun_apn_as_default();
+}
+inline void Data::clear_use_dun_apn_as_default() {
+  use_dun_apn_as_default_ = false;
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline bool Data::_internal_use_dun_apn_as_default() const {
+  return use_dun_apn_as_default_;
+}
+inline bool Data::use_dun_apn_as_default() const {
+  // @@protoc_insertion_point(field_get:shill.mobile_operator_db.Data.use_dun_apn_as_default)
+  return _internal_use_dun_apn_as_default();
+}
+inline void Data::_internal_set_use_dun_apn_as_default(bool value) {
+  _has_bits_[0] |= 0x00000040u;
+  use_dun_apn_as_default_ = value;
+}
+inline void Data::set_use_dun_apn_as_default(bool value) {
+  _internal_set_use_dun_apn_as_default(value);
+  // @@protoc_insertion_point(field_set:shill.mobile_operator_db.Data.use_dun_apn_as_default)
 }
 
 // repeated string mccmnc = 21;

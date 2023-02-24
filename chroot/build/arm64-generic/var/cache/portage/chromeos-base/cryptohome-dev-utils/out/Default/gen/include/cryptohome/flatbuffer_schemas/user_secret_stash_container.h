@@ -49,7 +49,7 @@ enum class UserSecretStashEncryptionAlgorithm : int32_t {
 namespace cryptohome {
 
 struct UserMetadata {
-  std::optional<uint64_t> rate_limiter_leaf_label;
+  std::optional<uint64_t> fingerprint_rate_limiter_id;
 };
 
 }  // namespace cryptohome
@@ -81,6 +81,7 @@ struct UserSecretStashContainer {
   brillo::Blob gcm_tag;
   std::vector<::cryptohome::UserSecretStashWrappedKeyBlock> wrapped_key_blocks;
   std::string created_on_os_version;
+  ::cryptohome::UserMetadata user_metadata;
 };
 
 }  // namespace cryptohome

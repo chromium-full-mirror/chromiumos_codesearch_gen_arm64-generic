@@ -452,8 +452,7 @@ struct FingerprintAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::
   typedef FingerprintAuthBlockStateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_TEMPLATE_ID = 4,
-    VT_GSC_SECRET_LABEL = 6,
-    VT_SALT = 8
+    VT_GSC_SECRET_LABEL = 6
   };
   const flatbuffers::Vector<int8_t> *template_id() const {
     return GetPointer<const flatbuffers::Vector<int8_t> *>(VT_TEMPLATE_ID);
@@ -461,16 +460,11 @@ struct FingerprintAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::
   flatbuffers::Optional<uint64_t> gsc_secret_label() const {
     return GetOptional<uint64_t, uint64_t>(VT_GSC_SECRET_LABEL);
   }
-  const flatbuffers::Vector<uint8_t> *salt() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_SALT);
-  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_TEMPLATE_ID) &&
            verifier.VerifyVector(template_id()) &&
            VerifyField<uint64_t>(verifier, VT_GSC_SECRET_LABEL) &&
-           VerifyOffset(verifier, VT_SALT) &&
-           verifier.VerifyVector(salt()) &&
            verifier.EndTable();
   }
 };
@@ -484,9 +478,6 @@ struct FingerprintAuthBlockStateBuilder {
   }
   void add_gsc_secret_label(uint64_t gsc_secret_label) {
     fbb_.AddElement<uint64_t>(FingerprintAuthBlockState::VT_GSC_SECRET_LABEL, gsc_secret_label);
-  }
-  void add_salt(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt) {
-    fbb_.AddOffset(FingerprintAuthBlockState::VT_SALT, salt);
   }
   explicit FingerprintAuthBlockStateBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
@@ -502,11 +493,9 @@ struct FingerprintAuthBlockStateBuilder {
 inline flatbuffers::Offset<FingerprintAuthBlockState> CreateFingerprintAuthBlockState(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::Vector<int8_t>> template_id = 0,
-    flatbuffers::Optional<uint64_t> gsc_secret_label = flatbuffers::nullopt,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt = 0) {
+    flatbuffers::Optional<uint64_t> gsc_secret_label = flatbuffers::nullopt) {
   FingerprintAuthBlockStateBuilder builder_(_fbb);
   if(gsc_secret_label) { builder_.add_gsc_secret_label(*gsc_secret_label); }
-  builder_.add_salt(salt);
   builder_.add_template_id(template_id);
   return builder_.Finish();
 }
@@ -514,15 +503,12 @@ inline flatbuffers::Offset<FingerprintAuthBlockState> CreateFingerprintAuthBlock
 inline flatbuffers::Offset<FingerprintAuthBlockState> CreateFingerprintAuthBlockStateDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<int8_t> *template_id = nullptr,
-    flatbuffers::Optional<uint64_t> gsc_secret_label = flatbuffers::nullopt,
-    const std::vector<uint8_t> *salt = nullptr) {
+    flatbuffers::Optional<uint64_t> gsc_secret_label = flatbuffers::nullopt) {
   auto template_id__ = template_id ? _fbb.CreateVector<int8_t>(*template_id) : 0;
-  auto salt__ = salt ? _fbb.CreateVector<uint8_t>(*salt) : 0;
   return cryptohome::_serialized_::CreateFingerprintAuthBlockState(
       _fbb,
       template_id__,
-      gsc_secret_label,
-      salt__);
+      gsc_secret_label);
 }
 
 struct ChallengeCredentialAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {

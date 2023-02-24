@@ -609,15 +609,15 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocVaultKeysetUnwrapScryptFailedInUnwrapVK = 391,
   /* ./vault_keyset.cc */
   kLocVaultKeysetInvalidCombinationInUnwrapVK = 392,
-  /* ./vault_keyset.cc */
+  /* =Obsolete= */
   kLocVaultKeysetNoResetSeedInEncrypt = 393,
-  /* ./vault_keyset.cc */
+  /* =Obsolete= */
   kLocVaultKeysetUnknownBlockTypeInEncryptVK = 394,
-  /* ./vault_keyset.cc */
+  /* =Obsolete= */
   kLocVaultKeysetCreateFailedInEncryptVK = 395,
-  /* ./vault_keyset.cc */
+  /* =Obsolete= */
   kLocVaultKeysetWrapScryptFailedInEncryptVK = 396,
-  /* ./vault_keyset.cc */
+  /* =Obsolete= */
   kLocVaultKeysetWrapAESDFailedInEncryptVK = 397,
   /* ./challenge_credentials/challenge_credentials_operation.cc */
   kLocChalCredOperationNoResponseInOnSigResponse = 398,
@@ -661,13 +661,13 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocKeyChallengeServiceInvalidDBusNameInChallengeKey = 417,
   /* ./userdataauth.cc */
   kLocUserDataAuthChalCredFailedInChalRespMount = 418,
-  /* ./userdataauth.cc */
+  /* =Obsolete= */
   kLocUserDataAuthNoSessionInTryLiteChalRespCheckKey = 419,
-  /* ./userdataauth.cc */
+  /* =Obsolete= */
   kLocUserDataAuthNoServiceInTryLiteChalRespCheckKey = 420,
-  /* ./userdataauth.cc */
+  /* =Obsolete= */
   kLocUserDataAuthNoKeyInfoInTryLiteChalRespCheckKey = 421,
-  /* ./userdataauth.cc */
+  /* =Obsolete= */
   kLocUserDataAuthMultipleKeyInTryLiteChalRespCheckKey = 422,
   /* ./keyset_management.cc */
   kLocKeysetManagementGetKeysetsFailedInGetValidKeyset = 423,
@@ -1603,6 +1603,12 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocAuthSessionLabelLookupUnimplemented = 3523,
   /* ./userdataauth.cc */
   kLocUserDataMalformedRequestInAuthAuthFactor = 3524,
+  /* ./user_secret_stash.cc */
+  kLocUSSDeserializeFailedInGeUserMetadata = 3525,
+  /* ./user_secret_stash.cc */
+  kLocUSSGetUserMetadataFailedInFromEncContainer = 3526,
+  /* ./user_secret_stash.cc */
+  kLocUSSGetUserMetadataFailedInFromEncContainerWrappingKey = 3527,
   // End of generated content.
 };
 // The enum value should not exceed 65535, otherwise we need to adjust the way

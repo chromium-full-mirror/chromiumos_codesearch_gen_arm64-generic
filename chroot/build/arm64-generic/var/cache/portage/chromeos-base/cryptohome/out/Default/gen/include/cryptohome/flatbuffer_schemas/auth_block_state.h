@@ -175,7 +175,6 @@ namespace cryptohome {
 struct FingerprintAuthBlockState {
   std::vector<int8_t> template_id;
   std::optional<uint64_t> gsc_secret_label;
-  brillo::SecureBlob salt;
 };
 
 }  // namespace cryptohome

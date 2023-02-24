@@ -204,6 +204,63 @@ class Initialization final : public ::metrics::structured::Event {
 
 namespace cr_os_events {
 
+class AppDiscovery_AppInstalled final : public ::metrics::structured::Event {
+ public:
+  AppDiscovery_AppInstalled();
+  ~AppDiscovery_AppInstalled() override;
+
+    AppDiscovery_AppInstalled& SetAppId(const std::string& value);
+  AppDiscovery_AppInstalled& SetAppType(const int64_t value);
+  AppDiscovery_AppInstalled& SetInstallSource(const int64_t value);
+  AppDiscovery_AppInstalled& SetInstallReason(const int64_t value);
+};
+
+class AppDiscovery_AppLaunched final : public ::metrics::structured::Event {
+ public:
+  AppDiscovery_AppLaunched();
+  ~AppDiscovery_AppLaunched() override;
+
+    AppDiscovery_AppLaunched& SetAppId(const std::string& value);
+  AppDiscovery_AppLaunched& SetAppType(const int64_t value);
+  AppDiscovery_AppLaunched& SetLaunchSource(const int64_t value);
+};
+
+class AppDiscovery_AppUninstall final : public ::metrics::structured::Event {
+ public:
+  AppDiscovery_AppUninstall();
+  ~AppDiscovery_AppUninstall() override;
+
+    AppDiscovery_AppUninstall& SetAppId(const std::string& value);
+  AppDiscovery_AppUninstall& SetAppType(const int64_t value);
+  AppDiscovery_AppUninstall& SetUninstallSource(const int64_t value);
+};
+
+class AppDiscovery_AppStateChanged final : public ::metrics::structured::Event {
+ public:
+  AppDiscovery_AppStateChanged();
+  ~AppDiscovery_AppStateChanged() override;
+
+    AppDiscovery_AppStateChanged& SetAppId(const std::string& value);
+  AppDiscovery_AppStateChanged& SetAppState(const int64_t value);
+};
+
+class AppDiscovery_LauncherOpen final : public ::metrics::structured::Event {
+ public:
+  AppDiscovery_LauncherOpen();
+  ~AppDiscovery_LauncherOpen() override;
+
+  };
+
+class AppDiscovery_AppLauncherResultOpened final : public ::metrics::structured::Event {
+ public:
+  AppDiscovery_AppLauncherResultOpened();
+  ~AppDiscovery_AppLauncherResultOpened() override;
+
+    AppDiscovery_AppLauncherResultOpened& SetFuzzyStringMatch(const double value);
+  AppDiscovery_AppLauncherResultOpened& SetAppId(const std::string& value);
+  AppDiscovery_AppLauncherResultOpened& SetAppName(const std::string& value);
+};
+
 class UserLogin final : public ::metrics::structured::Event {
  public:
   UserLogin();

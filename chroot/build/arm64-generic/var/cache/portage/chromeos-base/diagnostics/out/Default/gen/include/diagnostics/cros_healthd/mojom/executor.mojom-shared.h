@@ -100,6 +100,44 @@ inline bool IsKnownEnumValue(FingerprintCaptureType value) {
   return internal::FingerprintCaptureType_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+
+
+enum class Executor_File : int32_t {
+  
+  kUEFISecureBootVariable = 0,
+  
+  kUEFIPlatformSize = 1,
+  
+  kWirelessPowerScheme = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+ std::ostream& operator<<(std::ostream& os, Executor_File value);
+inline bool IsKnownEnumValue(Executor_File value) {
+  return internal::Executor_File_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class Executor_IwCommand : int32_t {
+  
+  kDev = 0,
+  
+  kLink = 1,
+  
+  kInfo = 2,
+  
+  kScanDump = 3,
+  kMinValue = 0,
+  kMaxValue = 3,
+};
+
+ std::ostream& operator<<(std::ostream& os, Executor_IwCommand value);
+inline bool IsKnownEnumValue(Executor_IwCommand value) {
+  return internal::Executor_IwCommand_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 // Interface base classes. They are used for type safety check.
 class ProcessControlInterfaceBase {};
 
@@ -255,6 +293,14 @@ template <>
 struct hash<::ash::cros_healthd::mojom::FingerprintCaptureType>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::FingerprintCaptureType> {};
 
+template <>
+struct hash<::ash::cros_healthd::mojom::Executor_File>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::Executor_File> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::Executor_IwCommand>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::Executor_IwCommand> {};
+
 }  // namespace std
 
 namespace mojo {
@@ -274,6 +320,46 @@ struct Serializer<::ash::cros_healthd::mojom::FingerprintCaptureType, MaybeConst
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::FingerprintCaptureType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::Executor_File, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::Executor_File, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::Executor_File>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::Executor_IwCommand, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::Executor_IwCommand, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::Executor_IwCommand>(input)), output);
   }
 };
 
@@ -449,6 +535,24 @@ namespace perfetto_libchrome {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::FingerprintCaptureType> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::FingerprintCaptureType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::Executor_File> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::Executor_File value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::Executor_IwCommand> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::Executor_IwCommand value);
 };
 
 } // namespace perfetto

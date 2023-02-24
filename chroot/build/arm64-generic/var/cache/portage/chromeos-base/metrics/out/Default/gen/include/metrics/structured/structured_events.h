@@ -15,7 +15,7 @@ namespace metrics {
 namespace structured {
 namespace events {
 
-constexpr uint64_t kProjectNameHashes[] = {UINT64_C(9074739597929991885), UINT64_C(11181229631788078243), UINT64_C(1745381000935843040), UINT64_C(8206859287963243715), UINT64_C(11294265225635075664), UINT64_C(16881314472396226433), UINT64_C(5876808001962504629), UINT64_C(17922303533051575891), UINT64_C(4320592646346933548), UINT64_C(7302676440391025918), UINT64_C(4690103929823698613), UINT64_C(9675127341789951965)};
+constexpr uint64_t kProjectNameHashes[] = {UINT64_C(9074739597929991885), UINT64_C(11181229631788078243), UINT64_C(1745381000935843040), UINT64_C(8206859287963243715), UINT64_C(11294265225635075664), UINT64_C(16881314472396226433), UINT64_C(5876808001962504629), UINT64_C(17922303533051575891), UINT64_C(1370722622176744014), UINT64_C(4320592646346933548), UINT64_C(7302676440391025918), UINT64_C(4690103929823698613), UINT64_C(9675127341789951965)};
 
 namespace bluetooth {
 
@@ -846,6 +846,68 @@ class BRILLO_EXPORT UsbDeviceInfo final : public ::metrics::structured::EventBas
 };
 
 }  // namespace usb_device
+
+namespace usb_error {
+
+class BRILLO_EXPORT HubError final : public ::metrics::structured::EventBase {
+ public:
+  HubError();
+  ~HubError() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(6687292436821539008);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(1370722622176744014);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_RAW_STRING;
+
+  static constexpr uint64_t kErrorCodeNameHash = UINT64_C(11225621437500415592);
+  HubError& SetErrorCode(const int64_t value);
+  int64_t GetErrorCodeForTest() const;
+
+  static constexpr uint64_t kDeviceClassNameHash = UINT64_C(4411699667986879574);
+  HubError& SetDeviceClass(const int64_t value);
+  int64_t GetDeviceClassForTest() const;
+
+  static constexpr uint64_t kVendorIdNameHash = UINT64_C(7982341394845147735);
+  HubError& SetVendorId(const int64_t value);
+  int64_t GetVendorIdForTest() const;
+
+  static constexpr uint64_t kProductIdNameHash = UINT64_C(3765840483194334735);
+  HubError& SetProductId(const int64_t value);
+  int64_t GetProductIdForTest() const;
+
+  static constexpr uint64_t kDevicePathNameHash = UINT64_C(13815078691433964739);
+  HubError& SetDevicePath(const std::string& value);
+  std::string GetDevicePathForTest() const;
+
+  static constexpr uint64_t kConnectedDurationNameHash = UINT64_C(17111721530407745744);
+  HubError& SetConnectedDuration(const int64_t value);
+  int64_t GetConnectedDurationForTest() const;
+
+};
+
+class BRILLO_EXPORT XhciError final : public ::metrics::structured::EventBase {
+ public:
+  XhciError();
+  ~XhciError() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(12746154833217383793);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(1370722622176744014);
+  static constexpr IdType kIdType = IdType::kUnidentified;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_RAW_STRING;
+
+  static constexpr uint64_t kErrorCodeNameHash = UINT64_C(11225621437500415592);
+  XhciError& SetErrorCode(const int64_t value);
+  int64_t GetErrorCodeForTest() const;
+
+  static constexpr uint64_t kDeviceClassNameHash = UINT64_C(4411699667986879574);
+  XhciError& SetDeviceClass(const int64_t value);
+  int64_t GetDeviceClassForTest() const;
+
+};
+
+}  // namespace usb_error
 
 namespace wi_fi_chipset {
 

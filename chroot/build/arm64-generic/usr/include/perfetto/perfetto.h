@@ -297,16 +297,6 @@
 #define PERFETTO_IS_AT_LEAST_CPP17() 0
 #endif
 
-#if !PERFETTO_IS_AT_LEAST_CPP17() && !defined(PERFETTO_ALLOW_SUB_CPP17)
-#error Perfetto is exploring a switch to C++17 in v34 (Feb 2023). During this \
-transitionary period, we are throwing an error when compiling Perfetto \
-with a standard less than C++17. Please reach out to \
-perfetto-dev@googlegroups.com if you have objections or thoughts on \
-this move. To continue compiling this release of Perfetto with \
-C++11/14, specify the define PERFETTO_ALLOW_SUB_CPP17. \
-*Note*: this define *will* stop working in v34 (Feb 2023).
-#endif
-
 // __has_attribute is supported only by clang and recent versions of GCC.
 // Add a layer to wrap the __has_attribute macro.
 #if defined(__has_attribute)
@@ -969,6 +959,10 @@ inline TimeNanos GetThreadCPUTimeNs() {
 
 inline TimeSeconds GetBootTimeS() {
   return std::chrono::duration_cast<TimeSeconds>(GetBootTimeNs());
+}
+
+inline TimeMillis GetBootTimeMs() {
+  return std::chrono::duration_cast<TimeMillis>(GetBootTimeNs());
 }
 
 inline TimeMillis GetWallTimeMs() {
@@ -1758,7 +1752,7 @@ namespace internal {
 // with the definition in tracing/core/basic_types.h
 using BufferId = uint16_t;
 
-// This is a direct index in the TracingMuxer::backends_ vector.
+// This is a direct index in the TracingMuxer::producer_backends_ vector.
 // Backends are only added and never removed.
 using TracingBackendId = size_t;
 
@@ -6303,6 +6297,7 @@ class PERFETTO_EXPORT_COMPONENT DataSourceConfig : public ::protozero::CppMessag
     kNameFieldNumber = 1,
     kTargetBufferFieldNumber = 2,
     kTraceDurationMsFieldNumber = 3,
+    kPreferSuspendClockForDurationFieldNumber = 122,
     kStopTimeoutMsFieldNumber = 7,
     kEnableExtraGuardrailsFieldNumber = 6,
     kSessionInitiatorFieldNumber = 8,
@@ -6357,6 +6352,10 @@ class PERFETTO_EXPORT_COMPONENT DataSourceConfig : public ::protozero::CppMessag
   bool has_trace_duration_ms() const { return _has_field_[3]; }
   uint32_t trace_duration_ms() const { return trace_duration_ms_; }
   void set_trace_duration_ms(uint32_t value) { trace_duration_ms_ = value; _has_field_.set(3); }
+
+  bool has_prefer_suspend_clock_for_duration() const { return _has_field_[122]; }
+  bool prefer_suspend_clock_for_duration() const { return prefer_suspend_clock_for_duration_; }
+  void set_prefer_suspend_clock_for_duration(bool value) { prefer_suspend_clock_for_duration_ = value; _has_field_.set(122); }
 
   bool has_stop_timeout_ms() const { return _has_field_[7]; }
   uint32_t stop_timeout_ms() const { return stop_timeout_ms_; }
@@ -6452,6 +6451,7 @@ class PERFETTO_EXPORT_COMPONENT DataSourceConfig : public ::protozero::CppMessag
   std::string name_{};
   uint32_t target_buffer_{};
   uint32_t trace_duration_ms_{};
+  bool prefer_suspend_clock_for_duration_{};
   uint32_t stop_timeout_ms_{};
   bool enable_extra_guardrails_{};
   DataSourceConfig_SessionInitiator session_initiator_{};
@@ -6777,6 +6777,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
     kDataSourcesFieldNumber = 2,
     kBuiltinDataSourcesFieldNumber = 20,
     kDurationMsFieldNumber = 3,
+    kPreferSuspendClockForDurationFieldNumber = 36,
     kEnableExtraGuardrailsFieldNumber = 4,
     kLockdownModeFieldNumber = 5,
     kProducersFieldNumber = 6,
@@ -6840,6 +6841,10 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
   bool has_duration_ms() const { return _has_field_[3]; }
   uint32_t duration_ms() const { return duration_ms_; }
   void set_duration_ms(uint32_t value) { duration_ms_ = value; _has_field_.set(3); }
+
+  bool has_prefer_suspend_clock_for_duration() const { return _has_field_[36]; }
+  bool prefer_suspend_clock_for_duration() const { return prefer_suspend_clock_for_duration_; }
+  void set_prefer_suspend_clock_for_duration(bool value) { prefer_suspend_clock_for_duration_ = value; _has_field_.set(36); }
 
   bool has_enable_extra_guardrails() const { return _has_field_[4]; }
   bool enable_extra_guardrails() const { return enable_extra_guardrails_; }
@@ -6963,6 +6968,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
   std::vector<TraceConfig_DataSource> data_sources_;
   ::protozero::CopyablePtr<TraceConfig_BuiltinDataSource> builtin_data_sources_;
   uint32_t duration_ms_{};
+  bool prefer_suspend_clock_for_duration_{};
   bool enable_extra_guardrails_{};
   TraceConfig_LockdownModeOperation lockdown_mode_{};
   std::vector<TraceConfig_ProducerConfig> producers_;
@@ -6996,7 +7002,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<36> _has_field_{};
+  std::bitset<37> _has_field_{};
 };
 
 
@@ -7841,9 +7847,10 @@ class ConsumerEndpoint;
 class Producer;
 class ProducerEndpoint;
 
-class PERFETTO_EXPORT_COMPONENT TracingBackend {
+// Responsible for connecting to the producer.
+class PERFETTO_EXPORT_COMPONENT TracingProducerBackend {
  public:
-  virtual ~TracingBackend();
+  virtual ~TracingProducerBackend();
 
   // Connects a Producer instance and obtains a ProducerEndpoint, which is
   // essentially a 1:1 channel between one Producer and the Service.
@@ -7875,6 +7882,12 @@ class PERFETTO_EXPORT_COMPONENT TracingBackend {
 
   virtual std::unique_ptr<ProducerEndpoint> ConnectProducer(
       const ConnectProducerArgs&) = 0;
+};
+
+// Responsible for connecting to the consumer.
+class PERFETTO_EXPORT_COMPONENT TracingConsumerBackend {
+ public:
+  virtual ~TracingConsumerBackend();
 
   // As above, for the Consumer-side.
   struct ConnectConsumerArgs {
@@ -7887,6 +7900,12 @@ class PERFETTO_EXPORT_COMPONENT TracingBackend {
   };
   virtual std::unique_ptr<ConsumerEndpoint> ConnectConsumer(
       const ConnectConsumerArgs&) = 0;
+};
+
+class PERFETTO_EXPORT_COMPONENT TracingBackend : public TracingProducerBackend,
+                                                 public TracingConsumerBackend {
+ public:
+  ~TracingBackend() override;
 };
 
 }  // namespace perfetto
@@ -7982,43 +8001,39 @@ class TaskRunner;
 
 class Producer;
 
-// A built-in implementation of TracingBackend that connects to the system
-// tracing daemon (traced) via a UNIX socket using the perfetto built-in
-// proto-based IPC mechanism. Instantiated when the embedder calls
-// Tracing::Initialize(kSystemBackend). It allows to get app-traces fused
-// together with system traces, useful to correlate on the timeline system
-// events (e.g. scheduling slices from the kernel) with in-app events.
+// Built-in implementations of TracingProducerBackend and TracingConsumerBackend
+// that connect to the system tracing daemon (traced) via a UNIX socket using
+// the perfetto built-in proto-based IPC mechanism. Instantiated when the
+// embedder calls Tracing::Initialize(kSystemBackend). They allow to get
+// app-traces fused together with system traces, useful to correlate on the
+// timeline system events (e.g. scheduling slices from the kernel) with in-app
+// events.
 namespace internal {
 
-// Full backend (with producer and consumer)
-class PERFETTO_EXPORT_COMPONENT SystemTracingBackend : public TracingBackend {
+// Producer backend
+class PERFETTO_EXPORT_COMPONENT SystemProducerTracingBackend
+    : public TracingProducerBackend {
  public:
-  static TracingBackend* GetInstance();
+  static TracingProducerBackend* GetInstance();
 
-  // TracingBackend implementation.
   std::unique_ptr<ProducerEndpoint> ConnectProducer(
       const ConnectProducerArgs&) override;
-  std::unique_ptr<ConsumerEndpoint> ConnectConsumer(
-      const ConnectConsumerArgs&) override;
 
  private:
-  SystemTracingBackend();
+  SystemProducerTracingBackend();
 };
 
-// Producer only backend.
-class PERFETTO_EXPORT_COMPONENT SystemTracingProducerOnlyBackend
-    : public TracingBackend {
+// Consumer backend
+class PERFETTO_EXPORT_COMPONENT SystemConsumerTracingBackend
+    : public TracingConsumerBackend {
  public:
-  static TracingBackend* GetInstance();
+  static TracingConsumerBackend* GetInstance();
 
-  // TracingBackend implementation.
-  std::unique_ptr<ProducerEndpoint> ConnectProducer(
-      const ConnectProducerArgs&) override;
   std::unique_ptr<ConsumerEndpoint> ConnectConsumer(
       const ConnectConsumerArgs&) override;
 
  private:
-  SystemTracingProducerOnlyBackend();
+  SystemConsumerTracingBackend();
 };
 
 }  // namespace internal
@@ -8202,6 +8217,10 @@ struct TracingInitArgs {
   bool supports_multiple_data_source_instances = true;
 
   // If this flag is set the default clock for taking timestamps is overridden
+  // with CLOCK_MONOTONIC (for use in Chrome).
+  bool use_monotonic_clock = false;
+
+  // If this flag is set the default clock for taking timestamps is overridden
   // with CLOCK_MONOTONIC_RAW on platforms that support it.
   bool use_monotonic_raw_clock = false;
 
@@ -8221,18 +8240,24 @@ struct TracingInitArgs {
   bool operator==(const TracingInitArgs& other) const {
     return std::tie(backends, custom_backend, platform, shmem_size_hint_kb,
                     shmem_page_size_hint_kb, in_process_backend_factory_,
-                    system_backend_factory_, dcheck_is_on_,
+                    system_producer_backend_factory_,
+                    system_consumer_backend_factory_, dcheck_is_on_,
                     enable_system_consumer) ==
            std::tie(other.backends, other.custom_backend, other.platform,
                     other.shmem_size_hint_kb, other.shmem_page_size_hint_kb,
                     other.in_process_backend_factory_,
-                    other.system_backend_factory_, other.dcheck_is_on_,
+                    other.system_producer_backend_factory_,
+                    other.system_consumer_backend_factory_, other.dcheck_is_on_,
                     other.enable_system_consumer);
   }
 
   using BackendFactoryFunction = TracingBackend* (*)();
+  using ProducerBackendFactoryFunction = TracingProducerBackend* (*)();
+  using ConsumerBackendFactoryFunction = TracingConsumerBackend* (*)();
+
   BackendFactoryFunction in_process_backend_factory_ = nullptr;
-  BackendFactoryFunction system_backend_factory_ = nullptr;
+  ProducerBackendFactoryFunction system_producer_backend_factory_ = nullptr;
+  ConsumerBackendFactoryFunction system_consumer_backend_factory_ = nullptr;
   bool dcheck_is_on_ = PERFETTO_DCHECK_IS_ON();
 };
 
@@ -8260,12 +8285,11 @@ class PERFETTO_EXPORT_COMPONENT Tracing {
           &internal::InProcessTracingBackend::GetInstance;
     }
     if (args.backends & kSystemBackend) {
+      args_copy.system_producer_backend_factory_ =
+          &internal::SystemProducerTracingBackend::GetInstance;
       if (args.enable_system_consumer) {
-        args_copy.system_backend_factory_ =
-            &internal::SystemTracingBackend::GetInstance;
-      } else {
-        args_copy.system_backend_factory_ =
-            &internal::SystemTracingProducerOnlyBackend::GetInstance;
+        args_copy.system_consumer_backend_factory_ =
+            &internal::SystemConsumerTracingBackend::GetInstance;
       }
     }
     InitializeInternal(args_copy);
@@ -39633,7 +39657,7 @@ const char* DataSourceConfig_SessionInitiator_Name(::perfetto::protos::pbzero::D
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class DataSourceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/120, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+class DataSourceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/122, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   DataSourceConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit DataSourceConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -39644,6 +39668,8 @@ class DataSourceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIE
   uint32_t target_buffer() const { return at<2>().as_uint32(); }
   bool has_trace_duration_ms() const { return at<3>().valid(); }
   uint32_t trace_duration_ms() const { return at<3>().as_uint32(); }
+  bool has_prefer_suspend_clock_for_duration() const { return at<122>().valid(); }
+  bool prefer_suspend_clock_for_duration() const { return at<122>().as_bool(); }
   bool has_stop_timeout_ms() const { return at<7>().valid(); }
   uint32_t stop_timeout_ms() const { return at<7>().as_uint32(); }
   bool has_enable_extra_guardrails() const { return at<6>().valid(); }
@@ -39705,6 +39731,7 @@ class DataSourceConfig : public ::protozero::Message {
     kNameFieldNumber = 1,
     kTargetBufferFieldNumber = 2,
     kTraceDurationMsFieldNumber = 3,
+    kPreferSuspendClockForDurationFieldNumber = 122,
     kStopTimeoutMsFieldNumber = 7,
     kEnableExtraGuardrailsFieldNumber = 6,
     kSessionInitiatorFieldNumber = 8,
@@ -39821,6 +39848,31 @@ class DataSourceConfig : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PreferSuspendClockForDuration =
+    ::protozero::proto_utils::FieldMetadata<
+      122,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      DataSourceConfig>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_PreferSuspendClockForDuration kPreferSuspendClockForDuration() { return {}; }
+  void set_prefer_suspend_clock_for_duration(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_PreferSuspendClockForDuration::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
 
@@ -41914,7 +41966,7 @@ const char* TraceConfig_BufferConfig_FillPolicy_Name(::perfetto::protos::pbzero:
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class TraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/35, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class TraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/36, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   TraceConfig_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TraceConfig_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -41927,6 +41979,8 @@ class TraceConfig_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes builtin_data_sources() const { return at<20>().as_bytes(); }
   bool has_duration_ms() const { return at<3>().valid(); }
   uint32_t duration_ms() const { return at<3>().as_uint32(); }
+  bool has_prefer_suspend_clock_for_duration() const { return at<36>().valid(); }
+  bool prefer_suspend_clock_for_duration() const { return at<36>().as_bool(); }
   bool has_enable_extra_guardrails() const { return at<4>().valid(); }
   bool enable_extra_guardrails() const { return at<4>().as_bool(); }
   bool has_lockdown_mode() const { return at<5>().valid(); }
@@ -41993,6 +42047,7 @@ class TraceConfig : public ::protozero::Message {
     kDataSourcesFieldNumber = 2,
     kBuiltinDataSourcesFieldNumber = 20,
     kDurationMsFieldNumber = 3,
+    kPreferSuspendClockForDurationFieldNumber = 36,
     kEnableExtraGuardrailsFieldNumber = 4,
     kLockdownModeFieldNumber = 5,
     kProducersFieldNumber = 6,
@@ -42145,6 +42200,31 @@ class TraceConfig : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kUint32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PreferSuspendClockForDuration =
+    ::protozero::proto_utils::FieldMetadata<
+      36,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      TraceConfig>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_PreferSuspendClockForDuration kPreferSuspendClockForDuration() { return {}; }
+  void set_prefer_suspend_clock_for_duration(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_PreferSuspendClockForDuration::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
         ::Append(*this, field_id, value);
   }
 
@@ -169906,6 +169986,7 @@ class PERFETTO_EXPORT_COMPONENT DataSourceConfig : public ::protozero::CppMessag
     kNameFieldNumber = 1,
     kTargetBufferFieldNumber = 2,
     kTraceDurationMsFieldNumber = 3,
+    kPreferSuspendClockForDurationFieldNumber = 122,
     kStopTimeoutMsFieldNumber = 7,
     kEnableExtraGuardrailsFieldNumber = 6,
     kSessionInitiatorFieldNumber = 8,
@@ -169960,6 +170041,10 @@ class PERFETTO_EXPORT_COMPONENT DataSourceConfig : public ::protozero::CppMessag
   bool has_trace_duration_ms() const { return _has_field_[3]; }
   uint32_t trace_duration_ms() const { return trace_duration_ms_; }
   void set_trace_duration_ms(uint32_t value) { trace_duration_ms_ = value; _has_field_.set(3); }
+
+  bool has_prefer_suspend_clock_for_duration() const { return _has_field_[122]; }
+  bool prefer_suspend_clock_for_duration() const { return prefer_suspend_clock_for_duration_; }
+  void set_prefer_suspend_clock_for_duration(bool value) { prefer_suspend_clock_for_duration_ = value; _has_field_.set(122); }
 
   bool has_stop_timeout_ms() const { return _has_field_[7]; }
   uint32_t stop_timeout_ms() const { return stop_timeout_ms_; }
@@ -170055,6 +170140,7 @@ class PERFETTO_EXPORT_COMPONENT DataSourceConfig : public ::protozero::CppMessag
   std::string name_{};
   uint32_t target_buffer_{};
   uint32_t trace_duration_ms_{};
+  bool prefer_suspend_clock_for_duration_{};
   uint32_t stop_timeout_ms_{};
   bool enable_extra_guardrails_{};
   DataSourceConfig_SessionInitiator session_initiator_{};
@@ -170723,6 +170809,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
     kDataSourcesFieldNumber = 2,
     kBuiltinDataSourcesFieldNumber = 20,
     kDurationMsFieldNumber = 3,
+    kPreferSuspendClockForDurationFieldNumber = 36,
     kEnableExtraGuardrailsFieldNumber = 4,
     kLockdownModeFieldNumber = 5,
     kProducersFieldNumber = 6,
@@ -170786,6 +170873,10 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
   bool has_duration_ms() const { return _has_field_[3]; }
   uint32_t duration_ms() const { return duration_ms_; }
   void set_duration_ms(uint32_t value) { duration_ms_ = value; _has_field_.set(3); }
+
+  bool has_prefer_suspend_clock_for_duration() const { return _has_field_[36]; }
+  bool prefer_suspend_clock_for_duration() const { return prefer_suspend_clock_for_duration_; }
+  void set_prefer_suspend_clock_for_duration(bool value) { prefer_suspend_clock_for_duration_ = value; _has_field_.set(36); }
 
   bool has_enable_extra_guardrails() const { return _has_field_[4]; }
   bool enable_extra_guardrails() const { return enable_extra_guardrails_; }
@@ -170909,6 +171000,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
   std::vector<TraceConfig_DataSource> data_sources_;
   ::protozero::CopyablePtr<TraceConfig_BuiltinDataSource> builtin_data_sources_;
   uint32_t duration_ms_{};
+  bool prefer_suspend_clock_for_duration_{};
   bool enable_extra_guardrails_{};
   TraceConfig_LockdownModeOperation lockdown_mode_{};
   std::vector<TraceConfig_ProducerConfig> producers_;
@@ -170942,7 +171034,7 @@ class PERFETTO_EXPORT_COMPONENT TraceConfig : public ::protozero::CppMessageObj 
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<36> _has_field_{};
+  std::bitset<37> _has_field_{};
 };
 
 

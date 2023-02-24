@@ -25,19 +25,11 @@ class MockExecutor final : public ash::cros_healthd::mojom::Executor {
   ~MockExecutor() override = default;
 
   // ash::cros_healthd::mojom::Executor overrides:
+  MOCK_METHOD(void, ReadFile, (File, ReadFileCallback), (override));
   MOCK_METHOD(void, GetFanSpeed, (GetFanSpeedCallback), (override));
-  MOCK_METHOD(void, GetInterfaces, (GetInterfacesCallback), (override));
   MOCK_METHOD(void,
-              GetLink,
-              (const std::string& interface_name, GetLinkCallback),
-              (override));
-  MOCK_METHOD(void,
-              GetInfo,
-              (const std::string& interface_name, GetInfoCallback),
-              (override));
-  MOCK_METHOD(void,
-              GetScanDump,
-              (const std::string& interface_name, GetScanDumpCallback),
+              RunIw,
+              (IwCommand, const std::string&, RunIwCallback),
               (override));
   MOCK_METHOD(void,
               RunMemtester,
@@ -57,14 +49,6 @@ class MockExecutor final : public ash::cros_healthd::mojom::Executor {
   MOCK_METHOD(void,
               ReadMsr,
               (uint32_t msr_reg, uint32_t cpu_index, ReadMsrCallback),
-              (override));
-  MOCK_METHOD(void,
-              GetUEFISecureBootContent,
-              (GetUEFISecureBootContentCallback),
-              (override));
-  MOCK_METHOD(void,
-              GetUEFIPlatformSizeContent,
-              (GetUEFIPlatformSizeContentCallback),
               (override));
   MOCK_METHOD(void, GetLidAngle, (GetLidAngleCallback), (override));
   MOCK_METHOD(void,

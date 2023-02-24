@@ -495,6 +495,132 @@ Initialization& Initialization::SetPlatform(const int64_t value) {
 
 namespace cr_os_events {
 
+AppDiscovery_AppInstalled::AppDiscovery_AppInstalled() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "AppDiscovery_AppInstalled",
+                               true) {}
+AppDiscovery_AppInstalled::~AppDiscovery_AppInstalled() = default;
+
+AppDiscovery_AppInstalled& AppDiscovery_AppInstalled::SetAppId(const std::string& value) {
+  AddMetric("AppId", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+AppDiscovery_AppInstalled& AppDiscovery_AppInstalled::SetAppType(const int64_t value) {
+  AddMetric("AppType", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+AppDiscovery_AppInstalled& AppDiscovery_AppInstalled::SetInstallSource(const int64_t value) {
+  AddMetric("InstallSource", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+AppDiscovery_AppInstalled& AppDiscovery_AppInstalled::SetInstallReason(const int64_t value) {
+  AddMetric("InstallReason", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+AppDiscovery_AppLaunched::AppDiscovery_AppLaunched() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "AppDiscovery_AppLaunched",
+                               true) {}
+AppDiscovery_AppLaunched::~AppDiscovery_AppLaunched() = default;
+
+AppDiscovery_AppLaunched& AppDiscovery_AppLaunched::SetAppId(const std::string& value) {
+  AddMetric("AppId", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+AppDiscovery_AppLaunched& AppDiscovery_AppLaunched::SetAppType(const int64_t value) {
+  AddMetric("AppType", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+AppDiscovery_AppLaunched& AppDiscovery_AppLaunched::SetLaunchSource(const int64_t value) {
+  AddMetric("LaunchSource", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+AppDiscovery_AppUninstall::AppDiscovery_AppUninstall() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "AppDiscovery_AppUninstall",
+                               true) {}
+AppDiscovery_AppUninstall::~AppDiscovery_AppUninstall() = default;
+
+AppDiscovery_AppUninstall& AppDiscovery_AppUninstall::SetAppId(const std::string& value) {
+  AddMetric("AppId", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+AppDiscovery_AppUninstall& AppDiscovery_AppUninstall::SetAppType(const int64_t value) {
+  AddMetric("AppType", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+AppDiscovery_AppUninstall& AppDiscovery_AppUninstall::SetUninstallSource(const int64_t value) {
+  AddMetric("UninstallSource", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+AppDiscovery_AppStateChanged::AppDiscovery_AppStateChanged() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "AppDiscovery_AppStateChanged",
+                               true) {}
+AppDiscovery_AppStateChanged::~AppDiscovery_AppStateChanged() = default;
+
+AppDiscovery_AppStateChanged& AppDiscovery_AppStateChanged::SetAppId(const std::string& value) {
+  AddMetric("AppId", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+AppDiscovery_AppStateChanged& AppDiscovery_AppStateChanged::SetAppState(const int64_t value) {
+  AddMetric("AppState", Event::MetricType::kLong,
+            base::Value(base::NumberToString(value)));
+  return *this;
+}
+
+AppDiscovery_LauncherOpen::AppDiscovery_LauncherOpen() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "AppDiscovery_LauncherOpen",
+                               true) {}
+AppDiscovery_LauncherOpen::~AppDiscovery_LauncherOpen() = default;
+
+AppDiscovery_AppLauncherResultOpened::AppDiscovery_AppLauncherResultOpened() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "AppDiscovery_AppLauncherResultOpened",
+                               true) {}
+AppDiscovery_AppLauncherResultOpened::~AppDiscovery_AppLauncherResultOpened() = default;
+
+AppDiscovery_AppLauncherResultOpened& AppDiscovery_AppLauncherResultOpened::SetFuzzyStringMatch(const double value) {
+  AddMetric("FuzzyStringMatch", Event::MetricType::kDouble,
+            base::Value(value));
+  return *this;
+}
+
+AppDiscovery_AppLauncherResultOpened& AppDiscovery_AppLauncherResultOpened::SetAppId(const std::string& value) {
+  AddMetric("AppId", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
+AppDiscovery_AppLauncherResultOpened& AppDiscovery_AppLauncherResultOpened::SetAppName(const std::string& value) {
+  AddMetric("AppName", Event::MetricType::kRawString,
+            base::Value(value));
+  return *this;
+}
+
 UserLogin::UserLogin() :
   ::metrics::structured::Event("CrOSEvents",
                                "UserLogin",

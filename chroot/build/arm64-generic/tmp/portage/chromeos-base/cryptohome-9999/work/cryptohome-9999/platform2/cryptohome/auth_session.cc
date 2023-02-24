@@ -27,6 +27,7 @@
 #include <libhwsec-foundation/crypto/hmac.h>
 #include <libhwsec-foundation/crypto/secure_blob_util.h>
 
+#include "base/functional/callback_helpers.h"
 #include "cryptohome/auth_blocks/auth_block.h"
 #include "cryptohome/auth_blocks/auth_block_utility.h"
 #include "cryptohome/auth_factor/auth_factor.h"
@@ -46,6 +47,7 @@
 #include "cryptohome/error/cryptohome_crypto_error.h"
 #include "cryptohome/error/cryptohome_error.h"
 #include "cryptohome/error/location_utils.h"
+#include "cryptohome/error/utilities.h"
 #include "cryptohome/keyset_management.h"
 #include "cryptohome/platform.h"
 #include "cryptohome/signature_sealing/structures_proto.h"
@@ -61,6 +63,7 @@ namespace cryptohome {
 namespace {
 
 using brillo::cryptohome::home::SanitizeUserName;
+using cryptohome::error::ContainsActionInStack;
 using cryptohome::error::CryptohomeCryptoError;
 using cryptohome::error::CryptohomeError;
 using cryptohome::error::CryptohomeMountError;
@@ -252,7 +255,6 @@ std::unique_ptr<AuthSession> AuthSession::Create(
     Username account_id,
     unsigned int flags,
     AuthIntent intent,
-    base::OnceCallback<void(const base::UnguessableToken&)> on_timeout,
     feature::PlatformFeaturesInterface* feature_lib,
     BackingApis backing_apis) {
   ObfuscatedUsername obfuscated_username = SanitizeUserName(account_id);
@@ -288,14 +290,15 @@ std::unique_ptr<AuthSession> AuthSession::Create(
   }
 
   // Assumption here is that keyset_management_ will outlive this AuthSession.
-  AuthSession::Params params = {std::move(account_id),
-                                std::move(obfuscated_username),
-                                flags & AUTH_SESSION_FLAGS_EPHEMERAL_USER,
-                                intent,
-                                std::move(on_timeout),
-                                user_exists,
-                                std::move(auth_factor_map),
-                                migrate_to_user_secret_stash};
+  AuthSession::Params params = {
+      .username = std::move(account_id),
+      .obfuscated_username = std::move(obfuscated_username),
+      .is_ephemeral_user = flags & AUTH_SESSION_FLAGS_EPHEMERAL_USER,
+      .intent = intent,
+      .timeout_timer = std::make_unique<base::WallClockTimer>(),
+      .user_exists = user_exists,
+      .auth_factor_map = std::move(auth_factor_map),
+      .migrate_to_user_secret_stash = migrate_to_user_secret_stash};
   return std::make_unique<AuthSession>(std::move(params), backing_apis);
 }
 
@@ -304,8 +307,9 @@ AuthSession::AuthSession(Params params, BackingApis backing_apis)
       obfuscated_username_(SanitizeUserName(username_)),
       is_ephemeral_user_(*params.is_ephemeral_user),
       auth_intent_(*params.intent),
+      timeout_timer_(std::move(params.timeout_timer)),
       auth_session_creation_time_(base::TimeTicks::Now()),
-      on_timeout_(std::move(params.on_timeout)),
+      on_timeout_(base::DoNothing()),
       crypto_(backing_apis.crypto),
       platform_(backing_apis.platform),
       user_session_map_(backing_apis.user_session_map),
@@ -324,6 +328,7 @@ AuthSession::AuthSession(Params params, BackingApis backing_apis)
       migrate_to_user_secret_stash_(*params.migrate_to_user_secret_stash) {
   // Preconditions.
   DCHECK(!serialized_token_.empty());
+  DCHECK(timeout_timer_);
   DCHECK(crypto_);
   DCHECK(platform_);
   DCHECK(user_session_map_);
@@ -343,14 +348,6 @@ AuthSession::~AuthSession() {
                       auth_session_creation_time_, append_string);
   ReportTimerDuration(kAuthSessionAuthenticatedLifetimeTimer,
                       authenticated_time_, append_string);
-}
-
-void AuthSession::AuthSessionTimedOut() {
-  LOG(INFO) << "AuthSession: timed out.";
-  status_ = AuthStatus::kAuthStatusTimedOut;
-  authorized_intents_.clear();
-  // After this call back to |UserDataAuth|, |this| object will be deleted.
-  std::move(on_timeout_).Run(token_);
 }
 
 void AuthSession::RecordAuthSessionStart() const {
@@ -389,12 +386,9 @@ void AuthSession::SetAuthSessionAsAuthenticated(
 
 void AuthSession::SetTimeoutTimer(const base::TimeDelta& delay) {
   DCHECK_GT(delay, base::Minutes(0));
-
-  // |.start_time| and |.timer| need to be set at the same time.
-  timeout_timer_start_time_ = base::TimeTicks::Now();
-  timeout_timer_.Start(FROM_HERE, delay,
-                       base::BindOnce(&AuthSession::AuthSessionTimedOut,
-                                      base::Unretained(this)));
+  timeout_timer_->Start(FROM_HERE, base::Time::Now() + delay,
+                        base::BindOnce(&AuthSession::AuthSessionTimedOut,
+                                       base::Unretained(this)));
 }
 
 CryptohomeStatus AuthSession::ExtendTimeoutTimer(
@@ -458,7 +452,7 @@ void AuthSession::CreateAndPersistVaultKeyset(
     AuthInput auth_input,
     std::unique_ptr<AuthSessionPerformanceTimer> auth_session_performance_timer,
     StatusCallback on_done,
-    CryptoStatus callback_error,
+    CryptohomeStatus callback_error,
     std::unique_ptr<KeyBlobs> key_blobs,
     std::unique_ptr<AuthBlockState> auth_state) {
   // callback_error, key_blobs and auth_state are returned by
@@ -584,7 +578,7 @@ void AuthSession::UpdateVaultKeyset(
     const AuthInput& auth_input,
     std::unique_ptr<AuthSessionPerformanceTimer> auth_session_performance_timer,
     StatusCallback on_done,
-    CryptoStatus callback_error,
+    CryptohomeStatus callback_error,
     std::unique_ptr<KeyBlobs> key_blobs,
     std::unique_ptr<AuthBlockState> auth_state) {
   if (!callback_error.ok() || key_blobs == nullptr || auth_state == nullptr) {
@@ -680,7 +674,7 @@ void AuthSession::LoadVaultKeysetAndFsKeys(
     const AuthFactorMetadata& metadata,
     std::unique_ptr<AuthSessionPerformanceTimer> auth_session_performance_timer,
     StatusCallback on_done,
-    CryptoStatus status,
+    CryptohomeStatus status,
     std::unique_ptr<KeyBlobs> key_blobs) {
   if (!status.ok() || !key_blobs) {
     // For LE credentials, if deriving the key blobs failed due to too many
@@ -690,7 +684,7 @@ void AuthSession::LoadVaultKeysetAndFsKeys(
     // it doesn't make it into the VaultKeyset::Decrypt(); so auth_lock should
     // be set here.
     if (!status.ok() &&
-        status->local_crypto_error() == CryptoError::CE_CREDENTIAL_LOCKED) {
+        ContainsActionInStack(status, error::ErrorAction::kLeLockedOut)) {
       // Get the corresponding encrypted vault keyset for the user and the label
       // to set the auth_locked.
       std::unique_ptr<VaultKeyset> vk = keyset_management_->GetVaultKeyset(
@@ -1389,7 +1383,7 @@ void AuthSession::UpdateAuthFactorViaUserSecretStash(
     const AuthInput& auth_input,
     std::unique_ptr<AuthSessionPerformanceTimer> auth_session_performance_timer,
     StatusCallback on_done,
-    CryptoStatus callback_error,
+    CryptohomeStatus callback_error,
     std::unique_ptr<KeyBlobs> key_blobs,
     std::unique_ptr<AuthBlockState> auth_block_state) {
   user_data_auth::UpdateAuthFactorReply reply;
@@ -1815,7 +1809,7 @@ AuthBlockType AuthSession::ResaveVaultKeysetIfNeeded(
 
 void AuthSession::ResaveKeysetOnKeyBlobsGenerated(
     VaultKeyset updated_vault_keyset,
-    CryptoStatus error,
+    CryptohomeStatus error,
     std::unique_ptr<KeyBlobs> key_blobs,
     std::unique_ptr<AuthBlockState> auth_block_state) {
   if (!error.ok() || key_blobs == nullptr || auth_block_state == nullptr) {
@@ -1968,7 +1962,7 @@ std::optional<base::UnguessableToken> AuthSession::GetTokenFromSerializedString(
     LOG(ERROR) << "AuthSession: all-zeroes serialized token is invalid";
     return std::nullopt;
   }
-  return base::UnguessableToken::Deserialize2(high, low);
+  return base::UnguessableToken::Deserialize(high, low);
 }
 
 std::optional<ChallengeCredentialAuthInput>
@@ -2005,7 +1999,7 @@ void AuthSession::PersistAuthFactorToUserSecretStash(
     const KeyData& key_data,
     std::unique_ptr<AuthSessionPerformanceTimer> auth_session_performance_timer,
     StatusCallback on_done,
-    CryptoStatus callback_error,
+    CryptohomeStatus callback_error,
     std::unique_ptr<KeyBlobs> key_blobs,
     std::unique_ptr<AuthBlockState> auth_block_state) {
   CryptohomeStatus status = PersistAuthFactorToUserSecretStashImpl(
@@ -2026,7 +2020,7 @@ void AuthSession::PersistAuthFactorToUserSecretStashOnMigration(
     std::unique_ptr<AuthSessionPerformanceTimer> auth_session_performance_timer,
     StatusCallback on_done,
     CryptohomeStatus pre_migration_status,
-    CryptoStatus callback_error,
+    CryptohomeStatus callback_error,
     std::unique_ptr<KeyBlobs> key_blobs,
     std::unique_ptr<AuthBlockState> auth_block_state) {
   // During the migration existing VaultKeyset should be recreated with the
@@ -2089,7 +2083,7 @@ CryptohomeStatus AuthSession::PersistAuthFactorToUserSecretStashImpl(
     const AuthInput& auth_input,
     const KeyData& key_data,
     std::unique_ptr<AuthSessionPerformanceTimer> auth_session_performance_timer,
-    CryptoStatus callback_error,
+    CryptohomeStatus callback_error,
     std::unique_ptr<KeyBlobs> key_blobs,
     std::unique_ptr<AuthBlockState> auth_block_state) {
   // Check the status of the callback error, to see if the key blob creation was
@@ -2570,7 +2564,7 @@ void AuthSession::LoadUSSMainKeyAndFsKeyset(
     const AuthInput& auth_input,
     std::unique_ptr<AuthSessionPerformanceTimer> auth_session_performance_timer,
     StatusCallback on_done,
-    CryptoStatus callback_error,
+    CryptohomeStatus callback_error,
     std::unique_ptr<KeyBlobs> key_blobs) {
   // Check the status of the callback error, to see if the key blob derivation
   // was actually successful.
@@ -2762,9 +2756,8 @@ void AuthSession::ResetLECredentials() {
 }
 
 base::TimeDelta AuthSession::GetRemainingTime() const {
-  DCHECK(timeout_timer_.IsRunning());
-  auto time_passed = base::TimeTicks::Now() - timeout_timer_start_time_;
-  auto time_left = timeout_timer_.GetCurrentDelay() - time_passed;
+  DCHECK(timeout_timer_->IsRunning());
+  auto time_left = timeout_timer_->desired_run_time() - base::Time::Now();
   return time_left.is_negative() ? base::TimeDelta() : time_left;
 }
 
@@ -2775,6 +2768,23 @@ std::unique_ptr<brillo::SecureBlob> AuthSession::GetHibernateSecret() {
   return std::make_unique<brillo::SecureBlob>(HmacSha256(
       brillo::SecureBlob::Combine(fs_keyset.Key().fnek, fs_keyset.Key().fek),
       brillo::Blob(message.cbegin(), message.cend())));
+}
+
+void AuthSession::SetOnTimeoutCallback(
+    base::OnceCallback<void(const base::UnguessableToken&)> on_timeout) {
+  on_timeout_ = std::move(on_timeout);
+  // If the session is already timed out, trigger the callback immediately.
+  if (status_ == AuthStatus::kAuthStatusTimedOut) {
+    std::move(on_timeout_).Run(token_);
+  }
+}
+
+void AuthSession::AuthSessionTimedOut() {
+  LOG(INFO) << "AuthSession: timed out.";
+  status_ = AuthStatus::kAuthStatusTimedOut;
+  authorized_intents_.clear();
+  // After this callback, it's possible that |this| has been deleted.
+  std::move(on_timeout_).Run(token_);
 }
 
 CryptohomeStatus AuthSession::PrepareWebAuthnSecret() {

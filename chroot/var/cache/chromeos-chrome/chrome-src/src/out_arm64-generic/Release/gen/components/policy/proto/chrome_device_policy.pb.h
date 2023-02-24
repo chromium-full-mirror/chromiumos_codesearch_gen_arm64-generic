@@ -255,6 +255,9 @@ POLICY_PROTO_EXPORT extern DeviceSecondFactorAuthenticationProtoDefaultTypeInter
 class DeviceShowLowDiskSpaceNotificationProto;
 struct DeviceShowLowDiskSpaceNotificationProtoDefaultTypeInternal;
 POLICY_PROTO_EXPORT extern DeviceShowLowDiskSpaceNotificationProtoDefaultTypeInternal _DeviceShowLowDiskSpaceNotificationProto_default_instance_;
+class DeviceSystemAecEnabledProto;
+struct DeviceSystemAecEnabledProtoDefaultTypeInternal;
+POLICY_PROTO_EXPORT extern DeviceSystemAecEnabledProtoDefaultTypeInternal _DeviceSystemAecEnabledProto_default_instance_;
 class DeviceSystemWideTracingEnabledProto;
 struct DeviceSystemWideTracingEnabledProtoDefaultTypeInternal;
 POLICY_PROTO_EXPORT extern DeviceSystemWideTracingEnabledProtoDefaultTypeInternal _DeviceSystemWideTracingEnabledProto_default_instance_;
@@ -531,6 +534,7 @@ template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceScreensaverImageDi
 template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceScreensaverImagesProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceScreensaverImagesProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceSecondFactorAuthenticationProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceSecondFactorAuthenticationProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceShowLowDiskSpaceNotificationProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceShowLowDiskSpaceNotificationProto>(Arena*);
+template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceSystemAecEnabledProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceSystemAecEnabledProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceSystemWideTracingEnabledProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceSystemWideTracingEnabledProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceUnaffiliatedCrostiniAllowedProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceUnaffiliatedCrostiniAllowedProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::DeviceUsbPowerShareProto* Arena::CreateMaybeMessage<::enterprise_management::DeviceUsbPowerShareProto>(Arena*);
@@ -13729,6 +13733,145 @@ friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
 
+class POLICY_PROTO_EXPORT DeviceSystemAecEnabledProto final :
+public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceSystemAecEnabledProto) */ {
+public:
+inline DeviceSystemAecEnabledProto() : DeviceSystemAecEnabledProto(nullptr) {}
+~DeviceSystemAecEnabledProto() override;
+explicit PROTOBUF_CONSTEXPR DeviceSystemAecEnabledProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+DeviceSystemAecEnabledProto(const DeviceSystemAecEnabledProto& from);
+DeviceSystemAecEnabledProto(DeviceSystemAecEnabledProto&& from) noexcept
+: DeviceSystemAecEnabledProto() {
+*this = ::std::move(from);
+}
+
+inline DeviceSystemAecEnabledProto& operator=(const DeviceSystemAecEnabledProto& from) {
+CopyFrom(from);
+return *this;
+}
+inline DeviceSystemAecEnabledProto& operator=(DeviceSystemAecEnabledProto&& from) noexcept {
+if (this == &from) return *this;
+if (GetOwningArena() == from.GetOwningArena()
+#ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+&& GetOwningArena() != nullptr
+#endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+) {
+InternalSwap(&from);
+} else {
+CopyFrom(from);
+}
+return *this;
+}
+
+inline const std::string& unknown_fields() const {
+return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+}
+inline std::string* mutable_unknown_fields() {
+return _internal_metadata_.mutable_unknown_fields<std::string>();
+}
+
+static const DeviceSystemAecEnabledProto& default_instance() {
+return *internal_default_instance();
+}
+static inline const DeviceSystemAecEnabledProto* internal_default_instance() {
+return reinterpret_cast<const DeviceSystemAecEnabledProto*>(
+&_DeviceSystemAecEnabledProto_default_instance_);
+}
+static constexpr int kIndexInFileMessages =
+73;
+
+friend void swap(DeviceSystemAecEnabledProto& a, DeviceSystemAecEnabledProto& b) {
+a.Swap(&b);
+}
+PROTOBUF_NOINLINE void Swap(DeviceSystemAecEnabledProto* other) {
+if (other == this) return;
+#ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+if (GetOwningArena() != nullptr &&
+GetOwningArena() == other->GetOwningArena()) {
+#else  // PROTOBUF_FORCE_COPY_IN_SWAP
+if (GetOwningArena() == other->GetOwningArena()) {
+#endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+InternalSwap(other);
+} else {
+::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+}
+}
+void UnsafeArenaSwap(DeviceSystemAecEnabledProto* other) {
+if (other == this) return;
+GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+InternalSwap(other);
+}
+
+// implements Message ----------------------------------------------
+
+DeviceSystemAecEnabledProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+return CreateMaybeMessage<DeviceSystemAecEnabledProto>(arena);
+}
+void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+void CopyFrom(const DeviceSystemAecEnabledProto& from);
+void MergeFrom(const DeviceSystemAecEnabledProto& from);
+PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+bool IsInitialized() const final;
+
+size_t ByteSizeLong() const final;
+const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+uint8_t* _InternalSerialize(
+uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+int GetCachedSize() const final { return _cached_size_.Get(); }
+
+private:
+void SharedCtor();
+void SharedDtor();
+void SetCachedSize(int size) const;
+void InternalSwap(DeviceSystemAecEnabledProto* other);
+
+private:
+friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+return "enterprise_management.DeviceSystemAecEnabledProto";
+}
+protected:
+explicit DeviceSystemAecEnabledProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+bool is_message_owned = false);
+public:
+
+std::string GetTypeName() const final;
+
+// nested types ----------------------------------------------------
+
+// accessors -------------------------------------------------------
+
+enum : int {
+kDeviceSystemAecEnabledFieldNumber = 1,
+};
+// optional bool device_system_aec_enabled = 1;
+bool has_device_system_aec_enabled() const;
+private:
+bool _internal_has_device_system_aec_enabled() const;
+public:
+void clear_device_system_aec_enabled();
+bool device_system_aec_enabled() const;
+void set_device_system_aec_enabled(bool value);
+private:
+bool _internal_device_system_aec_enabled() const;
+void _internal_set_device_system_aec_enabled(bool value);
+public:
+
+// @@protoc_insertion_point(class_scope:enterprise_management.DeviceSystemAecEnabledProto)
+private:
+class _Internal;
+
+template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+typedef void InternalArenaConstructable_;
+typedef void DestructorSkippable_;
+::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+bool device_system_aec_enabled_;
+friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
+};
+// -------------------------------------------------------------------
+
 class POLICY_PROTO_EXPORT DeviceScreensaverEnabledProto final :
 public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceScreensaverEnabledProto) */ {
 public:
@@ -13775,7 +13918,7 @@ return reinterpret_cast<const DeviceScreensaverEnabledProto*>(
 &_DeviceScreensaverEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-73;
+74;
 
 friend void swap(DeviceScreensaverEnabledProto& a, DeviceScreensaverEnabledProto& b) {
 a.Swap(&b);
@@ -13914,7 +14057,7 @@ return reinterpret_cast<const DeviceEcryptfsMigrationStrategyProto*>(
 &_DeviceEcryptfsMigrationStrategyProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-74;
+75;
 
 friend void swap(DeviceEcryptfsMigrationStrategyProto& a, DeviceEcryptfsMigrationStrategyProto& b) {
 a.Swap(&b);
@@ -14081,7 +14224,7 @@ return reinterpret_cast<const DeviceSecondFactorAuthenticationProto*>(
 &_DeviceSecondFactorAuthenticationProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-75;
+76;
 
 friend void swap(DeviceSecondFactorAuthenticationProto& a, DeviceSecondFactorAuthenticationProto& b) {
 a.Swap(&b);
@@ -14250,7 +14393,7 @@ return reinterpret_cast<const CastReceiverNameProto*>(
 &_CastReceiverNameProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-76;
+77;
 
 friend void swap(CastReceiverNameProto& a, CastReceiverNameProto& b) {
 a.Swap(&b);
@@ -14394,7 +14537,7 @@ return reinterpret_cast<const WeeklyTimeProto*>(
 &_WeeklyTimeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-77;
+78;
 
 friend void swap(WeeklyTimeProto& a, WeeklyTimeProto& b) {
 a.Swap(&b);
@@ -14586,7 +14729,7 @@ return reinterpret_cast<const WeeklyTimeIntervalProto*>(
 &_WeeklyTimeIntervalProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-78;
+79;
 
 friend void swap(WeeklyTimeIntervalProto& a, WeeklyTimeIntervalProto& b) {
 a.Swap(&b);
@@ -14750,7 +14893,7 @@ return reinterpret_cast<const DeviceOffHoursProto*>(
 &_DeviceOffHoursProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-79;
+80;
 
 friend void swap(DeviceOffHoursProto& a, DeviceOffHoursProto& b) {
 a.Swap(&b);
@@ -14938,7 +15081,7 @@ return reinterpret_cast<const DeviceNativePrintersProto*>(
 &_DeviceNativePrintersProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-80;
+81;
 
 friend void swap(DeviceNativePrintersProto& a, DeviceNativePrintersProto& b) {
 a.Swap(&b);
@@ -15082,7 +15225,7 @@ return reinterpret_cast<const DeviceNativePrintersAccessModeProto*>(
 &_DeviceNativePrintersAccessModeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-81;
+82;
 
 friend void swap(DeviceNativePrintersAccessModeProto& a, DeviceNativePrintersAccessModeProto& b) {
 a.Swap(&b);
@@ -15249,7 +15392,7 @@ return reinterpret_cast<const DeviceNativePrintersBlacklistProto*>(
 &_DeviceNativePrintersBlacklistProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-82;
+83;
 
 friend void swap(DeviceNativePrintersBlacklistProto& a, DeviceNativePrintersBlacklistProto& b) {
 a.Swap(&b);
@@ -15398,7 +15541,7 @@ return reinterpret_cast<const DeviceNativePrintersWhitelistProto*>(
 &_DeviceNativePrintersWhitelistProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-83;
+84;
 
 friend void swap(DeviceNativePrintersWhitelistProto& a, DeviceNativePrintersWhitelistProto& b) {
 a.Swap(&b);
@@ -15547,7 +15690,7 @@ return reinterpret_cast<const DevicePrintersProto*>(
 &_DevicePrintersProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-84;
+85;
 
 friend void swap(DevicePrintersProto& a, DevicePrintersProto& b) {
 a.Swap(&b);
@@ -15691,7 +15834,7 @@ return reinterpret_cast<const DevicePrintersAccessModeProto*>(
 &_DevicePrintersAccessModeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-85;
+86;
 
 friend void swap(DevicePrintersAccessModeProto& a, DevicePrintersAccessModeProto& b) {
 a.Swap(&b);
@@ -15858,7 +16001,7 @@ return reinterpret_cast<const DevicePrintersBlocklistProto*>(
 &_DevicePrintersBlocklistProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-86;
+87;
 
 friend void swap(DevicePrintersBlocklistProto& a, DevicePrintersBlocklistProto& b) {
 a.Swap(&b);
@@ -16007,7 +16150,7 @@ return reinterpret_cast<const DevicePrintersAllowlistProto*>(
 &_DevicePrintersAllowlistProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-87;
+88;
 
 friend void swap(DevicePrintersAllowlistProto& a, DevicePrintersAllowlistProto& b) {
 a.Swap(&b);
@@ -16156,7 +16299,7 @@ return reinterpret_cast<const DeviceExternalPrintServersProto*>(
 &_DeviceExternalPrintServersProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-88;
+89;
 
 friend void swap(DeviceExternalPrintServersProto& a, DeviceExternalPrintServersProto& b) {
 a.Swap(&b);
@@ -16300,7 +16443,7 @@ return reinterpret_cast<const DeviceExternalPrintServersAllowlistProto*>(
 &_DeviceExternalPrintServersAllowlistProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-89;
+90;
 
 friend void swap(DeviceExternalPrintServersAllowlistProto& a, DeviceExternalPrintServersAllowlistProto& b) {
 a.Swap(&b);
@@ -16449,7 +16592,7 @@ return reinterpret_cast<const TPMFirmwareUpdateSettingsProto*>(
 &_TPMFirmwareUpdateSettingsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-90;
+91;
 
 friend void swap(TPMFirmwareUpdateSettingsProto& a, TPMFirmwareUpdateSettingsProto& b) {
 a.Swap(&b);
@@ -16650,7 +16793,7 @@ return reinterpret_cast<const OBSOLETE_MinimumRequiredVersionProto*>(
 &_OBSOLETE_MinimumRequiredVersionProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-91;
+92;
 
 friend void swap(OBSOLETE_MinimumRequiredVersionProto& a, OBSOLETE_MinimumRequiredVersionProto& b) {
 a.Swap(&b);
@@ -16794,7 +16937,7 @@ return reinterpret_cast<const DeviceLoginScreenAutoSelectCertificateForUrls*>(
 &_DeviceLoginScreenAutoSelectCertificateForUrls_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-92;
+93;
 
 friend void swap(DeviceLoginScreenAutoSelectCertificateForUrls& a, DeviceLoginScreenAutoSelectCertificateForUrls& b) {
 a.Swap(&b);
@@ -16943,7 +17086,7 @@ return reinterpret_cast<const UnaffiliatedArcAllowedProto*>(
 &_UnaffiliatedArcAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-93;
+94;
 
 friend void swap(UnaffiliatedArcAllowedProto& a, UnaffiliatedArcAllowedProto& b) {
 a.Swap(&b);
@@ -17082,7 +17225,7 @@ return reinterpret_cast<const DeviceKerberosEncryptionTypesProto*>(
 &_DeviceKerberosEncryptionTypesProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-94;
+95;
 
 friend void swap(DeviceKerberosEncryptionTypesProto& a, DeviceKerberosEncryptionTypesProto& b) {
 a.Swap(&b);
@@ -17249,7 +17392,7 @@ return reinterpret_cast<const KeyboardBacklightColorProto*>(
 &_KeyboardBacklightColorProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-95;
+96;
 
 friend void swap(KeyboardBacklightColorProto& a, KeyboardBacklightColorProto& b) {
 a.Swap(&b);
@@ -17428,7 +17571,7 @@ return reinterpret_cast<const DeviceUserPolicyLoopbackProcessingModeProto*>(
 &_DeviceUserPolicyLoopbackProcessingModeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-96;
+97;
 
 friend void swap(DeviceUserPolicyLoopbackProcessingModeProto& a, DeviceUserPolicyLoopbackProcessingModeProto& b) {
 a.Swap(&b);
@@ -17595,7 +17738,7 @@ return reinterpret_cast<const OBSOLETE_DeviceLoginScreenIsolateOriginsProto*>(
 &_OBSOLETE_DeviceLoginScreenIsolateOriginsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-97;
+98;
 
 friend void swap(OBSOLETE_DeviceLoginScreenIsolateOriginsProto& a, OBSOLETE_DeviceLoginScreenIsolateOriginsProto& b) {
 a.Swap(&b);
@@ -17739,7 +17882,7 @@ return reinterpret_cast<const OBSOLETE_DeviceLoginScreenSitePerProcessProto*>(
 &_OBSOLETE_DeviceLoginScreenSitePerProcessProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-98;
+99;
 
 friend void swap(OBSOLETE_DeviceLoginScreenSitePerProcessProto& a, OBSOLETE_DeviceLoginScreenSitePerProcessProto& b) {
 a.Swap(&b);
@@ -17878,7 +18021,7 @@ return reinterpret_cast<const VirtualMachinesAllowedProto*>(
 &_VirtualMachinesAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-99;
+100;
 
 friend void swap(VirtualMachinesAllowedProto& a, VirtualMachinesAllowedProto& b) {
 a.Swap(&b);
@@ -18017,7 +18160,7 @@ return reinterpret_cast<const DeviceMachinePasswordChangeRateProto*>(
 &_DeviceMachinePasswordChangeRateProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-100;
+101;
 
 friend void swap(DeviceMachinePasswordChangeRateProto& a, DeviceMachinePasswordChangeRateProto& b) {
 a.Swap(&b);
@@ -18156,7 +18299,7 @@ return reinterpret_cast<const DeviceGpoCacheLifetimeProto*>(
 &_DeviceGpoCacheLifetimeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-101;
+102;
 
 friend void swap(DeviceGpoCacheLifetimeProto& a, DeviceGpoCacheLifetimeProto& b) {
 a.Swap(&b);
@@ -18295,7 +18438,7 @@ return reinterpret_cast<const DeviceAuthDataCacheLifetimeProto*>(
 &_DeviceAuthDataCacheLifetimeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-102;
+103;
 
 friend void swap(DeviceAuthDataCacheLifetimeProto& a, DeviceAuthDataCacheLifetimeProto& b) {
 a.Swap(&b);
@@ -18434,7 +18577,7 @@ return reinterpret_cast<const DeviceUnaffiliatedCrostiniAllowedProto*>(
 &_DeviceUnaffiliatedCrostiniAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-103;
+104;
 
 friend void swap(DeviceUnaffiliatedCrostiniAllowedProto& a, DeviceUnaffiliatedCrostiniAllowedProto& b) {
 a.Swap(&b);
@@ -18573,7 +18716,7 @@ return reinterpret_cast<const PluginVmAllowedProto*>(
 &_PluginVmAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-104;
+105;
 
 friend void swap(PluginVmAllowedProto& a, PluginVmAllowedProto& b) {
 a.Swap(&b);
@@ -18712,7 +18855,7 @@ return reinterpret_cast<const PluginVmLicenseKeyProto*>(
 &_PluginVmLicenseKeyProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-105;
+106;
 
 friend void swap(PluginVmLicenseKeyProto& a, PluginVmLicenseKeyProto& b) {
 a.Swap(&b);
@@ -18856,7 +18999,7 @@ return reinterpret_cast<const DeviceRebootOnUserSignoutProto*>(
 &_DeviceRebootOnUserSignoutProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-106;
+107;
 
 friend void swap(DeviceRebootOnUserSignoutProto& a, DeviceRebootOnUserSignoutProto& b) {
 a.Swap(&b);
@@ -19027,7 +19170,7 @@ return reinterpret_cast<const DeviceWilcoDtcAllowedProto*>(
 &_DeviceWilcoDtcAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-107;
+108;
 
 friend void swap(DeviceWilcoDtcAllowedProto& a, DeviceWilcoDtcAllowedProto& b) {
 a.Swap(&b);
@@ -19166,7 +19309,7 @@ return reinterpret_cast<const DeviceWilcoDtcConfigurationProto*>(
 &_DeviceWilcoDtcConfigurationProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-108;
+109;
 
 friend void swap(DeviceWilcoDtcConfigurationProto& a, DeviceWilcoDtcConfigurationProto& b) {
 a.Swap(&b);
@@ -19310,7 +19453,7 @@ return reinterpret_cast<const DevicePowerPeakShiftProto*>(
 &_DevicePowerPeakShiftProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-109;
+110;
 
 friend void swap(DevicePowerPeakShiftProto& a, DevicePowerPeakShiftProto& b) {
 a.Swap(&b);
@@ -19484,7 +19627,7 @@ return reinterpret_cast<const DeviceBootOnAcProto*>(
 &_DeviceBootOnAcProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-110;
+111;
 
 friend void swap(DeviceBootOnAcProto& a, DeviceBootOnAcProto& b) {
 a.Swap(&b);
@@ -19623,7 +19766,7 @@ return reinterpret_cast<const DeviceDockMacAddressSourceProto*>(
 &_DeviceDockMacAddressSourceProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-111;
+112;
 
 friend void swap(DeviceDockMacAddressSourceProto& a, DeviceDockMacAddressSourceProto& b) {
 a.Swap(&b);
@@ -19792,7 +19935,7 @@ return reinterpret_cast<const DeviceAdvancedBatteryChargeModeProto*>(
 &_DeviceAdvancedBatteryChargeModeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-112;
+113;
 
 friend void swap(DeviceAdvancedBatteryChargeModeProto& a, DeviceAdvancedBatteryChargeModeProto& b) {
 a.Swap(&b);
@@ -19951,7 +20094,7 @@ return reinterpret_cast<const DeviceBatteryChargeModeProto*>(
 &_DeviceBatteryChargeModeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-113;
+114;
 
 friend void swap(DeviceBatteryChargeModeProto& a, DeviceBatteryChargeModeProto& b) {
 a.Swap(&b);
@@ -20154,7 +20297,7 @@ return reinterpret_cast<const DeviceUsbPowerShareProto*>(
 &_DeviceUsbPowerShareProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-114;
+115;
 
 friend void swap(DeviceUsbPowerShareProto& a, DeviceUsbPowerShareProto& b) {
 a.Swap(&b);
@@ -20293,7 +20436,7 @@ return reinterpret_cast<const DeviceScheduledUpdateCheckProto*>(
 &_DeviceScheduledUpdateCheckProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-115;
+116;
 
 friend void swap(DeviceScheduledUpdateCheckProto& a, DeviceScheduledUpdateCheckProto& b) {
 a.Swap(&b);
@@ -20437,7 +20580,7 @@ return reinterpret_cast<const DevicePowerwashAllowedProto*>(
 &_DevicePowerwashAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-116;
+117;
 
 friend void swap(DevicePowerwashAllowedProto& a, DevicePowerwashAllowedProto& b) {
 a.Swap(&b);
@@ -20576,7 +20719,7 @@ return reinterpret_cast<const DeviceLoginScreenWebUsbAllowDevicesForUrlsProto*>(
 &_DeviceLoginScreenWebUsbAllowDevicesForUrlsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-117;
+118;
 
 friend void swap(DeviceLoginScreenWebUsbAllowDevicesForUrlsProto& a, DeviceLoginScreenWebUsbAllowDevicesForUrlsProto& b) {
 a.Swap(&b);
@@ -20720,7 +20863,7 @@ return reinterpret_cast<const SystemProxySettingsProto*>(
 &_SystemProxySettingsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-118;
+119;
 
 friend void swap(SystemProxySettingsProto& a, SystemProxySettingsProto& b) {
 a.Swap(&b);
@@ -20864,7 +21007,7 @@ return reinterpret_cast<const RequiredClientCertificateForDeviceProto*>(
 &_RequiredClientCertificateForDeviceProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-119;
+120;
 
 friend void swap(RequiredClientCertificateForDeviceProto& a, RequiredClientCertificateForDeviceProto& b) {
 a.Swap(&b);
@@ -21008,7 +21151,7 @@ return reinterpret_cast<const DeviceCrostiniArcAdbSideloadingAllowedProto*>(
 &_DeviceCrostiniArcAdbSideloadingAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-120;
+121;
 
 friend void swap(DeviceCrostiniArcAdbSideloadingAllowedProto& a, DeviceCrostiniArcAdbSideloadingAllowedProto& b) {
 a.Swap(&b);
@@ -21175,7 +21318,7 @@ return reinterpret_cast<const DeviceShowLowDiskSpaceNotificationProto*>(
 &_DeviceShowLowDiskSpaceNotificationProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-121;
+122;
 
 friend void swap(DeviceShowLowDiskSpaceNotificationProto& a, DeviceShowLowDiskSpaceNotificationProto& b) {
 a.Swap(&b);
@@ -21314,7 +21457,7 @@ return reinterpret_cast<const DeviceFamilyLinkAccountsAllowedProto*>(
 &_DeviceFamilyLinkAccountsAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-122;
+123;
 
 friend void swap(DeviceFamilyLinkAccountsAllowedProto& a, DeviceFamilyLinkAccountsAllowedProto& b) {
 a.Swap(&b);
@@ -21453,7 +21596,7 @@ return reinterpret_cast<const DeviceArcDataSnapshotHoursProto*>(
 &_DeviceArcDataSnapshotHoursProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-123;
+124;
 
 friend void swap(DeviceArcDataSnapshotHoursProto& a, DeviceArcDataSnapshotHoursProto& b) {
 a.Swap(&b);
@@ -21597,7 +21740,7 @@ return reinterpret_cast<const DeviceSystemWideTracingEnabledProto*>(
 &_DeviceSystemWideTracingEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-124;
+125;
 
 friend void swap(DeviceSystemWideTracingEnabledProto& a, DeviceSystemWideTracingEnabledProto& b) {
 a.Swap(&b);
@@ -21736,7 +21879,7 @@ return reinterpret_cast<const DevicePciPeripheralDataAccessEnabledProto*>(
 &_DevicePciPeripheralDataAccessEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-125;
+126;
 
 friend void swap(DevicePciPeripheralDataAccessEnabledProto& a, DevicePciPeripheralDataAccessEnabledProto& b) {
 a.Swap(&b);
@@ -21875,7 +22018,7 @@ return reinterpret_cast<const DevicePciPeripheralDataAccessEnabledProtoV2*>(
 &_DevicePciPeripheralDataAccessEnabledProtoV2_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-126;
+127;
 
 friend void swap(DevicePciPeripheralDataAccessEnabledProtoV2& a, DevicePciPeripheralDataAccessEnabledProtoV2& b) {
 a.Swap(&b);
@@ -22014,7 +22157,7 @@ return reinterpret_cast<const OBSOLETE_DeviceBorealisAllowedProto*>(
 &_OBSOLETE_DeviceBorealisAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-127;
+128;
 
 friend void swap(OBSOLETE_DeviceBorealisAllowedProto& a, OBSOLETE_DeviceBorealisAllowedProto& b) {
 a.Swap(&b);
@@ -22153,7 +22296,7 @@ return reinterpret_cast<const DeviceAllowedBluetoothServicesProto*>(
 &_DeviceAllowedBluetoothServicesProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-128;
+129;
 
 friend void swap(DeviceAllowedBluetoothServicesProto& a, DeviceAllowedBluetoothServicesProto& b) {
 a.Swap(&b);
@@ -22302,7 +22445,7 @@ return reinterpret_cast<const DeviceDebugPacketCaptureAllowedProto*>(
 &_DeviceDebugPacketCaptureAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-129;
+130;
 
 friend void swap(DeviceDebugPacketCaptureAllowedProto& a, DeviceDebugPacketCaptureAllowedProto& b) {
 a.Swap(&b);
@@ -22441,7 +22584,7 @@ return reinterpret_cast<const DeviceScheduledRebootProto*>(
 &_DeviceScheduledRebootProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-130;
+131;
 
 friend void swap(DeviceScheduledRebootProto& a, DeviceScheduledRebootProto& b) {
 a.Swap(&b);
@@ -22585,7 +22728,7 @@ return reinterpret_cast<const DeviceRestrictedManagedGuestSessionEnabledProto*>(
 &_DeviceRestrictedManagedGuestSessionEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-131;
+132;
 
 friend void swap(DeviceRestrictedManagedGuestSessionEnabledProto& a, DeviceRestrictedManagedGuestSessionEnabledProto& b) {
 a.Swap(&b);
@@ -22724,7 +22867,7 @@ return reinterpret_cast<const DeviceI18nShortcutsEnabledProto*>(
 &_DeviceI18nShortcutsEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-132;
+133;
 
 friend void swap(DeviceI18nShortcutsEnabledProto& a, DeviceI18nShortcutsEnabledProto& b) {
 a.Swap(&b);
@@ -22863,7 +23006,7 @@ return reinterpret_cast<const RevenDeviceHWDataUsageEnabledProto*>(
 &_RevenDeviceHWDataUsageEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-133;
+134;
 
 friend void swap(RevenDeviceHWDataUsageEnabledProto& a, RevenDeviceHWDataUsageEnabledProto& b) {
 a.Swap(&b);
@@ -23002,7 +23145,7 @@ return reinterpret_cast<const DeviceLoginScreenWebUILazyLoadingProto*>(
 &_DeviceLoginScreenWebUILazyLoadingProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-134;
+135;
 
 friend void swap(DeviceLoginScreenWebUILazyLoadingProto& a, DeviceLoginScreenWebUILazyLoadingProto& b) {
 a.Swap(&b);
@@ -23141,7 +23284,7 @@ return reinterpret_cast<const EncryptedReportingPipelineConfigurationProto*>(
 &_EncryptedReportingPipelineConfigurationProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-135;
+136;
 
 friend void swap(EncryptedReportingPipelineConfigurationProto& a, EncryptedReportingPipelineConfigurationProto& b) {
 a.Swap(&b);
@@ -23280,7 +23423,7 @@ return reinterpret_cast<const DeviceReportXDREventsProto*>(
 &_DeviceReportXDREventsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-136;
+137;
 
 friend void swap(DeviceReportXDREventsProto& a, DeviceReportXDREventsProto& b) {
 a.Swap(&b);
@@ -23419,7 +23562,7 @@ return reinterpret_cast<const ChromeDeviceSettingsProto*>(
 &_ChromeDeviceSettingsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-137;
+138;
 
 friend void swap(ChromeDeviceSettingsProto& a, ChromeDeviceSettingsProto& b) {
 a.Swap(&b);
@@ -23625,6 +23768,7 @@ kDeviceScreensaverEnabledFieldNumber = 142,
 kDeviceScreensaverIdleTimeoutSecondsFieldNumber = 143,
 kDeviceScreensaverImageDisplayIntervalSecondsFieldNumber = 144,
 kDeviceScreensaverImagesFieldNumber = 145,
+kDeviceSystemAecEnabledFieldNumber = 146,
 };
 // optional .enterprise_management.DevicePolicyRefreshRateProto device_policy_refresh_rate = 1;
 bool has_device_policy_refresh_rate() const;
@@ -26182,6 +26326,24 @@ void unsafe_arena_set_allocated_device_screensaver_images(
 ::enterprise_management::DeviceScreensaverImagesProto* device_screensaver_images);
 ::enterprise_management::DeviceScreensaverImagesProto* unsafe_arena_release_device_screensaver_images();
 
+// optional .enterprise_management.DeviceSystemAecEnabledProto device_system_aec_enabled = 146;
+bool has_device_system_aec_enabled() const;
+private:
+bool _internal_has_device_system_aec_enabled() const;
+public:
+void clear_device_system_aec_enabled();
+const ::enterprise_management::DeviceSystemAecEnabledProto& device_system_aec_enabled() const;
+PROTOBUF_NODISCARD ::enterprise_management::DeviceSystemAecEnabledProto* release_device_system_aec_enabled();
+::enterprise_management::DeviceSystemAecEnabledProto* mutable_device_system_aec_enabled();
+void set_allocated_device_system_aec_enabled(::enterprise_management::DeviceSystemAecEnabledProto* device_system_aec_enabled);
+private:
+const ::enterprise_management::DeviceSystemAecEnabledProto& _internal_device_system_aec_enabled() const;
+::enterprise_management::DeviceSystemAecEnabledProto* _internal_mutable_device_system_aec_enabled();
+public:
+void unsafe_arena_set_allocated_device_system_aec_enabled(
+::enterprise_management::DeviceSystemAecEnabledProto* device_system_aec_enabled);
+::enterprise_management::DeviceSystemAecEnabledProto* unsafe_arena_release_device_system_aec_enabled();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.ChromeDeviceSettingsProto)
 private:
 class _Internal;
@@ -26333,6 +26495,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::DeviceScreensaverIdleTimeoutSecondsProto* device_screensaver_idle_timeout_seconds_;
 ::enterprise_management::DeviceScreensaverImageDisplayIntervalSecondsProto* device_screensaver_image_display_interval_seconds_;
 ::enterprise_management::DeviceScreensaverImagesProto* device_screensaver_images_;
+::enterprise_management::DeviceSystemAecEnabledProto* device_system_aec_enabled_;
 friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // ===================================================================
@@ -35325,6 +35488,38 @@ device_screensaver_images_.Set("", GetArenaForAllocation());
 }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+}
+
+// -------------------------------------------------------------------
+
+// DeviceSystemAecEnabledProto
+
+// optional bool device_system_aec_enabled = 1;
+inline bool DeviceSystemAecEnabledProto::_internal_has_device_system_aec_enabled() const {
+bool value = (_has_bits_[0] & 0x00000001u) != 0;
+return value;
+}
+inline bool DeviceSystemAecEnabledProto::has_device_system_aec_enabled() const {
+return _internal_has_device_system_aec_enabled();
+}
+inline void DeviceSystemAecEnabledProto::clear_device_system_aec_enabled() {
+device_system_aec_enabled_ = false;
+_has_bits_[0] &= ~0x00000001u;
+}
+inline bool DeviceSystemAecEnabledProto::_internal_device_system_aec_enabled() const {
+return device_system_aec_enabled_;
+}
+inline bool DeviceSystemAecEnabledProto::device_system_aec_enabled() const {
+// @@protoc_insertion_point(field_get:enterprise_management.DeviceSystemAecEnabledProto.device_system_aec_enabled)
+return _internal_device_system_aec_enabled();
+}
+inline void DeviceSystemAecEnabledProto::_internal_set_device_system_aec_enabled(bool value) {
+_has_bits_[0] |= 0x00000001u;
+device_system_aec_enabled_ = value;
+}
+inline void DeviceSystemAecEnabledProto::set_device_system_aec_enabled(bool value) {
+_internal_set_device_system_aec_enabled(value);
+// @@protoc_insertion_point(field_set:enterprise_management.DeviceSystemAecEnabledProto.device_system_aec_enabled)
 }
 
 // -------------------------------------------------------------------
@@ -51602,9 +51797,101 @@ device_screensaver_images_ = device_screensaver_images;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_screensaver_images)
 }
 
+// optional .enterprise_management.DeviceSystemAecEnabledProto device_system_aec_enabled = 146;
+inline bool ChromeDeviceSettingsProto::_internal_has_device_system_aec_enabled() const {
+bool value = (_has_bits_[4] & 0x00004000u) != 0;
+PROTOBUF_ASSUME(!value || device_system_aec_enabled_ != nullptr);
+return value;
+}
+inline bool ChromeDeviceSettingsProto::has_device_system_aec_enabled() const {
+return _internal_has_device_system_aec_enabled();
+}
+inline void ChromeDeviceSettingsProto::clear_device_system_aec_enabled() {
+if (device_system_aec_enabled_ != nullptr) device_system_aec_enabled_->Clear();
+_has_bits_[4] &= ~0x00004000u;
+}
+inline const ::enterprise_management::DeviceSystemAecEnabledProto& ChromeDeviceSettingsProto::_internal_device_system_aec_enabled() const {
+const ::enterprise_management::DeviceSystemAecEnabledProto* p = device_system_aec_enabled_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::DeviceSystemAecEnabledProto&>(
+::enterprise_management::_DeviceSystemAecEnabledProto_default_instance_);
+}
+inline const ::enterprise_management::DeviceSystemAecEnabledProto& ChromeDeviceSettingsProto::device_system_aec_enabled() const {
+// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_system_aec_enabled)
+return _internal_device_system_aec_enabled();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_system_aec_enabled(
+::enterprise_management::DeviceSystemAecEnabledProto* device_system_aec_enabled) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_system_aec_enabled_);
+}
+device_system_aec_enabled_ = device_system_aec_enabled;
+if (device_system_aec_enabled) {
+_has_bits_[4] |= 0x00004000u;
+} else {
+_has_bits_[4] &= ~0x00004000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_system_aec_enabled)
+}
+inline ::enterprise_management::DeviceSystemAecEnabledProto* ChromeDeviceSettingsProto::release_device_system_aec_enabled() {
+_has_bits_[4] &= ~0x00004000u;
+::enterprise_management::DeviceSystemAecEnabledProto* temp = device_system_aec_enabled_;
+device_system_aec_enabled_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::DeviceSystemAecEnabledProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_system_aec_enabled() {
+// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_system_aec_enabled)
+_has_bits_[4] &= ~0x00004000u;
+::enterprise_management::DeviceSystemAecEnabledProto* temp = device_system_aec_enabled_;
+device_system_aec_enabled_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::DeviceSystemAecEnabledProto* ChromeDeviceSettingsProto::_internal_mutable_device_system_aec_enabled() {
+_has_bits_[4] |= 0x00004000u;
+if (device_system_aec_enabled_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::DeviceSystemAecEnabledProto>(GetArenaForAllocation());
+device_system_aec_enabled_ = p;
+}
+return device_system_aec_enabled_;
+}
+inline ::enterprise_management::DeviceSystemAecEnabledProto* ChromeDeviceSettingsProto::mutable_device_system_aec_enabled() {
+::enterprise_management::DeviceSystemAecEnabledProto* _msg = _internal_mutable_device_system_aec_enabled();
+// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_system_aec_enabled)
+return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_device_system_aec_enabled(::enterprise_management::DeviceSystemAecEnabledProto* device_system_aec_enabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete device_system_aec_enabled_;
+}
+if (device_system_aec_enabled) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device_system_aec_enabled);
+if (message_arena != submessage_arena) {
+device_system_aec_enabled = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, device_system_aec_enabled, submessage_arena);
+}
+_has_bits_[4] |= 0x00004000u;
+} else {
+_has_bits_[4] &= ~0x00004000u;
+}
+device_system_aec_enabled_ = device_system_aec_enabled;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_system_aec_enabled)
+}
+
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

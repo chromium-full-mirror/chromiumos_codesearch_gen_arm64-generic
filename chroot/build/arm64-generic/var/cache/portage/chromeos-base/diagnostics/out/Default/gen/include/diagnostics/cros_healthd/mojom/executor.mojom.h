@@ -303,18 +303,14 @@ class Executor
   using RequestValidator_ = ExecutorRequestValidator;
   using ResponseValidator_ = ExecutorResponseValidator;
   enum MethodMinVersions : uint32_t {
+    kReadFileMinVersion = 0,
     kGetFanSpeedMinVersion = 0,
-    kGetInterfacesMinVersion = 0,
-    kGetLinkMinVersion = 0,
-    kGetInfoMinVersion = 0,
-    kGetScanDumpMinVersion = 0,
+    kRunIwMinVersion = 0,
     kRunMemtesterMinVersion = 0,
     kRunMemtesterV2MinVersion = 0,
     kKillMemtesterMinVersion = 0,
     kGetProcessIOContentsMinVersion = 0,
     kReadMsrMinVersion = 0,
-    kGetUEFISecureBootContentMinVersion = 0,
-    kGetUEFIPlatformSizeContentMinVersion = 0,
     kGetLidAngleMinVersion = 0,
     kGetFingerprintFrameMinVersion = 0,
     kGetFingerprintInfoMinVersion = 0,
@@ -330,19 +326,13 @@ class Executor
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
+  struct ReadFile_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
   struct GetFanSpeed_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct GetInterfaces_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetLink_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetInfo_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetScanDump_Sym {
+  struct RunIw_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunMemtester_Sym {
@@ -358,12 +348,6 @@ class Executor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct ReadMsr_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetUEFISecureBootContent_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetUEFIPlatformSizeContent_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetLidAngle_Sym {
@@ -397,7 +381,16 @@ class Executor
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
+  
+  using File = Executor_File;
+  
+  using IwCommand = Executor_IwCommand;
   virtual ~Executor() = default;
+
+
+  using ReadFileCallback = base::OnceCallback<void(const absl::optional<std::string>&)>;
+  
+  virtual void ReadFile(Executor::File file_enum, ReadFileCallback callback) = 0;
 
 
   using GetFanSpeedCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
@@ -405,24 +398,9 @@ class Executor
   virtual void GetFanSpeed(GetFanSpeedCallback callback) = 0;
 
 
-  using GetInterfacesCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
+  using RunIwCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
   
-  virtual void GetInterfaces(GetInterfacesCallback callback) = 0;
-
-
-  using GetLinkCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
-  
-  virtual void GetLink(const std::string& interface_name, GetLinkCallback callback) = 0;
-
-
-  using GetInfoCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
-  
-  virtual void GetInfo(const std::string& interface_name, GetInfoCallback callback) = 0;
-
-
-  using GetScanDumpCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
-  
-  virtual void GetScanDump(const std::string& interface_name, GetScanDumpCallback callback) = 0;
+  virtual void RunIw(Executor::IwCommand cmd, const std::string& interface_name, RunIwCallback callback) = 0;
 
 
   using RunMemtesterCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
@@ -444,16 +422,6 @@ class Executor
   using ReadMsrCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::NullableUint64Ptr)>;
   
   virtual void ReadMsr(uint32_t msr_reg, uint32_t cpu_index, ReadMsrCallback callback) = 0;
-
-
-  using GetUEFISecureBootContentCallback = base::OnceCallback<void(const std::string&)>;
-  
-  virtual void GetUEFISecureBootContent(GetUEFISecureBootContentCallback callback) = 0;
-
-
-  using GetUEFIPlatformSizeContentCallback = base::OnceCallback<void(const std::string&)>;
-  
-  virtual void GetUEFIPlatformSizeContent(GetUEFIPlatformSizeContentCallback callback) = 0;
 
 
   using GetLidAngleCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
@@ -581,15 +549,11 @@ class  ExecutorProxy
 
   explicit ExecutorProxy(mojo::MessageReceiverWithResponder* receiver);
   
+  void ReadFile(Executor::File file_enum, ReadFileCallback callback) final;
+  
   void GetFanSpeed(GetFanSpeedCallback callback) final;
   
-  void GetInterfaces(GetInterfacesCallback callback) final;
-  
-  void GetLink(const std::string& interface_name, GetLinkCallback callback) final;
-  
-  void GetInfo(const std::string& interface_name, GetInfoCallback callback) final;
-  
-  void GetScanDump(const std::string& interface_name, GetScanDumpCallback callback) final;
+  void RunIw(Executor::IwCommand cmd, const std::string& interface_name, RunIwCallback callback) final;
   
   void RunMemtester(uint32_t test_mem_kib, RunMemtesterCallback callback) final;
   
@@ -600,10 +564,6 @@ class  ExecutorProxy
   void GetProcessIOContents(const std::vector<uint32_t>& pids, GetProcessIOContentsCallback callback) final;
   
   void ReadMsr(uint32_t msr_reg, uint32_t cpu_index, ReadMsrCallback callback) final;
-  
-  void GetUEFISecureBootContent(GetUEFISecureBootContentCallback callback) final;
-  
-  void GetUEFIPlatformSizeContent(GetUEFIPlatformSizeContentCallback callback) final;
   
   void GetLidAngle(GetLidAngleCallback callback) final;
   

@@ -107,9 +107,11 @@ constexpr Data::Data(
   , mobile_apn_()
   , uuid_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , country_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , mtu_(0)
   , requires_roaming_(false)
   , prioritizes_name_(false)
-  , mtu_(0){}
+  , tethering_allowed_(false)
+  , use_dun_apn_as_default_(false){}
 struct DataDefaultTypeInternal {
   constexpr DataDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -2387,13 +2389,19 @@ class Data::_Internal {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_requires_roaming(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 8u;
   }
   static void set_has_mtu(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
+    (*has_bits)[0] |= 4u;
   }
   static void set_has_prioritizes_name(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_tethering_allowed(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
+  static void set_has_use_dun_apn_as_default(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
   }
   static bool MissingRequiredFields(const HasBits& has_bits) {
     return ((has_bits[0] & 0x00000001) ^ 0x00000001) != 0;
@@ -2439,9 +2447,9 @@ Data::Data(const Data& from)
     country_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_country(), 
       GetArenaForAllocation());
   }
-  ::memcpy(&requires_roaming_, &from.requires_roaming_,
-    static_cast<size_t>(reinterpret_cast<char*>(&mtu_) -
-    reinterpret_cast<char*>(&requires_roaming_)) + sizeof(mtu_));
+  ::memcpy(&mtu_, &from.mtu_,
+    static_cast<size_t>(reinterpret_cast<char*>(&use_dun_apn_as_default_) -
+    reinterpret_cast<char*>(&mtu_)) + sizeof(use_dun_apn_as_default_));
   // @@protoc_insertion_point(copy_constructor:shill.mobile_operator_db.Data)
 }
 
@@ -2455,9 +2463,9 @@ country_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlre
   country_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&requires_roaming_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&mtu_) -
-    reinterpret_cast<char*>(&requires_roaming_)) + sizeof(mtu_));
+    reinterpret_cast<char*>(&mtu_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&use_dun_apn_as_default_) -
+    reinterpret_cast<char*>(&mtu_)) + sizeof(use_dun_apn_as_default_));
 }
 
 Data::~Data() {
@@ -2503,10 +2511,10 @@ void Data::Clear() {
       country_.ClearNonDefaultToEmpty();
     }
   }
-  if (cached_has_bits & 0x0000001cu) {
-    ::memset(&requires_roaming_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&mtu_) -
-        reinterpret_cast<char*>(&requires_roaming_)) + sizeof(mtu_));
+  if (cached_has_bits & 0x0000007cu) {
+    ::memset(&mtu_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&use_dun_apn_as_default_) -
+        reinterpret_cast<char*>(&mtu_)) + sizeof(use_dun_apn_as_default_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -2603,6 +2611,24 @@ const char* Data::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
         } else
           goto handle_unusual;
         continue;
+      // optional bool tethering_allowed = 10 [default = false];
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+          _Internal::set_has_tethering_allowed(&has_bits);
+          tethering_allowed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool use_dun_apn_as_default = 11;
+      case 11:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
+          _Internal::set_has_use_dun_apn_as_default(&has_bits);
+          use_dun_apn_as_default_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       // repeated string mccmnc = 21;
       case 21:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 170)) {
@@ -2682,7 +2708,7 @@ uint8_t* Data::_InternalSerialize(
   }
 
   // optional bool requires_roaming = 5 [default = false];
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(5, this->_internal_requires_roaming(), target);
   }
@@ -2696,13 +2722,13 @@ uint8_t* Data::_InternalSerialize(
   }
 
   // optional int32 mtu = 7;
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(7, this->_internal_mtu(), target);
   }
 
   // optional bool prioritizes_name = 8 [default = false];
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(8, this->_internal_prioritizes_name(), target);
   }
@@ -2713,6 +2739,18 @@ uint8_t* Data::_InternalSerialize(
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(9, this->_internal_roaming_filter(i), target, stream);
+  }
+
+  // optional bool tethering_allowed = 10 [default = false];
+  if (cached_has_bits & 0x00000020u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(10, this->_internal_tethering_allowed(), target);
+  }
+
+  // optional bool use_dun_apn_as_default = 11;
+  if (cached_has_bits & 0x00000040u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(11, this->_internal_use_dun_apn_as_default(), target);
   }
 
   // repeated string mccmnc = 21;
@@ -2788,7 +2826,7 @@ size_t Data::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000001eu) {
+  if (cached_has_bits & 0x0000007eu) {
     // optional string country = 3;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
@@ -2796,19 +2834,29 @@ size_t Data::ByteSizeLong() const {
           this->_internal_country());
     }
 
-    // optional bool requires_roaming = 5 [default = false];
+    // optional int32 mtu = 7;
     if (cached_has_bits & 0x00000004u) {
-      total_size += 1 + 1;
+      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_mtu());
     }
 
-    // optional bool prioritizes_name = 8 [default = false];
+    // optional bool requires_roaming = 5 [default = false];
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 + 1;
     }
 
-    // optional int32 mtu = 7;
+    // optional bool prioritizes_name = 8 [default = false];
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_mtu());
+      total_size += 1 + 1;
+    }
+
+    // optional bool tethering_allowed = 10 [default = false];
+    if (cached_has_bits & 0x00000020u) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool use_dun_apn_as_default = 11;
+    if (cached_has_bits & 0x00000040u) {
+      total_size += 1 + 1;
     }
 
   }
@@ -2838,7 +2886,7 @@ void Data::MergeFrom(const Data& from) {
   mccmnc_.MergeFrom(from.mccmnc_);
   mobile_apn_.MergeFrom(from.mobile_apn_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_uuid(from._internal_uuid());
     }
@@ -2846,13 +2894,19 @@ void Data::MergeFrom(const Data& from) {
       _internal_set_country(from._internal_country());
     }
     if (cached_has_bits & 0x00000004u) {
-      requires_roaming_ = from.requires_roaming_;
+      mtu_ = from.mtu_;
     }
     if (cached_has_bits & 0x00000008u) {
-      prioritizes_name_ = from.prioritizes_name_;
+      requires_roaming_ = from.requires_roaming_;
     }
     if (cached_has_bits & 0x00000010u) {
-      mtu_ = from.mtu_;
+      prioritizes_name_ = from.prioritizes_name_;
+    }
+    if (cached_has_bits & 0x00000020u) {
+      tethering_allowed_ = from.tethering_allowed_;
+    }
+    if (cached_has_bits & 0x00000040u) {
+      use_dun_apn_as_default_ = from.use_dun_apn_as_default_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -2901,11 +2955,11 @@ void Data::InternalSwap(Data* other) {
       &other->country_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Data, mtu_)
-      + sizeof(Data::mtu_)
-      - PROTOBUF_FIELD_OFFSET(Data, requires_roaming_)>(
-          reinterpret_cast<char*>(&requires_roaming_),
-          reinterpret_cast<char*>(&other->requires_roaming_));
+      PROTOBUF_FIELD_OFFSET(Data, use_dun_apn_as_default_)
+      + sizeof(Data::use_dun_apn_as_default_)
+      - PROTOBUF_FIELD_OFFSET(Data, mtu_)>(
+          reinterpret_cast<char*>(&mtu_),
+          reinterpret_cast<char*>(&other->mtu_));
 }
 
 std::string Data::GetTypeName() const {

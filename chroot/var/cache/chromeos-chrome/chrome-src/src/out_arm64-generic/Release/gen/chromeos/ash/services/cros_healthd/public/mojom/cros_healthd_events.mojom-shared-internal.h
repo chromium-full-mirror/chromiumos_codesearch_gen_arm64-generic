@@ -10,6 +10,8 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
+#include "ash/system/diagnostics/mojom/input.mojom-shared-internal.h"
+#include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -32,7 +34,38 @@ class PowerEventInfo_Data;
 class AudioEventInfo_Data;
 class AudioJackEventInfo_Data;
 class SdCardEventInfo_Data;
+class TouchpadButtonEvent_Data;
+class TouchPointInfo_Data;
+class TouchpadTouchEvent_Data;
+class TouchpadConnectedEvent_Data;
+class TouchpadEventInfo_Data;
 class EventInfo_Data;
+
+struct InputTouchButton_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
 
 struct EventCategoryEnum_Data {
  public:
@@ -49,6 +82,9 @@ struct EventCategoryEnum_Data {
       case 6:
       case 7:
       case 8:
+      case 9:
+      case 10:
+      case 11:
         return true;
     }
     return false;
@@ -276,6 +312,64 @@ struct SdCardEventInfo_State_Data {
 #pragma pack(push, 1)
 
 
+class  TouchpadEventInfo_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  TouchpadEventInfo_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~TouchpadEventInfo_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<TouchpadEventInfo_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class TouchpadEventInfo_Tag : uint32_t {
+
+    
+    kDefaultType,
+    
+    kButtonEvent,
+    
+    kTouchEvent,
+    
+    kConnectedEvent,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    uint8_t f_default_type;
+    mojo::internal::Pointer<internal::TouchpadButtonEvent_Data> f_button_event;
+    mojo::internal::Pointer<internal::TouchpadTouchEvent_Data> f_touch_event;
+    mojo::internal::Pointer<internal::TouchpadConnectedEvent_Data> f_connected_event;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  TouchpadEventInfo_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(TouchpadEventInfo_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(TouchpadEventInfo_Data)");
+
+
 class  EventInfo_Data {
  public:
   // Used to identify Mojom Union Data Classes.
@@ -322,6 +416,10 @@ class  EventInfo_Data {
     kAudioJackEventInfo,
     
     kSdCardEventInfo,
+    
+    kKeyboardDiagnosticEventInfo,
+    
+    kTouchpadEventInfo,
   };
 
   // A note on layout:
@@ -338,6 +436,8 @@ class  EventInfo_Data {
     mojo::internal::Pointer<internal::AudioEventInfo_Data> f_audio_event_info;
     mojo::internal::Pointer<internal::AudioJackEventInfo_Data> f_audio_jack_event_info;
     mojo::internal::Pointer<internal::SdCardEventInfo_Data> f_sd_card_event_info;
+    mojo::internal::Pointer<::ash::diagnostics::mojom::internal::KeyboardDiagnosticEventInfo_Data> f_keyboard_diagnostic_event_info;
+    mojo::internal::Pointer<internal::TouchpadEventInfo_Data> f_touchpad_event_info;
     uint64_t unknown;
   };
 
@@ -743,6 +843,210 @@ struct SdCardEventInfo_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     SdCardEventInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  TouchpadButtonEvent_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t button;
+  uint8_t pressed : 1;
+  uint8_t padfinal_[3];
+
+ private:
+  friend class mojo::internal::MessageFragment<TouchpadButtonEvent_Data>;
+
+  TouchpadButtonEvent_Data();
+  ~TouchpadButtonEvent_Data() = delete;
+};
+static_assert(sizeof(TouchpadButtonEvent_Data) == 16,
+              "Bad sizeof(TouchpadButtonEvent_Data)");
+// Used by TouchpadButtonEvent::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct TouchpadButtonEvent_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  TouchpadButtonEvent_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~TouchpadButtonEvent_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<TouchpadButtonEvent_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    TouchpadButtonEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  TouchPointInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint32_t tracking_id;
+  uint32_t x;
+  uint32_t y;
+  uint8_t pad2_[4];
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> pressure;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> touch_major;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> touch_minor;
+
+ private:
+  friend class mojo::internal::MessageFragment<TouchPointInfo_Data>;
+
+  TouchPointInfo_Data();
+  ~TouchPointInfo_Data() = delete;
+};
+static_assert(sizeof(TouchPointInfo_Data) == 48,
+              "Bad sizeof(TouchPointInfo_Data)");
+// Used by TouchPointInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct TouchPointInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  TouchPointInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~TouchPointInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<TouchPointInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    TouchPointInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  TouchpadTouchEvent_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::TouchPointInfo_Data>>> touch_points;
+
+ private:
+  friend class mojo::internal::MessageFragment<TouchpadTouchEvent_Data>;
+
+  TouchpadTouchEvent_Data();
+  ~TouchpadTouchEvent_Data() = delete;
+};
+static_assert(sizeof(TouchpadTouchEvent_Data) == 16,
+              "Bad sizeof(TouchpadTouchEvent_Data)");
+// Used by TouchpadTouchEvent::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct TouchpadTouchEvent_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  TouchpadTouchEvent_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~TouchpadTouchEvent_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<TouchpadTouchEvent_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    TouchpadTouchEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  TouchpadConnectedEvent_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint32_t max_x;
+  uint32_t max_y;
+  uint32_t max_pressure;
+  uint8_t pad2_[4];
+  mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> buttons;
+
+ private:
+  friend class mojo::internal::MessageFragment<TouchpadConnectedEvent_Data>;
+
+  TouchpadConnectedEvent_Data();
+  ~TouchpadConnectedEvent_Data() = delete;
+};
+static_assert(sizeof(TouchpadConnectedEvent_Data) == 32,
+              "Bad sizeof(TouchpadConnectedEvent_Data)");
+// Used by TouchpadConnectedEvent::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct TouchpadConnectedEvent_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  TouchpadConnectedEvent_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~TouchpadConnectedEvent_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<TouchpadConnectedEvent_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    TouchpadConnectedEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

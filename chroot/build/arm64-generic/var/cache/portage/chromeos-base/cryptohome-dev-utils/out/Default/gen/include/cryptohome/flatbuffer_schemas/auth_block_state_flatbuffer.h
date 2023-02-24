@@ -721,10 +721,9 @@ struct ToFlatBuffer<::cryptohome::FingerprintAuthBlockState> {
         ToFlatBuffer<std::vector<int8_t>>()(builder, object.template_id);
     auto gsc_secret_label = ToFlatBuffer<std::optional<uint64_t>>()(
         builder, object.gsc_secret_label);
-    auto salt = ToFlatBuffer<brillo::SecureBlob>()(builder, object.salt);
 
     return ::cryptohome::_serialized_::CreateFingerprintAuthBlockState(
-        *builder, template_id, gsc_secret_label, salt);
+        *builder, template_id, gsc_secret_label);
   }
 };
 
@@ -745,7 +744,6 @@ struct FromFlatBuffer<::cryptohome::FingerprintAuthBlockState> {
             FromFlatBuffer<std::vector<int8_t>>()(object->template_id()),
         .gsc_secret_label = FromFlatBuffer<std::optional<uint64_t>>()(
             object->gsc_secret_label()),
-        .salt = FromFlatBuffer<brillo::SecureBlob>()(object->salt()),
     };
   }
 };

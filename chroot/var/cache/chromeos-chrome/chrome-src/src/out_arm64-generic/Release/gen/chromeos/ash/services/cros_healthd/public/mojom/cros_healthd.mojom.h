@@ -152,7 +152,7 @@ class CrosHealthdDiagnosticsService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 8;
+  static constexpr uint32_t Version_ = 9;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -206,6 +206,10 @@ class CrosHealthdDiagnosticsService
     kRunEmmcLifetimeRoutineMinVersion = 7,
     kRunAudioSetVolumeRoutineMinVersion = 8,
     kRunAudioSetGainRoutineMinVersion = 8,
+    kRunBluetoothPowerRoutineMinVersion = 9,
+    kRunBluetoothDiscoveryRoutineMinVersion = 9,
+    kRunBluetoothScanningRoutineMinVersion = 9,
+    kRunBluetoothPairingRoutineMinVersion = 9,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -332,6 +336,18 @@ class CrosHealthdDiagnosticsService
     NOINLINE static uint32_t IPCStableHash();
   };
   struct RunAudioSetGainRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunBluetoothPowerRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunBluetoothDiscoveryRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunBluetoothScanningRoutine_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunBluetoothPairingRoutine_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -541,6 +557,26 @@ class CrosHealthdDiagnosticsService
   using RunAudioSetGainRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
   virtual void RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool mute_on, RunAudioSetGainRoutineCallback callback) = 0;
+
+
+  using RunBluetoothPowerRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunBluetoothPowerRoutine(RunBluetoothPowerRoutineCallback callback) = 0;
+
+
+  using RunBluetoothDiscoveryRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunBluetoothDiscoveryRoutine(RunBluetoothDiscoveryRoutineCallback callback) = 0;
+
+
+  using RunBluetoothScanningRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunBluetoothScanningRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunBluetoothScanningRoutineCallback callback) = 0;
+
+
+  using RunBluetoothPairingRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
+  
+  virtual void RunBluetoothPairingRoutine(const std::string& peripheral_id, RunBluetoothPairingRoutineCallback callback) = 0;
 };
 
 class CrosHealthdEventServiceProxy;
@@ -937,6 +973,14 @@ class  CrosHealthdDiagnosticsServiceProxy
   void RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on, RunAudioSetVolumeRoutineCallback callback) final;
   
   void RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool mute_on, RunAudioSetGainRoutineCallback callback) final;
+  
+  void RunBluetoothPowerRoutine(RunBluetoothPowerRoutineCallback callback) final;
+  
+  void RunBluetoothDiscoveryRoutine(RunBluetoothDiscoveryRoutineCallback callback) final;
+  
+  void RunBluetoothScanningRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunBluetoothScanningRoutineCallback callback) final;
+  
+  void RunBluetoothPairingRoutine(const std::string& peripheral_id, RunBluetoothPairingRoutineCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

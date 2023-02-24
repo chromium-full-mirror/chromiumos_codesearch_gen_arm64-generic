@@ -1261,6 +1261,88 @@ int64_t UsbDeviceInfo::GetDeviceClassForTest() const {
 
 }  // namespace usb_device
 
+namespace usb_error {
+
+HubError::HubError() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+HubError::~HubError() = default;
+HubError& HubError::SetErrorCode(const int64_t value) {
+  AddIntMetric(kErrorCodeNameHash, value);
+  return *this;
+}
+
+int64_t HubError::GetErrorCodeForTest() const {
+  return GetIntMetricForTest(kErrorCodeNameHash);
+}
+
+HubError& HubError::SetDeviceClass(const int64_t value) {
+  AddIntMetric(kDeviceClassNameHash, value);
+  return *this;
+}
+
+int64_t HubError::GetDeviceClassForTest() const {
+  return GetIntMetricForTest(kDeviceClassNameHash);
+}
+
+HubError& HubError::SetVendorId(const int64_t value) {
+  AddIntMetric(kVendorIdNameHash, value);
+  return *this;
+}
+
+int64_t HubError::GetVendorIdForTest() const {
+  return GetIntMetricForTest(kVendorIdNameHash);
+}
+
+HubError& HubError::SetProductId(const int64_t value) {
+  AddIntMetric(kProductIdNameHash, value);
+  return *this;
+}
+
+int64_t HubError::GetProductIdForTest() const {
+  return GetIntMetricForTest(kProductIdNameHash);
+}
+
+HubError& HubError::SetDevicePath(const std::string& value) {
+  AddRawStringMetric(kDevicePathNameHash, value);
+  return *this;
+}
+
+std::string HubError::GetDevicePathForTest() const {
+  return GetRawStringMetricForTest(kDevicePathNameHash);
+}
+
+HubError& HubError::SetConnectedDuration(const int64_t value) {
+  AddIntMetric(kConnectedDurationNameHash, value);
+  return *this;
+}
+
+int64_t HubError::GetConnectedDurationForTest() const {
+  return GetIntMetricForTest(kConnectedDurationNameHash);
+}
+
+XhciError::XhciError() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+XhciError::~XhciError() = default;
+XhciError& XhciError::SetErrorCode(const int64_t value) {
+  AddIntMetric(kErrorCodeNameHash, value);
+  return *this;
+}
+
+int64_t XhciError::GetErrorCodeForTest() const {
+  return GetIntMetricForTest(kErrorCodeNameHash);
+}
+
+XhciError& XhciError::SetDeviceClass(const int64_t value) {
+  AddIntMetric(kDeviceClassNameHash, value);
+  return *this;
+}
+
+int64_t XhciError::GetDeviceClassForTest() const {
+  return GetIntMetricForTest(kDeviceClassNameHash);
+}
+
+}  // namespace usb_error
+
 namespace wi_fi_chipset {
 
 WiFiChipsetInfo::WiFiChipsetInfo() :

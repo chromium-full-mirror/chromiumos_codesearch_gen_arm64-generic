@@ -249,6 +249,9 @@ std::string GetProtoDebugStringWithIndent(PrimaryAction value,
   if (value == PRIMARY_INCORRECT_AUTH) {
     return "PRIMARY_INCORRECT_AUTH";
   }
+  if (value == PRIMARY_LE_LOCKED_OUT) {
+    return "PRIMARY_LE_LOCKED_OUT";
+  }
   return "<unknown>";
 }
 
@@ -448,39 +451,6 @@ std::string GetProtoDebugStringWithIndent(FingerprintScanResult value,
   return "<unknown>";
 }
 
-std::string GetProtoDebugString(const CreateRequest& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(const CreateRequest& value,
-                                          int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  keys: {";
-  for (int i = 0; i < value.keys_size(); ++i) {
-    if (i > 0) {
-      base::StringAppendF(&output, ", ");
-    }
-    base::StringAppendF(
-        &output, "%s",
-        GetProtoDebugStringWithIndent(value.keys(i), indent_size + 2).c_str());
-  }
-  output += "}\n";
-  output += indent + "  copy_authorization_key: ";
-  base::StringAppendF(&output, "%s",
-                      value.copy_authorization_key() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "  force_ecryptfs: ";
-  base::StringAppendF(&output, "%s", value.force_ecryptfs() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
 std::string GetProtoDebugString(const CryptohomeErrorInfo& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }
@@ -590,104 +560,6 @@ std::string GetProtoDebugStringWithIndent(const UnmountReply& value,
   base::StringAppendF(
       &output, "%s",
       GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  error_info: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(const MountRequest& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(const MountRequest& value,
-                                          int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  account: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.account(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  authorization: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.authorization(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  require_ephemeral: ";
-  base::StringAppendF(&output, "%s",
-                      value.require_ephemeral() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "  create: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.create(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  force_dircrypto_if_available: ";
-  base::StringAppendF(&output, "%s",
-                      value.force_dircrypto_if_available() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "  to_migrate_from_ecryptfs: ";
-  base::StringAppendF(&output, "%s",
-                      value.to_migrate_from_ecryptfs() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "  public_mount: ";
-  base::StringAppendF(&output, "%s", value.public_mount() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "  guest_mount: ";
-  base::StringAppendF(&output, "%s", value.guest_mount() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "  auth_session_id: ";
-  base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.auth_session_id().data(),
-                                      value.auth_session_id().size())
-                          .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(const MountReply& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(const MountReply& value,
-                                          int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
-  output += "\n";
-
-  output += indent + "  recreated: ";
-  base::StringAppendF(&output, "%s", value.recreated() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "  sanitized_username: ";
-  base::StringAppendF(&output, "%s", value.sanitized_username().c_str());
   output += "\n";
 
   output += indent + "  error_info: ";
@@ -813,59 +685,6 @@ std::string GetProtoDebugStringWithIndent(const ListKeysReply& value,
       &output, "%s",
       GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
           .c_str());
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(const CheckKeyRequest& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(const CheckKeyRequest& value,
-                                          int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  account_id: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
-          .c_str());
-  output += "\n";
-
-  output += indent + "  authorization_request: ";
-  base::StringAppendF(&output, "%s",
-                      GetProtoDebugStringWithIndent(
-                          value.authorization_request(), indent_size + 2)
-                          .c_str());
-  output += "\n";
-
-  output += indent + "  unlock_webauthn_secret: ";
-  base::StringAppendF(&output, "%s",
-                      value.unlock_webauthn_secret() ? "true" : "false");
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(const CheckKeyReply& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(const CheckKeyReply& value,
-                                          int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  error: ";
-  base::StringAppendF(
-      &output, "%s",
-      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
   output += "\n";
 
   output += indent + "}\n";

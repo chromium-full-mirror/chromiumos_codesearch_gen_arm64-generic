@@ -55,13 +55,6 @@ class UserDataAuthAdaptor
   void DoUnmount(std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
                      user_data_auth::UnmountReply>> response);
 
-  void Mount(std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-                 user_data_auth::MountReply>> response,
-             const user_data_auth::MountRequest& in_request) override;
-  void DoMount(std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-                   user_data_auth::MountReply>> response,
-               const user_data_auth::MountRequest& in_request);
-
   void Remove(std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
                   user_data_auth::RemoveReply>> response,
               const user_data_auth::RemoveRequest& in_request) override;
@@ -75,16 +68,6 @@ class UserDataAuthAdaptor
   void DoListKeys(std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
                       user_data_auth::ListKeysReply>> response,
                   const user_data_auth::ListKeysRequest& in_request);
-
-  void CheckKey(std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-                    user_data_auth::CheckKeyReply>> response,
-                const user_data_auth::CheckKeyRequest& in_request) override;
-  void DoCheckKey(std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-                      user_data_auth::CheckKeyReply>> response,
-                  const user_data_auth::CheckKeyRequest& in_request);
-  void DoCheckKeyDone(std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-                          user_data_auth::CheckKeyReply>> response,
-                      user_data_auth::CryptohomeErrorCode status);
 
   void StartFingerprintAuthSession(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<

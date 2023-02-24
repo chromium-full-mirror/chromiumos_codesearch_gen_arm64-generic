@@ -59,18 +59,6 @@ class UserDataAuthInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  virtual bool Mount(
-      const user_data_auth::MountRequest& in_request,
-      user_data_auth::MountReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void MountAsync(
-      const user_data_auth::MountRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::MountReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   virtual bool Remove(
       const user_data_auth::RemoveRequest& in_request,
       user_data_auth::RemoveReply* out_reply,
@@ -92,18 +80,6 @@ class UserDataAuthInterfaceProxyInterface {
   virtual void ListKeysAsync(
       const user_data_auth::ListKeysRequest& in_request,
       base::OnceCallback<void(const user_data_auth::ListKeysReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual bool CheckKey(
-      const user_data_auth::CheckKeyRequest& in_request,
-      user_data_auth::CheckKeyReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void CheckKeyAsync(
-      const user_data_auth::CheckKeyRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::CheckKeyReply& /*reply*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -599,37 +575,6 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         in_request);
   }
 
-  bool Mount(
-      const user_data_auth::MountRequest& in_request,
-      user_data_auth::MountReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "Mount",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void MountAsync(
-      const user_data_auth::MountRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::MountReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "Mount",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
   bool Remove(
       const user_data_auth::RemoveRequest& in_request,
       user_data_auth::RemoveReply* out_reply,
@@ -687,37 +632,6 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "ListKeys",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
-  bool CheckKey(
-      const user_data_auth::CheckKeyRequest& in_request,
-      user_data_auth::CheckKeyReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "CheckKey",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void CheckKeyAsync(
-      const user_data_auth::CheckKeyRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::CheckKeyReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "CheckKey",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

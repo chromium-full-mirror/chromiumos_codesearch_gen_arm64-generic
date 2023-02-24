@@ -15,7 +15,7 @@
 #include <base/containers/flat_set.h>
 #include <base/containers/span.h>
 #include <base/memory/weak_ptr.h>
-#include <base/timer/timer.h>
+#include <base/timer/wall_clock_timer.h>
 #include <base/unguessable_token.h>
 #include <brillo/secure_blob.h>
 #include <cryptohome/proto_bindings/rpc.pb.h>
@@ -96,7 +96,7 @@ class AuthSession final {
     hwsec::ExplicitInit<ObfuscatedUsername> obfuscated_username;
     hwsec::ExplicitInit<bool> is_ephemeral_user;
     hwsec::ExplicitInit<AuthIntent> intent;
-    base::OnceCallback<void(const base::UnguessableToken&)> on_timeout;
+    std::unique_ptr<base::WallClockTimer> timeout_timer;
     hwsec::ExplicitInit<bool> user_exists;
     AuthFactorMap auth_factor_map;
     hwsec::ExplicitInit<bool> migrate_to_user_secret_stash;
@@ -121,7 +121,6 @@ class AuthSession final {
       Username username,
       unsigned int flags,
       AuthIntent intent,
-      base::OnceCallback<void(const base::UnguessableToken&)> on_timeout,
       feature::PlatformFeaturesInterface* feature_lib,
       BackingApis backing_apis);
 
@@ -274,10 +273,16 @@ class AuthSession final {
   // Get the hibernate secret, derived from the file system keyset.
   std::unique_ptr<brillo::SecureBlob> GetHibernateSecret();
 
+  // Sets a callback to call when the AuthSession is timed out. Note that this
+  // may trigger immediately if the session is already timed out.
+  void SetOnTimeoutCallback(
+      base::OnceCallback<void(const base::UnguessableToken&)> on_timeout);
+
  private:
   // AuthSessionTimedOut is called when the session times out and cleans up
-  // credentials that may be in memory. |on_timeout_| is also called to remove
-  // this |AuthSession| reference from |UserDataAuth|.
+  // credentials that may be in memory. Be aware that this may destroy the
+  // AuthSession object if the owner of the object is using a callback to clean
+  // up the objects when they time out.
   void AuthSessionTimedOut();
 
   // Emits a debug log message with this Auth Session's initial state.
@@ -331,7 +336,7 @@ class AuthSession final {
   // doesn't block authentication operations.
   void ResaveKeysetOnKeyBlobsGenerated(
       VaultKeyset updated_vault_keyset,
-      CryptoStatus error,
+      CryptohomeStatus error,
       std::unique_ptr<KeyBlobs> key_blobs,
       std::unique_ptr<AuthBlockState> auth_block_state);
 
@@ -353,7 +358,7 @@ class AuthSession final {
                                    std::unique_ptr<AuthSessionPerformanceTimer>
                                        auth_session_performance_timer,
                                    StatusCallback on_done,
-                                   CryptoStatus callback_error,
+                                   CryptohomeStatus callback_error,
                                    std::unique_ptr<KeyBlobs> key_blobs,
                                    std::unique_ptr<AuthBlockState> auth_state);
 
@@ -368,7 +373,7 @@ class AuthSession final {
                          std::unique_ptr<AuthSessionPerformanceTimer>
                              auth_session_performance_timer,
                          StatusCallback on_done,
-                         CryptoStatus callback_error,
+                         CryptohomeStatus callback_error,
                          std::unique_ptr<KeyBlobs> key_blobs,
                          std::unique_ptr<AuthBlockState> auth_state);
 
@@ -385,7 +390,7 @@ class AuthSession final {
       std::unique_ptr<AuthSessionPerformanceTimer>
           auth_session_performance_timer,
       StatusCallback on_done,
-      CryptoStatus callback_error,
+      CryptohomeStatus callback_error,
       std::unique_ptr<KeyBlobs> key_blobs,
       std::unique_ptr<AuthBlockState> auth_block_state);
 
@@ -402,7 +407,7 @@ class AuthSession final {
           auth_session_performance_timer,
       StatusCallback on_done,
       CryptohomeStatus pre_migration_status,
-      CryptoStatus callback_error,
+      CryptohomeStatus callback_error,
       std::unique_ptr<KeyBlobs> key_blobs,
       std::unique_ptr<AuthBlockState> auth_block_state);
 
@@ -416,7 +421,7 @@ class AuthSession final {
       const KeyData& key_data,
       std::unique_ptr<AuthSessionPerformanceTimer>
           auth_session_performance_timer,
-      CryptoStatus callback_error,
+      CryptohomeStatus callback_error,
       std::unique_ptr<KeyBlobs> key_blobs,
       std::unique_ptr<AuthBlockState> auth_block_state);
 
@@ -485,7 +490,7 @@ class AuthSession final {
                                  std::unique_ptr<AuthSessionPerformanceTimer>
                                      auth_session_performance_timer,
                                  StatusCallback on_done,
-                                 CryptoStatus callback_error,
+                                 CryptohomeStatus callback_error,
                                  std::unique_ptr<KeyBlobs> key_blobs);
 
   // This function is used to reset the attempt count for a low entropy
@@ -538,7 +543,7 @@ class AuthSession final {
                                 std::unique_ptr<AuthSessionPerformanceTimer>
                                     auth_session_performance_timer,
                                 StatusCallback on_done,
-                                CryptoStatus error,
+                                CryptohomeStatus error,
                                 std::unique_ptr<KeyBlobs> key_blobs);
 
   // Updates, wraps and resaves |vault_keyset_| and restores on failure.
@@ -568,7 +573,7 @@ class AuthSession final {
       std::unique_ptr<AuthSessionPerformanceTimer>
           auth_session_performance_timer,
       StatusCallback on_done,
-      CryptoStatus callback_error,
+      CryptohomeStatus callback_error,
       std::unique_ptr<KeyBlobs> key_blobs,
       std::unique_ptr<AuthBlockState> auth_block_state);
 
@@ -590,8 +595,10 @@ class AuthSession final {
 
   AuthStatus status_ = AuthStatus::kAuthStatusFurtherFactorRequired;
   base::flat_set<AuthIntent> authorized_intents_;
-  base::OneShotTimer timeout_timer_;
-  base::TimeTicks timeout_timer_start_time_;
+
+  // The wall clock timer object for recording AuthSession lifetime.
+  std::unique_ptr<base::WallClockTimer> timeout_timer_;
+
   base::TimeTicks auth_session_creation_time_;
   base::TimeTicks authenticated_time_;
   base::OnceCallback<void(const base::UnguessableToken&)> on_timeout_;
@@ -655,16 +662,13 @@ class AuthSession final {
   base::WeakPtrFactory<AuthSession> weak_factory_{this};
 
   FRIEND_TEST(AuthSessionInterfaceTest, PreparePersistentVaultNoShadowDir);
-  FRIEND_TEST(AuthSessionManagerTest, CreateExpire);
   FRIEND_TEST(AuthSessionTest, AddCredentialNewUser);
   FRIEND_TEST(AuthSessionTest, AddCredentialNewUserTwice);
   FRIEND_TEST(AuthSessionTest, AddCredentialNewEphemeralUser);
   FRIEND_TEST(AuthSessionTest, AuthenticateExistingUser);
   FRIEND_TEST(AuthSessionTest, AuthenticateWithPIN);
   FRIEND_TEST(AuthSessionTest, AuthenticateExistingUserFailure);
-  FRIEND_TEST(AuthSessionTest, ExtensionTest);
   FRIEND_TEST(AuthSessionTest, UssMigrationFlagCheckFailure);
-  FRIEND_TEST(AuthSessionTest, TimeoutTest);
   FRIEND_TEST(AuthSessionTest, GetCredentialRegularUser);
   FRIEND_TEST(AuthSessionTest, GetCredentialKioskUser);
   FRIEND_TEST(AuthSessionWithUssExperimentTest, AddPasswordAuthFactorViaUss);
@@ -672,6 +676,9 @@ class AuthSession final {
               AddPasswordAuthFactorViaAsyncUss);
   FRIEND_TEST(AuthSessionWithUssExperimentTest, PrepareLegacyFingerprintAuth);
   FRIEND_TEST(AuthSessionWithUssExperimentTest, RemoveAuthFactor);
+  FRIEND_TEST(UserDataAuthTest, CleanUpStale_FilledMap_NoOpenFiles_ShadowOnly);
+  FRIEND_TEST(UserDataAuthTest,
+              CleanUpStale_FilledMap_NoOpenFiles_ShadowOnly_FirstBoot);
   FRIEND_TEST(UserDataAuthExTest, MountUnauthenticatedAuthSession);
   FRIEND_TEST(UserDataAuthExTest, StartAuthSession);
   FRIEND_TEST(UserDataAuthExTest, ExtendAuthSession);

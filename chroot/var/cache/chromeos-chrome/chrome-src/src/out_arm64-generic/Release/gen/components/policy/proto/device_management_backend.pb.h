@@ -1792,11 +1792,12 @@ RemoteCommand_Type_DEVICE_GET_DIAGNOSTIC_ROUTINE_UPDATE = 11,
 RemoteCommand_Type_BROWSER_CLEAR_BROWSING_DATA = 12,
 RemoteCommand_Type_DEVICE_RESET_EUICC = 13,
 RemoteCommand_Type_BROWSER_ROTATE_ATTESTATION_CREDENTIAL = 14,
-RemoteCommand_Type_FETCH_CRD_AVAILABILITY_INFO = 15
+RemoteCommand_Type_FETCH_CRD_AVAILABILITY_INFO = 15,
+RemoteCommand_Type_FETCH_SUPPORT_PACKET = 16
 };
 POLICY_PROTO_EXPORT bool RemoteCommand_Type_IsValid(int value);
 constexpr RemoteCommand_Type RemoteCommand_Type_Type_MIN = RemoteCommand_Type_COMMAND_ECHO_TEST;
-constexpr RemoteCommand_Type RemoteCommand_Type_Type_MAX = RemoteCommand_Type_FETCH_CRD_AVAILABILITY_INFO;
+constexpr RemoteCommand_Type RemoteCommand_Type_Type_MAX = RemoteCommand_Type_FETCH_SUPPORT_PACKET;
 constexpr int RemoteCommand_Type_Type_ARRAYSIZE = RemoteCommand_Type_Type_MAX + 1;
 
 const std::string& RemoteCommand_Type_Name(RemoteCommand_Type value);
@@ -2600,6 +2601,27 @@ return CrdSessionType_Name(static_cast<CrdSessionType>(enum_t_value));
 }
 bool CrdSessionType_Parse(
 ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CrdSessionType* value);
+enum CrdSessionAvailability : int {
+CRD_SESSION_AVAILABILITY_UNKNOWN = 0,
+AVAILABLE = 1,
+UNAVAILABLE_UNSUPPORTED_USER_SESSION_TYPE = 2,
+UNAVAILABLE_UNMANAGED_ENVIRONMENT = 3
+};
+POLICY_PROTO_EXPORT bool CrdSessionAvailability_IsValid(int value);
+constexpr CrdSessionAvailability CrdSessionAvailability_MIN = CRD_SESSION_AVAILABILITY_UNKNOWN;
+constexpr CrdSessionAvailability CrdSessionAvailability_MAX = UNAVAILABLE_UNMANAGED_ENVIRONMENT;
+constexpr int CrdSessionAvailability_ARRAYSIZE = CrdSessionAvailability_MAX + 1;
+
+const std::string& CrdSessionAvailability_Name(CrdSessionAvailability value);
+template<typename T>
+inline const std::string& CrdSessionAvailability_Name(T enum_t_value) {
+static_assert(::std::is_same<T, CrdSessionAvailability>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function CrdSessionAvailability_Name.");
+return CrdSessionAvailability_Name(static_cast<CrdSessionAvailability>(enum_t_value));
+}
+bool CrdSessionAvailability_Parse(
+::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CrdSessionAvailability* value);
 enum Channel : int {
 CHANNEL_UNKNOWN = 0,
 CHANNEL_CANARY = 1,
@@ -26945,6 +26967,8 @@ static constexpr Type BROWSER_ROTATE_ATTESTATION_CREDENTIAL =
 RemoteCommand_Type_BROWSER_ROTATE_ATTESTATION_CREDENTIAL;
 static constexpr Type FETCH_CRD_AVAILABILITY_INFO =
 RemoteCommand_Type_FETCH_CRD_AVAILABILITY_INFO;
+static constexpr Type FETCH_SUPPORT_PACKET =
+RemoteCommand_Type_FETCH_SUPPORT_PACKET;
 static inline bool Type_IsValid(int value) {
 return RemoteCommand_Type_IsValid(value);
 }
@@ -86298,6 +86322,7 @@ template <> struct is_proto_enum< ::enterprise_management::BrowserPublicKeyUploa
 template <> struct is_proto_enum< ::enterprise_management::BrowserPublicKeyUploadResponse_ResponseCode> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::UserSessionType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::CrdSessionType> : ::std::true_type {};
+template <> struct is_proto_enum< ::enterprise_management::CrdSessionAvailability> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::Channel> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::BusDeviceClass> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::BusType> : ::std::true_type {};

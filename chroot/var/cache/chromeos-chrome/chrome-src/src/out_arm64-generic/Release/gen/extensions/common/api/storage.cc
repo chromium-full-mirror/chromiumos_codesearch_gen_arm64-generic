@@ -46,7 +46,7 @@ namespace local {
 }  // namespace local
 
 namespace session {
-  const int QUOTA_BYTES = 1048576;
+  const int QUOTA_BYTES = 10485760;
 }  // namespace session
 
 //

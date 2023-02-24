@@ -91,11 +91,11 @@ struct ToFlatBuffer<::cryptohome::UserMetadata> {
 
   ResultType operator()(flatbuffers::FlatBufferBuilder* builder,
                         const ::cryptohome::UserMetadata& object) const {
-    auto rate_limiter_leaf_label = ToFlatBuffer<std::optional<uint64_t>>()(
-        builder, object.rate_limiter_leaf_label);
+    auto fingerprint_rate_limiter_id = ToFlatBuffer<std::optional<uint64_t>>()(
+        builder, object.fingerprint_rate_limiter_id);
 
     return ::cryptohome::_serialized_::CreateUserMetadata(
-        *builder, rate_limiter_leaf_label);
+        *builder, fingerprint_rate_limiter_id);
   }
 };
 
@@ -111,8 +111,9 @@ struct FromFlatBuffer<::cryptohome::UserMetadata> {
       return ::cryptohome::UserMetadata();
     }
     return ::cryptohome::UserMetadata{
-        .rate_limiter_leaf_label = FromFlatBuffer<std::optional<uint64_t>>()(
-            object->rate_limiter_leaf_label()),
+        .fingerprint_rate_limiter_id =
+            FromFlatBuffer<std::optional<uint64_t>>()(
+                object->fingerprint_rate_limiter_id()),
     };
   }
 };
@@ -192,10 +193,12 @@ struct ToFlatBuffer<::cryptohome::UserSecretStashContainer> {
         builder, object.wrapped_key_blocks);
     auto created_on_os_version =
         ToFlatBuffer<std::string>()(builder, object.created_on_os_version);
+    auto user_metadata = ToFlatBuffer<::cryptohome::UserMetadata>()(
+        builder, object.user_metadata);
 
     return ::cryptohome::_serialized_::CreateUserSecretStashContainer(
         *builder, encryption_algorithm, ciphertext, iv, gcm_tag,
-        wrapped_key_blocks, created_on_os_version);
+        wrapped_key_blocks, created_on_os_version, user_metadata);
   }
 };
 
@@ -223,6 +226,8 @@ struct FromFlatBuffer<::cryptohome::UserSecretStashContainer> {
             object->wrapped_key_blocks()),
         .created_on_os_version =
             FromFlatBuffer<std::string>()(object->created_on_os_version()),
+        .user_metadata = FromFlatBuffer<::cryptohome::UserMetadata>()(
+            object->user_metadata()),
     };
   }
 };
