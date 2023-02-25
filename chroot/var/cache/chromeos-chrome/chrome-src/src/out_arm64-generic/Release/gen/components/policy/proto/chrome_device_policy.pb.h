@@ -13701,22 +13701,28 @@ std::string GetTypeName() const final;
 enum : int {
 kDeviceScreensaverImagesFieldNumber = 1,
 };
-// optional string device_screensaver_images = 1;
-bool has_device_screensaver_images() const;
+// repeated string device_screensaver_images = 1;
+int device_screensaver_images_size() const;
 private:
-bool _internal_has_device_screensaver_images() const;
+int _internal_device_screensaver_images_size() const;
 public:
 void clear_device_screensaver_images();
-const std::string& device_screensaver_images() const;
-template <typename ArgT0 = const std::string&, typename... ArgT>
-void set_device_screensaver_images(ArgT0&& arg0, ArgT... args);
-std::string* mutable_device_screensaver_images();
-PROTOBUF_NODISCARD std::string* release_device_screensaver_images();
-void set_allocated_device_screensaver_images(std::string* device_screensaver_images);
+const std::string& device_screensaver_images(int index) const;
+std::string* mutable_device_screensaver_images(int index);
+void set_device_screensaver_images(int index, const std::string& value);
+void set_device_screensaver_images(int index, std::string&& value);
+void set_device_screensaver_images(int index, const char* value);
+void set_device_screensaver_images(int index, const char* value, size_t size);
+std::string* add_device_screensaver_images();
+void add_device_screensaver_images(const std::string& value);
+void add_device_screensaver_images(std::string&& value);
+void add_device_screensaver_images(const char* value);
+void add_device_screensaver_images(const char* value, size_t size);
+const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& device_screensaver_images() const;
+::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_device_screensaver_images();
 private:
-const std::string& _internal_device_screensaver_images() const;
-inline PROTOBUF_ALWAYS_INLINE void _internal_set_device_screensaver_images(const std::string& value);
-std::string* _internal_mutable_device_screensaver_images();
+const std::string& _internal_device_screensaver_images(int index) const;
+std::string* _internal_add_device_screensaver_images();
 public:
 
 // @@protoc_insertion_point(class_scope:enterprise_management.DeviceScreensaverImagesProto)
@@ -13726,9 +13732,8 @@ class _Internal;
 template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
 typedef void InternalArenaConstructable_;
 typedef void DestructorSkippable_;
-::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> device_screensaver_images_;
 mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr device_screensaver_images_;
 friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
@@ -35422,72 +35427,79 @@ _internal_set_device_screensaver_image_display_interval_seconds(value);
 
 // DeviceScreensaverImagesProto
 
-// optional string device_screensaver_images = 1;
-inline bool DeviceScreensaverImagesProto::_internal_has_device_screensaver_images() const {
-bool value = (_has_bits_[0] & 0x00000001u) != 0;
-return value;
+// repeated string device_screensaver_images = 1;
+inline int DeviceScreensaverImagesProto::_internal_device_screensaver_images_size() const {
+return device_screensaver_images_.size();
 }
-inline bool DeviceScreensaverImagesProto::has_device_screensaver_images() const {
-return _internal_has_device_screensaver_images();
+inline int DeviceScreensaverImagesProto::device_screensaver_images_size() const {
+return _internal_device_screensaver_images_size();
 }
 inline void DeviceScreensaverImagesProto::clear_device_screensaver_images() {
-device_screensaver_images_.ClearToEmpty();
-_has_bits_[0] &= ~0x00000001u;
+device_screensaver_images_.Clear();
 }
-inline const std::string& DeviceScreensaverImagesProto::device_screensaver_images() const {
-// @@protoc_insertion_point(field_get:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
-return _internal_device_screensaver_images();
-}
-template <typename ArgT0, typename... ArgT>
-inline PROTOBUF_ALWAYS_INLINE
-void DeviceScreensaverImagesProto::set_device_screensaver_images(ArgT0&& arg0, ArgT... args) {
-_has_bits_[0] |= 0x00000001u;
-device_screensaver_images_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-// @@protoc_insertion_point(field_set:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
-}
-inline std::string* DeviceScreensaverImagesProto::mutable_device_screensaver_images() {
-std::string* _s = _internal_mutable_device_screensaver_images();
-// @@protoc_insertion_point(field_mutable:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+inline std::string* DeviceScreensaverImagesProto::add_device_screensaver_images() {
+std::string* _s = _internal_add_device_screensaver_images();
+// @@protoc_insertion_point(field_add_mutable:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
 return _s;
 }
-inline const std::string& DeviceScreensaverImagesProto::_internal_device_screensaver_images() const {
-return device_screensaver_images_.Get();
+inline const std::string& DeviceScreensaverImagesProto::_internal_device_screensaver_images(int index) const {
+return device_screensaver_images_.Get(index);
 }
-inline void DeviceScreensaverImagesProto::_internal_set_device_screensaver_images(const std::string& value) {
-_has_bits_[0] |= 0x00000001u;
-device_screensaver_images_.Set(value, GetArenaForAllocation());
+inline const std::string& DeviceScreensaverImagesProto::device_screensaver_images(int index) const {
+// @@protoc_insertion_point(field_get:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+return _internal_device_screensaver_images(index);
 }
-inline std::string* DeviceScreensaverImagesProto::_internal_mutable_device_screensaver_images() {
-_has_bits_[0] |= 0x00000001u;
-return device_screensaver_images_.Mutable(GetArenaForAllocation());
+inline std::string* DeviceScreensaverImagesProto::mutable_device_screensaver_images(int index) {
+// @@protoc_insertion_point(field_mutable:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+return device_screensaver_images_.Mutable(index);
 }
-inline std::string* DeviceScreensaverImagesProto::release_device_screensaver_images() {
-// @@protoc_insertion_point(field_release:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
-if (!_internal_has_device_screensaver_images()) {
-return nullptr;
+inline void DeviceScreensaverImagesProto::set_device_screensaver_images(int index, const std::string& value) {
+device_screensaver_images_.Mutable(index)->assign(value);
+// @@protoc_insertion_point(field_set:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
 }
-_has_bits_[0] &= ~0x00000001u;
-auto* p = device_screensaver_images_.Release();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-if (device_screensaver_images_.IsDefault()) {
-device_screensaver_images_.Set("", GetArenaForAllocation());
+inline void DeviceScreensaverImagesProto::set_device_screensaver_images(int index, std::string&& value) {
+device_screensaver_images_.Mutable(index)->assign(std::move(value));
+// @@protoc_insertion_point(field_set:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
 }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-return p;
+inline void DeviceScreensaverImagesProto::set_device_screensaver_images(int index, const char* value) {
+GOOGLE_DCHECK(value != nullptr);
+device_screensaver_images_.Mutable(index)->assign(value);
+// @@protoc_insertion_point(field_set_char:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
 }
-inline void DeviceScreensaverImagesProto::set_allocated_device_screensaver_images(std::string* device_screensaver_images) {
-if (device_screensaver_images != nullptr) {
-_has_bits_[0] |= 0x00000001u;
-} else {
-_has_bits_[0] &= ~0x00000001u;
+inline void DeviceScreensaverImagesProto::set_device_screensaver_images(int index, const char* value, size_t size) {
+device_screensaver_images_.Mutable(index)->assign(
+reinterpret_cast<const char*>(value), size);
+// @@protoc_insertion_point(field_set_pointer:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
 }
-device_screensaver_images_.SetAllocated(device_screensaver_images, GetArenaForAllocation());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-if (device_screensaver_images_.IsDefault()) {
-device_screensaver_images_.Set("", GetArenaForAllocation());
+inline std::string* DeviceScreensaverImagesProto::_internal_add_device_screensaver_images() {
+return device_screensaver_images_.Add();
 }
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-// @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+inline void DeviceScreensaverImagesProto::add_device_screensaver_images(const std::string& value) {
+device_screensaver_images_.Add()->assign(value);
+// @@protoc_insertion_point(field_add:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+}
+inline void DeviceScreensaverImagesProto::add_device_screensaver_images(std::string&& value) {
+device_screensaver_images_.Add(std::move(value));
+// @@protoc_insertion_point(field_add:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+}
+inline void DeviceScreensaverImagesProto::add_device_screensaver_images(const char* value) {
+GOOGLE_DCHECK(value != nullptr);
+device_screensaver_images_.Add()->assign(value);
+// @@protoc_insertion_point(field_add_char:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+}
+inline void DeviceScreensaverImagesProto::add_device_screensaver_images(const char* value, size_t size) {
+device_screensaver_images_.Add()->assign(reinterpret_cast<const char*>(value), size);
+// @@protoc_insertion_point(field_add_pointer:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+DeviceScreensaverImagesProto::device_screensaver_images() const {
+// @@protoc_insertion_point(field_list:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+return device_screensaver_images_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+DeviceScreensaverImagesProto::mutable_device_screensaver_images() {
+// @@protoc_insertion_point(field_mutable_list:enterprise_management.DeviceScreensaverImagesProto.device_screensaver_images)
+return &device_screensaver_images_;
 }
 
 // -------------------------------------------------------------------

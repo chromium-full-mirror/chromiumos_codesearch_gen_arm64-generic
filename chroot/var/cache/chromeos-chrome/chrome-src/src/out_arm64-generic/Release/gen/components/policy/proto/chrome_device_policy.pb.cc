@@ -1014,7 +1014,7 @@ struct DeviceScreensaverImageDisplayIntervalSecondsProtoDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceScreensaverImageDisplayIntervalSecondsProtoDefaultTypeInternal _DeviceScreensaverImageDisplayIntervalSecondsProto_default_instance_;
 PROTOBUF_CONSTEXPR DeviceScreensaverImagesProto::DeviceScreensaverImagesProto(
     ::_pbi::ConstantInitialized)
-  : device_screensaver_images_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+  : device_screensaver_images_(){}
 struct DeviceScreensaverImagesProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceScreensaverImagesProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -21350,38 +21350,23 @@ std::string DeviceScreensaverImageDisplayIntervalSecondsProto::GetTypeName() con
 
 class DeviceScreensaverImagesProto::_Internal {
  public:
-  using HasBits = decltype(std::declval<DeviceScreensaverImagesProto>()._has_bits_);
-  static void set_has_device_screensaver_images(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
 };
 
 DeviceScreensaverImagesProto::DeviceScreensaverImagesProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  device_screensaver_images_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:enterprise_management.DeviceScreensaverImagesProto)
 }
 DeviceScreensaverImagesProto::DeviceScreensaverImagesProto(const DeviceScreensaverImagesProto& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+      device_screensaver_images_(from.device_screensaver_images_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  device_screensaver_images_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    device_screensaver_images_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_device_screensaver_images()) {
-    device_screensaver_images_.Set(from._internal_device_screensaver_images(), 
-      GetArenaForAllocation());
-  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceScreensaverImagesProto)
 }
 
 inline void DeviceScreensaverImagesProto::SharedCtor() {
-device_screensaver_images_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  device_screensaver_images_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 DeviceScreensaverImagesProto::~DeviceScreensaverImagesProto() {
@@ -21395,7 +21380,6 @@ DeviceScreensaverImagesProto::~DeviceScreensaverImagesProto() {
 
 inline void DeviceScreensaverImagesProto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  device_screensaver_images_.Destroy();
 }
 
 void DeviceScreensaverImagesProto::SetCachedSize(int size) const {
@@ -21408,27 +21392,27 @@ void DeviceScreensaverImagesProto::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    device_screensaver_images_.ClearNonDefaultToEmpty();
-  }
-  _has_bits_.Clear();
+  device_screensaver_images_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* DeviceScreensaverImagesProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional string device_screensaver_images = 1;
+      // repeated string device_screensaver_images = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          auto str = _internal_mutable_device_screensaver_images();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_device_screensaver_images();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -21448,7 +21432,6 @@ const char* DeviceScreensaverImagesProto::_InternalParse(const char* ptr, ::_pbi
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -21462,11 +21445,10 @@ uint8_t* DeviceScreensaverImagesProto::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
-  // optional string device_screensaver_images = 1;
-  if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_device_screensaver_images(), target);
+  // repeated string device_screensaver_images = 1;
+  for (int i = 0, n = this->_internal_device_screensaver_images_size(); i < n; i++) {
+    const auto& s = this->_internal_device_screensaver_images(i);
+    target = stream->WriteString(1, s, target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -21485,12 +21467,12 @@ size_t DeviceScreensaverImagesProto::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional string device_screensaver_images = 1;
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_device_screensaver_images());
+  // repeated string device_screensaver_images = 1;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(device_screensaver_images_.size());
+  for (int i = 0, n = device_screensaver_images_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      device_screensaver_images_.Get(i));
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -21513,9 +21495,7 @@ void DeviceScreensaverImagesProto::MergeFrom(const DeviceScreensaverImagesProto&
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_device_screensaver_images()) {
-    _internal_set_device_screensaver_images(from._internal_device_screensaver_images());
-  }
+  device_screensaver_images_.MergeFrom(from.device_screensaver_images_);
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -21532,14 +21512,8 @@ bool DeviceScreensaverImagesProto::IsInitialized() const {
 
 void DeviceScreensaverImagesProto::InternalSwap(DeviceScreensaverImagesProto* other) {
   using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &device_screensaver_images_, lhs_arena,
-      &other->device_screensaver_images_, rhs_arena
-  );
+  device_screensaver_images_.InternalSwap(&other->device_screensaver_images_);
 }
 
 std::string DeviceScreensaverImagesProto::GetTypeName() const {

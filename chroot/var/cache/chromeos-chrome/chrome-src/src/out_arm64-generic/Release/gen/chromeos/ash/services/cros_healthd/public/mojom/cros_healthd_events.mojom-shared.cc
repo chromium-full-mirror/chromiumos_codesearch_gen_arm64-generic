@@ -77,6 +77,10 @@ static NOINLINE const char* EventCategoryEnumToStringHelper(EventCategoryEnum va
       return "kKeyboardDiagnostic";
     case EventCategoryEnum::kTouchpad:
       return "kTouchpad";
+    case EventCategoryEnum::kHdmi:
+      return "kHdmi";
+    case EventCategoryEnum::kTouchscreen:
+      return "kTouchscreen";
     default:
       return nullptr;
   }
@@ -318,6 +322,32 @@ std::ostream& operator<<(std::ostream& os, SdCardEventInfo_State value) {
   return os << SdCardEventInfo_StateToString(value);
 }
 
+static NOINLINE const char* HdmiEventInfo_StateToStringHelper(HdmiEventInfo_State value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case HdmiEventInfo_State::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case HdmiEventInfo_State::kAdd:
+      return "kAdd";
+    case HdmiEventInfo_State::kRemove:
+      return "kRemove";
+    default:
+      return nullptr;
+  }
+}
+
+std::string HdmiEventInfo_StateToString(HdmiEventInfo_State value) {
+  const char *str = HdmiEventInfo_StateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown HdmiEventInfo_State value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, HdmiEventInfo_State value) {
+  return os << HdmiEventInfo_StateToString(value);
+}
+
 namespace internal {
 // static
 bool TouchpadEventInfo_Data::Validate(
@@ -374,6 +404,63 @@ bool TouchpadEventInfo_Data::Validate(
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_connected_event, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_connected_event, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      return true;
+    }
+  }
+}
+// static
+bool TouchscreenEventInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const TouchscreenEventInfo_Data* object = static_cast<const TouchscreenEventInfo_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case TouchscreenEventInfo_Tag::kDefaultType: {
+
+      return true;
+    }
+    case TouchscreenEventInfo_Tag::kTouchEvent: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_touch_event, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_touch_event, validation_context))
+        return false;
+      return true;
+    }
+    case TouchscreenEventInfo_Tag::kConnectedEvent: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_connected_event, 3, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_connected_event, validation_context))
@@ -514,6 +601,27 @@ bool EventInfo_Data::Validate(
         return false;
       }
       if (!mojo::internal::ValidateNonInlinedUnion(object->data.f_touchpad_event_info,
+                                                   validation_context))
+        return false;
+      return true;
+    }
+    case EventInfo_Tag::kHdmiEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_hdmi_event_info, 12, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_hdmi_event_info, validation_context))
+        return false;
+      return true;
+    }
+    case EventInfo_Tag::kTouchscreenEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_touchscreen_event_info, 13, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateNonInlinedUnion(object->data.f_touchscreen_event_info,
                                                    validation_context))
         return false;
       return true;
@@ -914,6 +1022,91 @@ bool TouchpadConnectedEvent_Data::Validate(
 }
 
 TouchpadConnectedEvent_Data::TouchpadConnectedEvent_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool HdmiEventInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const HdmiEventInfo_Data* object =
+      static_cast<const HdmiEventInfo_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::HdmiEventInfo_State_Data
+        ::Validate(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+HdmiEventInfo_Data::HdmiEventInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TouchscreenTouchEvent_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TouchscreenTouchEvent_Data* object =
+      static_cast<const TouchscreenTouchEvent_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->touch_points, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& touch_points_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->touch_points, validation_context,
+                                         &touch_points_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+TouchscreenTouchEvent_Data::TouchscreenTouchEvent_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool TouchscreenConnectedEvent_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const TouchscreenConnectedEvent_Data* object =
+      static_cast<const TouchscreenConnectedEvent_Data*>(data);
+
+  return true;
+}
+
+TouchscreenConnectedEvent_Data::TouchscreenConnectedEvent_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1567,6 +1760,16 @@ namespace perfetto {
 void TraceFormatTraits<::ash::cros_healthd::mojom::SdCardEventInfo_State>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::SdCardEventInfo_State value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::SdCardEventInfo_StateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::HdmiEventInfo_State>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::HdmiEventInfo_State value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::HdmiEventInfo_StateToString(value));
 }
 
 } // namespace perfetto

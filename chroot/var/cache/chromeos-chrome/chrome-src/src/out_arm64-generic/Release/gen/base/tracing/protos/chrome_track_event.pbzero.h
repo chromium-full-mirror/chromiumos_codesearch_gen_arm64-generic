@@ -2086,6 +2086,414 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
+class ScrollDeltas_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/14, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+ public:
+  ScrollDeltas_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit ScrollDeltas_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit ScrollDeltas_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_trace_id() const { return at<1>().valid(); }
+  int64_t trace_id() const { return at<1>().as_int64(); }
+  bool has_original_delta_x() const { return at<2>().valid(); }
+  float original_delta_x() const { return at<2>().as_float(); }
+  bool has_original_delta_y() const { return at<3>().valid(); }
+  float original_delta_y() const { return at<3>().as_float(); }
+  bool has_coalesced_to_trace_id() const { return at<4>().valid(); }
+  int64_t coalesced_to_trace_id() const { return at<4>().as_int64(); }
+  bool has_provided_to_compositor_delta_x() const { return at<5>().valid(); }
+  float provided_to_compositor_delta_x() const { return at<5>().as_float(); }
+  bool has_provided_to_compositor_delta_y() const { return at<6>().valid(); }
+  float provided_to_compositor_delta_y() const { return at<6>().as_float(); }
+  bool has_visual_offset_x() const { return at<7>().valid(); }
+  int64_t visual_offset_x() const { return at<7>().as_int64(); }
+  bool has_visual_offset_y() const { return at<8>().valid(); }
+  int64_t visual_offset_y() const { return at<8>().as_int64(); }
+  bool has_event_count_in_gpu_frame() const { return at<9>().valid(); }
+  int32_t event_count_in_gpu_frame() const { return at<9>().as_int32(); }
+  bool has_trace_ids_in_gpu_frame() const { return at<10>().valid(); }
+  ::protozero::RepeatedFieldIterator<int64_t> trace_ids_in_gpu_frame() const { return GetRepeated<int64_t>(10); }
+  bool has_original_delta_in_gpu_frame_y() const { return at<11>().valid(); }
+  float original_delta_in_gpu_frame_y() const { return at<11>().as_float(); }
+  bool has_predicted_delta_in_gpu_frame_y() const { return at<12>().valid(); }
+  float predicted_delta_in_gpu_frame_y() const { return at<12>().as_float(); }
+  bool has_segregated_original_deltas_in_gpu_frame_y() const { return at<13>().valid(); }
+  ::protozero::RepeatedFieldIterator<float> segregated_original_deltas_in_gpu_frame_y() const { return GetRepeated<float>(13); }
+  bool has_segregated_predicted_deltas_in_gpu_frame_y() const { return at<14>().valid(); }
+  ::protozero::RepeatedFieldIterator<float> segregated_predicted_deltas_in_gpu_frame_y() const { return GetRepeated<float>(14); }
+};
+
+class ScrollDeltas : public ::protozero::Message {
+ public:
+  using Decoder = ScrollDeltas_Decoder;
+  enum : int32_t {
+    kTraceIdFieldNumber = 1,
+    kOriginalDeltaXFieldNumber = 2,
+    kOriginalDeltaYFieldNumber = 3,
+    kCoalescedToTraceIdFieldNumber = 4,
+    kProvidedToCompositorDeltaXFieldNumber = 5,
+    kProvidedToCompositorDeltaYFieldNumber = 6,
+    kVisualOffsetXFieldNumber = 7,
+    kVisualOffsetYFieldNumber = 8,
+    kEventCountInGpuFrameFieldNumber = 9,
+    kTraceIdsInGpuFrameFieldNumber = 10,
+    kOriginalDeltaInGpuFrameYFieldNumber = 11,
+    kPredictedDeltaInGpuFrameYFieldNumber = 12,
+    kSegregatedOriginalDeltasInGpuFrameYFieldNumber = 13,
+    kSegregatedPredictedDeltasInGpuFrameYFieldNumber = 14,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.ScrollDeltas"; }
+
+
+  using FieldMetadata_TraceId =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      ScrollDeltas>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_TraceId kTraceId() { return {}; }
+  void set_trace_id(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_TraceId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_OriginalDeltaX =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kFloat,
+      float,
+      ScrollDeltas>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_OriginalDeltaX kOriginalDeltaX() { return {}; }
+  void set_original_delta_x(float value) {
+    static constexpr uint32_t field_id = FieldMetadata_OriginalDeltaX::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kFloat>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_OriginalDeltaY =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kFloat,
+      float,
+      ScrollDeltas>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_OriginalDeltaY kOriginalDeltaY() { return {}; }
+  void set_original_delta_y(float value) {
+    static constexpr uint32_t field_id = FieldMetadata_OriginalDeltaY::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kFloat>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_CoalescedToTraceId =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      ScrollDeltas>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_CoalescedToTraceId kCoalescedToTraceId() { return {}; }
+  void set_coalesced_to_trace_id(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_CoalescedToTraceId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ProvidedToCompositorDeltaX =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kFloat,
+      float,
+      ScrollDeltas>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_ProvidedToCompositorDeltaX kProvidedToCompositorDeltaX() { return {}; }
+  void set_provided_to_compositor_delta_x(float value) {
+    static constexpr uint32_t field_id = FieldMetadata_ProvidedToCompositorDeltaX::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kFloat>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ProvidedToCompositorDeltaY =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kFloat,
+      float,
+      ScrollDeltas>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_ProvidedToCompositorDeltaY kProvidedToCompositorDeltaY() { return {}; }
+  void set_provided_to_compositor_delta_y(float value) {
+    static constexpr uint32_t field_id = FieldMetadata_ProvidedToCompositorDeltaY::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kFloat>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_VisualOffsetX =
+    ::protozero::proto_utils::FieldMetadata<
+      7,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      ScrollDeltas>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_VisualOffsetX kVisualOffsetX() { return {}; }
+  void set_visual_offset_x(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_VisualOffsetX::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_VisualOffsetY =
+    ::protozero::proto_utils::FieldMetadata<
+      8,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      ScrollDeltas>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_VisualOffsetY kVisualOffsetY() { return {}; }
+  void set_visual_offset_y(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_VisualOffsetY::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_EventCountInGpuFrame =
+    ::protozero::proto_utils::FieldMetadata<
+      9,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      ScrollDeltas>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_EventCountInGpuFrame kEventCountInGpuFrame() { return {}; }
+  void set_event_count_in_gpu_frame(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_EventCountInGpuFrame::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_TraceIdsInGpuFrame =
+    ::protozero::proto_utils::FieldMetadata<
+      10,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      ScrollDeltas>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_TraceIdsInGpuFrame kTraceIdsInGpuFrame() { return {}; }
+  void add_trace_ids_in_gpu_frame(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_TraceIdsInGpuFrame::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_OriginalDeltaInGpuFrameY =
+    ::protozero::proto_utils::FieldMetadata<
+      11,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kFloat,
+      float,
+      ScrollDeltas>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_OriginalDeltaInGpuFrameY kOriginalDeltaInGpuFrameY() { return {}; }
+  void set_original_delta_in_gpu_frame_y(float value) {
+    static constexpr uint32_t field_id = FieldMetadata_OriginalDeltaInGpuFrameY::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kFloat>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_PredictedDeltaInGpuFrameY =
+    ::protozero::proto_utils::FieldMetadata<
+      12,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kFloat,
+      float,
+      ScrollDeltas>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_PredictedDeltaInGpuFrameY kPredictedDeltaInGpuFrameY() { return {}; }
+  void set_predicted_delta_in_gpu_frame_y(float value) {
+    static constexpr uint32_t field_id = FieldMetadata_PredictedDeltaInGpuFrameY::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kFloat>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SegregatedOriginalDeltasInGpuFrameY =
+    ::protozero::proto_utils::FieldMetadata<
+      13,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kFloat,
+      float,
+      ScrollDeltas>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_SegregatedOriginalDeltasInGpuFrameY kSegregatedOriginalDeltasInGpuFrameY() { return {}; }
+  void add_segregated_original_deltas_in_gpu_frame_y(float value) {
+    static constexpr uint32_t field_id = FieldMetadata_SegregatedOriginalDeltasInGpuFrameY::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kFloat>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SegregatedPredictedDeltasInGpuFrameY =
+    ::protozero::proto_utils::FieldMetadata<
+      14,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kFloat,
+      float,
+      ScrollDeltas>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_SegregatedPredictedDeltasInGpuFrameY kSegregatedPredictedDeltasInGpuFrameY() { return {}; }
+  void add_segregated_predicted_deltas_in_gpu_frame_y(float value) {
+    static constexpr uint32_t field_id = FieldMetadata_SegregatedPredictedDeltasInGpuFrameY::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kFloat>
+        ::Append(*this, field_id, value);
+  }
+};
+
 class TabSwitchMeasurement_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   TabSwitchMeasurement_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
@@ -10060,6 +10468,27 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
   static constexpr FieldMetadata_TabSwitchMeasurement kTabSwitchMeasurement() { return {}; }
   template <typename T = TabSwitchMeasurement> T* set_tab_switch_measurement() {
     return BeginNestedMessage<T>(1046);
+  }
+
+
+  using FieldMetadata_ScrollDeltas =
+    ::protozero::proto_utils::FieldMetadata<
+      1047,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ScrollDeltas,
+      ChromeTrackEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_ScrollDeltas kScrollDeltas() { return {}; }
+  template <typename T = ScrollDeltas> T* set_scroll_deltas() {
+    return BeginNestedMessage<T>(1047);
   }
 
 };

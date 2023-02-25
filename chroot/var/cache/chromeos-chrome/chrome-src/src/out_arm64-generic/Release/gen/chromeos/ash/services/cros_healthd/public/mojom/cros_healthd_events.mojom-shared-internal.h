@@ -38,7 +38,11 @@ class TouchpadButtonEvent_Data;
 class TouchPointInfo_Data;
 class TouchpadTouchEvent_Data;
 class TouchpadConnectedEvent_Data;
+class HdmiEventInfo_Data;
+class TouchscreenTouchEvent_Data;
+class TouchscreenConnectedEvent_Data;
 class TouchpadEventInfo_Data;
+class TouchscreenEventInfo_Data;
 class EventInfo_Data;
 
 struct InputTouchButton_Data {
@@ -85,6 +89,8 @@ struct EventCategoryEnum_Data {
       case 9:
       case 10:
       case 11:
+      case 12:
+      case 13:
         return true;
     }
     return false;
@@ -309,6 +315,31 @@ struct SdCardEventInfo_State_Data {
   }
 };
 
+struct HdmiEventInfo_State_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 #pragma pack(push, 1)
 
 
@@ -370,6 +401,61 @@ static_assert(sizeof(TouchpadEventInfo_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(TouchpadEventInfo_Data)");
 
 
+class  TouchscreenEventInfo_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  TouchscreenEventInfo_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~TouchscreenEventInfo_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<TouchscreenEventInfo_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class TouchscreenEventInfo_Tag : uint32_t {
+
+    
+    kDefaultType,
+    
+    kTouchEvent,
+    
+    kConnectedEvent,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    uint8_t f_default_type;
+    mojo::internal::Pointer<internal::TouchscreenTouchEvent_Data> f_touch_event;
+    mojo::internal::Pointer<internal::TouchscreenConnectedEvent_Data> f_connected_event;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  TouchscreenEventInfo_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(TouchscreenEventInfo_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(TouchscreenEventInfo_Data)");
+
+
 class  EventInfo_Data {
  public:
   // Used to identify Mojom Union Data Classes.
@@ -420,6 +506,10 @@ class  EventInfo_Data {
     kKeyboardDiagnosticEventInfo,
     
     kTouchpadEventInfo,
+    
+    kHdmiEventInfo,
+    
+    kTouchscreenEventInfo,
   };
 
   // A note on layout:
@@ -438,6 +528,8 @@ class  EventInfo_Data {
     mojo::internal::Pointer<internal::SdCardEventInfo_Data> f_sd_card_event_info;
     mojo::internal::Pointer<::ash::diagnostics::mojom::internal::KeyboardDiagnosticEventInfo_Data> f_keyboard_diagnostic_event_info;
     mojo::internal::Pointer<internal::TouchpadEventInfo_Data> f_touchpad_event_info;
+    mojo::internal::Pointer<internal::HdmiEventInfo_Data> f_hdmi_event_info;
+    mojo::internal::Pointer<internal::TouchscreenEventInfo_Data> f_touchscreen_event_info;
     uint64_t unknown;
   };
 
@@ -1047,6 +1139,154 @@ struct TouchpadConnectedEvent_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     TouchpadConnectedEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  HdmiEventInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t state;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<HdmiEventInfo_Data>;
+
+  HdmiEventInfo_Data();
+  ~HdmiEventInfo_Data() = delete;
+};
+static_assert(sizeof(HdmiEventInfo_Data) == 16,
+              "Bad sizeof(HdmiEventInfo_Data)");
+// Used by HdmiEventInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct HdmiEventInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  HdmiEventInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~HdmiEventInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<HdmiEventInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    HdmiEventInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  TouchscreenTouchEvent_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::TouchPointInfo_Data>>> touch_points;
+
+ private:
+  friend class mojo::internal::MessageFragment<TouchscreenTouchEvent_Data>;
+
+  TouchscreenTouchEvent_Data();
+  ~TouchscreenTouchEvent_Data() = delete;
+};
+static_assert(sizeof(TouchscreenTouchEvent_Data) == 16,
+              "Bad sizeof(TouchscreenTouchEvent_Data)");
+// Used by TouchscreenTouchEvent::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct TouchscreenTouchEvent_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  TouchscreenTouchEvent_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~TouchscreenTouchEvent_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<TouchscreenTouchEvent_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    TouchscreenTouchEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  TouchscreenConnectedEvent_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint32_t max_x;
+  uint32_t max_y;
+  uint32_t max_pressure;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<TouchscreenConnectedEvent_Data>;
+
+  TouchscreenConnectedEvent_Data();
+  ~TouchscreenConnectedEvent_Data() = delete;
+};
+static_assert(sizeof(TouchscreenConnectedEvent_Data) == 24,
+              "Bad sizeof(TouchscreenConnectedEvent_Data)");
+// Used by TouchscreenConnectedEvent::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct TouchscreenConnectedEvent_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  TouchscreenConnectedEvent_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~TouchscreenConnectedEvent_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<TouchscreenConnectedEvent_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    TouchscreenConnectedEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 
