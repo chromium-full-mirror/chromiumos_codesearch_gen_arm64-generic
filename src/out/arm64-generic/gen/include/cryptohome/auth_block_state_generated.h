@@ -55,11 +55,12 @@ enum class AuthBlockStateUnion : uint8_t {
   CryptohomeRecoveryAuthBlockState = 6,
   TpmEccAuthBlockState = 7,
   ScryptAuthBlockState = 8,
+  FingerprintAuthBlockState = 9,
   MIN = NONE,
-  MAX = ScryptAuthBlockState
+  MAX = FingerprintAuthBlockState
 };
 
-inline const AuthBlockStateUnion (&EnumValuesAuthBlockStateUnion())[9] {
+inline const AuthBlockStateUnion (&EnumValuesAuthBlockStateUnion())[10] {
   static const AuthBlockStateUnion values[] = {
     AuthBlockStateUnion::NONE,
     AuthBlockStateUnion::TpmBoundToPcrAuthBlockState,
@@ -69,13 +70,14 @@ inline const AuthBlockStateUnion (&EnumValuesAuthBlockStateUnion())[9] {
     AuthBlockStateUnion::DoubleWrappedCompatAuthBlockState,
     AuthBlockStateUnion::CryptohomeRecoveryAuthBlockState,
     AuthBlockStateUnion::TpmEccAuthBlockState,
-    AuthBlockStateUnion::ScryptAuthBlockState
+    AuthBlockStateUnion::ScryptAuthBlockState,
+    AuthBlockStateUnion::FingerprintAuthBlockState
   };
   return values;
 }
 
 inline const char * const *EnumNamesAuthBlockStateUnion() {
-  static const char * const names[10] = {
+  static const char * const names[11] = {
     "NONE",
     "TpmBoundToPcrAuthBlockState",
     "TpmNotBoundToPcrAuthBlockState",
@@ -85,13 +87,14 @@ inline const char * const *EnumNamesAuthBlockStateUnion() {
     "CryptohomeRecoveryAuthBlockState",
     "TpmEccAuthBlockState",
     "ScryptAuthBlockState",
+    "FingerprintAuthBlockState",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameAuthBlockStateUnion(AuthBlockStateUnion e) {
-  if (flatbuffers::IsOutRange(e, AuthBlockStateUnion::NONE, AuthBlockStateUnion::ScryptAuthBlockState)) return "";
+  if (flatbuffers::IsOutRange(e, AuthBlockStateUnion::NONE, AuthBlockStateUnion::FingerprintAuthBlockState)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesAuthBlockStateUnion()[index];
 }
@@ -130,6 +133,10 @@ template<> struct AuthBlockStateUnionTraits<cryptohome::_serialized_::TpmEccAuth
 
 template<> struct AuthBlockStateUnionTraits<cryptohome::_serialized_::ScryptAuthBlockState> {
   static const AuthBlockStateUnion enum_value = AuthBlockStateUnion::ScryptAuthBlockState;
+};
+
+template<> struct AuthBlockStateUnionTraits<cryptohome::_serialized_::FingerprintAuthBlockState> {
+  static const AuthBlockStateUnion enum_value = AuthBlockStateUnion::FingerprintAuthBlockState;
 };
 
 bool VerifyAuthBlockStateUnion(flatbuffers::Verifier &verifier, const void *obj, AuthBlockStateUnion type);
@@ -454,8 +461,8 @@ struct FingerprintAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::
     VT_TEMPLATE_ID = 4,
     VT_GSC_SECRET_LABEL = 6
   };
-  const flatbuffers::Vector<int8_t> *template_id() const {
-    return GetPointer<const flatbuffers::Vector<int8_t> *>(VT_TEMPLATE_ID);
+  const flatbuffers::String *template_id() const {
+    return GetPointer<const flatbuffers::String *>(VT_TEMPLATE_ID);
   }
   flatbuffers::Optional<uint64_t> gsc_secret_label() const {
     return GetOptional<uint64_t, uint64_t>(VT_GSC_SECRET_LABEL);
@@ -463,7 +470,7 @@ struct FingerprintAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_TEMPLATE_ID) &&
-           verifier.VerifyVector(template_id()) &&
+           verifier.VerifyString(template_id()) &&
            VerifyField<uint64_t>(verifier, VT_GSC_SECRET_LABEL) &&
            verifier.EndTable();
   }
@@ -473,7 +480,7 @@ struct FingerprintAuthBlockStateBuilder {
   typedef FingerprintAuthBlockState Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_template_id(flatbuffers::Offset<flatbuffers::Vector<int8_t>> template_id) {
+  void add_template_id(flatbuffers::Offset<flatbuffers::String> template_id) {
     fbb_.AddOffset(FingerprintAuthBlockState::VT_TEMPLATE_ID, template_id);
   }
   void add_gsc_secret_label(uint64_t gsc_secret_label) {
@@ -492,7 +499,7 @@ struct FingerprintAuthBlockStateBuilder {
 
 inline flatbuffers::Offset<FingerprintAuthBlockState> CreateFingerprintAuthBlockState(
     flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<int8_t>> template_id = 0,
+    flatbuffers::Offset<flatbuffers::String> template_id = 0,
     flatbuffers::Optional<uint64_t> gsc_secret_label = flatbuffers::nullopt) {
   FingerprintAuthBlockStateBuilder builder_(_fbb);
   if(gsc_secret_label) { builder_.add_gsc_secret_label(*gsc_secret_label); }
@@ -502,9 +509,9 @@ inline flatbuffers::Offset<FingerprintAuthBlockState> CreateFingerprintAuthBlock
 
 inline flatbuffers::Offset<FingerprintAuthBlockState> CreateFingerprintAuthBlockStateDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
-    const std::vector<int8_t> *template_id = nullptr,
+    const char *template_id = nullptr,
     flatbuffers::Optional<uint64_t> gsc_secret_label = flatbuffers::nullopt) {
-  auto template_id__ = template_id ? _fbb.CreateVector<int8_t>(*template_id) : 0;
+  auto template_id__ = template_id ? _fbb.CreateString(template_id) : 0;
   return cryptohome::_serialized_::CreateFingerprintAuthBlockState(
       _fbb,
       template_id__,
@@ -1065,6 +1072,9 @@ struct AuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const cryptohome::_serialized_::ScryptAuthBlockState *state_as_ScryptAuthBlockState() const {
     return state_type() == cryptohome::_serialized_::AuthBlockStateUnion::ScryptAuthBlockState ? static_cast<const cryptohome::_serialized_::ScryptAuthBlockState *>(state()) : nullptr;
   }
+  const cryptohome::_serialized_::FingerprintAuthBlockState *state_as_FingerprintAuthBlockState() const {
+    return state_type() == cryptohome::_serialized_::AuthBlockStateUnion::FingerprintAuthBlockState ? static_cast<const cryptohome::_serialized_::FingerprintAuthBlockState *>(state()) : nullptr;
+  }
   const cryptohome::_serialized_::RevocationState *revocation_state() const {
     return GetPointer<const cryptohome::_serialized_::RevocationState *>(VT_REVOCATION_STATE);
   }
@@ -1109,6 +1119,10 @@ template<> inline const cryptohome::_serialized_::TpmEccAuthBlockState *AuthBloc
 
 template<> inline const cryptohome::_serialized_::ScryptAuthBlockState *AuthBlockState::state_as<cryptohome::_serialized_::ScryptAuthBlockState>() const {
   return state_as_ScryptAuthBlockState();
+}
+
+template<> inline const cryptohome::_serialized_::FingerprintAuthBlockState *AuthBlockState::state_as<cryptohome::_serialized_::FingerprintAuthBlockState>() const {
+  return state_as_FingerprintAuthBlockState();
 }
 
 struct AuthBlockStateBuilder {
@@ -1182,6 +1196,10 @@ inline bool VerifyAuthBlockStateUnion(flatbuffers::Verifier &verifier, const voi
     }
     case AuthBlockStateUnion::ScryptAuthBlockState: {
       auto ptr = reinterpret_cast<const cryptohome::_serialized_::ScryptAuthBlockState *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case AuthBlockStateUnion::FingerprintAuthBlockState: {
+      auto ptr = reinterpret_cast<const cryptohome::_serialized_::FingerprintAuthBlockState *>(obj);
       return verifier.VerifyTable(ptr);
     }
     default: return true;

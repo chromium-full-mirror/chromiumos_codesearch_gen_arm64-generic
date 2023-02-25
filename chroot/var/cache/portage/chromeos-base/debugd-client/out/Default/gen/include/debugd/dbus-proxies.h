@@ -1453,6 +1453,42 @@ class debugdProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Runs the 'ectool usbpdmuxinfo' command with pre-defined
+  // sandbox options in rootfs to determine the DisplayPort(DP) state
+  // for a specified port.
+  virtual bool EcTypeCDpState(
+      uint32_t in_port_num,
+      bool* out_output,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Runs the 'ectool usbpdmuxinfo' command with pre-defined
+  // sandbox options in rootfs to determine the DisplayPort(DP) state
+  // for a specified port.
+  virtual void EcTypeCDpStateAsync(
+      uint32_t in_port_num,
+      base::OnceCallback<void(bool /*output*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Runs the 'ectool gpioget' command with pre-defined
+  // sandbox options in rootfs to determine the DisplayPort
+  // Hot Plug Detect (HPD) GPIO state for a specified port.
+  virtual bool EcTypeCHpdState(
+      uint32_t in_port_num,
+      bool* out_output,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Runs the 'ectool gpioget' command with pre-defined
+  // sandbox options in rootfs to determine the DisplayPort
+  // Hot Plug Detect (HPD) GPIO state for a specified port.
+  virtual void EcTypeCHpdStateAsync(
+      uint32_t in_port_num,
+      base::OnceCallback<void(bool /*output*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Execute a sequence of commands to enable a kernel feature.
   virtual bool KernelFeatureEnable(
       const std::string& in_name,
@@ -4757,6 +4793,80 @@ class debugdProxy final : public debugdProxyInterface {
         dbus_object_proxy_,
         "org.chromium.debugd",
         "EcTypeCExitMode",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_port_num);
+  }
+
+  // Runs the 'ectool usbpdmuxinfo' command with pre-defined
+  // sandbox options in rootfs to determine the DisplayPort(DP) state
+  // for a specified port.
+  bool EcTypeCDpState(
+      uint32_t in_port_num,
+      bool* out_output,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "EcTypeCDpState",
+        error,
+        in_port_num);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_output);
+  }
+
+  // Runs the 'ectool usbpdmuxinfo' command with pre-defined
+  // sandbox options in rootfs to determine the DisplayPort(DP) state
+  // for a specified port.
+  void EcTypeCDpStateAsync(
+      uint32_t in_port_num,
+      base::OnceCallback<void(bool /*output*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "EcTypeCDpState",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_port_num);
+  }
+
+  // Runs the 'ectool gpioget' command with pre-defined
+  // sandbox options in rootfs to determine the DisplayPort
+  // Hot Plug Detect (HPD) GPIO state for a specified port.
+  bool EcTypeCHpdState(
+      uint32_t in_port_num,
+      bool* out_output,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "EcTypeCHpdState",
+        error,
+        in_port_num);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_output);
+  }
+
+  // Runs the 'ectool gpioget' command with pre-defined
+  // sandbox options in rootfs to determine the DisplayPort
+  // Hot Plug Detect (HPD) GPIO state for a specified port.
+  void EcTypeCHpdStateAsync(
+      uint32_t in_port_num,
+      base::OnceCallback<void(bool /*output*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "EcTypeCHpdState",
         std::move(success_callback),
         std::move(error_callback),
         in_port_num);

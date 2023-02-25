@@ -448,6 +448,20 @@ class debugdInterface {
       brillo::ErrorPtr* error,
       uint32_t in_port_num,
       std::string* out_output) = 0;
+  // Runs the 'ectool usbpdmuxinfo' command with pre-defined
+  // sandbox options in rootfs to determine the DisplayPort(DP) state
+  // for a specified port.
+  virtual bool EcTypeCDpState(
+      brillo::ErrorPtr* error,
+      uint32_t in_port_num,
+      bool* out_output) = 0;
+  // Runs the 'ectool gpioget' command with pre-defined
+  // sandbox options in rootfs to determine the DisplayPort
+  // Hot Plug Detect (HPD) GPIO state for a specified port.
+  virtual bool EcTypeCHpdState(
+      brillo::ErrorPtr* error,
+      uint32_t in_port_num,
+      bool* out_output) = 0;
   // Execute a sequence of commands to enable a kernel feature.
   virtual bool KernelFeatureEnable(
       brillo::ErrorPtr* error,
@@ -855,6 +869,14 @@ class debugdAdaptor {
         base::Unretained(interface_),
         &debugdInterface::EcTypeCExitMode);
     itf->AddSimpleMethodHandlerWithError(
+        "EcTypeCDpState",
+        base::Unretained(interface_),
+        &debugdInterface::EcTypeCDpState);
+    itf->AddSimpleMethodHandlerWithError(
+        "EcTypeCHpdState",
+        base::Unretained(interface_),
+        &debugdInterface::EcTypeCHpdState);
+    itf->AddSimpleMethodHandlerWithError(
         "KernelFeatureEnable",
         base::Unretained(interface_),
         &debugdInterface::KernelFeatureEnable);
@@ -1250,6 +1272,14 @@ class debugdAdaptor {
         "    <method name=\"EcTypeCExitMode\">\n"
         "      <arg name=\"port_num\" type=\"u\" direction=\"in\"/>\n"
         "      <arg name=\"output\" type=\"s\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"EcTypeCDpState\">\n"
+        "      <arg name=\"port_num\" type=\"u\" direction=\"in\"/>\n"
+        "      <arg name=\"output\" type=\"b\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"EcTypeCHpdState\">\n"
+        "      <arg name=\"port_num\" type=\"u\" direction=\"in\"/>\n"
+        "      <arg name=\"output\" type=\"b\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"KernelFeatureEnable\">\n"
         "      <arg name=\"name\" type=\"s\" direction=\"in\"/>\n"

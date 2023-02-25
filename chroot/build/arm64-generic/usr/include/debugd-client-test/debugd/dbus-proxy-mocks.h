@@ -910,6 +910,26 @@ class debugdProxyMock : public debugdProxyInterface {
                     base::OnceCallback<void(const std::string& /*output*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD4(EcTypeCDpState,
+               bool(uint32_t /*in_port_num*/,
+                    bool* /*out_output*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(EcTypeCDpStateAsync,
+               void(uint32_t /*in_port_num*/,
+                    base::OnceCallback<void(bool /*output*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(EcTypeCHpdState,
+               bool(uint32_t /*in_port_num*/,
+                    bool* /*out_output*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(EcTypeCHpdStateAsync,
+               void(uint32_t /*in_port_num*/,
+                    base::OnceCallback<void(bool /*output*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD5(KernelFeatureEnable,
                bool(const std::string& /*in_name*/,
                     bool* /*out_result*/,

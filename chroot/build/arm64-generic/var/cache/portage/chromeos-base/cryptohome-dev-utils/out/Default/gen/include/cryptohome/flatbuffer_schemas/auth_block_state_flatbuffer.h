@@ -498,6 +498,47 @@ struct FromFlatBuffer<::cryptohome::TpmEccAuthBlockState> {
 namespace hwsec_foundation {
 
 template <>
+struct ToFlatBuffer<::cryptohome::FingerprintAuthBlockState> {
+  using ResultType = flatbuffers::Offset<
+      ::cryptohome::_serialized_::FingerprintAuthBlockState>;
+
+  ResultType operator()(
+      flatbuffers::FlatBufferBuilder* builder,
+      const ::cryptohome::FingerprintAuthBlockState& object) const {
+    auto template_id = ToFlatBuffer<std::string>()(builder, object.template_id);
+    auto gsc_secret_label = ToFlatBuffer<std::optional<uint64_t>>()(
+        builder, object.gsc_secret_label);
+
+    return ::cryptohome::_serialized_::CreateFingerprintAuthBlockState(
+        *builder, template_id, gsc_secret_label);
+  }
+};
+
+}  // namespace hwsec_foundation
+
+namespace hwsec_foundation {
+
+template <>
+struct FromFlatBuffer<::cryptohome::FingerprintAuthBlockState> {
+  ::cryptohome::FingerprintAuthBlockState operator()(
+      const ::cryptohome::_serialized_::FingerprintAuthBlockState* object)
+      const {
+    if (object == nullptr) {
+      return ::cryptohome::FingerprintAuthBlockState();
+    }
+    return ::cryptohome::FingerprintAuthBlockState{
+        .template_id = FromFlatBuffer<std::string>()(object->template_id()),
+        .gsc_secret_label = FromFlatBuffer<std::optional<uint64_t>>()(
+            object->gsc_secret_label()),
+    };
+  }
+};
+
+}  // namespace hwsec_foundation
+
+namespace hwsec_foundation {
+
+template <>
 struct ToFlatBuffer<::cryptohome::AuthBlockStateUnion, IsUnionEnum> {
   using ResultType = ::cryptohome::_serialized_::AuthBlockStateUnion;
 
@@ -543,6 +584,10 @@ struct ToFlatBuffer<::cryptohome::AuthBlockStateUnion, IsUnionEnum> {
                                             ::cryptohome::ScryptAuthBlockState>)
             return ::cryptohome::_serialized_::AuthBlockStateUnion::
                 ScryptAuthBlockState;
+          else if constexpr (std::is_same_v<
+                                 T, ::cryptohome::FingerprintAuthBlockState>)
+            return ::cryptohome::_serialized_::AuthBlockStateUnion::
+                FingerprintAuthBlockState;
         },
         object);
   }
@@ -616,6 +661,13 @@ struct FromFlatBuffer<::cryptohome::AuthBlockStateUnion> {
         return FromFlatBuffer<::cryptohome::ScryptAuthBlockState>()(
             static_cast<
                 const ::cryptohome::_serialized_::ScryptAuthBlockState*>(
+                object));
+      }
+      case ::cryptohome::_serialized_::AuthBlockStateUnion::
+          FingerprintAuthBlockState: {
+        return FromFlatBuffer<::cryptohome::FingerprintAuthBlockState>()(
+            static_cast<
+                const ::cryptohome::_serialized_::FingerprintAuthBlockState*>(
                 object));
       }
     }
@@ -701,49 +753,6 @@ struct FromFlatBuffer<::cryptohome::AuthBlockState> {
         .revocation_state =
             FromFlatBuffer<std::optional<::cryptohome::RevocationState>>()(
                 object->revocation_state()),
-    };
-  }
-};
-
-}  // namespace hwsec_foundation
-
-namespace hwsec_foundation {
-
-template <>
-struct ToFlatBuffer<::cryptohome::FingerprintAuthBlockState> {
-  using ResultType = flatbuffers::Offset<
-      ::cryptohome::_serialized_::FingerprintAuthBlockState>;
-
-  ResultType operator()(
-      flatbuffers::FlatBufferBuilder* builder,
-      const ::cryptohome::FingerprintAuthBlockState& object) const {
-    auto template_id =
-        ToFlatBuffer<std::vector<int8_t>>()(builder, object.template_id);
-    auto gsc_secret_label = ToFlatBuffer<std::optional<uint64_t>>()(
-        builder, object.gsc_secret_label);
-
-    return ::cryptohome::_serialized_::CreateFingerprintAuthBlockState(
-        *builder, template_id, gsc_secret_label);
-  }
-};
-
-}  // namespace hwsec_foundation
-
-namespace hwsec_foundation {
-
-template <>
-struct FromFlatBuffer<::cryptohome::FingerprintAuthBlockState> {
-  ::cryptohome::FingerprintAuthBlockState operator()(
-      const ::cryptohome::_serialized_::FingerprintAuthBlockState* object)
-      const {
-    if (object == nullptr) {
-      return ::cryptohome::FingerprintAuthBlockState();
-    }
-    return ::cryptohome::FingerprintAuthBlockState{
-        .template_id =
-            FromFlatBuffer<std::vector<int8_t>>()(object->template_id()),
-        .gsc_secret_label = FromFlatBuffer<std::optional<uint64_t>>()(
-            object->gsc_secret_label()),
     };
   }
 };

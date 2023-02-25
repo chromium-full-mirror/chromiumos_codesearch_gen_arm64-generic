@@ -164,6 +164,20 @@ inline bool operator!=(const TpmEccAuthBlockState& lhs,
 
 namespace cryptohome {
 
+inline bool operator==(const FingerprintAuthBlockState& lhs,
+                       const FingerprintAuthBlockState& rhs) {
+  return true && lhs.template_id == rhs.template_id &&
+         lhs.gsc_secret_label == rhs.gsc_secret_label;
+}
+inline bool operator!=(const FingerprintAuthBlockState& lhs,
+                       const FingerprintAuthBlockState& rhs) {
+  return !(lhs == rhs);
+}
+
+}  // namespace cryptohome
+
+namespace cryptohome {
+
 inline bool operator==(const RevocationState& lhs, const RevocationState& rhs) {
   return true && lhs.le_label == rhs.le_label;
 }
@@ -180,20 +194,6 @@ inline bool operator==(const AuthBlockState& lhs, const AuthBlockState& rhs) {
          lhs.revocation_state == rhs.revocation_state;
 }
 inline bool operator!=(const AuthBlockState& lhs, const AuthBlockState& rhs) {
-  return !(lhs == rhs);
-}
-
-}  // namespace cryptohome
-
-namespace cryptohome {
-
-inline bool operator==(const FingerprintAuthBlockState& lhs,
-                       const FingerprintAuthBlockState& rhs) {
-  return true && lhs.template_id == rhs.template_id &&
-         lhs.gsc_secret_label == rhs.gsc_secret_label;
-}
-inline bool operator!=(const FingerprintAuthBlockState& lhs,
-                       const FingerprintAuthBlockState& rhs) {
   return !(lhs == rhs);
 }
 

@@ -137,6 +137,15 @@ struct TpmEccAuthBlockState {
 
 namespace cryptohome {
 
+struct FingerprintAuthBlockState {
+  std::string template_id;
+  std::optional<uint64_t> gsc_secret_label;
+};
+
+}  // namespace cryptohome
+
+namespace cryptohome {
+
 using AuthBlockStateUnion =
     std::variant<std::monostate,
                  ::cryptohome::TpmBoundToPcrAuthBlockState,
@@ -146,7 +155,8 @@ using AuthBlockStateUnion =
                  ::cryptohome::DoubleWrappedCompatAuthBlockState,
                  ::cryptohome::CryptohomeRecoveryAuthBlockState,
                  ::cryptohome::TpmEccAuthBlockState,
-                 ::cryptohome::ScryptAuthBlockState>;
+                 ::cryptohome::ScryptAuthBlockState,
+                 ::cryptohome::FingerprintAuthBlockState>;
 
 }  // namespace cryptohome
 
@@ -166,15 +176,6 @@ struct AuthBlockState {
 
   ::cryptohome::AuthBlockStateUnion state;
   std::optional<::cryptohome::RevocationState> revocation_state;
-};
-
-}  // namespace cryptohome
-
-namespace cryptohome {
-
-struct FingerprintAuthBlockState {
-  std::vector<int8_t> template_id;
-  std::optional<uint64_t> gsc_secret_label;
 };
 
 }  // namespace cryptohome
