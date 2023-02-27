@@ -55,6 +55,8 @@ class ConstantBitrateDataView;
 
 class VariableBitrateDataView;
 
+class ExternalBitrateDataView;
+
 class VideoEncodeAcceleratorConfigDataView;
 
 class H264MetadataDataView;
@@ -117,6 +119,13 @@ struct MojomTypeTraits<::media::mojom::ConstantBitrateDataView> {
 template <>
 struct MojomTypeTraits<::media::mojom::VariableBitrateDataView> {
   using Data = ::media::mojom::internal::VariableBitrate_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::media::mojom::ExternalBitrateDataView> {
+  using Data = ::media::mojom::internal::ExternalBitrate_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -554,6 +563,22 @@ class VariableBitrateDataView {
 
 
 
+class ExternalBitrateDataView {
+ public:
+  ExternalBitrateDataView() = default;
+
+  ExternalBitrateDataView(
+      internal::ExternalBitrate_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::ExternalBitrate_Data* data_ = nullptr;
+};
+
+
+
 class VideoEncodeAcceleratorConfigDataView {
  public:
   VideoEncodeAcceleratorConfigDataView() = default;
@@ -985,6 +1010,17 @@ class BitrateDataView {
     CHECK(is_variable());
     return mojo::internal::Deserialize<::media::mojom::VariableBitrateDataView>(
         data_->data.f_variable.Get(), output, message_);
+  }
+  bool is_external() const { return data_->tag == Tag::kExternal; }
+  inline void GetExternalDataView(
+      ExternalBitrateDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExternal(UserType* output) const {
+    
+    CHECK(is_external());
+    return mojo::internal::Deserialize<::media::mojom::ExternalBitrateDataView>(
+        data_->data.f_external.Get(), output, message_);
   }
 
  private:
@@ -1495,6 +1531,35 @@ struct Serializer<::media::mojom::VariableBitrateDataView, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::media::mojom::ExternalBitrateDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::media::mojom::ExternalBitrateDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::media::mojom::internal::ExternalBitrate_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+  }
+
+  static bool Deserialize(::media::mojom::internal::ExternalBitrate_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::media::mojom::ExternalBitrateDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::media::mojom::VideoEncodeAcceleratorConfigDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::media::mojom::VideoEncodeAcceleratorConfigDataView, UserType>;
@@ -1913,6 +1978,22 @@ struct Serializer<::media::mojom::BitrateDataView, MaybeConstUserType> {
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::media::mojom::BitrateDataView::Tag::kExternal: {
+        decltype(Traits::external(input))
+            in_external = Traits::external(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_external)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::media::mojom::ExternalBitrateDataView>(
+            in_external, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null external in Bitrate union");
+        fragment->data.f_external.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -2098,6 +2179,8 @@ inline void VideoBitrateAllocationDataView::GetVariableBitratePeakDataView(
 
 
 
+
+
 inline void VideoEncodeAcceleratorConfigDataView::GetInputVisibleSizeDataView(
     ::gfx::mojom::SizeDataView* output) {
   auto pointer = data_->input_visible_size.Get();
@@ -2171,6 +2254,11 @@ inline void BitrateDataView::GetVariableDataView(
     VariableBitrateDataView* output) const {
   CHECK(is_variable());
   *output = VariableBitrateDataView(data_->data.f_variable.Get(), message_);
+}
+inline void BitrateDataView::GetExternalDataView(
+    ExternalBitrateDataView* output) const {
+  CHECK(is_external());
+  *output = ExternalBitrateDataView(data_->data.f_external.Get(), message_);
 }
 
 inline void CodecMetadataDataView::GetH264DataView(

@@ -36,6 +36,7 @@ class VideoBitrateAllocation_Data;
 class SpatialLayer_Data;
 class ConstantBitrate_Data;
 class VariableBitrate_Data;
+class ExternalBitrate_Data;
 class VideoEncodeAcceleratorConfig_Data;
 class H264Metadata_Data;
 class H265Metadata_Data;
@@ -229,6 +230,8 @@ class  Bitrate_Data {
     kConstant,
     
     kVariable,
+    
+    kExternal,
   };
 
   // A note on layout:
@@ -238,6 +241,7 @@ class  Bitrate_Data {
     Union_() : unknown(0) {}
     mojo::internal::Pointer<internal::ConstantBitrate_Data> f_constant;
     mojo::internal::Pointer<internal::VariableBitrate_Data> f_variable;
+    mojo::internal::Pointer<internal::ExternalBitrate_Data> f_external;
     uint64_t unknown;
   };
 
@@ -614,6 +618,53 @@ struct VariableBitrate_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     VariableBitrate_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  ExternalBitrate_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<ExternalBitrate_Data>;
+
+  ExternalBitrate_Data();
+  ~ExternalBitrate_Data() = delete;
+};
+static_assert(sizeof(ExternalBitrate_Data) == 8,
+              "Bad sizeof(ExternalBitrate_Data)");
+// Used by ExternalBitrate::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ExternalBitrate_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ExternalBitrate_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ExternalBitrate_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ExternalBitrate_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ExternalBitrate_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  VideoEncodeAcceleratorConfig_Data {
  public:
   static bool Validate(const void* data,

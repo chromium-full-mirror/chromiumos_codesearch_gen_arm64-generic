@@ -384,6 +384,23 @@ bool VariableBitrate::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+ExternalBitrate::ExternalBitrate() {}
+
+ExternalBitrate::~ExternalBitrate() = default;
+size_t ExternalBitrate::Hash(size_t seed) const {
+  return seed;
+}
+
+void ExternalBitrate::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+}
+
+bool ExternalBitrate::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 VideoEncodeAcceleratorConfig::VideoEncodeAcceleratorConfig()
     : input_format(mojo::DefaultConstructTraits::CreateInstance<::media::VideoPixelFormat>()),
       input_visible_size(mojo::DefaultConstructTraits::CreateInstance<::gfx::Size>()),
@@ -1114,6 +1131,17 @@ void Bitrate::set_variable(
         std::move(variable));
   }
 }
+void Bitrate::set_external(
+    ExternalBitratePtr external) {
+  if (tag_ == Tag::kExternal) {
+    *(data_.external) = std::move(external);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kExternal;
+    data_.external = new ExternalBitratePtr(
+        std::move(external));
+  }
+}
 
 void Bitrate::DestroyActive() {
   switch (tag_) {
@@ -1125,6 +1153,10 @@ void Bitrate::DestroyActive() {
     case Tag::kVariable:
 
       delete data_.variable;
+      break;
+    case Tag::kExternal:
+
+      delete data_.external;
       break;
   }
 }
@@ -3917,6 +3949,18 @@ bool StructTraits<::media::mojom::VariableBitrate::DataView, ::media::mojom::Var
 
 
 // static
+bool StructTraits<::media::mojom::ExternalBitrate::DataView, ::media::mojom::ExternalBitratePtr>::Read(
+    ::media::mojom::ExternalBitrate::DataView input,
+    ::media::mojom::ExternalBitratePtr* output) {
+  bool success = true;
+  ::media::mojom::ExternalBitratePtr result(::media::mojom::ExternalBitrate::New());
+  
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::media::mojom::VideoEncodeAcceleratorConfig::DataView, ::media::mojom::VideoEncodeAcceleratorConfigPtr>::Read(
     ::media::mojom::VideoEncodeAcceleratorConfig::DataView input,
     ::media::mojom::VideoEncodeAcceleratorConfigPtr* output) {
@@ -4119,6 +4163,15 @@ bool UnionTraits<::media::mojom::Bitrate::DataView, ::media::mojom::BitratePtr>:
 
       *output = UnionType::NewVariable(
           std::move(result_variable));
+      break;
+    }
+    case Tag::kExternal: {
+      ::media::mojom::ExternalBitratePtr result_external;
+      if (!input.ReadExternal(&result_external))
+        return false;
+
+      *output = UnionType::NewExternal(
+          std::move(result_external));
       break;
     }
     default:

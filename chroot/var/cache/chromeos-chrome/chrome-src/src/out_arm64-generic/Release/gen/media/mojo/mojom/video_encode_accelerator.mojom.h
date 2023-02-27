@@ -1020,6 +1020,139 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  ExternalBitrate {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ExternalBitrate, T>::value>;
+  using DataView = ExternalBitrateDataView;
+  using Data_ = internal::ExternalBitrate_Data;
+
+  template <typename... Args>
+  static ExternalBitratePtr New(Args&&... args) {
+    return ExternalBitratePtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ExternalBitratePtr From(const U& u) {
+    return mojo::TypeConverter<ExternalBitratePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ExternalBitrate>::Convert(*this);
+  }
+
+
+  ExternalBitrate();
+
+
+  ~ExternalBitrate();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ExternalBitratePtr>
+  ExternalBitratePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ExternalBitrate::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ExternalBitrate::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ExternalBitrate::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ExternalBitrate::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ExternalBitrate_UnserializedMessageContext<
+            UserType, ExternalBitrate::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ExternalBitrate::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ExternalBitrate::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ExternalBitrate_UnserializedMessageContext<
+            UserType, ExternalBitrate::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ExternalBitrate::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ExternalBitrate::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ExternalBitrate::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ExternalBitrate::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ExternalBitrate::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  H264Metadata {
  public:
@@ -1484,6 +1617,14 @@ class  Bitrate {
     result->set_variable(std::move(variable));
     return result;
   }
+  // Construct an instance holding |external|.
+  static BitratePtr
+  NewExternal(
+      ExternalBitratePtr external) {
+    auto result = BitratePtr(absl::in_place);
+    result->set_external(std::move(external));
+    return result;
+  }
 
   template <typename U>
   static BitratePtr From(const U& u) {
@@ -1550,6 +1691,18 @@ class  Bitrate {
   
   void set_variable(
       const ::media::Bitrate& variable);
+  
+  bool is_external() const { return tag_ == Tag::kExternal; }
+
+  
+  ExternalBitratePtr& get_external() const {
+    CHECK(tag_ == Tag::kExternal);
+    return *(data_.external);
+  }
+
+  
+  void set_external(
+      ExternalBitratePtr external);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -1570,6 +1723,7 @@ class  Bitrate {
     ~Union_() = default;
     ::media::Bitrate* constant;
     ::media::Bitrate* variable;
+    ExternalBitratePtr* external;
   };
 
   static bool Validate(const void* data,
@@ -2225,6 +2379,7 @@ template <typename T, SpatialLayer::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
+
 
 
 
@@ -2902,6 +3057,9 @@ BitratePtr Bitrate::Clone() const {
     case Tag::kVariable:
       return NewVariable(
           mojo::Clone(*data_.variable));
+    case Tag::kExternal:
+      return NewExternal(
+          mojo::Clone(*data_.external));
   }
   return nullptr;
 }
@@ -2918,6 +3076,8 @@ bool Bitrate::Equals(const T& other) const {
       return mojo::Equals(*(data_.constant), *(other.data_.constant));
     case Tag::kVariable:
       return mojo::Equals(*(data_.variable), *(other.data_.variable));
+    case Tag::kExternal:
+      return mojo::Equals(*(data_.external), *(other.data_.external));
   }
 
   return false;
@@ -3194,6 +3354,21 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.peak_bps < lhs.peak_bps)
     return false;
+  return false;
+}
+template <typename StructPtrType>
+ExternalBitratePtr ExternalBitrate::Clone() const {
+  return New(
+  );
+}
+
+template <typename T, ExternalBitrate::EnableIfSame<T>*>
+bool ExternalBitrate::Equals(const T& other_struct) const {
+  return true;
+}
+
+template <typename T, ExternalBitrate::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
@@ -3806,6 +3981,16 @@ struct  StructTraits<::media::mojom::VariableBitrate::DataView,
 
 
 template <>
+struct  StructTraits<::media::mojom::ExternalBitrate::DataView,
+                                         ::media::mojom::ExternalBitratePtr> {
+  static bool IsNull(const ::media::mojom::ExternalBitratePtr& input) { return !input; }
+  static void SetToNull(::media::mojom::ExternalBitratePtr* output) { output->reset(); }
+
+  static bool Read(::media::mojom::ExternalBitrate::DataView input, ::media::mojom::ExternalBitratePtr* output);
+};
+
+
+template <>
 struct  StructTraits<::media::mojom::VideoEncodeAcceleratorConfig::DataView,
                                          ::media::mojom::VideoEncodeAcceleratorConfigPtr> {
   static bool IsNull(const ::media::mojom::VideoEncodeAcceleratorConfigPtr& input) { return !input; }
@@ -4131,6 +4316,10 @@ struct  UnionTraits<::media::mojom::Bitrate::DataView,
 
   static const ::media::Bitrate& variable(const ::media::mojom::BitratePtr& input) {
     return input->get_variable();
+  }
+
+  static const ::media::mojom::ExternalBitratePtr& external(const ::media::mojom::BitratePtr& input) {
+    return input->get_external();
   }
 
   static bool Read(::media::mojom::Bitrate::DataView input, ::media::mojom::BitratePtr* output);

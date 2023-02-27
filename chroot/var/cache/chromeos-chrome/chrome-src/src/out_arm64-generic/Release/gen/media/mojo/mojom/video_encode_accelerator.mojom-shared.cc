@@ -221,6 +221,16 @@ bool Bitrate_Data::Validate(
         return false;
       return true;
     }
+    case Bitrate_Tag::kExternal: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_external, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_external, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       ReportValidationError(
@@ -510,6 +520,29 @@ bool VariableBitrate_Data::Validate(
 }
 
 VariableBitrate_Data::VariableBitrate_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ExternalBitrate_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ExternalBitrate_Data* object =
+      static_cast<const ExternalBitrate_Data*>(data);
+
+  return true;
+}
+
+ExternalBitrate_Data::ExternalBitrate_Data()
     : header_({sizeof(*this), 0}) {}
 
 
