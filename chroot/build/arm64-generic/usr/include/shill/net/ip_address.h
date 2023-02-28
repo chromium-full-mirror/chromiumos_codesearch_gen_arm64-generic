@@ -94,7 +94,6 @@ class SHILL_EXPORT IPAddress {
 
   // Getters and Setters
   Family family() const { return family_; }
-  void set_family(Family family) { family_ = family; }
   const ByteString& address() const { return address_; }
   unsigned int prefix() const { return prefix_; }
   void set_prefix(unsigned int prefix) { prefix_ = prefix; }
@@ -158,7 +157,7 @@ class SHILL_EXPORT IPAddress {
 
   // Return the default broadcast address for the IP address, by setting
   // all of the host-part bits to 1.
-  IPAddress GetDefaultBroadcast();
+  IPAddress GetDefaultBroadcast() const;
 
   // Tests whether this IPAddress is able to directly access the address
   // |b| without an intervening gateway.  It tests whether the network

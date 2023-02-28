@@ -153,6 +153,12 @@ extern ImportDiskImageRequestDefaultTypeInternal _ImportDiskImageRequest_default
 class ImportDiskImageResponse;
 struct ImportDiskImageResponseDefaultTypeInternal;
 extern ImportDiskImageResponseDefaultTypeInternal _ImportDiskImageResponse_default_instance_;
+class InstallPflashRequest;
+struct InstallPflashRequestDefaultTypeInternal;
+extern InstallPflashRequestDefaultTypeInternal _InstallPflashRequest_default_instance_;
+class InstallPflashResponse;
+struct InstallPflashResponseDefaultTypeInternal;
+extern InstallPflashResponseDefaultTypeInternal _InstallPflashResponse_default_instance_;
 class ListUsbDeviceRequest;
 struct ListUsbDeviceRequestDefaultTypeInternal;
 extern ListUsbDeviceRequestDefaultTypeInternal _ListUsbDeviceRequest_default_instance_;
@@ -300,6 +306,8 @@ template<> ::vm_tools::concierge::GetVmLogsRequest* Arena::CreateMaybeMessage<::
 template<> ::vm_tools::concierge::GetVmLogsResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmLogsResponse>(Arena*);
 template<> ::vm_tools::concierge::ImportDiskImageRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ImportDiskImageRequest>(Arena*);
 template<> ::vm_tools::concierge::ImportDiskImageResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::ImportDiskImageResponse>(Arena*);
+template<> ::vm_tools::concierge::InstallPflashRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::InstallPflashRequest>(Arena*);
+template<> ::vm_tools::concierge::InstallPflashResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::InstallPflashResponse>(Arena*);
 template<> ::vm_tools::concierge::ListUsbDeviceRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ListUsbDeviceRequest>(Arena*);
 template<> ::vm_tools::concierge::ListUsbDeviceResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::ListUsbDeviceResponse>(Arena*);
 template<> ::vm_tools::concierge::ListVmDisksRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ListVmDisksRequest>(Arena*);
@@ -13540,6 +13548,303 @@ class VmSwappingSignal final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_vm_5fconcierge_2fconcierge_5fservice_2eproto;
 };
+// -------------------------------------------------------------------
+
+class InstallPflashRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.InstallPflashRequest) */ {
+ public:
+  inline InstallPflashRequest() : InstallPflashRequest(nullptr) {}
+  ~InstallPflashRequest() override;
+  explicit PROTOBUF_CONSTEXPR InstallPflashRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InstallPflashRequest(const InstallPflashRequest& from);
+  InstallPflashRequest(InstallPflashRequest&& from) noexcept
+    : InstallPflashRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline InstallPflashRequest& operator=(const InstallPflashRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InstallPflashRequest& operator=(InstallPflashRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const InstallPflashRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InstallPflashRequest* internal_default_instance() {
+    return reinterpret_cast<const InstallPflashRequest*>(
+               &_InstallPflashRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    72;
+
+  friend void swap(InstallPflashRequest& a, InstallPflashRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InstallPflashRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InstallPflashRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InstallPflashRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InstallPflashRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const InstallPflashRequest& from);
+  void MergeFrom(const InstallPflashRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(InstallPflashRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.InstallPflashRequest";
+  }
+  protected:
+  explicit InstallPflashRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kVmNameFieldNumber = 1,
+    kOwnerIdFieldNumber = 2,
+  };
+  // string vm_name = 1;
+  void clear_vm_name();
+  const std::string& vm_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_vm_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_vm_name();
+  PROTOBUF_NODISCARD std::string* release_vm_name();
+  void set_allocated_vm_name(std::string* vm_name);
+  private:
+  const std::string& _internal_vm_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_vm_name(const std::string& value);
+  std::string* _internal_mutable_vm_name();
+  public:
+
+  // string owner_id = 2;
+  void clear_owner_id();
+  const std::string& owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner_id();
+  PROTOBUF_NODISCARD std::string* release_owner_id();
+  void set_allocated_owner_id(std::string* owner_id);
+  private:
+  const std::string& _internal_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner_id(const std::string& value);
+  std::string* _internal_mutable_owner_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.InstallPflashRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_name_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_vm_5fconcierge_2fconcierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class InstallPflashResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.InstallPflashResponse) */ {
+ public:
+  inline InstallPflashResponse() : InstallPflashResponse(nullptr) {}
+  ~InstallPflashResponse() override;
+  explicit PROTOBUF_CONSTEXPR InstallPflashResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InstallPflashResponse(const InstallPflashResponse& from);
+  InstallPflashResponse(InstallPflashResponse&& from) noexcept
+    : InstallPflashResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline InstallPflashResponse& operator=(const InstallPflashResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InstallPflashResponse& operator=(InstallPflashResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const InstallPflashResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InstallPflashResponse* internal_default_instance() {
+    return reinterpret_cast<const InstallPflashResponse*>(
+               &_InstallPflashResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    73;
+
+  friend void swap(InstallPflashResponse& a, InstallPflashResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InstallPflashResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InstallPflashResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InstallPflashResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InstallPflashResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const InstallPflashResponse& from);
+  void MergeFrom(const InstallPflashResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(InstallPflashResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.InstallPflashResponse";
+  }
+  protected:
+  explicit InstallPflashResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFailureReasonFieldNumber = 2,
+    kSuccessFieldNumber = 1,
+  };
+  // string failure_reason = 2;
+  void clear_failure_reason();
+  const std::string& failure_reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_failure_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_failure_reason();
+  PROTOBUF_NODISCARD std::string* release_failure_reason();
+  void set_allocated_failure_reason(std::string* failure_reason);
+  private:
+  const std::string& _internal_failure_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_failure_reason(const std::string& value);
+  std::string* _internal_mutable_failure_reason();
+  public:
+
+  // bool success = 1;
+  void clear_success();
+  bool success() const;
+  void set_success(bool value);
+  private:
+  bool _internal_success() const;
+  void _internal_set_success(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.InstallPflashResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr failure_reason_;
+    bool success_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_vm_5fconcierge_2fconcierge_5fservice_2eproto;
+};
 // ===================================================================
 
 
@@ -24281,9 +24586,191 @@ inline void VmSwappingSignal::set_allocated_owner_id(std::string* owner_id) {
   // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.VmSwappingSignal.owner_id)
 }
 
+// -------------------------------------------------------------------
+
+// InstallPflashRequest
+
+// string vm_name = 1;
+inline void InstallPflashRequest::clear_vm_name() {
+  _impl_.vm_name_.ClearToEmpty();
+}
+inline const std::string& InstallPflashRequest::vm_name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.InstallPflashRequest.vm_name)
+  return _internal_vm_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InstallPflashRequest::set_vm_name(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.vm_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.InstallPflashRequest.vm_name)
+}
+inline std::string* InstallPflashRequest::mutable_vm_name() {
+  std::string* _s = _internal_mutable_vm_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.InstallPflashRequest.vm_name)
+  return _s;
+}
+inline const std::string& InstallPflashRequest::_internal_vm_name() const {
+  return _impl_.vm_name_.Get();
+}
+inline void InstallPflashRequest::_internal_set_vm_name(const std::string& value) {
+  
+  _impl_.vm_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InstallPflashRequest::_internal_mutable_vm_name() {
+  
+  return _impl_.vm_name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InstallPflashRequest::release_vm_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.InstallPflashRequest.vm_name)
+  return _impl_.vm_name_.Release();
+}
+inline void InstallPflashRequest::set_allocated_vm_name(std::string* vm_name) {
+  if (vm_name != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.vm_name_.SetAllocated(vm_name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.vm_name_.IsDefault()) {
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.InstallPflashRequest.vm_name)
+}
+
+// string owner_id = 2;
+inline void InstallPflashRequest::clear_owner_id() {
+  _impl_.owner_id_.ClearToEmpty();
+}
+inline const std::string& InstallPflashRequest::owner_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.InstallPflashRequest.owner_id)
+  return _internal_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InstallPflashRequest::set_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.owner_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.InstallPflashRequest.owner_id)
+}
+inline std::string* InstallPflashRequest::mutable_owner_id() {
+  std::string* _s = _internal_mutable_owner_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.InstallPflashRequest.owner_id)
+  return _s;
+}
+inline const std::string& InstallPflashRequest::_internal_owner_id() const {
+  return _impl_.owner_id_.Get();
+}
+inline void InstallPflashRequest::_internal_set_owner_id(const std::string& value) {
+  
+  _impl_.owner_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InstallPflashRequest::_internal_mutable_owner_id() {
+  
+  return _impl_.owner_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InstallPflashRequest::release_owner_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.InstallPflashRequest.owner_id)
+  return _impl_.owner_id_.Release();
+}
+inline void InstallPflashRequest::set_allocated_owner_id(std::string* owner_id) {
+  if (owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.owner_id_.SetAllocated(owner_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.owner_id_.IsDefault()) {
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.InstallPflashRequest.owner_id)
+}
+
+// -------------------------------------------------------------------
+
+// InstallPflashResponse
+
+// bool success = 1;
+inline void InstallPflashResponse::clear_success() {
+  _impl_.success_ = false;
+}
+inline bool InstallPflashResponse::_internal_success() const {
+  return _impl_.success_;
+}
+inline bool InstallPflashResponse::success() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.InstallPflashResponse.success)
+  return _internal_success();
+}
+inline void InstallPflashResponse::_internal_set_success(bool value) {
+  
+  _impl_.success_ = value;
+}
+inline void InstallPflashResponse::set_success(bool value) {
+  _internal_set_success(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.InstallPflashResponse.success)
+}
+
+// string failure_reason = 2;
+inline void InstallPflashResponse::clear_failure_reason() {
+  _impl_.failure_reason_.ClearToEmpty();
+}
+inline const std::string& InstallPflashResponse::failure_reason() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.InstallPflashResponse.failure_reason)
+  return _internal_failure_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InstallPflashResponse::set_failure_reason(ArgT0&& arg0, ArgT... args) {
+ 
+ _impl_.failure_reason_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.InstallPflashResponse.failure_reason)
+}
+inline std::string* InstallPflashResponse::mutable_failure_reason() {
+  std::string* _s = _internal_mutable_failure_reason();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.InstallPflashResponse.failure_reason)
+  return _s;
+}
+inline const std::string& InstallPflashResponse::_internal_failure_reason() const {
+  return _impl_.failure_reason_.Get();
+}
+inline void InstallPflashResponse::_internal_set_failure_reason(const std::string& value) {
+  
+  _impl_.failure_reason_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InstallPflashResponse::_internal_mutable_failure_reason() {
+  
+  return _impl_.failure_reason_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InstallPflashResponse::release_failure_reason() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.InstallPflashResponse.failure_reason)
+  return _impl_.failure_reason_.Release();
+}
+inline void InstallPflashResponse::set_allocated_failure_reason(std::string* failure_reason) {
+  if (failure_reason != nullptr) {
+    
+  } else {
+    
+  }
+  _impl_.failure_reason_.SetAllocated(failure_reason, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (_impl_.failure_reason_.IsDefault()) {
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.InstallPflashResponse.failure_reason)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

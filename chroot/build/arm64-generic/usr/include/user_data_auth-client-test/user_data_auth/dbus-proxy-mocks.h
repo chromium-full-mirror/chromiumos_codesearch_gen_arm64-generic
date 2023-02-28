@@ -68,26 +68,6 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
                     base::OnceCallback<void(const user_data_auth::ListKeysReply& /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
-  MOCK_METHOD4(StartFingerprintAuthSession,
-               bool(const user_data_auth::StartFingerprintAuthSessionRequest& /*in_request*/,
-                    user_data_auth::StartFingerprintAuthSessionReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(StartFingerprintAuthSessionAsync,
-               void(const user_data_auth::StartFingerprintAuthSessionRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::StartFingerprintAuthSessionReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(EndFingerprintAuthSession,
-               bool(const user_data_auth::EndFingerprintAuthSessionRequest& /*in_request*/,
-                    user_data_auth::EndFingerprintAuthSessionReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(EndFingerprintAuthSessionAsync,
-               void(const user_data_auth::EndFingerprintAuthSessionRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::EndFingerprintAuthSessionReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
   MOCK_METHOD4(GetWebAuthnSecret,
                bool(const user_data_auth::GetWebAuthnSecretRequest& /*in_request*/,
                     user_data_auth::GetWebAuthnSecretReply* /*out_reply*/,

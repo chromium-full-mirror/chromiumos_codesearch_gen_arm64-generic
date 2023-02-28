@@ -38,12 +38,6 @@ class UserDataAuthInterfaceInterface {
   virtual void ListKeys(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::ListKeysReply>> response,
       const user_data_auth::ListKeysRequest& in_request) = 0;
-  virtual void StartFingerprintAuthSession(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::StartFingerprintAuthSessionReply>> response,
-      const user_data_auth::StartFingerprintAuthSessionRequest& in_request) = 0;
-  virtual void EndFingerprintAuthSession(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::EndFingerprintAuthSessionReply>> response,
-      const user_data_auth::EndFingerprintAuthSessionRequest& in_request) = 0;
   virtual void GetWebAuthnSecret(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetWebAuthnSecretReply>> response,
       const user_data_auth::GetWebAuthnSecretRequest& in_request) = 0;
@@ -154,14 +148,6 @@ class UserDataAuthInterfaceAdaptor {
         "ListKeys",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::ListKeys);
-    itf->AddMethodHandler(
-        "StartFingerprintAuthSession",
-        base::Unretained(interface_),
-        &UserDataAuthInterfaceInterface::StartFingerprintAuthSession);
-    itf->AddMethodHandler(
-        "EndFingerprintAuthSession",
-        base::Unretained(interface_),
-        &UserDataAuthInterfaceInterface::EndFingerprintAuthSession);
     itf->AddMethodHandler(
         "GetWebAuthnSecret",
         base::Unretained(interface_),
@@ -315,14 +301,6 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"ListKeys\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"StartFingerprintAuthSession\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"EndFingerprintAuthSession\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

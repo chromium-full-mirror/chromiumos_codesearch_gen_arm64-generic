@@ -83,30 +83,6 @@ class UserDataAuthInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  virtual bool StartFingerprintAuthSession(
-      const user_data_auth::StartFingerprintAuthSessionRequest& in_request,
-      user_data_auth::StartFingerprintAuthSessionReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void StartFingerprintAuthSessionAsync(
-      const user_data_auth::StartFingerprintAuthSessionRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::StartFingerprintAuthSessionReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual bool EndFingerprintAuthSession(
-      const user_data_auth::EndFingerprintAuthSessionRequest& in_request,
-      user_data_auth::EndFingerprintAuthSessionReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void EndFingerprintAuthSessionAsync(
-      const user_data_auth::EndFingerprintAuthSessionRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::EndFingerprintAuthSessionReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   virtual bool GetWebAuthnSecret(
       const user_data_auth::GetWebAuthnSecretRequest& in_request,
       user_data_auth::GetWebAuthnSecretReply* out_reply,
@@ -632,68 +608,6 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "ListKeys",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
-  bool StartFingerprintAuthSession(
-      const user_data_auth::StartFingerprintAuthSessionRequest& in_request,
-      user_data_auth::StartFingerprintAuthSessionReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "StartFingerprintAuthSession",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void StartFingerprintAuthSessionAsync(
-      const user_data_auth::StartFingerprintAuthSessionRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::StartFingerprintAuthSessionReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "StartFingerprintAuthSession",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
-  bool EndFingerprintAuthSession(
-      const user_data_auth::EndFingerprintAuthSessionRequest& in_request,
-      user_data_auth::EndFingerprintAuthSessionReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "EndFingerprintAuthSession",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void EndFingerprintAuthSessionAsync(
-      const user_data_auth::EndFingerprintAuthSessionRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::EndFingerprintAuthSessionReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.UserDataAuthInterface",
-        "EndFingerprintAuthSession",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

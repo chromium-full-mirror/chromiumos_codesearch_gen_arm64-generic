@@ -56,6 +56,9 @@ BRILLO_EXPORT std::string GetProtoDebugString(
 std::string GetProtoDebugStringWithIndent(FingerprintScanResult value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(FingerprintScanResult value);
+std::string GetProtoDebugStringWithIndent(const CreateRequest& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const CreateRequest& value);
 std::string GetProtoDebugStringWithIndent(const CryptohomeErrorInfo& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const CryptohomeErrorInfo& value);
@@ -71,6 +74,12 @@ BRILLO_EXPORT std::string GetProtoDebugString(const UnmountRequest& value);
 std::string GetProtoDebugStringWithIndent(const UnmountReply& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const UnmountReply& value);
+std::string GetProtoDebugStringWithIndent(const MountRequest& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const MountRequest& value);
+std::string GetProtoDebugStringWithIndent(const MountReply& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const MountReply& value);
 std::string GetProtoDebugStringWithIndent(const RemoveRequest& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const RemoveRequest& value);
