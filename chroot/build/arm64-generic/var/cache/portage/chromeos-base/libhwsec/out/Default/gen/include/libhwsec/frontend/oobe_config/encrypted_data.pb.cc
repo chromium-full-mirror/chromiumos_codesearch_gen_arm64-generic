@@ -13,22 +13,27 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace hwsec {
-constexpr OobeConfigEncryptedData::OobeConfigEncryptedData(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : iv_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , tag_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , ciphertext_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , version_(0u){}
+PROTOBUF_CONSTEXPR OobeConfigEncryptedData::OobeConfigEncryptedData(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.iv_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.tag_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.ciphertext_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.version_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct OobeConfigEncryptedDataDefaultTypeInternal {
-  constexpr OobeConfigEncryptedDataDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR OobeConfigEncryptedDataDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~OobeConfigEncryptedDataDefaultTypeInternal() {}
   union {
     OobeConfigEncryptedData _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OobeConfigEncryptedDataDefaultTypeInternal _OobeConfigEncryptedData_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OobeConfigEncryptedDataDefaultTypeInternal _OobeConfigEncryptedData_default_instance_;
 }  // namespace hwsec
 namespace hwsec {
 
@@ -41,81 +46,91 @@ class OobeConfigEncryptedData::_Internal {
 OobeConfigEncryptedData::OobeConfigEncryptedData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:hwsec.OobeConfigEncryptedData)
 }
 OobeConfigEncryptedData::OobeConfigEncryptedData(const OobeConfigEncryptedData& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  OobeConfigEncryptedData* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.iv_){}
+    , decltype(_impl_.tag_){}
+    , decltype(_impl_.ciphertext_){}
+    , decltype(_impl_.version_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  iv_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.iv_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    iv_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.iv_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_iv().empty()) {
-    iv_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_iv(), 
-      GetArenaForAllocation());
+    _this->_impl_.iv_.Set(from._internal_iv(), 
+      _this->GetArenaForAllocation());
   }
-  tag_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.tag_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    tag_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.tag_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_tag().empty()) {
-    tag_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_tag(), 
-      GetArenaForAllocation());
+    _this->_impl_.tag_.Set(from._internal_tag(), 
+      _this->GetArenaForAllocation());
   }
-  ciphertext_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.ciphertext_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    ciphertext_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.ciphertext_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_ciphertext().empty()) {
-    ciphertext_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_ciphertext(), 
-      GetArenaForAllocation());
+    _this->_impl_.ciphertext_.Set(from._internal_ciphertext(), 
+      _this->GetArenaForAllocation());
   }
-  version_ = from.version_;
+  _this->_impl_.version_ = from._impl_.version_;
   // @@protoc_insertion_point(copy_constructor:hwsec.OobeConfigEncryptedData)
 }
 
-inline void OobeConfigEncryptedData::SharedCtor() {
-iv_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  iv_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-tag_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  tag_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-ciphertext_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  ciphertext_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-version_ = 0u;
+inline void OobeConfigEncryptedData::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.iv_){}
+    , decltype(_impl_.tag_){}
+    , decltype(_impl_.ciphertext_){}
+    , decltype(_impl_.version_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.iv_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.iv_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.tag_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.tag_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.ciphertext_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.ciphertext_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 OobeConfigEncryptedData::~OobeConfigEncryptedData() {
   // @@protoc_insertion_point(destructor:hwsec.OobeConfigEncryptedData)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void OobeConfigEncryptedData::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  iv_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  tag_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  ciphertext_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.iv_.Destroy();
+  _impl_.tag_.Destroy();
+  _impl_.ciphertext_.Destroy();
 }
 
-void OobeConfigEncryptedData::ArenaDtor(void* object) {
-  OobeConfigEncryptedData* _this = reinterpret_cast< OobeConfigEncryptedData* >(object);
-  (void)_this;
-}
-void OobeConfigEncryptedData::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void OobeConfigEncryptedData::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void OobeConfigEncryptedData::Clear() {
@@ -124,23 +139,23 @@ void OobeConfigEncryptedData::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  iv_.ClearToEmpty();
-  tag_.ClearToEmpty();
-  ciphertext_.ClearToEmpty();
-  version_ = 0u;
+  _impl_.iv_.ClearToEmpty();
+  _impl_.tag_.ClearToEmpty();
+  _impl_.ciphertext_.ClearToEmpty();
+  _impl_.version_ = 0u;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* OobeConfigEncryptedData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* OobeConfigEncryptedData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint32 version = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -149,7 +164,7 @@ const char* OobeConfigEncryptedData::_InternalParse(const char* ptr, ::PROTOBUF_
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_iv();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -158,7 +173,7 @@ const char* OobeConfigEncryptedData::_InternalParse(const char* ptr, ::PROTOBUF_
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_tag();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -167,7 +182,7 @@ const char* OobeConfigEncryptedData::_InternalParse(const char* ptr, ::PROTOBUF_
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_ciphertext();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -204,7 +219,7 @@ uint8_t* OobeConfigEncryptedData::_InternalSerialize(
   // uint32 version = 1;
   if (this->_internal_version() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_version(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_version(), target);
   }
 
   // bytes iv = 2;
@@ -264,42 +279,43 @@ size_t OobeConfigEncryptedData::ByteSizeLong() const {
 
   // uint32 version = 1;
   if (this->_internal_version() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_version());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_version());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void OobeConfigEncryptedData::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const OobeConfigEncryptedData*>(
+  MergeFrom(*::_pbi::DownCast<const OobeConfigEncryptedData*>(
       &from));
 }
 
 void OobeConfigEncryptedData::MergeFrom(const OobeConfigEncryptedData& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:hwsec.OobeConfigEncryptedData)
-  GOOGLE_DCHECK_NE(&from, this);
+  OobeConfigEncryptedData* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:hwsec.OobeConfigEncryptedData)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_iv().empty()) {
-    _internal_set_iv(from._internal_iv());
+    _this->_internal_set_iv(from._internal_iv());
   }
   if (!from._internal_tag().empty()) {
-    _internal_set_tag(from._internal_tag());
+    _this->_internal_set_tag(from._internal_tag());
   }
   if (!from._internal_ciphertext().empty()) {
-    _internal_set_ciphertext(from._internal_ciphertext());
+    _this->_internal_set_ciphertext(from._internal_ciphertext());
   }
   if (from._internal_version() != 0) {
-    _internal_set_version(from._internal_version());
+    _this->_internal_set_version(from._internal_version());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void OobeConfigEncryptedData::CopyFrom(const OobeConfigEncryptedData& from) {
@@ -319,21 +335,18 @@ void OobeConfigEncryptedData::InternalSwap(OobeConfigEncryptedData* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &iv_, lhs_arena,
-      &other->iv_, rhs_arena
+      &_impl_.iv_, lhs_arena,
+      &other->_impl_.iv_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &tag_, lhs_arena,
-      &other->tag_, rhs_arena
+      &_impl_.tag_, lhs_arena,
+      &other->_impl_.tag_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &ciphertext_, lhs_arena,
-      &other->ciphertext_, rhs_arena
+      &_impl_.ciphertext_, lhs_arena,
+      &other->_impl_.ciphertext_, rhs_arena
   );
-  swap(version_, other->version_);
+  swap(_impl_.version_, other->_impl_.version_);
 }
 
 std::string OobeConfigEncryptedData::GetTypeName() const {
@@ -344,7 +357,8 @@ std::string OobeConfigEncryptedData::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace hwsec
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::hwsec::OobeConfigEncryptedData* Arena::CreateMaybeMessage< ::hwsec::OobeConfigEncryptedData >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::hwsec::OobeConfigEncryptedData*
+Arena::CreateMaybeMessage< ::hwsec::OobeConfigEncryptedData >(Arena* arena) {
   return Arena::CreateMessageInternal< ::hwsec::OobeConfigEncryptedData >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

@@ -16,62 +16,69 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace vm_tools {
 namespace cicerone {
-constexpr MetricsConsentResponse::MetricsConsentResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : consent_granted_(false){}
+PROTOBUF_CONSTEXPR MetricsConsentResponse::MetricsConsentResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.consent_granted_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct MetricsConsentResponseDefaultTypeInternal {
-  constexpr MetricsConsentResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR MetricsConsentResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~MetricsConsentResponseDefaultTypeInternal() {}
   union {
     MetricsConsentResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MetricsConsentResponseDefaultTypeInternal _MetricsConsentResponse_default_instance_;
-constexpr CrashReport_MetadataEntry_DoNotUse::CrashReport_MetadataEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MetricsConsentResponseDefaultTypeInternal _MetricsConsentResponse_default_instance_;
+PROTOBUF_CONSTEXPR CrashReport_MetadataEntry_DoNotUse::CrashReport_MetadataEntry_DoNotUse(
+    ::_pbi::ConstantInitialized) {}
 struct CrashReport_MetadataEntry_DoNotUseDefaultTypeInternal {
-  constexpr CrashReport_MetadataEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CrashReport_MetadataEntry_DoNotUseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~CrashReport_MetadataEntry_DoNotUseDefaultTypeInternal() {}
   union {
     CrashReport_MetadataEntry_DoNotUse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CrashReport_MetadataEntry_DoNotUseDefaultTypeInternal _CrashReport_MetadataEntry_DoNotUse_default_instance_;
-constexpr CrashReport::CrashReport(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : metadata_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , minidump_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , process_tree_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CrashReport_MetadataEntry_DoNotUseDefaultTypeInternal _CrashReport_MetadataEntry_DoNotUse_default_instance_;
+PROTOBUF_CONSTEXPR CrashReport::CrashReport(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.metadata_)*/{::_pbi::ConstantInitialized()}
+  , /*decltype(_impl_.minidump_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.process_tree_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CrashReportDefaultTypeInternal {
-  constexpr CrashReportDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CrashReportDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~CrashReportDefaultTypeInternal() {}
   union {
     CrashReport _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CrashReportDefaultTypeInternal _CrashReport_default_instance_;
-constexpr FailureReport::FailureReport(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : failed_process_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CrashReportDefaultTypeInternal _CrashReport_default_instance_;
+PROTOBUF_CONSTEXPR FailureReport::FailureReport(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.failed_process_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct FailureReportDefaultTypeInternal {
-  constexpr FailureReportDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR FailureReportDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~FailureReportDefaultTypeInternal() {}
   union {
     FailureReport _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FailureReportDefaultTypeInternal _FailureReport_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FailureReportDefaultTypeInternal _FailureReport_default_instance_;
 }  // namespace cicerone
 }  // namespace vm_tools
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_vm_5fcrash_2eproto[4];
-static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_vm_5fcrash_2eproto = nullptr;
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_vm_5fcrash_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_vm_5fcrash_2eproto[4];
+static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_vm_5fcrash_2eproto = nullptr;
+static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_vm_5fcrash_2eproto = nullptr;
 
 const uint32_t TableStruct_vm_5fcrash_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
@@ -80,7 +87,7 @@ const uint32_t TableStruct_vm_5fcrash_2eproto::offsets[] PROTOBUF_SECTION_VARIAB
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::cicerone::MetricsConsentResponse, consent_granted_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::cicerone::MetricsConsentResponse, _impl_.consent_granted_),
   PROTOBUF_FIELD_OFFSET(::vm_tools::cicerone::CrashReport_MetadataEntry_DoNotUse, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::vm_tools::cicerone::CrashReport_MetadataEntry_DoNotUse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -97,29 +104,29 @@ const uint32_t TableStruct_vm_5fcrash_2eproto::offsets[] PROTOBUF_SECTION_VARIAB
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::cicerone::CrashReport, metadata_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::cicerone::CrashReport, minidump_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::cicerone::CrashReport, process_tree_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::cicerone::CrashReport, _impl_.metadata_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::cicerone::CrashReport, _impl_.minidump_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::cicerone::CrashReport, _impl_.process_tree_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::cicerone::FailureReport, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::cicerone::FailureReport, failed_process_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::cicerone::FailureReport, _impl_.failed_process_),
 };
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::vm_tools::cicerone::MetricsConsentResponse)},
   { 7, 15, -1, sizeof(::vm_tools::cicerone::CrashReport_MetadataEntry_DoNotUse)},
   { 17, -1, -1, sizeof(::vm_tools::cicerone::CrashReport)},
   { 26, -1, -1, sizeof(::vm_tools::cicerone::FailureReport)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::cicerone::_MetricsConsentResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::cicerone::_CrashReport_MetadataEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::cicerone::_CrashReport_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::cicerone::_FailureReport_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+  &::vm_tools::cicerone::_MetricsConsentResponse_default_instance_._instance,
+  &::vm_tools::cicerone::_CrashReport_MetadataEntry_DoNotUse_default_instance_._instance,
+  &::vm_tools::cicerone::_CrashReport_default_instance_._instance,
+  &::vm_tools::cicerone::_FailureReport_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_vm_5fcrash_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -140,22 +147,24 @@ const char descriptor_table_protodef_vm_5fcrash_2eproto[] PROTOBUF_SECTION_VARIA
   "EmptyMessageB!Z\034chromiumos/vm_tools/vm_c"
   "rash\370\001\001b\006proto3"
   ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_vm_5fcrash_2eproto_deps[1] = {
+static const ::_pbi::DescriptorTable* const descriptor_table_vm_5fcrash_2eproto_deps[1] = {
   &::descriptor_table_common_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_vm_5fcrash_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_vm_5fcrash_2eproto = {
-  false, false, 615, descriptor_table_protodef_vm_5fcrash_2eproto, "vm_crash.proto", 
-  &descriptor_table_vm_5fcrash_2eproto_once, descriptor_table_vm_5fcrash_2eproto_deps, 1, 4,
-  schemas, file_default_instances, TableStruct_vm_5fcrash_2eproto::offsets,
-  file_level_metadata_vm_5fcrash_2eproto, file_level_enum_descriptors_vm_5fcrash_2eproto, file_level_service_descriptors_vm_5fcrash_2eproto,
+static ::_pbi::once_flag descriptor_table_vm_5fcrash_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_vm_5fcrash_2eproto = {
+    false, false, 615, descriptor_table_protodef_vm_5fcrash_2eproto,
+    "vm_crash.proto",
+    &descriptor_table_vm_5fcrash_2eproto_once, descriptor_table_vm_5fcrash_2eproto_deps, 1, 4,
+    schemas, file_default_instances, TableStruct_vm_5fcrash_2eproto::offsets,
+    file_level_metadata_vm_5fcrash_2eproto, file_level_enum_descriptors_vm_5fcrash_2eproto,
+    file_level_service_descriptors_vm_5fcrash_2eproto,
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_vm_5fcrash_2eproto_getter() {
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_vm_5fcrash_2eproto_getter() {
   return &descriptor_table_vm_5fcrash_2eproto;
 }
 
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_vm_5fcrash_2eproto(&descriptor_table_vm_5fcrash_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_vm_5fcrash_2eproto(&descriptor_table_vm_5fcrash_2eproto);
 namespace vm_tools {
 namespace cicerone {
 
@@ -168,42 +177,46 @@ class MetricsConsentResponse::_Internal {
 MetricsConsentResponse::MetricsConsentResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.cicerone.MetricsConsentResponse)
 }
 MetricsConsentResponse::MetricsConsentResponse(const MetricsConsentResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  MetricsConsentResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.consent_granted_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  consent_granted_ = from.consent_granted_;
+  _this->_impl_.consent_granted_ = from._impl_.consent_granted_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.cicerone.MetricsConsentResponse)
 }
 
-inline void MetricsConsentResponse::SharedCtor() {
-consent_granted_ = false;
+inline void MetricsConsentResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.consent_granted_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 MetricsConsentResponse::~MetricsConsentResponse() {
   // @@protoc_insertion_point(destructor:vm_tools.cicerone.MetricsConsentResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void MetricsConsentResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void MetricsConsentResponse::ArenaDtor(void* object) {
-  MetricsConsentResponse* _this = reinterpret_cast< MetricsConsentResponse* >(object);
-  (void)_this;
-}
-void MetricsConsentResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void MetricsConsentResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void MetricsConsentResponse::Clear() {
@@ -212,20 +225,20 @@ void MetricsConsentResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  consent_granted_ = false;
+  _impl_.consent_granted_ = false;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* MetricsConsentResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* MetricsConsentResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bool consent_granted = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          consent_granted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.consent_granted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -262,11 +275,11 @@ uint8_t* MetricsConsentResponse::_InternalSerialize(
   // bool consent_granted = 1;
   if (this->_internal_consent_granted() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_consent_granted(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_consent_granted(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.cicerone.MetricsConsentResponse)
@@ -286,32 +299,28 @@ size_t MetricsConsentResponse::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData MetricsConsentResponse::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     MetricsConsentResponse::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*MetricsConsentResponse::GetClassData() const { return &_class_data_; }
 
-void MetricsConsentResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<MetricsConsentResponse *>(to)->MergeFrom(
-      static_cast<const MetricsConsentResponse &>(from));
-}
 
-
-void MetricsConsentResponse::MergeFrom(const MetricsConsentResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.cicerone.MetricsConsentResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+void MetricsConsentResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<MetricsConsentResponse*>(&to_msg);
+  auto& from = static_cast<const MetricsConsentResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.cicerone.MetricsConsentResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_consent_granted() != 0) {
-    _internal_set_consent_granted(from._internal_consent_granted());
+    _this->_internal_set_consent_granted(from._internal_consent_granted());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void MetricsConsentResponse::CopyFrom(const MetricsConsentResponse& from) {
@@ -328,11 +337,11 @@ bool MetricsConsentResponse::IsInitialized() const {
 void MetricsConsentResponse::InternalSwap(MetricsConsentResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(consent_granted_, other->consent_granted_);
+  swap(_impl_.consent_granted_, other->_impl_.consent_granted_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata MetricsConsentResponse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_vm_5fcrash_2eproto_getter, &descriptor_table_vm_5fcrash_2eproto_once,
       file_level_metadata_vm_5fcrash_2eproto[0]);
 }
@@ -346,7 +355,7 @@ void CrashReport_MetadataEntry_DoNotUse::MergeFrom(const CrashReport_MetadataEnt
   MergeFromInternal(other);
 }
 ::PROTOBUF_NAMESPACE_ID::Metadata CrashReport_MetadataEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_vm_5fcrash_2eproto_getter, &descriptor_table_vm_5fcrash_2eproto_once,
       file_level_metadata_vm_5fcrash_2eproto[1]);
 }
@@ -359,73 +368,87 @@ class CrashReport::_Internal {
 
 CrashReport::CrashReport(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  metadata_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  if (arena != nullptr && !is_message_owned) {
+    arena->OwnCustomDestructor(this, &CrashReport::ArenaDtor);
   }
   // @@protoc_insertion_point(arena_constructor:vm_tools.cicerone.CrashReport)
 }
 CrashReport::CrashReport(const CrashReport& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  CrashReport* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_.metadata_)*/{}
+    , decltype(_impl_.minidump_){}
+    , decltype(_impl_.process_tree_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  metadata_.MergeFrom(from.metadata_);
-  minidump_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _this->_impl_.metadata_.MergeFrom(from._impl_.metadata_);
+  _impl_.minidump_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    minidump_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.minidump_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_minidump().empty()) {
-    minidump_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_minidump(), 
-      GetArenaForAllocation());
+    _this->_impl_.minidump_.Set(from._internal_minidump(), 
+      _this->GetArenaForAllocation());
   }
-  process_tree_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.process_tree_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    process_tree_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.process_tree_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_process_tree().empty()) {
-    process_tree_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_process_tree(), 
-      GetArenaForAllocation());
+    _this->_impl_.process_tree_.Set(from._internal_process_tree(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.cicerone.CrashReport)
 }
 
-inline void CrashReport::SharedCtor() {
-minidump_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  minidump_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-process_tree_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  process_tree_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void CrashReport::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_.metadata_)*/{::_pbi::ArenaInitialized(), arena}
+    , decltype(_impl_.minidump_){}
+    , decltype(_impl_.process_tree_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.minidump_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.minidump_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.process_tree_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.process_tree_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CrashReport::~CrashReport() {
   // @@protoc_insertion_point(destructor:vm_tools.cicerone.CrashReport)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    ArenaDtor(this);
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void CrashReport::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  minidump_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  process_tree_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.metadata_.Destruct();
+  _impl_.metadata_.~MapField();
+  _impl_.minidump_.Destroy();
+  _impl_.process_tree_.Destroy();
 }
 
 void CrashReport::ArenaDtor(void* object) {
   CrashReport* _this = reinterpret_cast< CrashReport* >(object);
-  (void)_this;
-  _this->metadata_. ~MapField();
-}
-inline void CrashReport::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena) {
-  if (arena != nullptr) {
-    arena->OwnCustomDestructor(this, &CrashReport::ArenaDtor);
-  }
+  _this->_impl_.metadata_.Destruct();
 }
 void CrashReport::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CrashReport::Clear() {
@@ -434,17 +457,17 @@ void CrashReport::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  metadata_.Clear();
-  minidump_.ClearToEmpty();
-  process_tree_.ClearToEmpty();
+  _impl_.metadata_.Clear();
+  _impl_.minidump_.ClearToEmpty();
+  _impl_.process_tree_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* CrashReport::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* CrashReport::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // map<string, string> metadata = 1;
       case 1:
@@ -452,7 +475,7 @@ const char* CrashReport::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
           ptr -= 1;
           do {
             ptr += 1;
-            ptr = ctx->ParseMessage(&metadata_, ptr);
+            ptr = ctx->ParseMessage(&_impl_.metadata_, ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
@@ -463,7 +486,7 @@ const char* CrashReport::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_minidump();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -472,9 +495,9 @@ const char* CrashReport::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_process_tree();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.cicerone.CrashReport.process_tree"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.cicerone.CrashReport.process_tree"));
         } else
           goto handle_unusual;
         continue;
@@ -509,46 +532,30 @@ uint8_t* CrashReport::_InternalSerialize(
 
   // map<string, string> metadata = 1;
   if (!this->_internal_metadata().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_pointer
-        ConstPtr;
-    typedef ConstPtr SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByDerefFirst<SortItem> Less;
-    struct Utf8Check {
-      static void Check(ConstPtr p) {
-        (void)p;
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-          p->first.data(), static_cast<int>(p->first.length()),
-          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-          "vm_tools.cicerone.CrashReport.MetadataEntry.key");
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-          p->second.data(), static_cast<int>(p->second.length()),
-          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-          "vm_tools.cicerone.CrashReport.MetadataEntry.value");
-      }
+    using MapType = ::_pb::Map<std::string, std::string>;
+    using WireHelper = CrashReport_MetadataEntry_DoNotUse::Funcs;
+    const auto& map_field = this->_internal_metadata();
+    auto check_utf8 = [](const MapType::value_type& entry) {
+      (void)entry;
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+        entry.first.data(), static_cast<int>(entry.first.length()),
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+        "vm_tools.cicerone.CrashReport.MetadataEntry.key");
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+        entry.second.data(), static_cast<int>(entry.second.length()),
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+        "vm_tools.cicerone.CrashReport.MetadataEntry.value");
     };
 
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_metadata().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_metadata().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
-          it = this->_internal_metadata().begin();
-          it != this->_internal_metadata().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = CrashReport_MetadataEntry_DoNotUse::Funcs::InternalSerialize(1, items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second, target, stream);
-        Utf8Check::Check(&(*items[static_cast<ptrdiff_t>(i)]));
+    if (stream->IsSerializationDeterministic() && map_field.size() > 1) {
+      for (const auto& entry : ::_pbi::MapSorterPtr<MapType>(map_field)) {
+        target = WireHelper::InternalSerialize(1, entry.first, entry.second, target, stream);
+        check_utf8(entry);
       }
     } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
-          it = this->_internal_metadata().begin();
-          it != this->_internal_metadata().end(); ++it) {
-        target = CrashReport_MetadataEntry_DoNotUse::Funcs::InternalSerialize(1, it->first, it->second, target, stream);
-        Utf8Check::Check(&(*it));
+      for (const auto& entry : map_field) {
+        target = WireHelper::InternalSerialize(1, entry.first, entry.second, target, stream);
+        check_utf8(entry);
       }
     }
   }
@@ -570,7 +577,7 @@ uint8_t* CrashReport::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.cicerone.CrashReport)
@@ -608,36 +615,32 @@ size_t CrashReport::ByteSizeLong() const {
         this->_internal_process_tree());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData CrashReport::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     CrashReport::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*CrashReport::GetClassData() const { return &_class_data_; }
 
-void CrashReport::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<CrashReport *>(to)->MergeFrom(
-      static_cast<const CrashReport &>(from));
-}
 
-
-void CrashReport::MergeFrom(const CrashReport& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.cicerone.CrashReport)
-  GOOGLE_DCHECK_NE(&from, this);
+void CrashReport::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<CrashReport*>(&to_msg);
+  auto& from = static_cast<const CrashReport&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.cicerone.CrashReport)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  metadata_.MergeFrom(from.metadata_);
+  _this->_impl_.metadata_.MergeFrom(from._impl_.metadata_);
   if (!from._internal_minidump().empty()) {
-    _internal_set_minidump(from._internal_minidump());
+    _this->_internal_set_minidump(from._internal_minidump());
   }
   if (!from._internal_process_tree().empty()) {
-    _internal_set_process_tree(from._internal_process_tree());
+    _this->_internal_set_process_tree(from._internal_process_tree());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void CrashReport::CopyFrom(const CrashReport& from) {
@@ -656,21 +659,19 @@ void CrashReport::InternalSwap(CrashReport* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  metadata_.InternalSwap(&other->metadata_);
+  _impl_.metadata_.InternalSwap(&other->_impl_.metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &minidump_, lhs_arena,
-      &other->minidump_, rhs_arena
+      &_impl_.minidump_, lhs_arena,
+      &other->_impl_.minidump_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &process_tree_, lhs_arena,
-      &other->process_tree_, rhs_arena
+      &_impl_.process_tree_, lhs_arena,
+      &other->_impl_.process_tree_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CrashReport::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_vm_5fcrash_2eproto_getter, &descriptor_table_vm_5fcrash_2eproto_once,
       file_level_metadata_vm_5fcrash_2eproto[2]);
 }
@@ -684,53 +685,58 @@ class FailureReport::_Internal {
 FailureReport::FailureReport(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.cicerone.FailureReport)
 }
 FailureReport::FailureReport(const FailureReport& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  FailureReport* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.failed_process_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  failed_process_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.failed_process_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    failed_process_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.failed_process_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_failed_process().empty()) {
-    failed_process_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_failed_process(), 
-      GetArenaForAllocation());
+    _this->_impl_.failed_process_.Set(from._internal_failed_process(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.cicerone.FailureReport)
 }
 
-inline void FailureReport::SharedCtor() {
-failed_process_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  failed_process_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void FailureReport::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.failed_process_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.failed_process_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.failed_process_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 FailureReport::~FailureReport() {
   // @@protoc_insertion_point(destructor:vm_tools.cicerone.FailureReport)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void FailureReport::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  failed_process_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.failed_process_.Destroy();
 }
 
-void FailureReport::ArenaDtor(void* object) {
-  FailureReport* _this = reinterpret_cast< FailureReport* >(object);
-  (void)_this;
-}
-void FailureReport::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void FailureReport::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FailureReport::Clear() {
@@ -739,23 +745,23 @@ void FailureReport::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  failed_process_.ClearToEmpty();
+  _impl_.failed_process_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* FailureReport::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* FailureReport::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string failed_process = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_failed_process();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.cicerone.FailureReport.failed_process"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.cicerone.FailureReport.failed_process"));
         } else
           goto handle_unusual;
         continue;
@@ -799,7 +805,7 @@ uint8_t* FailureReport::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.cicerone.FailureReport)
@@ -821,32 +827,28 @@ size_t FailureReport::ByteSizeLong() const {
         this->_internal_failed_process());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData FailureReport::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     FailureReport::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*FailureReport::GetClassData() const { return &_class_data_; }
 
-void FailureReport::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<FailureReport *>(to)->MergeFrom(
-      static_cast<const FailureReport &>(from));
-}
 
-
-void FailureReport::MergeFrom(const FailureReport& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.cicerone.FailureReport)
-  GOOGLE_DCHECK_NE(&from, this);
+void FailureReport::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<FailureReport*>(&to_msg);
+  auto& from = static_cast<const FailureReport&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.cicerone.FailureReport)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_failed_process().empty()) {
-    _internal_set_failed_process(from._internal_failed_process());
+    _this->_internal_set_failed_process(from._internal_failed_process());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void FailureReport::CopyFrom(const FailureReport& from) {
@@ -866,14 +868,13 @@ void FailureReport::InternalSwap(FailureReport* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &failed_process_, lhs_arena,
-      &other->failed_process_, rhs_arena
+      &_impl_.failed_process_, lhs_arena,
+      &other->_impl_.failed_process_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata FailureReport::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_vm_5fcrash_2eproto_getter, &descriptor_table_vm_5fcrash_2eproto_once,
       file_level_metadata_vm_5fcrash_2eproto[3]);
 }
@@ -882,16 +883,20 @@ void FailureReport::InternalSwap(FailureReport* other) {
 }  // namespace cicerone
 }  // namespace vm_tools
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::vm_tools::cicerone::MetricsConsentResponse* Arena::CreateMaybeMessage< ::vm_tools::cicerone::MetricsConsentResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::cicerone::MetricsConsentResponse*
+Arena::CreateMaybeMessage< ::vm_tools::cicerone::MetricsConsentResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::cicerone::MetricsConsentResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::cicerone::CrashReport_MetadataEntry_DoNotUse* Arena::CreateMaybeMessage< ::vm_tools::cicerone::CrashReport_MetadataEntry_DoNotUse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::cicerone::CrashReport_MetadataEntry_DoNotUse*
+Arena::CreateMaybeMessage< ::vm_tools::cicerone::CrashReport_MetadataEntry_DoNotUse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::cicerone::CrashReport_MetadataEntry_DoNotUse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::cicerone::CrashReport* Arena::CreateMaybeMessage< ::vm_tools::cicerone::CrashReport >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::cicerone::CrashReport*
+Arena::CreateMaybeMessage< ::vm_tools::cicerone::CrashReport >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::cicerone::CrashReport >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::cicerone::FailureReport* Arena::CreateMaybeMessage< ::vm_tools::cicerone::FailureReport >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::cicerone::FailureReport*
+Arena::CreateMaybeMessage< ::vm_tools::cicerone::FailureReport >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::cicerone::FailureReport >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

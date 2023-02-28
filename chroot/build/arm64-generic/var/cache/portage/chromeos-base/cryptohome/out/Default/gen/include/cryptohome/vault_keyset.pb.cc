@@ -13,55 +13,62 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace cryptohome {
-constexpr SerializedVaultKeyset_SignatureChallengeInfo::SerializedVaultKeyset_SignatureChallengeInfo(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : public_key_spki_der_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , salt_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , sealed_secret_(nullptr)
-  , salt_signature_algorithm_(1)
-{}
+PROTOBUF_CONSTEXPR SerializedVaultKeyset_SignatureChallengeInfo::SerializedVaultKeyset_SignatureChallengeInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.public_key_spki_der_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.salt_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.sealed_secret_)*/nullptr
+  , /*decltype(_impl_.salt_signature_algorithm_)*/1} {}
 struct SerializedVaultKeyset_SignatureChallengeInfoDefaultTypeInternal {
-  constexpr SerializedVaultKeyset_SignatureChallengeInfoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SerializedVaultKeyset_SignatureChallengeInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SerializedVaultKeyset_SignatureChallengeInfoDefaultTypeInternal() {}
   union {
     SerializedVaultKeyset_SignatureChallengeInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SerializedVaultKeyset_SignatureChallengeInfoDefaultTypeInternal _SerializedVaultKeyset_SignatureChallengeInfo_default_instance_;
-constexpr SerializedVaultKeyset::SerializedVaultKeyset(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : salt_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , wrapped_keyset_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , tpm_key_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , tpm_public_key_hash_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , wrapped_chaps_key_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , wrapped_reset_seed_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , reset_iv_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , le_fek_iv_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , le_chaps_iv_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , reset_salt_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , extended_tpm_key_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , vkk_iv_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , key_data_(nullptr)
-  , signature_challenge_info_(nullptr)
-  , flags_(0)
-  , password_rounds_(0)
-  , last_activity_timestamp_(int64_t{0})
-  , le_label_(uint64_t{0u})
-  , fscrypt_policy_version_(0)
-  , backup_vk_(false)
-  , migrated_vk_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedVaultKeyset_SignatureChallengeInfoDefaultTypeInternal _SerializedVaultKeyset_SignatureChallengeInfo_default_instance_;
+PROTOBUF_CONSTEXPR SerializedVaultKeyset::SerializedVaultKeyset(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.salt_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.wrapped_keyset_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.tpm_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.tpm_public_key_hash_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.wrapped_chaps_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.wrapped_reset_seed_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.reset_iv_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.le_fek_iv_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.le_chaps_iv_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.reset_salt_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.extended_tpm_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.vkk_iv_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.key_data_)*/nullptr
+  , /*decltype(_impl_.signature_challenge_info_)*/nullptr
+  , /*decltype(_impl_.flags_)*/0
+  , /*decltype(_impl_.password_rounds_)*/0
+  , /*decltype(_impl_.last_activity_timestamp_)*/int64_t{0}
+  , /*decltype(_impl_.le_label_)*/uint64_t{0u}
+  , /*decltype(_impl_.fscrypt_policy_version_)*/0
+  , /*decltype(_impl_.backup_vk_)*/false
+  , /*decltype(_impl_.migrated_vk_)*/false} {}
 struct SerializedVaultKeysetDefaultTypeInternal {
-  constexpr SerializedVaultKeysetDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SerializedVaultKeysetDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SerializedVaultKeysetDefaultTypeInternal() {}
   union {
     SerializedVaultKeyset _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SerializedVaultKeysetDefaultTypeInternal _SerializedVaultKeyset_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedVaultKeysetDefaultTypeInternal _SerializedVaultKeyset_default_instance_;
 }  // namespace cryptohome
 namespace cryptohome {
 bool SerializedVaultKeyset_Flags_IsValid(int value) {
@@ -157,7 +164,7 @@ constexpr int SerializedVaultKeyset::Flags_ARRAYSIZE;
 
 class SerializedVaultKeyset_SignatureChallengeInfo::_Internal {
  public:
-  using HasBits = decltype(std::declval<SerializedVaultKeyset_SignatureChallengeInfo>()._has_bits_);
+  using HasBits = decltype(std::declval<SerializedVaultKeyset_SignatureChallengeInfo>()._impl_._has_bits_);
   static void set_has_public_key_spki_der(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -175,85 +182,93 @@ class SerializedVaultKeyset_SignatureChallengeInfo::_Internal {
 
 const ::cryptohome::SignatureSealedData&
 SerializedVaultKeyset_SignatureChallengeInfo::_Internal::sealed_secret(const SerializedVaultKeyset_SignatureChallengeInfo* msg) {
-  return *msg->sealed_secret_;
+  return *msg->_impl_.sealed_secret_;
 }
 void SerializedVaultKeyset_SignatureChallengeInfo::clear_sealed_secret() {
-  if (sealed_secret_ != nullptr) sealed_secret_->Clear();
-  _has_bits_[0] &= ~0x00000004u;
+  if (_impl_.sealed_secret_ != nullptr) _impl_.sealed_secret_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000004u;
 }
 SerializedVaultKeyset_SignatureChallengeInfo::SerializedVaultKeyset_SignatureChallengeInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.SerializedVaultKeyset.SignatureChallengeInfo)
 }
 SerializedVaultKeyset_SignatureChallengeInfo::SerializedVaultKeyset_SignatureChallengeInfo(const SerializedVaultKeyset_SignatureChallengeInfo& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SerializedVaultKeyset_SignatureChallengeInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.public_key_spki_der_){}
+    , decltype(_impl_.salt_){}
+    , decltype(_impl_.sealed_secret_){nullptr}
+    , decltype(_impl_.salt_signature_algorithm_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  public_key_spki_der_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.public_key_spki_der_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    public_key_spki_der_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.public_key_spki_der_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_public_key_spki_der()) {
-    public_key_spki_der_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_public_key_spki_der(), 
-      GetArenaForAllocation());
+    _this->_impl_.public_key_spki_der_.Set(from._internal_public_key_spki_der(), 
+      _this->GetArenaForAllocation());
   }
-  salt_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.salt_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    salt_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.salt_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_salt()) {
-    salt_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_salt(), 
-      GetArenaForAllocation());
+    _this->_impl_.salt_.Set(from._internal_salt(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_sealed_secret()) {
-    sealed_secret_ = new ::cryptohome::SignatureSealedData(*from.sealed_secret_);
-  } else {
-    sealed_secret_ = nullptr;
+    _this->_impl_.sealed_secret_ = new ::cryptohome::SignatureSealedData(*from._impl_.sealed_secret_);
   }
-  salt_signature_algorithm_ = from.salt_signature_algorithm_;
+  _this->_impl_.salt_signature_algorithm_ = from._impl_.salt_signature_algorithm_;
   // @@protoc_insertion_point(copy_constructor:cryptohome.SerializedVaultKeyset.SignatureChallengeInfo)
 }
 
-inline void SerializedVaultKeyset_SignatureChallengeInfo::SharedCtor() {
-public_key_spki_der_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  public_key_spki_der_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-salt_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  salt_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-sealed_secret_ = nullptr;
-salt_signature_algorithm_ = 1;
+inline void SerializedVaultKeyset_SignatureChallengeInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.public_key_spki_der_){}
+    , decltype(_impl_.salt_){}
+    , decltype(_impl_.sealed_secret_){nullptr}
+    , decltype(_impl_.salt_signature_algorithm_){1}
+  };
+  _impl_.public_key_spki_der_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.public_key_spki_der_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.salt_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.salt_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SerializedVaultKeyset_SignatureChallengeInfo::~SerializedVaultKeyset_SignatureChallengeInfo() {
   // @@protoc_insertion_point(destructor:cryptohome.SerializedVaultKeyset.SignatureChallengeInfo)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SerializedVaultKeyset_SignatureChallengeInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  public_key_spki_der_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  salt_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete sealed_secret_;
+  _impl_.public_key_spki_der_.Destroy();
+  _impl_.salt_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.sealed_secret_;
 }
 
-void SerializedVaultKeyset_SignatureChallengeInfo::ArenaDtor(void* object) {
-  SerializedVaultKeyset_SignatureChallengeInfo* _this = reinterpret_cast< SerializedVaultKeyset_SignatureChallengeInfo* >(object);
-  (void)_this;
-}
-void SerializedVaultKeyset_SignatureChallengeInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SerializedVaultKeyset_SignatureChallengeInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SerializedVaultKeyset_SignatureChallengeInfo::Clear() {
@@ -262,36 +277,36 @@ void SerializedVaultKeyset_SignatureChallengeInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      public_key_spki_der_.ClearNonDefaultToEmpty();
+      _impl_.public_key_spki_der_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      salt_.ClearNonDefaultToEmpty();
+      _impl_.salt_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(sealed_secret_ != nullptr);
-      sealed_secret_->Clear();
+      GOOGLE_DCHECK(_impl_.sealed_secret_ != nullptr);
+      _impl_.sealed_secret_->Clear();
     }
-    salt_signature_algorithm_ = 1;
+    _impl_.salt_signature_algorithm_ = 1;
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SerializedVaultKeyset_SignatureChallengeInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SerializedVaultKeyset_SignatureChallengeInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bytes public_key_spki_der = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_public_key_spki_der();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -308,7 +323,7 @@ const char* SerializedVaultKeyset_SignatureChallengeInfo::_InternalParse(const c
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_salt();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -342,7 +357,7 @@ const char* SerializedVaultKeyset_SignatureChallengeInfo::_InternalParse(const c
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -356,7 +371,7 @@ uint8_t* SerializedVaultKeyset_SignatureChallengeInfo::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bytes public_key_spki_der = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteBytesMaybeAliased(
@@ -365,10 +380,9 @@ uint8_t* SerializedVaultKeyset_SignatureChallengeInfo::_InternalSerialize(
 
   // optional .cryptohome.SignatureSealedData sealed_secret = 2;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::sealed_secret(this), target, stream);
+      InternalWriteMessage(2, _Internal::sealed_secret(this),
+        _Internal::sealed_secret(this).GetCachedSize(), target, stream);
   }
 
   // optional bytes salt = 3;
@@ -380,7 +394,7 @@ uint8_t* SerializedVaultKeyset_SignatureChallengeInfo::_InternalSerialize(
   // optional .cryptohome.ChallengeSignatureAlgorithm salt_signature_algorithm = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       4, this->_internal_salt_signature_algorithm(), target);
   }
 
@@ -400,7 +414,7 @@ size_t SerializedVaultKeyset_SignatureChallengeInfo::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional bytes public_key_spki_der = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -420,53 +434,55 @@ size_t SerializedVaultKeyset_SignatureChallengeInfo::ByteSizeLong() const {
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *sealed_secret_);
+          *_impl_.sealed_secret_);
     }
 
     // optional .cryptohome.ChallengeSignatureAlgorithm salt_signature_algorithm = 4;
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_salt_signature_algorithm());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_salt_signature_algorithm());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SerializedVaultKeyset_SignatureChallengeInfo::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SerializedVaultKeyset_SignatureChallengeInfo*>(
+  MergeFrom(*::_pbi::DownCast<const SerializedVaultKeyset_SignatureChallengeInfo*>(
       &from));
 }
 
 void SerializedVaultKeyset_SignatureChallengeInfo::MergeFrom(const SerializedVaultKeyset_SignatureChallengeInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.SerializedVaultKeyset.SignatureChallengeInfo)
-  GOOGLE_DCHECK_NE(&from, this);
+  SerializedVaultKeyset_SignatureChallengeInfo* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.SerializedVaultKeyset.SignatureChallengeInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_public_key_spki_der(from._internal_public_key_spki_der());
+      _this->_internal_set_public_key_spki_der(from._internal_public_key_spki_der());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_salt(from._internal_salt());
+      _this->_internal_set_salt(from._internal_salt());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_sealed_secret()->::cryptohome::SignatureSealedData::MergeFrom(from._internal_sealed_secret());
+      _this->_internal_mutable_sealed_secret()->::cryptohome::SignatureSealedData::MergeFrom(
+          from._internal_sealed_secret());
     }
     if (cached_has_bits & 0x00000008u) {
-      salt_signature_algorithm_ = from.salt_signature_algorithm_;
+      _this->_impl_.salt_signature_algorithm_ = from._impl_.salt_signature_algorithm_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SerializedVaultKeyset_SignatureChallengeInfo::CopyFrom(const SerializedVaultKeyset_SignatureChallengeInfo& from) {
@@ -485,19 +501,17 @@ void SerializedVaultKeyset_SignatureChallengeInfo::InternalSwap(SerializedVaultK
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &public_key_spki_der_, lhs_arena,
-      &other->public_key_spki_der_, rhs_arena
+      &_impl_.public_key_spki_der_, lhs_arena,
+      &other->_impl_.public_key_spki_der_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &salt_, lhs_arena,
-      &other->salt_, rhs_arena
+      &_impl_.salt_, lhs_arena,
+      &other->_impl_.salt_, rhs_arena
   );
-  swap(sealed_secret_, other->sealed_secret_);
-  swap(salt_signature_algorithm_, other->salt_signature_algorithm_);
+  swap(_impl_.sealed_secret_, other->_impl_.sealed_secret_);
+  swap(_impl_.salt_signature_algorithm_, other->_impl_.salt_signature_algorithm_);
 }
 
 std::string SerializedVaultKeyset_SignatureChallengeInfo::GetTypeName() const {
@@ -509,7 +523,7 @@ std::string SerializedVaultKeyset_SignatureChallengeInfo::GetTypeName() const {
 
 class SerializedVaultKeyset::_Internal {
  public:
-  using HasBits = decltype(std::declval<SerializedVaultKeyset>()._has_bits_);
+  using HasBits = decltype(std::declval<SerializedVaultKeyset>()._impl_._has_bits_);
   static void set_has_flags(HasBits* has_bits) {
     (*has_bits)[0] |= 16384u;
   }
@@ -582,229 +596,267 @@ class SerializedVaultKeyset::_Internal {
 
 const ::cryptohome::KeyData&
 SerializedVaultKeyset::_Internal::key_data(const SerializedVaultKeyset* msg) {
-  return *msg->key_data_;
+  return *msg->_impl_.key_data_;
 }
 const ::cryptohome::SerializedVaultKeyset_SignatureChallengeInfo&
 SerializedVaultKeyset::_Internal::signature_challenge_info(const SerializedVaultKeyset* msg) {
-  return *msg->signature_challenge_info_;
+  return *msg->_impl_.signature_challenge_info_;
 }
 void SerializedVaultKeyset::clear_key_data() {
-  if (key_data_ != nullptr) key_data_->Clear();
-  _has_bits_[0] &= ~0x00001000u;
+  if (_impl_.key_data_ != nullptr) _impl_.key_data_->Clear();
+  _impl_._has_bits_[0] &= ~0x00001000u;
 }
 SerializedVaultKeyset::SerializedVaultKeyset(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.SerializedVaultKeyset)
 }
 SerializedVaultKeyset::SerializedVaultKeyset(const SerializedVaultKeyset& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SerializedVaultKeyset* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.salt_){}
+    , decltype(_impl_.wrapped_keyset_){}
+    , decltype(_impl_.tpm_key_){}
+    , decltype(_impl_.tpm_public_key_hash_){}
+    , decltype(_impl_.wrapped_chaps_key_){}
+    , decltype(_impl_.wrapped_reset_seed_){}
+    , decltype(_impl_.reset_iv_){}
+    , decltype(_impl_.le_fek_iv_){}
+    , decltype(_impl_.le_chaps_iv_){}
+    , decltype(_impl_.reset_salt_){}
+    , decltype(_impl_.extended_tpm_key_){}
+    , decltype(_impl_.vkk_iv_){}
+    , decltype(_impl_.key_data_){nullptr}
+    , decltype(_impl_.signature_challenge_info_){nullptr}
+    , decltype(_impl_.flags_){}
+    , decltype(_impl_.password_rounds_){}
+    , decltype(_impl_.last_activity_timestamp_){}
+    , decltype(_impl_.le_label_){}
+    , decltype(_impl_.fscrypt_policy_version_){}
+    , decltype(_impl_.backup_vk_){}
+    , decltype(_impl_.migrated_vk_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  salt_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.salt_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    salt_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.salt_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_salt()) {
-    salt_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_salt(), 
-      GetArenaForAllocation());
+    _this->_impl_.salt_.Set(from._internal_salt(), 
+      _this->GetArenaForAllocation());
   }
-  wrapped_keyset_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.wrapped_keyset_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    wrapped_keyset_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.wrapped_keyset_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_wrapped_keyset()) {
-    wrapped_keyset_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_wrapped_keyset(), 
-      GetArenaForAllocation());
+    _this->_impl_.wrapped_keyset_.Set(from._internal_wrapped_keyset(), 
+      _this->GetArenaForAllocation());
   }
-  tpm_key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.tpm_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    tpm_key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.tpm_key_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_tpm_key()) {
-    tpm_key_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_tpm_key(), 
-      GetArenaForAllocation());
+    _this->_impl_.tpm_key_.Set(from._internal_tpm_key(), 
+      _this->GetArenaForAllocation());
   }
-  tpm_public_key_hash_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.tpm_public_key_hash_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    tpm_public_key_hash_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.tpm_public_key_hash_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_tpm_public_key_hash()) {
-    tpm_public_key_hash_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_tpm_public_key_hash(), 
-      GetArenaForAllocation());
+    _this->_impl_.tpm_public_key_hash_.Set(from._internal_tpm_public_key_hash(), 
+      _this->GetArenaForAllocation());
   }
-  wrapped_chaps_key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.wrapped_chaps_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    wrapped_chaps_key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.wrapped_chaps_key_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_wrapped_chaps_key()) {
-    wrapped_chaps_key_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_wrapped_chaps_key(), 
-      GetArenaForAllocation());
+    _this->_impl_.wrapped_chaps_key_.Set(from._internal_wrapped_chaps_key(), 
+      _this->GetArenaForAllocation());
   }
-  wrapped_reset_seed_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.wrapped_reset_seed_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    wrapped_reset_seed_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.wrapped_reset_seed_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_wrapped_reset_seed()) {
-    wrapped_reset_seed_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_wrapped_reset_seed(), 
-      GetArenaForAllocation());
+    _this->_impl_.wrapped_reset_seed_.Set(from._internal_wrapped_reset_seed(), 
+      _this->GetArenaForAllocation());
   }
-  reset_iv_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.reset_iv_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    reset_iv_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.reset_iv_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_reset_iv()) {
-    reset_iv_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_reset_iv(), 
-      GetArenaForAllocation());
+    _this->_impl_.reset_iv_.Set(from._internal_reset_iv(), 
+      _this->GetArenaForAllocation());
   }
-  le_fek_iv_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.le_fek_iv_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    le_fek_iv_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.le_fek_iv_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_le_fek_iv()) {
-    le_fek_iv_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_le_fek_iv(), 
-      GetArenaForAllocation());
+    _this->_impl_.le_fek_iv_.Set(from._internal_le_fek_iv(), 
+      _this->GetArenaForAllocation());
   }
-  le_chaps_iv_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.le_chaps_iv_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    le_chaps_iv_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.le_chaps_iv_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_le_chaps_iv()) {
-    le_chaps_iv_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_le_chaps_iv(), 
-      GetArenaForAllocation());
+    _this->_impl_.le_chaps_iv_.Set(from._internal_le_chaps_iv(), 
+      _this->GetArenaForAllocation());
   }
-  reset_salt_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.reset_salt_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    reset_salt_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.reset_salt_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_reset_salt()) {
-    reset_salt_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_reset_salt(), 
-      GetArenaForAllocation());
+    _this->_impl_.reset_salt_.Set(from._internal_reset_salt(), 
+      _this->GetArenaForAllocation());
   }
-  extended_tpm_key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.extended_tpm_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    extended_tpm_key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.extended_tpm_key_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_extended_tpm_key()) {
-    extended_tpm_key_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_extended_tpm_key(), 
-      GetArenaForAllocation());
+    _this->_impl_.extended_tpm_key_.Set(from._internal_extended_tpm_key(), 
+      _this->GetArenaForAllocation());
   }
-  vkk_iv_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.vkk_iv_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    vkk_iv_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.vkk_iv_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_vkk_iv()) {
-    vkk_iv_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_vkk_iv(), 
-      GetArenaForAllocation());
+    _this->_impl_.vkk_iv_.Set(from._internal_vkk_iv(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_key_data()) {
-    key_data_ = new ::cryptohome::KeyData(*from.key_data_);
-  } else {
-    key_data_ = nullptr;
+    _this->_impl_.key_data_ = new ::cryptohome::KeyData(*from._impl_.key_data_);
   }
   if (from._internal_has_signature_challenge_info()) {
-    signature_challenge_info_ = new ::cryptohome::SerializedVaultKeyset_SignatureChallengeInfo(*from.signature_challenge_info_);
-  } else {
-    signature_challenge_info_ = nullptr;
+    _this->_impl_.signature_challenge_info_ = new ::cryptohome::SerializedVaultKeyset_SignatureChallengeInfo(*from._impl_.signature_challenge_info_);
   }
-  ::memcpy(&flags_, &from.flags_,
-    static_cast<size_t>(reinterpret_cast<char*>(&migrated_vk_) -
-    reinterpret_cast<char*>(&flags_)) + sizeof(migrated_vk_));
+  ::memcpy(&_impl_.flags_, &from._impl_.flags_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.migrated_vk_) -
+    reinterpret_cast<char*>(&_impl_.flags_)) + sizeof(_impl_.migrated_vk_));
   // @@protoc_insertion_point(copy_constructor:cryptohome.SerializedVaultKeyset)
 }
 
-inline void SerializedVaultKeyset::SharedCtor() {
-salt_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  salt_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-wrapped_keyset_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  wrapped_keyset_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-tpm_key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  tpm_key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-tpm_public_key_hash_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  tpm_public_key_hash_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-wrapped_chaps_key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  wrapped_chaps_key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-wrapped_reset_seed_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  wrapped_reset_seed_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-reset_iv_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  reset_iv_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-le_fek_iv_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  le_fek_iv_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-le_chaps_iv_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  le_chaps_iv_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-reset_salt_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  reset_salt_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-extended_tpm_key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  extended_tpm_key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-vkk_iv_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  vkk_iv_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&key_data_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&migrated_vk_) -
-    reinterpret_cast<char*>(&key_data_)) + sizeof(migrated_vk_));
+inline void SerializedVaultKeyset::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.salt_){}
+    , decltype(_impl_.wrapped_keyset_){}
+    , decltype(_impl_.tpm_key_){}
+    , decltype(_impl_.tpm_public_key_hash_){}
+    , decltype(_impl_.wrapped_chaps_key_){}
+    , decltype(_impl_.wrapped_reset_seed_){}
+    , decltype(_impl_.reset_iv_){}
+    , decltype(_impl_.le_fek_iv_){}
+    , decltype(_impl_.le_chaps_iv_){}
+    , decltype(_impl_.reset_salt_){}
+    , decltype(_impl_.extended_tpm_key_){}
+    , decltype(_impl_.vkk_iv_){}
+    , decltype(_impl_.key_data_){nullptr}
+    , decltype(_impl_.signature_challenge_info_){nullptr}
+    , decltype(_impl_.flags_){0}
+    , decltype(_impl_.password_rounds_){0}
+    , decltype(_impl_.last_activity_timestamp_){int64_t{0}}
+    , decltype(_impl_.le_label_){uint64_t{0u}}
+    , decltype(_impl_.fscrypt_policy_version_){0}
+    , decltype(_impl_.backup_vk_){false}
+    , decltype(_impl_.migrated_vk_){false}
+  };
+  _impl_.salt_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.salt_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.wrapped_keyset_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.wrapped_keyset_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.tpm_key_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.tpm_key_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.tpm_public_key_hash_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.tpm_public_key_hash_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.wrapped_chaps_key_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.wrapped_chaps_key_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.wrapped_reset_seed_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.wrapped_reset_seed_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.reset_iv_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.reset_iv_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.le_fek_iv_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.le_fek_iv_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.le_chaps_iv_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.le_chaps_iv_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.reset_salt_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.reset_salt_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.extended_tpm_key_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.extended_tpm_key_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.vkk_iv_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vkk_iv_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SerializedVaultKeyset::~SerializedVaultKeyset() {
   // @@protoc_insertion_point(destructor:cryptohome.SerializedVaultKeyset)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SerializedVaultKeyset::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  salt_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  wrapped_keyset_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  tpm_key_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  tpm_public_key_hash_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  wrapped_chaps_key_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  wrapped_reset_seed_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  reset_iv_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  le_fek_iv_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  le_chaps_iv_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  reset_salt_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  extended_tpm_key_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  vkk_iv_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete key_data_;
-  if (this != internal_default_instance()) delete signature_challenge_info_;
+  _impl_.salt_.Destroy();
+  _impl_.wrapped_keyset_.Destroy();
+  _impl_.tpm_key_.Destroy();
+  _impl_.tpm_public_key_hash_.Destroy();
+  _impl_.wrapped_chaps_key_.Destroy();
+  _impl_.wrapped_reset_seed_.Destroy();
+  _impl_.reset_iv_.Destroy();
+  _impl_.le_fek_iv_.Destroy();
+  _impl_.le_chaps_iv_.Destroy();
+  _impl_.reset_salt_.Destroy();
+  _impl_.extended_tpm_key_.Destroy();
+  _impl_.vkk_iv_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.key_data_;
+  if (this != internal_default_instance()) delete _impl_.signature_challenge_info_;
 }
 
-void SerializedVaultKeyset::ArenaDtor(void* object) {
-  SerializedVaultKeyset* _this = reinterpret_cast< SerializedVaultKeyset* >(object);
-  (void)_this;
-}
-void SerializedVaultKeyset::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SerializedVaultKeyset::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SerializedVaultKeyset::Clear() {
@@ -813,81 +865,81 @@ void SerializedVaultKeyset::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      salt_.ClearNonDefaultToEmpty();
+      _impl_.salt_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      wrapped_keyset_.ClearNonDefaultToEmpty();
+      _impl_.wrapped_keyset_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      tpm_key_.ClearNonDefaultToEmpty();
+      _impl_.tpm_key_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      tpm_public_key_hash_.ClearNonDefaultToEmpty();
+      _impl_.tpm_public_key_hash_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000010u) {
-      wrapped_chaps_key_.ClearNonDefaultToEmpty();
+      _impl_.wrapped_chaps_key_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000020u) {
-      wrapped_reset_seed_.ClearNonDefaultToEmpty();
+      _impl_.wrapped_reset_seed_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000040u) {
-      reset_iv_.ClearNonDefaultToEmpty();
+      _impl_.reset_iv_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000080u) {
-      le_fek_iv_.ClearNonDefaultToEmpty();
+      _impl_.le_fek_iv_.ClearNonDefaultToEmpty();
     }
   }
   if (cached_has_bits & 0x00003f00u) {
     if (cached_has_bits & 0x00000100u) {
-      le_chaps_iv_.ClearNonDefaultToEmpty();
+      _impl_.le_chaps_iv_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000200u) {
-      reset_salt_.ClearNonDefaultToEmpty();
+      _impl_.reset_salt_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000400u) {
-      extended_tpm_key_.ClearNonDefaultToEmpty();
+      _impl_.extended_tpm_key_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000800u) {
-      vkk_iv_.ClearNonDefaultToEmpty();
+      _impl_.vkk_iv_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00001000u) {
-      GOOGLE_DCHECK(key_data_ != nullptr);
-      key_data_->Clear();
+      GOOGLE_DCHECK(_impl_.key_data_ != nullptr);
+      _impl_.key_data_->Clear();
     }
     if (cached_has_bits & 0x00002000u) {
-      GOOGLE_DCHECK(signature_challenge_info_ != nullptr);
-      signature_challenge_info_->Clear();
+      GOOGLE_DCHECK(_impl_.signature_challenge_info_ != nullptr);
+      _impl_.signature_challenge_info_->Clear();
     }
   }
   if (cached_has_bits & 0x0000c000u) {
-    ::memset(&flags_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&password_rounds_) -
-        reinterpret_cast<char*>(&flags_)) + sizeof(password_rounds_));
+    ::memset(&_impl_.flags_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.password_rounds_) -
+        reinterpret_cast<char*>(&_impl_.flags_)) + sizeof(_impl_.password_rounds_));
   }
   if (cached_has_bits & 0x001f0000u) {
-    ::memset(&last_activity_timestamp_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&migrated_vk_) -
-        reinterpret_cast<char*>(&last_activity_timestamp_)) + sizeof(migrated_vk_));
+    ::memset(&_impl_.last_activity_timestamp_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.migrated_vk_) -
+        reinterpret_cast<char*>(&_impl_.last_activity_timestamp_)) + sizeof(_impl_.migrated_vk_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required int32 flags = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_flags(&has_bits);
-          flags_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.flags_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -896,7 +948,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_salt();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -905,7 +957,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_wrapped_keyset();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -914,7 +966,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_tpm_key();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -923,7 +975,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_tpm_public_key_hash();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -932,7 +984,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
           _Internal::set_has_password_rounds(&has_bits);
-          password_rounds_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.password_rounds_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -941,7 +993,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
           _Internal::set_has_last_activity_timestamp(&has_bits);
-          last_activity_timestamp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.last_activity_timestamp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -958,7 +1010,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 10:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
           auto str = _internal_mutable_wrapped_chaps_key();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -967,7 +1019,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 11:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
           auto str = _internal_mutable_wrapped_reset_seed();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -976,7 +1028,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 12:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
           auto str = _internal_mutable_reset_iv();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -985,7 +1037,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 13:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
           _Internal::set_has_le_label(&has_bits);
-          le_label_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.le_label_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -994,7 +1046,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 14:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
           auto str = _internal_mutable_le_fek_iv();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1003,7 +1055,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 15:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
           auto str = _internal_mutable_le_chaps_iv();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1012,7 +1064,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 16:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 130)) {
           auto str = _internal_mutable_reset_salt();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1029,7 +1081,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 18:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 146)) {
           auto str = _internal_mutable_extended_tpm_key();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1038,7 +1090,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 20:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 160)) {
           _Internal::set_has_fscrypt_policy_version(&has_bits);
-          fscrypt_policy_version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.fscrypt_policy_version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1047,7 +1099,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 21:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 170)) {
           auto str = _internal_mutable_vkk_iv();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1056,7 +1108,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 22:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 176)) {
           _Internal::set_has_backup_vk(&has_bits);
-          backup_vk_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.backup_vk_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1065,7 +1117,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 23:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 184)) {
           _Internal::set_has_migrated_vk(&has_bits);
-          migrated_vk_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.migrated_vk_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1086,7 +1138,7 @@ const char* SerializedVaultKeyset::_InternalParse(const char* ptr, ::PROTOBUF_NA
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1100,11 +1152,11 @@ uint8_t* SerializedVaultKeyset::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required int32 flags = 1;
   if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_flags(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_flags(), target);
   }
 
   // required bytes salt = 2;
@@ -1134,21 +1186,20 @@ uint8_t* SerializedVaultKeyset::_InternalSerialize(
   // optional int32 password_rounds = 6;
   if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(6, this->_internal_password_rounds(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(6, this->_internal_password_rounds(), target);
   }
 
   // optional int64 last_activity_timestamp = 8;
   if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(8, this->_internal_last_activity_timestamp(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(8, this->_internal_last_activity_timestamp(), target);
   }
 
   // optional .cryptohome.KeyData key_data = 9;
   if (cached_has_bits & 0x00001000u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        9, _Internal::key_data(this), target, stream);
+      InternalWriteMessage(9, _Internal::key_data(this),
+        _Internal::key_data(this).GetCachedSize(), target, stream);
   }
 
   // optional bytes wrapped_chaps_key = 10;
@@ -1172,7 +1223,7 @@ uint8_t* SerializedVaultKeyset::_InternalSerialize(
   // optional uint64 le_label = 13;
   if (cached_has_bits & 0x00020000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(13, this->_internal_le_label(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(13, this->_internal_le_label(), target);
   }
 
   // optional bytes le_fek_iv = 14;
@@ -1195,10 +1246,9 @@ uint8_t* SerializedVaultKeyset::_InternalSerialize(
 
   // optional .cryptohome.SerializedVaultKeyset.SignatureChallengeInfo signature_challenge_info = 17;
   if (cached_has_bits & 0x00002000u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        17, _Internal::signature_challenge_info(this), target, stream);
+      InternalWriteMessage(17, _Internal::signature_challenge_info(this),
+        _Internal::signature_challenge_info(this).GetCachedSize(), target, stream);
   }
 
   // optional bytes extended_tpm_key = 18;
@@ -1210,7 +1260,7 @@ uint8_t* SerializedVaultKeyset::_InternalSerialize(
   // optional int32 fscrypt_policy_version = 20;
   if (cached_has_bits & 0x00040000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(20, this->_internal_fscrypt_policy_version(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(20, this->_internal_fscrypt_policy_version(), target);
   }
 
   // optional bytes vkk_iv = 21;
@@ -1222,13 +1272,13 @@ uint8_t* SerializedVaultKeyset::_InternalSerialize(
   // optional bool backup_vk = 22;
   if (cached_has_bits & 0x00080000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(22, this->_internal_backup_vk(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(22, this->_internal_backup_vk(), target);
   }
 
   // optional bool migrated_vk = 23;
   if (cached_has_bits & 0x00100000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(23, this->_internal_migrated_vk(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(23, this->_internal_migrated_vk(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1259,7 +1309,7 @@ size_t SerializedVaultKeyset::RequiredFieldsByteSizeFallback() const {
 
   if (_internal_has_flags()) {
     // required int32 flags = 1;
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_flags());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_flags());
   }
 
   return total_size;
@@ -1268,7 +1318,7 @@ size_t SerializedVaultKeyset::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cryptohome.SerializedVaultKeyset)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00004003) ^ 0x00004003) == 0) {  // All required fields are present.
+  if (((_impl_._has_bits_[0] & 0x00004003) ^ 0x00004003) == 0) {  // All required fields are present.
     // required bytes salt = 2;
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
@@ -1280,7 +1330,7 @@ size_t SerializedVaultKeyset::ByteSizeLong() const {
         this->_internal_wrapped_keyset());
 
     // required int32 flags = 1;
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_flags());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_flags());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
@@ -1289,7 +1339,7 @@ size_t SerializedVaultKeyset::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000fcu) {
     // optional bytes tpm_key = 4;
     if (cached_has_bits & 0x00000004u) {
@@ -1367,37 +1417,37 @@ size_t SerializedVaultKeyset::ByteSizeLong() const {
     if (cached_has_bits & 0x00001000u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *key_data_);
+          *_impl_.key_data_);
     }
 
     // optional .cryptohome.SerializedVaultKeyset.SignatureChallengeInfo signature_challenge_info = 17;
     if (cached_has_bits & 0x00002000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *signature_challenge_info_);
+          *_impl_.signature_challenge_info_);
     }
 
   }
   // optional int32 password_rounds = 6;
   if (cached_has_bits & 0x00008000u) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_password_rounds());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_password_rounds());
   }
 
   if (cached_has_bits & 0x001f0000u) {
     // optional int64 last_activity_timestamp = 8;
     if (cached_has_bits & 0x00010000u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_last_activity_timestamp());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_last_activity_timestamp());
     }
 
     // optional uint64 le_label = 13;
     if (cached_has_bits & 0x00020000u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_le_label());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_le_label());
     }
 
     // optional int32 fscrypt_policy_version = 20;
     if (cached_has_bits & 0x00040000u) {
       total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        ::_pbi::WireFormatLite::Int32Size(
           this->_internal_fscrypt_policy_version());
     }
 
@@ -1415,96 +1465,99 @@ size_t SerializedVaultKeyset::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SerializedVaultKeyset::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SerializedVaultKeyset*>(
+  MergeFrom(*::_pbi::DownCast<const SerializedVaultKeyset*>(
       &from));
 }
 
 void SerializedVaultKeyset::MergeFrom(const SerializedVaultKeyset& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.SerializedVaultKeyset)
-  GOOGLE_DCHECK_NE(&from, this);
+  SerializedVaultKeyset* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.SerializedVaultKeyset)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_salt(from._internal_salt());
+      _this->_internal_set_salt(from._internal_salt());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_wrapped_keyset(from._internal_wrapped_keyset());
+      _this->_internal_set_wrapped_keyset(from._internal_wrapped_keyset());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_tpm_key(from._internal_tpm_key());
+      _this->_internal_set_tpm_key(from._internal_tpm_key());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_set_tpm_public_key_hash(from._internal_tpm_public_key_hash());
+      _this->_internal_set_tpm_public_key_hash(from._internal_tpm_public_key_hash());
     }
     if (cached_has_bits & 0x00000010u) {
-      _internal_set_wrapped_chaps_key(from._internal_wrapped_chaps_key());
+      _this->_internal_set_wrapped_chaps_key(from._internal_wrapped_chaps_key());
     }
     if (cached_has_bits & 0x00000020u) {
-      _internal_set_wrapped_reset_seed(from._internal_wrapped_reset_seed());
+      _this->_internal_set_wrapped_reset_seed(from._internal_wrapped_reset_seed());
     }
     if (cached_has_bits & 0x00000040u) {
-      _internal_set_reset_iv(from._internal_reset_iv());
+      _this->_internal_set_reset_iv(from._internal_reset_iv());
     }
     if (cached_has_bits & 0x00000080u) {
-      _internal_set_le_fek_iv(from._internal_le_fek_iv());
+      _this->_internal_set_le_fek_iv(from._internal_le_fek_iv());
     }
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      _internal_set_le_chaps_iv(from._internal_le_chaps_iv());
+      _this->_internal_set_le_chaps_iv(from._internal_le_chaps_iv());
     }
     if (cached_has_bits & 0x00000200u) {
-      _internal_set_reset_salt(from._internal_reset_salt());
+      _this->_internal_set_reset_salt(from._internal_reset_salt());
     }
     if (cached_has_bits & 0x00000400u) {
-      _internal_set_extended_tpm_key(from._internal_extended_tpm_key());
+      _this->_internal_set_extended_tpm_key(from._internal_extended_tpm_key());
     }
     if (cached_has_bits & 0x00000800u) {
-      _internal_set_vkk_iv(from._internal_vkk_iv());
+      _this->_internal_set_vkk_iv(from._internal_vkk_iv());
     }
     if (cached_has_bits & 0x00001000u) {
-      _internal_mutable_key_data()->::cryptohome::KeyData::MergeFrom(from._internal_key_data());
+      _this->_internal_mutable_key_data()->::cryptohome::KeyData::MergeFrom(
+          from._internal_key_data());
     }
     if (cached_has_bits & 0x00002000u) {
-      _internal_mutable_signature_challenge_info()->::cryptohome::SerializedVaultKeyset_SignatureChallengeInfo::MergeFrom(from._internal_signature_challenge_info());
+      _this->_internal_mutable_signature_challenge_info()->::cryptohome::SerializedVaultKeyset_SignatureChallengeInfo::MergeFrom(
+          from._internal_signature_challenge_info());
     }
     if (cached_has_bits & 0x00004000u) {
-      flags_ = from.flags_;
+      _this->_impl_.flags_ = from._impl_.flags_;
     }
     if (cached_has_bits & 0x00008000u) {
-      password_rounds_ = from.password_rounds_;
+      _this->_impl_.password_rounds_ = from._impl_.password_rounds_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x001f0000u) {
     if (cached_has_bits & 0x00010000u) {
-      last_activity_timestamp_ = from.last_activity_timestamp_;
+      _this->_impl_.last_activity_timestamp_ = from._impl_.last_activity_timestamp_;
     }
     if (cached_has_bits & 0x00020000u) {
-      le_label_ = from.le_label_;
+      _this->_impl_.le_label_ = from._impl_.le_label_;
     }
     if (cached_has_bits & 0x00040000u) {
-      fscrypt_policy_version_ = from.fscrypt_policy_version_;
+      _this->_impl_.fscrypt_policy_version_ = from._impl_.fscrypt_policy_version_;
     }
     if (cached_has_bits & 0x00080000u) {
-      backup_vk_ = from.backup_vk_;
+      _this->_impl_.backup_vk_ = from._impl_.backup_vk_;
     }
     if (cached_has_bits & 0x00100000u) {
-      migrated_vk_ = from.migrated_vk_;
+      _this->_impl_.migrated_vk_ = from._impl_.migrated_vk_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SerializedVaultKeyset::CopyFrom(const SerializedVaultKeyset& from) {
@@ -1515,7 +1568,7 @@ void SerializedVaultKeyset::CopyFrom(const SerializedVaultKeyset& from) {
 }
 
 bool SerializedVaultKeyset::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
@@ -1524,73 +1577,61 @@ void SerializedVaultKeyset::InternalSwap(SerializedVaultKeyset* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &salt_, lhs_arena,
-      &other->salt_, rhs_arena
+      &_impl_.salt_, lhs_arena,
+      &other->_impl_.salt_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &wrapped_keyset_, lhs_arena,
-      &other->wrapped_keyset_, rhs_arena
+      &_impl_.wrapped_keyset_, lhs_arena,
+      &other->_impl_.wrapped_keyset_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &tpm_key_, lhs_arena,
-      &other->tpm_key_, rhs_arena
+      &_impl_.tpm_key_, lhs_arena,
+      &other->_impl_.tpm_key_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &tpm_public_key_hash_, lhs_arena,
-      &other->tpm_public_key_hash_, rhs_arena
+      &_impl_.tpm_public_key_hash_, lhs_arena,
+      &other->_impl_.tpm_public_key_hash_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &wrapped_chaps_key_, lhs_arena,
-      &other->wrapped_chaps_key_, rhs_arena
+      &_impl_.wrapped_chaps_key_, lhs_arena,
+      &other->_impl_.wrapped_chaps_key_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &wrapped_reset_seed_, lhs_arena,
-      &other->wrapped_reset_seed_, rhs_arena
+      &_impl_.wrapped_reset_seed_, lhs_arena,
+      &other->_impl_.wrapped_reset_seed_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &reset_iv_, lhs_arena,
-      &other->reset_iv_, rhs_arena
+      &_impl_.reset_iv_, lhs_arena,
+      &other->_impl_.reset_iv_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &le_fek_iv_, lhs_arena,
-      &other->le_fek_iv_, rhs_arena
+      &_impl_.le_fek_iv_, lhs_arena,
+      &other->_impl_.le_fek_iv_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &le_chaps_iv_, lhs_arena,
-      &other->le_chaps_iv_, rhs_arena
+      &_impl_.le_chaps_iv_, lhs_arena,
+      &other->_impl_.le_chaps_iv_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &reset_salt_, lhs_arena,
-      &other->reset_salt_, rhs_arena
+      &_impl_.reset_salt_, lhs_arena,
+      &other->_impl_.reset_salt_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &extended_tpm_key_, lhs_arena,
-      &other->extended_tpm_key_, rhs_arena
+      &_impl_.extended_tpm_key_, lhs_arena,
+      &other->_impl_.extended_tpm_key_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &vkk_iv_, lhs_arena,
-      &other->vkk_iv_, rhs_arena
+      &_impl_.vkk_iv_, lhs_arena,
+      &other->_impl_.vkk_iv_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SerializedVaultKeyset, migrated_vk_)
-      + sizeof(SerializedVaultKeyset::migrated_vk_)
-      - PROTOBUF_FIELD_OFFSET(SerializedVaultKeyset, key_data_)>(
-          reinterpret_cast<char*>(&key_data_),
-          reinterpret_cast<char*>(&other->key_data_));
+      PROTOBUF_FIELD_OFFSET(SerializedVaultKeyset, _impl_.migrated_vk_)
+      + sizeof(SerializedVaultKeyset::_impl_.migrated_vk_)
+      - PROTOBUF_FIELD_OFFSET(SerializedVaultKeyset, _impl_.key_data_)>(
+          reinterpret_cast<char*>(&_impl_.key_data_),
+          reinterpret_cast<char*>(&other->_impl_.key_data_));
 }
 
 std::string SerializedVaultKeyset::GetTypeName() const {
@@ -1601,10 +1642,12 @@ std::string SerializedVaultKeyset::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace cryptohome
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::cryptohome::SerializedVaultKeyset_SignatureChallengeInfo* Arena::CreateMaybeMessage< ::cryptohome::SerializedVaultKeyset_SignatureChallengeInfo >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::SerializedVaultKeyset_SignatureChallengeInfo*
+Arena::CreateMaybeMessage< ::cryptohome::SerializedVaultKeyset_SignatureChallengeInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::SerializedVaultKeyset_SignatureChallengeInfo >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::SerializedVaultKeyset* Arena::CreateMaybeMessage< ::cryptohome::SerializedVaultKeyset >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::SerializedVaultKeyset*
+Arena::CreateMaybeMessage< ::cryptohome::SerializedVaultKeyset >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::SerializedVaultKeyset >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

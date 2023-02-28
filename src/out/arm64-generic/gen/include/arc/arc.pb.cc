@@ -13,65 +13,69 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace arc {
-constexpr StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : native_bridge_experiment_(false)
-  , arc_file_picker_experiment_(false)
-  , arc_custom_tabs_experiment_(false)
-  , arc_print_spooler_experiment_(false)
-  , play_store_auto_update_(0)
-
-  , dalvik_memory_profile_(0)
-
-  , disable_ureadahead_(false)
-  , disable_system_default_app_(false)
-  , disable_download_provider_(false)
-  , disable_media_store_maintenance_(false)
-  , arc_generate_pai_(false)
-  , enable_notifications_refresh_(false)
-  , enable_tts_caching_(false)
-  , enable_consumer_auto_update_toggle_(false)
-  , host_ureadahead_generation_(false)
-  , enable_privacy_hub_for_chrome_(false)
-  , lcd_density_(-1){}
+PROTOBUF_CONSTEXPR StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.native_bridge_experiment_)*/false
+  , /*decltype(_impl_.arc_file_picker_experiment_)*/false
+  , /*decltype(_impl_.arc_custom_tabs_experiment_)*/false
+  , /*decltype(_impl_.arc_print_spooler_experiment_)*/false
+  , /*decltype(_impl_.play_store_auto_update_)*/0
+  , /*decltype(_impl_.dalvik_memory_profile_)*/0
+  , /*decltype(_impl_.disable_ureadahead_)*/false
+  , /*decltype(_impl_.disable_system_default_app_)*/false
+  , /*decltype(_impl_.disable_download_provider_)*/false
+  , /*decltype(_impl_.disable_media_store_maintenance_)*/false
+  , /*decltype(_impl_.arc_generate_pai_)*/false
+  , /*decltype(_impl_.enable_notifications_refresh_)*/false
+  , /*decltype(_impl_.enable_tts_caching_)*/false
+  , /*decltype(_impl_.enable_consumer_auto_update_toggle_)*/false
+  , /*decltype(_impl_.host_ureadahead_generation_)*/false
+  , /*decltype(_impl_.enable_privacy_hub_for_chrome_)*/false
+  , /*decltype(_impl_.lcd_density_)*/-1} {}
 struct StartArcMiniInstanceRequestDefaultTypeInternal {
-  constexpr StartArcMiniInstanceRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StartArcMiniInstanceRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~StartArcMiniInstanceRequestDefaultTypeInternal() {}
   union {
     StartArcMiniInstanceRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StartArcMiniInstanceRequestDefaultTypeInternal _StartArcMiniInstanceRequest_default_instance_;
-constexpr UpgradeArcContainerRequest::UpgradeArcContainerRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : preferred_languages_()
-  , account_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , demo_session_apps_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , locale_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , packages_cache_mode_(0)
-
-  , management_transition_(0)
-
-  , is_account_managed_(false)
-  , is_managed_adb_sideloading_allowed_(false)
-  , disable_ureadahead_(false)
-  , skip_boot_completed_broadcast_(false)
-  , skip_gms_core_cache_(false)
-  , obsolete_is_child_(false)
-  , is_demo_session_(false)
-  , enable_arc_nearby_share_(false)
-  , skip_tts_cache_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StartArcMiniInstanceRequestDefaultTypeInternal _StartArcMiniInstanceRequest_default_instance_;
+PROTOBUF_CONSTEXPR UpgradeArcContainerRequest::UpgradeArcContainerRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.preferred_languages_)*/{}
+  , /*decltype(_impl_.account_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.demo_session_apps_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.locale_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.packages_cache_mode_)*/0
+  , /*decltype(_impl_.management_transition_)*/0
+  , /*decltype(_impl_.is_account_managed_)*/false
+  , /*decltype(_impl_.is_managed_adb_sideloading_allowed_)*/false
+  , /*decltype(_impl_.disable_ureadahead_)*/false
+  , /*decltype(_impl_.skip_boot_completed_broadcast_)*/false
+  , /*decltype(_impl_.skip_gms_core_cache_)*/false
+  , /*decltype(_impl_.obsolete_is_child_)*/false
+  , /*decltype(_impl_.is_demo_session_)*/false
+  , /*decltype(_impl_.enable_arc_nearby_share_)*/false
+  , /*decltype(_impl_.skip_tts_cache_)*/false} {}
 struct UpgradeArcContainerRequestDefaultTypeInternal {
-  constexpr UpgradeArcContainerRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UpgradeArcContainerRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UpgradeArcContainerRequestDefaultTypeInternal() {}
   union {
     UpgradeArcContainerRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UpgradeArcContainerRequestDefaultTypeInternal _UpgradeArcContainerRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UpgradeArcContainerRequestDefaultTypeInternal _UpgradeArcContainerRequest_default_instance_;
 }  // namespace arc
 namespace arc {
 bool StartArcMiniInstanceRequest_PlayStoreAutoUpdate_IsValid(int value) {
@@ -341,7 +345,7 @@ constexpr int UpgradeArcContainerRequest::ManagementTransition_ARRAYSIZE;
 
 class StartArcMiniInstanceRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<StartArcMiniInstanceRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<StartArcMiniInstanceRequest>()._impl_._has_bits_);
   static void set_has_native_bridge_experiment(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -398,49 +402,82 @@ class StartArcMiniInstanceRequest::_Internal {
 StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:arc.StartArcMiniInstanceRequest)
 }
 StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(const StartArcMiniInstanceRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  StartArcMiniInstanceRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.native_bridge_experiment_){}
+    , decltype(_impl_.arc_file_picker_experiment_){}
+    , decltype(_impl_.arc_custom_tabs_experiment_){}
+    , decltype(_impl_.arc_print_spooler_experiment_){}
+    , decltype(_impl_.play_store_auto_update_){}
+    , decltype(_impl_.dalvik_memory_profile_){}
+    , decltype(_impl_.disable_ureadahead_){}
+    , decltype(_impl_.disable_system_default_app_){}
+    , decltype(_impl_.disable_download_provider_){}
+    , decltype(_impl_.disable_media_store_maintenance_){}
+    , decltype(_impl_.arc_generate_pai_){}
+    , decltype(_impl_.enable_notifications_refresh_){}
+    , decltype(_impl_.enable_tts_caching_){}
+    , decltype(_impl_.enable_consumer_auto_update_toggle_){}
+    , decltype(_impl_.host_ureadahead_generation_){}
+    , decltype(_impl_.enable_privacy_hub_for_chrome_){}
+    , decltype(_impl_.lcd_density_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&native_bridge_experiment_, &from.native_bridge_experiment_,
-    static_cast<size_t>(reinterpret_cast<char*>(&lcd_density_) -
-    reinterpret_cast<char*>(&native_bridge_experiment_)) + sizeof(lcd_density_));
+  ::memcpy(&_impl_.native_bridge_experiment_, &from._impl_.native_bridge_experiment_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.lcd_density_) -
+    reinterpret_cast<char*>(&_impl_.native_bridge_experiment_)) + sizeof(_impl_.lcd_density_));
   // @@protoc_insertion_point(copy_constructor:arc.StartArcMiniInstanceRequest)
 }
 
-inline void StartArcMiniInstanceRequest::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&native_bridge_experiment_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&enable_privacy_hub_for_chrome_) -
-    reinterpret_cast<char*>(&native_bridge_experiment_)) + sizeof(enable_privacy_hub_for_chrome_));
-lcd_density_ = -1;
+inline void StartArcMiniInstanceRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.native_bridge_experiment_){false}
+    , decltype(_impl_.arc_file_picker_experiment_){false}
+    , decltype(_impl_.arc_custom_tabs_experiment_){false}
+    , decltype(_impl_.arc_print_spooler_experiment_){false}
+    , decltype(_impl_.play_store_auto_update_){0}
+    , decltype(_impl_.dalvik_memory_profile_){0}
+    , decltype(_impl_.disable_ureadahead_){false}
+    , decltype(_impl_.disable_system_default_app_){false}
+    , decltype(_impl_.disable_download_provider_){false}
+    , decltype(_impl_.disable_media_store_maintenance_){false}
+    , decltype(_impl_.arc_generate_pai_){false}
+    , decltype(_impl_.enable_notifications_refresh_){false}
+    , decltype(_impl_.enable_tts_caching_){false}
+    , decltype(_impl_.enable_consumer_auto_update_toggle_){false}
+    , decltype(_impl_.host_ureadahead_generation_){false}
+    , decltype(_impl_.enable_privacy_hub_for_chrome_){false}
+    , decltype(_impl_.lcd_density_){-1}
+  };
 }
 
 StartArcMiniInstanceRequest::~StartArcMiniInstanceRequest() {
   // @@protoc_insertion_point(destructor:arc.StartArcMiniInstanceRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void StartArcMiniInstanceRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void StartArcMiniInstanceRequest::ArenaDtor(void* object) {
-  StartArcMiniInstanceRequest* _this = reinterpret_cast< StartArcMiniInstanceRequest* >(object);
-  (void)_this;
-}
-void StartArcMiniInstanceRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void StartArcMiniInstanceRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void StartArcMiniInstanceRequest::Clear() {
@@ -449,34 +486,34 @@ void StartArcMiniInstanceRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
-    ::memset(&native_bridge_experiment_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&disable_system_default_app_) -
-        reinterpret_cast<char*>(&native_bridge_experiment_)) + sizeof(disable_system_default_app_));
+    ::memset(&_impl_.native_bridge_experiment_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.disable_system_default_app_) -
+        reinterpret_cast<char*>(&_impl_.native_bridge_experiment_)) + sizeof(_impl_.disable_system_default_app_));
   }
   if (cached_has_bits & 0x0000ff00u) {
-    ::memset(&disable_download_provider_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&enable_privacy_hub_for_chrome_) -
-        reinterpret_cast<char*>(&disable_download_provider_)) + sizeof(enable_privacy_hub_for_chrome_));
+    ::memset(&_impl_.disable_download_provider_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.enable_privacy_hub_for_chrome_) -
+        reinterpret_cast<char*>(&_impl_.disable_download_provider_)) + sizeof(_impl_.enable_privacy_hub_for_chrome_));
   }
-  lcd_density_ = -1;
-  _has_bits_.Clear();
+  _impl_.lcd_density_ = -1;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bool native_bridge_experiment = 1 [default = false];
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_native_bridge_experiment(&has_bits);
-          native_bridge_experiment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.native_bridge_experiment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -485,7 +522,7 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTO
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_lcd_density(&has_bits);
-          lcd_density_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.lcd_density_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -494,7 +531,7 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTO
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_arc_file_picker_experiment(&has_bits);
-          arc_file_picker_experiment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.arc_file_picker_experiment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -516,7 +553,7 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTO
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _Internal::set_has_arc_custom_tabs_experiment(&has_bits);
-          arc_custom_tabs_experiment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.arc_custom_tabs_experiment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -525,7 +562,7 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTO
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
           _Internal::set_has_arc_print_spooler_experiment(&has_bits);
-          arc_print_spooler_experiment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.arc_print_spooler_experiment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -534,7 +571,7 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTO
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
           _Internal::set_has_disable_ureadahead(&has_bits);
-          disable_ureadahead_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.disable_ureadahead_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -543,7 +580,7 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTO
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
           _Internal::set_has_disable_system_default_app(&has_bits);
-          disable_system_default_app_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.disable_system_default_app_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -565,7 +602,7 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTO
       case 10:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
           _Internal::set_has_disable_media_store_maintenance(&has_bits);
-          disable_media_store_maintenance_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.disable_media_store_maintenance_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -574,7 +611,7 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTO
       case 11:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
           _Internal::set_has_arc_generate_pai(&has_bits);
-          arc_generate_pai_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.arc_generate_pai_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -583,7 +620,7 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTO
       case 12:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
           _Internal::set_has_disable_download_provider(&has_bits);
-          disable_download_provider_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.disable_download_provider_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -592,7 +629,7 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTO
       case 13:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
           _Internal::set_has_enable_notifications_refresh(&has_bits);
-          enable_notifications_refresh_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.enable_notifications_refresh_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -601,7 +638,7 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTO
       case 14:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
           _Internal::set_has_enable_tts_caching(&has_bits);
-          enable_tts_caching_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.enable_tts_caching_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -610,7 +647,7 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTO
       case 15:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 120)) {
           _Internal::set_has_enable_consumer_auto_update_toggle(&has_bits);
-          enable_consumer_auto_update_toggle_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.enable_consumer_auto_update_toggle_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -619,7 +656,7 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTO
       case 16:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
           _Internal::set_has_host_ureadahead_generation(&has_bits);
-          host_ureadahead_generation_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.host_ureadahead_generation_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -628,7 +665,7 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTO
       case 17:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 136)) {
           _Internal::set_has_enable_privacy_hub_for_chrome(&has_bits);
-          enable_privacy_hub_for_chrome_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.enable_privacy_hub_for_chrome_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -649,7 +686,7 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::PROTO
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -663,109 +700,109 @@ uint8_t* StartArcMiniInstanceRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool native_bridge_experiment = 1 [default = false];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_native_bridge_experiment(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_native_bridge_experiment(), target);
   }
 
   // optional int32 lcd_density = 2 [default = -1];
   if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_lcd_density(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_lcd_density(), target);
   }
 
   // optional bool arc_file_picker_experiment = 3 [default = false];
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_arc_file_picker_experiment(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_arc_file_picker_experiment(), target);
   }
 
   // optional .arc.StartArcMiniInstanceRequest.PlayStoreAutoUpdate play_store_auto_update = 4 [default = AUTO_UPDATE_DEFAULT];
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       4, this->_internal_play_store_auto_update(), target);
   }
 
   // optional bool arc_custom_tabs_experiment = 5 [default = false];
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(5, this->_internal_arc_custom_tabs_experiment(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_arc_custom_tabs_experiment(), target);
   }
 
   // optional bool arc_print_spooler_experiment = 6 [default = false, deprecated = true];
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(6, this->_internal_arc_print_spooler_experiment(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_arc_print_spooler_experiment(), target);
   }
 
   // optional bool disable_ureadahead = 7 [default = false];
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->_internal_disable_ureadahead(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_disable_ureadahead(), target);
   }
 
   // optional bool disable_system_default_app = 8 [default = false, deprecated = true];
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(8, this->_internal_disable_system_default_app(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_disable_system_default_app(), target);
   }
 
   // optional .arc.StartArcMiniInstanceRequest.DalvikMemoryProfile dalvik_memory_profile = 9 [default = MEMORY_PROFILE_DEFAULT];
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       9, this->_internal_dalvik_memory_profile(), target);
   }
 
   // optional bool disable_media_store_maintenance = 10 [default = false];
   if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(10, this->_internal_disable_media_store_maintenance(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(10, this->_internal_disable_media_store_maintenance(), target);
   }
 
   // optional bool arc_generate_pai = 11 [default = false];
   if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(11, this->_internal_arc_generate_pai(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(11, this->_internal_arc_generate_pai(), target);
   }
 
   // optional bool disable_download_provider = 12 [default = false];
   if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(12, this->_internal_disable_download_provider(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(12, this->_internal_disable_download_provider(), target);
   }
 
   // optional bool enable_notifications_refresh = 13 [default = false];
   if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(13, this->_internal_enable_notifications_refresh(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(13, this->_internal_enable_notifications_refresh(), target);
   }
 
   // optional bool enable_tts_caching = 14 [default = false];
   if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(14, this->_internal_enable_tts_caching(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(14, this->_internal_enable_tts_caching(), target);
   }
 
   // optional bool enable_consumer_auto_update_toggle = 15 [default = false];
   if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(15, this->_internal_enable_consumer_auto_update_toggle(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(15, this->_internal_enable_consumer_auto_update_toggle(), target);
   }
 
   // optional bool host_ureadahead_generation = 16 [default = false];
   if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(16, this->_internal_host_ureadahead_generation(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(16, this->_internal_host_ureadahead_generation(), target);
   }
 
   // optional bool enable_privacy_hub_for_chrome = 17 [default = false];
   if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(17, this->_internal_enable_privacy_hub_for_chrome(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(17, this->_internal_enable_privacy_hub_for_chrome(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -784,7 +821,7 @@ size_t StartArcMiniInstanceRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional bool native_bridge_experiment = 1 [default = false];
     if (cached_has_bits & 0x00000001u) {
@@ -809,13 +846,13 @@ size_t StartArcMiniInstanceRequest::ByteSizeLong() const {
     // optional .arc.StartArcMiniInstanceRequest.PlayStoreAutoUpdate play_store_auto_update = 4 [default = AUTO_UPDATE_DEFAULT];
     if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_play_store_auto_update());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_play_store_auto_update());
     }
 
     // optional .arc.StartArcMiniInstanceRequest.DalvikMemoryProfile dalvik_memory_profile = 9 [default = MEMORY_PROFILE_DEFAULT];
     if (cached_has_bits & 0x00000020u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_dalvik_memory_profile());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_dalvik_memory_profile());
     }
 
     // optional bool disable_ureadahead = 7 [default = false];
@@ -873,88 +910,89 @@ size_t StartArcMiniInstanceRequest::ByteSizeLong() const {
   }
   // optional int32 lcd_density = 2 [default = -1];
   if (cached_has_bits & 0x00010000u) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_lcd_density());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_lcd_density());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void StartArcMiniInstanceRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const StartArcMiniInstanceRequest*>(
+  MergeFrom(*::_pbi::DownCast<const StartArcMiniInstanceRequest*>(
       &from));
 }
 
 void StartArcMiniInstanceRequest::MergeFrom(const StartArcMiniInstanceRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:arc.StartArcMiniInstanceRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  StartArcMiniInstanceRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:arc.StartArcMiniInstanceRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      native_bridge_experiment_ = from.native_bridge_experiment_;
+      _this->_impl_.native_bridge_experiment_ = from._impl_.native_bridge_experiment_;
     }
     if (cached_has_bits & 0x00000002u) {
-      arc_file_picker_experiment_ = from.arc_file_picker_experiment_;
+      _this->_impl_.arc_file_picker_experiment_ = from._impl_.arc_file_picker_experiment_;
     }
     if (cached_has_bits & 0x00000004u) {
-      arc_custom_tabs_experiment_ = from.arc_custom_tabs_experiment_;
+      _this->_impl_.arc_custom_tabs_experiment_ = from._impl_.arc_custom_tabs_experiment_;
     }
     if (cached_has_bits & 0x00000008u) {
-      arc_print_spooler_experiment_ = from.arc_print_spooler_experiment_;
+      _this->_impl_.arc_print_spooler_experiment_ = from._impl_.arc_print_spooler_experiment_;
     }
     if (cached_has_bits & 0x00000010u) {
-      play_store_auto_update_ = from.play_store_auto_update_;
+      _this->_impl_.play_store_auto_update_ = from._impl_.play_store_auto_update_;
     }
     if (cached_has_bits & 0x00000020u) {
-      dalvik_memory_profile_ = from.dalvik_memory_profile_;
+      _this->_impl_.dalvik_memory_profile_ = from._impl_.dalvik_memory_profile_;
     }
     if (cached_has_bits & 0x00000040u) {
-      disable_ureadahead_ = from.disable_ureadahead_;
+      _this->_impl_.disable_ureadahead_ = from._impl_.disable_ureadahead_;
     }
     if (cached_has_bits & 0x00000080u) {
-      disable_system_default_app_ = from.disable_system_default_app_;
+      _this->_impl_.disable_system_default_app_ = from._impl_.disable_system_default_app_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      disable_download_provider_ = from.disable_download_provider_;
+      _this->_impl_.disable_download_provider_ = from._impl_.disable_download_provider_;
     }
     if (cached_has_bits & 0x00000200u) {
-      disable_media_store_maintenance_ = from.disable_media_store_maintenance_;
+      _this->_impl_.disable_media_store_maintenance_ = from._impl_.disable_media_store_maintenance_;
     }
     if (cached_has_bits & 0x00000400u) {
-      arc_generate_pai_ = from.arc_generate_pai_;
+      _this->_impl_.arc_generate_pai_ = from._impl_.arc_generate_pai_;
     }
     if (cached_has_bits & 0x00000800u) {
-      enable_notifications_refresh_ = from.enable_notifications_refresh_;
+      _this->_impl_.enable_notifications_refresh_ = from._impl_.enable_notifications_refresh_;
     }
     if (cached_has_bits & 0x00001000u) {
-      enable_tts_caching_ = from.enable_tts_caching_;
+      _this->_impl_.enable_tts_caching_ = from._impl_.enable_tts_caching_;
     }
     if (cached_has_bits & 0x00002000u) {
-      enable_consumer_auto_update_toggle_ = from.enable_consumer_auto_update_toggle_;
+      _this->_impl_.enable_consumer_auto_update_toggle_ = from._impl_.enable_consumer_auto_update_toggle_;
     }
     if (cached_has_bits & 0x00004000u) {
-      host_ureadahead_generation_ = from.host_ureadahead_generation_;
+      _this->_impl_.host_ureadahead_generation_ = from._impl_.host_ureadahead_generation_;
     }
     if (cached_has_bits & 0x00008000u) {
-      enable_privacy_hub_for_chrome_ = from.enable_privacy_hub_for_chrome_;
+      _this->_impl_.enable_privacy_hub_for_chrome_ = from._impl_.enable_privacy_hub_for_chrome_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x00010000u) {
-    _internal_set_lcd_density(from._internal_lcd_density());
+    _this->_internal_set_lcd_density(from._internal_lcd_density());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void StartArcMiniInstanceRequest::CopyFrom(const StartArcMiniInstanceRequest& from) {
@@ -971,14 +1009,14 @@ bool StartArcMiniInstanceRequest::IsInitialized() const {
 void StartArcMiniInstanceRequest::InternalSwap(StartArcMiniInstanceRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartArcMiniInstanceRequest, enable_privacy_hub_for_chrome_)
-      + sizeof(StartArcMiniInstanceRequest::enable_privacy_hub_for_chrome_)
-      - PROTOBUF_FIELD_OFFSET(StartArcMiniInstanceRequest, native_bridge_experiment_)>(
-          reinterpret_cast<char*>(&native_bridge_experiment_),
-          reinterpret_cast<char*>(&other->native_bridge_experiment_));
-  swap(lcd_density_, other->lcd_density_);
+      PROTOBUF_FIELD_OFFSET(StartArcMiniInstanceRequest, _impl_.enable_privacy_hub_for_chrome_)
+      + sizeof(StartArcMiniInstanceRequest::_impl_.enable_privacy_hub_for_chrome_)
+      - PROTOBUF_FIELD_OFFSET(StartArcMiniInstanceRequest, _impl_.native_bridge_experiment_)>(
+          reinterpret_cast<char*>(&_impl_.native_bridge_experiment_),
+          reinterpret_cast<char*>(&other->_impl_.native_bridge_experiment_));
+  swap(_impl_.lcd_density_, other->_impl_.lcd_density_);
 }
 
 std::string StartArcMiniInstanceRequest::GetTypeName() const {
@@ -990,7 +1028,7 @@ std::string StartArcMiniInstanceRequest::GetTypeName() const {
 
 class UpgradeArcContainerRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<UpgradeArcContainerRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<UpgradeArcContainerRequest>()._impl_._has_bits_);
   static void set_has_account_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1040,90 +1078,119 @@ class UpgradeArcContainerRequest::_Internal {
 
 UpgradeArcContainerRequest::UpgradeArcContainerRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  preferred_languages_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:arc.UpgradeArcContainerRequest)
 }
 UpgradeArcContainerRequest::UpgradeArcContainerRequest(const UpgradeArcContainerRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      preferred_languages_(from.preferred_languages_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  UpgradeArcContainerRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.preferred_languages_){from._impl_.preferred_languages_}
+    , decltype(_impl_.account_id_){}
+    , decltype(_impl_.demo_session_apps_path_){}
+    , decltype(_impl_.locale_){}
+    , decltype(_impl_.packages_cache_mode_){}
+    , decltype(_impl_.management_transition_){}
+    , decltype(_impl_.is_account_managed_){}
+    , decltype(_impl_.is_managed_adb_sideloading_allowed_){}
+    , decltype(_impl_.disable_ureadahead_){}
+    , decltype(_impl_.skip_boot_completed_broadcast_){}
+    , decltype(_impl_.skip_gms_core_cache_){}
+    , decltype(_impl_.obsolete_is_child_){}
+    , decltype(_impl_.is_demo_session_){}
+    , decltype(_impl_.enable_arc_nearby_share_){}
+    , decltype(_impl_.skip_tts_cache_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  account_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.account_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    account_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.account_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_account_id()) {
-    account_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_account_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.account_id_.Set(from._internal_account_id(), 
+      _this->GetArenaForAllocation());
   }
-  demo_session_apps_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.demo_session_apps_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    demo_session_apps_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.demo_session_apps_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_demo_session_apps_path()) {
-    demo_session_apps_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_demo_session_apps_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.demo_session_apps_path_.Set(from._internal_demo_session_apps_path(), 
+      _this->GetArenaForAllocation());
   }
-  locale_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.locale_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    locale_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.locale_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_locale()) {
-    locale_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_locale(), 
-      GetArenaForAllocation());
+    _this->_impl_.locale_.Set(from._internal_locale(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&packages_cache_mode_, &from.packages_cache_mode_,
-    static_cast<size_t>(reinterpret_cast<char*>(&skip_tts_cache_) -
-    reinterpret_cast<char*>(&packages_cache_mode_)) + sizeof(skip_tts_cache_));
+  ::memcpy(&_impl_.packages_cache_mode_, &from._impl_.packages_cache_mode_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.skip_tts_cache_) -
+    reinterpret_cast<char*>(&_impl_.packages_cache_mode_)) + sizeof(_impl_.skip_tts_cache_));
   // @@protoc_insertion_point(copy_constructor:arc.UpgradeArcContainerRequest)
 }
 
-inline void UpgradeArcContainerRequest::SharedCtor() {
-account_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  account_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-demo_session_apps_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  demo_session_apps_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-locale_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  locale_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&packages_cache_mode_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&skip_tts_cache_) -
-    reinterpret_cast<char*>(&packages_cache_mode_)) + sizeof(skip_tts_cache_));
+inline void UpgradeArcContainerRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.preferred_languages_){arena}
+    , decltype(_impl_.account_id_){}
+    , decltype(_impl_.demo_session_apps_path_){}
+    , decltype(_impl_.locale_){}
+    , decltype(_impl_.packages_cache_mode_){0}
+    , decltype(_impl_.management_transition_){0}
+    , decltype(_impl_.is_account_managed_){false}
+    , decltype(_impl_.is_managed_adb_sideloading_allowed_){false}
+    , decltype(_impl_.disable_ureadahead_){false}
+    , decltype(_impl_.skip_boot_completed_broadcast_){false}
+    , decltype(_impl_.skip_gms_core_cache_){false}
+    , decltype(_impl_.obsolete_is_child_){false}
+    , decltype(_impl_.is_demo_session_){false}
+    , decltype(_impl_.enable_arc_nearby_share_){false}
+    , decltype(_impl_.skip_tts_cache_){false}
+  };
+  _impl_.account_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.account_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.demo_session_apps_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.demo_session_apps_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.locale_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.locale_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 UpgradeArcContainerRequest::~UpgradeArcContainerRequest() {
   // @@protoc_insertion_point(destructor:arc.UpgradeArcContainerRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void UpgradeArcContainerRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  account_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  demo_session_apps_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  locale_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.preferred_languages_.~RepeatedPtrField();
+  _impl_.account_id_.Destroy();
+  _impl_.demo_session_apps_path_.Destroy();
+  _impl_.locale_.Destroy();
 }
 
-void UpgradeArcContainerRequest::ArenaDtor(void* object) {
-  UpgradeArcContainerRequest* _this = reinterpret_cast< UpgradeArcContainerRequest* >(object);
-  (void)_this;
-}
-void UpgradeArcContainerRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void UpgradeArcContainerRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UpgradeArcContainerRequest::Clear() {
@@ -1132,45 +1199,45 @@ void UpgradeArcContainerRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  preferred_languages_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.preferred_languages_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      account_id_.ClearNonDefaultToEmpty();
+      _impl_.account_id_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      demo_session_apps_path_.ClearNonDefaultToEmpty();
+      _impl_.demo_session_apps_path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      locale_.ClearNonDefaultToEmpty();
+      _impl_.locale_.ClearNonDefaultToEmpty();
     }
   }
   if (cached_has_bits & 0x000000f8u) {
-    ::memset(&packages_cache_mode_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&disable_ureadahead_) -
-        reinterpret_cast<char*>(&packages_cache_mode_)) + sizeof(disable_ureadahead_));
+    ::memset(&_impl_.packages_cache_mode_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.disable_ureadahead_) -
+        reinterpret_cast<char*>(&_impl_.packages_cache_mode_)) + sizeof(_impl_.disable_ureadahead_));
   }
   if (cached_has_bits & 0x00003f00u) {
-    ::memset(&skip_boot_completed_broadcast_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&skip_tts_cache_) -
-        reinterpret_cast<char*>(&skip_boot_completed_broadcast_)) + sizeof(skip_tts_cache_));
+    ::memset(&_impl_.skip_boot_completed_broadcast_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.skip_tts_cache_) -
+        reinterpret_cast<char*>(&_impl_.skip_boot_completed_broadcast_)) + sizeof(_impl_.skip_tts_cache_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* UpgradeArcContainerRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* UpgradeArcContainerRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required string account_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_account_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1179,7 +1246,7 @@ const char* UpgradeArcContainerRequest::_InternalParse(const char* ptr, ::PROTOB
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_skip_boot_completed_broadcast(&has_bits);
-          skip_boot_completed_broadcast_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.skip_boot_completed_broadcast_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1201,7 +1268,7 @@ const char* UpgradeArcContainerRequest::_InternalParse(const char* ptr, ::PROTOB
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_demo_session_apps_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1210,7 +1277,7 @@ const char* UpgradeArcContainerRequest::_InternalParse(const char* ptr, ::PROTOB
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
           auto str = _internal_mutable_locale();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1222,7 +1289,7 @@ const char* UpgradeArcContainerRequest::_InternalParse(const char* ptr, ::PROTOB
           do {
             ptr += 1;
             auto str = _internal_add_preferred_languages();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<66>(ptr));
@@ -1233,7 +1300,7 @@ const char* UpgradeArcContainerRequest::_InternalParse(const char* ptr, ::PROTOB
       case 9:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
           _Internal::set_has_obsolete_is_child(&has_bits);
-          obsolete_is_child_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.obsolete_is_child_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1242,7 +1309,7 @@ const char* UpgradeArcContainerRequest::_InternalParse(const char* ptr, ::PROTOB
       case 10:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
           _Internal::set_has_is_demo_session(&has_bits);
-          is_demo_session_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.is_demo_session_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1264,7 +1331,7 @@ const char* UpgradeArcContainerRequest::_InternalParse(const char* ptr, ::PROTOB
       case 13:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
           _Internal::set_has_skip_gms_core_cache(&has_bits);
-          skip_gms_core_cache_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.skip_gms_core_cache_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1273,7 +1340,7 @@ const char* UpgradeArcContainerRequest::_InternalParse(const char* ptr, ::PROTOB
       case 14:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
           _Internal::set_has_is_account_managed(&has_bits);
-          is_account_managed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.is_account_managed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1282,7 +1349,7 @@ const char* UpgradeArcContainerRequest::_InternalParse(const char* ptr, ::PROTOB
       case 15:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 120)) {
           _Internal::set_has_disable_ureadahead(&has_bits);
-          disable_ureadahead_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.disable_ureadahead_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1291,7 +1358,7 @@ const char* UpgradeArcContainerRequest::_InternalParse(const char* ptr, ::PROTOB
       case 16:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 128)) {
           _Internal::set_has_is_managed_adb_sideloading_allowed(&has_bits);
-          is_managed_adb_sideloading_allowed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.is_managed_adb_sideloading_allowed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1300,7 +1367,7 @@ const char* UpgradeArcContainerRequest::_InternalParse(const char* ptr, ::PROTOB
       case 17:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 136)) {
           _Internal::set_has_enable_arc_nearby_share(&has_bits);
-          enable_arc_nearby_share_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.enable_arc_nearby_share_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1309,7 +1376,7 @@ const char* UpgradeArcContainerRequest::_InternalParse(const char* ptr, ::PROTOB
       case 18:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 144)) {
           _Internal::set_has_skip_tts_cache(&has_bits);
-          skip_tts_cache_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.skip_tts_cache_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1330,7 +1397,7 @@ const char* UpgradeArcContainerRequest::_InternalParse(const char* ptr, ::PROTOB
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1344,7 +1411,7 @@ uint8_t* UpgradeArcContainerRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required string account_id = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -1354,13 +1421,13 @@ uint8_t* UpgradeArcContainerRequest::_InternalSerialize(
   // optional bool skip_boot_completed_broadcast = 2 [default = false];
   if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_skip_boot_completed_broadcast(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_skip_boot_completed_broadcast(), target);
   }
 
   // optional .arc.UpgradeArcContainerRequest.PackageCacheMode packages_cache_mode = 4 [default = DEFAULT];
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       4, this->_internal_packages_cache_mode(), target);
   }
 
@@ -1385,56 +1452,56 @@ uint8_t* UpgradeArcContainerRequest::_InternalSerialize(
   // optional bool OBSOLETE_is_child = 9 [deprecated = true];
   if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(9, this->_internal_obsolete_is_child(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(9, this->_internal_obsolete_is_child(), target);
   }
 
   // optional bool is_demo_session = 10;
   if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(10, this->_internal_is_demo_session(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(10, this->_internal_is_demo_session(), target);
   }
 
   // optional .arc.UpgradeArcContainerRequest.ManagementTransition management_transition = 11;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       11, this->_internal_management_transition(), target);
   }
 
   // optional bool skip_gms_core_cache = 13 [default = false];
   if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(13, this->_internal_skip_gms_core_cache(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(13, this->_internal_skip_gms_core_cache(), target);
   }
 
   // optional bool is_account_managed = 14;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(14, this->_internal_is_account_managed(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(14, this->_internal_is_account_managed(), target);
   }
 
   // optional bool disable_ureadahead = 15 [default = false];
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(15, this->_internal_disable_ureadahead(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(15, this->_internal_disable_ureadahead(), target);
   }
 
   // optional bool is_managed_adb_sideloading_allowed = 16;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(16, this->_internal_is_managed_adb_sideloading_allowed(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(16, this->_internal_is_managed_adb_sideloading_allowed(), target);
   }
 
   // optional bool enable_arc_nearby_share = 17 [default = false];
   if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(17, this->_internal_enable_arc_nearby_share(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(17, this->_internal_enable_arc_nearby_share(), target);
   }
 
   // optional bool skip_tts_cache = 18 [default = false];
   if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(18, this->_internal_skip_tts_cache(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(18, this->_internal_skip_tts_cache(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1461,13 +1528,13 @@ size_t UpgradeArcContainerRequest::ByteSizeLong() const {
 
   // repeated string preferred_languages = 8;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(preferred_languages_.size());
-  for (int i = 0, n = preferred_languages_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.preferred_languages_.size());
+  for (int i = 0, n = _impl_.preferred_languages_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      preferred_languages_.Get(i));
+      _impl_.preferred_languages_.Get(i));
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000feu) {
     // optional string demo_session_apps_path = 6;
     if (cached_has_bits & 0x00000002u) {
@@ -1486,13 +1553,13 @@ size_t UpgradeArcContainerRequest::ByteSizeLong() const {
     // optional .arc.UpgradeArcContainerRequest.PackageCacheMode packages_cache_mode = 4 [default = DEFAULT];
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_packages_cache_mode());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_packages_cache_mode());
     }
 
     // optional .arc.UpgradeArcContainerRequest.ManagementTransition management_transition = 11;
     if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_management_transition());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_management_transition());
     }
 
     // optional bool is_account_managed = 14;
@@ -1546,74 +1613,75 @@ size_t UpgradeArcContainerRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void UpgradeArcContainerRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const UpgradeArcContainerRequest*>(
+  MergeFrom(*::_pbi::DownCast<const UpgradeArcContainerRequest*>(
       &from));
 }
 
 void UpgradeArcContainerRequest::MergeFrom(const UpgradeArcContainerRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:arc.UpgradeArcContainerRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  UpgradeArcContainerRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:arc.UpgradeArcContainerRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  preferred_languages_.MergeFrom(from.preferred_languages_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_impl_.preferred_languages_.MergeFrom(from._impl_.preferred_languages_);
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_account_id(from._internal_account_id());
+      _this->_internal_set_account_id(from._internal_account_id());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_demo_session_apps_path(from._internal_demo_session_apps_path());
+      _this->_internal_set_demo_session_apps_path(from._internal_demo_session_apps_path());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_locale(from._internal_locale());
+      _this->_internal_set_locale(from._internal_locale());
     }
     if (cached_has_bits & 0x00000008u) {
-      packages_cache_mode_ = from.packages_cache_mode_;
+      _this->_impl_.packages_cache_mode_ = from._impl_.packages_cache_mode_;
     }
     if (cached_has_bits & 0x00000010u) {
-      management_transition_ = from.management_transition_;
+      _this->_impl_.management_transition_ = from._impl_.management_transition_;
     }
     if (cached_has_bits & 0x00000020u) {
-      is_account_managed_ = from.is_account_managed_;
+      _this->_impl_.is_account_managed_ = from._impl_.is_account_managed_;
     }
     if (cached_has_bits & 0x00000040u) {
-      is_managed_adb_sideloading_allowed_ = from.is_managed_adb_sideloading_allowed_;
+      _this->_impl_.is_managed_adb_sideloading_allowed_ = from._impl_.is_managed_adb_sideloading_allowed_;
     }
     if (cached_has_bits & 0x00000080u) {
-      disable_ureadahead_ = from.disable_ureadahead_;
+      _this->_impl_.disable_ureadahead_ = from._impl_.disable_ureadahead_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x00003f00u) {
     if (cached_has_bits & 0x00000100u) {
-      skip_boot_completed_broadcast_ = from.skip_boot_completed_broadcast_;
+      _this->_impl_.skip_boot_completed_broadcast_ = from._impl_.skip_boot_completed_broadcast_;
     }
     if (cached_has_bits & 0x00000200u) {
-      skip_gms_core_cache_ = from.skip_gms_core_cache_;
+      _this->_impl_.skip_gms_core_cache_ = from._impl_.skip_gms_core_cache_;
     }
     if (cached_has_bits & 0x00000400u) {
-      obsolete_is_child_ = from.obsolete_is_child_;
+      _this->_impl_.obsolete_is_child_ = from._impl_.obsolete_is_child_;
     }
     if (cached_has_bits & 0x00000800u) {
-      is_demo_session_ = from.is_demo_session_;
+      _this->_impl_.is_demo_session_ = from._impl_.is_demo_session_;
     }
     if (cached_has_bits & 0x00001000u) {
-      enable_arc_nearby_share_ = from.enable_arc_nearby_share_;
+      _this->_impl_.enable_arc_nearby_share_ = from._impl_.enable_arc_nearby_share_;
     }
     if (cached_has_bits & 0x00002000u) {
-      skip_tts_cache_ = from.skip_tts_cache_;
+      _this->_impl_.skip_tts_cache_ = from._impl_.skip_tts_cache_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void UpgradeArcContainerRequest::CopyFrom(const UpgradeArcContainerRequest& from) {
@@ -1624,7 +1692,7 @@ void UpgradeArcContainerRequest::CopyFrom(const UpgradeArcContainerRequest& from
 }
 
 bool UpgradeArcContainerRequest::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
@@ -1633,29 +1701,26 @@ void UpgradeArcContainerRequest::InternalSwap(UpgradeArcContainerRequest* other)
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  preferred_languages_.InternalSwap(&other->preferred_languages_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.preferred_languages_.InternalSwap(&other->_impl_.preferred_languages_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &account_id_, lhs_arena,
-      &other->account_id_, rhs_arena
+      &_impl_.account_id_, lhs_arena,
+      &other->_impl_.account_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &demo_session_apps_path_, lhs_arena,
-      &other->demo_session_apps_path_, rhs_arena
+      &_impl_.demo_session_apps_path_, lhs_arena,
+      &other->_impl_.demo_session_apps_path_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &locale_, lhs_arena,
-      &other->locale_, rhs_arena
+      &_impl_.locale_, lhs_arena,
+      &other->_impl_.locale_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(UpgradeArcContainerRequest, skip_tts_cache_)
-      + sizeof(UpgradeArcContainerRequest::skip_tts_cache_)
-      - PROTOBUF_FIELD_OFFSET(UpgradeArcContainerRequest, packages_cache_mode_)>(
-          reinterpret_cast<char*>(&packages_cache_mode_),
-          reinterpret_cast<char*>(&other->packages_cache_mode_));
+      PROTOBUF_FIELD_OFFSET(UpgradeArcContainerRequest, _impl_.skip_tts_cache_)
+      + sizeof(UpgradeArcContainerRequest::_impl_.skip_tts_cache_)
+      - PROTOBUF_FIELD_OFFSET(UpgradeArcContainerRequest, _impl_.packages_cache_mode_)>(
+          reinterpret_cast<char*>(&_impl_.packages_cache_mode_),
+          reinterpret_cast<char*>(&other->_impl_.packages_cache_mode_));
 }
 
 std::string UpgradeArcContainerRequest::GetTypeName() const {
@@ -1666,10 +1731,12 @@ std::string UpgradeArcContainerRequest::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace arc
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::arc::StartArcMiniInstanceRequest* Arena::CreateMaybeMessage< ::arc::StartArcMiniInstanceRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::arc::StartArcMiniInstanceRequest*
+Arena::CreateMaybeMessage< ::arc::StartArcMiniInstanceRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::arc::StartArcMiniInstanceRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::arc::UpgradeArcContainerRequest* Arena::CreateMaybeMessage< ::arc::UpgradeArcContainerRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::arc::UpgradeArcContainerRequest*
+Arena::CreateMaybeMessage< ::arc::UpgradeArcContainerRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::arc::UpgradeArcContainerRequest >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

@@ -16,146 +16,154 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace diagnostics {
 namespace grpc_api {
-constexpr HandleMessageFromUiRequest::HandleMessageFromUiRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : json_message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_CONSTEXPR HandleMessageFromUiRequest::HandleMessageFromUiRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.json_message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HandleMessageFromUiRequestDefaultTypeInternal {
-  constexpr HandleMessageFromUiRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandleMessageFromUiRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandleMessageFromUiRequestDefaultTypeInternal() {}
   union {
     HandleMessageFromUiRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandleMessageFromUiRequestDefaultTypeInternal _HandleMessageFromUiRequest_default_instance_;
-constexpr HandleMessageFromUiResponse::HandleMessageFromUiResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : response_json_message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandleMessageFromUiRequestDefaultTypeInternal _HandleMessageFromUiRequest_default_instance_;
+PROTOBUF_CONSTEXPR HandleMessageFromUiResponse::HandleMessageFromUiResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.response_json_message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HandleMessageFromUiResponseDefaultTypeInternal {
-  constexpr HandleMessageFromUiResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandleMessageFromUiResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandleMessageFromUiResponseDefaultTypeInternal() {}
   union {
     HandleMessageFromUiResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandleMessageFromUiResponseDefaultTypeInternal _HandleMessageFromUiResponse_default_instance_;
-constexpr HandleEcNotificationRequest::HandleEcNotificationRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : payload_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , type_(0u){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandleMessageFromUiResponseDefaultTypeInternal _HandleMessageFromUiResponse_default_instance_;
+PROTOBUF_CONSTEXPR HandleEcNotificationRequest::HandleEcNotificationRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.payload_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.type_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HandleEcNotificationRequestDefaultTypeInternal {
-  constexpr HandleEcNotificationRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandleEcNotificationRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandleEcNotificationRequestDefaultTypeInternal() {}
   union {
     HandleEcNotificationRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandleEcNotificationRequestDefaultTypeInternal _HandleEcNotificationRequest_default_instance_;
-constexpr HandleEcNotificationResponse::HandleEcNotificationResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandleEcNotificationRequestDefaultTypeInternal _HandleEcNotificationRequest_default_instance_;
+PROTOBUF_CONSTEXPR HandleEcNotificationResponse::HandleEcNotificationResponse(
+    ::_pbi::ConstantInitialized) {}
 struct HandleEcNotificationResponseDefaultTypeInternal {
-  constexpr HandleEcNotificationResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandleEcNotificationResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandleEcNotificationResponseDefaultTypeInternal() {}
   union {
     HandleEcNotificationResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandleEcNotificationResponseDefaultTypeInternal _HandleEcNotificationResponse_default_instance_;
-constexpr HandlePowerNotificationRequest::HandlePowerNotificationRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : power_event_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandleEcNotificationResponseDefaultTypeInternal _HandleEcNotificationResponse_default_instance_;
+PROTOBUF_CONSTEXPR HandlePowerNotificationRequest::HandlePowerNotificationRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.power_event_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HandlePowerNotificationRequestDefaultTypeInternal {
-  constexpr HandlePowerNotificationRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandlePowerNotificationRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandlePowerNotificationRequestDefaultTypeInternal() {}
   union {
     HandlePowerNotificationRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandlePowerNotificationRequestDefaultTypeInternal _HandlePowerNotificationRequest_default_instance_;
-constexpr HandlePowerNotificationResponse::HandlePowerNotificationResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandlePowerNotificationRequestDefaultTypeInternal _HandlePowerNotificationRequest_default_instance_;
+PROTOBUF_CONSTEXPR HandlePowerNotificationResponse::HandlePowerNotificationResponse(
+    ::_pbi::ConstantInitialized) {}
 struct HandlePowerNotificationResponseDefaultTypeInternal {
-  constexpr HandlePowerNotificationResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandlePowerNotificationResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandlePowerNotificationResponseDefaultTypeInternal() {}
   union {
     HandlePowerNotificationResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandlePowerNotificationResponseDefaultTypeInternal _HandlePowerNotificationResponse_default_instance_;
-constexpr HandleConfigurationDataChangedRequest::HandleConfigurationDataChangedRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandlePowerNotificationResponseDefaultTypeInternal _HandlePowerNotificationResponse_default_instance_;
+PROTOBUF_CONSTEXPR HandleConfigurationDataChangedRequest::HandleConfigurationDataChangedRequest(
+    ::_pbi::ConstantInitialized) {}
 struct HandleConfigurationDataChangedRequestDefaultTypeInternal {
-  constexpr HandleConfigurationDataChangedRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandleConfigurationDataChangedRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandleConfigurationDataChangedRequestDefaultTypeInternal() {}
   union {
     HandleConfigurationDataChangedRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandleConfigurationDataChangedRequestDefaultTypeInternal _HandleConfigurationDataChangedRequest_default_instance_;
-constexpr HandleConfigurationDataChangedResponse::HandleConfigurationDataChangedResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandleConfigurationDataChangedRequestDefaultTypeInternal _HandleConfigurationDataChangedRequest_default_instance_;
+PROTOBUF_CONSTEXPR HandleConfigurationDataChangedResponse::HandleConfigurationDataChangedResponse(
+    ::_pbi::ConstantInitialized) {}
 struct HandleConfigurationDataChangedResponseDefaultTypeInternal {
-  constexpr HandleConfigurationDataChangedResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandleConfigurationDataChangedResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandleConfigurationDataChangedResponseDefaultTypeInternal() {}
   union {
     HandleConfigurationDataChangedResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandleConfigurationDataChangedResponseDefaultTypeInternal _HandleConfigurationDataChangedResponse_default_instance_;
-constexpr HandleBluetoothDataChangedRequest_AdapterData::HandleBluetoothDataChangedRequest_AdapterData(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : adapter_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , adapter_mac_address_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , carrier_status_(0)
-
-  , connected_devices_count_(0u){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandleConfigurationDataChangedResponseDefaultTypeInternal _HandleConfigurationDataChangedResponse_default_instance_;
+PROTOBUF_CONSTEXPR HandleBluetoothDataChangedRequest_AdapterData::HandleBluetoothDataChangedRequest_AdapterData(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.adapter_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.adapter_mac_address_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.carrier_status_)*/0
+  , /*decltype(_impl_.connected_devices_count_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HandleBluetoothDataChangedRequest_AdapterDataDefaultTypeInternal {
-  constexpr HandleBluetoothDataChangedRequest_AdapterDataDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandleBluetoothDataChangedRequest_AdapterDataDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandleBluetoothDataChangedRequest_AdapterDataDefaultTypeInternal() {}
   union {
     HandleBluetoothDataChangedRequest_AdapterData _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandleBluetoothDataChangedRequest_AdapterDataDefaultTypeInternal _HandleBluetoothDataChangedRequest_AdapterData_default_instance_;
-constexpr HandleBluetoothDataChangedRequest::HandleBluetoothDataChangedRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : adapters_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandleBluetoothDataChangedRequest_AdapterDataDefaultTypeInternal _HandleBluetoothDataChangedRequest_AdapterData_default_instance_;
+PROTOBUF_CONSTEXPR HandleBluetoothDataChangedRequest::HandleBluetoothDataChangedRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.adapters_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HandleBluetoothDataChangedRequestDefaultTypeInternal {
-  constexpr HandleBluetoothDataChangedRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandleBluetoothDataChangedRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandleBluetoothDataChangedRequestDefaultTypeInternal() {}
   union {
     HandleBluetoothDataChangedRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandleBluetoothDataChangedRequestDefaultTypeInternal _HandleBluetoothDataChangedRequest_default_instance_;
-constexpr HandleBluetoothDataChangedResponse::HandleBluetoothDataChangedResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandleBluetoothDataChangedRequestDefaultTypeInternal _HandleBluetoothDataChangedRequest_default_instance_;
+PROTOBUF_CONSTEXPR HandleBluetoothDataChangedResponse::HandleBluetoothDataChangedResponse(
+    ::_pbi::ConstantInitialized) {}
 struct HandleBluetoothDataChangedResponseDefaultTypeInternal {
-  constexpr HandleBluetoothDataChangedResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandleBluetoothDataChangedResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandleBluetoothDataChangedResponseDefaultTypeInternal() {}
   union {
     HandleBluetoothDataChangedResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandleBluetoothDataChangedResponseDefaultTypeInternal _HandleBluetoothDataChangedResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandleBluetoothDataChangedResponseDefaultTypeInternal _HandleBluetoothDataChangedResponse_default_instance_;
 }  // namespace grpc_api
 }  // namespace diagnostics
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_wilco_5fdtc_2eproto[11];
-static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_wilco_5fdtc_2eproto[2];
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_wilco_5fdtc_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_wilco_5fdtc_2eproto[11];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_wilco_5fdtc_2eproto[2];
+static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_wilco_5fdtc_2eproto = nullptr;
 
 const uint32_t TableStruct_wilco_5fdtc_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
@@ -164,22 +172,22 @@ const uint32_t TableStruct_wilco_5fdtc_2eproto::offsets[] PROTOBUF_SECTION_VARIA
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleMessageFromUiRequest, json_message_),
+  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleMessageFromUiRequest, _impl_.json_message_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleMessageFromUiResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleMessageFromUiResponse, response_json_message_),
+  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleMessageFromUiResponse, _impl_.response_json_message_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleEcNotificationRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleEcNotificationRequest, type_),
-  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleEcNotificationRequest, payload_),
+  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleEcNotificationRequest, _impl_.type_),
+  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleEcNotificationRequest, _impl_.payload_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleEcNotificationResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -192,7 +200,7 @@ const uint32_t TableStruct_wilco_5fdtc_2eproto::offsets[] PROTOBUF_SECTION_VARIA
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandlePowerNotificationRequest, power_event_),
+  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandlePowerNotificationRequest, _impl_.power_event_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandlePowerNotificationResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -217,17 +225,17 @@ const uint32_t TableStruct_wilco_5fdtc_2eproto::offsets[] PROTOBUF_SECTION_VARIA
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleBluetoothDataChangedRequest_AdapterData, adapter_name_),
-  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleBluetoothDataChangedRequest_AdapterData, adapter_mac_address_),
-  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleBluetoothDataChangedRequest_AdapterData, carrier_status_),
-  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleBluetoothDataChangedRequest_AdapterData, connected_devices_count_),
+  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleBluetoothDataChangedRequest_AdapterData, _impl_.adapter_name_),
+  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleBluetoothDataChangedRequest_AdapterData, _impl_.adapter_mac_address_),
+  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleBluetoothDataChangedRequest_AdapterData, _impl_.carrier_status_),
+  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleBluetoothDataChangedRequest_AdapterData, _impl_.connected_devices_count_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleBluetoothDataChangedRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleBluetoothDataChangedRequest, adapters_),
+  PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleBluetoothDataChangedRequest, _impl_.adapters_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::diagnostics::grpc_api::HandleBluetoothDataChangedResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -235,7 +243,7 @@ const uint32_t TableStruct_wilco_5fdtc_2eproto::offsets[] PROTOBUF_SECTION_VARIA
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
 };
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::diagnostics::grpc_api::HandleMessageFromUiRequest)},
   { 7, -1, -1, sizeof(::diagnostics::grpc_api::HandleMessageFromUiResponse)},
   { 14, -1, -1, sizeof(::diagnostics::grpc_api::HandleEcNotificationRequest)},
@@ -249,18 +257,18 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 70, -1, -1, sizeof(::diagnostics::grpc_api::HandleBluetoothDataChangedResponse)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::diagnostics::grpc_api::_HandleMessageFromUiRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::diagnostics::grpc_api::_HandleMessageFromUiResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::diagnostics::grpc_api::_HandleEcNotificationRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::diagnostics::grpc_api::_HandleEcNotificationResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::diagnostics::grpc_api::_HandlePowerNotificationRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::diagnostics::grpc_api::_HandlePowerNotificationResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::diagnostics::grpc_api::_HandleConfigurationDataChangedRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::diagnostics::grpc_api::_HandleConfigurationDataChangedResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::diagnostics::grpc_api::_HandleBluetoothDataChangedRequest_AdapterData_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::diagnostics::grpc_api::_HandleBluetoothDataChangedRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::diagnostics::grpc_api::_HandleBluetoothDataChangedResponse_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+  &::diagnostics::grpc_api::_HandleMessageFromUiRequest_default_instance_._instance,
+  &::diagnostics::grpc_api::_HandleMessageFromUiResponse_default_instance_._instance,
+  &::diagnostics::grpc_api::_HandleEcNotificationRequest_default_instance_._instance,
+  &::diagnostics::grpc_api::_HandleEcNotificationResponse_default_instance_._instance,
+  &::diagnostics::grpc_api::_HandlePowerNotificationRequest_default_instance_._instance,
+  &::diagnostics::grpc_api::_HandlePowerNotificationResponse_default_instance_._instance,
+  &::diagnostics::grpc_api::_HandleConfigurationDataChangedRequest_default_instance_._instance,
+  &::diagnostics::grpc_api::_HandleConfigurationDataChangedResponse_default_instance_._instance,
+  &::diagnostics::grpc_api::_HandleBluetoothDataChangedRequest_AdapterData_default_instance_._instance,
+  &::diagnostics::grpc_api::_HandleBluetoothDataChangedRequest_default_instance_._instance,
+  &::diagnostics::grpc_api::_HandleBluetoothDataChangedResponse_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_wilco_5fdtc_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -310,19 +318,21 @@ const char descriptor_table_protodef_wilco_5fdtc_2eproto[] PROTOBUF_SECTION_VARI
   "Response\"\000B\026Z\024chromiumos/wilco_dtcb\006prot"
   "o3"
   ;
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_wilco_5fdtc_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_wilco_5fdtc_2eproto = {
-  false, false, 1762, descriptor_table_protodef_wilco_5fdtc_2eproto, "wilco_dtc.proto", 
-  &descriptor_table_wilco_5fdtc_2eproto_once, nullptr, 0, 11,
-  schemas, file_default_instances, TableStruct_wilco_5fdtc_2eproto::offsets,
-  file_level_metadata_wilco_5fdtc_2eproto, file_level_enum_descriptors_wilco_5fdtc_2eproto, file_level_service_descriptors_wilco_5fdtc_2eproto,
+static ::_pbi::once_flag descriptor_table_wilco_5fdtc_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_wilco_5fdtc_2eproto = {
+    false, false, 1762, descriptor_table_protodef_wilco_5fdtc_2eproto,
+    "wilco_dtc.proto",
+    &descriptor_table_wilco_5fdtc_2eproto_once, nullptr, 0, 11,
+    schemas, file_default_instances, TableStruct_wilco_5fdtc_2eproto::offsets,
+    file_level_metadata_wilco_5fdtc_2eproto, file_level_enum_descriptors_wilco_5fdtc_2eproto,
+    file_level_service_descriptors_wilco_5fdtc_2eproto,
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_wilco_5fdtc_2eproto_getter() {
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_wilco_5fdtc_2eproto_getter() {
   return &descriptor_table_wilco_5fdtc_2eproto;
 }
 
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_wilco_5fdtc_2eproto(&descriptor_table_wilco_5fdtc_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_wilco_5fdtc_2eproto(&descriptor_table_wilco_5fdtc_2eproto);
 namespace diagnostics {
 namespace grpc_api {
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* HandlePowerNotificationRequest_PowerEvent_descriptor() {
@@ -385,53 +395,58 @@ class HandleMessageFromUiRequest::_Internal {
 HandleMessageFromUiRequest::HandleMessageFromUiRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:diagnostics.grpc_api.HandleMessageFromUiRequest)
 }
 HandleMessageFromUiRequest::HandleMessageFromUiRequest(const HandleMessageFromUiRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HandleMessageFromUiRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.json_message_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  json_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.json_message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    json_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.json_message_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_json_message().empty()) {
-    json_message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_json_message(), 
-      GetArenaForAllocation());
+    _this->_impl_.json_message_.Set(from._internal_json_message(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:diagnostics.grpc_api.HandleMessageFromUiRequest)
 }
 
-inline void HandleMessageFromUiRequest::SharedCtor() {
-json_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  json_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void HandleMessageFromUiRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.json_message_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.json_message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.json_message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 HandleMessageFromUiRequest::~HandleMessageFromUiRequest() {
   // @@protoc_insertion_point(destructor:diagnostics.grpc_api.HandleMessageFromUiRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HandleMessageFromUiRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  json_message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.json_message_.Destroy();
 }
 
-void HandleMessageFromUiRequest::ArenaDtor(void* object) {
-  HandleMessageFromUiRequest* _this = reinterpret_cast< HandleMessageFromUiRequest* >(object);
-  (void)_this;
-}
-void HandleMessageFromUiRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HandleMessageFromUiRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HandleMessageFromUiRequest::Clear() {
@@ -440,23 +455,23 @@ void HandleMessageFromUiRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  json_message_.ClearToEmpty();
+  _impl_.json_message_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HandleMessageFromUiRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HandleMessageFromUiRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string json_message = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_json_message();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "diagnostics.grpc_api.HandleMessageFromUiRequest.json_message"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "diagnostics.grpc_api.HandleMessageFromUiRequest.json_message"));
         } else
           goto handle_unusual;
         continue;
@@ -500,7 +515,7 @@ uint8_t* HandleMessageFromUiRequest::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:diagnostics.grpc_api.HandleMessageFromUiRequest)
@@ -522,32 +537,28 @@ size_t HandleMessageFromUiRequest::ByteSizeLong() const {
         this->_internal_json_message());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HandleMessageFromUiRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HandleMessageFromUiRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandleMessageFromUiRequest::GetClassData() const { return &_class_data_; }
 
-void HandleMessageFromUiRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HandleMessageFromUiRequest *>(to)->MergeFrom(
-      static_cast<const HandleMessageFromUiRequest &>(from));
-}
 
-
-void HandleMessageFromUiRequest::MergeFrom(const HandleMessageFromUiRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:diagnostics.grpc_api.HandleMessageFromUiRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void HandleMessageFromUiRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HandleMessageFromUiRequest*>(&to_msg);
+  auto& from = static_cast<const HandleMessageFromUiRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:diagnostics.grpc_api.HandleMessageFromUiRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_json_message().empty()) {
-    _internal_set_json_message(from._internal_json_message());
+    _this->_internal_set_json_message(from._internal_json_message());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HandleMessageFromUiRequest::CopyFrom(const HandleMessageFromUiRequest& from) {
@@ -567,14 +578,13 @@ void HandleMessageFromUiRequest::InternalSwap(HandleMessageFromUiRequest* other)
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &json_message_, lhs_arena,
-      &other->json_message_, rhs_arena
+      &_impl_.json_message_, lhs_arena,
+      &other->_impl_.json_message_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandleMessageFromUiRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_wilco_5fdtc_2eproto_getter, &descriptor_table_wilco_5fdtc_2eproto_once,
       file_level_metadata_wilco_5fdtc_2eproto[0]);
 }
@@ -588,53 +598,58 @@ class HandleMessageFromUiResponse::_Internal {
 HandleMessageFromUiResponse::HandleMessageFromUiResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:diagnostics.grpc_api.HandleMessageFromUiResponse)
 }
 HandleMessageFromUiResponse::HandleMessageFromUiResponse(const HandleMessageFromUiResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HandleMessageFromUiResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.response_json_message_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  response_json_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.response_json_message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    response_json_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.response_json_message_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_response_json_message().empty()) {
-    response_json_message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_response_json_message(), 
-      GetArenaForAllocation());
+    _this->_impl_.response_json_message_.Set(from._internal_response_json_message(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:diagnostics.grpc_api.HandleMessageFromUiResponse)
 }
 
-inline void HandleMessageFromUiResponse::SharedCtor() {
-response_json_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  response_json_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void HandleMessageFromUiResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.response_json_message_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.response_json_message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.response_json_message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 HandleMessageFromUiResponse::~HandleMessageFromUiResponse() {
   // @@protoc_insertion_point(destructor:diagnostics.grpc_api.HandleMessageFromUiResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HandleMessageFromUiResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  response_json_message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.response_json_message_.Destroy();
 }
 
-void HandleMessageFromUiResponse::ArenaDtor(void* object) {
-  HandleMessageFromUiResponse* _this = reinterpret_cast< HandleMessageFromUiResponse* >(object);
-  (void)_this;
-}
-void HandleMessageFromUiResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HandleMessageFromUiResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HandleMessageFromUiResponse::Clear() {
@@ -643,23 +658,23 @@ void HandleMessageFromUiResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  response_json_message_.ClearToEmpty();
+  _impl_.response_json_message_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HandleMessageFromUiResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HandleMessageFromUiResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string response_json_message = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_response_json_message();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "diagnostics.grpc_api.HandleMessageFromUiResponse.response_json_message"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "diagnostics.grpc_api.HandleMessageFromUiResponse.response_json_message"));
         } else
           goto handle_unusual;
         continue;
@@ -703,7 +718,7 @@ uint8_t* HandleMessageFromUiResponse::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:diagnostics.grpc_api.HandleMessageFromUiResponse)
@@ -725,32 +740,28 @@ size_t HandleMessageFromUiResponse::ByteSizeLong() const {
         this->_internal_response_json_message());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HandleMessageFromUiResponse::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HandleMessageFromUiResponse::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandleMessageFromUiResponse::GetClassData() const { return &_class_data_; }
 
-void HandleMessageFromUiResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HandleMessageFromUiResponse *>(to)->MergeFrom(
-      static_cast<const HandleMessageFromUiResponse &>(from));
-}
 
-
-void HandleMessageFromUiResponse::MergeFrom(const HandleMessageFromUiResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:diagnostics.grpc_api.HandleMessageFromUiResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+void HandleMessageFromUiResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HandleMessageFromUiResponse*>(&to_msg);
+  auto& from = static_cast<const HandleMessageFromUiResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:diagnostics.grpc_api.HandleMessageFromUiResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_response_json_message().empty()) {
-    _internal_set_response_json_message(from._internal_response_json_message());
+    _this->_internal_set_response_json_message(from._internal_response_json_message());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HandleMessageFromUiResponse::CopyFrom(const HandleMessageFromUiResponse& from) {
@@ -770,14 +781,13 @@ void HandleMessageFromUiResponse::InternalSwap(HandleMessageFromUiResponse* othe
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &response_json_message_, lhs_arena,
-      &other->response_json_message_, rhs_arena
+      &_impl_.response_json_message_, lhs_arena,
+      &other->_impl_.response_json_message_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandleMessageFromUiResponse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_wilco_5fdtc_2eproto_getter, &descriptor_table_wilco_5fdtc_2eproto_once,
       file_level_metadata_wilco_5fdtc_2eproto[1]);
 }
@@ -791,55 +801,61 @@ class HandleEcNotificationRequest::_Internal {
 HandleEcNotificationRequest::HandleEcNotificationRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:diagnostics.grpc_api.HandleEcNotificationRequest)
 }
 HandleEcNotificationRequest::HandleEcNotificationRequest(const HandleEcNotificationRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HandleEcNotificationRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.payload_){}
+    , decltype(_impl_.type_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  payload_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.payload_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    payload_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.payload_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_payload().empty()) {
-    payload_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_payload(), 
-      GetArenaForAllocation());
+    _this->_impl_.payload_.Set(from._internal_payload(), 
+      _this->GetArenaForAllocation());
   }
-  type_ = from.type_;
+  _this->_impl_.type_ = from._impl_.type_;
   // @@protoc_insertion_point(copy_constructor:diagnostics.grpc_api.HandleEcNotificationRequest)
 }
 
-inline void HandleEcNotificationRequest::SharedCtor() {
-payload_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  payload_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-type_ = 0u;
+inline void HandleEcNotificationRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.payload_){}
+    , decltype(_impl_.type_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.payload_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.payload_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 HandleEcNotificationRequest::~HandleEcNotificationRequest() {
   // @@protoc_insertion_point(destructor:diagnostics.grpc_api.HandleEcNotificationRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HandleEcNotificationRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  payload_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.payload_.Destroy();
 }
 
-void HandleEcNotificationRequest::ArenaDtor(void* object) {
-  HandleEcNotificationRequest* _this = reinterpret_cast< HandleEcNotificationRequest* >(object);
-  (void)_this;
-}
-void HandleEcNotificationRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HandleEcNotificationRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HandleEcNotificationRequest::Clear() {
@@ -848,21 +864,21 @@ void HandleEcNotificationRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  payload_.ClearToEmpty();
-  type_ = 0u;
+  _impl_.payload_.ClearToEmpty();
+  _impl_.type_ = 0u;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HandleEcNotificationRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HandleEcNotificationRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint32 type = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -871,7 +887,7 @@ const char* HandleEcNotificationRequest::_InternalParse(const char* ptr, ::PROTO
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_payload();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -908,7 +924,7 @@ uint8_t* HandleEcNotificationRequest::_InternalSerialize(
   // uint32 type = 1;
   if (this->_internal_type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_type(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_type(), target);
   }
 
   // bytes payload = 2;
@@ -918,7 +934,7 @@ uint8_t* HandleEcNotificationRequest::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:diagnostics.grpc_api.HandleEcNotificationRequest)
@@ -942,38 +958,34 @@ size_t HandleEcNotificationRequest::ByteSizeLong() const {
 
   // uint32 type = 1;
   if (this->_internal_type() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_type());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_type());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HandleEcNotificationRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HandleEcNotificationRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandleEcNotificationRequest::GetClassData() const { return &_class_data_; }
 
-void HandleEcNotificationRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HandleEcNotificationRequest *>(to)->MergeFrom(
-      static_cast<const HandleEcNotificationRequest &>(from));
-}
 
-
-void HandleEcNotificationRequest::MergeFrom(const HandleEcNotificationRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:diagnostics.grpc_api.HandleEcNotificationRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void HandleEcNotificationRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HandleEcNotificationRequest*>(&to_msg);
+  auto& from = static_cast<const HandleEcNotificationRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:diagnostics.grpc_api.HandleEcNotificationRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_payload().empty()) {
-    _internal_set_payload(from._internal_payload());
+    _this->_internal_set_payload(from._internal_payload());
   }
   if (from._internal_type() != 0) {
-    _internal_set_type(from._internal_type());
+    _this->_internal_set_type(from._internal_type());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HandleEcNotificationRequest::CopyFrom(const HandleEcNotificationRequest& from) {
@@ -993,15 +1005,14 @@ void HandleEcNotificationRequest::InternalSwap(HandleEcNotificationRequest* othe
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &payload_, lhs_arena,
-      &other->payload_, rhs_arena
+      &_impl_.payload_, lhs_arena,
+      &other->_impl_.payload_, rhs_arena
   );
-  swap(type_, other->type_);
+  swap(_impl_.type_, other->_impl_.type_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandleEcNotificationRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_wilco_5fdtc_2eproto_getter, &descriptor_table_wilco_5fdtc_2eproto_once,
       file_level_metadata_wilco_5fdtc_2eproto[2]);
 }
@@ -1019,6 +1030,7 @@ HandleEcNotificationResponse::HandleEcNotificationResponse(::PROTOBUF_NAMESPACE_
 }
 HandleEcNotificationResponse::HandleEcNotificationResponse(const HandleEcNotificationResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
+  HandleEcNotificationResponse* const _this = this; (void)_this;
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:diagnostics.grpc_api.HandleEcNotificationResponse)
 }
@@ -1040,7 +1052,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandleEcNotificationResponse::
 
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandleEcNotificationResponse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_wilco_5fdtc_2eproto_getter, &descriptor_table_wilco_5fdtc_2eproto_once,
       file_level_metadata_wilco_5fdtc_2eproto[3]);
 }
@@ -1054,42 +1066,46 @@ class HandlePowerNotificationRequest::_Internal {
 HandlePowerNotificationRequest::HandlePowerNotificationRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:diagnostics.grpc_api.HandlePowerNotificationRequest)
 }
 HandlePowerNotificationRequest::HandlePowerNotificationRequest(const HandlePowerNotificationRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HandlePowerNotificationRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.power_event_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  power_event_ = from.power_event_;
+  _this->_impl_.power_event_ = from._impl_.power_event_;
   // @@protoc_insertion_point(copy_constructor:diagnostics.grpc_api.HandlePowerNotificationRequest)
 }
 
-inline void HandlePowerNotificationRequest::SharedCtor() {
-power_event_ = 0;
+inline void HandlePowerNotificationRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.power_event_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 HandlePowerNotificationRequest::~HandlePowerNotificationRequest() {
   // @@protoc_insertion_point(destructor:diagnostics.grpc_api.HandlePowerNotificationRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HandlePowerNotificationRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void HandlePowerNotificationRequest::ArenaDtor(void* object) {
-  HandlePowerNotificationRequest* _this = reinterpret_cast< HandlePowerNotificationRequest* >(object);
-  (void)_this;
-}
-void HandlePowerNotificationRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HandlePowerNotificationRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HandlePowerNotificationRequest::Clear() {
@@ -1098,15 +1114,15 @@ void HandlePowerNotificationRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  power_event_ = 0;
+  _impl_.power_event_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HandlePowerNotificationRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HandlePowerNotificationRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .diagnostics.grpc_api.HandlePowerNotificationRequest.PowerEvent power_event = 1;
       case 1:
@@ -1149,12 +1165,12 @@ uint8_t* HandlePowerNotificationRequest::_InternalSerialize(
   // .diagnostics.grpc_api.HandlePowerNotificationRequest.PowerEvent power_event = 1;
   if (this->_internal_power_event() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_power_event(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:diagnostics.grpc_api.HandlePowerNotificationRequest)
@@ -1172,35 +1188,31 @@ size_t HandlePowerNotificationRequest::ByteSizeLong() const {
   // .diagnostics.grpc_api.HandlePowerNotificationRequest.PowerEvent power_event = 1;
   if (this->_internal_power_event() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_power_event());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_power_event());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HandlePowerNotificationRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HandlePowerNotificationRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandlePowerNotificationRequest::GetClassData() const { return &_class_data_; }
 
-void HandlePowerNotificationRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HandlePowerNotificationRequest *>(to)->MergeFrom(
-      static_cast<const HandlePowerNotificationRequest &>(from));
-}
 
-
-void HandlePowerNotificationRequest::MergeFrom(const HandlePowerNotificationRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:diagnostics.grpc_api.HandlePowerNotificationRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void HandlePowerNotificationRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HandlePowerNotificationRequest*>(&to_msg);
+  auto& from = static_cast<const HandlePowerNotificationRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:diagnostics.grpc_api.HandlePowerNotificationRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_power_event() != 0) {
-    _internal_set_power_event(from._internal_power_event());
+    _this->_internal_set_power_event(from._internal_power_event());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HandlePowerNotificationRequest::CopyFrom(const HandlePowerNotificationRequest& from) {
@@ -1217,11 +1229,11 @@ bool HandlePowerNotificationRequest::IsInitialized() const {
 void HandlePowerNotificationRequest::InternalSwap(HandlePowerNotificationRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(power_event_, other->power_event_);
+  swap(_impl_.power_event_, other->_impl_.power_event_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandlePowerNotificationRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_wilco_5fdtc_2eproto_getter, &descriptor_table_wilco_5fdtc_2eproto_once,
       file_level_metadata_wilco_5fdtc_2eproto[4]);
 }
@@ -1239,6 +1251,7 @@ HandlePowerNotificationResponse::HandlePowerNotificationResponse(::PROTOBUF_NAME
 }
 HandlePowerNotificationResponse::HandlePowerNotificationResponse(const HandlePowerNotificationResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
+  HandlePowerNotificationResponse* const _this = this; (void)_this;
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:diagnostics.grpc_api.HandlePowerNotificationResponse)
 }
@@ -1260,7 +1273,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandlePowerNotificationRespons
 
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandlePowerNotificationResponse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_wilco_5fdtc_2eproto_getter, &descriptor_table_wilco_5fdtc_2eproto_once,
       file_level_metadata_wilco_5fdtc_2eproto[5]);
 }
@@ -1278,6 +1291,7 @@ HandleConfigurationDataChangedRequest::HandleConfigurationDataChangedRequest(::P
 }
 HandleConfigurationDataChangedRequest::HandleConfigurationDataChangedRequest(const HandleConfigurationDataChangedRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
+  HandleConfigurationDataChangedRequest* const _this = this; (void)_this;
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:diagnostics.grpc_api.HandleConfigurationDataChangedRequest)
 }
@@ -1299,7 +1313,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandleConfigurationDataChanged
 
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandleConfigurationDataChangedRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_wilco_5fdtc_2eproto_getter, &descriptor_table_wilco_5fdtc_2eproto_once,
       file_level_metadata_wilco_5fdtc_2eproto[6]);
 }
@@ -1317,6 +1331,7 @@ HandleConfigurationDataChangedResponse::HandleConfigurationDataChangedResponse(:
 }
 HandleConfigurationDataChangedResponse::HandleConfigurationDataChangedResponse(const HandleConfigurationDataChangedResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
+  HandleConfigurationDataChangedResponse* const _this = this; (void)_this;
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:diagnostics.grpc_api.HandleConfigurationDataChangedResponse)
 }
@@ -1338,7 +1353,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandleConfigurationDataChanged
 
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandleConfigurationDataChangedResponse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_wilco_5fdtc_2eproto_getter, &descriptor_table_wilco_5fdtc_2eproto_once,
       file_level_metadata_wilco_5fdtc_2eproto[7]);
 }
@@ -1352,73 +1367,80 @@ class HandleBluetoothDataChangedRequest_AdapterData::_Internal {
 HandleBluetoothDataChangedRequest_AdapterData::HandleBluetoothDataChangedRequest_AdapterData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:diagnostics.grpc_api.HandleBluetoothDataChangedRequest.AdapterData)
 }
 HandleBluetoothDataChangedRequest_AdapterData::HandleBluetoothDataChangedRequest_AdapterData(const HandleBluetoothDataChangedRequest_AdapterData& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HandleBluetoothDataChangedRequest_AdapterData* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.adapter_name_){}
+    , decltype(_impl_.adapter_mac_address_){}
+    , decltype(_impl_.carrier_status_){}
+    , decltype(_impl_.connected_devices_count_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  adapter_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.adapter_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    adapter_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.adapter_name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_adapter_name().empty()) {
-    adapter_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_adapter_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.adapter_name_.Set(from._internal_adapter_name(), 
+      _this->GetArenaForAllocation());
   }
-  adapter_mac_address_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.adapter_mac_address_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    adapter_mac_address_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.adapter_mac_address_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_adapter_mac_address().empty()) {
-    adapter_mac_address_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_adapter_mac_address(), 
-      GetArenaForAllocation());
+    _this->_impl_.adapter_mac_address_.Set(from._internal_adapter_mac_address(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&carrier_status_, &from.carrier_status_,
-    static_cast<size_t>(reinterpret_cast<char*>(&connected_devices_count_) -
-    reinterpret_cast<char*>(&carrier_status_)) + sizeof(connected_devices_count_));
+  ::memcpy(&_impl_.carrier_status_, &from._impl_.carrier_status_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.connected_devices_count_) -
+    reinterpret_cast<char*>(&_impl_.carrier_status_)) + sizeof(_impl_.connected_devices_count_));
   // @@protoc_insertion_point(copy_constructor:diagnostics.grpc_api.HandleBluetoothDataChangedRequest.AdapterData)
 }
 
-inline void HandleBluetoothDataChangedRequest_AdapterData::SharedCtor() {
-adapter_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  adapter_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-adapter_mac_address_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  adapter_mac_address_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&carrier_status_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&connected_devices_count_) -
-    reinterpret_cast<char*>(&carrier_status_)) + sizeof(connected_devices_count_));
+inline void HandleBluetoothDataChangedRequest_AdapterData::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.adapter_name_){}
+    , decltype(_impl_.adapter_mac_address_){}
+    , decltype(_impl_.carrier_status_){0}
+    , decltype(_impl_.connected_devices_count_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.adapter_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.adapter_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.adapter_mac_address_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.adapter_mac_address_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 HandleBluetoothDataChangedRequest_AdapterData::~HandleBluetoothDataChangedRequest_AdapterData() {
   // @@protoc_insertion_point(destructor:diagnostics.grpc_api.HandleBluetoothDataChangedRequest.AdapterData)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HandleBluetoothDataChangedRequest_AdapterData::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  adapter_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  adapter_mac_address_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.adapter_name_.Destroy();
+  _impl_.adapter_mac_address_.Destroy();
 }
 
-void HandleBluetoothDataChangedRequest_AdapterData::ArenaDtor(void* object) {
-  HandleBluetoothDataChangedRequest_AdapterData* _this = reinterpret_cast< HandleBluetoothDataChangedRequest_AdapterData* >(object);
-  (void)_this;
-}
-void HandleBluetoothDataChangedRequest_AdapterData::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HandleBluetoothDataChangedRequest_AdapterData::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HandleBluetoothDataChangedRequest_AdapterData::Clear() {
@@ -1427,27 +1449,27 @@ void HandleBluetoothDataChangedRequest_AdapterData::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  adapter_name_.ClearToEmpty();
-  adapter_mac_address_.ClearToEmpty();
-  ::memset(&carrier_status_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&connected_devices_count_) -
-      reinterpret_cast<char*>(&carrier_status_)) + sizeof(connected_devices_count_));
+  _impl_.adapter_name_.ClearToEmpty();
+  _impl_.adapter_mac_address_.ClearToEmpty();
+  ::memset(&_impl_.carrier_status_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.connected_devices_count_) -
+      reinterpret_cast<char*>(&_impl_.carrier_status_)) + sizeof(_impl_.connected_devices_count_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HandleBluetoothDataChangedRequest_AdapterData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HandleBluetoothDataChangedRequest_AdapterData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string adapter_name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_adapter_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "diagnostics.grpc_api.HandleBluetoothDataChangedRequest.AdapterData.adapter_name"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "diagnostics.grpc_api.HandleBluetoothDataChangedRequest.AdapterData.adapter_name"));
         } else
           goto handle_unusual;
         continue;
@@ -1455,9 +1477,9 @@ const char* HandleBluetoothDataChangedRequest_AdapterData::_InternalParse(const 
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_adapter_mac_address();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "diagnostics.grpc_api.HandleBluetoothDataChangedRequest.AdapterData.adapter_mac_address"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "diagnostics.grpc_api.HandleBluetoothDataChangedRequest.AdapterData.adapter_mac_address"));
         } else
           goto handle_unusual;
         continue;
@@ -1473,7 +1495,7 @@ const char* HandleBluetoothDataChangedRequest_AdapterData::_InternalParse(const 
       // uint32 connected_devices_count = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          connected_devices_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.connected_devices_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1530,18 +1552,18 @@ uint8_t* HandleBluetoothDataChangedRequest_AdapterData::_InternalSerialize(
   // .diagnostics.grpc_api.HandleBluetoothDataChangedRequest.AdapterData.CarrierStatus carrier_status = 3;
   if (this->_internal_carrier_status() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_carrier_status(), target);
   }
 
   // uint32 connected_devices_count = 4;
   if (this->_internal_connected_devices_count() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(4, this->_internal_connected_devices_count(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_connected_devices_count(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:diagnostics.grpc_api.HandleBluetoothDataChangedRequest.AdapterData)
@@ -1573,49 +1595,45 @@ size_t HandleBluetoothDataChangedRequest_AdapterData::ByteSizeLong() const {
   // .diagnostics.grpc_api.HandleBluetoothDataChangedRequest.AdapterData.CarrierStatus carrier_status = 3;
   if (this->_internal_carrier_status() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_carrier_status());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_carrier_status());
   }
 
   // uint32 connected_devices_count = 4;
   if (this->_internal_connected_devices_count() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_connected_devices_count());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_connected_devices_count());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HandleBluetoothDataChangedRequest_AdapterData::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HandleBluetoothDataChangedRequest_AdapterData::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandleBluetoothDataChangedRequest_AdapterData::GetClassData() const { return &_class_data_; }
 
-void HandleBluetoothDataChangedRequest_AdapterData::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HandleBluetoothDataChangedRequest_AdapterData *>(to)->MergeFrom(
-      static_cast<const HandleBluetoothDataChangedRequest_AdapterData &>(from));
-}
 
-
-void HandleBluetoothDataChangedRequest_AdapterData::MergeFrom(const HandleBluetoothDataChangedRequest_AdapterData& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:diagnostics.grpc_api.HandleBluetoothDataChangedRequest.AdapterData)
-  GOOGLE_DCHECK_NE(&from, this);
+void HandleBluetoothDataChangedRequest_AdapterData::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HandleBluetoothDataChangedRequest_AdapterData*>(&to_msg);
+  auto& from = static_cast<const HandleBluetoothDataChangedRequest_AdapterData&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:diagnostics.grpc_api.HandleBluetoothDataChangedRequest.AdapterData)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_adapter_name().empty()) {
-    _internal_set_adapter_name(from._internal_adapter_name());
+    _this->_internal_set_adapter_name(from._internal_adapter_name());
   }
   if (!from._internal_adapter_mac_address().empty()) {
-    _internal_set_adapter_mac_address(from._internal_adapter_mac_address());
+    _this->_internal_set_adapter_mac_address(from._internal_adapter_mac_address());
   }
   if (from._internal_carrier_status() != 0) {
-    _internal_set_carrier_status(from._internal_carrier_status());
+    _this->_internal_set_carrier_status(from._internal_carrier_status());
   }
   if (from._internal_connected_devices_count() != 0) {
-    _internal_set_connected_devices_count(from._internal_connected_devices_count());
+    _this->_internal_set_connected_devices_count(from._internal_connected_devices_count());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HandleBluetoothDataChangedRequest_AdapterData::CopyFrom(const HandleBluetoothDataChangedRequest_AdapterData& from) {
@@ -1635,25 +1653,23 @@ void HandleBluetoothDataChangedRequest_AdapterData::InternalSwap(HandleBluetooth
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &adapter_name_, lhs_arena,
-      &other->adapter_name_, rhs_arena
+      &_impl_.adapter_name_, lhs_arena,
+      &other->_impl_.adapter_name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &adapter_mac_address_, lhs_arena,
-      &other->adapter_mac_address_, rhs_arena
+      &_impl_.adapter_mac_address_, lhs_arena,
+      &other->_impl_.adapter_mac_address_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(HandleBluetoothDataChangedRequest_AdapterData, connected_devices_count_)
-      + sizeof(HandleBluetoothDataChangedRequest_AdapterData::connected_devices_count_)
-      - PROTOBUF_FIELD_OFFSET(HandleBluetoothDataChangedRequest_AdapterData, carrier_status_)>(
-          reinterpret_cast<char*>(&carrier_status_),
-          reinterpret_cast<char*>(&other->carrier_status_));
+      PROTOBUF_FIELD_OFFSET(HandleBluetoothDataChangedRequest_AdapterData, _impl_.connected_devices_count_)
+      + sizeof(HandleBluetoothDataChangedRequest_AdapterData::_impl_.connected_devices_count_)
+      - PROTOBUF_FIELD_OFFSET(HandleBluetoothDataChangedRequest_AdapterData, _impl_.carrier_status_)>(
+          reinterpret_cast<char*>(&_impl_.carrier_status_),
+          reinterpret_cast<char*>(&other->_impl_.carrier_status_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandleBluetoothDataChangedRequest_AdapterData::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_wilco_5fdtc_2eproto_getter, &descriptor_table_wilco_5fdtc_2eproto_once,
       file_level_metadata_wilco_5fdtc_2eproto[8]);
 }
@@ -1666,43 +1682,47 @@ class HandleBluetoothDataChangedRequest::_Internal {
 
 HandleBluetoothDataChangedRequest::HandleBluetoothDataChangedRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  adapters_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:diagnostics.grpc_api.HandleBluetoothDataChangedRequest)
 }
 HandleBluetoothDataChangedRequest::HandleBluetoothDataChangedRequest(const HandleBluetoothDataChangedRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      adapters_(from.adapters_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HandleBluetoothDataChangedRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.adapters_){from._impl_.adapters_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:diagnostics.grpc_api.HandleBluetoothDataChangedRequest)
 }
 
-inline void HandleBluetoothDataChangedRequest::SharedCtor() {
+inline void HandleBluetoothDataChangedRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.adapters_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 HandleBluetoothDataChangedRequest::~HandleBluetoothDataChangedRequest() {
   // @@protoc_insertion_point(destructor:diagnostics.grpc_api.HandleBluetoothDataChangedRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HandleBluetoothDataChangedRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.adapters_.~RepeatedPtrField();
 }
 
-void HandleBluetoothDataChangedRequest::ArenaDtor(void* object) {
-  HandleBluetoothDataChangedRequest* _this = reinterpret_cast< HandleBluetoothDataChangedRequest* >(object);
-  (void)_this;
-}
-void HandleBluetoothDataChangedRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HandleBluetoothDataChangedRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HandleBluetoothDataChangedRequest::Clear() {
@@ -1711,15 +1731,15 @@ void HandleBluetoothDataChangedRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  adapters_.Clear();
+  _impl_.adapters_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HandleBluetoothDataChangedRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HandleBluetoothDataChangedRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .diagnostics.grpc_api.HandleBluetoothDataChangedRequest.AdapterData adapters = 1;
       case 1:
@@ -1764,15 +1784,15 @@ uint8_t* HandleBluetoothDataChangedRequest::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .diagnostics.grpc_api.HandleBluetoothDataChangedRequest.AdapterData adapters = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_adapters_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_adapters_size()); i < n; i++) {
+    const auto& repfield = this->_internal_adapters(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_adapters(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:diagnostics.grpc_api.HandleBluetoothDataChangedRequest)
@@ -1789,35 +1809,31 @@ size_t HandleBluetoothDataChangedRequest::ByteSizeLong() const {
 
   // repeated .diagnostics.grpc_api.HandleBluetoothDataChangedRequest.AdapterData adapters = 1;
   total_size += 1UL * this->_internal_adapters_size();
-  for (const auto& msg : this->adapters_) {
+  for (const auto& msg : this->_impl_.adapters_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HandleBluetoothDataChangedRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HandleBluetoothDataChangedRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandleBluetoothDataChangedRequest::GetClassData() const { return &_class_data_; }
 
-void HandleBluetoothDataChangedRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HandleBluetoothDataChangedRequest *>(to)->MergeFrom(
-      static_cast<const HandleBluetoothDataChangedRequest &>(from));
-}
 
-
-void HandleBluetoothDataChangedRequest::MergeFrom(const HandleBluetoothDataChangedRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:diagnostics.grpc_api.HandleBluetoothDataChangedRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void HandleBluetoothDataChangedRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HandleBluetoothDataChangedRequest*>(&to_msg);
+  auto& from = static_cast<const HandleBluetoothDataChangedRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:diagnostics.grpc_api.HandleBluetoothDataChangedRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  adapters_.MergeFrom(from.adapters_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.adapters_.MergeFrom(from._impl_.adapters_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HandleBluetoothDataChangedRequest::CopyFrom(const HandleBluetoothDataChangedRequest& from) {
@@ -1834,11 +1850,11 @@ bool HandleBluetoothDataChangedRequest::IsInitialized() const {
 void HandleBluetoothDataChangedRequest::InternalSwap(HandleBluetoothDataChangedRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  adapters_.InternalSwap(&other->adapters_);
+  _impl_.adapters_.InternalSwap(&other->_impl_.adapters_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandleBluetoothDataChangedRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_wilco_5fdtc_2eproto_getter, &descriptor_table_wilco_5fdtc_2eproto_once,
       file_level_metadata_wilco_5fdtc_2eproto[9]);
 }
@@ -1856,6 +1872,7 @@ HandleBluetoothDataChangedResponse::HandleBluetoothDataChangedResponse(::PROTOBU
 }
 HandleBluetoothDataChangedResponse::HandleBluetoothDataChangedResponse(const HandleBluetoothDataChangedResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
+  HandleBluetoothDataChangedResponse* const _this = this; (void)_this;
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:diagnostics.grpc_api.HandleBluetoothDataChangedResponse)
 }
@@ -1877,7 +1894,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandleBluetoothDataChangedResp
 
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandleBluetoothDataChangedResponse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_wilco_5fdtc_2eproto_getter, &descriptor_table_wilco_5fdtc_2eproto_once,
       file_level_metadata_wilco_5fdtc_2eproto[10]);
 }
@@ -1886,37 +1903,48 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandleBluetoothDataChangedResp
 }  // namespace grpc_api
 }  // namespace diagnostics
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleMessageFromUiRequest* Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleMessageFromUiRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleMessageFromUiRequest*
+Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleMessageFromUiRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::diagnostics::grpc_api::HandleMessageFromUiRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleMessageFromUiResponse* Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleMessageFromUiResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleMessageFromUiResponse*
+Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleMessageFromUiResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::diagnostics::grpc_api::HandleMessageFromUiResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleEcNotificationRequest* Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleEcNotificationRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleEcNotificationRequest*
+Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleEcNotificationRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::diagnostics::grpc_api::HandleEcNotificationRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleEcNotificationResponse* Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleEcNotificationResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleEcNotificationResponse*
+Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleEcNotificationResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::diagnostics::grpc_api::HandleEcNotificationResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandlePowerNotificationRequest* Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandlePowerNotificationRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandlePowerNotificationRequest*
+Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandlePowerNotificationRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::diagnostics::grpc_api::HandlePowerNotificationRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandlePowerNotificationResponse* Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandlePowerNotificationResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandlePowerNotificationResponse*
+Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandlePowerNotificationResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::diagnostics::grpc_api::HandlePowerNotificationResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest*
+Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse*
+Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest_AdapterData* Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest_AdapterData >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest_AdapterData*
+Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest_AdapterData >(Arena* arena) {
   return Arena::CreateMessageInternal< ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest_AdapterData >(arena);
 }
-template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest*
+Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse*
+Arena::CreateMaybeMessage< ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

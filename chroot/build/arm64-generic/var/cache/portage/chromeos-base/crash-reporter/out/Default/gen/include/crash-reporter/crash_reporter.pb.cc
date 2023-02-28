@@ -16,35 +16,41 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace crash {
-constexpr VmCrashFilters::VmCrashFilters(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : filters_(){}
+PROTOBUF_CONSTEXPR VmCrashFilters::VmCrashFilters(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.filters_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct VmCrashFiltersDefaultTypeInternal {
-  constexpr VmCrashFiltersDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR VmCrashFiltersDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~VmCrashFiltersDefaultTypeInternal() {}
   union {
     VmCrashFilters _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT VmCrashFiltersDefaultTypeInternal _VmCrashFilters_default_instance_;
-constexpr VmCrashFilter::VmCrashFilter(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : blocked_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VmCrashFiltersDefaultTypeInternal _VmCrashFilters_default_instance_;
+PROTOBUF_CONSTEXPR VmCrashFilter::VmCrashFilter(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.blocked_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct VmCrashFilterDefaultTypeInternal {
-  constexpr VmCrashFilterDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR VmCrashFilterDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~VmCrashFilterDefaultTypeInternal() {}
   union {
     VmCrashFilter _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT VmCrashFilterDefaultTypeInternal _VmCrashFilter_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VmCrashFilterDefaultTypeInternal _VmCrashFilter_default_instance_;
 }  // namespace crash
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_crash_5freporter_2eproto[2];
-static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_crash_5freporter_2eproto = nullptr;
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_crash_5freporter_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_crash_5freporter_2eproto[2];
+static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_crash_5freporter_2eproto = nullptr;
+static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_crash_5freporter_2eproto = nullptr;
 
 const uint32_t TableStruct_crash_5freporter_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
@@ -53,23 +59,23 @@ const uint32_t TableStruct_crash_5freporter_2eproto::offsets[] PROTOBUF_SECTION_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::crash::VmCrashFilters, filters_),
+  PROTOBUF_FIELD_OFFSET(::crash::VmCrashFilters, _impl_.filters_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::crash::VmCrashFilter, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::crash::VmCrashFilter, blocked_path_),
+  PROTOBUF_FIELD_OFFSET(::crash::VmCrashFilter, _impl_.blocked_path_),
 };
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::crash::VmCrashFilters)},
   { 7, -1, -1, sizeof(::crash::VmCrashFilter)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::crash::_VmCrashFilters_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::crash::_VmCrashFilter_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+  &::crash::_VmCrashFilters_default_instance_._instance,
+  &::crash::_VmCrashFilter_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_crash_5freporter_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -78,19 +84,21 @@ const char descriptor_table_protodef_crash_5freporter_2eproto[] PROTOBUF_SECTION
   "Filter\"%\n\rVmCrashFilter\022\024\n\014blocked_path\030"
   "\001 \001(\tb\006proto3"
   ;
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_crash_5freporter_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_crash_5freporter_2eproto = {
-  false, false, 133, descriptor_table_protodef_crash_5freporter_2eproto, "crash_reporter.proto", 
-  &descriptor_table_crash_5freporter_2eproto_once, nullptr, 0, 2,
-  schemas, file_default_instances, TableStruct_crash_5freporter_2eproto::offsets,
-  file_level_metadata_crash_5freporter_2eproto, file_level_enum_descriptors_crash_5freporter_2eproto, file_level_service_descriptors_crash_5freporter_2eproto,
+static ::_pbi::once_flag descriptor_table_crash_5freporter_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_crash_5freporter_2eproto = {
+    false, false, 133, descriptor_table_protodef_crash_5freporter_2eproto,
+    "crash_reporter.proto",
+    &descriptor_table_crash_5freporter_2eproto_once, nullptr, 0, 2,
+    schemas, file_default_instances, TableStruct_crash_5freporter_2eproto::offsets,
+    file_level_metadata_crash_5freporter_2eproto, file_level_enum_descriptors_crash_5freporter_2eproto,
+    file_level_service_descriptors_crash_5freporter_2eproto,
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_crash_5freporter_2eproto_getter() {
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_crash_5freporter_2eproto_getter() {
   return &descriptor_table_crash_5freporter_2eproto;
 }
 
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_crash_5freporter_2eproto(&descriptor_table_crash_5freporter_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_crash_5freporter_2eproto(&descriptor_table_crash_5freporter_2eproto);
 namespace crash {
 
 // ===================================================================
@@ -101,43 +109,47 @@ class VmCrashFilters::_Internal {
 
 VmCrashFilters::VmCrashFilters(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  filters_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:crash.VmCrashFilters)
 }
 VmCrashFilters::VmCrashFilters(const VmCrashFilters& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      filters_(from.filters_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  VmCrashFilters* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.filters_){from._impl_.filters_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:crash.VmCrashFilters)
 }
 
-inline void VmCrashFilters::SharedCtor() {
+inline void VmCrashFilters::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.filters_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 VmCrashFilters::~VmCrashFilters() {
   // @@protoc_insertion_point(destructor:crash.VmCrashFilters)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void VmCrashFilters::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.filters_.~RepeatedPtrField();
 }
 
-void VmCrashFilters::ArenaDtor(void* object) {
-  VmCrashFilters* _this = reinterpret_cast< VmCrashFilters* >(object);
-  (void)_this;
-}
-void VmCrashFilters::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void VmCrashFilters::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void VmCrashFilters::Clear() {
@@ -146,15 +158,15 @@ void VmCrashFilters::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  filters_.Clear();
+  _impl_.filters_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* VmCrashFilters::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* VmCrashFilters::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .crash.VmCrashFilter filters = 1;
       case 1:
@@ -199,15 +211,15 @@ uint8_t* VmCrashFilters::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .crash.VmCrashFilter filters = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_filters_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_filters_size()); i < n; i++) {
+    const auto& repfield = this->_internal_filters(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_filters(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:crash.VmCrashFilters)
@@ -224,35 +236,31 @@ size_t VmCrashFilters::ByteSizeLong() const {
 
   // repeated .crash.VmCrashFilter filters = 1;
   total_size += 1UL * this->_internal_filters_size();
-  for (const auto& msg : this->filters_) {
+  for (const auto& msg : this->_impl_.filters_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData VmCrashFilters::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     VmCrashFilters::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*VmCrashFilters::GetClassData() const { return &_class_data_; }
 
-void VmCrashFilters::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<VmCrashFilters *>(to)->MergeFrom(
-      static_cast<const VmCrashFilters &>(from));
-}
 
-
-void VmCrashFilters::MergeFrom(const VmCrashFilters& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:crash.VmCrashFilters)
-  GOOGLE_DCHECK_NE(&from, this);
+void VmCrashFilters::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<VmCrashFilters*>(&to_msg);
+  auto& from = static_cast<const VmCrashFilters&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:crash.VmCrashFilters)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  filters_.MergeFrom(from.filters_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.filters_.MergeFrom(from._impl_.filters_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void VmCrashFilters::CopyFrom(const VmCrashFilters& from) {
@@ -269,11 +277,11 @@ bool VmCrashFilters::IsInitialized() const {
 void VmCrashFilters::InternalSwap(VmCrashFilters* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  filters_.InternalSwap(&other->filters_);
+  _impl_.filters_.InternalSwap(&other->_impl_.filters_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata VmCrashFilters::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_crash_5freporter_2eproto_getter, &descriptor_table_crash_5freporter_2eproto_once,
       file_level_metadata_crash_5freporter_2eproto[0]);
 }
@@ -287,53 +295,58 @@ class VmCrashFilter::_Internal {
 VmCrashFilter::VmCrashFilter(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:crash.VmCrashFilter)
 }
 VmCrashFilter::VmCrashFilter(const VmCrashFilter& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  VmCrashFilter* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.blocked_path_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  blocked_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.blocked_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    blocked_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.blocked_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_blocked_path().empty()) {
-    blocked_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_blocked_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.blocked_path_.Set(from._internal_blocked_path(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:crash.VmCrashFilter)
 }
 
-inline void VmCrashFilter::SharedCtor() {
-blocked_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  blocked_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void VmCrashFilter::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.blocked_path_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.blocked_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.blocked_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 VmCrashFilter::~VmCrashFilter() {
   // @@protoc_insertion_point(destructor:crash.VmCrashFilter)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void VmCrashFilter::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  blocked_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.blocked_path_.Destroy();
 }
 
-void VmCrashFilter::ArenaDtor(void* object) {
-  VmCrashFilter* _this = reinterpret_cast< VmCrashFilter* >(object);
-  (void)_this;
-}
-void VmCrashFilter::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void VmCrashFilter::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void VmCrashFilter::Clear() {
@@ -342,23 +355,23 @@ void VmCrashFilter::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  blocked_path_.ClearToEmpty();
+  _impl_.blocked_path_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* VmCrashFilter::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* VmCrashFilter::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string blocked_path = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_blocked_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "crash.VmCrashFilter.blocked_path"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "crash.VmCrashFilter.blocked_path"));
         } else
           goto handle_unusual;
         continue;
@@ -402,7 +415,7 @@ uint8_t* VmCrashFilter::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:crash.VmCrashFilter)
@@ -424,32 +437,28 @@ size_t VmCrashFilter::ByteSizeLong() const {
         this->_internal_blocked_path());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData VmCrashFilter::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     VmCrashFilter::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*VmCrashFilter::GetClassData() const { return &_class_data_; }
 
-void VmCrashFilter::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<VmCrashFilter *>(to)->MergeFrom(
-      static_cast<const VmCrashFilter &>(from));
-}
 
-
-void VmCrashFilter::MergeFrom(const VmCrashFilter& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:crash.VmCrashFilter)
-  GOOGLE_DCHECK_NE(&from, this);
+void VmCrashFilter::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<VmCrashFilter*>(&to_msg);
+  auto& from = static_cast<const VmCrashFilter&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:crash.VmCrashFilter)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_blocked_path().empty()) {
-    _internal_set_blocked_path(from._internal_blocked_path());
+    _this->_internal_set_blocked_path(from._internal_blocked_path());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void VmCrashFilter::CopyFrom(const VmCrashFilter& from) {
@@ -469,14 +478,13 @@ void VmCrashFilter::InternalSwap(VmCrashFilter* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &blocked_path_, lhs_arena,
-      &other->blocked_path_, rhs_arena
+      &_impl_.blocked_path_, lhs_arena,
+      &other->_impl_.blocked_path_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata VmCrashFilter::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_crash_5freporter_2eproto_getter, &descriptor_table_crash_5freporter_2eproto_once,
       file_level_metadata_crash_5freporter_2eproto[1]);
 }
@@ -484,10 +492,12 @@ void VmCrashFilter::InternalSwap(VmCrashFilter* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace crash
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::crash::VmCrashFilters* Arena::CreateMaybeMessage< ::crash::VmCrashFilters >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::crash::VmCrashFilters*
+Arena::CreateMaybeMessage< ::crash::VmCrashFilters >(Arena* arena) {
   return Arena::CreateMessageInternal< ::crash::VmCrashFilters >(arena);
 }
-template<> PROTOBUF_NOINLINE ::crash::VmCrashFilter* Arena::CreateMaybeMessage< ::crash::VmCrashFilter >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::crash::VmCrashFilter*
+Arena::CreateMaybeMessage< ::crash::VmCrashFilter >(Arena* arena) {
   return Arena::CreateMessageInternal< ::crash::VmCrashFilter >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

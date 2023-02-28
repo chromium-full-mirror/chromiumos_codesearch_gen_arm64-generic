@@ -13,25 +13,30 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
-namespace power_manager {
-constexpr PeripheralBatteryStatus::PeripheralBatteryStatus(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , serial_number_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , level_(0)
-  , charge_status_(0)
 
-  , active_update_(false){}
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
+namespace power_manager {
+PROTOBUF_CONSTEXPR PeripheralBatteryStatus::PeripheralBatteryStatus(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.serial_number_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.level_)*/0
+  , /*decltype(_impl_.charge_status_)*/0
+  , /*decltype(_impl_.active_update_)*/false} {}
 struct PeripheralBatteryStatusDefaultTypeInternal {
-  constexpr PeripheralBatteryStatusDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PeripheralBatteryStatusDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~PeripheralBatteryStatusDefaultTypeInternal() {}
   union {
     PeripheralBatteryStatus _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PeripheralBatteryStatusDefaultTypeInternal _PeripheralBatteryStatus_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PeripheralBatteryStatusDefaultTypeInternal _PeripheralBatteryStatus_default_instance_;
 }  // namespace power_manager
 namespace power_manager {
 bool PeripheralBatteryStatus_ChargeStatus_IsValid(int value) {
@@ -117,7 +122,7 @@ constexpr int PeripheralBatteryStatus::ChargeStatus_ARRAYSIZE;
 
 class PeripheralBatteryStatus::_Internal {
  public:
-  using HasBits = decltype(std::declval<PeripheralBatteryStatus>()._has_bits_);
+  using HasBits = decltype(std::declval<PeripheralBatteryStatus>()._impl_._has_bits_);
   static void set_has_path(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -141,87 +146,99 @@ class PeripheralBatteryStatus::_Internal {
 PeripheralBatteryStatus::PeripheralBatteryStatus(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:power_manager.PeripheralBatteryStatus)
 }
 PeripheralBatteryStatus::PeripheralBatteryStatus(const PeripheralBatteryStatus& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PeripheralBatteryStatus* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.path_){}
+    , decltype(_impl_.name_){}
+    , decltype(_impl_.serial_number_){}
+    , decltype(_impl_.level_){}
+    , decltype(_impl_.charge_status_){}
+    , decltype(_impl_.active_update_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_path()) {
-    path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.path_.Set(from._internal_path(), 
+      _this->GetArenaForAllocation());
   }
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_name()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
   }
-  serial_number_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.serial_number_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    serial_number_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.serial_number_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_serial_number()) {
-    serial_number_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_serial_number(), 
-      GetArenaForAllocation());
+    _this->_impl_.serial_number_.Set(from._internal_serial_number(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&level_, &from.level_,
-    static_cast<size_t>(reinterpret_cast<char*>(&active_update_) -
-    reinterpret_cast<char*>(&level_)) + sizeof(active_update_));
+  ::memcpy(&_impl_.level_, &from._impl_.level_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.active_update_) -
+    reinterpret_cast<char*>(&_impl_.level_)) + sizeof(_impl_.active_update_));
   // @@protoc_insertion_point(copy_constructor:power_manager.PeripheralBatteryStatus)
 }
 
-inline void PeripheralBatteryStatus::SharedCtor() {
-path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-serial_number_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  serial_number_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&level_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&active_update_) -
-    reinterpret_cast<char*>(&level_)) + sizeof(active_update_));
+inline void PeripheralBatteryStatus::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.path_){}
+    , decltype(_impl_.name_){}
+    , decltype(_impl_.serial_number_){}
+    , decltype(_impl_.level_){0}
+    , decltype(_impl_.charge_status_){0}
+    , decltype(_impl_.active_update_){false}
+  };
+  _impl_.path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.serial_number_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.serial_number_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PeripheralBatteryStatus::~PeripheralBatteryStatus() {
   // @@protoc_insertion_point(destructor:power_manager.PeripheralBatteryStatus)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void PeripheralBatteryStatus::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  serial_number_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.path_.Destroy();
+  _impl_.name_.Destroy();
+  _impl_.serial_number_.Destroy();
 }
 
-void PeripheralBatteryStatus::ArenaDtor(void* object) {
-  PeripheralBatteryStatus* _this = reinterpret_cast< PeripheralBatteryStatus* >(object);
-  (void)_this;
-}
-void PeripheralBatteryStatus::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void PeripheralBatteryStatus::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PeripheralBatteryStatus::Clear() {
@@ -230,39 +247,39 @@ void PeripheralBatteryStatus::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      path_.ClearNonDefaultToEmpty();
+      _impl_.path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      name_.ClearNonDefaultToEmpty();
+      _impl_.name_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      serial_number_.ClearNonDefaultToEmpty();
+      _impl_.serial_number_.ClearNonDefaultToEmpty();
     }
   }
   if (cached_has_bits & 0x00000038u) {
-    ::memset(&level_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&active_update_) -
-        reinterpret_cast<char*>(&level_)) + sizeof(active_update_));
+    ::memset(&_impl_.level_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.active_update_) -
+        reinterpret_cast<char*>(&_impl_.level_)) + sizeof(_impl_.active_update_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PeripheralBatteryStatus::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* PeripheralBatteryStatus::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string path = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -271,7 +288,7 @@ const char* PeripheralBatteryStatus::_InternalParse(const char* ptr, ::PROTOBUF_
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -280,7 +297,7 @@ const char* PeripheralBatteryStatus::_InternalParse(const char* ptr, ::PROTOBUF_
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_level(&has_bits);
-          level_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.level_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -302,7 +319,7 @@ const char* PeripheralBatteryStatus::_InternalParse(const char* ptr, ::PROTOBUF_
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _Internal::set_has_active_update(&has_bits);
-          active_update_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.active_update_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -311,7 +328,7 @@ const char* PeripheralBatteryStatus::_InternalParse(const char* ptr, ::PROTOBUF_
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_serial_number();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -332,7 +349,7 @@ const char* PeripheralBatteryStatus::_InternalParse(const char* ptr, ::PROTOBUF_
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -346,7 +363,7 @@ uint8_t* PeripheralBatteryStatus::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string path = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -362,20 +379,20 @@ uint8_t* PeripheralBatteryStatus::_InternalSerialize(
   // optional int32 level = 3;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_level(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_level(), target);
   }
 
   // optional .power_manager.PeripheralBatteryStatus.ChargeStatus charge_status = 4;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       4, this->_internal_charge_status(), target);
   }
 
   // optional bool active_update = 5;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(5, this->_internal_active_update(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_active_update(), target);
   }
 
   // optional string serial_number = 6;
@@ -400,7 +417,7 @@ size_t PeripheralBatteryStatus::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000003fu) {
     // optional string path = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -425,13 +442,13 @@ size_t PeripheralBatteryStatus::ByteSizeLong() const {
 
     // optional int32 level = 3;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_level());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_level());
     }
 
     // optional .power_manager.PeripheralBatteryStatus.ChargeStatus charge_status = 4;
     if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_charge_status());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_charge_status());
     }
 
     // optional bool active_update = 5;
@@ -443,46 +460,47 @@ size_t PeripheralBatteryStatus::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void PeripheralBatteryStatus::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PeripheralBatteryStatus*>(
+  MergeFrom(*::_pbi::DownCast<const PeripheralBatteryStatus*>(
       &from));
 }
 
 void PeripheralBatteryStatus::MergeFrom(const PeripheralBatteryStatus& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:power_manager.PeripheralBatteryStatus)
-  GOOGLE_DCHECK_NE(&from, this);
+  PeripheralBatteryStatus* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.PeripheralBatteryStatus)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_path(from._internal_path());
+      _this->_internal_set_path(from._internal_path());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_name(from._internal_name());
+      _this->_internal_set_name(from._internal_name());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_serial_number(from._internal_serial_number());
+      _this->_internal_set_serial_number(from._internal_serial_number());
     }
     if (cached_has_bits & 0x00000008u) {
-      level_ = from.level_;
+      _this->_impl_.level_ = from._impl_.level_;
     }
     if (cached_has_bits & 0x00000010u) {
-      charge_status_ = from.charge_status_;
+      _this->_impl_.charge_status_ = from._impl_.charge_status_;
     }
     if (cached_has_bits & 0x00000020u) {
-      active_update_ = from.active_update_;
+      _this->_impl_.active_update_ = from._impl_.active_update_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PeripheralBatteryStatus::CopyFrom(const PeripheralBatteryStatus& from) {
@@ -501,28 +519,25 @@ void PeripheralBatteryStatus::InternalSwap(PeripheralBatteryStatus* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &path_, lhs_arena,
-      &other->path_, rhs_arena
+      &_impl_.path_, lhs_arena,
+      &other->_impl_.path_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, lhs_arena,
-      &other->name_, rhs_arena
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &serial_number_, lhs_arena,
-      &other->serial_number_, rhs_arena
+      &_impl_.serial_number_, lhs_arena,
+      &other->_impl_.serial_number_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PeripheralBatteryStatus, active_update_)
-      + sizeof(PeripheralBatteryStatus::active_update_)
-      - PROTOBUF_FIELD_OFFSET(PeripheralBatteryStatus, level_)>(
-          reinterpret_cast<char*>(&level_),
-          reinterpret_cast<char*>(&other->level_));
+      PROTOBUF_FIELD_OFFSET(PeripheralBatteryStatus, _impl_.active_update_)
+      + sizeof(PeripheralBatteryStatus::_impl_.active_update_)
+      - PROTOBUF_FIELD_OFFSET(PeripheralBatteryStatus, _impl_.level_)>(
+          reinterpret_cast<char*>(&_impl_.level_),
+          reinterpret_cast<char*>(&other->_impl_.level_));
 }
 
 std::string PeripheralBatteryStatus::GetTypeName() const {
@@ -533,7 +548,8 @@ std::string PeripheralBatteryStatus::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace power_manager
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::power_manager::PeripheralBatteryStatus* Arena::CreateMaybeMessage< ::power_manager::PeripheralBatteryStatus >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::power_manager::PeripheralBatteryStatus*
+Arena::CreateMaybeMessage< ::power_manager::PeripheralBatteryStatus >(Arena* arena) {
   return Arena::CreateMessageInternal< ::power_manager::PeripheralBatteryStatus >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

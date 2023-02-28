@@ -13,49 +13,54 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace arc {
 namespace data_migrator {
-constexpr HasDataToMigrateRequest::HasDataToMigrateRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : username_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_CONSTEXPR HasDataToMigrateRequest::HasDataToMigrateRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HasDataToMigrateRequestDefaultTypeInternal {
-  constexpr HasDataToMigrateRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HasDataToMigrateRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HasDataToMigrateRequestDefaultTypeInternal() {}
   union {
     HasDataToMigrateRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HasDataToMigrateRequestDefaultTypeInternal _HasDataToMigrateRequest_default_instance_;
-constexpr StartMigrationRequest::StartMigrationRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : username_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , destination_type_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HasDataToMigrateRequestDefaultTypeInternal _HasDataToMigrateRequest_default_instance_;
+PROTOBUF_CONSTEXPR StartMigrationRequest::StartMigrationRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.username_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.destination_type_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StartMigrationRequestDefaultTypeInternal {
-  constexpr StartMigrationRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StartMigrationRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~StartMigrationRequestDefaultTypeInternal() {}
   union {
     StartMigrationRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StartMigrationRequestDefaultTypeInternal _StartMigrationRequest_default_instance_;
-constexpr DataMigrationProgress::DataMigrationProgress(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : current_bytes_(uint64_t{0u})
-  , total_bytes_(uint64_t{0u})
-  , status_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StartMigrationRequestDefaultTypeInternal _StartMigrationRequest_default_instance_;
+PROTOBUF_CONSTEXPR DataMigrationProgress::DataMigrationProgress(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.current_bytes_)*/uint64_t{0u}
+  , /*decltype(_impl_.total_bytes_)*/uint64_t{0u}
+  , /*decltype(_impl_.status_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct DataMigrationProgressDefaultTypeInternal {
-  constexpr DataMigrationProgressDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DataMigrationProgressDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~DataMigrationProgressDefaultTypeInternal() {}
   union {
     DataMigrationProgress _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DataMigrationProgressDefaultTypeInternal _DataMigrationProgress_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DataMigrationProgressDefaultTypeInternal _DataMigrationProgress_default_instance_;
 }  // namespace data_migrator
 }  // namespace arc
 namespace arc {
@@ -176,53 +181,58 @@ class HasDataToMigrateRequest::_Internal {
 HasDataToMigrateRequest::HasDataToMigrateRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:arc.data_migrator.HasDataToMigrateRequest)
 }
 HasDataToMigrateRequest::HasDataToMigrateRequest(const HasDataToMigrateRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  HasDataToMigrateRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.username_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.username_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_username().empty()) {
-    username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_username(), 
-      GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:arc.data_migrator.HasDataToMigrateRequest)
 }
 
-inline void HasDataToMigrateRequest::SharedCtor() {
-username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void HasDataToMigrateRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.username_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.username_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.username_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 HasDataToMigrateRequest::~HasDataToMigrateRequest() {
   // @@protoc_insertion_point(destructor:arc.data_migrator.HasDataToMigrateRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void HasDataToMigrateRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  username_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.username_.Destroy();
 }
 
-void HasDataToMigrateRequest::ArenaDtor(void* object) {
-  HasDataToMigrateRequest* _this = reinterpret_cast< HasDataToMigrateRequest* >(object);
-  (void)_this;
-}
-void HasDataToMigrateRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HasDataToMigrateRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HasDataToMigrateRequest::Clear() {
@@ -231,23 +241,23 @@ void HasDataToMigrateRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  username_.ClearToEmpty();
+  _impl_.username_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* HasDataToMigrateRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HasDataToMigrateRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string username = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_username();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -316,27 +326,28 @@ size_t HasDataToMigrateRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void HasDataToMigrateRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const HasDataToMigrateRequest*>(
+  MergeFrom(*::_pbi::DownCast<const HasDataToMigrateRequest*>(
       &from));
 }
 
 void HasDataToMigrateRequest::MergeFrom(const HasDataToMigrateRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:arc.data_migrator.HasDataToMigrateRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  HasDataToMigrateRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:arc.data_migrator.HasDataToMigrateRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_username().empty()) {
-    _internal_set_username(from._internal_username());
+    _this->_internal_set_username(from._internal_username());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void HasDataToMigrateRequest::CopyFrom(const HasDataToMigrateRequest& from) {
@@ -356,9 +367,8 @@ void HasDataToMigrateRequest::InternalSwap(HasDataToMigrateRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &username_, lhs_arena,
-      &other->username_, rhs_arena
+      &_impl_.username_, lhs_arena,
+      &other->_impl_.username_, rhs_arena
   );
 }
 
@@ -376,55 +386,61 @@ class StartMigrationRequest::_Internal {
 StartMigrationRequest::StartMigrationRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:arc.data_migrator.StartMigrationRequest)
 }
 StartMigrationRequest::StartMigrationRequest(const StartMigrationRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  StartMigrationRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.username_){}
+    , decltype(_impl_.destination_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.username_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.username_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_username().empty()) {
-    username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_username(), 
-      GetArenaForAllocation());
+    _this->_impl_.username_.Set(from._internal_username(), 
+      _this->GetArenaForAllocation());
   }
-  destination_type_ = from.destination_type_;
+  _this->_impl_.destination_type_ = from._impl_.destination_type_;
   // @@protoc_insertion_point(copy_constructor:arc.data_migrator.StartMigrationRequest)
 }
 
-inline void StartMigrationRequest::SharedCtor() {
-username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-destination_type_ = 0;
+inline void StartMigrationRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.username_){}
+    , decltype(_impl_.destination_type_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.username_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.username_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 StartMigrationRequest::~StartMigrationRequest() {
   // @@protoc_insertion_point(destructor:arc.data_migrator.StartMigrationRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void StartMigrationRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  username_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.username_.Destroy();
 }
 
-void StartMigrationRequest::ArenaDtor(void* object) {
-  StartMigrationRequest* _this = reinterpret_cast< StartMigrationRequest* >(object);
-  (void)_this;
-}
-void StartMigrationRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void StartMigrationRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void StartMigrationRequest::Clear() {
@@ -433,24 +449,24 @@ void StartMigrationRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  username_.ClearToEmpty();
-  destination_type_ = 0;
+  _impl_.username_.ClearToEmpty();
+  _impl_.destination_type_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* StartMigrationRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* StartMigrationRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string username = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_username();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -505,7 +521,7 @@ uint8_t* StartMigrationRequest::_InternalSerialize(
   // .arc.data_migrator.DataMigrationDestinationType destination_type = 2;
   if (this->_internal_destination_type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_destination_type(), target);
   }
 
@@ -535,36 +551,37 @@ size_t StartMigrationRequest::ByteSizeLong() const {
   // .arc.data_migrator.DataMigrationDestinationType destination_type = 2;
   if (this->_internal_destination_type() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_destination_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_destination_type());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void StartMigrationRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const StartMigrationRequest*>(
+  MergeFrom(*::_pbi::DownCast<const StartMigrationRequest*>(
       &from));
 }
 
 void StartMigrationRequest::MergeFrom(const StartMigrationRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:arc.data_migrator.StartMigrationRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  StartMigrationRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:arc.data_migrator.StartMigrationRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_username().empty()) {
-    _internal_set_username(from._internal_username());
+    _this->_internal_set_username(from._internal_username());
   }
   if (from._internal_destination_type() != 0) {
-    _internal_set_destination_type(from._internal_destination_type());
+    _this->_internal_set_destination_type(from._internal_destination_type());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void StartMigrationRequest::CopyFrom(const StartMigrationRequest& from) {
@@ -584,11 +601,10 @@ void StartMigrationRequest::InternalSwap(StartMigrationRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &username_, lhs_arena,
-      &other->username_, rhs_arena
+      &_impl_.username_, lhs_arena,
+      &other->_impl_.username_, rhs_arena
   );
-  swap(destination_type_, other->destination_type_);
+  swap(_impl_.destination_type_, other->_impl_.destination_type_);
 }
 
 std::string StartMigrationRequest::GetTypeName() const {
@@ -605,47 +621,52 @@ class DataMigrationProgress::_Internal {
 DataMigrationProgress::DataMigrationProgress(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:arc.data_migrator.DataMigrationProgress)
 }
 DataMigrationProgress::DataMigrationProgress(const DataMigrationProgress& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  DataMigrationProgress* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.current_bytes_){}
+    , decltype(_impl_.total_bytes_){}
+    , decltype(_impl_.status_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&current_bytes_, &from.current_bytes_,
-    static_cast<size_t>(reinterpret_cast<char*>(&status_) -
-    reinterpret_cast<char*>(&current_bytes_)) + sizeof(status_));
+  ::memcpy(&_impl_.current_bytes_, &from._impl_.current_bytes_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.status_) -
+    reinterpret_cast<char*>(&_impl_.current_bytes_)) + sizeof(_impl_.status_));
   // @@protoc_insertion_point(copy_constructor:arc.data_migrator.DataMigrationProgress)
 }
 
-inline void DataMigrationProgress::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&current_bytes_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&status_) -
-    reinterpret_cast<char*>(&current_bytes_)) + sizeof(status_));
+inline void DataMigrationProgress::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.current_bytes_){uint64_t{0u}}
+    , decltype(_impl_.total_bytes_){uint64_t{0u}}
+    , decltype(_impl_.status_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 DataMigrationProgress::~DataMigrationProgress() {
   // @@protoc_insertion_point(destructor:arc.data_migrator.DataMigrationProgress)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void DataMigrationProgress::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void DataMigrationProgress::ArenaDtor(void* object) {
-  DataMigrationProgress* _this = reinterpret_cast< DataMigrationProgress* >(object);
-  (void)_this;
-}
-void DataMigrationProgress::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void DataMigrationProgress::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void DataMigrationProgress::Clear() {
@@ -654,17 +675,17 @@ void DataMigrationProgress::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&current_bytes_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&status_) -
-      reinterpret_cast<char*>(&current_bytes_)) + sizeof(status_));
+  ::memset(&_impl_.current_bytes_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.status_) -
+      reinterpret_cast<char*>(&_impl_.current_bytes_)) + sizeof(_impl_.status_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* DataMigrationProgress::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* DataMigrationProgress::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .arc.data_migrator.DataMigrationStatus status = 1;
       case 1:
@@ -678,7 +699,7 @@ const char* DataMigrationProgress::_InternalParse(const char* ptr, ::PROTOBUF_NA
       // uint64 current_bytes = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          current_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.current_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -686,7 +707,7 @@ const char* DataMigrationProgress::_InternalParse(const char* ptr, ::PROTOBUF_NA
       // uint64 total_bytes = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          total_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.total_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -723,20 +744,20 @@ uint8_t* DataMigrationProgress::_InternalSerialize(
   // .arc.data_migrator.DataMigrationStatus status = 1;
   if (this->_internal_status() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_status(), target);
   }
 
   // uint64 current_bytes = 2;
   if (this->_internal_current_bytes() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(2, this->_internal_current_bytes(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_current_bytes(), target);
   }
 
   // uint64 total_bytes = 3;
   if (this->_internal_total_bytes() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(3, this->_internal_total_bytes(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_total_bytes(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -757,50 +778,51 @@ size_t DataMigrationProgress::ByteSizeLong() const {
 
   // uint64 current_bytes = 2;
   if (this->_internal_current_bytes() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_current_bytes());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_current_bytes());
   }
 
   // uint64 total_bytes = 3;
   if (this->_internal_total_bytes() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_total_bytes());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_total_bytes());
   }
 
   // .arc.data_migrator.DataMigrationStatus status = 1;
   if (this->_internal_status() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_status());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void DataMigrationProgress::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const DataMigrationProgress*>(
+  MergeFrom(*::_pbi::DownCast<const DataMigrationProgress*>(
       &from));
 }
 
 void DataMigrationProgress::MergeFrom(const DataMigrationProgress& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:arc.data_migrator.DataMigrationProgress)
-  GOOGLE_DCHECK_NE(&from, this);
+  DataMigrationProgress* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:arc.data_migrator.DataMigrationProgress)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_current_bytes() != 0) {
-    _internal_set_current_bytes(from._internal_current_bytes());
+    _this->_internal_set_current_bytes(from._internal_current_bytes());
   }
   if (from._internal_total_bytes() != 0) {
-    _internal_set_total_bytes(from._internal_total_bytes());
+    _this->_internal_set_total_bytes(from._internal_total_bytes());
   }
   if (from._internal_status() != 0) {
-    _internal_set_status(from._internal_status());
+    _this->_internal_set_status(from._internal_status());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void DataMigrationProgress::CopyFrom(const DataMigrationProgress& from) {
@@ -818,11 +840,11 @@ void DataMigrationProgress::InternalSwap(DataMigrationProgress* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DataMigrationProgress, status_)
-      + sizeof(DataMigrationProgress::status_)
-      - PROTOBUF_FIELD_OFFSET(DataMigrationProgress, current_bytes_)>(
-          reinterpret_cast<char*>(&current_bytes_),
-          reinterpret_cast<char*>(&other->current_bytes_));
+      PROTOBUF_FIELD_OFFSET(DataMigrationProgress, _impl_.status_)
+      + sizeof(DataMigrationProgress::_impl_.status_)
+      - PROTOBUF_FIELD_OFFSET(DataMigrationProgress, _impl_.current_bytes_)>(
+          reinterpret_cast<char*>(&_impl_.current_bytes_),
+          reinterpret_cast<char*>(&other->_impl_.current_bytes_));
 }
 
 std::string DataMigrationProgress::GetTypeName() const {
@@ -834,13 +856,16 @@ std::string DataMigrationProgress::GetTypeName() const {
 }  // namespace data_migrator
 }  // namespace arc
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::arc::data_migrator::HasDataToMigrateRequest* Arena::CreateMaybeMessage< ::arc::data_migrator::HasDataToMigrateRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::arc::data_migrator::HasDataToMigrateRequest*
+Arena::CreateMaybeMessage< ::arc::data_migrator::HasDataToMigrateRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::arc::data_migrator::HasDataToMigrateRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::arc::data_migrator::StartMigrationRequest* Arena::CreateMaybeMessage< ::arc::data_migrator::StartMigrationRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::arc::data_migrator::StartMigrationRequest*
+Arena::CreateMaybeMessage< ::arc::data_migrator::StartMigrationRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::arc::data_migrator::StartMigrationRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::arc::data_migrator::DataMigrationProgress* Arena::CreateMaybeMessage< ::arc::data_migrator::DataMigrationProgress >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::arc::data_migrator::DataMigrationProgress*
+Arena::CreateMaybeMessage< ::arc::data_migrator::DataMigrationProgress >(Arena* arena) {
   return Arena::CreateMessageInternal< ::arc::data_migrator::DataMigrationProgress >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

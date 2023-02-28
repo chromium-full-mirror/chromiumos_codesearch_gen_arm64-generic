@@ -13,22 +13,28 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace cryptohome {
 namespace cryptorecovery {
-constexpr CryptoRecoveryIdContainer::CryptoRecoveryIdContainer(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : seed_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , recovery_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , increment_(0){}
+PROTOBUF_CONSTEXPR CryptoRecoveryIdContainer::CryptoRecoveryIdContainer(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.seed_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.recovery_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.increment_)*/0} {}
 struct CryptoRecoveryIdContainerDefaultTypeInternal {
-  constexpr CryptoRecoveryIdContainerDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CryptoRecoveryIdContainerDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~CryptoRecoveryIdContainerDefaultTypeInternal() {}
   union {
     CryptoRecoveryIdContainer _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CryptoRecoveryIdContainerDefaultTypeInternal _CryptoRecoveryIdContainer_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CryptoRecoveryIdContainerDefaultTypeInternal _CryptoRecoveryIdContainer_default_instance_;
 }  // namespace cryptorecovery
 }  // namespace cryptohome
 namespace cryptohome {
@@ -38,7 +44,7 @@ namespace cryptorecovery {
 
 class CryptoRecoveryIdContainer::_Internal {
  public:
-  using HasBits = decltype(std::declval<CryptoRecoveryIdContainer>()._has_bits_);
+  using HasBits = decltype(std::declval<CryptoRecoveryIdContainer>()._impl_._has_bits_);
   static void set_has_increment(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -53,69 +59,78 @@ class CryptoRecoveryIdContainer::_Internal {
 CryptoRecoveryIdContainer::CryptoRecoveryIdContainer(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.cryptorecovery.CryptoRecoveryIdContainer)
 }
 CryptoRecoveryIdContainer::CryptoRecoveryIdContainer(const CryptoRecoveryIdContainer& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CryptoRecoveryIdContainer* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.seed_){}
+    , decltype(_impl_.recovery_id_){}
+    , decltype(_impl_.increment_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  seed_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.seed_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    seed_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.seed_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_seed()) {
-    seed_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_seed(), 
-      GetArenaForAllocation());
+    _this->_impl_.seed_.Set(from._internal_seed(), 
+      _this->GetArenaForAllocation());
   }
-  recovery_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.recovery_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    recovery_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.recovery_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_recovery_id()) {
-    recovery_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_recovery_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.recovery_id_.Set(from._internal_recovery_id(), 
+      _this->GetArenaForAllocation());
   }
-  increment_ = from.increment_;
+  _this->_impl_.increment_ = from._impl_.increment_;
   // @@protoc_insertion_point(copy_constructor:cryptohome.cryptorecovery.CryptoRecoveryIdContainer)
 }
 
-inline void CryptoRecoveryIdContainer::SharedCtor() {
-seed_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  seed_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-recovery_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  recovery_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-increment_ = 0;
+inline void CryptoRecoveryIdContainer::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.seed_){}
+    , decltype(_impl_.recovery_id_){}
+    , decltype(_impl_.increment_){0}
+  };
+  _impl_.seed_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.seed_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.recovery_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.recovery_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CryptoRecoveryIdContainer::~CryptoRecoveryIdContainer() {
   // @@protoc_insertion_point(destructor:cryptohome.cryptorecovery.CryptoRecoveryIdContainer)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void CryptoRecoveryIdContainer::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  seed_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  recovery_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.seed_.Destroy();
+  _impl_.recovery_id_.Destroy();
 }
 
-void CryptoRecoveryIdContainer::ArenaDtor(void* object) {
-  CryptoRecoveryIdContainer* _this = reinterpret_cast< CryptoRecoveryIdContainer* >(object);
-  (void)_this;
-}
-void CryptoRecoveryIdContainer::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void CryptoRecoveryIdContainer::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CryptoRecoveryIdContainer::Clear() {
@@ -124,32 +139,32 @@ void CryptoRecoveryIdContainer::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      seed_.ClearNonDefaultToEmpty();
+      _impl_.seed_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      recovery_id_.ClearNonDefaultToEmpty();
+      _impl_.recovery_id_.ClearNonDefaultToEmpty();
     }
   }
-  increment_ = 0;
-  _has_bits_.Clear();
+  _impl_.increment_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* CryptoRecoveryIdContainer::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* CryptoRecoveryIdContainer::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional int32 increment = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_increment(&has_bits);
-          increment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.increment_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -158,7 +173,7 @@ const char* CryptoRecoveryIdContainer::_InternalParse(const char* ptr, ::PROTOBU
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_seed();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -167,7 +182,7 @@ const char* CryptoRecoveryIdContainer::_InternalParse(const char* ptr, ::PROTOBU
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_recovery_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -188,7 +203,7 @@ const char* CryptoRecoveryIdContainer::_InternalParse(const char* ptr, ::PROTOBU
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -202,11 +217,11 @@ uint8_t* CryptoRecoveryIdContainer::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 increment = 1;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_increment(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_increment(), target);
   }
 
   // optional bytes seed = 2;
@@ -237,7 +252,7 @@ size_t CryptoRecoveryIdContainer::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional bytes seed = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -255,44 +270,45 @@ size_t CryptoRecoveryIdContainer::ByteSizeLong() const {
 
     // optional int32 increment = 1;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_increment());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_increment());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void CryptoRecoveryIdContainer::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const CryptoRecoveryIdContainer*>(
+  MergeFrom(*::_pbi::DownCast<const CryptoRecoveryIdContainer*>(
       &from));
 }
 
 void CryptoRecoveryIdContainer::MergeFrom(const CryptoRecoveryIdContainer& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.cryptorecovery.CryptoRecoveryIdContainer)
-  GOOGLE_DCHECK_NE(&from, this);
+  CryptoRecoveryIdContainer* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.cryptorecovery.CryptoRecoveryIdContainer)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_seed(from._internal_seed());
+      _this->_internal_set_seed(from._internal_seed());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_recovery_id(from._internal_recovery_id());
+      _this->_internal_set_recovery_id(from._internal_recovery_id());
     }
     if (cached_has_bits & 0x00000004u) {
-      increment_ = from.increment_;
+      _this->_impl_.increment_ = from._impl_.increment_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CryptoRecoveryIdContainer::CopyFrom(const CryptoRecoveryIdContainer& from) {
@@ -311,18 +327,16 @@ void CryptoRecoveryIdContainer::InternalSwap(CryptoRecoveryIdContainer* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &seed_, lhs_arena,
-      &other->seed_, rhs_arena
+      &_impl_.seed_, lhs_arena,
+      &other->_impl_.seed_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &recovery_id_, lhs_arena,
-      &other->recovery_id_, rhs_arena
+      &_impl_.recovery_id_, lhs_arena,
+      &other->_impl_.recovery_id_, rhs_arena
   );
-  swap(increment_, other->increment_);
+  swap(_impl_.increment_, other->_impl_.increment_);
 }
 
 std::string CryptoRecoveryIdContainer::GetTypeName() const {
@@ -334,7 +348,8 @@ std::string CryptoRecoveryIdContainer::GetTypeName() const {
 }  // namespace cryptorecovery
 }  // namespace cryptohome
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::cryptohome::cryptorecovery::CryptoRecoveryIdContainer* Arena::CreateMaybeMessage< ::cryptohome::cryptorecovery::CryptoRecoveryIdContainer >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::cryptorecovery::CryptoRecoveryIdContainer*
+Arena::CreateMaybeMessage< ::cryptohome::cryptorecovery::CryptoRecoveryIdContainer >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::cryptorecovery::CryptoRecoveryIdContainer >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

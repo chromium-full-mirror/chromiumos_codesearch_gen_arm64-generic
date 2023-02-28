@@ -13,24 +13,30 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace metrics {
-constexpr ChromeUserMetricsExtension::ChromeUserMetricsExtension(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : user_action_event_()
-  , histogram_event_()
-  , system_profile_(nullptr)
-  , client_id_(uint64_t{0u})
-  , session_id_(0)
-  , product_(0){}
+PROTOBUF_CONSTEXPR ChromeUserMetricsExtension::ChromeUserMetricsExtension(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.user_action_event_)*/{}
+  , /*decltype(_impl_.histogram_event_)*/{}
+  , /*decltype(_impl_.system_profile_)*/nullptr
+  , /*decltype(_impl_.client_id_)*/uint64_t{0u}
+  , /*decltype(_impl_.session_id_)*/0
+  , /*decltype(_impl_.product_)*/0} {}
 struct ChromeUserMetricsExtensionDefaultTypeInternal {
-  constexpr ChromeUserMetricsExtensionDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ChromeUserMetricsExtensionDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ChromeUserMetricsExtensionDefaultTypeInternal() {}
   union {
     ChromeUserMetricsExtension _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ChromeUserMetricsExtensionDefaultTypeInternal _ChromeUserMetricsExtension_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChromeUserMetricsExtensionDefaultTypeInternal _ChromeUserMetricsExtension_default_instance_;
 }  // namespace metrics
 namespace metrics {
 bool ChromeUserMetricsExtension_Product_IsValid(int value) {
@@ -91,7 +97,7 @@ constexpr int ChromeUserMetricsExtension::Product_ARRAYSIZE;
 
 class ChromeUserMetricsExtension::_Internal {
  public:
-  using HasBits = decltype(std::declval<ChromeUserMetricsExtension>()._has_bits_);
+  using HasBits = decltype(std::declval<ChromeUserMetricsExtension>()._impl_._has_bits_);
   static void set_has_product(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
@@ -109,73 +115,81 @@ class ChromeUserMetricsExtension::_Internal {
 
 const ::metrics::SystemProfileProto&
 ChromeUserMetricsExtension::_Internal::system_profile(const ChromeUserMetricsExtension* msg) {
-  return *msg->system_profile_;
+  return *msg->_impl_.system_profile_;
 }
 void ChromeUserMetricsExtension::clear_system_profile() {
-  if (system_profile_ != nullptr) system_profile_->Clear();
-  _has_bits_[0] &= ~0x00000001u;
+  if (_impl_.system_profile_ != nullptr) _impl_.system_profile_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
 }
 void ChromeUserMetricsExtension::clear_user_action_event() {
-  user_action_event_.Clear();
+  _impl_.user_action_event_.Clear();
 }
 void ChromeUserMetricsExtension::clear_histogram_event() {
-  histogram_event_.Clear();
+  _impl_.histogram_event_.Clear();
 }
 ChromeUserMetricsExtension::ChromeUserMetricsExtension(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  user_action_event_(arena),
-  histogram_event_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:metrics.ChromeUserMetricsExtension)
 }
 ChromeUserMetricsExtension::ChromeUserMetricsExtension(const ChromeUserMetricsExtension& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      user_action_event_(from.user_action_event_),
-      histogram_event_(from.histogram_event_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ChromeUserMetricsExtension* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.user_action_event_){from._impl_.user_action_event_}
+    , decltype(_impl_.histogram_event_){from._impl_.histogram_event_}
+    , decltype(_impl_.system_profile_){nullptr}
+    , decltype(_impl_.client_id_){}
+    , decltype(_impl_.session_id_){}
+    , decltype(_impl_.product_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_system_profile()) {
-    system_profile_ = new ::metrics::SystemProfileProto(*from.system_profile_);
-  } else {
-    system_profile_ = nullptr;
+    _this->_impl_.system_profile_ = new ::metrics::SystemProfileProto(*from._impl_.system_profile_);
   }
-  ::memcpy(&client_id_, &from.client_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&product_) -
-    reinterpret_cast<char*>(&client_id_)) + sizeof(product_));
+  ::memcpy(&_impl_.client_id_, &from._impl_.client_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.product_) -
+    reinterpret_cast<char*>(&_impl_.client_id_)) + sizeof(_impl_.product_));
   // @@protoc_insertion_point(copy_constructor:metrics.ChromeUserMetricsExtension)
 }
 
-inline void ChromeUserMetricsExtension::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&system_profile_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&product_) -
-    reinterpret_cast<char*>(&system_profile_)) + sizeof(product_));
+inline void ChromeUserMetricsExtension::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.user_action_event_){arena}
+    , decltype(_impl_.histogram_event_){arena}
+    , decltype(_impl_.system_profile_){nullptr}
+    , decltype(_impl_.client_id_){uint64_t{0u}}
+    , decltype(_impl_.session_id_){0}
+    , decltype(_impl_.product_){0}
+  };
 }
 
 ChromeUserMetricsExtension::~ChromeUserMetricsExtension() {
   // @@protoc_insertion_point(destructor:metrics.ChromeUserMetricsExtension)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ChromeUserMetricsExtension::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete system_profile_;
+  _impl_.user_action_event_.~RepeatedPtrField();
+  _impl_.histogram_event_.~RepeatedPtrField();
+  if (this != internal_default_instance()) delete _impl_.system_profile_;
 }
 
-void ChromeUserMetricsExtension::ArenaDtor(void* object) {
-  ChromeUserMetricsExtension* _this = reinterpret_cast< ChromeUserMetricsExtension* >(object);
-  (void)_this;
-}
-void ChromeUserMetricsExtension::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ChromeUserMetricsExtension::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ChromeUserMetricsExtension::Clear() {
@@ -184,34 +198,34 @@ void ChromeUserMetricsExtension::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  user_action_event_.Clear();
-  histogram_event_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.user_action_event_.Clear();
+  _impl_.histogram_event_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(system_profile_ != nullptr);
-    system_profile_->Clear();
+    GOOGLE_DCHECK(_impl_.system_profile_ != nullptr);
+    _impl_.system_profile_->Clear();
   }
   if (cached_has_bits & 0x0000000eu) {
-    ::memset(&client_id_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&product_) -
-        reinterpret_cast<char*>(&client_id_)) + sizeof(product_));
+    ::memset(&_impl_.client_id_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.product_) -
+        reinterpret_cast<char*>(&_impl_.client_id_)) + sizeof(_impl_.product_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ChromeUserMetricsExtension::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ChromeUserMetricsExtension::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional fixed64 client_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 9)) {
           _Internal::set_has_client_id(&has_bits);
-          client_id_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<uint64_t>(ptr);
+          _impl_.client_id_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<uint64_t>(ptr);
           ptr += sizeof(uint64_t);
         } else
           goto handle_unusual;
@@ -220,7 +234,7 @@ const char* ChromeUserMetricsExtension::_InternalParse(const char* ptr, ::PROTOB
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_session_id(&has_bits);
-          session_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.session_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -263,7 +277,7 @@ const char* ChromeUserMetricsExtension::_InternalParse(const char* ptr, ::PROTOB
       case 10:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
           _Internal::set_has_product(&has_bits);
-          product_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.product_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -284,7 +298,7 @@ const char* ChromeUserMetricsExtension::_InternalParse(const char* ptr, ::PROTOB
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -298,47 +312,46 @@ uint8_t* ChromeUserMetricsExtension::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional fixed64 client_id = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFixed64ToArray(1, this->_internal_client_id(), target);
+    target = ::_pbi::WireFormatLite::WriteFixed64ToArray(1, this->_internal_client_id(), target);
   }
 
   // optional int32 session_id = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_session_id(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_session_id(), target);
   }
 
   // optional .metrics.SystemProfileProto system_profile = 3;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::system_profile(this), target, stream);
+      InternalWriteMessage(3, _Internal::system_profile(this),
+        _Internal::system_profile(this).GetCachedSize(), target, stream);
   }
 
   // repeated .metrics.UserActionEventProto user_action_event = 4;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_user_action_event_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_user_action_event_size()); i < n; i++) {
+    const auto& repfield = this->_internal_user_action_event(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, this->_internal_user_action_event(i), target, stream);
+        InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .metrics.HistogramEventProto histogram_event = 6;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_histogram_event_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_histogram_event_size()); i < n; i++) {
+    const auto& repfield = this->_internal_histogram_event(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(6, this->_internal_histogram_event(i), target, stream);
+        InternalWriteMessage(6, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // optional int32 product = 10 [default = 0];
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(10, this->_internal_product(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(10, this->_internal_product(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -359,25 +372,25 @@ size_t ChromeUserMetricsExtension::ByteSizeLong() const {
 
   // repeated .metrics.UserActionEventProto user_action_event = 4;
   total_size += 1UL * this->_internal_user_action_event_size();
-  for (const auto& msg : this->user_action_event_) {
+  for (const auto& msg : this->_impl_.user_action_event_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .metrics.HistogramEventProto histogram_event = 6;
   total_size += 1UL * this->_internal_histogram_event_size();
-  for (const auto& msg : this->histogram_event_) {
+  for (const auto& msg : this->_impl_.histogram_event_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional .metrics.SystemProfileProto system_profile = 3;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *system_profile_);
+          *_impl_.system_profile_);
     }
 
     // optional fixed64 client_id = 1;
@@ -387,54 +400,56 @@ size_t ChromeUserMetricsExtension::ByteSizeLong() const {
 
     // optional int32 session_id = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_session_id());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_session_id());
     }
 
     // optional int32 product = 10 [default = 0];
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_product());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_product());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ChromeUserMetricsExtension::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ChromeUserMetricsExtension*>(
+  MergeFrom(*::_pbi::DownCast<const ChromeUserMetricsExtension*>(
       &from));
 }
 
 void ChromeUserMetricsExtension::MergeFrom(const ChromeUserMetricsExtension& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:metrics.ChromeUserMetricsExtension)
-  GOOGLE_DCHECK_NE(&from, this);
+  ChromeUserMetricsExtension* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:metrics.ChromeUserMetricsExtension)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  user_action_event_.MergeFrom(from.user_action_event_);
-  histogram_event_.MergeFrom(from.histogram_event_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_impl_.user_action_event_.MergeFrom(from._impl_.user_action_event_);
+  _this->_impl_.histogram_event_.MergeFrom(from._impl_.histogram_event_);
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_system_profile()->::metrics::SystemProfileProto::MergeFrom(from._internal_system_profile());
+      _this->_internal_mutable_system_profile()->::metrics::SystemProfileProto::MergeFrom(
+          from._internal_system_profile());
     }
     if (cached_has_bits & 0x00000002u) {
-      client_id_ = from.client_id_;
+      _this->_impl_.client_id_ = from._impl_.client_id_;
     }
     if (cached_has_bits & 0x00000004u) {
-      session_id_ = from.session_id_;
+      _this->_impl_.session_id_ = from._impl_.session_id_;
     }
     if (cached_has_bits & 0x00000008u) {
-      product_ = from.product_;
+      _this->_impl_.product_ = from._impl_.product_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ChromeUserMetricsExtension::CopyFrom(const ChromeUserMetricsExtension& from) {
@@ -451,15 +466,15 @@ bool ChromeUserMetricsExtension::IsInitialized() const {
 void ChromeUserMetricsExtension::InternalSwap(ChromeUserMetricsExtension* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  user_action_event_.InternalSwap(&other->user_action_event_);
-  histogram_event_.InternalSwap(&other->histogram_event_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.user_action_event_.InternalSwap(&other->_impl_.user_action_event_);
+  _impl_.histogram_event_.InternalSwap(&other->_impl_.histogram_event_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChromeUserMetricsExtension, product_)
-      + sizeof(ChromeUserMetricsExtension::product_)
-      - PROTOBUF_FIELD_OFFSET(ChromeUserMetricsExtension, system_profile_)>(
-          reinterpret_cast<char*>(&system_profile_),
-          reinterpret_cast<char*>(&other->system_profile_));
+      PROTOBUF_FIELD_OFFSET(ChromeUserMetricsExtension, _impl_.product_)
+      + sizeof(ChromeUserMetricsExtension::_impl_.product_)
+      - PROTOBUF_FIELD_OFFSET(ChromeUserMetricsExtension, _impl_.system_profile_)>(
+          reinterpret_cast<char*>(&_impl_.system_profile_),
+          reinterpret_cast<char*>(&other->_impl_.system_profile_));
 }
 
 std::string ChromeUserMetricsExtension::GetTypeName() const {
@@ -470,7 +485,8 @@ std::string ChromeUserMetricsExtension::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace metrics
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::metrics::ChromeUserMetricsExtension* Arena::CreateMaybeMessage< ::metrics::ChromeUserMetricsExtension >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::metrics::ChromeUserMetricsExtension*
+Arena::CreateMaybeMessage< ::metrics::ChromeUserMetricsExtension >(Arena* arena) {
   return Arena::CreateMessageInternal< ::metrics::ChromeUserMetricsExtension >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

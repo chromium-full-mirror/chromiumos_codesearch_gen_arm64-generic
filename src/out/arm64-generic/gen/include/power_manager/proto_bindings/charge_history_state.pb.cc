@@ -13,48 +13,57 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace power_manager {
-constexpr ChargeHistoryState_ChargeEvent::ChargeHistoryState_ChargeEvent(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : start_time_(int64_t{0})
-  , duration_(int64_t{0}){}
+PROTOBUF_CONSTEXPR ChargeHistoryState_ChargeEvent::ChargeHistoryState_ChargeEvent(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.start_time_)*/int64_t{0}
+  , /*decltype(_impl_.duration_)*/int64_t{0}} {}
 struct ChargeHistoryState_ChargeEventDefaultTypeInternal {
-  constexpr ChargeHistoryState_ChargeEventDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ChargeHistoryState_ChargeEventDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ChargeHistoryState_ChargeEventDefaultTypeInternal() {}
   union {
     ChargeHistoryState_ChargeEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ChargeHistoryState_ChargeEventDefaultTypeInternal _ChargeHistoryState_ChargeEvent_default_instance_;
-constexpr ChargeHistoryState_DailyHistory::ChargeHistoryState_DailyHistory(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : utc_midnight_(int64_t{0})
-  , time_on_ac_(int64_t{0})
-  , time_full_on_ac_(int64_t{0})
-  , hold_time_on_ac_(int64_t{0}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChargeHistoryState_ChargeEventDefaultTypeInternal _ChargeHistoryState_ChargeEvent_default_instance_;
+PROTOBUF_CONSTEXPR ChargeHistoryState_DailyHistory::ChargeHistoryState_DailyHistory(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.utc_midnight_)*/int64_t{0}
+  , /*decltype(_impl_.time_on_ac_)*/int64_t{0}
+  , /*decltype(_impl_.time_full_on_ac_)*/int64_t{0}
+  , /*decltype(_impl_.hold_time_on_ac_)*/int64_t{0}} {}
 struct ChargeHistoryState_DailyHistoryDefaultTypeInternal {
-  constexpr ChargeHistoryState_DailyHistoryDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ChargeHistoryState_DailyHistoryDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ChargeHistoryState_DailyHistoryDefaultTypeInternal() {}
   union {
     ChargeHistoryState_DailyHistory _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ChargeHistoryState_DailyHistoryDefaultTypeInternal _ChargeHistoryState_DailyHistory_default_instance_;
-constexpr ChargeHistoryState::ChargeHistoryState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : charge_event_()
-  , daily_history_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChargeHistoryState_DailyHistoryDefaultTypeInternal _ChargeHistoryState_DailyHistory_default_instance_;
+PROTOBUF_CONSTEXPR ChargeHistoryState::ChargeHistoryState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.charge_event_)*/{}
+  , /*decltype(_impl_.daily_history_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ChargeHistoryStateDefaultTypeInternal {
-  constexpr ChargeHistoryStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ChargeHistoryStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ChargeHistoryStateDefaultTypeInternal() {}
   union {
     ChargeHistoryState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ChargeHistoryStateDefaultTypeInternal _ChargeHistoryState_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChargeHistoryStateDefaultTypeInternal _ChargeHistoryState_default_instance_;
 }  // namespace power_manager
 namespace power_manager {
 
@@ -62,7 +71,7 @@ namespace power_manager {
 
 class ChargeHistoryState_ChargeEvent::_Internal {
  public:
-  using HasBits = decltype(std::declval<ChargeHistoryState_ChargeEvent>()._has_bits_);
+  using HasBits = decltype(std::declval<ChargeHistoryState_ChargeEvent>()._impl_._has_bits_);
   static void set_has_start_time(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -74,48 +83,52 @@ class ChargeHistoryState_ChargeEvent::_Internal {
 ChargeHistoryState_ChargeEvent::ChargeHistoryState_ChargeEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:power_manager.ChargeHistoryState.ChargeEvent)
 }
 ChargeHistoryState_ChargeEvent::ChargeHistoryState_ChargeEvent(const ChargeHistoryState_ChargeEvent& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ChargeHistoryState_ChargeEvent* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.start_time_){}
+    , decltype(_impl_.duration_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&start_time_, &from.start_time_,
-    static_cast<size_t>(reinterpret_cast<char*>(&duration_) -
-    reinterpret_cast<char*>(&start_time_)) + sizeof(duration_));
+  ::memcpy(&_impl_.start_time_, &from._impl_.start_time_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.duration_) -
+    reinterpret_cast<char*>(&_impl_.start_time_)) + sizeof(_impl_.duration_));
   // @@protoc_insertion_point(copy_constructor:power_manager.ChargeHistoryState.ChargeEvent)
 }
 
-inline void ChargeHistoryState_ChargeEvent::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&start_time_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&duration_) -
-    reinterpret_cast<char*>(&start_time_)) + sizeof(duration_));
+inline void ChargeHistoryState_ChargeEvent::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.start_time_){int64_t{0}}
+    , decltype(_impl_.duration_){int64_t{0}}
+  };
 }
 
 ChargeHistoryState_ChargeEvent::~ChargeHistoryState_ChargeEvent() {
   // @@protoc_insertion_point(destructor:power_manager.ChargeHistoryState.ChargeEvent)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ChargeHistoryState_ChargeEvent::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void ChargeHistoryState_ChargeEvent::ArenaDtor(void* object) {
-  ChargeHistoryState_ChargeEvent* _this = reinterpret_cast< ChargeHistoryState_ChargeEvent* >(object);
-  (void)_this;
-}
-void ChargeHistoryState_ChargeEvent::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ChargeHistoryState_ChargeEvent::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ChargeHistoryState_ChargeEvent::Clear() {
@@ -124,28 +137,28 @@ void ChargeHistoryState_ChargeEvent::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&start_time_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&duration_) -
-        reinterpret_cast<char*>(&start_time_)) + sizeof(duration_));
+    ::memset(&_impl_.start_time_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.duration_) -
+        reinterpret_cast<char*>(&_impl_.start_time_)) + sizeof(_impl_.duration_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ChargeHistoryState_ChargeEvent::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ChargeHistoryState_ChargeEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional int64 start_time = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_start_time(&has_bits);
-          start_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.start_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -154,7 +167,7 @@ const char* ChargeHistoryState_ChargeEvent::_InternalParse(const char* ptr, ::PR
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_duration(&has_bits);
-          duration_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.duration_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -175,7 +188,7 @@ const char* ChargeHistoryState_ChargeEvent::_InternalParse(const char* ptr, ::PR
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -189,17 +202,17 @@ uint8_t* ChargeHistoryState_ChargeEvent::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int64 start_time = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_start_time(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_start_time(), target);
   }
 
   // optional int64 duration = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_duration(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_duration(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -218,50 +231,51 @@ size_t ChargeHistoryState_ChargeEvent::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional int64 start_time = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_start_time());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_start_time());
     }
 
     // optional int64 duration = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_duration());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_duration());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ChargeHistoryState_ChargeEvent::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ChargeHistoryState_ChargeEvent*>(
+  MergeFrom(*::_pbi::DownCast<const ChargeHistoryState_ChargeEvent*>(
       &from));
 }
 
 void ChargeHistoryState_ChargeEvent::MergeFrom(const ChargeHistoryState_ChargeEvent& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:power_manager.ChargeHistoryState.ChargeEvent)
-  GOOGLE_DCHECK_NE(&from, this);
+  ChargeHistoryState_ChargeEvent* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.ChargeHistoryState.ChargeEvent)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      start_time_ = from.start_time_;
+      _this->_impl_.start_time_ = from._impl_.start_time_;
     }
     if (cached_has_bits & 0x00000002u) {
-      duration_ = from.duration_;
+      _this->_impl_.duration_ = from._impl_.duration_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ChargeHistoryState_ChargeEvent::CopyFrom(const ChargeHistoryState_ChargeEvent& from) {
@@ -278,13 +292,13 @@ bool ChargeHistoryState_ChargeEvent::IsInitialized() const {
 void ChargeHistoryState_ChargeEvent::InternalSwap(ChargeHistoryState_ChargeEvent* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChargeHistoryState_ChargeEvent, duration_)
-      + sizeof(ChargeHistoryState_ChargeEvent::duration_)
-      - PROTOBUF_FIELD_OFFSET(ChargeHistoryState_ChargeEvent, start_time_)>(
-          reinterpret_cast<char*>(&start_time_),
-          reinterpret_cast<char*>(&other->start_time_));
+      PROTOBUF_FIELD_OFFSET(ChargeHistoryState_ChargeEvent, _impl_.duration_)
+      + sizeof(ChargeHistoryState_ChargeEvent::_impl_.duration_)
+      - PROTOBUF_FIELD_OFFSET(ChargeHistoryState_ChargeEvent, _impl_.start_time_)>(
+          reinterpret_cast<char*>(&_impl_.start_time_),
+          reinterpret_cast<char*>(&other->_impl_.start_time_));
 }
 
 std::string ChargeHistoryState_ChargeEvent::GetTypeName() const {
@@ -296,7 +310,7 @@ std::string ChargeHistoryState_ChargeEvent::GetTypeName() const {
 
 class ChargeHistoryState_DailyHistory::_Internal {
  public:
-  using HasBits = decltype(std::declval<ChargeHistoryState_DailyHistory>()._has_bits_);
+  using HasBits = decltype(std::declval<ChargeHistoryState_DailyHistory>()._impl_._has_bits_);
   static void set_has_utc_midnight(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -314,48 +328,56 @@ class ChargeHistoryState_DailyHistory::_Internal {
 ChargeHistoryState_DailyHistory::ChargeHistoryState_DailyHistory(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:power_manager.ChargeHistoryState.DailyHistory)
 }
 ChargeHistoryState_DailyHistory::ChargeHistoryState_DailyHistory(const ChargeHistoryState_DailyHistory& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ChargeHistoryState_DailyHistory* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.utc_midnight_){}
+    , decltype(_impl_.time_on_ac_){}
+    , decltype(_impl_.time_full_on_ac_){}
+    , decltype(_impl_.hold_time_on_ac_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&utc_midnight_, &from.utc_midnight_,
-    static_cast<size_t>(reinterpret_cast<char*>(&hold_time_on_ac_) -
-    reinterpret_cast<char*>(&utc_midnight_)) + sizeof(hold_time_on_ac_));
+  ::memcpy(&_impl_.utc_midnight_, &from._impl_.utc_midnight_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.hold_time_on_ac_) -
+    reinterpret_cast<char*>(&_impl_.utc_midnight_)) + sizeof(_impl_.hold_time_on_ac_));
   // @@protoc_insertion_point(copy_constructor:power_manager.ChargeHistoryState.DailyHistory)
 }
 
-inline void ChargeHistoryState_DailyHistory::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&utc_midnight_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&hold_time_on_ac_) -
-    reinterpret_cast<char*>(&utc_midnight_)) + sizeof(hold_time_on_ac_));
+inline void ChargeHistoryState_DailyHistory::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.utc_midnight_){int64_t{0}}
+    , decltype(_impl_.time_on_ac_){int64_t{0}}
+    , decltype(_impl_.time_full_on_ac_){int64_t{0}}
+    , decltype(_impl_.hold_time_on_ac_){int64_t{0}}
+  };
 }
 
 ChargeHistoryState_DailyHistory::~ChargeHistoryState_DailyHistory() {
   // @@protoc_insertion_point(destructor:power_manager.ChargeHistoryState.DailyHistory)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ChargeHistoryState_DailyHistory::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void ChargeHistoryState_DailyHistory::ArenaDtor(void* object) {
-  ChargeHistoryState_DailyHistory* _this = reinterpret_cast< ChargeHistoryState_DailyHistory* >(object);
-  (void)_this;
-}
-void ChargeHistoryState_DailyHistory::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ChargeHistoryState_DailyHistory::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ChargeHistoryState_DailyHistory::Clear() {
@@ -364,28 +386,28 @@ void ChargeHistoryState_DailyHistory::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
-    ::memset(&utc_midnight_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&hold_time_on_ac_) -
-        reinterpret_cast<char*>(&utc_midnight_)) + sizeof(hold_time_on_ac_));
+    ::memset(&_impl_.utc_midnight_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.hold_time_on_ac_) -
+        reinterpret_cast<char*>(&_impl_.utc_midnight_)) + sizeof(_impl_.hold_time_on_ac_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ChargeHistoryState_DailyHistory::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ChargeHistoryState_DailyHistory::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional int64 utc_midnight = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_utc_midnight(&has_bits);
-          utc_midnight_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.utc_midnight_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -394,7 +416,7 @@ const char* ChargeHistoryState_DailyHistory::_InternalParse(const char* ptr, ::P
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_time_on_ac(&has_bits);
-          time_on_ac_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.time_on_ac_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -403,7 +425,7 @@ const char* ChargeHistoryState_DailyHistory::_InternalParse(const char* ptr, ::P
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_time_full_on_ac(&has_bits);
-          time_full_on_ac_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.time_full_on_ac_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -412,7 +434,7 @@ const char* ChargeHistoryState_DailyHistory::_InternalParse(const char* ptr, ::P
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _Internal::set_has_hold_time_on_ac(&has_bits);
-          hold_time_on_ac_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.hold_time_on_ac_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -433,7 +455,7 @@ const char* ChargeHistoryState_DailyHistory::_InternalParse(const char* ptr, ::P
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -447,29 +469,29 @@ uint8_t* ChargeHistoryState_DailyHistory::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int64 utc_midnight = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_utc_midnight(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_utc_midnight(), target);
   }
 
   // optional int64 time_on_ac = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_time_on_ac(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_time_on_ac(), target);
   }
 
   // optional int64 time_full_on_ac = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(3, this->_internal_time_full_on_ac(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(3, this->_internal_time_full_on_ac(), target);
   }
 
   // optional int64 hold_time_on_ac = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(4, this->_internal_hold_time_on_ac(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(4, this->_internal_hold_time_on_ac(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -488,66 +510,67 @@ size_t ChargeHistoryState_DailyHistory::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional int64 utc_midnight = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_utc_midnight());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_utc_midnight());
     }
 
     // optional int64 time_on_ac = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_time_on_ac());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_time_on_ac());
     }
 
     // optional int64 time_full_on_ac = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_time_full_on_ac());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_time_full_on_ac());
     }
 
     // optional int64 hold_time_on_ac = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_hold_time_on_ac());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_hold_time_on_ac());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ChargeHistoryState_DailyHistory::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ChargeHistoryState_DailyHistory*>(
+  MergeFrom(*::_pbi::DownCast<const ChargeHistoryState_DailyHistory*>(
       &from));
 }
 
 void ChargeHistoryState_DailyHistory::MergeFrom(const ChargeHistoryState_DailyHistory& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:power_manager.ChargeHistoryState.DailyHistory)
-  GOOGLE_DCHECK_NE(&from, this);
+  ChargeHistoryState_DailyHistory* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.ChargeHistoryState.DailyHistory)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      utc_midnight_ = from.utc_midnight_;
+      _this->_impl_.utc_midnight_ = from._impl_.utc_midnight_;
     }
     if (cached_has_bits & 0x00000002u) {
-      time_on_ac_ = from.time_on_ac_;
+      _this->_impl_.time_on_ac_ = from._impl_.time_on_ac_;
     }
     if (cached_has_bits & 0x00000004u) {
-      time_full_on_ac_ = from.time_full_on_ac_;
+      _this->_impl_.time_full_on_ac_ = from._impl_.time_full_on_ac_;
     }
     if (cached_has_bits & 0x00000008u) {
-      hold_time_on_ac_ = from.hold_time_on_ac_;
+      _this->_impl_.hold_time_on_ac_ = from._impl_.hold_time_on_ac_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ChargeHistoryState_DailyHistory::CopyFrom(const ChargeHistoryState_DailyHistory& from) {
@@ -564,13 +587,13 @@ bool ChargeHistoryState_DailyHistory::IsInitialized() const {
 void ChargeHistoryState_DailyHistory::InternalSwap(ChargeHistoryState_DailyHistory* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChargeHistoryState_DailyHistory, hold_time_on_ac_)
-      + sizeof(ChargeHistoryState_DailyHistory::hold_time_on_ac_)
-      - PROTOBUF_FIELD_OFFSET(ChargeHistoryState_DailyHistory, utc_midnight_)>(
-          reinterpret_cast<char*>(&utc_midnight_),
-          reinterpret_cast<char*>(&other->utc_midnight_));
+      PROTOBUF_FIELD_OFFSET(ChargeHistoryState_DailyHistory, _impl_.hold_time_on_ac_)
+      + sizeof(ChargeHistoryState_DailyHistory::_impl_.hold_time_on_ac_)
+      - PROTOBUF_FIELD_OFFSET(ChargeHistoryState_DailyHistory, _impl_.utc_midnight_)>(
+          reinterpret_cast<char*>(&_impl_.utc_midnight_),
+          reinterpret_cast<char*>(&other->_impl_.utc_midnight_));
 }
 
 std::string ChargeHistoryState_DailyHistory::GetTypeName() const {
@@ -586,45 +609,50 @@ class ChargeHistoryState::_Internal {
 
 ChargeHistoryState::ChargeHistoryState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  charge_event_(arena),
-  daily_history_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:power_manager.ChargeHistoryState)
 }
 ChargeHistoryState::ChargeHistoryState(const ChargeHistoryState& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      charge_event_(from.charge_event_),
-      daily_history_(from.daily_history_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ChargeHistoryState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.charge_event_){from._impl_.charge_event_}
+    , decltype(_impl_.daily_history_){from._impl_.daily_history_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:power_manager.ChargeHistoryState)
 }
 
-inline void ChargeHistoryState::SharedCtor() {
+inline void ChargeHistoryState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.charge_event_){arena}
+    , decltype(_impl_.daily_history_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 ChargeHistoryState::~ChargeHistoryState() {
   // @@protoc_insertion_point(destructor:power_manager.ChargeHistoryState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ChargeHistoryState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.charge_event_.~RepeatedPtrField();
+  _impl_.daily_history_.~RepeatedPtrField();
 }
 
-void ChargeHistoryState::ArenaDtor(void* object) {
-  ChargeHistoryState* _this = reinterpret_cast< ChargeHistoryState* >(object);
-  (void)_this;
-}
-void ChargeHistoryState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ChargeHistoryState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ChargeHistoryState::Clear() {
@@ -633,16 +661,16 @@ void ChargeHistoryState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  charge_event_.Clear();
-  daily_history_.Clear();
+  _impl_.charge_event_.Clear();
+  _impl_.daily_history_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ChargeHistoryState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ChargeHistoryState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .power_manager.ChargeHistoryState.ChargeEvent charge_event = 1;
       case 1:
@@ -700,19 +728,19 @@ uint8_t* ChargeHistoryState::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .power_manager.ChargeHistoryState.ChargeEvent charge_event = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_charge_event_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_charge_event_size()); i < n; i++) {
+    const auto& repfield = this->_internal_charge_event(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_charge_event(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .power_manager.ChargeHistoryState.DailyHistory daily_history = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_daily_history_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_daily_history_size()); i < n; i++) {
+    const auto& repfield = this->_internal_daily_history(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_daily_history(i), target, stream);
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -733,14 +761,14 @@ size_t ChargeHistoryState::ByteSizeLong() const {
 
   // repeated .power_manager.ChargeHistoryState.ChargeEvent charge_event = 1;
   total_size += 1UL * this->_internal_charge_event_size();
-  for (const auto& msg : this->charge_event_) {
+  for (const auto& msg : this->_impl_.charge_event_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .power_manager.ChargeHistoryState.DailyHistory daily_history = 2;
   total_size += 1UL * this->_internal_daily_history_size();
-  for (const auto& msg : this->daily_history_) {
+  for (const auto& msg : this->_impl_.daily_history_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -748,26 +776,27 @@ size_t ChargeHistoryState::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ChargeHistoryState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ChargeHistoryState*>(
+  MergeFrom(*::_pbi::DownCast<const ChargeHistoryState*>(
       &from));
 }
 
 void ChargeHistoryState::MergeFrom(const ChargeHistoryState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:power_manager.ChargeHistoryState)
-  GOOGLE_DCHECK_NE(&from, this);
+  ChargeHistoryState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.ChargeHistoryState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  charge_event_.MergeFrom(from.charge_event_);
-  daily_history_.MergeFrom(from.daily_history_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.charge_event_.MergeFrom(from._impl_.charge_event_);
+  _this->_impl_.daily_history_.MergeFrom(from._impl_.daily_history_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ChargeHistoryState::CopyFrom(const ChargeHistoryState& from) {
@@ -784,8 +813,8 @@ bool ChargeHistoryState::IsInitialized() const {
 void ChargeHistoryState::InternalSwap(ChargeHistoryState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  charge_event_.InternalSwap(&other->charge_event_);
-  daily_history_.InternalSwap(&other->daily_history_);
+  _impl_.charge_event_.InternalSwap(&other->_impl_.charge_event_);
+  _impl_.daily_history_.InternalSwap(&other->_impl_.daily_history_);
 }
 
 std::string ChargeHistoryState::GetTypeName() const {
@@ -796,13 +825,16 @@ std::string ChargeHistoryState::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace power_manager
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::power_manager::ChargeHistoryState_ChargeEvent* Arena::CreateMaybeMessage< ::power_manager::ChargeHistoryState_ChargeEvent >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::power_manager::ChargeHistoryState_ChargeEvent*
+Arena::CreateMaybeMessage< ::power_manager::ChargeHistoryState_ChargeEvent >(Arena* arena) {
   return Arena::CreateMessageInternal< ::power_manager::ChargeHistoryState_ChargeEvent >(arena);
 }
-template<> PROTOBUF_NOINLINE ::power_manager::ChargeHistoryState_DailyHistory* Arena::CreateMaybeMessage< ::power_manager::ChargeHistoryState_DailyHistory >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::power_manager::ChargeHistoryState_DailyHistory*
+Arena::CreateMaybeMessage< ::power_manager::ChargeHistoryState_DailyHistory >(Arena* arena) {
   return Arena::CreateMessageInternal< ::power_manager::ChargeHistoryState_DailyHistory >(arena);
 }
-template<> PROTOBUF_NOINLINE ::power_manager::ChargeHistoryState* Arena::CreateMaybeMessage< ::power_manager::ChargeHistoryState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::power_manager::ChargeHistoryState*
+Arena::CreateMaybeMessage< ::power_manager::ChargeHistoryState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::power_manager::ChargeHistoryState >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

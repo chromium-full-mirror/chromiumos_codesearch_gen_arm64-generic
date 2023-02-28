@@ -13,21 +13,27 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace cryptohome {
-constexpr BootLockboxKey::BootLockboxKey(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : key_blob_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , public_key_der_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , creation_blob_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_CONSTEXPR BootLockboxKey::BootLockboxKey(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.key_blob_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.public_key_der_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.creation_blob_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct BootLockboxKeyDefaultTypeInternal {
-  constexpr BootLockboxKeyDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR BootLockboxKeyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~BootLockboxKeyDefaultTypeInternal() {}
   union {
     BootLockboxKey _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT BootLockboxKeyDefaultTypeInternal _BootLockboxKey_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BootLockboxKeyDefaultTypeInternal _BootLockboxKey_default_instance_;
 }  // namespace cryptohome
 namespace cryptohome {
 
@@ -35,7 +41,7 @@ namespace cryptohome {
 
 class BootLockboxKey::_Internal {
  public:
-  using HasBits = decltype(std::declval<BootLockboxKey>()._has_bits_);
+  using HasBits = decltype(std::declval<BootLockboxKey>()._impl_._has_bits_);
   static void set_has_key_blob(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -50,80 +56,90 @@ class BootLockboxKey::_Internal {
 BootLockboxKey::BootLockboxKey(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.BootLockboxKey)
 }
 BootLockboxKey::BootLockboxKey(const BootLockboxKey& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  BootLockboxKey* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_blob_){}
+    , decltype(_impl_.public_key_der_){}
+    , decltype(_impl_.creation_blob_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  key_blob_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.key_blob_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    key_blob_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.key_blob_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_key_blob()) {
-    key_blob_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_key_blob(), 
-      GetArenaForAllocation());
+    _this->_impl_.key_blob_.Set(from._internal_key_blob(), 
+      _this->GetArenaForAllocation());
   }
-  public_key_der_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.public_key_der_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    public_key_der_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.public_key_der_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_public_key_der()) {
-    public_key_der_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_public_key_der(), 
-      GetArenaForAllocation());
+    _this->_impl_.public_key_der_.Set(from._internal_public_key_der(), 
+      _this->GetArenaForAllocation());
   }
-  creation_blob_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.creation_blob_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    creation_blob_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.creation_blob_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_creation_blob()) {
-    creation_blob_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_creation_blob(), 
-      GetArenaForAllocation());
+    _this->_impl_.creation_blob_.Set(from._internal_creation_blob(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:cryptohome.BootLockboxKey)
 }
 
-inline void BootLockboxKey::SharedCtor() {
-key_blob_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  key_blob_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-public_key_der_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  public_key_der_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-creation_blob_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  creation_blob_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void BootLockboxKey::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.key_blob_){}
+    , decltype(_impl_.public_key_der_){}
+    , decltype(_impl_.creation_blob_){}
+  };
+  _impl_.key_blob_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.key_blob_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.public_key_der_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.public_key_der_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.creation_blob_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.creation_blob_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 BootLockboxKey::~BootLockboxKey() {
   // @@protoc_insertion_point(destructor:cryptohome.BootLockboxKey)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void BootLockboxKey::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  key_blob_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  public_key_der_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  creation_blob_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.key_blob_.Destroy();
+  _impl_.public_key_der_.Destroy();
+  _impl_.creation_blob_.Destroy();
 }
 
-void BootLockboxKey::ArenaDtor(void* object) {
-  BootLockboxKey* _this = reinterpret_cast< BootLockboxKey* >(object);
-  (void)_this;
-}
-void BootLockboxKey::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void BootLockboxKey::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void BootLockboxKey::Clear() {
@@ -132,34 +148,34 @@ void BootLockboxKey::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      key_blob_.ClearNonDefaultToEmpty();
+      _impl_.key_blob_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      public_key_der_.ClearNonDefaultToEmpty();
+      _impl_.public_key_der_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      creation_blob_.ClearNonDefaultToEmpty();
+      _impl_.creation_blob_.ClearNonDefaultToEmpty();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* BootLockboxKey::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* BootLockboxKey::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bytes key_blob = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_key_blob();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -168,7 +184,7 @@ const char* BootLockboxKey::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_public_key_der();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -177,7 +193,7 @@ const char* BootLockboxKey::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_creation_blob();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -198,7 +214,7 @@ const char* BootLockboxKey::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -212,7 +228,7 @@ uint8_t* BootLockboxKey::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bytes key_blob = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteBytesMaybeAliased(
@@ -247,7 +263,7 @@ size_t BootLockboxKey::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional bytes key_blob = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -274,36 +290,37 @@ size_t BootLockboxKey::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void BootLockboxKey::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const BootLockboxKey*>(
+  MergeFrom(*::_pbi::DownCast<const BootLockboxKey*>(
       &from));
 }
 
 void BootLockboxKey::MergeFrom(const BootLockboxKey& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.BootLockboxKey)
-  GOOGLE_DCHECK_NE(&from, this);
+  BootLockboxKey* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.BootLockboxKey)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_key_blob(from._internal_key_blob());
+      _this->_internal_set_key_blob(from._internal_key_blob());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_public_key_der(from._internal_public_key_der());
+      _this->_internal_set_public_key_der(from._internal_public_key_der());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_creation_blob(from._internal_creation_blob());
+      _this->_internal_set_creation_blob(from._internal_creation_blob());
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void BootLockboxKey::CopyFrom(const BootLockboxKey& from) {
@@ -322,21 +339,18 @@ void BootLockboxKey::InternalSwap(BootLockboxKey* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &key_blob_, lhs_arena,
-      &other->key_blob_, rhs_arena
+      &_impl_.key_blob_, lhs_arena,
+      &other->_impl_.key_blob_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &public_key_der_, lhs_arena,
-      &other->public_key_der_, rhs_arena
+      &_impl_.public_key_der_, lhs_arena,
+      &other->_impl_.public_key_der_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &creation_blob_, lhs_arena,
-      &other->creation_blob_, rhs_arena
+      &_impl_.creation_blob_, lhs_arena,
+      &other->_impl_.creation_blob_, rhs_arena
   );
 }
 
@@ -348,7 +362,8 @@ std::string BootLockboxKey::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace cryptohome
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::cryptohome::BootLockboxKey* Arena::CreateMaybeMessage< ::cryptohome::BootLockboxKey >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::BootLockboxKey*
+Arena::CreateMaybeMessage< ::cryptohome::BootLockboxKey >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::BootLockboxKey >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

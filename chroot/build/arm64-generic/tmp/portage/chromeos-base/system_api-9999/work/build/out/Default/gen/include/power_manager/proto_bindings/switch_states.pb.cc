@@ -13,22 +13,26 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
-namespace power_manager {
-constexpr SwitchStates::SwitchStates(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : lid_state_(0)
 
-  , tablet_mode_(0)
-{}
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
+namespace power_manager {
+PROTOBUF_CONSTEXPR SwitchStates::SwitchStates(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.lid_state_)*/0
+  , /*decltype(_impl_.tablet_mode_)*/0} {}
 struct SwitchStatesDefaultTypeInternal {
-  constexpr SwitchStatesDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SwitchStatesDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SwitchStatesDefaultTypeInternal() {}
   union {
     SwitchStates _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SwitchStatesDefaultTypeInternal _SwitchStates_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SwitchStatesDefaultTypeInternal _SwitchStates_default_instance_;
 }  // namespace power_manager
 namespace power_manager {
 bool SwitchStates_LidState_IsValid(int value) {
@@ -162,7 +166,7 @@ constexpr int SwitchStates::TabletMode_ARRAYSIZE;
 
 class SwitchStates::_Internal {
  public:
-  using HasBits = decltype(std::declval<SwitchStates>()._has_bits_);
+  using HasBits = decltype(std::declval<SwitchStates>()._impl_._has_bits_);
   static void set_has_lid_state(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -174,48 +178,52 @@ class SwitchStates::_Internal {
 SwitchStates::SwitchStates(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:power_manager.SwitchStates)
 }
 SwitchStates::SwitchStates(const SwitchStates& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SwitchStates* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.lid_state_){}
+    , decltype(_impl_.tablet_mode_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&lid_state_, &from.lid_state_,
-    static_cast<size_t>(reinterpret_cast<char*>(&tablet_mode_) -
-    reinterpret_cast<char*>(&lid_state_)) + sizeof(tablet_mode_));
+  ::memcpy(&_impl_.lid_state_, &from._impl_.lid_state_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.tablet_mode_) -
+    reinterpret_cast<char*>(&_impl_.lid_state_)) + sizeof(_impl_.tablet_mode_));
   // @@protoc_insertion_point(copy_constructor:power_manager.SwitchStates)
 }
 
-inline void SwitchStates::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&lid_state_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&tablet_mode_) -
-    reinterpret_cast<char*>(&lid_state_)) + sizeof(tablet_mode_));
+inline void SwitchStates::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.lid_state_){0}
+    , decltype(_impl_.tablet_mode_){0}
+  };
 }
 
 SwitchStates::~SwitchStates() {
   // @@protoc_insertion_point(destructor:power_manager.SwitchStates)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SwitchStates::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void SwitchStates::ArenaDtor(void* object) {
-  SwitchStates* _this = reinterpret_cast< SwitchStates* >(object);
-  (void)_this;
-}
-void SwitchStates::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SwitchStates::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SwitchStates::Clear() {
@@ -224,22 +232,22 @@ void SwitchStates::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&lid_state_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&tablet_mode_) -
-        reinterpret_cast<char*>(&lid_state_)) + sizeof(tablet_mode_));
+    ::memset(&_impl_.lid_state_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.tablet_mode_) -
+        reinterpret_cast<char*>(&_impl_.lid_state_)) + sizeof(_impl_.tablet_mode_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SwitchStates::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SwitchStates::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .power_manager.SwitchStates.LidState lid_state = 1;
       case 1:
@@ -283,7 +291,7 @@ const char* SwitchStates::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -297,18 +305,18 @@ uint8_t* SwitchStates::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .power_manager.SwitchStates.LidState lid_state = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_lid_state(), target);
   }
 
   // optional .power_manager.SwitchStates.TabletMode tablet_mode = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_tablet_mode(), target);
   }
 
@@ -328,52 +336,53 @@ size_t SwitchStates::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional .power_manager.SwitchStates.LidState lid_state = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_lid_state());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_lid_state());
     }
 
     // optional .power_manager.SwitchStates.TabletMode tablet_mode = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_tablet_mode());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_tablet_mode());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SwitchStates::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SwitchStates*>(
+  MergeFrom(*::_pbi::DownCast<const SwitchStates*>(
       &from));
 }
 
 void SwitchStates::MergeFrom(const SwitchStates& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:power_manager.SwitchStates)
-  GOOGLE_DCHECK_NE(&from, this);
+  SwitchStates* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.SwitchStates)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      lid_state_ = from.lid_state_;
+      _this->_impl_.lid_state_ = from._impl_.lid_state_;
     }
     if (cached_has_bits & 0x00000002u) {
-      tablet_mode_ = from.tablet_mode_;
+      _this->_impl_.tablet_mode_ = from._impl_.tablet_mode_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SwitchStates::CopyFrom(const SwitchStates& from) {
@@ -390,13 +399,13 @@ bool SwitchStates::IsInitialized() const {
 void SwitchStates::InternalSwap(SwitchStates* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SwitchStates, tablet_mode_)
-      + sizeof(SwitchStates::tablet_mode_)
-      - PROTOBUF_FIELD_OFFSET(SwitchStates, lid_state_)>(
-          reinterpret_cast<char*>(&lid_state_),
-          reinterpret_cast<char*>(&other->lid_state_));
+      PROTOBUF_FIELD_OFFSET(SwitchStates, _impl_.tablet_mode_)
+      + sizeof(SwitchStates::_impl_.tablet_mode_)
+      - PROTOBUF_FIELD_OFFSET(SwitchStates, _impl_.lid_state_)>(
+          reinterpret_cast<char*>(&_impl_.lid_state_),
+          reinterpret_cast<char*>(&other->_impl_.lid_state_));
 }
 
 std::string SwitchStates::GetTypeName() const {
@@ -407,7 +416,8 @@ std::string SwitchStates::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace power_manager
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::power_manager::SwitchStates* Arena::CreateMaybeMessage< ::power_manager::SwitchStates >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::power_manager::SwitchStates*
+Arena::CreateMaybeMessage< ::power_manager::SwitchStates >(Arena* arena) {
   return Arena::CreateMessageInternal< ::power_manager::SwitchStates >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

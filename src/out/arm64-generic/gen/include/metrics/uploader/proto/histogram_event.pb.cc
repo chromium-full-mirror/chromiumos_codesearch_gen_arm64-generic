@@ -13,36 +13,44 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace metrics {
-constexpr HistogramEventProto_Bucket::HistogramEventProto_Bucket(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : min_(int64_t{0})
-  , max_(int64_t{0})
-  , count_(int64_t{0})
-  , bucket_index_(0){}
+PROTOBUF_CONSTEXPR HistogramEventProto_Bucket::HistogramEventProto_Bucket(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.min_)*/int64_t{0}
+  , /*decltype(_impl_.max_)*/int64_t{0}
+  , /*decltype(_impl_.count_)*/int64_t{0}
+  , /*decltype(_impl_.bucket_index_)*/0} {}
 struct HistogramEventProto_BucketDefaultTypeInternal {
-  constexpr HistogramEventProto_BucketDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HistogramEventProto_BucketDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HistogramEventProto_BucketDefaultTypeInternal() {}
   union {
     HistogramEventProto_Bucket _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HistogramEventProto_BucketDefaultTypeInternal _HistogramEventProto_Bucket_default_instance_;
-constexpr HistogramEventProto::HistogramEventProto(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : bucket_()
-  , name_hash_(uint64_t{0u})
-  , sum_(int64_t{0}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HistogramEventProto_BucketDefaultTypeInternal _HistogramEventProto_Bucket_default_instance_;
+PROTOBUF_CONSTEXPR HistogramEventProto::HistogramEventProto(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.bucket_)*/{}
+  , /*decltype(_impl_.name_hash_)*/uint64_t{0u}
+  , /*decltype(_impl_.sum_)*/int64_t{0}} {}
 struct HistogramEventProtoDefaultTypeInternal {
-  constexpr HistogramEventProtoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HistogramEventProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HistogramEventProtoDefaultTypeInternal() {}
   union {
     HistogramEventProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HistogramEventProtoDefaultTypeInternal _HistogramEventProto_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HistogramEventProtoDefaultTypeInternal _HistogramEventProto_default_instance_;
 }  // namespace metrics
 namespace metrics {
 
@@ -50,7 +58,7 @@ namespace metrics {
 
 class HistogramEventProto_Bucket::_Internal {
  public:
-  using HasBits = decltype(std::declval<HistogramEventProto_Bucket>()._has_bits_);
+  using HasBits = decltype(std::declval<HistogramEventProto_Bucket>()._impl_._has_bits_);
   static void set_has_min(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -68,48 +76,56 @@ class HistogramEventProto_Bucket::_Internal {
 HistogramEventProto_Bucket::HistogramEventProto_Bucket(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:metrics.HistogramEventProto.Bucket)
 }
 HistogramEventProto_Bucket::HistogramEventProto_Bucket(const HistogramEventProto_Bucket& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  HistogramEventProto_Bucket* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.min_){}
+    , decltype(_impl_.max_){}
+    , decltype(_impl_.count_){}
+    , decltype(_impl_.bucket_index_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&min_, &from.min_,
-    static_cast<size_t>(reinterpret_cast<char*>(&bucket_index_) -
-    reinterpret_cast<char*>(&min_)) + sizeof(bucket_index_));
+  ::memcpy(&_impl_.min_, &from._impl_.min_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.bucket_index_) -
+    reinterpret_cast<char*>(&_impl_.min_)) + sizeof(_impl_.bucket_index_));
   // @@protoc_insertion_point(copy_constructor:metrics.HistogramEventProto.Bucket)
 }
 
-inline void HistogramEventProto_Bucket::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&min_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&bucket_index_) -
-    reinterpret_cast<char*>(&min_)) + sizeof(bucket_index_));
+inline void HistogramEventProto_Bucket::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.min_){int64_t{0}}
+    , decltype(_impl_.max_){int64_t{0}}
+    , decltype(_impl_.count_){int64_t{0}}
+    , decltype(_impl_.bucket_index_){0}
+  };
 }
 
 HistogramEventProto_Bucket::~HistogramEventProto_Bucket() {
   // @@protoc_insertion_point(destructor:metrics.HistogramEventProto.Bucket)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void HistogramEventProto_Bucket::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void HistogramEventProto_Bucket::ArenaDtor(void* object) {
-  HistogramEventProto_Bucket* _this = reinterpret_cast< HistogramEventProto_Bucket* >(object);
-  (void)_this;
-}
-void HistogramEventProto_Bucket::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HistogramEventProto_Bucket::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HistogramEventProto_Bucket::Clear() {
@@ -118,28 +134,28 @@ void HistogramEventProto_Bucket::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
-    ::memset(&min_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&bucket_index_) -
-        reinterpret_cast<char*>(&min_)) + sizeof(bucket_index_));
+    ::memset(&_impl_.min_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.bucket_index_) -
+        reinterpret_cast<char*>(&_impl_.min_)) + sizeof(_impl_.bucket_index_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* HistogramEventProto_Bucket::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HistogramEventProto_Bucket::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional int64 min = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_min(&has_bits);
-          min_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.min_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -148,7 +164,7 @@ const char* HistogramEventProto_Bucket::_InternalParse(const char* ptr, ::PROTOB
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_max(&has_bits);
-          max_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.max_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -157,7 +173,7 @@ const char* HistogramEventProto_Bucket::_InternalParse(const char* ptr, ::PROTOB
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_bucket_index(&has_bits);
-          bucket_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.bucket_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -166,7 +182,7 @@ const char* HistogramEventProto_Bucket::_InternalParse(const char* ptr, ::PROTOB
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _Internal::set_has_count(&has_bits);
-          count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -187,7 +203,7 @@ const char* HistogramEventProto_Bucket::_InternalParse(const char* ptr, ::PROTOB
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -201,29 +217,29 @@ uint8_t* HistogramEventProto_Bucket::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int64 min = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_min(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_min(), target);
   }
 
   // optional int64 max = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_max(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_max(), target);
   }
 
   // optional int32 bucket_index = 3 [deprecated = true];
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_bucket_index(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_bucket_index(), target);
   }
 
   // optional int64 count = 4;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(4, this->_internal_count(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(4, this->_internal_count(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -242,66 +258,67 @@ size_t HistogramEventProto_Bucket::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional int64 min = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_min());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_min());
     }
 
     // optional int64 max = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_max());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_max());
     }
 
     // optional int64 count = 4;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_count());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_count());
     }
 
     // optional int32 bucket_index = 3 [deprecated = true];
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_bucket_index());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_bucket_index());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void HistogramEventProto_Bucket::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const HistogramEventProto_Bucket*>(
+  MergeFrom(*::_pbi::DownCast<const HistogramEventProto_Bucket*>(
       &from));
 }
 
 void HistogramEventProto_Bucket::MergeFrom(const HistogramEventProto_Bucket& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:metrics.HistogramEventProto.Bucket)
-  GOOGLE_DCHECK_NE(&from, this);
+  HistogramEventProto_Bucket* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:metrics.HistogramEventProto.Bucket)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      min_ = from.min_;
+      _this->_impl_.min_ = from._impl_.min_;
     }
     if (cached_has_bits & 0x00000002u) {
-      max_ = from.max_;
+      _this->_impl_.max_ = from._impl_.max_;
     }
     if (cached_has_bits & 0x00000004u) {
-      count_ = from.count_;
+      _this->_impl_.count_ = from._impl_.count_;
     }
     if (cached_has_bits & 0x00000008u) {
-      bucket_index_ = from.bucket_index_;
+      _this->_impl_.bucket_index_ = from._impl_.bucket_index_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void HistogramEventProto_Bucket::CopyFrom(const HistogramEventProto_Bucket& from) {
@@ -318,13 +335,13 @@ bool HistogramEventProto_Bucket::IsInitialized() const {
 void HistogramEventProto_Bucket::InternalSwap(HistogramEventProto_Bucket* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(HistogramEventProto_Bucket, bucket_index_)
-      + sizeof(HistogramEventProto_Bucket::bucket_index_)
-      - PROTOBUF_FIELD_OFFSET(HistogramEventProto_Bucket, min_)>(
-          reinterpret_cast<char*>(&min_),
-          reinterpret_cast<char*>(&other->min_));
+      PROTOBUF_FIELD_OFFSET(HistogramEventProto_Bucket, _impl_.bucket_index_)
+      + sizeof(HistogramEventProto_Bucket::_impl_.bucket_index_)
+      - PROTOBUF_FIELD_OFFSET(HistogramEventProto_Bucket, _impl_.min_)>(
+          reinterpret_cast<char*>(&_impl_.min_),
+          reinterpret_cast<char*>(&other->_impl_.min_));
 }
 
 std::string HistogramEventProto_Bucket::GetTypeName() const {
@@ -336,7 +353,7 @@ std::string HistogramEventProto_Bucket::GetTypeName() const {
 
 class HistogramEventProto::_Internal {
  public:
-  using HasBits = decltype(std::declval<HistogramEventProto>()._has_bits_);
+  using HasBits = decltype(std::declval<HistogramEventProto>()._impl_._has_bits_);
   static void set_has_name_hash(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -347,51 +364,56 @@ class HistogramEventProto::_Internal {
 
 HistogramEventProto::HistogramEventProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  bucket_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:metrics.HistogramEventProto)
 }
 HistogramEventProto::HistogramEventProto(const HistogramEventProto& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      bucket_(from.bucket_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  HistogramEventProto* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.bucket_){from._impl_.bucket_}
+    , decltype(_impl_.name_hash_){}
+    , decltype(_impl_.sum_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&name_hash_, &from.name_hash_,
-    static_cast<size_t>(reinterpret_cast<char*>(&sum_) -
-    reinterpret_cast<char*>(&name_hash_)) + sizeof(sum_));
+  ::memcpy(&_impl_.name_hash_, &from._impl_.name_hash_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.sum_) -
+    reinterpret_cast<char*>(&_impl_.name_hash_)) + sizeof(_impl_.sum_));
   // @@protoc_insertion_point(copy_constructor:metrics.HistogramEventProto)
 }
 
-inline void HistogramEventProto::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&name_hash_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&sum_) -
-    reinterpret_cast<char*>(&name_hash_)) + sizeof(sum_));
+inline void HistogramEventProto::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.bucket_){arena}
+    , decltype(_impl_.name_hash_){uint64_t{0u}}
+    , decltype(_impl_.sum_){int64_t{0}}
+  };
 }
 
 HistogramEventProto::~HistogramEventProto() {
   // @@protoc_insertion_point(destructor:metrics.HistogramEventProto)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void HistogramEventProto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.bucket_.~RepeatedPtrField();
 }
 
-void HistogramEventProto::ArenaDtor(void* object) {
-  HistogramEventProto* _this = reinterpret_cast< HistogramEventProto* >(object);
-  (void)_this;
-}
-void HistogramEventProto::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HistogramEventProto::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HistogramEventProto::Clear() {
@@ -400,29 +422,29 @@ void HistogramEventProto::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  bucket_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.bucket_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&name_hash_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&sum_) -
-        reinterpret_cast<char*>(&name_hash_)) + sizeof(sum_));
+    ::memset(&_impl_.name_hash_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.sum_) -
+        reinterpret_cast<char*>(&_impl_.name_hash_)) + sizeof(_impl_.sum_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* HistogramEventProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HistogramEventProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional fixed64 name_hash = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 9)) {
           _Internal::set_has_name_hash(&has_bits);
-          name_hash_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<uint64_t>(ptr);
+          _impl_.name_hash_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<uint64_t>(ptr);
           ptr += sizeof(uint64_t);
         } else
           goto handle_unusual;
@@ -431,7 +453,7 @@ const char* HistogramEventProto::_InternalParse(const char* ptr, ::PROTOBUF_NAME
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_sum(&has_bits);
-          sum_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.sum_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -465,7 +487,7 @@ const char* HistogramEventProto::_InternalParse(const char* ptr, ::PROTOBUF_NAME
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -479,25 +501,25 @@ uint8_t* HistogramEventProto::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional fixed64 name_hash = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFixed64ToArray(1, this->_internal_name_hash(), target);
+    target = ::_pbi::WireFormatLite::WriteFixed64ToArray(1, this->_internal_name_hash(), target);
   }
 
   // optional int64 sum = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_sum(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_sum(), target);
   }
 
   // repeated .metrics.HistogramEventProto.Bucket bucket = 3;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_bucket_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_bucket_size()); i < n; i++) {
+    const auto& repfield = this->_internal_bucket(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, this->_internal_bucket(i), target, stream);
+        InternalWriteMessage(3, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -518,12 +540,12 @@ size_t HistogramEventProto::ByteSizeLong() const {
 
   // repeated .metrics.HistogramEventProto.Bucket bucket = 3;
   total_size += 1UL * this->_internal_bucket_size();
-  for (const auto& msg : this->bucket_) {
+  for (const auto& msg : this->_impl_.bucket_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional fixed64 name_hash = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -532,42 +554,43 @@ size_t HistogramEventProto::ByteSizeLong() const {
 
     // optional int64 sum = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_sum());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_sum());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void HistogramEventProto::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const HistogramEventProto*>(
+  MergeFrom(*::_pbi::DownCast<const HistogramEventProto*>(
       &from));
 }
 
 void HistogramEventProto::MergeFrom(const HistogramEventProto& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:metrics.HistogramEventProto)
-  GOOGLE_DCHECK_NE(&from, this);
+  HistogramEventProto* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:metrics.HistogramEventProto)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  bucket_.MergeFrom(from.bucket_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_impl_.bucket_.MergeFrom(from._impl_.bucket_);
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      name_hash_ = from.name_hash_;
+      _this->_impl_.name_hash_ = from._impl_.name_hash_;
     }
     if (cached_has_bits & 0x00000002u) {
-      sum_ = from.sum_;
+      _this->_impl_.sum_ = from._impl_.sum_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void HistogramEventProto::CopyFrom(const HistogramEventProto& from) {
@@ -584,14 +607,14 @@ bool HistogramEventProto::IsInitialized() const {
 void HistogramEventProto::InternalSwap(HistogramEventProto* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  bucket_.InternalSwap(&other->bucket_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.bucket_.InternalSwap(&other->_impl_.bucket_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(HistogramEventProto, sum_)
-      + sizeof(HistogramEventProto::sum_)
-      - PROTOBUF_FIELD_OFFSET(HistogramEventProto, name_hash_)>(
-          reinterpret_cast<char*>(&name_hash_),
-          reinterpret_cast<char*>(&other->name_hash_));
+      PROTOBUF_FIELD_OFFSET(HistogramEventProto, _impl_.sum_)
+      + sizeof(HistogramEventProto::_impl_.sum_)
+      - PROTOBUF_FIELD_OFFSET(HistogramEventProto, _impl_.name_hash_)>(
+          reinterpret_cast<char*>(&_impl_.name_hash_),
+          reinterpret_cast<char*>(&other->_impl_.name_hash_));
 }
 
 std::string HistogramEventProto::GetTypeName() const {
@@ -602,10 +625,12 @@ std::string HistogramEventProto::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace metrics
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::metrics::HistogramEventProto_Bucket* Arena::CreateMaybeMessage< ::metrics::HistogramEventProto_Bucket >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::metrics::HistogramEventProto_Bucket*
+Arena::CreateMaybeMessage< ::metrics::HistogramEventProto_Bucket >(Arena* arena) {
   return Arena::CreateMessageInternal< ::metrics::HistogramEventProto_Bucket >(arena);
 }
-template<> PROTOBUF_NOINLINE ::metrics::HistogramEventProto* Arena::CreateMaybeMessage< ::metrics::HistogramEventProto >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::metrics::HistogramEventProto*
+Arena::CreateMaybeMessage< ::metrics::HistogramEventProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::metrics::HistogramEventProto >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

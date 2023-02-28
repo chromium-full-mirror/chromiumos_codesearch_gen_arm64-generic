@@ -13,19 +13,24 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace crash {
-constexpr SendRecord::SendRecord(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : size_(0){}
+PROTOBUF_CONSTEXPR SendRecord::SendRecord(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.size_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SendRecordDefaultTypeInternal {
-  constexpr SendRecordDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SendRecordDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SendRecordDefaultTypeInternal() {}
   union {
     SendRecord _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SendRecordDefaultTypeInternal _SendRecord_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SendRecordDefaultTypeInternal _SendRecord_default_instance_;
 }  // namespace crash
 namespace crash {
 
@@ -38,42 +43,46 @@ class SendRecord::_Internal {
 SendRecord::SendRecord(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:crash.SendRecord)
 }
 SendRecord::SendRecord(const SendRecord& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SendRecord* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.size_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  size_ = from.size_;
+  _this->_impl_.size_ = from._impl_.size_;
   // @@protoc_insertion_point(copy_constructor:crash.SendRecord)
 }
 
-inline void SendRecord::SharedCtor() {
-size_ = 0;
+inline void SendRecord::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.size_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 SendRecord::~SendRecord() {
   // @@protoc_insertion_point(destructor:crash.SendRecord)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SendRecord::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void SendRecord::ArenaDtor(void* object) {
-  SendRecord* _this = reinterpret_cast< SendRecord* >(object);
-  (void)_this;
-}
-void SendRecord::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SendRecord::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SendRecord::Clear() {
@@ -82,20 +91,20 @@ void SendRecord::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  size_ = 0;
+  _impl_.size_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SendRecord::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SendRecord::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int32 size = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -132,7 +141,7 @@ uint8_t* SendRecord::_InternalSerialize(
   // int32 size = 1;
   if (this->_internal_size() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_size(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_size(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -153,33 +162,34 @@ size_t SendRecord::ByteSizeLong() const {
 
   // int32 size = 1;
   if (this->_internal_size() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_size());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_size());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SendRecord::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SendRecord*>(
+  MergeFrom(*::_pbi::DownCast<const SendRecord*>(
       &from));
 }
 
 void SendRecord::MergeFrom(const SendRecord& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:crash.SendRecord)
-  GOOGLE_DCHECK_NE(&from, this);
+  SendRecord* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:crash.SendRecord)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_size() != 0) {
-    _internal_set_size(from._internal_size());
+    _this->_internal_set_size(from._internal_size());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SendRecord::CopyFrom(const SendRecord& from) {
@@ -196,7 +206,7 @@ bool SendRecord::IsInitialized() const {
 void SendRecord::InternalSwap(SendRecord* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(size_, other->size_);
+  swap(_impl_.size_, other->_impl_.size_);
 }
 
 std::string SendRecord::GetTypeName() const {
@@ -207,7 +217,8 @@ std::string SendRecord::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace crash
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::crash::SendRecord* Arena::CreateMaybeMessage< ::crash::SendRecord >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::crash::SendRecord*
+Arena::CreateMaybeMessage< ::crash::SendRecord >(Arena* arena) {
   return Arena::CreateMessageInternal< ::crash::SendRecord >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

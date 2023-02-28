@@ -25,6 +25,8 @@ constexpr uint32_t kTouchpadObserver_OnTouch_Name = 1;
 constexpr uint32_t kTouchpadObserver_OnConnected_Name = 2;
 constexpr uint32_t kTouchscreenObserver_OnTouch_Name = 0;
 constexpr uint32_t kTouchscreenObserver_OnConnected_Name = 1;
+constexpr uint32_t kStylusGarageObserver_OnInsert_Name = 0;
+constexpr uint32_t kStylusGarageObserver_OnRemove_Name = 1;
 constexpr uint32_t kExecutor_ReadFile_Name = 0;
 constexpr uint32_t kExecutor_GetFanSpeed_Name = 1;
 constexpr uint32_t kExecutor_RunIw_Name = 2;
@@ -43,6 +45,7 @@ constexpr uint32_t kExecutor_MonitorAudioJack_Name = 14;
 constexpr uint32_t kExecutor_MonitorTouchpad_Name = 15;
 constexpr uint32_t kExecutor_FetchBootPerformance_Name = 16;
 constexpr uint32_t kExecutor_MonitorTouchscreen_Name = 17;
+constexpr uint32_t kExecutor_MonitorStylusGarage_Name = 18;
 
 }  // namespace internal
 }  // namespace mojom

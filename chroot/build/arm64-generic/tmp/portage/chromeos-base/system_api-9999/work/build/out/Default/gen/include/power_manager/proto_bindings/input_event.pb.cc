@@ -13,21 +13,26 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace power_manager {
-constexpr InputEvent::InputEvent(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : timestamp_(int64_t{0})
-  , type_(0)
-{}
+PROTOBUF_CONSTEXPR InputEvent::InputEvent(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.timestamp_)*/int64_t{0}
+  , /*decltype(_impl_.type_)*/0} {}
 struct InputEventDefaultTypeInternal {
-  constexpr InputEventDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InputEventDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~InputEventDefaultTypeInternal() {}
   union {
     InputEvent _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT InputEventDefaultTypeInternal _InputEvent_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InputEventDefaultTypeInternal _InputEvent_default_instance_;
 }  // namespace power_manager
 namespace power_manager {
 bool InputEvent_Type_IsValid(int value) {
@@ -118,7 +123,7 @@ constexpr int InputEvent::Type_ARRAYSIZE;
 
 class InputEvent::_Internal {
  public:
-  using HasBits = decltype(std::declval<InputEvent>()._has_bits_);
+  using HasBits = decltype(std::declval<InputEvent>()._impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -130,48 +135,52 @@ class InputEvent::_Internal {
 InputEvent::InputEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:power_manager.InputEvent)
 }
 InputEvent::InputEvent(const InputEvent& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  InputEvent* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.timestamp_){}
+    , decltype(_impl_.type_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&timestamp_, &from.timestamp_,
-    static_cast<size_t>(reinterpret_cast<char*>(&type_) -
-    reinterpret_cast<char*>(&timestamp_)) + sizeof(type_));
+  ::memcpy(&_impl_.timestamp_, &from._impl_.timestamp_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.type_) -
+    reinterpret_cast<char*>(&_impl_.timestamp_)) + sizeof(_impl_.type_));
   // @@protoc_insertion_point(copy_constructor:power_manager.InputEvent)
 }
 
-inline void InputEvent::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&timestamp_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&type_) -
-    reinterpret_cast<char*>(&timestamp_)) + sizeof(type_));
+inline void InputEvent::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.timestamp_){int64_t{0}}
+    , decltype(_impl_.type_){0}
+  };
 }
 
 InputEvent::~InputEvent() {
   // @@protoc_insertion_point(destructor:power_manager.InputEvent)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void InputEvent::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void InputEvent::ArenaDtor(void* object) {
-  InputEvent* _this = reinterpret_cast< InputEvent* >(object);
-  (void)_this;
-}
-void InputEvent::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void InputEvent::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void InputEvent::Clear() {
@@ -180,22 +189,22 @@ void InputEvent::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&timestamp_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&type_) -
-        reinterpret_cast<char*>(&timestamp_)) + sizeof(type_));
+    ::memset(&_impl_.timestamp_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.type_) -
+        reinterpret_cast<char*>(&_impl_.timestamp_)) + sizeof(_impl_.type_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* InputEvent::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* InputEvent::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .power_manager.InputEvent.Type type = 1;
       case 1:
@@ -214,7 +223,7 @@ const char* InputEvent::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_timestamp(&has_bits);
-          timestamp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.timestamp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -235,7 +244,7 @@ const char* InputEvent::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -249,18 +258,18 @@ uint8_t* InputEvent::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .power_manager.InputEvent.Type type = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_type(), target);
   }
 
   // optional int64 timestamp = 2;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_timestamp(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_timestamp(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -279,51 +288,52 @@ size_t InputEvent::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional int64 timestamp = 2;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_timestamp());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_timestamp());
     }
 
     // optional .power_manager.InputEvent.Type type = 1;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void InputEvent::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const InputEvent*>(
+  MergeFrom(*::_pbi::DownCast<const InputEvent*>(
       &from));
 }
 
 void InputEvent::MergeFrom(const InputEvent& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:power_manager.InputEvent)
-  GOOGLE_DCHECK_NE(&from, this);
+  InputEvent* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.InputEvent)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      timestamp_ = from.timestamp_;
+      _this->_impl_.timestamp_ = from._impl_.timestamp_;
     }
     if (cached_has_bits & 0x00000002u) {
-      type_ = from.type_;
+      _this->_impl_.type_ = from._impl_.type_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void InputEvent::CopyFrom(const InputEvent& from) {
@@ -340,13 +350,13 @@ bool InputEvent::IsInitialized() const {
 void InputEvent::InternalSwap(InputEvent* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(InputEvent, type_)
-      + sizeof(InputEvent::type_)
-      - PROTOBUF_FIELD_OFFSET(InputEvent, timestamp_)>(
-          reinterpret_cast<char*>(&timestamp_),
-          reinterpret_cast<char*>(&other->timestamp_));
+      PROTOBUF_FIELD_OFFSET(InputEvent, _impl_.type_)
+      + sizeof(InputEvent::_impl_.type_)
+      - PROTOBUF_FIELD_OFFSET(InputEvent, _impl_.timestamp_)>(
+          reinterpret_cast<char*>(&_impl_.timestamp_),
+          reinterpret_cast<char*>(&other->_impl_.timestamp_));
 }
 
 std::string InputEvent::GetTypeName() const {
@@ -357,7 +367,8 @@ std::string InputEvent::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace power_manager
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::power_manager::InputEvent* Arena::CreateMaybeMessage< ::power_manager::InputEvent >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::power_manager::InputEvent*
+Arena::CreateMaybeMessage< ::power_manager::InputEvent >(Arena* arena) {
   return Arena::CreateMessageInternal< ::power_manager::InputEvent >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

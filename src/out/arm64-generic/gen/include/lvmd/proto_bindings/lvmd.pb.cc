@@ -13,85 +13,95 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace lvmd {
-constexpr PhysicalVolume::PhysicalVolume(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : device_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_CONSTEXPR PhysicalVolume::PhysicalVolume(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.device_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PhysicalVolumeDefaultTypeInternal {
-  constexpr PhysicalVolumeDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PhysicalVolumeDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~PhysicalVolumeDefaultTypeInternal() {}
   union {
     PhysicalVolume _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PhysicalVolumeDefaultTypeInternal _PhysicalVolume_default_instance_;
-constexpr VolumeGroup::VolumeGroup(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PhysicalVolumeDefaultTypeInternal _PhysicalVolume_default_instance_;
+PROTOBUF_CONSTEXPR VolumeGroup::VolumeGroup(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct VolumeGroupDefaultTypeInternal {
-  constexpr VolumeGroupDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR VolumeGroupDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~VolumeGroupDefaultTypeInternal() {}
   union {
     VolumeGroup _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT VolumeGroupDefaultTypeInternal _VolumeGroup_default_instance_;
-constexpr Thinpool::Thinpool(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , volume_group_(nullptr)
-  , total_bytes_(int64_t{0})
-  , free_bytes_(int64_t{0}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VolumeGroupDefaultTypeInternal _VolumeGroup_default_instance_;
+PROTOBUF_CONSTEXPR Thinpool::Thinpool(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.volume_group_)*/nullptr
+  , /*decltype(_impl_.total_bytes_)*/int64_t{0}
+  , /*decltype(_impl_.free_bytes_)*/int64_t{0}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ThinpoolDefaultTypeInternal {
-  constexpr ThinpoolDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ThinpoolDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ThinpoolDefaultTypeInternal() {}
   union {
     Thinpool _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ThinpoolDefaultTypeInternal _Thinpool_default_instance_;
-constexpr LogicalVolumeConfiguration::LogicalVolumeConfiguration(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , size_(int64_t{0}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ThinpoolDefaultTypeInternal _Thinpool_default_instance_;
+PROTOBUF_CONSTEXPR LogicalVolumeConfiguration::LogicalVolumeConfiguration(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.size_)*/int64_t{0}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct LogicalVolumeConfigurationDefaultTypeInternal {
-  constexpr LogicalVolumeConfigurationDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR LogicalVolumeConfigurationDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~LogicalVolumeConfigurationDefaultTypeInternal() {}
   union {
     LogicalVolumeConfiguration _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT LogicalVolumeConfigurationDefaultTypeInternal _LogicalVolumeConfiguration_default_instance_;
-constexpr LogicalVolume::LogicalVolume(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , volume_group_(nullptr){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LogicalVolumeConfigurationDefaultTypeInternal _LogicalVolumeConfiguration_default_instance_;
+PROTOBUF_CONSTEXPR LogicalVolume::LogicalVolume(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.volume_group_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct LogicalVolumeDefaultTypeInternal {
-  constexpr LogicalVolumeDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR LogicalVolumeDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~LogicalVolumeDefaultTypeInternal() {}
   union {
     LogicalVolume _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT LogicalVolumeDefaultTypeInternal _LogicalVolume_default_instance_;
-constexpr LogicalVolumeList::LogicalVolumeList(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : logical_volume_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LogicalVolumeDefaultTypeInternal _LogicalVolume_default_instance_;
+PROTOBUF_CONSTEXPR LogicalVolumeList::LogicalVolumeList(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.logical_volume_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct LogicalVolumeListDefaultTypeInternal {
-  constexpr LogicalVolumeListDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR LogicalVolumeListDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~LogicalVolumeListDefaultTypeInternal() {}
   union {
     LogicalVolumeList _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT LogicalVolumeListDefaultTypeInternal _LogicalVolumeList_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LogicalVolumeListDefaultTypeInternal _LogicalVolumeList_default_instance_;
 }  // namespace lvmd
 namespace lvmd {
 
@@ -104,53 +114,58 @@ class PhysicalVolume::_Internal {
 PhysicalVolume::PhysicalVolume(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lvmd.PhysicalVolume)
 }
 PhysicalVolume::PhysicalVolume(const PhysicalVolume& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PhysicalVolume* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.device_path_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  device_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.device_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    device_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.device_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_device_path().empty()) {
-    device_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_device_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.device_path_.Set(from._internal_device_path(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:lvmd.PhysicalVolume)
 }
 
-inline void PhysicalVolume::SharedCtor() {
-device_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  device_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void PhysicalVolume::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.device_path_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.device_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.device_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PhysicalVolume::~PhysicalVolume() {
   // @@protoc_insertion_point(destructor:lvmd.PhysicalVolume)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void PhysicalVolume::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  device_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.device_path_.Destroy();
 }
 
-void PhysicalVolume::ArenaDtor(void* object) {
-  PhysicalVolume* _this = reinterpret_cast< PhysicalVolume* >(object);
-  (void)_this;
-}
-void PhysicalVolume::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void PhysicalVolume::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PhysicalVolume::Clear() {
@@ -159,23 +174,23 @@ void PhysicalVolume::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  device_path_.ClearToEmpty();
+  _impl_.device_path_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PhysicalVolume::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* PhysicalVolume::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string device_path = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_device_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -244,27 +259,28 @@ size_t PhysicalVolume::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void PhysicalVolume::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PhysicalVolume*>(
+  MergeFrom(*::_pbi::DownCast<const PhysicalVolume*>(
       &from));
 }
 
 void PhysicalVolume::MergeFrom(const PhysicalVolume& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lvmd.PhysicalVolume)
-  GOOGLE_DCHECK_NE(&from, this);
+  PhysicalVolume* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lvmd.PhysicalVolume)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_device_path().empty()) {
-    _internal_set_device_path(from._internal_device_path());
+    _this->_internal_set_device_path(from._internal_device_path());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PhysicalVolume::CopyFrom(const PhysicalVolume& from) {
@@ -284,9 +300,8 @@ void PhysicalVolume::InternalSwap(PhysicalVolume* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &device_path_, lhs_arena,
-      &other->device_path_, rhs_arena
+      &_impl_.device_path_, lhs_arena,
+      &other->_impl_.device_path_, rhs_arena
   );
 }
 
@@ -304,53 +319,58 @@ class VolumeGroup::_Internal {
 VolumeGroup::VolumeGroup(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lvmd.VolumeGroup)
 }
 VolumeGroup::VolumeGroup(const VolumeGroup& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  VolumeGroup* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:lvmd.VolumeGroup)
 }
 
-inline void VolumeGroup::SharedCtor() {
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void VolumeGroup::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 VolumeGroup::~VolumeGroup() {
   // @@protoc_insertion_point(destructor:lvmd.VolumeGroup)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void VolumeGroup::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.Destroy();
 }
 
-void VolumeGroup::ArenaDtor(void* object) {
-  VolumeGroup* _this = reinterpret_cast< VolumeGroup* >(object);
-  (void)_this;
-}
-void VolumeGroup::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void VolumeGroup::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void VolumeGroup::Clear() {
@@ -359,23 +379,23 @@ void VolumeGroup::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmpty();
+  _impl_.name_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* VolumeGroup::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* VolumeGroup::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -444,27 +464,28 @@ size_t VolumeGroup::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void VolumeGroup::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const VolumeGroup*>(
+  MergeFrom(*::_pbi::DownCast<const VolumeGroup*>(
       &from));
 }
 
 void VolumeGroup::MergeFrom(const VolumeGroup& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lvmd.VolumeGroup)
-  GOOGLE_DCHECK_NE(&from, this);
+  VolumeGroup* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lvmd.VolumeGroup)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_name().empty()) {
-    _internal_set_name(from._internal_name());
+    _this->_internal_set_name(from._internal_name());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void VolumeGroup::CopyFrom(const VolumeGroup& from) {
@@ -484,9 +505,8 @@ void VolumeGroup::InternalSwap(VolumeGroup* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, lhs_arena,
-      &other->name_, rhs_arena
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
   );
 }
 
@@ -504,71 +524,76 @@ class Thinpool::_Internal {
 
 const ::lvmd::VolumeGroup&
 Thinpool::_Internal::volume_group(const Thinpool* msg) {
-  return *msg->volume_group_;
+  return *msg->_impl_.volume_group_;
 }
 Thinpool::Thinpool(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lvmd.Thinpool)
 }
 Thinpool::Thinpool(const Thinpool& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  Thinpool* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.volume_group_){nullptr}
+    , decltype(_impl_.total_bytes_){}
+    , decltype(_impl_.free_bytes_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_volume_group()) {
-    volume_group_ = new ::lvmd::VolumeGroup(*from.volume_group_);
-  } else {
-    volume_group_ = nullptr;
+    _this->_impl_.volume_group_ = new ::lvmd::VolumeGroup(*from._impl_.volume_group_);
   }
-  ::memcpy(&total_bytes_, &from.total_bytes_,
-    static_cast<size_t>(reinterpret_cast<char*>(&free_bytes_) -
-    reinterpret_cast<char*>(&total_bytes_)) + sizeof(free_bytes_));
+  ::memcpy(&_impl_.total_bytes_, &from._impl_.total_bytes_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.free_bytes_) -
+    reinterpret_cast<char*>(&_impl_.total_bytes_)) + sizeof(_impl_.free_bytes_));
   // @@protoc_insertion_point(copy_constructor:lvmd.Thinpool)
 }
 
-inline void Thinpool::SharedCtor() {
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&volume_group_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&free_bytes_) -
-    reinterpret_cast<char*>(&volume_group_)) + sizeof(free_bytes_));
+inline void Thinpool::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.volume_group_){nullptr}
+    , decltype(_impl_.total_bytes_){int64_t{0}}
+    , decltype(_impl_.free_bytes_){int64_t{0}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Thinpool::~Thinpool() {
   // @@protoc_insertion_point(destructor:lvmd.Thinpool)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void Thinpool::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete volume_group_;
+  _impl_.name_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.volume_group_;
 }
 
-void Thinpool::ArenaDtor(void* object) {
-  Thinpool* _this = reinterpret_cast< Thinpool* >(object);
-  (void)_this;
-}
-void Thinpool::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void Thinpool::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Thinpool::Clear() {
@@ -577,22 +602,22 @@ void Thinpool::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && volume_group_ != nullptr) {
-    delete volume_group_;
+  _impl_.name_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.volume_group_ != nullptr) {
+    delete _impl_.volume_group_;
   }
-  volume_group_ = nullptr;
-  ::memset(&total_bytes_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&free_bytes_) -
-      reinterpret_cast<char*>(&total_bytes_)) + sizeof(free_bytes_));
+  _impl_.volume_group_ = nullptr;
+  ::memset(&_impl_.total_bytes_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.free_bytes_) -
+      reinterpret_cast<char*>(&_impl_.total_bytes_)) + sizeof(_impl_.free_bytes_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* Thinpool::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Thinpool::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .lvmd.VolumeGroup volume_group = 1;
       case 1:
@@ -606,16 +631,16 @@ const char* Thinpool::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
       // int64 total_bytes = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          total_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.total_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -623,7 +648,7 @@ const char* Thinpool::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
       // int64 free_bytes = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          free_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.free_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -659,10 +684,9 @@ uint8_t* Thinpool::_InternalSerialize(
 
   // .lvmd.VolumeGroup volume_group = 1;
   if (this->_internal_has_volume_group()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::volume_group(this), target, stream);
+      InternalWriteMessage(1, _Internal::volume_group(this),
+        _Internal::volume_group(this).GetCachedSize(), target, stream);
   }
 
   // string name = 2;
@@ -678,13 +702,13 @@ uint8_t* Thinpool::_InternalSerialize(
   // int64 total_bytes = 3;
   if (this->_internal_total_bytes() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(3, this->_internal_total_bytes(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(3, this->_internal_total_bytes(), target);
   }
 
   // int64 free_bytes = 4;
   if (this->_internal_free_bytes() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(4, this->_internal_free_bytes(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(4, this->_internal_free_bytes(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -714,52 +738,54 @@ size_t Thinpool::ByteSizeLong() const {
   if (this->_internal_has_volume_group()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *volume_group_);
+        *_impl_.volume_group_);
   }
 
   // int64 total_bytes = 3;
   if (this->_internal_total_bytes() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_total_bytes());
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_total_bytes());
   }
 
   // int64 free_bytes = 4;
   if (this->_internal_free_bytes() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_free_bytes());
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_free_bytes());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void Thinpool::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const Thinpool*>(
+  MergeFrom(*::_pbi::DownCast<const Thinpool*>(
       &from));
 }
 
 void Thinpool::MergeFrom(const Thinpool& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lvmd.Thinpool)
-  GOOGLE_DCHECK_NE(&from, this);
+  Thinpool* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lvmd.Thinpool)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_name().empty()) {
-    _internal_set_name(from._internal_name());
+    _this->_internal_set_name(from._internal_name());
   }
   if (from._internal_has_volume_group()) {
-    _internal_mutable_volume_group()->::lvmd::VolumeGroup::MergeFrom(from._internal_volume_group());
+    _this->_internal_mutable_volume_group()->::lvmd::VolumeGroup::MergeFrom(
+        from._internal_volume_group());
   }
   if (from._internal_total_bytes() != 0) {
-    _internal_set_total_bytes(from._internal_total_bytes());
+    _this->_internal_set_total_bytes(from._internal_total_bytes());
   }
   if (from._internal_free_bytes() != 0) {
-    _internal_set_free_bytes(from._internal_free_bytes());
+    _this->_internal_set_free_bytes(from._internal_free_bytes());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Thinpool::CopyFrom(const Thinpool& from) {
@@ -779,16 +805,15 @@ void Thinpool::InternalSwap(Thinpool* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, lhs_arena,
-      &other->name_, rhs_arena
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Thinpool, free_bytes_)
-      + sizeof(Thinpool::free_bytes_)
-      - PROTOBUF_FIELD_OFFSET(Thinpool, volume_group_)>(
-          reinterpret_cast<char*>(&volume_group_),
-          reinterpret_cast<char*>(&other->volume_group_));
+      PROTOBUF_FIELD_OFFSET(Thinpool, _impl_.free_bytes_)
+      + sizeof(Thinpool::_impl_.free_bytes_)
+      - PROTOBUF_FIELD_OFFSET(Thinpool, _impl_.volume_group_)>(
+          reinterpret_cast<char*>(&_impl_.volume_group_),
+          reinterpret_cast<char*>(&other->_impl_.volume_group_));
 }
 
 std::string Thinpool::GetTypeName() const {
@@ -805,55 +830,61 @@ class LogicalVolumeConfiguration::_Internal {
 LogicalVolumeConfiguration::LogicalVolumeConfiguration(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lvmd.LogicalVolumeConfiguration)
 }
 LogicalVolumeConfiguration::LogicalVolumeConfiguration(const LogicalVolumeConfiguration& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  LogicalVolumeConfiguration* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.size_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
   }
-  size_ = from.size_;
+  _this->_impl_.size_ = from._impl_.size_;
   // @@protoc_insertion_point(copy_constructor:lvmd.LogicalVolumeConfiguration)
 }
 
-inline void LogicalVolumeConfiguration::SharedCtor() {
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-size_ = int64_t{0};
+inline void LogicalVolumeConfiguration::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.size_){int64_t{0}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 LogicalVolumeConfiguration::~LogicalVolumeConfiguration() {
   // @@protoc_insertion_point(destructor:lvmd.LogicalVolumeConfiguration)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void LogicalVolumeConfiguration::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.Destroy();
 }
 
-void LogicalVolumeConfiguration::ArenaDtor(void* object) {
-  LogicalVolumeConfiguration* _this = reinterpret_cast< LogicalVolumeConfiguration* >(object);
-  (void)_this;
-}
-void LogicalVolumeConfiguration::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void LogicalVolumeConfiguration::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void LogicalVolumeConfiguration::Clear() {
@@ -862,31 +893,31 @@ void LogicalVolumeConfiguration::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmpty();
-  size_ = int64_t{0};
+  _impl_.name_.ClearToEmpty();
+  _impl_.size_ = int64_t{0};
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* LogicalVolumeConfiguration::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* LogicalVolumeConfiguration::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
       // int64 size = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -933,7 +964,7 @@ uint8_t* LogicalVolumeConfiguration::_InternalSerialize(
   // int64 size = 2;
   if (this->_internal_size() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_size(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_size(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -961,36 +992,37 @@ size_t LogicalVolumeConfiguration::ByteSizeLong() const {
 
   // int64 size = 2;
   if (this->_internal_size() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_size());
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_size());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void LogicalVolumeConfiguration::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const LogicalVolumeConfiguration*>(
+  MergeFrom(*::_pbi::DownCast<const LogicalVolumeConfiguration*>(
       &from));
 }
 
 void LogicalVolumeConfiguration::MergeFrom(const LogicalVolumeConfiguration& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lvmd.LogicalVolumeConfiguration)
-  GOOGLE_DCHECK_NE(&from, this);
+  LogicalVolumeConfiguration* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lvmd.LogicalVolumeConfiguration)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_name().empty()) {
-    _internal_set_name(from._internal_name());
+    _this->_internal_set_name(from._internal_name());
   }
   if (from._internal_size() != 0) {
-    _internal_set_size(from._internal_size());
+    _this->_internal_set_size(from._internal_size());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void LogicalVolumeConfiguration::CopyFrom(const LogicalVolumeConfiguration& from) {
@@ -1010,11 +1042,10 @@ void LogicalVolumeConfiguration::InternalSwap(LogicalVolumeConfiguration* other)
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, lhs_arena,
-      &other->name_, rhs_arena
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
   );
-  swap(size_, other->size_);
+  swap(_impl_.size_, other->_impl_.size_);
 }
 
 std::string LogicalVolumeConfiguration::GetTypeName() const {
@@ -1031,78 +1062,84 @@ class LogicalVolume::_Internal {
 
 const ::lvmd::VolumeGroup&
 LogicalVolume::_Internal::volume_group(const LogicalVolume* msg) {
-  return *msg->volume_group_;
+  return *msg->_impl_.volume_group_;
 }
 LogicalVolume::LogicalVolume(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lvmd.LogicalVolume)
 }
 LogicalVolume::LogicalVolume(const LogicalVolume& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  LogicalVolume* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.path_){}
+    , decltype(_impl_.volume_group_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
   }
-  path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_path().empty()) {
-    path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.path_.Set(from._internal_path(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_volume_group()) {
-    volume_group_ = new ::lvmd::VolumeGroup(*from.volume_group_);
-  } else {
-    volume_group_ = nullptr;
+    _this->_impl_.volume_group_ = new ::lvmd::VolumeGroup(*from._impl_.volume_group_);
   }
   // @@protoc_insertion_point(copy_constructor:lvmd.LogicalVolume)
 }
 
-inline void LogicalVolume::SharedCtor() {
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-volume_group_ = nullptr;
+inline void LogicalVolume::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.path_){}
+    , decltype(_impl_.volume_group_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 LogicalVolume::~LogicalVolume() {
   // @@protoc_insertion_point(destructor:lvmd.LogicalVolume)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void LogicalVolume::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete volume_group_;
+  _impl_.name_.Destroy();
+  _impl_.path_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.volume_group_;
 }
 
-void LogicalVolume::ArenaDtor(void* object) {
-  LogicalVolume* _this = reinterpret_cast< LogicalVolume* >(object);
-  (void)_this;
-}
-void LogicalVolume::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void LogicalVolume::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void LogicalVolume::Clear() {
@@ -1111,20 +1148,20 @@ void LogicalVolume::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmpty();
-  path_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && volume_group_ != nullptr) {
-    delete volume_group_;
+  _impl_.name_.ClearToEmpty();
+  _impl_.path_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.volume_group_ != nullptr) {
+    delete _impl_.volume_group_;
   }
-  volume_group_ = nullptr;
+  _impl_.volume_group_ = nullptr;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* LogicalVolume::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* LogicalVolume::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .lvmd.VolumeGroup volume_group = 1;
       case 1:
@@ -1138,9 +1175,9 @@ const char* LogicalVolume::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1148,9 +1185,9 @@ const char* LogicalVolume::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1185,10 +1222,9 @@ uint8_t* LogicalVolume::_InternalSerialize(
 
   // .lvmd.VolumeGroup volume_group = 1;
   if (this->_internal_has_volume_group()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::volume_group(this), target, stream);
+      InternalWriteMessage(1, _Internal::volume_group(this),
+        _Internal::volume_group(this).GetCachedSize(), target, stream);
   }
 
   // string name = 2;
@@ -1245,39 +1281,41 @@ size_t LogicalVolume::ByteSizeLong() const {
   if (this->_internal_has_volume_group()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *volume_group_);
+        *_impl_.volume_group_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void LogicalVolume::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const LogicalVolume*>(
+  MergeFrom(*::_pbi::DownCast<const LogicalVolume*>(
       &from));
 }
 
 void LogicalVolume::MergeFrom(const LogicalVolume& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lvmd.LogicalVolume)
-  GOOGLE_DCHECK_NE(&from, this);
+  LogicalVolume* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lvmd.LogicalVolume)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_name().empty()) {
-    _internal_set_name(from._internal_name());
+    _this->_internal_set_name(from._internal_name());
   }
   if (!from._internal_path().empty()) {
-    _internal_set_path(from._internal_path());
+    _this->_internal_set_path(from._internal_path());
   }
   if (from._internal_has_volume_group()) {
-    _internal_mutable_volume_group()->::lvmd::VolumeGroup::MergeFrom(from._internal_volume_group());
+    _this->_internal_mutable_volume_group()->::lvmd::VolumeGroup::MergeFrom(
+        from._internal_volume_group());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void LogicalVolume::CopyFrom(const LogicalVolume& from) {
@@ -1297,16 +1335,14 @@ void LogicalVolume::InternalSwap(LogicalVolume* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, lhs_arena,
-      &other->name_, rhs_arena
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &path_, lhs_arena,
-      &other->path_, rhs_arena
+      &_impl_.path_, lhs_arena,
+      &other->_impl_.path_, rhs_arena
   );
-  swap(volume_group_, other->volume_group_);
+  swap(_impl_.volume_group_, other->_impl_.volume_group_);
 }
 
 std::string LogicalVolume::GetTypeName() const {
@@ -1322,43 +1358,47 @@ class LogicalVolumeList::_Internal {
 
 LogicalVolumeList::LogicalVolumeList(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  logical_volume_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lvmd.LogicalVolumeList)
 }
 LogicalVolumeList::LogicalVolumeList(const LogicalVolumeList& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      logical_volume_(from.logical_volume_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  LogicalVolumeList* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.logical_volume_){from._impl_.logical_volume_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:lvmd.LogicalVolumeList)
 }
 
-inline void LogicalVolumeList::SharedCtor() {
+inline void LogicalVolumeList::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.logical_volume_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 LogicalVolumeList::~LogicalVolumeList() {
   // @@protoc_insertion_point(destructor:lvmd.LogicalVolumeList)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void LogicalVolumeList::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.logical_volume_.~RepeatedPtrField();
 }
 
-void LogicalVolumeList::ArenaDtor(void* object) {
-  LogicalVolumeList* _this = reinterpret_cast< LogicalVolumeList* >(object);
-  (void)_this;
-}
-void LogicalVolumeList::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void LogicalVolumeList::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void LogicalVolumeList::Clear() {
@@ -1367,15 +1407,15 @@ void LogicalVolumeList::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  logical_volume_.Clear();
+  _impl_.logical_volume_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* LogicalVolumeList::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* LogicalVolumeList::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .lvmd.LogicalVolume logical_volume = 1;
       case 1:
@@ -1420,11 +1460,11 @@ uint8_t* LogicalVolumeList::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .lvmd.LogicalVolume logical_volume = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_logical_volume_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_logical_volume_size()); i < n; i++) {
+    const auto& repfield = this->_internal_logical_volume(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_logical_volume(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1445,7 +1485,7 @@ size_t LogicalVolumeList::ByteSizeLong() const {
 
   // repeated .lvmd.LogicalVolume logical_volume = 1;
   total_size += 1UL * this->_internal_logical_volume_size();
-  for (const auto& msg : this->logical_volume_) {
+  for (const auto& msg : this->_impl_.logical_volume_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1453,25 +1493,26 @@ size_t LogicalVolumeList::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void LogicalVolumeList::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const LogicalVolumeList*>(
+  MergeFrom(*::_pbi::DownCast<const LogicalVolumeList*>(
       &from));
 }
 
 void LogicalVolumeList::MergeFrom(const LogicalVolumeList& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lvmd.LogicalVolumeList)
-  GOOGLE_DCHECK_NE(&from, this);
+  LogicalVolumeList* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lvmd.LogicalVolumeList)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  logical_volume_.MergeFrom(from.logical_volume_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.logical_volume_.MergeFrom(from._impl_.logical_volume_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void LogicalVolumeList::CopyFrom(const LogicalVolumeList& from) {
@@ -1488,7 +1529,7 @@ bool LogicalVolumeList::IsInitialized() const {
 void LogicalVolumeList::InternalSwap(LogicalVolumeList* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  logical_volume_.InternalSwap(&other->logical_volume_);
+  _impl_.logical_volume_.InternalSwap(&other->_impl_.logical_volume_);
 }
 
 std::string LogicalVolumeList::GetTypeName() const {
@@ -1499,22 +1540,28 @@ std::string LogicalVolumeList::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace lvmd
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::lvmd::PhysicalVolume* Arena::CreateMaybeMessage< ::lvmd::PhysicalVolume >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lvmd::PhysicalVolume*
+Arena::CreateMaybeMessage< ::lvmd::PhysicalVolume >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lvmd::PhysicalVolume >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lvmd::VolumeGroup* Arena::CreateMaybeMessage< ::lvmd::VolumeGroup >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lvmd::VolumeGroup*
+Arena::CreateMaybeMessage< ::lvmd::VolumeGroup >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lvmd::VolumeGroup >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lvmd::Thinpool* Arena::CreateMaybeMessage< ::lvmd::Thinpool >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lvmd::Thinpool*
+Arena::CreateMaybeMessage< ::lvmd::Thinpool >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lvmd::Thinpool >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lvmd::LogicalVolumeConfiguration* Arena::CreateMaybeMessage< ::lvmd::LogicalVolumeConfiguration >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lvmd::LogicalVolumeConfiguration*
+Arena::CreateMaybeMessage< ::lvmd::LogicalVolumeConfiguration >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lvmd::LogicalVolumeConfiguration >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lvmd::LogicalVolume* Arena::CreateMaybeMessage< ::lvmd::LogicalVolume >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lvmd::LogicalVolume*
+Arena::CreateMaybeMessage< ::lvmd::LogicalVolume >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lvmd::LogicalVolume >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lvmd::LogicalVolumeList* Arena::CreateMaybeMessage< ::lvmd::LogicalVolumeList >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lvmd::LogicalVolumeList*
+Arena::CreateMaybeMessage< ::lvmd::LogicalVolumeList >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lvmd::LogicalVolumeList >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

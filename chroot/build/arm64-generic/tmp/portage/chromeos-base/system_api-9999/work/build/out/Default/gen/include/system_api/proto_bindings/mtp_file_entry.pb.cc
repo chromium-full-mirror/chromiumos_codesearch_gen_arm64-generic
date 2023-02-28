@@ -13,36 +13,42 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
-constexpr MtpFileEntry::MtpFileEntry(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : file_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , item_id_(0u)
-  , parent_id_(0u)
-  , file_size_(uint64_t{0u})
-  , modification_time_(int64_t{0})
-  , file_type_(0)
-{}
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
+PROTOBUF_CONSTEXPR MtpFileEntry::MtpFileEntry(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.file_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.item_id_)*/0u
+  , /*decltype(_impl_.parent_id_)*/0u
+  , /*decltype(_impl_.file_size_)*/uint64_t{0u}
+  , /*decltype(_impl_.modification_time_)*/int64_t{0}
+  , /*decltype(_impl_.file_type_)*/0} {}
 struct MtpFileEntryDefaultTypeInternal {
-  constexpr MtpFileEntryDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR MtpFileEntryDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~MtpFileEntryDefaultTypeInternal() {}
   union {
     MtpFileEntry _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MtpFileEntryDefaultTypeInternal _MtpFileEntry_default_instance_;
-constexpr MtpFileEntries::MtpFileEntries(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : file_entries_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MtpFileEntryDefaultTypeInternal _MtpFileEntry_default_instance_;
+PROTOBUF_CONSTEXPR MtpFileEntries::MtpFileEntries(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.file_entries_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct MtpFileEntriesDefaultTypeInternal {
-  constexpr MtpFileEntriesDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR MtpFileEntriesDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~MtpFileEntriesDefaultTypeInternal() {}
   union {
     MtpFileEntries _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MtpFileEntriesDefaultTypeInternal _MtpFileEntries_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MtpFileEntriesDefaultTypeInternal _MtpFileEntries_default_instance_;
 bool MtpFileEntry_FileType_IsValid(int value) {
   switch (value) {
     case 0:
@@ -161,7 +167,7 @@ constexpr int MtpFileEntry::FileType_ARRAYSIZE;
 
 class MtpFileEntry::_Internal {
  public:
-  using HasBits = decltype(std::declval<MtpFileEntry>()._has_bits_);
+  using HasBits = decltype(std::declval<MtpFileEntry>()._impl_._has_bits_);
   static void set_has_item_id(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -185,61 +191,73 @@ class MtpFileEntry::_Internal {
 MtpFileEntry::MtpFileEntry(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:MtpFileEntry)
 }
 MtpFileEntry::MtpFileEntry(const MtpFileEntry& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  MtpFileEntry* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.file_name_){}
+    , decltype(_impl_.item_id_){}
+    , decltype(_impl_.parent_id_){}
+    , decltype(_impl_.file_size_){}
+    , decltype(_impl_.modification_time_){}
+    , decltype(_impl_.file_type_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  file_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.file_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    file_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.file_name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_file_name()) {
-    file_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.file_name_.Set(from._internal_file_name(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&item_id_, &from.item_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&file_type_) -
-    reinterpret_cast<char*>(&item_id_)) + sizeof(file_type_));
+  ::memcpy(&_impl_.item_id_, &from._impl_.item_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.file_type_) -
+    reinterpret_cast<char*>(&_impl_.item_id_)) + sizeof(_impl_.file_type_));
   // @@protoc_insertion_point(copy_constructor:MtpFileEntry)
 }
 
-inline void MtpFileEntry::SharedCtor() {
-file_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  file_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&item_id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&file_type_) -
-    reinterpret_cast<char*>(&item_id_)) + sizeof(file_type_));
+inline void MtpFileEntry::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.file_name_){}
+    , decltype(_impl_.item_id_){0u}
+    , decltype(_impl_.parent_id_){0u}
+    , decltype(_impl_.file_size_){uint64_t{0u}}
+    , decltype(_impl_.modification_time_){int64_t{0}}
+    , decltype(_impl_.file_type_){0}
+  };
+  _impl_.file_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.file_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 MtpFileEntry::~MtpFileEntry() {
   // @@protoc_insertion_point(destructor:MtpFileEntry)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void MtpFileEntry::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  file_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.file_name_.Destroy();
 }
 
-void MtpFileEntry::ArenaDtor(void* object) {
-  MtpFileEntry* _this = reinterpret_cast< MtpFileEntry* >(object);
-  (void)_this;
-}
-void MtpFileEntry::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void MtpFileEntry::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void MtpFileEntry::Clear() {
@@ -248,31 +266,31 @@ void MtpFileEntry::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    file_name_.ClearNonDefaultToEmpty();
+    _impl_.file_name_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x0000003eu) {
-    ::memset(&item_id_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&file_type_) -
-        reinterpret_cast<char*>(&item_id_)) + sizeof(file_type_));
+    ::memset(&_impl_.item_id_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.file_type_) -
+        reinterpret_cast<char*>(&_impl_.item_id_)) + sizeof(_impl_.file_type_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* MtpFileEntry::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* MtpFileEntry::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 item_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_item_id(&has_bits);
-          item_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.item_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -281,7 +299,7 @@ const char* MtpFileEntry::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_parent_id(&has_bits);
-          parent_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.parent_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -290,7 +308,7 @@ const char* MtpFileEntry::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_file_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -299,7 +317,7 @@ const char* MtpFileEntry::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _Internal::set_has_file_size(&has_bits);
-          file_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.file_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -308,7 +326,7 @@ const char* MtpFileEntry::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _Internal::set_has_modification_time(&has_bits);
-          modification_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.modification_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -342,7 +360,7 @@ const char* MtpFileEntry::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -356,17 +374,17 @@ uint8_t* MtpFileEntry::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 item_id = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_item_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_item_id(), target);
   }
 
   // optional uint32 parent_id = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_parent_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_parent_id(), target);
   }
 
   // optional string file_name = 3;
@@ -378,19 +396,19 @@ uint8_t* MtpFileEntry::_InternalSerialize(
   // optional uint64 file_size = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(4, this->_internal_file_size(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_file_size(), target);
   }
 
   // optional int64 modification_time = 5;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(5, this->_internal_modification_time(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(5, this->_internal_modification_time(), target);
   }
 
   // optional .MtpFileEntry.FileType file_type = 6;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       6, this->_internal_file_type(), target);
   }
 
@@ -410,7 +428,7 @@ size_t MtpFileEntry::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000003fu) {
     // optional string file_name = 3;
     if (cached_has_bits & 0x00000001u) {
@@ -421,74 +439,75 @@ size_t MtpFileEntry::ByteSizeLong() const {
 
     // optional uint32 item_id = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_item_id());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_item_id());
     }
 
     // optional uint32 parent_id = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_parent_id());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_parent_id());
     }
 
     // optional uint64 file_size = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_file_size());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_file_size());
     }
 
     // optional int64 modification_time = 5;
     if (cached_has_bits & 0x00000010u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_modification_time());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_modification_time());
     }
 
     // optional .MtpFileEntry.FileType file_type = 6;
     if (cached_has_bits & 0x00000020u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_file_type());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_file_type());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void MtpFileEntry::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const MtpFileEntry*>(
+  MergeFrom(*::_pbi::DownCast<const MtpFileEntry*>(
       &from));
 }
 
 void MtpFileEntry::MergeFrom(const MtpFileEntry& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:MtpFileEntry)
-  GOOGLE_DCHECK_NE(&from, this);
+  MtpFileEntry* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:MtpFileEntry)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_file_name(from._internal_file_name());
+      _this->_internal_set_file_name(from._internal_file_name());
     }
     if (cached_has_bits & 0x00000002u) {
-      item_id_ = from.item_id_;
+      _this->_impl_.item_id_ = from._impl_.item_id_;
     }
     if (cached_has_bits & 0x00000004u) {
-      parent_id_ = from.parent_id_;
+      _this->_impl_.parent_id_ = from._impl_.parent_id_;
     }
     if (cached_has_bits & 0x00000008u) {
-      file_size_ = from.file_size_;
+      _this->_impl_.file_size_ = from._impl_.file_size_;
     }
     if (cached_has_bits & 0x00000010u) {
-      modification_time_ = from.modification_time_;
+      _this->_impl_.modification_time_ = from._impl_.modification_time_;
     }
     if (cached_has_bits & 0x00000020u) {
-      file_type_ = from.file_type_;
+      _this->_impl_.file_type_ = from._impl_.file_type_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void MtpFileEntry::CopyFrom(const MtpFileEntry& from) {
@@ -507,18 +526,17 @@ void MtpFileEntry::InternalSwap(MtpFileEntry* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &file_name_, lhs_arena,
-      &other->file_name_, rhs_arena
+      &_impl_.file_name_, lhs_arena,
+      &other->_impl_.file_name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(MtpFileEntry, file_type_)
-      + sizeof(MtpFileEntry::file_type_)
-      - PROTOBUF_FIELD_OFFSET(MtpFileEntry, item_id_)>(
-          reinterpret_cast<char*>(&item_id_),
-          reinterpret_cast<char*>(&other->item_id_));
+      PROTOBUF_FIELD_OFFSET(MtpFileEntry, _impl_.file_type_)
+      + sizeof(MtpFileEntry::_impl_.file_type_)
+      - PROTOBUF_FIELD_OFFSET(MtpFileEntry, _impl_.item_id_)>(
+          reinterpret_cast<char*>(&_impl_.item_id_),
+          reinterpret_cast<char*>(&other->_impl_.item_id_));
 }
 
 std::string MtpFileEntry::GetTypeName() const {
@@ -534,43 +552,47 @@ class MtpFileEntries::_Internal {
 
 MtpFileEntries::MtpFileEntries(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  file_entries_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:MtpFileEntries)
 }
 MtpFileEntries::MtpFileEntries(const MtpFileEntries& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      file_entries_(from.file_entries_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  MtpFileEntries* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.file_entries_){from._impl_.file_entries_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:MtpFileEntries)
 }
 
-inline void MtpFileEntries::SharedCtor() {
+inline void MtpFileEntries::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.file_entries_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 MtpFileEntries::~MtpFileEntries() {
   // @@protoc_insertion_point(destructor:MtpFileEntries)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void MtpFileEntries::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.file_entries_.~RepeatedPtrField();
 }
 
-void MtpFileEntries::ArenaDtor(void* object) {
-  MtpFileEntries* _this = reinterpret_cast< MtpFileEntries* >(object);
-  (void)_this;
-}
-void MtpFileEntries::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void MtpFileEntries::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void MtpFileEntries::Clear() {
@@ -579,15 +601,15 @@ void MtpFileEntries::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  file_entries_.Clear();
+  _impl_.file_entries_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* MtpFileEntries::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* MtpFileEntries::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .MtpFileEntry file_entries = 1;
       case 1:
@@ -632,11 +654,11 @@ uint8_t* MtpFileEntries::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .MtpFileEntry file_entries = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_file_entries_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_file_entries_size()); i < n; i++) {
+    const auto& repfield = this->_internal_file_entries(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_file_entries(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -657,7 +679,7 @@ size_t MtpFileEntries::ByteSizeLong() const {
 
   // repeated .MtpFileEntry file_entries = 1;
   total_size += 1UL * this->_internal_file_entries_size();
-  for (const auto& msg : this->file_entries_) {
+  for (const auto& msg : this->_impl_.file_entries_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -665,25 +687,26 @@ size_t MtpFileEntries::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void MtpFileEntries::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const MtpFileEntries*>(
+  MergeFrom(*::_pbi::DownCast<const MtpFileEntries*>(
       &from));
 }
 
 void MtpFileEntries::MergeFrom(const MtpFileEntries& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:MtpFileEntries)
-  GOOGLE_DCHECK_NE(&from, this);
+  MtpFileEntries* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:MtpFileEntries)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  file_entries_.MergeFrom(from.file_entries_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.file_entries_.MergeFrom(from._impl_.file_entries_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void MtpFileEntries::CopyFrom(const MtpFileEntries& from) {
@@ -700,7 +723,7 @@ bool MtpFileEntries::IsInitialized() const {
 void MtpFileEntries::InternalSwap(MtpFileEntries* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  file_entries_.InternalSwap(&other->file_entries_);
+  _impl_.file_entries_.InternalSwap(&other->_impl_.file_entries_);
 }
 
 std::string MtpFileEntries::GetTypeName() const {
@@ -710,10 +733,12 @@ std::string MtpFileEntries::GetTypeName() const {
 
 // @@protoc_insertion_point(namespace_scope)
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::MtpFileEntry* Arena::CreateMaybeMessage< ::MtpFileEntry >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::MtpFileEntry*
+Arena::CreateMaybeMessage< ::MtpFileEntry >(Arena* arena) {
   return Arena::CreateMessageInternal< ::MtpFileEntry >(arena);
 }
-template<> PROTOBUF_NOINLINE ::MtpFileEntries* Arena::CreateMaybeMessage< ::MtpFileEntries >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::MtpFileEntries*
+Arena::CreateMaybeMessage< ::MtpFileEntries >(Arena* arena) {
   return Arena::CreateMessageInternal< ::MtpFileEntries >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

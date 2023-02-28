@@ -13,19 +13,24 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace login_manager {
-constexpr LoginScreenStorageIndex::LoginScreenStorageIndex(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : keys_(){}
+PROTOBUF_CONSTEXPR LoginScreenStorageIndex::LoginScreenStorageIndex(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.keys_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct LoginScreenStorageIndexDefaultTypeInternal {
-  constexpr LoginScreenStorageIndexDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR LoginScreenStorageIndexDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~LoginScreenStorageIndexDefaultTypeInternal() {}
   union {
     LoginScreenStorageIndex _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT LoginScreenStorageIndexDefaultTypeInternal _LoginScreenStorageIndex_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LoginScreenStorageIndexDefaultTypeInternal _LoginScreenStorageIndex_default_instance_;
 }  // namespace login_manager
 namespace login_manager {
 
@@ -37,43 +42,47 @@ class LoginScreenStorageIndex::_Internal {
 
 LoginScreenStorageIndex::LoginScreenStorageIndex(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  keys_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:login_manager.LoginScreenStorageIndex)
 }
 LoginScreenStorageIndex::LoginScreenStorageIndex(const LoginScreenStorageIndex& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      keys_(from.keys_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  LoginScreenStorageIndex* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.keys_){from._impl_.keys_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:login_manager.LoginScreenStorageIndex)
 }
 
-inline void LoginScreenStorageIndex::SharedCtor() {
+inline void LoginScreenStorageIndex::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.keys_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 LoginScreenStorageIndex::~LoginScreenStorageIndex() {
   // @@protoc_insertion_point(destructor:login_manager.LoginScreenStorageIndex)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void LoginScreenStorageIndex::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.keys_.~RepeatedPtrField();
 }
 
-void LoginScreenStorageIndex::ArenaDtor(void* object) {
-  LoginScreenStorageIndex* _this = reinterpret_cast< LoginScreenStorageIndex* >(object);
-  (void)_this;
-}
-void LoginScreenStorageIndex::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void LoginScreenStorageIndex::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void LoginScreenStorageIndex::Clear() {
@@ -82,15 +91,15 @@ void LoginScreenStorageIndex::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  keys_.Clear();
+  _impl_.keys_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* LoginScreenStorageIndex::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* LoginScreenStorageIndex::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated string keys = 1;
       case 1:
@@ -99,7 +108,7 @@ const char* LoginScreenStorageIndex::_InternalParse(const char* ptr, ::PROTOBUF_
           do {
             ptr += 1;
             auto str = _internal_add_keys();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
@@ -159,34 +168,35 @@ size_t LoginScreenStorageIndex::ByteSizeLong() const {
 
   // repeated string keys = 1;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(keys_.size());
-  for (int i = 0, n = keys_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.keys_.size());
+  for (int i = 0, n = _impl_.keys_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      keys_.Get(i));
+      _impl_.keys_.Get(i));
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void LoginScreenStorageIndex::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const LoginScreenStorageIndex*>(
+  MergeFrom(*::_pbi::DownCast<const LoginScreenStorageIndex*>(
       &from));
 }
 
 void LoginScreenStorageIndex::MergeFrom(const LoginScreenStorageIndex& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:login_manager.LoginScreenStorageIndex)
-  GOOGLE_DCHECK_NE(&from, this);
+  LoginScreenStorageIndex* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:login_manager.LoginScreenStorageIndex)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  keys_.MergeFrom(from.keys_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.keys_.MergeFrom(from._impl_.keys_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void LoginScreenStorageIndex::CopyFrom(const LoginScreenStorageIndex& from) {
@@ -203,7 +213,7 @@ bool LoginScreenStorageIndex::IsInitialized() const {
 void LoginScreenStorageIndex::InternalSwap(LoginScreenStorageIndex* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  keys_.InternalSwap(&other->keys_);
+  _impl_.keys_.InternalSwap(&other->_impl_.keys_);
 }
 
 std::string LoginScreenStorageIndex::GetTypeName() const {
@@ -214,7 +224,8 @@ std::string LoginScreenStorageIndex::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace login_manager
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::login_manager::LoginScreenStorageIndex* Arena::CreateMaybeMessage< ::login_manager::LoginScreenStorageIndex >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::login_manager::LoginScreenStorageIndex*
+Arena::CreateMaybeMessage< ::login_manager::LoginScreenStorageIndex >(Arena* arena) {
   return Arena::CreateMessageInternal< ::login_manager::LoginScreenStorageIndex >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

@@ -13,84 +13,98 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace enterprise_management {
-constexpr StringList::StringList(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : entries_(){}
+PROTOBUF_CONSTEXPR StringList::StringList(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.entries_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StringListDefaultTypeInternal {
-  constexpr StringListDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StringListDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~StringListDefaultTypeInternal() {}
   union {
     StringList _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StringListDefaultTypeInternal _StringList_default_instance_;
-constexpr PolicyOptions::PolicyOptions(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : mode_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StringListDefaultTypeInternal _StringList_default_instance_;
+PROTOBUF_CONSTEXPR PolicyOptions::PolicyOptions(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.mode_)*/0} {}
 struct PolicyOptionsDefaultTypeInternal {
-  constexpr PolicyOptionsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PolicyOptionsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~PolicyOptionsDefaultTypeInternal() {}
   union {
     PolicyOptions _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PolicyOptionsDefaultTypeInternal _PolicyOptions_default_instance_;
-constexpr BooleanPolicyProto::BooleanPolicyProto(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : policy_options_(nullptr)
-  , value_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PolicyOptionsDefaultTypeInternal _PolicyOptions_default_instance_;
+PROTOBUF_CONSTEXPR BooleanPolicyProto::BooleanPolicyProto(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.policy_options_)*/nullptr
+  , /*decltype(_impl_.value_)*/false} {}
 struct BooleanPolicyProtoDefaultTypeInternal {
-  constexpr BooleanPolicyProtoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR BooleanPolicyProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~BooleanPolicyProtoDefaultTypeInternal() {}
   union {
     BooleanPolicyProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT BooleanPolicyProtoDefaultTypeInternal _BooleanPolicyProto_default_instance_;
-constexpr IntegerPolicyProto::IntegerPolicyProto(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : policy_options_(nullptr)
-  , value_(int64_t{0}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BooleanPolicyProtoDefaultTypeInternal _BooleanPolicyProto_default_instance_;
+PROTOBUF_CONSTEXPR IntegerPolicyProto::IntegerPolicyProto(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.policy_options_)*/nullptr
+  , /*decltype(_impl_.value_)*/int64_t{0}} {}
 struct IntegerPolicyProtoDefaultTypeInternal {
-  constexpr IntegerPolicyProtoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR IntegerPolicyProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~IntegerPolicyProtoDefaultTypeInternal() {}
   union {
     IntegerPolicyProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT IntegerPolicyProtoDefaultTypeInternal _IntegerPolicyProto_default_instance_;
-constexpr StringPolicyProto::StringPolicyProto(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : value_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , policy_options_(nullptr){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IntegerPolicyProtoDefaultTypeInternal _IntegerPolicyProto_default_instance_;
+PROTOBUF_CONSTEXPR StringPolicyProto::StringPolicyProto(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.value_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.policy_options_)*/nullptr} {}
 struct StringPolicyProtoDefaultTypeInternal {
-  constexpr StringPolicyProtoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StringPolicyProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~StringPolicyProtoDefaultTypeInternal() {}
   union {
     StringPolicyProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StringPolicyProtoDefaultTypeInternal _StringPolicyProto_default_instance_;
-constexpr StringListPolicyProto::StringListPolicyProto(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : policy_options_(nullptr)
-  , value_(nullptr){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StringPolicyProtoDefaultTypeInternal _StringPolicyProto_default_instance_;
+PROTOBUF_CONSTEXPR StringListPolicyProto::StringListPolicyProto(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.policy_options_)*/nullptr
+  , /*decltype(_impl_.value_)*/nullptr} {}
 struct StringListPolicyProtoDefaultTypeInternal {
-  constexpr StringListPolicyProtoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StringListPolicyProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~StringListPolicyProtoDefaultTypeInternal() {}
   union {
     StringListPolicyProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StringListPolicyProtoDefaultTypeInternal _StringListPolicyProto_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StringListPolicyProtoDefaultTypeInternal _StringListPolicyProto_default_instance_;
 }  // namespace enterprise_management
 namespace enterprise_management {
 bool PolicyOptions_PolicyMode_IsValid(int value) {
@@ -165,43 +179,47 @@ class StringList::_Internal {
 
 StringList::StringList(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  entries_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:enterprise_management.StringList)
 }
 StringList::StringList(const StringList& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      entries_(from.entries_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  StringList* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.entries_){from._impl_.entries_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:enterprise_management.StringList)
 }
 
-inline void StringList::SharedCtor() {
+inline void StringList::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.entries_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 StringList::~StringList() {
   // @@protoc_insertion_point(destructor:enterprise_management.StringList)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void StringList::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.entries_.~RepeatedPtrField();
 }
 
-void StringList::ArenaDtor(void* object) {
-  StringList* _this = reinterpret_cast< StringList* >(object);
-  (void)_this;
-}
-void StringList::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void StringList::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void StringList::Clear() {
@@ -210,15 +228,15 @@ void StringList::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  entries_.Clear();
+  _impl_.entries_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* StringList::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* StringList::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated string entries = 1;
       case 1:
@@ -227,7 +245,7 @@ const char* StringList::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
           do {
             ptr += 1;
             auto str = _internal_add_entries();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
@@ -287,34 +305,35 @@ size_t StringList::ByteSizeLong() const {
 
   // repeated string entries = 1;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(entries_.size());
-  for (int i = 0, n = entries_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.entries_.size());
+  for (int i = 0, n = _impl_.entries_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      entries_.Get(i));
+      _impl_.entries_.Get(i));
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void StringList::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const StringList*>(
+  MergeFrom(*::_pbi::DownCast<const StringList*>(
       &from));
 }
 
 void StringList::MergeFrom(const StringList& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.StringList)
-  GOOGLE_DCHECK_NE(&from, this);
+  StringList* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.StringList)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  entries_.MergeFrom(from.entries_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.entries_.MergeFrom(from._impl_.entries_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void StringList::CopyFrom(const StringList& from) {
@@ -331,7 +350,7 @@ bool StringList::IsInitialized() const {
 void StringList::InternalSwap(StringList* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  entries_.InternalSwap(&other->entries_);
+  _impl_.entries_.InternalSwap(&other->_impl_.entries_);
 }
 
 std::string StringList::GetTypeName() const {
@@ -343,7 +362,7 @@ std::string StringList::GetTypeName() const {
 
 class PolicyOptions::_Internal {
  public:
-  using HasBits = decltype(std::declval<PolicyOptions>()._has_bits_);
+  using HasBits = decltype(std::declval<PolicyOptions>()._impl_._has_bits_);
   static void set_has_mode(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -352,43 +371,48 @@ class PolicyOptions::_Internal {
 PolicyOptions::PolicyOptions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:enterprise_management.PolicyOptions)
 }
 PolicyOptions::PolicyOptions(const PolicyOptions& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PolicyOptions* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.mode_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  mode_ = from.mode_;
+  _this->_impl_.mode_ = from._impl_.mode_;
   // @@protoc_insertion_point(copy_constructor:enterprise_management.PolicyOptions)
 }
 
-inline void PolicyOptions::SharedCtor() {
-mode_ = 0;
+inline void PolicyOptions::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.mode_){0}
+  };
 }
 
 PolicyOptions::~PolicyOptions() {
   // @@protoc_insertion_point(destructor:enterprise_management.PolicyOptions)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void PolicyOptions::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void PolicyOptions::ArenaDtor(void* object) {
-  PolicyOptions* _this = reinterpret_cast< PolicyOptions* >(object);
-  (void)_this;
-}
-void PolicyOptions::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void PolicyOptions::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PolicyOptions::Clear() {
@@ -397,17 +421,17 @@ void PolicyOptions::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  mode_ = 0;
-  _has_bits_.Clear();
+  _impl_.mode_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PolicyOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* PolicyOptions::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .enterprise_management.PolicyOptions.PolicyMode mode = 1 [default = MANDATORY];
       case 1:
@@ -438,7 +462,7 @@ const char* PolicyOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -452,11 +476,11 @@ uint8_t* PolicyOptions::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .enterprise_management.PolicyOptions.PolicyMode mode = 1 [default = MANDATORY];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_mode(), target);
   }
 
@@ -477,36 +501,37 @@ size_t PolicyOptions::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional .enterprise_management.PolicyOptions.PolicyMode mode = 1 [default = MANDATORY];
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_mode());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_mode());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void PolicyOptions::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PolicyOptions*>(
+  MergeFrom(*::_pbi::DownCast<const PolicyOptions*>(
       &from));
 }
 
 void PolicyOptions::MergeFrom(const PolicyOptions& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.PolicyOptions)
-  GOOGLE_DCHECK_NE(&from, this);
+  PolicyOptions* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.PolicyOptions)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_mode()) {
-    _internal_set_mode(from._internal_mode());
+    _this->_internal_set_mode(from._internal_mode());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PolicyOptions::CopyFrom(const PolicyOptions& from) {
@@ -523,8 +548,8 @@ bool PolicyOptions::IsInitialized() const {
 void PolicyOptions::InternalSwap(PolicyOptions* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(mode_, other->mode_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.mode_, other->_impl_.mode_);
 }
 
 std::string PolicyOptions::GetTypeName() const {
@@ -536,7 +561,7 @@ std::string PolicyOptions::GetTypeName() const {
 
 class BooleanPolicyProto::_Internal {
  public:
-  using HasBits = decltype(std::declval<BooleanPolicyProto>()._has_bits_);
+  using HasBits = decltype(std::declval<BooleanPolicyProto>()._impl_._has_bits_);
   static const ::enterprise_management::PolicyOptions& policy_options(const BooleanPolicyProto* msg);
   static void set_has_policy_options(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -548,57 +573,59 @@ class BooleanPolicyProto::_Internal {
 
 const ::enterprise_management::PolicyOptions&
 BooleanPolicyProto::_Internal::policy_options(const BooleanPolicyProto* msg) {
-  return *msg->policy_options_;
+  return *msg->_impl_.policy_options_;
 }
 BooleanPolicyProto::BooleanPolicyProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:enterprise_management.BooleanPolicyProto)
 }
 BooleanPolicyProto::BooleanPolicyProto(const BooleanPolicyProto& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  BooleanPolicyProto* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.policy_options_){nullptr}
+    , decltype(_impl_.value_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_policy_options()) {
-    policy_options_ = new ::enterprise_management::PolicyOptions(*from.policy_options_);
-  } else {
-    policy_options_ = nullptr;
+    _this->_impl_.policy_options_ = new ::enterprise_management::PolicyOptions(*from._impl_.policy_options_);
   }
-  value_ = from.value_;
+  _this->_impl_.value_ = from._impl_.value_;
   // @@protoc_insertion_point(copy_constructor:enterprise_management.BooleanPolicyProto)
 }
 
-inline void BooleanPolicyProto::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&policy_options_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&value_) -
-    reinterpret_cast<char*>(&policy_options_)) + sizeof(value_));
+inline void BooleanPolicyProto::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.policy_options_){nullptr}
+    , decltype(_impl_.value_){false}
+  };
 }
 
 BooleanPolicyProto::~BooleanPolicyProto() {
   // @@protoc_insertion_point(destructor:enterprise_management.BooleanPolicyProto)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void BooleanPolicyProto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete policy_options_;
+  if (this != internal_default_instance()) delete _impl_.policy_options_;
 }
 
-void BooleanPolicyProto::ArenaDtor(void* object) {
-  BooleanPolicyProto* _this = reinterpret_cast< BooleanPolicyProto* >(object);
-  (void)_this;
-}
-void BooleanPolicyProto::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void BooleanPolicyProto::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void BooleanPolicyProto::Clear() {
@@ -607,22 +634,22 @@ void BooleanPolicyProto::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(policy_options_ != nullptr);
-    policy_options_->Clear();
+    GOOGLE_DCHECK(_impl_.policy_options_ != nullptr);
+    _impl_.policy_options_->Clear();
   }
-  value_ = false;
-  _has_bits_.Clear();
+  _impl_.value_ = false;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* BooleanPolicyProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* BooleanPolicyProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .enterprise_management.PolicyOptions policy_options = 1;
       case 1:
@@ -636,7 +663,7 @@ const char* BooleanPolicyProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_value(&has_bits);
-          value_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.value_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -657,7 +684,7 @@ const char* BooleanPolicyProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -671,19 +698,18 @@ uint8_t* BooleanPolicyProto::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .enterprise_management.PolicyOptions policy_options = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::policy_options(this), target, stream);
+      InternalWriteMessage(1, _Internal::policy_options(this),
+        _Internal::policy_options(this).GetCachedSize(), target, stream);
   }
 
   // optional bool value = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_value(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_value(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -702,13 +728,13 @@ size_t BooleanPolicyProto::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional .enterprise_management.PolicyOptions policy_options = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *policy_options_);
+          *_impl_.policy_options_);
     }
 
     // optional bool value = 2;
@@ -720,34 +746,36 @@ size_t BooleanPolicyProto::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void BooleanPolicyProto::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const BooleanPolicyProto*>(
+  MergeFrom(*::_pbi::DownCast<const BooleanPolicyProto*>(
       &from));
 }
 
 void BooleanPolicyProto::MergeFrom(const BooleanPolicyProto& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.BooleanPolicyProto)
-  GOOGLE_DCHECK_NE(&from, this);
+  BooleanPolicyProto* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.BooleanPolicyProto)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_policy_options()->::enterprise_management::PolicyOptions::MergeFrom(from._internal_policy_options());
+      _this->_internal_mutable_policy_options()->::enterprise_management::PolicyOptions::MergeFrom(
+          from._internal_policy_options());
     }
     if (cached_has_bits & 0x00000002u) {
-      value_ = from.value_;
+      _this->_impl_.value_ = from._impl_.value_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void BooleanPolicyProto::CopyFrom(const BooleanPolicyProto& from) {
@@ -764,13 +792,13 @@ bool BooleanPolicyProto::IsInitialized() const {
 void BooleanPolicyProto::InternalSwap(BooleanPolicyProto* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(BooleanPolicyProto, value_)
-      + sizeof(BooleanPolicyProto::value_)
-      - PROTOBUF_FIELD_OFFSET(BooleanPolicyProto, policy_options_)>(
-          reinterpret_cast<char*>(&policy_options_),
-          reinterpret_cast<char*>(&other->policy_options_));
+      PROTOBUF_FIELD_OFFSET(BooleanPolicyProto, _impl_.value_)
+      + sizeof(BooleanPolicyProto::_impl_.value_)
+      - PROTOBUF_FIELD_OFFSET(BooleanPolicyProto, _impl_.policy_options_)>(
+          reinterpret_cast<char*>(&_impl_.policy_options_),
+          reinterpret_cast<char*>(&other->_impl_.policy_options_));
 }
 
 std::string BooleanPolicyProto::GetTypeName() const {
@@ -782,7 +810,7 @@ std::string BooleanPolicyProto::GetTypeName() const {
 
 class IntegerPolicyProto::_Internal {
  public:
-  using HasBits = decltype(std::declval<IntegerPolicyProto>()._has_bits_);
+  using HasBits = decltype(std::declval<IntegerPolicyProto>()._impl_._has_bits_);
   static const ::enterprise_management::PolicyOptions& policy_options(const IntegerPolicyProto* msg);
   static void set_has_policy_options(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -794,57 +822,59 @@ class IntegerPolicyProto::_Internal {
 
 const ::enterprise_management::PolicyOptions&
 IntegerPolicyProto::_Internal::policy_options(const IntegerPolicyProto* msg) {
-  return *msg->policy_options_;
+  return *msg->_impl_.policy_options_;
 }
 IntegerPolicyProto::IntegerPolicyProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:enterprise_management.IntegerPolicyProto)
 }
 IntegerPolicyProto::IntegerPolicyProto(const IntegerPolicyProto& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  IntegerPolicyProto* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.policy_options_){nullptr}
+    , decltype(_impl_.value_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_policy_options()) {
-    policy_options_ = new ::enterprise_management::PolicyOptions(*from.policy_options_);
-  } else {
-    policy_options_ = nullptr;
+    _this->_impl_.policy_options_ = new ::enterprise_management::PolicyOptions(*from._impl_.policy_options_);
   }
-  value_ = from.value_;
+  _this->_impl_.value_ = from._impl_.value_;
   // @@protoc_insertion_point(copy_constructor:enterprise_management.IntegerPolicyProto)
 }
 
-inline void IntegerPolicyProto::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&policy_options_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&value_) -
-    reinterpret_cast<char*>(&policy_options_)) + sizeof(value_));
+inline void IntegerPolicyProto::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.policy_options_){nullptr}
+    , decltype(_impl_.value_){int64_t{0}}
+  };
 }
 
 IntegerPolicyProto::~IntegerPolicyProto() {
   // @@protoc_insertion_point(destructor:enterprise_management.IntegerPolicyProto)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void IntegerPolicyProto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete policy_options_;
+  if (this != internal_default_instance()) delete _impl_.policy_options_;
 }
 
-void IntegerPolicyProto::ArenaDtor(void* object) {
-  IntegerPolicyProto* _this = reinterpret_cast< IntegerPolicyProto* >(object);
-  (void)_this;
-}
-void IntegerPolicyProto::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void IntegerPolicyProto::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void IntegerPolicyProto::Clear() {
@@ -853,22 +883,22 @@ void IntegerPolicyProto::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    GOOGLE_DCHECK(policy_options_ != nullptr);
-    policy_options_->Clear();
+    GOOGLE_DCHECK(_impl_.policy_options_ != nullptr);
+    _impl_.policy_options_->Clear();
   }
-  value_ = int64_t{0};
-  _has_bits_.Clear();
+  _impl_.value_ = int64_t{0};
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* IntegerPolicyProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* IntegerPolicyProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .enterprise_management.PolicyOptions policy_options = 1;
       case 1:
@@ -882,7 +912,7 @@ const char* IntegerPolicyProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_value(&has_bits);
-          value_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.value_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -903,7 +933,7 @@ const char* IntegerPolicyProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -917,19 +947,18 @@ uint8_t* IntegerPolicyProto::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .enterprise_management.PolicyOptions policy_options = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::policy_options(this), target, stream);
+      InternalWriteMessage(1, _Internal::policy_options(this),
+        _Internal::policy_options(this).GetCachedSize(), target, stream);
   }
 
   // optional int64 value = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_value(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_value(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -948,52 +977,54 @@ size_t IntegerPolicyProto::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional .enterprise_management.PolicyOptions policy_options = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *policy_options_);
+          *_impl_.policy_options_);
     }
 
     // optional int64 value = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_value());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_value());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void IntegerPolicyProto::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const IntegerPolicyProto*>(
+  MergeFrom(*::_pbi::DownCast<const IntegerPolicyProto*>(
       &from));
 }
 
 void IntegerPolicyProto::MergeFrom(const IntegerPolicyProto& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.IntegerPolicyProto)
-  GOOGLE_DCHECK_NE(&from, this);
+  IntegerPolicyProto* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.IntegerPolicyProto)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_policy_options()->::enterprise_management::PolicyOptions::MergeFrom(from._internal_policy_options());
+      _this->_internal_mutable_policy_options()->::enterprise_management::PolicyOptions::MergeFrom(
+          from._internal_policy_options());
     }
     if (cached_has_bits & 0x00000002u) {
-      value_ = from.value_;
+      _this->_impl_.value_ = from._impl_.value_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void IntegerPolicyProto::CopyFrom(const IntegerPolicyProto& from) {
@@ -1010,13 +1041,13 @@ bool IntegerPolicyProto::IsInitialized() const {
 void IntegerPolicyProto::InternalSwap(IntegerPolicyProto* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(IntegerPolicyProto, value_)
-      + sizeof(IntegerPolicyProto::value_)
-      - PROTOBUF_FIELD_OFFSET(IntegerPolicyProto, policy_options_)>(
-          reinterpret_cast<char*>(&policy_options_),
-          reinterpret_cast<char*>(&other->policy_options_));
+      PROTOBUF_FIELD_OFFSET(IntegerPolicyProto, _impl_.value_)
+      + sizeof(IntegerPolicyProto::_impl_.value_)
+      - PROTOBUF_FIELD_OFFSET(IntegerPolicyProto, _impl_.policy_options_)>(
+          reinterpret_cast<char*>(&_impl_.policy_options_),
+          reinterpret_cast<char*>(&other->_impl_.policy_options_));
 }
 
 std::string IntegerPolicyProto::GetTypeName() const {
@@ -1028,7 +1059,7 @@ std::string IntegerPolicyProto::GetTypeName() const {
 
 class StringPolicyProto::_Internal {
  public:
-  using HasBits = decltype(std::declval<StringPolicyProto>()._has_bits_);
+  using HasBits = decltype(std::declval<StringPolicyProto>()._impl_._has_bits_);
   static const ::enterprise_management::PolicyOptions& policy_options(const StringPolicyProto* msg);
   static void set_has_policy_options(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
@@ -1040,66 +1071,71 @@ class StringPolicyProto::_Internal {
 
 const ::enterprise_management::PolicyOptions&
 StringPolicyProto::_Internal::policy_options(const StringPolicyProto* msg) {
-  return *msg->policy_options_;
+  return *msg->_impl_.policy_options_;
 }
 StringPolicyProto::StringPolicyProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:enterprise_management.StringPolicyProto)
 }
 StringPolicyProto::StringPolicyProto(const StringPolicyProto& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  StringPolicyProto* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.value_){}
+    , decltype(_impl_.policy_options_){nullptr}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.value_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.value_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_value()) {
-    value_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_value(), 
-      GetArenaForAllocation());
+    _this->_impl_.value_.Set(from._internal_value(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_policy_options()) {
-    policy_options_ = new ::enterprise_management::PolicyOptions(*from.policy_options_);
-  } else {
-    policy_options_ = nullptr;
+    _this->_impl_.policy_options_ = new ::enterprise_management::PolicyOptions(*from._impl_.policy_options_);
   }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.StringPolicyProto)
 }
 
-inline void StringPolicyProto::SharedCtor() {
-value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-policy_options_ = nullptr;
+inline void StringPolicyProto::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.value_){}
+    , decltype(_impl_.policy_options_){nullptr}
+  };
+  _impl_.value_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.value_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 StringPolicyProto::~StringPolicyProto() {
   // @@protoc_insertion_point(destructor:enterprise_management.StringPolicyProto)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void StringPolicyProto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  value_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete policy_options_;
+  _impl_.value_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.policy_options_;
 }
 
-void StringPolicyProto::ArenaDtor(void* object) {
-  StringPolicyProto* _this = reinterpret_cast< StringPolicyProto* >(object);
-  (void)_this;
-}
-void StringPolicyProto::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void StringPolicyProto::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void StringPolicyProto::Clear() {
@@ -1108,26 +1144,26 @@ void StringPolicyProto::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      value_.ClearNonDefaultToEmpty();
+      _impl_.value_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(policy_options_ != nullptr);
-      policy_options_->Clear();
+      GOOGLE_DCHECK(_impl_.policy_options_ != nullptr);
+      _impl_.policy_options_->Clear();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* StringPolicyProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* StringPolicyProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .enterprise_management.PolicyOptions policy_options = 1;
       case 1:
@@ -1141,7 +1177,7 @@ const char* StringPolicyProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_value();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1162,7 +1198,7 @@ const char* StringPolicyProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1176,13 +1212,12 @@ uint8_t* StringPolicyProto::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .enterprise_management.PolicyOptions policy_options = 1;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::policy_options(this), target, stream);
+      InternalWriteMessage(1, _Internal::policy_options(this),
+        _Internal::policy_options(this).GetCachedSize(), target, stream);
   }
 
   // optional string value = 2;
@@ -1207,7 +1242,7 @@ size_t StringPolicyProto::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional string value = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -1220,40 +1255,42 @@ size_t StringPolicyProto::ByteSizeLong() const {
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *policy_options_);
+          *_impl_.policy_options_);
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void StringPolicyProto::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const StringPolicyProto*>(
+  MergeFrom(*::_pbi::DownCast<const StringPolicyProto*>(
       &from));
 }
 
 void StringPolicyProto::MergeFrom(const StringPolicyProto& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.StringPolicyProto)
-  GOOGLE_DCHECK_NE(&from, this);
+  StringPolicyProto* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.StringPolicyProto)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_value(from._internal_value());
+      _this->_internal_set_value(from._internal_value());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_policy_options()->::enterprise_management::PolicyOptions::MergeFrom(from._internal_policy_options());
+      _this->_internal_mutable_policy_options()->::enterprise_management::PolicyOptions::MergeFrom(
+          from._internal_policy_options());
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void StringPolicyProto::CopyFrom(const StringPolicyProto& from) {
@@ -1272,13 +1309,12 @@ void StringPolicyProto::InternalSwap(StringPolicyProto* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &value_, lhs_arena,
-      &other->value_, rhs_arena
+      &_impl_.value_, lhs_arena,
+      &other->_impl_.value_, rhs_arena
   );
-  swap(policy_options_, other->policy_options_);
+  swap(_impl_.policy_options_, other->_impl_.policy_options_);
 }
 
 std::string StringPolicyProto::GetTypeName() const {
@@ -1290,7 +1326,7 @@ std::string StringPolicyProto::GetTypeName() const {
 
 class StringListPolicyProto::_Internal {
  public:
-  using HasBits = decltype(std::declval<StringListPolicyProto>()._has_bits_);
+  using HasBits = decltype(std::declval<StringListPolicyProto>()._impl_._has_bits_);
   static const ::enterprise_management::PolicyOptions& policy_options(const StringListPolicyProto* msg);
   static void set_has_policy_options(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -1303,66 +1339,66 @@ class StringListPolicyProto::_Internal {
 
 const ::enterprise_management::PolicyOptions&
 StringListPolicyProto::_Internal::policy_options(const StringListPolicyProto* msg) {
-  return *msg->policy_options_;
+  return *msg->_impl_.policy_options_;
 }
 const ::enterprise_management::StringList&
 StringListPolicyProto::_Internal::value(const StringListPolicyProto* msg) {
-  return *msg->value_;
+  return *msg->_impl_.value_;
 }
 StringListPolicyProto::StringListPolicyProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:enterprise_management.StringListPolicyProto)
 }
 StringListPolicyProto::StringListPolicyProto(const StringListPolicyProto& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  StringListPolicyProto* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.policy_options_){nullptr}
+    , decltype(_impl_.value_){nullptr}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_policy_options()) {
-    policy_options_ = new ::enterprise_management::PolicyOptions(*from.policy_options_);
-  } else {
-    policy_options_ = nullptr;
+    _this->_impl_.policy_options_ = new ::enterprise_management::PolicyOptions(*from._impl_.policy_options_);
   }
   if (from._internal_has_value()) {
-    value_ = new ::enterprise_management::StringList(*from.value_);
-  } else {
-    value_ = nullptr;
+    _this->_impl_.value_ = new ::enterprise_management::StringList(*from._impl_.value_);
   }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.StringListPolicyProto)
 }
 
-inline void StringListPolicyProto::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&policy_options_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&value_) -
-    reinterpret_cast<char*>(&policy_options_)) + sizeof(value_));
+inline void StringListPolicyProto::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.policy_options_){nullptr}
+    , decltype(_impl_.value_){nullptr}
+  };
 }
 
 StringListPolicyProto::~StringListPolicyProto() {
   // @@protoc_insertion_point(destructor:enterprise_management.StringListPolicyProto)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void StringListPolicyProto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete policy_options_;
-  if (this != internal_default_instance()) delete value_;
+  if (this != internal_default_instance()) delete _impl_.policy_options_;
+  if (this != internal_default_instance()) delete _impl_.value_;
 }
 
-void StringListPolicyProto::ArenaDtor(void* object) {
-  StringListPolicyProto* _this = reinterpret_cast< StringListPolicyProto* >(object);
-  (void)_this;
-}
-void StringListPolicyProto::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void StringListPolicyProto::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void StringListPolicyProto::Clear() {
@@ -1371,27 +1407,27 @@ void StringListPolicyProto::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(policy_options_ != nullptr);
-      policy_options_->Clear();
+      GOOGLE_DCHECK(_impl_.policy_options_ != nullptr);
+      _impl_.policy_options_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(value_ != nullptr);
-      value_->Clear();
+      GOOGLE_DCHECK(_impl_.value_ != nullptr);
+      _impl_.value_->Clear();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* StringListPolicyProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* StringListPolicyProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .enterprise_management.PolicyOptions policy_options = 1;
       case 1:
@@ -1425,7 +1461,7 @@ const char* StringListPolicyProto::_InternalParse(const char* ptr, ::PROTOBUF_NA
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1439,21 +1475,19 @@ uint8_t* StringListPolicyProto::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .enterprise_management.PolicyOptions policy_options = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::policy_options(this), target, stream);
+      InternalWriteMessage(1, _Internal::policy_options(this),
+        _Internal::policy_options(this).GetCachedSize(), target, stream);
   }
 
   // optional .enterprise_management.StringList value = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::value(this), target, stream);
+      InternalWriteMessage(2, _Internal::value(this),
+        _Internal::value(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1472,53 +1506,56 @@ size_t StringListPolicyProto::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional .enterprise_management.PolicyOptions policy_options = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *policy_options_);
+          *_impl_.policy_options_);
     }
 
     // optional .enterprise_management.StringList value = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *value_);
+          *_impl_.value_);
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void StringListPolicyProto::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const StringListPolicyProto*>(
+  MergeFrom(*::_pbi::DownCast<const StringListPolicyProto*>(
       &from));
 }
 
 void StringListPolicyProto::MergeFrom(const StringListPolicyProto& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.StringListPolicyProto)
-  GOOGLE_DCHECK_NE(&from, this);
+  StringListPolicyProto* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.StringListPolicyProto)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_policy_options()->::enterprise_management::PolicyOptions::MergeFrom(from._internal_policy_options());
+      _this->_internal_mutable_policy_options()->::enterprise_management::PolicyOptions::MergeFrom(
+          from._internal_policy_options());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_value()->::enterprise_management::StringList::MergeFrom(from._internal_value());
+      _this->_internal_mutable_value()->::enterprise_management::StringList::MergeFrom(
+          from._internal_value());
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void StringListPolicyProto::CopyFrom(const StringListPolicyProto& from) {
@@ -1535,13 +1572,13 @@ bool StringListPolicyProto::IsInitialized() const {
 void StringListPolicyProto::InternalSwap(StringListPolicyProto* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StringListPolicyProto, value_)
-      + sizeof(StringListPolicyProto::value_)
-      - PROTOBUF_FIELD_OFFSET(StringListPolicyProto, policy_options_)>(
-          reinterpret_cast<char*>(&policy_options_),
-          reinterpret_cast<char*>(&other->policy_options_));
+      PROTOBUF_FIELD_OFFSET(StringListPolicyProto, _impl_.value_)
+      + sizeof(StringListPolicyProto::_impl_.value_)
+      - PROTOBUF_FIELD_OFFSET(StringListPolicyProto, _impl_.policy_options_)>(
+          reinterpret_cast<char*>(&_impl_.policy_options_),
+          reinterpret_cast<char*>(&other->_impl_.policy_options_));
 }
 
 std::string StringListPolicyProto::GetTypeName() const {
@@ -1552,22 +1589,28 @@ std::string StringListPolicyProto::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace enterprise_management
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::enterprise_management::StringList* Arena::CreateMaybeMessage< ::enterprise_management::StringList >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::enterprise_management::StringList*
+Arena::CreateMaybeMessage< ::enterprise_management::StringList >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::StringList >(arena);
 }
-template<> PROTOBUF_NOINLINE ::enterprise_management::PolicyOptions* Arena::CreateMaybeMessage< ::enterprise_management::PolicyOptions >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::enterprise_management::PolicyOptions*
+Arena::CreateMaybeMessage< ::enterprise_management::PolicyOptions >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::PolicyOptions >(arena);
 }
-template<> PROTOBUF_NOINLINE ::enterprise_management::BooleanPolicyProto* Arena::CreateMaybeMessage< ::enterprise_management::BooleanPolicyProto >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::enterprise_management::BooleanPolicyProto*
+Arena::CreateMaybeMessage< ::enterprise_management::BooleanPolicyProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::BooleanPolicyProto >(arena);
 }
-template<> PROTOBUF_NOINLINE ::enterprise_management::IntegerPolicyProto* Arena::CreateMaybeMessage< ::enterprise_management::IntegerPolicyProto >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::enterprise_management::IntegerPolicyProto*
+Arena::CreateMaybeMessage< ::enterprise_management::IntegerPolicyProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::IntegerPolicyProto >(arena);
 }
-template<> PROTOBUF_NOINLINE ::enterprise_management::StringPolicyProto* Arena::CreateMaybeMessage< ::enterprise_management::StringPolicyProto >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::enterprise_management::StringPolicyProto*
+Arena::CreateMaybeMessage< ::enterprise_management::StringPolicyProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::StringPolicyProto >(arena);
 }
-template<> PROTOBUF_NOINLINE ::enterprise_management::StringListPolicyProto* Arena::CreateMaybeMessage< ::enterprise_management::StringListPolicyProto >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::enterprise_management::StringListPolicyProto*
+Arena::CreateMaybeMessage< ::enterprise_management::StringListPolicyProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::StringListPolicyProto >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

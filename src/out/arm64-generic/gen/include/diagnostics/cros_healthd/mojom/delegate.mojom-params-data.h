@@ -233,6 +233,22 @@ class  Delegate_MonitorTouchscreen_Params_Data {
 };
 static_assert(sizeof(Delegate_MonitorTouchscreen_Params_Data) == 16,
               "Bad sizeof(Delegate_MonitorTouchscreen_Params_Data)");
+class  Delegate_MonitorStylusGarage_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_MonitorStylusGarage_Params_Data>;
+
+  Delegate_MonitorStylusGarage_Params_Data();
+  ~Delegate_MonitorStylusGarage_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_MonitorStylusGarage_Params_Data) == 16,
+              "Bad sizeof(Delegate_MonitorStylusGarage_Params_Data)");
 
 }  // namespace internal
 
@@ -630,6 +646,32 @@ class Delegate_MonitorTouchscreen_ParamsDataView {
 
 
 
+class Delegate_MonitorStylusGarage_ParamsDataView {
+ public:
+  Delegate_MonitorStylusGarage_ParamsDataView() = default;
+
+  Delegate_MonitorStylusGarage_ParamsDataView(
+      internal::Delegate_MonitorStylusGarage_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::StylusGarageObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Delegate_MonitorStylusGarage_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 
 inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
     ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output) {
@@ -686,6 +728,8 @@ inline void Delegate_FetchBootPerformance_ResponseParamsDataView::GetResultDataV
   auto pointer = &data_->result;
   *output = ::ash::cros_healthd::mojom::BootPerformanceResultDataView(pointer, message_);
 }
+
+
 
 
 

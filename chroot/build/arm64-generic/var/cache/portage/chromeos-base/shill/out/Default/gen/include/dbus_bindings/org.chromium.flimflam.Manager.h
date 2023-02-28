@@ -115,8 +115,6 @@ class ManagerInterface {
       brillo::VariantDictionary* out_1) = 0;
   virtual bool ScanAndConnectToBestServices(
       brillo::ErrorPtr* error) = 0;
-  virtual bool ConnectToBestServices(
-      brillo::ErrorPtr* error) = 0;
   virtual bool CreateConnectivityReport(
       brillo::ErrorPtr* error) = 0;
   virtual bool ClaimInterface(
@@ -279,10 +277,6 @@ class ManagerAdaptor {
         base::Unretained(interface_),
         &ManagerInterface::ScanAndConnectToBestServices);
     itf->AddSimpleMethodHandlerWithError(
-        "ConnectToBestServices",
-        base::Unretained(interface_),
-        &ManagerInterface::ConnectToBestServices);
-    itf->AddSimpleMethodHandlerWithError(
         "CreateConnectivityReport",
         base::Unretained(interface_),
         &ManagerInterface::CreateConnectivityReport);
@@ -443,8 +437,6 @@ class ManagerAdaptor {
         "      <arg name=\"\" type=\"a{sv}\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"ScanAndConnectToBestServices\">\n"
-        "    </method>\n"
-        "    <method name=\"ConnectToBestServices\">\n"
         "    </method>\n"
         "    <method name=\"CreateConnectivityReport\">\n"
         "    </method>\n"

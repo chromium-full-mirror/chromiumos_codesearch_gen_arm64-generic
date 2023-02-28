@@ -13,20 +13,26 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace dbus_utils_test {
-constexpr TestMessage::TestMessage(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : bar_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , foo_(0){}
+PROTOBUF_CONSTEXPR TestMessage::TestMessage(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.bar_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.foo_)*/0} {}
 struct TestMessageDefaultTypeInternal {
-  constexpr TestMessageDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR TestMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~TestMessageDefaultTypeInternal() {}
   union {
     TestMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TestMessageDefaultTypeInternal _TestMessage_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TestMessageDefaultTypeInternal _TestMessage_default_instance_;
 }  // namespace dbus_utils_test
 namespace dbus_utils_test {
 
@@ -34,7 +40,7 @@ namespace dbus_utils_test {
 
 class TestMessage::_Internal {
  public:
-  using HasBits = decltype(std::declval<TestMessage>()._has_bits_);
+  using HasBits = decltype(std::declval<TestMessage>()._impl_._has_bits_);
   static void set_has_foo(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -46,56 +52,63 @@ class TestMessage::_Internal {
 TestMessage::TestMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dbus_utils_test.TestMessage)
 }
 TestMessage::TestMessage(const TestMessage& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  TestMessage* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.bar_){}
+    , decltype(_impl_.foo_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  bar_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.bar_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    bar_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.bar_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_bar()) {
-    bar_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_bar(), 
-      GetArenaForAllocation());
+    _this->_impl_.bar_.Set(from._internal_bar(), 
+      _this->GetArenaForAllocation());
   }
-  foo_ = from.foo_;
+  _this->_impl_.foo_ = from._impl_.foo_;
   // @@protoc_insertion_point(copy_constructor:dbus_utils_test.TestMessage)
 }
 
-inline void TestMessage::SharedCtor() {
-bar_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  bar_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-foo_ = 0;
+inline void TestMessage::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.bar_){}
+    , decltype(_impl_.foo_){0}
+  };
+  _impl_.bar_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.bar_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 TestMessage::~TestMessage() {
   // @@protoc_insertion_point(destructor:dbus_utils_test.TestMessage)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void TestMessage::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  bar_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.bar_.Destroy();
 }
 
-void TestMessage::ArenaDtor(void* object) {
-  TestMessage* _this = reinterpret_cast< TestMessage* >(object);
-  (void)_this;
-}
-void TestMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void TestMessage::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void TestMessage::Clear() {
@@ -104,27 +117,27 @@ void TestMessage::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    bar_.ClearNonDefaultToEmpty();
+    _impl_.bar_.ClearNonDefaultToEmpty();
   }
-  foo_ = 0;
-  _has_bits_.Clear();
+  _impl_.foo_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* TestMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* TestMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional int32 foo = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_foo(&has_bits);
-          foo_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.foo_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -133,7 +146,7 @@ const char* TestMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_bar();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -154,7 +167,7 @@ const char* TestMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -168,11 +181,11 @@ uint8_t* TestMessage::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 foo = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_foo(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_foo(), target);
   }
 
   // optional string bar = 2;
@@ -197,7 +210,7 @@ size_t TestMessage::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional string bar = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -208,41 +221,42 @@ size_t TestMessage::ByteSizeLong() const {
 
     // optional int32 foo = 1;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_foo());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_foo());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void TestMessage::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const TestMessage*>(
+  MergeFrom(*::_pbi::DownCast<const TestMessage*>(
       &from));
 }
 
 void TestMessage::MergeFrom(const TestMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dbus_utils_test.TestMessage)
-  GOOGLE_DCHECK_NE(&from, this);
+  TestMessage* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dbus_utils_test.TestMessage)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_bar(from._internal_bar());
+      _this->_internal_set_bar(from._internal_bar());
     }
     if (cached_has_bits & 0x00000002u) {
-      foo_ = from.foo_;
+      _this->_impl_.foo_ = from._impl_.foo_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void TestMessage::CopyFrom(const TestMessage& from) {
@@ -261,13 +275,12 @@ void TestMessage::InternalSwap(TestMessage* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &bar_, lhs_arena,
-      &other->bar_, rhs_arena
+      &_impl_.bar_, lhs_arena,
+      &other->_impl_.bar_, rhs_arena
   );
-  swap(foo_, other->foo_);
+  swap(_impl_.foo_, other->_impl_.foo_);
 }
 
 std::string TestMessage::GetTypeName() const {
@@ -278,7 +291,8 @@ std::string TestMessage::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace dbus_utils_test
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::dbus_utils_test::TestMessage* Arena::CreateMaybeMessage< ::dbus_utils_test::TestMessage >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dbus_utils_test::TestMessage*
+Arena::CreateMaybeMessage< ::dbus_utils_test::TestMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dbus_utils_test::TestMessage >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

@@ -13,101 +13,116 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace private_computing {
-constexpr ChurnObservationStatus::ChurnObservationStatus(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : is_active_current_period_minus_0_(false)
-  , is_active_current_period_minus_1_(false)
-  , is_active_current_period_minus_2_(false){}
+PROTOBUF_CONSTEXPR ChurnObservationStatus::ChurnObservationStatus(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.is_active_current_period_minus_0_)*/false
+  , /*decltype(_impl_.is_active_current_period_minus_1_)*/false
+  , /*decltype(_impl_.is_active_current_period_minus_2_)*/false} {}
 struct ChurnObservationStatusDefaultTypeInternal {
-  constexpr ChurnObservationStatusDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ChurnObservationStatusDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ChurnObservationStatusDefaultTypeInternal() {}
   union {
     ChurnObservationStatus _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ChurnObservationStatusDefaultTypeInternal _ChurnObservationStatus_default_instance_;
-constexpr ActiveStatus::ActiveStatus(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : last_ping_utc_date_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , use_case_(0)
-
-  , churn_active_status_(0)
-  , _oneof_case_{}{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ChurnObservationStatusDefaultTypeInternal _ChurnObservationStatus_default_instance_;
+PROTOBUF_CONSTEXPR ActiveStatus::ActiveStatus(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.last_ping_utc_date_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.use_case_)*/0
+  , /*decltype(_impl_.churn_active_status_)*/0
+  , /*decltype(_impl_.ping_date_or_status_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct ActiveStatusDefaultTypeInternal {
-  constexpr ActiveStatusDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ActiveStatusDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ActiveStatusDefaultTypeInternal() {}
   union {
     ActiveStatus _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ActiveStatusDefaultTypeInternal _ActiveStatus_default_instance_;
-constexpr SaveStatusRequest::SaveStatusRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : active_status_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ActiveStatusDefaultTypeInternal _ActiveStatus_default_instance_;
+PROTOBUF_CONSTEXPR SaveStatusRequest::SaveStatusRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.active_status_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SaveStatusRequestDefaultTypeInternal {
-  constexpr SaveStatusRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SaveStatusRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SaveStatusRequestDefaultTypeInternal() {}
   union {
     SaveStatusRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SaveStatusRequestDefaultTypeInternal _SaveStatusRequest_default_instance_;
-constexpr SaveStatusResponse::SaveStatusResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : error_message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SaveStatusRequestDefaultTypeInternal _SaveStatusRequest_default_instance_;
+PROTOBUF_CONSTEXPR SaveStatusResponse::SaveStatusResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.error_message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct SaveStatusResponseDefaultTypeInternal {
-  constexpr SaveStatusResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SaveStatusResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SaveStatusResponseDefaultTypeInternal() {}
   union {
     SaveStatusResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SaveStatusResponseDefaultTypeInternal _SaveStatusResponse_default_instance_;
-constexpr GetStatusResponse::GetStatusResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : active_status_()
-  , error_message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SaveStatusResponseDefaultTypeInternal _SaveStatusResponse_default_instance_;
+PROTOBUF_CONSTEXPR GetStatusResponse::GetStatusResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.active_status_)*/{}
+  , /*decltype(_impl_.error_message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct GetStatusResponseDefaultTypeInternal {
-  constexpr GetStatusResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetStatusResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetStatusResponseDefaultTypeInternal() {}
   union {
     GetStatusResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetStatusResponseDefaultTypeInternal _GetStatusResponse_default_instance_;
-constexpr PrivateComputingClientRegressionTestData_TestCase::PrivateComputingClientRegressionTestData_TestCase(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : get_response_(nullptr)
-  , save_response_(nullptr)
-  , name_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetStatusResponseDefaultTypeInternal _GetStatusResponse_default_instance_;
+PROTOBUF_CONSTEXPR PrivateComputingClientRegressionTestData_TestCase::PrivateComputingClientRegressionTestData_TestCase(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.get_response_)*/nullptr
+  , /*decltype(_impl_.save_response_)*/nullptr
+  , /*decltype(_impl_.name_)*/0} {}
 struct PrivateComputingClientRegressionTestData_TestCaseDefaultTypeInternal {
-  constexpr PrivateComputingClientRegressionTestData_TestCaseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PrivateComputingClientRegressionTestData_TestCaseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~PrivateComputingClientRegressionTestData_TestCaseDefaultTypeInternal() {}
   union {
     PrivateComputingClientRegressionTestData_TestCase _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PrivateComputingClientRegressionTestData_TestCaseDefaultTypeInternal _PrivateComputingClientRegressionTestData_TestCase_default_instance_;
-constexpr PrivateComputingClientRegressionTestData::PrivateComputingClientRegressionTestData(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : test_cases_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrivateComputingClientRegressionTestData_TestCaseDefaultTypeInternal _PrivateComputingClientRegressionTestData_TestCase_default_instance_;
+PROTOBUF_CONSTEXPR PrivateComputingClientRegressionTestData::PrivateComputingClientRegressionTestData(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.test_cases_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PrivateComputingClientRegressionTestDataDefaultTypeInternal {
-  constexpr PrivateComputingClientRegressionTestDataDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PrivateComputingClientRegressionTestDataDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~PrivateComputingClientRegressionTestDataDefaultTypeInternal() {}
   union {
     PrivateComputingClientRegressionTestData _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PrivateComputingClientRegressionTestDataDefaultTypeInternal _PrivateComputingClientRegressionTestData_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrivateComputingClientRegressionTestDataDefaultTypeInternal _PrivateComputingClientRegressionTestData_default_instance_;
 }  // namespace private_computing
 namespace private_computing {
 bool PrivateComputingClientRegressionTestData_TestName_IsValid(int value) {
@@ -275,7 +290,7 @@ bool PrivateComputingUseCase_Parse(
 
 class ChurnObservationStatus::_Internal {
  public:
-  using HasBits = decltype(std::declval<ChurnObservationStatus>()._has_bits_);
+  using HasBits = decltype(std::declval<ChurnObservationStatus>()._impl_._has_bits_);
   static void set_has_is_active_current_period_minus_0(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -290,48 +305,54 @@ class ChurnObservationStatus::_Internal {
 ChurnObservationStatus::ChurnObservationStatus(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_computing.ChurnObservationStatus)
 }
 ChurnObservationStatus::ChurnObservationStatus(const ChurnObservationStatus& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ChurnObservationStatus* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.is_active_current_period_minus_0_){}
+    , decltype(_impl_.is_active_current_period_minus_1_){}
+    , decltype(_impl_.is_active_current_period_minus_2_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&is_active_current_period_minus_0_, &from.is_active_current_period_minus_0_,
-    static_cast<size_t>(reinterpret_cast<char*>(&is_active_current_period_minus_2_) -
-    reinterpret_cast<char*>(&is_active_current_period_minus_0_)) + sizeof(is_active_current_period_minus_2_));
+  ::memcpy(&_impl_.is_active_current_period_minus_0_, &from._impl_.is_active_current_period_minus_0_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.is_active_current_period_minus_2_) -
+    reinterpret_cast<char*>(&_impl_.is_active_current_period_minus_0_)) + sizeof(_impl_.is_active_current_period_minus_2_));
   // @@protoc_insertion_point(copy_constructor:private_computing.ChurnObservationStatus)
 }
 
-inline void ChurnObservationStatus::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&is_active_current_period_minus_0_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&is_active_current_period_minus_2_) -
-    reinterpret_cast<char*>(&is_active_current_period_minus_0_)) + sizeof(is_active_current_period_minus_2_));
+inline void ChurnObservationStatus::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.is_active_current_period_minus_0_){false}
+    , decltype(_impl_.is_active_current_period_minus_1_){false}
+    , decltype(_impl_.is_active_current_period_minus_2_){false}
+  };
 }
 
 ChurnObservationStatus::~ChurnObservationStatus() {
   // @@protoc_insertion_point(destructor:private_computing.ChurnObservationStatus)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ChurnObservationStatus::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void ChurnObservationStatus::ArenaDtor(void* object) {
-  ChurnObservationStatus* _this = reinterpret_cast< ChurnObservationStatus* >(object);
-  (void)_this;
-}
-void ChurnObservationStatus::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ChurnObservationStatus::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ChurnObservationStatus::Clear() {
@@ -340,25 +361,25 @@ void ChurnObservationStatus::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&is_active_current_period_minus_0_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&is_active_current_period_minus_2_) -
-      reinterpret_cast<char*>(&is_active_current_period_minus_0_)) + sizeof(is_active_current_period_minus_2_));
-  _has_bits_.Clear();
+  ::memset(&_impl_.is_active_current_period_minus_0_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.is_active_current_period_minus_2_) -
+      reinterpret_cast<char*>(&_impl_.is_active_current_period_minus_0_)) + sizeof(_impl_.is_active_current_period_minus_2_));
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ChurnObservationStatus::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ChurnObservationStatus::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bool is_active_current_period_minus_0 = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_is_active_current_period_minus_0(&has_bits);
-          is_active_current_period_minus_0_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.is_active_current_period_minus_0_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -367,7 +388,7 @@ const char* ChurnObservationStatus::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_is_active_current_period_minus_1(&has_bits);
-          is_active_current_period_minus_1_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.is_active_current_period_minus_1_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -376,7 +397,7 @@ const char* ChurnObservationStatus::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_is_active_current_period_minus_2(&has_bits);
-          is_active_current_period_minus_2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.is_active_current_period_minus_2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -397,7 +418,7 @@ const char* ChurnObservationStatus::_InternalParse(const char* ptr, ::PROTOBUF_N
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -411,23 +432,23 @@ uint8_t* ChurnObservationStatus::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool is_active_current_period_minus_0 = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_is_active_current_period_minus_0(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_is_active_current_period_minus_0(), target);
   }
 
   // optional bool is_active_current_period_minus_1 = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_is_active_current_period_minus_1(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_is_active_current_period_minus_1(), target);
   }
 
   // optional bool is_active_current_period_minus_2 = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_is_active_current_period_minus_2(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_is_active_current_period_minus_2(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -446,7 +467,7 @@ size_t ChurnObservationStatus::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional bool is_active_current_period_minus_0 = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -467,37 +488,38 @@ size_t ChurnObservationStatus::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ChurnObservationStatus::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ChurnObservationStatus*>(
+  MergeFrom(*::_pbi::DownCast<const ChurnObservationStatus*>(
       &from));
 }
 
 void ChurnObservationStatus::MergeFrom(const ChurnObservationStatus& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_computing.ChurnObservationStatus)
-  GOOGLE_DCHECK_NE(&from, this);
+  ChurnObservationStatus* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_computing.ChurnObservationStatus)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      is_active_current_period_minus_0_ = from.is_active_current_period_minus_0_;
+      _this->_impl_.is_active_current_period_minus_0_ = from._impl_.is_active_current_period_minus_0_;
     }
     if (cached_has_bits & 0x00000002u) {
-      is_active_current_period_minus_1_ = from.is_active_current_period_minus_1_;
+      _this->_impl_.is_active_current_period_minus_1_ = from._impl_.is_active_current_period_minus_1_;
     }
     if (cached_has_bits & 0x00000004u) {
-      is_active_current_period_minus_2_ = from.is_active_current_period_minus_2_;
+      _this->_impl_.is_active_current_period_minus_2_ = from._impl_.is_active_current_period_minus_2_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ChurnObservationStatus::CopyFrom(const ChurnObservationStatus& from) {
@@ -514,13 +536,13 @@ bool ChurnObservationStatus::IsInitialized() const {
 void ChurnObservationStatus::InternalSwap(ChurnObservationStatus* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChurnObservationStatus, is_active_current_period_minus_2_)
-      + sizeof(ChurnObservationStatus::is_active_current_period_minus_2_)
-      - PROTOBUF_FIELD_OFFSET(ChurnObservationStatus, is_active_current_period_minus_0_)>(
-          reinterpret_cast<char*>(&is_active_current_period_minus_0_),
-          reinterpret_cast<char*>(&other->is_active_current_period_minus_0_));
+      PROTOBUF_FIELD_OFFSET(ChurnObservationStatus, _impl_.is_active_current_period_minus_2_)
+      + sizeof(ChurnObservationStatus::_impl_.is_active_current_period_minus_2_)
+      - PROTOBUF_FIELD_OFFSET(ChurnObservationStatus, _impl_.is_active_current_period_minus_0_)>(
+          reinterpret_cast<char*>(&_impl_.is_active_current_period_minus_0_),
+          reinterpret_cast<char*>(&other->_impl_.is_active_current_period_minus_0_));
 }
 
 std::string ChurnObservationStatus::GetTypeName() const {
@@ -532,7 +554,7 @@ std::string ChurnObservationStatus::GetTypeName() const {
 
 class ActiveStatus::_Internal {
  public:
-  using HasBits = decltype(std::declval<ActiveStatus>()._has_bits_);
+  using HasBits = decltype(std::declval<ActiveStatus>()._impl_._has_bits_);
   static void set_has_use_case(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -547,55 +569,62 @@ class ActiveStatus::_Internal {
 
 const ::private_computing::ChurnObservationStatus&
 ActiveStatus::_Internal::period_status(const ActiveStatus* msg) {
-  return *msg->ping_date_or_status_.period_status_;
+  return *msg->_impl_.ping_date_or_status_.period_status_;
 }
 void ActiveStatus::set_allocated_period_status(::private_computing::ChurnObservationStatus* period_status) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_ping_date_or_status();
   if (period_status) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::private_computing::ChurnObservationStatus>::GetOwningArena(period_status);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(period_status);
     if (message_arena != submessage_arena) {
       period_status = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, period_status, submessage_arena);
     }
     set_has_period_status();
-    ping_date_or_status_.period_status_ = period_status;
+    _impl_.ping_date_or_status_.period_status_ = period_status;
   }
   // @@protoc_insertion_point(field_set_allocated:private_computing.ActiveStatus.period_status)
 }
 ActiveStatus::ActiveStatus(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_computing.ActiveStatus)
 }
 ActiveStatus::ActiveStatus(const ActiveStatus& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ActiveStatus* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.last_ping_utc_date_){}
+    , decltype(_impl_.use_case_){}
+    , decltype(_impl_.churn_active_status_){}
+    , decltype(_impl_.ping_date_or_status_){}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  last_ping_utc_date_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.last_ping_utc_date_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    last_ping_utc_date_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.last_ping_utc_date_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_last_ping_utc_date()) {
-    last_ping_utc_date_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_last_ping_utc_date(), 
-      GetArenaForAllocation());
+    _this->_impl_.last_ping_utc_date_.Set(from._internal_last_ping_utc_date(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&use_case_, &from.use_case_,
-    static_cast<size_t>(reinterpret_cast<char*>(&churn_active_status_) -
-    reinterpret_cast<char*>(&use_case_)) + sizeof(churn_active_status_));
+  ::memcpy(&_impl_.use_case_, &from._impl_.use_case_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.churn_active_status_) -
+    reinterpret_cast<char*>(&_impl_.use_case_)) + sizeof(_impl_.churn_active_status_));
   clear_has_ping_date_or_status();
   switch (from.ping_date_or_status_case()) {
     case kLastPingDate: {
-      _internal_set_last_ping_date(from._internal_last_ping_date());
+      _this->_internal_set_last_ping_date(from._internal_last_ping_date());
       break;
     }
     case kPeriodStatus: {
-      _internal_mutable_period_status()->::private_computing::ChurnObservationStatus::MergeFrom(from._internal_period_status());
+      _this->_internal_mutable_period_status()->::private_computing::ChurnObservationStatus::MergeFrom(
+          from._internal_period_status());
       break;
     }
     case PING_DATE_OR_STATUS_NOT_SET: {
@@ -605,53 +634,57 @@ ActiveStatus::ActiveStatus(const ActiveStatus& from)
   // @@protoc_insertion_point(copy_constructor:private_computing.ActiveStatus)
 }
 
-inline void ActiveStatus::SharedCtor() {
-last_ping_utc_date_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  last_ping_utc_date_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&use_case_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&churn_active_status_) -
-    reinterpret_cast<char*>(&use_case_)) + sizeof(churn_active_status_));
-clear_has_ping_date_or_status();
+inline void ActiveStatus::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.last_ping_utc_date_){}
+    , decltype(_impl_.use_case_){0}
+    , decltype(_impl_.churn_active_status_){0}
+    , decltype(_impl_.ping_date_or_status_){}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  _impl_.last_ping_utc_date_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.last_ping_utc_date_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  clear_has_ping_date_or_status();
 }
 
 ActiveStatus::~ActiveStatus() {
   // @@protoc_insertion_point(destructor:private_computing.ActiveStatus)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ActiveStatus::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  last_ping_utc_date_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.last_ping_utc_date_.Destroy();
   if (has_ping_date_or_status()) {
     clear_ping_date_or_status();
   }
 }
 
-void ActiveStatus::ArenaDtor(void* object) {
-  ActiveStatus* _this = reinterpret_cast< ActiveStatus* >(object);
-  (void)_this;
-}
-void ActiveStatus::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ActiveStatus::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ActiveStatus::clear_ping_date_or_status() {
 // @@protoc_insertion_point(one_of_clear_start:private_computing.ActiveStatus)
   switch (ping_date_or_status_case()) {
     case kLastPingDate: {
-      ping_date_or_status_.last_ping_date_.Destroy(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+      _impl_.ping_date_or_status_.last_ping_date_.Destroy();
       break;
     }
     case kPeriodStatus: {
       if (GetArenaForAllocation() == nullptr) {
-        delete ping_date_or_status_.period_status_;
+        delete _impl_.ping_date_or_status_.period_status_;
       }
       break;
     }
@@ -659,7 +692,7 @@ void ActiveStatus::clear_ping_date_or_status() {
       break;
     }
   }
-  _oneof_case_[0] = PING_DATE_OR_STATUS_NOT_SET;
+  _impl_._oneof_case_[0] = PING_DATE_OR_STATUS_NOT_SET;
 }
 
 
@@ -669,26 +702,26 @@ void ActiveStatus::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    last_ping_utc_date_.ClearNonDefaultToEmpty();
+    _impl_.last_ping_utc_date_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&use_case_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&churn_active_status_) -
-        reinterpret_cast<char*>(&use_case_)) + sizeof(churn_active_status_));
+    ::memset(&_impl_.use_case_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.churn_active_status_) -
+        reinterpret_cast<char*>(&_impl_.use_case_)) + sizeof(_impl_.churn_active_status_));
   }
   clear_ping_date_or_status();
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ActiveStatus::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ActiveStatus::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .private_computing.PrivateComputingUseCase use_case = 1;
       case 1:
@@ -707,7 +740,7 @@ const char* ActiveStatus::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_last_ping_utc_date();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -716,7 +749,7 @@ const char* ActiveStatus::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_last_ping_date();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -733,7 +766,7 @@ const char* ActiveStatus::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _Internal::set_has_churn_active_status(&has_bits);
-          churn_active_status_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.churn_active_status_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -754,7 +787,7 @@ const char* ActiveStatus::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -768,11 +801,11 @@ uint8_t* ActiveStatus::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .private_computing.PrivateComputingUseCase use_case = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_use_case(), target);
   }
 
@@ -789,10 +822,9 @@ uint8_t* ActiveStatus::_InternalSerialize(
       break;
     }
     case kPeriodStatus: {
-      target = stream->EnsureSpace(target);
       target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          4, _Internal::period_status(this), target, stream);
+        InternalWriteMessage(4, _Internal::period_status(this),
+          _Internal::period_status(this).GetCachedSize(), target, stream);
       break;
     }
     default: ;
@@ -800,7 +832,7 @@ uint8_t* ActiveStatus::_InternalSerialize(
   // optional int32 churn_active_status = 5;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(5, this->_internal_churn_active_status(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(5, this->_internal_churn_active_status(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -819,7 +851,7 @@ size_t ActiveStatus::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional string last_ping_utc_date = 2 [deprecated = true];
     if (cached_has_bits & 0x00000001u) {
@@ -831,12 +863,12 @@ size_t ActiveStatus::ByteSizeLong() const {
     // optional .private_computing.PrivateComputingUseCase use_case = 1;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_use_case());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_use_case());
     }
 
     // optional int32 churn_active_status = 5;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_churn_active_status());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_churn_active_status());
     }
 
   }
@@ -852,7 +884,7 @@ size_t ActiveStatus::ByteSizeLong() const {
     case kPeriodStatus: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *ping_date_or_status_.period_status_);
+          *_impl_.ping_date_or_status_.period_status_);
       break;
     }
     case PING_DATE_OR_STATUS_NOT_SET: {
@@ -862,50 +894,52 @@ size_t ActiveStatus::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ActiveStatus::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ActiveStatus*>(
+  MergeFrom(*::_pbi::DownCast<const ActiveStatus*>(
       &from));
 }
 
 void ActiveStatus::MergeFrom(const ActiveStatus& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_computing.ActiveStatus)
-  GOOGLE_DCHECK_NE(&from, this);
+  ActiveStatus* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_computing.ActiveStatus)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_last_ping_utc_date(from._internal_last_ping_utc_date());
+      _this->_internal_set_last_ping_utc_date(from._internal_last_ping_utc_date());
     }
     if (cached_has_bits & 0x00000002u) {
-      use_case_ = from.use_case_;
+      _this->_impl_.use_case_ = from._impl_.use_case_;
     }
     if (cached_has_bits & 0x00000004u) {
-      churn_active_status_ = from.churn_active_status_;
+      _this->_impl_.churn_active_status_ = from._impl_.churn_active_status_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   switch (from.ping_date_or_status_case()) {
     case kLastPingDate: {
-      _internal_set_last_ping_date(from._internal_last_ping_date());
+      _this->_internal_set_last_ping_date(from._internal_last_ping_date());
       break;
     }
     case kPeriodStatus: {
-      _internal_mutable_period_status()->::private_computing::ChurnObservationStatus::MergeFrom(from._internal_period_status());
+      _this->_internal_mutable_period_status()->::private_computing::ChurnObservationStatus::MergeFrom(
+          from._internal_period_status());
       break;
     }
     case PING_DATE_OR_STATUS_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ActiveStatus::CopyFrom(const ActiveStatus& from) {
@@ -924,20 +958,19 @@ void ActiveStatus::InternalSwap(ActiveStatus* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &last_ping_utc_date_, lhs_arena,
-      &other->last_ping_utc_date_, rhs_arena
+      &_impl_.last_ping_utc_date_, lhs_arena,
+      &other->_impl_.last_ping_utc_date_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ActiveStatus, churn_active_status_)
-      + sizeof(ActiveStatus::churn_active_status_)
-      - PROTOBUF_FIELD_OFFSET(ActiveStatus, use_case_)>(
-          reinterpret_cast<char*>(&use_case_),
-          reinterpret_cast<char*>(&other->use_case_));
-  swap(ping_date_or_status_, other->ping_date_or_status_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+      PROTOBUF_FIELD_OFFSET(ActiveStatus, _impl_.churn_active_status_)
+      + sizeof(ActiveStatus::_impl_.churn_active_status_)
+      - PROTOBUF_FIELD_OFFSET(ActiveStatus, _impl_.use_case_)>(
+          reinterpret_cast<char*>(&_impl_.use_case_),
+          reinterpret_cast<char*>(&other->_impl_.use_case_));
+  swap(_impl_.ping_date_or_status_, other->_impl_.ping_date_or_status_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 std::string ActiveStatus::GetTypeName() const {
@@ -953,43 +986,47 @@ class SaveStatusRequest::_Internal {
 
 SaveStatusRequest::SaveStatusRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  active_status_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_computing.SaveStatusRequest)
 }
 SaveStatusRequest::SaveStatusRequest(const SaveStatusRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      active_status_(from.active_status_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SaveStatusRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.active_status_){from._impl_.active_status_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:private_computing.SaveStatusRequest)
 }
 
-inline void SaveStatusRequest::SharedCtor() {
+inline void SaveStatusRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.active_status_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 SaveStatusRequest::~SaveStatusRequest() {
   // @@protoc_insertion_point(destructor:private_computing.SaveStatusRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SaveStatusRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.active_status_.~RepeatedPtrField();
 }
 
-void SaveStatusRequest::ArenaDtor(void* object) {
-  SaveStatusRequest* _this = reinterpret_cast< SaveStatusRequest* >(object);
-  (void)_this;
-}
-void SaveStatusRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SaveStatusRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SaveStatusRequest::Clear() {
@@ -998,15 +1035,15 @@ void SaveStatusRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  active_status_.Clear();
+  _impl_.active_status_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SaveStatusRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SaveStatusRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .private_computing.ActiveStatus active_status = 1;
       case 1:
@@ -1051,11 +1088,11 @@ uint8_t* SaveStatusRequest::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .private_computing.ActiveStatus active_status = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_active_status_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_active_status_size()); i < n; i++) {
+    const auto& repfield = this->_internal_active_status(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_active_status(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1076,7 +1113,7 @@ size_t SaveStatusRequest::ByteSizeLong() const {
 
   // repeated .private_computing.ActiveStatus active_status = 1;
   total_size += 1UL * this->_internal_active_status_size();
-  for (const auto& msg : this->active_status_) {
+  for (const auto& msg : this->_impl_.active_status_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1084,25 +1121,26 @@ size_t SaveStatusRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SaveStatusRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SaveStatusRequest*>(
+  MergeFrom(*::_pbi::DownCast<const SaveStatusRequest*>(
       &from));
 }
 
 void SaveStatusRequest::MergeFrom(const SaveStatusRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_computing.SaveStatusRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  SaveStatusRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_computing.SaveStatusRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  active_status_.MergeFrom(from.active_status_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.active_status_.MergeFrom(from._impl_.active_status_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SaveStatusRequest::CopyFrom(const SaveStatusRequest& from) {
@@ -1119,7 +1157,7 @@ bool SaveStatusRequest::IsInitialized() const {
 void SaveStatusRequest::InternalSwap(SaveStatusRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  active_status_.InternalSwap(&other->active_status_);
+  _impl_.active_status_.InternalSwap(&other->_impl_.active_status_);
 }
 
 std::string SaveStatusRequest::GetTypeName() const {
@@ -1131,7 +1169,7 @@ std::string SaveStatusRequest::GetTypeName() const {
 
 class SaveStatusResponse::_Internal {
  public:
-  using HasBits = decltype(std::declval<SaveStatusResponse>()._has_bits_);
+  using HasBits = decltype(std::declval<SaveStatusResponse>()._impl_._has_bits_);
   static void set_has_error_message(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1140,54 +1178,60 @@ class SaveStatusResponse::_Internal {
 SaveStatusResponse::SaveStatusResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_computing.SaveStatusResponse)
 }
 SaveStatusResponse::SaveStatusResponse(const SaveStatusResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SaveStatusResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.error_message_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.error_message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.error_message_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_error_message()) {
-    error_message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_error_message(), 
-      GetArenaForAllocation());
+    _this->_impl_.error_message_.Set(from._internal_error_message(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:private_computing.SaveStatusResponse)
 }
 
-inline void SaveStatusResponse::SharedCtor() {
-error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void SaveStatusResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.error_message_){}
+  };
+  _impl_.error_message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.error_message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SaveStatusResponse::~SaveStatusResponse() {
   // @@protoc_insertion_point(destructor:private_computing.SaveStatusResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SaveStatusResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  error_message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.error_message_.Destroy();
 }
 
-void SaveStatusResponse::ArenaDtor(void* object) {
-  SaveStatusResponse* _this = reinterpret_cast< SaveStatusResponse* >(object);
-  (void)_this;
-}
-void SaveStatusResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SaveStatusResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SaveStatusResponse::Clear() {
@@ -1196,26 +1240,26 @@ void SaveStatusResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    error_message_.ClearNonDefaultToEmpty();
+    _impl_.error_message_.ClearNonDefaultToEmpty();
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SaveStatusResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SaveStatusResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string error_message = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_error_message();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1236,7 +1280,7 @@ const char* SaveStatusResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1250,7 +1294,7 @@ uint8_t* SaveStatusResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string error_message = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -1274,7 +1318,7 @@ size_t SaveStatusResponse::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional string error_message = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -1284,27 +1328,28 @@ size_t SaveStatusResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SaveStatusResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SaveStatusResponse*>(
+  MergeFrom(*::_pbi::DownCast<const SaveStatusResponse*>(
       &from));
 }
 
 void SaveStatusResponse::MergeFrom(const SaveStatusResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_computing.SaveStatusResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  SaveStatusResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_computing.SaveStatusResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_error_message()) {
-    _internal_set_error_message(from._internal_error_message());
+    _this->_internal_set_error_message(from._internal_error_message());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SaveStatusResponse::CopyFrom(const SaveStatusResponse& from) {
@@ -1323,11 +1368,10 @@ void SaveStatusResponse::InternalSwap(SaveStatusResponse* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &error_message_, lhs_arena,
-      &other->error_message_, rhs_arena
+      &_impl_.error_message_, lhs_arena,
+      &other->_impl_.error_message_, rhs_arena
   );
 }
 
@@ -1340,7 +1384,7 @@ std::string SaveStatusResponse::GetTypeName() const {
 
 class GetStatusResponse::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetStatusResponse>()._has_bits_);
+  using HasBits = decltype(std::declval<GetStatusResponse>()._impl_._has_bits_);
   static void set_has_error_message(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1348,57 +1392,64 @@ class GetStatusResponse::_Internal {
 
 GetStatusResponse::GetStatusResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  active_status_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_computing.GetStatusResponse)
 }
 GetStatusResponse::GetStatusResponse(const GetStatusResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      active_status_(from.active_status_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetStatusResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.active_status_){from._impl_.active_status_}
+    , decltype(_impl_.error_message_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.error_message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.error_message_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_error_message()) {
-    error_message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_error_message(), 
-      GetArenaForAllocation());
+    _this->_impl_.error_message_.Set(from._internal_error_message(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:private_computing.GetStatusResponse)
 }
 
-inline void GetStatusResponse::SharedCtor() {
-error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void GetStatusResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.active_status_){arena}
+    , decltype(_impl_.error_message_){}
+  };
+  _impl_.error_message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.error_message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetStatusResponse::~GetStatusResponse() {
   // @@protoc_insertion_point(destructor:private_computing.GetStatusResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void GetStatusResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  error_message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.active_status_.~RepeatedPtrField();
+  _impl_.error_message_.Destroy();
 }
 
-void GetStatusResponse::ArenaDtor(void* object) {
-  GetStatusResponse* _this = reinterpret_cast< GetStatusResponse* >(object);
-  (void)_this;
-}
-void GetStatusResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GetStatusResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetStatusResponse::Clear() {
@@ -1407,27 +1458,27 @@ void GetStatusResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  active_status_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.active_status_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    error_message_.ClearNonDefaultToEmpty();
+    _impl_.error_message_.ClearNonDefaultToEmpty();
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GetStatusResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GetStatusResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string error_message = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_error_message();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1461,7 +1512,7 @@ const char* GetStatusResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1475,7 +1526,7 @@ uint8_t* GetStatusResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string error_message = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -1483,11 +1534,11 @@ uint8_t* GetStatusResponse::_InternalSerialize(
   }
 
   // repeated .private_computing.ActiveStatus active_status = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_active_status_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_active_status_size()); i < n; i++) {
+    const auto& repfield = this->_internal_active_status(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_active_status(i), target, stream);
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1508,13 +1559,13 @@ size_t GetStatusResponse::ByteSizeLong() const {
 
   // repeated .private_computing.ActiveStatus active_status = 2;
   total_size += 1UL * this->_internal_active_status_size();
-  for (const auto& msg : this->active_status_) {
+  for (const auto& msg : this->_impl_.active_status_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // optional string error_message = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -1524,28 +1575,29 @@ size_t GetStatusResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GetStatusResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetStatusResponse*>(
+  MergeFrom(*::_pbi::DownCast<const GetStatusResponse*>(
       &from));
 }
 
 void GetStatusResponse::MergeFrom(const GetStatusResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_computing.GetStatusResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetStatusResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_computing.GetStatusResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  active_status_.MergeFrom(from.active_status_);
+  _this->_impl_.active_status_.MergeFrom(from._impl_.active_status_);
   if (from._internal_has_error_message()) {
-    _internal_set_error_message(from._internal_error_message());
+    _this->_internal_set_error_message(from._internal_error_message());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetStatusResponse::CopyFrom(const GetStatusResponse& from) {
@@ -1564,12 +1616,11 @@ void GetStatusResponse::InternalSwap(GetStatusResponse* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  active_status_.InternalSwap(&other->active_status_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.active_status_.InternalSwap(&other->_impl_.active_status_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &error_message_, lhs_arena,
-      &other->error_message_, rhs_arena
+      &_impl_.error_message_, lhs_arena,
+      &other->_impl_.error_message_, rhs_arena
   );
 }
 
@@ -1582,7 +1633,7 @@ std::string GetStatusResponse::GetTypeName() const {
 
 class PrivateComputingClientRegressionTestData_TestCase::_Internal {
  public:
-  using HasBits = decltype(std::declval<PrivateComputingClientRegressionTestData_TestCase>()._has_bits_);
+  using HasBits = decltype(std::declval<PrivateComputingClientRegressionTestData_TestCase>()._impl_._has_bits_);
   static void set_has_name(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -1601,67 +1652,69 @@ class PrivateComputingClientRegressionTestData_TestCase::_Internal {
 
 const ::private_computing::GetStatusResponse&
 PrivateComputingClientRegressionTestData_TestCase::_Internal::get_response(const PrivateComputingClientRegressionTestData_TestCase* msg) {
-  return *msg->get_response_;
+  return *msg->_impl_.get_response_;
 }
 const ::private_computing::SaveStatusResponse&
 PrivateComputingClientRegressionTestData_TestCase::_Internal::save_response(const PrivateComputingClientRegressionTestData_TestCase* msg) {
-  return *msg->save_response_;
+  return *msg->_impl_.save_response_;
 }
 PrivateComputingClientRegressionTestData_TestCase::PrivateComputingClientRegressionTestData_TestCase(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_computing.PrivateComputingClientRegressionTestData.TestCase)
 }
 PrivateComputingClientRegressionTestData_TestCase::PrivateComputingClientRegressionTestData_TestCase(const PrivateComputingClientRegressionTestData_TestCase& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PrivateComputingClientRegressionTestData_TestCase* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.get_response_){nullptr}
+    , decltype(_impl_.save_response_){nullptr}
+    , decltype(_impl_.name_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_get_response()) {
-    get_response_ = new ::private_computing::GetStatusResponse(*from.get_response_);
-  } else {
-    get_response_ = nullptr;
+    _this->_impl_.get_response_ = new ::private_computing::GetStatusResponse(*from._impl_.get_response_);
   }
   if (from._internal_has_save_response()) {
-    save_response_ = new ::private_computing::SaveStatusResponse(*from.save_response_);
-  } else {
-    save_response_ = nullptr;
+    _this->_impl_.save_response_ = new ::private_computing::SaveStatusResponse(*from._impl_.save_response_);
   }
-  name_ = from.name_;
+  _this->_impl_.name_ = from._impl_.name_;
   // @@protoc_insertion_point(copy_constructor:private_computing.PrivateComputingClientRegressionTestData.TestCase)
 }
 
-inline void PrivateComputingClientRegressionTestData_TestCase::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&get_response_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&name_) -
-    reinterpret_cast<char*>(&get_response_)) + sizeof(name_));
+inline void PrivateComputingClientRegressionTestData_TestCase::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.get_response_){nullptr}
+    , decltype(_impl_.save_response_){nullptr}
+    , decltype(_impl_.name_){0}
+  };
 }
 
 PrivateComputingClientRegressionTestData_TestCase::~PrivateComputingClientRegressionTestData_TestCase() {
   // @@protoc_insertion_point(destructor:private_computing.PrivateComputingClientRegressionTestData.TestCase)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void PrivateComputingClientRegressionTestData_TestCase::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete get_response_;
-  if (this != internal_default_instance()) delete save_response_;
+  if (this != internal_default_instance()) delete _impl_.get_response_;
+  if (this != internal_default_instance()) delete _impl_.save_response_;
 }
 
-void PrivateComputingClientRegressionTestData_TestCase::ArenaDtor(void* object) {
-  PrivateComputingClientRegressionTestData_TestCase* _this = reinterpret_cast< PrivateComputingClientRegressionTestData_TestCase* >(object);
-  (void)_this;
-}
-void PrivateComputingClientRegressionTestData_TestCase::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void PrivateComputingClientRegressionTestData_TestCase::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PrivateComputingClientRegressionTestData_TestCase::Clear() {
@@ -1670,28 +1723,28 @@ void PrivateComputingClientRegressionTestData_TestCase::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(get_response_ != nullptr);
-      get_response_->Clear();
+      GOOGLE_DCHECK(_impl_.get_response_ != nullptr);
+      _impl_.get_response_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(save_response_ != nullptr);
-      save_response_->Clear();
+      GOOGLE_DCHECK(_impl_.save_response_ != nullptr);
+      _impl_.save_response_->Clear();
     }
   }
-  name_ = 0;
-  _has_bits_.Clear();
+  _impl_.name_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PrivateComputingClientRegressionTestData_TestCase::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* PrivateComputingClientRegressionTestData_TestCase::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required .private_computing.PrivateComputingClientRegressionTestData.TestName name = 1;
       case 1:
@@ -1738,7 +1791,7 @@ const char* PrivateComputingClientRegressionTestData_TestCase::_InternalParse(co
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1752,28 +1805,26 @@ uint8_t* PrivateComputingClientRegressionTestData_TestCase::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required .private_computing.PrivateComputingClientRegressionTestData.TestName name = 1;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_name(), target);
   }
 
   // optional .private_computing.GetStatusResponse get_response = 2;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::get_response(this), target, stream);
+      InternalWriteMessage(2, _Internal::get_response(this),
+        _Internal::get_response(this).GetCachedSize(), target, stream);
   }
 
   // optional .private_computing.SaveStatusResponse save_response = 4;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        4, _Internal::save_response(this), target, stream);
+      InternalWriteMessage(4, _Internal::save_response(this),
+        _Internal::save_response(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1791,63 +1842,66 @@ size_t PrivateComputingClientRegressionTestData_TestCase::ByteSizeLong() const {
   // required .private_computing.PrivateComputingClientRegressionTestData.TestName name = 1;
   if (_internal_has_name()) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_name());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_name());
   }
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional .private_computing.GetStatusResponse get_response = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *get_response_);
+          *_impl_.get_response_);
     }
 
     // optional .private_computing.SaveStatusResponse save_response = 4;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *save_response_);
+          *_impl_.save_response_);
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void PrivateComputingClientRegressionTestData_TestCase::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PrivateComputingClientRegressionTestData_TestCase*>(
+  MergeFrom(*::_pbi::DownCast<const PrivateComputingClientRegressionTestData_TestCase*>(
       &from));
 }
 
 void PrivateComputingClientRegressionTestData_TestCase::MergeFrom(const PrivateComputingClientRegressionTestData_TestCase& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_computing.PrivateComputingClientRegressionTestData.TestCase)
-  GOOGLE_DCHECK_NE(&from, this);
+  PrivateComputingClientRegressionTestData_TestCase* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_computing.PrivateComputingClientRegressionTestData.TestCase)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_get_response()->::private_computing::GetStatusResponse::MergeFrom(from._internal_get_response());
+      _this->_internal_mutable_get_response()->::private_computing::GetStatusResponse::MergeFrom(
+          from._internal_get_response());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_save_response()->::private_computing::SaveStatusResponse::MergeFrom(from._internal_save_response());
+      _this->_internal_mutable_save_response()->::private_computing::SaveStatusResponse::MergeFrom(
+          from._internal_save_response());
     }
     if (cached_has_bits & 0x00000004u) {
-      name_ = from.name_;
+      _this->_impl_.name_ = from._impl_.name_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PrivateComputingClientRegressionTestData_TestCase::CopyFrom(const PrivateComputingClientRegressionTestData_TestCase& from) {
@@ -1858,20 +1912,20 @@ void PrivateComputingClientRegressionTestData_TestCase::CopyFrom(const PrivateCo
 }
 
 bool PrivateComputingClientRegressionTestData_TestCase::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
 void PrivateComputingClientRegressionTestData_TestCase::InternalSwap(PrivateComputingClientRegressionTestData_TestCase* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PrivateComputingClientRegressionTestData_TestCase, name_)
-      + sizeof(PrivateComputingClientRegressionTestData_TestCase::name_)
-      - PROTOBUF_FIELD_OFFSET(PrivateComputingClientRegressionTestData_TestCase, get_response_)>(
-          reinterpret_cast<char*>(&get_response_),
-          reinterpret_cast<char*>(&other->get_response_));
+      PROTOBUF_FIELD_OFFSET(PrivateComputingClientRegressionTestData_TestCase, _impl_.name_)
+      + sizeof(PrivateComputingClientRegressionTestData_TestCase::_impl_.name_)
+      - PROTOBUF_FIELD_OFFSET(PrivateComputingClientRegressionTestData_TestCase, _impl_.get_response_)>(
+          reinterpret_cast<char*>(&_impl_.get_response_),
+          reinterpret_cast<char*>(&other->_impl_.get_response_));
 }
 
 std::string PrivateComputingClientRegressionTestData_TestCase::GetTypeName() const {
@@ -1887,43 +1941,47 @@ class PrivateComputingClientRegressionTestData::_Internal {
 
 PrivateComputingClientRegressionTestData::PrivateComputingClientRegressionTestData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  test_cases_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:private_computing.PrivateComputingClientRegressionTestData)
 }
 PrivateComputingClientRegressionTestData::PrivateComputingClientRegressionTestData(const PrivateComputingClientRegressionTestData& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      test_cases_(from.test_cases_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PrivateComputingClientRegressionTestData* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.test_cases_){from._impl_.test_cases_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:private_computing.PrivateComputingClientRegressionTestData)
 }
 
-inline void PrivateComputingClientRegressionTestData::SharedCtor() {
+inline void PrivateComputingClientRegressionTestData::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.test_cases_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 PrivateComputingClientRegressionTestData::~PrivateComputingClientRegressionTestData() {
   // @@protoc_insertion_point(destructor:private_computing.PrivateComputingClientRegressionTestData)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void PrivateComputingClientRegressionTestData::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.test_cases_.~RepeatedPtrField();
 }
 
-void PrivateComputingClientRegressionTestData::ArenaDtor(void* object) {
-  PrivateComputingClientRegressionTestData* _this = reinterpret_cast< PrivateComputingClientRegressionTestData* >(object);
-  (void)_this;
-}
-void PrivateComputingClientRegressionTestData::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void PrivateComputingClientRegressionTestData::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PrivateComputingClientRegressionTestData::Clear() {
@@ -1932,15 +1990,15 @@ void PrivateComputingClientRegressionTestData::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  test_cases_.Clear();
+  _impl_.test_cases_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PrivateComputingClientRegressionTestData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* PrivateComputingClientRegressionTestData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .private_computing.PrivateComputingClientRegressionTestData.TestCase test_cases = 1;
       case 1:
@@ -1985,11 +2043,11 @@ uint8_t* PrivateComputingClientRegressionTestData::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .private_computing.PrivateComputingClientRegressionTestData.TestCase test_cases = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_test_cases_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_test_cases_size()); i < n; i++) {
+    const auto& repfield = this->_internal_test_cases(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_test_cases(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2010,7 +2068,7 @@ size_t PrivateComputingClientRegressionTestData::ByteSizeLong() const {
 
   // repeated .private_computing.PrivateComputingClientRegressionTestData.TestCase test_cases = 1;
   total_size += 1UL * this->_internal_test_cases_size();
-  for (const auto& msg : this->test_cases_) {
+  for (const auto& msg : this->_impl_.test_cases_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -2018,25 +2076,26 @@ size_t PrivateComputingClientRegressionTestData::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void PrivateComputingClientRegressionTestData::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PrivateComputingClientRegressionTestData*>(
+  MergeFrom(*::_pbi::DownCast<const PrivateComputingClientRegressionTestData*>(
       &from));
 }
 
 void PrivateComputingClientRegressionTestData::MergeFrom(const PrivateComputingClientRegressionTestData& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_computing.PrivateComputingClientRegressionTestData)
-  GOOGLE_DCHECK_NE(&from, this);
+  PrivateComputingClientRegressionTestData* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:private_computing.PrivateComputingClientRegressionTestData)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  test_cases_.MergeFrom(from.test_cases_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.test_cases_.MergeFrom(from._impl_.test_cases_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PrivateComputingClientRegressionTestData::CopyFrom(const PrivateComputingClientRegressionTestData& from) {
@@ -2047,7 +2106,7 @@ void PrivateComputingClientRegressionTestData::CopyFrom(const PrivateComputingCl
 }
 
 bool PrivateComputingClientRegressionTestData::IsInitialized() const {
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(test_cases_))
+  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(_impl_.test_cases_))
     return false;
   return true;
 }
@@ -2055,7 +2114,7 @@ bool PrivateComputingClientRegressionTestData::IsInitialized() const {
 void PrivateComputingClientRegressionTestData::InternalSwap(PrivateComputingClientRegressionTestData* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  test_cases_.InternalSwap(&other->test_cases_);
+  _impl_.test_cases_.InternalSwap(&other->_impl_.test_cases_);
 }
 
 std::string PrivateComputingClientRegressionTestData::GetTypeName() const {
@@ -2066,25 +2125,32 @@ std::string PrivateComputingClientRegressionTestData::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace private_computing
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::private_computing::ChurnObservationStatus* Arena::CreateMaybeMessage< ::private_computing::ChurnObservationStatus >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::private_computing::ChurnObservationStatus*
+Arena::CreateMaybeMessage< ::private_computing::ChurnObservationStatus >(Arena* arena) {
   return Arena::CreateMessageInternal< ::private_computing::ChurnObservationStatus >(arena);
 }
-template<> PROTOBUF_NOINLINE ::private_computing::ActiveStatus* Arena::CreateMaybeMessage< ::private_computing::ActiveStatus >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::private_computing::ActiveStatus*
+Arena::CreateMaybeMessage< ::private_computing::ActiveStatus >(Arena* arena) {
   return Arena::CreateMessageInternal< ::private_computing::ActiveStatus >(arena);
 }
-template<> PROTOBUF_NOINLINE ::private_computing::SaveStatusRequest* Arena::CreateMaybeMessage< ::private_computing::SaveStatusRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::private_computing::SaveStatusRequest*
+Arena::CreateMaybeMessage< ::private_computing::SaveStatusRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::private_computing::SaveStatusRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::private_computing::SaveStatusResponse* Arena::CreateMaybeMessage< ::private_computing::SaveStatusResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::private_computing::SaveStatusResponse*
+Arena::CreateMaybeMessage< ::private_computing::SaveStatusResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::private_computing::SaveStatusResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::private_computing::GetStatusResponse* Arena::CreateMaybeMessage< ::private_computing::GetStatusResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::private_computing::GetStatusResponse*
+Arena::CreateMaybeMessage< ::private_computing::GetStatusResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::private_computing::GetStatusResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::private_computing::PrivateComputingClientRegressionTestData_TestCase* Arena::CreateMaybeMessage< ::private_computing::PrivateComputingClientRegressionTestData_TestCase >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::private_computing::PrivateComputingClientRegressionTestData_TestCase*
+Arena::CreateMaybeMessage< ::private_computing::PrivateComputingClientRegressionTestData_TestCase >(Arena* arena) {
   return Arena::CreateMessageInternal< ::private_computing::PrivateComputingClientRegressionTestData_TestCase >(arena);
 }
-template<> PROTOBUF_NOINLINE ::private_computing::PrivateComputingClientRegressionTestData* Arena::CreateMaybeMessage< ::private_computing::PrivateComputingClientRegressionTestData >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::private_computing::PrivateComputingClientRegressionTestData*
+Arena::CreateMaybeMessage< ::private_computing::PrivateComputingClientRegressionTestData >(Arena* arena) {
   return Arena::CreateMessageInternal< ::private_computing::PrivateComputingClientRegressionTestData >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

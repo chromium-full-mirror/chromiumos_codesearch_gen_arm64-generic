@@ -13,64 +13,72 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace shadercached {
-constexpr InstallRequest::InstallRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : vm_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , vm_owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , steam_app_id_(uint64_t{0u})
-  , mount_(false){}
+PROTOBUF_CONSTEXPR InstallRequest::InstallRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.vm_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.vm_owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.steam_app_id_)*/uint64_t{0u}
+  , /*decltype(_impl_.mount_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct InstallRequestDefaultTypeInternal {
-  constexpr InstallRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InstallRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~InstallRequestDefaultTypeInternal() {}
   union {
     InstallRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT InstallRequestDefaultTypeInternal _InstallRequest_default_instance_;
-constexpr UninstallRequest::UninstallRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : steam_app_id_(uint64_t{0u}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallRequestDefaultTypeInternal _InstallRequest_default_instance_;
+PROTOBUF_CONSTEXPR UninstallRequest::UninstallRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.steam_app_id_)*/uint64_t{0u}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UninstallRequestDefaultTypeInternal {
-  constexpr UninstallRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UninstallRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UninstallRequestDefaultTypeInternal() {}
   union {
     UninstallRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UninstallRequestDefaultTypeInternal _UninstallRequest_default_instance_;
-constexpr ShaderCacheMountStatus::ShaderCacheMountStatus(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : vm_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , vm_owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , error_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , steam_app_id_(uint64_t{0u})
-  , mounted_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UninstallRequestDefaultTypeInternal _UninstallRequest_default_instance_;
+PROTOBUF_CONSTEXPR ShaderCacheMountStatus::ShaderCacheMountStatus(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.vm_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.vm_owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.error_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.steam_app_id_)*/uint64_t{0u}
+  , /*decltype(_impl_.mounted_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ShaderCacheMountStatusDefaultTypeInternal {
-  constexpr ShaderCacheMountStatusDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ShaderCacheMountStatusDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ShaderCacheMountStatusDefaultTypeInternal() {}
   union {
     ShaderCacheMountStatus _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ShaderCacheMountStatusDefaultTypeInternal _ShaderCacheMountStatus_default_instance_;
-constexpr UnmountRequest::UnmountRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : vm_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , vm_owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , steam_app_id_(uint64_t{0u}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ShaderCacheMountStatusDefaultTypeInternal _ShaderCacheMountStatus_default_instance_;
+PROTOBUF_CONSTEXPR UnmountRequest::UnmountRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.vm_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.vm_owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.steam_app_id_)*/uint64_t{0u}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UnmountRequestDefaultTypeInternal {
-  constexpr UnmountRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UnmountRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UnmountRequestDefaultTypeInternal() {}
   union {
     UnmountRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UnmountRequestDefaultTypeInternal _UnmountRequest_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UnmountRequestDefaultTypeInternal _UnmountRequest_default_instance_;
 }  // namespace shadercached
 namespace shadercached {
 
@@ -83,73 +91,80 @@ class InstallRequest::_Internal {
 InstallRequest::InstallRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:shadercached.InstallRequest)
 }
 InstallRequest::InstallRequest(const InstallRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  InstallRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vm_name_){}
+    , decltype(_impl_.vm_owner_id_){}
+    , decltype(_impl_.steam_app_id_){}
+    , decltype(_impl_.mount_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  vm_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.vm_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    vm_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_vm_name().empty()) {
-    vm_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_vm_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.vm_name_.Set(from._internal_vm_name(), 
+      _this->GetArenaForAllocation());
   }
-  vm_owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.vm_owner_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    vm_owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.vm_owner_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_vm_owner_id().empty()) {
-    vm_owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_vm_owner_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.vm_owner_id_.Set(from._internal_vm_owner_id(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&steam_app_id_, &from.steam_app_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&mount_) -
-    reinterpret_cast<char*>(&steam_app_id_)) + sizeof(mount_));
+  ::memcpy(&_impl_.steam_app_id_, &from._impl_.steam_app_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.mount_) -
+    reinterpret_cast<char*>(&_impl_.steam_app_id_)) + sizeof(_impl_.mount_));
   // @@protoc_insertion_point(copy_constructor:shadercached.InstallRequest)
 }
 
-inline void InstallRequest::SharedCtor() {
-vm_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  vm_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-vm_owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  vm_owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&steam_app_id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&mount_) -
-    reinterpret_cast<char*>(&steam_app_id_)) + sizeof(mount_));
+inline void InstallRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vm_name_){}
+    , decltype(_impl_.vm_owner_id_){}
+    , decltype(_impl_.steam_app_id_){uint64_t{0u}}
+    , decltype(_impl_.mount_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.vm_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.vm_owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 InstallRequest::~InstallRequest() {
   // @@protoc_insertion_point(destructor:shadercached.InstallRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void InstallRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  vm_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  vm_owner_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.vm_name_.Destroy();
+  _impl_.vm_owner_id_.Destroy();
 }
 
-void InstallRequest::ArenaDtor(void* object) {
-  InstallRequest* _this = reinterpret_cast< InstallRequest* >(object);
-  (void)_this;
-}
-void InstallRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void InstallRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void InstallRequest::Clear() {
@@ -158,24 +173,24 @@ void InstallRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  vm_name_.ClearToEmpty();
-  vm_owner_id_.ClearToEmpty();
-  ::memset(&steam_app_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&mount_) -
-      reinterpret_cast<char*>(&steam_app_id_)) + sizeof(mount_));
+  _impl_.vm_name_.ClearToEmpty();
+  _impl_.vm_owner_id_.ClearToEmpty();
+  ::memset(&_impl_.steam_app_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.mount_) -
+      reinterpret_cast<char*>(&_impl_.steam_app_id_)) + sizeof(_impl_.mount_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* InstallRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* InstallRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint64 steam_app_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          steam_app_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.steam_app_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -183,7 +198,7 @@ const char* InstallRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       // bool mount = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          mount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.mount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -192,9 +207,9 @@ const char* InstallRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_vm_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -202,9 +217,9 @@ const char* InstallRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_vm_owner_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -240,13 +255,13 @@ uint8_t* InstallRequest::_InternalSerialize(
   // uint64 steam_app_id = 1;
   if (this->_internal_steam_app_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_steam_app_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_steam_app_id(), target);
   }
 
   // bool mount = 2;
   if (this->_internal_mount() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_mount(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_mount(), target);
   }
 
   // string vm_name = 3;
@@ -301,7 +316,7 @@ size_t InstallRequest::ByteSizeLong() const {
 
   // uint64 steam_app_id = 1;
   if (this->_internal_steam_app_id() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_steam_app_id());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_steam_app_id());
   }
 
   // bool mount = 2;
@@ -312,36 +327,37 @@ size_t InstallRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void InstallRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const InstallRequest*>(
+  MergeFrom(*::_pbi::DownCast<const InstallRequest*>(
       &from));
 }
 
 void InstallRequest::MergeFrom(const InstallRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:shadercached.InstallRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  InstallRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:shadercached.InstallRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_vm_name().empty()) {
-    _internal_set_vm_name(from._internal_vm_name());
+    _this->_internal_set_vm_name(from._internal_vm_name());
   }
   if (!from._internal_vm_owner_id().empty()) {
-    _internal_set_vm_owner_id(from._internal_vm_owner_id());
+    _this->_internal_set_vm_owner_id(from._internal_vm_owner_id());
   }
   if (from._internal_steam_app_id() != 0) {
-    _internal_set_steam_app_id(from._internal_steam_app_id());
+    _this->_internal_set_steam_app_id(from._internal_steam_app_id());
   }
   if (from._internal_mount() != 0) {
-    _internal_set_mount(from._internal_mount());
+    _this->_internal_set_mount(from._internal_mount());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void InstallRequest::CopyFrom(const InstallRequest& from) {
@@ -361,21 +377,19 @@ void InstallRequest::InternalSwap(InstallRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &vm_name_, lhs_arena,
-      &other->vm_name_, rhs_arena
+      &_impl_.vm_name_, lhs_arena,
+      &other->_impl_.vm_name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &vm_owner_id_, lhs_arena,
-      &other->vm_owner_id_, rhs_arena
+      &_impl_.vm_owner_id_, lhs_arena,
+      &other->_impl_.vm_owner_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(InstallRequest, mount_)
-      + sizeof(InstallRequest::mount_)
-      - PROTOBUF_FIELD_OFFSET(InstallRequest, steam_app_id_)>(
-          reinterpret_cast<char*>(&steam_app_id_),
-          reinterpret_cast<char*>(&other->steam_app_id_));
+      PROTOBUF_FIELD_OFFSET(InstallRequest, _impl_.mount_)
+      + sizeof(InstallRequest::_impl_.mount_)
+      - PROTOBUF_FIELD_OFFSET(InstallRequest, _impl_.steam_app_id_)>(
+          reinterpret_cast<char*>(&_impl_.steam_app_id_),
+          reinterpret_cast<char*>(&other->_impl_.steam_app_id_));
 }
 
 std::string InstallRequest::GetTypeName() const {
@@ -392,42 +406,46 @@ class UninstallRequest::_Internal {
 UninstallRequest::UninstallRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:shadercached.UninstallRequest)
 }
 UninstallRequest::UninstallRequest(const UninstallRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  UninstallRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.steam_app_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  steam_app_id_ = from.steam_app_id_;
+  _this->_impl_.steam_app_id_ = from._impl_.steam_app_id_;
   // @@protoc_insertion_point(copy_constructor:shadercached.UninstallRequest)
 }
 
-inline void UninstallRequest::SharedCtor() {
-steam_app_id_ = uint64_t{0u};
+inline void UninstallRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.steam_app_id_){uint64_t{0u}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 UninstallRequest::~UninstallRequest() {
   // @@protoc_insertion_point(destructor:shadercached.UninstallRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void UninstallRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void UninstallRequest::ArenaDtor(void* object) {
-  UninstallRequest* _this = reinterpret_cast< UninstallRequest* >(object);
-  (void)_this;
-}
-void UninstallRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void UninstallRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UninstallRequest::Clear() {
@@ -436,20 +454,20 @@ void UninstallRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  steam_app_id_ = uint64_t{0u};
+  _impl_.steam_app_id_ = uint64_t{0u};
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* UninstallRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* UninstallRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint64 steam_app_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          steam_app_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.steam_app_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -486,7 +504,7 @@ uint8_t* UninstallRequest::_InternalSerialize(
   // uint64 steam_app_id = 1;
   if (this->_internal_steam_app_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_steam_app_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_steam_app_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -507,33 +525,34 @@ size_t UninstallRequest::ByteSizeLong() const {
 
   // uint64 steam_app_id = 1;
   if (this->_internal_steam_app_id() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_steam_app_id());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_steam_app_id());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void UninstallRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const UninstallRequest*>(
+  MergeFrom(*::_pbi::DownCast<const UninstallRequest*>(
       &from));
 }
 
 void UninstallRequest::MergeFrom(const UninstallRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:shadercached.UninstallRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  UninstallRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:shadercached.UninstallRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_steam_app_id() != 0) {
-    _internal_set_steam_app_id(from._internal_steam_app_id());
+    _this->_internal_set_steam_app_id(from._internal_steam_app_id());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void UninstallRequest::CopyFrom(const UninstallRequest& from) {
@@ -550,7 +569,7 @@ bool UninstallRequest::IsInitialized() const {
 void UninstallRequest::InternalSwap(UninstallRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(steam_app_id_, other->steam_app_id_);
+  swap(_impl_.steam_app_id_, other->_impl_.steam_app_id_);
 }
 
 std::string UninstallRequest::GetTypeName() const {
@@ -567,86 +586,95 @@ class ShaderCacheMountStatus::_Internal {
 ShaderCacheMountStatus::ShaderCacheMountStatus(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:shadercached.ShaderCacheMountStatus)
 }
 ShaderCacheMountStatus::ShaderCacheMountStatus(const ShaderCacheMountStatus& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ShaderCacheMountStatus* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vm_name_){}
+    , decltype(_impl_.vm_owner_id_){}
+    , decltype(_impl_.error_){}
+    , decltype(_impl_.steam_app_id_){}
+    , decltype(_impl_.mounted_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  vm_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.vm_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    vm_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_vm_name().empty()) {
-    vm_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_vm_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.vm_name_.Set(from._internal_vm_name(), 
+      _this->GetArenaForAllocation());
   }
-  vm_owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.vm_owner_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    vm_owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.vm_owner_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_vm_owner_id().empty()) {
-    vm_owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_vm_owner_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.vm_owner_id_.Set(from._internal_vm_owner_id(), 
+      _this->GetArenaForAllocation());
   }
-  error_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.error_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    error_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.error_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_error().empty()) {
-    error_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_error(), 
-      GetArenaForAllocation());
+    _this->_impl_.error_.Set(from._internal_error(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&steam_app_id_, &from.steam_app_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&mounted_) -
-    reinterpret_cast<char*>(&steam_app_id_)) + sizeof(mounted_));
+  ::memcpy(&_impl_.steam_app_id_, &from._impl_.steam_app_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.mounted_) -
+    reinterpret_cast<char*>(&_impl_.steam_app_id_)) + sizeof(_impl_.mounted_));
   // @@protoc_insertion_point(copy_constructor:shadercached.ShaderCacheMountStatus)
 }
 
-inline void ShaderCacheMountStatus::SharedCtor() {
-vm_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  vm_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-vm_owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  vm_owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-error_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  error_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&steam_app_id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&mounted_) -
-    reinterpret_cast<char*>(&steam_app_id_)) + sizeof(mounted_));
+inline void ShaderCacheMountStatus::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vm_name_){}
+    , decltype(_impl_.vm_owner_id_){}
+    , decltype(_impl_.error_){}
+    , decltype(_impl_.steam_app_id_){uint64_t{0u}}
+    , decltype(_impl_.mounted_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.vm_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.vm_owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.error_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.error_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ShaderCacheMountStatus::~ShaderCacheMountStatus() {
   // @@protoc_insertion_point(destructor:shadercached.ShaderCacheMountStatus)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ShaderCacheMountStatus::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  vm_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  vm_owner_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  error_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.vm_name_.Destroy();
+  _impl_.vm_owner_id_.Destroy();
+  _impl_.error_.Destroy();
 }
 
-void ShaderCacheMountStatus::ArenaDtor(void* object) {
-  ShaderCacheMountStatus* _this = reinterpret_cast< ShaderCacheMountStatus* >(object);
-  (void)_this;
-}
-void ShaderCacheMountStatus::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ShaderCacheMountStatus::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ShaderCacheMountStatus::Clear() {
@@ -655,28 +683,28 @@ void ShaderCacheMountStatus::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  vm_name_.ClearToEmpty();
-  vm_owner_id_.ClearToEmpty();
-  error_.ClearToEmpty();
-  ::memset(&steam_app_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&mounted_) -
-      reinterpret_cast<char*>(&steam_app_id_)) + sizeof(mounted_));
+  _impl_.vm_name_.ClearToEmpty();
+  _impl_.vm_owner_id_.ClearToEmpty();
+  _impl_.error_.ClearToEmpty();
+  ::memset(&_impl_.steam_app_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.mounted_) -
+      reinterpret_cast<char*>(&_impl_.steam_app_id_)) + sizeof(_impl_.mounted_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ShaderCacheMountStatus::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ShaderCacheMountStatus::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string vm_name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_vm_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -684,16 +712,16 @@ const char* ShaderCacheMountStatus::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_vm_owner_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
       // uint64 steam_app_id = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          steam_app_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.steam_app_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -701,7 +729,7 @@ const char* ShaderCacheMountStatus::_InternalParse(const char* ptr, ::PROTOBUF_N
       // bool mounted = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          mounted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.mounted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -710,9 +738,9 @@ const char* ShaderCacheMountStatus::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_error();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -768,13 +796,13 @@ uint8_t* ShaderCacheMountStatus::_InternalSerialize(
   // uint64 steam_app_id = 3;
   if (this->_internal_steam_app_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(3, this->_internal_steam_app_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_steam_app_id(), target);
   }
 
   // bool mounted = 4;
   if (this->_internal_mounted() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_mounted(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_mounted(), target);
   }
 
   // string error = 5;
@@ -826,7 +854,7 @@ size_t ShaderCacheMountStatus::ByteSizeLong() const {
 
   // uint64 steam_app_id = 3;
   if (this->_internal_steam_app_id() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_steam_app_id());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_steam_app_id());
   }
 
   // bool mounted = 4;
@@ -837,39 +865,40 @@ size_t ShaderCacheMountStatus::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ShaderCacheMountStatus::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ShaderCacheMountStatus*>(
+  MergeFrom(*::_pbi::DownCast<const ShaderCacheMountStatus*>(
       &from));
 }
 
 void ShaderCacheMountStatus::MergeFrom(const ShaderCacheMountStatus& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:shadercached.ShaderCacheMountStatus)
-  GOOGLE_DCHECK_NE(&from, this);
+  ShaderCacheMountStatus* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:shadercached.ShaderCacheMountStatus)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_vm_name().empty()) {
-    _internal_set_vm_name(from._internal_vm_name());
+    _this->_internal_set_vm_name(from._internal_vm_name());
   }
   if (!from._internal_vm_owner_id().empty()) {
-    _internal_set_vm_owner_id(from._internal_vm_owner_id());
+    _this->_internal_set_vm_owner_id(from._internal_vm_owner_id());
   }
   if (!from._internal_error().empty()) {
-    _internal_set_error(from._internal_error());
+    _this->_internal_set_error(from._internal_error());
   }
   if (from._internal_steam_app_id() != 0) {
-    _internal_set_steam_app_id(from._internal_steam_app_id());
+    _this->_internal_set_steam_app_id(from._internal_steam_app_id());
   }
   if (from._internal_mounted() != 0) {
-    _internal_set_mounted(from._internal_mounted());
+    _this->_internal_set_mounted(from._internal_mounted());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ShaderCacheMountStatus::CopyFrom(const ShaderCacheMountStatus& from) {
@@ -889,26 +918,23 @@ void ShaderCacheMountStatus::InternalSwap(ShaderCacheMountStatus* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &vm_name_, lhs_arena,
-      &other->vm_name_, rhs_arena
+      &_impl_.vm_name_, lhs_arena,
+      &other->_impl_.vm_name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &vm_owner_id_, lhs_arena,
-      &other->vm_owner_id_, rhs_arena
+      &_impl_.vm_owner_id_, lhs_arena,
+      &other->_impl_.vm_owner_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &error_, lhs_arena,
-      &other->error_, rhs_arena
+      &_impl_.error_, lhs_arena,
+      &other->_impl_.error_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ShaderCacheMountStatus, mounted_)
-      + sizeof(ShaderCacheMountStatus::mounted_)
-      - PROTOBUF_FIELD_OFFSET(ShaderCacheMountStatus, steam_app_id_)>(
-          reinterpret_cast<char*>(&steam_app_id_),
-          reinterpret_cast<char*>(&other->steam_app_id_));
+      PROTOBUF_FIELD_OFFSET(ShaderCacheMountStatus, _impl_.mounted_)
+      + sizeof(ShaderCacheMountStatus::_impl_.mounted_)
+      - PROTOBUF_FIELD_OFFSET(ShaderCacheMountStatus, _impl_.steam_app_id_)>(
+          reinterpret_cast<char*>(&_impl_.steam_app_id_),
+          reinterpret_cast<char*>(&other->_impl_.steam_app_id_));
 }
 
 std::string ShaderCacheMountStatus::GetTypeName() const {
@@ -925,68 +951,76 @@ class UnmountRequest::_Internal {
 UnmountRequest::UnmountRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:shadercached.UnmountRequest)
 }
 UnmountRequest::UnmountRequest(const UnmountRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  UnmountRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vm_name_){}
+    , decltype(_impl_.vm_owner_id_){}
+    , decltype(_impl_.steam_app_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  vm_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.vm_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    vm_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_vm_name().empty()) {
-    vm_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_vm_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.vm_name_.Set(from._internal_vm_name(), 
+      _this->GetArenaForAllocation());
   }
-  vm_owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.vm_owner_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    vm_owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.vm_owner_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_vm_owner_id().empty()) {
-    vm_owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_vm_owner_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.vm_owner_id_.Set(from._internal_vm_owner_id(), 
+      _this->GetArenaForAllocation());
   }
-  steam_app_id_ = from.steam_app_id_;
+  _this->_impl_.steam_app_id_ = from._impl_.steam_app_id_;
   // @@protoc_insertion_point(copy_constructor:shadercached.UnmountRequest)
 }
 
-inline void UnmountRequest::SharedCtor() {
-vm_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  vm_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-vm_owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  vm_owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-steam_app_id_ = uint64_t{0u};
+inline void UnmountRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vm_name_){}
+    , decltype(_impl_.vm_owner_id_){}
+    , decltype(_impl_.steam_app_id_){uint64_t{0u}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.vm_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.vm_owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 UnmountRequest::~UnmountRequest() {
   // @@protoc_insertion_point(destructor:shadercached.UnmountRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void UnmountRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  vm_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  vm_owner_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.vm_name_.Destroy();
+  _impl_.vm_owner_id_.Destroy();
 }
 
-void UnmountRequest::ArenaDtor(void* object) {
-  UnmountRequest* _this = reinterpret_cast< UnmountRequest* >(object);
-  (void)_this;
-}
-void UnmountRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void UnmountRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UnmountRequest::Clear() {
@@ -995,25 +1029,25 @@ void UnmountRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  vm_name_.ClearToEmpty();
-  vm_owner_id_.ClearToEmpty();
-  steam_app_id_ = uint64_t{0u};
+  _impl_.vm_name_.ClearToEmpty();
+  _impl_.vm_owner_id_.ClearToEmpty();
+  _impl_.steam_app_id_ = uint64_t{0u};
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* UnmountRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* UnmountRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string vm_name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_vm_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1021,16 +1055,16 @@ const char* UnmountRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_vm_owner_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
       // uint64 steam_app_id = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          steam_app_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.steam_app_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1087,7 +1121,7 @@ uint8_t* UnmountRequest::_InternalSerialize(
   // uint64 steam_app_id = 3;
   if (this->_internal_steam_app_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(3, this->_internal_steam_app_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_steam_app_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1122,39 +1156,40 @@ size_t UnmountRequest::ByteSizeLong() const {
 
   // uint64 steam_app_id = 3;
   if (this->_internal_steam_app_id() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_steam_app_id());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_steam_app_id());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void UnmountRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const UnmountRequest*>(
+  MergeFrom(*::_pbi::DownCast<const UnmountRequest*>(
       &from));
 }
 
 void UnmountRequest::MergeFrom(const UnmountRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:shadercached.UnmountRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  UnmountRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:shadercached.UnmountRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_vm_name().empty()) {
-    _internal_set_vm_name(from._internal_vm_name());
+    _this->_internal_set_vm_name(from._internal_vm_name());
   }
   if (!from._internal_vm_owner_id().empty()) {
-    _internal_set_vm_owner_id(from._internal_vm_owner_id());
+    _this->_internal_set_vm_owner_id(from._internal_vm_owner_id());
   }
   if (from._internal_steam_app_id() != 0) {
-    _internal_set_steam_app_id(from._internal_steam_app_id());
+    _this->_internal_set_steam_app_id(from._internal_steam_app_id());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void UnmountRequest::CopyFrom(const UnmountRequest& from) {
@@ -1174,16 +1209,14 @@ void UnmountRequest::InternalSwap(UnmountRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &vm_name_, lhs_arena,
-      &other->vm_name_, rhs_arena
+      &_impl_.vm_name_, lhs_arena,
+      &other->_impl_.vm_name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &vm_owner_id_, lhs_arena,
-      &other->vm_owner_id_, rhs_arena
+      &_impl_.vm_owner_id_, lhs_arena,
+      &other->_impl_.vm_owner_id_, rhs_arena
   );
-  swap(steam_app_id_, other->steam_app_id_);
+  swap(_impl_.steam_app_id_, other->_impl_.steam_app_id_);
 }
 
 std::string UnmountRequest::GetTypeName() const {
@@ -1194,16 +1227,20 @@ std::string UnmountRequest::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace shadercached
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::shadercached::InstallRequest* Arena::CreateMaybeMessage< ::shadercached::InstallRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::shadercached::InstallRequest*
+Arena::CreateMaybeMessage< ::shadercached::InstallRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::shadercached::InstallRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::shadercached::UninstallRequest* Arena::CreateMaybeMessage< ::shadercached::UninstallRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::shadercached::UninstallRequest*
+Arena::CreateMaybeMessage< ::shadercached::UninstallRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::shadercached::UninstallRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::shadercached::ShaderCacheMountStatus* Arena::CreateMaybeMessage< ::shadercached::ShaderCacheMountStatus >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::shadercached::ShaderCacheMountStatus*
+Arena::CreateMaybeMessage< ::shadercached::ShaderCacheMountStatus >(Arena* arena) {
   return Arena::CreateMessageInternal< ::shadercached::ShaderCacheMountStatus >(arena);
 }
-template<> PROTOBUF_NOINLINE ::shadercached::UnmountRequest* Arena::CreateMaybeMessage< ::shadercached::UnmountRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::shadercached::UnmountRequest*
+Arena::CreateMaybeMessage< ::shadercached::UnmountRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::shadercached::UnmountRequest >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

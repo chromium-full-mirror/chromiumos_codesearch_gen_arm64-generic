@@ -13,99 +13,108 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace vm_permission_service {
-constexpr RegisterVmRequest::RegisterVmRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , type_(0)
-{}
+PROTOBUF_CONSTEXPR RegisterVmRequest::RegisterVmRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.type_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RegisterVmRequestDefaultTypeInternal {
-  constexpr RegisterVmRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RegisterVmRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~RegisterVmRequestDefaultTypeInternal() {}
   union {
     RegisterVmRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RegisterVmRequestDefaultTypeInternal _RegisterVmRequest_default_instance_;
-constexpr RegisterVmResponse::RegisterVmResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RegisterVmRequestDefaultTypeInternal _RegisterVmRequest_default_instance_;
+PROTOBUF_CONSTEXPR RegisterVmResponse::RegisterVmResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RegisterVmResponseDefaultTypeInternal {
-  constexpr RegisterVmResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RegisterVmResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~RegisterVmResponseDefaultTypeInternal() {}
   union {
     RegisterVmResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RegisterVmResponseDefaultTypeInternal _RegisterVmResponse_default_instance_;
-constexpr UnregisterVmRequest::UnregisterVmRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RegisterVmResponseDefaultTypeInternal _RegisterVmResponse_default_instance_;
+PROTOBUF_CONSTEXPR UnregisterVmRequest::UnregisterVmRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UnregisterVmRequestDefaultTypeInternal {
-  constexpr UnregisterVmRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UnregisterVmRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UnregisterVmRequestDefaultTypeInternal() {}
   union {
     UnregisterVmRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UnregisterVmRequestDefaultTypeInternal _UnregisterVmRequest_default_instance_;
-constexpr Permission::Permission(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : kind_(0)
-
-  , allowed_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UnregisterVmRequestDefaultTypeInternal _UnregisterVmRequest_default_instance_;
+PROTOBUF_CONSTEXPR Permission::Permission(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.kind_)*/0
+  , /*decltype(_impl_.allowed_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PermissionDefaultTypeInternal {
-  constexpr PermissionDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PermissionDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~PermissionDefaultTypeInternal() {}
   union {
     Permission _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PermissionDefaultTypeInternal _Permission_default_instance_;
-constexpr SetPermissionsRequest::SetPermissionsRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : permissions_()
-  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PermissionDefaultTypeInternal _Permission_default_instance_;
+PROTOBUF_CONSTEXPR SetPermissionsRequest::SetPermissionsRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.permissions_)*/{}
+  , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SetPermissionsRequestDefaultTypeInternal {
-  constexpr SetPermissionsRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SetPermissionsRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SetPermissionsRequestDefaultTypeInternal() {}
   union {
     SetPermissionsRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SetPermissionsRequestDefaultTypeInternal _SetPermissionsRequest_default_instance_;
-constexpr GetPermissionsRequest::GetPermissionsRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetPermissionsRequestDefaultTypeInternal _SetPermissionsRequest_default_instance_;
+PROTOBUF_CONSTEXPR GetPermissionsRequest::GetPermissionsRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetPermissionsRequestDefaultTypeInternal {
-  constexpr GetPermissionsRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetPermissionsRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetPermissionsRequestDefaultTypeInternal() {}
   union {
     GetPermissionsRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetPermissionsRequestDefaultTypeInternal _GetPermissionsRequest_default_instance_;
-constexpr GetPermissionsResponse::GetPermissionsResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : permissions_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetPermissionsRequestDefaultTypeInternal _GetPermissionsRequest_default_instance_;
+PROTOBUF_CONSTEXPR GetPermissionsResponse::GetPermissionsResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.permissions_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetPermissionsResponseDefaultTypeInternal {
-  constexpr GetPermissionsResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetPermissionsResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetPermissionsResponseDefaultTypeInternal() {}
   union {
     GetPermissionsResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetPermissionsResponseDefaultTypeInternal _GetPermissionsResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetPermissionsResponseDefaultTypeInternal _GetPermissionsResponse_default_instance_;
 }  // namespace vm_permission_service
 namespace vm_permission_service {
 bool RegisterVmRequest_VmType_IsValid(int value) {
@@ -239,68 +248,76 @@ class RegisterVmRequest::_Internal {
 RegisterVmRequest::RegisterVmRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_permission_service.RegisterVmRequest)
 }
 RegisterVmRequest::RegisterVmRequest(const RegisterVmRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RegisterVmRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.owner_id_){}
+    , decltype(_impl_.type_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
   }
-  owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.owner_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_owner_id().empty()) {
-    owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_owner_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.owner_id_.Set(from._internal_owner_id(), 
+      _this->GetArenaForAllocation());
   }
-  type_ = from.type_;
+  _this->_impl_.type_ = from._impl_.type_;
   // @@protoc_insertion_point(copy_constructor:vm_permission_service.RegisterVmRequest)
 }
 
-inline void RegisterVmRequest::SharedCtor() {
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-type_ = 0;
+inline void RegisterVmRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.owner_id_){}
+    , decltype(_impl_.type_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 RegisterVmRequest::~RegisterVmRequest() {
   // @@protoc_insertion_point(destructor:vm_permission_service.RegisterVmRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void RegisterVmRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  owner_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.Destroy();
+  _impl_.owner_id_.Destroy();
 }
 
-void RegisterVmRequest::ArenaDtor(void* object) {
-  RegisterVmRequest* _this = reinterpret_cast< RegisterVmRequest* >(object);
-  (void)_this;
-}
-void RegisterVmRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void RegisterVmRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RegisterVmRequest::Clear() {
@@ -309,25 +326,25 @@ void RegisterVmRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmpty();
-  owner_id_.ClearToEmpty();
-  type_ = 0;
+  _impl_.name_.ClearToEmpty();
+  _impl_.owner_id_.ClearToEmpty();
+  _impl_.type_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* RegisterVmRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* RegisterVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -335,9 +352,9 @@ const char* RegisterVmRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_owner_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -402,7 +419,7 @@ uint8_t* RegisterVmRequest::_InternalSerialize(
   // .vm_permission_service.RegisterVmRequest.VmType type = 3;
   if (this->_internal_type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_type(), target);
   }
 
@@ -439,39 +456,40 @@ size_t RegisterVmRequest::ByteSizeLong() const {
   // .vm_permission_service.RegisterVmRequest.VmType type = 3;
   if (this->_internal_type() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void RegisterVmRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const RegisterVmRequest*>(
+  MergeFrom(*::_pbi::DownCast<const RegisterVmRequest*>(
       &from));
 }
 
 void RegisterVmRequest::MergeFrom(const RegisterVmRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_permission_service.RegisterVmRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  RegisterVmRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_permission_service.RegisterVmRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_name().empty()) {
-    _internal_set_name(from._internal_name());
+    _this->_internal_set_name(from._internal_name());
   }
   if (!from._internal_owner_id().empty()) {
-    _internal_set_owner_id(from._internal_owner_id());
+    _this->_internal_set_owner_id(from._internal_owner_id());
   }
   if (from._internal_type() != 0) {
-    _internal_set_type(from._internal_type());
+    _this->_internal_set_type(from._internal_type());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RegisterVmRequest::CopyFrom(const RegisterVmRequest& from) {
@@ -491,16 +509,14 @@ void RegisterVmRequest::InternalSwap(RegisterVmRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, lhs_arena,
-      &other->name_, rhs_arena
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &owner_id_, lhs_arena,
-      &other->owner_id_, rhs_arena
+      &_impl_.owner_id_, lhs_arena,
+      &other->_impl_.owner_id_, rhs_arena
   );
-  swap(type_, other->type_);
+  swap(_impl_.type_, other->_impl_.type_);
 }
 
 std::string RegisterVmRequest::GetTypeName() const {
@@ -517,53 +533,58 @@ class RegisterVmResponse::_Internal {
 RegisterVmResponse::RegisterVmResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_permission_service.RegisterVmResponse)
 }
 RegisterVmResponse::RegisterVmResponse(const RegisterVmResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RegisterVmResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_permission_service.RegisterVmResponse)
 }
 
-inline void RegisterVmResponse::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void RegisterVmResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 RegisterVmResponse::~RegisterVmResponse() {
   // @@protoc_insertion_point(destructor:vm_permission_service.RegisterVmResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void RegisterVmResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
 }
 
-void RegisterVmResponse::ArenaDtor(void* object) {
-  RegisterVmResponse* _this = reinterpret_cast< RegisterVmResponse* >(object);
-  (void)_this;
-}
-void RegisterVmResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void RegisterVmResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RegisterVmResponse::Clear() {
@@ -572,23 +593,23 @@ void RegisterVmResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
+  _impl_.token_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* RegisterVmResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* RegisterVmResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -657,27 +678,28 @@ size_t RegisterVmResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void RegisterVmResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const RegisterVmResponse*>(
+  MergeFrom(*::_pbi::DownCast<const RegisterVmResponse*>(
       &from));
 }
 
 void RegisterVmResponse::MergeFrom(const RegisterVmResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_permission_service.RegisterVmResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  RegisterVmResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_permission_service.RegisterVmResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RegisterVmResponse::CopyFrom(const RegisterVmResponse& from) {
@@ -697,9 +719,8 @@ void RegisterVmResponse::InternalSwap(RegisterVmResponse* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
 }
 
@@ -717,66 +738,73 @@ class UnregisterVmRequest::_Internal {
 UnregisterVmRequest::UnregisterVmRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_permission_service.UnregisterVmRequest)
 }
 UnregisterVmRequest::UnregisterVmRequest(const UnregisterVmRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  UnregisterVmRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.owner_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
   }
-  owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.owner_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_owner_id().empty()) {
-    owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_owner_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.owner_id_.Set(from._internal_owner_id(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_permission_service.UnregisterVmRequest)
 }
 
-inline void UnregisterVmRequest::SharedCtor() {
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void UnregisterVmRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.owner_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 UnregisterVmRequest::~UnregisterVmRequest() {
   // @@protoc_insertion_point(destructor:vm_permission_service.UnregisterVmRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void UnregisterVmRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  owner_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.Destroy();
+  _impl_.owner_id_.Destroy();
 }
 
-void UnregisterVmRequest::ArenaDtor(void* object) {
-  UnregisterVmRequest* _this = reinterpret_cast< UnregisterVmRequest* >(object);
-  (void)_this;
-}
-void UnregisterVmRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void UnregisterVmRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UnregisterVmRequest::Clear() {
@@ -785,24 +813,24 @@ void UnregisterVmRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmpty();
-  owner_id_.ClearToEmpty();
+  _impl_.name_.ClearToEmpty();
+  _impl_.owner_id_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* UnregisterVmRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* UnregisterVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -810,9 +838,9 @@ const char* UnregisterVmRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAME
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_owner_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -898,30 +926,31 @@ size_t UnregisterVmRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void UnregisterVmRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const UnregisterVmRequest*>(
+  MergeFrom(*::_pbi::DownCast<const UnregisterVmRequest*>(
       &from));
 }
 
 void UnregisterVmRequest::MergeFrom(const UnregisterVmRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_permission_service.UnregisterVmRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  UnregisterVmRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_permission_service.UnregisterVmRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_name().empty()) {
-    _internal_set_name(from._internal_name());
+    _this->_internal_set_name(from._internal_name());
   }
   if (!from._internal_owner_id().empty()) {
-    _internal_set_owner_id(from._internal_owner_id());
+    _this->_internal_set_owner_id(from._internal_owner_id());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void UnregisterVmRequest::CopyFrom(const UnregisterVmRequest& from) {
@@ -941,14 +970,12 @@ void UnregisterVmRequest::InternalSwap(UnregisterVmRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, lhs_arena,
-      &other->name_, rhs_arena
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &owner_id_, lhs_arena,
-      &other->owner_id_, rhs_arena
+      &_impl_.owner_id_, lhs_arena,
+      &other->_impl_.owner_id_, rhs_arena
   );
 }
 
@@ -966,47 +993,50 @@ class Permission::_Internal {
 Permission::Permission(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_permission_service.Permission)
 }
 Permission::Permission(const Permission& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  Permission* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.kind_){}
+    , decltype(_impl_.allowed_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&kind_, &from.kind_,
-    static_cast<size_t>(reinterpret_cast<char*>(&allowed_) -
-    reinterpret_cast<char*>(&kind_)) + sizeof(allowed_));
+  ::memcpy(&_impl_.kind_, &from._impl_.kind_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.allowed_) -
+    reinterpret_cast<char*>(&_impl_.kind_)) + sizeof(_impl_.allowed_));
   // @@protoc_insertion_point(copy_constructor:vm_permission_service.Permission)
 }
 
-inline void Permission::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&kind_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&allowed_) -
-    reinterpret_cast<char*>(&kind_)) + sizeof(allowed_));
+inline void Permission::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.kind_){0}
+    , decltype(_impl_.allowed_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 Permission::~Permission() {
   // @@protoc_insertion_point(destructor:vm_permission_service.Permission)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void Permission::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void Permission::ArenaDtor(void* object) {
-  Permission* _this = reinterpret_cast< Permission* >(object);
-  (void)_this;
-}
-void Permission::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void Permission::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Permission::Clear() {
@@ -1015,17 +1045,17 @@ void Permission::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&kind_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&allowed_) -
-      reinterpret_cast<char*>(&kind_)) + sizeof(allowed_));
+  ::memset(&_impl_.kind_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.allowed_) -
+      reinterpret_cast<char*>(&_impl_.kind_)) + sizeof(_impl_.allowed_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* Permission::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Permission::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .vm_permission_service.Permission.Kind kind = 1;
       case 1:
@@ -1039,7 +1069,7 @@ const char* Permission::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
       // bool allowed = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          allowed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.allowed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1076,14 +1106,14 @@ uint8_t* Permission::_InternalSerialize(
   // .vm_permission_service.Permission.Kind kind = 1;
   if (this->_internal_kind() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_kind(), target);
   }
 
   // bool allowed = 2;
   if (this->_internal_allowed() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_allowed(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_allowed(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1105,7 +1135,7 @@ size_t Permission::ByteSizeLong() const {
   // .vm_permission_service.Permission.Kind kind = 1;
   if (this->_internal_kind() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_kind());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_kind());
   }
 
   // bool allowed = 2;
@@ -1116,30 +1146,31 @@ size_t Permission::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void Permission::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const Permission*>(
+  MergeFrom(*::_pbi::DownCast<const Permission*>(
       &from));
 }
 
 void Permission::MergeFrom(const Permission& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_permission_service.Permission)
-  GOOGLE_DCHECK_NE(&from, this);
+  Permission* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_permission_service.Permission)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_kind() != 0) {
-    _internal_set_kind(from._internal_kind());
+    _this->_internal_set_kind(from._internal_kind());
   }
   if (from._internal_allowed() != 0) {
-    _internal_set_allowed(from._internal_allowed());
+    _this->_internal_set_allowed(from._internal_allowed());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Permission::CopyFrom(const Permission& from) {
@@ -1157,11 +1188,11 @@ void Permission::InternalSwap(Permission* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Permission, allowed_)
-      + sizeof(Permission::allowed_)
-      - PROTOBUF_FIELD_OFFSET(Permission, kind_)>(
-          reinterpret_cast<char*>(&kind_),
-          reinterpret_cast<char*>(&other->kind_));
+      PROTOBUF_FIELD_OFFSET(Permission, _impl_.allowed_)
+      + sizeof(Permission::_impl_.allowed_)
+      - PROTOBUF_FIELD_OFFSET(Permission, _impl_.kind_)>(
+          reinterpret_cast<char*>(&_impl_.kind_),
+          reinterpret_cast<char*>(&other->_impl_.kind_));
 }
 
 std::string Permission::GetTypeName() const {
@@ -1177,69 +1208,77 @@ class SetPermissionsRequest::_Internal {
 
 SetPermissionsRequest::SetPermissionsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  permissions_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_permission_service.SetPermissionsRequest)
 }
 SetPermissionsRequest::SetPermissionsRequest(const SetPermissionsRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      permissions_(from.permissions_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SetPermissionsRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.permissions_){from._impl_.permissions_}
+    , decltype(_impl_.name_){}
+    , decltype(_impl_.owner_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
   }
-  owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.owner_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_owner_id().empty()) {
-    owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_owner_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.owner_id_.Set(from._internal_owner_id(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_permission_service.SetPermissionsRequest)
 }
 
-inline void SetPermissionsRequest::SharedCtor() {
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void SetPermissionsRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.permissions_){arena}
+    , decltype(_impl_.name_){}
+    , decltype(_impl_.owner_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SetPermissionsRequest::~SetPermissionsRequest() {
   // @@protoc_insertion_point(destructor:vm_permission_service.SetPermissionsRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SetPermissionsRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  owner_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.permissions_.~RepeatedPtrField();
+  _impl_.name_.Destroy();
+  _impl_.owner_id_.Destroy();
 }
 
-void SetPermissionsRequest::ArenaDtor(void* object) {
-  SetPermissionsRequest* _this = reinterpret_cast< SetPermissionsRequest* >(object);
-  (void)_this;
-}
-void SetPermissionsRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SetPermissionsRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SetPermissionsRequest::Clear() {
@@ -1248,25 +1287,25 @@ void SetPermissionsRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  permissions_.Clear();
-  name_.ClearToEmpty();
-  owner_id_.ClearToEmpty();
+  _impl_.permissions_.Clear();
+  _impl_.name_.ClearToEmpty();
+  _impl_.owner_id_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SetPermissionsRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SetPermissionsRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1274,9 +1313,9 @@ const char* SetPermissionsRequest::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_owner_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1343,11 +1382,11 @@ uint8_t* SetPermissionsRequest::_InternalSerialize(
   }
 
   // repeated .vm_permission_service.Permission permissions = 3;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_permissions_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_permissions_size()); i < n; i++) {
+    const auto& repfield = this->_internal_permissions(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, this->_internal_permissions(i), target, stream);
+        InternalWriteMessage(3, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1368,7 +1407,7 @@ size_t SetPermissionsRequest::ByteSizeLong() const {
 
   // repeated .vm_permission_service.Permission permissions = 3;
   total_size += 1UL * this->_internal_permissions_size();
-  for (const auto& msg : this->permissions_) {
+  for (const auto& msg : this->_impl_.permissions_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1390,31 +1429,32 @@ size_t SetPermissionsRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SetPermissionsRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SetPermissionsRequest*>(
+  MergeFrom(*::_pbi::DownCast<const SetPermissionsRequest*>(
       &from));
 }
 
 void SetPermissionsRequest::MergeFrom(const SetPermissionsRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_permission_service.SetPermissionsRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  SetPermissionsRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_permission_service.SetPermissionsRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  permissions_.MergeFrom(from.permissions_);
+  _this->_impl_.permissions_.MergeFrom(from._impl_.permissions_);
   if (!from._internal_name().empty()) {
-    _internal_set_name(from._internal_name());
+    _this->_internal_set_name(from._internal_name());
   }
   if (!from._internal_owner_id().empty()) {
-    _internal_set_owner_id(from._internal_owner_id());
+    _this->_internal_set_owner_id(from._internal_owner_id());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SetPermissionsRequest::CopyFrom(const SetPermissionsRequest& from) {
@@ -1433,16 +1473,14 @@ void SetPermissionsRequest::InternalSwap(SetPermissionsRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  permissions_.InternalSwap(&other->permissions_);
+  _impl_.permissions_.InternalSwap(&other->_impl_.permissions_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, lhs_arena,
-      &other->name_, rhs_arena
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &owner_id_, lhs_arena,
-      &other->owner_id_, rhs_arena
+      &_impl_.owner_id_, lhs_arena,
+      &other->_impl_.owner_id_, rhs_arena
   );
 }
 
@@ -1460,53 +1498,58 @@ class GetPermissionsRequest::_Internal {
 GetPermissionsRequest::GetPermissionsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_permission_service.GetPermissionsRequest)
 }
 GetPermissionsRequest::GetPermissionsRequest(const GetPermissionsRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetPermissionsRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_permission_service.GetPermissionsRequest)
 }
 
-inline void GetPermissionsRequest::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void GetPermissionsRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetPermissionsRequest::~GetPermissionsRequest() {
   // @@protoc_insertion_point(destructor:vm_permission_service.GetPermissionsRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void GetPermissionsRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
 }
 
-void GetPermissionsRequest::ArenaDtor(void* object) {
-  GetPermissionsRequest* _this = reinterpret_cast< GetPermissionsRequest* >(object);
-  (void)_this;
-}
-void GetPermissionsRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GetPermissionsRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetPermissionsRequest::Clear() {
@@ -1515,23 +1558,23 @@ void GetPermissionsRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
+  _impl_.token_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GetPermissionsRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GetPermissionsRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1600,27 +1643,28 @@ size_t GetPermissionsRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GetPermissionsRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetPermissionsRequest*>(
+  MergeFrom(*::_pbi::DownCast<const GetPermissionsRequest*>(
       &from));
 }
 
 void GetPermissionsRequest::MergeFrom(const GetPermissionsRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_permission_service.GetPermissionsRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetPermissionsRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_permission_service.GetPermissionsRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetPermissionsRequest::CopyFrom(const GetPermissionsRequest& from) {
@@ -1640,9 +1684,8 @@ void GetPermissionsRequest::InternalSwap(GetPermissionsRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
 }
 
@@ -1659,43 +1702,47 @@ class GetPermissionsResponse::_Internal {
 
 GetPermissionsResponse::GetPermissionsResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  permissions_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_permission_service.GetPermissionsResponse)
 }
 GetPermissionsResponse::GetPermissionsResponse(const GetPermissionsResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      permissions_(from.permissions_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetPermissionsResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.permissions_){from._impl_.permissions_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:vm_permission_service.GetPermissionsResponse)
 }
 
-inline void GetPermissionsResponse::SharedCtor() {
+inline void GetPermissionsResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.permissions_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 GetPermissionsResponse::~GetPermissionsResponse() {
   // @@protoc_insertion_point(destructor:vm_permission_service.GetPermissionsResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void GetPermissionsResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.permissions_.~RepeatedPtrField();
 }
 
-void GetPermissionsResponse::ArenaDtor(void* object) {
-  GetPermissionsResponse* _this = reinterpret_cast< GetPermissionsResponse* >(object);
-  (void)_this;
-}
-void GetPermissionsResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GetPermissionsResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetPermissionsResponse::Clear() {
@@ -1704,15 +1751,15 @@ void GetPermissionsResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  permissions_.Clear();
+  _impl_.permissions_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GetPermissionsResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GetPermissionsResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .vm_permission_service.Permission permissions = 1;
       case 1:
@@ -1757,11 +1804,11 @@ uint8_t* GetPermissionsResponse::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .vm_permission_service.Permission permissions = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_permissions_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_permissions_size()); i < n; i++) {
+    const auto& repfield = this->_internal_permissions(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_permissions(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1782,7 +1829,7 @@ size_t GetPermissionsResponse::ByteSizeLong() const {
 
   // repeated .vm_permission_service.Permission permissions = 1;
   total_size += 1UL * this->_internal_permissions_size();
-  for (const auto& msg : this->permissions_) {
+  for (const auto& msg : this->_impl_.permissions_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1790,25 +1837,26 @@ size_t GetPermissionsResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GetPermissionsResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetPermissionsResponse*>(
+  MergeFrom(*::_pbi::DownCast<const GetPermissionsResponse*>(
       &from));
 }
 
 void GetPermissionsResponse::MergeFrom(const GetPermissionsResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_permission_service.GetPermissionsResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetPermissionsResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_permission_service.GetPermissionsResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  permissions_.MergeFrom(from.permissions_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.permissions_.MergeFrom(from._impl_.permissions_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetPermissionsResponse::CopyFrom(const GetPermissionsResponse& from) {
@@ -1825,7 +1873,7 @@ bool GetPermissionsResponse::IsInitialized() const {
 void GetPermissionsResponse::InternalSwap(GetPermissionsResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  permissions_.InternalSwap(&other->permissions_);
+  _impl_.permissions_.InternalSwap(&other->_impl_.permissions_);
 }
 
 std::string GetPermissionsResponse::GetTypeName() const {
@@ -1836,25 +1884,32 @@ std::string GetPermissionsResponse::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace vm_permission_service
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::vm_permission_service::RegisterVmRequest* Arena::CreateMaybeMessage< ::vm_permission_service::RegisterVmRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_permission_service::RegisterVmRequest*
+Arena::CreateMaybeMessage< ::vm_permission_service::RegisterVmRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_permission_service::RegisterVmRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_permission_service::RegisterVmResponse* Arena::CreateMaybeMessage< ::vm_permission_service::RegisterVmResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_permission_service::RegisterVmResponse*
+Arena::CreateMaybeMessage< ::vm_permission_service::RegisterVmResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_permission_service::RegisterVmResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_permission_service::UnregisterVmRequest* Arena::CreateMaybeMessage< ::vm_permission_service::UnregisterVmRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_permission_service::UnregisterVmRequest*
+Arena::CreateMaybeMessage< ::vm_permission_service::UnregisterVmRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_permission_service::UnregisterVmRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_permission_service::Permission* Arena::CreateMaybeMessage< ::vm_permission_service::Permission >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_permission_service::Permission*
+Arena::CreateMaybeMessage< ::vm_permission_service::Permission >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_permission_service::Permission >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_permission_service::SetPermissionsRequest* Arena::CreateMaybeMessage< ::vm_permission_service::SetPermissionsRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_permission_service::SetPermissionsRequest*
+Arena::CreateMaybeMessage< ::vm_permission_service::SetPermissionsRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_permission_service::SetPermissionsRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_permission_service::GetPermissionsRequest* Arena::CreateMaybeMessage< ::vm_permission_service::GetPermissionsRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_permission_service::GetPermissionsRequest*
+Arena::CreateMaybeMessage< ::vm_permission_service::GetPermissionsRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_permission_service::GetPermissionsRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_permission_service::GetPermissionsResponse* Arena::CreateMaybeMessage< ::vm_permission_service::GetPermissionsResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_permission_service::GetPermissionsResponse*
+Arena::CreateMaybeMessage< ::vm_permission_service::GetPermissionsResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_permission_service::GetPermissionsResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

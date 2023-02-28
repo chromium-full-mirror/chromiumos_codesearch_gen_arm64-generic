@@ -13,85 +13,94 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace vm_tools {
 namespace launch {
-constexpr WaylandServer::WaylandServer(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_CONSTEXPR WaylandServer::WaylandServer(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct WaylandServerDefaultTypeInternal {
-  constexpr WaylandServerDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR WaylandServerDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~WaylandServerDefaultTypeInternal() {}
   union {
     WaylandServer _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT WaylandServerDefaultTypeInternal _WaylandServer_default_instance_;
-constexpr StartWaylandServerRequest::StartWaylandServerRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , vm_type_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 WaylandServerDefaultTypeInternal _WaylandServer_default_instance_;
+PROTOBUF_CONSTEXPR StartWaylandServerRequest::StartWaylandServerRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.vm_type_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StartWaylandServerRequestDefaultTypeInternal {
-  constexpr StartWaylandServerRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StartWaylandServerRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~StartWaylandServerRequestDefaultTypeInternal() {}
   union {
     StartWaylandServerRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StartWaylandServerRequestDefaultTypeInternal _StartWaylandServerRequest_default_instance_;
-constexpr StartWaylandServerResponse::StartWaylandServerResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : server_(nullptr){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StartWaylandServerRequestDefaultTypeInternal _StartWaylandServerRequest_default_instance_;
+PROTOBUF_CONSTEXPR StartWaylandServerResponse::StartWaylandServerResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.server_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StartWaylandServerResponseDefaultTypeInternal {
-  constexpr StartWaylandServerResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StartWaylandServerResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~StartWaylandServerResponseDefaultTypeInternal() {}
   union {
     StartWaylandServerResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StartWaylandServerResponseDefaultTypeInternal _StartWaylandServerResponse_default_instance_;
-constexpr StopWaylandServerRequest::StopWaylandServerRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , server_(nullptr){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StartWaylandServerResponseDefaultTypeInternal _StartWaylandServerResponse_default_instance_;
+PROTOBUF_CONSTEXPR StopWaylandServerRequest::StopWaylandServerRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.server_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StopWaylandServerRequestDefaultTypeInternal {
-  constexpr StopWaylandServerRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StopWaylandServerRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~StopWaylandServerRequestDefaultTypeInternal() {}
   union {
     StopWaylandServerRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StopWaylandServerRequestDefaultTypeInternal _StopWaylandServerRequest_default_instance_;
-constexpr EnsureVmLaunchedRequest::EnsureVmLaunchedRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : launch_descriptors_()
-  , owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StopWaylandServerRequestDefaultTypeInternal _StopWaylandServerRequest_default_instance_;
+PROTOBUF_CONSTEXPR EnsureVmLaunchedRequest::EnsureVmLaunchedRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.launch_descriptors_)*/{}
+  , /*decltype(_impl_.owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct EnsureVmLaunchedRequestDefaultTypeInternal {
-  constexpr EnsureVmLaunchedRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR EnsureVmLaunchedRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~EnsureVmLaunchedRequestDefaultTypeInternal() {}
   union {
     EnsureVmLaunchedRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT EnsureVmLaunchedRequestDefaultTypeInternal _EnsureVmLaunchedRequest_default_instance_;
-constexpr EnsureVmLaunchedResponse::EnsureVmLaunchedResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : vm_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , container_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EnsureVmLaunchedRequestDefaultTypeInternal _EnsureVmLaunchedRequest_default_instance_;
+PROTOBUF_CONSTEXPR EnsureVmLaunchedResponse::EnsureVmLaunchedResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.vm_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.container_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct EnsureVmLaunchedResponseDefaultTypeInternal {
-  constexpr EnsureVmLaunchedResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR EnsureVmLaunchedResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~EnsureVmLaunchedResponseDefaultTypeInternal() {}
   union {
     EnsureVmLaunchedResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT EnsureVmLaunchedResponseDefaultTypeInternal _EnsureVmLaunchedResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EnsureVmLaunchedResponseDefaultTypeInternal _EnsureVmLaunchedResponse_default_instance_;
 }  // namespace launch
 }  // namespace vm_tools
 namespace vm_tools {
@@ -161,53 +170,58 @@ class WaylandServer::_Internal {
 WaylandServer::WaylandServer(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.launch.WaylandServer)
 }
 WaylandServer::WaylandServer(const WaylandServer& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  WaylandServer* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.path_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_path().empty()) {
-    path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.path_.Set(from._internal_path(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.launch.WaylandServer)
 }
 
-inline void WaylandServer::SharedCtor() {
-path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void WaylandServer::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.path_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 WaylandServer::~WaylandServer() {
   // @@protoc_insertion_point(destructor:vm_tools.launch.WaylandServer)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void WaylandServer::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.path_.Destroy();
 }
 
-void WaylandServer::ArenaDtor(void* object) {
-  WaylandServer* _this = reinterpret_cast< WaylandServer* >(object);
-  (void)_this;
-}
-void WaylandServer::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void WaylandServer::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void WaylandServer::Clear() {
@@ -216,23 +230,23 @@ void WaylandServer::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  path_.ClearToEmpty();
+  _impl_.path_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* WaylandServer::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* WaylandServer::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string path = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -301,27 +315,28 @@ size_t WaylandServer::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void WaylandServer::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const WaylandServer*>(
+  MergeFrom(*::_pbi::DownCast<const WaylandServer*>(
       &from));
 }
 
 void WaylandServer::MergeFrom(const WaylandServer& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.launch.WaylandServer)
-  GOOGLE_DCHECK_NE(&from, this);
+  WaylandServer* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.launch.WaylandServer)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_path().empty()) {
-    _internal_set_path(from._internal_path());
+    _this->_internal_set_path(from._internal_path());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void WaylandServer::CopyFrom(const WaylandServer& from) {
@@ -341,9 +356,8 @@ void WaylandServer::InternalSwap(WaylandServer* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &path_, lhs_arena,
-      &other->path_, rhs_arena
+      &_impl_.path_, lhs_arena,
+      &other->_impl_.path_, rhs_arena
   );
 }
 
@@ -361,55 +375,61 @@ class StartWaylandServerRequest::_Internal {
 StartWaylandServerRequest::StartWaylandServerRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.launch.StartWaylandServerRequest)
 }
 StartWaylandServerRequest::StartWaylandServerRequest(const StartWaylandServerRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  StartWaylandServerRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.owner_id_){}
+    , decltype(_impl_.vm_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.owner_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_owner_id().empty()) {
-    owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_owner_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.owner_id_.Set(from._internal_owner_id(), 
+      _this->GetArenaForAllocation());
   }
-  vm_type_ = from.vm_type_;
+  _this->_impl_.vm_type_ = from._impl_.vm_type_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.launch.StartWaylandServerRequest)
 }
 
-inline void StartWaylandServerRequest::SharedCtor() {
-owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-vm_type_ = 0;
+inline void StartWaylandServerRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.owner_id_){}
+    , decltype(_impl_.vm_type_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 StartWaylandServerRequest::~StartWaylandServerRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.launch.StartWaylandServerRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void StartWaylandServerRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  owner_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.owner_id_.Destroy();
 }
 
-void StartWaylandServerRequest::ArenaDtor(void* object) {
-  StartWaylandServerRequest* _this = reinterpret_cast< StartWaylandServerRequest* >(object);
-  (void)_this;
-}
-void StartWaylandServerRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void StartWaylandServerRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void StartWaylandServerRequest::Clear() {
@@ -418,24 +438,24 @@ void StartWaylandServerRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  owner_id_.ClearToEmpty();
-  vm_type_ = 0;
+  _impl_.owner_id_.ClearToEmpty();
+  _impl_.vm_type_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* StartWaylandServerRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* StartWaylandServerRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string owner_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_owner_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -490,7 +510,7 @@ uint8_t* StartWaylandServerRequest::_InternalSerialize(
   // .vm_tools.launch.VmType vm_type = 2;
   if (this->_internal_vm_type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_vm_type(), target);
   }
 
@@ -520,36 +540,37 @@ size_t StartWaylandServerRequest::ByteSizeLong() const {
   // .vm_tools.launch.VmType vm_type = 2;
   if (this->_internal_vm_type() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_vm_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_vm_type());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void StartWaylandServerRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const StartWaylandServerRequest*>(
+  MergeFrom(*::_pbi::DownCast<const StartWaylandServerRequest*>(
       &from));
 }
 
 void StartWaylandServerRequest::MergeFrom(const StartWaylandServerRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.launch.StartWaylandServerRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  StartWaylandServerRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.launch.StartWaylandServerRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_owner_id().empty()) {
-    _internal_set_owner_id(from._internal_owner_id());
+    _this->_internal_set_owner_id(from._internal_owner_id());
   }
   if (from._internal_vm_type() != 0) {
-    _internal_set_vm_type(from._internal_vm_type());
+    _this->_internal_set_vm_type(from._internal_vm_type());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void StartWaylandServerRequest::CopyFrom(const StartWaylandServerRequest& from) {
@@ -569,11 +590,10 @@ void StartWaylandServerRequest::InternalSwap(StartWaylandServerRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &owner_id_, lhs_arena,
-      &other->owner_id_, rhs_arena
+      &_impl_.owner_id_, lhs_arena,
+      &other->_impl_.owner_id_, rhs_arena
   );
-  swap(vm_type_, other->vm_type_);
+  swap(_impl_.vm_type_, other->_impl_.vm_type_);
 }
 
 std::string StartWaylandServerRequest::GetTypeName() const {
@@ -590,52 +610,54 @@ class StartWaylandServerResponse::_Internal {
 
 const ::vm_tools::launch::WaylandServer&
 StartWaylandServerResponse::_Internal::server(const StartWaylandServerResponse* msg) {
-  return *msg->server_;
+  return *msg->_impl_.server_;
 }
 StartWaylandServerResponse::StartWaylandServerResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.launch.StartWaylandServerResponse)
 }
 StartWaylandServerResponse::StartWaylandServerResponse(const StartWaylandServerResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  StartWaylandServerResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.server_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_server()) {
-    server_ = new ::vm_tools::launch::WaylandServer(*from.server_);
-  } else {
-    server_ = nullptr;
+    _this->_impl_.server_ = new ::vm_tools::launch::WaylandServer(*from._impl_.server_);
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.launch.StartWaylandServerResponse)
 }
 
-inline void StartWaylandServerResponse::SharedCtor() {
-server_ = nullptr;
+inline void StartWaylandServerResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.server_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 StartWaylandServerResponse::~StartWaylandServerResponse() {
   // @@protoc_insertion_point(destructor:vm_tools.launch.StartWaylandServerResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void StartWaylandServerResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete server_;
+  if (this != internal_default_instance()) delete _impl_.server_;
 }
 
-void StartWaylandServerResponse::ArenaDtor(void* object) {
-  StartWaylandServerResponse* _this = reinterpret_cast< StartWaylandServerResponse* >(object);
-  (void)_this;
-}
-void StartWaylandServerResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void StartWaylandServerResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void StartWaylandServerResponse::Clear() {
@@ -644,18 +666,18 @@ void StartWaylandServerResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && server_ != nullptr) {
-    delete server_;
+  if (GetArenaForAllocation() == nullptr && _impl_.server_ != nullptr) {
+    delete _impl_.server_;
   }
-  server_ = nullptr;
+  _impl_.server_ = nullptr;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* StartWaylandServerResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* StartWaylandServerResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .vm_tools.launch.WaylandServer server = 1;
       case 1:
@@ -696,10 +718,9 @@ uint8_t* StartWaylandServerResponse::_InternalSerialize(
 
   // .vm_tools.launch.WaylandServer server = 1;
   if (this->_internal_has_server()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::server(this), target, stream);
+      InternalWriteMessage(1, _Internal::server(this),
+        _Internal::server(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -722,33 +743,35 @@ size_t StartWaylandServerResponse::ByteSizeLong() const {
   if (this->_internal_has_server()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *server_);
+        *_impl_.server_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void StartWaylandServerResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const StartWaylandServerResponse*>(
+  MergeFrom(*::_pbi::DownCast<const StartWaylandServerResponse*>(
       &from));
 }
 
 void StartWaylandServerResponse::MergeFrom(const StartWaylandServerResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.launch.StartWaylandServerResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  StartWaylandServerResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.launch.StartWaylandServerResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_server()) {
-    _internal_mutable_server()->::vm_tools::launch::WaylandServer::MergeFrom(from._internal_server());
+    _this->_internal_mutable_server()->::vm_tools::launch::WaylandServer::MergeFrom(
+        from._internal_server());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void StartWaylandServerResponse::CopyFrom(const StartWaylandServerResponse& from) {
@@ -765,7 +788,7 @@ bool StartWaylandServerResponse::IsInitialized() const {
 void StartWaylandServerResponse::InternalSwap(StartWaylandServerResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(server_, other->server_);
+  swap(_impl_.server_, other->_impl_.server_);
 }
 
 std::string StartWaylandServerResponse::GetTypeName() const {
@@ -782,65 +805,69 @@ class StopWaylandServerRequest::_Internal {
 
 const ::vm_tools::launch::WaylandServer&
 StopWaylandServerRequest::_Internal::server(const StopWaylandServerRequest* msg) {
-  return *msg->server_;
+  return *msg->_impl_.server_;
 }
 StopWaylandServerRequest::StopWaylandServerRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.launch.StopWaylandServerRequest)
 }
 StopWaylandServerRequest::StopWaylandServerRequest(const StopWaylandServerRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  StopWaylandServerRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.owner_id_){}
+    , decltype(_impl_.server_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.owner_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_owner_id().empty()) {
-    owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_owner_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.owner_id_.Set(from._internal_owner_id(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_server()) {
-    server_ = new ::vm_tools::launch::WaylandServer(*from.server_);
-  } else {
-    server_ = nullptr;
+    _this->_impl_.server_ = new ::vm_tools::launch::WaylandServer(*from._impl_.server_);
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.launch.StopWaylandServerRequest)
 }
 
-inline void StopWaylandServerRequest::SharedCtor() {
-owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-server_ = nullptr;
+inline void StopWaylandServerRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.owner_id_){}
+    , decltype(_impl_.server_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 StopWaylandServerRequest::~StopWaylandServerRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.launch.StopWaylandServerRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void StopWaylandServerRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  owner_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete server_;
+  _impl_.owner_id_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.server_;
 }
 
-void StopWaylandServerRequest::ArenaDtor(void* object) {
-  StopWaylandServerRequest* _this = reinterpret_cast< StopWaylandServerRequest* >(object);
-  (void)_this;
-}
-void StopWaylandServerRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void StopWaylandServerRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void StopWaylandServerRequest::Clear() {
@@ -849,27 +876,27 @@ void StopWaylandServerRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  owner_id_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && server_ != nullptr) {
-    delete server_;
+  _impl_.owner_id_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.server_ != nullptr) {
+    delete _impl_.server_;
   }
-  server_ = nullptr;
+  _impl_.server_ = nullptr;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* StopWaylandServerRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* StopWaylandServerRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string owner_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_owner_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -922,10 +949,9 @@ uint8_t* StopWaylandServerRequest::_InternalSerialize(
 
   // .vm_tools.launch.WaylandServer server = 2;
   if (this->_internal_has_server()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::server(this), target, stream);
+      InternalWriteMessage(2, _Internal::server(this),
+        _Internal::server(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -955,36 +981,38 @@ size_t StopWaylandServerRequest::ByteSizeLong() const {
   if (this->_internal_has_server()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *server_);
+        *_impl_.server_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void StopWaylandServerRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const StopWaylandServerRequest*>(
+  MergeFrom(*::_pbi::DownCast<const StopWaylandServerRequest*>(
       &from));
 }
 
 void StopWaylandServerRequest::MergeFrom(const StopWaylandServerRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.launch.StopWaylandServerRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  StopWaylandServerRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.launch.StopWaylandServerRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_owner_id().empty()) {
-    _internal_set_owner_id(from._internal_owner_id());
+    _this->_internal_set_owner_id(from._internal_owner_id());
   }
   if (from._internal_has_server()) {
-    _internal_mutable_server()->::vm_tools::launch::WaylandServer::MergeFrom(from._internal_server());
+    _this->_internal_mutable_server()->::vm_tools::launch::WaylandServer::MergeFrom(
+        from._internal_server());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void StopWaylandServerRequest::CopyFrom(const StopWaylandServerRequest& from) {
@@ -1004,11 +1032,10 @@ void StopWaylandServerRequest::InternalSwap(StopWaylandServerRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &owner_id_, lhs_arena,
-      &other->owner_id_, rhs_arena
+      &_impl_.owner_id_, lhs_arena,
+      &other->_impl_.owner_id_, rhs_arena
   );
-  swap(server_, other->server_);
+  swap(_impl_.server_, other->_impl_.server_);
 }
 
 std::string StopWaylandServerRequest::GetTypeName() const {
@@ -1024,56 +1051,62 @@ class EnsureVmLaunchedRequest::_Internal {
 
 EnsureVmLaunchedRequest::EnsureVmLaunchedRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  launch_descriptors_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.launch.EnsureVmLaunchedRequest)
 }
 EnsureVmLaunchedRequest::EnsureVmLaunchedRequest(const EnsureVmLaunchedRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      launch_descriptors_(from.launch_descriptors_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  EnsureVmLaunchedRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.launch_descriptors_){from._impl_.launch_descriptors_}
+    , decltype(_impl_.owner_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.owner_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_owner_id().empty()) {
-    owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_owner_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.owner_id_.Set(from._internal_owner_id(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.launch.EnsureVmLaunchedRequest)
 }
 
-inline void EnsureVmLaunchedRequest::SharedCtor() {
-owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void EnsureVmLaunchedRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.launch_descriptors_){arena}
+    , decltype(_impl_.owner_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 EnsureVmLaunchedRequest::~EnsureVmLaunchedRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.launch.EnsureVmLaunchedRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void EnsureVmLaunchedRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  owner_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.launch_descriptors_.~RepeatedPtrField();
+  _impl_.owner_id_.Destroy();
 }
 
-void EnsureVmLaunchedRequest::ArenaDtor(void* object) {
-  EnsureVmLaunchedRequest* _this = reinterpret_cast< EnsureVmLaunchedRequest* >(object);
-  (void)_this;
-}
-void EnsureVmLaunchedRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void EnsureVmLaunchedRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void EnsureVmLaunchedRequest::Clear() {
@@ -1082,24 +1115,24 @@ void EnsureVmLaunchedRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  launch_descriptors_.Clear();
-  owner_id_.ClearToEmpty();
+  _impl_.launch_descriptors_.Clear();
+  _impl_.owner_id_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* EnsureVmLaunchedRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* EnsureVmLaunchedRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string owner_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_owner_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1110,9 +1143,9 @@ const char* EnsureVmLaunchedRequest::_InternalParse(const char* ptr, ::PROTOBUF_
           do {
             ptr += 1;
             auto str = _internal_add_launch_descriptors();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, nullptr));
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
         } else
@@ -1185,10 +1218,10 @@ size_t EnsureVmLaunchedRequest::ByteSizeLong() const {
 
   // repeated string launch_descriptors = 2;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(launch_descriptors_.size());
-  for (int i = 0, n = launch_descriptors_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.launch_descriptors_.size());
+  for (int i = 0, n = _impl_.launch_descriptors_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      launch_descriptors_.Get(i));
+      _impl_.launch_descriptors_.Get(i));
   }
 
   // string owner_id = 1;
@@ -1201,28 +1234,29 @@ size_t EnsureVmLaunchedRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void EnsureVmLaunchedRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const EnsureVmLaunchedRequest*>(
+  MergeFrom(*::_pbi::DownCast<const EnsureVmLaunchedRequest*>(
       &from));
 }
 
 void EnsureVmLaunchedRequest::MergeFrom(const EnsureVmLaunchedRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.launch.EnsureVmLaunchedRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  EnsureVmLaunchedRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.launch.EnsureVmLaunchedRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  launch_descriptors_.MergeFrom(from.launch_descriptors_);
+  _this->_impl_.launch_descriptors_.MergeFrom(from._impl_.launch_descriptors_);
   if (!from._internal_owner_id().empty()) {
-    _internal_set_owner_id(from._internal_owner_id());
+    _this->_internal_set_owner_id(from._internal_owner_id());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void EnsureVmLaunchedRequest::CopyFrom(const EnsureVmLaunchedRequest& from) {
@@ -1241,11 +1275,10 @@ void EnsureVmLaunchedRequest::InternalSwap(EnsureVmLaunchedRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  launch_descriptors_.InternalSwap(&other->launch_descriptors_);
+  _impl_.launch_descriptors_.InternalSwap(&other->_impl_.launch_descriptors_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &owner_id_, lhs_arena,
-      &other->owner_id_, rhs_arena
+      &_impl_.owner_id_, lhs_arena,
+      &other->_impl_.owner_id_, rhs_arena
   );
 }
 
@@ -1263,66 +1296,73 @@ class EnsureVmLaunchedResponse::_Internal {
 EnsureVmLaunchedResponse::EnsureVmLaunchedResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.launch.EnsureVmLaunchedResponse)
 }
 EnsureVmLaunchedResponse::EnsureVmLaunchedResponse(const EnsureVmLaunchedResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  EnsureVmLaunchedResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vm_name_){}
+    , decltype(_impl_.container_name_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  vm_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.vm_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    vm_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_vm_name().empty()) {
-    vm_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_vm_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.vm_name_.Set(from._internal_vm_name(), 
+      _this->GetArenaForAllocation());
   }
-  container_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.container_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    container_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.container_name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_container_name().empty()) {
-    container_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_container_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.container_name_.Set(from._internal_container_name(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.launch.EnsureVmLaunchedResponse)
 }
 
-inline void EnsureVmLaunchedResponse::SharedCtor() {
-vm_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  vm_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-container_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  container_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void EnsureVmLaunchedResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vm_name_){}
+    , decltype(_impl_.container_name_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.vm_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.container_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.container_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 EnsureVmLaunchedResponse::~EnsureVmLaunchedResponse() {
   // @@protoc_insertion_point(destructor:vm_tools.launch.EnsureVmLaunchedResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void EnsureVmLaunchedResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  vm_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  container_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.vm_name_.Destroy();
+  _impl_.container_name_.Destroy();
 }
 
-void EnsureVmLaunchedResponse::ArenaDtor(void* object) {
-  EnsureVmLaunchedResponse* _this = reinterpret_cast< EnsureVmLaunchedResponse* >(object);
-  (void)_this;
-}
-void EnsureVmLaunchedResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void EnsureVmLaunchedResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void EnsureVmLaunchedResponse::Clear() {
@@ -1331,24 +1371,24 @@ void EnsureVmLaunchedResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  vm_name_.ClearToEmpty();
-  container_name_.ClearToEmpty();
+  _impl_.vm_name_.ClearToEmpty();
+  _impl_.container_name_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* EnsureVmLaunchedResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* EnsureVmLaunchedResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string vm_name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_vm_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1356,9 +1396,9 @@ const char* EnsureVmLaunchedResponse::_InternalParse(const char* ptr, ::PROTOBUF
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_container_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1444,30 +1484,31 @@ size_t EnsureVmLaunchedResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void EnsureVmLaunchedResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const EnsureVmLaunchedResponse*>(
+  MergeFrom(*::_pbi::DownCast<const EnsureVmLaunchedResponse*>(
       &from));
 }
 
 void EnsureVmLaunchedResponse::MergeFrom(const EnsureVmLaunchedResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.launch.EnsureVmLaunchedResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  EnsureVmLaunchedResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.launch.EnsureVmLaunchedResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_vm_name().empty()) {
-    _internal_set_vm_name(from._internal_vm_name());
+    _this->_internal_set_vm_name(from._internal_vm_name());
   }
   if (!from._internal_container_name().empty()) {
-    _internal_set_container_name(from._internal_container_name());
+    _this->_internal_set_container_name(from._internal_container_name());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void EnsureVmLaunchedResponse::CopyFrom(const EnsureVmLaunchedResponse& from) {
@@ -1487,14 +1528,12 @@ void EnsureVmLaunchedResponse::InternalSwap(EnsureVmLaunchedResponse* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &vm_name_, lhs_arena,
-      &other->vm_name_, rhs_arena
+      &_impl_.vm_name_, lhs_arena,
+      &other->_impl_.vm_name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &container_name_, lhs_arena,
-      &other->container_name_, rhs_arena
+      &_impl_.container_name_, lhs_arena,
+      &other->_impl_.container_name_, rhs_arena
   );
 }
 
@@ -1507,22 +1546,28 @@ std::string EnsureVmLaunchedResponse::GetTypeName() const {
 }  // namespace launch
 }  // namespace vm_tools
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::vm_tools::launch::WaylandServer* Arena::CreateMaybeMessage< ::vm_tools::launch::WaylandServer >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::launch::WaylandServer*
+Arena::CreateMaybeMessage< ::vm_tools::launch::WaylandServer >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::launch::WaylandServer >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::launch::StartWaylandServerRequest* Arena::CreateMaybeMessage< ::vm_tools::launch::StartWaylandServerRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::launch::StartWaylandServerRequest*
+Arena::CreateMaybeMessage< ::vm_tools::launch::StartWaylandServerRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::launch::StartWaylandServerRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::launch::StartWaylandServerResponse* Arena::CreateMaybeMessage< ::vm_tools::launch::StartWaylandServerResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::launch::StartWaylandServerResponse*
+Arena::CreateMaybeMessage< ::vm_tools::launch::StartWaylandServerResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::launch::StartWaylandServerResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::launch::StopWaylandServerRequest* Arena::CreateMaybeMessage< ::vm_tools::launch::StopWaylandServerRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::launch::StopWaylandServerRequest*
+Arena::CreateMaybeMessage< ::vm_tools::launch::StopWaylandServerRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::launch::StopWaylandServerRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::launch::EnsureVmLaunchedRequest* Arena::CreateMaybeMessage< ::vm_tools::launch::EnsureVmLaunchedRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::launch::EnsureVmLaunchedRequest*
+Arena::CreateMaybeMessage< ::vm_tools::launch::EnsureVmLaunchedRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::launch::EnsureVmLaunchedRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::launch::EnsureVmLaunchedResponse* Arena::CreateMaybeMessage< ::vm_tools::launch::EnsureVmLaunchedResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::launch::EnsureVmLaunchedResponse*
+Arena::CreateMaybeMessage< ::vm_tools::launch::EnsureVmLaunchedResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::launch::EnsureVmLaunchedResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

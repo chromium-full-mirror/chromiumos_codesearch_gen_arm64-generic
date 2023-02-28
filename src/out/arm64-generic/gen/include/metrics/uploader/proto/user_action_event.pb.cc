@@ -13,20 +13,26 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace metrics {
-constexpr UserActionEventProto::UserActionEventProto(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : name_hash_(uint64_t{0u})
-  , time_(int64_t{0}){}
+PROTOBUF_CONSTEXPR UserActionEventProto::UserActionEventProto(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.name_hash_)*/uint64_t{0u}
+  , /*decltype(_impl_.time_)*/int64_t{0}} {}
 struct UserActionEventProtoDefaultTypeInternal {
-  constexpr UserActionEventProtoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UserActionEventProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UserActionEventProtoDefaultTypeInternal() {}
   union {
     UserActionEventProto _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UserActionEventProtoDefaultTypeInternal _UserActionEventProto_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UserActionEventProtoDefaultTypeInternal _UserActionEventProto_default_instance_;
 }  // namespace metrics
 namespace metrics {
 
@@ -34,7 +40,7 @@ namespace metrics {
 
 class UserActionEventProto::_Internal {
  public:
-  using HasBits = decltype(std::declval<UserActionEventProto>()._has_bits_);
+  using HasBits = decltype(std::declval<UserActionEventProto>()._impl_._has_bits_);
   static void set_has_name_hash(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -46,48 +52,52 @@ class UserActionEventProto::_Internal {
 UserActionEventProto::UserActionEventProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:metrics.UserActionEventProto)
 }
 UserActionEventProto::UserActionEventProto(const UserActionEventProto& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  UserActionEventProto* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.name_hash_){}
+    , decltype(_impl_.time_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&name_hash_, &from.name_hash_,
-    static_cast<size_t>(reinterpret_cast<char*>(&time_) -
-    reinterpret_cast<char*>(&name_hash_)) + sizeof(time_));
+  ::memcpy(&_impl_.name_hash_, &from._impl_.name_hash_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.time_) -
+    reinterpret_cast<char*>(&_impl_.name_hash_)) + sizeof(_impl_.time_));
   // @@protoc_insertion_point(copy_constructor:metrics.UserActionEventProto)
 }
 
-inline void UserActionEventProto::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&name_hash_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&time_) -
-    reinterpret_cast<char*>(&name_hash_)) + sizeof(time_));
+inline void UserActionEventProto::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.name_hash_){uint64_t{0u}}
+    , decltype(_impl_.time_){int64_t{0}}
+  };
 }
 
 UserActionEventProto::~UserActionEventProto() {
   // @@protoc_insertion_point(destructor:metrics.UserActionEventProto)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void UserActionEventProto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void UserActionEventProto::ArenaDtor(void* object) {
-  UserActionEventProto* _this = reinterpret_cast< UserActionEventProto* >(object);
-  (void)_this;
-}
-void UserActionEventProto::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void UserActionEventProto::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UserActionEventProto::Clear() {
@@ -96,28 +106,28 @@ void UserActionEventProto::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&name_hash_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&time_) -
-        reinterpret_cast<char*>(&name_hash_)) + sizeof(time_));
+    ::memset(&_impl_.name_hash_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.time_) -
+        reinterpret_cast<char*>(&_impl_.name_hash_)) + sizeof(_impl_.time_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* UserActionEventProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* UserActionEventProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional fixed64 name_hash = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 9)) {
           _Internal::set_has_name_hash(&has_bits);
-          name_hash_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<uint64_t>(ptr);
+          _impl_.name_hash_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<uint64_t>(ptr);
           ptr += sizeof(uint64_t);
         } else
           goto handle_unusual;
@@ -126,7 +136,7 @@ const char* UserActionEventProto::_InternalParse(const char* ptr, ::PROTOBUF_NAM
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_time(&has_bits);
-          time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -147,7 +157,7 @@ const char* UserActionEventProto::_InternalParse(const char* ptr, ::PROTOBUF_NAM
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -161,17 +171,17 @@ uint8_t* UserActionEventProto::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional fixed64 name_hash = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFixed64ToArray(1, this->_internal_name_hash(), target);
+    target = ::_pbi::WireFormatLite::WriteFixed64ToArray(1, this->_internal_name_hash(), target);
   }
 
   // optional int64 time = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_time(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_time(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -190,7 +200,7 @@ size_t UserActionEventProto::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional fixed64 name_hash = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -199,41 +209,42 @@ size_t UserActionEventProto::ByteSizeLong() const {
 
     // optional int64 time = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_time());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_time());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void UserActionEventProto::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const UserActionEventProto*>(
+  MergeFrom(*::_pbi::DownCast<const UserActionEventProto*>(
       &from));
 }
 
 void UserActionEventProto::MergeFrom(const UserActionEventProto& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:metrics.UserActionEventProto)
-  GOOGLE_DCHECK_NE(&from, this);
+  UserActionEventProto* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:metrics.UserActionEventProto)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      name_hash_ = from.name_hash_;
+      _this->_impl_.name_hash_ = from._impl_.name_hash_;
     }
     if (cached_has_bits & 0x00000002u) {
-      time_ = from.time_;
+      _this->_impl_.time_ = from._impl_.time_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void UserActionEventProto::CopyFrom(const UserActionEventProto& from) {
@@ -250,13 +261,13 @@ bool UserActionEventProto::IsInitialized() const {
 void UserActionEventProto::InternalSwap(UserActionEventProto* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(UserActionEventProto, time_)
-      + sizeof(UserActionEventProto::time_)
-      - PROTOBUF_FIELD_OFFSET(UserActionEventProto, name_hash_)>(
-          reinterpret_cast<char*>(&name_hash_),
-          reinterpret_cast<char*>(&other->name_hash_));
+      PROTOBUF_FIELD_OFFSET(UserActionEventProto, _impl_.time_)
+      + sizeof(UserActionEventProto::_impl_.time_)
+      - PROTOBUF_FIELD_OFFSET(UserActionEventProto, _impl_.name_hash_)>(
+          reinterpret_cast<char*>(&_impl_.name_hash_),
+          reinterpret_cast<char*>(&other->_impl_.name_hash_));
 }
 
 std::string UserActionEventProto::GetTypeName() const {
@@ -267,7 +278,8 @@ std::string UserActionEventProto::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace metrics
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::metrics::UserActionEventProto* Arena::CreateMaybeMessage< ::metrics::UserActionEventProto >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::metrics::UserActionEventProto*
+Arena::CreateMaybeMessage< ::metrics::UserActionEventProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::metrics::UserActionEventProto >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

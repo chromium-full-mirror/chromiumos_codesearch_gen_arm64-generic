@@ -13,32 +13,38 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace chaps {
-constexpr KeyPermissions_KeyUsages::KeyPermissions_KeyUsages(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : corporate_(false)
-  , arc_(false){}
+PROTOBUF_CONSTEXPR KeyPermissions_KeyUsages::KeyPermissions_KeyUsages(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.corporate_)*/false
+  , /*decltype(_impl_.arc_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct KeyPermissions_KeyUsagesDefaultTypeInternal {
-  constexpr KeyPermissions_KeyUsagesDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR KeyPermissions_KeyUsagesDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~KeyPermissions_KeyUsagesDefaultTypeInternal() {}
   union {
     KeyPermissions_KeyUsages _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT KeyPermissions_KeyUsagesDefaultTypeInternal _KeyPermissions_KeyUsages_default_instance_;
-constexpr KeyPermissions::KeyPermissions(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : key_usages_(nullptr){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyPermissions_KeyUsagesDefaultTypeInternal _KeyPermissions_KeyUsages_default_instance_;
+PROTOBUF_CONSTEXPR KeyPermissions::KeyPermissions(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.key_usages_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct KeyPermissionsDefaultTypeInternal {
-  constexpr KeyPermissionsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR KeyPermissionsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~KeyPermissionsDefaultTypeInternal() {}
   union {
     KeyPermissions _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT KeyPermissionsDefaultTypeInternal _KeyPermissions_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 KeyPermissionsDefaultTypeInternal _KeyPermissions_default_instance_;
 }  // namespace chaps
 namespace chaps {
 
@@ -51,47 +57,50 @@ class KeyPermissions_KeyUsages::_Internal {
 KeyPermissions_KeyUsages::KeyPermissions_KeyUsages(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chaps.KeyPermissions.KeyUsages)
 }
 KeyPermissions_KeyUsages::KeyPermissions_KeyUsages(const KeyPermissions_KeyUsages& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  KeyPermissions_KeyUsages* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.corporate_){}
+    , decltype(_impl_.arc_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&corporate_, &from.corporate_,
-    static_cast<size_t>(reinterpret_cast<char*>(&arc_) -
-    reinterpret_cast<char*>(&corporate_)) + sizeof(arc_));
+  ::memcpy(&_impl_.corporate_, &from._impl_.corporate_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.arc_) -
+    reinterpret_cast<char*>(&_impl_.corporate_)) + sizeof(_impl_.arc_));
   // @@protoc_insertion_point(copy_constructor:chaps.KeyPermissions.KeyUsages)
 }
 
-inline void KeyPermissions_KeyUsages::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&corporate_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&arc_) -
-    reinterpret_cast<char*>(&corporate_)) + sizeof(arc_));
+inline void KeyPermissions_KeyUsages::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.corporate_){false}
+    , decltype(_impl_.arc_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 KeyPermissions_KeyUsages::~KeyPermissions_KeyUsages() {
   // @@protoc_insertion_point(destructor:chaps.KeyPermissions.KeyUsages)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void KeyPermissions_KeyUsages::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void KeyPermissions_KeyUsages::ArenaDtor(void* object) {
-  KeyPermissions_KeyUsages* _this = reinterpret_cast< KeyPermissions_KeyUsages* >(object);
-  (void)_this;
-}
-void KeyPermissions_KeyUsages::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void KeyPermissions_KeyUsages::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void KeyPermissions_KeyUsages::Clear() {
@@ -100,22 +109,22 @@ void KeyPermissions_KeyUsages::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&corporate_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&arc_) -
-      reinterpret_cast<char*>(&corporate_)) + sizeof(arc_));
+  ::memset(&_impl_.corporate_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.arc_) -
+      reinterpret_cast<char*>(&_impl_.corporate_)) + sizeof(_impl_.arc_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* KeyPermissions_KeyUsages::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* KeyPermissions_KeyUsages::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bool corporate = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          corporate_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.corporate_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -123,7 +132,7 @@ const char* KeyPermissions_KeyUsages::_InternalParse(const char* ptr, ::PROTOBUF
       // bool arc = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          arc_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.arc_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -160,13 +169,13 @@ uint8_t* KeyPermissions_KeyUsages::_InternalSerialize(
   // bool corporate = 1;
   if (this->_internal_corporate() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_corporate(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_corporate(), target);
   }
 
   // bool arc = 2;
   if (this->_internal_arc() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_arc(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_arc(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -198,30 +207,31 @@ size_t KeyPermissions_KeyUsages::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void KeyPermissions_KeyUsages::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const KeyPermissions_KeyUsages*>(
+  MergeFrom(*::_pbi::DownCast<const KeyPermissions_KeyUsages*>(
       &from));
 }
 
 void KeyPermissions_KeyUsages::MergeFrom(const KeyPermissions_KeyUsages& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chaps.KeyPermissions.KeyUsages)
-  GOOGLE_DCHECK_NE(&from, this);
+  KeyPermissions_KeyUsages* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:chaps.KeyPermissions.KeyUsages)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_corporate() != 0) {
-    _internal_set_corporate(from._internal_corporate());
+    _this->_internal_set_corporate(from._internal_corporate());
   }
   if (from._internal_arc() != 0) {
-    _internal_set_arc(from._internal_arc());
+    _this->_internal_set_arc(from._internal_arc());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void KeyPermissions_KeyUsages::CopyFrom(const KeyPermissions_KeyUsages& from) {
@@ -239,11 +249,11 @@ void KeyPermissions_KeyUsages::InternalSwap(KeyPermissions_KeyUsages* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(KeyPermissions_KeyUsages, arc_)
-      + sizeof(KeyPermissions_KeyUsages::arc_)
-      - PROTOBUF_FIELD_OFFSET(KeyPermissions_KeyUsages, corporate_)>(
-          reinterpret_cast<char*>(&corporate_),
-          reinterpret_cast<char*>(&other->corporate_));
+      PROTOBUF_FIELD_OFFSET(KeyPermissions_KeyUsages, _impl_.arc_)
+      + sizeof(KeyPermissions_KeyUsages::_impl_.arc_)
+      - PROTOBUF_FIELD_OFFSET(KeyPermissions_KeyUsages, _impl_.corporate_)>(
+          reinterpret_cast<char*>(&_impl_.corporate_),
+          reinterpret_cast<char*>(&other->_impl_.corporate_));
 }
 
 std::string KeyPermissions_KeyUsages::GetTypeName() const {
@@ -260,52 +270,54 @@ class KeyPermissions::_Internal {
 
 const ::chaps::KeyPermissions_KeyUsages&
 KeyPermissions::_Internal::key_usages(const KeyPermissions* msg) {
-  return *msg->key_usages_;
+  return *msg->_impl_.key_usages_;
 }
 KeyPermissions::KeyPermissions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chaps.KeyPermissions)
 }
 KeyPermissions::KeyPermissions(const KeyPermissions& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  KeyPermissions* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.key_usages_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_key_usages()) {
-    key_usages_ = new ::chaps::KeyPermissions_KeyUsages(*from.key_usages_);
-  } else {
-    key_usages_ = nullptr;
+    _this->_impl_.key_usages_ = new ::chaps::KeyPermissions_KeyUsages(*from._impl_.key_usages_);
   }
   // @@protoc_insertion_point(copy_constructor:chaps.KeyPermissions)
 }
 
-inline void KeyPermissions::SharedCtor() {
-key_usages_ = nullptr;
+inline void KeyPermissions::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.key_usages_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 KeyPermissions::~KeyPermissions() {
   // @@protoc_insertion_point(destructor:chaps.KeyPermissions)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void KeyPermissions::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete key_usages_;
+  if (this != internal_default_instance()) delete _impl_.key_usages_;
 }
 
-void KeyPermissions::ArenaDtor(void* object) {
-  KeyPermissions* _this = reinterpret_cast< KeyPermissions* >(object);
-  (void)_this;
-}
-void KeyPermissions::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void KeyPermissions::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void KeyPermissions::Clear() {
@@ -314,18 +326,18 @@ void KeyPermissions::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && key_usages_ != nullptr) {
-    delete key_usages_;
+  if (GetArenaForAllocation() == nullptr && _impl_.key_usages_ != nullptr) {
+    delete _impl_.key_usages_;
   }
-  key_usages_ = nullptr;
+  _impl_.key_usages_ = nullptr;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* KeyPermissions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* KeyPermissions::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .chaps.KeyPermissions.KeyUsages key_usages = 1;
       case 1:
@@ -366,10 +378,9 @@ uint8_t* KeyPermissions::_InternalSerialize(
 
   // .chaps.KeyPermissions.KeyUsages key_usages = 1;
   if (this->_internal_has_key_usages()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::key_usages(this), target, stream);
+      InternalWriteMessage(1, _Internal::key_usages(this),
+        _Internal::key_usages(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -392,33 +403,35 @@ size_t KeyPermissions::ByteSizeLong() const {
   if (this->_internal_has_key_usages()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *key_usages_);
+        *_impl_.key_usages_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void KeyPermissions::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const KeyPermissions*>(
+  MergeFrom(*::_pbi::DownCast<const KeyPermissions*>(
       &from));
 }
 
 void KeyPermissions::MergeFrom(const KeyPermissions& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chaps.KeyPermissions)
-  GOOGLE_DCHECK_NE(&from, this);
+  KeyPermissions* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:chaps.KeyPermissions)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_key_usages()) {
-    _internal_mutable_key_usages()->::chaps::KeyPermissions_KeyUsages::MergeFrom(from._internal_key_usages());
+    _this->_internal_mutable_key_usages()->::chaps::KeyPermissions_KeyUsages::MergeFrom(
+        from._internal_key_usages());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void KeyPermissions::CopyFrom(const KeyPermissions& from) {
@@ -435,7 +448,7 @@ bool KeyPermissions::IsInitialized() const {
 void KeyPermissions::InternalSwap(KeyPermissions* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(key_usages_, other->key_usages_);
+  swap(_impl_.key_usages_, other->_impl_.key_usages_);
 }
 
 std::string KeyPermissions::GetTypeName() const {
@@ -446,10 +459,12 @@ std::string KeyPermissions::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace chaps
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::chaps::KeyPermissions_KeyUsages* Arena::CreateMaybeMessage< ::chaps::KeyPermissions_KeyUsages >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chaps::KeyPermissions_KeyUsages*
+Arena::CreateMaybeMessage< ::chaps::KeyPermissions_KeyUsages >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chaps::KeyPermissions_KeyUsages >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chaps::KeyPermissions* Arena::CreateMaybeMessage< ::chaps::KeyPermissions >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chaps::KeyPermissions*
+Arena::CreateMaybeMessage< ::chaps::KeyPermissions >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chaps::KeyPermissions >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

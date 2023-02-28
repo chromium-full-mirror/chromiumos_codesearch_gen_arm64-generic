@@ -13,447 +13,457 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace rmad {
-constexpr HardwareVerificationResult::HardwareVerificationResult(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : error_str_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , is_compliant_(false){}
+PROTOBUF_CONSTEXPR HardwareVerificationResult::HardwareVerificationResult(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.error_str_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.is_compliant_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HardwareVerificationResultDefaultTypeInternal {
-  constexpr HardwareVerificationResultDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HardwareVerificationResultDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HardwareVerificationResultDefaultTypeInternal() {}
   union {
     HardwareVerificationResult _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HardwareVerificationResultDefaultTypeInternal _HardwareVerificationResult_default_instance_;
-constexpr ProvisionStatus::ProvisionStatus(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : progress_(0)
-  , status_(0)
-
-  , error_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HardwareVerificationResultDefaultTypeInternal _HardwareVerificationResult_default_instance_;
+PROTOBUF_CONSTEXPR ProvisionStatus::ProvisionStatus(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.progress_)*/0
+  , /*decltype(_impl_.status_)*/0
+  , /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ProvisionStatusDefaultTypeInternal {
-  constexpr ProvisionStatusDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ProvisionStatusDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ProvisionStatusDefaultTypeInternal() {}
   union {
     ProvisionStatus _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ProvisionStatusDefaultTypeInternal _ProvisionStatus_default_instance_;
-constexpr FinalizeStatus::FinalizeStatus(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : progress_(0)
-  , status_(0)
-
-  , error_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProvisionStatusDefaultTypeInternal _ProvisionStatus_default_instance_;
+PROTOBUF_CONSTEXPR FinalizeStatus::FinalizeStatus(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.progress_)*/0
+  , /*decltype(_impl_.status_)*/0
+  , /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct FinalizeStatusDefaultTypeInternal {
-  constexpr FinalizeStatusDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR FinalizeStatusDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~FinalizeStatusDefaultTypeInternal() {}
   union {
     FinalizeStatus _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FinalizeStatusDefaultTypeInternal _FinalizeStatus_default_instance_;
-constexpr WelcomeState::WelcomeState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : choice_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FinalizeStatusDefaultTypeInternal _FinalizeStatus_default_instance_;
+PROTOBUF_CONSTEXPR WelcomeState::WelcomeState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.choice_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct WelcomeStateDefaultTypeInternal {
-  constexpr WelcomeStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR WelcomeStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~WelcomeStateDefaultTypeInternal() {}
   union {
     WelcomeState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT WelcomeStateDefaultTypeInternal _WelcomeState_default_instance_;
-constexpr ComponentsRepairState_ComponentRepairStatus::ComponentsRepairState_ComponentRepairStatus(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : identifier_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , component_(0)
-
-  , repair_status_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 WelcomeStateDefaultTypeInternal _WelcomeState_default_instance_;
+PROTOBUF_CONSTEXPR ComponentsRepairState_ComponentRepairStatus::ComponentsRepairState_ComponentRepairStatus(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.identifier_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.component_)*/0
+  , /*decltype(_impl_.repair_status_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ComponentsRepairState_ComponentRepairStatusDefaultTypeInternal {
-  constexpr ComponentsRepairState_ComponentRepairStatusDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ComponentsRepairState_ComponentRepairStatusDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ComponentsRepairState_ComponentRepairStatusDefaultTypeInternal() {}
   union {
     ComponentsRepairState_ComponentRepairStatus _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ComponentsRepairState_ComponentRepairStatusDefaultTypeInternal _ComponentsRepairState_ComponentRepairStatus_default_instance_;
-constexpr ComponentsRepairState::ComponentsRepairState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : components_()
-  , mainboard_rework_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ComponentsRepairState_ComponentRepairStatusDefaultTypeInternal _ComponentsRepairState_ComponentRepairStatus_default_instance_;
+PROTOBUF_CONSTEXPR ComponentsRepairState::ComponentsRepairState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.components_)*/{}
+  , /*decltype(_impl_.mainboard_rework_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ComponentsRepairStateDefaultTypeInternal {
-  constexpr ComponentsRepairStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ComponentsRepairStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ComponentsRepairStateDefaultTypeInternal() {}
   union {
     ComponentsRepairState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ComponentsRepairStateDefaultTypeInternal _ComponentsRepairState_default_instance_;
-constexpr DeviceDestinationState::DeviceDestinationState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : destination_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ComponentsRepairStateDefaultTypeInternal _ComponentsRepairState_default_instance_;
+PROTOBUF_CONSTEXPR DeviceDestinationState::DeviceDestinationState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.destination_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct DeviceDestinationStateDefaultTypeInternal {
-  constexpr DeviceDestinationStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DeviceDestinationStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~DeviceDestinationStateDefaultTypeInternal() {}
   union {
     DeviceDestinationState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DeviceDestinationStateDefaultTypeInternal _DeviceDestinationState_default_instance_;
-constexpr WipeSelectionState::WipeSelectionState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : wipe_device_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceDestinationStateDefaultTypeInternal _DeviceDestinationState_default_instance_;
+PROTOBUF_CONSTEXPR WipeSelectionState::WipeSelectionState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.wipe_device_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct WipeSelectionStateDefaultTypeInternal {
-  constexpr WipeSelectionStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR WipeSelectionStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~WipeSelectionStateDefaultTypeInternal() {}
   union {
     WipeSelectionState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT WipeSelectionStateDefaultTypeInternal _WipeSelectionState_default_instance_;
-constexpr WriteProtectDisableMethodState::WriteProtectDisableMethodState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : disable_method_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 WipeSelectionStateDefaultTypeInternal _WipeSelectionState_default_instance_;
+PROTOBUF_CONSTEXPR WriteProtectDisableMethodState::WriteProtectDisableMethodState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.disable_method_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct WriteProtectDisableMethodStateDefaultTypeInternal {
-  constexpr WriteProtectDisableMethodStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR WriteProtectDisableMethodStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~WriteProtectDisableMethodStateDefaultTypeInternal() {}
   union {
     WriteProtectDisableMethodState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT WriteProtectDisableMethodStateDefaultTypeInternal _WriteProtectDisableMethodState_default_instance_;
-constexpr WriteProtectDisableRsuState::WriteProtectDisableRsuState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : challenge_code_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , hwid_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , challenge_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , unlock_code_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , rsu_done_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 WriteProtectDisableMethodStateDefaultTypeInternal _WriteProtectDisableMethodState_default_instance_;
+PROTOBUF_CONSTEXPR WriteProtectDisableRsuState::WriteProtectDisableRsuState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.challenge_code_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.hwid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.challenge_url_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.unlock_code_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.rsu_done_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct WriteProtectDisableRsuStateDefaultTypeInternal {
-  constexpr WriteProtectDisableRsuStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR WriteProtectDisableRsuStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~WriteProtectDisableRsuStateDefaultTypeInternal() {}
   union {
     WriteProtectDisableRsuState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT WriteProtectDisableRsuStateDefaultTypeInternal _WriteProtectDisableRsuState_default_instance_;
-constexpr WriteProtectDisablePhysicalState::WriteProtectDisablePhysicalState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : keep_device_open_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 WriteProtectDisableRsuStateDefaultTypeInternal _WriteProtectDisableRsuState_default_instance_;
+PROTOBUF_CONSTEXPR WriteProtectDisablePhysicalState::WriteProtectDisablePhysicalState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.keep_device_open_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct WriteProtectDisablePhysicalStateDefaultTypeInternal {
-  constexpr WriteProtectDisablePhysicalStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR WriteProtectDisablePhysicalStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~WriteProtectDisablePhysicalStateDefaultTypeInternal() {}
   union {
     WriteProtectDisablePhysicalState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT WriteProtectDisablePhysicalStateDefaultTypeInternal _WriteProtectDisablePhysicalState_default_instance_;
-constexpr WriteProtectDisableCompleteState::WriteProtectDisableCompleteState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : keep_device_open_(false)
-  , wp_disable_skipped_(false)
-  , action_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 WriteProtectDisablePhysicalStateDefaultTypeInternal _WriteProtectDisablePhysicalState_default_instance_;
+PROTOBUF_CONSTEXPR WriteProtectDisableCompleteState::WriteProtectDisableCompleteState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.keep_device_open_)*/false
+  , /*decltype(_impl_.wp_disable_skipped_)*/false
+  , /*decltype(_impl_.action_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct WriteProtectDisableCompleteStateDefaultTypeInternal {
-  constexpr WriteProtectDisableCompleteStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR WriteProtectDisableCompleteStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~WriteProtectDisableCompleteStateDefaultTypeInternal() {}
   union {
     WriteProtectDisableCompleteState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT WriteProtectDisableCompleteStateDefaultTypeInternal _WriteProtectDisableCompleteState_default_instance_;
-constexpr UpdateRoFirmwareState::UpdateRoFirmwareState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : optional_(false)
-  , update_(0)
-
-  , choice_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 WriteProtectDisableCompleteStateDefaultTypeInternal _WriteProtectDisableCompleteState_default_instance_;
+PROTOBUF_CONSTEXPR UpdateRoFirmwareState::UpdateRoFirmwareState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.optional_)*/false
+  , /*decltype(_impl_.update_)*/0
+  , /*decltype(_impl_.choice_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UpdateRoFirmwareStateDefaultTypeInternal {
-  constexpr UpdateRoFirmwareStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UpdateRoFirmwareStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UpdateRoFirmwareStateDefaultTypeInternal() {}
   union {
     UpdateRoFirmwareState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UpdateRoFirmwareStateDefaultTypeInternal _UpdateRoFirmwareState_default_instance_;
-constexpr RestockState::RestockState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : choice_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UpdateRoFirmwareStateDefaultTypeInternal _UpdateRoFirmwareState_default_instance_;
+PROTOBUF_CONSTEXPR RestockState::RestockState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.choice_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RestockStateDefaultTypeInternal {
-  constexpr RestockStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RestockStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~RestockStateDefaultTypeInternal() {}
   union {
     RestockState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RestockStateDefaultTypeInternal _RestockState_default_instance_;
-constexpr UpdateDeviceInfoState::UpdateDeviceInfoState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : region_list_()
-  , sku_list_()
-  , _sku_list_cached_byte_size_(0)
-  , whitelabel_list_()
-  , custom_label_list_()
-  , serial_number_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , dram_part_number_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , original_serial_number_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , original_dram_part_number_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , region_index_(0)
-  , sku_index_(0)
-  , whitelabel_index_(0)
-  , custom_label_index_(0)
-  , mlb_repair_(false)
-  , original_region_index_(0)
-  , original_sku_index_(0)
-  , original_whitelabel_index_(0)
-  , original_custom_label_index_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RestockStateDefaultTypeInternal _RestockState_default_instance_;
+PROTOBUF_CONSTEXPR UpdateDeviceInfoState::UpdateDeviceInfoState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.region_list_)*/{}
+  , /*decltype(_impl_.sku_list_)*/{}
+  , /*decltype(_impl_._sku_list_cached_byte_size_)*/{0}
+  , /*decltype(_impl_.whitelabel_list_)*/{}
+  , /*decltype(_impl_.custom_label_list_)*/{}
+  , /*decltype(_impl_.serial_number_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.dram_part_number_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.original_serial_number_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.original_dram_part_number_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.region_index_)*/0
+  , /*decltype(_impl_.sku_index_)*/0
+  , /*decltype(_impl_.whitelabel_index_)*/0
+  , /*decltype(_impl_.custom_label_index_)*/0
+  , /*decltype(_impl_.original_region_index_)*/0
+  , /*decltype(_impl_.original_sku_index_)*/0
+  , /*decltype(_impl_.original_whitelabel_index_)*/0
+  , /*decltype(_impl_.original_custom_label_index_)*/0
+  , /*decltype(_impl_.mlb_repair_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UpdateDeviceInfoStateDefaultTypeInternal {
-  constexpr UpdateDeviceInfoStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UpdateDeviceInfoStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UpdateDeviceInfoStateDefaultTypeInternal() {}
   union {
     UpdateDeviceInfoState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UpdateDeviceInfoStateDefaultTypeInternal _UpdateDeviceInfoState_default_instance_;
-constexpr CalibrationComponentStatus::CalibrationComponentStatus(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : component_(0)
-
-  , status_(0)
-
-  , progress_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UpdateDeviceInfoStateDefaultTypeInternal _UpdateDeviceInfoState_default_instance_;
+PROTOBUF_CONSTEXPR CalibrationComponentStatus::CalibrationComponentStatus(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.component_)*/0
+  , /*decltype(_impl_.status_)*/0
+  , /*decltype(_impl_.progress_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CalibrationComponentStatusDefaultTypeInternal {
-  constexpr CalibrationComponentStatusDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CalibrationComponentStatusDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~CalibrationComponentStatusDefaultTypeInternal() {}
   union {
     CalibrationComponentStatus _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CalibrationComponentStatusDefaultTypeInternal _CalibrationComponentStatus_default_instance_;
-constexpr CheckCalibrationState::CheckCalibrationState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : components_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CalibrationComponentStatusDefaultTypeInternal _CalibrationComponentStatus_default_instance_;
+PROTOBUF_CONSTEXPR CheckCalibrationState::CheckCalibrationState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.components_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CheckCalibrationStateDefaultTypeInternal {
-  constexpr CheckCalibrationStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CheckCalibrationStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~CheckCalibrationStateDefaultTypeInternal() {}
   union {
     CheckCalibrationState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CheckCalibrationStateDefaultTypeInternal _CheckCalibrationState_default_instance_;
-constexpr SetupCalibrationState::SetupCalibrationState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : instruction_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CheckCalibrationStateDefaultTypeInternal _CheckCalibrationState_default_instance_;
+PROTOBUF_CONSTEXPR SetupCalibrationState::SetupCalibrationState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.instruction_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SetupCalibrationStateDefaultTypeInternal {
-  constexpr SetupCalibrationStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SetupCalibrationStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SetupCalibrationStateDefaultTypeInternal() {}
   union {
     SetupCalibrationState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SetupCalibrationStateDefaultTypeInternal _SetupCalibrationState_default_instance_;
-constexpr RunCalibrationState::RunCalibrationState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : status_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetupCalibrationStateDefaultTypeInternal _SetupCalibrationState_default_instance_;
+PROTOBUF_CONSTEXPR RunCalibrationState::RunCalibrationState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.status_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RunCalibrationStateDefaultTypeInternal {
-  constexpr RunCalibrationStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RunCalibrationStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~RunCalibrationStateDefaultTypeInternal() {}
   union {
     RunCalibrationState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RunCalibrationStateDefaultTypeInternal _RunCalibrationState_default_instance_;
-constexpr ProvisionDeviceState::ProvisionDeviceState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : choice_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RunCalibrationStateDefaultTypeInternal _RunCalibrationState_default_instance_;
+PROTOBUF_CONSTEXPR ProvisionDeviceState::ProvisionDeviceState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.choice_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ProvisionDeviceStateDefaultTypeInternal {
-  constexpr ProvisionDeviceStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ProvisionDeviceStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ProvisionDeviceStateDefaultTypeInternal() {}
   union {
     ProvisionDeviceState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ProvisionDeviceStateDefaultTypeInternal _ProvisionDeviceState_default_instance_;
-constexpr WriteProtectEnablePhysicalState::WriteProtectEnablePhysicalState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProvisionDeviceStateDefaultTypeInternal _ProvisionDeviceState_default_instance_;
+PROTOBUF_CONSTEXPR WriteProtectEnablePhysicalState::WriteProtectEnablePhysicalState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._cached_size_)*/{}} {}
 struct WriteProtectEnablePhysicalStateDefaultTypeInternal {
-  constexpr WriteProtectEnablePhysicalStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR WriteProtectEnablePhysicalStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~WriteProtectEnablePhysicalStateDefaultTypeInternal() {}
   union {
     WriteProtectEnablePhysicalState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT WriteProtectEnablePhysicalStateDefaultTypeInternal _WriteProtectEnablePhysicalState_default_instance_;
-constexpr FinalizeState::FinalizeState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : shutdown_(0)
-
-  , choice_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 WriteProtectEnablePhysicalStateDefaultTypeInternal _WriteProtectEnablePhysicalState_default_instance_;
+PROTOBUF_CONSTEXPR FinalizeState::FinalizeState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.shutdown_)*/0
+  , /*decltype(_impl_.choice_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct FinalizeStateDefaultTypeInternal {
-  constexpr FinalizeStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR FinalizeStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~FinalizeStateDefaultTypeInternal() {}
   union {
     FinalizeState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FinalizeStateDefaultTypeInternal _FinalizeState_default_instance_;
-constexpr RepairCompleteState::RepairCompleteState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : shutdown_(0)
-
-  , powerwash_required_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FinalizeStateDefaultTypeInternal _FinalizeState_default_instance_;
+PROTOBUF_CONSTEXPR RepairCompleteState::RepairCompleteState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.shutdown_)*/0
+  , /*decltype(_impl_.powerwash_required_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RepairCompleteStateDefaultTypeInternal {
-  constexpr RepairCompleteStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RepairCompleteStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~RepairCompleteStateDefaultTypeInternal() {}
   union {
     RepairCompleteState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RepairCompleteStateDefaultTypeInternal _RepairCompleteState_default_instance_;
-constexpr RmadState::RmadState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : _oneof_case_{}{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RepairCompleteStateDefaultTypeInternal _RepairCompleteState_default_instance_;
+PROTOBUF_CONSTEXPR RmadState::RmadState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.state_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct RmadStateDefaultTypeInternal {
-  constexpr RmadStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RmadStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~RmadStateDefaultTypeInternal() {}
   union {
     RmadState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RmadStateDefaultTypeInternal _RmadState_default_instance_;
-constexpr TransitionNextStateRequest::TransitionNextStateRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : state_(nullptr){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RmadStateDefaultTypeInternal _RmadState_default_instance_;
+PROTOBUF_CONSTEXPR TransitionNextStateRequest::TransitionNextStateRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.state_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct TransitionNextStateRequestDefaultTypeInternal {
-  constexpr TransitionNextStateRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR TransitionNextStateRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~TransitionNextStateRequestDefaultTypeInternal() {}
   union {
     TransitionNextStateRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TransitionNextStateRequestDefaultTypeInternal _TransitionNextStateRequest_default_instance_;
-constexpr GetStateReply::GetStateReply(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : state_(nullptr)
-  , error_(0)
-
-  , can_go_back_(false)
-  , can_abort_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TransitionNextStateRequestDefaultTypeInternal _TransitionNextStateRequest_default_instance_;
+PROTOBUF_CONSTEXPR GetStateReply::GetStateReply(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.state_)*/nullptr
+  , /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_.can_go_back_)*/false
+  , /*decltype(_impl_.can_abort_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetStateReplyDefaultTypeInternal {
-  constexpr GetStateReplyDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetStateReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetStateReplyDefaultTypeInternal() {}
   union {
     GetStateReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetStateReplyDefaultTypeInternal _GetStateReply_default_instance_;
-constexpr AbortRmaReply::AbortRmaReply(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : error_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetStateReplyDefaultTypeInternal _GetStateReply_default_instance_;
+PROTOBUF_CONSTEXPR AbortRmaReply::AbortRmaReply(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct AbortRmaReplyDefaultTypeInternal {
-  constexpr AbortRmaReplyDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AbortRmaReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~AbortRmaReplyDefaultTypeInternal() {}
   union {
     AbortRmaReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AbortRmaReplyDefaultTypeInternal _AbortRmaReply_default_instance_;
-constexpr GetLogReply::GetLogReply(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : log_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , error_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AbortRmaReplyDefaultTypeInternal _AbortRmaReply_default_instance_;
+PROTOBUF_CONSTEXPR GetLogReply::GetLogReply(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.log_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetLogReplyDefaultTypeInternal {
-  constexpr GetLogReplyDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetLogReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetLogReplyDefaultTypeInternal() {}
   union {
     GetLogReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetLogReplyDefaultTypeInternal _GetLogReply_default_instance_;
-constexpr SaveLogReply::SaveLogReply(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : save_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , error_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetLogReplyDefaultTypeInternal _GetLogReply_default_instance_;
+PROTOBUF_CONSTEXPR SaveLogReply::SaveLogReply(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.save_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SaveLogReplyDefaultTypeInternal {
-  constexpr SaveLogReplyDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SaveLogReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SaveLogReplyDefaultTypeInternal() {}
   union {
     SaveLogReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SaveLogReplyDefaultTypeInternal _SaveLogReply_default_instance_;
-constexpr RecordBrowserActionMetricRequest::RecordBrowserActionMetricRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : diagnostics_(false)
-  , os_update_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SaveLogReplyDefaultTypeInternal _SaveLogReply_default_instance_;
+PROTOBUF_CONSTEXPR RecordBrowserActionMetricRequest::RecordBrowserActionMetricRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.diagnostics_)*/false
+  , /*decltype(_impl_.os_update_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RecordBrowserActionMetricRequestDefaultTypeInternal {
-  constexpr RecordBrowserActionMetricRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RecordBrowserActionMetricRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~RecordBrowserActionMetricRequestDefaultTypeInternal() {}
   union {
     RecordBrowserActionMetricRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RecordBrowserActionMetricRequestDefaultTypeInternal _RecordBrowserActionMetricRequest_default_instance_;
-constexpr RecordBrowserActionMetricReply::RecordBrowserActionMetricReply(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : error_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RecordBrowserActionMetricRequestDefaultTypeInternal _RecordBrowserActionMetricRequest_default_instance_;
+PROTOBUF_CONSTEXPR RecordBrowserActionMetricReply::RecordBrowserActionMetricReply(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RecordBrowserActionMetricReplyDefaultTypeInternal {
-  constexpr RecordBrowserActionMetricReplyDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RecordBrowserActionMetricReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~RecordBrowserActionMetricReplyDefaultTypeInternal() {}
   union {
     RecordBrowserActionMetricReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RecordBrowserActionMetricReplyDefaultTypeInternal _RecordBrowserActionMetricReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RecordBrowserActionMetricReplyDefaultTypeInternal _RecordBrowserActionMetricReply_default_instance_;
 }  // namespace rmad
 namespace rmad {
 bool ProvisionStatus_Status_IsValid(int value) {
@@ -2614,55 +2624,61 @@ class HardwareVerificationResult::_Internal {
 HardwareVerificationResult::HardwareVerificationResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.HardwareVerificationResult)
 }
 HardwareVerificationResult::HardwareVerificationResult(const HardwareVerificationResult& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  HardwareVerificationResult* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_str_){}
+    , decltype(_impl_.is_compliant_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  error_str_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.error_str_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    error_str_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.error_str_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_error_str().empty()) {
-    error_str_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_error_str(), 
-      GetArenaForAllocation());
+    _this->_impl_.error_str_.Set(from._internal_error_str(), 
+      _this->GetArenaForAllocation());
   }
-  is_compliant_ = from.is_compliant_;
+  _this->_impl_.is_compliant_ = from._impl_.is_compliant_;
   // @@protoc_insertion_point(copy_constructor:rmad.HardwareVerificationResult)
 }
 
-inline void HardwareVerificationResult::SharedCtor() {
-error_str_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  error_str_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-is_compliant_ = false;
+inline void HardwareVerificationResult::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_str_){}
+    , decltype(_impl_.is_compliant_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.error_str_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.error_str_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 HardwareVerificationResult::~HardwareVerificationResult() {
   // @@protoc_insertion_point(destructor:rmad.HardwareVerificationResult)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void HardwareVerificationResult::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  error_str_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.error_str_.Destroy();
 }
 
-void HardwareVerificationResult::ArenaDtor(void* object) {
-  HardwareVerificationResult* _this = reinterpret_cast< HardwareVerificationResult* >(object);
-  (void)_this;
-}
-void HardwareVerificationResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HardwareVerificationResult::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HardwareVerificationResult::Clear() {
@@ -2671,21 +2687,21 @@ void HardwareVerificationResult::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  error_str_.ClearToEmpty();
-  is_compliant_ = false;
+  _impl_.error_str_.ClearToEmpty();
+  _impl_.is_compliant_ = false;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* HardwareVerificationResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HardwareVerificationResult::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bool is_compliant = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          is_compliant_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.is_compliant_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2694,9 +2710,9 @@ const char* HardwareVerificationResult::_InternalParse(const char* ptr, ::PROTOB
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_error_str();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -2732,7 +2748,7 @@ uint8_t* HardwareVerificationResult::_InternalSerialize(
   // bool is_compliant = 1;
   if (this->_internal_is_compliant() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_is_compliant(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_is_compliant(), target);
   }
 
   // string error_str = 2;
@@ -2776,30 +2792,31 @@ size_t HardwareVerificationResult::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void HardwareVerificationResult::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const HardwareVerificationResult*>(
+  MergeFrom(*::_pbi::DownCast<const HardwareVerificationResult*>(
       &from));
 }
 
 void HardwareVerificationResult::MergeFrom(const HardwareVerificationResult& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.HardwareVerificationResult)
-  GOOGLE_DCHECK_NE(&from, this);
+  HardwareVerificationResult* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.HardwareVerificationResult)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_error_str().empty()) {
-    _internal_set_error_str(from._internal_error_str());
+    _this->_internal_set_error_str(from._internal_error_str());
   }
   if (from._internal_is_compliant() != 0) {
-    _internal_set_is_compliant(from._internal_is_compliant());
+    _this->_internal_set_is_compliant(from._internal_is_compliant());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void HardwareVerificationResult::CopyFrom(const HardwareVerificationResult& from) {
@@ -2819,11 +2836,10 @@ void HardwareVerificationResult::InternalSwap(HardwareVerificationResult* other)
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &error_str_, lhs_arena,
-      &other->error_str_, rhs_arena
+      &_impl_.error_str_, lhs_arena,
+      &other->_impl_.error_str_, rhs_arena
   );
-  swap(is_compliant_, other->is_compliant_);
+  swap(_impl_.is_compliant_, other->_impl_.is_compliant_);
 }
 
 std::string HardwareVerificationResult::GetTypeName() const {
@@ -2840,47 +2856,52 @@ class ProvisionStatus::_Internal {
 ProvisionStatus::ProvisionStatus(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.ProvisionStatus)
 }
 ProvisionStatus::ProvisionStatus(const ProvisionStatus& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ProvisionStatus* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.progress_){}
+    , decltype(_impl_.status_){}
+    , decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&progress_, &from.progress_,
-    static_cast<size_t>(reinterpret_cast<char*>(&error_) -
-    reinterpret_cast<char*>(&progress_)) + sizeof(error_));
+  ::memcpy(&_impl_.progress_, &from._impl_.progress_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.error_) -
+    reinterpret_cast<char*>(&_impl_.progress_)) + sizeof(_impl_.error_));
   // @@protoc_insertion_point(copy_constructor:rmad.ProvisionStatus)
 }
 
-inline void ProvisionStatus::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&progress_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&error_) -
-    reinterpret_cast<char*>(&progress_)) + sizeof(error_));
+inline void ProvisionStatus::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.progress_){0}
+    , decltype(_impl_.status_){0}
+    , decltype(_impl_.error_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 ProvisionStatus::~ProvisionStatus() {
   // @@protoc_insertion_point(destructor:rmad.ProvisionStatus)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ProvisionStatus::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void ProvisionStatus::ArenaDtor(void* object) {
-  ProvisionStatus* _this = reinterpret_cast< ProvisionStatus* >(object);
-  (void)_this;
-}
-void ProvisionStatus::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ProvisionStatus::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ProvisionStatus::Clear() {
@@ -2889,17 +2910,17 @@ void ProvisionStatus::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&progress_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&error_) -
-      reinterpret_cast<char*>(&progress_)) + sizeof(error_));
+  ::memset(&_impl_.progress_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.error_) -
+      reinterpret_cast<char*>(&_impl_.progress_)) + sizeof(_impl_.error_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ProvisionStatus::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ProvisionStatus::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.ProvisionStatus.Status status = 1;
       case 1:
@@ -2913,7 +2934,7 @@ const char* ProvisionStatus::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPAC
       // double progress = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 17)) {
-          progress_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.progress_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -2959,7 +2980,7 @@ uint8_t* ProvisionStatus::_InternalSerialize(
   // .rmad.ProvisionStatus.Status status = 1;
   if (this->_internal_status() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_status(), target);
   }
 
@@ -2970,13 +2991,13 @@ uint8_t* ProvisionStatus::_InternalSerialize(
   memcpy(&raw_progress, &tmp_progress, sizeof(tmp_progress));
   if (raw_progress != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_progress(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(2, this->_internal_progress(), target);
   }
 
   // .rmad.ProvisionStatus.Error error = 3;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_error(), target);
   }
 
@@ -3008,32 +3029,33 @@ size_t ProvisionStatus::ByteSizeLong() const {
   // .rmad.ProvisionStatus.Status status = 1;
   if (this->_internal_status() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_status());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
   }
 
   // .rmad.ProvisionStatus.Error error = 3;
   if (this->_internal_error() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_error());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ProvisionStatus::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ProvisionStatus*>(
+  MergeFrom(*::_pbi::DownCast<const ProvisionStatus*>(
       &from));
 }
 
 void ProvisionStatus::MergeFrom(const ProvisionStatus& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.ProvisionStatus)
-  GOOGLE_DCHECK_NE(&from, this);
+  ProvisionStatus* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.ProvisionStatus)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -3042,15 +3064,15 @@ void ProvisionStatus::MergeFrom(const ProvisionStatus& from) {
   uint64_t raw_progress;
   memcpy(&raw_progress, &tmp_progress, sizeof(tmp_progress));
   if (raw_progress != 0) {
-    _internal_set_progress(from._internal_progress());
+    _this->_internal_set_progress(from._internal_progress());
   }
   if (from._internal_status() != 0) {
-    _internal_set_status(from._internal_status());
+    _this->_internal_set_status(from._internal_status());
   }
   if (from._internal_error() != 0) {
-    _internal_set_error(from._internal_error());
+    _this->_internal_set_error(from._internal_error());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ProvisionStatus::CopyFrom(const ProvisionStatus& from) {
@@ -3068,11 +3090,11 @@ void ProvisionStatus::InternalSwap(ProvisionStatus* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ProvisionStatus, error_)
-      + sizeof(ProvisionStatus::error_)
-      - PROTOBUF_FIELD_OFFSET(ProvisionStatus, progress_)>(
-          reinterpret_cast<char*>(&progress_),
-          reinterpret_cast<char*>(&other->progress_));
+      PROTOBUF_FIELD_OFFSET(ProvisionStatus, _impl_.error_)
+      + sizeof(ProvisionStatus::_impl_.error_)
+      - PROTOBUF_FIELD_OFFSET(ProvisionStatus, _impl_.progress_)>(
+          reinterpret_cast<char*>(&_impl_.progress_),
+          reinterpret_cast<char*>(&other->_impl_.progress_));
 }
 
 std::string ProvisionStatus::GetTypeName() const {
@@ -3089,47 +3111,52 @@ class FinalizeStatus::_Internal {
 FinalizeStatus::FinalizeStatus(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.FinalizeStatus)
 }
 FinalizeStatus::FinalizeStatus(const FinalizeStatus& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FinalizeStatus* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.progress_){}
+    , decltype(_impl_.status_){}
+    , decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&progress_, &from.progress_,
-    static_cast<size_t>(reinterpret_cast<char*>(&error_) -
-    reinterpret_cast<char*>(&progress_)) + sizeof(error_));
+  ::memcpy(&_impl_.progress_, &from._impl_.progress_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.error_) -
+    reinterpret_cast<char*>(&_impl_.progress_)) + sizeof(_impl_.error_));
   // @@protoc_insertion_point(copy_constructor:rmad.FinalizeStatus)
 }
 
-inline void FinalizeStatus::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&progress_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&error_) -
-    reinterpret_cast<char*>(&progress_)) + sizeof(error_));
+inline void FinalizeStatus::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.progress_){0}
+    , decltype(_impl_.status_){0}
+    , decltype(_impl_.error_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 FinalizeStatus::~FinalizeStatus() {
   // @@protoc_insertion_point(destructor:rmad.FinalizeStatus)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void FinalizeStatus::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void FinalizeStatus::ArenaDtor(void* object) {
-  FinalizeStatus* _this = reinterpret_cast< FinalizeStatus* >(object);
-  (void)_this;
-}
-void FinalizeStatus::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void FinalizeStatus::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FinalizeStatus::Clear() {
@@ -3138,17 +3165,17 @@ void FinalizeStatus::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&progress_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&error_) -
-      reinterpret_cast<char*>(&progress_)) + sizeof(error_));
+  ::memset(&_impl_.progress_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.error_) -
+      reinterpret_cast<char*>(&_impl_.progress_)) + sizeof(_impl_.error_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* FinalizeStatus::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* FinalizeStatus::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.FinalizeStatus.Status status = 1;
       case 1:
@@ -3162,7 +3189,7 @@ const char* FinalizeStatus::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       // double progress = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 17)) {
-          progress_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.progress_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -3208,7 +3235,7 @@ uint8_t* FinalizeStatus::_InternalSerialize(
   // .rmad.FinalizeStatus.Status status = 1;
   if (this->_internal_status() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_status(), target);
   }
 
@@ -3219,13 +3246,13 @@ uint8_t* FinalizeStatus::_InternalSerialize(
   memcpy(&raw_progress, &tmp_progress, sizeof(tmp_progress));
   if (raw_progress != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_progress(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(2, this->_internal_progress(), target);
   }
 
   // .rmad.FinalizeStatus.Error error = 3;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_error(), target);
   }
 
@@ -3257,32 +3284,33 @@ size_t FinalizeStatus::ByteSizeLong() const {
   // .rmad.FinalizeStatus.Status status = 1;
   if (this->_internal_status() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_status());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
   }
 
   // .rmad.FinalizeStatus.Error error = 3;
   if (this->_internal_error() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_error());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void FinalizeStatus::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const FinalizeStatus*>(
+  MergeFrom(*::_pbi::DownCast<const FinalizeStatus*>(
       &from));
 }
 
 void FinalizeStatus::MergeFrom(const FinalizeStatus& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.FinalizeStatus)
-  GOOGLE_DCHECK_NE(&from, this);
+  FinalizeStatus* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.FinalizeStatus)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -3291,15 +3319,15 @@ void FinalizeStatus::MergeFrom(const FinalizeStatus& from) {
   uint64_t raw_progress;
   memcpy(&raw_progress, &tmp_progress, sizeof(tmp_progress));
   if (raw_progress != 0) {
-    _internal_set_progress(from._internal_progress());
+    _this->_internal_set_progress(from._internal_progress());
   }
   if (from._internal_status() != 0) {
-    _internal_set_status(from._internal_status());
+    _this->_internal_set_status(from._internal_status());
   }
   if (from._internal_error() != 0) {
-    _internal_set_error(from._internal_error());
+    _this->_internal_set_error(from._internal_error());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FinalizeStatus::CopyFrom(const FinalizeStatus& from) {
@@ -3317,11 +3345,11 @@ void FinalizeStatus::InternalSwap(FinalizeStatus* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(FinalizeStatus, error_)
-      + sizeof(FinalizeStatus::error_)
-      - PROTOBUF_FIELD_OFFSET(FinalizeStatus, progress_)>(
-          reinterpret_cast<char*>(&progress_),
-          reinterpret_cast<char*>(&other->progress_));
+      PROTOBUF_FIELD_OFFSET(FinalizeStatus, _impl_.error_)
+      + sizeof(FinalizeStatus::_impl_.error_)
+      - PROTOBUF_FIELD_OFFSET(FinalizeStatus, _impl_.progress_)>(
+          reinterpret_cast<char*>(&_impl_.progress_),
+          reinterpret_cast<char*>(&other->_impl_.progress_));
 }
 
 std::string FinalizeStatus::GetTypeName() const {
@@ -3338,42 +3366,46 @@ class WelcomeState::_Internal {
 WelcomeState::WelcomeState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.WelcomeState)
 }
 WelcomeState::WelcomeState(const WelcomeState& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  WelcomeState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.choice_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  choice_ = from.choice_;
+  _this->_impl_.choice_ = from._impl_.choice_;
   // @@protoc_insertion_point(copy_constructor:rmad.WelcomeState)
 }
 
-inline void WelcomeState::SharedCtor() {
-choice_ = 0;
+inline void WelcomeState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.choice_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 WelcomeState::~WelcomeState() {
   // @@protoc_insertion_point(destructor:rmad.WelcomeState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void WelcomeState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void WelcomeState::ArenaDtor(void* object) {
-  WelcomeState* _this = reinterpret_cast< WelcomeState* >(object);
-  (void)_this;
-}
-void WelcomeState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void WelcomeState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void WelcomeState::Clear() {
@@ -3382,15 +3414,15 @@ void WelcomeState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  choice_ = 0;
+  _impl_.choice_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* WelcomeState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* WelcomeState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.WelcomeState.FinalizeChoice choice = 1;
       case 1:
@@ -3433,7 +3465,7 @@ uint8_t* WelcomeState::_InternalSerialize(
   // .rmad.WelcomeState.FinalizeChoice choice = 1;
   if (this->_internal_choice() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_choice(), target);
   }
 
@@ -3456,33 +3488,34 @@ size_t WelcomeState::ByteSizeLong() const {
   // .rmad.WelcomeState.FinalizeChoice choice = 1;
   if (this->_internal_choice() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_choice());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_choice());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void WelcomeState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const WelcomeState*>(
+  MergeFrom(*::_pbi::DownCast<const WelcomeState*>(
       &from));
 }
 
 void WelcomeState::MergeFrom(const WelcomeState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.WelcomeState)
-  GOOGLE_DCHECK_NE(&from, this);
+  WelcomeState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.WelcomeState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_choice() != 0) {
-    _internal_set_choice(from._internal_choice());
+    _this->_internal_set_choice(from._internal_choice());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void WelcomeState::CopyFrom(const WelcomeState& from) {
@@ -3499,7 +3532,7 @@ bool WelcomeState::IsInitialized() const {
 void WelcomeState::InternalSwap(WelcomeState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(choice_, other->choice_);
+  swap(_impl_.choice_, other->_impl_.choice_);
 }
 
 std::string WelcomeState::GetTypeName() const {
@@ -3516,60 +3549,65 @@ class ComponentsRepairState_ComponentRepairStatus::_Internal {
 ComponentsRepairState_ComponentRepairStatus::ComponentsRepairState_ComponentRepairStatus(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.ComponentsRepairState.ComponentRepairStatus)
 }
 ComponentsRepairState_ComponentRepairStatus::ComponentsRepairState_ComponentRepairStatus(const ComponentsRepairState_ComponentRepairStatus& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ComponentsRepairState_ComponentRepairStatus* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.identifier_){}
+    , decltype(_impl_.component_){}
+    , decltype(_impl_.repair_status_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  identifier_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.identifier_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    identifier_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.identifier_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_identifier().empty()) {
-    identifier_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_identifier(), 
-      GetArenaForAllocation());
+    _this->_impl_.identifier_.Set(from._internal_identifier(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&component_, &from.component_,
-    static_cast<size_t>(reinterpret_cast<char*>(&repair_status_) -
-    reinterpret_cast<char*>(&component_)) + sizeof(repair_status_));
+  ::memcpy(&_impl_.component_, &from._impl_.component_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.repair_status_) -
+    reinterpret_cast<char*>(&_impl_.component_)) + sizeof(_impl_.repair_status_));
   // @@protoc_insertion_point(copy_constructor:rmad.ComponentsRepairState.ComponentRepairStatus)
 }
 
-inline void ComponentsRepairState_ComponentRepairStatus::SharedCtor() {
-identifier_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  identifier_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&component_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&repair_status_) -
-    reinterpret_cast<char*>(&component_)) + sizeof(repair_status_));
+inline void ComponentsRepairState_ComponentRepairStatus::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.identifier_){}
+    , decltype(_impl_.component_){0}
+    , decltype(_impl_.repair_status_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.identifier_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.identifier_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ComponentsRepairState_ComponentRepairStatus::~ComponentsRepairState_ComponentRepairStatus() {
   // @@protoc_insertion_point(destructor:rmad.ComponentsRepairState.ComponentRepairStatus)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ComponentsRepairState_ComponentRepairStatus::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  identifier_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.identifier_.Destroy();
 }
 
-void ComponentsRepairState_ComponentRepairStatus::ArenaDtor(void* object) {
-  ComponentsRepairState_ComponentRepairStatus* _this = reinterpret_cast< ComponentsRepairState_ComponentRepairStatus* >(object);
-  (void)_this;
-}
-void ComponentsRepairState_ComponentRepairStatus::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ComponentsRepairState_ComponentRepairStatus::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ComponentsRepairState_ComponentRepairStatus::Clear() {
@@ -3578,18 +3616,18 @@ void ComponentsRepairState_ComponentRepairStatus::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  identifier_.ClearToEmpty();
-  ::memset(&component_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&repair_status_) -
-      reinterpret_cast<char*>(&component_)) + sizeof(repair_status_));
+  _impl_.identifier_.ClearToEmpty();
+  ::memset(&_impl_.component_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.repair_status_) -
+      reinterpret_cast<char*>(&_impl_.component_)) + sizeof(_impl_.repair_status_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ComponentsRepairState_ComponentRepairStatus::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ComponentsRepairState_ComponentRepairStatus::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.RmadComponent component = 1;
       case 1:
@@ -3613,9 +3651,9 @@ const char* ComponentsRepairState_ComponentRepairStatus::_InternalParse(const ch
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_identifier();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -3651,14 +3689,14 @@ uint8_t* ComponentsRepairState_ComponentRepairStatus::_InternalSerialize(
   // .rmad.RmadComponent component = 1;
   if (this->_internal_component() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_component(), target);
   }
 
   // .rmad.ComponentsRepairState.ComponentRepairStatus.RepairStatus repair_status = 2;
   if (this->_internal_repair_status() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_repair_status(), target);
   }
 
@@ -3698,45 +3736,46 @@ size_t ComponentsRepairState_ComponentRepairStatus::ByteSizeLong() const {
   // .rmad.RmadComponent component = 1;
   if (this->_internal_component() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_component());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_component());
   }
 
   // .rmad.ComponentsRepairState.ComponentRepairStatus.RepairStatus repair_status = 2;
   if (this->_internal_repair_status() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_repair_status());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_repair_status());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ComponentsRepairState_ComponentRepairStatus::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ComponentsRepairState_ComponentRepairStatus*>(
+  MergeFrom(*::_pbi::DownCast<const ComponentsRepairState_ComponentRepairStatus*>(
       &from));
 }
 
 void ComponentsRepairState_ComponentRepairStatus::MergeFrom(const ComponentsRepairState_ComponentRepairStatus& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.ComponentsRepairState.ComponentRepairStatus)
-  GOOGLE_DCHECK_NE(&from, this);
+  ComponentsRepairState_ComponentRepairStatus* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.ComponentsRepairState.ComponentRepairStatus)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_identifier().empty()) {
-    _internal_set_identifier(from._internal_identifier());
+    _this->_internal_set_identifier(from._internal_identifier());
   }
   if (from._internal_component() != 0) {
-    _internal_set_component(from._internal_component());
+    _this->_internal_set_component(from._internal_component());
   }
   if (from._internal_repair_status() != 0) {
-    _internal_set_repair_status(from._internal_repair_status());
+    _this->_internal_set_repair_status(from._internal_repair_status());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ComponentsRepairState_ComponentRepairStatus::CopyFrom(const ComponentsRepairState_ComponentRepairStatus& from) {
@@ -3756,16 +3795,15 @@ void ComponentsRepairState_ComponentRepairStatus::InternalSwap(ComponentsRepairS
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &identifier_, lhs_arena,
-      &other->identifier_, rhs_arena
+      &_impl_.identifier_, lhs_arena,
+      &other->_impl_.identifier_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ComponentsRepairState_ComponentRepairStatus, repair_status_)
-      + sizeof(ComponentsRepairState_ComponentRepairStatus::repair_status_)
-      - PROTOBUF_FIELD_OFFSET(ComponentsRepairState_ComponentRepairStatus, component_)>(
-          reinterpret_cast<char*>(&component_),
-          reinterpret_cast<char*>(&other->component_));
+      PROTOBUF_FIELD_OFFSET(ComponentsRepairState_ComponentRepairStatus, _impl_.repair_status_)
+      + sizeof(ComponentsRepairState_ComponentRepairStatus::_impl_.repair_status_)
+      - PROTOBUF_FIELD_OFFSET(ComponentsRepairState_ComponentRepairStatus, _impl_.component_)>(
+          reinterpret_cast<char*>(&_impl_.component_),
+          reinterpret_cast<char*>(&other->_impl_.component_));
 }
 
 std::string ComponentsRepairState_ComponentRepairStatus::GetTypeName() const {
@@ -3781,45 +3819,50 @@ class ComponentsRepairState::_Internal {
 
 ComponentsRepairState::ComponentsRepairState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  components_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.ComponentsRepairState)
 }
 ComponentsRepairState::ComponentsRepairState(const ComponentsRepairState& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      components_(from.components_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ComponentsRepairState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.components_){from._impl_.components_}
+    , decltype(_impl_.mainboard_rework_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  mainboard_rework_ = from.mainboard_rework_;
+  _this->_impl_.mainboard_rework_ = from._impl_.mainboard_rework_;
   // @@protoc_insertion_point(copy_constructor:rmad.ComponentsRepairState)
 }
 
-inline void ComponentsRepairState::SharedCtor() {
-mainboard_rework_ = false;
+inline void ComponentsRepairState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.components_){arena}
+    , decltype(_impl_.mainboard_rework_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 ComponentsRepairState::~ComponentsRepairState() {
   // @@protoc_insertion_point(destructor:rmad.ComponentsRepairState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ComponentsRepairState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.components_.~RepeatedPtrField();
 }
 
-void ComponentsRepairState::ArenaDtor(void* object) {
-  ComponentsRepairState* _this = reinterpret_cast< ComponentsRepairState* >(object);
-  (void)_this;
-}
-void ComponentsRepairState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ComponentsRepairState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ComponentsRepairState::Clear() {
@@ -3828,16 +3871,16 @@ void ComponentsRepairState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  components_.Clear();
-  mainboard_rework_ = false;
+  _impl_.components_.Clear();
+  _impl_.mainboard_rework_ = false;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ComponentsRepairState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ComponentsRepairState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .rmad.ComponentsRepairState.ComponentRepairStatus components = 1;
       case 1:
@@ -3855,7 +3898,7 @@ const char* ComponentsRepairState::_InternalParse(const char* ptr, ::PROTOBUF_NA
       // bool mainboard_rework = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          mainboard_rework_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.mainboard_rework_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3890,17 +3933,17 @@ uint8_t* ComponentsRepairState::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .rmad.ComponentsRepairState.ComponentRepairStatus components = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_components_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_components_size()); i < n; i++) {
+    const auto& repfield = this->_internal_components(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_components(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // bool mainboard_rework = 2;
   if (this->_internal_mainboard_rework() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_mainboard_rework(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_mainboard_rework(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3921,7 +3964,7 @@ size_t ComponentsRepairState::ByteSizeLong() const {
 
   // repeated .rmad.ComponentsRepairState.ComponentRepairStatus components = 1;
   total_size += 1UL * this->_internal_components_size();
-  for (const auto& msg : this->components_) {
+  for (const auto& msg : this->_impl_.components_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -3934,28 +3977,29 @@ size_t ComponentsRepairState::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ComponentsRepairState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ComponentsRepairState*>(
+  MergeFrom(*::_pbi::DownCast<const ComponentsRepairState*>(
       &from));
 }
 
 void ComponentsRepairState::MergeFrom(const ComponentsRepairState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.ComponentsRepairState)
-  GOOGLE_DCHECK_NE(&from, this);
+  ComponentsRepairState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.ComponentsRepairState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  components_.MergeFrom(from.components_);
+  _this->_impl_.components_.MergeFrom(from._impl_.components_);
   if (from._internal_mainboard_rework() != 0) {
-    _internal_set_mainboard_rework(from._internal_mainboard_rework());
+    _this->_internal_set_mainboard_rework(from._internal_mainboard_rework());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ComponentsRepairState::CopyFrom(const ComponentsRepairState& from) {
@@ -3972,8 +4016,8 @@ bool ComponentsRepairState::IsInitialized() const {
 void ComponentsRepairState::InternalSwap(ComponentsRepairState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  components_.InternalSwap(&other->components_);
-  swap(mainboard_rework_, other->mainboard_rework_);
+  _impl_.components_.InternalSwap(&other->_impl_.components_);
+  swap(_impl_.mainboard_rework_, other->_impl_.mainboard_rework_);
 }
 
 std::string ComponentsRepairState::GetTypeName() const {
@@ -3990,42 +4034,46 @@ class DeviceDestinationState::_Internal {
 DeviceDestinationState::DeviceDestinationState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.DeviceDestinationState)
 }
 DeviceDestinationState::DeviceDestinationState(const DeviceDestinationState& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  DeviceDestinationState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.destination_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  destination_ = from.destination_;
+  _this->_impl_.destination_ = from._impl_.destination_;
   // @@protoc_insertion_point(copy_constructor:rmad.DeviceDestinationState)
 }
 
-inline void DeviceDestinationState::SharedCtor() {
-destination_ = 0;
+inline void DeviceDestinationState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.destination_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 DeviceDestinationState::~DeviceDestinationState() {
   // @@protoc_insertion_point(destructor:rmad.DeviceDestinationState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void DeviceDestinationState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void DeviceDestinationState::ArenaDtor(void* object) {
-  DeviceDestinationState* _this = reinterpret_cast< DeviceDestinationState* >(object);
-  (void)_this;
-}
-void DeviceDestinationState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void DeviceDestinationState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void DeviceDestinationState::Clear() {
@@ -4034,15 +4082,15 @@ void DeviceDestinationState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  destination_ = 0;
+  _impl_.destination_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* DeviceDestinationState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* DeviceDestinationState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.DeviceDestinationState.Destination destination = 1;
       case 1:
@@ -4085,7 +4133,7 @@ uint8_t* DeviceDestinationState::_InternalSerialize(
   // .rmad.DeviceDestinationState.Destination destination = 1;
   if (this->_internal_destination() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_destination(), target);
   }
 
@@ -4108,33 +4156,34 @@ size_t DeviceDestinationState::ByteSizeLong() const {
   // .rmad.DeviceDestinationState.Destination destination = 1;
   if (this->_internal_destination() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_destination());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_destination());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void DeviceDestinationState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const DeviceDestinationState*>(
+  MergeFrom(*::_pbi::DownCast<const DeviceDestinationState*>(
       &from));
 }
 
 void DeviceDestinationState::MergeFrom(const DeviceDestinationState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.DeviceDestinationState)
-  GOOGLE_DCHECK_NE(&from, this);
+  DeviceDestinationState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.DeviceDestinationState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_destination() != 0) {
-    _internal_set_destination(from._internal_destination());
+    _this->_internal_set_destination(from._internal_destination());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void DeviceDestinationState::CopyFrom(const DeviceDestinationState& from) {
@@ -4151,7 +4200,7 @@ bool DeviceDestinationState::IsInitialized() const {
 void DeviceDestinationState::InternalSwap(DeviceDestinationState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(destination_, other->destination_);
+  swap(_impl_.destination_, other->_impl_.destination_);
 }
 
 std::string DeviceDestinationState::GetTypeName() const {
@@ -4168,42 +4217,46 @@ class WipeSelectionState::_Internal {
 WipeSelectionState::WipeSelectionState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.WipeSelectionState)
 }
 WipeSelectionState::WipeSelectionState(const WipeSelectionState& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  WipeSelectionState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.wipe_device_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  wipe_device_ = from.wipe_device_;
+  _this->_impl_.wipe_device_ = from._impl_.wipe_device_;
   // @@protoc_insertion_point(copy_constructor:rmad.WipeSelectionState)
 }
 
-inline void WipeSelectionState::SharedCtor() {
-wipe_device_ = false;
+inline void WipeSelectionState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.wipe_device_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 WipeSelectionState::~WipeSelectionState() {
   // @@protoc_insertion_point(destructor:rmad.WipeSelectionState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void WipeSelectionState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void WipeSelectionState::ArenaDtor(void* object) {
-  WipeSelectionState* _this = reinterpret_cast< WipeSelectionState* >(object);
-  (void)_this;
-}
-void WipeSelectionState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void WipeSelectionState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void WipeSelectionState::Clear() {
@@ -4212,20 +4265,20 @@ void WipeSelectionState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  wipe_device_ = false;
+  _impl_.wipe_device_ = false;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* WipeSelectionState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* WipeSelectionState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bool wipe_device = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          wipe_device_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.wipe_device_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4262,7 +4315,7 @@ uint8_t* WipeSelectionState::_InternalSerialize(
   // bool wipe_device = 1;
   if (this->_internal_wipe_device() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_wipe_device(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_wipe_device(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4289,27 +4342,28 @@ size_t WipeSelectionState::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void WipeSelectionState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const WipeSelectionState*>(
+  MergeFrom(*::_pbi::DownCast<const WipeSelectionState*>(
       &from));
 }
 
 void WipeSelectionState::MergeFrom(const WipeSelectionState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.WipeSelectionState)
-  GOOGLE_DCHECK_NE(&from, this);
+  WipeSelectionState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.WipeSelectionState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_wipe_device() != 0) {
-    _internal_set_wipe_device(from._internal_wipe_device());
+    _this->_internal_set_wipe_device(from._internal_wipe_device());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void WipeSelectionState::CopyFrom(const WipeSelectionState& from) {
@@ -4326,7 +4380,7 @@ bool WipeSelectionState::IsInitialized() const {
 void WipeSelectionState::InternalSwap(WipeSelectionState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(wipe_device_, other->wipe_device_);
+  swap(_impl_.wipe_device_, other->_impl_.wipe_device_);
 }
 
 std::string WipeSelectionState::GetTypeName() const {
@@ -4343,42 +4397,46 @@ class WriteProtectDisableMethodState::_Internal {
 WriteProtectDisableMethodState::WriteProtectDisableMethodState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.WriteProtectDisableMethodState)
 }
 WriteProtectDisableMethodState::WriteProtectDisableMethodState(const WriteProtectDisableMethodState& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  WriteProtectDisableMethodState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.disable_method_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  disable_method_ = from.disable_method_;
+  _this->_impl_.disable_method_ = from._impl_.disable_method_;
   // @@protoc_insertion_point(copy_constructor:rmad.WriteProtectDisableMethodState)
 }
 
-inline void WriteProtectDisableMethodState::SharedCtor() {
-disable_method_ = 0;
+inline void WriteProtectDisableMethodState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.disable_method_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 WriteProtectDisableMethodState::~WriteProtectDisableMethodState() {
   // @@protoc_insertion_point(destructor:rmad.WriteProtectDisableMethodState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void WriteProtectDisableMethodState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void WriteProtectDisableMethodState::ArenaDtor(void* object) {
-  WriteProtectDisableMethodState* _this = reinterpret_cast< WriteProtectDisableMethodState* >(object);
-  (void)_this;
-}
-void WriteProtectDisableMethodState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void WriteProtectDisableMethodState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void WriteProtectDisableMethodState::Clear() {
@@ -4387,15 +4445,15 @@ void WriteProtectDisableMethodState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  disable_method_ = 0;
+  _impl_.disable_method_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* WriteProtectDisableMethodState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* WriteProtectDisableMethodState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.WriteProtectDisableMethodState.DisableMethod disable_method = 1;
       case 1:
@@ -4438,7 +4496,7 @@ uint8_t* WriteProtectDisableMethodState::_InternalSerialize(
   // .rmad.WriteProtectDisableMethodState.DisableMethod disable_method = 1;
   if (this->_internal_disable_method() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_disable_method(), target);
   }
 
@@ -4461,33 +4519,34 @@ size_t WriteProtectDisableMethodState::ByteSizeLong() const {
   // .rmad.WriteProtectDisableMethodState.DisableMethod disable_method = 1;
   if (this->_internal_disable_method() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_disable_method());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_disable_method());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void WriteProtectDisableMethodState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const WriteProtectDisableMethodState*>(
+  MergeFrom(*::_pbi::DownCast<const WriteProtectDisableMethodState*>(
       &from));
 }
 
 void WriteProtectDisableMethodState::MergeFrom(const WriteProtectDisableMethodState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.WriteProtectDisableMethodState)
-  GOOGLE_DCHECK_NE(&from, this);
+  WriteProtectDisableMethodState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.WriteProtectDisableMethodState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_disable_method() != 0) {
-    _internal_set_disable_method(from._internal_disable_method());
+    _this->_internal_set_disable_method(from._internal_disable_method());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void WriteProtectDisableMethodState::CopyFrom(const WriteProtectDisableMethodState& from) {
@@ -4504,7 +4563,7 @@ bool WriteProtectDisableMethodState::IsInitialized() const {
 void WriteProtectDisableMethodState::InternalSwap(WriteProtectDisableMethodState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(disable_method_, other->disable_method_);
+  swap(_impl_.disable_method_, other->_impl_.disable_method_);
 }
 
 std::string WriteProtectDisableMethodState::GetTypeName() const {
@@ -4521,94 +4580,106 @@ class WriteProtectDisableRsuState::_Internal {
 WriteProtectDisableRsuState::WriteProtectDisableRsuState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.WriteProtectDisableRsuState)
 }
 WriteProtectDisableRsuState::WriteProtectDisableRsuState(const WriteProtectDisableRsuState& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  WriteProtectDisableRsuState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.challenge_code_){}
+    , decltype(_impl_.hwid_){}
+    , decltype(_impl_.challenge_url_){}
+    , decltype(_impl_.unlock_code_){}
+    , decltype(_impl_.rsu_done_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  challenge_code_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.challenge_code_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    challenge_code_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.challenge_code_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_challenge_code().empty()) {
-    challenge_code_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_challenge_code(), 
-      GetArenaForAllocation());
+    _this->_impl_.challenge_code_.Set(from._internal_challenge_code(), 
+      _this->GetArenaForAllocation());
   }
-  hwid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.hwid_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    hwid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.hwid_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_hwid().empty()) {
-    hwid_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_hwid(), 
-      GetArenaForAllocation());
+    _this->_impl_.hwid_.Set(from._internal_hwid(), 
+      _this->GetArenaForAllocation());
   }
-  challenge_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.challenge_url_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    challenge_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.challenge_url_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_challenge_url().empty()) {
-    challenge_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_challenge_url(), 
-      GetArenaForAllocation());
+    _this->_impl_.challenge_url_.Set(from._internal_challenge_url(), 
+      _this->GetArenaForAllocation());
   }
-  unlock_code_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.unlock_code_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    unlock_code_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.unlock_code_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_unlock_code().empty()) {
-    unlock_code_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_unlock_code(), 
-      GetArenaForAllocation());
+    _this->_impl_.unlock_code_.Set(from._internal_unlock_code(), 
+      _this->GetArenaForAllocation());
   }
-  rsu_done_ = from.rsu_done_;
+  _this->_impl_.rsu_done_ = from._impl_.rsu_done_;
   // @@protoc_insertion_point(copy_constructor:rmad.WriteProtectDisableRsuState)
 }
 
-inline void WriteProtectDisableRsuState::SharedCtor() {
-challenge_code_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  challenge_code_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-hwid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  hwid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-challenge_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  challenge_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-unlock_code_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  unlock_code_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-rsu_done_ = false;
+inline void WriteProtectDisableRsuState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.challenge_code_){}
+    , decltype(_impl_.hwid_){}
+    , decltype(_impl_.challenge_url_){}
+    , decltype(_impl_.unlock_code_){}
+    , decltype(_impl_.rsu_done_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.challenge_code_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.challenge_code_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.hwid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.hwid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.challenge_url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.challenge_url_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.unlock_code_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.unlock_code_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 WriteProtectDisableRsuState::~WriteProtectDisableRsuState() {
   // @@protoc_insertion_point(destructor:rmad.WriteProtectDisableRsuState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void WriteProtectDisableRsuState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  challenge_code_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  hwid_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  challenge_url_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  unlock_code_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.challenge_code_.Destroy();
+  _impl_.hwid_.Destroy();
+  _impl_.challenge_url_.Destroy();
+  _impl_.unlock_code_.Destroy();
 }
 
-void WriteProtectDisableRsuState::ArenaDtor(void* object) {
-  WriteProtectDisableRsuState* _this = reinterpret_cast< WriteProtectDisableRsuState* >(object);
-  (void)_this;
-}
-void WriteProtectDisableRsuState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void WriteProtectDisableRsuState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void WriteProtectDisableRsuState::Clear() {
@@ -4617,24 +4688,24 @@ void WriteProtectDisableRsuState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  challenge_code_.ClearToEmpty();
-  hwid_.ClearToEmpty();
-  challenge_url_.ClearToEmpty();
-  unlock_code_.ClearToEmpty();
-  rsu_done_ = false;
+  _impl_.challenge_code_.ClearToEmpty();
+  _impl_.hwid_.ClearToEmpty();
+  _impl_.challenge_url_.ClearToEmpty();
+  _impl_.unlock_code_.ClearToEmpty();
+  _impl_.rsu_done_ = false;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* WriteProtectDisableRsuState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* WriteProtectDisableRsuState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bool rsu_done = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          rsu_done_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.rsu_done_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4643,9 +4714,9 @@ const char* WriteProtectDisableRsuState::_InternalParse(const char* ptr, ::PROTO
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_challenge_code();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -4653,9 +4724,9 @@ const char* WriteProtectDisableRsuState::_InternalParse(const char* ptr, ::PROTO
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_hwid();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -4663,9 +4734,9 @@ const char* WriteProtectDisableRsuState::_InternalParse(const char* ptr, ::PROTO
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_challenge_url();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -4673,9 +4744,9 @@ const char* WriteProtectDisableRsuState::_InternalParse(const char* ptr, ::PROTO
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_unlock_code();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -4711,7 +4782,7 @@ uint8_t* WriteProtectDisableRsuState::_InternalSerialize(
   // bool rsu_done = 1;
   if (this->_internal_rsu_done() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_rsu_done(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_rsu_done(), target);
   }
 
   // string challenge_code = 2;
@@ -4806,39 +4877,40 @@ size_t WriteProtectDisableRsuState::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void WriteProtectDisableRsuState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const WriteProtectDisableRsuState*>(
+  MergeFrom(*::_pbi::DownCast<const WriteProtectDisableRsuState*>(
       &from));
 }
 
 void WriteProtectDisableRsuState::MergeFrom(const WriteProtectDisableRsuState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.WriteProtectDisableRsuState)
-  GOOGLE_DCHECK_NE(&from, this);
+  WriteProtectDisableRsuState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.WriteProtectDisableRsuState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_challenge_code().empty()) {
-    _internal_set_challenge_code(from._internal_challenge_code());
+    _this->_internal_set_challenge_code(from._internal_challenge_code());
   }
   if (!from._internal_hwid().empty()) {
-    _internal_set_hwid(from._internal_hwid());
+    _this->_internal_set_hwid(from._internal_hwid());
   }
   if (!from._internal_challenge_url().empty()) {
-    _internal_set_challenge_url(from._internal_challenge_url());
+    _this->_internal_set_challenge_url(from._internal_challenge_url());
   }
   if (!from._internal_unlock_code().empty()) {
-    _internal_set_unlock_code(from._internal_unlock_code());
+    _this->_internal_set_unlock_code(from._internal_unlock_code());
   }
   if (from._internal_rsu_done() != 0) {
-    _internal_set_rsu_done(from._internal_rsu_done());
+    _this->_internal_set_rsu_done(from._internal_rsu_done());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void WriteProtectDisableRsuState::CopyFrom(const WriteProtectDisableRsuState& from) {
@@ -4858,26 +4930,22 @@ void WriteProtectDisableRsuState::InternalSwap(WriteProtectDisableRsuState* othe
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &challenge_code_, lhs_arena,
-      &other->challenge_code_, rhs_arena
+      &_impl_.challenge_code_, lhs_arena,
+      &other->_impl_.challenge_code_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &hwid_, lhs_arena,
-      &other->hwid_, rhs_arena
+      &_impl_.hwid_, lhs_arena,
+      &other->_impl_.hwid_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &challenge_url_, lhs_arena,
-      &other->challenge_url_, rhs_arena
+      &_impl_.challenge_url_, lhs_arena,
+      &other->_impl_.challenge_url_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &unlock_code_, lhs_arena,
-      &other->unlock_code_, rhs_arena
+      &_impl_.unlock_code_, lhs_arena,
+      &other->_impl_.unlock_code_, rhs_arena
   );
-  swap(rsu_done_, other->rsu_done_);
+  swap(_impl_.rsu_done_, other->_impl_.rsu_done_);
 }
 
 std::string WriteProtectDisableRsuState::GetTypeName() const {
@@ -4894,42 +4962,46 @@ class WriteProtectDisablePhysicalState::_Internal {
 WriteProtectDisablePhysicalState::WriteProtectDisablePhysicalState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.WriteProtectDisablePhysicalState)
 }
 WriteProtectDisablePhysicalState::WriteProtectDisablePhysicalState(const WriteProtectDisablePhysicalState& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  WriteProtectDisablePhysicalState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.keep_device_open_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  keep_device_open_ = from.keep_device_open_;
+  _this->_impl_.keep_device_open_ = from._impl_.keep_device_open_;
   // @@protoc_insertion_point(copy_constructor:rmad.WriteProtectDisablePhysicalState)
 }
 
-inline void WriteProtectDisablePhysicalState::SharedCtor() {
-keep_device_open_ = false;
+inline void WriteProtectDisablePhysicalState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.keep_device_open_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 WriteProtectDisablePhysicalState::~WriteProtectDisablePhysicalState() {
   // @@protoc_insertion_point(destructor:rmad.WriteProtectDisablePhysicalState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void WriteProtectDisablePhysicalState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void WriteProtectDisablePhysicalState::ArenaDtor(void* object) {
-  WriteProtectDisablePhysicalState* _this = reinterpret_cast< WriteProtectDisablePhysicalState* >(object);
-  (void)_this;
-}
-void WriteProtectDisablePhysicalState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void WriteProtectDisablePhysicalState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void WriteProtectDisablePhysicalState::Clear() {
@@ -4938,20 +5010,20 @@ void WriteProtectDisablePhysicalState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  keep_device_open_ = false;
+  _impl_.keep_device_open_ = false;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* WriteProtectDisablePhysicalState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* WriteProtectDisablePhysicalState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bool keep_device_open = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          keep_device_open_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.keep_device_open_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4988,7 +5060,7 @@ uint8_t* WriteProtectDisablePhysicalState::_InternalSerialize(
   // bool keep_device_open = 1;
   if (this->_internal_keep_device_open() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_keep_device_open(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_keep_device_open(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -5015,27 +5087,28 @@ size_t WriteProtectDisablePhysicalState::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void WriteProtectDisablePhysicalState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const WriteProtectDisablePhysicalState*>(
+  MergeFrom(*::_pbi::DownCast<const WriteProtectDisablePhysicalState*>(
       &from));
 }
 
 void WriteProtectDisablePhysicalState::MergeFrom(const WriteProtectDisablePhysicalState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.WriteProtectDisablePhysicalState)
-  GOOGLE_DCHECK_NE(&from, this);
+  WriteProtectDisablePhysicalState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.WriteProtectDisablePhysicalState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_keep_device_open() != 0) {
-    _internal_set_keep_device_open(from._internal_keep_device_open());
+    _this->_internal_set_keep_device_open(from._internal_keep_device_open());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void WriteProtectDisablePhysicalState::CopyFrom(const WriteProtectDisablePhysicalState& from) {
@@ -5052,7 +5125,7 @@ bool WriteProtectDisablePhysicalState::IsInitialized() const {
 void WriteProtectDisablePhysicalState::InternalSwap(WriteProtectDisablePhysicalState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(keep_device_open_, other->keep_device_open_);
+  swap(_impl_.keep_device_open_, other->_impl_.keep_device_open_);
 }
 
 std::string WriteProtectDisablePhysicalState::GetTypeName() const {
@@ -5069,47 +5142,52 @@ class WriteProtectDisableCompleteState::_Internal {
 WriteProtectDisableCompleteState::WriteProtectDisableCompleteState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.WriteProtectDisableCompleteState)
 }
 WriteProtectDisableCompleteState::WriteProtectDisableCompleteState(const WriteProtectDisableCompleteState& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  WriteProtectDisableCompleteState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.keep_device_open_){}
+    , decltype(_impl_.wp_disable_skipped_){}
+    , decltype(_impl_.action_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&keep_device_open_, &from.keep_device_open_,
-    static_cast<size_t>(reinterpret_cast<char*>(&action_) -
-    reinterpret_cast<char*>(&keep_device_open_)) + sizeof(action_));
+  ::memcpy(&_impl_.keep_device_open_, &from._impl_.keep_device_open_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.action_) -
+    reinterpret_cast<char*>(&_impl_.keep_device_open_)) + sizeof(_impl_.action_));
   // @@protoc_insertion_point(copy_constructor:rmad.WriteProtectDisableCompleteState)
 }
 
-inline void WriteProtectDisableCompleteState::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&keep_device_open_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&action_) -
-    reinterpret_cast<char*>(&keep_device_open_)) + sizeof(action_));
+inline void WriteProtectDisableCompleteState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.keep_device_open_){false}
+    , decltype(_impl_.wp_disable_skipped_){false}
+    , decltype(_impl_.action_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 WriteProtectDisableCompleteState::~WriteProtectDisableCompleteState() {
   // @@protoc_insertion_point(destructor:rmad.WriteProtectDisableCompleteState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void WriteProtectDisableCompleteState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void WriteProtectDisableCompleteState::ArenaDtor(void* object) {
-  WriteProtectDisableCompleteState* _this = reinterpret_cast< WriteProtectDisableCompleteState* >(object);
-  (void)_this;
-}
-void WriteProtectDisableCompleteState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void WriteProtectDisableCompleteState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void WriteProtectDisableCompleteState::Clear() {
@@ -5118,22 +5196,22 @@ void WriteProtectDisableCompleteState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&keep_device_open_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&action_) -
-      reinterpret_cast<char*>(&keep_device_open_)) + sizeof(action_));
+  ::memset(&_impl_.keep_device_open_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.action_) -
+      reinterpret_cast<char*>(&_impl_.keep_device_open_)) + sizeof(_impl_.action_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* WriteProtectDisableCompleteState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* WriteProtectDisableCompleteState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bool keep_device_open = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          keep_device_open_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.keep_device_open_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5141,7 +5219,7 @@ const char* WriteProtectDisableCompleteState::_InternalParse(const char* ptr, ::
       // bool wp_disable_skipped = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          wp_disable_skipped_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.wp_disable_skipped_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5187,19 +5265,19 @@ uint8_t* WriteProtectDisableCompleteState::_InternalSerialize(
   // bool keep_device_open = 1;
   if (this->_internal_keep_device_open() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_keep_device_open(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_keep_device_open(), target);
   }
 
   // bool wp_disable_skipped = 2;
   if (this->_internal_wp_disable_skipped() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_wp_disable_skipped(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_wp_disable_skipped(), target);
   }
 
   // .rmad.WriteProtectDisableCompleteState.Action action = 3;
   if (this->_internal_action() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_action(), target);
   }
 
@@ -5232,39 +5310,40 @@ size_t WriteProtectDisableCompleteState::ByteSizeLong() const {
   // .rmad.WriteProtectDisableCompleteState.Action action = 3;
   if (this->_internal_action() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_action());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_action());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void WriteProtectDisableCompleteState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const WriteProtectDisableCompleteState*>(
+  MergeFrom(*::_pbi::DownCast<const WriteProtectDisableCompleteState*>(
       &from));
 }
 
 void WriteProtectDisableCompleteState::MergeFrom(const WriteProtectDisableCompleteState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.WriteProtectDisableCompleteState)
-  GOOGLE_DCHECK_NE(&from, this);
+  WriteProtectDisableCompleteState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.WriteProtectDisableCompleteState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_keep_device_open() != 0) {
-    _internal_set_keep_device_open(from._internal_keep_device_open());
+    _this->_internal_set_keep_device_open(from._internal_keep_device_open());
   }
   if (from._internal_wp_disable_skipped() != 0) {
-    _internal_set_wp_disable_skipped(from._internal_wp_disable_skipped());
+    _this->_internal_set_wp_disable_skipped(from._internal_wp_disable_skipped());
   }
   if (from._internal_action() != 0) {
-    _internal_set_action(from._internal_action());
+    _this->_internal_set_action(from._internal_action());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void WriteProtectDisableCompleteState::CopyFrom(const WriteProtectDisableCompleteState& from) {
@@ -5282,11 +5361,11 @@ void WriteProtectDisableCompleteState::InternalSwap(WriteProtectDisableCompleteS
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(WriteProtectDisableCompleteState, action_)
-      + sizeof(WriteProtectDisableCompleteState::action_)
-      - PROTOBUF_FIELD_OFFSET(WriteProtectDisableCompleteState, keep_device_open_)>(
-          reinterpret_cast<char*>(&keep_device_open_),
-          reinterpret_cast<char*>(&other->keep_device_open_));
+      PROTOBUF_FIELD_OFFSET(WriteProtectDisableCompleteState, _impl_.action_)
+      + sizeof(WriteProtectDisableCompleteState::_impl_.action_)
+      - PROTOBUF_FIELD_OFFSET(WriteProtectDisableCompleteState, _impl_.keep_device_open_)>(
+          reinterpret_cast<char*>(&_impl_.keep_device_open_),
+          reinterpret_cast<char*>(&other->_impl_.keep_device_open_));
 }
 
 std::string WriteProtectDisableCompleteState::GetTypeName() const {
@@ -5303,47 +5382,52 @@ class UpdateRoFirmwareState::_Internal {
 UpdateRoFirmwareState::UpdateRoFirmwareState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.UpdateRoFirmwareState)
 }
 UpdateRoFirmwareState::UpdateRoFirmwareState(const UpdateRoFirmwareState& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  UpdateRoFirmwareState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.optional_){}
+    , decltype(_impl_.update_){}
+    , decltype(_impl_.choice_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&optional_, &from.optional_,
-    static_cast<size_t>(reinterpret_cast<char*>(&choice_) -
-    reinterpret_cast<char*>(&optional_)) + sizeof(choice_));
+  ::memcpy(&_impl_.optional_, &from._impl_.optional_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.choice_) -
+    reinterpret_cast<char*>(&_impl_.optional_)) + sizeof(_impl_.choice_));
   // @@protoc_insertion_point(copy_constructor:rmad.UpdateRoFirmwareState)
 }
 
-inline void UpdateRoFirmwareState::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&optional_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&choice_) -
-    reinterpret_cast<char*>(&optional_)) + sizeof(choice_));
+inline void UpdateRoFirmwareState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.optional_){false}
+    , decltype(_impl_.update_){0}
+    , decltype(_impl_.choice_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 UpdateRoFirmwareState::~UpdateRoFirmwareState() {
   // @@protoc_insertion_point(destructor:rmad.UpdateRoFirmwareState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void UpdateRoFirmwareState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void UpdateRoFirmwareState::ArenaDtor(void* object) {
-  UpdateRoFirmwareState* _this = reinterpret_cast< UpdateRoFirmwareState* >(object);
-  (void)_this;
-}
-void UpdateRoFirmwareState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void UpdateRoFirmwareState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UpdateRoFirmwareState::Clear() {
@@ -5352,22 +5436,22 @@ void UpdateRoFirmwareState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&optional_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&choice_) -
-      reinterpret_cast<char*>(&optional_)) + sizeof(choice_));
+  ::memset(&_impl_.optional_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.choice_) -
+      reinterpret_cast<char*>(&_impl_.optional_)) + sizeof(_impl_.choice_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* UpdateRoFirmwareState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* UpdateRoFirmwareState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bool optional = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          optional_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.optional_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5422,20 +5506,20 @@ uint8_t* UpdateRoFirmwareState::_InternalSerialize(
   // bool optional = 1;
   if (this->_internal_optional() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_optional(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_optional(), target);
   }
 
   // .rmad.UpdateRoFirmwareState.UpdateFirmware update = 2;
   if (this->_internal_update() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_update(), target);
   }
 
   // .rmad.UpdateRoFirmwareState.UpdateChoice choice = 3;
   if (this->_internal_choice() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_choice(), target);
   }
 
@@ -5463,45 +5547,46 @@ size_t UpdateRoFirmwareState::ByteSizeLong() const {
   // .rmad.UpdateRoFirmwareState.UpdateFirmware update = 2;
   if (this->_internal_update() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_update());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_update());
   }
 
   // .rmad.UpdateRoFirmwareState.UpdateChoice choice = 3;
   if (this->_internal_choice() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_choice());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_choice());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void UpdateRoFirmwareState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const UpdateRoFirmwareState*>(
+  MergeFrom(*::_pbi::DownCast<const UpdateRoFirmwareState*>(
       &from));
 }
 
 void UpdateRoFirmwareState::MergeFrom(const UpdateRoFirmwareState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.UpdateRoFirmwareState)
-  GOOGLE_DCHECK_NE(&from, this);
+  UpdateRoFirmwareState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.UpdateRoFirmwareState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_optional() != 0) {
-    _internal_set_optional(from._internal_optional());
+    _this->_internal_set_optional(from._internal_optional());
   }
   if (from._internal_update() != 0) {
-    _internal_set_update(from._internal_update());
+    _this->_internal_set_update(from._internal_update());
   }
   if (from._internal_choice() != 0) {
-    _internal_set_choice(from._internal_choice());
+    _this->_internal_set_choice(from._internal_choice());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void UpdateRoFirmwareState::CopyFrom(const UpdateRoFirmwareState& from) {
@@ -5519,11 +5604,11 @@ void UpdateRoFirmwareState::InternalSwap(UpdateRoFirmwareState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(UpdateRoFirmwareState, choice_)
-      + sizeof(UpdateRoFirmwareState::choice_)
-      - PROTOBUF_FIELD_OFFSET(UpdateRoFirmwareState, optional_)>(
-          reinterpret_cast<char*>(&optional_),
-          reinterpret_cast<char*>(&other->optional_));
+      PROTOBUF_FIELD_OFFSET(UpdateRoFirmwareState, _impl_.choice_)
+      + sizeof(UpdateRoFirmwareState::_impl_.choice_)
+      - PROTOBUF_FIELD_OFFSET(UpdateRoFirmwareState, _impl_.optional_)>(
+          reinterpret_cast<char*>(&_impl_.optional_),
+          reinterpret_cast<char*>(&other->_impl_.optional_));
 }
 
 std::string UpdateRoFirmwareState::GetTypeName() const {
@@ -5540,42 +5625,46 @@ class RestockState::_Internal {
 RestockState::RestockState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.RestockState)
 }
 RestockState::RestockState(const RestockState& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RestockState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.choice_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  choice_ = from.choice_;
+  _this->_impl_.choice_ = from._impl_.choice_;
   // @@protoc_insertion_point(copy_constructor:rmad.RestockState)
 }
 
-inline void RestockState::SharedCtor() {
-choice_ = 0;
+inline void RestockState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.choice_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 RestockState::~RestockState() {
   // @@protoc_insertion_point(destructor:rmad.RestockState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void RestockState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void RestockState::ArenaDtor(void* object) {
-  RestockState* _this = reinterpret_cast< RestockState* >(object);
-  (void)_this;
-}
-void RestockState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void RestockState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RestockState::Clear() {
@@ -5584,15 +5673,15 @@ void RestockState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  choice_ = 0;
+  _impl_.choice_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* RestockState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* RestockState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.RestockState.RestockChoice choice = 1;
       case 1:
@@ -5635,7 +5724,7 @@ uint8_t* RestockState::_InternalSerialize(
   // .rmad.RestockState.RestockChoice choice = 1;
   if (this->_internal_choice() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_choice(), target);
   }
 
@@ -5658,33 +5747,34 @@ size_t RestockState::ByteSizeLong() const {
   // .rmad.RestockState.RestockChoice choice = 1;
   if (this->_internal_choice() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_choice());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_choice());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void RestockState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const RestockState*>(
+  MergeFrom(*::_pbi::DownCast<const RestockState*>(
       &from));
 }
 
 void RestockState::MergeFrom(const RestockState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.RestockState)
-  GOOGLE_DCHECK_NE(&from, this);
+  RestockState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.RestockState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_choice() != 0) {
-    _internal_set_choice(from._internal_choice());
+    _this->_internal_set_choice(from._internal_choice());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RestockState::CopyFrom(const RestockState& from) {
@@ -5701,7 +5791,7 @@ bool RestockState::IsInitialized() const {
 void RestockState::InternalSwap(RestockState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(choice_, other->choice_);
+  swap(_impl_.choice_, other->_impl_.choice_);
 }
 
 std::string RestockState::GetTypeName() const {
@@ -5717,108 +5807,139 @@ class UpdateDeviceInfoState::_Internal {
 
 UpdateDeviceInfoState::UpdateDeviceInfoState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  region_list_(arena),
-  sku_list_(arena),
-  whitelabel_list_(arena),
-  custom_label_list_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.UpdateDeviceInfoState)
 }
 UpdateDeviceInfoState::UpdateDeviceInfoState(const UpdateDeviceInfoState& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      region_list_(from.region_list_),
-      sku_list_(from.sku_list_),
-      whitelabel_list_(from.whitelabel_list_),
-      custom_label_list_(from.custom_label_list_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  UpdateDeviceInfoState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.region_list_){from._impl_.region_list_}
+    , decltype(_impl_.sku_list_){from._impl_.sku_list_}
+    , /*decltype(_impl_._sku_list_cached_byte_size_)*/{0}
+    , decltype(_impl_.whitelabel_list_){from._impl_.whitelabel_list_}
+    , decltype(_impl_.custom_label_list_){from._impl_.custom_label_list_}
+    , decltype(_impl_.serial_number_){}
+    , decltype(_impl_.dram_part_number_){}
+    , decltype(_impl_.original_serial_number_){}
+    , decltype(_impl_.original_dram_part_number_){}
+    , decltype(_impl_.region_index_){}
+    , decltype(_impl_.sku_index_){}
+    , decltype(_impl_.whitelabel_index_){}
+    , decltype(_impl_.custom_label_index_){}
+    , decltype(_impl_.original_region_index_){}
+    , decltype(_impl_.original_sku_index_){}
+    , decltype(_impl_.original_whitelabel_index_){}
+    , decltype(_impl_.original_custom_label_index_){}
+    , decltype(_impl_.mlb_repair_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  serial_number_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.serial_number_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    serial_number_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.serial_number_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_serial_number().empty()) {
-    serial_number_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_serial_number(), 
-      GetArenaForAllocation());
+    _this->_impl_.serial_number_.Set(from._internal_serial_number(), 
+      _this->GetArenaForAllocation());
   }
-  dram_part_number_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.dram_part_number_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    dram_part_number_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.dram_part_number_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_dram_part_number().empty()) {
-    dram_part_number_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_dram_part_number(), 
-      GetArenaForAllocation());
+    _this->_impl_.dram_part_number_.Set(from._internal_dram_part_number(), 
+      _this->GetArenaForAllocation());
   }
-  original_serial_number_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.original_serial_number_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    original_serial_number_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.original_serial_number_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_original_serial_number().empty()) {
-    original_serial_number_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_original_serial_number(), 
-      GetArenaForAllocation());
+    _this->_impl_.original_serial_number_.Set(from._internal_original_serial_number(), 
+      _this->GetArenaForAllocation());
   }
-  original_dram_part_number_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.original_dram_part_number_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    original_dram_part_number_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.original_dram_part_number_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_original_dram_part_number().empty()) {
-    original_dram_part_number_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_original_dram_part_number(), 
-      GetArenaForAllocation());
+    _this->_impl_.original_dram_part_number_.Set(from._internal_original_dram_part_number(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&region_index_, &from.region_index_,
-    static_cast<size_t>(reinterpret_cast<char*>(&original_custom_label_index_) -
-    reinterpret_cast<char*>(&region_index_)) + sizeof(original_custom_label_index_));
+  ::memcpy(&_impl_.region_index_, &from._impl_.region_index_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.mlb_repair_) -
+    reinterpret_cast<char*>(&_impl_.region_index_)) + sizeof(_impl_.mlb_repair_));
   // @@protoc_insertion_point(copy_constructor:rmad.UpdateDeviceInfoState)
 }
 
-inline void UpdateDeviceInfoState::SharedCtor() {
-serial_number_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  serial_number_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-dram_part_number_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  dram_part_number_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-original_serial_number_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  original_serial_number_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-original_dram_part_number_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  original_dram_part_number_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&region_index_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&original_custom_label_index_) -
-    reinterpret_cast<char*>(&region_index_)) + sizeof(original_custom_label_index_));
+inline void UpdateDeviceInfoState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.region_list_){arena}
+    , decltype(_impl_.sku_list_){arena}
+    , /*decltype(_impl_._sku_list_cached_byte_size_)*/{0}
+    , decltype(_impl_.whitelabel_list_){arena}
+    , decltype(_impl_.custom_label_list_){arena}
+    , decltype(_impl_.serial_number_){}
+    , decltype(_impl_.dram_part_number_){}
+    , decltype(_impl_.original_serial_number_){}
+    , decltype(_impl_.original_dram_part_number_){}
+    , decltype(_impl_.region_index_){0}
+    , decltype(_impl_.sku_index_){0}
+    , decltype(_impl_.whitelabel_index_){0}
+    , decltype(_impl_.custom_label_index_){0}
+    , decltype(_impl_.original_region_index_){0}
+    , decltype(_impl_.original_sku_index_){0}
+    , decltype(_impl_.original_whitelabel_index_){0}
+    , decltype(_impl_.original_custom_label_index_){0}
+    , decltype(_impl_.mlb_repair_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.serial_number_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.serial_number_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.dram_part_number_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.dram_part_number_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.original_serial_number_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.original_serial_number_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.original_dram_part_number_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.original_dram_part_number_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 UpdateDeviceInfoState::~UpdateDeviceInfoState() {
   // @@protoc_insertion_point(destructor:rmad.UpdateDeviceInfoState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void UpdateDeviceInfoState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  serial_number_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  dram_part_number_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  original_serial_number_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  original_dram_part_number_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.region_list_.~RepeatedPtrField();
+  _impl_.sku_list_.~RepeatedField();
+  _impl_.whitelabel_list_.~RepeatedPtrField();
+  _impl_.custom_label_list_.~RepeatedPtrField();
+  _impl_.serial_number_.Destroy();
+  _impl_.dram_part_number_.Destroy();
+  _impl_.original_serial_number_.Destroy();
+  _impl_.original_dram_part_number_.Destroy();
 }
 
-void UpdateDeviceInfoState::ArenaDtor(void* object) {
-  UpdateDeviceInfoState* _this = reinterpret_cast< UpdateDeviceInfoState* >(object);
-  (void)_this;
-}
-void UpdateDeviceInfoState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void UpdateDeviceInfoState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UpdateDeviceInfoState::Clear() {
@@ -5827,40 +5948,40 @@ void UpdateDeviceInfoState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  region_list_.Clear();
-  sku_list_.Clear();
-  whitelabel_list_.Clear();
-  custom_label_list_.Clear();
-  serial_number_.ClearToEmpty();
-  dram_part_number_.ClearToEmpty();
-  original_serial_number_.ClearToEmpty();
-  original_dram_part_number_.ClearToEmpty();
-  ::memset(&region_index_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&original_custom_label_index_) -
-      reinterpret_cast<char*>(&region_index_)) + sizeof(original_custom_label_index_));
+  _impl_.region_list_.Clear();
+  _impl_.sku_list_.Clear();
+  _impl_.whitelabel_list_.Clear();
+  _impl_.custom_label_list_.Clear();
+  _impl_.serial_number_.ClearToEmpty();
+  _impl_.dram_part_number_.ClearToEmpty();
+  _impl_.original_serial_number_.ClearToEmpty();
+  _impl_.original_dram_part_number_.ClearToEmpty();
+  ::memset(&_impl_.region_index_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.mlb_repair_) -
+      reinterpret_cast<char*>(&_impl_.region_index_)) + sizeof(_impl_.mlb_repair_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* UpdateDeviceInfoState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* UpdateDeviceInfoState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string serial_number = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_serial_number();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
       // int32 region_index = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          region_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.region_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5868,7 +5989,7 @@ const char* UpdateDeviceInfoState::_InternalParse(const char* ptr, ::PROTOBUF_NA
       // int32 sku_index = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          sku_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.sku_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5876,7 +5997,7 @@ const char* UpdateDeviceInfoState::_InternalParse(const char* ptr, ::PROTOBUF_NA
       // int32 whitelabel_index = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          whitelabel_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.whitelabel_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5885,16 +6006,16 @@ const char* UpdateDeviceInfoState::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_dram_part_number();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
       // int32 custom_label_index = 6;
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
-          custom_label_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.custom_label_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5906,9 +6027,9 @@ const char* UpdateDeviceInfoState::_InternalParse(const char* ptr, ::PROTOBUF_NA
           do {
             ptr += 2;
             auto str = _internal_add_region_list();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, nullptr));
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<818>(ptr));
         } else
@@ -5932,9 +6053,9 @@ const char* UpdateDeviceInfoState::_InternalParse(const char* ptr, ::PROTOBUF_NA
           do {
             ptr += 2;
             auto str = _internal_add_whitelabel_list();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, nullptr));
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<834>(ptr));
         } else
@@ -5947,9 +6068,9 @@ const char* UpdateDeviceInfoState::_InternalParse(const char* ptr, ::PROTOBUF_NA
           do {
             ptr += 2;
             auto str = _internal_add_custom_label_list();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, nullptr));
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<850>(ptr));
         } else
@@ -5959,16 +6080,16 @@ const char* UpdateDeviceInfoState::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 201:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
           auto str = _internal_mutable_original_serial_number();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
       // int32 original_region_index = 202;
       case 202:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
-          original_region_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.original_region_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5976,7 +6097,7 @@ const char* UpdateDeviceInfoState::_InternalParse(const char* ptr, ::PROTOBUF_NA
       // int32 original_sku_index = 203;
       case 203:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
-          original_sku_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.original_sku_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5984,7 +6105,7 @@ const char* UpdateDeviceInfoState::_InternalParse(const char* ptr, ::PROTOBUF_NA
       // int32 original_whitelabel_index = 204;
       case 204:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
-          original_whitelabel_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.original_whitelabel_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -5993,16 +6114,16 @@ const char* UpdateDeviceInfoState::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 205:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
           auto str = _internal_mutable_original_dram_part_number();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
       // int32 original_custom_label_index = 206;
       case 206:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
-          original_custom_label_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.original_custom_label_index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -6010,7 +6131,7 @@ const char* UpdateDeviceInfoState::_InternalParse(const char* ptr, ::PROTOBUF_NA
       // bool mlb_repair = 301;
       case 301:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 104)) {
-          mlb_repair_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.mlb_repair_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -6057,19 +6178,19 @@ uint8_t* UpdateDeviceInfoState::_InternalSerialize(
   // int32 region_index = 2;
   if (this->_internal_region_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_region_index(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_region_index(), target);
   }
 
   // int32 sku_index = 3;
   if (this->_internal_sku_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_sku_index(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_sku_index(), target);
   }
 
   // int32 whitelabel_index = 4;
   if (this->_internal_whitelabel_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_whitelabel_index(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_whitelabel_index(), target);
   }
 
   // string dram_part_number = 5;
@@ -6085,7 +6206,7 @@ uint8_t* UpdateDeviceInfoState::_InternalSerialize(
   // int32 custom_label_index = 6;
   if (this->_internal_custom_label_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(6, this->_internal_custom_label_index(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(6, this->_internal_custom_label_index(), target);
   }
 
   // repeated string region_list = 102;
@@ -6100,7 +6221,7 @@ uint8_t* UpdateDeviceInfoState::_InternalSerialize(
 
   // repeated uint64 sku_list = 103;
   {
-    int byte_size = _sku_list_cached_byte_size_.load(std::memory_order_relaxed);
+    int byte_size = _impl_._sku_list_cached_byte_size_.load(std::memory_order_relaxed);
     if (byte_size > 0) {
       target = stream->WriteUInt64Packed(
           103, _internal_sku_list(), byte_size, target);
@@ -6140,19 +6261,19 @@ uint8_t* UpdateDeviceInfoState::_InternalSerialize(
   // int32 original_region_index = 202;
   if (this->_internal_original_region_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(202, this->_internal_original_region_index(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(202, this->_internal_original_region_index(), target);
   }
 
   // int32 original_sku_index = 203;
   if (this->_internal_original_sku_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(203, this->_internal_original_sku_index(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(203, this->_internal_original_sku_index(), target);
   }
 
   // int32 original_whitelabel_index = 204;
   if (this->_internal_original_whitelabel_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(204, this->_internal_original_whitelabel_index(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(204, this->_internal_original_whitelabel_index(), target);
   }
 
   // string original_dram_part_number = 205;
@@ -6168,13 +6289,13 @@ uint8_t* UpdateDeviceInfoState::_InternalSerialize(
   // int32 original_custom_label_index = 206;
   if (this->_internal_original_custom_label_index() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(206, this->_internal_original_custom_label_index(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(206, this->_internal_original_custom_label_index(), target);
   }
 
   // bool mlb_repair = 301;
   if (this->_internal_mlb_repair() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(301, this->_internal_mlb_repair(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(301, this->_internal_mlb_repair(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6195,41 +6316,40 @@ size_t UpdateDeviceInfoState::ByteSizeLong() const {
 
   // repeated string region_list = 102;
   total_size += 2 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(region_list_.size());
-  for (int i = 0, n = region_list_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.region_list_.size());
+  for (int i = 0, n = _impl_.region_list_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      region_list_.Get(i));
+      _impl_.region_list_.Get(i));
   }
 
   // repeated uint64 sku_list = 103;
   {
-    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt64Size(this->sku_list_);
+    size_t data_size = ::_pbi::WireFormatLite::
+      UInt64Size(this->_impl_.sku_list_);
     if (data_size > 0) {
       total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<int32_t>(data_size));
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
     }
-    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _sku_list_cached_byte_size_.store(cached_size,
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _impl_._sku_list_cached_byte_size_.store(cached_size,
                                     std::memory_order_relaxed);
     total_size += data_size;
   }
 
   // repeated string whitelabel_list = 104;
   total_size += 2 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(whitelabel_list_.size());
-  for (int i = 0, n = whitelabel_list_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.whitelabel_list_.size());
+  for (int i = 0, n = _impl_.whitelabel_list_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      whitelabel_list_.Get(i));
+      _impl_.whitelabel_list_.Get(i));
   }
 
   // repeated string custom_label_list = 106;
   total_size += 2 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(custom_label_list_.size());
-  for (int i = 0, n = custom_label_list_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.custom_label_list_.size());
+  for (int i = 0, n = _impl_.custom_label_list_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      custom_label_list_.Get(i));
+      _impl_.custom_label_list_.Get(i));
   }
 
   // string serial_number = 1;
@@ -6262,22 +6382,50 @@ size_t UpdateDeviceInfoState::ByteSizeLong() const {
 
   // int32 region_index = 2;
   if (this->_internal_region_index() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_region_index());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_region_index());
   }
 
   // int32 sku_index = 3;
   if (this->_internal_sku_index() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_sku_index());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_sku_index());
   }
 
   // int32 whitelabel_index = 4;
   if (this->_internal_whitelabel_index() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_whitelabel_index());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_whitelabel_index());
   }
 
   // int32 custom_label_index = 6;
   if (this->_internal_custom_label_index() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_custom_label_index());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_custom_label_index());
+  }
+
+  // int32 original_region_index = 202;
+  if (this->_internal_original_region_index() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::Int32Size(
+        this->_internal_original_region_index());
+  }
+
+  // int32 original_sku_index = 203;
+  if (this->_internal_original_sku_index() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::Int32Size(
+        this->_internal_original_sku_index());
+  }
+
+  // int32 original_whitelabel_index = 204;
+  if (this->_internal_original_whitelabel_index() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::Int32Size(
+        this->_internal_original_whitelabel_index());
+  }
+
+  // int32 original_custom_label_index = 206;
+  if (this->_internal_original_custom_label_index() != 0) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::Int32Size(
+        this->_internal_original_custom_label_index());
   }
 
   // bool mlb_repair = 301;
@@ -6285,98 +6433,71 @@ size_t UpdateDeviceInfoState::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
-  // int32 original_region_index = 202;
-  if (this->_internal_original_region_index() != 0) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_original_region_index());
-  }
-
-  // int32 original_sku_index = 203;
-  if (this->_internal_original_sku_index() != 0) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_original_sku_index());
-  }
-
-  // int32 original_whitelabel_index = 204;
-  if (this->_internal_original_whitelabel_index() != 0) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_original_whitelabel_index());
-  }
-
-  // int32 original_custom_label_index = 206;
-  if (this->_internal_original_custom_label_index() != 0) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_original_custom_label_index());
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void UpdateDeviceInfoState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const UpdateDeviceInfoState*>(
+  MergeFrom(*::_pbi::DownCast<const UpdateDeviceInfoState*>(
       &from));
 }
 
 void UpdateDeviceInfoState::MergeFrom(const UpdateDeviceInfoState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.UpdateDeviceInfoState)
-  GOOGLE_DCHECK_NE(&from, this);
+  UpdateDeviceInfoState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.UpdateDeviceInfoState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  region_list_.MergeFrom(from.region_list_);
-  sku_list_.MergeFrom(from.sku_list_);
-  whitelabel_list_.MergeFrom(from.whitelabel_list_);
-  custom_label_list_.MergeFrom(from.custom_label_list_);
+  _this->_impl_.region_list_.MergeFrom(from._impl_.region_list_);
+  _this->_impl_.sku_list_.MergeFrom(from._impl_.sku_list_);
+  _this->_impl_.whitelabel_list_.MergeFrom(from._impl_.whitelabel_list_);
+  _this->_impl_.custom_label_list_.MergeFrom(from._impl_.custom_label_list_);
   if (!from._internal_serial_number().empty()) {
-    _internal_set_serial_number(from._internal_serial_number());
+    _this->_internal_set_serial_number(from._internal_serial_number());
   }
   if (!from._internal_dram_part_number().empty()) {
-    _internal_set_dram_part_number(from._internal_dram_part_number());
+    _this->_internal_set_dram_part_number(from._internal_dram_part_number());
   }
   if (!from._internal_original_serial_number().empty()) {
-    _internal_set_original_serial_number(from._internal_original_serial_number());
+    _this->_internal_set_original_serial_number(from._internal_original_serial_number());
   }
   if (!from._internal_original_dram_part_number().empty()) {
-    _internal_set_original_dram_part_number(from._internal_original_dram_part_number());
+    _this->_internal_set_original_dram_part_number(from._internal_original_dram_part_number());
   }
   if (from._internal_region_index() != 0) {
-    _internal_set_region_index(from._internal_region_index());
+    _this->_internal_set_region_index(from._internal_region_index());
   }
   if (from._internal_sku_index() != 0) {
-    _internal_set_sku_index(from._internal_sku_index());
+    _this->_internal_set_sku_index(from._internal_sku_index());
   }
   if (from._internal_whitelabel_index() != 0) {
-    _internal_set_whitelabel_index(from._internal_whitelabel_index());
+    _this->_internal_set_whitelabel_index(from._internal_whitelabel_index());
   }
   if (from._internal_custom_label_index() != 0) {
-    _internal_set_custom_label_index(from._internal_custom_label_index());
-  }
-  if (from._internal_mlb_repair() != 0) {
-    _internal_set_mlb_repair(from._internal_mlb_repair());
+    _this->_internal_set_custom_label_index(from._internal_custom_label_index());
   }
   if (from._internal_original_region_index() != 0) {
-    _internal_set_original_region_index(from._internal_original_region_index());
+    _this->_internal_set_original_region_index(from._internal_original_region_index());
   }
   if (from._internal_original_sku_index() != 0) {
-    _internal_set_original_sku_index(from._internal_original_sku_index());
+    _this->_internal_set_original_sku_index(from._internal_original_sku_index());
   }
   if (from._internal_original_whitelabel_index() != 0) {
-    _internal_set_original_whitelabel_index(from._internal_original_whitelabel_index());
+    _this->_internal_set_original_whitelabel_index(from._internal_original_whitelabel_index());
   }
   if (from._internal_original_custom_label_index() != 0) {
-    _internal_set_original_custom_label_index(from._internal_original_custom_label_index());
+    _this->_internal_set_original_custom_label_index(from._internal_original_custom_label_index());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_mlb_repair() != 0) {
+    _this->_internal_set_mlb_repair(from._internal_mlb_repair());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void UpdateDeviceInfoState::CopyFrom(const UpdateDeviceInfoState& from) {
@@ -6395,36 +6516,32 @@ void UpdateDeviceInfoState::InternalSwap(UpdateDeviceInfoState* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  region_list_.InternalSwap(&other->region_list_);
-  sku_list_.InternalSwap(&other->sku_list_);
-  whitelabel_list_.InternalSwap(&other->whitelabel_list_);
-  custom_label_list_.InternalSwap(&other->custom_label_list_);
+  _impl_.region_list_.InternalSwap(&other->_impl_.region_list_);
+  _impl_.sku_list_.InternalSwap(&other->_impl_.sku_list_);
+  _impl_.whitelabel_list_.InternalSwap(&other->_impl_.whitelabel_list_);
+  _impl_.custom_label_list_.InternalSwap(&other->_impl_.custom_label_list_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &serial_number_, lhs_arena,
-      &other->serial_number_, rhs_arena
+      &_impl_.serial_number_, lhs_arena,
+      &other->_impl_.serial_number_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &dram_part_number_, lhs_arena,
-      &other->dram_part_number_, rhs_arena
+      &_impl_.dram_part_number_, lhs_arena,
+      &other->_impl_.dram_part_number_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &original_serial_number_, lhs_arena,
-      &other->original_serial_number_, rhs_arena
+      &_impl_.original_serial_number_, lhs_arena,
+      &other->_impl_.original_serial_number_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &original_dram_part_number_, lhs_arena,
-      &other->original_dram_part_number_, rhs_arena
+      &_impl_.original_dram_part_number_, lhs_arena,
+      &other->_impl_.original_dram_part_number_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(UpdateDeviceInfoState, original_custom_label_index_)
-      + sizeof(UpdateDeviceInfoState::original_custom_label_index_)
-      - PROTOBUF_FIELD_OFFSET(UpdateDeviceInfoState, region_index_)>(
-          reinterpret_cast<char*>(&region_index_),
-          reinterpret_cast<char*>(&other->region_index_));
+      PROTOBUF_FIELD_OFFSET(UpdateDeviceInfoState, _impl_.mlb_repair_)
+      + sizeof(UpdateDeviceInfoState::_impl_.mlb_repair_)
+      - PROTOBUF_FIELD_OFFSET(UpdateDeviceInfoState, _impl_.region_index_)>(
+          reinterpret_cast<char*>(&_impl_.region_index_),
+          reinterpret_cast<char*>(&other->_impl_.region_index_));
 }
 
 std::string UpdateDeviceInfoState::GetTypeName() const {
@@ -6441,47 +6558,52 @@ class CalibrationComponentStatus::_Internal {
 CalibrationComponentStatus::CalibrationComponentStatus(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.CalibrationComponentStatus)
 }
 CalibrationComponentStatus::CalibrationComponentStatus(const CalibrationComponentStatus& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CalibrationComponentStatus* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.component_){}
+    , decltype(_impl_.status_){}
+    , decltype(_impl_.progress_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&component_, &from.component_,
-    static_cast<size_t>(reinterpret_cast<char*>(&progress_) -
-    reinterpret_cast<char*>(&component_)) + sizeof(progress_));
+  ::memcpy(&_impl_.component_, &from._impl_.component_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.progress_) -
+    reinterpret_cast<char*>(&_impl_.component_)) + sizeof(_impl_.progress_));
   // @@protoc_insertion_point(copy_constructor:rmad.CalibrationComponentStatus)
 }
 
-inline void CalibrationComponentStatus::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&component_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&progress_) -
-    reinterpret_cast<char*>(&component_)) + sizeof(progress_));
+inline void CalibrationComponentStatus::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.component_){0}
+    , decltype(_impl_.status_){0}
+    , decltype(_impl_.progress_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 CalibrationComponentStatus::~CalibrationComponentStatus() {
   // @@protoc_insertion_point(destructor:rmad.CalibrationComponentStatus)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void CalibrationComponentStatus::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void CalibrationComponentStatus::ArenaDtor(void* object) {
-  CalibrationComponentStatus* _this = reinterpret_cast< CalibrationComponentStatus* >(object);
-  (void)_this;
-}
-void CalibrationComponentStatus::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void CalibrationComponentStatus::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CalibrationComponentStatus::Clear() {
@@ -6490,17 +6612,17 @@ void CalibrationComponentStatus::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&component_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&progress_) -
-      reinterpret_cast<char*>(&component_)) + sizeof(progress_));
+  ::memset(&_impl_.component_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.progress_) -
+      reinterpret_cast<char*>(&_impl_.component_)) + sizeof(_impl_.progress_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* CalibrationComponentStatus::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* CalibrationComponentStatus::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.RmadComponent component = 1;
       case 1:
@@ -6523,7 +6645,7 @@ const char* CalibrationComponentStatus::_InternalParse(const char* ptr, ::PROTOB
       // double progress = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 25)) {
-          progress_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.progress_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -6560,14 +6682,14 @@ uint8_t* CalibrationComponentStatus::_InternalSerialize(
   // .rmad.RmadComponent component = 1;
   if (this->_internal_component() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_component(), target);
   }
 
   // .rmad.CalibrationComponentStatus.CalibrationStatus status = 2;
   if (this->_internal_status() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_status(), target);
   }
 
@@ -6578,7 +6700,7 @@ uint8_t* CalibrationComponentStatus::_InternalSerialize(
   memcpy(&raw_progress, &tmp_progress, sizeof(tmp_progress));
   if (raw_progress != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_progress(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(3, this->_internal_progress(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6600,13 +6722,13 @@ size_t CalibrationComponentStatus::ByteSizeLong() const {
   // .rmad.RmadComponent component = 1;
   if (this->_internal_component() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_component());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_component());
   }
 
   // .rmad.CalibrationComponentStatus.CalibrationStatus status = 2;
   if (this->_internal_status() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_status());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
   }
 
   // double progress = 3;
@@ -6621,37 +6743,38 @@ size_t CalibrationComponentStatus::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void CalibrationComponentStatus::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const CalibrationComponentStatus*>(
+  MergeFrom(*::_pbi::DownCast<const CalibrationComponentStatus*>(
       &from));
 }
 
 void CalibrationComponentStatus::MergeFrom(const CalibrationComponentStatus& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.CalibrationComponentStatus)
-  GOOGLE_DCHECK_NE(&from, this);
+  CalibrationComponentStatus* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.CalibrationComponentStatus)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_component() != 0) {
-    _internal_set_component(from._internal_component());
+    _this->_internal_set_component(from._internal_component());
   }
   if (from._internal_status() != 0) {
-    _internal_set_status(from._internal_status());
+    _this->_internal_set_status(from._internal_status());
   }
   static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
   double tmp_progress = from._internal_progress();
   uint64_t raw_progress;
   memcpy(&raw_progress, &tmp_progress, sizeof(tmp_progress));
   if (raw_progress != 0) {
-    _internal_set_progress(from._internal_progress());
+    _this->_internal_set_progress(from._internal_progress());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CalibrationComponentStatus::CopyFrom(const CalibrationComponentStatus& from) {
@@ -6669,11 +6792,11 @@ void CalibrationComponentStatus::InternalSwap(CalibrationComponentStatus* other)
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CalibrationComponentStatus, progress_)
-      + sizeof(CalibrationComponentStatus::progress_)
-      - PROTOBUF_FIELD_OFFSET(CalibrationComponentStatus, component_)>(
-          reinterpret_cast<char*>(&component_),
-          reinterpret_cast<char*>(&other->component_));
+      PROTOBUF_FIELD_OFFSET(CalibrationComponentStatus, _impl_.progress_)
+      + sizeof(CalibrationComponentStatus::_impl_.progress_)
+      - PROTOBUF_FIELD_OFFSET(CalibrationComponentStatus, _impl_.component_)>(
+          reinterpret_cast<char*>(&_impl_.component_),
+          reinterpret_cast<char*>(&other->_impl_.component_));
 }
 
 std::string CalibrationComponentStatus::GetTypeName() const {
@@ -6689,43 +6812,47 @@ class CheckCalibrationState::_Internal {
 
 CheckCalibrationState::CheckCalibrationState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  components_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.CheckCalibrationState)
 }
 CheckCalibrationState::CheckCalibrationState(const CheckCalibrationState& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      components_(from.components_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CheckCalibrationState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.components_){from._impl_.components_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:rmad.CheckCalibrationState)
 }
 
-inline void CheckCalibrationState::SharedCtor() {
+inline void CheckCalibrationState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.components_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 CheckCalibrationState::~CheckCalibrationState() {
   // @@protoc_insertion_point(destructor:rmad.CheckCalibrationState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void CheckCalibrationState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.components_.~RepeatedPtrField();
 }
 
-void CheckCalibrationState::ArenaDtor(void* object) {
-  CheckCalibrationState* _this = reinterpret_cast< CheckCalibrationState* >(object);
-  (void)_this;
-}
-void CheckCalibrationState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void CheckCalibrationState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CheckCalibrationState::Clear() {
@@ -6734,15 +6861,15 @@ void CheckCalibrationState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  components_.Clear();
+  _impl_.components_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* CheckCalibrationState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* CheckCalibrationState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .rmad.CalibrationComponentStatus components = 1;
       case 1:
@@ -6787,11 +6914,11 @@ uint8_t* CheckCalibrationState::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .rmad.CalibrationComponentStatus components = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_components_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_components_size()); i < n; i++) {
+    const auto& repfield = this->_internal_components(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_components(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6812,7 +6939,7 @@ size_t CheckCalibrationState::ByteSizeLong() const {
 
   // repeated .rmad.CalibrationComponentStatus components = 1;
   total_size += 1UL * this->_internal_components_size();
-  for (const auto& msg : this->components_) {
+  for (const auto& msg : this->_impl_.components_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -6820,25 +6947,26 @@ size_t CheckCalibrationState::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void CheckCalibrationState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const CheckCalibrationState*>(
+  MergeFrom(*::_pbi::DownCast<const CheckCalibrationState*>(
       &from));
 }
 
 void CheckCalibrationState::MergeFrom(const CheckCalibrationState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.CheckCalibrationState)
-  GOOGLE_DCHECK_NE(&from, this);
+  CheckCalibrationState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.CheckCalibrationState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  components_.MergeFrom(from.components_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.components_.MergeFrom(from._impl_.components_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CheckCalibrationState::CopyFrom(const CheckCalibrationState& from) {
@@ -6855,7 +6983,7 @@ bool CheckCalibrationState::IsInitialized() const {
 void CheckCalibrationState::InternalSwap(CheckCalibrationState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  components_.InternalSwap(&other->components_);
+  _impl_.components_.InternalSwap(&other->_impl_.components_);
 }
 
 std::string CheckCalibrationState::GetTypeName() const {
@@ -6872,42 +7000,46 @@ class SetupCalibrationState::_Internal {
 SetupCalibrationState::SetupCalibrationState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.SetupCalibrationState)
 }
 SetupCalibrationState::SetupCalibrationState(const SetupCalibrationState& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SetupCalibrationState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.instruction_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  instruction_ = from.instruction_;
+  _this->_impl_.instruction_ = from._impl_.instruction_;
   // @@protoc_insertion_point(copy_constructor:rmad.SetupCalibrationState)
 }
 
-inline void SetupCalibrationState::SharedCtor() {
-instruction_ = 0;
+inline void SetupCalibrationState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.instruction_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 SetupCalibrationState::~SetupCalibrationState() {
   // @@protoc_insertion_point(destructor:rmad.SetupCalibrationState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SetupCalibrationState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void SetupCalibrationState::ArenaDtor(void* object) {
-  SetupCalibrationState* _this = reinterpret_cast< SetupCalibrationState* >(object);
-  (void)_this;
-}
-void SetupCalibrationState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SetupCalibrationState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SetupCalibrationState::Clear() {
@@ -6916,15 +7048,15 @@ void SetupCalibrationState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  instruction_ = 0;
+  _impl_.instruction_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SetupCalibrationState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SetupCalibrationState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.CalibrationSetupInstruction instruction = 1;
       case 1:
@@ -6967,7 +7099,7 @@ uint8_t* SetupCalibrationState::_InternalSerialize(
   // .rmad.CalibrationSetupInstruction instruction = 1;
   if (this->_internal_instruction() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_instruction(), target);
   }
 
@@ -6990,33 +7122,34 @@ size_t SetupCalibrationState::ByteSizeLong() const {
   // .rmad.CalibrationSetupInstruction instruction = 1;
   if (this->_internal_instruction() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_instruction());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_instruction());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SetupCalibrationState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SetupCalibrationState*>(
+  MergeFrom(*::_pbi::DownCast<const SetupCalibrationState*>(
       &from));
 }
 
 void SetupCalibrationState::MergeFrom(const SetupCalibrationState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.SetupCalibrationState)
-  GOOGLE_DCHECK_NE(&from, this);
+  SetupCalibrationState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.SetupCalibrationState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_instruction() != 0) {
-    _internal_set_instruction(from._internal_instruction());
+    _this->_internal_set_instruction(from._internal_instruction());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SetupCalibrationState::CopyFrom(const SetupCalibrationState& from) {
@@ -7033,7 +7166,7 @@ bool SetupCalibrationState::IsInitialized() const {
 void SetupCalibrationState::InternalSwap(SetupCalibrationState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(instruction_, other->instruction_);
+  swap(_impl_.instruction_, other->_impl_.instruction_);
 }
 
 std::string SetupCalibrationState::GetTypeName() const {
@@ -7050,42 +7183,46 @@ class RunCalibrationState::_Internal {
 RunCalibrationState::RunCalibrationState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.RunCalibrationState)
 }
 RunCalibrationState::RunCalibrationState(const RunCalibrationState& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RunCalibrationState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.status_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:rmad.RunCalibrationState)
 }
 
-inline void RunCalibrationState::SharedCtor() {
-status_ = 0;
+inline void RunCalibrationState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.status_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 RunCalibrationState::~RunCalibrationState() {
   // @@protoc_insertion_point(destructor:rmad.RunCalibrationState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void RunCalibrationState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void RunCalibrationState::ArenaDtor(void* object) {
-  RunCalibrationState* _this = reinterpret_cast< RunCalibrationState* >(object);
-  (void)_this;
-}
-void RunCalibrationState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void RunCalibrationState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RunCalibrationState::Clear() {
@@ -7094,15 +7231,15 @@ void RunCalibrationState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  status_ = 0;
+  _impl_.status_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* RunCalibrationState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* RunCalibrationState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.CalibrationOverallStatus status = 1;
       case 1:
@@ -7145,7 +7282,7 @@ uint8_t* RunCalibrationState::_InternalSerialize(
   // .rmad.CalibrationOverallStatus status = 1;
   if (this->_internal_status() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_status(), target);
   }
 
@@ -7168,33 +7305,34 @@ size_t RunCalibrationState::ByteSizeLong() const {
   // .rmad.CalibrationOverallStatus status = 1;
   if (this->_internal_status() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_status());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void RunCalibrationState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const RunCalibrationState*>(
+  MergeFrom(*::_pbi::DownCast<const RunCalibrationState*>(
       &from));
 }
 
 void RunCalibrationState::MergeFrom(const RunCalibrationState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.RunCalibrationState)
-  GOOGLE_DCHECK_NE(&from, this);
+  RunCalibrationState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.RunCalibrationState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_status() != 0) {
-    _internal_set_status(from._internal_status());
+    _this->_internal_set_status(from._internal_status());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RunCalibrationState::CopyFrom(const RunCalibrationState& from) {
@@ -7211,7 +7349,7 @@ bool RunCalibrationState::IsInitialized() const {
 void RunCalibrationState::InternalSwap(RunCalibrationState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(status_, other->status_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 std::string RunCalibrationState::GetTypeName() const {
@@ -7228,42 +7366,46 @@ class ProvisionDeviceState::_Internal {
 ProvisionDeviceState::ProvisionDeviceState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.ProvisionDeviceState)
 }
 ProvisionDeviceState::ProvisionDeviceState(const ProvisionDeviceState& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ProvisionDeviceState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.choice_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  choice_ = from.choice_;
+  _this->_impl_.choice_ = from._impl_.choice_;
   // @@protoc_insertion_point(copy_constructor:rmad.ProvisionDeviceState)
 }
 
-inline void ProvisionDeviceState::SharedCtor() {
-choice_ = 0;
+inline void ProvisionDeviceState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.choice_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 ProvisionDeviceState::~ProvisionDeviceState() {
   // @@protoc_insertion_point(destructor:rmad.ProvisionDeviceState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ProvisionDeviceState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void ProvisionDeviceState::ArenaDtor(void* object) {
-  ProvisionDeviceState* _this = reinterpret_cast< ProvisionDeviceState* >(object);
-  (void)_this;
-}
-void ProvisionDeviceState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ProvisionDeviceState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ProvisionDeviceState::Clear() {
@@ -7272,15 +7414,15 @@ void ProvisionDeviceState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  choice_ = 0;
+  _impl_.choice_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ProvisionDeviceState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ProvisionDeviceState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.ProvisionDeviceState.ProvisionChoice choice = 1;
       case 1:
@@ -7323,7 +7465,7 @@ uint8_t* ProvisionDeviceState::_InternalSerialize(
   // .rmad.ProvisionDeviceState.ProvisionChoice choice = 1;
   if (this->_internal_choice() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_choice(), target);
   }
 
@@ -7346,33 +7488,34 @@ size_t ProvisionDeviceState::ByteSizeLong() const {
   // .rmad.ProvisionDeviceState.ProvisionChoice choice = 1;
   if (this->_internal_choice() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_choice());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_choice());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ProvisionDeviceState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ProvisionDeviceState*>(
+  MergeFrom(*::_pbi::DownCast<const ProvisionDeviceState*>(
       &from));
 }
 
 void ProvisionDeviceState::MergeFrom(const ProvisionDeviceState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.ProvisionDeviceState)
-  GOOGLE_DCHECK_NE(&from, this);
+  ProvisionDeviceState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.ProvisionDeviceState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_choice() != 0) {
-    _internal_set_choice(from._internal_choice());
+    _this->_internal_set_choice(from._internal_choice());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ProvisionDeviceState::CopyFrom(const ProvisionDeviceState& from) {
@@ -7389,7 +7532,7 @@ bool ProvisionDeviceState::IsInitialized() const {
 void ProvisionDeviceState::InternalSwap(ProvisionDeviceState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(choice_, other->choice_);
+  swap(_impl_.choice_, other->_impl_.choice_);
 }
 
 std::string ProvisionDeviceState::GetTypeName() const {
@@ -7406,40 +7549,43 @@ class WriteProtectEnablePhysicalState::_Internal {
 WriteProtectEnablePhysicalState::WriteProtectEnablePhysicalState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.WriteProtectEnablePhysicalState)
 }
 WriteProtectEnablePhysicalState::WriteProtectEnablePhysicalState(const WriteProtectEnablePhysicalState& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  WriteProtectEnablePhysicalState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:rmad.WriteProtectEnablePhysicalState)
 }
 
-inline void WriteProtectEnablePhysicalState::SharedCtor() {
+inline void WriteProtectEnablePhysicalState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 WriteProtectEnablePhysicalState::~WriteProtectEnablePhysicalState() {
   // @@protoc_insertion_point(destructor:rmad.WriteProtectEnablePhysicalState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void WriteProtectEnablePhysicalState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void WriteProtectEnablePhysicalState::ArenaDtor(void* object) {
-  WriteProtectEnablePhysicalState* _this = reinterpret_cast< WriteProtectEnablePhysicalState* >(object);
-  (void)_this;
-}
-void WriteProtectEnablePhysicalState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void WriteProtectEnablePhysicalState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void WriteProtectEnablePhysicalState::Clear() {
@@ -7451,11 +7597,11 @@ void WriteProtectEnablePhysicalState::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* WriteProtectEnablePhysicalState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* WriteProtectEnablePhysicalState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     if ((tag == 0) || ((tag & 7) == 4)) {
       CHK_(ptr);
       ctx->SetLastTag(tag);
@@ -7500,24 +7646,25 @@ size_t WriteProtectEnablePhysicalState::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void WriteProtectEnablePhysicalState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const WriteProtectEnablePhysicalState*>(
+  MergeFrom(*::_pbi::DownCast<const WriteProtectEnablePhysicalState*>(
       &from));
 }
 
 void WriteProtectEnablePhysicalState::MergeFrom(const WriteProtectEnablePhysicalState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.WriteProtectEnablePhysicalState)
-  GOOGLE_DCHECK_NE(&from, this);
+  WriteProtectEnablePhysicalState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.WriteProtectEnablePhysicalState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void WriteProtectEnablePhysicalState::CopyFrom(const WriteProtectEnablePhysicalState& from) {
@@ -7550,47 +7697,50 @@ class FinalizeState::_Internal {
 FinalizeState::FinalizeState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.FinalizeState)
 }
 FinalizeState::FinalizeState(const FinalizeState& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FinalizeState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.shutdown_){}
+    , decltype(_impl_.choice_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&shutdown_, &from.shutdown_,
-    static_cast<size_t>(reinterpret_cast<char*>(&choice_) -
-    reinterpret_cast<char*>(&shutdown_)) + sizeof(choice_));
+  ::memcpy(&_impl_.shutdown_, &from._impl_.shutdown_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.choice_) -
+    reinterpret_cast<char*>(&_impl_.shutdown_)) + sizeof(_impl_.choice_));
   // @@protoc_insertion_point(copy_constructor:rmad.FinalizeState)
 }
 
-inline void FinalizeState::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&shutdown_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&choice_) -
-    reinterpret_cast<char*>(&shutdown_)) + sizeof(choice_));
+inline void FinalizeState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.shutdown_){0}
+    , decltype(_impl_.choice_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 FinalizeState::~FinalizeState() {
   // @@protoc_insertion_point(destructor:rmad.FinalizeState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void FinalizeState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void FinalizeState::ArenaDtor(void* object) {
-  FinalizeState* _this = reinterpret_cast< FinalizeState* >(object);
-  (void)_this;
-}
-void FinalizeState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void FinalizeState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FinalizeState::Clear() {
@@ -7599,17 +7749,17 @@ void FinalizeState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&shutdown_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&choice_) -
-      reinterpret_cast<char*>(&shutdown_)) + sizeof(choice_));
+  ::memset(&_impl_.shutdown_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.choice_) -
+      reinterpret_cast<char*>(&_impl_.shutdown_)) + sizeof(_impl_.choice_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* FinalizeState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* FinalizeState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.FinalizeState.ShutdownMethod shutdown = 1;
       case 1:
@@ -7661,14 +7811,14 @@ uint8_t* FinalizeState::_InternalSerialize(
   // .rmad.FinalizeState.ShutdownMethod shutdown = 1;
   if (this->_internal_shutdown() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_shutdown(), target);
   }
 
   // .rmad.FinalizeState.FinalizeChoice choice = 2;
   if (this->_internal_choice() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_choice(), target);
   }
 
@@ -7691,42 +7841,43 @@ size_t FinalizeState::ByteSizeLong() const {
   // .rmad.FinalizeState.ShutdownMethod shutdown = 1;
   if (this->_internal_shutdown() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_shutdown());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_shutdown());
   }
 
   // .rmad.FinalizeState.FinalizeChoice choice = 2;
   if (this->_internal_choice() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_choice());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_choice());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void FinalizeState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const FinalizeState*>(
+  MergeFrom(*::_pbi::DownCast<const FinalizeState*>(
       &from));
 }
 
 void FinalizeState::MergeFrom(const FinalizeState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.FinalizeState)
-  GOOGLE_DCHECK_NE(&from, this);
+  FinalizeState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.FinalizeState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_shutdown() != 0) {
-    _internal_set_shutdown(from._internal_shutdown());
+    _this->_internal_set_shutdown(from._internal_shutdown());
   }
   if (from._internal_choice() != 0) {
-    _internal_set_choice(from._internal_choice());
+    _this->_internal_set_choice(from._internal_choice());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FinalizeState::CopyFrom(const FinalizeState& from) {
@@ -7744,11 +7895,11 @@ void FinalizeState::InternalSwap(FinalizeState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(FinalizeState, choice_)
-      + sizeof(FinalizeState::choice_)
-      - PROTOBUF_FIELD_OFFSET(FinalizeState, shutdown_)>(
-          reinterpret_cast<char*>(&shutdown_),
-          reinterpret_cast<char*>(&other->shutdown_));
+      PROTOBUF_FIELD_OFFSET(FinalizeState, _impl_.choice_)
+      + sizeof(FinalizeState::_impl_.choice_)
+      - PROTOBUF_FIELD_OFFSET(FinalizeState, _impl_.shutdown_)>(
+          reinterpret_cast<char*>(&_impl_.shutdown_),
+          reinterpret_cast<char*>(&other->_impl_.shutdown_));
 }
 
 std::string FinalizeState::GetTypeName() const {
@@ -7765,47 +7916,50 @@ class RepairCompleteState::_Internal {
 RepairCompleteState::RepairCompleteState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.RepairCompleteState)
 }
 RepairCompleteState::RepairCompleteState(const RepairCompleteState& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RepairCompleteState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.shutdown_){}
+    , decltype(_impl_.powerwash_required_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&shutdown_, &from.shutdown_,
-    static_cast<size_t>(reinterpret_cast<char*>(&powerwash_required_) -
-    reinterpret_cast<char*>(&shutdown_)) + sizeof(powerwash_required_));
+  ::memcpy(&_impl_.shutdown_, &from._impl_.shutdown_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.powerwash_required_) -
+    reinterpret_cast<char*>(&_impl_.shutdown_)) + sizeof(_impl_.powerwash_required_));
   // @@protoc_insertion_point(copy_constructor:rmad.RepairCompleteState)
 }
 
-inline void RepairCompleteState::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&shutdown_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&powerwash_required_) -
-    reinterpret_cast<char*>(&shutdown_)) + sizeof(powerwash_required_));
+inline void RepairCompleteState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.shutdown_){0}
+    , decltype(_impl_.powerwash_required_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 RepairCompleteState::~RepairCompleteState() {
   // @@protoc_insertion_point(destructor:rmad.RepairCompleteState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void RepairCompleteState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void RepairCompleteState::ArenaDtor(void* object) {
-  RepairCompleteState* _this = reinterpret_cast< RepairCompleteState* >(object);
-  (void)_this;
-}
-void RepairCompleteState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void RepairCompleteState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RepairCompleteState::Clear() {
@@ -7814,17 +7968,17 @@ void RepairCompleteState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&shutdown_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&powerwash_required_) -
-      reinterpret_cast<char*>(&shutdown_)) + sizeof(powerwash_required_));
+  ::memset(&_impl_.shutdown_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.powerwash_required_) -
+      reinterpret_cast<char*>(&_impl_.shutdown_)) + sizeof(_impl_.powerwash_required_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* RepairCompleteState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* RepairCompleteState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.RepairCompleteState.ShutdownMethod shutdown = 1;
       case 1:
@@ -7838,7 +7992,7 @@ const char* RepairCompleteState::_InternalParse(const char* ptr, ::PROTOBUF_NAME
       // bool powerwash_required = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          powerwash_required_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.powerwash_required_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7875,14 +8029,14 @@ uint8_t* RepairCompleteState::_InternalSerialize(
   // .rmad.RepairCompleteState.ShutdownMethod shutdown = 1;
   if (this->_internal_shutdown() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_shutdown(), target);
   }
 
   // bool powerwash_required = 2;
   if (this->_internal_powerwash_required() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_powerwash_required(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_powerwash_required(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -7904,7 +8058,7 @@ size_t RepairCompleteState::ByteSizeLong() const {
   // .rmad.RepairCompleteState.ShutdownMethod shutdown = 1;
   if (this->_internal_shutdown() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_shutdown());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_shutdown());
   }
 
   // bool powerwash_required = 2;
@@ -7915,30 +8069,31 @@ size_t RepairCompleteState::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void RepairCompleteState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const RepairCompleteState*>(
+  MergeFrom(*::_pbi::DownCast<const RepairCompleteState*>(
       &from));
 }
 
 void RepairCompleteState::MergeFrom(const RepairCompleteState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.RepairCompleteState)
-  GOOGLE_DCHECK_NE(&from, this);
+  RepairCompleteState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.RepairCompleteState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_shutdown() != 0) {
-    _internal_set_shutdown(from._internal_shutdown());
+    _this->_internal_set_shutdown(from._internal_shutdown());
   }
   if (from._internal_powerwash_required() != 0) {
-    _internal_set_powerwash_required(from._internal_powerwash_required());
+    _this->_internal_set_powerwash_required(from._internal_powerwash_required());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RepairCompleteState::CopyFrom(const RepairCompleteState& from) {
@@ -7956,11 +8111,11 @@ void RepairCompleteState::InternalSwap(RepairCompleteState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RepairCompleteState, powerwash_required_)
-      + sizeof(RepairCompleteState::powerwash_required_)
-      - PROTOBUF_FIELD_OFFSET(RepairCompleteState, shutdown_)>(
-          reinterpret_cast<char*>(&shutdown_),
-          reinterpret_cast<char*>(&other->shutdown_));
+      PROTOBUF_FIELD_OFFSET(RepairCompleteState, _impl_.powerwash_required_)
+      + sizeof(RepairCompleteState::_impl_.powerwash_required_)
+      - PROTOBUF_FIELD_OFFSET(RepairCompleteState, _impl_.shutdown_)>(
+          reinterpret_cast<char*>(&_impl_.shutdown_),
+          reinterpret_cast<char*>(&other->_impl_.shutdown_));
 }
 
 std::string RepairCompleteState::GetTypeName() const {
@@ -7994,88 +8149,88 @@ class RmadState::_Internal {
 
 const ::rmad::WelcomeState&
 RmadState::_Internal::welcome(const RmadState* msg) {
-  return *msg->state_.welcome_;
+  return *msg->_impl_.state_.welcome_;
 }
 const ::rmad::ComponentsRepairState&
 RmadState::_Internal::components_repair(const RmadState* msg) {
-  return *msg->state_.components_repair_;
+  return *msg->_impl_.state_.components_repair_;
 }
 const ::rmad::DeviceDestinationState&
 RmadState::_Internal::device_destination(const RmadState* msg) {
-  return *msg->state_.device_destination_;
+  return *msg->_impl_.state_.device_destination_;
 }
 const ::rmad::WriteProtectDisableMethodState&
 RmadState::_Internal::wp_disable_method(const RmadState* msg) {
-  return *msg->state_.wp_disable_method_;
+  return *msg->_impl_.state_.wp_disable_method_;
 }
 const ::rmad::WriteProtectDisableRsuState&
 RmadState::_Internal::wp_disable_rsu(const RmadState* msg) {
-  return *msg->state_.wp_disable_rsu_;
+  return *msg->_impl_.state_.wp_disable_rsu_;
 }
 const ::rmad::WriteProtectDisablePhysicalState&
 RmadState::_Internal::wp_disable_physical(const RmadState* msg) {
-  return *msg->state_.wp_disable_physical_;
+  return *msg->_impl_.state_.wp_disable_physical_;
 }
 const ::rmad::WriteProtectDisableCompleteState&
 RmadState::_Internal::wp_disable_complete(const RmadState* msg) {
-  return *msg->state_.wp_disable_complete_;
+  return *msg->_impl_.state_.wp_disable_complete_;
 }
 const ::rmad::UpdateRoFirmwareState&
 RmadState::_Internal::update_ro_firmware(const RmadState* msg) {
-  return *msg->state_.update_ro_firmware_;
+  return *msg->_impl_.state_.update_ro_firmware_;
 }
 const ::rmad::RestockState&
 RmadState::_Internal::restock(const RmadState* msg) {
-  return *msg->state_.restock_;
+  return *msg->_impl_.state_.restock_;
 }
 const ::rmad::UpdateDeviceInfoState&
 RmadState::_Internal::update_device_info(const RmadState* msg) {
-  return *msg->state_.update_device_info_;
+  return *msg->_impl_.state_.update_device_info_;
 }
 const ::rmad::CheckCalibrationState&
 RmadState::_Internal::check_calibration(const RmadState* msg) {
-  return *msg->state_.check_calibration_;
+  return *msg->_impl_.state_.check_calibration_;
 }
 const ::rmad::SetupCalibrationState&
 RmadState::_Internal::setup_calibration(const RmadState* msg) {
-  return *msg->state_.setup_calibration_;
+  return *msg->_impl_.state_.setup_calibration_;
 }
 const ::rmad::RunCalibrationState&
 RmadState::_Internal::run_calibration(const RmadState* msg) {
-  return *msg->state_.run_calibration_;
+  return *msg->_impl_.state_.run_calibration_;
 }
 const ::rmad::ProvisionDeviceState&
 RmadState::_Internal::provision_device(const RmadState* msg) {
-  return *msg->state_.provision_device_;
+  return *msg->_impl_.state_.provision_device_;
 }
 const ::rmad::WriteProtectEnablePhysicalState&
 RmadState::_Internal::wp_enable_physical(const RmadState* msg) {
-  return *msg->state_.wp_enable_physical_;
+  return *msg->_impl_.state_.wp_enable_physical_;
 }
 const ::rmad::FinalizeState&
 RmadState::_Internal::finalize(const RmadState* msg) {
-  return *msg->state_.finalize_;
+  return *msg->_impl_.state_.finalize_;
 }
 const ::rmad::RepairCompleteState&
 RmadState::_Internal::repair_complete(const RmadState* msg) {
-  return *msg->state_.repair_complete_;
+  return *msg->_impl_.state_.repair_complete_;
 }
 const ::rmad::WipeSelectionState&
 RmadState::_Internal::wipe_selection(const RmadState* msg) {
-  return *msg->state_.wipe_selection_;
+  return *msg->_impl_.state_.wipe_selection_;
 }
 void RmadState::set_allocated_welcome(::rmad::WelcomeState* welcome) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_state();
   if (welcome) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::WelcomeState>::GetOwningArena(welcome);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(welcome);
     if (message_arena != submessage_arena) {
       welcome = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, welcome, submessage_arena);
     }
     set_has_welcome();
-    state_.welcome_ = welcome;
+    _impl_.state_.welcome_ = welcome;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.welcome)
 }
@@ -8084,13 +8239,13 @@ void RmadState::set_allocated_components_repair(::rmad::ComponentsRepairState* c
   clear_state();
   if (components_repair) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::ComponentsRepairState>::GetOwningArena(components_repair);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(components_repair);
     if (message_arena != submessage_arena) {
       components_repair = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, components_repair, submessage_arena);
     }
     set_has_components_repair();
-    state_.components_repair_ = components_repair;
+    _impl_.state_.components_repair_ = components_repair;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.components_repair)
 }
@@ -8099,13 +8254,13 @@ void RmadState::set_allocated_device_destination(::rmad::DeviceDestinationState*
   clear_state();
   if (device_destination) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::DeviceDestinationState>::GetOwningArena(device_destination);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device_destination);
     if (message_arena != submessage_arena) {
       device_destination = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, device_destination, submessage_arena);
     }
     set_has_device_destination();
-    state_.device_destination_ = device_destination;
+    _impl_.state_.device_destination_ = device_destination;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.device_destination)
 }
@@ -8114,13 +8269,13 @@ void RmadState::set_allocated_wp_disable_method(::rmad::WriteProtectDisableMetho
   clear_state();
   if (wp_disable_method) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::WriteProtectDisableMethodState>::GetOwningArena(wp_disable_method);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(wp_disable_method);
     if (message_arena != submessage_arena) {
       wp_disable_method = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, wp_disable_method, submessage_arena);
     }
     set_has_wp_disable_method();
-    state_.wp_disable_method_ = wp_disable_method;
+    _impl_.state_.wp_disable_method_ = wp_disable_method;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.wp_disable_method)
 }
@@ -8129,13 +8284,13 @@ void RmadState::set_allocated_wp_disable_rsu(::rmad::WriteProtectDisableRsuState
   clear_state();
   if (wp_disable_rsu) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::WriteProtectDisableRsuState>::GetOwningArena(wp_disable_rsu);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(wp_disable_rsu);
     if (message_arena != submessage_arena) {
       wp_disable_rsu = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, wp_disable_rsu, submessage_arena);
     }
     set_has_wp_disable_rsu();
-    state_.wp_disable_rsu_ = wp_disable_rsu;
+    _impl_.state_.wp_disable_rsu_ = wp_disable_rsu;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.wp_disable_rsu)
 }
@@ -8144,13 +8299,13 @@ void RmadState::set_allocated_wp_disable_physical(::rmad::WriteProtectDisablePhy
   clear_state();
   if (wp_disable_physical) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::WriteProtectDisablePhysicalState>::GetOwningArena(wp_disable_physical);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(wp_disable_physical);
     if (message_arena != submessage_arena) {
       wp_disable_physical = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, wp_disable_physical, submessage_arena);
     }
     set_has_wp_disable_physical();
-    state_.wp_disable_physical_ = wp_disable_physical;
+    _impl_.state_.wp_disable_physical_ = wp_disable_physical;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.wp_disable_physical)
 }
@@ -8159,13 +8314,13 @@ void RmadState::set_allocated_wp_disable_complete(::rmad::WriteProtectDisableCom
   clear_state();
   if (wp_disable_complete) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::WriteProtectDisableCompleteState>::GetOwningArena(wp_disable_complete);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(wp_disable_complete);
     if (message_arena != submessage_arena) {
       wp_disable_complete = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, wp_disable_complete, submessage_arena);
     }
     set_has_wp_disable_complete();
-    state_.wp_disable_complete_ = wp_disable_complete;
+    _impl_.state_.wp_disable_complete_ = wp_disable_complete;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.wp_disable_complete)
 }
@@ -8174,13 +8329,13 @@ void RmadState::set_allocated_update_ro_firmware(::rmad::UpdateRoFirmwareState* 
   clear_state();
   if (update_ro_firmware) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::UpdateRoFirmwareState>::GetOwningArena(update_ro_firmware);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(update_ro_firmware);
     if (message_arena != submessage_arena) {
       update_ro_firmware = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, update_ro_firmware, submessage_arena);
     }
     set_has_update_ro_firmware();
-    state_.update_ro_firmware_ = update_ro_firmware;
+    _impl_.state_.update_ro_firmware_ = update_ro_firmware;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.update_ro_firmware)
 }
@@ -8189,13 +8344,13 @@ void RmadState::set_allocated_restock(::rmad::RestockState* restock) {
   clear_state();
   if (restock) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::RestockState>::GetOwningArena(restock);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(restock);
     if (message_arena != submessage_arena) {
       restock = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, restock, submessage_arena);
     }
     set_has_restock();
-    state_.restock_ = restock;
+    _impl_.state_.restock_ = restock;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.restock)
 }
@@ -8204,13 +8359,13 @@ void RmadState::set_allocated_update_device_info(::rmad::UpdateDeviceInfoState* 
   clear_state();
   if (update_device_info) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::UpdateDeviceInfoState>::GetOwningArena(update_device_info);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(update_device_info);
     if (message_arena != submessage_arena) {
       update_device_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, update_device_info, submessage_arena);
     }
     set_has_update_device_info();
-    state_.update_device_info_ = update_device_info;
+    _impl_.state_.update_device_info_ = update_device_info;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.update_device_info)
 }
@@ -8219,13 +8374,13 @@ void RmadState::set_allocated_check_calibration(::rmad::CheckCalibrationState* c
   clear_state();
   if (check_calibration) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::CheckCalibrationState>::GetOwningArena(check_calibration);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(check_calibration);
     if (message_arena != submessage_arena) {
       check_calibration = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, check_calibration, submessage_arena);
     }
     set_has_check_calibration();
-    state_.check_calibration_ = check_calibration;
+    _impl_.state_.check_calibration_ = check_calibration;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.check_calibration)
 }
@@ -8234,13 +8389,13 @@ void RmadState::set_allocated_setup_calibration(::rmad::SetupCalibrationState* s
   clear_state();
   if (setup_calibration) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::SetupCalibrationState>::GetOwningArena(setup_calibration);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(setup_calibration);
     if (message_arena != submessage_arena) {
       setup_calibration = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, setup_calibration, submessage_arena);
     }
     set_has_setup_calibration();
-    state_.setup_calibration_ = setup_calibration;
+    _impl_.state_.setup_calibration_ = setup_calibration;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.setup_calibration)
 }
@@ -8249,13 +8404,13 @@ void RmadState::set_allocated_run_calibration(::rmad::RunCalibrationState* run_c
   clear_state();
   if (run_calibration) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::RunCalibrationState>::GetOwningArena(run_calibration);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(run_calibration);
     if (message_arena != submessage_arena) {
       run_calibration = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, run_calibration, submessage_arena);
     }
     set_has_run_calibration();
-    state_.run_calibration_ = run_calibration;
+    _impl_.state_.run_calibration_ = run_calibration;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.run_calibration)
 }
@@ -8264,13 +8419,13 @@ void RmadState::set_allocated_provision_device(::rmad::ProvisionDeviceState* pro
   clear_state();
   if (provision_device) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::ProvisionDeviceState>::GetOwningArena(provision_device);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(provision_device);
     if (message_arena != submessage_arena) {
       provision_device = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, provision_device, submessage_arena);
     }
     set_has_provision_device();
-    state_.provision_device_ = provision_device;
+    _impl_.state_.provision_device_ = provision_device;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.provision_device)
 }
@@ -8279,13 +8434,13 @@ void RmadState::set_allocated_wp_enable_physical(::rmad::WriteProtectEnablePhysi
   clear_state();
   if (wp_enable_physical) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::WriteProtectEnablePhysicalState>::GetOwningArena(wp_enable_physical);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(wp_enable_physical);
     if (message_arena != submessage_arena) {
       wp_enable_physical = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, wp_enable_physical, submessage_arena);
     }
     set_has_wp_enable_physical();
-    state_.wp_enable_physical_ = wp_enable_physical;
+    _impl_.state_.wp_enable_physical_ = wp_enable_physical;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.wp_enable_physical)
 }
@@ -8294,13 +8449,13 @@ void RmadState::set_allocated_finalize(::rmad::FinalizeState* finalize) {
   clear_state();
   if (finalize) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::FinalizeState>::GetOwningArena(finalize);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(finalize);
     if (message_arena != submessage_arena) {
       finalize = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, finalize, submessage_arena);
     }
     set_has_finalize();
-    state_.finalize_ = finalize;
+    _impl_.state_.finalize_ = finalize;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.finalize)
 }
@@ -8309,13 +8464,13 @@ void RmadState::set_allocated_repair_complete(::rmad::RepairCompleteState* repai
   clear_state();
   if (repair_complete) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::RepairCompleteState>::GetOwningArena(repair_complete);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(repair_complete);
     if (message_arena != submessage_arena) {
       repair_complete = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, repair_complete, submessage_arena);
     }
     set_has_repair_complete();
-    state_.repair_complete_ = repair_complete;
+    _impl_.state_.repair_complete_ = repair_complete;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.repair_complete)
 }
@@ -8324,100 +8479,121 @@ void RmadState::set_allocated_wipe_selection(::rmad::WipeSelectionState* wipe_se
   clear_state();
   if (wipe_selection) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::rmad::WipeSelectionState>::GetOwningArena(wipe_selection);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(wipe_selection);
     if (message_arena != submessage_arena) {
       wipe_selection = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, wipe_selection, submessage_arena);
     }
     set_has_wipe_selection();
-    state_.wipe_selection_ = wipe_selection;
+    _impl_.state_.wipe_selection_ = wipe_selection;
   }
   // @@protoc_insertion_point(field_set_allocated:rmad.RmadState.wipe_selection)
 }
 RmadState::RmadState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.RmadState)
 }
 RmadState::RmadState(const RmadState& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RmadState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.state_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   clear_has_state();
   switch (from.state_case()) {
     case kWelcome: {
-      _internal_mutable_welcome()->::rmad::WelcomeState::MergeFrom(from._internal_welcome());
+      _this->_internal_mutable_welcome()->::rmad::WelcomeState::MergeFrom(
+          from._internal_welcome());
       break;
     }
     case kComponentsRepair: {
-      _internal_mutable_components_repair()->::rmad::ComponentsRepairState::MergeFrom(from._internal_components_repair());
+      _this->_internal_mutable_components_repair()->::rmad::ComponentsRepairState::MergeFrom(
+          from._internal_components_repair());
       break;
     }
     case kDeviceDestination: {
-      _internal_mutable_device_destination()->::rmad::DeviceDestinationState::MergeFrom(from._internal_device_destination());
+      _this->_internal_mutable_device_destination()->::rmad::DeviceDestinationState::MergeFrom(
+          from._internal_device_destination());
       break;
     }
     case kWpDisableMethod: {
-      _internal_mutable_wp_disable_method()->::rmad::WriteProtectDisableMethodState::MergeFrom(from._internal_wp_disable_method());
+      _this->_internal_mutable_wp_disable_method()->::rmad::WriteProtectDisableMethodState::MergeFrom(
+          from._internal_wp_disable_method());
       break;
     }
     case kWpDisableRsu: {
-      _internal_mutable_wp_disable_rsu()->::rmad::WriteProtectDisableRsuState::MergeFrom(from._internal_wp_disable_rsu());
+      _this->_internal_mutable_wp_disable_rsu()->::rmad::WriteProtectDisableRsuState::MergeFrom(
+          from._internal_wp_disable_rsu());
       break;
     }
     case kWpDisablePhysical: {
-      _internal_mutable_wp_disable_physical()->::rmad::WriteProtectDisablePhysicalState::MergeFrom(from._internal_wp_disable_physical());
+      _this->_internal_mutable_wp_disable_physical()->::rmad::WriteProtectDisablePhysicalState::MergeFrom(
+          from._internal_wp_disable_physical());
       break;
     }
     case kWpDisableComplete: {
-      _internal_mutable_wp_disable_complete()->::rmad::WriteProtectDisableCompleteState::MergeFrom(from._internal_wp_disable_complete());
+      _this->_internal_mutable_wp_disable_complete()->::rmad::WriteProtectDisableCompleteState::MergeFrom(
+          from._internal_wp_disable_complete());
       break;
     }
     case kUpdateRoFirmware: {
-      _internal_mutable_update_ro_firmware()->::rmad::UpdateRoFirmwareState::MergeFrom(from._internal_update_ro_firmware());
+      _this->_internal_mutable_update_ro_firmware()->::rmad::UpdateRoFirmwareState::MergeFrom(
+          from._internal_update_ro_firmware());
       break;
     }
     case kRestock: {
-      _internal_mutable_restock()->::rmad::RestockState::MergeFrom(from._internal_restock());
+      _this->_internal_mutable_restock()->::rmad::RestockState::MergeFrom(
+          from._internal_restock());
       break;
     }
     case kUpdateDeviceInfo: {
-      _internal_mutable_update_device_info()->::rmad::UpdateDeviceInfoState::MergeFrom(from._internal_update_device_info());
+      _this->_internal_mutable_update_device_info()->::rmad::UpdateDeviceInfoState::MergeFrom(
+          from._internal_update_device_info());
       break;
     }
     case kCheckCalibration: {
-      _internal_mutable_check_calibration()->::rmad::CheckCalibrationState::MergeFrom(from._internal_check_calibration());
+      _this->_internal_mutable_check_calibration()->::rmad::CheckCalibrationState::MergeFrom(
+          from._internal_check_calibration());
       break;
     }
     case kSetupCalibration: {
-      _internal_mutable_setup_calibration()->::rmad::SetupCalibrationState::MergeFrom(from._internal_setup_calibration());
+      _this->_internal_mutable_setup_calibration()->::rmad::SetupCalibrationState::MergeFrom(
+          from._internal_setup_calibration());
       break;
     }
     case kRunCalibration: {
-      _internal_mutable_run_calibration()->::rmad::RunCalibrationState::MergeFrom(from._internal_run_calibration());
+      _this->_internal_mutable_run_calibration()->::rmad::RunCalibrationState::MergeFrom(
+          from._internal_run_calibration());
       break;
     }
     case kProvisionDevice: {
-      _internal_mutable_provision_device()->::rmad::ProvisionDeviceState::MergeFrom(from._internal_provision_device());
+      _this->_internal_mutable_provision_device()->::rmad::ProvisionDeviceState::MergeFrom(
+          from._internal_provision_device());
       break;
     }
     case kWpEnablePhysical: {
-      _internal_mutable_wp_enable_physical()->::rmad::WriteProtectEnablePhysicalState::MergeFrom(from._internal_wp_enable_physical());
+      _this->_internal_mutable_wp_enable_physical()->::rmad::WriteProtectEnablePhysicalState::MergeFrom(
+          from._internal_wp_enable_physical());
       break;
     }
     case kFinalize: {
-      _internal_mutable_finalize()->::rmad::FinalizeState::MergeFrom(from._internal_finalize());
+      _this->_internal_mutable_finalize()->::rmad::FinalizeState::MergeFrom(
+          from._internal_finalize());
       break;
     }
     case kRepairComplete: {
-      _internal_mutable_repair_complete()->::rmad::RepairCompleteState::MergeFrom(from._internal_repair_complete());
+      _this->_internal_mutable_repair_complete()->::rmad::RepairCompleteState::MergeFrom(
+          from._internal_repair_complete());
       break;
     }
     case kWipeSelection: {
-      _internal_mutable_wipe_selection()->::rmad::WipeSelectionState::MergeFrom(from._internal_wipe_selection());
+      _this->_internal_mutable_wipe_selection()->::rmad::WipeSelectionState::MergeFrom(
+          from._internal_wipe_selection());
       break;
     }
     case STATE_NOT_SET: {
@@ -8427,15 +8603,25 @@ RmadState::RmadState(const RmadState& from)
   // @@protoc_insertion_point(copy_constructor:rmad.RmadState)
 }
 
-inline void RmadState::SharedCtor() {
-clear_has_state();
+inline void RmadState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.state_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  clear_has_state();
 }
 
 RmadState::~RmadState() {
   // @@protoc_insertion_point(destructor:rmad.RmadState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void RmadState::SharedDtor() {
@@ -8445,14 +8631,8 @@ inline void RmadState::SharedDtor() {
   }
 }
 
-void RmadState::ArenaDtor(void* object) {
-  RmadState* _this = reinterpret_cast< RmadState* >(object);
-  (void)_this;
-}
-void RmadState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void RmadState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RmadState::clear_state() {
@@ -8460,109 +8640,109 @@ void RmadState::clear_state() {
   switch (state_case()) {
     case kWelcome: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.welcome_;
+        delete _impl_.state_.welcome_;
       }
       break;
     }
     case kComponentsRepair: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.components_repair_;
+        delete _impl_.state_.components_repair_;
       }
       break;
     }
     case kDeviceDestination: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.device_destination_;
+        delete _impl_.state_.device_destination_;
       }
       break;
     }
     case kWpDisableMethod: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.wp_disable_method_;
+        delete _impl_.state_.wp_disable_method_;
       }
       break;
     }
     case kWpDisableRsu: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.wp_disable_rsu_;
+        delete _impl_.state_.wp_disable_rsu_;
       }
       break;
     }
     case kWpDisablePhysical: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.wp_disable_physical_;
+        delete _impl_.state_.wp_disable_physical_;
       }
       break;
     }
     case kWpDisableComplete: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.wp_disable_complete_;
+        delete _impl_.state_.wp_disable_complete_;
       }
       break;
     }
     case kUpdateRoFirmware: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.update_ro_firmware_;
+        delete _impl_.state_.update_ro_firmware_;
       }
       break;
     }
     case kRestock: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.restock_;
+        delete _impl_.state_.restock_;
       }
       break;
     }
     case kUpdateDeviceInfo: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.update_device_info_;
+        delete _impl_.state_.update_device_info_;
       }
       break;
     }
     case kCheckCalibration: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.check_calibration_;
+        delete _impl_.state_.check_calibration_;
       }
       break;
     }
     case kSetupCalibration: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.setup_calibration_;
+        delete _impl_.state_.setup_calibration_;
       }
       break;
     }
     case kRunCalibration: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.run_calibration_;
+        delete _impl_.state_.run_calibration_;
       }
       break;
     }
     case kProvisionDevice: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.provision_device_;
+        delete _impl_.state_.provision_device_;
       }
       break;
     }
     case kWpEnablePhysical: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.wp_enable_physical_;
+        delete _impl_.state_.wp_enable_physical_;
       }
       break;
     }
     case kFinalize: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.finalize_;
+        delete _impl_.state_.finalize_;
       }
       break;
     }
     case kRepairComplete: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.repair_complete_;
+        delete _impl_.state_.repair_complete_;
       }
       break;
     }
     case kWipeSelection: {
       if (GetArenaForAllocation() == nullptr) {
-        delete state_.wipe_selection_;
+        delete _impl_.state_.wipe_selection_;
       }
       break;
     }
@@ -8570,7 +8750,7 @@ void RmadState::clear_state() {
       break;
     }
   }
-  _oneof_case_[0] = STATE_NOT_SET;
+  _impl_._oneof_case_[0] = STATE_NOT_SET;
 }
 
 
@@ -8584,11 +8764,11 @@ void RmadState::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* RmadState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* RmadState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.WelcomeState welcome = 1;
       case 1:
@@ -8765,146 +8945,128 @@ uint8_t* RmadState::_InternalSerialize(
 
   // .rmad.WelcomeState welcome = 1;
   if (_internal_has_welcome()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::welcome(this), target, stream);
+      InternalWriteMessage(1, _Internal::welcome(this),
+        _Internal::welcome(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.ComponentsRepairState components_repair = 2;
   if (_internal_has_components_repair()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::components_repair(this), target, stream);
+      InternalWriteMessage(2, _Internal::components_repair(this),
+        _Internal::components_repair(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.DeviceDestinationState device_destination = 3;
   if (_internal_has_device_destination()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::device_destination(this), target, stream);
+      InternalWriteMessage(3, _Internal::device_destination(this),
+        _Internal::device_destination(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.WriteProtectDisableMethodState wp_disable_method = 4;
   if (_internal_has_wp_disable_method()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        4, _Internal::wp_disable_method(this), target, stream);
+      InternalWriteMessage(4, _Internal::wp_disable_method(this),
+        _Internal::wp_disable_method(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.WriteProtectDisableRsuState wp_disable_rsu = 5;
   if (_internal_has_wp_disable_rsu()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        5, _Internal::wp_disable_rsu(this), target, stream);
+      InternalWriteMessage(5, _Internal::wp_disable_rsu(this),
+        _Internal::wp_disable_rsu(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.WriteProtectDisablePhysicalState wp_disable_physical = 7;
   if (_internal_has_wp_disable_physical()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        7, _Internal::wp_disable_physical(this), target, stream);
+      InternalWriteMessage(7, _Internal::wp_disable_physical(this),
+        _Internal::wp_disable_physical(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.WriteProtectDisableCompleteState wp_disable_complete = 8;
   if (_internal_has_wp_disable_complete()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        8, _Internal::wp_disable_complete(this), target, stream);
+      InternalWriteMessage(8, _Internal::wp_disable_complete(this),
+        _Internal::wp_disable_complete(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.UpdateRoFirmwareState update_ro_firmware = 9;
   if (_internal_has_update_ro_firmware()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        9, _Internal::update_ro_firmware(this), target, stream);
+      InternalWriteMessage(9, _Internal::update_ro_firmware(this),
+        _Internal::update_ro_firmware(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.RestockState restock = 10;
   if (_internal_has_restock()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        10, _Internal::restock(this), target, stream);
+      InternalWriteMessage(10, _Internal::restock(this),
+        _Internal::restock(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.UpdateDeviceInfoState update_device_info = 11;
   if (_internal_has_update_device_info()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        11, _Internal::update_device_info(this), target, stream);
+      InternalWriteMessage(11, _Internal::update_device_info(this),
+        _Internal::update_device_info(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.CheckCalibrationState check_calibration = 12;
   if (_internal_has_check_calibration()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        12, _Internal::check_calibration(this), target, stream);
+      InternalWriteMessage(12, _Internal::check_calibration(this),
+        _Internal::check_calibration(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.SetupCalibrationState setup_calibration = 13;
   if (_internal_has_setup_calibration()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        13, _Internal::setup_calibration(this), target, stream);
+      InternalWriteMessage(13, _Internal::setup_calibration(this),
+        _Internal::setup_calibration(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.RunCalibrationState run_calibration = 14;
   if (_internal_has_run_calibration()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        14, _Internal::run_calibration(this), target, stream);
+      InternalWriteMessage(14, _Internal::run_calibration(this),
+        _Internal::run_calibration(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.ProvisionDeviceState provision_device = 15;
   if (_internal_has_provision_device()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        15, _Internal::provision_device(this), target, stream);
+      InternalWriteMessage(15, _Internal::provision_device(this),
+        _Internal::provision_device(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.WriteProtectEnablePhysicalState wp_enable_physical = 16;
   if (_internal_has_wp_enable_physical()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        16, _Internal::wp_enable_physical(this), target, stream);
+      InternalWriteMessage(16, _Internal::wp_enable_physical(this),
+        _Internal::wp_enable_physical(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.FinalizeState finalize = 17;
   if (_internal_has_finalize()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        17, _Internal::finalize(this), target, stream);
+      InternalWriteMessage(17, _Internal::finalize(this),
+        _Internal::finalize(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.RepairCompleteState repair_complete = 18;
   if (_internal_has_repair_complete()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        18, _Internal::repair_complete(this), target, stream);
+      InternalWriteMessage(18, _Internal::repair_complete(this),
+        _Internal::repair_complete(this).GetCachedSize(), target, stream);
   }
 
   // .rmad.WipeSelectionState wipe_selection = 19;
   if (_internal_has_wipe_selection()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        19, _Internal::wipe_selection(this), target, stream);
+      InternalWriteMessage(19, _Internal::wipe_selection(this),
+        _Internal::wipe_selection(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -8928,126 +9090,126 @@ size_t RmadState::ByteSizeLong() const {
     case kWelcome: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.welcome_);
+          *_impl_.state_.welcome_);
       break;
     }
     // .rmad.ComponentsRepairState components_repair = 2;
     case kComponentsRepair: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.components_repair_);
+          *_impl_.state_.components_repair_);
       break;
     }
     // .rmad.DeviceDestinationState device_destination = 3;
     case kDeviceDestination: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.device_destination_);
+          *_impl_.state_.device_destination_);
       break;
     }
     // .rmad.WriteProtectDisableMethodState wp_disable_method = 4;
     case kWpDisableMethod: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.wp_disable_method_);
+          *_impl_.state_.wp_disable_method_);
       break;
     }
     // .rmad.WriteProtectDisableRsuState wp_disable_rsu = 5;
     case kWpDisableRsu: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.wp_disable_rsu_);
+          *_impl_.state_.wp_disable_rsu_);
       break;
     }
     // .rmad.WriteProtectDisablePhysicalState wp_disable_physical = 7;
     case kWpDisablePhysical: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.wp_disable_physical_);
+          *_impl_.state_.wp_disable_physical_);
       break;
     }
     // .rmad.WriteProtectDisableCompleteState wp_disable_complete = 8;
     case kWpDisableComplete: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.wp_disable_complete_);
+          *_impl_.state_.wp_disable_complete_);
       break;
     }
     // .rmad.UpdateRoFirmwareState update_ro_firmware = 9;
     case kUpdateRoFirmware: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.update_ro_firmware_);
+          *_impl_.state_.update_ro_firmware_);
       break;
     }
     // .rmad.RestockState restock = 10;
     case kRestock: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.restock_);
+          *_impl_.state_.restock_);
       break;
     }
     // .rmad.UpdateDeviceInfoState update_device_info = 11;
     case kUpdateDeviceInfo: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.update_device_info_);
+          *_impl_.state_.update_device_info_);
       break;
     }
     // .rmad.CheckCalibrationState check_calibration = 12;
     case kCheckCalibration: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.check_calibration_);
+          *_impl_.state_.check_calibration_);
       break;
     }
     // .rmad.SetupCalibrationState setup_calibration = 13;
     case kSetupCalibration: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.setup_calibration_);
+          *_impl_.state_.setup_calibration_);
       break;
     }
     // .rmad.RunCalibrationState run_calibration = 14;
     case kRunCalibration: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.run_calibration_);
+          *_impl_.state_.run_calibration_);
       break;
     }
     // .rmad.ProvisionDeviceState provision_device = 15;
     case kProvisionDevice: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.provision_device_);
+          *_impl_.state_.provision_device_);
       break;
     }
     // .rmad.WriteProtectEnablePhysicalState wp_enable_physical = 16;
     case kWpEnablePhysical: {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.wp_enable_physical_);
+          *_impl_.state_.wp_enable_physical_);
       break;
     }
     // .rmad.FinalizeState finalize = 17;
     case kFinalize: {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.finalize_);
+          *_impl_.state_.finalize_);
       break;
     }
     // .rmad.RepairCompleteState repair_complete = 18;
     case kRepairComplete: {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.repair_complete_);
+          *_impl_.state_.repair_complete_);
       break;
     }
     // .rmad.WipeSelectionState wipe_selection = 19;
     case kWipeSelection: {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *state_.wipe_selection_);
+          *_impl_.state_.wipe_selection_);
       break;
     }
     case STATE_NOT_SET: {
@@ -9057,101 +9219,120 @@ size_t RmadState::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void RmadState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const RmadState*>(
+  MergeFrom(*::_pbi::DownCast<const RmadState*>(
       &from));
 }
 
 void RmadState::MergeFrom(const RmadState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.RmadState)
-  GOOGLE_DCHECK_NE(&from, this);
+  RmadState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.RmadState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.state_case()) {
     case kWelcome: {
-      _internal_mutable_welcome()->::rmad::WelcomeState::MergeFrom(from._internal_welcome());
+      _this->_internal_mutable_welcome()->::rmad::WelcomeState::MergeFrom(
+          from._internal_welcome());
       break;
     }
     case kComponentsRepair: {
-      _internal_mutable_components_repair()->::rmad::ComponentsRepairState::MergeFrom(from._internal_components_repair());
+      _this->_internal_mutable_components_repair()->::rmad::ComponentsRepairState::MergeFrom(
+          from._internal_components_repair());
       break;
     }
     case kDeviceDestination: {
-      _internal_mutable_device_destination()->::rmad::DeviceDestinationState::MergeFrom(from._internal_device_destination());
+      _this->_internal_mutable_device_destination()->::rmad::DeviceDestinationState::MergeFrom(
+          from._internal_device_destination());
       break;
     }
     case kWpDisableMethod: {
-      _internal_mutable_wp_disable_method()->::rmad::WriteProtectDisableMethodState::MergeFrom(from._internal_wp_disable_method());
+      _this->_internal_mutable_wp_disable_method()->::rmad::WriteProtectDisableMethodState::MergeFrom(
+          from._internal_wp_disable_method());
       break;
     }
     case kWpDisableRsu: {
-      _internal_mutable_wp_disable_rsu()->::rmad::WriteProtectDisableRsuState::MergeFrom(from._internal_wp_disable_rsu());
+      _this->_internal_mutable_wp_disable_rsu()->::rmad::WriteProtectDisableRsuState::MergeFrom(
+          from._internal_wp_disable_rsu());
       break;
     }
     case kWpDisablePhysical: {
-      _internal_mutable_wp_disable_physical()->::rmad::WriteProtectDisablePhysicalState::MergeFrom(from._internal_wp_disable_physical());
+      _this->_internal_mutable_wp_disable_physical()->::rmad::WriteProtectDisablePhysicalState::MergeFrom(
+          from._internal_wp_disable_physical());
       break;
     }
     case kWpDisableComplete: {
-      _internal_mutable_wp_disable_complete()->::rmad::WriteProtectDisableCompleteState::MergeFrom(from._internal_wp_disable_complete());
+      _this->_internal_mutable_wp_disable_complete()->::rmad::WriteProtectDisableCompleteState::MergeFrom(
+          from._internal_wp_disable_complete());
       break;
     }
     case kUpdateRoFirmware: {
-      _internal_mutable_update_ro_firmware()->::rmad::UpdateRoFirmwareState::MergeFrom(from._internal_update_ro_firmware());
+      _this->_internal_mutable_update_ro_firmware()->::rmad::UpdateRoFirmwareState::MergeFrom(
+          from._internal_update_ro_firmware());
       break;
     }
     case kRestock: {
-      _internal_mutable_restock()->::rmad::RestockState::MergeFrom(from._internal_restock());
+      _this->_internal_mutable_restock()->::rmad::RestockState::MergeFrom(
+          from._internal_restock());
       break;
     }
     case kUpdateDeviceInfo: {
-      _internal_mutable_update_device_info()->::rmad::UpdateDeviceInfoState::MergeFrom(from._internal_update_device_info());
+      _this->_internal_mutable_update_device_info()->::rmad::UpdateDeviceInfoState::MergeFrom(
+          from._internal_update_device_info());
       break;
     }
     case kCheckCalibration: {
-      _internal_mutable_check_calibration()->::rmad::CheckCalibrationState::MergeFrom(from._internal_check_calibration());
+      _this->_internal_mutable_check_calibration()->::rmad::CheckCalibrationState::MergeFrom(
+          from._internal_check_calibration());
       break;
     }
     case kSetupCalibration: {
-      _internal_mutable_setup_calibration()->::rmad::SetupCalibrationState::MergeFrom(from._internal_setup_calibration());
+      _this->_internal_mutable_setup_calibration()->::rmad::SetupCalibrationState::MergeFrom(
+          from._internal_setup_calibration());
       break;
     }
     case kRunCalibration: {
-      _internal_mutable_run_calibration()->::rmad::RunCalibrationState::MergeFrom(from._internal_run_calibration());
+      _this->_internal_mutable_run_calibration()->::rmad::RunCalibrationState::MergeFrom(
+          from._internal_run_calibration());
       break;
     }
     case kProvisionDevice: {
-      _internal_mutable_provision_device()->::rmad::ProvisionDeviceState::MergeFrom(from._internal_provision_device());
+      _this->_internal_mutable_provision_device()->::rmad::ProvisionDeviceState::MergeFrom(
+          from._internal_provision_device());
       break;
     }
     case kWpEnablePhysical: {
-      _internal_mutable_wp_enable_physical()->::rmad::WriteProtectEnablePhysicalState::MergeFrom(from._internal_wp_enable_physical());
+      _this->_internal_mutable_wp_enable_physical()->::rmad::WriteProtectEnablePhysicalState::MergeFrom(
+          from._internal_wp_enable_physical());
       break;
     }
     case kFinalize: {
-      _internal_mutable_finalize()->::rmad::FinalizeState::MergeFrom(from._internal_finalize());
+      _this->_internal_mutable_finalize()->::rmad::FinalizeState::MergeFrom(
+          from._internal_finalize());
       break;
     }
     case kRepairComplete: {
-      _internal_mutable_repair_complete()->::rmad::RepairCompleteState::MergeFrom(from._internal_repair_complete());
+      _this->_internal_mutable_repair_complete()->::rmad::RepairCompleteState::MergeFrom(
+          from._internal_repair_complete());
       break;
     }
     case kWipeSelection: {
-      _internal_mutable_wipe_selection()->::rmad::WipeSelectionState::MergeFrom(from._internal_wipe_selection());
+      _this->_internal_mutable_wipe_selection()->::rmad::WipeSelectionState::MergeFrom(
+          from._internal_wipe_selection());
       break;
     }
     case STATE_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RmadState::CopyFrom(const RmadState& from) {
@@ -9168,8 +9349,8 @@ bool RmadState::IsInitialized() const {
 void RmadState::InternalSwap(RmadState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(state_, other->state_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_impl_.state_, other->_impl_.state_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 std::string RmadState::GetTypeName() const {
@@ -9186,52 +9367,54 @@ class TransitionNextStateRequest::_Internal {
 
 const ::rmad::RmadState&
 TransitionNextStateRequest::_Internal::state(const TransitionNextStateRequest* msg) {
-  return *msg->state_;
+  return *msg->_impl_.state_;
 }
 TransitionNextStateRequest::TransitionNextStateRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.TransitionNextStateRequest)
 }
 TransitionNextStateRequest::TransitionNextStateRequest(const TransitionNextStateRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  TransitionNextStateRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.state_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_state()) {
-    state_ = new ::rmad::RmadState(*from.state_);
-  } else {
-    state_ = nullptr;
+    _this->_impl_.state_ = new ::rmad::RmadState(*from._impl_.state_);
   }
   // @@protoc_insertion_point(copy_constructor:rmad.TransitionNextStateRequest)
 }
 
-inline void TransitionNextStateRequest::SharedCtor() {
-state_ = nullptr;
+inline void TransitionNextStateRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.state_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 TransitionNextStateRequest::~TransitionNextStateRequest() {
   // @@protoc_insertion_point(destructor:rmad.TransitionNextStateRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void TransitionNextStateRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete state_;
+  if (this != internal_default_instance()) delete _impl_.state_;
 }
 
-void TransitionNextStateRequest::ArenaDtor(void* object) {
-  TransitionNextStateRequest* _this = reinterpret_cast< TransitionNextStateRequest* >(object);
-  (void)_this;
-}
-void TransitionNextStateRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void TransitionNextStateRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void TransitionNextStateRequest::Clear() {
@@ -9240,18 +9423,18 @@ void TransitionNextStateRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && state_ != nullptr) {
-    delete state_;
+  if (GetArenaForAllocation() == nullptr && _impl_.state_ != nullptr) {
+    delete _impl_.state_;
   }
-  state_ = nullptr;
+  _impl_.state_ = nullptr;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* TransitionNextStateRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* TransitionNextStateRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.RmadState state = 1;
       case 1:
@@ -9292,10 +9475,9 @@ uint8_t* TransitionNextStateRequest::_InternalSerialize(
 
   // .rmad.RmadState state = 1;
   if (this->_internal_has_state()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::state(this), target, stream);
+      InternalWriteMessage(1, _Internal::state(this),
+        _Internal::state(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -9318,33 +9500,35 @@ size_t TransitionNextStateRequest::ByteSizeLong() const {
   if (this->_internal_has_state()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *state_);
+        *_impl_.state_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void TransitionNextStateRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const TransitionNextStateRequest*>(
+  MergeFrom(*::_pbi::DownCast<const TransitionNextStateRequest*>(
       &from));
 }
 
 void TransitionNextStateRequest::MergeFrom(const TransitionNextStateRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.TransitionNextStateRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  TransitionNextStateRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.TransitionNextStateRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_state()) {
-    _internal_mutable_state()->::rmad::RmadState::MergeFrom(from._internal_state());
+    _this->_internal_mutable_state()->::rmad::RmadState::MergeFrom(
+        from._internal_state());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void TransitionNextStateRequest::CopyFrom(const TransitionNextStateRequest& from) {
@@ -9361,7 +9545,7 @@ bool TransitionNextStateRequest::IsInitialized() const {
 void TransitionNextStateRequest::InternalSwap(TransitionNextStateRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(state_, other->state_);
+  swap(_impl_.state_, other->_impl_.state_);
 }
 
 std::string TransitionNextStateRequest::GetTypeName() const {
@@ -9378,58 +9562,63 @@ class GetStateReply::_Internal {
 
 const ::rmad::RmadState&
 GetStateReply::_Internal::state(const GetStateReply* msg) {
-  return *msg->state_;
+  return *msg->_impl_.state_;
 }
 GetStateReply::GetStateReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.GetStateReply)
 }
 GetStateReply::GetStateReply(const GetStateReply& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetStateReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.state_){nullptr}
+    , decltype(_impl_.error_){}
+    , decltype(_impl_.can_go_back_){}
+    , decltype(_impl_.can_abort_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_state()) {
-    state_ = new ::rmad::RmadState(*from.state_);
-  } else {
-    state_ = nullptr;
+    _this->_impl_.state_ = new ::rmad::RmadState(*from._impl_.state_);
   }
-  ::memcpy(&error_, &from.error_,
-    static_cast<size_t>(reinterpret_cast<char*>(&can_abort_) -
-    reinterpret_cast<char*>(&error_)) + sizeof(can_abort_));
+  ::memcpy(&_impl_.error_, &from._impl_.error_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.can_abort_) -
+    reinterpret_cast<char*>(&_impl_.error_)) + sizeof(_impl_.can_abort_));
   // @@protoc_insertion_point(copy_constructor:rmad.GetStateReply)
 }
 
-inline void GetStateReply::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&state_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&can_abort_) -
-    reinterpret_cast<char*>(&state_)) + sizeof(can_abort_));
+inline void GetStateReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.state_){nullptr}
+    , decltype(_impl_.error_){0}
+    , decltype(_impl_.can_go_back_){false}
+    , decltype(_impl_.can_abort_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 GetStateReply::~GetStateReply() {
   // @@protoc_insertion_point(destructor:rmad.GetStateReply)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void GetStateReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete state_;
+  if (this != internal_default_instance()) delete _impl_.state_;
 }
 
-void GetStateReply::ArenaDtor(void* object) {
-  GetStateReply* _this = reinterpret_cast< GetStateReply* >(object);
-  (void)_this;
-}
-void GetStateReply::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GetStateReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetStateReply::Clear() {
@@ -9438,21 +9627,21 @@ void GetStateReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && state_ != nullptr) {
-    delete state_;
+  if (GetArenaForAllocation() == nullptr && _impl_.state_ != nullptr) {
+    delete _impl_.state_;
   }
-  state_ = nullptr;
-  ::memset(&error_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&can_abort_) -
-      reinterpret_cast<char*>(&error_)) + sizeof(can_abort_));
+  _impl_.state_ = nullptr;
+  ::memset(&_impl_.error_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.can_abort_) -
+      reinterpret_cast<char*>(&_impl_.error_)) + sizeof(_impl_.can_abort_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GetStateReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GetStateReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.RmadErrorCode error = 1;
       case 1:
@@ -9474,7 +9663,7 @@ const char* GetStateReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
       // bool can_go_back = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          can_go_back_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.can_go_back_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9482,7 +9671,7 @@ const char* GetStateReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
       // bool can_abort = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          can_abort_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.can_abort_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9519,28 +9708,27 @@ uint8_t* GetStateReply::_InternalSerialize(
   // .rmad.RmadErrorCode error = 1;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_error(), target);
   }
 
   // .rmad.RmadState state = 2;
   if (this->_internal_has_state()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::state(this), target, stream);
+      InternalWriteMessage(2, _Internal::state(this),
+        _Internal::state(this).GetCachedSize(), target, stream);
   }
 
   // bool can_go_back = 3;
   if (this->_internal_can_go_back() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_can_go_back(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_can_go_back(), target);
   }
 
   // bool can_abort = 4;
   if (this->_internal_can_abort() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_can_abort(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_can_abort(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -9563,13 +9751,13 @@ size_t GetStateReply::ByteSizeLong() const {
   if (this->_internal_has_state()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *state_);
+        *_impl_.state_);
   }
 
   // .rmad.RmadErrorCode error = 1;
   if (this->_internal_error() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_error());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   // bool can_go_back = 3;
@@ -9585,36 +9773,38 @@ size_t GetStateReply::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GetStateReply::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetStateReply*>(
+  MergeFrom(*::_pbi::DownCast<const GetStateReply*>(
       &from));
 }
 
 void GetStateReply::MergeFrom(const GetStateReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.GetStateReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetStateReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.GetStateReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_state()) {
-    _internal_mutable_state()->::rmad::RmadState::MergeFrom(from._internal_state());
+    _this->_internal_mutable_state()->::rmad::RmadState::MergeFrom(
+        from._internal_state());
   }
   if (from._internal_error() != 0) {
-    _internal_set_error(from._internal_error());
+    _this->_internal_set_error(from._internal_error());
   }
   if (from._internal_can_go_back() != 0) {
-    _internal_set_can_go_back(from._internal_can_go_back());
+    _this->_internal_set_can_go_back(from._internal_can_go_back());
   }
   if (from._internal_can_abort() != 0) {
-    _internal_set_can_abort(from._internal_can_abort());
+    _this->_internal_set_can_abort(from._internal_can_abort());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetStateReply::CopyFrom(const GetStateReply& from) {
@@ -9632,11 +9822,11 @@ void GetStateReply::InternalSwap(GetStateReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetStateReply, can_abort_)
-      + sizeof(GetStateReply::can_abort_)
-      - PROTOBUF_FIELD_OFFSET(GetStateReply, state_)>(
-          reinterpret_cast<char*>(&state_),
-          reinterpret_cast<char*>(&other->state_));
+      PROTOBUF_FIELD_OFFSET(GetStateReply, _impl_.can_abort_)
+      + sizeof(GetStateReply::_impl_.can_abort_)
+      - PROTOBUF_FIELD_OFFSET(GetStateReply, _impl_.state_)>(
+          reinterpret_cast<char*>(&_impl_.state_),
+          reinterpret_cast<char*>(&other->_impl_.state_));
 }
 
 std::string GetStateReply::GetTypeName() const {
@@ -9653,42 +9843,46 @@ class AbortRmaReply::_Internal {
 AbortRmaReply::AbortRmaReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.AbortRmaReply)
 }
 AbortRmaReply::AbortRmaReply(const AbortRmaReply& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AbortRmaReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  error_ = from.error_;
+  _this->_impl_.error_ = from._impl_.error_;
   // @@protoc_insertion_point(copy_constructor:rmad.AbortRmaReply)
 }
 
-inline void AbortRmaReply::SharedCtor() {
-error_ = 0;
+inline void AbortRmaReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 AbortRmaReply::~AbortRmaReply() {
   // @@protoc_insertion_point(destructor:rmad.AbortRmaReply)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void AbortRmaReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void AbortRmaReply::ArenaDtor(void* object) {
-  AbortRmaReply* _this = reinterpret_cast< AbortRmaReply* >(object);
-  (void)_this;
-}
-void AbortRmaReply::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void AbortRmaReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void AbortRmaReply::Clear() {
@@ -9697,15 +9891,15 @@ void AbortRmaReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  error_ = 0;
+  _impl_.error_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* AbortRmaReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* AbortRmaReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.RmadErrorCode error = 1;
       case 1:
@@ -9748,7 +9942,7 @@ uint8_t* AbortRmaReply::_InternalSerialize(
   // .rmad.RmadErrorCode error = 1;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_error(), target);
   }
 
@@ -9771,33 +9965,34 @@ size_t AbortRmaReply::ByteSizeLong() const {
   // .rmad.RmadErrorCode error = 1;
   if (this->_internal_error() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_error());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void AbortRmaReply::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const AbortRmaReply*>(
+  MergeFrom(*::_pbi::DownCast<const AbortRmaReply*>(
       &from));
 }
 
 void AbortRmaReply::MergeFrom(const AbortRmaReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.AbortRmaReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  AbortRmaReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.AbortRmaReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_error() != 0) {
-    _internal_set_error(from._internal_error());
+    _this->_internal_set_error(from._internal_error());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void AbortRmaReply::CopyFrom(const AbortRmaReply& from) {
@@ -9814,7 +10009,7 @@ bool AbortRmaReply::IsInitialized() const {
 void AbortRmaReply::InternalSwap(AbortRmaReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(error_, other->error_);
+  swap(_impl_.error_, other->_impl_.error_);
 }
 
 std::string AbortRmaReply::GetTypeName() const {
@@ -9831,55 +10026,61 @@ class GetLogReply::_Internal {
 GetLogReply::GetLogReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.GetLogReply)
 }
 GetLogReply::GetLogReply(const GetLogReply& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetLogReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.log_){}
+    , decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  log_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.log_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    log_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.log_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_log().empty()) {
-    log_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_log(), 
-      GetArenaForAllocation());
+    _this->_impl_.log_.Set(from._internal_log(), 
+      _this->GetArenaForAllocation());
   }
-  error_ = from.error_;
+  _this->_impl_.error_ = from._impl_.error_;
   // @@protoc_insertion_point(copy_constructor:rmad.GetLogReply)
 }
 
-inline void GetLogReply::SharedCtor() {
-log_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  log_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-error_ = 0;
+inline void GetLogReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.log_){}
+    , decltype(_impl_.error_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.log_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.log_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetLogReply::~GetLogReply() {
   // @@protoc_insertion_point(destructor:rmad.GetLogReply)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void GetLogReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  log_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.log_.Destroy();
 }
 
-void GetLogReply::ArenaDtor(void* object) {
-  GetLogReply* _this = reinterpret_cast< GetLogReply* >(object);
-  (void)_this;
-}
-void GetLogReply::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GetLogReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetLogReply::Clear() {
@@ -9888,16 +10089,16 @@ void GetLogReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  log_.ClearToEmpty();
-  error_ = 0;
+  _impl_.log_.ClearToEmpty();
+  _impl_.error_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GetLogReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GetLogReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.RmadErrorCode error = 1;
       case 1:
@@ -9912,9 +10113,9 @@ const char* GetLogReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_log();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -9950,7 +10151,7 @@ uint8_t* GetLogReply::_InternalSerialize(
   // .rmad.RmadErrorCode error = 1;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_error(), target);
   }
 
@@ -9990,36 +10191,37 @@ size_t GetLogReply::ByteSizeLong() const {
   // .rmad.RmadErrorCode error = 1;
   if (this->_internal_error() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_error());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GetLogReply::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetLogReply*>(
+  MergeFrom(*::_pbi::DownCast<const GetLogReply*>(
       &from));
 }
 
 void GetLogReply::MergeFrom(const GetLogReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.GetLogReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetLogReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.GetLogReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_log().empty()) {
-    _internal_set_log(from._internal_log());
+    _this->_internal_set_log(from._internal_log());
   }
   if (from._internal_error() != 0) {
-    _internal_set_error(from._internal_error());
+    _this->_internal_set_error(from._internal_error());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetLogReply::CopyFrom(const GetLogReply& from) {
@@ -10039,11 +10241,10 @@ void GetLogReply::InternalSwap(GetLogReply* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &log_, lhs_arena,
-      &other->log_, rhs_arena
+      &_impl_.log_, lhs_arena,
+      &other->_impl_.log_, rhs_arena
   );
-  swap(error_, other->error_);
+  swap(_impl_.error_, other->_impl_.error_);
 }
 
 std::string GetLogReply::GetTypeName() const {
@@ -10060,55 +10261,61 @@ class SaveLogReply::_Internal {
 SaveLogReply::SaveLogReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.SaveLogReply)
 }
 SaveLogReply::SaveLogReply(const SaveLogReply& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SaveLogReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.save_path_){}
+    , decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  save_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.save_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    save_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.save_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_save_path().empty()) {
-    save_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_save_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.save_path_.Set(from._internal_save_path(), 
+      _this->GetArenaForAllocation());
   }
-  error_ = from.error_;
+  _this->_impl_.error_ = from._impl_.error_;
   // @@protoc_insertion_point(copy_constructor:rmad.SaveLogReply)
 }
 
-inline void SaveLogReply::SharedCtor() {
-save_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  save_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-error_ = 0;
+inline void SaveLogReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.save_path_){}
+    , decltype(_impl_.error_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.save_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.save_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SaveLogReply::~SaveLogReply() {
   // @@protoc_insertion_point(destructor:rmad.SaveLogReply)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SaveLogReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  save_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.save_path_.Destroy();
 }
 
-void SaveLogReply::ArenaDtor(void* object) {
-  SaveLogReply* _this = reinterpret_cast< SaveLogReply* >(object);
-  (void)_this;
-}
-void SaveLogReply::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SaveLogReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SaveLogReply::Clear() {
@@ -10117,16 +10324,16 @@ void SaveLogReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  save_path_.ClearToEmpty();
-  error_ = 0;
+  _impl_.save_path_.ClearToEmpty();
+  _impl_.error_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SaveLogReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SaveLogReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.RmadErrorCode error = 1;
       case 1:
@@ -10141,9 +10348,9 @@ const char* SaveLogReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_save_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -10179,7 +10386,7 @@ uint8_t* SaveLogReply::_InternalSerialize(
   // .rmad.RmadErrorCode error = 1;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_error(), target);
   }
 
@@ -10219,36 +10426,37 @@ size_t SaveLogReply::ByteSizeLong() const {
   // .rmad.RmadErrorCode error = 1;
   if (this->_internal_error() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_error());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SaveLogReply::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SaveLogReply*>(
+  MergeFrom(*::_pbi::DownCast<const SaveLogReply*>(
       &from));
 }
 
 void SaveLogReply::MergeFrom(const SaveLogReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.SaveLogReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  SaveLogReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.SaveLogReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_save_path().empty()) {
-    _internal_set_save_path(from._internal_save_path());
+    _this->_internal_set_save_path(from._internal_save_path());
   }
   if (from._internal_error() != 0) {
-    _internal_set_error(from._internal_error());
+    _this->_internal_set_error(from._internal_error());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SaveLogReply::CopyFrom(const SaveLogReply& from) {
@@ -10268,11 +10476,10 @@ void SaveLogReply::InternalSwap(SaveLogReply* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &save_path_, lhs_arena,
-      &other->save_path_, rhs_arena
+      &_impl_.save_path_, lhs_arena,
+      &other->_impl_.save_path_, rhs_arena
   );
-  swap(error_, other->error_);
+  swap(_impl_.error_, other->_impl_.error_);
 }
 
 std::string SaveLogReply::GetTypeName() const {
@@ -10289,47 +10496,50 @@ class RecordBrowserActionMetricRequest::_Internal {
 RecordBrowserActionMetricRequest::RecordBrowserActionMetricRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.RecordBrowserActionMetricRequest)
 }
 RecordBrowserActionMetricRequest::RecordBrowserActionMetricRequest(const RecordBrowserActionMetricRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RecordBrowserActionMetricRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.diagnostics_){}
+    , decltype(_impl_.os_update_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&diagnostics_, &from.diagnostics_,
-    static_cast<size_t>(reinterpret_cast<char*>(&os_update_) -
-    reinterpret_cast<char*>(&diagnostics_)) + sizeof(os_update_));
+  ::memcpy(&_impl_.diagnostics_, &from._impl_.diagnostics_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.os_update_) -
+    reinterpret_cast<char*>(&_impl_.diagnostics_)) + sizeof(_impl_.os_update_));
   // @@protoc_insertion_point(copy_constructor:rmad.RecordBrowserActionMetricRequest)
 }
 
-inline void RecordBrowserActionMetricRequest::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&diagnostics_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&os_update_) -
-    reinterpret_cast<char*>(&diagnostics_)) + sizeof(os_update_));
+inline void RecordBrowserActionMetricRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.diagnostics_){false}
+    , decltype(_impl_.os_update_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 RecordBrowserActionMetricRequest::~RecordBrowserActionMetricRequest() {
   // @@protoc_insertion_point(destructor:rmad.RecordBrowserActionMetricRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void RecordBrowserActionMetricRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void RecordBrowserActionMetricRequest::ArenaDtor(void* object) {
-  RecordBrowserActionMetricRequest* _this = reinterpret_cast< RecordBrowserActionMetricRequest* >(object);
-  (void)_this;
-}
-void RecordBrowserActionMetricRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void RecordBrowserActionMetricRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RecordBrowserActionMetricRequest::Clear() {
@@ -10338,22 +10548,22 @@ void RecordBrowserActionMetricRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&diagnostics_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&os_update_) -
-      reinterpret_cast<char*>(&diagnostics_)) + sizeof(os_update_));
+  ::memset(&_impl_.diagnostics_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.os_update_) -
+      reinterpret_cast<char*>(&_impl_.diagnostics_)) + sizeof(_impl_.os_update_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* RecordBrowserActionMetricRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* RecordBrowserActionMetricRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bool diagnostics = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          diagnostics_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.diagnostics_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -10361,7 +10571,7 @@ const char* RecordBrowserActionMetricRequest::_InternalParse(const char* ptr, ::
       // bool os_update = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          os_update_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.os_update_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -10398,13 +10608,13 @@ uint8_t* RecordBrowserActionMetricRequest::_InternalSerialize(
   // bool diagnostics = 1;
   if (this->_internal_diagnostics() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_diagnostics(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_diagnostics(), target);
   }
 
   // bool os_update = 2;
   if (this->_internal_os_update() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_os_update(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_os_update(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -10436,30 +10646,31 @@ size_t RecordBrowserActionMetricRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void RecordBrowserActionMetricRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const RecordBrowserActionMetricRequest*>(
+  MergeFrom(*::_pbi::DownCast<const RecordBrowserActionMetricRequest*>(
       &from));
 }
 
 void RecordBrowserActionMetricRequest::MergeFrom(const RecordBrowserActionMetricRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.RecordBrowserActionMetricRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  RecordBrowserActionMetricRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.RecordBrowserActionMetricRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_diagnostics() != 0) {
-    _internal_set_diagnostics(from._internal_diagnostics());
+    _this->_internal_set_diagnostics(from._internal_diagnostics());
   }
   if (from._internal_os_update() != 0) {
-    _internal_set_os_update(from._internal_os_update());
+    _this->_internal_set_os_update(from._internal_os_update());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RecordBrowserActionMetricRequest::CopyFrom(const RecordBrowserActionMetricRequest& from) {
@@ -10477,11 +10688,11 @@ void RecordBrowserActionMetricRequest::InternalSwap(RecordBrowserActionMetricReq
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RecordBrowserActionMetricRequest, os_update_)
-      + sizeof(RecordBrowserActionMetricRequest::os_update_)
-      - PROTOBUF_FIELD_OFFSET(RecordBrowserActionMetricRequest, diagnostics_)>(
-          reinterpret_cast<char*>(&diagnostics_),
-          reinterpret_cast<char*>(&other->diagnostics_));
+      PROTOBUF_FIELD_OFFSET(RecordBrowserActionMetricRequest, _impl_.os_update_)
+      + sizeof(RecordBrowserActionMetricRequest::_impl_.os_update_)
+      - PROTOBUF_FIELD_OFFSET(RecordBrowserActionMetricRequest, _impl_.diagnostics_)>(
+          reinterpret_cast<char*>(&_impl_.diagnostics_),
+          reinterpret_cast<char*>(&other->_impl_.diagnostics_));
 }
 
 std::string RecordBrowserActionMetricRequest::GetTypeName() const {
@@ -10498,42 +10709,46 @@ class RecordBrowserActionMetricReply::_Internal {
 RecordBrowserActionMetricReply::RecordBrowserActionMetricReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:rmad.RecordBrowserActionMetricReply)
 }
 RecordBrowserActionMetricReply::RecordBrowserActionMetricReply(const RecordBrowserActionMetricReply& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RecordBrowserActionMetricReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  error_ = from.error_;
+  _this->_impl_.error_ = from._impl_.error_;
   // @@protoc_insertion_point(copy_constructor:rmad.RecordBrowserActionMetricReply)
 }
 
-inline void RecordBrowserActionMetricReply::SharedCtor() {
-error_ = 0;
+inline void RecordBrowserActionMetricReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 RecordBrowserActionMetricReply::~RecordBrowserActionMetricReply() {
   // @@protoc_insertion_point(destructor:rmad.RecordBrowserActionMetricReply)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void RecordBrowserActionMetricReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void RecordBrowserActionMetricReply::ArenaDtor(void* object) {
-  RecordBrowserActionMetricReply* _this = reinterpret_cast< RecordBrowserActionMetricReply* >(object);
-  (void)_this;
-}
-void RecordBrowserActionMetricReply::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void RecordBrowserActionMetricReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RecordBrowserActionMetricReply::Clear() {
@@ -10542,15 +10757,15 @@ void RecordBrowserActionMetricReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  error_ = 0;
+  _impl_.error_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* RecordBrowserActionMetricReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* RecordBrowserActionMetricReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .rmad.RmadErrorCode error = 1;
       case 1:
@@ -10593,7 +10808,7 @@ uint8_t* RecordBrowserActionMetricReply::_InternalSerialize(
   // .rmad.RmadErrorCode error = 1;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_error(), target);
   }
 
@@ -10616,33 +10831,34 @@ size_t RecordBrowserActionMetricReply::ByteSizeLong() const {
   // .rmad.RmadErrorCode error = 1;
   if (this->_internal_error() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_error());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void RecordBrowserActionMetricReply::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const RecordBrowserActionMetricReply*>(
+  MergeFrom(*::_pbi::DownCast<const RecordBrowserActionMetricReply*>(
       &from));
 }
 
 void RecordBrowserActionMetricReply::MergeFrom(const RecordBrowserActionMetricReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:rmad.RecordBrowserActionMetricReply)
-  GOOGLE_DCHECK_NE(&from, this);
+  RecordBrowserActionMetricReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:rmad.RecordBrowserActionMetricReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_error() != 0) {
-    _internal_set_error(from._internal_error());
+    _this->_internal_set_error(from._internal_error());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RecordBrowserActionMetricReply::CopyFrom(const RecordBrowserActionMetricReply& from) {
@@ -10659,7 +10875,7 @@ bool RecordBrowserActionMetricReply::IsInitialized() const {
 void RecordBrowserActionMetricReply::InternalSwap(RecordBrowserActionMetricReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(error_, other->error_);
+  swap(_impl_.error_, other->_impl_.error_);
 }
 
 std::string RecordBrowserActionMetricReply::GetTypeName() const {
@@ -10670,97 +10886,128 @@ std::string RecordBrowserActionMetricReply::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace rmad
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::rmad::HardwareVerificationResult* Arena::CreateMaybeMessage< ::rmad::HardwareVerificationResult >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::HardwareVerificationResult*
+Arena::CreateMaybeMessage< ::rmad::HardwareVerificationResult >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::HardwareVerificationResult >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::ProvisionStatus* Arena::CreateMaybeMessage< ::rmad::ProvisionStatus >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::ProvisionStatus*
+Arena::CreateMaybeMessage< ::rmad::ProvisionStatus >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::ProvisionStatus >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::FinalizeStatus* Arena::CreateMaybeMessage< ::rmad::FinalizeStatus >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::FinalizeStatus*
+Arena::CreateMaybeMessage< ::rmad::FinalizeStatus >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::FinalizeStatus >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::WelcomeState* Arena::CreateMaybeMessage< ::rmad::WelcomeState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::WelcomeState*
+Arena::CreateMaybeMessage< ::rmad::WelcomeState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::WelcomeState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::ComponentsRepairState_ComponentRepairStatus* Arena::CreateMaybeMessage< ::rmad::ComponentsRepairState_ComponentRepairStatus >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::ComponentsRepairState_ComponentRepairStatus*
+Arena::CreateMaybeMessage< ::rmad::ComponentsRepairState_ComponentRepairStatus >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::ComponentsRepairState_ComponentRepairStatus >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::ComponentsRepairState* Arena::CreateMaybeMessage< ::rmad::ComponentsRepairState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::ComponentsRepairState*
+Arena::CreateMaybeMessage< ::rmad::ComponentsRepairState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::ComponentsRepairState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::DeviceDestinationState* Arena::CreateMaybeMessage< ::rmad::DeviceDestinationState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::DeviceDestinationState*
+Arena::CreateMaybeMessage< ::rmad::DeviceDestinationState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::DeviceDestinationState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::WipeSelectionState* Arena::CreateMaybeMessage< ::rmad::WipeSelectionState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::WipeSelectionState*
+Arena::CreateMaybeMessage< ::rmad::WipeSelectionState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::WipeSelectionState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::WriteProtectDisableMethodState* Arena::CreateMaybeMessage< ::rmad::WriteProtectDisableMethodState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::WriteProtectDisableMethodState*
+Arena::CreateMaybeMessage< ::rmad::WriteProtectDisableMethodState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::WriteProtectDisableMethodState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::WriteProtectDisableRsuState* Arena::CreateMaybeMessage< ::rmad::WriteProtectDisableRsuState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::WriteProtectDisableRsuState*
+Arena::CreateMaybeMessage< ::rmad::WriteProtectDisableRsuState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::WriteProtectDisableRsuState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::WriteProtectDisablePhysicalState* Arena::CreateMaybeMessage< ::rmad::WriteProtectDisablePhysicalState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::WriteProtectDisablePhysicalState*
+Arena::CreateMaybeMessage< ::rmad::WriteProtectDisablePhysicalState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::WriteProtectDisablePhysicalState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::WriteProtectDisableCompleteState* Arena::CreateMaybeMessage< ::rmad::WriteProtectDisableCompleteState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::WriteProtectDisableCompleteState*
+Arena::CreateMaybeMessage< ::rmad::WriteProtectDisableCompleteState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::WriteProtectDisableCompleteState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::UpdateRoFirmwareState* Arena::CreateMaybeMessage< ::rmad::UpdateRoFirmwareState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::UpdateRoFirmwareState*
+Arena::CreateMaybeMessage< ::rmad::UpdateRoFirmwareState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::UpdateRoFirmwareState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::RestockState* Arena::CreateMaybeMessage< ::rmad::RestockState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::RestockState*
+Arena::CreateMaybeMessage< ::rmad::RestockState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::RestockState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::UpdateDeviceInfoState* Arena::CreateMaybeMessage< ::rmad::UpdateDeviceInfoState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::UpdateDeviceInfoState*
+Arena::CreateMaybeMessage< ::rmad::UpdateDeviceInfoState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::UpdateDeviceInfoState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::CalibrationComponentStatus* Arena::CreateMaybeMessage< ::rmad::CalibrationComponentStatus >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::CalibrationComponentStatus*
+Arena::CreateMaybeMessage< ::rmad::CalibrationComponentStatus >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::CalibrationComponentStatus >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::CheckCalibrationState* Arena::CreateMaybeMessage< ::rmad::CheckCalibrationState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::CheckCalibrationState*
+Arena::CreateMaybeMessage< ::rmad::CheckCalibrationState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::CheckCalibrationState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::SetupCalibrationState* Arena::CreateMaybeMessage< ::rmad::SetupCalibrationState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::SetupCalibrationState*
+Arena::CreateMaybeMessage< ::rmad::SetupCalibrationState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::SetupCalibrationState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::RunCalibrationState* Arena::CreateMaybeMessage< ::rmad::RunCalibrationState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::RunCalibrationState*
+Arena::CreateMaybeMessage< ::rmad::RunCalibrationState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::RunCalibrationState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::ProvisionDeviceState* Arena::CreateMaybeMessage< ::rmad::ProvisionDeviceState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::ProvisionDeviceState*
+Arena::CreateMaybeMessage< ::rmad::ProvisionDeviceState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::ProvisionDeviceState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::WriteProtectEnablePhysicalState* Arena::CreateMaybeMessage< ::rmad::WriteProtectEnablePhysicalState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::WriteProtectEnablePhysicalState*
+Arena::CreateMaybeMessage< ::rmad::WriteProtectEnablePhysicalState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::WriteProtectEnablePhysicalState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::FinalizeState* Arena::CreateMaybeMessage< ::rmad::FinalizeState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::FinalizeState*
+Arena::CreateMaybeMessage< ::rmad::FinalizeState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::FinalizeState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::RepairCompleteState* Arena::CreateMaybeMessage< ::rmad::RepairCompleteState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::RepairCompleteState*
+Arena::CreateMaybeMessage< ::rmad::RepairCompleteState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::RepairCompleteState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::RmadState* Arena::CreateMaybeMessage< ::rmad::RmadState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::RmadState*
+Arena::CreateMaybeMessage< ::rmad::RmadState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::RmadState >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::TransitionNextStateRequest* Arena::CreateMaybeMessage< ::rmad::TransitionNextStateRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::TransitionNextStateRequest*
+Arena::CreateMaybeMessage< ::rmad::TransitionNextStateRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::TransitionNextStateRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::GetStateReply* Arena::CreateMaybeMessage< ::rmad::GetStateReply >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::GetStateReply*
+Arena::CreateMaybeMessage< ::rmad::GetStateReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::GetStateReply >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::AbortRmaReply* Arena::CreateMaybeMessage< ::rmad::AbortRmaReply >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::AbortRmaReply*
+Arena::CreateMaybeMessage< ::rmad::AbortRmaReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::AbortRmaReply >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::GetLogReply* Arena::CreateMaybeMessage< ::rmad::GetLogReply >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::GetLogReply*
+Arena::CreateMaybeMessage< ::rmad::GetLogReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::GetLogReply >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::SaveLogReply* Arena::CreateMaybeMessage< ::rmad::SaveLogReply >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::SaveLogReply*
+Arena::CreateMaybeMessage< ::rmad::SaveLogReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::SaveLogReply >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::RecordBrowserActionMetricRequest* Arena::CreateMaybeMessage< ::rmad::RecordBrowserActionMetricRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::RecordBrowserActionMetricRequest*
+Arena::CreateMaybeMessage< ::rmad::RecordBrowserActionMetricRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::RecordBrowserActionMetricRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::rmad::RecordBrowserActionMetricReply* Arena::CreateMaybeMessage< ::rmad::RecordBrowserActionMetricReply >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::rmad::RecordBrowserActionMetricReply*
+Arena::CreateMaybeMessage< ::rmad::RecordBrowserActionMetricReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::rmad::RecordBrowserActionMetricReply >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

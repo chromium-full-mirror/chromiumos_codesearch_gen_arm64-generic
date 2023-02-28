@@ -13,216 +13,226 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace cryptohome {
 namespace fido {
-constexpr Url::Url(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_CONSTEXPR Url::Url(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.url_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UrlDefaultTypeInternal {
-  constexpr UrlDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UrlDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UrlDefaultTypeInternal() {}
   union {
     Url _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UrlDefaultTypeInternal _Url_default_instance_;
-constexpr CommonCredentialInfo::CommonCredentialInfo(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , raw_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , client_data_json_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UrlDefaultTypeInternal _Url_default_instance_;
+PROTOBUF_CONSTEXPR CommonCredentialInfo::CommonCredentialInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.raw_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.client_data_json_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CommonCredentialInfoDefaultTypeInternal {
-  constexpr CommonCredentialInfoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CommonCredentialInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~CommonCredentialInfoDefaultTypeInternal() {}
   union {
     CommonCredentialInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CommonCredentialInfoDefaultTypeInternal _CommonCredentialInfo_default_instance_;
-constexpr MakeCredentialAuthenticatorResponse::MakeCredentialAuthenticatorResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : transports_()
-  , _transports_cached_byte_size_(0)
-  , attestation_object_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , info_(nullptr)
-  , echo_hmac_create_secret_(false)
-  , hmac_create_secret_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CommonCredentialInfoDefaultTypeInternal _CommonCredentialInfo_default_instance_;
+PROTOBUF_CONSTEXPR MakeCredentialAuthenticatorResponse::MakeCredentialAuthenticatorResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.transports_)*/{}
+  , /*decltype(_impl_._transports_cached_byte_size_)*/{0}
+  , /*decltype(_impl_.attestation_object_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.info_)*/nullptr
+  , /*decltype(_impl_.echo_hmac_create_secret_)*/false
+  , /*decltype(_impl_.hmac_create_secret_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct MakeCredentialAuthenticatorResponseDefaultTypeInternal {
-  constexpr MakeCredentialAuthenticatorResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR MakeCredentialAuthenticatorResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~MakeCredentialAuthenticatorResponseDefaultTypeInternal() {}
   union {
     MakeCredentialAuthenticatorResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MakeCredentialAuthenticatorResponseDefaultTypeInternal _MakeCredentialAuthenticatorResponse_default_instance_;
-constexpr GetAssertionAuthenticatorResponse::GetAssertionAuthenticatorResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : authenticator_data_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , signature_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , user_handle_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , info_(nullptr)
-  , echo_appid_extension_(false)
-  , appid_extension_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MakeCredentialAuthenticatorResponseDefaultTypeInternal _MakeCredentialAuthenticatorResponse_default_instance_;
+PROTOBUF_CONSTEXPR GetAssertionAuthenticatorResponse::GetAssertionAuthenticatorResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.authenticator_data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.signature_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.user_handle_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.info_)*/nullptr
+  , /*decltype(_impl_.echo_appid_extension_)*/false
+  , /*decltype(_impl_.appid_extension_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetAssertionAuthenticatorResponseDefaultTypeInternal {
-  constexpr GetAssertionAuthenticatorResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetAssertionAuthenticatorResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetAssertionAuthenticatorResponseDefaultTypeInternal() {}
   union {
     GetAssertionAuthenticatorResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetAssertionAuthenticatorResponseDefaultTypeInternal _GetAssertionAuthenticatorResponse_default_instance_;
-constexpr PublicKeyCredentialRpEntity::PublicKeyCredentialRpEntity(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , icon_(nullptr){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetAssertionAuthenticatorResponseDefaultTypeInternal _GetAssertionAuthenticatorResponse_default_instance_;
+PROTOBUF_CONSTEXPR PublicKeyCredentialRpEntity::PublicKeyCredentialRpEntity(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.icon_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PublicKeyCredentialRpEntityDefaultTypeInternal {
-  constexpr PublicKeyCredentialRpEntityDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PublicKeyCredentialRpEntityDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~PublicKeyCredentialRpEntityDefaultTypeInternal() {}
   union {
     PublicKeyCredentialRpEntity _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PublicKeyCredentialRpEntityDefaultTypeInternal _PublicKeyCredentialRpEntity_default_instance_;
-constexpr PublicKeyCredentialUserEntity::PublicKeyCredentialUserEntity(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , display_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , icon_(nullptr){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PublicKeyCredentialRpEntityDefaultTypeInternal _PublicKeyCredentialRpEntity_default_instance_;
+PROTOBUF_CONSTEXPR PublicKeyCredentialUserEntity::PublicKeyCredentialUserEntity(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.display_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.icon_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PublicKeyCredentialUserEntityDefaultTypeInternal {
-  constexpr PublicKeyCredentialUserEntityDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PublicKeyCredentialUserEntityDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~PublicKeyCredentialUserEntityDefaultTypeInternal() {}
   union {
     PublicKeyCredentialUserEntity _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PublicKeyCredentialUserEntityDefaultTypeInternal _PublicKeyCredentialUserEntity_default_instance_;
-constexpr PublicKeyCredentialParameters::PublicKeyCredentialParameters(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : type_(0)
-
-  , algorithm_identifier_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PublicKeyCredentialUserEntityDefaultTypeInternal _PublicKeyCredentialUserEntity_default_instance_;
+PROTOBUF_CONSTEXPR PublicKeyCredentialParameters::PublicKeyCredentialParameters(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.type_)*/0
+  , /*decltype(_impl_.algorithm_identifier_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PublicKeyCredentialParametersDefaultTypeInternal {
-  constexpr PublicKeyCredentialParametersDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PublicKeyCredentialParametersDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~PublicKeyCredentialParametersDefaultTypeInternal() {}
   union {
     PublicKeyCredentialParameters _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PublicKeyCredentialParametersDefaultTypeInternal _PublicKeyCredentialParameters_default_instance_;
-constexpr CableAuthentication::CableAuthentication(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : client_eid_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , authenticator_eid_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , session_pre_key_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , version_(0u){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PublicKeyCredentialParametersDefaultTypeInternal _PublicKeyCredentialParameters_default_instance_;
+PROTOBUF_CONSTEXPR CableAuthentication::CableAuthentication(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.client_eid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.authenticator_eid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.session_pre_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.version_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CableAuthenticationDefaultTypeInternal {
-  constexpr CableAuthenticationDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CableAuthenticationDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~CableAuthenticationDefaultTypeInternal() {}
   union {
     CableAuthentication _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CableAuthenticationDefaultTypeInternal _CableAuthentication_default_instance_;
-constexpr CableRegistration::CableRegistration(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : versions_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , relying_party_public_key_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CableAuthenticationDefaultTypeInternal _CableAuthentication_default_instance_;
+PROTOBUF_CONSTEXPR CableRegistration::CableRegistration(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.versions_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.relying_party_public_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CableRegistrationDefaultTypeInternal {
-  constexpr CableRegistrationDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CableRegistrationDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~CableRegistrationDefaultTypeInternal() {}
   union {
     CableRegistration _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CableRegistrationDefaultTypeInternal _CableRegistration_default_instance_;
-constexpr PublicKeyCredentialRequestOptions::PublicKeyCredentialRequestOptions(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : allow_credentials_()
-  , cable_authentication_data_()
-  , challenge_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , relying_party_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , appid_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , adjusted_timeout_(int64_t{0})
-  , user_verification_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CableRegistrationDefaultTypeInternal _CableRegistration_default_instance_;
+PROTOBUF_CONSTEXPR PublicKeyCredentialRequestOptions::PublicKeyCredentialRequestOptions(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.allow_credentials_)*/{}
+  , /*decltype(_impl_.cable_authentication_data_)*/{}
+  , /*decltype(_impl_.challenge_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.relying_party_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.appid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.adjusted_timeout_)*/int64_t{0}
+  , /*decltype(_impl_.user_verification_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PublicKeyCredentialRequestOptionsDefaultTypeInternal {
-  constexpr PublicKeyCredentialRequestOptionsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PublicKeyCredentialRequestOptionsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~PublicKeyCredentialRequestOptionsDefaultTypeInternal() {}
   union {
     PublicKeyCredentialRequestOptions _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PublicKeyCredentialRequestOptionsDefaultTypeInternal _PublicKeyCredentialRequestOptions_default_instance_;
-constexpr AuthenticatorSelectionCriteria::AuthenticatorSelectionCriteria(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : authenticator_attachment_(0)
-
-  , require_resident_key_(false)
-  , user_verification_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PublicKeyCredentialRequestOptionsDefaultTypeInternal _PublicKeyCredentialRequestOptions_default_instance_;
+PROTOBUF_CONSTEXPR AuthenticatorSelectionCriteria::AuthenticatorSelectionCriteria(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.authenticator_attachment_)*/0
+  , /*decltype(_impl_.require_resident_key_)*/false
+  , /*decltype(_impl_.user_verification_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct AuthenticatorSelectionCriteriaDefaultTypeInternal {
-  constexpr AuthenticatorSelectionCriteriaDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AuthenticatorSelectionCriteriaDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~AuthenticatorSelectionCriteriaDefaultTypeInternal() {}
   union {
     AuthenticatorSelectionCriteria _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AuthenticatorSelectionCriteriaDefaultTypeInternal _AuthenticatorSelectionCriteria_default_instance_;
-constexpr PublicKeyCredentialCreationOptions::PublicKeyCredentialCreationOptions(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : public_key_parameters_()
-  , exclude_credentials_()
-  , challenge_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , appid_exclude_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , relying_party_(nullptr)
-  , user_(nullptr)
-  , authenticator_selection_(nullptr)
-  , cable_registration_data_(nullptr)
-  , adjusted_timeout_(int64_t{0})
-  , attestation_(0)
-
-  , protection_policy_(0)
-
-  , hmac_create_secret_(false)
-  , enforce_protection_policy_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticatorSelectionCriteriaDefaultTypeInternal _AuthenticatorSelectionCriteria_default_instance_;
+PROTOBUF_CONSTEXPR PublicKeyCredentialCreationOptions::PublicKeyCredentialCreationOptions(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.public_key_parameters_)*/{}
+  , /*decltype(_impl_.exclude_credentials_)*/{}
+  , /*decltype(_impl_.challenge_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.appid_exclude_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.relying_party_)*/nullptr
+  , /*decltype(_impl_.user_)*/nullptr
+  , /*decltype(_impl_.authenticator_selection_)*/nullptr
+  , /*decltype(_impl_.cable_registration_data_)*/nullptr
+  , /*decltype(_impl_.adjusted_timeout_)*/int64_t{0}
+  , /*decltype(_impl_.attestation_)*/0
+  , /*decltype(_impl_.protection_policy_)*/0
+  , /*decltype(_impl_.hmac_create_secret_)*/false
+  , /*decltype(_impl_.enforce_protection_policy_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PublicKeyCredentialCreationOptionsDefaultTypeInternal {
-  constexpr PublicKeyCredentialCreationOptionsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PublicKeyCredentialCreationOptionsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~PublicKeyCredentialCreationOptionsDefaultTypeInternal() {}
   union {
     PublicKeyCredentialCreationOptions _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PublicKeyCredentialCreationOptionsDefaultTypeInternal _PublicKeyCredentialCreationOptions_default_instance_;
-constexpr PublicKeyCredentialDescriptor::PublicKeyCredentialDescriptor(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : transports_()
-  , _transports_cached_byte_size_(0)
-  , id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , type_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PublicKeyCredentialCreationOptionsDefaultTypeInternal _PublicKeyCredentialCreationOptions_default_instance_;
+PROTOBUF_CONSTEXPR PublicKeyCredentialDescriptor::PublicKeyCredentialDescriptor(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.transports_)*/{}
+  , /*decltype(_impl_._transports_cached_byte_size_)*/{0}
+  , /*decltype(_impl_.id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.type_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PublicKeyCredentialDescriptorDefaultTypeInternal {
-  constexpr PublicKeyCredentialDescriptorDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PublicKeyCredentialDescriptorDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~PublicKeyCredentialDescriptorDefaultTypeInternal() {}
   union {
     PublicKeyCredentialDescriptor _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PublicKeyCredentialDescriptorDefaultTypeInternal _PublicKeyCredentialDescriptor_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PublicKeyCredentialDescriptorDefaultTypeInternal _PublicKeyCredentialDescriptor_default_instance_;
 }  // namespace fido
 }  // namespace cryptohome
 namespace cryptohome {
@@ -698,53 +708,58 @@ class Url::_Internal {
 Url::Url(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.fido.Url)
 }
 Url::Url(const Url& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  Url* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.url_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.url_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.url_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_url().empty()) {
-    url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_url(), 
-      GetArenaForAllocation());
+    _this->_impl_.url_.Set(from._internal_url(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:cryptohome.fido.Url)
 }
 
-inline void Url::SharedCtor() {
-url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void Url::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.url_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.url_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Url::~Url() {
   // @@protoc_insertion_point(destructor:cryptohome.fido.Url)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void Url::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  url_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.url_.Destroy();
 }
 
-void Url::ArenaDtor(void* object) {
-  Url* _this = reinterpret_cast< Url* >(object);
-  (void)_this;
-}
-void Url::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void Url::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Url::Clear() {
@@ -753,23 +768,23 @@ void Url::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  url_.ClearToEmpty();
+  _impl_.url_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* Url::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Url::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string url = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_url();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -838,27 +853,28 @@ size_t Url::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void Url::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const Url*>(
+  MergeFrom(*::_pbi::DownCast<const Url*>(
       &from));
 }
 
 void Url::MergeFrom(const Url& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.Url)
-  GOOGLE_DCHECK_NE(&from, this);
+  Url* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.Url)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_url().empty()) {
-    _internal_set_url(from._internal_url());
+    _this->_internal_set_url(from._internal_url());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Url::CopyFrom(const Url& from) {
@@ -878,9 +894,8 @@ void Url::InternalSwap(Url* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &url_, lhs_arena,
-      &other->url_, rhs_arena
+      &_impl_.url_, lhs_arena,
+      &other->_impl_.url_, rhs_arena
   );
 }
 
@@ -898,79 +913,88 @@ class CommonCredentialInfo::_Internal {
 CommonCredentialInfo::CommonCredentialInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.fido.CommonCredentialInfo)
 }
 CommonCredentialInfo::CommonCredentialInfo(const CommonCredentialInfo& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CommonCredentialInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.id_){}
+    , decltype(_impl_.raw_id_){}
+    , decltype(_impl_.client_data_json_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_id().empty()) {
-    id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.id_.Set(from._internal_id(), 
+      _this->GetArenaForAllocation());
   }
-  raw_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.raw_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    raw_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.raw_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_raw_id().empty()) {
-    raw_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_raw_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.raw_id_.Set(from._internal_raw_id(), 
+      _this->GetArenaForAllocation());
   }
-  client_data_json_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.client_data_json_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    client_data_json_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.client_data_json_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_client_data_json().empty()) {
-    client_data_json_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_client_data_json(), 
-      GetArenaForAllocation());
+    _this->_impl_.client_data_json_.Set(from._internal_client_data_json(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:cryptohome.fido.CommonCredentialInfo)
 }
 
-inline void CommonCredentialInfo::SharedCtor() {
-id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-raw_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  raw_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-client_data_json_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  client_data_json_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void CommonCredentialInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.id_){}
+    , decltype(_impl_.raw_id_){}
+    , decltype(_impl_.client_data_json_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.raw_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.raw_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.client_data_json_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.client_data_json_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CommonCredentialInfo::~CommonCredentialInfo() {
   // @@protoc_insertion_point(destructor:cryptohome.fido.CommonCredentialInfo)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void CommonCredentialInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  raw_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  client_data_json_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.id_.Destroy();
+  _impl_.raw_id_.Destroy();
+  _impl_.client_data_json_.Destroy();
 }
 
-void CommonCredentialInfo::ArenaDtor(void* object) {
-  CommonCredentialInfo* _this = reinterpret_cast< CommonCredentialInfo* >(object);
-  (void)_this;
-}
-void CommonCredentialInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void CommonCredentialInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CommonCredentialInfo::Clear() {
@@ -979,25 +1003,25 @@ void CommonCredentialInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  id_.ClearToEmpty();
-  raw_id_.ClearToEmpty();
-  client_data_json_.ClearToEmpty();
+  _impl_.id_.ClearToEmpty();
+  _impl_.raw_id_.ClearToEmpty();
+  _impl_.client_data_json_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* CommonCredentialInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* CommonCredentialInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1005,7 +1029,7 @@ const char* CommonCredentialInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAM
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_raw_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1014,7 +1038,7 @@ const char* CommonCredentialInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAM
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_client_data_json();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1110,33 +1134,34 @@ size_t CommonCredentialInfo::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void CommonCredentialInfo::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const CommonCredentialInfo*>(
+  MergeFrom(*::_pbi::DownCast<const CommonCredentialInfo*>(
       &from));
 }
 
 void CommonCredentialInfo::MergeFrom(const CommonCredentialInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.CommonCredentialInfo)
-  GOOGLE_DCHECK_NE(&from, this);
+  CommonCredentialInfo* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.CommonCredentialInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_id().empty()) {
-    _internal_set_id(from._internal_id());
+    _this->_internal_set_id(from._internal_id());
   }
   if (!from._internal_raw_id().empty()) {
-    _internal_set_raw_id(from._internal_raw_id());
+    _this->_internal_set_raw_id(from._internal_raw_id());
   }
   if (!from._internal_client_data_json().empty()) {
-    _internal_set_client_data_json(from._internal_client_data_json());
+    _this->_internal_set_client_data_json(from._internal_client_data_json());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CommonCredentialInfo::CopyFrom(const CommonCredentialInfo& from) {
@@ -1156,19 +1181,16 @@ void CommonCredentialInfo::InternalSwap(CommonCredentialInfo* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &id_, lhs_arena,
-      &other->id_, rhs_arena
+      &_impl_.id_, lhs_arena,
+      &other->_impl_.id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &raw_id_, lhs_arena,
-      &other->raw_id_, rhs_arena
+      &_impl_.raw_id_, lhs_arena,
+      &other->_impl_.raw_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &client_data_json_, lhs_arena,
-      &other->client_data_json_, rhs_arena
+      &_impl_.client_data_json_, lhs_arena,
+      &other->_impl_.client_data_json_, rhs_arena
   );
 }
 
@@ -1186,73 +1208,81 @@ class MakeCredentialAuthenticatorResponse::_Internal {
 
 const ::cryptohome::fido::CommonCredentialInfo&
 MakeCredentialAuthenticatorResponse::_Internal::info(const MakeCredentialAuthenticatorResponse* msg) {
-  return *msg->info_;
+  return *msg->_impl_.info_;
 }
 MakeCredentialAuthenticatorResponse::MakeCredentialAuthenticatorResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  transports_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.fido.MakeCredentialAuthenticatorResponse)
 }
 MakeCredentialAuthenticatorResponse::MakeCredentialAuthenticatorResponse(const MakeCredentialAuthenticatorResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      transports_(from.transports_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  MakeCredentialAuthenticatorResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.transports_){from._impl_.transports_}
+    , /*decltype(_impl_._transports_cached_byte_size_)*/{0}
+    , decltype(_impl_.attestation_object_){}
+    , decltype(_impl_.info_){nullptr}
+    , decltype(_impl_.echo_hmac_create_secret_){}
+    , decltype(_impl_.hmac_create_secret_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  attestation_object_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.attestation_object_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    attestation_object_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.attestation_object_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_attestation_object().empty()) {
-    attestation_object_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_attestation_object(), 
-      GetArenaForAllocation());
+    _this->_impl_.attestation_object_.Set(from._internal_attestation_object(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_info()) {
-    info_ = new ::cryptohome::fido::CommonCredentialInfo(*from.info_);
-  } else {
-    info_ = nullptr;
+    _this->_impl_.info_ = new ::cryptohome::fido::CommonCredentialInfo(*from._impl_.info_);
   }
-  ::memcpy(&echo_hmac_create_secret_, &from.echo_hmac_create_secret_,
-    static_cast<size_t>(reinterpret_cast<char*>(&hmac_create_secret_) -
-    reinterpret_cast<char*>(&echo_hmac_create_secret_)) + sizeof(hmac_create_secret_));
+  ::memcpy(&_impl_.echo_hmac_create_secret_, &from._impl_.echo_hmac_create_secret_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.hmac_create_secret_) -
+    reinterpret_cast<char*>(&_impl_.echo_hmac_create_secret_)) + sizeof(_impl_.hmac_create_secret_));
   // @@protoc_insertion_point(copy_constructor:cryptohome.fido.MakeCredentialAuthenticatorResponse)
 }
 
-inline void MakeCredentialAuthenticatorResponse::SharedCtor() {
-attestation_object_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  attestation_object_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&info_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&hmac_create_secret_) -
-    reinterpret_cast<char*>(&info_)) + sizeof(hmac_create_secret_));
+inline void MakeCredentialAuthenticatorResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.transports_){arena}
+    , /*decltype(_impl_._transports_cached_byte_size_)*/{0}
+    , decltype(_impl_.attestation_object_){}
+    , decltype(_impl_.info_){nullptr}
+    , decltype(_impl_.echo_hmac_create_secret_){false}
+    , decltype(_impl_.hmac_create_secret_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.attestation_object_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.attestation_object_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 MakeCredentialAuthenticatorResponse::~MakeCredentialAuthenticatorResponse() {
   // @@protoc_insertion_point(destructor:cryptohome.fido.MakeCredentialAuthenticatorResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void MakeCredentialAuthenticatorResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  attestation_object_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete info_;
+  _impl_.transports_.~RepeatedField();
+  _impl_.attestation_object_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.info_;
 }
 
-void MakeCredentialAuthenticatorResponse::ArenaDtor(void* object) {
-  MakeCredentialAuthenticatorResponse* _this = reinterpret_cast< MakeCredentialAuthenticatorResponse* >(object);
-  (void)_this;
-}
-void MakeCredentialAuthenticatorResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void MakeCredentialAuthenticatorResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void MakeCredentialAuthenticatorResponse::Clear() {
@@ -1261,23 +1291,23 @@ void MakeCredentialAuthenticatorResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  transports_.Clear();
-  attestation_object_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && info_ != nullptr) {
-    delete info_;
+  _impl_.transports_.Clear();
+  _impl_.attestation_object_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.info_ != nullptr) {
+    delete _impl_.info_;
   }
-  info_ = nullptr;
-  ::memset(&echo_hmac_create_secret_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&hmac_create_secret_) -
-      reinterpret_cast<char*>(&echo_hmac_create_secret_)) + sizeof(hmac_create_secret_));
+  _impl_.info_ = nullptr;
+  ::memset(&_impl_.echo_hmac_create_secret_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.hmac_create_secret_) -
+      reinterpret_cast<char*>(&_impl_.echo_hmac_create_secret_)) + sizeof(_impl_.hmac_create_secret_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* MakeCredentialAuthenticatorResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* MakeCredentialAuthenticatorResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .cryptohome.fido.CommonCredentialInfo info = 1;
       case 1:
@@ -1291,7 +1321,7 @@ const char* MakeCredentialAuthenticatorResponse::_InternalParse(const char* ptr,
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_attestation_object();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1311,7 +1341,7 @@ const char* MakeCredentialAuthenticatorResponse::_InternalParse(const char* ptr,
       // bool echo_hmac_create_secret = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          echo_hmac_create_secret_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.echo_hmac_create_secret_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1319,7 +1349,7 @@ const char* MakeCredentialAuthenticatorResponse::_InternalParse(const char* ptr,
       // bool hmac_create_secret = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          hmac_create_secret_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.hmac_create_secret_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1355,10 +1385,9 @@ uint8_t* MakeCredentialAuthenticatorResponse::_InternalSerialize(
 
   // .cryptohome.fido.CommonCredentialInfo info = 1;
   if (this->_internal_has_info()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::info(this), target, stream);
+      InternalWriteMessage(1, _Internal::info(this),
+        _Internal::info(this).GetCachedSize(), target, stream);
   }
 
   // bytes attestation_object = 2;
@@ -1369,23 +1398,23 @@ uint8_t* MakeCredentialAuthenticatorResponse::_InternalSerialize(
 
   // repeated .cryptohome.fido.AuthenticatorTransport transports = 3;
   {
-    int byte_size = _transports_cached_byte_size_.load(std::memory_order_relaxed);
+    int byte_size = _impl_._transports_cached_byte_size_.load(std::memory_order_relaxed);
     if (byte_size > 0) {
       target = stream->WriteEnumPacked(
-          3, transports_, byte_size, target);
+          3, _impl_.transports_, byte_size, target);
     }
   }
 
   // bool echo_hmac_create_secret = 4;
   if (this->_internal_echo_hmac_create_secret() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_echo_hmac_create_secret(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_echo_hmac_create_secret(), target);
   }
 
   // bool hmac_create_secret = 5;
   if (this->_internal_hmac_create_secret() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(5, this->_internal_hmac_create_secret(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_hmac_create_secret(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1408,16 +1437,15 @@ size_t MakeCredentialAuthenticatorResponse::ByteSizeLong() const {
   {
     size_t data_size = 0;
     unsigned int count = static_cast<unsigned int>(this->_internal_transports_size());for (unsigned int i = 0; i < count; i++) {
-      data_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(
+      data_size += ::_pbi::WireFormatLite::EnumSize(
         this->_internal_transports(static_cast<int>(i)));
     }
     if (data_size > 0) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<int32_t>(data_size));
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
     }
-    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _transports_cached_byte_size_.store(cached_size,
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _impl_._transports_cached_byte_size_.store(cached_size,
                                     std::memory_order_relaxed);
     total_size += data_size;
   }
@@ -1433,7 +1461,7 @@ size_t MakeCredentialAuthenticatorResponse::ByteSizeLong() const {
   if (this->_internal_has_info()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *info_);
+        *_impl_.info_);
   }
 
   // bool echo_hmac_create_secret = 4;
@@ -1449,37 +1477,39 @@ size_t MakeCredentialAuthenticatorResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void MakeCredentialAuthenticatorResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const MakeCredentialAuthenticatorResponse*>(
+  MergeFrom(*::_pbi::DownCast<const MakeCredentialAuthenticatorResponse*>(
       &from));
 }
 
 void MakeCredentialAuthenticatorResponse::MergeFrom(const MakeCredentialAuthenticatorResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.MakeCredentialAuthenticatorResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  MakeCredentialAuthenticatorResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.MakeCredentialAuthenticatorResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  transports_.MergeFrom(from.transports_);
+  _this->_impl_.transports_.MergeFrom(from._impl_.transports_);
   if (!from._internal_attestation_object().empty()) {
-    _internal_set_attestation_object(from._internal_attestation_object());
+    _this->_internal_set_attestation_object(from._internal_attestation_object());
   }
   if (from._internal_has_info()) {
-    _internal_mutable_info()->::cryptohome::fido::CommonCredentialInfo::MergeFrom(from._internal_info());
+    _this->_internal_mutable_info()->::cryptohome::fido::CommonCredentialInfo::MergeFrom(
+        from._internal_info());
   }
   if (from._internal_echo_hmac_create_secret() != 0) {
-    _internal_set_echo_hmac_create_secret(from._internal_echo_hmac_create_secret());
+    _this->_internal_set_echo_hmac_create_secret(from._internal_echo_hmac_create_secret());
   }
   if (from._internal_hmac_create_secret() != 0) {
-    _internal_set_hmac_create_secret(from._internal_hmac_create_secret());
+    _this->_internal_set_hmac_create_secret(from._internal_hmac_create_secret());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void MakeCredentialAuthenticatorResponse::CopyFrom(const MakeCredentialAuthenticatorResponse& from) {
@@ -1498,18 +1528,17 @@ void MakeCredentialAuthenticatorResponse::InternalSwap(MakeCredentialAuthenticat
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  transports_.InternalSwap(&other->transports_);
+  _impl_.transports_.InternalSwap(&other->_impl_.transports_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &attestation_object_, lhs_arena,
-      &other->attestation_object_, rhs_arena
+      &_impl_.attestation_object_, lhs_arena,
+      &other->_impl_.attestation_object_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(MakeCredentialAuthenticatorResponse, hmac_create_secret_)
-      + sizeof(MakeCredentialAuthenticatorResponse::hmac_create_secret_)
-      - PROTOBUF_FIELD_OFFSET(MakeCredentialAuthenticatorResponse, info_)>(
-          reinterpret_cast<char*>(&info_),
-          reinterpret_cast<char*>(&other->info_));
+      PROTOBUF_FIELD_OFFSET(MakeCredentialAuthenticatorResponse, _impl_.hmac_create_secret_)
+      + sizeof(MakeCredentialAuthenticatorResponse::_impl_.hmac_create_secret_)
+      - PROTOBUF_FIELD_OFFSET(MakeCredentialAuthenticatorResponse, _impl_.info_)>(
+          reinterpret_cast<char*>(&_impl_.info_),
+          reinterpret_cast<char*>(&other->_impl_.info_));
 }
 
 std::string MakeCredentialAuthenticatorResponse::GetTypeName() const {
@@ -1526,97 +1555,106 @@ class GetAssertionAuthenticatorResponse::_Internal {
 
 const ::cryptohome::fido::CommonCredentialInfo&
 GetAssertionAuthenticatorResponse::_Internal::info(const GetAssertionAuthenticatorResponse* msg) {
-  return *msg->info_;
+  return *msg->_impl_.info_;
 }
 GetAssertionAuthenticatorResponse::GetAssertionAuthenticatorResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.fido.GetAssertionAuthenticatorResponse)
 }
 GetAssertionAuthenticatorResponse::GetAssertionAuthenticatorResponse(const GetAssertionAuthenticatorResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetAssertionAuthenticatorResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.authenticator_data_){}
+    , decltype(_impl_.signature_){}
+    , decltype(_impl_.user_handle_){}
+    , decltype(_impl_.info_){nullptr}
+    , decltype(_impl_.echo_appid_extension_){}
+    , decltype(_impl_.appid_extension_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  authenticator_data_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.authenticator_data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    authenticator_data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.authenticator_data_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_authenticator_data().empty()) {
-    authenticator_data_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_authenticator_data(), 
-      GetArenaForAllocation());
+    _this->_impl_.authenticator_data_.Set(from._internal_authenticator_data(), 
+      _this->GetArenaForAllocation());
   }
-  signature_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.signature_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    signature_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.signature_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_signature().empty()) {
-    signature_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_signature(), 
-      GetArenaForAllocation());
+    _this->_impl_.signature_.Set(from._internal_signature(), 
+      _this->GetArenaForAllocation());
   }
-  user_handle_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.user_handle_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    user_handle_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.user_handle_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_user_handle().empty()) {
-    user_handle_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_user_handle(), 
-      GetArenaForAllocation());
+    _this->_impl_.user_handle_.Set(from._internal_user_handle(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_info()) {
-    info_ = new ::cryptohome::fido::CommonCredentialInfo(*from.info_);
-  } else {
-    info_ = nullptr;
+    _this->_impl_.info_ = new ::cryptohome::fido::CommonCredentialInfo(*from._impl_.info_);
   }
-  ::memcpy(&echo_appid_extension_, &from.echo_appid_extension_,
-    static_cast<size_t>(reinterpret_cast<char*>(&appid_extension_) -
-    reinterpret_cast<char*>(&echo_appid_extension_)) + sizeof(appid_extension_));
+  ::memcpy(&_impl_.echo_appid_extension_, &from._impl_.echo_appid_extension_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.appid_extension_) -
+    reinterpret_cast<char*>(&_impl_.echo_appid_extension_)) + sizeof(_impl_.appid_extension_));
   // @@protoc_insertion_point(copy_constructor:cryptohome.fido.GetAssertionAuthenticatorResponse)
 }
 
-inline void GetAssertionAuthenticatorResponse::SharedCtor() {
-authenticator_data_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  authenticator_data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-signature_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  signature_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-user_handle_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  user_handle_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&info_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&appid_extension_) -
-    reinterpret_cast<char*>(&info_)) + sizeof(appid_extension_));
+inline void GetAssertionAuthenticatorResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.authenticator_data_){}
+    , decltype(_impl_.signature_){}
+    , decltype(_impl_.user_handle_){}
+    , decltype(_impl_.info_){nullptr}
+    , decltype(_impl_.echo_appid_extension_){false}
+    , decltype(_impl_.appid_extension_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.authenticator_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.authenticator_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.signature_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.signature_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.user_handle_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.user_handle_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetAssertionAuthenticatorResponse::~GetAssertionAuthenticatorResponse() {
   // @@protoc_insertion_point(destructor:cryptohome.fido.GetAssertionAuthenticatorResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void GetAssertionAuthenticatorResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  authenticator_data_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  signature_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  user_handle_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete info_;
+  _impl_.authenticator_data_.Destroy();
+  _impl_.signature_.Destroy();
+  _impl_.user_handle_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.info_;
 }
 
-void GetAssertionAuthenticatorResponse::ArenaDtor(void* object) {
-  GetAssertionAuthenticatorResponse* _this = reinterpret_cast< GetAssertionAuthenticatorResponse* >(object);
-  (void)_this;
-}
-void GetAssertionAuthenticatorResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GetAssertionAuthenticatorResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetAssertionAuthenticatorResponse::Clear() {
@@ -1625,24 +1663,24 @@ void GetAssertionAuthenticatorResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  authenticator_data_.ClearToEmpty();
-  signature_.ClearToEmpty();
-  user_handle_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && info_ != nullptr) {
-    delete info_;
+  _impl_.authenticator_data_.ClearToEmpty();
+  _impl_.signature_.ClearToEmpty();
+  _impl_.user_handle_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.info_ != nullptr) {
+    delete _impl_.info_;
   }
-  info_ = nullptr;
-  ::memset(&echo_appid_extension_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&appid_extension_) -
-      reinterpret_cast<char*>(&echo_appid_extension_)) + sizeof(appid_extension_));
+  _impl_.info_ = nullptr;
+  ::memset(&_impl_.echo_appid_extension_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.appid_extension_) -
+      reinterpret_cast<char*>(&_impl_.echo_appid_extension_)) + sizeof(_impl_.appid_extension_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GetAssertionAuthenticatorResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GetAssertionAuthenticatorResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .cryptohome.fido.CommonCredentialInfo info = 1;
       case 1:
@@ -1656,7 +1694,7 @@ const char* GetAssertionAuthenticatorResponse::_InternalParse(const char* ptr, :
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_authenticator_data();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1665,7 +1703,7 @@ const char* GetAssertionAuthenticatorResponse::_InternalParse(const char* ptr, :
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_signature();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1674,7 +1712,7 @@ const char* GetAssertionAuthenticatorResponse::_InternalParse(const char* ptr, :
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_user_handle();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1682,7 +1720,7 @@ const char* GetAssertionAuthenticatorResponse::_InternalParse(const char* ptr, :
       // bool echo_appid_extension = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          echo_appid_extension_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.echo_appid_extension_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1690,7 +1728,7 @@ const char* GetAssertionAuthenticatorResponse::_InternalParse(const char* ptr, :
       // bool appid_extension = 6;
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
-          appid_extension_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.appid_extension_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1726,10 +1764,9 @@ uint8_t* GetAssertionAuthenticatorResponse::_InternalSerialize(
 
   // .cryptohome.fido.CommonCredentialInfo info = 1;
   if (this->_internal_has_info()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::info(this), target, stream);
+      InternalWriteMessage(1, _Internal::info(this),
+        _Internal::info(this).GetCachedSize(), target, stream);
   }
 
   // bytes authenticator_data = 2;
@@ -1753,13 +1790,13 @@ uint8_t* GetAssertionAuthenticatorResponse::_InternalSerialize(
   // bool echo_appid_extension = 5;
   if (this->_internal_echo_appid_extension() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(5, this->_internal_echo_appid_extension(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_echo_appid_extension(), target);
   }
 
   // bool appid_extension = 6;
   if (this->_internal_appid_extension() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(6, this->_internal_appid_extension(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_appid_extension(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1803,7 +1840,7 @@ size_t GetAssertionAuthenticatorResponse::ByteSizeLong() const {
   if (this->_internal_has_info()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *info_);
+        *_impl_.info_);
   }
 
   // bool echo_appid_extension = 5;
@@ -1819,42 +1856,44 @@ size_t GetAssertionAuthenticatorResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GetAssertionAuthenticatorResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetAssertionAuthenticatorResponse*>(
+  MergeFrom(*::_pbi::DownCast<const GetAssertionAuthenticatorResponse*>(
       &from));
 }
 
 void GetAssertionAuthenticatorResponse::MergeFrom(const GetAssertionAuthenticatorResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.GetAssertionAuthenticatorResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetAssertionAuthenticatorResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.GetAssertionAuthenticatorResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_authenticator_data().empty()) {
-    _internal_set_authenticator_data(from._internal_authenticator_data());
+    _this->_internal_set_authenticator_data(from._internal_authenticator_data());
   }
   if (!from._internal_signature().empty()) {
-    _internal_set_signature(from._internal_signature());
+    _this->_internal_set_signature(from._internal_signature());
   }
   if (!from._internal_user_handle().empty()) {
-    _internal_set_user_handle(from._internal_user_handle());
+    _this->_internal_set_user_handle(from._internal_user_handle());
   }
   if (from._internal_has_info()) {
-    _internal_mutable_info()->::cryptohome::fido::CommonCredentialInfo::MergeFrom(from._internal_info());
+    _this->_internal_mutable_info()->::cryptohome::fido::CommonCredentialInfo::MergeFrom(
+        from._internal_info());
   }
   if (from._internal_echo_appid_extension() != 0) {
-    _internal_set_echo_appid_extension(from._internal_echo_appid_extension());
+    _this->_internal_set_echo_appid_extension(from._internal_echo_appid_extension());
   }
   if (from._internal_appid_extension() != 0) {
-    _internal_set_appid_extension(from._internal_appid_extension());
+    _this->_internal_set_appid_extension(from._internal_appid_extension());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetAssertionAuthenticatorResponse::CopyFrom(const GetAssertionAuthenticatorResponse& from) {
@@ -1874,26 +1913,23 @@ void GetAssertionAuthenticatorResponse::InternalSwap(GetAssertionAuthenticatorRe
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &authenticator_data_, lhs_arena,
-      &other->authenticator_data_, rhs_arena
+      &_impl_.authenticator_data_, lhs_arena,
+      &other->_impl_.authenticator_data_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &signature_, lhs_arena,
-      &other->signature_, rhs_arena
+      &_impl_.signature_, lhs_arena,
+      &other->_impl_.signature_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &user_handle_, lhs_arena,
-      &other->user_handle_, rhs_arena
+      &_impl_.user_handle_, lhs_arena,
+      &other->_impl_.user_handle_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetAssertionAuthenticatorResponse, appid_extension_)
-      + sizeof(GetAssertionAuthenticatorResponse::appid_extension_)
-      - PROTOBUF_FIELD_OFFSET(GetAssertionAuthenticatorResponse, info_)>(
-          reinterpret_cast<char*>(&info_),
-          reinterpret_cast<char*>(&other->info_));
+      PROTOBUF_FIELD_OFFSET(GetAssertionAuthenticatorResponse, _impl_.appid_extension_)
+      + sizeof(GetAssertionAuthenticatorResponse::_impl_.appid_extension_)
+      - PROTOBUF_FIELD_OFFSET(GetAssertionAuthenticatorResponse, _impl_.info_)>(
+          reinterpret_cast<char*>(&_impl_.info_),
+          reinterpret_cast<char*>(&other->_impl_.info_));
 }
 
 std::string GetAssertionAuthenticatorResponse::GetTypeName() const {
@@ -1910,78 +1946,84 @@ class PublicKeyCredentialRpEntity::_Internal {
 
 const ::cryptohome::fido::Url&
 PublicKeyCredentialRpEntity::_Internal::icon(const PublicKeyCredentialRpEntity* msg) {
-  return *msg->icon_;
+  return *msg->_impl_.icon_;
 }
 PublicKeyCredentialRpEntity::PublicKeyCredentialRpEntity(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.fido.PublicKeyCredentialRpEntity)
 }
 PublicKeyCredentialRpEntity::PublicKeyCredentialRpEntity(const PublicKeyCredentialRpEntity& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PublicKeyCredentialRpEntity* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.id_){}
+    , decltype(_impl_.name_){}
+    , decltype(_impl_.icon_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_id().empty()) {
-    id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.id_.Set(from._internal_id(), 
+      _this->GetArenaForAllocation());
   }
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_icon()) {
-    icon_ = new ::cryptohome::fido::Url(*from.icon_);
-  } else {
-    icon_ = nullptr;
+    _this->_impl_.icon_ = new ::cryptohome::fido::Url(*from._impl_.icon_);
   }
   // @@protoc_insertion_point(copy_constructor:cryptohome.fido.PublicKeyCredentialRpEntity)
 }
 
-inline void PublicKeyCredentialRpEntity::SharedCtor() {
-id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-icon_ = nullptr;
+inline void PublicKeyCredentialRpEntity::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.id_){}
+    , decltype(_impl_.name_){}
+    , decltype(_impl_.icon_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PublicKeyCredentialRpEntity::~PublicKeyCredentialRpEntity() {
   // @@protoc_insertion_point(destructor:cryptohome.fido.PublicKeyCredentialRpEntity)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void PublicKeyCredentialRpEntity::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete icon_;
+  _impl_.id_.Destroy();
+  _impl_.name_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.icon_;
 }
 
-void PublicKeyCredentialRpEntity::ArenaDtor(void* object) {
-  PublicKeyCredentialRpEntity* _this = reinterpret_cast< PublicKeyCredentialRpEntity* >(object);
-  (void)_this;
-}
-void PublicKeyCredentialRpEntity::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void PublicKeyCredentialRpEntity::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PublicKeyCredentialRpEntity::Clear() {
@@ -1990,28 +2032,28 @@ void PublicKeyCredentialRpEntity::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  id_.ClearToEmpty();
-  name_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && icon_ != nullptr) {
-    delete icon_;
+  _impl_.id_.ClearToEmpty();
+  _impl_.name_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.icon_ != nullptr) {
+    delete _impl_.icon_;
   }
-  icon_ = nullptr;
+  _impl_.icon_ = nullptr;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PublicKeyCredentialRpEntity::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* PublicKeyCredentialRpEntity::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -2019,9 +2061,9 @@ const char* PublicKeyCredentialRpEntity::_InternalParse(const char* ptr, ::PROTO
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -2084,10 +2126,9 @@ uint8_t* PublicKeyCredentialRpEntity::_InternalSerialize(
 
   // .cryptohome.fido.Url icon = 3;
   if (this->_internal_has_icon()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::icon(this), target, stream);
+      InternalWriteMessage(3, _Internal::icon(this),
+        _Internal::icon(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2124,39 +2165,41 @@ size_t PublicKeyCredentialRpEntity::ByteSizeLong() const {
   if (this->_internal_has_icon()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *icon_);
+        *_impl_.icon_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void PublicKeyCredentialRpEntity::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PublicKeyCredentialRpEntity*>(
+  MergeFrom(*::_pbi::DownCast<const PublicKeyCredentialRpEntity*>(
       &from));
 }
 
 void PublicKeyCredentialRpEntity::MergeFrom(const PublicKeyCredentialRpEntity& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.PublicKeyCredentialRpEntity)
-  GOOGLE_DCHECK_NE(&from, this);
+  PublicKeyCredentialRpEntity* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.PublicKeyCredentialRpEntity)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_id().empty()) {
-    _internal_set_id(from._internal_id());
+    _this->_internal_set_id(from._internal_id());
   }
   if (!from._internal_name().empty()) {
-    _internal_set_name(from._internal_name());
+    _this->_internal_set_name(from._internal_name());
   }
   if (from._internal_has_icon()) {
-    _internal_mutable_icon()->::cryptohome::fido::Url::MergeFrom(from._internal_icon());
+    _this->_internal_mutable_icon()->::cryptohome::fido::Url::MergeFrom(
+        from._internal_icon());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PublicKeyCredentialRpEntity::CopyFrom(const PublicKeyCredentialRpEntity& from) {
@@ -2176,16 +2219,14 @@ void PublicKeyCredentialRpEntity::InternalSwap(PublicKeyCredentialRpEntity* othe
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &id_, lhs_arena,
-      &other->id_, rhs_arena
+      &_impl_.id_, lhs_arena,
+      &other->_impl_.id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, lhs_arena,
-      &other->name_, rhs_arena
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
   );
-  swap(icon_, other->icon_);
+  swap(_impl_.icon_, other->_impl_.icon_);
 }
 
 std::string PublicKeyCredentialRpEntity::GetTypeName() const {
@@ -2202,91 +2243,99 @@ class PublicKeyCredentialUserEntity::_Internal {
 
 const ::cryptohome::fido::Url&
 PublicKeyCredentialUserEntity::_Internal::icon(const PublicKeyCredentialUserEntity* msg) {
-  return *msg->icon_;
+  return *msg->_impl_.icon_;
 }
 PublicKeyCredentialUserEntity::PublicKeyCredentialUserEntity(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.fido.PublicKeyCredentialUserEntity)
 }
 PublicKeyCredentialUserEntity::PublicKeyCredentialUserEntity(const PublicKeyCredentialUserEntity& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PublicKeyCredentialUserEntity* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.id_){}
+    , decltype(_impl_.name_){}
+    , decltype(_impl_.display_name_){}
+    , decltype(_impl_.icon_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_id().empty()) {
-    id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.id_.Set(from._internal_id(), 
+      _this->GetArenaForAllocation());
   }
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
   }
-  display_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.display_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    display_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.display_name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_display_name().empty()) {
-    display_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_display_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.display_name_.Set(from._internal_display_name(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_icon()) {
-    icon_ = new ::cryptohome::fido::Url(*from.icon_);
-  } else {
-    icon_ = nullptr;
+    _this->_impl_.icon_ = new ::cryptohome::fido::Url(*from._impl_.icon_);
   }
   // @@protoc_insertion_point(copy_constructor:cryptohome.fido.PublicKeyCredentialUserEntity)
 }
 
-inline void PublicKeyCredentialUserEntity::SharedCtor() {
-id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-display_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  display_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-icon_ = nullptr;
+inline void PublicKeyCredentialUserEntity::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.id_){}
+    , decltype(_impl_.name_){}
+    , decltype(_impl_.display_name_){}
+    , decltype(_impl_.icon_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.display_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.display_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PublicKeyCredentialUserEntity::~PublicKeyCredentialUserEntity() {
   // @@protoc_insertion_point(destructor:cryptohome.fido.PublicKeyCredentialUserEntity)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void PublicKeyCredentialUserEntity::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  display_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete icon_;
+  _impl_.id_.Destroy();
+  _impl_.name_.Destroy();
+  _impl_.display_name_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.icon_;
 }
 
-void PublicKeyCredentialUserEntity::ArenaDtor(void* object) {
-  PublicKeyCredentialUserEntity* _this = reinterpret_cast< PublicKeyCredentialUserEntity* >(object);
-  (void)_this;
-}
-void PublicKeyCredentialUserEntity::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void PublicKeyCredentialUserEntity::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PublicKeyCredentialUserEntity::Clear() {
@@ -2295,27 +2344,27 @@ void PublicKeyCredentialUserEntity::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  id_.ClearToEmpty();
-  name_.ClearToEmpty();
-  display_name_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && icon_ != nullptr) {
-    delete icon_;
+  _impl_.id_.ClearToEmpty();
+  _impl_.name_.ClearToEmpty();
+  _impl_.display_name_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.icon_ != nullptr) {
+    delete _impl_.icon_;
   }
-  icon_ = nullptr;
+  _impl_.icon_ = nullptr;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PublicKeyCredentialUserEntity::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* PublicKeyCredentialUserEntity::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bytes id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2324,9 +2373,9 @@ const char* PublicKeyCredentialUserEntity::_InternalParse(const char* ptr, ::PRO
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -2342,9 +2391,9 @@ const char* PublicKeyCredentialUserEntity::_InternalParse(const char* ptr, ::PRO
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_display_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -2395,10 +2444,9 @@ uint8_t* PublicKeyCredentialUserEntity::_InternalSerialize(
 
   // .cryptohome.fido.Url icon = 3;
   if (this->_internal_has_icon()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::icon(this), target, stream);
+      InternalWriteMessage(3, _Internal::icon(this),
+        _Internal::icon(this).GetCachedSize(), target, stream);
   }
 
   // string display_name = 4;
@@ -2452,42 +2500,44 @@ size_t PublicKeyCredentialUserEntity::ByteSizeLong() const {
   if (this->_internal_has_icon()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *icon_);
+        *_impl_.icon_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void PublicKeyCredentialUserEntity::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PublicKeyCredentialUserEntity*>(
+  MergeFrom(*::_pbi::DownCast<const PublicKeyCredentialUserEntity*>(
       &from));
 }
 
 void PublicKeyCredentialUserEntity::MergeFrom(const PublicKeyCredentialUserEntity& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.PublicKeyCredentialUserEntity)
-  GOOGLE_DCHECK_NE(&from, this);
+  PublicKeyCredentialUserEntity* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.PublicKeyCredentialUserEntity)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_id().empty()) {
-    _internal_set_id(from._internal_id());
+    _this->_internal_set_id(from._internal_id());
   }
   if (!from._internal_name().empty()) {
-    _internal_set_name(from._internal_name());
+    _this->_internal_set_name(from._internal_name());
   }
   if (!from._internal_display_name().empty()) {
-    _internal_set_display_name(from._internal_display_name());
+    _this->_internal_set_display_name(from._internal_display_name());
   }
   if (from._internal_has_icon()) {
-    _internal_mutable_icon()->::cryptohome::fido::Url::MergeFrom(from._internal_icon());
+    _this->_internal_mutable_icon()->::cryptohome::fido::Url::MergeFrom(
+        from._internal_icon());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PublicKeyCredentialUserEntity::CopyFrom(const PublicKeyCredentialUserEntity& from) {
@@ -2507,21 +2557,18 @@ void PublicKeyCredentialUserEntity::InternalSwap(PublicKeyCredentialUserEntity* 
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &id_, lhs_arena,
-      &other->id_, rhs_arena
+      &_impl_.id_, lhs_arena,
+      &other->_impl_.id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, lhs_arena,
-      &other->name_, rhs_arena
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &display_name_, lhs_arena,
-      &other->display_name_, rhs_arena
+      &_impl_.display_name_, lhs_arena,
+      &other->_impl_.display_name_, rhs_arena
   );
-  swap(icon_, other->icon_);
+  swap(_impl_.icon_, other->_impl_.icon_);
 }
 
 std::string PublicKeyCredentialUserEntity::GetTypeName() const {
@@ -2538,47 +2585,50 @@ class PublicKeyCredentialParameters::_Internal {
 PublicKeyCredentialParameters::PublicKeyCredentialParameters(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.fido.PublicKeyCredentialParameters)
 }
 PublicKeyCredentialParameters::PublicKeyCredentialParameters(const PublicKeyCredentialParameters& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PublicKeyCredentialParameters* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.type_){}
+    , decltype(_impl_.algorithm_identifier_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&type_, &from.type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&algorithm_identifier_) -
-    reinterpret_cast<char*>(&type_)) + sizeof(algorithm_identifier_));
+  ::memcpy(&_impl_.type_, &from._impl_.type_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.algorithm_identifier_) -
+    reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.algorithm_identifier_));
   // @@protoc_insertion_point(copy_constructor:cryptohome.fido.PublicKeyCredentialParameters)
 }
 
-inline void PublicKeyCredentialParameters::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&type_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&algorithm_identifier_) -
-    reinterpret_cast<char*>(&type_)) + sizeof(algorithm_identifier_));
+inline void PublicKeyCredentialParameters::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.type_){0}
+    , decltype(_impl_.algorithm_identifier_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 PublicKeyCredentialParameters::~PublicKeyCredentialParameters() {
   // @@protoc_insertion_point(destructor:cryptohome.fido.PublicKeyCredentialParameters)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void PublicKeyCredentialParameters::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void PublicKeyCredentialParameters::ArenaDtor(void* object) {
-  PublicKeyCredentialParameters* _this = reinterpret_cast< PublicKeyCredentialParameters* >(object);
-  (void)_this;
-}
-void PublicKeyCredentialParameters::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void PublicKeyCredentialParameters::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PublicKeyCredentialParameters::Clear() {
@@ -2587,17 +2637,17 @@ void PublicKeyCredentialParameters::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&type_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&algorithm_identifier_) -
-      reinterpret_cast<char*>(&type_)) + sizeof(algorithm_identifier_));
+  ::memset(&_impl_.type_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.algorithm_identifier_) -
+      reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.algorithm_identifier_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PublicKeyCredentialParameters::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* PublicKeyCredentialParameters::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .cryptohome.fido.PublicKeyCredentialType type = 1;
       case 1:
@@ -2611,7 +2661,7 @@ const char* PublicKeyCredentialParameters::_InternalParse(const char* ptr, ::PRO
       // int32 algorithm_identifier = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          algorithm_identifier_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.algorithm_identifier_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2648,14 +2698,14 @@ uint8_t* PublicKeyCredentialParameters::_InternalSerialize(
   // .cryptohome.fido.PublicKeyCredentialType type = 1;
   if (this->_internal_type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_type(), target);
   }
 
   // int32 algorithm_identifier = 2;
   if (this->_internal_algorithm_identifier() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_algorithm_identifier(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_algorithm_identifier(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2677,41 +2727,42 @@ size_t PublicKeyCredentialParameters::ByteSizeLong() const {
   // .cryptohome.fido.PublicKeyCredentialType type = 1;
   if (this->_internal_type() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
 
   // int32 algorithm_identifier = 2;
   if (this->_internal_algorithm_identifier() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_algorithm_identifier());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_algorithm_identifier());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void PublicKeyCredentialParameters::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PublicKeyCredentialParameters*>(
+  MergeFrom(*::_pbi::DownCast<const PublicKeyCredentialParameters*>(
       &from));
 }
 
 void PublicKeyCredentialParameters::MergeFrom(const PublicKeyCredentialParameters& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.PublicKeyCredentialParameters)
-  GOOGLE_DCHECK_NE(&from, this);
+  PublicKeyCredentialParameters* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.PublicKeyCredentialParameters)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_type() != 0) {
-    _internal_set_type(from._internal_type());
+    _this->_internal_set_type(from._internal_type());
   }
   if (from._internal_algorithm_identifier() != 0) {
-    _internal_set_algorithm_identifier(from._internal_algorithm_identifier());
+    _this->_internal_set_algorithm_identifier(from._internal_algorithm_identifier());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PublicKeyCredentialParameters::CopyFrom(const PublicKeyCredentialParameters& from) {
@@ -2729,11 +2780,11 @@ void PublicKeyCredentialParameters::InternalSwap(PublicKeyCredentialParameters* 
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PublicKeyCredentialParameters, algorithm_identifier_)
-      + sizeof(PublicKeyCredentialParameters::algorithm_identifier_)
-      - PROTOBUF_FIELD_OFFSET(PublicKeyCredentialParameters, type_)>(
-          reinterpret_cast<char*>(&type_),
-          reinterpret_cast<char*>(&other->type_));
+      PROTOBUF_FIELD_OFFSET(PublicKeyCredentialParameters, _impl_.algorithm_identifier_)
+      + sizeof(PublicKeyCredentialParameters::_impl_.algorithm_identifier_)
+      - PROTOBUF_FIELD_OFFSET(PublicKeyCredentialParameters, _impl_.type_)>(
+          reinterpret_cast<char*>(&_impl_.type_),
+          reinterpret_cast<char*>(&other->_impl_.type_));
 }
 
 std::string PublicKeyCredentialParameters::GetTypeName() const {
@@ -2750,81 +2801,91 @@ class CableAuthentication::_Internal {
 CableAuthentication::CableAuthentication(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.fido.CableAuthentication)
 }
 CableAuthentication::CableAuthentication(const CableAuthentication& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CableAuthentication* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.client_eid_){}
+    , decltype(_impl_.authenticator_eid_){}
+    , decltype(_impl_.session_pre_key_){}
+    , decltype(_impl_.version_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  client_eid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.client_eid_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    client_eid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.client_eid_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_client_eid().empty()) {
-    client_eid_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_client_eid(), 
-      GetArenaForAllocation());
+    _this->_impl_.client_eid_.Set(from._internal_client_eid(), 
+      _this->GetArenaForAllocation());
   }
-  authenticator_eid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.authenticator_eid_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    authenticator_eid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.authenticator_eid_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_authenticator_eid().empty()) {
-    authenticator_eid_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_authenticator_eid(), 
-      GetArenaForAllocation());
+    _this->_impl_.authenticator_eid_.Set(from._internal_authenticator_eid(), 
+      _this->GetArenaForAllocation());
   }
-  session_pre_key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.session_pre_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    session_pre_key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.session_pre_key_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_session_pre_key().empty()) {
-    session_pre_key_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_session_pre_key(), 
-      GetArenaForAllocation());
+    _this->_impl_.session_pre_key_.Set(from._internal_session_pre_key(), 
+      _this->GetArenaForAllocation());
   }
-  version_ = from.version_;
+  _this->_impl_.version_ = from._impl_.version_;
   // @@protoc_insertion_point(copy_constructor:cryptohome.fido.CableAuthentication)
 }
 
-inline void CableAuthentication::SharedCtor() {
-client_eid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  client_eid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-authenticator_eid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  authenticator_eid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-session_pre_key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  session_pre_key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-version_ = 0u;
+inline void CableAuthentication::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.client_eid_){}
+    , decltype(_impl_.authenticator_eid_){}
+    , decltype(_impl_.session_pre_key_){}
+    , decltype(_impl_.version_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.client_eid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.client_eid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.authenticator_eid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.authenticator_eid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.session_pre_key_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.session_pre_key_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CableAuthentication::~CableAuthentication() {
   // @@protoc_insertion_point(destructor:cryptohome.fido.CableAuthentication)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void CableAuthentication::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  client_eid_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  authenticator_eid_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  session_pre_key_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.client_eid_.Destroy();
+  _impl_.authenticator_eid_.Destroy();
+  _impl_.session_pre_key_.Destroy();
 }
 
-void CableAuthentication::ArenaDtor(void* object) {
-  CableAuthentication* _this = reinterpret_cast< CableAuthentication* >(object);
-  (void)_this;
-}
-void CableAuthentication::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void CableAuthentication::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CableAuthentication::Clear() {
@@ -2833,23 +2894,23 @@ void CableAuthentication::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  client_eid_.ClearToEmpty();
-  authenticator_eid_.ClearToEmpty();
-  session_pre_key_.ClearToEmpty();
-  version_ = 0u;
+  _impl_.client_eid_.ClearToEmpty();
+  _impl_.authenticator_eid_.ClearToEmpty();
+  _impl_.session_pre_key_.ClearToEmpty();
+  _impl_.version_ = 0u;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* CableAuthentication::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* CableAuthentication::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint32 version = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2858,7 +2919,7 @@ const char* CableAuthentication::_InternalParse(const char* ptr, ::PROTOBUF_NAME
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_client_eid();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2867,7 +2928,7 @@ const char* CableAuthentication::_InternalParse(const char* ptr, ::PROTOBUF_NAME
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_authenticator_eid();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2876,7 +2937,7 @@ const char* CableAuthentication::_InternalParse(const char* ptr, ::PROTOBUF_NAME
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_session_pre_key();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2913,7 +2974,7 @@ uint8_t* CableAuthentication::_InternalSerialize(
   // uint32 version = 1;
   if (this->_internal_version() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_version(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_version(), target);
   }
 
   // bytes client_eid = 2;
@@ -2973,42 +3034,43 @@ size_t CableAuthentication::ByteSizeLong() const {
 
   // uint32 version = 1;
   if (this->_internal_version() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_version());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_version());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void CableAuthentication::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const CableAuthentication*>(
+  MergeFrom(*::_pbi::DownCast<const CableAuthentication*>(
       &from));
 }
 
 void CableAuthentication::MergeFrom(const CableAuthentication& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.CableAuthentication)
-  GOOGLE_DCHECK_NE(&from, this);
+  CableAuthentication* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.CableAuthentication)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_client_eid().empty()) {
-    _internal_set_client_eid(from._internal_client_eid());
+    _this->_internal_set_client_eid(from._internal_client_eid());
   }
   if (!from._internal_authenticator_eid().empty()) {
-    _internal_set_authenticator_eid(from._internal_authenticator_eid());
+    _this->_internal_set_authenticator_eid(from._internal_authenticator_eid());
   }
   if (!from._internal_session_pre_key().empty()) {
-    _internal_set_session_pre_key(from._internal_session_pre_key());
+    _this->_internal_set_session_pre_key(from._internal_session_pre_key());
   }
   if (from._internal_version() != 0) {
-    _internal_set_version(from._internal_version());
+    _this->_internal_set_version(from._internal_version());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CableAuthentication::CopyFrom(const CableAuthentication& from) {
@@ -3028,21 +3090,18 @@ void CableAuthentication::InternalSwap(CableAuthentication* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &client_eid_, lhs_arena,
-      &other->client_eid_, rhs_arena
+      &_impl_.client_eid_, lhs_arena,
+      &other->_impl_.client_eid_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &authenticator_eid_, lhs_arena,
-      &other->authenticator_eid_, rhs_arena
+      &_impl_.authenticator_eid_, lhs_arena,
+      &other->_impl_.authenticator_eid_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &session_pre_key_, lhs_arena,
-      &other->session_pre_key_, rhs_arena
+      &_impl_.session_pre_key_, lhs_arena,
+      &other->_impl_.session_pre_key_, rhs_arena
   );
-  swap(version_, other->version_);
+  swap(_impl_.version_, other->_impl_.version_);
 }
 
 std::string CableAuthentication::GetTypeName() const {
@@ -3059,66 +3118,73 @@ class CableRegistration::_Internal {
 CableRegistration::CableRegistration(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.fido.CableRegistration)
 }
 CableRegistration::CableRegistration(const CableRegistration& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CableRegistration* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.versions_){}
+    , decltype(_impl_.relying_party_public_key_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  versions_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.versions_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    versions_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.versions_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_versions().empty()) {
-    versions_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_versions(), 
-      GetArenaForAllocation());
+    _this->_impl_.versions_.Set(from._internal_versions(), 
+      _this->GetArenaForAllocation());
   }
-  relying_party_public_key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.relying_party_public_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    relying_party_public_key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.relying_party_public_key_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_relying_party_public_key().empty()) {
-    relying_party_public_key_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_relying_party_public_key(), 
-      GetArenaForAllocation());
+    _this->_impl_.relying_party_public_key_.Set(from._internal_relying_party_public_key(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:cryptohome.fido.CableRegistration)
 }
 
-inline void CableRegistration::SharedCtor() {
-versions_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  versions_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-relying_party_public_key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  relying_party_public_key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void CableRegistration::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.versions_){}
+    , decltype(_impl_.relying_party_public_key_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.versions_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.versions_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.relying_party_public_key_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.relying_party_public_key_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CableRegistration::~CableRegistration() {
   // @@protoc_insertion_point(destructor:cryptohome.fido.CableRegistration)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void CableRegistration::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  versions_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  relying_party_public_key_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.versions_.Destroy();
+  _impl_.relying_party_public_key_.Destroy();
 }
 
-void CableRegistration::ArenaDtor(void* object) {
-  CableRegistration* _this = reinterpret_cast< CableRegistration* >(object);
-  (void)_this;
-}
-void CableRegistration::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void CableRegistration::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CableRegistration::Clear() {
@@ -3127,22 +3193,22 @@ void CableRegistration::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  versions_.ClearToEmpty();
-  relying_party_public_key_.ClearToEmpty();
+  _impl_.versions_.ClearToEmpty();
+  _impl_.relying_party_public_key_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* CableRegistration::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* CableRegistration::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bytes versions = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_versions();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3151,7 +3217,7 @@ const char* CableRegistration::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_relying_party_public_key();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3230,30 +3296,31 @@ size_t CableRegistration::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void CableRegistration::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const CableRegistration*>(
+  MergeFrom(*::_pbi::DownCast<const CableRegistration*>(
       &from));
 }
 
 void CableRegistration::MergeFrom(const CableRegistration& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.CableRegistration)
-  GOOGLE_DCHECK_NE(&from, this);
+  CableRegistration* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.CableRegistration)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_versions().empty()) {
-    _internal_set_versions(from._internal_versions());
+    _this->_internal_set_versions(from._internal_versions());
   }
   if (!from._internal_relying_party_public_key().empty()) {
-    _internal_set_relying_party_public_key(from._internal_relying_party_public_key());
+    _this->_internal_set_relying_party_public_key(from._internal_relying_party_public_key());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CableRegistration::CopyFrom(const CableRegistration& from) {
@@ -3273,14 +3340,12 @@ void CableRegistration::InternalSwap(CableRegistration* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &versions_, lhs_arena,
-      &other->versions_, rhs_arena
+      &_impl_.versions_, lhs_arena,
+      &other->_impl_.versions_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &relying_party_public_key_, lhs_arena,
-      &other->relying_party_public_key_, rhs_arena
+      &_impl_.relying_party_public_key_, lhs_arena,
+      &other->_impl_.relying_party_public_key_, rhs_arena
   );
 }
 
@@ -3297,91 +3362,102 @@ class PublicKeyCredentialRequestOptions::_Internal {
 
 PublicKeyCredentialRequestOptions::PublicKeyCredentialRequestOptions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  allow_credentials_(arena),
-  cable_authentication_data_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.fido.PublicKeyCredentialRequestOptions)
 }
 PublicKeyCredentialRequestOptions::PublicKeyCredentialRequestOptions(const PublicKeyCredentialRequestOptions& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      allow_credentials_(from.allow_credentials_),
-      cable_authentication_data_(from.cable_authentication_data_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PublicKeyCredentialRequestOptions* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.allow_credentials_){from._impl_.allow_credentials_}
+    , decltype(_impl_.cable_authentication_data_){from._impl_.cable_authentication_data_}
+    , decltype(_impl_.challenge_){}
+    , decltype(_impl_.relying_party_id_){}
+    , decltype(_impl_.appid_){}
+    , decltype(_impl_.adjusted_timeout_){}
+    , decltype(_impl_.user_verification_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  challenge_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.challenge_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    challenge_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.challenge_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_challenge().empty()) {
-    challenge_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_challenge(), 
-      GetArenaForAllocation());
+    _this->_impl_.challenge_.Set(from._internal_challenge(), 
+      _this->GetArenaForAllocation());
   }
-  relying_party_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.relying_party_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    relying_party_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.relying_party_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_relying_party_id().empty()) {
-    relying_party_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_relying_party_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.relying_party_id_.Set(from._internal_relying_party_id(), 
+      _this->GetArenaForAllocation());
   }
-  appid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.appid_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    appid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.appid_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_appid().empty()) {
-    appid_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_appid(), 
-      GetArenaForAllocation());
+    _this->_impl_.appid_.Set(from._internal_appid(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&adjusted_timeout_, &from.adjusted_timeout_,
-    static_cast<size_t>(reinterpret_cast<char*>(&user_verification_) -
-    reinterpret_cast<char*>(&adjusted_timeout_)) + sizeof(user_verification_));
+  ::memcpy(&_impl_.adjusted_timeout_, &from._impl_.adjusted_timeout_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.user_verification_) -
+    reinterpret_cast<char*>(&_impl_.adjusted_timeout_)) + sizeof(_impl_.user_verification_));
   // @@protoc_insertion_point(copy_constructor:cryptohome.fido.PublicKeyCredentialRequestOptions)
 }
 
-inline void PublicKeyCredentialRequestOptions::SharedCtor() {
-challenge_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  challenge_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-relying_party_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  relying_party_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-appid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  appid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&adjusted_timeout_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&user_verification_) -
-    reinterpret_cast<char*>(&adjusted_timeout_)) + sizeof(user_verification_));
+inline void PublicKeyCredentialRequestOptions::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.allow_credentials_){arena}
+    , decltype(_impl_.cable_authentication_data_){arena}
+    , decltype(_impl_.challenge_){}
+    , decltype(_impl_.relying_party_id_){}
+    , decltype(_impl_.appid_){}
+    , decltype(_impl_.adjusted_timeout_){int64_t{0}}
+    , decltype(_impl_.user_verification_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.challenge_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.challenge_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.relying_party_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.relying_party_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.appid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.appid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PublicKeyCredentialRequestOptions::~PublicKeyCredentialRequestOptions() {
   // @@protoc_insertion_point(destructor:cryptohome.fido.PublicKeyCredentialRequestOptions)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void PublicKeyCredentialRequestOptions::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  challenge_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  relying_party_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  appid_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.allow_credentials_.~RepeatedPtrField();
+  _impl_.cable_authentication_data_.~RepeatedPtrField();
+  _impl_.challenge_.Destroy();
+  _impl_.relying_party_id_.Destroy();
+  _impl_.appid_.Destroy();
 }
 
-void PublicKeyCredentialRequestOptions::ArenaDtor(void* object) {
-  PublicKeyCredentialRequestOptions* _this = reinterpret_cast< PublicKeyCredentialRequestOptions* >(object);
-  (void)_this;
-}
-void PublicKeyCredentialRequestOptions::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void PublicKeyCredentialRequestOptions::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PublicKeyCredentialRequestOptions::Clear() {
@@ -3390,28 +3466,28 @@ void PublicKeyCredentialRequestOptions::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  allow_credentials_.Clear();
-  cable_authentication_data_.Clear();
-  challenge_.ClearToEmpty();
-  relying_party_id_.ClearToEmpty();
-  appid_.ClearToEmpty();
-  ::memset(&adjusted_timeout_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&user_verification_) -
-      reinterpret_cast<char*>(&adjusted_timeout_)) + sizeof(user_verification_));
+  _impl_.allow_credentials_.Clear();
+  _impl_.cable_authentication_data_.Clear();
+  _impl_.challenge_.ClearToEmpty();
+  _impl_.relying_party_id_.ClearToEmpty();
+  _impl_.appid_.ClearToEmpty();
+  ::memset(&_impl_.adjusted_timeout_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.user_verification_) -
+      reinterpret_cast<char*>(&_impl_.adjusted_timeout_)) + sizeof(_impl_.user_verification_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PublicKeyCredentialRequestOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* PublicKeyCredentialRequestOptions::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bytes challenge = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_challenge();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3419,7 +3495,7 @@ const char* PublicKeyCredentialRequestOptions::_InternalParse(const char* ptr, :
       // int64 adjusted_timeout = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          adjusted_timeout_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.adjusted_timeout_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3428,9 +3504,9 @@ const char* PublicKeyCredentialRequestOptions::_InternalParse(const char* ptr, :
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_relying_party_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -3460,9 +3536,9 @@ const char* PublicKeyCredentialRequestOptions::_InternalParse(const char* ptr, :
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_appid();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -3517,7 +3593,7 @@ uint8_t* PublicKeyCredentialRequestOptions::_InternalSerialize(
   // int64 adjusted_timeout = 2;
   if (this->_internal_adjusted_timeout() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_adjusted_timeout(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_adjusted_timeout(), target);
   }
 
   // string relying_party_id = 3;
@@ -3531,17 +3607,17 @@ uint8_t* PublicKeyCredentialRequestOptions::_InternalSerialize(
   }
 
   // repeated .cryptohome.fido.PublicKeyCredentialDescriptor allow_credentials = 4;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_allow_credentials_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_allow_credentials_size()); i < n; i++) {
+    const auto& repfield = this->_internal_allow_credentials(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, this->_internal_allow_credentials(i), target, stream);
+        InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // .cryptohome.fido.UserVerificationRequirement user_verification = 5;
   if (this->_internal_user_verification() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       5, this->_internal_user_verification(), target);
   }
 
@@ -3556,11 +3632,11 @@ uint8_t* PublicKeyCredentialRequestOptions::_InternalSerialize(
   }
 
   // repeated .cryptohome.fido.CableAuthentication cable_authentication_data = 7;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_cable_authentication_data_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_cable_authentication_data_size()); i < n; i++) {
+    const auto& repfield = this->_internal_cable_authentication_data(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(7, this->_internal_cable_authentication_data(i), target, stream);
+        InternalWriteMessage(7, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3581,14 +3657,14 @@ size_t PublicKeyCredentialRequestOptions::ByteSizeLong() const {
 
   // repeated .cryptohome.fido.PublicKeyCredentialDescriptor allow_credentials = 4;
   total_size += 1UL * this->_internal_allow_credentials_size();
-  for (const auto& msg : this->allow_credentials_) {
+  for (const auto& msg : this->_impl_.allow_credentials_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .cryptohome.fido.CableAuthentication cable_authentication_data = 7;
   total_size += 1UL * this->_internal_cable_authentication_data_size();
-  for (const auto& msg : this->cable_authentication_data_) {
+  for (const auto& msg : this->_impl_.cable_authentication_data_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -3616,53 +3692,54 @@ size_t PublicKeyCredentialRequestOptions::ByteSizeLong() const {
 
   // int64 adjusted_timeout = 2;
   if (this->_internal_adjusted_timeout() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_adjusted_timeout());
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_adjusted_timeout());
   }
 
   // .cryptohome.fido.UserVerificationRequirement user_verification = 5;
   if (this->_internal_user_verification() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_user_verification());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_user_verification());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void PublicKeyCredentialRequestOptions::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PublicKeyCredentialRequestOptions*>(
+  MergeFrom(*::_pbi::DownCast<const PublicKeyCredentialRequestOptions*>(
       &from));
 }
 
 void PublicKeyCredentialRequestOptions::MergeFrom(const PublicKeyCredentialRequestOptions& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.PublicKeyCredentialRequestOptions)
-  GOOGLE_DCHECK_NE(&from, this);
+  PublicKeyCredentialRequestOptions* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.PublicKeyCredentialRequestOptions)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  allow_credentials_.MergeFrom(from.allow_credentials_);
-  cable_authentication_data_.MergeFrom(from.cable_authentication_data_);
+  _this->_impl_.allow_credentials_.MergeFrom(from._impl_.allow_credentials_);
+  _this->_impl_.cable_authentication_data_.MergeFrom(from._impl_.cable_authentication_data_);
   if (!from._internal_challenge().empty()) {
-    _internal_set_challenge(from._internal_challenge());
+    _this->_internal_set_challenge(from._internal_challenge());
   }
   if (!from._internal_relying_party_id().empty()) {
-    _internal_set_relying_party_id(from._internal_relying_party_id());
+    _this->_internal_set_relying_party_id(from._internal_relying_party_id());
   }
   if (!from._internal_appid().empty()) {
-    _internal_set_appid(from._internal_appid());
+    _this->_internal_set_appid(from._internal_appid());
   }
   if (from._internal_adjusted_timeout() != 0) {
-    _internal_set_adjusted_timeout(from._internal_adjusted_timeout());
+    _this->_internal_set_adjusted_timeout(from._internal_adjusted_timeout());
   }
   if (from._internal_user_verification() != 0) {
-    _internal_set_user_verification(from._internal_user_verification());
+    _this->_internal_set_user_verification(from._internal_user_verification());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PublicKeyCredentialRequestOptions::CopyFrom(const PublicKeyCredentialRequestOptions& from) {
@@ -3681,29 +3758,26 @@ void PublicKeyCredentialRequestOptions::InternalSwap(PublicKeyCredentialRequestO
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  allow_credentials_.InternalSwap(&other->allow_credentials_);
-  cable_authentication_data_.InternalSwap(&other->cable_authentication_data_);
+  _impl_.allow_credentials_.InternalSwap(&other->_impl_.allow_credentials_);
+  _impl_.cable_authentication_data_.InternalSwap(&other->_impl_.cable_authentication_data_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &challenge_, lhs_arena,
-      &other->challenge_, rhs_arena
+      &_impl_.challenge_, lhs_arena,
+      &other->_impl_.challenge_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &relying_party_id_, lhs_arena,
-      &other->relying_party_id_, rhs_arena
+      &_impl_.relying_party_id_, lhs_arena,
+      &other->_impl_.relying_party_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &appid_, lhs_arena,
-      &other->appid_, rhs_arena
+      &_impl_.appid_, lhs_arena,
+      &other->_impl_.appid_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PublicKeyCredentialRequestOptions, user_verification_)
-      + sizeof(PublicKeyCredentialRequestOptions::user_verification_)
-      - PROTOBUF_FIELD_OFFSET(PublicKeyCredentialRequestOptions, adjusted_timeout_)>(
-          reinterpret_cast<char*>(&adjusted_timeout_),
-          reinterpret_cast<char*>(&other->adjusted_timeout_));
+      PROTOBUF_FIELD_OFFSET(PublicKeyCredentialRequestOptions, _impl_.user_verification_)
+      + sizeof(PublicKeyCredentialRequestOptions::_impl_.user_verification_)
+      - PROTOBUF_FIELD_OFFSET(PublicKeyCredentialRequestOptions, _impl_.adjusted_timeout_)>(
+          reinterpret_cast<char*>(&_impl_.adjusted_timeout_),
+          reinterpret_cast<char*>(&other->_impl_.adjusted_timeout_));
 }
 
 std::string PublicKeyCredentialRequestOptions::GetTypeName() const {
@@ -3720,47 +3794,52 @@ class AuthenticatorSelectionCriteria::_Internal {
 AuthenticatorSelectionCriteria::AuthenticatorSelectionCriteria(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.fido.AuthenticatorSelectionCriteria)
 }
 AuthenticatorSelectionCriteria::AuthenticatorSelectionCriteria(const AuthenticatorSelectionCriteria& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AuthenticatorSelectionCriteria* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.authenticator_attachment_){}
+    , decltype(_impl_.require_resident_key_){}
+    , decltype(_impl_.user_verification_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&authenticator_attachment_, &from.authenticator_attachment_,
-    static_cast<size_t>(reinterpret_cast<char*>(&user_verification_) -
-    reinterpret_cast<char*>(&authenticator_attachment_)) + sizeof(user_verification_));
+  ::memcpy(&_impl_.authenticator_attachment_, &from._impl_.authenticator_attachment_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.user_verification_) -
+    reinterpret_cast<char*>(&_impl_.authenticator_attachment_)) + sizeof(_impl_.user_verification_));
   // @@protoc_insertion_point(copy_constructor:cryptohome.fido.AuthenticatorSelectionCriteria)
 }
 
-inline void AuthenticatorSelectionCriteria::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&authenticator_attachment_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&user_verification_) -
-    reinterpret_cast<char*>(&authenticator_attachment_)) + sizeof(user_verification_));
+inline void AuthenticatorSelectionCriteria::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.authenticator_attachment_){0}
+    , decltype(_impl_.require_resident_key_){false}
+    , decltype(_impl_.user_verification_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 AuthenticatorSelectionCriteria::~AuthenticatorSelectionCriteria() {
   // @@protoc_insertion_point(destructor:cryptohome.fido.AuthenticatorSelectionCriteria)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void AuthenticatorSelectionCriteria::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void AuthenticatorSelectionCriteria::ArenaDtor(void* object) {
-  AuthenticatorSelectionCriteria* _this = reinterpret_cast< AuthenticatorSelectionCriteria* >(object);
-  (void)_this;
-}
-void AuthenticatorSelectionCriteria::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void AuthenticatorSelectionCriteria::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void AuthenticatorSelectionCriteria::Clear() {
@@ -3769,17 +3848,17 @@ void AuthenticatorSelectionCriteria::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&authenticator_attachment_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&user_verification_) -
-      reinterpret_cast<char*>(&authenticator_attachment_)) + sizeof(user_verification_));
+  ::memset(&_impl_.authenticator_attachment_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.user_verification_) -
+      reinterpret_cast<char*>(&_impl_.authenticator_attachment_)) + sizeof(_impl_.user_verification_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* AuthenticatorSelectionCriteria::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* AuthenticatorSelectionCriteria::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .cryptohome.fido.AuthenticatorAttachment authenticator_attachment = 1;
       case 1:
@@ -3793,7 +3872,7 @@ const char* AuthenticatorSelectionCriteria::_InternalParse(const char* ptr, ::PR
       // bool require_resident_key = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          require_resident_key_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.require_resident_key_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3839,20 +3918,20 @@ uint8_t* AuthenticatorSelectionCriteria::_InternalSerialize(
   // .cryptohome.fido.AuthenticatorAttachment authenticator_attachment = 1;
   if (this->_internal_authenticator_attachment() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_authenticator_attachment(), target);
   }
 
   // bool require_resident_key = 2;
   if (this->_internal_require_resident_key() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_require_resident_key(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_require_resident_key(), target);
   }
 
   // .cryptohome.fido.UserVerificationRequirement user_verification = 3;
   if (this->_internal_user_verification() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_user_verification(), target);
   }
 
@@ -3875,7 +3954,7 @@ size_t AuthenticatorSelectionCriteria::ByteSizeLong() const {
   // .cryptohome.fido.AuthenticatorAttachment authenticator_attachment = 1;
   if (this->_internal_authenticator_attachment() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_authenticator_attachment());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_authenticator_attachment());
   }
 
   // bool require_resident_key = 2;
@@ -3886,39 +3965,40 @@ size_t AuthenticatorSelectionCriteria::ByteSizeLong() const {
   // .cryptohome.fido.UserVerificationRequirement user_verification = 3;
   if (this->_internal_user_verification() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_user_verification());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_user_verification());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void AuthenticatorSelectionCriteria::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const AuthenticatorSelectionCriteria*>(
+  MergeFrom(*::_pbi::DownCast<const AuthenticatorSelectionCriteria*>(
       &from));
 }
 
 void AuthenticatorSelectionCriteria::MergeFrom(const AuthenticatorSelectionCriteria& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.AuthenticatorSelectionCriteria)
-  GOOGLE_DCHECK_NE(&from, this);
+  AuthenticatorSelectionCriteria* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.AuthenticatorSelectionCriteria)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_authenticator_attachment() != 0) {
-    _internal_set_authenticator_attachment(from._internal_authenticator_attachment());
+    _this->_internal_set_authenticator_attachment(from._internal_authenticator_attachment());
   }
   if (from._internal_require_resident_key() != 0) {
-    _internal_set_require_resident_key(from._internal_require_resident_key());
+    _this->_internal_set_require_resident_key(from._internal_require_resident_key());
   }
   if (from._internal_user_verification() != 0) {
-    _internal_set_user_verification(from._internal_user_verification());
+    _this->_internal_set_user_verification(from._internal_user_verification());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void AuthenticatorSelectionCriteria::CopyFrom(const AuthenticatorSelectionCriteria& from) {
@@ -3936,11 +4016,11 @@ void AuthenticatorSelectionCriteria::InternalSwap(AuthenticatorSelectionCriteria
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AuthenticatorSelectionCriteria, user_verification_)
-      + sizeof(AuthenticatorSelectionCriteria::user_verification_)
-      - PROTOBUF_FIELD_OFFSET(AuthenticatorSelectionCriteria, authenticator_attachment_)>(
-          reinterpret_cast<char*>(&authenticator_attachment_),
-          reinterpret_cast<char*>(&other->authenticator_attachment_));
+      PROTOBUF_FIELD_OFFSET(AuthenticatorSelectionCriteria, _impl_.user_verification_)
+      + sizeof(AuthenticatorSelectionCriteria::_impl_.user_verification_)
+      - PROTOBUF_FIELD_OFFSET(AuthenticatorSelectionCriteria, _impl_.authenticator_attachment_)>(
+          reinterpret_cast<char*>(&_impl_.authenticator_attachment_),
+          reinterpret_cast<char*>(&other->_impl_.authenticator_attachment_));
 }
 
 std::string AuthenticatorSelectionCriteria::GetTypeName() const {
@@ -3960,118 +4040,133 @@ class PublicKeyCredentialCreationOptions::_Internal {
 
 const ::cryptohome::fido::PublicKeyCredentialRpEntity&
 PublicKeyCredentialCreationOptions::_Internal::relying_party(const PublicKeyCredentialCreationOptions* msg) {
-  return *msg->relying_party_;
+  return *msg->_impl_.relying_party_;
 }
 const ::cryptohome::fido::PublicKeyCredentialUserEntity&
 PublicKeyCredentialCreationOptions::_Internal::user(const PublicKeyCredentialCreationOptions* msg) {
-  return *msg->user_;
+  return *msg->_impl_.user_;
 }
 const ::cryptohome::fido::AuthenticatorSelectionCriteria&
 PublicKeyCredentialCreationOptions::_Internal::authenticator_selection(const PublicKeyCredentialCreationOptions* msg) {
-  return *msg->authenticator_selection_;
+  return *msg->_impl_.authenticator_selection_;
 }
 const ::cryptohome::fido::CableRegistration&
 PublicKeyCredentialCreationOptions::_Internal::cable_registration_data(const PublicKeyCredentialCreationOptions* msg) {
-  return *msg->cable_registration_data_;
+  return *msg->_impl_.cable_registration_data_;
 }
 PublicKeyCredentialCreationOptions::PublicKeyCredentialCreationOptions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  public_key_parameters_(arena),
-  exclude_credentials_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.fido.PublicKeyCredentialCreationOptions)
 }
 PublicKeyCredentialCreationOptions::PublicKeyCredentialCreationOptions(const PublicKeyCredentialCreationOptions& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      public_key_parameters_(from.public_key_parameters_),
-      exclude_credentials_(from.exclude_credentials_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PublicKeyCredentialCreationOptions* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.public_key_parameters_){from._impl_.public_key_parameters_}
+    , decltype(_impl_.exclude_credentials_){from._impl_.exclude_credentials_}
+    , decltype(_impl_.challenge_){}
+    , decltype(_impl_.appid_exclude_){}
+    , decltype(_impl_.relying_party_){nullptr}
+    , decltype(_impl_.user_){nullptr}
+    , decltype(_impl_.authenticator_selection_){nullptr}
+    , decltype(_impl_.cable_registration_data_){nullptr}
+    , decltype(_impl_.adjusted_timeout_){}
+    , decltype(_impl_.attestation_){}
+    , decltype(_impl_.protection_policy_){}
+    , decltype(_impl_.hmac_create_secret_){}
+    , decltype(_impl_.enforce_protection_policy_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  challenge_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.challenge_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    challenge_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.challenge_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_challenge().empty()) {
-    challenge_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_challenge(), 
-      GetArenaForAllocation());
+    _this->_impl_.challenge_.Set(from._internal_challenge(), 
+      _this->GetArenaForAllocation());
   }
-  appid_exclude_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.appid_exclude_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    appid_exclude_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.appid_exclude_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_appid_exclude().empty()) {
-    appid_exclude_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_appid_exclude(), 
-      GetArenaForAllocation());
+    _this->_impl_.appid_exclude_.Set(from._internal_appid_exclude(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_relying_party()) {
-    relying_party_ = new ::cryptohome::fido::PublicKeyCredentialRpEntity(*from.relying_party_);
-  } else {
-    relying_party_ = nullptr;
+    _this->_impl_.relying_party_ = new ::cryptohome::fido::PublicKeyCredentialRpEntity(*from._impl_.relying_party_);
   }
   if (from._internal_has_user()) {
-    user_ = new ::cryptohome::fido::PublicKeyCredentialUserEntity(*from.user_);
-  } else {
-    user_ = nullptr;
+    _this->_impl_.user_ = new ::cryptohome::fido::PublicKeyCredentialUserEntity(*from._impl_.user_);
   }
   if (from._internal_has_authenticator_selection()) {
-    authenticator_selection_ = new ::cryptohome::fido::AuthenticatorSelectionCriteria(*from.authenticator_selection_);
-  } else {
-    authenticator_selection_ = nullptr;
+    _this->_impl_.authenticator_selection_ = new ::cryptohome::fido::AuthenticatorSelectionCriteria(*from._impl_.authenticator_selection_);
   }
   if (from._internal_has_cable_registration_data()) {
-    cable_registration_data_ = new ::cryptohome::fido::CableRegistration(*from.cable_registration_data_);
-  } else {
-    cable_registration_data_ = nullptr;
+    _this->_impl_.cable_registration_data_ = new ::cryptohome::fido::CableRegistration(*from._impl_.cable_registration_data_);
   }
-  ::memcpy(&adjusted_timeout_, &from.adjusted_timeout_,
-    static_cast<size_t>(reinterpret_cast<char*>(&enforce_protection_policy_) -
-    reinterpret_cast<char*>(&adjusted_timeout_)) + sizeof(enforce_protection_policy_));
+  ::memcpy(&_impl_.adjusted_timeout_, &from._impl_.adjusted_timeout_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.enforce_protection_policy_) -
+    reinterpret_cast<char*>(&_impl_.adjusted_timeout_)) + sizeof(_impl_.enforce_protection_policy_));
   // @@protoc_insertion_point(copy_constructor:cryptohome.fido.PublicKeyCredentialCreationOptions)
 }
 
-inline void PublicKeyCredentialCreationOptions::SharedCtor() {
-challenge_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  challenge_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-appid_exclude_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  appid_exclude_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&relying_party_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&enforce_protection_policy_) -
-    reinterpret_cast<char*>(&relying_party_)) + sizeof(enforce_protection_policy_));
+inline void PublicKeyCredentialCreationOptions::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.public_key_parameters_){arena}
+    , decltype(_impl_.exclude_credentials_){arena}
+    , decltype(_impl_.challenge_){}
+    , decltype(_impl_.appid_exclude_){}
+    , decltype(_impl_.relying_party_){nullptr}
+    , decltype(_impl_.user_){nullptr}
+    , decltype(_impl_.authenticator_selection_){nullptr}
+    , decltype(_impl_.cable_registration_data_){nullptr}
+    , decltype(_impl_.adjusted_timeout_){int64_t{0}}
+    , decltype(_impl_.attestation_){0}
+    , decltype(_impl_.protection_policy_){0}
+    , decltype(_impl_.hmac_create_secret_){false}
+    , decltype(_impl_.enforce_protection_policy_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.challenge_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.challenge_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.appid_exclude_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.appid_exclude_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PublicKeyCredentialCreationOptions::~PublicKeyCredentialCreationOptions() {
   // @@protoc_insertion_point(destructor:cryptohome.fido.PublicKeyCredentialCreationOptions)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void PublicKeyCredentialCreationOptions::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  challenge_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  appid_exclude_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete relying_party_;
-  if (this != internal_default_instance()) delete user_;
-  if (this != internal_default_instance()) delete authenticator_selection_;
-  if (this != internal_default_instance()) delete cable_registration_data_;
+  _impl_.public_key_parameters_.~RepeatedPtrField();
+  _impl_.exclude_credentials_.~RepeatedPtrField();
+  _impl_.challenge_.Destroy();
+  _impl_.appid_exclude_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.relying_party_;
+  if (this != internal_default_instance()) delete _impl_.user_;
+  if (this != internal_default_instance()) delete _impl_.authenticator_selection_;
+  if (this != internal_default_instance()) delete _impl_.cable_registration_data_;
 }
 
-void PublicKeyCredentialCreationOptions::ArenaDtor(void* object) {
-  PublicKeyCredentialCreationOptions* _this = reinterpret_cast< PublicKeyCredentialCreationOptions* >(object);
-  (void)_this;
-}
-void PublicKeyCredentialCreationOptions::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void PublicKeyCredentialCreationOptions::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PublicKeyCredentialCreationOptions::Clear() {
@@ -4080,37 +4175,37 @@ void PublicKeyCredentialCreationOptions::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  public_key_parameters_.Clear();
-  exclude_credentials_.Clear();
-  challenge_.ClearToEmpty();
-  appid_exclude_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && relying_party_ != nullptr) {
-    delete relying_party_;
+  _impl_.public_key_parameters_.Clear();
+  _impl_.exclude_credentials_.Clear();
+  _impl_.challenge_.ClearToEmpty();
+  _impl_.appid_exclude_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.relying_party_ != nullptr) {
+    delete _impl_.relying_party_;
   }
-  relying_party_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && user_ != nullptr) {
-    delete user_;
+  _impl_.relying_party_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.user_ != nullptr) {
+    delete _impl_.user_;
   }
-  user_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && authenticator_selection_ != nullptr) {
-    delete authenticator_selection_;
+  _impl_.user_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.authenticator_selection_ != nullptr) {
+    delete _impl_.authenticator_selection_;
   }
-  authenticator_selection_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && cable_registration_data_ != nullptr) {
-    delete cable_registration_data_;
+  _impl_.authenticator_selection_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.cable_registration_data_ != nullptr) {
+    delete _impl_.cable_registration_data_;
   }
-  cable_registration_data_ = nullptr;
-  ::memset(&adjusted_timeout_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&enforce_protection_policy_) -
-      reinterpret_cast<char*>(&adjusted_timeout_)) + sizeof(enforce_protection_policy_));
+  _impl_.cable_registration_data_ = nullptr;
+  ::memset(&_impl_.adjusted_timeout_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.enforce_protection_policy_) -
+      reinterpret_cast<char*>(&_impl_.adjusted_timeout_)) + sizeof(_impl_.enforce_protection_policy_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PublicKeyCredentialCreationOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* PublicKeyCredentialCreationOptions::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .cryptohome.fido.PublicKeyCredentialRpEntity relying_party = 1;
       case 1:
@@ -4132,7 +4227,7 @@ const char* PublicKeyCredentialCreationOptions::_InternalParse(const char* ptr, 
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_challenge();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4153,7 +4248,7 @@ const char* PublicKeyCredentialCreationOptions::_InternalParse(const char* ptr, 
       // int64 adjusted_timeout = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          adjusted_timeout_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.adjusted_timeout_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4199,7 +4294,7 @@ const char* PublicKeyCredentialCreationOptions::_InternalParse(const char* ptr, 
       // bool hmac_create_secret = 10;
       case 10:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
-          hmac_create_secret_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.hmac_create_secret_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4216,7 +4311,7 @@ const char* PublicKeyCredentialCreationOptions::_InternalParse(const char* ptr, 
       // bool enforce_protection_policy = 12;
       case 12:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
-          enforce_protection_policy_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.enforce_protection_policy_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4225,9 +4320,9 @@ const char* PublicKeyCredentialCreationOptions::_InternalParse(const char* ptr, 
       case 13:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
           auto str = _internal_mutable_appid_exclude();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -4262,18 +4357,16 @@ uint8_t* PublicKeyCredentialCreationOptions::_InternalSerialize(
 
   // .cryptohome.fido.PublicKeyCredentialRpEntity relying_party = 1;
   if (this->_internal_has_relying_party()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::relying_party(this), target, stream);
+      InternalWriteMessage(1, _Internal::relying_party(this),
+        _Internal::relying_party(this).GetCachedSize(), target, stream);
   }
 
   // .cryptohome.fido.PublicKeyCredentialUserEntity user = 2;
   if (this->_internal_has_user()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::user(this), target, stream);
+      InternalWriteMessage(2, _Internal::user(this),
+        _Internal::user(this).GetCachedSize(), target, stream);
   }
 
   // bytes challenge = 3;
@@ -4283,67 +4376,65 @@ uint8_t* PublicKeyCredentialCreationOptions::_InternalSerialize(
   }
 
   // repeated .cryptohome.fido.PublicKeyCredentialParameters public_key_parameters = 4;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_public_key_parameters_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_public_key_parameters_size()); i < n; i++) {
+    const auto& repfield = this->_internal_public_key_parameters(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, this->_internal_public_key_parameters(i), target, stream);
+        InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // int64 adjusted_timeout = 5;
   if (this->_internal_adjusted_timeout() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(5, this->_internal_adjusted_timeout(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(5, this->_internal_adjusted_timeout(), target);
   }
 
   // repeated .cryptohome.fido.PublicKeyCredentialDescriptor exclude_credentials = 6;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_exclude_credentials_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_exclude_credentials_size()); i < n; i++) {
+    const auto& repfield = this->_internal_exclude_credentials(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(6, this->_internal_exclude_credentials(i), target, stream);
+        InternalWriteMessage(6, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // .cryptohome.fido.AuthenticatorSelectionCriteria authenticator_selection = 7;
   if (this->_internal_has_authenticator_selection()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        7, _Internal::authenticator_selection(this), target, stream);
+      InternalWriteMessage(7, _Internal::authenticator_selection(this),
+        _Internal::authenticator_selection(this).GetCachedSize(), target, stream);
   }
 
   // .cryptohome.fido.AttestationConveyancePreference attestation = 8;
   if (this->_internal_attestation() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       8, this->_internal_attestation(), target);
   }
 
   // .cryptohome.fido.CableRegistration cable_registration_data = 9;
   if (this->_internal_has_cable_registration_data()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        9, _Internal::cable_registration_data(this), target, stream);
+      InternalWriteMessage(9, _Internal::cable_registration_data(this),
+        _Internal::cable_registration_data(this).GetCachedSize(), target, stream);
   }
 
   // bool hmac_create_secret = 10;
   if (this->_internal_hmac_create_secret() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(10, this->_internal_hmac_create_secret(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(10, this->_internal_hmac_create_secret(), target);
   }
 
   // .cryptohome.fido.ProtectionPolicy protection_policy = 11;
   if (this->_internal_protection_policy() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       11, this->_internal_protection_policy(), target);
   }
 
   // bool enforce_protection_policy = 12;
   if (this->_internal_enforce_protection_policy() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(12, this->_internal_enforce_protection_policy(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(12, this->_internal_enforce_protection_policy(), target);
   }
 
   // string appid_exclude = 13;
@@ -4374,14 +4465,14 @@ size_t PublicKeyCredentialCreationOptions::ByteSizeLong() const {
 
   // repeated .cryptohome.fido.PublicKeyCredentialParameters public_key_parameters = 4;
   total_size += 1UL * this->_internal_public_key_parameters_size();
-  for (const auto& msg : this->public_key_parameters_) {
+  for (const auto& msg : this->_impl_.public_key_parameters_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .cryptohome.fido.PublicKeyCredentialDescriptor exclude_credentials = 6;
   total_size += 1UL * this->_internal_exclude_credentials_size();
-  for (const auto& msg : this->exclude_credentials_) {
+  for (const auto& msg : this->_impl_.exclude_credentials_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -4404,45 +4495,45 @@ size_t PublicKeyCredentialCreationOptions::ByteSizeLong() const {
   if (this->_internal_has_relying_party()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *relying_party_);
+        *_impl_.relying_party_);
   }
 
   // .cryptohome.fido.PublicKeyCredentialUserEntity user = 2;
   if (this->_internal_has_user()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *user_);
+        *_impl_.user_);
   }
 
   // .cryptohome.fido.AuthenticatorSelectionCriteria authenticator_selection = 7;
   if (this->_internal_has_authenticator_selection()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *authenticator_selection_);
+        *_impl_.authenticator_selection_);
   }
 
   // .cryptohome.fido.CableRegistration cable_registration_data = 9;
   if (this->_internal_has_cable_registration_data()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *cable_registration_data_);
+        *_impl_.cable_registration_data_);
   }
 
   // int64 adjusted_timeout = 5;
   if (this->_internal_adjusted_timeout() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_adjusted_timeout());
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_adjusted_timeout());
   }
 
   // .cryptohome.fido.AttestationConveyancePreference attestation = 8;
   if (this->_internal_attestation() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_attestation());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_attestation());
   }
 
   // .cryptohome.fido.ProtectionPolicy protection_policy = 11;
   if (this->_internal_protection_policy() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_protection_policy());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_protection_policy());
   }
 
   // bool hmac_create_secret = 10;
@@ -4458,59 +4549,64 @@ size_t PublicKeyCredentialCreationOptions::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void PublicKeyCredentialCreationOptions::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PublicKeyCredentialCreationOptions*>(
+  MergeFrom(*::_pbi::DownCast<const PublicKeyCredentialCreationOptions*>(
       &from));
 }
 
 void PublicKeyCredentialCreationOptions::MergeFrom(const PublicKeyCredentialCreationOptions& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.PublicKeyCredentialCreationOptions)
-  GOOGLE_DCHECK_NE(&from, this);
+  PublicKeyCredentialCreationOptions* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.PublicKeyCredentialCreationOptions)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  public_key_parameters_.MergeFrom(from.public_key_parameters_);
-  exclude_credentials_.MergeFrom(from.exclude_credentials_);
+  _this->_impl_.public_key_parameters_.MergeFrom(from._impl_.public_key_parameters_);
+  _this->_impl_.exclude_credentials_.MergeFrom(from._impl_.exclude_credentials_);
   if (!from._internal_challenge().empty()) {
-    _internal_set_challenge(from._internal_challenge());
+    _this->_internal_set_challenge(from._internal_challenge());
   }
   if (!from._internal_appid_exclude().empty()) {
-    _internal_set_appid_exclude(from._internal_appid_exclude());
+    _this->_internal_set_appid_exclude(from._internal_appid_exclude());
   }
   if (from._internal_has_relying_party()) {
-    _internal_mutable_relying_party()->::cryptohome::fido::PublicKeyCredentialRpEntity::MergeFrom(from._internal_relying_party());
+    _this->_internal_mutable_relying_party()->::cryptohome::fido::PublicKeyCredentialRpEntity::MergeFrom(
+        from._internal_relying_party());
   }
   if (from._internal_has_user()) {
-    _internal_mutable_user()->::cryptohome::fido::PublicKeyCredentialUserEntity::MergeFrom(from._internal_user());
+    _this->_internal_mutable_user()->::cryptohome::fido::PublicKeyCredentialUserEntity::MergeFrom(
+        from._internal_user());
   }
   if (from._internal_has_authenticator_selection()) {
-    _internal_mutable_authenticator_selection()->::cryptohome::fido::AuthenticatorSelectionCriteria::MergeFrom(from._internal_authenticator_selection());
+    _this->_internal_mutable_authenticator_selection()->::cryptohome::fido::AuthenticatorSelectionCriteria::MergeFrom(
+        from._internal_authenticator_selection());
   }
   if (from._internal_has_cable_registration_data()) {
-    _internal_mutable_cable_registration_data()->::cryptohome::fido::CableRegistration::MergeFrom(from._internal_cable_registration_data());
+    _this->_internal_mutable_cable_registration_data()->::cryptohome::fido::CableRegistration::MergeFrom(
+        from._internal_cable_registration_data());
   }
   if (from._internal_adjusted_timeout() != 0) {
-    _internal_set_adjusted_timeout(from._internal_adjusted_timeout());
+    _this->_internal_set_adjusted_timeout(from._internal_adjusted_timeout());
   }
   if (from._internal_attestation() != 0) {
-    _internal_set_attestation(from._internal_attestation());
+    _this->_internal_set_attestation(from._internal_attestation());
   }
   if (from._internal_protection_policy() != 0) {
-    _internal_set_protection_policy(from._internal_protection_policy());
+    _this->_internal_set_protection_policy(from._internal_protection_policy());
   }
   if (from._internal_hmac_create_secret() != 0) {
-    _internal_set_hmac_create_secret(from._internal_hmac_create_secret());
+    _this->_internal_set_hmac_create_secret(from._internal_hmac_create_secret());
   }
   if (from._internal_enforce_protection_policy() != 0) {
-    _internal_set_enforce_protection_policy(from._internal_enforce_protection_policy());
+    _this->_internal_set_enforce_protection_policy(from._internal_enforce_protection_policy());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PublicKeyCredentialCreationOptions::CopyFrom(const PublicKeyCredentialCreationOptions& from) {
@@ -4529,24 +4625,22 @@ void PublicKeyCredentialCreationOptions::InternalSwap(PublicKeyCredentialCreatio
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  public_key_parameters_.InternalSwap(&other->public_key_parameters_);
-  exclude_credentials_.InternalSwap(&other->exclude_credentials_);
+  _impl_.public_key_parameters_.InternalSwap(&other->_impl_.public_key_parameters_);
+  _impl_.exclude_credentials_.InternalSwap(&other->_impl_.exclude_credentials_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &challenge_, lhs_arena,
-      &other->challenge_, rhs_arena
+      &_impl_.challenge_, lhs_arena,
+      &other->_impl_.challenge_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &appid_exclude_, lhs_arena,
-      &other->appid_exclude_, rhs_arena
+      &_impl_.appid_exclude_, lhs_arena,
+      &other->_impl_.appid_exclude_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PublicKeyCredentialCreationOptions, enforce_protection_policy_)
-      + sizeof(PublicKeyCredentialCreationOptions::enforce_protection_policy_)
-      - PROTOBUF_FIELD_OFFSET(PublicKeyCredentialCreationOptions, relying_party_)>(
-          reinterpret_cast<char*>(&relying_party_),
-          reinterpret_cast<char*>(&other->relying_party_));
+      PROTOBUF_FIELD_OFFSET(PublicKeyCredentialCreationOptions, _impl_.enforce_protection_policy_)
+      + sizeof(PublicKeyCredentialCreationOptions::_impl_.enforce_protection_policy_)
+      - PROTOBUF_FIELD_OFFSET(PublicKeyCredentialCreationOptions, _impl_.relying_party_)>(
+          reinterpret_cast<char*>(&_impl_.relying_party_),
+          reinterpret_cast<char*>(&other->_impl_.relying_party_));
 }
 
 std::string PublicKeyCredentialCreationOptions::GetTypeName() const {
@@ -4562,58 +4656,67 @@ class PublicKeyCredentialDescriptor::_Internal {
 
 PublicKeyCredentialDescriptor::PublicKeyCredentialDescriptor(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  transports_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.fido.PublicKeyCredentialDescriptor)
 }
 PublicKeyCredentialDescriptor::PublicKeyCredentialDescriptor(const PublicKeyCredentialDescriptor& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      transports_(from.transports_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PublicKeyCredentialDescriptor* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.transports_){from._impl_.transports_}
+    , /*decltype(_impl_._transports_cached_byte_size_)*/{0}
+    , decltype(_impl_.id_){}
+    , decltype(_impl_.type_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_id().empty()) {
-    id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.id_.Set(from._internal_id(), 
+      _this->GetArenaForAllocation());
   }
-  type_ = from.type_;
+  _this->_impl_.type_ = from._impl_.type_;
   // @@protoc_insertion_point(copy_constructor:cryptohome.fido.PublicKeyCredentialDescriptor)
 }
 
-inline void PublicKeyCredentialDescriptor::SharedCtor() {
-id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-type_ = 0;
+inline void PublicKeyCredentialDescriptor::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.transports_){arena}
+    , /*decltype(_impl_._transports_cached_byte_size_)*/{0}
+    , decltype(_impl_.id_){}
+    , decltype(_impl_.type_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PublicKeyCredentialDescriptor::~PublicKeyCredentialDescriptor() {
   // @@protoc_insertion_point(destructor:cryptohome.fido.PublicKeyCredentialDescriptor)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void PublicKeyCredentialDescriptor::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.transports_.~RepeatedField();
+  _impl_.id_.Destroy();
 }
 
-void PublicKeyCredentialDescriptor::ArenaDtor(void* object) {
-  PublicKeyCredentialDescriptor* _this = reinterpret_cast< PublicKeyCredentialDescriptor* >(object);
-  (void)_this;
-}
-void PublicKeyCredentialDescriptor::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void PublicKeyCredentialDescriptor::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PublicKeyCredentialDescriptor::Clear() {
@@ -4622,17 +4725,17 @@ void PublicKeyCredentialDescriptor::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  transports_.Clear();
-  id_.ClearToEmpty();
-  type_ = 0;
+  _impl_.transports_.Clear();
+  _impl_.id_.ClearToEmpty();
+  _impl_.type_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PublicKeyCredentialDescriptor::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* PublicKeyCredentialDescriptor::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .cryptohome.fido.PublicKeyCredentialType type = 1;
       case 1:
@@ -4647,7 +4750,7 @@ const char* PublicKeyCredentialDescriptor::_InternalParse(const char* ptr, ::PRO
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4696,7 +4799,7 @@ uint8_t* PublicKeyCredentialDescriptor::_InternalSerialize(
   // .cryptohome.fido.PublicKeyCredentialType type = 1;
   if (this->_internal_type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_type(), target);
   }
 
@@ -4708,10 +4811,10 @@ uint8_t* PublicKeyCredentialDescriptor::_InternalSerialize(
 
   // repeated .cryptohome.fido.AuthenticatorTransport transports = 3;
   {
-    int byte_size = _transports_cached_byte_size_.load(std::memory_order_relaxed);
+    int byte_size = _impl_._transports_cached_byte_size_.load(std::memory_order_relaxed);
     if (byte_size > 0) {
       target = stream->WriteEnumPacked(
-          3, transports_, byte_size, target);
+          3, _impl_.transports_, byte_size, target);
     }
   }
 
@@ -4735,16 +4838,15 @@ size_t PublicKeyCredentialDescriptor::ByteSizeLong() const {
   {
     size_t data_size = 0;
     unsigned int count = static_cast<unsigned int>(this->_internal_transports_size());for (unsigned int i = 0; i < count; i++) {
-      data_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(
+      data_size += ::_pbi::WireFormatLite::EnumSize(
         this->_internal_transports(static_cast<int>(i)));
     }
     if (data_size > 0) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<int32_t>(data_size));
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
     }
-    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _transports_cached_byte_size_.store(cached_size,
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _impl_._transports_cached_byte_size_.store(cached_size,
                                     std::memory_order_relaxed);
     total_size += data_size;
   }
@@ -4759,37 +4861,38 @@ size_t PublicKeyCredentialDescriptor::ByteSizeLong() const {
   // .cryptohome.fido.PublicKeyCredentialType type = 1;
   if (this->_internal_type() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void PublicKeyCredentialDescriptor::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PublicKeyCredentialDescriptor*>(
+  MergeFrom(*::_pbi::DownCast<const PublicKeyCredentialDescriptor*>(
       &from));
 }
 
 void PublicKeyCredentialDescriptor::MergeFrom(const PublicKeyCredentialDescriptor& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.PublicKeyCredentialDescriptor)
-  GOOGLE_DCHECK_NE(&from, this);
+  PublicKeyCredentialDescriptor* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.fido.PublicKeyCredentialDescriptor)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  transports_.MergeFrom(from.transports_);
+  _this->_impl_.transports_.MergeFrom(from._impl_.transports_);
   if (!from._internal_id().empty()) {
-    _internal_set_id(from._internal_id());
+    _this->_internal_set_id(from._internal_id());
   }
   if (from._internal_type() != 0) {
-    _internal_set_type(from._internal_type());
+    _this->_internal_set_type(from._internal_type());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PublicKeyCredentialDescriptor::CopyFrom(const PublicKeyCredentialDescriptor& from) {
@@ -4808,13 +4911,12 @@ void PublicKeyCredentialDescriptor::InternalSwap(PublicKeyCredentialDescriptor* 
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  transports_.InternalSwap(&other->transports_);
+  _impl_.transports_.InternalSwap(&other->_impl_.transports_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &id_, lhs_arena,
-      &other->id_, rhs_arena
+      &_impl_.id_, lhs_arena,
+      &other->_impl_.id_, rhs_arena
   );
-  swap(type_, other->type_);
+  swap(_impl_.type_, other->_impl_.type_);
 }
 
 std::string PublicKeyCredentialDescriptor::GetTypeName() const {
@@ -4826,43 +4928,56 @@ std::string PublicKeyCredentialDescriptor::GetTypeName() const {
 }  // namespace fido
 }  // namespace cryptohome
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::cryptohome::fido::Url* Arena::CreateMaybeMessage< ::cryptohome::fido::Url >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::fido::Url*
+Arena::CreateMaybeMessage< ::cryptohome::fido::Url >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::fido::Url >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::fido::CommonCredentialInfo* Arena::CreateMaybeMessage< ::cryptohome::fido::CommonCredentialInfo >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::fido::CommonCredentialInfo*
+Arena::CreateMaybeMessage< ::cryptohome::fido::CommonCredentialInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::fido::CommonCredentialInfo >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::fido::MakeCredentialAuthenticatorResponse* Arena::CreateMaybeMessage< ::cryptohome::fido::MakeCredentialAuthenticatorResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::fido::MakeCredentialAuthenticatorResponse*
+Arena::CreateMaybeMessage< ::cryptohome::fido::MakeCredentialAuthenticatorResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::fido::MakeCredentialAuthenticatorResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::fido::GetAssertionAuthenticatorResponse* Arena::CreateMaybeMessage< ::cryptohome::fido::GetAssertionAuthenticatorResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::fido::GetAssertionAuthenticatorResponse*
+Arena::CreateMaybeMessage< ::cryptohome::fido::GetAssertionAuthenticatorResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::fido::GetAssertionAuthenticatorResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::fido::PublicKeyCredentialRpEntity* Arena::CreateMaybeMessage< ::cryptohome::fido::PublicKeyCredentialRpEntity >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::fido::PublicKeyCredentialRpEntity*
+Arena::CreateMaybeMessage< ::cryptohome::fido::PublicKeyCredentialRpEntity >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::fido::PublicKeyCredentialRpEntity >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::fido::PublicKeyCredentialUserEntity* Arena::CreateMaybeMessage< ::cryptohome::fido::PublicKeyCredentialUserEntity >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::fido::PublicKeyCredentialUserEntity*
+Arena::CreateMaybeMessage< ::cryptohome::fido::PublicKeyCredentialUserEntity >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::fido::PublicKeyCredentialUserEntity >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::fido::PublicKeyCredentialParameters* Arena::CreateMaybeMessage< ::cryptohome::fido::PublicKeyCredentialParameters >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::fido::PublicKeyCredentialParameters*
+Arena::CreateMaybeMessage< ::cryptohome::fido::PublicKeyCredentialParameters >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::fido::PublicKeyCredentialParameters >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::fido::CableAuthentication* Arena::CreateMaybeMessage< ::cryptohome::fido::CableAuthentication >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::fido::CableAuthentication*
+Arena::CreateMaybeMessage< ::cryptohome::fido::CableAuthentication >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::fido::CableAuthentication >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::fido::CableRegistration* Arena::CreateMaybeMessage< ::cryptohome::fido::CableRegistration >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::fido::CableRegistration*
+Arena::CreateMaybeMessage< ::cryptohome::fido::CableRegistration >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::fido::CableRegistration >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::fido::PublicKeyCredentialRequestOptions* Arena::CreateMaybeMessage< ::cryptohome::fido::PublicKeyCredentialRequestOptions >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::fido::PublicKeyCredentialRequestOptions*
+Arena::CreateMaybeMessage< ::cryptohome::fido::PublicKeyCredentialRequestOptions >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::fido::PublicKeyCredentialRequestOptions >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::fido::AuthenticatorSelectionCriteria* Arena::CreateMaybeMessage< ::cryptohome::fido::AuthenticatorSelectionCriteria >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::fido::AuthenticatorSelectionCriteria*
+Arena::CreateMaybeMessage< ::cryptohome::fido::AuthenticatorSelectionCriteria >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::fido::AuthenticatorSelectionCriteria >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::fido::PublicKeyCredentialCreationOptions* Arena::CreateMaybeMessage< ::cryptohome::fido::PublicKeyCredentialCreationOptions >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::fido::PublicKeyCredentialCreationOptions*
+Arena::CreateMaybeMessage< ::cryptohome::fido::PublicKeyCredentialCreationOptions >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::fido::PublicKeyCredentialCreationOptions >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::fido::PublicKeyCredentialDescriptor* Arena::CreateMaybeMessage< ::cryptohome::fido::PublicKeyCredentialDescriptor >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::fido::PublicKeyCredentialDescriptor*
+Arena::CreateMaybeMessage< ::cryptohome::fido::PublicKeyCredentialDescriptor >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::fido::PublicKeyCredentialDescriptor >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

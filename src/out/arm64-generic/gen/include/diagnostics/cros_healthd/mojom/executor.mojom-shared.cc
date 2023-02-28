@@ -560,6 +560,52 @@ TouchscreenObserver_OnConnected_Params_Data::TouchscreenObserver_OnConnected_Par
 
 
 // static
+bool StylusGarageObserver_OnInsert_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StylusGarageObserver_OnInsert_Params_Data* object =
+      static_cast<const StylusGarageObserver_OnInsert_Params_Data*>(data);
+
+  return true;
+}
+
+StylusGarageObserver_OnInsert_Params_Data::StylusGarageObserver_OnInsert_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StylusGarageObserver_OnRemove_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StylusGarageObserver_OnRemove_Params_Data* object =
+      static_cast<const StylusGarageObserver_OnRemove_Params_Data*>(data);
+
+  return true;
+}
+
+StylusGarageObserver_OnRemove_Params_Data::StylusGarageObserver_OnRemove_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool Executor_ReadFile_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1489,6 +1535,47 @@ bool Executor_MonitorTouchscreen_Params_Data::Validate(
 }
 
 Executor_MonitorTouchscreen_Params_Data::Executor_MonitorTouchscreen_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_MonitorStylusGarage_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_MonitorStylusGarage_Params_Data* object =
+      static_cast<const Executor_MonitorStylusGarage_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->observer, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->observer,
+                                                 validation_context)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
+          object->process_control, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateHandleOrInterface(object->process_control,
+                                                 validation_context)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_MonitorStylusGarage_Params_Data::Executor_MonitorStylusGarage_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

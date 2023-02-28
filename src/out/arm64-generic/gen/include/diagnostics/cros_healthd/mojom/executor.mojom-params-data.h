@@ -228,6 +228,36 @@ class  TouchscreenObserver_OnConnected_Params_Data {
 };
 static_assert(sizeof(TouchscreenObserver_OnConnected_Params_Data) == 16,
               "Bad sizeof(TouchscreenObserver_OnConnected_Params_Data)");
+class  StylusGarageObserver_OnInsert_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<StylusGarageObserver_OnInsert_Params_Data>;
+
+  StylusGarageObserver_OnInsert_Params_Data();
+  ~StylusGarageObserver_OnInsert_Params_Data() = delete;
+};
+static_assert(sizeof(StylusGarageObserver_OnInsert_Params_Data) == 8,
+              "Bad sizeof(StylusGarageObserver_OnInsert_Params_Data)");
+class  StylusGarageObserver_OnRemove_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<StylusGarageObserver_OnRemove_Params_Data>;
+
+  StylusGarageObserver_OnRemove_Params_Data();
+  ~StylusGarageObserver_OnRemove_Params_Data() = delete;
+};
+static_assert(sizeof(StylusGarageObserver_OnRemove_Params_Data) == 8,
+              "Bad sizeof(StylusGarageObserver_OnRemove_Params_Data)");
 class  Executor_ReadFile_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -735,6 +765,24 @@ class  Executor_MonitorTouchscreen_Params_Data {
 };
 static_assert(sizeof(Executor_MonitorTouchscreen_Params_Data) == 24,
               "Bad sizeof(Executor_MonitorTouchscreen_Params_Data)");
+class  Executor_MonitorStylusGarage_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Interface_Data observer;
+  mojo::internal::Handle_Data process_control;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_MonitorStylusGarage_Params_Data>;
+
+  Executor_MonitorStylusGarage_Params_Data();
+  ~Executor_MonitorStylusGarage_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_MonitorStylusGarage_Params_Data) == 24,
+              "Bad sizeof(Executor_MonitorStylusGarage_Params_Data)");
 
 }  // namespace internal
 
@@ -1019,6 +1067,38 @@ class TouchscreenObserver_OnConnected_ParamsDataView {
  private:
   internal::TouchscreenObserver_OnConnected_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
+};
+
+
+
+class StylusGarageObserver_OnInsert_ParamsDataView {
+ public:
+  StylusGarageObserver_OnInsert_ParamsDataView() = default;
+
+  StylusGarageObserver_OnInsert_ParamsDataView(
+      internal::StylusGarageObserver_OnInsert_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::StylusGarageObserver_OnInsert_Params_Data* data_ = nullptr;
+};
+
+
+
+class StylusGarageObserver_OnRemove_ParamsDataView {
+ public:
+  StylusGarageObserver_OnRemove_ParamsDataView() = default;
+
+  StylusGarageObserver_OnRemove_ParamsDataView(
+      internal::StylusGarageObserver_OnRemove_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::StylusGarageObserver_OnRemove_Params_Data* data_ = nullptr;
 };
 
 
@@ -1903,6 +1983,41 @@ class Executor_MonitorTouchscreen_ParamsDataView {
 
 
 
+class Executor_MonitorStylusGarage_ParamsDataView {
+ public:
+  Executor_MonitorStylusGarage_ParamsDataView() = default;
+
+  Executor_MonitorStylusGarage_ParamsDataView(
+      internal::Executor_MonitorStylusGarage_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeObserver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::StylusGarageObserverInterfaceBase>>(
+            &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakeProcessControl() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+            &data_->process_control, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::Executor_MonitorStylusGarage_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 
 
 
@@ -1951,6 +2066,10 @@ inline void TouchscreenObserver_OnConnected_ParamsDataView::GetConnectedEventDat
   auto pointer = data_->connected_event.Get();
   *output = ::ash::cros_healthd::mojom::TouchscreenConnectedEventDataView(pointer, message_);
 }
+
+
+
+
 
 
 
@@ -2096,6 +2215,8 @@ inline void Executor_FetchBootPerformance_ResponseParamsDataView::GetResultDataV
   auto pointer = &data_->result;
   *output = ::ash::cros_healthd::mojom::BootPerformanceResultDataView(pointer, message_);
 }
+
+
 
 
 

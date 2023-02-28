@@ -13,34 +13,40 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace vm_tools {
 namespace sk_forwarding {
-constexpr ForwardSecurityKeyMessageRequest::ForwardSecurityKeyMessageRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , vm_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_CONSTEXPR ForwardSecurityKeyMessageRequest::ForwardSecurityKeyMessageRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.vm_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.owner_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ForwardSecurityKeyMessageRequestDefaultTypeInternal {
-  constexpr ForwardSecurityKeyMessageRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ForwardSecurityKeyMessageRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ForwardSecurityKeyMessageRequestDefaultTypeInternal() {}
   union {
     ForwardSecurityKeyMessageRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ForwardSecurityKeyMessageRequestDefaultTypeInternal _ForwardSecurityKeyMessageRequest_default_instance_;
-constexpr ForwardSecurityKeyMessageResponse::ForwardSecurityKeyMessageResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ForwardSecurityKeyMessageRequestDefaultTypeInternal _ForwardSecurityKeyMessageRequest_default_instance_;
+PROTOBUF_CONSTEXPR ForwardSecurityKeyMessageResponse::ForwardSecurityKeyMessageResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ForwardSecurityKeyMessageResponseDefaultTypeInternal {
-  constexpr ForwardSecurityKeyMessageResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ForwardSecurityKeyMessageResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ForwardSecurityKeyMessageResponseDefaultTypeInternal() {}
   union {
     ForwardSecurityKeyMessageResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ForwardSecurityKeyMessageResponseDefaultTypeInternal _ForwardSecurityKeyMessageResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ForwardSecurityKeyMessageResponseDefaultTypeInternal _ForwardSecurityKeyMessageResponse_default_instance_;
 }  // namespace sk_forwarding
 }  // namespace vm_tools
 namespace vm_tools {
@@ -55,79 +61,88 @@ class ForwardSecurityKeyMessageRequest::_Internal {
 ForwardSecurityKeyMessageRequest::ForwardSecurityKeyMessageRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.sk_forwarding.ForwardSecurityKeyMessageRequest)
 }
 ForwardSecurityKeyMessageRequest::ForwardSecurityKeyMessageRequest(const ForwardSecurityKeyMessageRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ForwardSecurityKeyMessageRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.message_){}
+    , decltype(_impl_.vm_name_){}
+    , decltype(_impl_.owner_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.message_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_message().empty()) {
-    message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_message(), 
-      GetArenaForAllocation());
+    _this->_impl_.message_.Set(from._internal_message(), 
+      _this->GetArenaForAllocation());
   }
-  vm_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.vm_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    vm_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_vm_name().empty()) {
-    vm_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_vm_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.vm_name_.Set(from._internal_vm_name(), 
+      _this->GetArenaForAllocation());
   }
-  owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.owner_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_owner_id().empty()) {
-    owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_owner_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.owner_id_.Set(from._internal_owner_id(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.sk_forwarding.ForwardSecurityKeyMessageRequest)
 }
 
-inline void ForwardSecurityKeyMessageRequest::SharedCtor() {
-message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-vm_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  vm_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void ForwardSecurityKeyMessageRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.message_){}
+    , decltype(_impl_.vm_name_){}
+    , decltype(_impl_.owner_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.vm_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vm_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.owner_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.owner_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ForwardSecurityKeyMessageRequest::~ForwardSecurityKeyMessageRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.sk_forwarding.ForwardSecurityKeyMessageRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ForwardSecurityKeyMessageRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  vm_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  owner_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.message_.Destroy();
+  _impl_.vm_name_.Destroy();
+  _impl_.owner_id_.Destroy();
 }
 
-void ForwardSecurityKeyMessageRequest::ArenaDtor(void* object) {
-  ForwardSecurityKeyMessageRequest* _this = reinterpret_cast< ForwardSecurityKeyMessageRequest* >(object);
-  (void)_this;
-}
-void ForwardSecurityKeyMessageRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ForwardSecurityKeyMessageRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ForwardSecurityKeyMessageRequest::Clear() {
@@ -136,25 +151,25 @@ void ForwardSecurityKeyMessageRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  message_.ClearToEmpty();
-  vm_name_.ClearToEmpty();
-  owner_id_.ClearToEmpty();
+  _impl_.message_.ClearToEmpty();
+  _impl_.vm_name_.ClearToEmpty();
+  _impl_.owner_id_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ForwardSecurityKeyMessageRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ForwardSecurityKeyMessageRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string message = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_message();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -162,9 +177,9 @@ const char* ForwardSecurityKeyMessageRequest::_InternalParse(const char* ptr, ::
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_vm_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -172,9 +187,9 @@ const char* ForwardSecurityKeyMessageRequest::_InternalParse(const char* ptr, ::
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_owner_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -277,33 +292,34 @@ size_t ForwardSecurityKeyMessageRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ForwardSecurityKeyMessageRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ForwardSecurityKeyMessageRequest*>(
+  MergeFrom(*::_pbi::DownCast<const ForwardSecurityKeyMessageRequest*>(
       &from));
 }
 
 void ForwardSecurityKeyMessageRequest::MergeFrom(const ForwardSecurityKeyMessageRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.sk_forwarding.ForwardSecurityKeyMessageRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  ForwardSecurityKeyMessageRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.sk_forwarding.ForwardSecurityKeyMessageRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_message().empty()) {
-    _internal_set_message(from._internal_message());
+    _this->_internal_set_message(from._internal_message());
   }
   if (!from._internal_vm_name().empty()) {
-    _internal_set_vm_name(from._internal_vm_name());
+    _this->_internal_set_vm_name(from._internal_vm_name());
   }
   if (!from._internal_owner_id().empty()) {
-    _internal_set_owner_id(from._internal_owner_id());
+    _this->_internal_set_owner_id(from._internal_owner_id());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ForwardSecurityKeyMessageRequest::CopyFrom(const ForwardSecurityKeyMessageRequest& from) {
@@ -323,19 +339,16 @@ void ForwardSecurityKeyMessageRequest::InternalSwap(ForwardSecurityKeyMessageReq
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &message_, lhs_arena,
-      &other->message_, rhs_arena
+      &_impl_.message_, lhs_arena,
+      &other->_impl_.message_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &vm_name_, lhs_arena,
-      &other->vm_name_, rhs_arena
+      &_impl_.vm_name_, lhs_arena,
+      &other->_impl_.vm_name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &owner_id_, lhs_arena,
-      &other->owner_id_, rhs_arena
+      &_impl_.owner_id_, lhs_arena,
+      &other->_impl_.owner_id_, rhs_arena
   );
 }
 
@@ -353,53 +366,58 @@ class ForwardSecurityKeyMessageResponse::_Internal {
 ForwardSecurityKeyMessageResponse::ForwardSecurityKeyMessageResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.sk_forwarding.ForwardSecurityKeyMessageResponse)
 }
 ForwardSecurityKeyMessageResponse::ForwardSecurityKeyMessageResponse(const ForwardSecurityKeyMessageResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ForwardSecurityKeyMessageResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.message_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.message_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_message().empty()) {
-    message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_message(), 
-      GetArenaForAllocation());
+    _this->_impl_.message_.Set(from._internal_message(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.sk_forwarding.ForwardSecurityKeyMessageResponse)
 }
 
-inline void ForwardSecurityKeyMessageResponse::SharedCtor() {
-message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void ForwardSecurityKeyMessageResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.message_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ForwardSecurityKeyMessageResponse::~ForwardSecurityKeyMessageResponse() {
   // @@protoc_insertion_point(destructor:vm_tools.sk_forwarding.ForwardSecurityKeyMessageResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ForwardSecurityKeyMessageResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.message_.Destroy();
 }
 
-void ForwardSecurityKeyMessageResponse::ArenaDtor(void* object) {
-  ForwardSecurityKeyMessageResponse* _this = reinterpret_cast< ForwardSecurityKeyMessageResponse* >(object);
-  (void)_this;
-}
-void ForwardSecurityKeyMessageResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ForwardSecurityKeyMessageResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ForwardSecurityKeyMessageResponse::Clear() {
@@ -408,23 +426,23 @@ void ForwardSecurityKeyMessageResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  message_.ClearToEmpty();
+  _impl_.message_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ForwardSecurityKeyMessageResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ForwardSecurityKeyMessageResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string message = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_message();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -493,27 +511,28 @@ size_t ForwardSecurityKeyMessageResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ForwardSecurityKeyMessageResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ForwardSecurityKeyMessageResponse*>(
+  MergeFrom(*::_pbi::DownCast<const ForwardSecurityKeyMessageResponse*>(
       &from));
 }
 
 void ForwardSecurityKeyMessageResponse::MergeFrom(const ForwardSecurityKeyMessageResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.sk_forwarding.ForwardSecurityKeyMessageResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  ForwardSecurityKeyMessageResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.sk_forwarding.ForwardSecurityKeyMessageResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_message().empty()) {
-    _internal_set_message(from._internal_message());
+    _this->_internal_set_message(from._internal_message());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ForwardSecurityKeyMessageResponse::CopyFrom(const ForwardSecurityKeyMessageResponse& from) {
@@ -533,9 +552,8 @@ void ForwardSecurityKeyMessageResponse::InternalSwap(ForwardSecurityKeyMessageRe
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &message_, lhs_arena,
-      &other->message_, rhs_arena
+      &_impl_.message_, lhs_arena,
+      &other->_impl_.message_, rhs_arena
   );
 }
 
@@ -548,10 +566,12 @@ std::string ForwardSecurityKeyMessageResponse::GetTypeName() const {
 }  // namespace sk_forwarding
 }  // namespace vm_tools
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::vm_tools::sk_forwarding::ForwardSecurityKeyMessageRequest* Arena::CreateMaybeMessage< ::vm_tools::sk_forwarding::ForwardSecurityKeyMessageRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::sk_forwarding::ForwardSecurityKeyMessageRequest*
+Arena::CreateMaybeMessage< ::vm_tools::sk_forwarding::ForwardSecurityKeyMessageRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::sk_forwarding::ForwardSecurityKeyMessageRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::sk_forwarding::ForwardSecurityKeyMessageResponse* Arena::CreateMaybeMessage< ::vm_tools::sk_forwarding::ForwardSecurityKeyMessageResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::sk_forwarding::ForwardSecurityKeyMessageResponse*
+Arena::CreateMaybeMessage< ::vm_tools::sk_forwarding::ForwardSecurityKeyMessageResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::sk_forwarding::ForwardSecurityKeyMessageResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

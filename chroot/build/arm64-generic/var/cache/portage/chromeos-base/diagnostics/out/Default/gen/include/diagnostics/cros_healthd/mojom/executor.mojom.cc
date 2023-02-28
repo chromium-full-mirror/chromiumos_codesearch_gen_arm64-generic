@@ -1763,6 +1763,230 @@ bool TouchscreenObserverRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kTouchscreenObserverValidationInfo);
 }
 
+const char StylusGarageObserver::Name_[] = "ash.cros_healthd.mojom.StylusGarageObserver";
+
+StylusGarageObserver::IPCStableHashFunction StylusGarageObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kStylusGarageObserver_OnInsert_Name: {
+      return &StylusGarageObserver::OnInsert_Sym::IPCStableHash;
+    }
+    case internal::kStylusGarageObserver_OnRemove_Name: {
+      return &StylusGarageObserver::OnRemove_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* StylusGarageObserver::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kStylusGarageObserver_OnInsert_Name:
+            return "Receive ash::cros_healthd::mojom::StylusGarageObserver::OnInsert";
+      case internal::kStylusGarageObserver_OnRemove_Name:
+            return "Receive ash::cros_healthd::mojom::StylusGarageObserver::OnRemove";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kStylusGarageObserver_OnInsert_Name:
+            return "Receive reply ash::cros_healthd::mojom::StylusGarageObserver::OnInsert";
+      case internal::kStylusGarageObserver_OnRemove_Name:
+            return "Receive reply ash::cros_healthd::mojom::StylusGarageObserver::OnRemove";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t StylusGarageObserver::OnInsert_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::StylusGarageObserver::OnInsert");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t StylusGarageObserver::OnRemove_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::StylusGarageObserver::OnRemove");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+StylusGarageObserverProxy::StylusGarageObserverProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void StylusGarageObserverProxy::OnInsert(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::StylusGarageObserver::OnInsert");
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kStylusGarageObserver_OnInsert_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::StylusGarageObserver_OnInsert_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(StylusGarageObserver::Name_);
+  message.set_method_name("OnInsert");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void StylusGarageObserverProxy::OnRemove(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::StylusGarageObserver::OnRemove");
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kStylusGarageObserver_OnRemove_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::StylusGarageObserver_OnRemove_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(StylusGarageObserver::Name_);
+  message.set_method_name("OnRemove");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool StylusGarageObserverStubDispatch::Accept(
+    StylusGarageObserver* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kStylusGarageObserver_OnInsert_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::StylusGarageObserver_OnInsert_Params_Data* params =
+          reinterpret_cast<internal::StylusGarageObserver_OnInsert_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      StylusGarageObserver_OnInsert_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            StylusGarageObserver::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnInsert();
+      return true;
+    }
+    case internal::kStylusGarageObserver_OnRemove_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::StylusGarageObserver_OnRemove_Params_Data* params =
+          reinterpret_cast<internal::StylusGarageObserver_OnRemove_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      StylusGarageObserver_OnRemove_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            StylusGarageObserver::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OnRemove();
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool StylusGarageObserverStubDispatch::AcceptWithResponder(
+    StylusGarageObserver* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kStylusGarageObserver_OnInsert_Name: {
+      break;
+    }
+    case internal::kStylusGarageObserver_OnRemove_Name: {
+      break;
+    }
+  }
+  return false;
+}
+
+
+static const mojo::internal::GenericValidationInfo kStylusGarageObserverValidationInfo[] = {
+    {&internal::StylusGarageObserver_OnInsert_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::StylusGarageObserver_OnRemove_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool StylusGarageObserverRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::StylusGarageObserver::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kStylusGarageObserverValidationInfo);
+}
+
 const char Executor::Name_[] = "ash.cros_healthd.mojom.Executor";
 
 Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& message) {
@@ -1822,6 +2046,9 @@ Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& me
     case internal::kExecutor_MonitorTouchscreen_Name: {
       return &Executor::MonitorTouchscreen_Sym::IPCStableHash;
     }
+    case internal::kExecutor_MonitorStylusGarage_Name: {
+      return &Executor::MonitorStylusGarage_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -1869,6 +2096,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Executor::FetchBootPerformance";
       case internal::kExecutor_MonitorTouchscreen_Name:
             return "Receive ash::cros_healthd::mojom::Executor::MonitorTouchscreen";
+      case internal::kExecutor_MonitorStylusGarage_Name:
+            return "Receive ash::cros_healthd::mojom::Executor::MonitorStylusGarage";
     }
   } else {
     switch (message.name()) {
@@ -1908,6 +2137,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Executor::FetchBootPerformance";
       case internal::kExecutor_MonitorTouchscreen_Name:
             return "Receive reply ash::cros_healthd::mojom::Executor::MonitorTouchscreen";
+      case internal::kExecutor_MonitorStylusGarage_Name:
+            return "Receive reply ash::cros_healthd::mojom::Executor::MonitorStylusGarage";
     }
   }
   return "Receive unknown mojo message";
@@ -2152,6 +2383,19 @@ uint32_t Executor::MonitorTouchscreen_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::Executor::MonitorTouchscreen");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::MonitorStylusGarage_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::MonitorStylusGarage");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -3104,6 +3348,58 @@ void ExecutorProxy::MonitorTouchscreen(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Executor::Name_);
   message.set_method_name("MonitorTouchscreen");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void ExecutorProxy::MonitorStylusGarage(
+    ::mojo::PendingRemote<StylusGarageObserver> in_observer, ::mojo::PendingReceiver<ProcessControl> in_process_control) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Executor::MonitorStylusGarage", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("observer"), in_observer,
+                        "<value of type ::mojo::PendingRemote<StylusGarageObserver>>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("process_control"), in_process_control,
+                        "<value of type ::mojo::PendingReceiver<ProcessControl>>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_MonitorStylusGarage_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_MonitorStylusGarage_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::StylusGarageObserverInterfaceBase>>(
+      in_observer, &params->observer, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->observer),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid observer in Executor.MonitorStylusGarage request");
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::ProcessControlInterfaceBase>>(
+      in_process_control, &params->process_control, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->process_control),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid process_control in Executor.MonitorStylusGarage request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("MonitorStylusGarage");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -4934,6 +5230,40 @@ std::move(p_observer),
 std::move(p_process_control));
       return true;
     }
+    case internal::kExecutor_MonitorStylusGarage_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::Executor_MonitorStylusGarage_Params_Data* params =
+          reinterpret_cast<internal::Executor_MonitorStylusGarage_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingRemote<StylusGarageObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<StylusGarageObserver>>();
+      ::mojo::PendingReceiver<ProcessControl> p_process_control = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<ProcessControl>>();
+      Executor_MonitorStylusGarage_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_observer =
+            input_data_view.TakeObserver<decltype(p_observer)>();
+      }
+      if (success) {
+        p_process_control =
+            input_data_view.TakeProcessControl<decltype(p_process_control)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 18, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->MonitorStylusGarage(
+std::move(p_observer), 
+std::move(p_process_control));
+      return true;
+    }
   }
   return false;
 }
@@ -5331,6 +5661,9 @@ std::move(p_name), std::move(callback));
     case internal::kExecutor_MonitorTouchscreen_Name: {
       break;
     }
+    case internal::kExecutor_MonitorStylusGarage_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -5372,6 +5705,8 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
     {&internal::Executor_FetchBootPerformance_Params_Data::Validate,
      &internal::Executor_FetchBootPerformance_ResponseParams_Data::Validate},
     {&internal::Executor_MonitorTouchscreen_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::Executor_MonitorStylusGarage_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -5586,6 +5921,20 @@ TouchscreenObserverAsyncWaiter::~TouchscreenObserverAsyncWaiter() = default;
 
 
 
+void StylusGarageObserverInterceptorForTesting::OnInsert() {
+  GetForwardingInterface()->OnInsert();
+}
+void StylusGarageObserverInterceptorForTesting::OnRemove() {
+  GetForwardingInterface()->OnRemove();
+}
+StylusGarageObserverAsyncWaiter::StylusGarageObserverAsyncWaiter(
+    StylusGarageObserver* proxy) : proxy_(proxy) {}
+
+StylusGarageObserverAsyncWaiter::~StylusGarageObserverAsyncWaiter() = default;
+
+
+
+
 void ExecutorInterceptorForTesting::ReadFile(Executor::File file_enum, ReadFileCallback callback) {
   GetForwardingInterface()->ReadFile(std::move(file_enum), std::move(callback));
 }
@@ -5639,6 +5988,9 @@ void ExecutorInterceptorForTesting::FetchBootPerformance(FetchBootPerformanceCal
 }
 void ExecutorInterceptorForTesting::MonitorTouchscreen(::mojo::PendingRemote<TouchscreenObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
   GetForwardingInterface()->MonitorTouchscreen(std::move(observer), std::move(process_control));
+}
+void ExecutorInterceptorForTesting::MonitorStylusGarage(::mojo::PendingRemote<StylusGarageObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) {
+  GetForwardingInterface()->MonitorStylusGarage(std::move(observer), std::move(process_control));
 }
 ExecutorAsyncWaiter::ExecutorAsyncWaiter(
     Executor* proxy) : proxy_(proxy) {}

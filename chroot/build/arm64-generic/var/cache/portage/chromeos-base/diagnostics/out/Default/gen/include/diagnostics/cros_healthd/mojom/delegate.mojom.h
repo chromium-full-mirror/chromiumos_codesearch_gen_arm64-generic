@@ -81,6 +81,7 @@ class Delegate
     kMonitorTouchpadMinVersion = 0,
     kFetchBootPerformanceMinVersion = 0,
     kMonitorTouchscreenMinVersion = 0,
+    kMonitorStylusGarageMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -108,6 +109,9 @@ class Delegate
     NOINLINE static uint32_t IPCStableHash();
   };
   struct MonitorTouchscreen_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct MonitorStylusGarage_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -146,6 +150,9 @@ class Delegate
 
   
   virtual void MonitorTouchscreen(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver> observer) = 0;
+
+  
+  virtual void MonitorStylusGarage(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusGarageObserver> observer) = 0;
 };
 
 
@@ -172,6 +179,8 @@ class  DelegateProxy
   void FetchBootPerformance(FetchBootPerformanceCallback callback) final;
   
   void MonitorTouchscreen(::mojo::PendingRemote<::ash::cros_healthd::mojom::TouchscreenObserver> observer) final;
+  
+  void MonitorStylusGarage(::mojo::PendingRemote<::ash::cros_healthd::mojom::StylusGarageObserver> observer) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

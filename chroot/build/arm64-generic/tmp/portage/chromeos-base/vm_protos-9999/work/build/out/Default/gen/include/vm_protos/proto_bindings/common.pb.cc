@@ -16,22 +16,26 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace vm_tools {
-constexpr EmptyMessage::EmptyMessage(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+PROTOBUF_CONSTEXPR EmptyMessage::EmptyMessage(
+    ::_pbi::ConstantInitialized) {}
 struct EmptyMessageDefaultTypeInternal {
-  constexpr EmptyMessageDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR EmptyMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~EmptyMessageDefaultTypeInternal() {}
   union {
     EmptyMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT EmptyMessageDefaultTypeInternal _EmptyMessage_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EmptyMessageDefaultTypeInternal _EmptyMessage_default_instance_;
 }  // namespace vm_tools
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_common_2eproto[1];
-static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_common_2eproto = nullptr;
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_common_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_common_2eproto[1];
+static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_common_2eproto = nullptr;
+static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_common_2eproto = nullptr;
 
 const uint32_t TableStruct_common_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
@@ -41,12 +45,12 @@ const uint32_t TableStruct_common_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
 };
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::vm_tools::EmptyMessage)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::_EmptyMessage_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+  &::vm_tools::_EmptyMessage_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_common_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -54,19 +58,21 @@ const char descriptor_table_protodef_common_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "B\'Z\"chromiumos/vm_tools/vm_tools_proto\370\001"
   "\001b\006proto3"
   ;
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_common_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_common_2eproto = {
-  false, false, 89, descriptor_table_protodef_common_2eproto, "common.proto", 
-  &descriptor_table_common_2eproto_once, nullptr, 0, 1,
-  schemas, file_default_instances, TableStruct_common_2eproto::offsets,
-  file_level_metadata_common_2eproto, file_level_enum_descriptors_common_2eproto, file_level_service_descriptors_common_2eproto,
+static ::_pbi::once_flag descriptor_table_common_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_common_2eproto = {
+    false, false, 89, descriptor_table_protodef_common_2eproto,
+    "common.proto",
+    &descriptor_table_common_2eproto_once, nullptr, 0, 1,
+    schemas, file_default_instances, TableStruct_common_2eproto::offsets,
+    file_level_metadata_common_2eproto, file_level_enum_descriptors_common_2eproto,
+    file_level_service_descriptors_common_2eproto,
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_common_2eproto_getter() {
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_common_2eproto_getter() {
   return &descriptor_table_common_2eproto;
 }
 
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_common_2eproto(&descriptor_table_common_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_common_2eproto(&descriptor_table_common_2eproto);
 namespace vm_tools {
 
 // ===================================================================
@@ -82,6 +88,7 @@ EmptyMessage::EmptyMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 }
 EmptyMessage::EmptyMessage(const EmptyMessage& from)
   : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
+  EmptyMessage* const _this = this; (void)_this;
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:vm_tools.EmptyMessage)
 }
@@ -103,7 +110,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*EmptyMessage::GetClassData() c
 
 
 ::PROTOBUF_NAMESPACE_ID::Metadata EmptyMessage::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_common_2eproto_getter, &descriptor_table_common_2eproto_once,
       file_level_metadata_common_2eproto[0]);
 }
@@ -111,7 +118,8 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*EmptyMessage::GetClassData() c
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace vm_tools
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::vm_tools::EmptyMessage* Arena::CreateMaybeMessage< ::vm_tools::EmptyMessage >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::EmptyMessage*
+Arena::CreateMaybeMessage< ::vm_tools::EmptyMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::EmptyMessage >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

@@ -13,22 +13,27 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace tpmcrypto {
-constexpr TpmEncryptedData::TpmEncryptedData(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : sealed_key_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , iv_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , tag_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , encrypted_data_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_CONSTEXPR TpmEncryptedData::TpmEncryptedData(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.sealed_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.iv_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.tag_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.encrypted_data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct TpmEncryptedDataDefaultTypeInternal {
-  constexpr TpmEncryptedDataDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR TpmEncryptedDataDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~TpmEncryptedDataDefaultTypeInternal() {}
   union {
     TpmEncryptedData _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TpmEncryptedDataDefaultTypeInternal _TpmEncryptedData_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TpmEncryptedDataDefaultTypeInternal _TpmEncryptedData_default_instance_;
 }  // namespace tpmcrypto
 namespace tpmcrypto {
 
@@ -41,92 +46,103 @@ class TpmEncryptedData::_Internal {
 TpmEncryptedData::TpmEncryptedData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:tpmcrypto.TpmEncryptedData)
 }
 TpmEncryptedData::TpmEncryptedData(const TpmEncryptedData& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  TpmEncryptedData* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.sealed_key_){}
+    , decltype(_impl_.iv_){}
+    , decltype(_impl_.tag_){}
+    , decltype(_impl_.encrypted_data_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  sealed_key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.sealed_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    sealed_key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.sealed_key_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_sealed_key().empty()) {
-    sealed_key_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_sealed_key(), 
-      GetArenaForAllocation());
+    _this->_impl_.sealed_key_.Set(from._internal_sealed_key(), 
+      _this->GetArenaForAllocation());
   }
-  iv_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.iv_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    iv_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.iv_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_iv().empty()) {
-    iv_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_iv(), 
-      GetArenaForAllocation());
+    _this->_impl_.iv_.Set(from._internal_iv(), 
+      _this->GetArenaForAllocation());
   }
-  tag_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.tag_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    tag_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.tag_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_tag().empty()) {
-    tag_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_tag(), 
-      GetArenaForAllocation());
+    _this->_impl_.tag_.Set(from._internal_tag(), 
+      _this->GetArenaForAllocation());
   }
-  encrypted_data_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.encrypted_data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    encrypted_data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.encrypted_data_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_encrypted_data().empty()) {
-    encrypted_data_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_encrypted_data(), 
-      GetArenaForAllocation());
+    _this->_impl_.encrypted_data_.Set(from._internal_encrypted_data(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:tpmcrypto.TpmEncryptedData)
 }
 
-inline void TpmEncryptedData::SharedCtor() {
-sealed_key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  sealed_key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-iv_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  iv_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-tag_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  tag_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-encrypted_data_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  encrypted_data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void TpmEncryptedData::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.sealed_key_){}
+    , decltype(_impl_.iv_){}
+    , decltype(_impl_.tag_){}
+    , decltype(_impl_.encrypted_data_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.sealed_key_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.sealed_key_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.iv_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.iv_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.tag_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.tag_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.encrypted_data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.encrypted_data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 TpmEncryptedData::~TpmEncryptedData() {
   // @@protoc_insertion_point(destructor:tpmcrypto.TpmEncryptedData)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void TpmEncryptedData::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  sealed_key_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  iv_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  tag_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  encrypted_data_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.sealed_key_.Destroy();
+  _impl_.iv_.Destroy();
+  _impl_.tag_.Destroy();
+  _impl_.encrypted_data_.Destroy();
 }
 
-void TpmEncryptedData::ArenaDtor(void* object) {
-  TpmEncryptedData* _this = reinterpret_cast< TpmEncryptedData* >(object);
-  (void)_this;
-}
-void TpmEncryptedData::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void TpmEncryptedData::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void TpmEncryptedData::Clear() {
@@ -135,24 +151,24 @@ void TpmEncryptedData::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  sealed_key_.ClearToEmpty();
-  iv_.ClearToEmpty();
-  tag_.ClearToEmpty();
-  encrypted_data_.ClearToEmpty();
+  _impl_.sealed_key_.ClearToEmpty();
+  _impl_.iv_.ClearToEmpty();
+  _impl_.tag_.ClearToEmpty();
+  _impl_.encrypted_data_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* TpmEncryptedData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* TpmEncryptedData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bytes sealed_key = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_sealed_key();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -161,7 +177,7 @@ const char* TpmEncryptedData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_iv();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -170,7 +186,7 @@ const char* TpmEncryptedData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_tag();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -179,7 +195,7 @@ const char* TpmEncryptedData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_encrypted_data();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -284,36 +300,37 @@ size_t TpmEncryptedData::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void TpmEncryptedData::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const TpmEncryptedData*>(
+  MergeFrom(*::_pbi::DownCast<const TpmEncryptedData*>(
       &from));
 }
 
 void TpmEncryptedData::MergeFrom(const TpmEncryptedData& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:tpmcrypto.TpmEncryptedData)
-  GOOGLE_DCHECK_NE(&from, this);
+  TpmEncryptedData* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:tpmcrypto.TpmEncryptedData)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_sealed_key().empty()) {
-    _internal_set_sealed_key(from._internal_sealed_key());
+    _this->_internal_set_sealed_key(from._internal_sealed_key());
   }
   if (!from._internal_iv().empty()) {
-    _internal_set_iv(from._internal_iv());
+    _this->_internal_set_iv(from._internal_iv());
   }
   if (!from._internal_tag().empty()) {
-    _internal_set_tag(from._internal_tag());
+    _this->_internal_set_tag(from._internal_tag());
   }
   if (!from._internal_encrypted_data().empty()) {
-    _internal_set_encrypted_data(from._internal_encrypted_data());
+    _this->_internal_set_encrypted_data(from._internal_encrypted_data());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void TpmEncryptedData::CopyFrom(const TpmEncryptedData& from) {
@@ -333,24 +350,20 @@ void TpmEncryptedData::InternalSwap(TpmEncryptedData* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &sealed_key_, lhs_arena,
-      &other->sealed_key_, rhs_arena
+      &_impl_.sealed_key_, lhs_arena,
+      &other->_impl_.sealed_key_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &iv_, lhs_arena,
-      &other->iv_, rhs_arena
+      &_impl_.iv_, lhs_arena,
+      &other->_impl_.iv_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &tag_, lhs_arena,
-      &other->tag_, rhs_arena
+      &_impl_.tag_, lhs_arena,
+      &other->_impl_.tag_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &encrypted_data_, lhs_arena,
-      &other->encrypted_data_, rhs_arena
+      &_impl_.encrypted_data_, lhs_arena,
+      &other->_impl_.encrypted_data_, rhs_arena
   );
 }
 
@@ -362,7 +375,8 @@ std::string TpmEncryptedData::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace tpmcrypto
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::tpmcrypto::TpmEncryptedData* Arena::CreateMaybeMessage< ::tpmcrypto::TpmEncryptedData >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::tpmcrypto::TpmEncryptedData*
+Arena::CreateMaybeMessage< ::tpmcrypto::TpmEncryptedData >(Arena* arena) {
   return Arena::CreateMessageInternal< ::tpmcrypto::TpmEncryptedData >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

@@ -13,33 +13,40 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace kerberos {
-constexpr AccountData::AccountData(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : principal_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , is_managed_(false)
-  , use_login_password_(false){}
+PROTOBUF_CONSTEXPR AccountData::AccountData(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.principal_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.is_managed_)*/false
+  , /*decltype(_impl_.use_login_password_)*/false} {}
 struct AccountDataDefaultTypeInternal {
-  constexpr AccountDataDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AccountDataDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~AccountDataDefaultTypeInternal() {}
   union {
     AccountData _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AccountDataDefaultTypeInternal _AccountData_default_instance_;
-constexpr AccountDataList::AccountDataList(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : accounts_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AccountDataDefaultTypeInternal _AccountData_default_instance_;
+PROTOBUF_CONSTEXPR AccountDataList::AccountDataList(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.accounts_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct AccountDataListDefaultTypeInternal {
-  constexpr AccountDataListDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AccountDataListDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~AccountDataListDefaultTypeInternal() {}
   union {
     AccountDataList _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AccountDataListDefaultTypeInternal _AccountDataList_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AccountDataListDefaultTypeInternal _AccountDataList_default_instance_;
 }  // namespace kerberos
 namespace kerberos {
 
@@ -47,7 +54,7 @@ namespace kerberos {
 
 class AccountData::_Internal {
  public:
-  using HasBits = decltype(std::declval<AccountData>()._has_bits_);
+  using HasBits = decltype(std::declval<AccountData>()._impl_._has_bits_);
   static void set_has_principal_name(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -62,61 +69,67 @@ class AccountData::_Internal {
 AccountData::AccountData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:kerberos.AccountData)
 }
 AccountData::AccountData(const AccountData& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AccountData* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.principal_name_){}
+    , decltype(_impl_.is_managed_){}
+    , decltype(_impl_.use_login_password_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  principal_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.principal_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    principal_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.principal_name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_principal_name()) {
-    principal_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_principal_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.principal_name_.Set(from._internal_principal_name(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&is_managed_, &from.is_managed_,
-    static_cast<size_t>(reinterpret_cast<char*>(&use_login_password_) -
-    reinterpret_cast<char*>(&is_managed_)) + sizeof(use_login_password_));
+  ::memcpy(&_impl_.is_managed_, &from._impl_.is_managed_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.use_login_password_) -
+    reinterpret_cast<char*>(&_impl_.is_managed_)) + sizeof(_impl_.use_login_password_));
   // @@protoc_insertion_point(copy_constructor:kerberos.AccountData)
 }
 
-inline void AccountData::SharedCtor() {
-principal_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  principal_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&is_managed_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&use_login_password_) -
-    reinterpret_cast<char*>(&is_managed_)) + sizeof(use_login_password_));
+inline void AccountData::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.principal_name_){}
+    , decltype(_impl_.is_managed_){false}
+    , decltype(_impl_.use_login_password_){false}
+  };
+  _impl_.principal_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.principal_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 AccountData::~AccountData() {
   // @@protoc_insertion_point(destructor:kerberos.AccountData)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void AccountData::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  principal_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.principal_name_.Destroy();
 }
 
-void AccountData::ArenaDtor(void* object) {
-  AccountData* _this = reinterpret_cast< AccountData* >(object);
-  (void)_this;
-}
-void AccountData::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void AccountData::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void AccountData::Clear() {
@@ -125,29 +138,29 @@ void AccountData::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    principal_name_.ClearNonDefaultToEmpty();
+    _impl_.principal_name_.ClearNonDefaultToEmpty();
   }
-  ::memset(&is_managed_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&use_login_password_) -
-      reinterpret_cast<char*>(&is_managed_)) + sizeof(use_login_password_));
-  _has_bits_.Clear();
+  ::memset(&_impl_.is_managed_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.use_login_password_) -
+      reinterpret_cast<char*>(&_impl_.is_managed_)) + sizeof(_impl_.use_login_password_));
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* AccountData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* AccountData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string principal_name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_principal_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -156,7 +169,7 @@ const char* AccountData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_is_managed(&has_bits);
-          is_managed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.is_managed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -165,7 +178,7 @@ const char* AccountData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_use_login_password(&has_bits);
-          use_login_password_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.use_login_password_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -186,7 +199,7 @@ const char* AccountData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -200,7 +213,7 @@ uint8_t* AccountData::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string principal_name = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -210,13 +223,13 @@ uint8_t* AccountData::_InternalSerialize(
   // optional bool is_managed = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_is_managed(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_is_managed(), target);
   }
 
   // optional bool use_login_password = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_use_login_password(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_use_login_password(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -235,7 +248,7 @@ size_t AccountData::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional string principal_name = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -258,37 +271,38 @@ size_t AccountData::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void AccountData::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const AccountData*>(
+  MergeFrom(*::_pbi::DownCast<const AccountData*>(
       &from));
 }
 
 void AccountData::MergeFrom(const AccountData& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:kerberos.AccountData)
-  GOOGLE_DCHECK_NE(&from, this);
+  AccountData* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:kerberos.AccountData)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_principal_name(from._internal_principal_name());
+      _this->_internal_set_principal_name(from._internal_principal_name());
     }
     if (cached_has_bits & 0x00000002u) {
-      is_managed_ = from.is_managed_;
+      _this->_impl_.is_managed_ = from._impl_.is_managed_;
     }
     if (cached_has_bits & 0x00000004u) {
-      use_login_password_ = from.use_login_password_;
+      _this->_impl_.use_login_password_ = from._impl_.use_login_password_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void AccountData::CopyFrom(const AccountData& from) {
@@ -307,18 +321,17 @@ void AccountData::InternalSwap(AccountData* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &principal_name_, lhs_arena,
-      &other->principal_name_, rhs_arena
+      &_impl_.principal_name_, lhs_arena,
+      &other->_impl_.principal_name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AccountData, use_login_password_)
-      + sizeof(AccountData::use_login_password_)
-      - PROTOBUF_FIELD_OFFSET(AccountData, is_managed_)>(
-          reinterpret_cast<char*>(&is_managed_),
-          reinterpret_cast<char*>(&other->is_managed_));
+      PROTOBUF_FIELD_OFFSET(AccountData, _impl_.use_login_password_)
+      + sizeof(AccountData::_impl_.use_login_password_)
+      - PROTOBUF_FIELD_OFFSET(AccountData, _impl_.is_managed_)>(
+          reinterpret_cast<char*>(&_impl_.is_managed_),
+          reinterpret_cast<char*>(&other->_impl_.is_managed_));
 }
 
 std::string AccountData::GetTypeName() const {
@@ -334,43 +347,47 @@ class AccountDataList::_Internal {
 
 AccountDataList::AccountDataList(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  accounts_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:kerberos.AccountDataList)
 }
 AccountDataList::AccountDataList(const AccountDataList& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      accounts_(from.accounts_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AccountDataList* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.accounts_){from._impl_.accounts_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:kerberos.AccountDataList)
 }
 
-inline void AccountDataList::SharedCtor() {
+inline void AccountDataList::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.accounts_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 AccountDataList::~AccountDataList() {
   // @@protoc_insertion_point(destructor:kerberos.AccountDataList)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void AccountDataList::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.accounts_.~RepeatedPtrField();
 }
 
-void AccountDataList::ArenaDtor(void* object) {
-  AccountDataList* _this = reinterpret_cast< AccountDataList* >(object);
-  (void)_this;
-}
-void AccountDataList::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void AccountDataList::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void AccountDataList::Clear() {
@@ -379,15 +396,15 @@ void AccountDataList::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  accounts_.Clear();
+  _impl_.accounts_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* AccountDataList::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* AccountDataList::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .kerberos.AccountData accounts = 1;
       case 1:
@@ -432,11 +449,11 @@ uint8_t* AccountDataList::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .kerberos.AccountData accounts = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_accounts_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_accounts_size()); i < n; i++) {
+    const auto& repfield = this->_internal_accounts(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_accounts(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -457,7 +474,7 @@ size_t AccountDataList::ByteSizeLong() const {
 
   // repeated .kerberos.AccountData accounts = 1;
   total_size += 1UL * this->_internal_accounts_size();
-  for (const auto& msg : this->accounts_) {
+  for (const auto& msg : this->_impl_.accounts_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -465,25 +482,26 @@ size_t AccountDataList::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void AccountDataList::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const AccountDataList*>(
+  MergeFrom(*::_pbi::DownCast<const AccountDataList*>(
       &from));
 }
 
 void AccountDataList::MergeFrom(const AccountDataList& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:kerberos.AccountDataList)
-  GOOGLE_DCHECK_NE(&from, this);
+  AccountDataList* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:kerberos.AccountDataList)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  accounts_.MergeFrom(from.accounts_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.accounts_.MergeFrom(from._impl_.accounts_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void AccountDataList::CopyFrom(const AccountDataList& from) {
@@ -500,7 +518,7 @@ bool AccountDataList::IsInitialized() const {
 void AccountDataList::InternalSwap(AccountDataList* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  accounts_.InternalSwap(&other->accounts_);
+  _impl_.accounts_.InternalSwap(&other->_impl_.accounts_);
 }
 
 std::string AccountDataList::GetTypeName() const {
@@ -511,10 +529,12 @@ std::string AccountDataList::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace kerberos
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::kerberos::AccountData* Arena::CreateMaybeMessage< ::kerberos::AccountData >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::kerberos::AccountData*
+Arena::CreateMaybeMessage< ::kerberos::AccountData >(Arena* arena) {
   return Arena::CreateMessageInternal< ::kerberos::AccountData >(arena);
 }
-template<> PROTOBUF_NOINLINE ::kerberos::AccountDataList* Arena::CreateMaybeMessage< ::kerberos::AccountDataList >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::kerberos::AccountDataList*
+Arena::CreateMaybeMessage< ::kerberos::AccountDataList >(Arena* arena) {
   return Arena::CreateMessageInternal< ::kerberos::AccountDataList >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

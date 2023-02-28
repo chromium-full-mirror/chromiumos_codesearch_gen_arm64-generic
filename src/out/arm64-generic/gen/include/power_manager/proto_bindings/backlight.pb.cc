@@ -13,37 +13,42 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
-namespace power_manager {
-constexpr SetBacklightBrightnessRequest::SetBacklightBrightnessRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : percent_(0)
-  , cause_(0)
 
-  , transition_(1)
-{}
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
+namespace power_manager {
+PROTOBUF_CONSTEXPR SetBacklightBrightnessRequest::SetBacklightBrightnessRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.percent_)*/0
+  , /*decltype(_impl_.cause_)*/0
+  , /*decltype(_impl_.transition_)*/1} {}
 struct SetBacklightBrightnessRequestDefaultTypeInternal {
-  constexpr SetBacklightBrightnessRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SetBacklightBrightnessRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SetBacklightBrightnessRequestDefaultTypeInternal() {}
   union {
     SetBacklightBrightnessRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SetBacklightBrightnessRequestDefaultTypeInternal _SetBacklightBrightnessRequest_default_instance_;
-constexpr BacklightBrightnessChange::BacklightBrightnessChange(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : percent_(0)
-  , cause_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetBacklightBrightnessRequestDefaultTypeInternal _SetBacklightBrightnessRequest_default_instance_;
+PROTOBUF_CONSTEXPR BacklightBrightnessChange::BacklightBrightnessChange(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.percent_)*/0
+  , /*decltype(_impl_.cause_)*/0} {}
 struct BacklightBrightnessChangeDefaultTypeInternal {
-  constexpr BacklightBrightnessChangeDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR BacklightBrightnessChangeDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~BacklightBrightnessChangeDefaultTypeInternal() {}
   union {
     BacklightBrightnessChange _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT BacklightBrightnessChangeDefaultTypeInternal _BacklightBrightnessChange_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BacklightBrightnessChangeDefaultTypeInternal _BacklightBrightnessChange_default_instance_;
 }  // namespace power_manager
 namespace power_manager {
 bool SetBacklightBrightnessRequest_Transition_IsValid(int value) {
@@ -285,7 +290,7 @@ constexpr int BacklightBrightnessChange::Cause_ARRAYSIZE;
 
 class SetBacklightBrightnessRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<SetBacklightBrightnessRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<SetBacklightBrightnessRequest>()._impl_._has_bits_);
   static void set_has_percent(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -300,49 +305,54 @@ class SetBacklightBrightnessRequest::_Internal {
 SetBacklightBrightnessRequest::SetBacklightBrightnessRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:power_manager.SetBacklightBrightnessRequest)
 }
 SetBacklightBrightnessRequest::SetBacklightBrightnessRequest(const SetBacklightBrightnessRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SetBacklightBrightnessRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.percent_){}
+    , decltype(_impl_.cause_){}
+    , decltype(_impl_.transition_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&percent_, &from.percent_,
-    static_cast<size_t>(reinterpret_cast<char*>(&transition_) -
-    reinterpret_cast<char*>(&percent_)) + sizeof(transition_));
+  ::memcpy(&_impl_.percent_, &from._impl_.percent_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.transition_) -
+    reinterpret_cast<char*>(&_impl_.percent_)) + sizeof(_impl_.transition_));
   // @@protoc_insertion_point(copy_constructor:power_manager.SetBacklightBrightnessRequest)
 }
 
-inline void SetBacklightBrightnessRequest::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&percent_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&cause_) -
-    reinterpret_cast<char*>(&percent_)) + sizeof(cause_));
-transition_ = 1;
+inline void SetBacklightBrightnessRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.percent_){0}
+    , decltype(_impl_.cause_){0}
+    , decltype(_impl_.transition_){1}
+  };
 }
 
 SetBacklightBrightnessRequest::~SetBacklightBrightnessRequest() {
   // @@protoc_insertion_point(destructor:power_manager.SetBacklightBrightnessRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SetBacklightBrightnessRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void SetBacklightBrightnessRequest::ArenaDtor(void* object) {
-  SetBacklightBrightnessRequest* _this = reinterpret_cast< SetBacklightBrightnessRequest* >(object);
-  (void)_this;
-}
-void SetBacklightBrightnessRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SetBacklightBrightnessRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SetBacklightBrightnessRequest::Clear() {
@@ -351,29 +361,29 @@ void SetBacklightBrightnessRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
-    ::memset(&percent_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&cause_) -
-        reinterpret_cast<char*>(&percent_)) + sizeof(cause_));
-    transition_ = 1;
+    ::memset(&_impl_.percent_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.cause_) -
+        reinterpret_cast<char*>(&_impl_.percent_)) + sizeof(_impl_.cause_));
+    _impl_.transition_ = 1;
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SetBacklightBrightnessRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SetBacklightBrightnessRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional double percent = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 9)) {
           _Internal::set_has_percent(&has_bits);
-          percent_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.percent_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -420,7 +430,7 @@ const char* SetBacklightBrightnessRequest::_InternalParse(const char* ptr, ::PRO
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -434,24 +444,24 @@ uint8_t* SetBacklightBrightnessRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional double percent = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_percent(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(1, this->_internal_percent(), target);
   }
 
   // optional .power_manager.SetBacklightBrightnessRequest.Transition transition = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_transition(), target);
   }
 
   // optional .power_manager.SetBacklightBrightnessRequest.Cause cause = 3;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_cause(), target);
   }
 
@@ -471,7 +481,7 @@ size_t SetBacklightBrightnessRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional double percent = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -481,50 +491,51 @@ size_t SetBacklightBrightnessRequest::ByteSizeLong() const {
     // optional .power_manager.SetBacklightBrightnessRequest.Cause cause = 3;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_cause());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_cause());
     }
 
     // optional .power_manager.SetBacklightBrightnessRequest.Transition transition = 2;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_transition());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_transition());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SetBacklightBrightnessRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SetBacklightBrightnessRequest*>(
+  MergeFrom(*::_pbi::DownCast<const SetBacklightBrightnessRequest*>(
       &from));
 }
 
 void SetBacklightBrightnessRequest::MergeFrom(const SetBacklightBrightnessRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:power_manager.SetBacklightBrightnessRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  SetBacklightBrightnessRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.SetBacklightBrightnessRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      percent_ = from.percent_;
+      _this->_impl_.percent_ = from._impl_.percent_;
     }
     if (cached_has_bits & 0x00000002u) {
-      cause_ = from.cause_;
+      _this->_impl_.cause_ = from._impl_.cause_;
     }
     if (cached_has_bits & 0x00000004u) {
-      transition_ = from.transition_;
+      _this->_impl_.transition_ = from._impl_.transition_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SetBacklightBrightnessRequest::CopyFrom(const SetBacklightBrightnessRequest& from) {
@@ -541,14 +552,14 @@ bool SetBacklightBrightnessRequest::IsInitialized() const {
 void SetBacklightBrightnessRequest::InternalSwap(SetBacklightBrightnessRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SetBacklightBrightnessRequest, cause_)
-      + sizeof(SetBacklightBrightnessRequest::cause_)
-      - PROTOBUF_FIELD_OFFSET(SetBacklightBrightnessRequest, percent_)>(
-          reinterpret_cast<char*>(&percent_),
-          reinterpret_cast<char*>(&other->percent_));
-  swap(transition_, other->transition_);
+      PROTOBUF_FIELD_OFFSET(SetBacklightBrightnessRequest, _impl_.cause_)
+      + sizeof(SetBacklightBrightnessRequest::_impl_.cause_)
+      - PROTOBUF_FIELD_OFFSET(SetBacklightBrightnessRequest, _impl_.percent_)>(
+          reinterpret_cast<char*>(&_impl_.percent_),
+          reinterpret_cast<char*>(&other->_impl_.percent_));
+  swap(_impl_.transition_, other->_impl_.transition_);
 }
 
 std::string SetBacklightBrightnessRequest::GetTypeName() const {
@@ -560,7 +571,7 @@ std::string SetBacklightBrightnessRequest::GetTypeName() const {
 
 class BacklightBrightnessChange::_Internal {
  public:
-  using HasBits = decltype(std::declval<BacklightBrightnessChange>()._has_bits_);
+  using HasBits = decltype(std::declval<BacklightBrightnessChange>()._impl_._has_bits_);
   static void set_has_percent(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -572,48 +583,52 @@ class BacklightBrightnessChange::_Internal {
 BacklightBrightnessChange::BacklightBrightnessChange(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:power_manager.BacklightBrightnessChange)
 }
 BacklightBrightnessChange::BacklightBrightnessChange(const BacklightBrightnessChange& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  BacklightBrightnessChange* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.percent_){}
+    , decltype(_impl_.cause_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&percent_, &from.percent_,
-    static_cast<size_t>(reinterpret_cast<char*>(&cause_) -
-    reinterpret_cast<char*>(&percent_)) + sizeof(cause_));
+  ::memcpy(&_impl_.percent_, &from._impl_.percent_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.cause_) -
+    reinterpret_cast<char*>(&_impl_.percent_)) + sizeof(_impl_.cause_));
   // @@protoc_insertion_point(copy_constructor:power_manager.BacklightBrightnessChange)
 }
 
-inline void BacklightBrightnessChange::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&percent_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&cause_) -
-    reinterpret_cast<char*>(&percent_)) + sizeof(cause_));
+inline void BacklightBrightnessChange::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.percent_){0}
+    , decltype(_impl_.cause_){0}
+  };
 }
 
 BacklightBrightnessChange::~BacklightBrightnessChange() {
   // @@protoc_insertion_point(destructor:power_manager.BacklightBrightnessChange)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void BacklightBrightnessChange::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void BacklightBrightnessChange::ArenaDtor(void* object) {
-  BacklightBrightnessChange* _this = reinterpret_cast< BacklightBrightnessChange* >(object);
-  (void)_this;
-}
-void BacklightBrightnessChange::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void BacklightBrightnessChange::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void BacklightBrightnessChange::Clear() {
@@ -622,28 +637,28 @@ void BacklightBrightnessChange::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&percent_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&cause_) -
-        reinterpret_cast<char*>(&percent_)) + sizeof(cause_));
+    ::memset(&_impl_.percent_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.cause_) -
+        reinterpret_cast<char*>(&_impl_.percent_)) + sizeof(_impl_.cause_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* BacklightBrightnessChange::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* BacklightBrightnessChange::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional double percent = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 9)) {
           _Internal::set_has_percent(&has_bits);
-          percent_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.percent_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -677,7 +692,7 @@ const char* BacklightBrightnessChange::_InternalParse(const char* ptr, ::PROTOBU
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -691,17 +706,17 @@ uint8_t* BacklightBrightnessChange::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional double percent = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_percent(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(1, this->_internal_percent(), target);
   }
 
   // optional .power_manager.BacklightBrightnessChange.Cause cause = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_cause(), target);
   }
 
@@ -721,7 +736,7 @@ size_t BacklightBrightnessChange::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional double percent = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -731,41 +746,42 @@ size_t BacklightBrightnessChange::ByteSizeLong() const {
     // optional .power_manager.BacklightBrightnessChange.Cause cause = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_cause());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_cause());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void BacklightBrightnessChange::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const BacklightBrightnessChange*>(
+  MergeFrom(*::_pbi::DownCast<const BacklightBrightnessChange*>(
       &from));
 }
 
 void BacklightBrightnessChange::MergeFrom(const BacklightBrightnessChange& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:power_manager.BacklightBrightnessChange)
-  GOOGLE_DCHECK_NE(&from, this);
+  BacklightBrightnessChange* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.BacklightBrightnessChange)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      percent_ = from.percent_;
+      _this->_impl_.percent_ = from._impl_.percent_;
     }
     if (cached_has_bits & 0x00000002u) {
-      cause_ = from.cause_;
+      _this->_impl_.cause_ = from._impl_.cause_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void BacklightBrightnessChange::CopyFrom(const BacklightBrightnessChange& from) {
@@ -782,13 +798,13 @@ bool BacklightBrightnessChange::IsInitialized() const {
 void BacklightBrightnessChange::InternalSwap(BacklightBrightnessChange* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(BacklightBrightnessChange, cause_)
-      + sizeof(BacklightBrightnessChange::cause_)
-      - PROTOBUF_FIELD_OFFSET(BacklightBrightnessChange, percent_)>(
-          reinterpret_cast<char*>(&percent_),
-          reinterpret_cast<char*>(&other->percent_));
+      PROTOBUF_FIELD_OFFSET(BacklightBrightnessChange, _impl_.cause_)
+      + sizeof(BacklightBrightnessChange::_impl_.cause_)
+      - PROTOBUF_FIELD_OFFSET(BacklightBrightnessChange, _impl_.percent_)>(
+          reinterpret_cast<char*>(&_impl_.percent_),
+          reinterpret_cast<char*>(&other->_impl_.percent_));
 }
 
 std::string BacklightBrightnessChange::GetTypeName() const {
@@ -799,10 +815,12 @@ std::string BacklightBrightnessChange::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace power_manager
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::power_manager::SetBacklightBrightnessRequest* Arena::CreateMaybeMessage< ::power_manager::SetBacklightBrightnessRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::power_manager::SetBacklightBrightnessRequest*
+Arena::CreateMaybeMessage< ::power_manager::SetBacklightBrightnessRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::power_manager::SetBacklightBrightnessRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::power_manager::BacklightBrightnessChange* Arena::CreateMaybeMessage< ::power_manager::BacklightBrightnessChange >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::power_manager::BacklightBrightnessChange*
+Arena::CreateMaybeMessage< ::power_manager::BacklightBrightnessChange >(Arena* arena) {
   return Arena::CreateMessageInternal< ::power_manager::BacklightBrightnessChange >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

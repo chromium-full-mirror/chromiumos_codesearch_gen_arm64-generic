@@ -13,33 +13,41 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace cryptohome {
-constexpr SerializedInstallAttributes_Attribute::SerializedInstallAttributes_Attribute(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , value_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_CONSTEXPR SerializedInstallAttributes_Attribute::SerializedInstallAttributes_Attribute(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.value_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct SerializedInstallAttributes_AttributeDefaultTypeInternal {
-  constexpr SerializedInstallAttributes_AttributeDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SerializedInstallAttributes_AttributeDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SerializedInstallAttributes_AttributeDefaultTypeInternal() {}
   union {
     SerializedInstallAttributes_Attribute _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SerializedInstallAttributes_AttributeDefaultTypeInternal _SerializedInstallAttributes_Attribute_default_instance_;
-constexpr SerializedInstallAttributes::SerializedInstallAttributes(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : attributes_()
-  , version_(1u){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedInstallAttributes_AttributeDefaultTypeInternal _SerializedInstallAttributes_Attribute_default_instance_;
+PROTOBUF_CONSTEXPR SerializedInstallAttributes::SerializedInstallAttributes(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.attributes_)*/{}
+  , /*decltype(_impl_.version_)*/1u} {}
 struct SerializedInstallAttributesDefaultTypeInternal {
-  constexpr SerializedInstallAttributesDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SerializedInstallAttributesDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SerializedInstallAttributesDefaultTypeInternal() {}
   union {
     SerializedInstallAttributes _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SerializedInstallAttributesDefaultTypeInternal _SerializedInstallAttributes_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SerializedInstallAttributesDefaultTypeInternal _SerializedInstallAttributes_default_instance_;
 }  // namespace cryptohome
 namespace cryptohome {
 
@@ -47,7 +55,7 @@ namespace cryptohome {
 
 class SerializedInstallAttributes_Attribute::_Internal {
  public:
-  using HasBits = decltype(std::declval<SerializedInstallAttributes_Attribute>()._has_bits_);
+  using HasBits = decltype(std::declval<SerializedInstallAttributes_Attribute>()._impl_._has_bits_);
   static void set_has_name(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -62,67 +70,75 @@ class SerializedInstallAttributes_Attribute::_Internal {
 SerializedInstallAttributes_Attribute::SerializedInstallAttributes_Attribute(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.SerializedInstallAttributes.Attribute)
 }
 SerializedInstallAttributes_Attribute::SerializedInstallAttributes_Attribute(const SerializedInstallAttributes_Attribute& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SerializedInstallAttributes_Attribute* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.name_){}
+    , decltype(_impl_.value_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_name()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
   }
-  value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.value_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.value_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_value()) {
-    value_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_value(), 
-      GetArenaForAllocation());
+    _this->_impl_.value_.Set(from._internal_value(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:cryptohome.SerializedInstallAttributes.Attribute)
 }
 
-inline void SerializedInstallAttributes_Attribute::SharedCtor() {
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void SerializedInstallAttributes_Attribute::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.name_){}
+    , decltype(_impl_.value_){}
+  };
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.value_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.value_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SerializedInstallAttributes_Attribute::~SerializedInstallAttributes_Attribute() {
   // @@protoc_insertion_point(destructor:cryptohome.SerializedInstallAttributes.Attribute)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SerializedInstallAttributes_Attribute::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  value_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.Destroy();
+  _impl_.value_.Destroy();
 }
 
-void SerializedInstallAttributes_Attribute::ArenaDtor(void* object) {
-  SerializedInstallAttributes_Attribute* _this = reinterpret_cast< SerializedInstallAttributes_Attribute* >(object);
-  (void)_this;
-}
-void SerializedInstallAttributes_Attribute::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SerializedInstallAttributes_Attribute::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SerializedInstallAttributes_Attribute::Clear() {
@@ -131,31 +147,31 @@ void SerializedInstallAttributes_Attribute::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      name_.ClearNonDefaultToEmpty();
+      _impl_.name_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      value_.ClearNonDefaultToEmpty();
+      _impl_.value_.ClearNonDefaultToEmpty();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SerializedInstallAttributes_Attribute::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SerializedInstallAttributes_Attribute::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required string name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -164,7 +180,7 @@ const char* SerializedInstallAttributes_Attribute::_InternalParse(const char* pt
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_value();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -185,7 +201,7 @@ const char* SerializedInstallAttributes_Attribute::_InternalParse(const char* pt
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -199,7 +215,7 @@ uint8_t* SerializedInstallAttributes_Attribute::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required string name = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -244,7 +260,7 @@ size_t SerializedInstallAttributes_Attribute::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:cryptohome.SerializedInstallAttributes.Attribute)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
+  if (((_impl_._has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
     // required string name = 1;
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -265,33 +281,34 @@ size_t SerializedInstallAttributes_Attribute::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SerializedInstallAttributes_Attribute::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SerializedInstallAttributes_Attribute*>(
+  MergeFrom(*::_pbi::DownCast<const SerializedInstallAttributes_Attribute*>(
       &from));
 }
 
 void SerializedInstallAttributes_Attribute::MergeFrom(const SerializedInstallAttributes_Attribute& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.SerializedInstallAttributes.Attribute)
-  GOOGLE_DCHECK_NE(&from, this);
+  SerializedInstallAttributes_Attribute* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.SerializedInstallAttributes.Attribute)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_name(from._internal_name());
+      _this->_internal_set_name(from._internal_name());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_value(from._internal_value());
+      _this->_internal_set_value(from._internal_value());
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SerializedInstallAttributes_Attribute::CopyFrom(const SerializedInstallAttributes_Attribute& from) {
@@ -302,7 +319,7 @@ void SerializedInstallAttributes_Attribute::CopyFrom(const SerializedInstallAttr
 }
 
 bool SerializedInstallAttributes_Attribute::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
@@ -311,16 +328,14 @@ void SerializedInstallAttributes_Attribute::InternalSwap(SerializedInstallAttrib
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, lhs_arena,
-      &other->name_, rhs_arena
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &value_, lhs_arena,
-      &other->value_, rhs_arena
+      &_impl_.value_, lhs_arena,
+      &other->_impl_.value_, rhs_arena
   );
 }
 
@@ -333,7 +348,7 @@ std::string SerializedInstallAttributes_Attribute::GetTypeName() const {
 
 class SerializedInstallAttributes::_Internal {
  public:
-  using HasBits = decltype(std::declval<SerializedInstallAttributes>()._has_bits_);
+  using HasBits = decltype(std::declval<SerializedInstallAttributes>()._impl_._has_bits_);
   static void set_has_version(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -341,46 +356,52 @@ class SerializedInstallAttributes::_Internal {
 
 SerializedInstallAttributes::SerializedInstallAttributes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  attributes_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.SerializedInstallAttributes)
 }
 SerializedInstallAttributes::SerializedInstallAttributes(const SerializedInstallAttributes& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      attributes_(from.attributes_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SerializedInstallAttributes* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.attributes_){from._impl_.attributes_}
+    , decltype(_impl_.version_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  version_ = from.version_;
+  _this->_impl_.version_ = from._impl_.version_;
   // @@protoc_insertion_point(copy_constructor:cryptohome.SerializedInstallAttributes)
 }
 
-inline void SerializedInstallAttributes::SharedCtor() {
-version_ = 1u;
+inline void SerializedInstallAttributes::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.attributes_){arena}
+    , decltype(_impl_.version_){1u}
+  };
 }
 
 SerializedInstallAttributes::~SerializedInstallAttributes() {
   // @@protoc_insertion_point(destructor:cryptohome.SerializedInstallAttributes)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SerializedInstallAttributes::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.attributes_.~RepeatedPtrField();
 }
 
-void SerializedInstallAttributes::ArenaDtor(void* object) {
-  SerializedInstallAttributes* _this = reinterpret_cast< SerializedInstallAttributes* >(object);
-  (void)_this;
-}
-void SerializedInstallAttributes::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SerializedInstallAttributes::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SerializedInstallAttributes::Clear() {
@@ -389,24 +410,24 @@ void SerializedInstallAttributes::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  attributes_.Clear();
-  version_ = 1u;
-  _has_bits_.Clear();
+  _impl_.attributes_.Clear();
+  _impl_.version_ = 1u;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SerializedInstallAttributes::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SerializedInstallAttributes::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint32 version = 1 [default = 1];
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_version(&has_bits);
-          version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.version_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -440,7 +461,7 @@ const char* SerializedInstallAttributes::_InternalParse(const char* ptr, ::PROTO
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -454,19 +475,19 @@ uint8_t* SerializedInstallAttributes::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional uint32 version = 1 [default = 1];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_version(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_version(), target);
   }
 
   // repeated .cryptohome.SerializedInstallAttributes.Attribute attributes = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_attributes_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_attributes_size()); i < n; i++) {
+    const auto& repfield = this->_internal_attributes(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_attributes(i), target, stream);
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -487,42 +508,43 @@ size_t SerializedInstallAttributes::ByteSizeLong() const {
 
   // repeated .cryptohome.SerializedInstallAttributes.Attribute attributes = 2;
   total_size += 1UL * this->_internal_attributes_size();
-  for (const auto& msg : this->attributes_) {
+  for (const auto& msg : this->_impl_.attributes_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // optional uint32 version = 1 [default = 1];
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_version());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_version());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SerializedInstallAttributes::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SerializedInstallAttributes*>(
+  MergeFrom(*::_pbi::DownCast<const SerializedInstallAttributes*>(
       &from));
 }
 
 void SerializedInstallAttributes::MergeFrom(const SerializedInstallAttributes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.SerializedInstallAttributes)
-  GOOGLE_DCHECK_NE(&from, this);
+  SerializedInstallAttributes* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.SerializedInstallAttributes)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  attributes_.MergeFrom(from.attributes_);
+  _this->_impl_.attributes_.MergeFrom(from._impl_.attributes_);
   if (from._internal_has_version()) {
-    _internal_set_version(from._internal_version());
+    _this->_internal_set_version(from._internal_version());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SerializedInstallAttributes::CopyFrom(const SerializedInstallAttributes& from) {
@@ -533,7 +555,7 @@ void SerializedInstallAttributes::CopyFrom(const SerializedInstallAttributes& fr
 }
 
 bool SerializedInstallAttributes::IsInitialized() const {
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(attributes_))
+  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(_impl_.attributes_))
     return false;
   return true;
 }
@@ -541,9 +563,9 @@ bool SerializedInstallAttributes::IsInitialized() const {
 void SerializedInstallAttributes::InternalSwap(SerializedInstallAttributes* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  attributes_.InternalSwap(&other->attributes_);
-  swap(version_, other->version_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.attributes_.InternalSwap(&other->_impl_.attributes_);
+  swap(_impl_.version_, other->_impl_.version_);
 }
 
 std::string SerializedInstallAttributes::GetTypeName() const {
@@ -554,10 +576,12 @@ std::string SerializedInstallAttributes::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace cryptohome
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::cryptohome::SerializedInstallAttributes_Attribute* Arena::CreateMaybeMessage< ::cryptohome::SerializedInstallAttributes_Attribute >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::SerializedInstallAttributes_Attribute*
+Arena::CreateMaybeMessage< ::cryptohome::SerializedInstallAttributes_Attribute >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::SerializedInstallAttributes_Attribute >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::SerializedInstallAttributes* Arena::CreateMaybeMessage< ::cryptohome::SerializedInstallAttributes >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::SerializedInstallAttributes*
+Arena::CreateMaybeMessage< ::cryptohome::SerializedInstallAttributes >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::SerializedInstallAttributes >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

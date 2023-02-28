@@ -13,21 +13,27 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace cryptohome {
-constexpr HashTreeLeafData::HashTreeLeafData(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : mac_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , credential_metadata_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , metadata_lost_(false){}
+PROTOBUF_CONSTEXPR HashTreeLeafData::HashTreeLeafData(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.mac_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.credential_metadata_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.metadata_lost_)*/false} {}
 struct HashTreeLeafDataDefaultTypeInternal {
-  constexpr HashTreeLeafDataDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HashTreeLeafDataDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HashTreeLeafDataDefaultTypeInternal() {}
   union {
     HashTreeLeafData _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HashTreeLeafDataDefaultTypeInternal _HashTreeLeafData_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HashTreeLeafDataDefaultTypeInternal _HashTreeLeafData_default_instance_;
 }  // namespace cryptohome
 namespace cryptohome {
 
@@ -35,7 +41,7 @@ namespace cryptohome {
 
 class HashTreeLeafData::_Internal {
  public:
-  using HasBits = decltype(std::declval<HashTreeLeafData>()._has_bits_);
+  using HasBits = decltype(std::declval<HashTreeLeafData>()._impl_._has_bits_);
   static void set_has_mac(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -50,69 +56,78 @@ class HashTreeLeafData::_Internal {
 HashTreeLeafData::HashTreeLeafData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:cryptohome.HashTreeLeafData)
 }
 HashTreeLeafData::HashTreeLeafData(const HashTreeLeafData& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  HashTreeLeafData* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.mac_){}
+    , decltype(_impl_.credential_metadata_){}
+    , decltype(_impl_.metadata_lost_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  mac_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.mac_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    mac_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.mac_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_mac()) {
-    mac_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_mac(), 
-      GetArenaForAllocation());
+    _this->_impl_.mac_.Set(from._internal_mac(), 
+      _this->GetArenaForAllocation());
   }
-  credential_metadata_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.credential_metadata_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    credential_metadata_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.credential_metadata_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_credential_metadata()) {
-    credential_metadata_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_credential_metadata(), 
-      GetArenaForAllocation());
+    _this->_impl_.credential_metadata_.Set(from._internal_credential_metadata(), 
+      _this->GetArenaForAllocation());
   }
-  metadata_lost_ = from.metadata_lost_;
+  _this->_impl_.metadata_lost_ = from._impl_.metadata_lost_;
   // @@protoc_insertion_point(copy_constructor:cryptohome.HashTreeLeafData)
 }
 
-inline void HashTreeLeafData::SharedCtor() {
-mac_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  mac_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-credential_metadata_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  credential_metadata_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-metadata_lost_ = false;
+inline void HashTreeLeafData::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.mac_){}
+    , decltype(_impl_.credential_metadata_){}
+    , decltype(_impl_.metadata_lost_){false}
+  };
+  _impl_.mac_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.mac_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.credential_metadata_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.credential_metadata_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 HashTreeLeafData::~HashTreeLeafData() {
   // @@protoc_insertion_point(destructor:cryptohome.HashTreeLeafData)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void HashTreeLeafData::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  mac_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  credential_metadata_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.mac_.Destroy();
+  _impl_.credential_metadata_.Destroy();
 }
 
-void HashTreeLeafData::ArenaDtor(void* object) {
-  HashTreeLeafData* _this = reinterpret_cast< HashTreeLeafData* >(object);
-  (void)_this;
-}
-void HashTreeLeafData::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HashTreeLeafData::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HashTreeLeafData::Clear() {
@@ -121,32 +136,32 @@ void HashTreeLeafData::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      mac_.ClearNonDefaultToEmpty();
+      _impl_.mac_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      credential_metadata_.ClearNonDefaultToEmpty();
+      _impl_.credential_metadata_.ClearNonDefaultToEmpty();
     }
   }
-  metadata_lost_ = false;
-  _has_bits_.Clear();
+  _impl_.metadata_lost_ = false;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* HashTreeLeafData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HashTreeLeafData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bytes mac = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_mac();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -155,7 +170,7 @@ const char* HashTreeLeafData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_credential_metadata();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -164,7 +179,7 @@ const char* HashTreeLeafData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_metadata_lost(&has_bits);
-          metadata_lost_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.metadata_lost_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -185,7 +200,7 @@ const char* HashTreeLeafData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -199,7 +214,7 @@ uint8_t* HashTreeLeafData::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bytes mac = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteBytesMaybeAliased(
@@ -215,7 +230,7 @@ uint8_t* HashTreeLeafData::_InternalSerialize(
   // optional bool metadata_lost = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_metadata_lost(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_metadata_lost(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -234,7 +249,7 @@ size_t HashTreeLeafData::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional bytes mac = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -259,37 +274,38 @@ size_t HashTreeLeafData::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void HashTreeLeafData::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const HashTreeLeafData*>(
+  MergeFrom(*::_pbi::DownCast<const HashTreeLeafData*>(
       &from));
 }
 
 void HashTreeLeafData::MergeFrom(const HashTreeLeafData& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.HashTreeLeafData)
-  GOOGLE_DCHECK_NE(&from, this);
+  HashTreeLeafData* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.HashTreeLeafData)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_mac(from._internal_mac());
+      _this->_internal_set_mac(from._internal_mac());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_credential_metadata(from._internal_credential_metadata());
+      _this->_internal_set_credential_metadata(from._internal_credential_metadata());
     }
     if (cached_has_bits & 0x00000004u) {
-      metadata_lost_ = from.metadata_lost_;
+      _this->_impl_.metadata_lost_ = from._impl_.metadata_lost_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void HashTreeLeafData::CopyFrom(const HashTreeLeafData& from) {
@@ -308,18 +324,16 @@ void HashTreeLeafData::InternalSwap(HashTreeLeafData* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &mac_, lhs_arena,
-      &other->mac_, rhs_arena
+      &_impl_.mac_, lhs_arena,
+      &other->_impl_.mac_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &credential_metadata_, lhs_arena,
-      &other->credential_metadata_, rhs_arena
+      &_impl_.credential_metadata_, lhs_arena,
+      &other->_impl_.credential_metadata_, rhs_arena
   );
-  swap(metadata_lost_, other->metadata_lost_);
+  swap(_impl_.metadata_lost_, other->_impl_.metadata_lost_);
 }
 
 std::string HashTreeLeafData::GetTypeName() const {
@@ -330,7 +344,8 @@ std::string HashTreeLeafData::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace cryptohome
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::cryptohome::HashTreeLeafData* Arena::CreateMaybeMessage< ::cryptohome::HashTreeLeafData >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::cryptohome::HashTreeLeafData*
+Arena::CreateMaybeMessage< ::cryptohome::HashTreeLeafData >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cryptohome::HashTreeLeafData >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

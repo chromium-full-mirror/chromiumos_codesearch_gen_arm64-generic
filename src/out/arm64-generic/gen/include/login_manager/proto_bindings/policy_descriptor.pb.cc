@@ -13,24 +13,28 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
-namespace login_manager {
-constexpr PolicyDescriptor::PolicyDescriptor(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : account_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , component_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , account_type_(0)
 
-  , domain_(0)
-{}
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
+namespace login_manager {
+PROTOBUF_CONSTEXPR PolicyDescriptor::PolicyDescriptor(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.account_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.component_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.account_type_)*/0
+  , /*decltype(_impl_.domain_)*/0} {}
 struct PolicyDescriptorDefaultTypeInternal {
-  constexpr PolicyDescriptorDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PolicyDescriptorDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~PolicyDescriptorDefaultTypeInternal() {}
   union {
     PolicyDescriptor _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PolicyDescriptorDefaultTypeInternal _PolicyDescriptor_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PolicyDescriptorDefaultTypeInternal _PolicyDescriptor_default_instance_;
 }  // namespace login_manager
 namespace login_manager {
 bool PolicyAccountType_IsValid(int value) {
@@ -148,7 +152,7 @@ bool PolicyDomain_Parse(
 
 class PolicyDescriptor::_Internal {
  public:
-  using HasBits = decltype(std::declval<PolicyDescriptor>()._has_bits_);
+  using HasBits = decltype(std::declval<PolicyDescriptor>()._impl_._has_bits_);
   static void set_has_account_type(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -166,74 +170,82 @@ class PolicyDescriptor::_Internal {
 PolicyDescriptor::PolicyDescriptor(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:login_manager.PolicyDescriptor)
 }
 PolicyDescriptor::PolicyDescriptor(const PolicyDescriptor& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PolicyDescriptor* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.account_id_){}
+    , decltype(_impl_.component_id_){}
+    , decltype(_impl_.account_type_){}
+    , decltype(_impl_.domain_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  account_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.account_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    account_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.account_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_account_id()) {
-    account_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_account_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.account_id_.Set(from._internal_account_id(), 
+      _this->GetArenaForAllocation());
   }
-  component_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.component_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    component_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.component_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_component_id()) {
-    component_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_component_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.component_id_.Set(from._internal_component_id(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&account_type_, &from.account_type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&domain_) -
-    reinterpret_cast<char*>(&account_type_)) + sizeof(domain_));
+  ::memcpy(&_impl_.account_type_, &from._impl_.account_type_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.domain_) -
+    reinterpret_cast<char*>(&_impl_.account_type_)) + sizeof(_impl_.domain_));
   // @@protoc_insertion_point(copy_constructor:login_manager.PolicyDescriptor)
 }
 
-inline void PolicyDescriptor::SharedCtor() {
-account_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  account_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-component_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  component_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&account_type_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&domain_) -
-    reinterpret_cast<char*>(&account_type_)) + sizeof(domain_));
+inline void PolicyDescriptor::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.account_id_){}
+    , decltype(_impl_.component_id_){}
+    , decltype(_impl_.account_type_){0}
+    , decltype(_impl_.domain_){0}
+  };
+  _impl_.account_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.account_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.component_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.component_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PolicyDescriptor::~PolicyDescriptor() {
   // @@protoc_insertion_point(destructor:login_manager.PolicyDescriptor)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void PolicyDescriptor::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  account_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  component_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.account_id_.Destroy();
+  _impl_.component_id_.Destroy();
 }
 
-void PolicyDescriptor::ArenaDtor(void* object) {
-  PolicyDescriptor* _this = reinterpret_cast< PolicyDescriptor* >(object);
-  (void)_this;
-}
-void PolicyDescriptor::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void PolicyDescriptor::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PolicyDescriptor::Clear() {
@@ -242,30 +254,30 @@ void PolicyDescriptor::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      account_id_.ClearNonDefaultToEmpty();
+      _impl_.account_id_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      component_id_.ClearNonDefaultToEmpty();
+      _impl_.component_id_.ClearNonDefaultToEmpty();
     }
   }
   if (cached_has_bits & 0x0000000cu) {
-    ::memset(&account_type_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&domain_) -
-        reinterpret_cast<char*>(&account_type_)) + sizeof(domain_));
+    ::memset(&_impl_.account_type_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.domain_) -
+        reinterpret_cast<char*>(&_impl_.account_type_)) + sizeof(_impl_.domain_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PolicyDescriptor::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* PolicyDescriptor::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .login_manager.PolicyAccountType account_type = 1;
       case 1:
@@ -284,7 +296,7 @@ const char* PolicyDescriptor::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_account_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -306,7 +318,7 @@ const char* PolicyDescriptor::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_component_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -327,7 +339,7 @@ const char* PolicyDescriptor::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -341,11 +353,11 @@ uint8_t* PolicyDescriptor::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .login_manager.PolicyAccountType account_type = 1;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_account_type(), target);
   }
 
@@ -358,7 +370,7 @@ uint8_t* PolicyDescriptor::_InternalSerialize(
   // optional .login_manager.PolicyDomain domain = 3;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_domain(), target);
   }
 
@@ -384,7 +396,7 @@ size_t PolicyDescriptor::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional string account_id = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -403,53 +415,54 @@ size_t PolicyDescriptor::ByteSizeLong() const {
     // optional .login_manager.PolicyAccountType account_type = 1;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_account_type());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_account_type());
     }
 
     // optional .login_manager.PolicyDomain domain = 3;
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_domain());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_domain());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void PolicyDescriptor::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PolicyDescriptor*>(
+  MergeFrom(*::_pbi::DownCast<const PolicyDescriptor*>(
       &from));
 }
 
 void PolicyDescriptor::MergeFrom(const PolicyDescriptor& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:login_manager.PolicyDescriptor)
-  GOOGLE_DCHECK_NE(&from, this);
+  PolicyDescriptor* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:login_manager.PolicyDescriptor)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_account_id(from._internal_account_id());
+      _this->_internal_set_account_id(from._internal_account_id());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_component_id(from._internal_component_id());
+      _this->_internal_set_component_id(from._internal_component_id());
     }
     if (cached_has_bits & 0x00000004u) {
-      account_type_ = from.account_type_;
+      _this->_impl_.account_type_ = from._impl_.account_type_;
     }
     if (cached_has_bits & 0x00000008u) {
-      domain_ = from.domain_;
+      _this->_impl_.domain_ = from._impl_.domain_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PolicyDescriptor::CopyFrom(const PolicyDescriptor& from) {
@@ -468,23 +481,21 @@ void PolicyDescriptor::InternalSwap(PolicyDescriptor* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &account_id_, lhs_arena,
-      &other->account_id_, rhs_arena
+      &_impl_.account_id_, lhs_arena,
+      &other->_impl_.account_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &component_id_, lhs_arena,
-      &other->component_id_, rhs_arena
+      &_impl_.component_id_, lhs_arena,
+      &other->_impl_.component_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PolicyDescriptor, domain_)
-      + sizeof(PolicyDescriptor::domain_)
-      - PROTOBUF_FIELD_OFFSET(PolicyDescriptor, account_type_)>(
-          reinterpret_cast<char*>(&account_type_),
-          reinterpret_cast<char*>(&other->account_type_));
+      PROTOBUF_FIELD_OFFSET(PolicyDescriptor, _impl_.domain_)
+      + sizeof(PolicyDescriptor::_impl_.domain_)
+      - PROTOBUF_FIELD_OFFSET(PolicyDescriptor, _impl_.account_type_)>(
+          reinterpret_cast<char*>(&_impl_.account_type_),
+          reinterpret_cast<char*>(&other->_impl_.account_type_));
 }
 
 std::string PolicyDescriptor::GetTypeName() const {
@@ -495,7 +506,8 @@ std::string PolicyDescriptor::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace login_manager
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::login_manager::PolicyDescriptor* Arena::CreateMaybeMessage< ::login_manager::PolicyDescriptor >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::login_manager::PolicyDescriptor*
+Arena::CreateMaybeMessage< ::login_manager::PolicyDescriptor >(Arena* arena) {
   return Arena::CreateMessageInternal< ::login_manager::PolicyDescriptor >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

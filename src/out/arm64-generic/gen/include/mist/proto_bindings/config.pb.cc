@@ -16,23 +16,28 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace mist {
-constexpr Config::Config(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : usb_modem_info_(){}
+PROTOBUF_CONSTEXPR Config::Config(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.usb_modem_info_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ConfigDefaultTypeInternal {
-  constexpr ConfigDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ConfigDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ConfigDefaultTypeInternal() {}
   union {
     Config _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ConfigDefaultTypeInternal _Config_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ConfigDefaultTypeInternal _Config_default_instance_;
 }  // namespace mist
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_config_2eproto[1];
-static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_config_2eproto = nullptr;
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_config_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_config_2eproto[1];
+static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_config_2eproto = nullptr;
+static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_config_2eproto = nullptr;
 
 const uint32_t TableStruct_config_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
@@ -41,14 +46,14 @@ const uint32_t TableStruct_config_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(p
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mist::Config, usb_modem_info_),
+  PROTOBUF_FIELD_OFFSET(::mist::Config, _impl_.usb_modem_info_),
 };
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::mist::Config)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::mist::_Config_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+  &::mist::_Config_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_config_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -56,22 +61,24 @@ const char descriptor_table_protodef_config_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "to\"4\n\006Config\022*\n\016usb_modem_info\030\001 \003(\0132\022.m"
   "ist.UsbModemInfob\006proto3"
   ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_config_2eproto_deps[1] = {
+static const ::_pbi::DescriptorTable* const descriptor_table_config_2eproto_deps[1] = {
   &::descriptor_table_usb_5fmodem_5finfo_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_config_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_config_2eproto = {
-  false, false, 104, descriptor_table_protodef_config_2eproto, "config.proto", 
-  &descriptor_table_config_2eproto_once, descriptor_table_config_2eproto_deps, 1, 1,
-  schemas, file_default_instances, TableStruct_config_2eproto::offsets,
-  file_level_metadata_config_2eproto, file_level_enum_descriptors_config_2eproto, file_level_service_descriptors_config_2eproto,
+static ::_pbi::once_flag descriptor_table_config_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_config_2eproto = {
+    false, false, 104, descriptor_table_protodef_config_2eproto,
+    "config.proto",
+    &descriptor_table_config_2eproto_once, descriptor_table_config_2eproto_deps, 1, 1,
+    schemas, file_default_instances, TableStruct_config_2eproto::offsets,
+    file_level_metadata_config_2eproto, file_level_enum_descriptors_config_2eproto,
+    file_level_service_descriptors_config_2eproto,
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_config_2eproto_getter() {
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_config_2eproto_getter() {
   return &descriptor_table_config_2eproto;
 }
 
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_config_2eproto(&descriptor_table_config_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_config_2eproto(&descriptor_table_config_2eproto);
 namespace mist {
 
 // ===================================================================
@@ -81,47 +88,51 @@ class Config::_Internal {
 };
 
 void Config::clear_usb_modem_info() {
-  usb_modem_info_.Clear();
+  _impl_.usb_modem_info_.Clear();
 }
 Config::Config(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  usb_modem_info_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:mist.Config)
 }
 Config::Config(const Config& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      usb_modem_info_(from.usb_modem_info_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Config* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.usb_modem_info_){from._impl_.usb_modem_info_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:mist.Config)
 }
 
-inline void Config::SharedCtor() {
+inline void Config::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.usb_modem_info_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 Config::~Config() {
   // @@protoc_insertion_point(destructor:mist.Config)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void Config::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.usb_modem_info_.~RepeatedPtrField();
 }
 
-void Config::ArenaDtor(void* object) {
-  Config* _this = reinterpret_cast< Config* >(object);
-  (void)_this;
-}
-void Config::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void Config::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Config::Clear() {
@@ -130,15 +141,15 @@ void Config::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  usb_modem_info_.Clear();
+  _impl_.usb_modem_info_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* Config::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Config::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .mist.UsbModemInfo usb_modem_info = 1;
       case 1:
@@ -183,15 +194,15 @@ uint8_t* Config::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .mist.UsbModemInfo usb_modem_info = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_usb_modem_info_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_usb_modem_info_size()); i < n; i++) {
+    const auto& repfield = this->_internal_usb_modem_info(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_usb_modem_info(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:mist.Config)
@@ -208,35 +219,31 @@ size_t Config::ByteSizeLong() const {
 
   // repeated .mist.UsbModemInfo usb_modem_info = 1;
   total_size += 1UL * this->_internal_usb_modem_info_size();
-  for (const auto& msg : this->usb_modem_info_) {
+  for (const auto& msg : this->_impl_.usb_modem_info_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Config::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     Config::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Config::GetClassData() const { return &_class_data_; }
 
-void Config::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<Config *>(to)->MergeFrom(
-      static_cast<const Config &>(from));
-}
 
-
-void Config::MergeFrom(const Config& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:mist.Config)
-  GOOGLE_DCHECK_NE(&from, this);
+void Config::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Config*>(&to_msg);
+  auto& from = static_cast<const Config&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:mist.Config)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  usb_modem_info_.MergeFrom(from.usb_modem_info_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.usb_modem_info_.MergeFrom(from._impl_.usb_modem_info_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Config::CopyFrom(const Config& from) {
@@ -253,11 +260,11 @@ bool Config::IsInitialized() const {
 void Config::InternalSwap(Config* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  usb_modem_info_.InternalSwap(&other->usb_modem_info_);
+  _impl_.usb_modem_info_.InternalSwap(&other->_impl_.usb_modem_info_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Config::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_config_2eproto_getter, &descriptor_table_config_2eproto_once,
       file_level_metadata_config_2eproto[0]);
 }
@@ -265,7 +272,8 @@ void Config::InternalSwap(Config* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace mist
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::mist::Config* Arena::CreateMaybeMessage< ::mist::Config >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::mist::Config*
+Arena::CreateMaybeMessage< ::mist::Config >(Arena* arena) {
   return Arena::CreateMessageInternal< ::mist::Config >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

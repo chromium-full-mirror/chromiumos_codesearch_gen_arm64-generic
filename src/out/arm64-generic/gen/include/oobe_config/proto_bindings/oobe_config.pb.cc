@@ -13,19 +13,24 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace oobe_config {
-constexpr OobeRestoreData::OobeRestoreData(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : chrome_config_json_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_CONSTEXPR OobeRestoreData::OobeRestoreData(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.chrome_config_json_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct OobeRestoreDataDefaultTypeInternal {
-  constexpr OobeRestoreDataDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR OobeRestoreDataDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~OobeRestoreDataDefaultTypeInternal() {}
   union {
     OobeRestoreData _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OobeRestoreDataDefaultTypeInternal _OobeRestoreData_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OobeRestoreDataDefaultTypeInternal _OobeRestoreData_default_instance_;
 }  // namespace oobe_config
 namespace oobe_config {
 
@@ -38,53 +43,58 @@ class OobeRestoreData::_Internal {
 OobeRestoreData::OobeRestoreData(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:oobe_config.OobeRestoreData)
 }
 OobeRestoreData::OobeRestoreData(const OobeRestoreData& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  OobeRestoreData* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.chrome_config_json_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  chrome_config_json_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.chrome_config_json_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    chrome_config_json_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.chrome_config_json_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_chrome_config_json().empty()) {
-    chrome_config_json_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_chrome_config_json(), 
-      GetArenaForAllocation());
+    _this->_impl_.chrome_config_json_.Set(from._internal_chrome_config_json(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:oobe_config.OobeRestoreData)
 }
 
-inline void OobeRestoreData::SharedCtor() {
-chrome_config_json_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  chrome_config_json_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void OobeRestoreData::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.chrome_config_json_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.chrome_config_json_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.chrome_config_json_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 OobeRestoreData::~OobeRestoreData() {
   // @@protoc_insertion_point(destructor:oobe_config.OobeRestoreData)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void OobeRestoreData::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  chrome_config_json_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.chrome_config_json_.Destroy();
 }
 
-void OobeRestoreData::ArenaDtor(void* object) {
-  OobeRestoreData* _this = reinterpret_cast< OobeRestoreData* >(object);
-  (void)_this;
-}
-void OobeRestoreData::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void OobeRestoreData::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void OobeRestoreData::Clear() {
@@ -93,23 +103,23 @@ void OobeRestoreData::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  chrome_config_json_.ClearToEmpty();
+  _impl_.chrome_config_json_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* OobeRestoreData::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* OobeRestoreData::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string chrome_config_json = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_chrome_config_json();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -178,27 +188,28 @@ size_t OobeRestoreData::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void OobeRestoreData::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const OobeRestoreData*>(
+  MergeFrom(*::_pbi::DownCast<const OobeRestoreData*>(
       &from));
 }
 
 void OobeRestoreData::MergeFrom(const OobeRestoreData& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:oobe_config.OobeRestoreData)
-  GOOGLE_DCHECK_NE(&from, this);
+  OobeRestoreData* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:oobe_config.OobeRestoreData)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_chrome_config_json().empty()) {
-    _internal_set_chrome_config_json(from._internal_chrome_config_json());
+    _this->_internal_set_chrome_config_json(from._internal_chrome_config_json());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void OobeRestoreData::CopyFrom(const OobeRestoreData& from) {
@@ -218,9 +229,8 @@ void OobeRestoreData::InternalSwap(OobeRestoreData* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &chrome_config_json_, lhs_arena,
-      &other->chrome_config_json_, rhs_arena
+      &_impl_.chrome_config_json_, lhs_arena,
+      &other->_impl_.chrome_config_json_, rhs_arena
   );
 }
 
@@ -232,7 +242,8 @@ std::string OobeRestoreData::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace oobe_config
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::oobe_config::OobeRestoreData* Arena::CreateMaybeMessage< ::oobe_config::OobeRestoreData >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::oobe_config::OobeRestoreData*
+Arena::CreateMaybeMessage< ::oobe_config::OobeRestoreData >(Arena* arena) {
   return Arena::CreateMessageInternal< ::oobe_config::OobeRestoreData >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

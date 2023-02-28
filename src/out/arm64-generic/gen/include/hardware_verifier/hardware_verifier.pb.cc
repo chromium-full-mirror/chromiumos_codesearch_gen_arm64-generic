@@ -16,107 +16,113 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
-namespace hardware_verifier {
-constexpr ComponentInfo::ComponentInfo(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : component_uuid_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , component_fields_(nullptr)
-  , qualification_status_(0)
 
-  , component_category_(0)
-{}
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
+namespace hardware_verifier {
+PROTOBUF_CONSTEXPR ComponentInfo::ComponentInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.component_uuid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.component_fields_)*/nullptr
+  , /*decltype(_impl_.qualification_status_)*/0
+  , /*decltype(_impl_.component_category_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ComponentInfoDefaultTypeInternal {
-  constexpr ComponentInfoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ComponentInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ComponentInfoDefaultTypeInternal() {}
   union {
     ComponentInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ComponentInfoDefaultTypeInternal _ComponentInfo_default_instance_;
-constexpr HwVerificationSpec_GenericComponentValueAllowlist::HwVerificationSpec_GenericComponentValueAllowlist(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : field_names_()
-  , component_category_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ComponentInfoDefaultTypeInternal _ComponentInfo_default_instance_;
+PROTOBUF_CONSTEXPR HwVerificationSpec_GenericComponentValueAllowlist::HwVerificationSpec_GenericComponentValueAllowlist(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.field_names_)*/{}
+  , /*decltype(_impl_.component_category_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HwVerificationSpec_GenericComponentValueAllowlistDefaultTypeInternal {
-  constexpr HwVerificationSpec_GenericComponentValueAllowlistDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HwVerificationSpec_GenericComponentValueAllowlistDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HwVerificationSpec_GenericComponentValueAllowlistDefaultTypeInternal() {}
   union {
     HwVerificationSpec_GenericComponentValueAllowlist _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HwVerificationSpec_GenericComponentValueAllowlistDefaultTypeInternal _HwVerificationSpec_GenericComponentValueAllowlist_default_instance_;
-constexpr HwVerificationSpec::HwVerificationSpec(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : component_infos_()
-  , generic_component_value_allowlists_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HwVerificationSpec_GenericComponentValueAllowlistDefaultTypeInternal _HwVerificationSpec_GenericComponentValueAllowlist_default_instance_;
+PROTOBUF_CONSTEXPR HwVerificationSpec::HwVerificationSpec(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.component_infos_)*/{}
+  , /*decltype(_impl_.generic_component_value_allowlists_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HwVerificationSpecDefaultTypeInternal {
-  constexpr HwVerificationSpecDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HwVerificationSpecDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HwVerificationSpecDefaultTypeInternal() {}
   union {
     HwVerificationSpec _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HwVerificationSpecDefaultTypeInternal _HwVerificationSpec_default_instance_;
-constexpr HwVerificationReport_GenericDeviceInfo::HwVerificationReport_GenericDeviceInfo(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : audio_codec_()
-  , battery_()
-  , storage_()
-  , network_()
-  , camera_()
-  , stylus_()
-  , touchpad_()
-  , touchscreen_()
-  , dram_()
-  , display_panel_()
-  , cellular_()
-  , ethernet_()
-  , wireless_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HwVerificationSpecDefaultTypeInternal _HwVerificationSpec_default_instance_;
+PROTOBUF_CONSTEXPR HwVerificationReport_GenericDeviceInfo::HwVerificationReport_GenericDeviceInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.audio_codec_)*/{}
+  , /*decltype(_impl_.battery_)*/{}
+  , /*decltype(_impl_.storage_)*/{}
+  , /*decltype(_impl_.network_)*/{}
+  , /*decltype(_impl_.camera_)*/{}
+  , /*decltype(_impl_.stylus_)*/{}
+  , /*decltype(_impl_.touchpad_)*/{}
+  , /*decltype(_impl_.touchscreen_)*/{}
+  , /*decltype(_impl_.dram_)*/{}
+  , /*decltype(_impl_.display_panel_)*/{}
+  , /*decltype(_impl_.cellular_)*/{}
+  , /*decltype(_impl_.ethernet_)*/{}
+  , /*decltype(_impl_.wireless_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HwVerificationReport_GenericDeviceInfoDefaultTypeInternal {
-  constexpr HwVerificationReport_GenericDeviceInfoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HwVerificationReport_GenericDeviceInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HwVerificationReport_GenericDeviceInfoDefaultTypeInternal() {}
   union {
     HwVerificationReport_GenericDeviceInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HwVerificationReport_GenericDeviceInfoDefaultTypeInternal _HwVerificationReport_GenericDeviceInfo_default_instance_;
-constexpr HwVerificationReport::HwVerificationReport(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : found_component_infos_()
-  , generic_device_info_(nullptr)
-  , is_compliant_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HwVerificationReport_GenericDeviceInfoDefaultTypeInternal _HwVerificationReport_GenericDeviceInfo_default_instance_;
+PROTOBUF_CONSTEXPR HwVerificationReport::HwVerificationReport(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.found_component_infos_)*/{}
+  , /*decltype(_impl_.generic_device_info_)*/nullptr
+  , /*decltype(_impl_.is_compliant_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HwVerificationReportDefaultTypeInternal {
-  constexpr HwVerificationReportDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HwVerificationReportDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HwVerificationReportDefaultTypeInternal() {}
   union {
     HwVerificationReport _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HwVerificationReportDefaultTypeInternal _HwVerificationReport_default_instance_;
-constexpr VerifyComponentsReply::VerifyComponentsReply(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : hw_verification_report_(nullptr)
-  , error_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HwVerificationReportDefaultTypeInternal _HwVerificationReport_default_instance_;
+PROTOBUF_CONSTEXPR VerifyComponentsReply::VerifyComponentsReply(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.hw_verification_report_)*/nullptr
+  , /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct VerifyComponentsReplyDefaultTypeInternal {
-  constexpr VerifyComponentsReplyDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR VerifyComponentsReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~VerifyComponentsReplyDefaultTypeInternal() {}
   union {
     VerifyComponentsReply _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT VerifyComponentsReplyDefaultTypeInternal _VerifyComponentsReply_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VerifyComponentsReplyDefaultTypeInternal _VerifyComponentsReply_default_instance_;
 }  // namespace hardware_verifier
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_hardware_5fverifier_2eproto[6];
-static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_hardware_5fverifier_2eproto[2];
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_hardware_5fverifier_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_hardware_5fverifier_2eproto[6];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_hardware_5fverifier_2eproto[2];
+static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_hardware_5fverifier_2eproto = nullptr;
 
 const uint32_t TableStruct_hardware_5fverifier_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
@@ -125,64 +131,64 @@ const uint32_t TableStruct_hardware_5fverifier_2eproto::offsets[] PROTOBUF_SECTI
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::ComponentInfo, component_category_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::ComponentInfo, component_uuid_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::ComponentInfo, qualification_status_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::ComponentInfo, component_fields_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::ComponentInfo, _impl_.component_category_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::ComponentInfo, _impl_.component_uuid_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::ComponentInfo, _impl_.qualification_status_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::ComponentInfo, _impl_.component_fields_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationSpec_GenericComponentValueAllowlist, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationSpec_GenericComponentValueAllowlist, component_category_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationSpec_GenericComponentValueAllowlist, field_names_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationSpec_GenericComponentValueAllowlist, _impl_.component_category_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationSpec_GenericComponentValueAllowlist, _impl_.field_names_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationSpec, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationSpec, component_infos_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationSpec, generic_component_value_allowlists_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationSpec, _impl_.component_infos_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationSpec, _impl_.generic_component_value_allowlists_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, audio_codec_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, battery_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, storage_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, network_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, camera_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, stylus_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, touchpad_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, touchscreen_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, dram_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, display_panel_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, cellular_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, ethernet_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, wireless_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, _impl_.audio_codec_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, _impl_.battery_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, _impl_.storage_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, _impl_.network_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, _impl_.camera_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, _impl_.stylus_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, _impl_.touchpad_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, _impl_.touchscreen_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, _impl_.dram_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, _impl_.display_panel_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, _impl_.cellular_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, _impl_.ethernet_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport_GenericDeviceInfo, _impl_.wireless_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport, is_compliant_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport, found_component_infos_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport, generic_device_info_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport, _impl_.is_compliant_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport, _impl_.found_component_infos_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::HwVerificationReport, _impl_.generic_device_info_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::hardware_verifier::VerifyComponentsReply, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::VerifyComponentsReply, error_),
-  PROTOBUF_FIELD_OFFSET(::hardware_verifier::VerifyComponentsReply, hw_verification_report_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::VerifyComponentsReply, _impl_.error_),
+  PROTOBUF_FIELD_OFFSET(::hardware_verifier::VerifyComponentsReply, _impl_.hw_verification_report_),
 };
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::hardware_verifier::ComponentInfo)},
   { 10, -1, -1, sizeof(::hardware_verifier::HwVerificationSpec_GenericComponentValueAllowlist)},
   { 18, -1, -1, sizeof(::hardware_verifier::HwVerificationSpec)},
@@ -191,13 +197,13 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 54, -1, -1, sizeof(::hardware_verifier::VerifyComponentsReply)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::hardware_verifier::_ComponentInfo_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::hardware_verifier::_HwVerificationSpec_GenericComponentValueAllowlist_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::hardware_verifier::_HwVerificationSpec_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::hardware_verifier::_HwVerificationReport_GenericDeviceInfo_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::hardware_verifier::_HwVerificationReport_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::hardware_verifier::_VerifyComponentsReply_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+  &::hardware_verifier::_ComponentInfo_default_instance_._instance,
+  &::hardware_verifier::_HwVerificationSpec_GenericComponentValueAllowlist_default_instance_._instance,
+  &::hardware_verifier::_HwVerificationSpec_default_instance_._instance,
+  &::hardware_verifier::_HwVerificationReport_GenericDeviceInfo_default_instance_._instance,
+  &::hardware_verifier::_HwVerificationReport_default_instance_._instance,
+  &::hardware_verifier::_VerifyComponentsReply_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_hardware_5fverifier_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -253,22 +259,24 @@ const char descriptor_table_protodef_hardware_5fverifier_2eproto[] PROTOBUF_SECT
   "_HW_VERIFICATION_SPEC_MISALIGNMENT\020\rB H\001"
   "Z\034chromiumos/hardware_verifierb\006proto3"
   ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_hardware_5fverifier_2eproto_deps[1] = {
+static const ::_pbi::DescriptorTable* const descriptor_table_hardware_5fverifier_2eproto_deps[1] = {
   &::descriptor_table_runtime_5fprobe_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_hardware_5fverifier_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_hardware_5fverifier_2eproto = {
-  false, false, 2038, descriptor_table_protodef_hardware_5fverifier_2eproto, "hardware_verifier.proto", 
-  &descriptor_table_hardware_5fverifier_2eproto_once, descriptor_table_hardware_5fverifier_2eproto_deps, 1, 6,
-  schemas, file_default_instances, TableStruct_hardware_5fverifier_2eproto::offsets,
-  file_level_metadata_hardware_5fverifier_2eproto, file_level_enum_descriptors_hardware_5fverifier_2eproto, file_level_service_descriptors_hardware_5fverifier_2eproto,
+static ::_pbi::once_flag descriptor_table_hardware_5fverifier_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_hardware_5fverifier_2eproto = {
+    false, false, 2038, descriptor_table_protodef_hardware_5fverifier_2eproto,
+    "hardware_verifier.proto",
+    &descriptor_table_hardware_5fverifier_2eproto_once, descriptor_table_hardware_5fverifier_2eproto_deps, 1, 6,
+    schemas, file_default_instances, TableStruct_hardware_5fverifier_2eproto::offsets,
+    file_level_metadata_hardware_5fverifier_2eproto, file_level_enum_descriptors_hardware_5fverifier_2eproto,
+    file_level_service_descriptors_hardware_5fverifier_2eproto,
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_hardware_5fverifier_2eproto_getter() {
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_hardware_5fverifier_2eproto_getter() {
   return &descriptor_table_hardware_5fverifier_2eproto;
 }
 
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_hardware_5fverifier_2eproto(&descriptor_table_hardware_5fverifier_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_hardware_5fverifier_2eproto(&descriptor_table_hardware_5fverifier_2eproto);
 namespace hardware_verifier {
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* QualificationStatus_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_hardware_5fverifier_2eproto);
@@ -316,77 +324,82 @@ class ComponentInfo::_Internal {
 
 const ::runtime_probe::ComponentFields&
 ComponentInfo::_Internal::component_fields(const ComponentInfo* msg) {
-  return *msg->component_fields_;
+  return *msg->_impl_.component_fields_;
 }
 void ComponentInfo::clear_component_fields() {
-  if (GetArenaForAllocation() == nullptr && component_fields_ != nullptr) {
-    delete component_fields_;
+  if (GetArenaForAllocation() == nullptr && _impl_.component_fields_ != nullptr) {
+    delete _impl_.component_fields_;
   }
-  component_fields_ = nullptr;
+  _impl_.component_fields_ = nullptr;
 }
 ComponentInfo::ComponentInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:hardware_verifier.ComponentInfo)
 }
 ComponentInfo::ComponentInfo(const ComponentInfo& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ComponentInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.component_uuid_){}
+    , decltype(_impl_.component_fields_){nullptr}
+    , decltype(_impl_.qualification_status_){}
+    , decltype(_impl_.component_category_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  component_uuid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.component_uuid_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    component_uuid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.component_uuid_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_component_uuid().empty()) {
-    component_uuid_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_component_uuid(), 
-      GetArenaForAllocation());
+    _this->_impl_.component_uuid_.Set(from._internal_component_uuid(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_component_fields()) {
-    component_fields_ = new ::runtime_probe::ComponentFields(*from.component_fields_);
-  } else {
-    component_fields_ = nullptr;
+    _this->_impl_.component_fields_ = new ::runtime_probe::ComponentFields(*from._impl_.component_fields_);
   }
-  ::memcpy(&qualification_status_, &from.qualification_status_,
-    static_cast<size_t>(reinterpret_cast<char*>(&component_category_) -
-    reinterpret_cast<char*>(&qualification_status_)) + sizeof(component_category_));
+  ::memcpy(&_impl_.qualification_status_, &from._impl_.qualification_status_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.component_category_) -
+    reinterpret_cast<char*>(&_impl_.qualification_status_)) + sizeof(_impl_.component_category_));
   // @@protoc_insertion_point(copy_constructor:hardware_verifier.ComponentInfo)
 }
 
-inline void ComponentInfo::SharedCtor() {
-component_uuid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  component_uuid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&component_fields_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&component_category_) -
-    reinterpret_cast<char*>(&component_fields_)) + sizeof(component_category_));
+inline void ComponentInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.component_uuid_){}
+    , decltype(_impl_.component_fields_){nullptr}
+    , decltype(_impl_.qualification_status_){0}
+    , decltype(_impl_.component_category_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.component_uuid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.component_uuid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ComponentInfo::~ComponentInfo() {
   // @@protoc_insertion_point(destructor:hardware_verifier.ComponentInfo)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void ComponentInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  component_uuid_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete component_fields_;
+  _impl_.component_uuid_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.component_fields_;
 }
 
-void ComponentInfo::ArenaDtor(void* object) {
-  ComponentInfo* _this = reinterpret_cast< ComponentInfo* >(object);
-  (void)_this;
-}
-void ComponentInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ComponentInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ComponentInfo::Clear() {
@@ -395,30 +408,30 @@ void ComponentInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  component_uuid_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && component_fields_ != nullptr) {
-    delete component_fields_;
+  _impl_.component_uuid_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.component_fields_ != nullptr) {
+    delete _impl_.component_fields_;
   }
-  component_fields_ = nullptr;
-  ::memset(&qualification_status_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&component_category_) -
-      reinterpret_cast<char*>(&qualification_status_)) + sizeof(component_category_));
+  _impl_.component_fields_ = nullptr;
+  ::memset(&_impl_.qualification_status_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.component_category_) -
+      reinterpret_cast<char*>(&_impl_.qualification_status_)) + sizeof(_impl_.component_category_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ComponentInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ComponentInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string component_uuid = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_component_uuid();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "hardware_verifier.ComponentInfo.component_uuid"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "hardware_verifier.ComponentInfo.component_uuid"));
         } else
           goto handle_unusual;
         continue;
@@ -490,27 +503,26 @@ uint8_t* ComponentInfo::_InternalSerialize(
   // .hardware_verifier.QualificationStatus qualification_status = 3;
   if (this->_internal_qualification_status() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_qualification_status(), target);
   }
 
   // .runtime_probe.ProbeRequest.SupportCategory component_category = 4;
   if (this->_internal_component_category() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       4, this->_internal_component_category(), target);
   }
 
   // .runtime_probe.ComponentFields component_fields = 5;
   if (this->_internal_has_component_fields()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        5, _Internal::component_fields(this), target, stream);
+      InternalWriteMessage(5, _Internal::component_fields(this),
+        _Internal::component_fields(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:hardware_verifier.ComponentInfo)
@@ -536,56 +548,53 @@ size_t ComponentInfo::ByteSizeLong() const {
   if (this->_internal_has_component_fields()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *component_fields_);
+        *_impl_.component_fields_);
   }
 
   // .hardware_verifier.QualificationStatus qualification_status = 3;
   if (this->_internal_qualification_status() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_qualification_status());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_qualification_status());
   }
 
   // .runtime_probe.ProbeRequest.SupportCategory component_category = 4;
   if (this->_internal_component_category() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_component_category());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_component_category());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ComponentInfo::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     ComponentInfo::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ComponentInfo::GetClassData() const { return &_class_data_; }
 
-void ComponentInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<ComponentInfo *>(to)->MergeFrom(
-      static_cast<const ComponentInfo &>(from));
-}
 
-
-void ComponentInfo::MergeFrom(const ComponentInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:hardware_verifier.ComponentInfo)
-  GOOGLE_DCHECK_NE(&from, this);
+void ComponentInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ComponentInfo*>(&to_msg);
+  auto& from = static_cast<const ComponentInfo&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:hardware_verifier.ComponentInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_component_uuid().empty()) {
-    _internal_set_component_uuid(from._internal_component_uuid());
+    _this->_internal_set_component_uuid(from._internal_component_uuid());
   }
   if (from._internal_has_component_fields()) {
-    _internal_mutable_component_fields()->::runtime_probe::ComponentFields::MergeFrom(from._internal_component_fields());
+    _this->_internal_mutable_component_fields()->::runtime_probe::ComponentFields::MergeFrom(
+        from._internal_component_fields());
   }
   if (from._internal_qualification_status() != 0) {
-    _internal_set_qualification_status(from._internal_qualification_status());
+    _this->_internal_set_qualification_status(from._internal_qualification_status());
   }
   if (from._internal_component_category() != 0) {
-    _internal_set_component_category(from._internal_component_category());
+    _this->_internal_set_component_category(from._internal_component_category());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void ComponentInfo::CopyFrom(const ComponentInfo& from) {
@@ -605,20 +614,19 @@ void ComponentInfo::InternalSwap(ComponentInfo* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &component_uuid_, lhs_arena,
-      &other->component_uuid_, rhs_arena
+      &_impl_.component_uuid_, lhs_arena,
+      &other->_impl_.component_uuid_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ComponentInfo, component_category_)
-      + sizeof(ComponentInfo::component_category_)
-      - PROTOBUF_FIELD_OFFSET(ComponentInfo, component_fields_)>(
-          reinterpret_cast<char*>(&component_fields_),
-          reinterpret_cast<char*>(&other->component_fields_));
+      PROTOBUF_FIELD_OFFSET(ComponentInfo, _impl_.component_category_)
+      + sizeof(ComponentInfo::_impl_.component_category_)
+      - PROTOBUF_FIELD_OFFSET(ComponentInfo, _impl_.component_fields_)>(
+          reinterpret_cast<char*>(&_impl_.component_fields_),
+          reinterpret_cast<char*>(&other->_impl_.component_fields_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ComponentInfo::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_hardware_5fverifier_2eproto_getter, &descriptor_table_hardware_5fverifier_2eproto_once,
       file_level_metadata_hardware_5fverifier_2eproto[0]);
 }
@@ -631,45 +639,50 @@ class HwVerificationSpec_GenericComponentValueAllowlist::_Internal {
 
 HwVerificationSpec_GenericComponentValueAllowlist::HwVerificationSpec_GenericComponentValueAllowlist(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  field_names_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:hardware_verifier.HwVerificationSpec.GenericComponentValueAllowlist)
 }
 HwVerificationSpec_GenericComponentValueAllowlist::HwVerificationSpec_GenericComponentValueAllowlist(const HwVerificationSpec_GenericComponentValueAllowlist& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      field_names_(from.field_names_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HwVerificationSpec_GenericComponentValueAllowlist* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.field_names_){from._impl_.field_names_}
+    , decltype(_impl_.component_category_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  component_category_ = from.component_category_;
+  _this->_impl_.component_category_ = from._impl_.component_category_;
   // @@protoc_insertion_point(copy_constructor:hardware_verifier.HwVerificationSpec.GenericComponentValueAllowlist)
 }
 
-inline void HwVerificationSpec_GenericComponentValueAllowlist::SharedCtor() {
-component_category_ = 0;
+inline void HwVerificationSpec_GenericComponentValueAllowlist::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.field_names_){arena}
+    , decltype(_impl_.component_category_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 HwVerificationSpec_GenericComponentValueAllowlist::~HwVerificationSpec_GenericComponentValueAllowlist() {
   // @@protoc_insertion_point(destructor:hardware_verifier.HwVerificationSpec.GenericComponentValueAllowlist)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HwVerificationSpec_GenericComponentValueAllowlist::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.field_names_.~RepeatedPtrField();
 }
 
-void HwVerificationSpec_GenericComponentValueAllowlist::ArenaDtor(void* object) {
-  HwVerificationSpec_GenericComponentValueAllowlist* _this = reinterpret_cast< HwVerificationSpec_GenericComponentValueAllowlist* >(object);
-  (void)_this;
-}
-void HwVerificationSpec_GenericComponentValueAllowlist::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HwVerificationSpec_GenericComponentValueAllowlist::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HwVerificationSpec_GenericComponentValueAllowlist::Clear() {
@@ -678,16 +691,16 @@ void HwVerificationSpec_GenericComponentValueAllowlist::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  field_names_.Clear();
-  component_category_ = 0;
+  _impl_.field_names_.Clear();
+  _impl_.component_category_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HwVerificationSpec_GenericComponentValueAllowlist::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HwVerificationSpec_GenericComponentValueAllowlist::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated string field_names = 2;
       case 2:
@@ -696,9 +709,9 @@ const char* HwVerificationSpec_GenericComponentValueAllowlist::_InternalParse(co
           do {
             ptr += 1;
             auto str = _internal_add_field_names();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "hardware_verifier.HwVerificationSpec.GenericComponentValueAllowlist.field_names"));
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, "hardware_verifier.HwVerificationSpec.GenericComponentValueAllowlist.field_names"));
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
         } else
@@ -755,12 +768,12 @@ uint8_t* HwVerificationSpec_GenericComponentValueAllowlist::_InternalSerialize(
   // .runtime_probe.ProbeRequest.SupportCategory component_category = 3;
   if (this->_internal_component_category() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_component_category(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:hardware_verifier.HwVerificationSpec.GenericComponentValueAllowlist)
@@ -777,45 +790,41 @@ size_t HwVerificationSpec_GenericComponentValueAllowlist::ByteSizeLong() const {
 
   // repeated string field_names = 2;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(field_names_.size());
-  for (int i = 0, n = field_names_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.field_names_.size());
+  for (int i = 0, n = _impl_.field_names_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      field_names_.Get(i));
+      _impl_.field_names_.Get(i));
   }
 
   // .runtime_probe.ProbeRequest.SupportCategory component_category = 3;
   if (this->_internal_component_category() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_component_category());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_component_category());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HwVerificationSpec_GenericComponentValueAllowlist::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HwVerificationSpec_GenericComponentValueAllowlist::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HwVerificationSpec_GenericComponentValueAllowlist::GetClassData() const { return &_class_data_; }
 
-void HwVerificationSpec_GenericComponentValueAllowlist::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HwVerificationSpec_GenericComponentValueAllowlist *>(to)->MergeFrom(
-      static_cast<const HwVerificationSpec_GenericComponentValueAllowlist &>(from));
-}
 
-
-void HwVerificationSpec_GenericComponentValueAllowlist::MergeFrom(const HwVerificationSpec_GenericComponentValueAllowlist& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:hardware_verifier.HwVerificationSpec.GenericComponentValueAllowlist)
-  GOOGLE_DCHECK_NE(&from, this);
+void HwVerificationSpec_GenericComponentValueAllowlist::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HwVerificationSpec_GenericComponentValueAllowlist*>(&to_msg);
+  auto& from = static_cast<const HwVerificationSpec_GenericComponentValueAllowlist&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:hardware_verifier.HwVerificationSpec.GenericComponentValueAllowlist)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  field_names_.MergeFrom(from.field_names_);
+  _this->_impl_.field_names_.MergeFrom(from._impl_.field_names_);
   if (from._internal_component_category() != 0) {
-    _internal_set_component_category(from._internal_component_category());
+    _this->_internal_set_component_category(from._internal_component_category());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HwVerificationSpec_GenericComponentValueAllowlist::CopyFrom(const HwVerificationSpec_GenericComponentValueAllowlist& from) {
@@ -832,12 +841,12 @@ bool HwVerificationSpec_GenericComponentValueAllowlist::IsInitialized() const {
 void HwVerificationSpec_GenericComponentValueAllowlist::InternalSwap(HwVerificationSpec_GenericComponentValueAllowlist* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  field_names_.InternalSwap(&other->field_names_);
-  swap(component_category_, other->component_category_);
+  _impl_.field_names_.InternalSwap(&other->_impl_.field_names_);
+  swap(_impl_.component_category_, other->_impl_.component_category_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HwVerificationSpec_GenericComponentValueAllowlist::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_hardware_5fverifier_2eproto_getter, &descriptor_table_hardware_5fverifier_2eproto_once,
       file_level_metadata_hardware_5fverifier_2eproto[1]);
 }
@@ -850,45 +859,50 @@ class HwVerificationSpec::_Internal {
 
 HwVerificationSpec::HwVerificationSpec(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  component_infos_(arena),
-  generic_component_value_allowlists_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:hardware_verifier.HwVerificationSpec)
 }
 HwVerificationSpec::HwVerificationSpec(const HwVerificationSpec& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      component_infos_(from.component_infos_),
-      generic_component_value_allowlists_(from.generic_component_value_allowlists_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HwVerificationSpec* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.component_infos_){from._impl_.component_infos_}
+    , decltype(_impl_.generic_component_value_allowlists_){from._impl_.generic_component_value_allowlists_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:hardware_verifier.HwVerificationSpec)
 }
 
-inline void HwVerificationSpec::SharedCtor() {
+inline void HwVerificationSpec::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.component_infos_){arena}
+    , decltype(_impl_.generic_component_value_allowlists_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 HwVerificationSpec::~HwVerificationSpec() {
   // @@protoc_insertion_point(destructor:hardware_verifier.HwVerificationSpec)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HwVerificationSpec::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.component_infos_.~RepeatedPtrField();
+  _impl_.generic_component_value_allowlists_.~RepeatedPtrField();
 }
 
-void HwVerificationSpec::ArenaDtor(void* object) {
-  HwVerificationSpec* _this = reinterpret_cast< HwVerificationSpec* >(object);
-  (void)_this;
-}
-void HwVerificationSpec::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HwVerificationSpec::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HwVerificationSpec::Clear() {
@@ -897,16 +911,16 @@ void HwVerificationSpec::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  component_infos_.Clear();
-  generic_component_value_allowlists_.Clear();
+  _impl_.component_infos_.Clear();
+  _impl_.generic_component_value_allowlists_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HwVerificationSpec::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HwVerificationSpec::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .hardware_verifier.ComponentInfo component_infos = 1;
       case 1:
@@ -964,23 +978,23 @@ uint8_t* HwVerificationSpec::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .hardware_verifier.ComponentInfo component_infos = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_component_infos_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_component_infos_size()); i < n; i++) {
+    const auto& repfield = this->_internal_component_infos(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_component_infos(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .hardware_verifier.HwVerificationSpec.GenericComponentValueAllowlist generic_component_value_allowlists = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_generic_component_value_allowlists_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_generic_component_value_allowlists_size()); i < n; i++) {
+    const auto& repfield = this->_internal_generic_component_value_allowlists(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_generic_component_value_allowlists(i), target, stream);
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:hardware_verifier.HwVerificationSpec)
@@ -997,43 +1011,39 @@ size_t HwVerificationSpec::ByteSizeLong() const {
 
   // repeated .hardware_verifier.ComponentInfo component_infos = 1;
   total_size += 1UL * this->_internal_component_infos_size();
-  for (const auto& msg : this->component_infos_) {
+  for (const auto& msg : this->_impl_.component_infos_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .hardware_verifier.HwVerificationSpec.GenericComponentValueAllowlist generic_component_value_allowlists = 2;
   total_size += 1UL * this->_internal_generic_component_value_allowlists_size();
-  for (const auto& msg : this->generic_component_value_allowlists_) {
+  for (const auto& msg : this->_impl_.generic_component_value_allowlists_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HwVerificationSpec::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HwVerificationSpec::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HwVerificationSpec::GetClassData() const { return &_class_data_; }
 
-void HwVerificationSpec::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HwVerificationSpec *>(to)->MergeFrom(
-      static_cast<const HwVerificationSpec &>(from));
-}
 
-
-void HwVerificationSpec::MergeFrom(const HwVerificationSpec& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:hardware_verifier.HwVerificationSpec)
-  GOOGLE_DCHECK_NE(&from, this);
+void HwVerificationSpec::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HwVerificationSpec*>(&to_msg);
+  auto& from = static_cast<const HwVerificationSpec&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:hardware_verifier.HwVerificationSpec)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  component_infos_.MergeFrom(from.component_infos_);
-  generic_component_value_allowlists_.MergeFrom(from.generic_component_value_allowlists_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.component_infos_.MergeFrom(from._impl_.component_infos_);
+  _this->_impl_.generic_component_value_allowlists_.MergeFrom(from._impl_.generic_component_value_allowlists_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HwVerificationSpec::CopyFrom(const HwVerificationSpec& from) {
@@ -1050,12 +1060,12 @@ bool HwVerificationSpec::IsInitialized() const {
 void HwVerificationSpec::InternalSwap(HwVerificationSpec* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  component_infos_.InternalSwap(&other->component_infos_);
-  generic_component_value_allowlists_.InternalSwap(&other->generic_component_value_allowlists_);
+  _impl_.component_infos_.InternalSwap(&other->_impl_.component_infos_);
+  _impl_.generic_component_value_allowlists_.InternalSwap(&other->_impl_.generic_component_value_allowlists_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HwVerificationSpec::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_hardware_5fverifier_2eproto_getter, &descriptor_table_hardware_5fverifier_2eproto_once,
       file_level_metadata_hardware_5fverifier_2eproto[2]);
 }
@@ -1067,107 +1077,123 @@ class HwVerificationReport_GenericDeviceInfo::_Internal {
 };
 
 void HwVerificationReport_GenericDeviceInfo::clear_audio_codec() {
-  audio_codec_.Clear();
+  _impl_.audio_codec_.Clear();
 }
 void HwVerificationReport_GenericDeviceInfo::clear_battery() {
-  battery_.Clear();
+  _impl_.battery_.Clear();
 }
 void HwVerificationReport_GenericDeviceInfo::clear_storage() {
-  storage_.Clear();
+  _impl_.storage_.Clear();
 }
 void HwVerificationReport_GenericDeviceInfo::clear_network() {
-  network_.Clear();
+  _impl_.network_.Clear();
 }
 void HwVerificationReport_GenericDeviceInfo::clear_camera() {
-  camera_.Clear();
+  _impl_.camera_.Clear();
 }
 void HwVerificationReport_GenericDeviceInfo::clear_stylus() {
-  stylus_.Clear();
+  _impl_.stylus_.Clear();
 }
 void HwVerificationReport_GenericDeviceInfo::clear_touchpad() {
-  touchpad_.Clear();
+  _impl_.touchpad_.Clear();
 }
 void HwVerificationReport_GenericDeviceInfo::clear_touchscreen() {
-  touchscreen_.Clear();
+  _impl_.touchscreen_.Clear();
 }
 void HwVerificationReport_GenericDeviceInfo::clear_dram() {
-  dram_.Clear();
+  _impl_.dram_.Clear();
 }
 void HwVerificationReport_GenericDeviceInfo::clear_display_panel() {
-  display_panel_.Clear();
+  _impl_.display_panel_.Clear();
 }
 void HwVerificationReport_GenericDeviceInfo::clear_cellular() {
-  cellular_.Clear();
+  _impl_.cellular_.Clear();
 }
 void HwVerificationReport_GenericDeviceInfo::clear_ethernet() {
-  ethernet_.Clear();
+  _impl_.ethernet_.Clear();
 }
 void HwVerificationReport_GenericDeviceInfo::clear_wireless() {
-  wireless_.Clear();
+  _impl_.wireless_.Clear();
 }
 HwVerificationReport_GenericDeviceInfo::HwVerificationReport_GenericDeviceInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  audio_codec_(arena),
-  battery_(arena),
-  storage_(arena),
-  network_(arena),
-  camera_(arena),
-  stylus_(arena),
-  touchpad_(arena),
-  touchscreen_(arena),
-  dram_(arena),
-  display_panel_(arena),
-  cellular_(arena),
-  ethernet_(arena),
-  wireless_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:hardware_verifier.HwVerificationReport.GenericDeviceInfo)
 }
 HwVerificationReport_GenericDeviceInfo::HwVerificationReport_GenericDeviceInfo(const HwVerificationReport_GenericDeviceInfo& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      audio_codec_(from.audio_codec_),
-      battery_(from.battery_),
-      storage_(from.storage_),
-      network_(from.network_),
-      camera_(from.camera_),
-      stylus_(from.stylus_),
-      touchpad_(from.touchpad_),
-      touchscreen_(from.touchscreen_),
-      dram_(from.dram_),
-      display_panel_(from.display_panel_),
-      cellular_(from.cellular_),
-      ethernet_(from.ethernet_),
-      wireless_(from.wireless_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HwVerificationReport_GenericDeviceInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.audio_codec_){from._impl_.audio_codec_}
+    , decltype(_impl_.battery_){from._impl_.battery_}
+    , decltype(_impl_.storage_){from._impl_.storage_}
+    , decltype(_impl_.network_){from._impl_.network_}
+    , decltype(_impl_.camera_){from._impl_.camera_}
+    , decltype(_impl_.stylus_){from._impl_.stylus_}
+    , decltype(_impl_.touchpad_){from._impl_.touchpad_}
+    , decltype(_impl_.touchscreen_){from._impl_.touchscreen_}
+    , decltype(_impl_.dram_){from._impl_.dram_}
+    , decltype(_impl_.display_panel_){from._impl_.display_panel_}
+    , decltype(_impl_.cellular_){from._impl_.cellular_}
+    , decltype(_impl_.ethernet_){from._impl_.ethernet_}
+    , decltype(_impl_.wireless_){from._impl_.wireless_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:hardware_verifier.HwVerificationReport.GenericDeviceInfo)
 }
 
-inline void HwVerificationReport_GenericDeviceInfo::SharedCtor() {
+inline void HwVerificationReport_GenericDeviceInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.audio_codec_){arena}
+    , decltype(_impl_.battery_){arena}
+    , decltype(_impl_.storage_){arena}
+    , decltype(_impl_.network_){arena}
+    , decltype(_impl_.camera_){arena}
+    , decltype(_impl_.stylus_){arena}
+    , decltype(_impl_.touchpad_){arena}
+    , decltype(_impl_.touchscreen_){arena}
+    , decltype(_impl_.dram_){arena}
+    , decltype(_impl_.display_panel_){arena}
+    , decltype(_impl_.cellular_){arena}
+    , decltype(_impl_.ethernet_){arena}
+    , decltype(_impl_.wireless_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 HwVerificationReport_GenericDeviceInfo::~HwVerificationReport_GenericDeviceInfo() {
   // @@protoc_insertion_point(destructor:hardware_verifier.HwVerificationReport.GenericDeviceInfo)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HwVerificationReport_GenericDeviceInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.audio_codec_.~RepeatedPtrField();
+  _impl_.battery_.~RepeatedPtrField();
+  _impl_.storage_.~RepeatedPtrField();
+  _impl_.network_.~RepeatedPtrField();
+  _impl_.camera_.~RepeatedPtrField();
+  _impl_.stylus_.~RepeatedPtrField();
+  _impl_.touchpad_.~RepeatedPtrField();
+  _impl_.touchscreen_.~RepeatedPtrField();
+  _impl_.dram_.~RepeatedPtrField();
+  _impl_.display_panel_.~RepeatedPtrField();
+  _impl_.cellular_.~RepeatedPtrField();
+  _impl_.ethernet_.~RepeatedPtrField();
+  _impl_.wireless_.~RepeatedPtrField();
 }
 
-void HwVerificationReport_GenericDeviceInfo::ArenaDtor(void* object) {
-  HwVerificationReport_GenericDeviceInfo* _this = reinterpret_cast< HwVerificationReport_GenericDeviceInfo* >(object);
-  (void)_this;
-}
-void HwVerificationReport_GenericDeviceInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HwVerificationReport_GenericDeviceInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HwVerificationReport_GenericDeviceInfo::Clear() {
@@ -1176,27 +1202,27 @@ void HwVerificationReport_GenericDeviceInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  audio_codec_.Clear();
-  battery_.Clear();
-  storage_.Clear();
-  network_.Clear();
-  camera_.Clear();
-  stylus_.Clear();
-  touchpad_.Clear();
-  touchscreen_.Clear();
-  dram_.Clear();
-  display_panel_.Clear();
-  cellular_.Clear();
-  ethernet_.Clear();
-  wireless_.Clear();
+  _impl_.audio_codec_.Clear();
+  _impl_.battery_.Clear();
+  _impl_.storage_.Clear();
+  _impl_.network_.Clear();
+  _impl_.camera_.Clear();
+  _impl_.stylus_.Clear();
+  _impl_.touchpad_.Clear();
+  _impl_.touchscreen_.Clear();
+  _impl_.dram_.Clear();
+  _impl_.display_panel_.Clear();
+  _impl_.cellular_.Clear();
+  _impl_.ethernet_.Clear();
+  _impl_.wireless_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HwVerificationReport_GenericDeviceInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HwVerificationReport_GenericDeviceInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .runtime_probe.AudioCodec.Fields audio_codec = 1;
       case 1:
@@ -1397,111 +1423,111 @@ uint8_t* HwVerificationReport_GenericDeviceInfo::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .runtime_probe.AudioCodec.Fields audio_codec = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_audio_codec_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_audio_codec_size()); i < n; i++) {
+    const auto& repfield = this->_internal_audio_codec(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_audio_codec(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .runtime_probe.Battery.Fields battery = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_battery_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_battery_size()); i < n; i++) {
+    const auto& repfield = this->_internal_battery(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_battery(i), target, stream);
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .runtime_probe.Storage.Fields storage = 3;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_storage_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_storage_size()); i < n; i++) {
+    const auto& repfield = this->_internal_storage(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, this->_internal_storage(i), target, stream);
+        InternalWriteMessage(3, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .runtime_probe.Network.Fields network = 4;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_network_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_network_size()); i < n; i++) {
+    const auto& repfield = this->_internal_network(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(4, this->_internal_network(i), target, stream);
+        InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .runtime_probe.Camera.Fields camera = 5;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_camera_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_camera_size()); i < n; i++) {
+    const auto& repfield = this->_internal_camera(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(5, this->_internal_camera(i), target, stream);
+        InternalWriteMessage(5, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .runtime_probe.InputDevice.Fields stylus = 6;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_stylus_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_stylus_size()); i < n; i++) {
+    const auto& repfield = this->_internal_stylus(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(6, this->_internal_stylus(i), target, stream);
+        InternalWriteMessage(6, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .runtime_probe.InputDevice.Fields touchpad = 7;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_touchpad_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_touchpad_size()); i < n; i++) {
+    const auto& repfield = this->_internal_touchpad(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(7, this->_internal_touchpad(i), target, stream);
+        InternalWriteMessage(7, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .runtime_probe.InputDevice.Fields touchscreen = 8;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_touchscreen_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_touchscreen_size()); i < n; i++) {
+    const auto& repfield = this->_internal_touchscreen(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(8, this->_internal_touchscreen(i), target, stream);
+        InternalWriteMessage(8, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .runtime_probe.Memory.Fields dram = 9;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_dram_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_dram_size()); i < n; i++) {
+    const auto& repfield = this->_internal_dram(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(9, this->_internal_dram(i), target, stream);
+        InternalWriteMessage(9, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .runtime_probe.Edid.Fields display_panel = 10;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_display_panel_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_display_panel_size()); i < n; i++) {
+    const auto& repfield = this->_internal_display_panel(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(10, this->_internal_display_panel(i), target, stream);
+        InternalWriteMessage(10, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .runtime_probe.Network.Fields cellular = 11;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_cellular_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_cellular_size()); i < n; i++) {
+    const auto& repfield = this->_internal_cellular(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(11, this->_internal_cellular(i), target, stream);
+        InternalWriteMessage(11, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .runtime_probe.Network.Fields ethernet = 12;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_ethernet_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_ethernet_size()); i < n; i++) {
+    const auto& repfield = this->_internal_ethernet(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(12, this->_internal_ethernet(i), target, stream);
+        InternalWriteMessage(12, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .runtime_probe.Network.Fields wireless = 13;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_wireless_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_wireless_size()); i < n; i++) {
+    const auto& repfield = this->_internal_wireless(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(13, this->_internal_wireless(i), target, stream);
+        InternalWriteMessage(13, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:hardware_verifier.HwVerificationReport.GenericDeviceInfo)
@@ -1518,131 +1544,127 @@ size_t HwVerificationReport_GenericDeviceInfo::ByteSizeLong() const {
 
   // repeated .runtime_probe.AudioCodec.Fields audio_codec = 1;
   total_size += 1UL * this->_internal_audio_codec_size();
-  for (const auto& msg : this->audio_codec_) {
+  for (const auto& msg : this->_impl_.audio_codec_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .runtime_probe.Battery.Fields battery = 2;
   total_size += 1UL * this->_internal_battery_size();
-  for (const auto& msg : this->battery_) {
+  for (const auto& msg : this->_impl_.battery_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .runtime_probe.Storage.Fields storage = 3;
   total_size += 1UL * this->_internal_storage_size();
-  for (const auto& msg : this->storage_) {
+  for (const auto& msg : this->_impl_.storage_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .runtime_probe.Network.Fields network = 4;
   total_size += 1UL * this->_internal_network_size();
-  for (const auto& msg : this->network_) {
+  for (const auto& msg : this->_impl_.network_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .runtime_probe.Camera.Fields camera = 5;
   total_size += 1UL * this->_internal_camera_size();
-  for (const auto& msg : this->camera_) {
+  for (const auto& msg : this->_impl_.camera_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .runtime_probe.InputDevice.Fields stylus = 6;
   total_size += 1UL * this->_internal_stylus_size();
-  for (const auto& msg : this->stylus_) {
+  for (const auto& msg : this->_impl_.stylus_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .runtime_probe.InputDevice.Fields touchpad = 7;
   total_size += 1UL * this->_internal_touchpad_size();
-  for (const auto& msg : this->touchpad_) {
+  for (const auto& msg : this->_impl_.touchpad_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .runtime_probe.InputDevice.Fields touchscreen = 8;
   total_size += 1UL * this->_internal_touchscreen_size();
-  for (const auto& msg : this->touchscreen_) {
+  for (const auto& msg : this->_impl_.touchscreen_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .runtime_probe.Memory.Fields dram = 9;
   total_size += 1UL * this->_internal_dram_size();
-  for (const auto& msg : this->dram_) {
+  for (const auto& msg : this->_impl_.dram_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .runtime_probe.Edid.Fields display_panel = 10;
   total_size += 1UL * this->_internal_display_panel_size();
-  for (const auto& msg : this->display_panel_) {
+  for (const auto& msg : this->_impl_.display_panel_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .runtime_probe.Network.Fields cellular = 11;
   total_size += 1UL * this->_internal_cellular_size();
-  for (const auto& msg : this->cellular_) {
+  for (const auto& msg : this->_impl_.cellular_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .runtime_probe.Network.Fields ethernet = 12;
   total_size += 1UL * this->_internal_ethernet_size();
-  for (const auto& msg : this->ethernet_) {
+  for (const auto& msg : this->_impl_.ethernet_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated .runtime_probe.Network.Fields wireless = 13;
   total_size += 1UL * this->_internal_wireless_size();
-  for (const auto& msg : this->wireless_) {
+  for (const auto& msg : this->_impl_.wireless_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HwVerificationReport_GenericDeviceInfo::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HwVerificationReport_GenericDeviceInfo::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HwVerificationReport_GenericDeviceInfo::GetClassData() const { return &_class_data_; }
 
-void HwVerificationReport_GenericDeviceInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HwVerificationReport_GenericDeviceInfo *>(to)->MergeFrom(
-      static_cast<const HwVerificationReport_GenericDeviceInfo &>(from));
-}
 
-
-void HwVerificationReport_GenericDeviceInfo::MergeFrom(const HwVerificationReport_GenericDeviceInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:hardware_verifier.HwVerificationReport.GenericDeviceInfo)
-  GOOGLE_DCHECK_NE(&from, this);
+void HwVerificationReport_GenericDeviceInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HwVerificationReport_GenericDeviceInfo*>(&to_msg);
+  auto& from = static_cast<const HwVerificationReport_GenericDeviceInfo&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:hardware_verifier.HwVerificationReport.GenericDeviceInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  audio_codec_.MergeFrom(from.audio_codec_);
-  battery_.MergeFrom(from.battery_);
-  storage_.MergeFrom(from.storage_);
-  network_.MergeFrom(from.network_);
-  camera_.MergeFrom(from.camera_);
-  stylus_.MergeFrom(from.stylus_);
-  touchpad_.MergeFrom(from.touchpad_);
-  touchscreen_.MergeFrom(from.touchscreen_);
-  dram_.MergeFrom(from.dram_);
-  display_panel_.MergeFrom(from.display_panel_);
-  cellular_.MergeFrom(from.cellular_);
-  ethernet_.MergeFrom(from.ethernet_);
-  wireless_.MergeFrom(from.wireless_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.audio_codec_.MergeFrom(from._impl_.audio_codec_);
+  _this->_impl_.battery_.MergeFrom(from._impl_.battery_);
+  _this->_impl_.storage_.MergeFrom(from._impl_.storage_);
+  _this->_impl_.network_.MergeFrom(from._impl_.network_);
+  _this->_impl_.camera_.MergeFrom(from._impl_.camera_);
+  _this->_impl_.stylus_.MergeFrom(from._impl_.stylus_);
+  _this->_impl_.touchpad_.MergeFrom(from._impl_.touchpad_);
+  _this->_impl_.touchscreen_.MergeFrom(from._impl_.touchscreen_);
+  _this->_impl_.dram_.MergeFrom(from._impl_.dram_);
+  _this->_impl_.display_panel_.MergeFrom(from._impl_.display_panel_);
+  _this->_impl_.cellular_.MergeFrom(from._impl_.cellular_);
+  _this->_impl_.ethernet_.MergeFrom(from._impl_.ethernet_);
+  _this->_impl_.wireless_.MergeFrom(from._impl_.wireless_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HwVerificationReport_GenericDeviceInfo::CopyFrom(const HwVerificationReport_GenericDeviceInfo& from) {
@@ -1659,23 +1681,23 @@ bool HwVerificationReport_GenericDeviceInfo::IsInitialized() const {
 void HwVerificationReport_GenericDeviceInfo::InternalSwap(HwVerificationReport_GenericDeviceInfo* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  audio_codec_.InternalSwap(&other->audio_codec_);
-  battery_.InternalSwap(&other->battery_);
-  storage_.InternalSwap(&other->storage_);
-  network_.InternalSwap(&other->network_);
-  camera_.InternalSwap(&other->camera_);
-  stylus_.InternalSwap(&other->stylus_);
-  touchpad_.InternalSwap(&other->touchpad_);
-  touchscreen_.InternalSwap(&other->touchscreen_);
-  dram_.InternalSwap(&other->dram_);
-  display_panel_.InternalSwap(&other->display_panel_);
-  cellular_.InternalSwap(&other->cellular_);
-  ethernet_.InternalSwap(&other->ethernet_);
-  wireless_.InternalSwap(&other->wireless_);
+  _impl_.audio_codec_.InternalSwap(&other->_impl_.audio_codec_);
+  _impl_.battery_.InternalSwap(&other->_impl_.battery_);
+  _impl_.storage_.InternalSwap(&other->_impl_.storage_);
+  _impl_.network_.InternalSwap(&other->_impl_.network_);
+  _impl_.camera_.InternalSwap(&other->_impl_.camera_);
+  _impl_.stylus_.InternalSwap(&other->_impl_.stylus_);
+  _impl_.touchpad_.InternalSwap(&other->_impl_.touchpad_);
+  _impl_.touchscreen_.InternalSwap(&other->_impl_.touchscreen_);
+  _impl_.dram_.InternalSwap(&other->_impl_.dram_);
+  _impl_.display_panel_.InternalSwap(&other->_impl_.display_panel_);
+  _impl_.cellular_.InternalSwap(&other->_impl_.cellular_);
+  _impl_.ethernet_.InternalSwap(&other->_impl_.ethernet_);
+  _impl_.wireless_.InternalSwap(&other->_impl_.wireless_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HwVerificationReport_GenericDeviceInfo::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_hardware_5fverifier_2eproto_getter, &descriptor_table_hardware_5fverifier_2eproto_once,
       file_level_metadata_hardware_5fverifier_2eproto[3]);
 }
@@ -1689,58 +1711,60 @@ class HwVerificationReport::_Internal {
 
 const ::hardware_verifier::HwVerificationReport_GenericDeviceInfo&
 HwVerificationReport::_Internal::generic_device_info(const HwVerificationReport* msg) {
-  return *msg->generic_device_info_;
+  return *msg->_impl_.generic_device_info_;
 }
 HwVerificationReport::HwVerificationReport(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  found_component_infos_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:hardware_verifier.HwVerificationReport)
 }
 HwVerificationReport::HwVerificationReport(const HwVerificationReport& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      found_component_infos_(from.found_component_infos_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HwVerificationReport* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.found_component_infos_){from._impl_.found_component_infos_}
+    , decltype(_impl_.generic_device_info_){nullptr}
+    , decltype(_impl_.is_compliant_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_generic_device_info()) {
-    generic_device_info_ = new ::hardware_verifier::HwVerificationReport_GenericDeviceInfo(*from.generic_device_info_);
-  } else {
-    generic_device_info_ = nullptr;
+    _this->_impl_.generic_device_info_ = new ::hardware_verifier::HwVerificationReport_GenericDeviceInfo(*from._impl_.generic_device_info_);
   }
-  is_compliant_ = from.is_compliant_;
+  _this->_impl_.is_compliant_ = from._impl_.is_compliant_;
   // @@protoc_insertion_point(copy_constructor:hardware_verifier.HwVerificationReport)
 }
 
-inline void HwVerificationReport::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&generic_device_info_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&is_compliant_) -
-    reinterpret_cast<char*>(&generic_device_info_)) + sizeof(is_compliant_));
+inline void HwVerificationReport::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.found_component_infos_){arena}
+    , decltype(_impl_.generic_device_info_){nullptr}
+    , decltype(_impl_.is_compliant_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 HwVerificationReport::~HwVerificationReport() {
   // @@protoc_insertion_point(destructor:hardware_verifier.HwVerificationReport)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HwVerificationReport::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete generic_device_info_;
+  _impl_.found_component_infos_.~RepeatedPtrField();
+  if (this != internal_default_instance()) delete _impl_.generic_device_info_;
 }
 
-void HwVerificationReport::ArenaDtor(void* object) {
-  HwVerificationReport* _this = reinterpret_cast< HwVerificationReport* >(object);
-  (void)_this;
-}
-void HwVerificationReport::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HwVerificationReport::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HwVerificationReport::Clear() {
@@ -1749,25 +1773,25 @@ void HwVerificationReport::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  found_component_infos_.Clear();
-  if (GetArenaForAllocation() == nullptr && generic_device_info_ != nullptr) {
-    delete generic_device_info_;
+  _impl_.found_component_infos_.Clear();
+  if (GetArenaForAllocation() == nullptr && _impl_.generic_device_info_ != nullptr) {
+    delete _impl_.generic_device_info_;
   }
-  generic_device_info_ = nullptr;
-  is_compliant_ = false;
+  _impl_.generic_device_info_ = nullptr;
+  _impl_.is_compliant_ = false;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HwVerificationReport::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HwVerificationReport::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bool is_compliant = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          is_compliant_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.is_compliant_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1825,27 +1849,26 @@ uint8_t* HwVerificationReport::_InternalSerialize(
   // bool is_compliant = 1;
   if (this->_internal_is_compliant() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_is_compliant(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_is_compliant(), target);
   }
 
   // repeated .hardware_verifier.ComponentInfo found_component_infos = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_found_component_infos_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_found_component_infos_size()); i < n; i++) {
+    const auto& repfield = this->_internal_found_component_infos(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_found_component_infos(i), target, stream);
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // .hardware_verifier.HwVerificationReport.GenericDeviceInfo generic_device_info = 3;
   if (this->_internal_has_generic_device_info()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::generic_device_info(this), target, stream);
+      InternalWriteMessage(3, _Internal::generic_device_info(this),
+        _Internal::generic_device_info(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:hardware_verifier.HwVerificationReport)
@@ -1862,7 +1885,7 @@ size_t HwVerificationReport::ByteSizeLong() const {
 
   // repeated .hardware_verifier.ComponentInfo found_component_infos = 2;
   total_size += 1UL * this->_internal_found_component_infos_size();
-  for (const auto& msg : this->found_component_infos_) {
+  for (const auto& msg : this->_impl_.found_component_infos_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1871,7 +1894,7 @@ size_t HwVerificationReport::ByteSizeLong() const {
   if (this->_internal_has_generic_device_info()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *generic_device_info_);
+        *_impl_.generic_device_info_);
   }
 
   // bool is_compliant = 1;
@@ -1879,36 +1902,33 @@ size_t HwVerificationReport::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HwVerificationReport::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HwVerificationReport::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HwVerificationReport::GetClassData() const { return &_class_data_; }
 
-void HwVerificationReport::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HwVerificationReport *>(to)->MergeFrom(
-      static_cast<const HwVerificationReport &>(from));
-}
 
-
-void HwVerificationReport::MergeFrom(const HwVerificationReport& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:hardware_verifier.HwVerificationReport)
-  GOOGLE_DCHECK_NE(&from, this);
+void HwVerificationReport::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HwVerificationReport*>(&to_msg);
+  auto& from = static_cast<const HwVerificationReport&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:hardware_verifier.HwVerificationReport)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  found_component_infos_.MergeFrom(from.found_component_infos_);
+  _this->_impl_.found_component_infos_.MergeFrom(from._impl_.found_component_infos_);
   if (from._internal_has_generic_device_info()) {
-    _internal_mutable_generic_device_info()->::hardware_verifier::HwVerificationReport_GenericDeviceInfo::MergeFrom(from._internal_generic_device_info());
+    _this->_internal_mutable_generic_device_info()->::hardware_verifier::HwVerificationReport_GenericDeviceInfo::MergeFrom(
+        from._internal_generic_device_info());
   }
   if (from._internal_is_compliant() != 0) {
-    _internal_set_is_compliant(from._internal_is_compliant());
+    _this->_internal_set_is_compliant(from._internal_is_compliant());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HwVerificationReport::CopyFrom(const HwVerificationReport& from) {
@@ -1925,17 +1945,17 @@ bool HwVerificationReport::IsInitialized() const {
 void HwVerificationReport::InternalSwap(HwVerificationReport* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  found_component_infos_.InternalSwap(&other->found_component_infos_);
+  _impl_.found_component_infos_.InternalSwap(&other->_impl_.found_component_infos_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(HwVerificationReport, is_compliant_)
-      + sizeof(HwVerificationReport::is_compliant_)
-      - PROTOBUF_FIELD_OFFSET(HwVerificationReport, generic_device_info_)>(
-          reinterpret_cast<char*>(&generic_device_info_),
-          reinterpret_cast<char*>(&other->generic_device_info_));
+      PROTOBUF_FIELD_OFFSET(HwVerificationReport, _impl_.is_compliant_)
+      + sizeof(HwVerificationReport::_impl_.is_compliant_)
+      - PROTOBUF_FIELD_OFFSET(HwVerificationReport, _impl_.generic_device_info_)>(
+          reinterpret_cast<char*>(&_impl_.generic_device_info_),
+          reinterpret_cast<char*>(&other->_impl_.generic_device_info_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HwVerificationReport::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_hardware_5fverifier_2eproto_getter, &descriptor_table_hardware_5fverifier_2eproto_once,
       file_level_metadata_hardware_5fverifier_2eproto[4]);
 }
@@ -1949,56 +1969,57 @@ class VerifyComponentsReply::_Internal {
 
 const ::hardware_verifier::HwVerificationReport&
 VerifyComponentsReply::_Internal::hw_verification_report(const VerifyComponentsReply* msg) {
-  return *msg->hw_verification_report_;
+  return *msg->_impl_.hw_verification_report_;
 }
 VerifyComponentsReply::VerifyComponentsReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:hardware_verifier.VerifyComponentsReply)
 }
 VerifyComponentsReply::VerifyComponentsReply(const VerifyComponentsReply& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  VerifyComponentsReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.hw_verification_report_){nullptr}
+    , decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_hw_verification_report()) {
-    hw_verification_report_ = new ::hardware_verifier::HwVerificationReport(*from.hw_verification_report_);
-  } else {
-    hw_verification_report_ = nullptr;
+    _this->_impl_.hw_verification_report_ = new ::hardware_verifier::HwVerificationReport(*from._impl_.hw_verification_report_);
   }
-  error_ = from.error_;
+  _this->_impl_.error_ = from._impl_.error_;
   // @@protoc_insertion_point(copy_constructor:hardware_verifier.VerifyComponentsReply)
 }
 
-inline void VerifyComponentsReply::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&hw_verification_report_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&error_) -
-    reinterpret_cast<char*>(&hw_verification_report_)) + sizeof(error_));
+inline void VerifyComponentsReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.hw_verification_report_){nullptr}
+    , decltype(_impl_.error_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 VerifyComponentsReply::~VerifyComponentsReply() {
   // @@protoc_insertion_point(destructor:hardware_verifier.VerifyComponentsReply)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void VerifyComponentsReply::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete hw_verification_report_;
+  if (this != internal_default_instance()) delete _impl_.hw_verification_report_;
 }
 
-void VerifyComponentsReply::ArenaDtor(void* object) {
-  VerifyComponentsReply* _this = reinterpret_cast< VerifyComponentsReply* >(object);
-  (void)_this;
-}
-void VerifyComponentsReply::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void VerifyComponentsReply::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void VerifyComponentsReply::Clear() {
@@ -2007,19 +2028,19 @@ void VerifyComponentsReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  if (GetArenaForAllocation() == nullptr && hw_verification_report_ != nullptr) {
-    delete hw_verification_report_;
+  if (GetArenaForAllocation() == nullptr && _impl_.hw_verification_report_ != nullptr) {
+    delete _impl_.hw_verification_report_;
   }
-  hw_verification_report_ = nullptr;
-  error_ = 0;
+  _impl_.hw_verification_report_ = nullptr;
+  _impl_.error_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* VerifyComponentsReply::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* VerifyComponentsReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .hardware_verifier.ErrorCode error = 1;
       case 1:
@@ -2070,20 +2091,19 @@ uint8_t* VerifyComponentsReply::_InternalSerialize(
   // .hardware_verifier.ErrorCode error = 1;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_error(), target);
   }
 
   // .hardware_verifier.HwVerificationReport hw_verification_report = 2;
   if (this->_internal_has_hw_verification_report()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::hw_verification_report(this), target, stream);
+      InternalWriteMessage(2, _Internal::hw_verification_report(this),
+        _Internal::hw_verification_report(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:hardware_verifier.VerifyComponentsReply)
@@ -2102,44 +2122,41 @@ size_t VerifyComponentsReply::ByteSizeLong() const {
   if (this->_internal_has_hw_verification_report()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *hw_verification_report_);
+        *_impl_.hw_verification_report_);
   }
 
   // .hardware_verifier.ErrorCode error = 1;
   if (this->_internal_error() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_error());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData VerifyComponentsReply::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     VerifyComponentsReply::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*VerifyComponentsReply::GetClassData() const { return &_class_data_; }
 
-void VerifyComponentsReply::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<VerifyComponentsReply *>(to)->MergeFrom(
-      static_cast<const VerifyComponentsReply &>(from));
-}
 
-
-void VerifyComponentsReply::MergeFrom(const VerifyComponentsReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:hardware_verifier.VerifyComponentsReply)
-  GOOGLE_DCHECK_NE(&from, this);
+void VerifyComponentsReply::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<VerifyComponentsReply*>(&to_msg);
+  auto& from = static_cast<const VerifyComponentsReply&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:hardware_verifier.VerifyComponentsReply)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_hw_verification_report()) {
-    _internal_mutable_hw_verification_report()->::hardware_verifier::HwVerificationReport::MergeFrom(from._internal_hw_verification_report());
+    _this->_internal_mutable_hw_verification_report()->::hardware_verifier::HwVerificationReport::MergeFrom(
+        from._internal_hw_verification_report());
   }
   if (from._internal_error() != 0) {
-    _internal_set_error(from._internal_error());
+    _this->_internal_set_error(from._internal_error());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void VerifyComponentsReply::CopyFrom(const VerifyComponentsReply& from) {
@@ -2157,15 +2174,15 @@ void VerifyComponentsReply::InternalSwap(VerifyComponentsReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(VerifyComponentsReply, error_)
-      + sizeof(VerifyComponentsReply::error_)
-      - PROTOBUF_FIELD_OFFSET(VerifyComponentsReply, hw_verification_report_)>(
-          reinterpret_cast<char*>(&hw_verification_report_),
-          reinterpret_cast<char*>(&other->hw_verification_report_));
+      PROTOBUF_FIELD_OFFSET(VerifyComponentsReply, _impl_.error_)
+      + sizeof(VerifyComponentsReply::_impl_.error_)
+      - PROTOBUF_FIELD_OFFSET(VerifyComponentsReply, _impl_.hw_verification_report_)>(
+          reinterpret_cast<char*>(&_impl_.hw_verification_report_),
+          reinterpret_cast<char*>(&other->_impl_.hw_verification_report_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata VerifyComponentsReply::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_hardware_5fverifier_2eproto_getter, &descriptor_table_hardware_5fverifier_2eproto_once,
       file_level_metadata_hardware_5fverifier_2eproto[5]);
 }
@@ -2173,22 +2190,28 @@ void VerifyComponentsReply::InternalSwap(VerifyComponentsReply* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace hardware_verifier
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::hardware_verifier::ComponentInfo* Arena::CreateMaybeMessage< ::hardware_verifier::ComponentInfo >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::hardware_verifier::ComponentInfo*
+Arena::CreateMaybeMessage< ::hardware_verifier::ComponentInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::hardware_verifier::ComponentInfo >(arena);
 }
-template<> PROTOBUF_NOINLINE ::hardware_verifier::HwVerificationSpec_GenericComponentValueAllowlist* Arena::CreateMaybeMessage< ::hardware_verifier::HwVerificationSpec_GenericComponentValueAllowlist >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::hardware_verifier::HwVerificationSpec_GenericComponentValueAllowlist*
+Arena::CreateMaybeMessage< ::hardware_verifier::HwVerificationSpec_GenericComponentValueAllowlist >(Arena* arena) {
   return Arena::CreateMessageInternal< ::hardware_verifier::HwVerificationSpec_GenericComponentValueAllowlist >(arena);
 }
-template<> PROTOBUF_NOINLINE ::hardware_verifier::HwVerificationSpec* Arena::CreateMaybeMessage< ::hardware_verifier::HwVerificationSpec >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::hardware_verifier::HwVerificationSpec*
+Arena::CreateMaybeMessage< ::hardware_verifier::HwVerificationSpec >(Arena* arena) {
   return Arena::CreateMessageInternal< ::hardware_verifier::HwVerificationSpec >(arena);
 }
-template<> PROTOBUF_NOINLINE ::hardware_verifier::HwVerificationReport_GenericDeviceInfo* Arena::CreateMaybeMessage< ::hardware_verifier::HwVerificationReport_GenericDeviceInfo >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::hardware_verifier::HwVerificationReport_GenericDeviceInfo*
+Arena::CreateMaybeMessage< ::hardware_verifier::HwVerificationReport_GenericDeviceInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::hardware_verifier::HwVerificationReport_GenericDeviceInfo >(arena);
 }
-template<> PROTOBUF_NOINLINE ::hardware_verifier::HwVerificationReport* Arena::CreateMaybeMessage< ::hardware_verifier::HwVerificationReport >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::hardware_verifier::HwVerificationReport*
+Arena::CreateMaybeMessage< ::hardware_verifier::HwVerificationReport >(Arena* arena) {
   return Arena::CreateMessageInternal< ::hardware_verifier::HwVerificationReport >(arena);
 }
-template<> PROTOBUF_NOINLINE ::hardware_verifier::VerifyComponentsReply* Arena::CreateMaybeMessage< ::hardware_verifier::VerifyComponentsReply >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::hardware_verifier::VerifyComponentsReply*
+Arena::CreateMaybeMessage< ::hardware_verifier::VerifyComponentsReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::hardware_verifier::VerifyComponentsReply >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

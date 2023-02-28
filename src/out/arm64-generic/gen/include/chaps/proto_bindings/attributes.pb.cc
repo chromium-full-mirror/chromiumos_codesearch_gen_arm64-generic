@@ -13,33 +13,40 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace chaps {
-constexpr Attribute::Attribute(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : value_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , type_(0u)
-  , length_(0){}
+PROTOBUF_CONSTEXPR Attribute::Attribute(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.value_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.type_)*/0u
+  , /*decltype(_impl_.length_)*/0} {}
 struct AttributeDefaultTypeInternal {
-  constexpr AttributeDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AttributeDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~AttributeDefaultTypeInternal() {}
   union {
     Attribute _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AttributeDefaultTypeInternal _Attribute_default_instance_;
-constexpr AttributeList::AttributeList(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : attribute_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttributeDefaultTypeInternal _Attribute_default_instance_;
+PROTOBUF_CONSTEXPR AttributeList::AttributeList(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.attribute_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct AttributeListDefaultTypeInternal {
-  constexpr AttributeListDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AttributeListDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~AttributeListDefaultTypeInternal() {}
   union {
     AttributeList _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AttributeListDefaultTypeInternal _AttributeList_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AttributeListDefaultTypeInternal _AttributeList_default_instance_;
 }  // namespace chaps
 namespace chaps {
 
@@ -47,7 +54,7 @@ namespace chaps {
 
 class Attribute::_Internal {
  public:
-  using HasBits = decltype(std::declval<Attribute>()._has_bits_);
+  using HasBits = decltype(std::declval<Attribute>()._impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -65,61 +72,67 @@ class Attribute::_Internal {
 Attribute::Attribute(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chaps.Attribute)
 }
 Attribute::Attribute(const Attribute& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  Attribute* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.value_){}
+    , decltype(_impl_.type_){}
+    , decltype(_impl_.length_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.value_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.value_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_value()) {
-    value_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_value(), 
-      GetArenaForAllocation());
+    _this->_impl_.value_.Set(from._internal_value(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&type_, &from.type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&length_) -
-    reinterpret_cast<char*>(&type_)) + sizeof(length_));
+  ::memcpy(&_impl_.type_, &from._impl_.type_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.length_) -
+    reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.length_));
   // @@protoc_insertion_point(copy_constructor:chaps.Attribute)
 }
 
-inline void Attribute::SharedCtor() {
-value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&type_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&length_) -
-    reinterpret_cast<char*>(&type_)) + sizeof(length_));
+inline void Attribute::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.value_){}
+    , decltype(_impl_.type_){0u}
+    , decltype(_impl_.length_){0}
+  };
+  _impl_.value_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.value_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Attribute::~Attribute() {
   // @@protoc_insertion_point(destructor:chaps.Attribute)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void Attribute::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  value_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.value_.Destroy();
 }
 
-void Attribute::ArenaDtor(void* object) {
-  Attribute* _this = reinterpret_cast< Attribute* >(object);
-  (void)_this;
-}
-void Attribute::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void Attribute::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Attribute::Clear() {
@@ -128,31 +141,31 @@ void Attribute::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    value_.ClearNonDefaultToEmpty();
+    _impl_.value_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&type_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&length_) -
-        reinterpret_cast<char*>(&type_)) + sizeof(length_));
+    ::memset(&_impl_.type_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.length_) -
+        reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.length_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* Attribute::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Attribute::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required uint32 type = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_type(&has_bits);
-          type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -161,7 +174,7 @@ const char* Attribute::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_value();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -170,7 +183,7 @@ const char* Attribute::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_length(&has_bits);
-          length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarintZigZag32(&ptr);
+          _impl_.length_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarintZigZag32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -191,7 +204,7 @@ const char* Attribute::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -205,11 +218,11 @@ uint8_t* Attribute::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required uint32 type = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_type(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_type(), target);
   }
 
   // optional bytes value = 2;
@@ -221,7 +234,7 @@ uint8_t* Attribute::_InternalSerialize(
   // optional sint32 length = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteSInt32ToArray(3, this->_internal_length(), target);
+    target = ::_pbi::WireFormatLite::WriteSInt32ToArray(3, this->_internal_length(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -238,14 +251,14 @@ size_t Attribute::ByteSizeLong() const {
 
   // required uint32 type = 1;
   if (_internal_has_type()) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_type());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_type());
   }
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // optional bytes value = 2;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
@@ -254,43 +267,44 @@ size_t Attribute::ByteSizeLong() const {
 
   // optional sint32 length = 3;
   if (cached_has_bits & 0x00000004u) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SInt32SizePlusOne(this->_internal_length());
+    total_size += ::_pbi::WireFormatLite::SInt32SizePlusOne(this->_internal_length());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void Attribute::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const Attribute*>(
+  MergeFrom(*::_pbi::DownCast<const Attribute*>(
       &from));
 }
 
 void Attribute::MergeFrom(const Attribute& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chaps.Attribute)
-  GOOGLE_DCHECK_NE(&from, this);
+  Attribute* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:chaps.Attribute)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_value(from._internal_value());
+      _this->_internal_set_value(from._internal_value());
     }
     if (cached_has_bits & 0x00000002u) {
-      type_ = from.type_;
+      _this->_impl_.type_ = from._impl_.type_;
     }
     if (cached_has_bits & 0x00000004u) {
-      length_ = from.length_;
+      _this->_impl_.length_ = from._impl_.length_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Attribute::CopyFrom(const Attribute& from) {
@@ -301,7 +315,7 @@ void Attribute::CopyFrom(const Attribute& from) {
 }
 
 bool Attribute::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
@@ -310,18 +324,17 @@ void Attribute::InternalSwap(Attribute* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &value_, lhs_arena,
-      &other->value_, rhs_arena
+      &_impl_.value_, lhs_arena,
+      &other->_impl_.value_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Attribute, length_)
-      + sizeof(Attribute::length_)
-      - PROTOBUF_FIELD_OFFSET(Attribute, type_)>(
-          reinterpret_cast<char*>(&type_),
-          reinterpret_cast<char*>(&other->type_));
+      PROTOBUF_FIELD_OFFSET(Attribute, _impl_.length_)
+      + sizeof(Attribute::_impl_.length_)
+      - PROTOBUF_FIELD_OFFSET(Attribute, _impl_.type_)>(
+          reinterpret_cast<char*>(&_impl_.type_),
+          reinterpret_cast<char*>(&other->_impl_.type_));
 }
 
 std::string Attribute::GetTypeName() const {
@@ -337,43 +350,47 @@ class AttributeList::_Internal {
 
 AttributeList::AttributeList(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  attribute_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chaps.AttributeList)
 }
 AttributeList::AttributeList(const AttributeList& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      attribute_(from.attribute_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AttributeList* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.attribute_){from._impl_.attribute_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:chaps.AttributeList)
 }
 
-inline void AttributeList::SharedCtor() {
+inline void AttributeList::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.attribute_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 AttributeList::~AttributeList() {
   // @@protoc_insertion_point(destructor:chaps.AttributeList)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void AttributeList::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.attribute_.~RepeatedPtrField();
 }
 
-void AttributeList::ArenaDtor(void* object) {
-  AttributeList* _this = reinterpret_cast< AttributeList* >(object);
-  (void)_this;
-}
-void AttributeList::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void AttributeList::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void AttributeList::Clear() {
@@ -382,15 +399,15 @@ void AttributeList::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  attribute_.Clear();
+  _impl_.attribute_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* AttributeList::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* AttributeList::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .chaps.Attribute attribute = 1;
       case 1:
@@ -435,11 +452,11 @@ uint8_t* AttributeList::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .chaps.Attribute attribute = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_attribute_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_attribute_size()); i < n; i++) {
+    const auto& repfield = this->_internal_attribute(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_attribute(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -460,7 +477,7 @@ size_t AttributeList::ByteSizeLong() const {
 
   // repeated .chaps.Attribute attribute = 1;
   total_size += 1UL * this->_internal_attribute_size();
-  for (const auto& msg : this->attribute_) {
+  for (const auto& msg : this->_impl_.attribute_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -468,25 +485,26 @@ size_t AttributeList::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void AttributeList::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const AttributeList*>(
+  MergeFrom(*::_pbi::DownCast<const AttributeList*>(
       &from));
 }
 
 void AttributeList::MergeFrom(const AttributeList& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chaps.AttributeList)
-  GOOGLE_DCHECK_NE(&from, this);
+  AttributeList* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:chaps.AttributeList)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  attribute_.MergeFrom(from.attribute_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.attribute_.MergeFrom(from._impl_.attribute_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void AttributeList::CopyFrom(const AttributeList& from) {
@@ -497,7 +515,7 @@ void AttributeList::CopyFrom(const AttributeList& from) {
 }
 
 bool AttributeList::IsInitialized() const {
-  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(attribute_))
+  if (!::PROTOBUF_NAMESPACE_ID::internal::AllAreInitialized(_impl_.attribute_))
     return false;
   return true;
 }
@@ -505,7 +523,7 @@ bool AttributeList::IsInitialized() const {
 void AttributeList::InternalSwap(AttributeList* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  attribute_.InternalSwap(&other->attribute_);
+  _impl_.attribute_.InternalSwap(&other->_impl_.attribute_);
 }
 
 std::string AttributeList::GetTypeName() const {
@@ -516,10 +534,12 @@ std::string AttributeList::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace chaps
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::chaps::Attribute* Arena::CreateMaybeMessage< ::chaps::Attribute >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chaps::Attribute*
+Arena::CreateMaybeMessage< ::chaps::Attribute >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chaps::Attribute >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chaps::AttributeList* Arena::CreateMaybeMessage< ::chaps::AttributeList >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chaps::AttributeList*
+Arena::CreateMaybeMessage< ::chaps::AttributeList >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chaps::AttributeList >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

@@ -16,312 +16,336 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace chrome_knowledge {
-constexpr MultiWordSettings::MultiWordSettings(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : model_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , syms_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_CONSTEXPR MultiWordSettings::MultiWordSettings(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.model_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.syms_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct MultiWordSettingsDefaultTypeInternal {
-  constexpr MultiWordSettingsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR MultiWordSettingsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~MultiWordSettingsDefaultTypeInternal() {}
   union {
     MultiWordSettings _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MultiWordSettingsDefaultTypeInternal _MultiWordSettings_default_instance_;
-constexpr EmojiSettings::EmojiSettings(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : model_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , token_symbol_table_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , concept_symbol_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , emoji_mapping_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MultiWordSettingsDefaultTypeInternal _MultiWordSettings_default_instance_;
+PROTOBUF_CONSTEXPR EmojiSettings::EmojiSettings(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.model_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.token_symbol_table_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.concept_symbol_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.emoji_mapping_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct EmojiSettingsDefaultTypeInternal {
-  constexpr EmojiSettingsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR EmojiSettingsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~EmojiSettingsDefaultTypeInternal() {}
   union {
     EmojiSettings _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT EmojiSettingsDefaultTypeInternal _EmojiSettings_default_instance_;
-constexpr EmojiTriggerSettings::EmojiTriggerSettings(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : model_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , token_table_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , blocklist_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , allowlist_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EmojiSettingsDefaultTypeInternal _EmojiSettings_default_instance_;
+PROTOBUF_CONSTEXPR EmojiTriggerSettings::EmojiTriggerSettings(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.model_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.token_table_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.blocklist_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.allowlist_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct EmojiTriggerSettingsDefaultTypeInternal {
-  constexpr EmojiTriggerSettingsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR EmojiTriggerSettingsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~EmojiTriggerSettingsDefaultTypeInternal() {}
   union {
     EmojiTriggerSettings _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT EmojiTriggerSettingsDefaultTypeInternal _EmojiTriggerSettings_default_instance_;
-constexpr FeatureSettings::FeatureSettings(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : multi_word_experiment_(0)
-
-  , emojis_enabled_(false)
-  , multi_word_enabled_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EmojiTriggerSettingsDefaultTypeInternal _EmojiTriggerSettings_default_instance_;
+PROTOBUF_CONSTEXPR FeatureSettings::FeatureSettings(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.multi_word_experiment_)*/0
+  , /*decltype(_impl_.emojis_enabled_)*/false
+  , /*decltype(_impl_.multi_word_enabled_)*/false} {}
 struct FeatureSettingsDefaultTypeInternal {
-  constexpr FeatureSettingsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR FeatureSettingsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~FeatureSettingsDefaultTypeInternal() {}
   union {
     FeatureSettings _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FeatureSettingsDefaultTypeInternal _FeatureSettings_default_instance_;
-constexpr ExperimentSettings::ExperimentSettings(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : multi_word_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeatureSettingsDefaultTypeInternal _FeatureSettings_default_instance_;
+PROTOBUF_CONSTEXPR ExperimentSettings::ExperimentSettings(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.multi_word_)*/0} {}
 struct ExperimentSettingsDefaultTypeInternal {
-  constexpr ExperimentSettingsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ExperimentSettingsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ExperimentSettingsDefaultTypeInternal() {}
   union {
     ExperimentSettings _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ExperimentSettingsDefaultTypeInternal _ExperimentSettings_default_instance_;
-constexpr TextSuggesterSettings::TextSuggesterSettings(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : multi_word_settings_(nullptr)
-  , emoji_settings_(nullptr)
-  , emoji_trigger_settings_(nullptr)
-  , feature_settings_(nullptr)
-  , experiment_settings_(nullptr){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ExperimentSettingsDefaultTypeInternal _ExperimentSettings_default_instance_;
+PROTOBUF_CONSTEXPR TextSuggesterSettings::TextSuggesterSettings(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.multi_word_settings_)*/nullptr
+  , /*decltype(_impl_.emoji_settings_)*/nullptr
+  , /*decltype(_impl_.emoji_trigger_settings_)*/nullptr
+  , /*decltype(_impl_.feature_settings_)*/nullptr
+  , /*decltype(_impl_.experiment_settings_)*/nullptr} {}
 struct TextSuggesterSettingsDefaultTypeInternal {
-  constexpr TextSuggesterSettingsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR TextSuggesterSettingsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~TextSuggesterSettingsDefaultTypeInternal() {}
   union {
     TextSuggesterSettings _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TextSuggesterSettingsDefaultTypeInternal _TextSuggesterSettings_default_instance_;
-constexpr NextWordCompletionCandidate::NextWordCompletionCandidate(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : text_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , normalized_score_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TextSuggesterSettingsDefaultTypeInternal _TextSuggesterSettings_default_instance_;
+PROTOBUF_CONSTEXPR NextWordCompletionCandidate::NextWordCompletionCandidate(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.text_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.normalized_score_)*/0} {}
 struct NextWordCompletionCandidateDefaultTypeInternal {
-  constexpr NextWordCompletionCandidateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR NextWordCompletionCandidateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~NextWordCompletionCandidateDefaultTypeInternal() {}
   union {
     NextWordCompletionCandidate _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NextWordCompletionCandidateDefaultTypeInternal _NextWordCompletionCandidate_default_instance_;
-constexpr TextSuggesterRequest::TextSuggesterRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : next_word_candidates_()
-  , text_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , suggestion_mode_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NextWordCompletionCandidateDefaultTypeInternal _NextWordCompletionCandidate_default_instance_;
+PROTOBUF_CONSTEXPR TextSuggesterRequest::TextSuggesterRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.next_word_candidates_)*/{}
+  , /*decltype(_impl_.text_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.suggestion_mode_)*/0} {}
 struct TextSuggesterRequestDefaultTypeInternal {
-  constexpr TextSuggesterRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR TextSuggesterRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~TextSuggesterRequestDefaultTypeInternal() {}
   union {
     TextSuggesterRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TextSuggesterRequestDefaultTypeInternal _TextSuggesterRequest_default_instance_;
-constexpr MultiWordSuggestionCandidate::MultiWordSuggestionCandidate(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : text_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , normalized_score_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TextSuggesterRequestDefaultTypeInternal _TextSuggesterRequest_default_instance_;
+PROTOBUF_CONSTEXPR MultiWordSuggestionCandidate::MultiWordSuggestionCandidate(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.text_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.normalized_score_)*/0} {}
 struct MultiWordSuggestionCandidateDefaultTypeInternal {
-  constexpr MultiWordSuggestionCandidateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR MultiWordSuggestionCandidateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~MultiWordSuggestionCandidateDefaultTypeInternal() {}
   union {
     MultiWordSuggestionCandidate _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MultiWordSuggestionCandidateDefaultTypeInternal _MultiWordSuggestionCandidate_default_instance_;
-constexpr EmojiSuggestionCandidate::EmojiSuggestionCandidate(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : text_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , normalized_score_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MultiWordSuggestionCandidateDefaultTypeInternal _MultiWordSuggestionCandidate_default_instance_;
+PROTOBUF_CONSTEXPR EmojiSuggestionCandidate::EmojiSuggestionCandidate(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.text_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.normalized_score_)*/0} {}
 struct EmojiSuggestionCandidateDefaultTypeInternal {
-  constexpr EmojiSuggestionCandidateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR EmojiSuggestionCandidateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~EmojiSuggestionCandidateDefaultTypeInternal() {}
   union {
     EmojiSuggestionCandidate _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT EmojiSuggestionCandidateDefaultTypeInternal _EmojiSuggestionCandidate_default_instance_;
-constexpr TextSuggestionCandidate::TextSuggestionCandidate(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : _oneof_case_{}{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EmojiSuggestionCandidateDefaultTypeInternal _EmojiSuggestionCandidate_default_instance_;
+PROTOBUF_CONSTEXPR TextSuggestionCandidate::TextSuggestionCandidate(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.candidate_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct TextSuggestionCandidateDefaultTypeInternal {
-  constexpr TextSuggestionCandidateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR TextSuggestionCandidateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~TextSuggestionCandidateDefaultTypeInternal() {}
   union {
     TextSuggestionCandidate _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TextSuggestionCandidateDefaultTypeInternal _TextSuggestionCandidate_default_instance_;
-constexpr TextSuggesterResult::TextSuggesterResult(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : candidates_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TextSuggestionCandidateDefaultTypeInternal _TextSuggestionCandidate_default_instance_;
+PROTOBUF_CONSTEXPR TextSuggesterResult::TextSuggesterResult(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.candidates_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct TextSuggesterResultDefaultTypeInternal {
-  constexpr TextSuggesterResultDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR TextSuggesterResultDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~TextSuggesterResultDefaultTypeInternal() {}
   union {
     TextSuggesterResult _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT TextSuggesterResultDefaultTypeInternal _TextSuggesterResult_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TextSuggesterResultDefaultTypeInternal _TextSuggesterResult_default_instance_;
 }  // namespace chrome_knowledge
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_text_5fsuggester_5finterface_2eproto[12];
-static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_text_5fsuggester_5finterface_2eproto[2];
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_text_5fsuggester_5finterface_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_text_5fsuggester_5finterface_2eproto[12];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_text_5fsuggester_5finterface_2eproto[2];
+static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_text_5fsuggester_5finterface_2eproto = nullptr;
 
 const uint32_t TableStruct_text_5fsuggester_5finterface_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::MultiWordSettings, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::MultiWordSettings, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::MultiWordSettings, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::MultiWordSettings, model_path_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::MultiWordSettings, syms_path_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::MultiWordSettings, _impl_.model_path_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::MultiWordSettings, _impl_.syms_path_),
   0,
   1,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSettings, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSettings, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSettings, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSettings, model_path_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSettings, token_symbol_table_path_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSettings, concept_symbol_path_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSettings, emoji_mapping_path_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSettings, _impl_.model_path_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSettings, _impl_.token_symbol_table_path_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSettings, _impl_.concept_symbol_path_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSettings, _impl_.emoji_mapping_path_),
   0,
   1,
   2,
   3,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiTriggerSettings, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiTriggerSettings, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiTriggerSettings, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiTriggerSettings, model_path_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiTriggerSettings, token_table_path_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiTriggerSettings, blocklist_path_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiTriggerSettings, allowlist_path_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiTriggerSettings, _impl_.model_path_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiTriggerSettings, _impl_.token_table_path_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiTriggerSettings, _impl_.blocklist_path_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiTriggerSettings, _impl_.allowlist_path_),
   0,
   1,
   2,
   3,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::FeatureSettings, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::FeatureSettings, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::FeatureSettings, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::FeatureSettings, emojis_enabled_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::FeatureSettings, multi_word_enabled_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::FeatureSettings, multi_word_experiment_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::FeatureSettings, _impl_.emojis_enabled_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::FeatureSettings, _impl_.multi_word_enabled_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::FeatureSettings, _impl_.multi_word_experiment_),
   1,
   2,
   0,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::ExperimentSettings, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::ExperimentSettings, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::ExperimentSettings, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::ExperimentSettings, multi_word_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::ExperimentSettings, _impl_.multi_word_),
   0,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterSettings, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterSettings, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterSettings, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterSettings, multi_word_settings_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterSettings, emoji_settings_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterSettings, emoji_trigger_settings_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterSettings, feature_settings_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterSettings, experiment_settings_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterSettings, _impl_.multi_word_settings_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterSettings, _impl_.emoji_settings_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterSettings, _impl_.emoji_trigger_settings_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterSettings, _impl_.feature_settings_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterSettings, _impl_.experiment_settings_),
   0,
   1,
   2,
   3,
   4,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::NextWordCompletionCandidate, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::NextWordCompletionCandidate, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::NextWordCompletionCandidate, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::NextWordCompletionCandidate, text_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::NextWordCompletionCandidate, normalized_score_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::NextWordCompletionCandidate, _impl_.text_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::NextWordCompletionCandidate, _impl_.normalized_score_),
   0,
   1,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterRequest, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterRequest, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterRequest, text_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterRequest, next_word_candidates_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterRequest, suggestion_mode_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterRequest, _impl_.text_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterRequest, _impl_.next_word_candidates_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterRequest, _impl_.suggestion_mode_),
   0,
   ~0u,
   1,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::MultiWordSuggestionCandidate, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::MultiWordSuggestionCandidate, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::MultiWordSuggestionCandidate, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::MultiWordSuggestionCandidate, text_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::MultiWordSuggestionCandidate, normalized_score_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::MultiWordSuggestionCandidate, _impl_.text_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::MultiWordSuggestionCandidate, _impl_.normalized_score_),
   0,
   1,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSuggestionCandidate, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSuggestionCandidate, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSuggestionCandidate, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSuggestionCandidate, text_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSuggestionCandidate, normalized_score_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSuggestionCandidate, _impl_.text_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::EmojiSuggestionCandidate, _impl_.normalized_score_),
   0,
   1,
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggestionCandidate, _internal_metadata_),
   ~0u,  // no _extensions_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggestionCandidate, _oneof_case_[0]),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggestionCandidate, _impl_._oneof_case_[0]),
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  ::PROTOBUF_NAMESPACE_ID::internal::kInvalidFieldOffsetTag,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggestionCandidate, candidate_),
+  ::_pbi::kInvalidFieldOffsetTag,
+  ::_pbi::kInvalidFieldOffsetTag,
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggestionCandidate, _impl_.candidate_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterResult, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterResult, candidates_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::TextSuggesterResult, _impl_.candidates_),
 };
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 8, -1, sizeof(::chrome_knowledge::MultiWordSettings)},
   { 10, 20, -1, sizeof(::chrome_knowledge::EmojiSettings)},
   { 24, 34, -1, sizeof(::chrome_knowledge::EmojiTriggerSettings)},
@@ -336,19 +360,19 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 125, -1, -1, sizeof(::chrome_knowledge::TextSuggesterResult)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_MultiWordSettings_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_EmojiSettings_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_EmojiTriggerSettings_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_FeatureSettings_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_ExperimentSettings_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_TextSuggesterSettings_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_NextWordCompletionCandidate_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_TextSuggesterRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_MultiWordSuggestionCandidate_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_EmojiSuggestionCandidate_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_TextSuggestionCandidate_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_TextSuggesterResult_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+  &::chrome_knowledge::_MultiWordSettings_default_instance_._instance,
+  &::chrome_knowledge::_EmojiSettings_default_instance_._instance,
+  &::chrome_knowledge::_EmojiTriggerSettings_default_instance_._instance,
+  &::chrome_knowledge::_FeatureSettings_default_instance_._instance,
+  &::chrome_knowledge::_ExperimentSettings_default_instance_._instance,
+  &::chrome_knowledge::_TextSuggesterSettings_default_instance_._instance,
+  &::chrome_knowledge::_NextWordCompletionCandidate_default_instance_._instance,
+  &::chrome_knowledge::_TextSuggesterRequest_default_instance_._instance,
+  &::chrome_knowledge::_MultiWordSuggestionCandidate_default_instance_._instance,
+  &::chrome_knowledge::_EmojiSuggestionCandidate_default_instance_._instance,
+  &::chrome_knowledge::_TextSuggestionCandidate_default_instance_._instance,
+  &::chrome_knowledge::_TextSuggesterResult_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_text_5fsuggester_5finterface_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -407,19 +431,21 @@ const char descriptor_table_protodef_text_5fsuggester_5finterface_2eproto[] PROT
   "MODE_COMPLETION\020\001\022\036\n\032SUGGESTION_MODE_PRE"
   "DICTION\020\002"
   ;
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_text_5fsuggester_5finterface_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_text_5fsuggester_5finterface_2eproto = {
-  false, false, 2129, descriptor_table_protodef_text_5fsuggester_5finterface_2eproto, "text_suggester_interface.proto", 
-  &descriptor_table_text_5fsuggester_5finterface_2eproto_once, nullptr, 0, 12,
-  schemas, file_default_instances, TableStruct_text_5fsuggester_5finterface_2eproto::offsets,
-  file_level_metadata_text_5fsuggester_5finterface_2eproto, file_level_enum_descriptors_text_5fsuggester_5finterface_2eproto, file_level_service_descriptors_text_5fsuggester_5finterface_2eproto,
+static ::_pbi::once_flag descriptor_table_text_5fsuggester_5finterface_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_text_5fsuggester_5finterface_2eproto = {
+    false, false, 2129, descriptor_table_protodef_text_5fsuggester_5finterface_2eproto,
+    "text_suggester_interface.proto",
+    &descriptor_table_text_5fsuggester_5finterface_2eproto_once, nullptr, 0, 12,
+    schemas, file_default_instances, TableStruct_text_5fsuggester_5finterface_2eproto::offsets,
+    file_level_metadata_text_5fsuggester_5finterface_2eproto, file_level_enum_descriptors_text_5fsuggester_5finterface_2eproto,
+    file_level_service_descriptors_text_5fsuggester_5finterface_2eproto,
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_text_5fsuggester_5finterface_2eproto_getter() {
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_text_5fsuggester_5finterface_2eproto_getter() {
   return &descriptor_table_text_5fsuggester_5finterface_2eproto;
 }
 
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_text_5fsuggester_5finterface_2eproto(&descriptor_table_text_5fsuggester_5finterface_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_text_5fsuggester_5finterface_2eproto(&descriptor_table_text_5fsuggester_5finterface_2eproto);
 namespace chrome_knowledge {
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MultiWordExperiment_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_text_5fsuggester_5finterface_2eproto);
@@ -461,7 +487,7 @@ bool RequestSuggestionMode_IsValid(int value) {
 
 class MultiWordSettings::_Internal {
  public:
-  using HasBits = decltype(std::declval<MultiWordSettings>()._has_bits_);
+  using HasBits = decltype(std::declval<MultiWordSettings>()._impl_._has_bits_);
   static void set_has_model_path(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -473,67 +499,75 @@ class MultiWordSettings::_Internal {
 MultiWordSettings::MultiWordSettings(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.MultiWordSettings)
 }
 MultiWordSettings::MultiWordSettings(const MultiWordSettings& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  MultiWordSettings* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.model_path_){}
+    , decltype(_impl_.syms_path_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  model_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.model_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    model_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.model_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_model_path()) {
-    model_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_model_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.model_path_.Set(from._internal_model_path(), 
+      _this->GetArenaForAllocation());
   }
-  syms_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.syms_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    syms_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.syms_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_syms_path()) {
-    syms_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_syms_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.syms_path_.Set(from._internal_syms_path(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.MultiWordSettings)
 }
 
-inline void MultiWordSettings::SharedCtor() {
-model_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  model_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-syms_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  syms_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void MultiWordSettings::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.model_path_){}
+    , decltype(_impl_.syms_path_){}
+  };
+  _impl_.model_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.model_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.syms_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.syms_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 MultiWordSettings::~MultiWordSettings() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.MultiWordSettings)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void MultiWordSettings::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  model_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  syms_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.model_path_.Destroy();
+  _impl_.syms_path_.Destroy();
 }
 
-void MultiWordSettings::ArenaDtor(void* object) {
-  MultiWordSettings* _this = reinterpret_cast< MultiWordSettings* >(object);
-  (void)_this;
-}
-void MultiWordSettings::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void MultiWordSettings::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void MultiWordSettings::Clear() {
@@ -542,35 +576,35 @@ void MultiWordSettings::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      model_path_.ClearNonDefaultToEmpty();
+      _impl_.model_path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      syms_path_.ClearNonDefaultToEmpty();
+      _impl_.syms_path_.ClearNonDefaultToEmpty();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* MultiWordSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* MultiWordSettings::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string model_path = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_model_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.MultiWordSettings.model_path");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.MultiWordSettings.model_path");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -578,11 +612,11 @@ const char* MultiWordSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_syms_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.MultiWordSettings.syms_path");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.MultiWordSettings.syms_path");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -602,7 +636,7 @@ const char* MultiWordSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -616,7 +650,7 @@ uint8_t* MultiWordSettings::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string model_path = 1;
   if (cached_has_bits & 0x00000001u) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -638,7 +672,7 @@ uint8_t* MultiWordSettings::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.MultiWordSettings)
@@ -653,7 +687,7 @@ size_t MultiWordSettings::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional string model_path = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -670,38 +704,34 @@ size_t MultiWordSettings::ByteSizeLong() const {
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData MultiWordSettings::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     MultiWordSettings::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*MultiWordSettings::GetClassData() const { return &_class_data_; }
 
-void MultiWordSettings::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<MultiWordSettings *>(to)->MergeFrom(
-      static_cast<const MultiWordSettings &>(from));
-}
 
-
-void MultiWordSettings::MergeFrom(const MultiWordSettings& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.MultiWordSettings)
-  GOOGLE_DCHECK_NE(&from, this);
+void MultiWordSettings::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<MultiWordSettings*>(&to_msg);
+  auto& from = static_cast<const MultiWordSettings&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.MultiWordSettings)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_model_path(from._internal_model_path());
+      _this->_internal_set_model_path(from._internal_model_path());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_syms_path(from._internal_syms_path());
+      _this->_internal_set_syms_path(from._internal_syms_path());
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void MultiWordSettings::CopyFrom(const MultiWordSettings& from) {
@@ -720,21 +750,19 @@ void MultiWordSettings::InternalSwap(MultiWordSettings* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &model_path_, lhs_arena,
-      &other->model_path_, rhs_arena
+      &_impl_.model_path_, lhs_arena,
+      &other->_impl_.model_path_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &syms_path_, lhs_arena,
-      &other->syms_path_, rhs_arena
+      &_impl_.syms_path_, lhs_arena,
+      &other->_impl_.syms_path_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata MultiWordSettings::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_text_5fsuggester_5finterface_2eproto_getter, &descriptor_table_text_5fsuggester_5finterface_2eproto_once,
       file_level_metadata_text_5fsuggester_5finterface_2eproto[0]);
 }
@@ -743,7 +771,7 @@ void MultiWordSettings::InternalSwap(MultiWordSettings* other) {
 
 class EmojiSettings::_Internal {
  public:
-  using HasBits = decltype(std::declval<EmojiSettings>()._has_bits_);
+  using HasBits = decltype(std::declval<EmojiSettings>()._impl_._has_bits_);
   static void set_has_model_path(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -761,93 +789,105 @@ class EmojiSettings::_Internal {
 EmojiSettings::EmojiSettings(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.EmojiSettings)
 }
 EmojiSettings::EmojiSettings(const EmojiSettings& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  EmojiSettings* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.model_path_){}
+    , decltype(_impl_.token_symbol_table_path_){}
+    , decltype(_impl_.concept_symbol_path_){}
+    , decltype(_impl_.emoji_mapping_path_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  model_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.model_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    model_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.model_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_model_path()) {
-    model_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_model_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.model_path_.Set(from._internal_model_path(), 
+      _this->GetArenaForAllocation());
   }
-  token_symbol_table_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_symbol_table_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_symbol_table_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_symbol_table_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_token_symbol_table_path()) {
-    token_symbol_table_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token_symbol_table_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_symbol_table_path_.Set(from._internal_token_symbol_table_path(), 
+      _this->GetArenaForAllocation());
   }
-  concept_symbol_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.concept_symbol_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    concept_symbol_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.concept_symbol_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_concept_symbol_path()) {
-    concept_symbol_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_concept_symbol_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.concept_symbol_path_.Set(from._internal_concept_symbol_path(), 
+      _this->GetArenaForAllocation());
   }
-  emoji_mapping_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.emoji_mapping_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    emoji_mapping_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.emoji_mapping_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_emoji_mapping_path()) {
-    emoji_mapping_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_emoji_mapping_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.emoji_mapping_path_.Set(from._internal_emoji_mapping_path(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.EmojiSettings)
 }
 
-inline void EmojiSettings::SharedCtor() {
-model_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  model_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-token_symbol_table_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_symbol_table_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-concept_symbol_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  concept_symbol_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-emoji_mapping_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  emoji_mapping_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void EmojiSettings::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.model_path_){}
+    , decltype(_impl_.token_symbol_table_path_){}
+    , decltype(_impl_.concept_symbol_path_){}
+    , decltype(_impl_.emoji_mapping_path_){}
+  };
+  _impl_.model_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.model_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.token_symbol_table_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_symbol_table_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.concept_symbol_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.concept_symbol_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.emoji_mapping_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.emoji_mapping_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 EmojiSettings::~EmojiSettings() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.EmojiSettings)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void EmojiSettings::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  model_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  token_symbol_table_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  concept_symbol_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  emoji_mapping_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.model_path_.Destroy();
+  _impl_.token_symbol_table_path_.Destroy();
+  _impl_.concept_symbol_path_.Destroy();
+  _impl_.emoji_mapping_path_.Destroy();
 }
 
-void EmojiSettings::ArenaDtor(void* object) {
-  EmojiSettings* _this = reinterpret_cast< EmojiSettings* >(object);
-  (void)_this;
-}
-void EmojiSettings::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void EmojiSettings::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void EmojiSettings::Clear() {
@@ -856,41 +896,41 @@ void EmojiSettings::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      model_path_.ClearNonDefaultToEmpty();
+      _impl_.model_path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      token_symbol_table_path_.ClearNonDefaultToEmpty();
+      _impl_.token_symbol_table_path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      concept_symbol_path_.ClearNonDefaultToEmpty();
+      _impl_.concept_symbol_path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      emoji_mapping_path_.ClearNonDefaultToEmpty();
+      _impl_.emoji_mapping_path_.ClearNonDefaultToEmpty();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* EmojiSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* EmojiSettings::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string model_path = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_model_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.EmojiSettings.model_path");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.EmojiSettings.model_path");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -898,11 +938,11 @@ const char* EmojiSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_token_symbol_table_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.EmojiSettings.token_symbol_table_path");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.EmojiSettings.token_symbol_table_path");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -910,11 +950,11 @@ const char* EmojiSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_concept_symbol_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.EmojiSettings.concept_symbol_path");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.EmojiSettings.concept_symbol_path");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -922,11 +962,11 @@ const char* EmojiSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_emoji_mapping_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.EmojiSettings.emoji_mapping_path");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.EmojiSettings.emoji_mapping_path");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -946,7 +986,7 @@ const char* EmojiSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -960,7 +1000,7 @@ uint8_t* EmojiSettings::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string model_path = 1;
   if (cached_has_bits & 0x00000001u) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -1002,7 +1042,7 @@ uint8_t* EmojiSettings::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.EmojiSettings)
@@ -1017,7 +1057,7 @@ size_t EmojiSettings::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional string model_path = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -1048,44 +1088,40 @@ size_t EmojiSettings::ByteSizeLong() const {
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData EmojiSettings::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     EmojiSettings::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*EmojiSettings::GetClassData() const { return &_class_data_; }
 
-void EmojiSettings::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<EmojiSettings *>(to)->MergeFrom(
-      static_cast<const EmojiSettings &>(from));
-}
 
-
-void EmojiSettings::MergeFrom(const EmojiSettings& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.EmojiSettings)
-  GOOGLE_DCHECK_NE(&from, this);
+void EmojiSettings::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<EmojiSettings*>(&to_msg);
+  auto& from = static_cast<const EmojiSettings&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.EmojiSettings)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_model_path(from._internal_model_path());
+      _this->_internal_set_model_path(from._internal_model_path());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_token_symbol_table_path(from._internal_token_symbol_table_path());
+      _this->_internal_set_token_symbol_table_path(from._internal_token_symbol_table_path());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_concept_symbol_path(from._internal_concept_symbol_path());
+      _this->_internal_set_concept_symbol_path(from._internal_concept_symbol_path());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_set_emoji_mapping_path(from._internal_emoji_mapping_path());
+      _this->_internal_set_emoji_mapping_path(from._internal_emoji_mapping_path());
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void EmojiSettings::CopyFrom(const EmojiSettings& from) {
@@ -1104,31 +1140,27 @@ void EmojiSettings::InternalSwap(EmojiSettings* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &model_path_, lhs_arena,
-      &other->model_path_, rhs_arena
+      &_impl_.model_path_, lhs_arena,
+      &other->_impl_.model_path_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_symbol_table_path_, lhs_arena,
-      &other->token_symbol_table_path_, rhs_arena
+      &_impl_.token_symbol_table_path_, lhs_arena,
+      &other->_impl_.token_symbol_table_path_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &concept_symbol_path_, lhs_arena,
-      &other->concept_symbol_path_, rhs_arena
+      &_impl_.concept_symbol_path_, lhs_arena,
+      &other->_impl_.concept_symbol_path_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &emoji_mapping_path_, lhs_arena,
-      &other->emoji_mapping_path_, rhs_arena
+      &_impl_.emoji_mapping_path_, lhs_arena,
+      &other->_impl_.emoji_mapping_path_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata EmojiSettings::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_text_5fsuggester_5finterface_2eproto_getter, &descriptor_table_text_5fsuggester_5finterface_2eproto_once,
       file_level_metadata_text_5fsuggester_5finterface_2eproto[1]);
 }
@@ -1137,7 +1169,7 @@ void EmojiSettings::InternalSwap(EmojiSettings* other) {
 
 class EmojiTriggerSettings::_Internal {
  public:
-  using HasBits = decltype(std::declval<EmojiTriggerSettings>()._has_bits_);
+  using HasBits = decltype(std::declval<EmojiTriggerSettings>()._impl_._has_bits_);
   static void set_has_model_path(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1155,93 +1187,105 @@ class EmojiTriggerSettings::_Internal {
 EmojiTriggerSettings::EmojiTriggerSettings(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.EmojiTriggerSettings)
 }
 EmojiTriggerSettings::EmojiTriggerSettings(const EmojiTriggerSettings& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  EmojiTriggerSettings* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.model_path_){}
+    , decltype(_impl_.token_table_path_){}
+    , decltype(_impl_.blocklist_path_){}
+    , decltype(_impl_.allowlist_path_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  model_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.model_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    model_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.model_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_model_path()) {
-    model_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_model_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.model_path_.Set(from._internal_model_path(), 
+      _this->GetArenaForAllocation());
   }
-  token_table_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_table_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_table_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_table_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_token_table_path()) {
-    token_table_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token_table_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_table_path_.Set(from._internal_token_table_path(), 
+      _this->GetArenaForAllocation());
   }
-  blocklist_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.blocklist_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    blocklist_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.blocklist_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_blocklist_path()) {
-    blocklist_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_blocklist_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.blocklist_path_.Set(from._internal_blocklist_path(), 
+      _this->GetArenaForAllocation());
   }
-  allowlist_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.allowlist_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    allowlist_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.allowlist_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_allowlist_path()) {
-    allowlist_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_allowlist_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.allowlist_path_.Set(from._internal_allowlist_path(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.EmojiTriggerSettings)
 }
 
-inline void EmojiTriggerSettings::SharedCtor() {
-model_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  model_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-token_table_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_table_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-blocklist_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  blocklist_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-allowlist_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  allowlist_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void EmojiTriggerSettings::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.model_path_){}
+    , decltype(_impl_.token_table_path_){}
+    , decltype(_impl_.blocklist_path_){}
+    , decltype(_impl_.allowlist_path_){}
+  };
+  _impl_.model_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.model_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.token_table_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_table_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.blocklist_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.blocklist_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.allowlist_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.allowlist_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 EmojiTriggerSettings::~EmojiTriggerSettings() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.EmojiTriggerSettings)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void EmojiTriggerSettings::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  model_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  token_table_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  blocklist_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  allowlist_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.model_path_.Destroy();
+  _impl_.token_table_path_.Destroy();
+  _impl_.blocklist_path_.Destroy();
+  _impl_.allowlist_path_.Destroy();
 }
 
-void EmojiTriggerSettings::ArenaDtor(void* object) {
-  EmojiTriggerSettings* _this = reinterpret_cast< EmojiTriggerSettings* >(object);
-  (void)_this;
-}
-void EmojiTriggerSettings::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void EmojiTriggerSettings::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void EmojiTriggerSettings::Clear() {
@@ -1250,41 +1294,41 @@ void EmojiTriggerSettings::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      model_path_.ClearNonDefaultToEmpty();
+      _impl_.model_path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      token_table_path_.ClearNonDefaultToEmpty();
+      _impl_.token_table_path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      blocklist_path_.ClearNonDefaultToEmpty();
+      _impl_.blocklist_path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      allowlist_path_.ClearNonDefaultToEmpty();
+      _impl_.allowlist_path_.ClearNonDefaultToEmpty();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* EmojiTriggerSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* EmojiTriggerSettings::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string model_path = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_model_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.EmojiTriggerSettings.model_path");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.EmojiTriggerSettings.model_path");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -1292,11 +1336,11 @@ const char* EmojiTriggerSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAM
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_token_table_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.EmojiTriggerSettings.token_table_path");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.EmojiTriggerSettings.token_table_path");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -1304,11 +1348,11 @@ const char* EmojiTriggerSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAM
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_blocklist_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.EmojiTriggerSettings.blocklist_path");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.EmojiTriggerSettings.blocklist_path");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -1316,11 +1360,11 @@ const char* EmojiTriggerSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAM
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_allowlist_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.EmojiTriggerSettings.allowlist_path");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.EmojiTriggerSettings.allowlist_path");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -1340,7 +1384,7 @@ const char* EmojiTriggerSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAM
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1354,7 +1398,7 @@ uint8_t* EmojiTriggerSettings::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string model_path = 1;
   if (cached_has_bits & 0x00000001u) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -1396,7 +1440,7 @@ uint8_t* EmojiTriggerSettings::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.EmojiTriggerSettings)
@@ -1411,7 +1455,7 @@ size_t EmojiTriggerSettings::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional string model_path = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -1442,44 +1486,40 @@ size_t EmojiTriggerSettings::ByteSizeLong() const {
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData EmojiTriggerSettings::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     EmojiTriggerSettings::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*EmojiTriggerSettings::GetClassData() const { return &_class_data_; }
 
-void EmojiTriggerSettings::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<EmojiTriggerSettings *>(to)->MergeFrom(
-      static_cast<const EmojiTriggerSettings &>(from));
-}
 
-
-void EmojiTriggerSettings::MergeFrom(const EmojiTriggerSettings& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.EmojiTriggerSettings)
-  GOOGLE_DCHECK_NE(&from, this);
+void EmojiTriggerSettings::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<EmojiTriggerSettings*>(&to_msg);
+  auto& from = static_cast<const EmojiTriggerSettings&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.EmojiTriggerSettings)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_model_path(from._internal_model_path());
+      _this->_internal_set_model_path(from._internal_model_path());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_token_table_path(from._internal_token_table_path());
+      _this->_internal_set_token_table_path(from._internal_token_table_path());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_blocklist_path(from._internal_blocklist_path());
+      _this->_internal_set_blocklist_path(from._internal_blocklist_path());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_set_allowlist_path(from._internal_allowlist_path());
+      _this->_internal_set_allowlist_path(from._internal_allowlist_path());
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void EmojiTriggerSettings::CopyFrom(const EmojiTriggerSettings& from) {
@@ -1498,31 +1538,27 @@ void EmojiTriggerSettings::InternalSwap(EmojiTriggerSettings* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &model_path_, lhs_arena,
-      &other->model_path_, rhs_arena
+      &_impl_.model_path_, lhs_arena,
+      &other->_impl_.model_path_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_table_path_, lhs_arena,
-      &other->token_table_path_, rhs_arena
+      &_impl_.token_table_path_, lhs_arena,
+      &other->_impl_.token_table_path_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &blocklist_path_, lhs_arena,
-      &other->blocklist_path_, rhs_arena
+      &_impl_.blocklist_path_, lhs_arena,
+      &other->_impl_.blocklist_path_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &allowlist_path_, lhs_arena,
-      &other->allowlist_path_, rhs_arena
+      &_impl_.allowlist_path_, lhs_arena,
+      &other->_impl_.allowlist_path_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata EmojiTriggerSettings::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_text_5fsuggester_5finterface_2eproto_getter, &descriptor_table_text_5fsuggester_5finterface_2eproto_once,
       file_level_metadata_text_5fsuggester_5finterface_2eproto[2]);
 }
@@ -1531,7 +1567,7 @@ void EmojiTriggerSettings::InternalSwap(EmojiTriggerSettings* other) {
 
 class FeatureSettings::_Internal {
  public:
-  using HasBits = decltype(std::declval<FeatureSettings>()._has_bits_);
+  using HasBits = decltype(std::declval<FeatureSettings>()._impl_._has_bits_);
   static void set_has_emojis_enabled(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -1546,48 +1582,54 @@ class FeatureSettings::_Internal {
 FeatureSettings::FeatureSettings(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.FeatureSettings)
 }
 FeatureSettings::FeatureSettings(const FeatureSettings& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  FeatureSettings* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.multi_word_experiment_){}
+    , decltype(_impl_.emojis_enabled_){}
+    , decltype(_impl_.multi_word_enabled_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&multi_word_experiment_, &from.multi_word_experiment_,
-    static_cast<size_t>(reinterpret_cast<char*>(&multi_word_enabled_) -
-    reinterpret_cast<char*>(&multi_word_experiment_)) + sizeof(multi_word_enabled_));
+  ::memcpy(&_impl_.multi_word_experiment_, &from._impl_.multi_word_experiment_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.multi_word_enabled_) -
+    reinterpret_cast<char*>(&_impl_.multi_word_experiment_)) + sizeof(_impl_.multi_word_enabled_));
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.FeatureSettings)
 }
 
-inline void FeatureSettings::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&multi_word_experiment_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&multi_word_enabled_) -
-    reinterpret_cast<char*>(&multi_word_experiment_)) + sizeof(multi_word_enabled_));
+inline void FeatureSettings::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.multi_word_experiment_){0}
+    , decltype(_impl_.emojis_enabled_){false}
+    , decltype(_impl_.multi_word_enabled_){false}
+  };
 }
 
 FeatureSettings::~FeatureSettings() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.FeatureSettings)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void FeatureSettings::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void FeatureSettings::ArenaDtor(void* object) {
-  FeatureSettings* _this = reinterpret_cast< FeatureSettings* >(object);
-  (void)_this;
-}
-void FeatureSettings::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void FeatureSettings::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FeatureSettings::Clear() {
@@ -1596,28 +1638,28 @@ void FeatureSettings::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
-    ::memset(&multi_word_experiment_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&multi_word_enabled_) -
-        reinterpret_cast<char*>(&multi_word_experiment_)) + sizeof(multi_word_enabled_));
+    ::memset(&_impl_.multi_word_experiment_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.multi_word_enabled_) -
+        reinterpret_cast<char*>(&_impl_.multi_word_experiment_)) + sizeof(_impl_.multi_word_enabled_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* FeatureSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* FeatureSettings::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bool emojis_enabled = 1 [default = false];
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_emojis_enabled(&has_bits);
-          emojis_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.emojis_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1639,7 +1681,7 @@ const char* FeatureSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPAC
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_multi_word_enabled(&has_bits);
-          multi_word_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.multi_word_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1660,7 +1702,7 @@ const char* FeatureSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPAC
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1674,28 +1716,28 @@ uint8_t* FeatureSettings::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool emojis_enabled = 1 [default = false];
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_emojis_enabled(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_emojis_enabled(), target);
   }
 
   // optional .chrome_knowledge.MultiWordExperiment multi_word_experiment = 2 [default = MULTI_WORD_EXPERIMENT_UNSPECIFIED];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_multi_word_experiment(), target);
   }
 
   // optional bool multi_word_enabled = 3 [default = false];
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_multi_word_enabled(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_multi_word_enabled(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.FeatureSettings)
@@ -1710,12 +1752,12 @@ size_t FeatureSettings::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional .chrome_knowledge.MultiWordExperiment multi_word_experiment = 2 [default = MULTI_WORD_EXPERIMENT_UNSPECIFIED];
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_multi_word_experiment());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_multi_word_experiment());
     }
 
     // optional bool emojis_enabled = 1 [default = false];
@@ -1729,42 +1771,38 @@ size_t FeatureSettings::ByteSizeLong() const {
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData FeatureSettings::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     FeatureSettings::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*FeatureSettings::GetClassData() const { return &_class_data_; }
 
-void FeatureSettings::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<FeatureSettings *>(to)->MergeFrom(
-      static_cast<const FeatureSettings &>(from));
-}
 
-
-void FeatureSettings::MergeFrom(const FeatureSettings& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.FeatureSettings)
-  GOOGLE_DCHECK_NE(&from, this);
+void FeatureSettings::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<FeatureSettings*>(&to_msg);
+  auto& from = static_cast<const FeatureSettings&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.FeatureSettings)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      multi_word_experiment_ = from.multi_word_experiment_;
+      _this->_impl_.multi_word_experiment_ = from._impl_.multi_word_experiment_;
     }
     if (cached_has_bits & 0x00000002u) {
-      emojis_enabled_ = from.emojis_enabled_;
+      _this->_impl_.emojis_enabled_ = from._impl_.emojis_enabled_;
     }
     if (cached_has_bits & 0x00000004u) {
-      multi_word_enabled_ = from.multi_word_enabled_;
+      _this->_impl_.multi_word_enabled_ = from._impl_.multi_word_enabled_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void FeatureSettings::CopyFrom(const FeatureSettings& from) {
@@ -1781,17 +1819,17 @@ bool FeatureSettings::IsInitialized() const {
 void FeatureSettings::InternalSwap(FeatureSettings* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(FeatureSettings, multi_word_enabled_)
-      + sizeof(FeatureSettings::multi_word_enabled_)
-      - PROTOBUF_FIELD_OFFSET(FeatureSettings, multi_word_experiment_)>(
-          reinterpret_cast<char*>(&multi_word_experiment_),
-          reinterpret_cast<char*>(&other->multi_word_experiment_));
+      PROTOBUF_FIELD_OFFSET(FeatureSettings, _impl_.multi_word_enabled_)
+      + sizeof(FeatureSettings::_impl_.multi_word_enabled_)
+      - PROTOBUF_FIELD_OFFSET(FeatureSettings, _impl_.multi_word_experiment_)>(
+          reinterpret_cast<char*>(&_impl_.multi_word_experiment_),
+          reinterpret_cast<char*>(&other->_impl_.multi_word_experiment_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata FeatureSettings::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_text_5fsuggester_5finterface_2eproto_getter, &descriptor_table_text_5fsuggester_5finterface_2eproto_once,
       file_level_metadata_text_5fsuggester_5finterface_2eproto[3]);
 }
@@ -1800,7 +1838,7 @@ void FeatureSettings::InternalSwap(FeatureSettings* other) {
 
 class ExperimentSettings::_Internal {
  public:
-  using HasBits = decltype(std::declval<ExperimentSettings>()._has_bits_);
+  using HasBits = decltype(std::declval<ExperimentSettings>()._impl_._has_bits_);
   static void set_has_multi_word(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1809,43 +1847,48 @@ class ExperimentSettings::_Internal {
 ExperimentSettings::ExperimentSettings(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.ExperimentSettings)
 }
 ExperimentSettings::ExperimentSettings(const ExperimentSettings& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ExperimentSettings* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.multi_word_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  multi_word_ = from.multi_word_;
+  _this->_impl_.multi_word_ = from._impl_.multi_word_;
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.ExperimentSettings)
 }
 
-inline void ExperimentSettings::SharedCtor() {
-multi_word_ = 0;
+inline void ExperimentSettings::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.multi_word_){0}
+  };
 }
 
 ExperimentSettings::~ExperimentSettings() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.ExperimentSettings)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void ExperimentSettings::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void ExperimentSettings::ArenaDtor(void* object) {
-  ExperimentSettings* _this = reinterpret_cast< ExperimentSettings* >(object);
-  (void)_this;
-}
-void ExperimentSettings::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ExperimentSettings::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ExperimentSettings::Clear() {
@@ -1854,17 +1897,17 @@ void ExperimentSettings::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  multi_word_ = 0;
-  _has_bits_.Clear();
+  _impl_.multi_word_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ExperimentSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ExperimentSettings::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .chrome_knowledge.MultiWordExperiment multi_word = 1 [default = MULTI_WORD_EXPERIMENT_UNSPECIFIED];
       case 1:
@@ -1895,7 +1938,7 @@ const char* ExperimentSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1909,16 +1952,16 @@ uint8_t* ExperimentSettings::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .chrome_knowledge.MultiWordExperiment multi_word = 1 [default = MULTI_WORD_EXPERIMENT_UNSPECIFIED];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_multi_word(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.ExperimentSettings)
@@ -1934,38 +1977,34 @@ size_t ExperimentSettings::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional .chrome_knowledge.MultiWordExperiment multi_word = 1 [default = MULTI_WORD_EXPERIMENT_UNSPECIFIED];
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_multi_word());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_multi_word());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ExperimentSettings::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     ExperimentSettings::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ExperimentSettings::GetClassData() const { return &_class_data_; }
 
-void ExperimentSettings::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<ExperimentSettings *>(to)->MergeFrom(
-      static_cast<const ExperimentSettings &>(from));
-}
 
-
-void ExperimentSettings::MergeFrom(const ExperimentSettings& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.ExperimentSettings)
-  GOOGLE_DCHECK_NE(&from, this);
+void ExperimentSettings::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ExperimentSettings*>(&to_msg);
+  auto& from = static_cast<const ExperimentSettings&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.ExperimentSettings)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_multi_word()) {
-    _internal_set_multi_word(from._internal_multi_word());
+    _this->_internal_set_multi_word(from._internal_multi_word());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void ExperimentSettings::CopyFrom(const ExperimentSettings& from) {
@@ -1982,12 +2021,12 @@ bool ExperimentSettings::IsInitialized() const {
 void ExperimentSettings::InternalSwap(ExperimentSettings* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(multi_word_, other->multi_word_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.multi_word_, other->_impl_.multi_word_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ExperimentSettings::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_text_5fsuggester_5finterface_2eproto_getter, &descriptor_table_text_5fsuggester_5finterface_2eproto_once,
       file_level_metadata_text_5fsuggester_5finterface_2eproto[4]);
 }
@@ -1996,7 +2035,7 @@ void ExperimentSettings::InternalSwap(ExperimentSettings* other) {
 
 class TextSuggesterSettings::_Internal {
  public:
-  using HasBits = decltype(std::declval<TextSuggesterSettings>()._has_bits_);
+  using HasBits = decltype(std::declval<TextSuggesterSettings>()._impl_._has_bits_);
   static const ::chrome_knowledge::MultiWordSettings& multi_word_settings(const TextSuggesterSettings* msg);
   static void set_has_multi_word_settings(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -2021,96 +2060,96 @@ class TextSuggesterSettings::_Internal {
 
 const ::chrome_knowledge::MultiWordSettings&
 TextSuggesterSettings::_Internal::multi_word_settings(const TextSuggesterSettings* msg) {
-  return *msg->multi_word_settings_;
+  return *msg->_impl_.multi_word_settings_;
 }
 const ::chrome_knowledge::EmojiSettings&
 TextSuggesterSettings::_Internal::emoji_settings(const TextSuggesterSettings* msg) {
-  return *msg->emoji_settings_;
+  return *msg->_impl_.emoji_settings_;
 }
 const ::chrome_knowledge::EmojiTriggerSettings&
 TextSuggesterSettings::_Internal::emoji_trigger_settings(const TextSuggesterSettings* msg) {
-  return *msg->emoji_trigger_settings_;
+  return *msg->_impl_.emoji_trigger_settings_;
 }
 const ::chrome_knowledge::FeatureSettings&
 TextSuggesterSettings::_Internal::feature_settings(const TextSuggesterSettings* msg) {
-  return *msg->feature_settings_;
+  return *msg->_impl_.feature_settings_;
 }
 const ::chrome_knowledge::ExperimentSettings&
 TextSuggesterSettings::_Internal::experiment_settings(const TextSuggesterSettings* msg) {
-  return *msg->experiment_settings_;
+  return *msg->_impl_.experiment_settings_;
 }
 TextSuggesterSettings::TextSuggesterSettings(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.TextSuggesterSettings)
 }
 TextSuggesterSettings::TextSuggesterSettings(const TextSuggesterSettings& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  TextSuggesterSettings* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.multi_word_settings_){nullptr}
+    , decltype(_impl_.emoji_settings_){nullptr}
+    , decltype(_impl_.emoji_trigger_settings_){nullptr}
+    , decltype(_impl_.feature_settings_){nullptr}
+    , decltype(_impl_.experiment_settings_){nullptr}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_multi_word_settings()) {
-    multi_word_settings_ = new ::chrome_knowledge::MultiWordSettings(*from.multi_word_settings_);
-  } else {
-    multi_word_settings_ = nullptr;
+    _this->_impl_.multi_word_settings_ = new ::chrome_knowledge::MultiWordSettings(*from._impl_.multi_word_settings_);
   }
   if (from._internal_has_emoji_settings()) {
-    emoji_settings_ = new ::chrome_knowledge::EmojiSettings(*from.emoji_settings_);
-  } else {
-    emoji_settings_ = nullptr;
+    _this->_impl_.emoji_settings_ = new ::chrome_knowledge::EmojiSettings(*from._impl_.emoji_settings_);
   }
   if (from._internal_has_emoji_trigger_settings()) {
-    emoji_trigger_settings_ = new ::chrome_knowledge::EmojiTriggerSettings(*from.emoji_trigger_settings_);
-  } else {
-    emoji_trigger_settings_ = nullptr;
+    _this->_impl_.emoji_trigger_settings_ = new ::chrome_knowledge::EmojiTriggerSettings(*from._impl_.emoji_trigger_settings_);
   }
   if (from._internal_has_feature_settings()) {
-    feature_settings_ = new ::chrome_knowledge::FeatureSettings(*from.feature_settings_);
-  } else {
-    feature_settings_ = nullptr;
+    _this->_impl_.feature_settings_ = new ::chrome_knowledge::FeatureSettings(*from._impl_.feature_settings_);
   }
   if (from._internal_has_experiment_settings()) {
-    experiment_settings_ = new ::chrome_knowledge::ExperimentSettings(*from.experiment_settings_);
-  } else {
-    experiment_settings_ = nullptr;
+    _this->_impl_.experiment_settings_ = new ::chrome_knowledge::ExperimentSettings(*from._impl_.experiment_settings_);
   }
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.TextSuggesterSettings)
 }
 
-inline void TextSuggesterSettings::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&multi_word_settings_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&experiment_settings_) -
-    reinterpret_cast<char*>(&multi_word_settings_)) + sizeof(experiment_settings_));
+inline void TextSuggesterSettings::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.multi_word_settings_){nullptr}
+    , decltype(_impl_.emoji_settings_){nullptr}
+    , decltype(_impl_.emoji_trigger_settings_){nullptr}
+    , decltype(_impl_.feature_settings_){nullptr}
+    , decltype(_impl_.experiment_settings_){nullptr}
+  };
 }
 
 TextSuggesterSettings::~TextSuggesterSettings() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.TextSuggesterSettings)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void TextSuggesterSettings::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete multi_word_settings_;
-  if (this != internal_default_instance()) delete emoji_settings_;
-  if (this != internal_default_instance()) delete emoji_trigger_settings_;
-  if (this != internal_default_instance()) delete feature_settings_;
-  if (this != internal_default_instance()) delete experiment_settings_;
+  if (this != internal_default_instance()) delete _impl_.multi_word_settings_;
+  if (this != internal_default_instance()) delete _impl_.emoji_settings_;
+  if (this != internal_default_instance()) delete _impl_.emoji_trigger_settings_;
+  if (this != internal_default_instance()) delete _impl_.feature_settings_;
+  if (this != internal_default_instance()) delete _impl_.experiment_settings_;
 }
 
-void TextSuggesterSettings::ArenaDtor(void* object) {
-  TextSuggesterSettings* _this = reinterpret_cast< TextSuggesterSettings* >(object);
-  (void)_this;
-}
-void TextSuggesterSettings::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void TextSuggesterSettings::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void TextSuggesterSettings::Clear() {
@@ -2119,39 +2158,39 @@ void TextSuggesterSettings::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(multi_word_settings_ != nullptr);
-      multi_word_settings_->Clear();
+      GOOGLE_DCHECK(_impl_.multi_word_settings_ != nullptr);
+      _impl_.multi_word_settings_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(emoji_settings_ != nullptr);
-      emoji_settings_->Clear();
+      GOOGLE_DCHECK(_impl_.emoji_settings_ != nullptr);
+      _impl_.emoji_settings_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(emoji_trigger_settings_ != nullptr);
-      emoji_trigger_settings_->Clear();
+      GOOGLE_DCHECK(_impl_.emoji_trigger_settings_ != nullptr);
+      _impl_.emoji_trigger_settings_->Clear();
     }
     if (cached_has_bits & 0x00000008u) {
-      GOOGLE_DCHECK(feature_settings_ != nullptr);
-      feature_settings_->Clear();
+      GOOGLE_DCHECK(_impl_.feature_settings_ != nullptr);
+      _impl_.feature_settings_->Clear();
     }
     if (cached_has_bits & 0x00000010u) {
-      GOOGLE_DCHECK(experiment_settings_ != nullptr);
-      experiment_settings_->Clear();
+      GOOGLE_DCHECK(_impl_.experiment_settings_ != nullptr);
+      _impl_.experiment_settings_->Clear();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* TextSuggesterSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* TextSuggesterSettings::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .chrome_knowledge.MultiWordSettings multi_word_settings = 3;
       case 3:
@@ -2209,7 +2248,7 @@ const char* TextSuggesterSettings::_InternalParse(const char* ptr, ::PROTOBUF_NA
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2223,49 +2262,44 @@ uint8_t* TextSuggesterSettings::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .chrome_knowledge.MultiWordSettings multi_word_settings = 3;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::multi_word_settings(this), target, stream);
+      InternalWriteMessage(3, _Internal::multi_word_settings(this),
+        _Internal::multi_word_settings(this).GetCachedSize(), target, stream);
   }
 
   // optional .chrome_knowledge.EmojiSettings emoji_settings = 4;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        4, _Internal::emoji_settings(this), target, stream);
+      InternalWriteMessage(4, _Internal::emoji_settings(this),
+        _Internal::emoji_settings(this).GetCachedSize(), target, stream);
   }
 
   // optional .chrome_knowledge.EmojiTriggerSettings emoji_trigger_settings = 5;
   if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        5, _Internal::emoji_trigger_settings(this), target, stream);
+      InternalWriteMessage(5, _Internal::emoji_trigger_settings(this),
+        _Internal::emoji_trigger_settings(this).GetCachedSize(), target, stream);
   }
 
   // optional .chrome_knowledge.FeatureSettings feature_settings = 6;
   if (cached_has_bits & 0x00000008u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        6, _Internal::feature_settings(this), target, stream);
+      InternalWriteMessage(6, _Internal::feature_settings(this),
+        _Internal::feature_settings(this).GetCachedSize(), target, stream);
   }
 
   // optional .chrome_knowledge.ExperimentSettings experiment_settings = 7;
   if (cached_has_bits & 0x00000010u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        7, _Internal::experiment_settings(this), target, stream);
+      InternalWriteMessage(7, _Internal::experiment_settings(this),
+        _Internal::experiment_settings(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.TextSuggesterSettings)
@@ -2280,85 +2314,86 @@ size_t TextSuggesterSettings::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     // optional .chrome_knowledge.MultiWordSettings multi_word_settings = 3;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *multi_word_settings_);
+          *_impl_.multi_word_settings_);
     }
 
     // optional .chrome_knowledge.EmojiSettings emoji_settings = 4;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *emoji_settings_);
+          *_impl_.emoji_settings_);
     }
 
     // optional .chrome_knowledge.EmojiTriggerSettings emoji_trigger_settings = 5;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *emoji_trigger_settings_);
+          *_impl_.emoji_trigger_settings_);
     }
 
     // optional .chrome_knowledge.FeatureSettings feature_settings = 6;
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *feature_settings_);
+          *_impl_.feature_settings_);
     }
 
     // optional .chrome_knowledge.ExperimentSettings experiment_settings = 7;
     if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *experiment_settings_);
+          *_impl_.experiment_settings_);
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData TextSuggesterSettings::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     TextSuggesterSettings::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*TextSuggesterSettings::GetClassData() const { return &_class_data_; }
 
-void TextSuggesterSettings::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<TextSuggesterSettings *>(to)->MergeFrom(
-      static_cast<const TextSuggesterSettings &>(from));
-}
 
-
-void TextSuggesterSettings::MergeFrom(const TextSuggesterSettings& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.TextSuggesterSettings)
-  GOOGLE_DCHECK_NE(&from, this);
+void TextSuggesterSettings::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<TextSuggesterSettings*>(&to_msg);
+  auto& from = static_cast<const TextSuggesterSettings&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.TextSuggesterSettings)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_multi_word_settings()->::chrome_knowledge::MultiWordSettings::MergeFrom(from._internal_multi_word_settings());
+      _this->_internal_mutable_multi_word_settings()->::chrome_knowledge::MultiWordSettings::MergeFrom(
+          from._internal_multi_word_settings());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_emoji_settings()->::chrome_knowledge::EmojiSettings::MergeFrom(from._internal_emoji_settings());
+      _this->_internal_mutable_emoji_settings()->::chrome_knowledge::EmojiSettings::MergeFrom(
+          from._internal_emoji_settings());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_emoji_trigger_settings()->::chrome_knowledge::EmojiTriggerSettings::MergeFrom(from._internal_emoji_trigger_settings());
+      _this->_internal_mutable_emoji_trigger_settings()->::chrome_knowledge::EmojiTriggerSettings::MergeFrom(
+          from._internal_emoji_trigger_settings());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_mutable_feature_settings()->::chrome_knowledge::FeatureSettings::MergeFrom(from._internal_feature_settings());
+      _this->_internal_mutable_feature_settings()->::chrome_knowledge::FeatureSettings::MergeFrom(
+          from._internal_feature_settings());
     }
     if (cached_has_bits & 0x00000010u) {
-      _internal_mutable_experiment_settings()->::chrome_knowledge::ExperimentSettings::MergeFrom(from._internal_experiment_settings());
+      _this->_internal_mutable_experiment_settings()->::chrome_knowledge::ExperimentSettings::MergeFrom(
+          from._internal_experiment_settings());
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void TextSuggesterSettings::CopyFrom(const TextSuggesterSettings& from) {
@@ -2375,17 +2410,17 @@ bool TextSuggesterSettings::IsInitialized() const {
 void TextSuggesterSettings::InternalSwap(TextSuggesterSettings* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(TextSuggesterSettings, experiment_settings_)
-      + sizeof(TextSuggesterSettings::experiment_settings_)
-      - PROTOBUF_FIELD_OFFSET(TextSuggesterSettings, multi_word_settings_)>(
-          reinterpret_cast<char*>(&multi_word_settings_),
-          reinterpret_cast<char*>(&other->multi_word_settings_));
+      PROTOBUF_FIELD_OFFSET(TextSuggesterSettings, _impl_.experiment_settings_)
+      + sizeof(TextSuggesterSettings::_impl_.experiment_settings_)
+      - PROTOBUF_FIELD_OFFSET(TextSuggesterSettings, _impl_.multi_word_settings_)>(
+          reinterpret_cast<char*>(&_impl_.multi_word_settings_),
+          reinterpret_cast<char*>(&other->_impl_.multi_word_settings_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata TextSuggesterSettings::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_text_5fsuggester_5finterface_2eproto_getter, &descriptor_table_text_5fsuggester_5finterface_2eproto_once,
       file_level_metadata_text_5fsuggester_5finterface_2eproto[5]);
 }
@@ -2394,7 +2429,7 @@ void TextSuggesterSettings::InternalSwap(TextSuggesterSettings* other) {
 
 class NextWordCompletionCandidate::_Internal {
  public:
-  using HasBits = decltype(std::declval<NextWordCompletionCandidate>()._has_bits_);
+  using HasBits = decltype(std::declval<NextWordCompletionCandidate>()._impl_._has_bits_);
   static void set_has_text(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2406,56 +2441,63 @@ class NextWordCompletionCandidate::_Internal {
 NextWordCompletionCandidate::NextWordCompletionCandidate(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.NextWordCompletionCandidate)
 }
 NextWordCompletionCandidate::NextWordCompletionCandidate(const NextWordCompletionCandidate& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  NextWordCompletionCandidate* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.text_){}
+    , decltype(_impl_.normalized_score_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.text_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    text_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.text_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_text()) {
-    text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_text(), 
-      GetArenaForAllocation());
+    _this->_impl_.text_.Set(from._internal_text(), 
+      _this->GetArenaForAllocation());
   }
-  normalized_score_ = from.normalized_score_;
+  _this->_impl_.normalized_score_ = from._impl_.normalized_score_;
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.NextWordCompletionCandidate)
 }
 
-inline void NextWordCompletionCandidate::SharedCtor() {
-text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  text_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-normalized_score_ = 0;
+inline void NextWordCompletionCandidate::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.text_){}
+    , decltype(_impl_.normalized_score_){0}
+  };
+  _impl_.text_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.text_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 NextWordCompletionCandidate::~NextWordCompletionCandidate() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.NextWordCompletionCandidate)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void NextWordCompletionCandidate::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  text_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.text_.Destroy();
 }
 
-void NextWordCompletionCandidate::ArenaDtor(void* object) {
-  NextWordCompletionCandidate* _this = reinterpret_cast< NextWordCompletionCandidate* >(object);
-  (void)_this;
-}
-void NextWordCompletionCandidate::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void NextWordCompletionCandidate::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void NextWordCompletionCandidate::Clear() {
@@ -2464,31 +2506,31 @@ void NextWordCompletionCandidate::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    text_.ClearNonDefaultToEmpty();
+    _impl_.text_.ClearNonDefaultToEmpty();
   }
-  normalized_score_ = 0;
-  _has_bits_.Clear();
+  _impl_.normalized_score_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* NextWordCompletionCandidate::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* NextWordCompletionCandidate::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string text = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_text();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.NextWordCompletionCandidate.text");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.NextWordCompletionCandidate.text");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -2496,7 +2538,7 @@ const char* NextWordCompletionCandidate::_InternalParse(const char* ptr, ::PROTO
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
           _Internal::set_has_normalized_score(&has_bits);
-          normalized_score_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.normalized_score_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -2517,7 +2559,7 @@ const char* NextWordCompletionCandidate::_InternalParse(const char* ptr, ::PROTO
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2531,7 +2573,7 @@ uint8_t* NextWordCompletionCandidate::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string text = 1;
   if (cached_has_bits & 0x00000001u) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -2545,11 +2587,11 @@ uint8_t* NextWordCompletionCandidate::_InternalSerialize(
   // optional float normalized_score = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_normalized_score(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(2, this->_internal_normalized_score(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.NextWordCompletionCandidate)
@@ -2564,7 +2606,7 @@ size_t NextWordCompletionCandidate::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional string text = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -2579,39 +2621,35 @@ size_t NextWordCompletionCandidate::ByteSizeLong() const {
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData NextWordCompletionCandidate::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     NextWordCompletionCandidate::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*NextWordCompletionCandidate::GetClassData() const { return &_class_data_; }
 
-void NextWordCompletionCandidate::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<NextWordCompletionCandidate *>(to)->MergeFrom(
-      static_cast<const NextWordCompletionCandidate &>(from));
-}
 
-
-void NextWordCompletionCandidate::MergeFrom(const NextWordCompletionCandidate& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.NextWordCompletionCandidate)
-  GOOGLE_DCHECK_NE(&from, this);
+void NextWordCompletionCandidate::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<NextWordCompletionCandidate*>(&to_msg);
+  auto& from = static_cast<const NextWordCompletionCandidate&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.NextWordCompletionCandidate)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_text(from._internal_text());
+      _this->_internal_set_text(from._internal_text());
     }
     if (cached_has_bits & 0x00000002u) {
-      normalized_score_ = from.normalized_score_;
+      _this->_impl_.normalized_score_ = from._impl_.normalized_score_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void NextWordCompletionCandidate::CopyFrom(const NextWordCompletionCandidate& from) {
@@ -2630,17 +2668,16 @@ void NextWordCompletionCandidate::InternalSwap(NextWordCompletionCandidate* othe
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &text_, lhs_arena,
-      &other->text_, rhs_arena
+      &_impl_.text_, lhs_arena,
+      &other->_impl_.text_, rhs_arena
   );
-  swap(normalized_score_, other->normalized_score_);
+  swap(_impl_.normalized_score_, other->_impl_.normalized_score_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata NextWordCompletionCandidate::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_text_5fsuggester_5finterface_2eproto_getter, &descriptor_table_text_5fsuggester_5finterface_2eproto_once,
       file_level_metadata_text_5fsuggester_5finterface_2eproto[6]);
 }
@@ -2649,7 +2686,7 @@ void NextWordCompletionCandidate::InternalSwap(NextWordCompletionCandidate* othe
 
 class TextSuggesterRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<TextSuggesterRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<TextSuggesterRequest>()._impl_._has_bits_);
   static void set_has_text(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2660,59 +2697,67 @@ class TextSuggesterRequest::_Internal {
 
 TextSuggesterRequest::TextSuggesterRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  next_word_candidates_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.TextSuggesterRequest)
 }
 TextSuggesterRequest::TextSuggesterRequest(const TextSuggesterRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_),
-      next_word_candidates_(from.next_word_candidates_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  TextSuggesterRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.next_word_candidates_){from._impl_.next_word_candidates_}
+    , decltype(_impl_.text_){}
+    , decltype(_impl_.suggestion_mode_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.text_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    text_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.text_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_text()) {
-    text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_text(), 
-      GetArenaForAllocation());
+    _this->_impl_.text_.Set(from._internal_text(), 
+      _this->GetArenaForAllocation());
   }
-  suggestion_mode_ = from.suggestion_mode_;
+  _this->_impl_.suggestion_mode_ = from._impl_.suggestion_mode_;
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.TextSuggesterRequest)
 }
 
-inline void TextSuggesterRequest::SharedCtor() {
-text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  text_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-suggestion_mode_ = 0;
+inline void TextSuggesterRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.next_word_candidates_){arena}
+    , decltype(_impl_.text_){}
+    , decltype(_impl_.suggestion_mode_){0}
+  };
+  _impl_.text_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.text_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 TextSuggesterRequest::~TextSuggesterRequest() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.TextSuggesterRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void TextSuggesterRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  text_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.next_word_candidates_.~RepeatedPtrField();
+  _impl_.text_.Destroy();
 }
 
-void TextSuggesterRequest::ArenaDtor(void* object) {
-  TextSuggesterRequest* _this = reinterpret_cast< TextSuggesterRequest* >(object);
-  (void)_this;
-}
-void TextSuggesterRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void TextSuggesterRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void TextSuggesterRequest::Clear() {
@@ -2721,32 +2766,32 @@ void TextSuggesterRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  next_word_candidates_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.next_word_candidates_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    text_.ClearNonDefaultToEmpty();
+    _impl_.text_.ClearNonDefaultToEmpty();
   }
-  suggestion_mode_ = 0;
-  _has_bits_.Clear();
+  _impl_.suggestion_mode_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* TextSuggesterRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* TextSuggesterRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string text = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_text();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.TextSuggesterRequest.text");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.TextSuggesterRequest.text");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -2792,7 +2837,7 @@ const char* TextSuggesterRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAM
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2806,7 +2851,7 @@ uint8_t* TextSuggesterRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string text = 1;
   if (cached_has_bits & 0x00000001u) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -2818,22 +2863,22 @@ uint8_t* TextSuggesterRequest::_InternalSerialize(
   }
 
   // repeated .chrome_knowledge.NextWordCompletionCandidate next_word_candidates = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_next_word_candidates_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_next_word_candidates_size()); i < n; i++) {
+    const auto& repfield = this->_internal_next_word_candidates(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_next_word_candidates(i), target, stream);
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // optional .chrome_knowledge.RequestSuggestionMode suggestion_mode = 3;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_suggestion_mode(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.TextSuggesterRequest)
@@ -2850,12 +2895,12 @@ size_t TextSuggesterRequest::ByteSizeLong() const {
 
   // repeated .chrome_knowledge.NextWordCompletionCandidate next_word_candidates = 2;
   total_size += 1UL * this->_internal_next_word_candidates_size();
-  for (const auto& msg : this->next_word_candidates_) {
+  for (const auto& msg : this->_impl_.next_word_candidates_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional string text = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -2867,44 +2912,40 @@ size_t TextSuggesterRequest::ByteSizeLong() const {
     // optional .chrome_knowledge.RequestSuggestionMode suggestion_mode = 3;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_suggestion_mode());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_suggestion_mode());
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData TextSuggesterRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     TextSuggesterRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*TextSuggesterRequest::GetClassData() const { return &_class_data_; }
 
-void TextSuggesterRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<TextSuggesterRequest *>(to)->MergeFrom(
-      static_cast<const TextSuggesterRequest &>(from));
-}
 
-
-void TextSuggesterRequest::MergeFrom(const TextSuggesterRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.TextSuggesterRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void TextSuggesterRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<TextSuggesterRequest*>(&to_msg);
+  auto& from = static_cast<const TextSuggesterRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.TextSuggesterRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  next_word_candidates_.MergeFrom(from.next_word_candidates_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_impl_.next_word_candidates_.MergeFrom(from._impl_.next_word_candidates_);
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_text(from._internal_text());
+      _this->_internal_set_text(from._internal_text());
     }
     if (cached_has_bits & 0x00000002u) {
-      suggestion_mode_ = from.suggestion_mode_;
+      _this->_impl_.suggestion_mode_ = from._impl_.suggestion_mode_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void TextSuggesterRequest::CopyFrom(const TextSuggesterRequest& from) {
@@ -2923,18 +2964,17 @@ void TextSuggesterRequest::InternalSwap(TextSuggesterRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  next_word_candidates_.InternalSwap(&other->next_word_candidates_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.next_word_candidates_.InternalSwap(&other->_impl_.next_word_candidates_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &text_, lhs_arena,
-      &other->text_, rhs_arena
+      &_impl_.text_, lhs_arena,
+      &other->_impl_.text_, rhs_arena
   );
-  swap(suggestion_mode_, other->suggestion_mode_);
+  swap(_impl_.suggestion_mode_, other->_impl_.suggestion_mode_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata TextSuggesterRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_text_5fsuggester_5finterface_2eproto_getter, &descriptor_table_text_5fsuggester_5finterface_2eproto_once,
       file_level_metadata_text_5fsuggester_5finterface_2eproto[7]);
 }
@@ -2943,7 +2983,7 @@ void TextSuggesterRequest::InternalSwap(TextSuggesterRequest* other) {
 
 class MultiWordSuggestionCandidate::_Internal {
  public:
-  using HasBits = decltype(std::declval<MultiWordSuggestionCandidate>()._has_bits_);
+  using HasBits = decltype(std::declval<MultiWordSuggestionCandidate>()._impl_._has_bits_);
   static void set_has_text(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2955,56 +2995,63 @@ class MultiWordSuggestionCandidate::_Internal {
 MultiWordSuggestionCandidate::MultiWordSuggestionCandidate(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.MultiWordSuggestionCandidate)
 }
 MultiWordSuggestionCandidate::MultiWordSuggestionCandidate(const MultiWordSuggestionCandidate& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  MultiWordSuggestionCandidate* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.text_){}
+    , decltype(_impl_.normalized_score_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.text_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    text_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.text_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_text()) {
-    text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_text(), 
-      GetArenaForAllocation());
+    _this->_impl_.text_.Set(from._internal_text(), 
+      _this->GetArenaForAllocation());
   }
-  normalized_score_ = from.normalized_score_;
+  _this->_impl_.normalized_score_ = from._impl_.normalized_score_;
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.MultiWordSuggestionCandidate)
 }
 
-inline void MultiWordSuggestionCandidate::SharedCtor() {
-text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  text_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-normalized_score_ = 0;
+inline void MultiWordSuggestionCandidate::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.text_){}
+    , decltype(_impl_.normalized_score_){0}
+  };
+  _impl_.text_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.text_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 MultiWordSuggestionCandidate::~MultiWordSuggestionCandidate() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.MultiWordSuggestionCandidate)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void MultiWordSuggestionCandidate::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  text_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.text_.Destroy();
 }
 
-void MultiWordSuggestionCandidate::ArenaDtor(void* object) {
-  MultiWordSuggestionCandidate* _this = reinterpret_cast< MultiWordSuggestionCandidate* >(object);
-  (void)_this;
-}
-void MultiWordSuggestionCandidate::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void MultiWordSuggestionCandidate::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void MultiWordSuggestionCandidate::Clear() {
@@ -3013,31 +3060,31 @@ void MultiWordSuggestionCandidate::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    text_.ClearNonDefaultToEmpty();
+    _impl_.text_.ClearNonDefaultToEmpty();
   }
-  normalized_score_ = 0;
-  _has_bits_.Clear();
+  _impl_.normalized_score_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* MultiWordSuggestionCandidate::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* MultiWordSuggestionCandidate::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string text = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_text();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.MultiWordSuggestionCandidate.text");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.MultiWordSuggestionCandidate.text");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -3045,7 +3092,7 @@ const char* MultiWordSuggestionCandidate::_InternalParse(const char* ptr, ::PROT
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
           _Internal::set_has_normalized_score(&has_bits);
-          normalized_score_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.normalized_score_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -3066,7 +3113,7 @@ const char* MultiWordSuggestionCandidate::_InternalParse(const char* ptr, ::PROT
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -3080,7 +3127,7 @@ uint8_t* MultiWordSuggestionCandidate::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string text = 1;
   if (cached_has_bits & 0x00000001u) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -3094,11 +3141,11 @@ uint8_t* MultiWordSuggestionCandidate::_InternalSerialize(
   // optional float normalized_score = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_normalized_score(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(2, this->_internal_normalized_score(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.MultiWordSuggestionCandidate)
@@ -3113,7 +3160,7 @@ size_t MultiWordSuggestionCandidate::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional string text = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -3128,39 +3175,35 @@ size_t MultiWordSuggestionCandidate::ByteSizeLong() const {
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData MultiWordSuggestionCandidate::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     MultiWordSuggestionCandidate::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*MultiWordSuggestionCandidate::GetClassData() const { return &_class_data_; }
 
-void MultiWordSuggestionCandidate::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<MultiWordSuggestionCandidate *>(to)->MergeFrom(
-      static_cast<const MultiWordSuggestionCandidate &>(from));
-}
 
-
-void MultiWordSuggestionCandidate::MergeFrom(const MultiWordSuggestionCandidate& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.MultiWordSuggestionCandidate)
-  GOOGLE_DCHECK_NE(&from, this);
+void MultiWordSuggestionCandidate::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<MultiWordSuggestionCandidate*>(&to_msg);
+  auto& from = static_cast<const MultiWordSuggestionCandidate&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.MultiWordSuggestionCandidate)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_text(from._internal_text());
+      _this->_internal_set_text(from._internal_text());
     }
     if (cached_has_bits & 0x00000002u) {
-      normalized_score_ = from.normalized_score_;
+      _this->_impl_.normalized_score_ = from._impl_.normalized_score_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void MultiWordSuggestionCandidate::CopyFrom(const MultiWordSuggestionCandidate& from) {
@@ -3179,17 +3222,16 @@ void MultiWordSuggestionCandidate::InternalSwap(MultiWordSuggestionCandidate* ot
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &text_, lhs_arena,
-      &other->text_, rhs_arena
+      &_impl_.text_, lhs_arena,
+      &other->_impl_.text_, rhs_arena
   );
-  swap(normalized_score_, other->normalized_score_);
+  swap(_impl_.normalized_score_, other->_impl_.normalized_score_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata MultiWordSuggestionCandidate::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_text_5fsuggester_5finterface_2eproto_getter, &descriptor_table_text_5fsuggester_5finterface_2eproto_once,
       file_level_metadata_text_5fsuggester_5finterface_2eproto[8]);
 }
@@ -3198,7 +3240,7 @@ void MultiWordSuggestionCandidate::InternalSwap(MultiWordSuggestionCandidate* ot
 
 class EmojiSuggestionCandidate::_Internal {
  public:
-  using HasBits = decltype(std::declval<EmojiSuggestionCandidate>()._has_bits_);
+  using HasBits = decltype(std::declval<EmojiSuggestionCandidate>()._impl_._has_bits_);
   static void set_has_text(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -3210,56 +3252,63 @@ class EmojiSuggestionCandidate::_Internal {
 EmojiSuggestionCandidate::EmojiSuggestionCandidate(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.EmojiSuggestionCandidate)
 }
 EmojiSuggestionCandidate::EmojiSuggestionCandidate(const EmojiSuggestionCandidate& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  EmojiSuggestionCandidate* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.text_){}
+    , decltype(_impl_.normalized_score_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.text_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    text_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.text_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_text()) {
-    text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_text(), 
-      GetArenaForAllocation());
+    _this->_impl_.text_.Set(from._internal_text(), 
+      _this->GetArenaForAllocation());
   }
-  normalized_score_ = from.normalized_score_;
+  _this->_impl_.normalized_score_ = from._impl_.normalized_score_;
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.EmojiSuggestionCandidate)
 }
 
-inline void EmojiSuggestionCandidate::SharedCtor() {
-text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  text_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-normalized_score_ = 0;
+inline void EmojiSuggestionCandidate::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.text_){}
+    , decltype(_impl_.normalized_score_){0}
+  };
+  _impl_.text_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.text_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 EmojiSuggestionCandidate::~EmojiSuggestionCandidate() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.EmojiSuggestionCandidate)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void EmojiSuggestionCandidate::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  text_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.text_.Destroy();
 }
 
-void EmojiSuggestionCandidate::ArenaDtor(void* object) {
-  EmojiSuggestionCandidate* _this = reinterpret_cast< EmojiSuggestionCandidate* >(object);
-  (void)_this;
-}
-void EmojiSuggestionCandidate::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void EmojiSuggestionCandidate::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void EmojiSuggestionCandidate::Clear() {
@@ -3268,31 +3317,31 @@ void EmojiSuggestionCandidate::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    text_.ClearNonDefaultToEmpty();
+    _impl_.text_.ClearNonDefaultToEmpty();
   }
-  normalized_score_ = 0;
-  _has_bits_.Clear();
+  _impl_.normalized_score_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* EmojiSuggestionCandidate::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* EmojiSuggestionCandidate::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string text = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_text();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.EmojiSuggestionCandidate.text");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.EmojiSuggestionCandidate.text");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -3300,7 +3349,7 @@ const char* EmojiSuggestionCandidate::_InternalParse(const char* ptr, ::PROTOBUF
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
           _Internal::set_has_normalized_score(&has_bits);
-          normalized_score_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.normalized_score_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -3321,7 +3370,7 @@ const char* EmojiSuggestionCandidate::_InternalParse(const char* ptr, ::PROTOBUF
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -3335,7 +3384,7 @@ uint8_t* EmojiSuggestionCandidate::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string text = 1;
   if (cached_has_bits & 0x00000001u) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -3349,11 +3398,11 @@ uint8_t* EmojiSuggestionCandidate::_InternalSerialize(
   // optional float normalized_score = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_normalized_score(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(2, this->_internal_normalized_score(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.EmojiSuggestionCandidate)
@@ -3368,7 +3417,7 @@ size_t EmojiSuggestionCandidate::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional string text = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -3383,39 +3432,35 @@ size_t EmojiSuggestionCandidate::ByteSizeLong() const {
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData EmojiSuggestionCandidate::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     EmojiSuggestionCandidate::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*EmojiSuggestionCandidate::GetClassData() const { return &_class_data_; }
 
-void EmojiSuggestionCandidate::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<EmojiSuggestionCandidate *>(to)->MergeFrom(
-      static_cast<const EmojiSuggestionCandidate &>(from));
-}
 
-
-void EmojiSuggestionCandidate::MergeFrom(const EmojiSuggestionCandidate& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.EmojiSuggestionCandidate)
-  GOOGLE_DCHECK_NE(&from, this);
+void EmojiSuggestionCandidate::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<EmojiSuggestionCandidate*>(&to_msg);
+  auto& from = static_cast<const EmojiSuggestionCandidate&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.EmojiSuggestionCandidate)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_text(from._internal_text());
+      _this->_internal_set_text(from._internal_text());
     }
     if (cached_has_bits & 0x00000002u) {
-      normalized_score_ = from.normalized_score_;
+      _this->_impl_.normalized_score_ = from._impl_.normalized_score_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void EmojiSuggestionCandidate::CopyFrom(const EmojiSuggestionCandidate& from) {
@@ -3434,17 +3479,16 @@ void EmojiSuggestionCandidate::InternalSwap(EmojiSuggestionCandidate* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &text_, lhs_arena,
-      &other->text_, rhs_arena
+      &_impl_.text_, lhs_arena,
+      &other->_impl_.text_, rhs_arena
   );
-  swap(normalized_score_, other->normalized_score_);
+  swap(_impl_.normalized_score_, other->_impl_.normalized_score_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata EmojiSuggestionCandidate::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_text_5fsuggester_5finterface_2eproto_getter, &descriptor_table_text_5fsuggester_5finterface_2eproto_once,
       file_level_metadata_text_5fsuggester_5finterface_2eproto[9]);
 }
@@ -3459,24 +3503,24 @@ class TextSuggestionCandidate::_Internal {
 
 const ::chrome_knowledge::MultiWordSuggestionCandidate&
 TextSuggestionCandidate::_Internal::multi_word(const TextSuggestionCandidate* msg) {
-  return *msg->candidate_.multi_word_;
+  return *msg->_impl_.candidate_.multi_word_;
 }
 const ::chrome_knowledge::EmojiSuggestionCandidate&
 TextSuggestionCandidate::_Internal::emoji(const TextSuggestionCandidate* msg) {
-  return *msg->candidate_.emoji_;
+  return *msg->_impl_.candidate_.emoji_;
 }
 void TextSuggestionCandidate::set_allocated_multi_word(::chrome_knowledge::MultiWordSuggestionCandidate* multi_word) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_candidate();
   if (multi_word) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::chrome_knowledge::MultiWordSuggestionCandidate>::GetOwningArena(multi_word);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(multi_word);
     if (message_arena != submessage_arena) {
       multi_word = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, multi_word, submessage_arena);
     }
     set_has_multi_word();
-    candidate_.multi_word_ = multi_word;
+    _impl_.candidate_.multi_word_ = multi_word;
   }
   // @@protoc_insertion_point(field_set_allocated:chrome_knowledge.TextSuggestionCandidate.multi_word)
 }
@@ -3485,36 +3529,41 @@ void TextSuggestionCandidate::set_allocated_emoji(::chrome_knowledge::EmojiSugge
   clear_candidate();
   if (emoji) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::chrome_knowledge::EmojiSuggestionCandidate>::GetOwningArena(emoji);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(emoji);
     if (message_arena != submessage_arena) {
       emoji = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, emoji, submessage_arena);
     }
     set_has_emoji();
-    candidate_.emoji_ = emoji;
+    _impl_.candidate_.emoji_ = emoji;
   }
   // @@protoc_insertion_point(field_set_allocated:chrome_knowledge.TextSuggestionCandidate.emoji)
 }
 TextSuggestionCandidate::TextSuggestionCandidate(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.TextSuggestionCandidate)
 }
 TextSuggestionCandidate::TextSuggestionCandidate(const TextSuggestionCandidate& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  TextSuggestionCandidate* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.candidate_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   clear_has_candidate();
   switch (from.candidate_case()) {
     case kMultiWord: {
-      _internal_mutable_multi_word()->::chrome_knowledge::MultiWordSuggestionCandidate::MergeFrom(from._internal_multi_word());
+      _this->_internal_mutable_multi_word()->::chrome_knowledge::MultiWordSuggestionCandidate::MergeFrom(
+          from._internal_multi_word());
       break;
     }
     case kEmoji: {
-      _internal_mutable_emoji()->::chrome_knowledge::EmojiSuggestionCandidate::MergeFrom(from._internal_emoji());
+      _this->_internal_mutable_emoji()->::chrome_knowledge::EmojiSuggestionCandidate::MergeFrom(
+          from._internal_emoji());
       break;
     }
     case CANDIDATE_NOT_SET: {
@@ -3524,15 +3573,25 @@ TextSuggestionCandidate::TextSuggestionCandidate(const TextSuggestionCandidate& 
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.TextSuggestionCandidate)
 }
 
-inline void TextSuggestionCandidate::SharedCtor() {
-clear_has_candidate();
+inline void TextSuggestionCandidate::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.candidate_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  clear_has_candidate();
 }
 
 TextSuggestionCandidate::~TextSuggestionCandidate() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.TextSuggestionCandidate)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void TextSuggestionCandidate::SharedDtor() {
@@ -3542,14 +3601,8 @@ inline void TextSuggestionCandidate::SharedDtor() {
   }
 }
 
-void TextSuggestionCandidate::ArenaDtor(void* object) {
-  TextSuggestionCandidate* _this = reinterpret_cast< TextSuggestionCandidate* >(object);
-  (void)_this;
-}
-void TextSuggestionCandidate::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void TextSuggestionCandidate::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void TextSuggestionCandidate::clear_candidate() {
@@ -3557,13 +3610,13 @@ void TextSuggestionCandidate::clear_candidate() {
   switch (candidate_case()) {
     case kMultiWord: {
       if (GetArenaForAllocation() == nullptr) {
-        delete candidate_.multi_word_;
+        delete _impl_.candidate_.multi_word_;
       }
       break;
     }
     case kEmoji: {
       if (GetArenaForAllocation() == nullptr) {
-        delete candidate_.emoji_;
+        delete _impl_.candidate_.emoji_;
       }
       break;
     }
@@ -3571,7 +3624,7 @@ void TextSuggestionCandidate::clear_candidate() {
       break;
     }
   }
-  _oneof_case_[0] = CANDIDATE_NOT_SET;
+  _impl_._oneof_case_[0] = CANDIDATE_NOT_SET;
 }
 
 
@@ -3585,11 +3638,11 @@ void TextSuggestionCandidate::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* TextSuggestionCandidate::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* TextSuggestionCandidate::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .chrome_knowledge.MultiWordSuggestionCandidate multi_word = 1;
       case 1:
@@ -3638,23 +3691,21 @@ uint8_t* TextSuggestionCandidate::_InternalSerialize(
 
   switch (candidate_case()) {
     case kMultiWord: {
-      target = stream->EnsureSpace(target);
       target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          1, _Internal::multi_word(this), target, stream);
+        InternalWriteMessage(1, _Internal::multi_word(this),
+          _Internal::multi_word(this).GetCachedSize(), target, stream);
       break;
     }
     case kEmoji: {
-      target = stream->EnsureSpace(target);
       target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          2, _Internal::emoji(this), target, stream);
+        InternalWriteMessage(2, _Internal::emoji(this),
+          _Internal::emoji(this).GetCachedSize(), target, stream);
       break;
     }
     default: ;
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.TextSuggestionCandidate)
@@ -3674,56 +3725,54 @@ size_t TextSuggestionCandidate::ByteSizeLong() const {
     case kMultiWord: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *candidate_.multi_word_);
+          *_impl_.candidate_.multi_word_);
       break;
     }
     // .chrome_knowledge.EmojiSuggestionCandidate emoji = 2;
     case kEmoji: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *candidate_.emoji_);
+          *_impl_.candidate_.emoji_);
       break;
     }
     case CANDIDATE_NOT_SET: {
       break;
     }
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData TextSuggestionCandidate::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     TextSuggestionCandidate::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*TextSuggestionCandidate::GetClassData() const { return &_class_data_; }
 
-void TextSuggestionCandidate::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<TextSuggestionCandidate *>(to)->MergeFrom(
-      static_cast<const TextSuggestionCandidate &>(from));
-}
 
-
-void TextSuggestionCandidate::MergeFrom(const TextSuggestionCandidate& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.TextSuggestionCandidate)
-  GOOGLE_DCHECK_NE(&from, this);
+void TextSuggestionCandidate::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<TextSuggestionCandidate*>(&to_msg);
+  auto& from = static_cast<const TextSuggestionCandidate&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.TextSuggestionCandidate)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.candidate_case()) {
     case kMultiWord: {
-      _internal_mutable_multi_word()->::chrome_knowledge::MultiWordSuggestionCandidate::MergeFrom(from._internal_multi_word());
+      _this->_internal_mutable_multi_word()->::chrome_knowledge::MultiWordSuggestionCandidate::MergeFrom(
+          from._internal_multi_word());
       break;
     }
     case kEmoji: {
-      _internal_mutable_emoji()->::chrome_knowledge::EmojiSuggestionCandidate::MergeFrom(from._internal_emoji());
+      _this->_internal_mutable_emoji()->::chrome_knowledge::EmojiSuggestionCandidate::MergeFrom(
+          from._internal_emoji());
       break;
     }
     case CANDIDATE_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void TextSuggestionCandidate::CopyFrom(const TextSuggestionCandidate& from) {
@@ -3740,12 +3789,12 @@ bool TextSuggestionCandidate::IsInitialized() const {
 void TextSuggestionCandidate::InternalSwap(TextSuggestionCandidate* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(candidate_, other->candidate_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_impl_.candidate_, other->_impl_.candidate_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata TextSuggestionCandidate::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_text_5fsuggester_5finterface_2eproto_getter, &descriptor_table_text_5fsuggester_5finterface_2eproto_once,
       file_level_metadata_text_5fsuggester_5finterface_2eproto[10]);
 }
@@ -3758,43 +3807,47 @@ class TextSuggesterResult::_Internal {
 
 TextSuggesterResult::TextSuggesterResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  candidates_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.TextSuggesterResult)
 }
 TextSuggesterResult::TextSuggesterResult(const TextSuggesterResult& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      candidates_(from.candidates_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  TextSuggesterResult* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.candidates_){from._impl_.candidates_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.TextSuggesterResult)
 }
 
-inline void TextSuggesterResult::SharedCtor() {
+inline void TextSuggesterResult::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.candidates_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 TextSuggesterResult::~TextSuggesterResult() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.TextSuggesterResult)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void TextSuggesterResult::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.candidates_.~RepeatedPtrField();
 }
 
-void TextSuggesterResult::ArenaDtor(void* object) {
-  TextSuggesterResult* _this = reinterpret_cast< TextSuggesterResult* >(object);
-  (void)_this;
-}
-void TextSuggesterResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void TextSuggesterResult::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void TextSuggesterResult::Clear() {
@@ -3803,15 +3856,15 @@ void TextSuggesterResult::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  candidates_.Clear();
+  _impl_.candidates_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* TextSuggesterResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* TextSuggesterResult::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .chrome_knowledge.TextSuggestionCandidate candidates = 1;
       case 1:
@@ -3856,15 +3909,15 @@ uint8_t* TextSuggesterResult::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .chrome_knowledge.TextSuggestionCandidate candidates = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_candidates_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_candidates_size()); i < n; i++) {
+    const auto& repfield = this->_internal_candidates(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_candidates(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.TextSuggesterResult)
@@ -3881,35 +3934,31 @@ size_t TextSuggesterResult::ByteSizeLong() const {
 
   // repeated .chrome_knowledge.TextSuggestionCandidate candidates = 1;
   total_size += 1UL * this->_internal_candidates_size();
-  for (const auto& msg : this->candidates_) {
+  for (const auto& msg : this->_impl_.candidates_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData TextSuggesterResult::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     TextSuggesterResult::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*TextSuggesterResult::GetClassData() const { return &_class_data_; }
 
-void TextSuggesterResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<TextSuggesterResult *>(to)->MergeFrom(
-      static_cast<const TextSuggesterResult &>(from));
-}
 
-
-void TextSuggesterResult::MergeFrom(const TextSuggesterResult& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.TextSuggesterResult)
-  GOOGLE_DCHECK_NE(&from, this);
+void TextSuggesterResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<TextSuggesterResult*>(&to_msg);
+  auto& from = static_cast<const TextSuggesterResult&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.TextSuggesterResult)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  candidates_.MergeFrom(from.candidates_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.candidates_.MergeFrom(from._impl_.candidates_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void TextSuggesterResult::CopyFrom(const TextSuggesterResult& from) {
@@ -3926,11 +3975,11 @@ bool TextSuggesterResult::IsInitialized() const {
 void TextSuggesterResult::InternalSwap(TextSuggesterResult* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  candidates_.InternalSwap(&other->candidates_);
+  _impl_.candidates_.InternalSwap(&other->_impl_.candidates_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata TextSuggesterResult::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_text_5fsuggester_5finterface_2eproto_getter, &descriptor_table_text_5fsuggester_5finterface_2eproto_once,
       file_level_metadata_text_5fsuggester_5finterface_2eproto[11]);
 }
@@ -3938,40 +3987,52 @@ void TextSuggesterResult::InternalSwap(TextSuggesterResult* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace chrome_knowledge
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::MultiWordSettings* Arena::CreateMaybeMessage< ::chrome_knowledge::MultiWordSettings >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::MultiWordSettings*
+Arena::CreateMaybeMessage< ::chrome_knowledge::MultiWordSettings >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::MultiWordSettings >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::EmojiSettings* Arena::CreateMaybeMessage< ::chrome_knowledge::EmojiSettings >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::EmojiSettings*
+Arena::CreateMaybeMessage< ::chrome_knowledge::EmojiSettings >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::EmojiSettings >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::EmojiTriggerSettings* Arena::CreateMaybeMessage< ::chrome_knowledge::EmojiTriggerSettings >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::EmojiTriggerSettings*
+Arena::CreateMaybeMessage< ::chrome_knowledge::EmojiTriggerSettings >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::EmojiTriggerSettings >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::FeatureSettings* Arena::CreateMaybeMessage< ::chrome_knowledge::FeatureSettings >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::FeatureSettings*
+Arena::CreateMaybeMessage< ::chrome_knowledge::FeatureSettings >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::FeatureSettings >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::ExperimentSettings* Arena::CreateMaybeMessage< ::chrome_knowledge::ExperimentSettings >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::ExperimentSettings*
+Arena::CreateMaybeMessage< ::chrome_knowledge::ExperimentSettings >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::ExperimentSettings >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::TextSuggesterSettings* Arena::CreateMaybeMessage< ::chrome_knowledge::TextSuggesterSettings >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::TextSuggesterSettings*
+Arena::CreateMaybeMessage< ::chrome_knowledge::TextSuggesterSettings >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::TextSuggesterSettings >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::NextWordCompletionCandidate* Arena::CreateMaybeMessage< ::chrome_knowledge::NextWordCompletionCandidate >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::NextWordCompletionCandidate*
+Arena::CreateMaybeMessage< ::chrome_knowledge::NextWordCompletionCandidate >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::NextWordCompletionCandidate >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::TextSuggesterRequest* Arena::CreateMaybeMessage< ::chrome_knowledge::TextSuggesterRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::TextSuggesterRequest*
+Arena::CreateMaybeMessage< ::chrome_knowledge::TextSuggesterRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::TextSuggesterRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::MultiWordSuggestionCandidate* Arena::CreateMaybeMessage< ::chrome_knowledge::MultiWordSuggestionCandidate >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::MultiWordSuggestionCandidate*
+Arena::CreateMaybeMessage< ::chrome_knowledge::MultiWordSuggestionCandidate >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::MultiWordSuggestionCandidate >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::EmojiSuggestionCandidate* Arena::CreateMaybeMessage< ::chrome_knowledge::EmojiSuggestionCandidate >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::EmojiSuggestionCandidate*
+Arena::CreateMaybeMessage< ::chrome_knowledge::EmojiSuggestionCandidate >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::EmojiSuggestionCandidate >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::TextSuggestionCandidate* Arena::CreateMaybeMessage< ::chrome_knowledge::TextSuggestionCandidate >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::TextSuggestionCandidate*
+Arena::CreateMaybeMessage< ::chrome_knowledge::TextSuggestionCandidate >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::TextSuggestionCandidate >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::TextSuggesterResult* Arena::CreateMaybeMessage< ::chrome_knowledge::TextSuggesterResult >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::TextSuggesterResult*
+Arena::CreateMaybeMessage< ::chrome_knowledge::TextSuggesterResult >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::TextSuggesterResult >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

@@ -16,41 +16,47 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace mist {
-constexpr UsbId::UsbId(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : vendor_id_(0u)
-  , product_id_(0u){}
+PROTOBUF_CONSTEXPR UsbId::UsbId(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.vendor_id_)*/0u
+  , /*decltype(_impl_.product_id_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UsbIdDefaultTypeInternal {
-  constexpr UsbIdDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UsbIdDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UsbIdDefaultTypeInternal() {}
   union {
     UsbId _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UsbIdDefaultTypeInternal _UsbId_default_instance_;
-constexpr UsbModemInfo::UsbModemInfo(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : final_usb_id_()
-  , usb_message_()
-  , initial_usb_id_(nullptr)
-  , initial_delay_ms_(0u)
-  , expect_response_(false)
-  , initial_reset_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UsbIdDefaultTypeInternal _UsbId_default_instance_;
+PROTOBUF_CONSTEXPR UsbModemInfo::UsbModemInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.final_usb_id_)*/{}
+  , /*decltype(_impl_.usb_message_)*/{}
+  , /*decltype(_impl_.initial_usb_id_)*/nullptr
+  , /*decltype(_impl_.initial_delay_ms_)*/0u
+  , /*decltype(_impl_.expect_response_)*/false
+  , /*decltype(_impl_.initial_reset_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UsbModemInfoDefaultTypeInternal {
-  constexpr UsbModemInfoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UsbModemInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UsbModemInfoDefaultTypeInternal() {}
   union {
     UsbModemInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UsbModemInfoDefaultTypeInternal _UsbModemInfo_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UsbModemInfoDefaultTypeInternal _UsbModemInfo_default_instance_;
 }  // namespace mist
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_usb_5fmodem_5finfo_2eproto[2];
-static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_usb_5fmodem_5finfo_2eproto = nullptr;
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_usb_5fmodem_5finfo_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_usb_5fmodem_5finfo_2eproto[2];
+static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_usb_5fmodem_5finfo_2eproto = nullptr;
+static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_usb_5fmodem_5finfo_2eproto = nullptr;
 
 const uint32_t TableStruct_usb_5fmodem_5finfo_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
@@ -59,29 +65,29 @@ const uint32_t TableStruct_usb_5fmodem_5finfo_2eproto::offsets[] PROTOBUF_SECTIO
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mist::UsbId, vendor_id_),
-  PROTOBUF_FIELD_OFFSET(::mist::UsbId, product_id_),
+  PROTOBUF_FIELD_OFFSET(::mist::UsbId, _impl_.vendor_id_),
+  PROTOBUF_FIELD_OFFSET(::mist::UsbId, _impl_.product_id_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::mist::UsbModemInfo, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::mist::UsbModemInfo, initial_usb_id_),
-  PROTOBUF_FIELD_OFFSET(::mist::UsbModemInfo, final_usb_id_),
-  PROTOBUF_FIELD_OFFSET(::mist::UsbModemInfo, usb_message_),
-  PROTOBUF_FIELD_OFFSET(::mist::UsbModemInfo, expect_response_),
-  PROTOBUF_FIELD_OFFSET(::mist::UsbModemInfo, initial_delay_ms_),
-  PROTOBUF_FIELD_OFFSET(::mist::UsbModemInfo, initial_reset_),
+  PROTOBUF_FIELD_OFFSET(::mist::UsbModemInfo, _impl_.initial_usb_id_),
+  PROTOBUF_FIELD_OFFSET(::mist::UsbModemInfo, _impl_.final_usb_id_),
+  PROTOBUF_FIELD_OFFSET(::mist::UsbModemInfo, _impl_.usb_message_),
+  PROTOBUF_FIELD_OFFSET(::mist::UsbModemInfo, _impl_.expect_response_),
+  PROTOBUF_FIELD_OFFSET(::mist::UsbModemInfo, _impl_.initial_delay_ms_),
+  PROTOBUF_FIELD_OFFSET(::mist::UsbModemInfo, _impl_.initial_reset_),
 };
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::mist::UsbId)},
   { 8, -1, -1, sizeof(::mist::UsbModemInfo)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::mist::_UsbId_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::mist::_UsbModemInfo_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+  &::mist::_UsbId_default_instance_._instance,
+  &::mist::_UsbModemInfo_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_usb_5fmodem_5finfo_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -93,19 +99,21 @@ const char descriptor_table_protodef_usb_5fmodem_5finfo_2eproto[] PROTOBUF_SECTI
   "ponse\030\004 \001(\010\022\030\n\020initial_delay_ms\030\005 \001(\r\022\025\n"
   "\rinitial_reset\030\006 \001(\010b\006proto3"
   ;
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_usb_5fmodem_5finfo_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_usb_5fmodem_5finfo_2eproto = {
-  false, false, 268, descriptor_table_protodef_usb_5fmodem_5finfo_2eproto, "usb_modem_info.proto", 
-  &descriptor_table_usb_5fmodem_5finfo_2eproto_once, nullptr, 0, 2,
-  schemas, file_default_instances, TableStruct_usb_5fmodem_5finfo_2eproto::offsets,
-  file_level_metadata_usb_5fmodem_5finfo_2eproto, file_level_enum_descriptors_usb_5fmodem_5finfo_2eproto, file_level_service_descriptors_usb_5fmodem_5finfo_2eproto,
+static ::_pbi::once_flag descriptor_table_usb_5fmodem_5finfo_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_usb_5fmodem_5finfo_2eproto = {
+    false, false, 268, descriptor_table_protodef_usb_5fmodem_5finfo_2eproto,
+    "usb_modem_info.proto",
+    &descriptor_table_usb_5fmodem_5finfo_2eproto_once, nullptr, 0, 2,
+    schemas, file_default_instances, TableStruct_usb_5fmodem_5finfo_2eproto::offsets,
+    file_level_metadata_usb_5fmodem_5finfo_2eproto, file_level_enum_descriptors_usb_5fmodem_5finfo_2eproto,
+    file_level_service_descriptors_usb_5fmodem_5finfo_2eproto,
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_usb_5fmodem_5finfo_2eproto_getter() {
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_usb_5fmodem_5finfo_2eproto_getter() {
   return &descriptor_table_usb_5fmodem_5finfo_2eproto;
 }
 
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_usb_5fmodem_5finfo_2eproto(&descriptor_table_usb_5fmodem_5finfo_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_usb_5fmodem_5finfo_2eproto(&descriptor_table_usb_5fmodem_5finfo_2eproto);
 namespace mist {
 
 // ===================================================================
@@ -117,47 +125,50 @@ class UsbId::_Internal {
 UsbId::UsbId(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:mist.UsbId)
 }
 UsbId::UsbId(const UsbId& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  UsbId* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vendor_id_){}
+    , decltype(_impl_.product_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&vendor_id_, &from.vendor_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&product_id_) -
-    reinterpret_cast<char*>(&vendor_id_)) + sizeof(product_id_));
+  ::memcpy(&_impl_.vendor_id_, &from._impl_.vendor_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.product_id_) -
+    reinterpret_cast<char*>(&_impl_.vendor_id_)) + sizeof(_impl_.product_id_));
   // @@protoc_insertion_point(copy_constructor:mist.UsbId)
 }
 
-inline void UsbId::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&vendor_id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&product_id_) -
-    reinterpret_cast<char*>(&vendor_id_)) + sizeof(product_id_));
+inline void UsbId::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.vendor_id_){0u}
+    , decltype(_impl_.product_id_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 UsbId::~UsbId() {
   // @@protoc_insertion_point(destructor:mist.UsbId)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void UsbId::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void UsbId::ArenaDtor(void* object) {
-  UsbId* _this = reinterpret_cast< UsbId* >(object);
-  (void)_this;
-}
-void UsbId::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void UsbId::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UsbId::Clear() {
@@ -166,22 +177,22 @@ void UsbId::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&vendor_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&product_id_) -
-      reinterpret_cast<char*>(&vendor_id_)) + sizeof(product_id_));
+  ::memset(&_impl_.vendor_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.product_id_) -
+      reinterpret_cast<char*>(&_impl_.vendor_id_)) + sizeof(_impl_.product_id_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* UsbId::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* UsbId::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint32 vendor_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          vendor_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.vendor_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -189,7 +200,7 @@ const char* UsbId::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
       // uint32 product_id = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          product_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.product_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -226,17 +237,17 @@ uint8_t* UsbId::_InternalSerialize(
   // uint32 vendor_id = 1;
   if (this->_internal_vendor_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_vendor_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_vendor_id(), target);
   }
 
   // uint32 product_id = 2;
   if (this->_internal_product_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_product_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_product_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:mist.UsbId)
@@ -253,43 +264,39 @@ size_t UsbId::ByteSizeLong() const {
 
   // uint32 vendor_id = 1;
   if (this->_internal_vendor_id() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_vendor_id());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_vendor_id());
   }
 
   // uint32 product_id = 2;
   if (this->_internal_product_id() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_product_id());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_product_id());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData UsbId::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     UsbId::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*UsbId::GetClassData() const { return &_class_data_; }
 
-void UsbId::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<UsbId *>(to)->MergeFrom(
-      static_cast<const UsbId &>(from));
-}
 
-
-void UsbId::MergeFrom(const UsbId& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:mist.UsbId)
-  GOOGLE_DCHECK_NE(&from, this);
+void UsbId::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<UsbId*>(&to_msg);
+  auto& from = static_cast<const UsbId&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:mist.UsbId)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_vendor_id() != 0) {
-    _internal_set_vendor_id(from._internal_vendor_id());
+    _this->_internal_set_vendor_id(from._internal_vendor_id());
   }
   if (from._internal_product_id() != 0) {
-    _internal_set_product_id(from._internal_product_id());
+    _this->_internal_set_product_id(from._internal_product_id());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void UsbId::CopyFrom(const UsbId& from) {
@@ -307,15 +314,15 @@ void UsbId::InternalSwap(UsbId* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(UsbId, product_id_)
-      + sizeof(UsbId::product_id_)
-      - PROTOBUF_FIELD_OFFSET(UsbId, vendor_id_)>(
-          reinterpret_cast<char*>(&vendor_id_),
-          reinterpret_cast<char*>(&other->vendor_id_));
+      PROTOBUF_FIELD_OFFSET(UsbId, _impl_.product_id_)
+      + sizeof(UsbId::_impl_.product_id_)
+      - PROTOBUF_FIELD_OFFSET(UsbId, _impl_.vendor_id_)>(
+          reinterpret_cast<char*>(&_impl_.vendor_id_),
+          reinterpret_cast<char*>(&other->_impl_.vendor_id_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata UsbId::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_usb_5fmodem_5finfo_2eproto_getter, &descriptor_table_usb_5fmodem_5finfo_2eproto_once,
       file_level_metadata_usb_5fmodem_5finfo_2eproto[0]);
 }
@@ -329,62 +336,69 @@ class UsbModemInfo::_Internal {
 
 const ::mist::UsbId&
 UsbModemInfo::_Internal::initial_usb_id(const UsbModemInfo* msg) {
-  return *msg->initial_usb_id_;
+  return *msg->_impl_.initial_usb_id_;
 }
 UsbModemInfo::UsbModemInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  final_usb_id_(arena),
-  usb_message_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:mist.UsbModemInfo)
 }
 UsbModemInfo::UsbModemInfo(const UsbModemInfo& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      final_usb_id_(from.final_usb_id_),
-      usb_message_(from.usb_message_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  UsbModemInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.final_usb_id_){from._impl_.final_usb_id_}
+    , decltype(_impl_.usb_message_){from._impl_.usb_message_}
+    , decltype(_impl_.initial_usb_id_){nullptr}
+    , decltype(_impl_.initial_delay_ms_){}
+    , decltype(_impl_.expect_response_){}
+    , decltype(_impl_.initial_reset_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_initial_usb_id()) {
-    initial_usb_id_ = new ::mist::UsbId(*from.initial_usb_id_);
-  } else {
-    initial_usb_id_ = nullptr;
+    _this->_impl_.initial_usb_id_ = new ::mist::UsbId(*from._impl_.initial_usb_id_);
   }
-  ::memcpy(&initial_delay_ms_, &from.initial_delay_ms_,
-    static_cast<size_t>(reinterpret_cast<char*>(&initial_reset_) -
-    reinterpret_cast<char*>(&initial_delay_ms_)) + sizeof(initial_reset_));
+  ::memcpy(&_impl_.initial_delay_ms_, &from._impl_.initial_delay_ms_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.initial_reset_) -
+    reinterpret_cast<char*>(&_impl_.initial_delay_ms_)) + sizeof(_impl_.initial_reset_));
   // @@protoc_insertion_point(copy_constructor:mist.UsbModemInfo)
 }
 
-inline void UsbModemInfo::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&initial_usb_id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&initial_reset_) -
-    reinterpret_cast<char*>(&initial_usb_id_)) + sizeof(initial_reset_));
+inline void UsbModemInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.final_usb_id_){arena}
+    , decltype(_impl_.usb_message_){arena}
+    , decltype(_impl_.initial_usb_id_){nullptr}
+    , decltype(_impl_.initial_delay_ms_){0u}
+    , decltype(_impl_.expect_response_){false}
+    , decltype(_impl_.initial_reset_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 UsbModemInfo::~UsbModemInfo() {
   // @@protoc_insertion_point(destructor:mist.UsbModemInfo)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void UsbModemInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete initial_usb_id_;
+  _impl_.final_usb_id_.~RepeatedPtrField();
+  _impl_.usb_message_.~RepeatedPtrField();
+  if (this != internal_default_instance()) delete _impl_.initial_usb_id_;
 }
 
-void UsbModemInfo::ArenaDtor(void* object) {
-  UsbModemInfo* _this = reinterpret_cast< UsbModemInfo* >(object);
-  (void)_this;
-}
-void UsbModemInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void UsbModemInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UsbModemInfo::Clear() {
@@ -393,23 +407,23 @@ void UsbModemInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  final_usb_id_.Clear();
-  usb_message_.Clear();
-  if (GetArenaForAllocation() == nullptr && initial_usb_id_ != nullptr) {
-    delete initial_usb_id_;
+  _impl_.final_usb_id_.Clear();
+  _impl_.usb_message_.Clear();
+  if (GetArenaForAllocation() == nullptr && _impl_.initial_usb_id_ != nullptr) {
+    delete _impl_.initial_usb_id_;
   }
-  initial_usb_id_ = nullptr;
-  ::memset(&initial_delay_ms_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&initial_reset_) -
-      reinterpret_cast<char*>(&initial_delay_ms_)) + sizeof(initial_reset_));
+  _impl_.initial_usb_id_ = nullptr;
+  ::memset(&_impl_.initial_delay_ms_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.initial_reset_) -
+      reinterpret_cast<char*>(&_impl_.initial_delay_ms_)) + sizeof(_impl_.initial_reset_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* UsbModemInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* UsbModemInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .mist.UsbId initial_usb_id = 1;
       case 1:
@@ -439,9 +453,9 @@ const char* UsbModemInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
           do {
             ptr += 1;
             auto str = _internal_add_usb_message();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "mist.UsbModemInfo.usb_message"));
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, "mist.UsbModemInfo.usb_message"));
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else
@@ -450,7 +464,7 @@ const char* UsbModemInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       // bool expect_response = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          expect_response_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.expect_response_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -458,7 +472,7 @@ const char* UsbModemInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       // uint32 initial_delay_ms = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          initial_delay_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.initial_delay_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -466,7 +480,7 @@ const char* UsbModemInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       // bool initial_reset = 6;
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
-          initial_reset_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.initial_reset_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -502,18 +516,17 @@ uint8_t* UsbModemInfo::_InternalSerialize(
 
   // .mist.UsbId initial_usb_id = 1;
   if (this->_internal_has_initial_usb_id()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::initial_usb_id(this), target, stream);
+      InternalWriteMessage(1, _Internal::initial_usb_id(this),
+        _Internal::initial_usb_id(this).GetCachedSize(), target, stream);
   }
 
   // repeated .mist.UsbId final_usb_id = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_final_usb_id_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_final_usb_id_size()); i < n; i++) {
+    const auto& repfield = this->_internal_final_usb_id(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_final_usb_id(i), target, stream);
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated string usb_message = 3;
@@ -529,23 +542,23 @@ uint8_t* UsbModemInfo::_InternalSerialize(
   // bool expect_response = 4;
   if (this->_internal_expect_response() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_expect_response(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_expect_response(), target);
   }
 
   // uint32 initial_delay_ms = 5;
   if (this->_internal_initial_delay_ms() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(5, this->_internal_initial_delay_ms(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(5, this->_internal_initial_delay_ms(), target);
   }
 
   // bool initial_reset = 6;
   if (this->_internal_initial_reset() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(6, this->_internal_initial_reset(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_initial_reset(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:mist.UsbModemInfo)
@@ -562,29 +575,29 @@ size_t UsbModemInfo::ByteSizeLong() const {
 
   // repeated .mist.UsbId final_usb_id = 2;
   total_size += 1UL * this->_internal_final_usb_id_size();
-  for (const auto& msg : this->final_usb_id_) {
+  for (const auto& msg : this->_impl_.final_usb_id_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // repeated string usb_message = 3;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(usb_message_.size());
-  for (int i = 0, n = usb_message_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.usb_message_.size());
+  for (int i = 0, n = _impl_.usb_message_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      usb_message_.Get(i));
+      _impl_.usb_message_.Get(i));
   }
 
   // .mist.UsbId initial_usb_id = 1;
   if (this->_internal_has_initial_usb_id()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *initial_usb_id_);
+        *_impl_.initial_usb_id_);
   }
 
   // uint32 initial_delay_ms = 5;
   if (this->_internal_initial_delay_ms() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_initial_delay_ms());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_initial_delay_ms());
   }
 
   // bool expect_response = 4;
@@ -597,43 +610,40 @@ size_t UsbModemInfo::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData UsbModemInfo::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     UsbModemInfo::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*UsbModemInfo::GetClassData() const { return &_class_data_; }
 
-void UsbModemInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<UsbModemInfo *>(to)->MergeFrom(
-      static_cast<const UsbModemInfo &>(from));
-}
 
-
-void UsbModemInfo::MergeFrom(const UsbModemInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:mist.UsbModemInfo)
-  GOOGLE_DCHECK_NE(&from, this);
+void UsbModemInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<UsbModemInfo*>(&to_msg);
+  auto& from = static_cast<const UsbModemInfo&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:mist.UsbModemInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  final_usb_id_.MergeFrom(from.final_usb_id_);
-  usb_message_.MergeFrom(from.usb_message_);
+  _this->_impl_.final_usb_id_.MergeFrom(from._impl_.final_usb_id_);
+  _this->_impl_.usb_message_.MergeFrom(from._impl_.usb_message_);
   if (from._internal_has_initial_usb_id()) {
-    _internal_mutable_initial_usb_id()->::mist::UsbId::MergeFrom(from._internal_initial_usb_id());
+    _this->_internal_mutable_initial_usb_id()->::mist::UsbId::MergeFrom(
+        from._internal_initial_usb_id());
   }
   if (from._internal_initial_delay_ms() != 0) {
-    _internal_set_initial_delay_ms(from._internal_initial_delay_ms());
+    _this->_internal_set_initial_delay_ms(from._internal_initial_delay_ms());
   }
   if (from._internal_expect_response() != 0) {
-    _internal_set_expect_response(from._internal_expect_response());
+    _this->_internal_set_expect_response(from._internal_expect_response());
   }
   if (from._internal_initial_reset() != 0) {
-    _internal_set_initial_reset(from._internal_initial_reset());
+    _this->_internal_set_initial_reset(from._internal_initial_reset());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void UsbModemInfo::CopyFrom(const UsbModemInfo& from) {
@@ -650,18 +660,18 @@ bool UsbModemInfo::IsInitialized() const {
 void UsbModemInfo::InternalSwap(UsbModemInfo* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  final_usb_id_.InternalSwap(&other->final_usb_id_);
-  usb_message_.InternalSwap(&other->usb_message_);
+  _impl_.final_usb_id_.InternalSwap(&other->_impl_.final_usb_id_);
+  _impl_.usb_message_.InternalSwap(&other->_impl_.usb_message_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(UsbModemInfo, initial_reset_)
-      + sizeof(UsbModemInfo::initial_reset_)
-      - PROTOBUF_FIELD_OFFSET(UsbModemInfo, initial_usb_id_)>(
-          reinterpret_cast<char*>(&initial_usb_id_),
-          reinterpret_cast<char*>(&other->initial_usb_id_));
+      PROTOBUF_FIELD_OFFSET(UsbModemInfo, _impl_.initial_reset_)
+      + sizeof(UsbModemInfo::_impl_.initial_reset_)
+      - PROTOBUF_FIELD_OFFSET(UsbModemInfo, _impl_.initial_usb_id_)>(
+          reinterpret_cast<char*>(&_impl_.initial_usb_id_),
+          reinterpret_cast<char*>(&other->_impl_.initial_usb_id_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata UsbModemInfo::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_usb_5fmodem_5finfo_2eproto_getter, &descriptor_table_usb_5fmodem_5finfo_2eproto_once,
       file_level_metadata_usb_5fmodem_5finfo_2eproto[1]);
 }
@@ -669,10 +679,12 @@ void UsbModemInfo::InternalSwap(UsbModemInfo* other) {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace mist
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::mist::UsbId* Arena::CreateMaybeMessage< ::mist::UsbId >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::mist::UsbId*
+Arena::CreateMaybeMessage< ::mist::UsbId >(Arena* arena) {
   return Arena::CreateMessageInternal< ::mist::UsbId >(arena);
 }
-template<> PROTOBUF_NOINLINE ::mist::UsbModemInfo* Arena::CreateMaybeMessage< ::mist::UsbModemInfo >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::mist::UsbModemInfo*
+Arena::CreateMaybeMessage< ::mist::UsbModemInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::mist::UsbModemInfo >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

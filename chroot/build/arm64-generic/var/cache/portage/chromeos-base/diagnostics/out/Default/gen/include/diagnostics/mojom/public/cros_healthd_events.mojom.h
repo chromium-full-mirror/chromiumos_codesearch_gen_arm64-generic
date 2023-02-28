@@ -2423,6 +2423,145 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  StylusGarageEventInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<StylusGarageEventInfo, T>::value>;
+  using DataView = StylusGarageEventInfoDataView;
+  using Data_ = internal::StylusGarageEventInfo_Data;
+  using State = StylusGarageEventInfo_State;
+
+  template <typename... Args>
+  static StylusGarageEventInfoPtr New(Args&&... args) {
+    return StylusGarageEventInfoPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static StylusGarageEventInfoPtr From(const U& u) {
+    return mojo::TypeConverter<StylusGarageEventInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, StylusGarageEventInfo>::Convert(*this);
+  }
+
+
+  StylusGarageEventInfo();
+
+  explicit StylusGarageEventInfo(
+      StylusGarageEventInfo::State state);
+
+
+  ~StylusGarageEventInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = StylusGarageEventInfoPtr>
+  StylusGarageEventInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, StylusGarageEventInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, StylusGarageEventInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        StylusGarageEventInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        StylusGarageEventInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::StylusGarageEventInfo_UnserializedMessageContext<
+            UserType, StylusGarageEventInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<StylusGarageEventInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return StylusGarageEventInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::StylusGarageEventInfo_UnserializedMessageContext<
+            UserType, StylusGarageEventInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<StylusGarageEventInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  StylusGarageEventInfo::State state;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, StylusGarageEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, StylusGarageEventInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, StylusGarageEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, StylusGarageEventInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  TouchpadEventInfo {
  public:
   using DataView = TouchpadEventInfoDataView;
@@ -2866,6 +3005,14 @@ class  EventInfo {
     result->set_touchscreen_event_info(std::move(touchscreen_event_info));
     return result;
   }
+  // Construct an instance holding |stylus_garage_event_info|.
+  static EventInfoPtr
+  NewStylusGarageEventInfo(
+      StylusGarageEventInfoPtr stylus_garage_event_info) {
+    auto result = EventInfoPtr(absl::in_place);
+    result->set_stylus_garage_event_info(std::move(stylus_garage_event_info));
+    return result;
+  }
 
   template <typename U>
   static EventInfoPtr From(const U& u) {
@@ -3064,6 +3211,18 @@ class  EventInfo {
   
   void set_touchscreen_event_info(
       TouchscreenEventInfoPtr touchscreen_event_info);
+  
+  bool is_stylus_garage_event_info() const { return tag_ == Tag::kStylusGarageEventInfo; }
+
+  
+  StylusGarageEventInfoPtr& get_stylus_garage_event_info() const {
+    CHECK(tag_ == Tag::kStylusGarageEventInfo);
+    return *(data_.stylus_garage_event_info);
+  }
+
+  
+  void set_stylus_garage_event_info(
+      StylusGarageEventInfoPtr stylus_garage_event_info);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -3095,6 +3254,7 @@ class  EventInfo {
     TouchpadEventInfoPtr* touchpad_event_info;
     HdmiEventInfoPtr* hdmi_event_info;
     TouchscreenEventInfoPtr* touchscreen_event_info;
+    StylusGarageEventInfoPtr* stylus_garage_event_info;
   };
 
   static bool Validate(const void* data,
@@ -3853,6 +4013,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 
+
 template <typename UnionPtrType>
 TouchpadEventInfoPtr TouchpadEventInfo::Clone() const {
   switch (tag_) {
@@ -3968,6 +4129,9 @@ EventInfoPtr EventInfo::Clone() const {
     case Tag::kTouchscreenEventInfo:
       return NewTouchscreenEventInfo(
           mojo::Clone(*data_.touchscreen_event_info));
+    case Tag::kStylusGarageEventInfo:
+      return NewStylusGarageEventInfo(
+          mojo::Clone(*data_.stylus_garage_event_info));
   }
   return nullptr;
 }
@@ -4006,6 +4170,8 @@ bool EventInfo::Equals(const T& other) const {
       return mojo::Equals(*(data_.hdmi_event_info), *(other.data_.hdmi_event_info));
     case Tag::kTouchscreenEventInfo:
       return mojo::Equals(*(data_.touchscreen_event_info), *(other.data_.touchscreen_event_info));
+    case Tag::kStylusGarageEventInfo:
+      return mojo::Equals(*(data_.stylus_garage_event_info), *(other.data_.stylus_garage_event_info));
   }
 
   return false;
@@ -4452,6 +4618,28 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+StylusGarageEventInfoPtr StylusGarageEventInfo::Clone() const {
+  return New(
+      mojo::Clone(state)
+  );
+}
+
+template <typename T, StylusGarageEventInfo::EnableIfSame<T>*>
+bool StylusGarageEventInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->state, other_struct.state))
+    return false;
+  return true;
+}
+
+template <typename T, StylusGarageEventInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.state < rhs.state)
+    return true;
+  if (rhs.state < lhs.state)
+    return false;
+  return false;
+}
 
 
 }  // namespace mojom
@@ -4767,6 +4955,21 @@ struct  StructTraits<::ash::cros_healthd::mojom::TouchscreenConnectedEvent::Data
 
 
 template <>
+struct  StructTraits<::ash::cros_healthd::mojom::StylusGarageEventInfo::DataView,
+                                         ::ash::cros_healthd::mojom::StylusGarageEventInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::StylusGarageEventInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::StylusGarageEventInfoPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::StylusGarageEventInfo::state) state(
+      const ::ash::cros_healthd::mojom::StylusGarageEventInfoPtr& input) {
+    return input->state;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::StylusGarageEventInfo::DataView input, ::ash::cros_healthd::mojom::StylusGarageEventInfoPtr* output);
+};
+
+
+template <>
 struct  UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfo::DataView,
                                         ::ash::cros_healthd::mojom::TouchpadEventInfoPtr> {
   static bool IsNull(const ::ash::cros_healthd::mojom::TouchpadEventInfoPtr& input) { return !input; }
@@ -4882,6 +5085,10 @@ struct  UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView,
 
   static const ::ash::cros_healthd::mojom::TouchscreenEventInfoPtr& touchscreen_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
     return input->get_touchscreen_event_info();
+  }
+
+  static const ::ash::cros_healthd::mojom::StylusGarageEventInfoPtr& stylus_garage_event_info(const ::ash::cros_healthd::mojom::EventInfoPtr& input) {
+    return input->get_stylus_garage_event_info();
   }
 
   static bool Read(::ash::cros_healthd::mojom::EventInfo::DataView input, ::ash::cros_healthd::mojom::EventInfoPtr* output);

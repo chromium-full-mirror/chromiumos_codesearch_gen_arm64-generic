@@ -13,66 +13,70 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
-namespace power_manager {
-constexpr PowerSupplyProperties_PowerSource::PowerSupplyProperties_PowerSource(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , manufacturer_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , model_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , active_by_default_(false)
-  , port_(0)
 
-  , max_power_(0)
-  , type_(0)
-{}
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
+namespace power_manager {
+PROTOBUF_CONSTEXPR PowerSupplyProperties_PowerSource::PowerSupplyProperties_PowerSource(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.manufacturer_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.model_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.active_by_default_)*/false
+  , /*decltype(_impl_.port_)*/0
+  , /*decltype(_impl_.max_power_)*/0
+  , /*decltype(_impl_.type_)*/0} {}
 struct PowerSupplyProperties_PowerSourceDefaultTypeInternal {
-  constexpr PowerSupplyProperties_PowerSourceDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PowerSupplyProperties_PowerSourceDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~PowerSupplyProperties_PowerSourceDefaultTypeInternal() {}
   union {
     PowerSupplyProperties_PowerSource _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PowerSupplyProperties_PowerSourceDefaultTypeInternal _PowerSupplyProperties_PowerSource_default_instance_;
-constexpr PowerSupplyProperties::PowerSupplyProperties(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : available_external_power_source_()
-  , external_power_source_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , battery_vendor_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , battery_serial_number_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , battery_model_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , battery_technology_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , battery_status_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , battery_time_to_empty_sec_(int64_t{0})
-  , battery_time_to_full_sec_(int64_t{0})
-  , external_power_(0)
-
-  , battery_state_(0)
-
-  , battery_discharge_rate_(0)
-  , battery_voltage_(0)
-  , battery_cycle_count_(int64_t{0})
-  , battery_charge_full_design_(0)
-  , battery_charge_full_(0)
-  , battery_voltage_min_design_(0)
-  , is_calculating_battery_time_(false)
-  , supports_dual_role_devices_(false)
-  , adaptive_charging_supported_(false)
-  , adaptive_delaying_charge_(false)
-  , adaptive_charging_heuristic_enabled_(false)
-  , battery_charge_(0)
-  , battery_current_(0)
-  , preferred_minimum_external_power_(0)
-  , battery_percent_(-1){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PowerSupplyProperties_PowerSourceDefaultTypeInternal _PowerSupplyProperties_PowerSource_default_instance_;
+PROTOBUF_CONSTEXPR PowerSupplyProperties::PowerSupplyProperties(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.available_external_power_source_)*/{}
+  , /*decltype(_impl_.external_power_source_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.battery_vendor_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.battery_serial_number_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.battery_model_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.battery_technology_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.battery_status_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.battery_time_to_empty_sec_)*/int64_t{0}
+  , /*decltype(_impl_.battery_time_to_full_sec_)*/int64_t{0}
+  , /*decltype(_impl_.external_power_)*/0
+  , /*decltype(_impl_.battery_state_)*/0
+  , /*decltype(_impl_.battery_discharge_rate_)*/0
+  , /*decltype(_impl_.battery_voltage_)*/0
+  , /*decltype(_impl_.battery_cycle_count_)*/int64_t{0}
+  , /*decltype(_impl_.battery_charge_full_design_)*/0
+  , /*decltype(_impl_.battery_charge_full_)*/0
+  , /*decltype(_impl_.battery_voltage_min_design_)*/0
+  , /*decltype(_impl_.is_calculating_battery_time_)*/false
+  , /*decltype(_impl_.supports_dual_role_devices_)*/false
+  , /*decltype(_impl_.adaptive_charging_supported_)*/false
+  , /*decltype(_impl_.adaptive_delaying_charge_)*/false
+  , /*decltype(_impl_.adaptive_charging_heuristic_enabled_)*/false
+  , /*decltype(_impl_.battery_charge_)*/0
+  , /*decltype(_impl_.battery_current_)*/0
+  , /*decltype(_impl_.preferred_minimum_external_power_)*/0
+  , /*decltype(_impl_.battery_percent_)*/-1} {}
 struct PowerSupplyPropertiesDefaultTypeInternal {
-  constexpr PowerSupplyPropertiesDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PowerSupplyPropertiesDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~PowerSupplyPropertiesDefaultTypeInternal() {}
   union {
     PowerSupplyProperties _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PowerSupplyPropertiesDefaultTypeInternal _PowerSupplyProperties_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PowerSupplyPropertiesDefaultTypeInternal _PowerSupplyProperties_default_instance_;
 }  // namespace power_manager
 namespace power_manager {
 bool PowerSupplyProperties_PowerSource_Port_IsValid(int value) {
@@ -382,7 +386,7 @@ constexpr int PowerSupplyProperties::BatteryState_ARRAYSIZE;
 
 class PowerSupplyProperties_PowerSource::_Internal {
  public:
-  using HasBits = decltype(std::declval<PowerSupplyProperties_PowerSource>()._has_bits_);
+  using HasBits = decltype(std::declval<PowerSupplyProperties_PowerSource>()._impl_._has_bits_);
   static void set_has_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -409,87 +413,101 @@ class PowerSupplyProperties_PowerSource::_Internal {
 PowerSupplyProperties_PowerSource::PowerSupplyProperties_PowerSource(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:power_manager.PowerSupplyProperties.PowerSource)
 }
 PowerSupplyProperties_PowerSource::PowerSupplyProperties_PowerSource(const PowerSupplyProperties_PowerSource& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PowerSupplyProperties_PowerSource* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.id_){}
+    , decltype(_impl_.manufacturer_id_){}
+    , decltype(_impl_.model_id_){}
+    , decltype(_impl_.active_by_default_){}
+    , decltype(_impl_.port_){}
+    , decltype(_impl_.max_power_){}
+    , decltype(_impl_.type_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_id()) {
-    id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.id_.Set(from._internal_id(), 
+      _this->GetArenaForAllocation());
   }
-  manufacturer_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.manufacturer_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    manufacturer_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.manufacturer_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_manufacturer_id()) {
-    manufacturer_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_manufacturer_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.manufacturer_id_.Set(from._internal_manufacturer_id(), 
+      _this->GetArenaForAllocation());
   }
-  model_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.model_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    model_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.model_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_model_id()) {
-    model_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_model_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.model_id_.Set(from._internal_model_id(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&active_by_default_, &from.active_by_default_,
-    static_cast<size_t>(reinterpret_cast<char*>(&type_) -
-    reinterpret_cast<char*>(&active_by_default_)) + sizeof(type_));
+  ::memcpy(&_impl_.active_by_default_, &from._impl_.active_by_default_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.type_) -
+    reinterpret_cast<char*>(&_impl_.active_by_default_)) + sizeof(_impl_.type_));
   // @@protoc_insertion_point(copy_constructor:power_manager.PowerSupplyProperties.PowerSource)
 }
 
-inline void PowerSupplyProperties_PowerSource::SharedCtor() {
-id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-manufacturer_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  manufacturer_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-model_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  model_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&active_by_default_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&type_) -
-    reinterpret_cast<char*>(&active_by_default_)) + sizeof(type_));
+inline void PowerSupplyProperties_PowerSource::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.id_){}
+    , decltype(_impl_.manufacturer_id_){}
+    , decltype(_impl_.model_id_){}
+    , decltype(_impl_.active_by_default_){false}
+    , decltype(_impl_.port_){0}
+    , decltype(_impl_.max_power_){0}
+    , decltype(_impl_.type_){0}
+  };
+  _impl_.id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.manufacturer_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.manufacturer_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.model_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.model_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PowerSupplyProperties_PowerSource::~PowerSupplyProperties_PowerSource() {
   // @@protoc_insertion_point(destructor:power_manager.PowerSupplyProperties.PowerSource)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void PowerSupplyProperties_PowerSource::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  manufacturer_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  model_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.id_.Destroy();
+  _impl_.manufacturer_id_.Destroy();
+  _impl_.model_id_.Destroy();
 }
 
-void PowerSupplyProperties_PowerSource::ArenaDtor(void* object) {
-  PowerSupplyProperties_PowerSource* _this = reinterpret_cast< PowerSupplyProperties_PowerSource* >(object);
-  (void)_this;
-}
-void PowerSupplyProperties_PowerSource::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void PowerSupplyProperties_PowerSource::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PowerSupplyProperties_PowerSource::Clear() {
@@ -498,39 +516,39 @@ void PowerSupplyProperties_PowerSource::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      id_.ClearNonDefaultToEmpty();
+      _impl_.id_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      manufacturer_id_.ClearNonDefaultToEmpty();
+      _impl_.manufacturer_id_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      model_id_.ClearNonDefaultToEmpty();
+      _impl_.model_id_.ClearNonDefaultToEmpty();
     }
   }
   if (cached_has_bits & 0x00000078u) {
-    ::memset(&active_by_default_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&type_) -
-        reinterpret_cast<char*>(&active_by_default_)) + sizeof(type_));
+    ::memset(&_impl_.active_by_default_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.type_) -
+        reinterpret_cast<char*>(&_impl_.active_by_default_)) + sizeof(_impl_.type_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PowerSupplyProperties_PowerSource::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* PowerSupplyProperties_PowerSource::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -539,7 +557,7 @@ const char* PowerSupplyProperties_PowerSource::_InternalParse(const char* ptr, :
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_active_by_default(&has_bits);
-          active_by_default_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.active_by_default_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -548,7 +566,7 @@ const char* PowerSupplyProperties_PowerSource::_InternalParse(const char* ptr, :
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_manufacturer_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -557,7 +575,7 @@ const char* PowerSupplyProperties_PowerSource::_InternalParse(const char* ptr, :
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_model_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -566,7 +584,7 @@ const char* PowerSupplyProperties_PowerSource::_InternalParse(const char* ptr, :
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 49)) {
           _Internal::set_has_max_power(&has_bits);
-          max_power_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.max_power_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -613,7 +631,7 @@ const char* PowerSupplyProperties_PowerSource::_InternalParse(const char* ptr, :
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -627,7 +645,7 @@ uint8_t* PowerSupplyProperties_PowerSource::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string id = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -637,7 +655,7 @@ uint8_t* PowerSupplyProperties_PowerSource::_InternalSerialize(
   // optional bool active_by_default = 3;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_active_by_default(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_active_by_default(), target);
   }
 
   // optional string manufacturer_id = 4;
@@ -655,20 +673,20 @@ uint8_t* PowerSupplyProperties_PowerSource::_InternalSerialize(
   // optional double max_power = 6;
   if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(6, this->_internal_max_power(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(6, this->_internal_max_power(), target);
   }
 
   // optional .power_manager.PowerSupplyProperties.PowerSource.Port port = 7;
   if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       7, this->_internal_port(), target);
   }
 
   // optional .power_manager.PowerSupplyProperties.PowerSource.Type type = 8;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       8, this->_internal_type(), target);
   }
 
@@ -688,7 +706,7 @@ size_t PowerSupplyProperties_PowerSource::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
     // optional string id = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -719,7 +737,7 @@ size_t PowerSupplyProperties_PowerSource::ByteSizeLong() const {
     // optional .power_manager.PowerSupplyProperties.PowerSource.Port port = 7;
     if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_port());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_port());
     }
 
     // optional double max_power = 6;
@@ -730,56 +748,57 @@ size_t PowerSupplyProperties_PowerSource::ByteSizeLong() const {
     // optional .power_manager.PowerSupplyProperties.PowerSource.Type type = 8;
     if (cached_has_bits & 0x00000040u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void PowerSupplyProperties_PowerSource::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PowerSupplyProperties_PowerSource*>(
+  MergeFrom(*::_pbi::DownCast<const PowerSupplyProperties_PowerSource*>(
       &from));
 }
 
 void PowerSupplyProperties_PowerSource::MergeFrom(const PowerSupplyProperties_PowerSource& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:power_manager.PowerSupplyProperties.PowerSource)
-  GOOGLE_DCHECK_NE(&from, this);
+  PowerSupplyProperties_PowerSource* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.PowerSupplyProperties.PowerSource)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_id(from._internal_id());
+      _this->_internal_set_id(from._internal_id());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_manufacturer_id(from._internal_manufacturer_id());
+      _this->_internal_set_manufacturer_id(from._internal_manufacturer_id());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_model_id(from._internal_model_id());
+      _this->_internal_set_model_id(from._internal_model_id());
     }
     if (cached_has_bits & 0x00000008u) {
-      active_by_default_ = from.active_by_default_;
+      _this->_impl_.active_by_default_ = from._impl_.active_by_default_;
     }
     if (cached_has_bits & 0x00000010u) {
-      port_ = from.port_;
+      _this->_impl_.port_ = from._impl_.port_;
     }
     if (cached_has_bits & 0x00000020u) {
-      max_power_ = from.max_power_;
+      _this->_impl_.max_power_ = from._impl_.max_power_;
     }
     if (cached_has_bits & 0x00000040u) {
-      type_ = from.type_;
+      _this->_impl_.type_ = from._impl_.type_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PowerSupplyProperties_PowerSource::CopyFrom(const PowerSupplyProperties_PowerSource& from) {
@@ -798,28 +817,25 @@ void PowerSupplyProperties_PowerSource::InternalSwap(PowerSupplyProperties_Power
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &id_, lhs_arena,
-      &other->id_, rhs_arena
+      &_impl_.id_, lhs_arena,
+      &other->_impl_.id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &manufacturer_id_, lhs_arena,
-      &other->manufacturer_id_, rhs_arena
+      &_impl_.manufacturer_id_, lhs_arena,
+      &other->_impl_.manufacturer_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &model_id_, lhs_arena,
-      &other->model_id_, rhs_arena
+      &_impl_.model_id_, lhs_arena,
+      &other->_impl_.model_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PowerSupplyProperties_PowerSource, type_)
-      + sizeof(PowerSupplyProperties_PowerSource::type_)
-      - PROTOBUF_FIELD_OFFSET(PowerSupplyProperties_PowerSource, active_by_default_)>(
-          reinterpret_cast<char*>(&active_by_default_),
-          reinterpret_cast<char*>(&other->active_by_default_));
+      PROTOBUF_FIELD_OFFSET(PowerSupplyProperties_PowerSource, _impl_.type_)
+      + sizeof(PowerSupplyProperties_PowerSource::_impl_.type_)
+      - PROTOBUF_FIELD_OFFSET(PowerSupplyProperties_PowerSource, _impl_.active_by_default_)>(
+          reinterpret_cast<char*>(&_impl_.active_by_default_),
+          reinterpret_cast<char*>(&other->_impl_.active_by_default_));
 }
 
 std::string PowerSupplyProperties_PowerSource::GetTypeName() const {
@@ -831,7 +847,7 @@ std::string PowerSupplyProperties_PowerSource::GetTypeName() const {
 
 class PowerSupplyProperties::_Internal {
  public:
-  using HasBits = decltype(std::declval<PowerSupplyProperties>()._has_bits_);
+  using HasBits = decltype(std::declval<PowerSupplyProperties>()._impl_._has_bits_);
   static void set_has_external_power(HasBits* has_bits) {
     (*has_bits)[0] |= 256u;
   }
@@ -911,130 +927,180 @@ class PowerSupplyProperties::_Internal {
 
 PowerSupplyProperties::PowerSupplyProperties(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  available_external_power_source_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:power_manager.PowerSupplyProperties)
 }
 PowerSupplyProperties::PowerSupplyProperties(const PowerSupplyProperties& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      available_external_power_source_(from.available_external_power_source_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PowerSupplyProperties* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.available_external_power_source_){from._impl_.available_external_power_source_}
+    , decltype(_impl_.external_power_source_id_){}
+    , decltype(_impl_.battery_vendor_){}
+    , decltype(_impl_.battery_serial_number_){}
+    , decltype(_impl_.battery_model_name_){}
+    , decltype(_impl_.battery_technology_){}
+    , decltype(_impl_.battery_status_){}
+    , decltype(_impl_.battery_time_to_empty_sec_){}
+    , decltype(_impl_.battery_time_to_full_sec_){}
+    , decltype(_impl_.external_power_){}
+    , decltype(_impl_.battery_state_){}
+    , decltype(_impl_.battery_discharge_rate_){}
+    , decltype(_impl_.battery_voltage_){}
+    , decltype(_impl_.battery_cycle_count_){}
+    , decltype(_impl_.battery_charge_full_design_){}
+    , decltype(_impl_.battery_charge_full_){}
+    , decltype(_impl_.battery_voltage_min_design_){}
+    , decltype(_impl_.is_calculating_battery_time_){}
+    , decltype(_impl_.supports_dual_role_devices_){}
+    , decltype(_impl_.adaptive_charging_supported_){}
+    , decltype(_impl_.adaptive_delaying_charge_){}
+    , decltype(_impl_.adaptive_charging_heuristic_enabled_){}
+    , decltype(_impl_.battery_charge_){}
+    , decltype(_impl_.battery_current_){}
+    , decltype(_impl_.preferred_minimum_external_power_){}
+    , decltype(_impl_.battery_percent_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  external_power_source_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.external_power_source_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    external_power_source_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.external_power_source_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_external_power_source_id()) {
-    external_power_source_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_external_power_source_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.external_power_source_id_.Set(from._internal_external_power_source_id(), 
+      _this->GetArenaForAllocation());
   }
-  battery_vendor_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.battery_vendor_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    battery_vendor_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.battery_vendor_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_battery_vendor()) {
-    battery_vendor_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_battery_vendor(), 
-      GetArenaForAllocation());
+    _this->_impl_.battery_vendor_.Set(from._internal_battery_vendor(), 
+      _this->GetArenaForAllocation());
   }
-  battery_serial_number_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.battery_serial_number_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    battery_serial_number_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.battery_serial_number_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_battery_serial_number()) {
-    battery_serial_number_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_battery_serial_number(), 
-      GetArenaForAllocation());
+    _this->_impl_.battery_serial_number_.Set(from._internal_battery_serial_number(), 
+      _this->GetArenaForAllocation());
   }
-  battery_model_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.battery_model_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    battery_model_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.battery_model_name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_battery_model_name()) {
-    battery_model_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_battery_model_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.battery_model_name_.Set(from._internal_battery_model_name(), 
+      _this->GetArenaForAllocation());
   }
-  battery_technology_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.battery_technology_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    battery_technology_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.battery_technology_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_battery_technology()) {
-    battery_technology_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_battery_technology(), 
-      GetArenaForAllocation());
+    _this->_impl_.battery_technology_.Set(from._internal_battery_technology(), 
+      _this->GetArenaForAllocation());
   }
-  battery_status_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.battery_status_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    battery_status_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.battery_status_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_battery_status()) {
-    battery_status_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_battery_status(), 
-      GetArenaForAllocation());
+    _this->_impl_.battery_status_.Set(from._internal_battery_status(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&battery_time_to_empty_sec_, &from.battery_time_to_empty_sec_,
-    static_cast<size_t>(reinterpret_cast<char*>(&battery_percent_) -
-    reinterpret_cast<char*>(&battery_time_to_empty_sec_)) + sizeof(battery_percent_));
+  ::memcpy(&_impl_.battery_time_to_empty_sec_, &from._impl_.battery_time_to_empty_sec_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.battery_percent_) -
+    reinterpret_cast<char*>(&_impl_.battery_time_to_empty_sec_)) + sizeof(_impl_.battery_percent_));
   // @@protoc_insertion_point(copy_constructor:power_manager.PowerSupplyProperties)
 }
 
-inline void PowerSupplyProperties::SharedCtor() {
-external_power_source_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  external_power_source_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-battery_vendor_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  battery_vendor_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-battery_serial_number_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  battery_serial_number_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-battery_model_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  battery_model_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-battery_technology_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  battery_technology_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-battery_status_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  battery_status_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&battery_time_to_empty_sec_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&preferred_minimum_external_power_) -
-    reinterpret_cast<char*>(&battery_time_to_empty_sec_)) + sizeof(preferred_minimum_external_power_));
-battery_percent_ = -1;
+inline void PowerSupplyProperties::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.available_external_power_source_){arena}
+    , decltype(_impl_.external_power_source_id_){}
+    , decltype(_impl_.battery_vendor_){}
+    , decltype(_impl_.battery_serial_number_){}
+    , decltype(_impl_.battery_model_name_){}
+    , decltype(_impl_.battery_technology_){}
+    , decltype(_impl_.battery_status_){}
+    , decltype(_impl_.battery_time_to_empty_sec_){int64_t{0}}
+    , decltype(_impl_.battery_time_to_full_sec_){int64_t{0}}
+    , decltype(_impl_.external_power_){0}
+    , decltype(_impl_.battery_state_){0}
+    , decltype(_impl_.battery_discharge_rate_){0}
+    , decltype(_impl_.battery_voltage_){0}
+    , decltype(_impl_.battery_cycle_count_){int64_t{0}}
+    , decltype(_impl_.battery_charge_full_design_){0}
+    , decltype(_impl_.battery_charge_full_){0}
+    , decltype(_impl_.battery_voltage_min_design_){0}
+    , decltype(_impl_.is_calculating_battery_time_){false}
+    , decltype(_impl_.supports_dual_role_devices_){false}
+    , decltype(_impl_.adaptive_charging_supported_){false}
+    , decltype(_impl_.adaptive_delaying_charge_){false}
+    , decltype(_impl_.adaptive_charging_heuristic_enabled_){false}
+    , decltype(_impl_.battery_charge_){0}
+    , decltype(_impl_.battery_current_){0}
+    , decltype(_impl_.preferred_minimum_external_power_){0}
+    , decltype(_impl_.battery_percent_){-1}
+  };
+  _impl_.external_power_source_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.external_power_source_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.battery_vendor_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.battery_vendor_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.battery_serial_number_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.battery_serial_number_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.battery_model_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.battery_model_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.battery_technology_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.battery_technology_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.battery_status_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.battery_status_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PowerSupplyProperties::~PowerSupplyProperties() {
   // @@protoc_insertion_point(destructor:power_manager.PowerSupplyProperties)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void PowerSupplyProperties::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  external_power_source_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  battery_vendor_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  battery_serial_number_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  battery_model_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  battery_technology_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  battery_status_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.available_external_power_source_.~RepeatedPtrField();
+  _impl_.external_power_source_id_.Destroy();
+  _impl_.battery_vendor_.Destroy();
+  _impl_.battery_serial_number_.Destroy();
+  _impl_.battery_model_name_.Destroy();
+  _impl_.battery_technology_.Destroy();
+  _impl_.battery_status_.Destroy();
 }
 
-void PowerSupplyProperties::ArenaDtor(void* object) {
-  PowerSupplyProperties* _this = reinterpret_cast< PowerSupplyProperties* >(object);
-  (void)_this;
-}
-void PowerSupplyProperties::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void PowerSupplyProperties::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PowerSupplyProperties::Clear() {
@@ -1043,60 +1109,60 @@ void PowerSupplyProperties::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  available_external_power_source_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.available_external_power_source_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
-      external_power_source_id_.ClearNonDefaultToEmpty();
+      _impl_.external_power_source_id_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      battery_vendor_.ClearNonDefaultToEmpty();
+      _impl_.battery_vendor_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      battery_serial_number_.ClearNonDefaultToEmpty();
+      _impl_.battery_serial_number_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      battery_model_name_.ClearNonDefaultToEmpty();
+      _impl_.battery_model_name_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000010u) {
-      battery_technology_.ClearNonDefaultToEmpty();
+      _impl_.battery_technology_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000020u) {
-      battery_status_.ClearNonDefaultToEmpty();
+      _impl_.battery_status_.ClearNonDefaultToEmpty();
     }
   }
   if (cached_has_bits & 0x000000c0u) {
-    ::memset(&battery_time_to_empty_sec_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&battery_time_to_full_sec_) -
-        reinterpret_cast<char*>(&battery_time_to_empty_sec_)) + sizeof(battery_time_to_full_sec_));
+    ::memset(&_impl_.battery_time_to_empty_sec_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.battery_time_to_full_sec_) -
+        reinterpret_cast<char*>(&_impl_.battery_time_to_empty_sec_)) + sizeof(_impl_.battery_time_to_full_sec_));
   }
   if (cached_has_bits & 0x0000ff00u) {
-    ::memset(&external_power_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&battery_voltage_min_design_) -
-        reinterpret_cast<char*>(&external_power_)) + sizeof(battery_voltage_min_design_));
+    ::memset(&_impl_.external_power_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.battery_voltage_min_design_) -
+        reinterpret_cast<char*>(&_impl_.external_power_)) + sizeof(_impl_.battery_voltage_min_design_));
   }
   if (cached_has_bits & 0x00ff0000u) {
-    ::memset(&is_calculating_battery_time_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&preferred_minimum_external_power_) -
-        reinterpret_cast<char*>(&is_calculating_battery_time_)) + sizeof(preferred_minimum_external_power_));
+    ::memset(&_impl_.is_calculating_battery_time_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.preferred_minimum_external_power_) -
+        reinterpret_cast<char*>(&_impl_.is_calculating_battery_time_)) + sizeof(_impl_.preferred_minimum_external_power_));
   }
-  battery_percent_ = -1;
-  _has_bits_.Clear();
+  _impl_.battery_percent_ = -1;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional int64 battery_time_to_empty_sec = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _Internal::set_has_battery_time_to_empty_sec(&has_bits);
-          battery_time_to_empty_sec_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.battery_time_to_empty_sec_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1105,7 +1171,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
           _Internal::set_has_battery_time_to_full_sec(&has_bits);
-          battery_time_to_full_sec_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.battery_time_to_full_sec_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1114,7 +1180,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 57)) {
           _Internal::set_has_battery_percent(&has_bits);
-          battery_percent_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.battery_percent_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -1123,7 +1189,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 12:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
           _Internal::set_has_is_calculating_battery_time(&has_bits);
-          is_calculating_battery_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.is_calculating_battery_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1158,7 +1224,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 16:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 129)) {
           _Internal::set_has_battery_discharge_rate(&has_bits);
-          battery_discharge_rate_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.battery_discharge_rate_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -1167,7 +1233,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 17:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 138)) {
           auto str = _internal_mutable_external_power_source_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1189,7 +1255,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 19:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 152)) {
           _Internal::set_has_supports_dual_role_devices(&has_bits);
-          supports_dual_role_devices_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.supports_dual_role_devices_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1198,7 +1264,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 20:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 161)) {
           _Internal::set_has_battery_voltage(&has_bits);
-          battery_voltage_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.battery_voltage_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -1207,7 +1273,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 21:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 170)) {
           auto str = _internal_mutable_battery_vendor();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1216,7 +1282,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 22:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 176)) {
           _Internal::set_has_battery_cycle_count(&has_bits);
-          battery_cycle_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.battery_cycle_count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1225,7 +1291,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 23:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 186)) {
           auto str = _internal_mutable_battery_serial_number();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1234,7 +1300,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 24:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 193)) {
           _Internal::set_has_battery_charge_full_design(&has_bits);
-          battery_charge_full_design_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.battery_charge_full_design_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -1243,7 +1309,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 25:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 201)) {
           _Internal::set_has_battery_charge_full(&has_bits);
-          battery_charge_full_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.battery_charge_full_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -1252,7 +1318,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 26:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 209)) {
           _Internal::set_has_battery_voltage_min_design(&has_bits);
-          battery_voltage_min_design_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.battery_voltage_min_design_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -1261,7 +1327,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 27:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 217)) {
           _Internal::set_has_battery_charge(&has_bits);
-          battery_charge_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.battery_charge_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -1270,7 +1336,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 28:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 226)) {
           auto str = _internal_mutable_battery_model_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1279,7 +1345,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 29:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 233)) {
           _Internal::set_has_battery_current(&has_bits);
-          battery_current_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.battery_current_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -1288,7 +1354,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 30:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 242)) {
           auto str = _internal_mutable_battery_technology();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1297,7 +1363,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 31:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 250)) {
           auto str = _internal_mutable_battery_status();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1306,7 +1372,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 32:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 1)) {
           _Internal::set_has_preferred_minimum_external_power(&has_bits);
-          preferred_minimum_external_power_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.preferred_minimum_external_power_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -1315,7 +1381,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 33:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_adaptive_charging_supported(&has_bits);
-          adaptive_charging_supported_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.adaptive_charging_supported_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1324,7 +1390,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 34:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_adaptive_delaying_charge(&has_bits);
-          adaptive_delaying_charge_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.adaptive_delaying_charge_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1333,7 +1399,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 35:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_adaptive_charging_heuristic_enabled(&has_bits);
-          adaptive_charging_heuristic_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.adaptive_charging_heuristic_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1354,7 +1420,7 @@ const char* PowerSupplyProperties::_InternalParse(const char* ptr, ::PROTOBUF_NA
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1368,49 +1434,49 @@ uint8_t* PowerSupplyProperties::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int64 battery_time_to_empty_sec = 5;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(5, this->_internal_battery_time_to_empty_sec(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(5, this->_internal_battery_time_to_empty_sec(), target);
   }
 
   // optional int64 battery_time_to_full_sec = 6;
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(6, this->_internal_battery_time_to_full_sec(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(6, this->_internal_battery_time_to_full_sec(), target);
   }
 
   // optional double battery_percent = 7 [default = -1];
   if (cached_has_bits & 0x01000000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(7, this->_internal_battery_percent(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(7, this->_internal_battery_percent(), target);
   }
 
   // optional bool is_calculating_battery_time = 12 [default = false];
   if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(12, this->_internal_is_calculating_battery_time(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(12, this->_internal_is_calculating_battery_time(), target);
   }
 
   // optional .power_manager.PowerSupplyProperties.ExternalPower external_power = 14;
   if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       14, this->_internal_external_power(), target);
   }
 
   // optional .power_manager.PowerSupplyProperties.BatteryState battery_state = 15;
   if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       15, this->_internal_battery_state(), target);
   }
 
   // optional double battery_discharge_rate = 16;
   if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(16, this->_internal_battery_discharge_rate(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(16, this->_internal_battery_discharge_rate(), target);
   }
 
   // optional string external_power_source_id = 17;
@@ -1420,23 +1486,23 @@ uint8_t* PowerSupplyProperties::_InternalSerialize(
   }
 
   // repeated .power_manager.PowerSupplyProperties.PowerSource available_external_power_source = 18;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_available_external_power_source_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_available_external_power_source_size()); i < n; i++) {
+    const auto& repfield = this->_internal_available_external_power_source(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(18, this->_internal_available_external_power_source(i), target, stream);
+        InternalWriteMessage(18, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // optional bool supports_dual_role_devices = 19;
   if (cached_has_bits & 0x00020000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(19, this->_internal_supports_dual_role_devices(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(19, this->_internal_supports_dual_role_devices(), target);
   }
 
   // optional double battery_voltage = 20;
   if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(20, this->_internal_battery_voltage(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(20, this->_internal_battery_voltage(), target);
   }
 
   // optional string battery_vendor = 21;
@@ -1448,7 +1514,7 @@ uint8_t* PowerSupplyProperties::_InternalSerialize(
   // optional int64 battery_cycle_count = 22;
   if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(22, this->_internal_battery_cycle_count(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(22, this->_internal_battery_cycle_count(), target);
   }
 
   // optional string battery_serial_number = 23;
@@ -1460,25 +1526,25 @@ uint8_t* PowerSupplyProperties::_InternalSerialize(
   // optional double battery_charge_full_design = 24;
   if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(24, this->_internal_battery_charge_full_design(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(24, this->_internal_battery_charge_full_design(), target);
   }
 
   // optional double battery_charge_full = 25;
   if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(25, this->_internal_battery_charge_full(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(25, this->_internal_battery_charge_full(), target);
   }
 
   // optional double battery_voltage_min_design = 26;
   if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(26, this->_internal_battery_voltage_min_design(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(26, this->_internal_battery_voltage_min_design(), target);
   }
 
   // optional double battery_charge = 27;
   if (cached_has_bits & 0x00200000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(27, this->_internal_battery_charge(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(27, this->_internal_battery_charge(), target);
   }
 
   // optional string battery_model_name = 28;
@@ -1490,7 +1556,7 @@ uint8_t* PowerSupplyProperties::_InternalSerialize(
   // optional double battery_current = 29;
   if (cached_has_bits & 0x00400000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(29, this->_internal_battery_current(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(29, this->_internal_battery_current(), target);
   }
 
   // optional string battery_technology = 30;
@@ -1508,25 +1574,25 @@ uint8_t* PowerSupplyProperties::_InternalSerialize(
   // optional double preferred_minimum_external_power = 32;
   if (cached_has_bits & 0x00800000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(32, this->_internal_preferred_minimum_external_power(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(32, this->_internal_preferred_minimum_external_power(), target);
   }
 
   // optional bool adaptive_charging_supported = 33 [default = false];
   if (cached_has_bits & 0x00040000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(33, this->_internal_adaptive_charging_supported(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(33, this->_internal_adaptive_charging_supported(), target);
   }
 
   // optional bool adaptive_delaying_charge = 34 [default = false];
   if (cached_has_bits & 0x00080000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(34, this->_internal_adaptive_delaying_charge(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(34, this->_internal_adaptive_delaying_charge(), target);
   }
 
   // optional bool adaptive_charging_heuristic_enabled = 35;
   if (cached_has_bits & 0x00100000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(35, this->_internal_adaptive_charging_heuristic_enabled(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(35, this->_internal_adaptive_charging_heuristic_enabled(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1547,12 +1613,12 @@ size_t PowerSupplyProperties::ByteSizeLong() const {
 
   // repeated .power_manager.PowerSupplyProperties.PowerSource available_external_power_source = 18;
   total_size += 2UL * this->_internal_available_external_power_source_size();
-  for (const auto& msg : this->available_external_power_source_) {
+  for (const auto& msg : this->_impl_.available_external_power_source_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional string external_power_source_id = 17;
     if (cached_has_bits & 0x00000001u) {
@@ -1598,12 +1664,12 @@ size_t PowerSupplyProperties::ByteSizeLong() const {
 
     // optional int64 battery_time_to_empty_sec = 5;
     if (cached_has_bits & 0x00000040u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_battery_time_to_empty_sec());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_battery_time_to_empty_sec());
     }
 
     // optional int64 battery_time_to_full_sec = 6;
     if (cached_has_bits & 0x00000080u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_battery_time_to_full_sec());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_battery_time_to_full_sec());
     }
 
   }
@@ -1611,13 +1677,13 @@ size_t PowerSupplyProperties::ByteSizeLong() const {
     // optional .power_manager.PowerSupplyProperties.ExternalPower external_power = 14;
     if (cached_has_bits & 0x00000100u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_external_power());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_external_power());
     }
 
     // optional .power_manager.PowerSupplyProperties.BatteryState battery_state = 15;
     if (cached_has_bits & 0x00000200u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_battery_state());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_battery_state());
     }
 
     // optional double battery_discharge_rate = 16;
@@ -1633,7 +1699,7 @@ size_t PowerSupplyProperties::ByteSizeLong() const {
     // optional int64 battery_cycle_count = 22;
     if (cached_has_bits & 0x00001000u) {
       total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
+        ::_pbi::WireFormatLite::Int64Size(
           this->_internal_battery_cycle_count());
     }
 
@@ -1703,110 +1769,111 @@ size_t PowerSupplyProperties::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void PowerSupplyProperties::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const PowerSupplyProperties*>(
+  MergeFrom(*::_pbi::DownCast<const PowerSupplyProperties*>(
       &from));
 }
 
 void PowerSupplyProperties::MergeFrom(const PowerSupplyProperties& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:power_manager.PowerSupplyProperties)
-  GOOGLE_DCHECK_NE(&from, this);
+  PowerSupplyProperties* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.PowerSupplyProperties)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  available_external_power_source_.MergeFrom(from.available_external_power_source_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_impl_.available_external_power_source_.MergeFrom(from._impl_.available_external_power_source_);
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_external_power_source_id(from._internal_external_power_source_id());
+      _this->_internal_set_external_power_source_id(from._internal_external_power_source_id());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_battery_vendor(from._internal_battery_vendor());
+      _this->_internal_set_battery_vendor(from._internal_battery_vendor());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_battery_serial_number(from._internal_battery_serial_number());
+      _this->_internal_set_battery_serial_number(from._internal_battery_serial_number());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_set_battery_model_name(from._internal_battery_model_name());
+      _this->_internal_set_battery_model_name(from._internal_battery_model_name());
     }
     if (cached_has_bits & 0x00000010u) {
-      _internal_set_battery_technology(from._internal_battery_technology());
+      _this->_internal_set_battery_technology(from._internal_battery_technology());
     }
     if (cached_has_bits & 0x00000020u) {
-      _internal_set_battery_status(from._internal_battery_status());
+      _this->_internal_set_battery_status(from._internal_battery_status());
     }
     if (cached_has_bits & 0x00000040u) {
-      battery_time_to_empty_sec_ = from.battery_time_to_empty_sec_;
+      _this->_impl_.battery_time_to_empty_sec_ = from._impl_.battery_time_to_empty_sec_;
     }
     if (cached_has_bits & 0x00000080u) {
-      battery_time_to_full_sec_ = from.battery_time_to_full_sec_;
+      _this->_impl_.battery_time_to_full_sec_ = from._impl_.battery_time_to_full_sec_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      external_power_ = from.external_power_;
+      _this->_impl_.external_power_ = from._impl_.external_power_;
     }
     if (cached_has_bits & 0x00000200u) {
-      battery_state_ = from.battery_state_;
+      _this->_impl_.battery_state_ = from._impl_.battery_state_;
     }
     if (cached_has_bits & 0x00000400u) {
-      battery_discharge_rate_ = from.battery_discharge_rate_;
+      _this->_impl_.battery_discharge_rate_ = from._impl_.battery_discharge_rate_;
     }
     if (cached_has_bits & 0x00000800u) {
-      battery_voltage_ = from.battery_voltage_;
+      _this->_impl_.battery_voltage_ = from._impl_.battery_voltage_;
     }
     if (cached_has_bits & 0x00001000u) {
-      battery_cycle_count_ = from.battery_cycle_count_;
+      _this->_impl_.battery_cycle_count_ = from._impl_.battery_cycle_count_;
     }
     if (cached_has_bits & 0x00002000u) {
-      battery_charge_full_design_ = from.battery_charge_full_design_;
+      _this->_impl_.battery_charge_full_design_ = from._impl_.battery_charge_full_design_;
     }
     if (cached_has_bits & 0x00004000u) {
-      battery_charge_full_ = from.battery_charge_full_;
+      _this->_impl_.battery_charge_full_ = from._impl_.battery_charge_full_;
     }
     if (cached_has_bits & 0x00008000u) {
-      battery_voltage_min_design_ = from.battery_voltage_min_design_;
+      _this->_impl_.battery_voltage_min_design_ = from._impl_.battery_voltage_min_design_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x00ff0000u) {
     if (cached_has_bits & 0x00010000u) {
-      is_calculating_battery_time_ = from.is_calculating_battery_time_;
+      _this->_impl_.is_calculating_battery_time_ = from._impl_.is_calculating_battery_time_;
     }
     if (cached_has_bits & 0x00020000u) {
-      supports_dual_role_devices_ = from.supports_dual_role_devices_;
+      _this->_impl_.supports_dual_role_devices_ = from._impl_.supports_dual_role_devices_;
     }
     if (cached_has_bits & 0x00040000u) {
-      adaptive_charging_supported_ = from.adaptive_charging_supported_;
+      _this->_impl_.adaptive_charging_supported_ = from._impl_.adaptive_charging_supported_;
     }
     if (cached_has_bits & 0x00080000u) {
-      adaptive_delaying_charge_ = from.adaptive_delaying_charge_;
+      _this->_impl_.adaptive_delaying_charge_ = from._impl_.adaptive_delaying_charge_;
     }
     if (cached_has_bits & 0x00100000u) {
-      adaptive_charging_heuristic_enabled_ = from.adaptive_charging_heuristic_enabled_;
+      _this->_impl_.adaptive_charging_heuristic_enabled_ = from._impl_.adaptive_charging_heuristic_enabled_;
     }
     if (cached_has_bits & 0x00200000u) {
-      battery_charge_ = from.battery_charge_;
+      _this->_impl_.battery_charge_ = from._impl_.battery_charge_;
     }
     if (cached_has_bits & 0x00400000u) {
-      battery_current_ = from.battery_current_;
+      _this->_impl_.battery_current_ = from._impl_.battery_current_;
     }
     if (cached_has_bits & 0x00800000u) {
-      preferred_minimum_external_power_ = from.preferred_minimum_external_power_;
+      _this->_impl_.preferred_minimum_external_power_ = from._impl_.preferred_minimum_external_power_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x01000000u) {
-    _internal_set_battery_percent(from._internal_battery_percent());
+    _this->_internal_set_battery_percent(from._internal_battery_percent());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void PowerSupplyProperties::CopyFrom(const PowerSupplyProperties& from) {
@@ -1825,45 +1892,39 @@ void PowerSupplyProperties::InternalSwap(PowerSupplyProperties* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  available_external_power_source_.InternalSwap(&other->available_external_power_source_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.available_external_power_source_.InternalSwap(&other->_impl_.available_external_power_source_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &external_power_source_id_, lhs_arena,
-      &other->external_power_source_id_, rhs_arena
+      &_impl_.external_power_source_id_, lhs_arena,
+      &other->_impl_.external_power_source_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &battery_vendor_, lhs_arena,
-      &other->battery_vendor_, rhs_arena
+      &_impl_.battery_vendor_, lhs_arena,
+      &other->_impl_.battery_vendor_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &battery_serial_number_, lhs_arena,
-      &other->battery_serial_number_, rhs_arena
+      &_impl_.battery_serial_number_, lhs_arena,
+      &other->_impl_.battery_serial_number_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &battery_model_name_, lhs_arena,
-      &other->battery_model_name_, rhs_arena
+      &_impl_.battery_model_name_, lhs_arena,
+      &other->_impl_.battery_model_name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &battery_technology_, lhs_arena,
-      &other->battery_technology_, rhs_arena
+      &_impl_.battery_technology_, lhs_arena,
+      &other->_impl_.battery_technology_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &battery_status_, lhs_arena,
-      &other->battery_status_, rhs_arena
+      &_impl_.battery_status_, lhs_arena,
+      &other->_impl_.battery_status_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PowerSupplyProperties, preferred_minimum_external_power_)
-      + sizeof(PowerSupplyProperties::preferred_minimum_external_power_)
-      - PROTOBUF_FIELD_OFFSET(PowerSupplyProperties, battery_time_to_empty_sec_)>(
-          reinterpret_cast<char*>(&battery_time_to_empty_sec_),
-          reinterpret_cast<char*>(&other->battery_time_to_empty_sec_));
-  swap(battery_percent_, other->battery_percent_);
+      PROTOBUF_FIELD_OFFSET(PowerSupplyProperties, _impl_.preferred_minimum_external_power_)
+      + sizeof(PowerSupplyProperties::_impl_.preferred_minimum_external_power_)
+      - PROTOBUF_FIELD_OFFSET(PowerSupplyProperties, _impl_.battery_time_to_empty_sec_)>(
+          reinterpret_cast<char*>(&_impl_.battery_time_to_empty_sec_),
+          reinterpret_cast<char*>(&other->_impl_.battery_time_to_empty_sec_));
+  swap(_impl_.battery_percent_, other->_impl_.battery_percent_);
 }
 
 std::string PowerSupplyProperties::GetTypeName() const {
@@ -1874,10 +1935,12 @@ std::string PowerSupplyProperties::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace power_manager
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::power_manager::PowerSupplyProperties_PowerSource* Arena::CreateMaybeMessage< ::power_manager::PowerSupplyProperties_PowerSource >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::power_manager::PowerSupplyProperties_PowerSource*
+Arena::CreateMaybeMessage< ::power_manager::PowerSupplyProperties_PowerSource >(Arena* arena) {
   return Arena::CreateMessageInternal< ::power_manager::PowerSupplyProperties_PowerSource >(arena);
 }
-template<> PROTOBUF_NOINLINE ::power_manager::PowerSupplyProperties* Arena::CreateMaybeMessage< ::power_manager::PowerSupplyProperties >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::power_manager::PowerSupplyProperties*
+Arena::CreateMaybeMessage< ::power_manager::PowerSupplyProperties >(Arena* arena) {
   return Arena::CreateMessageInternal< ::power_manager::PowerSupplyProperties >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

@@ -13,121 +13,131 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace vm_tools {
 namespace vsh {
-constexpr SetupConnectionRequest_EnvEntry_DoNotUse::SetupConnectionRequest_EnvEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+PROTOBUF_CONSTEXPR SetupConnectionRequest_EnvEntry_DoNotUse::SetupConnectionRequest_EnvEntry_DoNotUse(
+    ::_pbi::ConstantInitialized) {}
 struct SetupConnectionRequest_EnvEntry_DoNotUseDefaultTypeInternal {
-  constexpr SetupConnectionRequest_EnvEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SetupConnectionRequest_EnvEntry_DoNotUseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SetupConnectionRequest_EnvEntry_DoNotUseDefaultTypeInternal() {}
   union {
     SetupConnectionRequest_EnvEntry_DoNotUse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SetupConnectionRequest_EnvEntry_DoNotUseDefaultTypeInternal _SetupConnectionRequest_EnvEntry_DoNotUse_default_instance_;
-constexpr SetupConnectionRequest::SetupConnectionRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : env_()
-  , argv_()
-  , target_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , user_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , command_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , cwd_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , window_rows_(0)
-  , window_cols_(0)
-  , nopty_(false)
-  , cwd_pid_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetupConnectionRequest_EnvEntry_DoNotUseDefaultTypeInternal _SetupConnectionRequest_EnvEntry_DoNotUse_default_instance_;
+PROTOBUF_CONSTEXPR SetupConnectionRequest::SetupConnectionRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.env_)*/{}
+  , /*decltype(_impl_.argv_)*/{}
+  , /*decltype(_impl_.target_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.user_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.command_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.cwd_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.window_rows_)*/0
+  , /*decltype(_impl_.window_cols_)*/0
+  , /*decltype(_impl_.nopty_)*/false
+  , /*decltype(_impl_.cwd_pid_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SetupConnectionRequestDefaultTypeInternal {
-  constexpr SetupConnectionRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SetupConnectionRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SetupConnectionRequestDefaultTypeInternal() {}
   union {
     SetupConnectionRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SetupConnectionRequestDefaultTypeInternal _SetupConnectionRequest_default_instance_;
-constexpr SetupConnectionResponse::SetupConnectionResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : description_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , status_(0)
-
-  , pid_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetupConnectionRequestDefaultTypeInternal _SetupConnectionRequest_default_instance_;
+PROTOBUF_CONSTEXPR SetupConnectionResponse::SetupConnectionResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.description_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0
+  , /*decltype(_impl_.pid_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SetupConnectionResponseDefaultTypeInternal {
-  constexpr SetupConnectionResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SetupConnectionResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SetupConnectionResponseDefaultTypeInternal() {}
   union {
     SetupConnectionResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SetupConnectionResponseDefaultTypeInternal _SetupConnectionResponse_default_instance_;
-constexpr ConnectionStatusMessage::ConnectionStatusMessage(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : description_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , status_(0)
-
-  , code_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetupConnectionResponseDefaultTypeInternal _SetupConnectionResponse_default_instance_;
+PROTOBUF_CONSTEXPR ConnectionStatusMessage::ConnectionStatusMessage(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.description_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0
+  , /*decltype(_impl_.code_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ConnectionStatusMessageDefaultTypeInternal {
-  constexpr ConnectionStatusMessageDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ConnectionStatusMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ConnectionStatusMessageDefaultTypeInternal() {}
   union {
     ConnectionStatusMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ConnectionStatusMessageDefaultTypeInternal _ConnectionStatusMessage_default_instance_;
-constexpr DataMessage::DataMessage(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : data_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , stream_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ConnectionStatusMessageDefaultTypeInternal _ConnectionStatusMessage_default_instance_;
+PROTOBUF_CONSTEXPR DataMessage::DataMessage(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.data_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.stream_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct DataMessageDefaultTypeInternal {
-  constexpr DataMessageDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DataMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~DataMessageDefaultTypeInternal() {}
   union {
     DataMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DataMessageDefaultTypeInternal _DataMessage_default_instance_;
-constexpr WindowResizeMessage::WindowResizeMessage(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : rows_(0)
-  , cols_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DataMessageDefaultTypeInternal _DataMessage_default_instance_;
+PROTOBUF_CONSTEXPR WindowResizeMessage::WindowResizeMessage(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.rows_)*/0
+  , /*decltype(_impl_.cols_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct WindowResizeMessageDefaultTypeInternal {
-  constexpr WindowResizeMessageDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR WindowResizeMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~WindowResizeMessageDefaultTypeInternal() {}
   union {
     WindowResizeMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT WindowResizeMessageDefaultTypeInternal _WindowResizeMessage_default_instance_;
-constexpr HostMessage::HostMessage(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : _oneof_case_{}{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 WindowResizeMessageDefaultTypeInternal _WindowResizeMessage_default_instance_;
+PROTOBUF_CONSTEXPR HostMessage::HostMessage(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.msg_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct HostMessageDefaultTypeInternal {
-  constexpr HostMessageDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HostMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HostMessageDefaultTypeInternal() {}
   union {
     HostMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HostMessageDefaultTypeInternal _HostMessage_default_instance_;
-constexpr GuestMessage::GuestMessage(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : _oneof_case_{}{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HostMessageDefaultTypeInternal _HostMessage_default_instance_;
+PROTOBUF_CONSTEXPR GuestMessage::GuestMessage(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.msg_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct GuestMessageDefaultTypeInternal {
-  constexpr GuestMessageDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GuestMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GuestMessageDefaultTypeInternal() {}
   union {
     GuestMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GuestMessageDefaultTypeInternal _GuestMessage_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GuestMessageDefaultTypeInternal _GuestMessage_default_instance_;
 }  // namespace vsh
 }  // namespace vm_tools
 namespace vm_tools {
@@ -331,104 +341,123 @@ class SetupConnectionRequest::_Internal {
 
 SetupConnectionRequest::SetupConnectionRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  env_(arena),
-  argv_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vsh.SetupConnectionRequest)
 }
 SetupConnectionRequest::SetupConnectionRequest(const SetupConnectionRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      argv_(from.argv_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SetupConnectionRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_.env_)*/{}
+    , decltype(_impl_.argv_){from._impl_.argv_}
+    , decltype(_impl_.target_){}
+    , decltype(_impl_.user_){}
+    , decltype(_impl_.command_){}
+    , decltype(_impl_.cwd_){}
+    , decltype(_impl_.window_rows_){}
+    , decltype(_impl_.window_cols_){}
+    , decltype(_impl_.nopty_){}
+    , decltype(_impl_.cwd_pid_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  env_.MergeFrom(from.env_);
-  target_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _this->_impl_.env_.MergeFrom(from._impl_.env_);
+  _impl_.target_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    target_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.target_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_target().empty()) {
-    target_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_target(), 
-      GetArenaForAllocation());
+    _this->_impl_.target_.Set(from._internal_target(), 
+      _this->GetArenaForAllocation());
   }
-  user_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.user_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    user_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.user_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_user().empty()) {
-    user_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_user(), 
-      GetArenaForAllocation());
+    _this->_impl_.user_.Set(from._internal_user(), 
+      _this->GetArenaForAllocation());
   }
-  command_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.command_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    command_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.command_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_command().empty()) {
-    command_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_command(), 
-      GetArenaForAllocation());
+    _this->_impl_.command_.Set(from._internal_command(), 
+      _this->GetArenaForAllocation());
   }
-  cwd_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.cwd_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    cwd_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.cwd_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_cwd().empty()) {
-    cwd_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_cwd(), 
-      GetArenaForAllocation());
+    _this->_impl_.cwd_.Set(from._internal_cwd(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&window_rows_, &from.window_rows_,
-    static_cast<size_t>(reinterpret_cast<char*>(&cwd_pid_) -
-    reinterpret_cast<char*>(&window_rows_)) + sizeof(cwd_pid_));
+  ::memcpy(&_impl_.window_rows_, &from._impl_.window_rows_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.cwd_pid_) -
+    reinterpret_cast<char*>(&_impl_.window_rows_)) + sizeof(_impl_.cwd_pid_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.vsh.SetupConnectionRequest)
 }
 
-inline void SetupConnectionRequest::SharedCtor() {
-target_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  target_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-user_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  user_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-command_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  command_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-cwd_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  cwd_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&window_rows_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&cwd_pid_) -
-    reinterpret_cast<char*>(&window_rows_)) + sizeof(cwd_pid_));
+inline void SetupConnectionRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_.env_)*/{::_pbi::ArenaInitialized(), arena}
+    , decltype(_impl_.argv_){arena}
+    , decltype(_impl_.target_){}
+    , decltype(_impl_.user_){}
+    , decltype(_impl_.command_){}
+    , decltype(_impl_.cwd_){}
+    , decltype(_impl_.window_rows_){0}
+    , decltype(_impl_.window_cols_){0}
+    , decltype(_impl_.nopty_){false}
+    , decltype(_impl_.cwd_pid_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.target_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.target_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.user_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.user_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.command_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.command_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.cwd_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.cwd_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SetupConnectionRequest::~SetupConnectionRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.vsh.SetupConnectionRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SetupConnectionRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  target_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  user_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  command_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  cwd_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.env_.Destruct();
+  _impl_.env_.~MapFieldLite();
+  _impl_.argv_.~RepeatedPtrField();
+  _impl_.target_.Destroy();
+  _impl_.user_.Destroy();
+  _impl_.command_.Destroy();
+  _impl_.cwd_.Destroy();
 }
 
-void SetupConnectionRequest::ArenaDtor(void* object) {
-  SetupConnectionRequest* _this = reinterpret_cast< SetupConnectionRequest* >(object);
-  (void)_this;
-}
-void SetupConnectionRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SetupConnectionRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SetupConnectionRequest::Clear() {
@@ -437,31 +466,31 @@ void SetupConnectionRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  env_.Clear();
-  argv_.Clear();
-  target_.ClearToEmpty();
-  user_.ClearToEmpty();
-  command_.ClearToEmpty();
-  cwd_.ClearToEmpty();
-  ::memset(&window_rows_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&cwd_pid_) -
-      reinterpret_cast<char*>(&window_rows_)) + sizeof(cwd_pid_));
+  _impl_.env_.Clear();
+  _impl_.argv_.Clear();
+  _impl_.target_.ClearToEmpty();
+  _impl_.user_.ClearToEmpty();
+  _impl_.command_.ClearToEmpty();
+  _impl_.cwd_.ClearToEmpty();
+  ::memset(&_impl_.window_rows_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.cwd_pid_) -
+      reinterpret_cast<char*>(&_impl_.window_rows_)) + sizeof(_impl_.cwd_pid_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SetupConnectionRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SetupConnectionRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string target = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_target();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -469,9 +498,9 @@ const char* SetupConnectionRequest::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_user();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -481,7 +510,7 @@ const char* SetupConnectionRequest::_InternalParse(const char* ptr, ::PROTOBUF_N
           ptr -= 1;
           do {
             ptr += 1;
-            ptr = ctx->ParseMessage(&env_, ptr);
+            ptr = ctx->ParseMessage(&_impl_.env_, ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
@@ -492,9 +521,9 @@ const char* SetupConnectionRequest::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_command();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -505,9 +534,9 @@ const char* SetupConnectionRequest::_InternalParse(const char* ptr, ::PROTOBUF_N
           do {
             ptr += 1;
             auto str = _internal_add_argv();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, nullptr));
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
         } else
@@ -516,7 +545,7 @@ const char* SetupConnectionRequest::_InternalParse(const char* ptr, ::PROTOBUF_N
       // int32 window_rows = 6;
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
-          window_rows_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.window_rows_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -524,7 +553,7 @@ const char* SetupConnectionRequest::_InternalParse(const char* ptr, ::PROTOBUF_N
       // int32 window_cols = 7;
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
-          window_cols_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.window_cols_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -532,7 +561,7 @@ const char* SetupConnectionRequest::_InternalParse(const char* ptr, ::PROTOBUF_N
       // bool nopty = 8;
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
-          nopty_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.nopty_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -541,16 +570,16 @@ const char* SetupConnectionRequest::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 9:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
           auto str = _internal_mutable_cwd();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
       // int32 cwd_pid = 10;
       case 10:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
-          cwd_pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.cwd_pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -606,46 +635,30 @@ uint8_t* SetupConnectionRequest::_InternalSerialize(
 
   // map<string, string> env = 3;
   if (!this->_internal_env().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_pointer
-        ConstPtr;
-    typedef ConstPtr SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByDerefFirst<SortItem> Less;
-    struct Utf8Check {
-      static void Check(ConstPtr p) {
-        (void)p;
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-          p->first.data(), static_cast<int>(p->first.length()),
-          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-          "vm_tools.vsh.SetupConnectionRequest.EnvEntry.key");
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-          p->second.data(), static_cast<int>(p->second.length()),
-          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-          "vm_tools.vsh.SetupConnectionRequest.EnvEntry.value");
-      }
+    using MapType = ::_pb::Map<std::string, std::string>;
+    using WireHelper = SetupConnectionRequest_EnvEntry_DoNotUse::Funcs;
+    const auto& map_field = this->_internal_env();
+    auto check_utf8 = [](const MapType::value_type& entry) {
+      (void)entry;
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+        entry.first.data(), static_cast<int>(entry.first.length()),
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+        "vm_tools.vsh.SetupConnectionRequest.EnvEntry.key");
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+        entry.second.data(), static_cast<int>(entry.second.length()),
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+        "vm_tools.vsh.SetupConnectionRequest.EnvEntry.value");
     };
 
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_env().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_env().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
-          it = this->_internal_env().begin();
-          it != this->_internal_env().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = SetupConnectionRequest_EnvEntry_DoNotUse::Funcs::InternalSerialize(3, items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second, target, stream);
-        Utf8Check::Check(&(*items[static_cast<ptrdiff_t>(i)]));
+    if (stream->IsSerializationDeterministic() && map_field.size() > 1) {
+      for (const auto& entry : ::_pbi::MapSorterPtr<MapType>(map_field)) {
+        target = WireHelper::InternalSerialize(3, entry.first, entry.second, target, stream);
+        check_utf8(entry);
       }
     } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
-          it = this->_internal_env().begin();
-          it != this->_internal_env().end(); ++it) {
-        target = SetupConnectionRequest_EnvEntry_DoNotUse::Funcs::InternalSerialize(3, it->first, it->second, target, stream);
-        Utf8Check::Check(&(*it));
+      for (const auto& entry : map_field) {
+        target = WireHelper::InternalSerialize(3, entry.first, entry.second, target, stream);
+        check_utf8(entry);
       }
     }
   }
@@ -673,19 +686,19 @@ uint8_t* SetupConnectionRequest::_InternalSerialize(
   // int32 window_rows = 6;
   if (this->_internal_window_rows() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(6, this->_internal_window_rows(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(6, this->_internal_window_rows(), target);
   }
 
   // int32 window_cols = 7;
   if (this->_internal_window_cols() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(7, this->_internal_window_cols(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(7, this->_internal_window_cols(), target);
   }
 
   // bool nopty = 8;
   if (this->_internal_nopty() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(8, this->_internal_nopty(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(8, this->_internal_nopty(), target);
   }
 
   // string cwd = 9;
@@ -701,7 +714,7 @@ uint8_t* SetupConnectionRequest::_InternalSerialize(
   // int32 cwd_pid = 10;
   if (this->_internal_cwd_pid() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(10, this->_internal_cwd_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(10, this->_internal_cwd_pid(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -731,10 +744,10 @@ size_t SetupConnectionRequest::ByteSizeLong() const {
 
   // repeated string argv = 5;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(argv_.size());
-  for (int i = 0, n = argv_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.argv_.size());
+  for (int i = 0, n = _impl_.argv_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      argv_.Get(i));
+      _impl_.argv_.Get(i));
   }
 
   // string target = 1;
@@ -767,12 +780,12 @@ size_t SetupConnectionRequest::ByteSizeLong() const {
 
   // int32 window_rows = 6;
   if (this->_internal_window_rows() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_window_rows());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_window_rows());
   }
 
   // int32 window_cols = 7;
   if (this->_internal_window_cols() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_window_cols());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_window_cols());
   }
 
   // bool nopty = 8;
@@ -782,56 +795,57 @@ size_t SetupConnectionRequest::ByteSizeLong() const {
 
   // int32 cwd_pid = 10;
   if (this->_internal_cwd_pid() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_cwd_pid());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_cwd_pid());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SetupConnectionRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SetupConnectionRequest*>(
+  MergeFrom(*::_pbi::DownCast<const SetupConnectionRequest*>(
       &from));
 }
 
 void SetupConnectionRequest::MergeFrom(const SetupConnectionRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vsh.SetupConnectionRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  SetupConnectionRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vsh.SetupConnectionRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  env_.MergeFrom(from.env_);
-  argv_.MergeFrom(from.argv_);
+  _this->_impl_.env_.MergeFrom(from._impl_.env_);
+  _this->_impl_.argv_.MergeFrom(from._impl_.argv_);
   if (!from._internal_target().empty()) {
-    _internal_set_target(from._internal_target());
+    _this->_internal_set_target(from._internal_target());
   }
   if (!from._internal_user().empty()) {
-    _internal_set_user(from._internal_user());
+    _this->_internal_set_user(from._internal_user());
   }
   if (!from._internal_command().empty()) {
-    _internal_set_command(from._internal_command());
+    _this->_internal_set_command(from._internal_command());
   }
   if (!from._internal_cwd().empty()) {
-    _internal_set_cwd(from._internal_cwd());
+    _this->_internal_set_cwd(from._internal_cwd());
   }
   if (from._internal_window_rows() != 0) {
-    _internal_set_window_rows(from._internal_window_rows());
+    _this->_internal_set_window_rows(from._internal_window_rows());
   }
   if (from._internal_window_cols() != 0) {
-    _internal_set_window_cols(from._internal_window_cols());
+    _this->_internal_set_window_cols(from._internal_window_cols());
   }
   if (from._internal_nopty() != 0) {
-    _internal_set_nopty(from._internal_nopty());
+    _this->_internal_set_nopty(from._internal_nopty());
   }
   if (from._internal_cwd_pid() != 0) {
-    _internal_set_cwd_pid(from._internal_cwd_pid());
+    _this->_internal_set_cwd_pid(from._internal_cwd_pid());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SetupConnectionRequest::CopyFrom(const SetupConnectionRequest& from) {
@@ -850,34 +864,30 @@ void SetupConnectionRequest::InternalSwap(SetupConnectionRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  env_.InternalSwap(&other->env_);
-  argv_.InternalSwap(&other->argv_);
+  _impl_.env_.InternalSwap(&other->_impl_.env_);
+  _impl_.argv_.InternalSwap(&other->_impl_.argv_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &target_, lhs_arena,
-      &other->target_, rhs_arena
+      &_impl_.target_, lhs_arena,
+      &other->_impl_.target_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &user_, lhs_arena,
-      &other->user_, rhs_arena
+      &_impl_.user_, lhs_arena,
+      &other->_impl_.user_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &command_, lhs_arena,
-      &other->command_, rhs_arena
+      &_impl_.command_, lhs_arena,
+      &other->_impl_.command_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &cwd_, lhs_arena,
-      &other->cwd_, rhs_arena
+      &_impl_.cwd_, lhs_arena,
+      &other->_impl_.cwd_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SetupConnectionRequest, cwd_pid_)
-      + sizeof(SetupConnectionRequest::cwd_pid_)
-      - PROTOBUF_FIELD_OFFSET(SetupConnectionRequest, window_rows_)>(
-          reinterpret_cast<char*>(&window_rows_),
-          reinterpret_cast<char*>(&other->window_rows_));
+      PROTOBUF_FIELD_OFFSET(SetupConnectionRequest, _impl_.cwd_pid_)
+      + sizeof(SetupConnectionRequest::_impl_.cwd_pid_)
+      - PROTOBUF_FIELD_OFFSET(SetupConnectionRequest, _impl_.window_rows_)>(
+          reinterpret_cast<char*>(&_impl_.window_rows_),
+          reinterpret_cast<char*>(&other->_impl_.window_rows_));
 }
 
 std::string SetupConnectionRequest::GetTypeName() const {
@@ -894,60 +904,65 @@ class SetupConnectionResponse::_Internal {
 SetupConnectionResponse::SetupConnectionResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vsh.SetupConnectionResponse)
 }
 SetupConnectionResponse::SetupConnectionResponse(const SetupConnectionResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SetupConnectionResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.description_){}
+    , decltype(_impl_.status_){}
+    , decltype(_impl_.pid_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  description_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.description_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    description_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.description_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_description().empty()) {
-    description_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_description(), 
-      GetArenaForAllocation());
+    _this->_impl_.description_.Set(from._internal_description(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&status_, &from.status_,
-    static_cast<size_t>(reinterpret_cast<char*>(&pid_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(pid_));
+  ::memcpy(&_impl_.status_, &from._impl_.status_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.pid_) -
+    reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.pid_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.vsh.SetupConnectionResponse)
 }
 
-inline void SetupConnectionResponse::SharedCtor() {
-description_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  description_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&status_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&pid_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(pid_));
+inline void SetupConnectionResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.description_){}
+    , decltype(_impl_.status_){0}
+    , decltype(_impl_.pid_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.description_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.description_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SetupConnectionResponse::~SetupConnectionResponse() {
   // @@protoc_insertion_point(destructor:vm_tools.vsh.SetupConnectionResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SetupConnectionResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  description_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.description_.Destroy();
 }
 
-void SetupConnectionResponse::ArenaDtor(void* object) {
-  SetupConnectionResponse* _this = reinterpret_cast< SetupConnectionResponse* >(object);
-  (void)_this;
-}
-void SetupConnectionResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SetupConnectionResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SetupConnectionResponse::Clear() {
@@ -956,18 +971,18 @@ void SetupConnectionResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  description_.ClearToEmpty();
-  ::memset(&status_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&pid_) -
-      reinterpret_cast<char*>(&status_)) + sizeof(pid_));
+  _impl_.description_.ClearToEmpty();
+  ::memset(&_impl_.status_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.pid_) -
+      reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.pid_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SetupConnectionResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SetupConnectionResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .vm_tools.vsh.ConnectionStatus status = 1;
       case 1:
@@ -982,16 +997,16 @@ const char* SetupConnectionResponse::_InternalParse(const char* ptr, ::PROTOBUF_
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_description();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
       // int32 pid = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1028,7 +1043,7 @@ uint8_t* SetupConnectionResponse::_InternalSerialize(
   // .vm_tools.vsh.ConnectionStatus status = 1;
   if (this->_internal_status() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_status(), target);
   }
 
@@ -1045,7 +1060,7 @@ uint8_t* SetupConnectionResponse::_InternalSerialize(
   // int32 pid = 3;
   if (this->_internal_pid() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_pid(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1074,44 +1089,45 @@ size_t SetupConnectionResponse::ByteSizeLong() const {
   // .vm_tools.vsh.ConnectionStatus status = 1;
   if (this->_internal_status() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_status());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
   }
 
   // int32 pid = 3;
   if (this->_internal_pid() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_pid());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_pid());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SetupConnectionResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SetupConnectionResponse*>(
+  MergeFrom(*::_pbi::DownCast<const SetupConnectionResponse*>(
       &from));
 }
 
 void SetupConnectionResponse::MergeFrom(const SetupConnectionResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vsh.SetupConnectionResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  SetupConnectionResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vsh.SetupConnectionResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_description().empty()) {
-    _internal_set_description(from._internal_description());
+    _this->_internal_set_description(from._internal_description());
   }
   if (from._internal_status() != 0) {
-    _internal_set_status(from._internal_status());
+    _this->_internal_set_status(from._internal_status());
   }
   if (from._internal_pid() != 0) {
-    _internal_set_pid(from._internal_pid());
+    _this->_internal_set_pid(from._internal_pid());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SetupConnectionResponse::CopyFrom(const SetupConnectionResponse& from) {
@@ -1131,16 +1147,15 @@ void SetupConnectionResponse::InternalSwap(SetupConnectionResponse* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &description_, lhs_arena,
-      &other->description_, rhs_arena
+      &_impl_.description_, lhs_arena,
+      &other->_impl_.description_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SetupConnectionResponse, pid_)
-      + sizeof(SetupConnectionResponse::pid_)
-      - PROTOBUF_FIELD_OFFSET(SetupConnectionResponse, status_)>(
-          reinterpret_cast<char*>(&status_),
-          reinterpret_cast<char*>(&other->status_));
+      PROTOBUF_FIELD_OFFSET(SetupConnectionResponse, _impl_.pid_)
+      + sizeof(SetupConnectionResponse::_impl_.pid_)
+      - PROTOBUF_FIELD_OFFSET(SetupConnectionResponse, _impl_.status_)>(
+          reinterpret_cast<char*>(&_impl_.status_),
+          reinterpret_cast<char*>(&other->_impl_.status_));
 }
 
 std::string SetupConnectionResponse::GetTypeName() const {
@@ -1157,60 +1172,65 @@ class ConnectionStatusMessage::_Internal {
 ConnectionStatusMessage::ConnectionStatusMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vsh.ConnectionStatusMessage)
 }
 ConnectionStatusMessage::ConnectionStatusMessage(const ConnectionStatusMessage& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ConnectionStatusMessage* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.description_){}
+    , decltype(_impl_.status_){}
+    , decltype(_impl_.code_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  description_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.description_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    description_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.description_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_description().empty()) {
-    description_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_description(), 
-      GetArenaForAllocation());
+    _this->_impl_.description_.Set(from._internal_description(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&status_, &from.status_,
-    static_cast<size_t>(reinterpret_cast<char*>(&code_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(code_));
+  ::memcpy(&_impl_.status_, &from._impl_.status_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.code_) -
+    reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.code_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.vsh.ConnectionStatusMessage)
 }
 
-inline void ConnectionStatusMessage::SharedCtor() {
-description_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  description_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&status_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&code_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(code_));
+inline void ConnectionStatusMessage::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.description_){}
+    , decltype(_impl_.status_){0}
+    , decltype(_impl_.code_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.description_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.description_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ConnectionStatusMessage::~ConnectionStatusMessage() {
   // @@protoc_insertion_point(destructor:vm_tools.vsh.ConnectionStatusMessage)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ConnectionStatusMessage::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  description_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.description_.Destroy();
 }
 
-void ConnectionStatusMessage::ArenaDtor(void* object) {
-  ConnectionStatusMessage* _this = reinterpret_cast< ConnectionStatusMessage* >(object);
-  (void)_this;
-}
-void ConnectionStatusMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ConnectionStatusMessage::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ConnectionStatusMessage::Clear() {
@@ -1219,18 +1239,18 @@ void ConnectionStatusMessage::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  description_.ClearToEmpty();
-  ::memset(&status_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&code_) -
-      reinterpret_cast<char*>(&status_)) + sizeof(code_));
+  _impl_.description_.ClearToEmpty();
+  ::memset(&_impl_.status_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.code_) -
+      reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.code_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ConnectionStatusMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ConnectionStatusMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .vm_tools.vsh.ConnectionStatus status = 1;
       case 1:
@@ -1245,16 +1265,16 @@ const char* ConnectionStatusMessage::_InternalParse(const char* ptr, ::PROTOBUF_
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_description();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
       // sint32 code = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          code_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarintZigZag32(&ptr);
+          _impl_.code_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarintZigZag32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1291,7 +1311,7 @@ uint8_t* ConnectionStatusMessage::_InternalSerialize(
   // .vm_tools.vsh.ConnectionStatus status = 1;
   if (this->_internal_status() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_status(), target);
   }
 
@@ -1308,7 +1328,7 @@ uint8_t* ConnectionStatusMessage::_InternalSerialize(
   // sint32 code = 3;
   if (this->_internal_code() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteSInt32ToArray(3, this->_internal_code(), target);
+    target = ::_pbi::WireFormatLite::WriteSInt32ToArray(3, this->_internal_code(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1337,44 +1357,45 @@ size_t ConnectionStatusMessage::ByteSizeLong() const {
   // .vm_tools.vsh.ConnectionStatus status = 1;
   if (this->_internal_status() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_status());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
   }
 
   // sint32 code = 3;
   if (this->_internal_code() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SInt32SizePlusOne(this->_internal_code());
+    total_size += ::_pbi::WireFormatLite::SInt32SizePlusOne(this->_internal_code());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ConnectionStatusMessage::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ConnectionStatusMessage*>(
+  MergeFrom(*::_pbi::DownCast<const ConnectionStatusMessage*>(
       &from));
 }
 
 void ConnectionStatusMessage::MergeFrom(const ConnectionStatusMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vsh.ConnectionStatusMessage)
-  GOOGLE_DCHECK_NE(&from, this);
+  ConnectionStatusMessage* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vsh.ConnectionStatusMessage)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_description().empty()) {
-    _internal_set_description(from._internal_description());
+    _this->_internal_set_description(from._internal_description());
   }
   if (from._internal_status() != 0) {
-    _internal_set_status(from._internal_status());
+    _this->_internal_set_status(from._internal_status());
   }
   if (from._internal_code() != 0) {
-    _internal_set_code(from._internal_code());
+    _this->_internal_set_code(from._internal_code());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ConnectionStatusMessage::CopyFrom(const ConnectionStatusMessage& from) {
@@ -1394,16 +1415,15 @@ void ConnectionStatusMessage::InternalSwap(ConnectionStatusMessage* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &description_, lhs_arena,
-      &other->description_, rhs_arena
+      &_impl_.description_, lhs_arena,
+      &other->_impl_.description_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ConnectionStatusMessage, code_)
-      + sizeof(ConnectionStatusMessage::code_)
-      - PROTOBUF_FIELD_OFFSET(ConnectionStatusMessage, status_)>(
-          reinterpret_cast<char*>(&status_),
-          reinterpret_cast<char*>(&other->status_));
+      PROTOBUF_FIELD_OFFSET(ConnectionStatusMessage, _impl_.code_)
+      + sizeof(ConnectionStatusMessage::_impl_.code_)
+      - PROTOBUF_FIELD_OFFSET(ConnectionStatusMessage, _impl_.status_)>(
+          reinterpret_cast<char*>(&_impl_.status_),
+          reinterpret_cast<char*>(&other->_impl_.status_));
 }
 
 std::string ConnectionStatusMessage::GetTypeName() const {
@@ -1420,55 +1440,61 @@ class DataMessage::_Internal {
 DataMessage::DataMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vsh.DataMessage)
 }
 DataMessage::DataMessage(const DataMessage& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  DataMessage* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.data_){}
+    , decltype(_impl_.stream_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  data_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.data_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.data_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_data().empty()) {
-    data_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_data(), 
-      GetArenaForAllocation());
+    _this->_impl_.data_.Set(from._internal_data(), 
+      _this->GetArenaForAllocation());
   }
-  stream_ = from.stream_;
+  _this->_impl_.stream_ = from._impl_.stream_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.vsh.DataMessage)
 }
 
-inline void DataMessage::SharedCtor() {
-data_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-stream_ = 0;
+inline void DataMessage::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.data_){}
+    , decltype(_impl_.stream_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.data_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.data_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 DataMessage::~DataMessage() {
   // @@protoc_insertion_point(destructor:vm_tools.vsh.DataMessage)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void DataMessage::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  data_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.data_.Destroy();
 }
 
-void DataMessage::ArenaDtor(void* object) {
-  DataMessage* _this = reinterpret_cast< DataMessage* >(object);
-  (void)_this;
-}
-void DataMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void DataMessage::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void DataMessage::Clear() {
@@ -1477,16 +1503,16 @@ void DataMessage::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  data_.ClearToEmpty();
-  stream_ = 0;
+  _impl_.data_.ClearToEmpty();
+  _impl_.stream_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* DataMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* DataMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .vm_tools.vsh.StdioStream stream = 1;
       case 1:
@@ -1501,7 +1527,7 @@ const char* DataMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_data();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1538,7 +1564,7 @@ uint8_t* DataMessage::_InternalSerialize(
   // .vm_tools.vsh.StdioStream stream = 1;
   if (this->_internal_stream() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_stream(), target);
   }
 
@@ -1574,36 +1600,37 @@ size_t DataMessage::ByteSizeLong() const {
   // .vm_tools.vsh.StdioStream stream = 1;
   if (this->_internal_stream() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_stream());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_stream());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void DataMessage::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const DataMessage*>(
+  MergeFrom(*::_pbi::DownCast<const DataMessage*>(
       &from));
 }
 
 void DataMessage::MergeFrom(const DataMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vsh.DataMessage)
-  GOOGLE_DCHECK_NE(&from, this);
+  DataMessage* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vsh.DataMessage)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_data().empty()) {
-    _internal_set_data(from._internal_data());
+    _this->_internal_set_data(from._internal_data());
   }
   if (from._internal_stream() != 0) {
-    _internal_set_stream(from._internal_stream());
+    _this->_internal_set_stream(from._internal_stream());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void DataMessage::CopyFrom(const DataMessage& from) {
@@ -1623,11 +1650,10 @@ void DataMessage::InternalSwap(DataMessage* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &data_, lhs_arena,
-      &other->data_, rhs_arena
+      &_impl_.data_, lhs_arena,
+      &other->_impl_.data_, rhs_arena
   );
-  swap(stream_, other->stream_);
+  swap(_impl_.stream_, other->_impl_.stream_);
 }
 
 std::string DataMessage::GetTypeName() const {
@@ -1644,47 +1670,50 @@ class WindowResizeMessage::_Internal {
 WindowResizeMessage::WindowResizeMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vsh.WindowResizeMessage)
 }
 WindowResizeMessage::WindowResizeMessage(const WindowResizeMessage& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  WindowResizeMessage* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.rows_){}
+    , decltype(_impl_.cols_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&rows_, &from.rows_,
-    static_cast<size_t>(reinterpret_cast<char*>(&cols_) -
-    reinterpret_cast<char*>(&rows_)) + sizeof(cols_));
+  ::memcpy(&_impl_.rows_, &from._impl_.rows_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.cols_) -
+    reinterpret_cast<char*>(&_impl_.rows_)) + sizeof(_impl_.cols_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.vsh.WindowResizeMessage)
 }
 
-inline void WindowResizeMessage::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&rows_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&cols_) -
-    reinterpret_cast<char*>(&rows_)) + sizeof(cols_));
+inline void WindowResizeMessage::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.rows_){0}
+    , decltype(_impl_.cols_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 WindowResizeMessage::~WindowResizeMessage() {
   // @@protoc_insertion_point(destructor:vm_tools.vsh.WindowResizeMessage)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void WindowResizeMessage::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void WindowResizeMessage::ArenaDtor(void* object) {
-  WindowResizeMessage* _this = reinterpret_cast< WindowResizeMessage* >(object);
-  (void)_this;
-}
-void WindowResizeMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void WindowResizeMessage::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void WindowResizeMessage::Clear() {
@@ -1693,22 +1722,22 @@ void WindowResizeMessage::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&rows_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&cols_) -
-      reinterpret_cast<char*>(&rows_)) + sizeof(cols_));
+  ::memset(&_impl_.rows_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.cols_) -
+      reinterpret_cast<char*>(&_impl_.rows_)) + sizeof(_impl_.cols_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* WindowResizeMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* WindowResizeMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int32 rows = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          rows_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.rows_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1716,7 +1745,7 @@ const char* WindowResizeMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAME
       // int32 cols = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          cols_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.cols_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1753,13 +1782,13 @@ uint8_t* WindowResizeMessage::_InternalSerialize(
   // int32 rows = 1;
   if (this->_internal_rows() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_rows(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_rows(), target);
   }
 
   // int32 cols = 2;
   if (this->_internal_cols() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_cols(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_cols(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1780,41 +1809,42 @@ size_t WindowResizeMessage::ByteSizeLong() const {
 
   // int32 rows = 1;
   if (this->_internal_rows() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_rows());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_rows());
   }
 
   // int32 cols = 2;
   if (this->_internal_cols() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_cols());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_cols());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void WindowResizeMessage::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const WindowResizeMessage*>(
+  MergeFrom(*::_pbi::DownCast<const WindowResizeMessage*>(
       &from));
 }
 
 void WindowResizeMessage::MergeFrom(const WindowResizeMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vsh.WindowResizeMessage)
-  GOOGLE_DCHECK_NE(&from, this);
+  WindowResizeMessage* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vsh.WindowResizeMessage)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_rows() != 0) {
-    _internal_set_rows(from._internal_rows());
+    _this->_internal_set_rows(from._internal_rows());
   }
   if (from._internal_cols() != 0) {
-    _internal_set_cols(from._internal_cols());
+    _this->_internal_set_cols(from._internal_cols());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void WindowResizeMessage::CopyFrom(const WindowResizeMessage& from) {
@@ -1832,11 +1862,11 @@ void WindowResizeMessage::InternalSwap(WindowResizeMessage* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(WindowResizeMessage, cols_)
-      + sizeof(WindowResizeMessage::cols_)
-      - PROTOBUF_FIELD_OFFSET(WindowResizeMessage, rows_)>(
-          reinterpret_cast<char*>(&rows_),
-          reinterpret_cast<char*>(&other->rows_));
+      PROTOBUF_FIELD_OFFSET(WindowResizeMessage, _impl_.cols_)
+      + sizeof(WindowResizeMessage::_impl_.cols_)
+      - PROTOBUF_FIELD_OFFSET(WindowResizeMessage, _impl_.rows_)>(
+          reinterpret_cast<char*>(&_impl_.rows_),
+          reinterpret_cast<char*>(&other->_impl_.rows_));
 }
 
 std::string WindowResizeMessage::GetTypeName() const {
@@ -1854,24 +1884,24 @@ class HostMessage::_Internal {
 
 const ::vm_tools::vsh::DataMessage&
 HostMessage::_Internal::data_message(const HostMessage* msg) {
-  return *msg->msg_.data_message_;
+  return *msg->_impl_.msg_.data_message_;
 }
 const ::vm_tools::vsh::ConnectionStatusMessage&
 HostMessage::_Internal::status_message(const HostMessage* msg) {
-  return *msg->msg_.status_message_;
+  return *msg->_impl_.msg_.status_message_;
 }
 void HostMessage::set_allocated_data_message(::vm_tools::vsh::DataMessage* data_message) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_msg();
   if (data_message) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vm_tools::vsh::DataMessage>::GetOwningArena(data_message);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(data_message);
     if (message_arena != submessage_arena) {
       data_message = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, data_message, submessage_arena);
     }
     set_has_data_message();
-    msg_.data_message_ = data_message;
+    _impl_.msg_.data_message_ = data_message;
   }
   // @@protoc_insertion_point(field_set_allocated:vm_tools.vsh.HostMessage.data_message)
 }
@@ -1880,36 +1910,41 @@ void HostMessage::set_allocated_status_message(::vm_tools::vsh::ConnectionStatus
   clear_msg();
   if (status_message) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vm_tools::vsh::ConnectionStatusMessage>::GetOwningArena(status_message);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(status_message);
     if (message_arena != submessage_arena) {
       status_message = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, status_message, submessage_arena);
     }
     set_has_status_message();
-    msg_.status_message_ = status_message;
+    _impl_.msg_.status_message_ = status_message;
   }
   // @@protoc_insertion_point(field_set_allocated:vm_tools.vsh.HostMessage.status_message)
 }
 HostMessage::HostMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vsh.HostMessage)
 }
 HostMessage::HostMessage(const HostMessage& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  HostMessage* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.msg_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   clear_has_msg();
   switch (from.msg_case()) {
     case kDataMessage: {
-      _internal_mutable_data_message()->::vm_tools::vsh::DataMessage::MergeFrom(from._internal_data_message());
+      _this->_internal_mutable_data_message()->::vm_tools::vsh::DataMessage::MergeFrom(
+          from._internal_data_message());
       break;
     }
     case kStatusMessage: {
-      _internal_mutable_status_message()->::vm_tools::vsh::ConnectionStatusMessage::MergeFrom(from._internal_status_message());
+      _this->_internal_mutable_status_message()->::vm_tools::vsh::ConnectionStatusMessage::MergeFrom(
+          from._internal_status_message());
       break;
     }
     case MSG_NOT_SET: {
@@ -1919,15 +1954,25 @@ HostMessage::HostMessage(const HostMessage& from)
   // @@protoc_insertion_point(copy_constructor:vm_tools.vsh.HostMessage)
 }
 
-inline void HostMessage::SharedCtor() {
-clear_has_msg();
+inline void HostMessage::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.msg_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  clear_has_msg();
 }
 
 HostMessage::~HostMessage() {
   // @@protoc_insertion_point(destructor:vm_tools.vsh.HostMessage)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void HostMessage::SharedDtor() {
@@ -1937,14 +1982,8 @@ inline void HostMessage::SharedDtor() {
   }
 }
 
-void HostMessage::ArenaDtor(void* object) {
-  HostMessage* _this = reinterpret_cast< HostMessage* >(object);
-  (void)_this;
-}
-void HostMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HostMessage::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HostMessage::clear_msg() {
@@ -1952,13 +1991,13 @@ void HostMessage::clear_msg() {
   switch (msg_case()) {
     case kDataMessage: {
       if (GetArenaForAllocation() == nullptr) {
-        delete msg_.data_message_;
+        delete _impl_.msg_.data_message_;
       }
       break;
     }
     case kStatusMessage: {
       if (GetArenaForAllocation() == nullptr) {
-        delete msg_.status_message_;
+        delete _impl_.msg_.status_message_;
       }
       break;
     }
@@ -1966,7 +2005,7 @@ void HostMessage::clear_msg() {
       break;
     }
   }
-  _oneof_case_[0] = MSG_NOT_SET;
+  _impl_._oneof_case_[0] = MSG_NOT_SET;
 }
 
 
@@ -1980,11 +2019,11 @@ void HostMessage::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* HostMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HostMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .vm_tools.vsh.DataMessage data_message = 1;
       case 1:
@@ -2033,18 +2072,16 @@ uint8_t* HostMessage::_InternalSerialize(
 
   // .vm_tools.vsh.DataMessage data_message = 1;
   if (_internal_has_data_message()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::data_message(this), target, stream);
+      InternalWriteMessage(1, _Internal::data_message(this),
+        _Internal::data_message(this).GetCachedSize(), target, stream);
   }
 
   // .vm_tools.vsh.ConnectionStatusMessage status_message = 2;
   if (_internal_has_status_message()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::status_message(this), target, stream);
+      InternalWriteMessage(2, _Internal::status_message(this),
+        _Internal::status_message(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2068,14 +2105,14 @@ size_t HostMessage::ByteSizeLong() const {
     case kDataMessage: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *msg_.data_message_);
+          *_impl_.msg_.data_message_);
       break;
     }
     // .vm_tools.vsh.ConnectionStatusMessage status_message = 2;
     case kStatusMessage: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *msg_.status_message_);
+          *_impl_.msg_.status_message_);
       break;
     }
     case MSG_NOT_SET: {
@@ -2085,37 +2122,40 @@ size_t HostMessage::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void HostMessage::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const HostMessage*>(
+  MergeFrom(*::_pbi::DownCast<const HostMessage*>(
       &from));
 }
 
 void HostMessage::MergeFrom(const HostMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vsh.HostMessage)
-  GOOGLE_DCHECK_NE(&from, this);
+  HostMessage* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vsh.HostMessage)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.msg_case()) {
     case kDataMessage: {
-      _internal_mutable_data_message()->::vm_tools::vsh::DataMessage::MergeFrom(from._internal_data_message());
+      _this->_internal_mutable_data_message()->::vm_tools::vsh::DataMessage::MergeFrom(
+          from._internal_data_message());
       break;
     }
     case kStatusMessage: {
-      _internal_mutable_status_message()->::vm_tools::vsh::ConnectionStatusMessage::MergeFrom(from._internal_status_message());
+      _this->_internal_mutable_status_message()->::vm_tools::vsh::ConnectionStatusMessage::MergeFrom(
+          from._internal_status_message());
       break;
     }
     case MSG_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void HostMessage::CopyFrom(const HostMessage& from) {
@@ -2132,8 +2172,8 @@ bool HostMessage::IsInitialized() const {
 void HostMessage::InternalSwap(HostMessage* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(msg_, other->msg_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_impl_.msg_, other->_impl_.msg_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 std::string HostMessage::GetTypeName() const {
@@ -2152,28 +2192,28 @@ class GuestMessage::_Internal {
 
 const ::vm_tools::vsh::DataMessage&
 GuestMessage::_Internal::data_message(const GuestMessage* msg) {
-  return *msg->msg_.data_message_;
+  return *msg->_impl_.msg_.data_message_;
 }
 const ::vm_tools::vsh::ConnectionStatusMessage&
 GuestMessage::_Internal::status_message(const GuestMessage* msg) {
-  return *msg->msg_.status_message_;
+  return *msg->_impl_.msg_.status_message_;
 }
 const ::vm_tools::vsh::WindowResizeMessage&
 GuestMessage::_Internal::resize_message(const GuestMessage* msg) {
-  return *msg->msg_.resize_message_;
+  return *msg->_impl_.msg_.resize_message_;
 }
 void GuestMessage::set_allocated_data_message(::vm_tools::vsh::DataMessage* data_message) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_msg();
   if (data_message) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vm_tools::vsh::DataMessage>::GetOwningArena(data_message);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(data_message);
     if (message_arena != submessage_arena) {
       data_message = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, data_message, submessage_arena);
     }
     set_has_data_message();
-    msg_.data_message_ = data_message;
+    _impl_.msg_.data_message_ = data_message;
   }
   // @@protoc_insertion_point(field_set_allocated:vm_tools.vsh.GuestMessage.data_message)
 }
@@ -2182,13 +2222,13 @@ void GuestMessage::set_allocated_status_message(::vm_tools::vsh::ConnectionStatu
   clear_msg();
   if (status_message) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vm_tools::vsh::ConnectionStatusMessage>::GetOwningArena(status_message);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(status_message);
     if (message_arena != submessage_arena) {
       status_message = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, status_message, submessage_arena);
     }
     set_has_status_message();
-    msg_.status_message_ = status_message;
+    _impl_.msg_.status_message_ = status_message;
   }
   // @@protoc_insertion_point(field_set_allocated:vm_tools.vsh.GuestMessage.status_message)
 }
@@ -2197,44 +2237,50 @@ void GuestMessage::set_allocated_resize_message(::vm_tools::vsh::WindowResizeMes
   clear_msg();
   if (resize_message) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::vm_tools::vsh::WindowResizeMessage>::GetOwningArena(resize_message);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(resize_message);
     if (message_arena != submessage_arena) {
       resize_message = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, resize_message, submessage_arena);
     }
     set_has_resize_message();
-    msg_.resize_message_ = resize_message;
+    _impl_.msg_.resize_message_ = resize_message;
   }
   // @@protoc_insertion_point(field_set_allocated:vm_tools.vsh.GuestMessage.resize_message)
 }
 GuestMessage::GuestMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.vsh.GuestMessage)
 }
 GuestMessage::GuestMessage(const GuestMessage& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GuestMessage* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.msg_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   clear_has_msg();
   switch (from.msg_case()) {
     case kDataMessage: {
-      _internal_mutable_data_message()->::vm_tools::vsh::DataMessage::MergeFrom(from._internal_data_message());
+      _this->_internal_mutable_data_message()->::vm_tools::vsh::DataMessage::MergeFrom(
+          from._internal_data_message());
       break;
     }
     case kStatusMessage: {
-      _internal_mutable_status_message()->::vm_tools::vsh::ConnectionStatusMessage::MergeFrom(from._internal_status_message());
+      _this->_internal_mutable_status_message()->::vm_tools::vsh::ConnectionStatusMessage::MergeFrom(
+          from._internal_status_message());
       break;
     }
     case kResizeMessage: {
-      _internal_mutable_resize_message()->::vm_tools::vsh::WindowResizeMessage::MergeFrom(from._internal_resize_message());
+      _this->_internal_mutable_resize_message()->::vm_tools::vsh::WindowResizeMessage::MergeFrom(
+          from._internal_resize_message());
       break;
     }
     case kSignal: {
-      _internal_set_signal(from._internal_signal());
+      _this->_internal_set_signal(from._internal_signal());
       break;
     }
     case MSG_NOT_SET: {
@@ -2244,15 +2290,25 @@ GuestMessage::GuestMessage(const GuestMessage& from)
   // @@protoc_insertion_point(copy_constructor:vm_tools.vsh.GuestMessage)
 }
 
-inline void GuestMessage::SharedCtor() {
-clear_has_msg();
+inline void GuestMessage::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.msg_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  clear_has_msg();
 }
 
 GuestMessage::~GuestMessage() {
   // @@protoc_insertion_point(destructor:vm_tools.vsh.GuestMessage)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void GuestMessage::SharedDtor() {
@@ -2262,14 +2318,8 @@ inline void GuestMessage::SharedDtor() {
   }
 }
 
-void GuestMessage::ArenaDtor(void* object) {
-  GuestMessage* _this = reinterpret_cast< GuestMessage* >(object);
-  (void)_this;
-}
-void GuestMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GuestMessage::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GuestMessage::clear_msg() {
@@ -2277,19 +2327,19 @@ void GuestMessage::clear_msg() {
   switch (msg_case()) {
     case kDataMessage: {
       if (GetArenaForAllocation() == nullptr) {
-        delete msg_.data_message_;
+        delete _impl_.msg_.data_message_;
       }
       break;
     }
     case kStatusMessage: {
       if (GetArenaForAllocation() == nullptr) {
-        delete msg_.status_message_;
+        delete _impl_.msg_.status_message_;
       }
       break;
     }
     case kResizeMessage: {
       if (GetArenaForAllocation() == nullptr) {
-        delete msg_.resize_message_;
+        delete _impl_.msg_.resize_message_;
       }
       break;
     }
@@ -2301,7 +2351,7 @@ void GuestMessage::clear_msg() {
       break;
     }
   }
-  _oneof_case_[0] = MSG_NOT_SET;
+  _impl_._oneof_case_[0] = MSG_NOT_SET;
 }
 
 
@@ -2315,11 +2365,11 @@ void GuestMessage::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GuestMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GuestMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .vm_tools.vsh.DataMessage data_message = 1;
       case 1:
@@ -2385,32 +2435,29 @@ uint8_t* GuestMessage::_InternalSerialize(
 
   // .vm_tools.vsh.DataMessage data_message = 1;
   if (_internal_has_data_message()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::data_message(this), target, stream);
+      InternalWriteMessage(1, _Internal::data_message(this),
+        _Internal::data_message(this).GetCachedSize(), target, stream);
   }
 
   // .vm_tools.vsh.ConnectionStatusMessage status_message = 2;
   if (_internal_has_status_message()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::status_message(this), target, stream);
+      InternalWriteMessage(2, _Internal::status_message(this),
+        _Internal::status_message(this).GetCachedSize(), target, stream);
   }
 
   // .vm_tools.vsh.WindowResizeMessage resize_message = 3;
   if (_internal_has_resize_message()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::resize_message(this), target, stream);
+      InternalWriteMessage(3, _Internal::resize_message(this),
+        _Internal::resize_message(this).GetCachedSize(), target, stream);
   }
 
   // .vm_tools.vsh.Signal signal = 4;
   if (_internal_has_signal()) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       4, this->_internal_signal(), target);
   }
 
@@ -2435,27 +2482,27 @@ size_t GuestMessage::ByteSizeLong() const {
     case kDataMessage: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *msg_.data_message_);
+          *_impl_.msg_.data_message_);
       break;
     }
     // .vm_tools.vsh.ConnectionStatusMessage status_message = 2;
     case kStatusMessage: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *msg_.status_message_);
+          *_impl_.msg_.status_message_);
       break;
     }
     // .vm_tools.vsh.WindowResizeMessage resize_message = 3;
     case kResizeMessage: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *msg_.resize_message_);
+          *_impl_.msg_.resize_message_);
       break;
     }
     // .vm_tools.vsh.Signal signal = 4;
     case kSignal: {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_signal());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_signal());
       break;
     }
     case MSG_NOT_SET: {
@@ -2465,45 +2512,49 @@ size_t GuestMessage::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GuestMessage::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GuestMessage*>(
+  MergeFrom(*::_pbi::DownCast<const GuestMessage*>(
       &from));
 }
 
 void GuestMessage::MergeFrom(const GuestMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vsh.GuestMessage)
-  GOOGLE_DCHECK_NE(&from, this);
+  GuestMessage* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.vsh.GuestMessage)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.msg_case()) {
     case kDataMessage: {
-      _internal_mutable_data_message()->::vm_tools::vsh::DataMessage::MergeFrom(from._internal_data_message());
+      _this->_internal_mutable_data_message()->::vm_tools::vsh::DataMessage::MergeFrom(
+          from._internal_data_message());
       break;
     }
     case kStatusMessage: {
-      _internal_mutable_status_message()->::vm_tools::vsh::ConnectionStatusMessage::MergeFrom(from._internal_status_message());
+      _this->_internal_mutable_status_message()->::vm_tools::vsh::ConnectionStatusMessage::MergeFrom(
+          from._internal_status_message());
       break;
     }
     case kResizeMessage: {
-      _internal_mutable_resize_message()->::vm_tools::vsh::WindowResizeMessage::MergeFrom(from._internal_resize_message());
+      _this->_internal_mutable_resize_message()->::vm_tools::vsh::WindowResizeMessage::MergeFrom(
+          from._internal_resize_message());
       break;
     }
     case kSignal: {
-      _internal_set_signal(from._internal_signal());
+      _this->_internal_set_signal(from._internal_signal());
       break;
     }
     case MSG_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GuestMessage::CopyFrom(const GuestMessage& from) {
@@ -2520,8 +2571,8 @@ bool GuestMessage::IsInitialized() const {
 void GuestMessage::InternalSwap(GuestMessage* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(msg_, other->msg_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_impl_.msg_, other->_impl_.msg_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 std::string GuestMessage::GetTypeName() const {
@@ -2533,28 +2584,36 @@ std::string GuestMessage::GetTypeName() const {
 }  // namespace vsh
 }  // namespace vm_tools
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::vm_tools::vsh::SetupConnectionRequest_EnvEntry_DoNotUse* Arena::CreateMaybeMessage< ::vm_tools::vsh::SetupConnectionRequest_EnvEntry_DoNotUse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::vsh::SetupConnectionRequest_EnvEntry_DoNotUse*
+Arena::CreateMaybeMessage< ::vm_tools::vsh::SetupConnectionRequest_EnvEntry_DoNotUse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::vsh::SetupConnectionRequest_EnvEntry_DoNotUse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::vsh::SetupConnectionRequest* Arena::CreateMaybeMessage< ::vm_tools::vsh::SetupConnectionRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::vsh::SetupConnectionRequest*
+Arena::CreateMaybeMessage< ::vm_tools::vsh::SetupConnectionRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::vsh::SetupConnectionRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::vsh::SetupConnectionResponse* Arena::CreateMaybeMessage< ::vm_tools::vsh::SetupConnectionResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::vsh::SetupConnectionResponse*
+Arena::CreateMaybeMessage< ::vm_tools::vsh::SetupConnectionResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::vsh::SetupConnectionResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::vsh::ConnectionStatusMessage* Arena::CreateMaybeMessage< ::vm_tools::vsh::ConnectionStatusMessage >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::vsh::ConnectionStatusMessage*
+Arena::CreateMaybeMessage< ::vm_tools::vsh::ConnectionStatusMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::vsh::ConnectionStatusMessage >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::vsh::DataMessage* Arena::CreateMaybeMessage< ::vm_tools::vsh::DataMessage >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::vsh::DataMessage*
+Arena::CreateMaybeMessage< ::vm_tools::vsh::DataMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::vsh::DataMessage >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::vsh::WindowResizeMessage* Arena::CreateMaybeMessage< ::vm_tools::vsh::WindowResizeMessage >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::vsh::WindowResizeMessage*
+Arena::CreateMaybeMessage< ::vm_tools::vsh::WindowResizeMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::vsh::WindowResizeMessage >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::vsh::HostMessage* Arena::CreateMaybeMessage< ::vm_tools::vsh::HostMessage >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::vsh::HostMessage*
+Arena::CreateMaybeMessage< ::vm_tools::vsh::HostMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::vsh::HostMessage >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::vsh::GuestMessage* Arena::CreateMaybeMessage< ::vm_tools::vsh::GuestMessage >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::vsh::GuestMessage*
+Arena::CreateMaybeMessage< ::vm_tools::vsh::GuestMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::vsh::GuestMessage >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

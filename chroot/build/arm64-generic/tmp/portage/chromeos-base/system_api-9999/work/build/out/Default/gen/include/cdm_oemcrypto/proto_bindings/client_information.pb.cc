@@ -13,22 +13,27 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace chromeos {
 namespace cdm {
-constexpr ClientInformation::ClientInformation(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : make_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , model_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , manufacturer_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_CONSTEXPR ClientInformation::ClientInformation(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.make_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.model_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.manufacturer_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ClientInformationDefaultTypeInternal {
-  constexpr ClientInformationDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ClientInformationDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ClientInformationDefaultTypeInternal() {}
   union {
     ClientInformation _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ClientInformationDefaultTypeInternal _ClientInformation_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ClientInformationDefaultTypeInternal _ClientInformation_default_instance_;
 }  // namespace cdm
 }  // namespace chromeos
 namespace chromeos {
@@ -43,79 +48,88 @@ class ClientInformation::_Internal {
 ClientInformation::ClientInformation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chromeos.cdm.ClientInformation)
 }
 ClientInformation::ClientInformation(const ClientInformation& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ClientInformation* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.make_){}
+    , decltype(_impl_.model_){}
+    , decltype(_impl_.manufacturer_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  make_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.make_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    make_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.make_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_make().empty()) {
-    make_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_make(), 
-      GetArenaForAllocation());
+    _this->_impl_.make_.Set(from._internal_make(), 
+      _this->GetArenaForAllocation());
   }
-  model_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.model_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    model_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.model_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_model().empty()) {
-    model_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_model(), 
-      GetArenaForAllocation());
+    _this->_impl_.model_.Set(from._internal_model(), 
+      _this->GetArenaForAllocation());
   }
-  manufacturer_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.manufacturer_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    manufacturer_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.manufacturer_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_manufacturer().empty()) {
-    manufacturer_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_manufacturer(), 
-      GetArenaForAllocation());
+    _this->_impl_.manufacturer_.Set(from._internal_manufacturer(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:chromeos.cdm.ClientInformation)
 }
 
-inline void ClientInformation::SharedCtor() {
-make_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  make_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-model_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  model_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-manufacturer_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  manufacturer_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void ClientInformation::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.make_){}
+    , decltype(_impl_.model_){}
+    , decltype(_impl_.manufacturer_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.make_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.make_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.model_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.model_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.manufacturer_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.manufacturer_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ClientInformation::~ClientInformation() {
   // @@protoc_insertion_point(destructor:chromeos.cdm.ClientInformation)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ClientInformation::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  make_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  model_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  manufacturer_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.make_.Destroy();
+  _impl_.model_.Destroy();
+  _impl_.manufacturer_.Destroy();
 }
 
-void ClientInformation::ArenaDtor(void* object) {
-  ClientInformation* _this = reinterpret_cast< ClientInformation* >(object);
-  (void)_this;
-}
-void ClientInformation::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ClientInformation::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ClientInformation::Clear() {
@@ -124,23 +138,23 @@ void ClientInformation::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  make_.ClearToEmpty();
-  model_.ClearToEmpty();
-  manufacturer_.ClearToEmpty();
+  _impl_.make_.ClearToEmpty();
+  _impl_.model_.ClearToEmpty();
+  _impl_.manufacturer_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ClientInformation::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ClientInformation::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bytes make = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_make();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -149,7 +163,7 @@ const char* ClientInformation::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_model();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -158,7 +172,7 @@ const char* ClientInformation::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_manufacturer();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -250,33 +264,34 @@ size_t ClientInformation::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ClientInformation::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ClientInformation*>(
+  MergeFrom(*::_pbi::DownCast<const ClientInformation*>(
       &from));
 }
 
 void ClientInformation::MergeFrom(const ClientInformation& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chromeos.cdm.ClientInformation)
-  GOOGLE_DCHECK_NE(&from, this);
+  ClientInformation* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:chromeos.cdm.ClientInformation)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_make().empty()) {
-    _internal_set_make(from._internal_make());
+    _this->_internal_set_make(from._internal_make());
   }
   if (!from._internal_model().empty()) {
-    _internal_set_model(from._internal_model());
+    _this->_internal_set_model(from._internal_model());
   }
   if (!from._internal_manufacturer().empty()) {
-    _internal_set_manufacturer(from._internal_manufacturer());
+    _this->_internal_set_manufacturer(from._internal_manufacturer());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ClientInformation::CopyFrom(const ClientInformation& from) {
@@ -296,19 +311,16 @@ void ClientInformation::InternalSwap(ClientInformation* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &make_, lhs_arena,
-      &other->make_, rhs_arena
+      &_impl_.make_, lhs_arena,
+      &other->_impl_.make_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &model_, lhs_arena,
-      &other->model_, rhs_arena
+      &_impl_.model_, lhs_arena,
+      &other->_impl_.model_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &manufacturer_, lhs_arena,
-      &other->manufacturer_, rhs_arena
+      &_impl_.manufacturer_, lhs_arena,
+      &other->_impl_.manufacturer_, rhs_arena
   );
 }
 
@@ -321,7 +333,8 @@ std::string ClientInformation::GetTypeName() const {
 }  // namespace cdm
 }  // namespace chromeos
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::chromeos::cdm::ClientInformation* Arena::CreateMaybeMessage< ::chromeos::cdm::ClientInformation >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chromeos::cdm::ClientInformation*
+Arena::CreateMaybeMessage< ::chromeos::cdm::ClientInformation >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chromeos::cdm::ClientInformation >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

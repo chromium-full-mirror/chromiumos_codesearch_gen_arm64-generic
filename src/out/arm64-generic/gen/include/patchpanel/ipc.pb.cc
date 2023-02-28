@@ -13,129 +13,148 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace patchpanel {
-constexpr SubprocessMessage::SubprocessMessage(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : _oneof_case_{}{}
+PROTOBUF_CONSTEXPR SubprocessMessage::SubprocessMessage(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.message_type_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct SubprocessMessageDefaultTypeInternal {
-  constexpr SubprocessMessageDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SubprocessMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SubprocessMessageDefaultTypeInternal() {}
   union {
     SubprocessMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SubprocessMessageDefaultTypeInternal _SubprocessMessage_default_instance_;
-constexpr ControlMessage::ControlMessage(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : _oneof_case_{}{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SubprocessMessageDefaultTypeInternal _SubprocessMessage_default_instance_;
+PROTOBUF_CONSTEXPR ControlMessage::ControlMessage(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.message_type_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct ControlMessageDefaultTypeInternal {
-  constexpr ControlMessageDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ControlMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ControlMessageDefaultTypeInternal() {}
   union {
     ControlMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ControlMessageDefaultTypeInternal _ControlMessage_default_instance_;
-constexpr FeedbackMessage::FeedbackMessage(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : _oneof_case_{}{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ControlMessageDefaultTypeInternal _ControlMessage_default_instance_;
+PROTOBUF_CONSTEXPR FeedbackMessage::FeedbackMessage(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.message_type_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct FeedbackMessageDefaultTypeInternal {
-  constexpr FeedbackMessageDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR FeedbackMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~FeedbackMessageDefaultTypeInternal() {}
   union {
     FeedbackMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FeedbackMessageDefaultTypeInternal _FeedbackMessage_default_instance_;
-constexpr DeviceMessage::DeviceMessage(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : dev_ifname_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , br_ifname_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , teardown_(false)
-  , force_local_next_hop_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FeedbackMessageDefaultTypeInternal _FeedbackMessage_default_instance_;
+PROTOBUF_CONSTEXPR DeviceMessage::DeviceMessage(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.dev_ifname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.br_ifname_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.teardown_)*/false
+  , /*decltype(_impl_.force_local_next_hop_)*/false} {}
 struct DeviceMessageDefaultTypeInternal {
-  constexpr DeviceMessageDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DeviceMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~DeviceMessageDefaultTypeInternal() {}
   union {
     DeviceMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DeviceMessageDefaultTypeInternal _DeviceMessage_default_instance_;
-constexpr GuestMessage::GuestMessage(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : type_(0)
-
-  , event_(0)
-
-  , arc_pid_(0)
-  , arcvm_vsock_cid_(0u){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceMessageDefaultTypeInternal _DeviceMessage_default_instance_;
+PROTOBUF_CONSTEXPR GuestMessage::GuestMessage(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.type_)*/0
+  , /*decltype(_impl_.event_)*/0
+  , /*decltype(_impl_.arc_pid_)*/0
+  , /*decltype(_impl_.arcvm_vsock_cid_)*/0u} {}
 struct GuestMessageDefaultTypeInternal {
-  constexpr GuestMessageDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GuestMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GuestMessageDefaultTypeInternal() {}
   union {
     GuestMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GuestMessageDefaultTypeInternal _GuestMessage_default_instance_;
-constexpr NDProxyControlMessage::NDProxyControlMessage(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : type_(0)
-
-  , if_id_primary_(0)
-  , if_id_secondary_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GuestMessageDefaultTypeInternal _GuestMessage_default_instance_;
+PROTOBUF_CONSTEXPR NDProxyControlMessage::NDProxyControlMessage(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.type_)*/0
+  , /*decltype(_impl_.if_id_primary_)*/0
+  , /*decltype(_impl_.if_id_secondary_)*/0} {}
 struct NDProxyControlMessageDefaultTypeInternal {
-  constexpr NDProxyControlMessageDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR NDProxyControlMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~NDProxyControlMessageDefaultTypeInternal() {}
   union {
     NDProxyControlMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NDProxyControlMessageDefaultTypeInternal _NDProxyControlMessage_default_instance_;
-constexpr NDProxySignalMessage::NDProxySignalMessage(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : _oneof_case_{}{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NDProxyControlMessageDefaultTypeInternal _NDProxyControlMessage_default_instance_;
+PROTOBUF_CONSTEXPR NDProxySignalMessage::NDProxySignalMessage(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.event_type_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
 struct NDProxySignalMessageDefaultTypeInternal {
-  constexpr NDProxySignalMessageDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR NDProxySignalMessageDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~NDProxySignalMessageDefaultTypeInternal() {}
   union {
     NDProxySignalMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NDProxySignalMessageDefaultTypeInternal _NDProxySignalMessage_default_instance_;
-constexpr NeighborDetectedSignal::NeighborDetectedSignal(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : ip_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , if_id_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NDProxySignalMessageDefaultTypeInternal _NDProxySignalMessage_default_instance_;
+PROTOBUF_CONSTEXPR NeighborDetectedSignal::NeighborDetectedSignal(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.ip_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.if_id_)*/0} {}
 struct NeighborDetectedSignalDefaultTypeInternal {
-  constexpr NeighborDetectedSignalDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR NeighborDetectedSignalDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~NeighborDetectedSignalDefaultTypeInternal() {}
   union {
     NeighborDetectedSignal _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NeighborDetectedSignalDefaultTypeInternal _NeighborDetectedSignal_default_instance_;
-constexpr RouterDetectedSignal::RouterDetectedSignal(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : ip_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , if_id_(0)
-  , prefix_len_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NeighborDetectedSignalDefaultTypeInternal _NeighborDetectedSignal_default_instance_;
+PROTOBUF_CONSTEXPR RouterDetectedSignal::RouterDetectedSignal(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.ip_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.if_id_)*/0
+  , /*decltype(_impl_.prefix_len_)*/0} {}
 struct RouterDetectedSignalDefaultTypeInternal {
-  constexpr RouterDetectedSignalDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RouterDetectedSignalDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~RouterDetectedSignalDefaultTypeInternal() {}
   union {
     RouterDetectedSignal _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RouterDetectedSignalDefaultTypeInternal _RouterDetectedSignal_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RouterDetectedSignalDefaultTypeInternal _RouterDetectedSignal_default_instance_;
 }  // namespace patchpanel
 namespace patchpanel {
 bool GuestMessage_GuestType_IsValid(int value) {
@@ -368,24 +387,24 @@ class SubprocessMessage::_Internal {
 
 const ::patchpanel::ControlMessage&
 SubprocessMessage::_Internal::control_message(const SubprocessMessage* msg) {
-  return *msg->message_type_.control_message_;
+  return *msg->_impl_.message_type_.control_message_;
 }
 const ::patchpanel::FeedbackMessage&
 SubprocessMessage::_Internal::feedback_message(const SubprocessMessage* msg) {
-  return *msg->message_type_.feedback_message_;
+  return *msg->_impl_.message_type_.feedback_message_;
 }
 void SubprocessMessage::set_allocated_control_message(::patchpanel::ControlMessage* control_message) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_message_type();
   if (control_message) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::patchpanel::ControlMessage>::GetOwningArena(control_message);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(control_message);
     if (message_arena != submessage_arena) {
       control_message = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, control_message, submessage_arena);
     }
     set_has_control_message();
-    message_type_.control_message_ = control_message;
+    _impl_.message_type_.control_message_ = control_message;
   }
   // @@protoc_insertion_point(field_set_allocated:patchpanel.SubprocessMessage.control_message)
 }
@@ -394,36 +413,41 @@ void SubprocessMessage::set_allocated_feedback_message(::patchpanel::FeedbackMes
   clear_message_type();
   if (feedback_message) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::patchpanel::FeedbackMessage>::GetOwningArena(feedback_message);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(feedback_message);
     if (message_arena != submessage_arena) {
       feedback_message = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, feedback_message, submessage_arena);
     }
     set_has_feedback_message();
-    message_type_.feedback_message_ = feedback_message;
+    _impl_.message_type_.feedback_message_ = feedback_message;
   }
   // @@protoc_insertion_point(field_set_allocated:patchpanel.SubprocessMessage.feedback_message)
 }
 SubprocessMessage::SubprocessMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:patchpanel.SubprocessMessage)
 }
 SubprocessMessage::SubprocessMessage(const SubprocessMessage& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SubprocessMessage* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.message_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   clear_has_message_type();
   switch (from.message_type_case()) {
     case kControlMessage: {
-      _internal_mutable_control_message()->::patchpanel::ControlMessage::MergeFrom(from._internal_control_message());
+      _this->_internal_mutable_control_message()->::patchpanel::ControlMessage::MergeFrom(
+          from._internal_control_message());
       break;
     }
     case kFeedbackMessage: {
-      _internal_mutable_feedback_message()->::patchpanel::FeedbackMessage::MergeFrom(from._internal_feedback_message());
+      _this->_internal_mutable_feedback_message()->::patchpanel::FeedbackMessage::MergeFrom(
+          from._internal_feedback_message());
       break;
     }
     case MESSAGE_TYPE_NOT_SET: {
@@ -433,15 +457,25 @@ SubprocessMessage::SubprocessMessage(const SubprocessMessage& from)
   // @@protoc_insertion_point(copy_constructor:patchpanel.SubprocessMessage)
 }
 
-inline void SubprocessMessage::SharedCtor() {
-clear_has_message_type();
+inline void SubprocessMessage::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.message_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  clear_has_message_type();
 }
 
 SubprocessMessage::~SubprocessMessage() {
   // @@protoc_insertion_point(destructor:patchpanel.SubprocessMessage)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SubprocessMessage::SharedDtor() {
@@ -451,14 +485,8 @@ inline void SubprocessMessage::SharedDtor() {
   }
 }
 
-void SubprocessMessage::ArenaDtor(void* object) {
-  SubprocessMessage* _this = reinterpret_cast< SubprocessMessage* >(object);
-  (void)_this;
-}
-void SubprocessMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SubprocessMessage::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SubprocessMessage::clear_message_type() {
@@ -466,13 +494,13 @@ void SubprocessMessage::clear_message_type() {
   switch (message_type_case()) {
     case kControlMessage: {
       if (GetArenaForAllocation() == nullptr) {
-        delete message_type_.control_message_;
+        delete _impl_.message_type_.control_message_;
       }
       break;
     }
     case kFeedbackMessage: {
       if (GetArenaForAllocation() == nullptr) {
-        delete message_type_.feedback_message_;
+        delete _impl_.message_type_.feedback_message_;
       }
       break;
     }
@@ -480,7 +508,7 @@ void SubprocessMessage::clear_message_type() {
       break;
     }
   }
-  _oneof_case_[0] = MESSAGE_TYPE_NOT_SET;
+  _impl_._oneof_case_[0] = MESSAGE_TYPE_NOT_SET;
 }
 
 
@@ -494,11 +522,11 @@ void SubprocessMessage::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SubprocessMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SubprocessMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .patchpanel.ControlMessage control_message = 1;
       case 1:
@@ -547,17 +575,15 @@ uint8_t* SubprocessMessage::_InternalSerialize(
 
   switch (message_type_case()) {
     case kControlMessage: {
-      target = stream->EnsureSpace(target);
       target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          1, _Internal::control_message(this), target, stream);
+        InternalWriteMessage(1, _Internal::control_message(this),
+          _Internal::control_message(this).GetCachedSize(), target, stream);
       break;
     }
     case kFeedbackMessage: {
-      target = stream->EnsureSpace(target);
       target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          2, _Internal::feedback_message(this), target, stream);
+        InternalWriteMessage(2, _Internal::feedback_message(this),
+          _Internal::feedback_message(this).GetCachedSize(), target, stream);
       break;
     }
     default: ;
@@ -583,14 +609,14 @@ size_t SubprocessMessage::ByteSizeLong() const {
     case kControlMessage: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *message_type_.control_message_);
+          *_impl_.message_type_.control_message_);
       break;
     }
     // .patchpanel.FeedbackMessage feedback_message = 2;
     case kFeedbackMessage: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *message_type_.feedback_message_);
+          *_impl_.message_type_.feedback_message_);
       break;
     }
     case MESSAGE_TYPE_NOT_SET: {
@@ -600,37 +626,40 @@ size_t SubprocessMessage::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SubprocessMessage::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SubprocessMessage*>(
+  MergeFrom(*::_pbi::DownCast<const SubprocessMessage*>(
       &from));
 }
 
 void SubprocessMessage::MergeFrom(const SubprocessMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.SubprocessMessage)
-  GOOGLE_DCHECK_NE(&from, this);
+  SubprocessMessage* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.SubprocessMessage)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.message_type_case()) {
     case kControlMessage: {
-      _internal_mutable_control_message()->::patchpanel::ControlMessage::MergeFrom(from._internal_control_message());
+      _this->_internal_mutable_control_message()->::patchpanel::ControlMessage::MergeFrom(
+          from._internal_control_message());
       break;
     }
     case kFeedbackMessage: {
-      _internal_mutable_feedback_message()->::patchpanel::FeedbackMessage::MergeFrom(from._internal_feedback_message());
+      _this->_internal_mutable_feedback_message()->::patchpanel::FeedbackMessage::MergeFrom(
+          from._internal_feedback_message());
       break;
     }
     case MESSAGE_TYPE_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SubprocessMessage::CopyFrom(const SubprocessMessage& from) {
@@ -644,13 +673,13 @@ bool SubprocessMessage::IsInitialized() const {
   switch (message_type_case()) {
     case kControlMessage: {
       if (_internal_has_control_message()) {
-        if (!message_type_.control_message_->IsInitialized()) return false;
+        if (!_impl_.message_type_.control_message_->IsInitialized()) return false;
       }
       break;
     }
     case kFeedbackMessage: {
       if (_internal_has_feedback_message()) {
-        if (!message_type_.feedback_message_->IsInitialized()) return false;
+        if (!_impl_.message_type_.feedback_message_->IsInitialized()) return false;
       }
       break;
     }
@@ -664,8 +693,8 @@ bool SubprocessMessage::IsInitialized() const {
 void SubprocessMessage::InternalSwap(SubprocessMessage* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(message_type_, other->message_type_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_impl_.message_type_, other->_impl_.message_type_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 std::string SubprocessMessage::GetTypeName() const {
@@ -684,28 +713,28 @@ class ControlMessage::_Internal {
 
 const ::patchpanel::GuestMessage&
 ControlMessage::_Internal::guest_message(const ControlMessage* msg) {
-  return *msg->message_type_.guest_message_;
+  return *msg->_impl_.message_type_.guest_message_;
 }
 const ::patchpanel::DeviceMessage&
 ControlMessage::_Internal::device_message(const ControlMessage* msg) {
-  return *msg->message_type_.device_message_;
+  return *msg->_impl_.message_type_.device_message_;
 }
 const ::patchpanel::NDProxyControlMessage&
 ControlMessage::_Internal::ndproxy_control(const ControlMessage* msg) {
-  return *msg->message_type_.ndproxy_control_;
+  return *msg->_impl_.message_type_.ndproxy_control_;
 }
 void ControlMessage::set_allocated_guest_message(::patchpanel::GuestMessage* guest_message) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_message_type();
   if (guest_message) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::patchpanel::GuestMessage>::GetOwningArena(guest_message);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(guest_message);
     if (message_arena != submessage_arena) {
       guest_message = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, guest_message, submessage_arena);
     }
     set_has_guest_message();
-    message_type_.guest_message_ = guest_message;
+    _impl_.message_type_.guest_message_ = guest_message;
   }
   // @@protoc_insertion_point(field_set_allocated:patchpanel.ControlMessage.guest_message)
 }
@@ -714,13 +743,13 @@ void ControlMessage::set_allocated_device_message(::patchpanel::DeviceMessage* d
   clear_message_type();
   if (device_message) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::patchpanel::DeviceMessage>::GetOwningArena(device_message);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(device_message);
     if (message_arena != submessage_arena) {
       device_message = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, device_message, submessage_arena);
     }
     set_has_device_message();
-    message_type_.device_message_ = device_message;
+    _impl_.message_type_.device_message_ = device_message;
   }
   // @@protoc_insertion_point(field_set_allocated:patchpanel.ControlMessage.device_message)
 }
@@ -729,40 +758,46 @@ void ControlMessage::set_allocated_ndproxy_control(::patchpanel::NDProxyControlM
   clear_message_type();
   if (ndproxy_control) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::patchpanel::NDProxyControlMessage>::GetOwningArena(ndproxy_control);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(ndproxy_control);
     if (message_arena != submessage_arena) {
       ndproxy_control = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, ndproxy_control, submessage_arena);
     }
     set_has_ndproxy_control();
-    message_type_.ndproxy_control_ = ndproxy_control;
+    _impl_.message_type_.ndproxy_control_ = ndproxy_control;
   }
   // @@protoc_insertion_point(field_set_allocated:patchpanel.ControlMessage.ndproxy_control)
 }
 ControlMessage::ControlMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:patchpanel.ControlMessage)
 }
 ControlMessage::ControlMessage(const ControlMessage& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ControlMessage* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.message_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   clear_has_message_type();
   switch (from.message_type_case()) {
     case kGuestMessage: {
-      _internal_mutable_guest_message()->::patchpanel::GuestMessage::MergeFrom(from._internal_guest_message());
+      _this->_internal_mutable_guest_message()->::patchpanel::GuestMessage::MergeFrom(
+          from._internal_guest_message());
       break;
     }
     case kDeviceMessage: {
-      _internal_mutable_device_message()->::patchpanel::DeviceMessage::MergeFrom(from._internal_device_message());
+      _this->_internal_mutable_device_message()->::patchpanel::DeviceMessage::MergeFrom(
+          from._internal_device_message());
       break;
     }
     case kNdproxyControl: {
-      _internal_mutable_ndproxy_control()->::patchpanel::NDProxyControlMessage::MergeFrom(from._internal_ndproxy_control());
+      _this->_internal_mutable_ndproxy_control()->::patchpanel::NDProxyControlMessage::MergeFrom(
+          from._internal_ndproxy_control());
       break;
     }
     case MESSAGE_TYPE_NOT_SET: {
@@ -772,15 +807,25 @@ ControlMessage::ControlMessage(const ControlMessage& from)
   // @@protoc_insertion_point(copy_constructor:patchpanel.ControlMessage)
 }
 
-inline void ControlMessage::SharedCtor() {
-clear_has_message_type();
+inline void ControlMessage::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.message_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  clear_has_message_type();
 }
 
 ControlMessage::~ControlMessage() {
   // @@protoc_insertion_point(destructor:patchpanel.ControlMessage)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ControlMessage::SharedDtor() {
@@ -790,14 +835,8 @@ inline void ControlMessage::SharedDtor() {
   }
 }
 
-void ControlMessage::ArenaDtor(void* object) {
-  ControlMessage* _this = reinterpret_cast< ControlMessage* >(object);
-  (void)_this;
-}
-void ControlMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ControlMessage::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ControlMessage::clear_message_type() {
@@ -805,19 +844,19 @@ void ControlMessage::clear_message_type() {
   switch (message_type_case()) {
     case kGuestMessage: {
       if (GetArenaForAllocation() == nullptr) {
-        delete message_type_.guest_message_;
+        delete _impl_.message_type_.guest_message_;
       }
       break;
     }
     case kDeviceMessage: {
       if (GetArenaForAllocation() == nullptr) {
-        delete message_type_.device_message_;
+        delete _impl_.message_type_.device_message_;
       }
       break;
     }
     case kNdproxyControl: {
       if (GetArenaForAllocation() == nullptr) {
-        delete message_type_.ndproxy_control_;
+        delete _impl_.message_type_.ndproxy_control_;
       }
       break;
     }
@@ -825,7 +864,7 @@ void ControlMessage::clear_message_type() {
       break;
     }
   }
-  _oneof_case_[0] = MESSAGE_TYPE_NOT_SET;
+  _impl_._oneof_case_[0] = MESSAGE_TYPE_NOT_SET;
 }
 
 
@@ -839,11 +878,11 @@ void ControlMessage::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ControlMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ControlMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .patchpanel.GuestMessage guest_message = 1;
       case 1:
@@ -900,24 +939,21 @@ uint8_t* ControlMessage::_InternalSerialize(
 
   switch (message_type_case()) {
     case kGuestMessage: {
-      target = stream->EnsureSpace(target);
       target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          1, _Internal::guest_message(this), target, stream);
+        InternalWriteMessage(1, _Internal::guest_message(this),
+          _Internal::guest_message(this).GetCachedSize(), target, stream);
       break;
     }
     case kDeviceMessage: {
-      target = stream->EnsureSpace(target);
       target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          2, _Internal::device_message(this), target, stream);
+        InternalWriteMessage(2, _Internal::device_message(this),
+          _Internal::device_message(this).GetCachedSize(), target, stream);
       break;
     }
     case kNdproxyControl: {
-      target = stream->EnsureSpace(target);
       target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          3, _Internal::ndproxy_control(this), target, stream);
+        InternalWriteMessage(3, _Internal::ndproxy_control(this),
+          _Internal::ndproxy_control(this).GetCachedSize(), target, stream);
       break;
     }
     default: ;
@@ -943,21 +979,21 @@ size_t ControlMessage::ByteSizeLong() const {
     case kGuestMessage: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *message_type_.guest_message_);
+          *_impl_.message_type_.guest_message_);
       break;
     }
     // .patchpanel.DeviceMessage device_message = 2;
     case kDeviceMessage: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *message_type_.device_message_);
+          *_impl_.message_type_.device_message_);
       break;
     }
     // .patchpanel.NDProxyControlMessage ndproxy_control = 3;
     case kNdproxyControl: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *message_type_.ndproxy_control_);
+          *_impl_.message_type_.ndproxy_control_);
       break;
     }
     case MESSAGE_TYPE_NOT_SET: {
@@ -967,41 +1003,45 @@ size_t ControlMessage::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ControlMessage::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ControlMessage*>(
+  MergeFrom(*::_pbi::DownCast<const ControlMessage*>(
       &from));
 }
 
 void ControlMessage::MergeFrom(const ControlMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.ControlMessage)
-  GOOGLE_DCHECK_NE(&from, this);
+  ControlMessage* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.ControlMessage)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.message_type_case()) {
     case kGuestMessage: {
-      _internal_mutable_guest_message()->::patchpanel::GuestMessage::MergeFrom(from._internal_guest_message());
+      _this->_internal_mutable_guest_message()->::patchpanel::GuestMessage::MergeFrom(
+          from._internal_guest_message());
       break;
     }
     case kDeviceMessage: {
-      _internal_mutable_device_message()->::patchpanel::DeviceMessage::MergeFrom(from._internal_device_message());
+      _this->_internal_mutable_device_message()->::patchpanel::DeviceMessage::MergeFrom(
+          from._internal_device_message());
       break;
     }
     case kNdproxyControl: {
-      _internal_mutable_ndproxy_control()->::patchpanel::NDProxyControlMessage::MergeFrom(from._internal_ndproxy_control());
+      _this->_internal_mutable_ndproxy_control()->::patchpanel::NDProxyControlMessage::MergeFrom(
+          from._internal_ndproxy_control());
       break;
     }
     case MESSAGE_TYPE_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ControlMessage::CopyFrom(const ControlMessage& from) {
@@ -1015,19 +1055,19 @@ bool ControlMessage::IsInitialized() const {
   switch (message_type_case()) {
     case kGuestMessage: {
       if (_internal_has_guest_message()) {
-        if (!message_type_.guest_message_->IsInitialized()) return false;
+        if (!_impl_.message_type_.guest_message_->IsInitialized()) return false;
       }
       break;
     }
     case kDeviceMessage: {
       if (_internal_has_device_message()) {
-        if (!message_type_.device_message_->IsInitialized()) return false;
+        if (!_impl_.message_type_.device_message_->IsInitialized()) return false;
       }
       break;
     }
     case kNdproxyControl: {
       if (_internal_has_ndproxy_control()) {
-        if (!message_type_.ndproxy_control_->IsInitialized()) return false;
+        if (!_impl_.message_type_.ndproxy_control_->IsInitialized()) return false;
       }
       break;
     }
@@ -1041,8 +1081,8 @@ bool ControlMessage::IsInitialized() const {
 void ControlMessage::InternalSwap(ControlMessage* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(message_type_, other->message_type_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_impl_.message_type_, other->_impl_.message_type_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 std::string ControlMessage::GetTypeName() const {
@@ -1059,39 +1099,43 @@ class FeedbackMessage::_Internal {
 
 const ::patchpanel::NDProxySignalMessage&
 FeedbackMessage::_Internal::ndproxy_signal(const FeedbackMessage* msg) {
-  return *msg->message_type_.ndproxy_signal_;
+  return *msg->_impl_.message_type_.ndproxy_signal_;
 }
 void FeedbackMessage::set_allocated_ndproxy_signal(::patchpanel::NDProxySignalMessage* ndproxy_signal) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_message_type();
   if (ndproxy_signal) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::patchpanel::NDProxySignalMessage>::GetOwningArena(ndproxy_signal);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(ndproxy_signal);
     if (message_arena != submessage_arena) {
       ndproxy_signal = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, ndproxy_signal, submessage_arena);
     }
     set_has_ndproxy_signal();
-    message_type_.ndproxy_signal_ = ndproxy_signal;
+    _impl_.message_type_.ndproxy_signal_ = ndproxy_signal;
   }
   // @@protoc_insertion_point(field_set_allocated:patchpanel.FeedbackMessage.ndproxy_signal)
 }
 FeedbackMessage::FeedbackMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:patchpanel.FeedbackMessage)
 }
 FeedbackMessage::FeedbackMessage(const FeedbackMessage& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FeedbackMessage* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.message_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   clear_has_message_type();
   switch (from.message_type_case()) {
     case kNdproxySignal: {
-      _internal_mutable_ndproxy_signal()->::patchpanel::NDProxySignalMessage::MergeFrom(from._internal_ndproxy_signal());
+      _this->_internal_mutable_ndproxy_signal()->::patchpanel::NDProxySignalMessage::MergeFrom(
+          from._internal_ndproxy_signal());
       break;
     }
     case MESSAGE_TYPE_NOT_SET: {
@@ -1101,15 +1145,25 @@ FeedbackMessage::FeedbackMessage(const FeedbackMessage& from)
   // @@protoc_insertion_point(copy_constructor:patchpanel.FeedbackMessage)
 }
 
-inline void FeedbackMessage::SharedCtor() {
-clear_has_message_type();
+inline void FeedbackMessage::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.message_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  clear_has_message_type();
 }
 
 FeedbackMessage::~FeedbackMessage() {
   // @@protoc_insertion_point(destructor:patchpanel.FeedbackMessage)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void FeedbackMessage::SharedDtor() {
@@ -1119,14 +1173,8 @@ inline void FeedbackMessage::SharedDtor() {
   }
 }
 
-void FeedbackMessage::ArenaDtor(void* object) {
-  FeedbackMessage* _this = reinterpret_cast< FeedbackMessage* >(object);
-  (void)_this;
-}
-void FeedbackMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void FeedbackMessage::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FeedbackMessage::clear_message_type() {
@@ -1134,7 +1182,7 @@ void FeedbackMessage::clear_message_type() {
   switch (message_type_case()) {
     case kNdproxySignal: {
       if (GetArenaForAllocation() == nullptr) {
-        delete message_type_.ndproxy_signal_;
+        delete _impl_.message_type_.ndproxy_signal_;
       }
       break;
     }
@@ -1142,7 +1190,7 @@ void FeedbackMessage::clear_message_type() {
       break;
     }
   }
-  _oneof_case_[0] = MESSAGE_TYPE_NOT_SET;
+  _impl_._oneof_case_[0] = MESSAGE_TYPE_NOT_SET;
 }
 
 
@@ -1156,11 +1204,11 @@ void FeedbackMessage::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* FeedbackMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* FeedbackMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .patchpanel.NDProxySignalMessage ndproxy_signal = 1;
       case 1:
@@ -1201,10 +1249,9 @@ uint8_t* FeedbackMessage::_InternalSerialize(
 
   // .patchpanel.NDProxySignalMessage ndproxy_signal = 1;
   if (_internal_has_ndproxy_signal()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::ndproxy_signal(this), target, stream);
+      InternalWriteMessage(1, _Internal::ndproxy_signal(this),
+        _Internal::ndproxy_signal(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1228,7 +1275,7 @@ size_t FeedbackMessage::ByteSizeLong() const {
     case kNdproxySignal: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *message_type_.ndproxy_signal_);
+          *_impl_.message_type_.ndproxy_signal_);
       break;
     }
     case MESSAGE_TYPE_NOT_SET: {
@@ -1238,33 +1285,35 @@ size_t FeedbackMessage::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void FeedbackMessage::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const FeedbackMessage*>(
+  MergeFrom(*::_pbi::DownCast<const FeedbackMessage*>(
       &from));
 }
 
 void FeedbackMessage::MergeFrom(const FeedbackMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.FeedbackMessage)
-  GOOGLE_DCHECK_NE(&from, this);
+  FeedbackMessage* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.FeedbackMessage)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.message_type_case()) {
     case kNdproxySignal: {
-      _internal_mutable_ndproxy_signal()->::patchpanel::NDProxySignalMessage::MergeFrom(from._internal_ndproxy_signal());
+      _this->_internal_mutable_ndproxy_signal()->::patchpanel::NDProxySignalMessage::MergeFrom(
+          from._internal_ndproxy_signal());
       break;
     }
     case MESSAGE_TYPE_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FeedbackMessage::CopyFrom(const FeedbackMessage& from) {
@@ -1278,7 +1327,7 @@ bool FeedbackMessage::IsInitialized() const {
   switch (message_type_case()) {
     case kNdproxySignal: {
       if (_internal_has_ndproxy_signal()) {
-        if (!message_type_.ndproxy_signal_->IsInitialized()) return false;
+        if (!_impl_.message_type_.ndproxy_signal_->IsInitialized()) return false;
       }
       break;
     }
@@ -1292,8 +1341,8 @@ bool FeedbackMessage::IsInitialized() const {
 void FeedbackMessage::InternalSwap(FeedbackMessage* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(message_type_, other->message_type_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_impl_.message_type_, other->_impl_.message_type_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 std::string FeedbackMessage::GetTypeName() const {
@@ -1305,7 +1354,7 @@ std::string FeedbackMessage::GetTypeName() const {
 
 class DeviceMessage::_Internal {
  public:
-  using HasBits = decltype(std::declval<DeviceMessage>()._has_bits_);
+  using HasBits = decltype(std::declval<DeviceMessage>()._impl_._has_bits_);
   static void set_has_dev_ifname(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1326,74 +1375,82 @@ class DeviceMessage::_Internal {
 DeviceMessage::DeviceMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:patchpanel.DeviceMessage)
 }
 DeviceMessage::DeviceMessage(const DeviceMessage& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  DeviceMessage* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.dev_ifname_){}
+    , decltype(_impl_.br_ifname_){}
+    , decltype(_impl_.teardown_){}
+    , decltype(_impl_.force_local_next_hop_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  dev_ifname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.dev_ifname_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    dev_ifname_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.dev_ifname_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_dev_ifname()) {
-    dev_ifname_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_dev_ifname(), 
-      GetArenaForAllocation());
+    _this->_impl_.dev_ifname_.Set(from._internal_dev_ifname(), 
+      _this->GetArenaForAllocation());
   }
-  br_ifname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.br_ifname_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    br_ifname_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.br_ifname_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_br_ifname()) {
-    br_ifname_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_br_ifname(), 
-      GetArenaForAllocation());
+    _this->_impl_.br_ifname_.Set(from._internal_br_ifname(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&teardown_, &from.teardown_,
-    static_cast<size_t>(reinterpret_cast<char*>(&force_local_next_hop_) -
-    reinterpret_cast<char*>(&teardown_)) + sizeof(force_local_next_hop_));
+  ::memcpy(&_impl_.teardown_, &from._impl_.teardown_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.force_local_next_hop_) -
+    reinterpret_cast<char*>(&_impl_.teardown_)) + sizeof(_impl_.force_local_next_hop_));
   // @@protoc_insertion_point(copy_constructor:patchpanel.DeviceMessage)
 }
 
-inline void DeviceMessage::SharedCtor() {
-dev_ifname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  dev_ifname_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-br_ifname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  br_ifname_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&teardown_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&force_local_next_hop_) -
-    reinterpret_cast<char*>(&teardown_)) + sizeof(force_local_next_hop_));
+inline void DeviceMessage::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.dev_ifname_){}
+    , decltype(_impl_.br_ifname_){}
+    , decltype(_impl_.teardown_){false}
+    , decltype(_impl_.force_local_next_hop_){false}
+  };
+  _impl_.dev_ifname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.dev_ifname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.br_ifname_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.br_ifname_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 DeviceMessage::~DeviceMessage() {
   // @@protoc_insertion_point(destructor:patchpanel.DeviceMessage)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void DeviceMessage::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  dev_ifname_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  br_ifname_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.dev_ifname_.Destroy();
+  _impl_.br_ifname_.Destroy();
 }
 
-void DeviceMessage::ArenaDtor(void* object) {
-  DeviceMessage* _this = reinterpret_cast< DeviceMessage* >(object);
-  (void)_this;
-}
-void DeviceMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void DeviceMessage::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void DeviceMessage::Clear() {
@@ -1402,34 +1459,34 @@ void DeviceMessage::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      dev_ifname_.ClearNonDefaultToEmpty();
+      _impl_.dev_ifname_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      br_ifname_.ClearNonDefaultToEmpty();
+      _impl_.br_ifname_.ClearNonDefaultToEmpty();
     }
   }
-  ::memset(&teardown_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&force_local_next_hop_) -
-      reinterpret_cast<char*>(&teardown_)) + sizeof(force_local_next_hop_));
-  _has_bits_.Clear();
+  ::memset(&_impl_.teardown_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.force_local_next_hop_) -
+      reinterpret_cast<char*>(&_impl_.teardown_)) + sizeof(_impl_.force_local_next_hop_));
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* DeviceMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* DeviceMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required string dev_ifname = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_dev_ifname();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1438,7 +1495,7 @@ const char* DeviceMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_br_ifname();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1447,7 +1504,7 @@ const char* DeviceMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_teardown(&has_bits);
-          teardown_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.teardown_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1456,7 +1513,7 @@ const char* DeviceMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _Internal::set_has_force_local_next_hop(&has_bits);
-          force_local_next_hop_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.force_local_next_hop_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1477,7 +1534,7 @@ const char* DeviceMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1491,7 +1548,7 @@ uint8_t* DeviceMessage::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required string dev_ifname = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -1507,13 +1564,13 @@ uint8_t* DeviceMessage::_InternalSerialize(
   // optional bool teardown = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_teardown(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_teardown(), target);
   }
 
   // optional bool force_local_next_hop = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_force_local_next_hop(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_force_local_next_hop(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1538,7 +1595,7 @@ size_t DeviceMessage::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000eu) {
     // optional string br_ifname = 2;
     if (cached_has_bits & 0x00000002u) {
@@ -1561,40 +1618,41 @@ size_t DeviceMessage::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void DeviceMessage::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const DeviceMessage*>(
+  MergeFrom(*::_pbi::DownCast<const DeviceMessage*>(
       &from));
 }
 
 void DeviceMessage::MergeFrom(const DeviceMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.DeviceMessage)
-  GOOGLE_DCHECK_NE(&from, this);
+  DeviceMessage* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.DeviceMessage)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_dev_ifname(from._internal_dev_ifname());
+      _this->_internal_set_dev_ifname(from._internal_dev_ifname());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_br_ifname(from._internal_br_ifname());
+      _this->_internal_set_br_ifname(from._internal_br_ifname());
     }
     if (cached_has_bits & 0x00000004u) {
-      teardown_ = from.teardown_;
+      _this->_impl_.teardown_ = from._impl_.teardown_;
     }
     if (cached_has_bits & 0x00000008u) {
-      force_local_next_hop_ = from.force_local_next_hop_;
+      _this->_impl_.force_local_next_hop_ = from._impl_.force_local_next_hop_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void DeviceMessage::CopyFrom(const DeviceMessage& from) {
@@ -1605,7 +1663,7 @@ void DeviceMessage::CopyFrom(const DeviceMessage& from) {
 }
 
 bool DeviceMessage::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
@@ -1614,23 +1672,21 @@ void DeviceMessage::InternalSwap(DeviceMessage* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &dev_ifname_, lhs_arena,
-      &other->dev_ifname_, rhs_arena
+      &_impl_.dev_ifname_, lhs_arena,
+      &other->_impl_.dev_ifname_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &br_ifname_, lhs_arena,
-      &other->br_ifname_, rhs_arena
+      &_impl_.br_ifname_, lhs_arena,
+      &other->_impl_.br_ifname_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DeviceMessage, force_local_next_hop_)
-      + sizeof(DeviceMessage::force_local_next_hop_)
-      - PROTOBUF_FIELD_OFFSET(DeviceMessage, teardown_)>(
-          reinterpret_cast<char*>(&teardown_),
-          reinterpret_cast<char*>(&other->teardown_));
+      PROTOBUF_FIELD_OFFSET(DeviceMessage, _impl_.force_local_next_hop_)
+      + sizeof(DeviceMessage::_impl_.force_local_next_hop_)
+      - PROTOBUF_FIELD_OFFSET(DeviceMessage, _impl_.teardown_)>(
+          reinterpret_cast<char*>(&_impl_.teardown_),
+          reinterpret_cast<char*>(&other->_impl_.teardown_));
 }
 
 std::string DeviceMessage::GetTypeName() const {
@@ -1642,7 +1698,7 @@ std::string DeviceMessage::GetTypeName() const {
 
 class GuestMessage::_Internal {
  public:
-  using HasBits = decltype(std::declval<GuestMessage>()._has_bits_);
+  using HasBits = decltype(std::declval<GuestMessage>()._impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1663,48 +1719,56 @@ class GuestMessage::_Internal {
 GuestMessage::GuestMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:patchpanel.GuestMessage)
 }
 GuestMessage::GuestMessage(const GuestMessage& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GuestMessage* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.type_){}
+    , decltype(_impl_.event_){}
+    , decltype(_impl_.arc_pid_){}
+    , decltype(_impl_.arcvm_vsock_cid_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&type_, &from.type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&arcvm_vsock_cid_) -
-    reinterpret_cast<char*>(&type_)) + sizeof(arcvm_vsock_cid_));
+  ::memcpy(&_impl_.type_, &from._impl_.type_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.arcvm_vsock_cid_) -
+    reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.arcvm_vsock_cid_));
   // @@protoc_insertion_point(copy_constructor:patchpanel.GuestMessage)
 }
 
-inline void GuestMessage::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&type_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&arcvm_vsock_cid_) -
-    reinterpret_cast<char*>(&type_)) + sizeof(arcvm_vsock_cid_));
+inline void GuestMessage::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.type_){0}
+    , decltype(_impl_.event_){0}
+    , decltype(_impl_.arc_pid_){0}
+    , decltype(_impl_.arcvm_vsock_cid_){0u}
+  };
 }
 
 GuestMessage::~GuestMessage() {
   // @@protoc_insertion_point(destructor:patchpanel.GuestMessage)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void GuestMessage::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void GuestMessage::ArenaDtor(void* object) {
-  GuestMessage* _this = reinterpret_cast< GuestMessage* >(object);
-  (void)_this;
-}
-void GuestMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GuestMessage::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GuestMessage::Clear() {
@@ -1713,22 +1777,22 @@ void GuestMessage::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
-    ::memset(&type_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&arcvm_vsock_cid_) -
-        reinterpret_cast<char*>(&type_)) + sizeof(arcvm_vsock_cid_));
+    ::memset(&_impl_.type_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.arcvm_vsock_cid_) -
+        reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.arcvm_vsock_cid_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GuestMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GuestMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required .patchpanel.GuestMessage.GuestType type = 1;
       case 1:
@@ -1760,7 +1824,7 @@ const char* GuestMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_arc_pid(&has_bits);
-          arc_pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.arc_pid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1769,7 +1833,7 @@ const char* GuestMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _Internal::set_has_arcvm_vsock_cid(&has_bits);
-          arcvm_vsock_cid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.arcvm_vsock_cid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1790,7 +1854,7 @@ const char* GuestMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1804,31 +1868,31 @@ uint8_t* GuestMessage::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required .patchpanel.GuestMessage.GuestType type = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_type(), target);
   }
 
   // required .patchpanel.GuestMessage.GuestEvent event = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_event(), target);
   }
 
   // optional int32 arc_pid = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_arc_pid(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_arc_pid(), target);
   }
 
   // optional uint32 arcvm_vsock_cid = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(4, this->_internal_arcvm_vsock_cid(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_arcvm_vsock_cid(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1846,13 +1910,13 @@ size_t GuestMessage::RequiredFieldsByteSizeFallback() const {
   if (_internal_has_type()) {
     // required .patchpanel.GuestMessage.GuestType type = 1;
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
 
   if (_internal_has_event()) {
     // required .patchpanel.GuestMessage.GuestEvent event = 2;
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_event());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_event());
   }
 
   return total_size;
@@ -1861,14 +1925,14 @@ size_t GuestMessage::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:patchpanel.GuestMessage)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
+  if (((_impl_._has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
     // required .patchpanel.GuestMessage.GuestType type = 1;
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
 
     // required .patchpanel.GuestMessage.GuestEvent event = 2;
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_event());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_event());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
@@ -1877,56 +1941,57 @@ size_t GuestMessage::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000cu) {
     // optional int32 arc_pid = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_arc_pid());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_arc_pid());
     }
 
     // optional uint32 arcvm_vsock_cid = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_arcvm_vsock_cid());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_arcvm_vsock_cid());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GuestMessage::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GuestMessage*>(
+  MergeFrom(*::_pbi::DownCast<const GuestMessage*>(
       &from));
 }
 
 void GuestMessage::MergeFrom(const GuestMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.GuestMessage)
-  GOOGLE_DCHECK_NE(&from, this);
+  GuestMessage* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.GuestMessage)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      type_ = from.type_;
+      _this->_impl_.type_ = from._impl_.type_;
     }
     if (cached_has_bits & 0x00000002u) {
-      event_ = from.event_;
+      _this->_impl_.event_ = from._impl_.event_;
     }
     if (cached_has_bits & 0x00000004u) {
-      arc_pid_ = from.arc_pid_;
+      _this->_impl_.arc_pid_ = from._impl_.arc_pid_;
     }
     if (cached_has_bits & 0x00000008u) {
-      arcvm_vsock_cid_ = from.arcvm_vsock_cid_;
+      _this->_impl_.arcvm_vsock_cid_ = from._impl_.arcvm_vsock_cid_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GuestMessage::CopyFrom(const GuestMessage& from) {
@@ -1937,20 +2002,20 @@ void GuestMessage::CopyFrom(const GuestMessage& from) {
 }
 
 bool GuestMessage::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
 void GuestMessage::InternalSwap(GuestMessage* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GuestMessage, arcvm_vsock_cid_)
-      + sizeof(GuestMessage::arcvm_vsock_cid_)
-      - PROTOBUF_FIELD_OFFSET(GuestMessage, type_)>(
-          reinterpret_cast<char*>(&type_),
-          reinterpret_cast<char*>(&other->type_));
+      PROTOBUF_FIELD_OFFSET(GuestMessage, _impl_.arcvm_vsock_cid_)
+      + sizeof(GuestMessage::_impl_.arcvm_vsock_cid_)
+      - PROTOBUF_FIELD_OFFSET(GuestMessage, _impl_.type_)>(
+          reinterpret_cast<char*>(&_impl_.type_),
+          reinterpret_cast<char*>(&other->_impl_.type_));
 }
 
 std::string GuestMessage::GetTypeName() const {
@@ -1962,7 +2027,7 @@ std::string GuestMessage::GetTypeName() const {
 
 class NDProxyControlMessage::_Internal {
  public:
-  using HasBits = decltype(std::declval<NDProxyControlMessage>()._has_bits_);
+  using HasBits = decltype(std::declval<NDProxyControlMessage>()._impl_._has_bits_);
   static void set_has_type(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1980,48 +2045,54 @@ class NDProxyControlMessage::_Internal {
 NDProxyControlMessage::NDProxyControlMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:patchpanel.NDProxyControlMessage)
 }
 NDProxyControlMessage::NDProxyControlMessage(const NDProxyControlMessage& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  NDProxyControlMessage* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.type_){}
+    , decltype(_impl_.if_id_primary_){}
+    , decltype(_impl_.if_id_secondary_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&type_, &from.type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&if_id_secondary_) -
-    reinterpret_cast<char*>(&type_)) + sizeof(if_id_secondary_));
+  ::memcpy(&_impl_.type_, &from._impl_.type_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.if_id_secondary_) -
+    reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.if_id_secondary_));
   // @@protoc_insertion_point(copy_constructor:patchpanel.NDProxyControlMessage)
 }
 
-inline void NDProxyControlMessage::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&type_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&if_id_secondary_) -
-    reinterpret_cast<char*>(&type_)) + sizeof(if_id_secondary_));
+inline void NDProxyControlMessage::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.type_){0}
+    , decltype(_impl_.if_id_primary_){0}
+    , decltype(_impl_.if_id_secondary_){0}
+  };
 }
 
 NDProxyControlMessage::~NDProxyControlMessage() {
   // @@protoc_insertion_point(destructor:patchpanel.NDProxyControlMessage)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void NDProxyControlMessage::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void NDProxyControlMessage::ArenaDtor(void* object) {
-  NDProxyControlMessage* _this = reinterpret_cast< NDProxyControlMessage* >(object);
-  (void)_this;
-}
-void NDProxyControlMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void NDProxyControlMessage::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void NDProxyControlMessage::Clear() {
@@ -2030,22 +2101,22 @@ void NDProxyControlMessage::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
-    ::memset(&type_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&if_id_secondary_) -
-        reinterpret_cast<char*>(&type_)) + sizeof(if_id_secondary_));
+    ::memset(&_impl_.type_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.if_id_secondary_) -
+        reinterpret_cast<char*>(&_impl_.type_)) + sizeof(_impl_.if_id_secondary_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* NDProxyControlMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* NDProxyControlMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required .patchpanel.NDProxyControlMessage.NDProxyRequestType type = 1;
       case 1:
@@ -2064,7 +2135,7 @@ const char* NDProxyControlMessage::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_if_id_primary(&has_bits);
-          if_id_primary_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.if_id_primary_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2073,7 +2144,7 @@ const char* NDProxyControlMessage::_InternalParse(const char* ptr, ::PROTOBUF_NA
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_if_id_secondary(&has_bits);
-          if_id_secondary_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.if_id_secondary_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2094,7 +2165,7 @@ const char* NDProxyControlMessage::_InternalParse(const char* ptr, ::PROTOBUF_NA
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2108,24 +2179,24 @@ uint8_t* NDProxyControlMessage::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required .patchpanel.NDProxyControlMessage.NDProxyRequestType type = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_type(), target);
   }
 
   // required int32 if_id_primary = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_if_id_primary(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_if_id_primary(), target);
   }
 
   // optional int32 if_id_secondary = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_if_id_secondary(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_if_id_secondary(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2143,12 +2214,12 @@ size_t NDProxyControlMessage::RequiredFieldsByteSizeFallback() const {
   if (_internal_has_type()) {
     // required .patchpanel.NDProxyControlMessage.NDProxyRequestType type = 1;
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
 
   if (_internal_has_if_id_primary()) {
     // required int32 if_id_primary = 2;
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_if_id_primary());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_if_id_primary());
   }
 
   return total_size;
@@ -2157,13 +2228,13 @@ size_t NDProxyControlMessage::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:patchpanel.NDProxyControlMessage)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
+  if (((_impl_._has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
     // required .patchpanel.NDProxyControlMessage.NDProxyRequestType type = 1;
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
 
     // required int32 if_id_primary = 2;
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_if_id_primary());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_if_id_primary());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
@@ -2173,45 +2244,46 @@ size_t NDProxyControlMessage::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional int32 if_id_secondary = 3;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000004u) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_if_id_secondary());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_if_id_secondary());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void NDProxyControlMessage::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const NDProxyControlMessage*>(
+  MergeFrom(*::_pbi::DownCast<const NDProxyControlMessage*>(
       &from));
 }
 
 void NDProxyControlMessage::MergeFrom(const NDProxyControlMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NDProxyControlMessage)
-  GOOGLE_DCHECK_NE(&from, this);
+  NDProxyControlMessage* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NDProxyControlMessage)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      type_ = from.type_;
+      _this->_impl_.type_ = from._impl_.type_;
     }
     if (cached_has_bits & 0x00000002u) {
-      if_id_primary_ = from.if_id_primary_;
+      _this->_impl_.if_id_primary_ = from._impl_.if_id_primary_;
     }
     if (cached_has_bits & 0x00000004u) {
-      if_id_secondary_ = from.if_id_secondary_;
+      _this->_impl_.if_id_secondary_ = from._impl_.if_id_secondary_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void NDProxyControlMessage::CopyFrom(const NDProxyControlMessage& from) {
@@ -2222,20 +2294,20 @@ void NDProxyControlMessage::CopyFrom(const NDProxyControlMessage& from) {
 }
 
 bool NDProxyControlMessage::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
 void NDProxyControlMessage::InternalSwap(NDProxyControlMessage* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(NDProxyControlMessage, if_id_secondary_)
-      + sizeof(NDProxyControlMessage::if_id_secondary_)
-      - PROTOBUF_FIELD_OFFSET(NDProxyControlMessage, type_)>(
-          reinterpret_cast<char*>(&type_),
-          reinterpret_cast<char*>(&other->type_));
+      PROTOBUF_FIELD_OFFSET(NDProxyControlMessage, _impl_.if_id_secondary_)
+      + sizeof(NDProxyControlMessage::_impl_.if_id_secondary_)
+      - PROTOBUF_FIELD_OFFSET(NDProxyControlMessage, _impl_.type_)>(
+          reinterpret_cast<char*>(&_impl_.type_),
+          reinterpret_cast<char*>(&other->_impl_.type_));
 }
 
 std::string NDProxyControlMessage::GetTypeName() const {
@@ -2253,24 +2325,24 @@ class NDProxySignalMessage::_Internal {
 
 const ::patchpanel::NeighborDetectedSignal&
 NDProxySignalMessage::_Internal::neighbor_detected_signal(const NDProxySignalMessage* msg) {
-  return *msg->event_type_.neighbor_detected_signal_;
+  return *msg->_impl_.event_type_.neighbor_detected_signal_;
 }
 const ::patchpanel::RouterDetectedSignal&
 NDProxySignalMessage::_Internal::router_detected_signal(const NDProxySignalMessage* msg) {
-  return *msg->event_type_.router_detected_signal_;
+  return *msg->_impl_.event_type_.router_detected_signal_;
 }
 void NDProxySignalMessage::set_allocated_neighbor_detected_signal(::patchpanel::NeighborDetectedSignal* neighbor_detected_signal) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_event_type();
   if (neighbor_detected_signal) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::patchpanel::NeighborDetectedSignal>::GetOwningArena(neighbor_detected_signal);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(neighbor_detected_signal);
     if (message_arena != submessage_arena) {
       neighbor_detected_signal = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, neighbor_detected_signal, submessage_arena);
     }
     set_has_neighbor_detected_signal();
-    event_type_.neighbor_detected_signal_ = neighbor_detected_signal;
+    _impl_.event_type_.neighbor_detected_signal_ = neighbor_detected_signal;
   }
   // @@protoc_insertion_point(field_set_allocated:patchpanel.NDProxySignalMessage.neighbor_detected_signal)
 }
@@ -2279,36 +2351,41 @@ void NDProxySignalMessage::set_allocated_router_detected_signal(::patchpanel::Ro
   clear_event_type();
   if (router_detected_signal) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::patchpanel::RouterDetectedSignal>::GetOwningArena(router_detected_signal);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(router_detected_signal);
     if (message_arena != submessage_arena) {
       router_detected_signal = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, router_detected_signal, submessage_arena);
     }
     set_has_router_detected_signal();
-    event_type_.router_detected_signal_ = router_detected_signal;
+    _impl_.event_type_.router_detected_signal_ = router_detected_signal;
   }
   // @@protoc_insertion_point(field_set_allocated:patchpanel.NDProxySignalMessage.router_detected_signal)
 }
 NDProxySignalMessage::NDProxySignalMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:patchpanel.NDProxySignalMessage)
 }
 NDProxySignalMessage::NDProxySignalMessage(const NDProxySignalMessage& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  NDProxySignalMessage* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.event_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   clear_has_event_type();
   switch (from.event_type_case()) {
     case kNeighborDetectedSignal: {
-      _internal_mutable_neighbor_detected_signal()->::patchpanel::NeighborDetectedSignal::MergeFrom(from._internal_neighbor_detected_signal());
+      _this->_internal_mutable_neighbor_detected_signal()->::patchpanel::NeighborDetectedSignal::MergeFrom(
+          from._internal_neighbor_detected_signal());
       break;
     }
     case kRouterDetectedSignal: {
-      _internal_mutable_router_detected_signal()->::patchpanel::RouterDetectedSignal::MergeFrom(from._internal_router_detected_signal());
+      _this->_internal_mutable_router_detected_signal()->::patchpanel::RouterDetectedSignal::MergeFrom(
+          from._internal_router_detected_signal());
       break;
     }
     case EVENT_TYPE_NOT_SET: {
@@ -2318,15 +2395,25 @@ NDProxySignalMessage::NDProxySignalMessage(const NDProxySignalMessage& from)
   // @@protoc_insertion_point(copy_constructor:patchpanel.NDProxySignalMessage)
 }
 
-inline void NDProxySignalMessage::SharedCtor() {
-clear_has_event_type();
+inline void NDProxySignalMessage::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.event_type_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  clear_has_event_type();
 }
 
 NDProxySignalMessage::~NDProxySignalMessage() {
   // @@protoc_insertion_point(destructor:patchpanel.NDProxySignalMessage)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void NDProxySignalMessage::SharedDtor() {
@@ -2336,14 +2423,8 @@ inline void NDProxySignalMessage::SharedDtor() {
   }
 }
 
-void NDProxySignalMessage::ArenaDtor(void* object) {
-  NDProxySignalMessage* _this = reinterpret_cast< NDProxySignalMessage* >(object);
-  (void)_this;
-}
-void NDProxySignalMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void NDProxySignalMessage::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void NDProxySignalMessage::clear_event_type() {
@@ -2351,13 +2432,13 @@ void NDProxySignalMessage::clear_event_type() {
   switch (event_type_case()) {
     case kNeighborDetectedSignal: {
       if (GetArenaForAllocation() == nullptr) {
-        delete event_type_.neighbor_detected_signal_;
+        delete _impl_.event_type_.neighbor_detected_signal_;
       }
       break;
     }
     case kRouterDetectedSignal: {
       if (GetArenaForAllocation() == nullptr) {
-        delete event_type_.router_detected_signal_;
+        delete _impl_.event_type_.router_detected_signal_;
       }
       break;
     }
@@ -2365,7 +2446,7 @@ void NDProxySignalMessage::clear_event_type() {
       break;
     }
   }
-  _oneof_case_[0] = EVENT_TYPE_NOT_SET;
+  _impl_._oneof_case_[0] = EVENT_TYPE_NOT_SET;
 }
 
 
@@ -2379,11 +2460,11 @@ void NDProxySignalMessage::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* NDProxySignalMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* NDProxySignalMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .patchpanel.NeighborDetectedSignal neighbor_detected_signal = 1;
       case 1:
@@ -2432,17 +2513,15 @@ uint8_t* NDProxySignalMessage::_InternalSerialize(
 
   switch (event_type_case()) {
     case kNeighborDetectedSignal: {
-      target = stream->EnsureSpace(target);
       target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          1, _Internal::neighbor_detected_signal(this), target, stream);
+        InternalWriteMessage(1, _Internal::neighbor_detected_signal(this),
+          _Internal::neighbor_detected_signal(this).GetCachedSize(), target, stream);
       break;
     }
     case kRouterDetectedSignal: {
-      target = stream->EnsureSpace(target);
       target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(
-          2, _Internal::router_detected_signal(this), target, stream);
+        InternalWriteMessage(2, _Internal::router_detected_signal(this),
+          _Internal::router_detected_signal(this).GetCachedSize(), target, stream);
       break;
     }
     default: ;
@@ -2468,14 +2547,14 @@ size_t NDProxySignalMessage::ByteSizeLong() const {
     case kNeighborDetectedSignal: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *event_type_.neighbor_detected_signal_);
+          *_impl_.event_type_.neighbor_detected_signal_);
       break;
     }
     // .patchpanel.RouterDetectedSignal router_detected_signal = 2;
     case kRouterDetectedSignal: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *event_type_.router_detected_signal_);
+          *_impl_.event_type_.router_detected_signal_);
       break;
     }
     case EVENT_TYPE_NOT_SET: {
@@ -2485,37 +2564,40 @@ size_t NDProxySignalMessage::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void NDProxySignalMessage::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const NDProxySignalMessage*>(
+  MergeFrom(*::_pbi::DownCast<const NDProxySignalMessage*>(
       &from));
 }
 
 void NDProxySignalMessage::MergeFrom(const NDProxySignalMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NDProxySignalMessage)
-  GOOGLE_DCHECK_NE(&from, this);
+  NDProxySignalMessage* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NDProxySignalMessage)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   switch (from.event_type_case()) {
     case kNeighborDetectedSignal: {
-      _internal_mutable_neighbor_detected_signal()->::patchpanel::NeighborDetectedSignal::MergeFrom(from._internal_neighbor_detected_signal());
+      _this->_internal_mutable_neighbor_detected_signal()->::patchpanel::NeighborDetectedSignal::MergeFrom(
+          from._internal_neighbor_detected_signal());
       break;
     }
     case kRouterDetectedSignal: {
-      _internal_mutable_router_detected_signal()->::patchpanel::RouterDetectedSignal::MergeFrom(from._internal_router_detected_signal());
+      _this->_internal_mutable_router_detected_signal()->::patchpanel::RouterDetectedSignal::MergeFrom(
+          from._internal_router_detected_signal());
       break;
     }
     case EVENT_TYPE_NOT_SET: {
       break;
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void NDProxySignalMessage::CopyFrom(const NDProxySignalMessage& from) {
@@ -2529,13 +2611,13 @@ bool NDProxySignalMessage::IsInitialized() const {
   switch (event_type_case()) {
     case kNeighborDetectedSignal: {
       if (_internal_has_neighbor_detected_signal()) {
-        if (!event_type_.neighbor_detected_signal_->IsInitialized()) return false;
+        if (!_impl_.event_type_.neighbor_detected_signal_->IsInitialized()) return false;
       }
       break;
     }
     case kRouterDetectedSignal: {
       if (_internal_has_router_detected_signal()) {
-        if (!event_type_.router_detected_signal_->IsInitialized()) return false;
+        if (!_impl_.event_type_.router_detected_signal_->IsInitialized()) return false;
       }
       break;
     }
@@ -2549,8 +2631,8 @@ bool NDProxySignalMessage::IsInitialized() const {
 void NDProxySignalMessage::InternalSwap(NDProxySignalMessage* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(event_type_, other->event_type_);
-  swap(_oneof_case_[0], other->_oneof_case_[0]);
+  swap(_impl_.event_type_, other->_impl_.event_type_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
 }
 
 std::string NDProxySignalMessage::GetTypeName() const {
@@ -2562,7 +2644,7 @@ std::string NDProxySignalMessage::GetTypeName() const {
 
 class NeighborDetectedSignal::_Internal {
  public:
-  using HasBits = decltype(std::declval<NeighborDetectedSignal>()._has_bits_);
+  using HasBits = decltype(std::declval<NeighborDetectedSignal>()._impl_._has_bits_);
   static void set_has_if_id(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -2577,56 +2659,63 @@ class NeighborDetectedSignal::_Internal {
 NeighborDetectedSignal::NeighborDetectedSignal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:patchpanel.NeighborDetectedSignal)
 }
 NeighborDetectedSignal::NeighborDetectedSignal(const NeighborDetectedSignal& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  NeighborDetectedSignal* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ip_){}
+    , decltype(_impl_.if_id_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.ip_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    ip_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.ip_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_ip()) {
-    ip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_ip(), 
-      GetArenaForAllocation());
+    _this->_impl_.ip_.Set(from._internal_ip(), 
+      _this->GetArenaForAllocation());
   }
-  if_id_ = from.if_id_;
+  _this->_impl_.if_id_ = from._impl_.if_id_;
   // @@protoc_insertion_point(copy_constructor:patchpanel.NeighborDetectedSignal)
 }
 
-inline void NeighborDetectedSignal::SharedCtor() {
-ip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  ip_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-if_id_ = 0;
+inline void NeighborDetectedSignal::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ip_){}
+    , decltype(_impl_.if_id_){0}
+  };
+  _impl_.ip_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.ip_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 NeighborDetectedSignal::~NeighborDetectedSignal() {
   // @@protoc_insertion_point(destructor:patchpanel.NeighborDetectedSignal)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void NeighborDetectedSignal::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  ip_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.ip_.Destroy();
 }
 
-void NeighborDetectedSignal::ArenaDtor(void* object) {
-  NeighborDetectedSignal* _this = reinterpret_cast< NeighborDetectedSignal* >(object);
-  (void)_this;
-}
-void NeighborDetectedSignal::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void NeighborDetectedSignal::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void NeighborDetectedSignal::Clear() {
@@ -2635,27 +2724,27 @@ void NeighborDetectedSignal::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    ip_.ClearNonDefaultToEmpty();
+    _impl_.ip_.ClearNonDefaultToEmpty();
   }
-  if_id_ = 0;
-  _has_bits_.Clear();
+  _impl_.if_id_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* NeighborDetectedSignal::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* NeighborDetectedSignal::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required int32 if_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_if_id(&has_bits);
-          if_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.if_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2664,7 +2753,7 @@ const char* NeighborDetectedSignal::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_ip();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2685,7 +2774,7 @@ const char* NeighborDetectedSignal::_InternalParse(const char* ptr, ::PROTOBUF_N
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2699,11 +2788,11 @@ uint8_t* NeighborDetectedSignal::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required int32 if_id = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_if_id(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_if_id(), target);
   }
 
   // required bytes ip = 2;
@@ -2733,7 +2822,7 @@ size_t NeighborDetectedSignal::RequiredFieldsByteSizeFallback() const {
 
   if (_internal_has_if_id()) {
     // required int32 if_id = 1;
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_if_id());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_if_id());
   }
 
   return total_size;
@@ -2742,14 +2831,14 @@ size_t NeighborDetectedSignal::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:patchpanel.NeighborDetectedSignal)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
+  if (((_impl_._has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
     // required bytes ip = 2;
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
         this->_internal_ip());
 
     // required int32 if_id = 1;
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_if_id());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_if_id());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
@@ -2761,34 +2850,35 @@ size_t NeighborDetectedSignal::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void NeighborDetectedSignal::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const NeighborDetectedSignal*>(
+  MergeFrom(*::_pbi::DownCast<const NeighborDetectedSignal*>(
       &from));
 }
 
 void NeighborDetectedSignal::MergeFrom(const NeighborDetectedSignal& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NeighborDetectedSignal)
-  GOOGLE_DCHECK_NE(&from, this);
+  NeighborDetectedSignal* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NeighborDetectedSignal)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_ip(from._internal_ip());
+      _this->_internal_set_ip(from._internal_ip());
     }
     if (cached_has_bits & 0x00000002u) {
-      if_id_ = from.if_id_;
+      _this->_impl_.if_id_ = from._impl_.if_id_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void NeighborDetectedSignal::CopyFrom(const NeighborDetectedSignal& from) {
@@ -2799,7 +2889,7 @@ void NeighborDetectedSignal::CopyFrom(const NeighborDetectedSignal& from) {
 }
 
 bool NeighborDetectedSignal::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
@@ -2808,13 +2898,12 @@ void NeighborDetectedSignal::InternalSwap(NeighborDetectedSignal* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &ip_, lhs_arena,
-      &other->ip_, rhs_arena
+      &_impl_.ip_, lhs_arena,
+      &other->_impl_.ip_, rhs_arena
   );
-  swap(if_id_, other->if_id_);
+  swap(_impl_.if_id_, other->_impl_.if_id_);
 }
 
 std::string NeighborDetectedSignal::GetTypeName() const {
@@ -2826,7 +2915,7 @@ std::string NeighborDetectedSignal::GetTypeName() const {
 
 class RouterDetectedSignal::_Internal {
  public:
-  using HasBits = decltype(std::declval<RouterDetectedSignal>()._has_bits_);
+  using HasBits = decltype(std::declval<RouterDetectedSignal>()._impl_._has_bits_);
   static void set_has_if_id(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -2844,61 +2933,67 @@ class RouterDetectedSignal::_Internal {
 RouterDetectedSignal::RouterDetectedSignal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:patchpanel.RouterDetectedSignal)
 }
 RouterDetectedSignal::RouterDetectedSignal(const RouterDetectedSignal& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RouterDetectedSignal* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ip_){}
+    , decltype(_impl_.if_id_){}
+    , decltype(_impl_.prefix_len_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.ip_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    ip_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.ip_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_ip()) {
-    ip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_ip(), 
-      GetArenaForAllocation());
+    _this->_impl_.ip_.Set(from._internal_ip(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&if_id_, &from.if_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&prefix_len_) -
-    reinterpret_cast<char*>(&if_id_)) + sizeof(prefix_len_));
+  ::memcpy(&_impl_.if_id_, &from._impl_.if_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.prefix_len_) -
+    reinterpret_cast<char*>(&_impl_.if_id_)) + sizeof(_impl_.prefix_len_));
   // @@protoc_insertion_point(copy_constructor:patchpanel.RouterDetectedSignal)
 }
 
-inline void RouterDetectedSignal::SharedCtor() {
-ip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  ip_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&if_id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&prefix_len_) -
-    reinterpret_cast<char*>(&if_id_)) + sizeof(prefix_len_));
+inline void RouterDetectedSignal::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ip_){}
+    , decltype(_impl_.if_id_){0}
+    , decltype(_impl_.prefix_len_){0}
+  };
+  _impl_.ip_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.ip_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 RouterDetectedSignal::~RouterDetectedSignal() {
   // @@protoc_insertion_point(destructor:patchpanel.RouterDetectedSignal)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void RouterDetectedSignal::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  ip_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.ip_.Destroy();
 }
 
-void RouterDetectedSignal::ArenaDtor(void* object) {
-  RouterDetectedSignal* _this = reinterpret_cast< RouterDetectedSignal* >(object);
-  (void)_this;
-}
-void RouterDetectedSignal::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void RouterDetectedSignal::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RouterDetectedSignal::Clear() {
@@ -2907,31 +3002,31 @@ void RouterDetectedSignal::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    ip_.ClearNonDefaultToEmpty();
+    _impl_.ip_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&if_id_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&prefix_len_) -
-        reinterpret_cast<char*>(&if_id_)) + sizeof(prefix_len_));
+    ::memset(&_impl_.if_id_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.prefix_len_) -
+        reinterpret_cast<char*>(&_impl_.if_id_)) + sizeof(_impl_.prefix_len_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* RouterDetectedSignal::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* RouterDetectedSignal::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // required int32 if_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_if_id(&has_bits);
-          if_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.if_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2940,7 +3035,7 @@ const char* RouterDetectedSignal::_InternalParse(const char* ptr, ::PROTOBUF_NAM
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_ip();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2949,7 +3044,7 @@ const char* RouterDetectedSignal::_InternalParse(const char* ptr, ::PROTOBUF_NAM
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_prefix_len(&has_bits);
-          prefix_len_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.prefix_len_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2970,7 +3065,7 @@ const char* RouterDetectedSignal::_InternalParse(const char* ptr, ::PROTOBUF_NAM
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2984,11 +3079,11 @@ uint8_t* RouterDetectedSignal::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // required int32 if_id = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_if_id(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_if_id(), target);
   }
 
   // required bytes ip = 2;
@@ -3000,7 +3095,7 @@ uint8_t* RouterDetectedSignal::_InternalSerialize(
   // required int32 prefix_len = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_prefix_len(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_prefix_len(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3024,12 +3119,12 @@ size_t RouterDetectedSignal::RequiredFieldsByteSizeFallback() const {
 
   if (_internal_has_if_id()) {
     // required int32 if_id = 1;
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_if_id());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_if_id());
   }
 
   if (_internal_has_prefix_len()) {
     // required int32 prefix_len = 3;
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_prefix_len());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_prefix_len());
   }
 
   return total_size;
@@ -3038,17 +3133,17 @@ size_t RouterDetectedSignal::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:patchpanel.RouterDetectedSignal)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
+  if (((_impl_._has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
     // required bytes ip = 2;
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
         this->_internal_ip());
 
     // required int32 if_id = 1;
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_if_id());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_if_id());
 
     // required int32 prefix_len = 3;
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_prefix_len());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_prefix_len());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
@@ -3060,37 +3155,38 @@ size_t RouterDetectedSignal::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void RouterDetectedSignal::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const RouterDetectedSignal*>(
+  MergeFrom(*::_pbi::DownCast<const RouterDetectedSignal*>(
       &from));
 }
 
 void RouterDetectedSignal::MergeFrom(const RouterDetectedSignal& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.RouterDetectedSignal)
-  GOOGLE_DCHECK_NE(&from, this);
+  RouterDetectedSignal* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.RouterDetectedSignal)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_ip(from._internal_ip());
+      _this->_internal_set_ip(from._internal_ip());
     }
     if (cached_has_bits & 0x00000002u) {
-      if_id_ = from.if_id_;
+      _this->_impl_.if_id_ = from._impl_.if_id_;
     }
     if (cached_has_bits & 0x00000004u) {
-      prefix_len_ = from.prefix_len_;
+      _this->_impl_.prefix_len_ = from._impl_.prefix_len_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RouterDetectedSignal::CopyFrom(const RouterDetectedSignal& from) {
@@ -3101,7 +3197,7 @@ void RouterDetectedSignal::CopyFrom(const RouterDetectedSignal& from) {
 }
 
 bool RouterDetectedSignal::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+  if (_Internal::MissingRequiredFields(_impl_._has_bits_)) return false;
   return true;
 }
 
@@ -3110,18 +3206,17 @@ void RouterDetectedSignal::InternalSwap(RouterDetectedSignal* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &ip_, lhs_arena,
-      &other->ip_, rhs_arena
+      &_impl_.ip_, lhs_arena,
+      &other->_impl_.ip_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RouterDetectedSignal, prefix_len_)
-      + sizeof(RouterDetectedSignal::prefix_len_)
-      - PROTOBUF_FIELD_OFFSET(RouterDetectedSignal, if_id_)>(
-          reinterpret_cast<char*>(&if_id_),
-          reinterpret_cast<char*>(&other->if_id_));
+      PROTOBUF_FIELD_OFFSET(RouterDetectedSignal, _impl_.prefix_len_)
+      + sizeof(RouterDetectedSignal::_impl_.prefix_len_)
+      - PROTOBUF_FIELD_OFFSET(RouterDetectedSignal, _impl_.if_id_)>(
+          reinterpret_cast<char*>(&_impl_.if_id_),
+          reinterpret_cast<char*>(&other->_impl_.if_id_));
 }
 
 std::string RouterDetectedSignal::GetTypeName() const {
@@ -3132,31 +3227,40 @@ std::string RouterDetectedSignal::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace patchpanel
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::patchpanel::SubprocessMessage* Arena::CreateMaybeMessage< ::patchpanel::SubprocessMessage >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::patchpanel::SubprocessMessage*
+Arena::CreateMaybeMessage< ::patchpanel::SubprocessMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::SubprocessMessage >(arena);
 }
-template<> PROTOBUF_NOINLINE ::patchpanel::ControlMessage* Arena::CreateMaybeMessage< ::patchpanel::ControlMessage >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::patchpanel::ControlMessage*
+Arena::CreateMaybeMessage< ::patchpanel::ControlMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::ControlMessage >(arena);
 }
-template<> PROTOBUF_NOINLINE ::patchpanel::FeedbackMessage* Arena::CreateMaybeMessage< ::patchpanel::FeedbackMessage >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::patchpanel::FeedbackMessage*
+Arena::CreateMaybeMessage< ::patchpanel::FeedbackMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::FeedbackMessage >(arena);
 }
-template<> PROTOBUF_NOINLINE ::patchpanel::DeviceMessage* Arena::CreateMaybeMessage< ::patchpanel::DeviceMessage >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::patchpanel::DeviceMessage*
+Arena::CreateMaybeMessage< ::patchpanel::DeviceMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::DeviceMessage >(arena);
 }
-template<> PROTOBUF_NOINLINE ::patchpanel::GuestMessage* Arena::CreateMaybeMessage< ::patchpanel::GuestMessage >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::patchpanel::GuestMessage*
+Arena::CreateMaybeMessage< ::patchpanel::GuestMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::GuestMessage >(arena);
 }
-template<> PROTOBUF_NOINLINE ::patchpanel::NDProxyControlMessage* Arena::CreateMaybeMessage< ::patchpanel::NDProxyControlMessage >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::patchpanel::NDProxyControlMessage*
+Arena::CreateMaybeMessage< ::patchpanel::NDProxyControlMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::NDProxyControlMessage >(arena);
 }
-template<> PROTOBUF_NOINLINE ::patchpanel::NDProxySignalMessage* Arena::CreateMaybeMessage< ::patchpanel::NDProxySignalMessage >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::patchpanel::NDProxySignalMessage*
+Arena::CreateMaybeMessage< ::patchpanel::NDProxySignalMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::NDProxySignalMessage >(arena);
 }
-template<> PROTOBUF_NOINLINE ::patchpanel::NeighborDetectedSignal* Arena::CreateMaybeMessage< ::patchpanel::NeighborDetectedSignal >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::patchpanel::NeighborDetectedSignal*
+Arena::CreateMaybeMessage< ::patchpanel::NeighborDetectedSignal >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::NeighborDetectedSignal >(arena);
 }
-template<> PROTOBUF_NOINLINE ::patchpanel::RouterDetectedSignal* Arena::CreateMaybeMessage< ::patchpanel::RouterDetectedSignal >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::patchpanel::RouterDetectedSignal*
+Arena::CreateMaybeMessage< ::patchpanel::RouterDetectedSignal >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::RouterDetectedSignal >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

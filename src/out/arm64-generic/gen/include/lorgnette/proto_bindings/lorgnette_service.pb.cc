@@ -13,217 +13,227 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace lorgnette {
-constexpr ScannableArea::ScannableArea(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : width_(0)
-  , height_(0){}
+PROTOBUF_CONSTEXPR ScannableArea::ScannableArea(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.width_)*/0
+  , /*decltype(_impl_.height_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ScannableAreaDefaultTypeInternal {
-  constexpr ScannableAreaDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ScannableAreaDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ScannableAreaDefaultTypeInternal() {}
   union {
     ScannableArea _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ScannableAreaDefaultTypeInternal _ScannableArea_default_instance_;
-constexpr DocumentSource::DocumentSource(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : resolutions_()
-  , _resolutions_cached_byte_size_(0)
-  , color_modes_()
-  , _color_modes_cached_byte_size_(0)
-  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , area_(nullptr)
-  , type_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ScannableAreaDefaultTypeInternal _ScannableArea_default_instance_;
+PROTOBUF_CONSTEXPR DocumentSource::DocumentSource(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.resolutions_)*/{}
+  , /*decltype(_impl_._resolutions_cached_byte_size_)*/{0}
+  , /*decltype(_impl_.color_modes_)*/{}
+  , /*decltype(_impl_._color_modes_cached_byte_size_)*/{0}
+  , /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.area_)*/nullptr
+  , /*decltype(_impl_.type_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct DocumentSourceDefaultTypeInternal {
-  constexpr DocumentSourceDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DocumentSourceDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~DocumentSourceDefaultTypeInternal() {}
   union {
     DocumentSource _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DocumentSourceDefaultTypeInternal _DocumentSource_default_instance_;
-constexpr ScannerInfo::ScannerInfo(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , manufacturer_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , model_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , type_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DocumentSourceDefaultTypeInternal _DocumentSource_default_instance_;
+PROTOBUF_CONSTEXPR ScannerInfo::ScannerInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.manufacturer_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.model_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.type_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ScannerInfoDefaultTypeInternal {
-  constexpr ScannerInfoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ScannerInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ScannerInfoDefaultTypeInternal() {}
   union {
     ScannerInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ScannerInfoDefaultTypeInternal _ScannerInfo_default_instance_;
-constexpr ListScannersResponse::ListScannersResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : scanners_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ScannerInfoDefaultTypeInternal _ScannerInfo_default_instance_;
+PROTOBUF_CONSTEXPR ListScannersResponse::ListScannersResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.scanners_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ListScannersResponseDefaultTypeInternal {
-  constexpr ListScannersResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ListScannersResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ListScannersResponseDefaultTypeInternal() {}
   union {
     ListScannersResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ListScannersResponseDefaultTypeInternal _ListScannersResponse_default_instance_;
-constexpr ScannerCapabilities::ScannerCapabilities(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : resolutions_()
-  , _resolutions_cached_byte_size_(0)
-  , sources_()
-  , color_modes_()
-  , _color_modes_cached_byte_size_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ListScannersResponseDefaultTypeInternal _ListScannersResponse_default_instance_;
+PROTOBUF_CONSTEXPR ScannerCapabilities::ScannerCapabilities(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.resolutions_)*/{}
+  , /*decltype(_impl_._resolutions_cached_byte_size_)*/{0}
+  , /*decltype(_impl_.sources_)*/{}
+  , /*decltype(_impl_.color_modes_)*/{}
+  , /*decltype(_impl_._color_modes_cached_byte_size_)*/{0}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ScannerCapabilitiesDefaultTypeInternal {
-  constexpr ScannerCapabilitiesDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ScannerCapabilitiesDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ScannerCapabilitiesDefaultTypeInternal() {}
   union {
     ScannerCapabilities _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ScannerCapabilitiesDefaultTypeInternal _ScannerCapabilities_default_instance_;
-constexpr ScanRegion::ScanRegion(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : top_left_x_(0)
-  , top_left_y_(0)
-  , bottom_right_x_(0)
-  , bottom_right_y_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ScannerCapabilitiesDefaultTypeInternal _ScannerCapabilities_default_instance_;
+PROTOBUF_CONSTEXPR ScanRegion::ScanRegion(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.top_left_x_)*/0
+  , /*decltype(_impl_.top_left_y_)*/0
+  , /*decltype(_impl_.bottom_right_x_)*/0
+  , /*decltype(_impl_.bottom_right_y_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ScanRegionDefaultTypeInternal {
-  constexpr ScanRegionDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ScanRegionDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ScanRegionDefaultTypeInternal() {}
   union {
     ScanRegion _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ScanRegionDefaultTypeInternal _ScanRegion_default_instance_;
-constexpr ScanSettings::ScanSettings(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : source_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , scan_region_(nullptr)
-  , resolution_(0u)
-  , color_mode_(0)
-
-  , image_format_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ScanRegionDefaultTypeInternal _ScanRegion_default_instance_;
+PROTOBUF_CONSTEXPR ScanSettings::ScanSettings(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.source_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.scan_region_)*/nullptr
+  , /*decltype(_impl_.resolution_)*/0u
+  , /*decltype(_impl_.color_mode_)*/0
+  , /*decltype(_impl_.image_format_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ScanSettingsDefaultTypeInternal {
-  constexpr ScanSettingsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ScanSettingsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ScanSettingsDefaultTypeInternal() {}
   union {
     ScanSettings _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ScanSettingsDefaultTypeInternal _ScanSettings_default_instance_;
-constexpr StartScanRequest::StartScanRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : device_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , settings_(nullptr){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ScanSettingsDefaultTypeInternal _ScanSettings_default_instance_;
+PROTOBUF_CONSTEXPR StartScanRequest::StartScanRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.device_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.settings_)*/nullptr
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StartScanRequestDefaultTypeInternal {
-  constexpr StartScanRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StartScanRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~StartScanRequestDefaultTypeInternal() {}
   union {
     StartScanRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StartScanRequestDefaultTypeInternal _StartScanRequest_default_instance_;
-constexpr StartScanResponse::StartScanResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : failure_reason_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , scan_uuid_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , state_(0)
-
-  , scan_failure_mode_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StartScanRequestDefaultTypeInternal _StartScanRequest_default_instance_;
+PROTOBUF_CONSTEXPR StartScanResponse::StartScanResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.failure_reason_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.scan_uuid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.state_)*/0
+  , /*decltype(_impl_.scan_failure_mode_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StartScanResponseDefaultTypeInternal {
-  constexpr StartScanResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StartScanResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~StartScanResponseDefaultTypeInternal() {}
   union {
     StartScanResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StartScanResponseDefaultTypeInternal _StartScanResponse_default_instance_;
-constexpr GetNextImageRequest::GetNextImageRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : scan_uuid_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StartScanResponseDefaultTypeInternal _StartScanResponse_default_instance_;
+PROTOBUF_CONSTEXPR GetNextImageRequest::GetNextImageRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.scan_uuid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetNextImageRequestDefaultTypeInternal {
-  constexpr GetNextImageRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetNextImageRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetNextImageRequestDefaultTypeInternal() {}
   union {
     GetNextImageRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetNextImageRequestDefaultTypeInternal _GetNextImageRequest_default_instance_;
-constexpr GetNextImageResponse::GetNextImageResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : failure_reason_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , success_(false)
-  , scan_failure_mode_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetNextImageRequestDefaultTypeInternal _GetNextImageRequest_default_instance_;
+PROTOBUF_CONSTEXPR GetNextImageResponse::GetNextImageResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.failure_reason_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.success_)*/false
+  , /*decltype(_impl_.scan_failure_mode_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetNextImageResponseDefaultTypeInternal {
-  constexpr GetNextImageResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetNextImageResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetNextImageResponseDefaultTypeInternal() {}
   union {
     GetNextImageResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetNextImageResponseDefaultTypeInternal _GetNextImageResponse_default_instance_;
-constexpr CancelScanRequest::CancelScanRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : scan_uuid_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetNextImageResponseDefaultTypeInternal _GetNextImageResponse_default_instance_;
+PROTOBUF_CONSTEXPR CancelScanRequest::CancelScanRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.scan_uuid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CancelScanRequestDefaultTypeInternal {
-  constexpr CancelScanRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CancelScanRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~CancelScanRequestDefaultTypeInternal() {}
   union {
     CancelScanRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CancelScanRequestDefaultTypeInternal _CancelScanRequest_default_instance_;
-constexpr CancelScanResponse::CancelScanResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : failure_reason_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , success_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CancelScanRequestDefaultTypeInternal _CancelScanRequest_default_instance_;
+PROTOBUF_CONSTEXPR CancelScanResponse::CancelScanResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.failure_reason_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.success_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct CancelScanResponseDefaultTypeInternal {
-  constexpr CancelScanResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CancelScanResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~CancelScanResponseDefaultTypeInternal() {}
   union {
     CancelScanResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CancelScanResponseDefaultTypeInternal _CancelScanResponse_default_instance_;
-constexpr ScanStatusChangedSignal::ScanStatusChangedSignal(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : scan_uuid_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , failure_reason_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , state_(0)
-
-  , progress_(0u)
-  , page_(0u)
-  , more_pages_(false)
-  , scan_failure_mode_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CancelScanResponseDefaultTypeInternal _CancelScanResponse_default_instance_;
+PROTOBUF_CONSTEXPR ScanStatusChangedSignal::ScanStatusChangedSignal(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.scan_uuid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.failure_reason_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.state_)*/0
+  , /*decltype(_impl_.progress_)*/0u
+  , /*decltype(_impl_.page_)*/0u
+  , /*decltype(_impl_.more_pages_)*/false
+  , /*decltype(_impl_.scan_failure_mode_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ScanStatusChangedSignalDefaultTypeInternal {
-  constexpr ScanStatusChangedSignalDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ScanStatusChangedSignalDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ScanStatusChangedSignalDefaultTypeInternal() {}
   union {
     ScanStatusChangedSignal _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ScanStatusChangedSignalDefaultTypeInternal _ScanStatusChangedSignal_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ScanStatusChangedSignalDefaultTypeInternal _ScanStatusChangedSignal_default_instance_;
 }  // namespace lorgnette
 namespace lorgnette {
 bool SourceType_IsValid(int value) {
@@ -547,47 +557,50 @@ class ScannableArea::_Internal {
 ScannableArea::ScannableArea(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lorgnette.ScannableArea)
 }
 ScannableArea::ScannableArea(const ScannableArea& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ScannableArea* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.width_){}
+    , decltype(_impl_.height_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&width_, &from.width_,
-    static_cast<size_t>(reinterpret_cast<char*>(&height_) -
-    reinterpret_cast<char*>(&width_)) + sizeof(height_));
+  ::memcpy(&_impl_.width_, &from._impl_.width_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.height_) -
+    reinterpret_cast<char*>(&_impl_.width_)) + sizeof(_impl_.height_));
   // @@protoc_insertion_point(copy_constructor:lorgnette.ScannableArea)
 }
 
-inline void ScannableArea::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&width_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&height_) -
-    reinterpret_cast<char*>(&width_)) + sizeof(height_));
+inline void ScannableArea::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.width_){0}
+    , decltype(_impl_.height_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 ScannableArea::~ScannableArea() {
   // @@protoc_insertion_point(destructor:lorgnette.ScannableArea)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ScannableArea::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void ScannableArea::ArenaDtor(void* object) {
-  ScannableArea* _this = reinterpret_cast< ScannableArea* >(object);
-  (void)_this;
-}
-void ScannableArea::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ScannableArea::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ScannableArea::Clear() {
@@ -596,22 +609,22 @@ void ScannableArea::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&width_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&height_) -
-      reinterpret_cast<char*>(&width_)) + sizeof(height_));
+  ::memset(&_impl_.width_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.height_) -
+      reinterpret_cast<char*>(&_impl_.width_)) + sizeof(_impl_.height_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ScannableArea::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ScannableArea::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // double width = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 9)) {
-          width_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.width_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -619,7 +632,7 @@ const char* ScannableArea::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
       // double height = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 17)) {
-          height_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.height_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -660,7 +673,7 @@ uint8_t* ScannableArea::_InternalSerialize(
   memcpy(&raw_width, &tmp_width, sizeof(tmp_width));
   if (raw_width != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_width(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(1, this->_internal_width(), target);
   }
 
   // double height = 2;
@@ -670,7 +683,7 @@ uint8_t* ScannableArea::_InternalSerialize(
   memcpy(&raw_height, &tmp_height, sizeof(tmp_height));
   if (raw_height != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_height(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(2, this->_internal_height(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -710,20 +723,21 @@ size_t ScannableArea::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ScannableArea::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ScannableArea*>(
+  MergeFrom(*::_pbi::DownCast<const ScannableArea*>(
       &from));
 }
 
 void ScannableArea::MergeFrom(const ScannableArea& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.ScannableArea)
-  GOOGLE_DCHECK_NE(&from, this);
+  ScannableArea* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.ScannableArea)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -732,16 +746,16 @@ void ScannableArea::MergeFrom(const ScannableArea& from) {
   uint64_t raw_width;
   memcpy(&raw_width, &tmp_width, sizeof(tmp_width));
   if (raw_width != 0) {
-    _internal_set_width(from._internal_width());
+    _this->_internal_set_width(from._internal_width());
   }
   static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
   double tmp_height = from._internal_height();
   uint64_t raw_height;
   memcpy(&raw_height, &tmp_height, sizeof(tmp_height));
   if (raw_height != 0) {
-    _internal_set_height(from._internal_height());
+    _this->_internal_set_height(from._internal_height());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ScannableArea::CopyFrom(const ScannableArea& from) {
@@ -759,11 +773,11 @@ void ScannableArea::InternalSwap(ScannableArea* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ScannableArea, height_)
-      + sizeof(ScannableArea::height_)
-      - PROTOBUF_FIELD_OFFSET(ScannableArea, width_)>(
-          reinterpret_cast<char*>(&width_),
-          reinterpret_cast<char*>(&other->width_));
+      PROTOBUF_FIELD_OFFSET(ScannableArea, _impl_.height_)
+      + sizeof(ScannableArea::_impl_.height_)
+      - PROTOBUF_FIELD_OFFSET(ScannableArea, _impl_.width_)>(
+          reinterpret_cast<char*>(&_impl_.width_),
+          reinterpret_cast<char*>(&other->_impl_.width_));
 }
 
 std::string ScannableArea::GetTypeName() const {
@@ -780,73 +794,82 @@ class DocumentSource::_Internal {
 
 const ::lorgnette::ScannableArea&
 DocumentSource::_Internal::area(const DocumentSource* msg) {
-  return *msg->area_;
+  return *msg->_impl_.area_;
 }
 DocumentSource::DocumentSource(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  resolutions_(arena),
-  color_modes_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lorgnette.DocumentSource)
 }
 DocumentSource::DocumentSource(const DocumentSource& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      resolutions_(from.resolutions_),
-      color_modes_(from.color_modes_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  DocumentSource* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.resolutions_){from._impl_.resolutions_}
+    , /*decltype(_impl_._resolutions_cached_byte_size_)*/{0}
+    , decltype(_impl_.color_modes_){from._impl_.color_modes_}
+    , /*decltype(_impl_._color_modes_cached_byte_size_)*/{0}
+    , decltype(_impl_.name_){}
+    , decltype(_impl_.area_){nullptr}
+    , decltype(_impl_.type_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_area()) {
-    area_ = new ::lorgnette::ScannableArea(*from.area_);
-  } else {
-    area_ = nullptr;
+    _this->_impl_.area_ = new ::lorgnette::ScannableArea(*from._impl_.area_);
   }
-  type_ = from.type_;
+  _this->_impl_.type_ = from._impl_.type_;
   // @@protoc_insertion_point(copy_constructor:lorgnette.DocumentSource)
 }
 
-inline void DocumentSource::SharedCtor() {
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&area_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&type_) -
-    reinterpret_cast<char*>(&area_)) + sizeof(type_));
+inline void DocumentSource::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.resolutions_){arena}
+    , /*decltype(_impl_._resolutions_cached_byte_size_)*/{0}
+    , decltype(_impl_.color_modes_){arena}
+    , /*decltype(_impl_._color_modes_cached_byte_size_)*/{0}
+    , decltype(_impl_.name_){}
+    , decltype(_impl_.area_){nullptr}
+    , decltype(_impl_.type_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 DocumentSource::~DocumentSource() {
   // @@protoc_insertion_point(destructor:lorgnette.DocumentSource)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void DocumentSource::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete area_;
+  _impl_.resolutions_.~RepeatedField();
+  _impl_.color_modes_.~RepeatedField();
+  _impl_.name_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.area_;
 }
 
-void DocumentSource::ArenaDtor(void* object) {
-  DocumentSource* _this = reinterpret_cast< DocumentSource* >(object);
-  (void)_this;
-}
-void DocumentSource::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void DocumentSource::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void DocumentSource::Clear() {
@@ -855,22 +878,22 @@ void DocumentSource::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  resolutions_.Clear();
-  color_modes_.Clear();
-  name_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && area_ != nullptr) {
-    delete area_;
+  _impl_.resolutions_.Clear();
+  _impl_.color_modes_.Clear();
+  _impl_.name_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.area_ != nullptr) {
+    delete _impl_.area_;
   }
-  area_ = nullptr;
-  type_ = 0;
+  _impl_.area_ = nullptr;
+  _impl_.type_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* DocumentSource::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* DocumentSource::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .lorgnette.SourceType type = 1;
       case 1:
@@ -885,9 +908,9 @@ const char* DocumentSource::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -954,7 +977,7 @@ uint8_t* DocumentSource::_InternalSerialize(
   // .lorgnette.SourceType type = 1;
   if (this->_internal_type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_type(), target);
   }
 
@@ -970,15 +993,14 @@ uint8_t* DocumentSource::_InternalSerialize(
 
   // .lorgnette.ScannableArea area = 3;
   if (this->_internal_has_area()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::area(this), target, stream);
+      InternalWriteMessage(3, _Internal::area(this),
+        _Internal::area(this).GetCachedSize(), target, stream);
   }
 
   // repeated uint32 resolutions = 4;
   {
-    int byte_size = _resolutions_cached_byte_size_.load(std::memory_order_relaxed);
+    int byte_size = _impl_._resolutions_cached_byte_size_.load(std::memory_order_relaxed);
     if (byte_size > 0) {
       target = stream->WriteUInt32Packed(
           4, _internal_resolutions(), byte_size, target);
@@ -987,10 +1009,10 @@ uint8_t* DocumentSource::_InternalSerialize(
 
   // repeated .lorgnette.ColorMode color_modes = 5;
   {
-    int byte_size = _color_modes_cached_byte_size_.load(std::memory_order_relaxed);
+    int byte_size = _impl_._color_modes_cached_byte_size_.load(std::memory_order_relaxed);
     if (byte_size > 0) {
       target = stream->WriteEnumPacked(
-          5, color_modes_, byte_size, target);
+          5, _impl_.color_modes_, byte_size, target);
     }
   }
 
@@ -1012,15 +1034,14 @@ size_t DocumentSource::ByteSizeLong() const {
 
   // repeated uint32 resolutions = 4;
   {
-    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt32Size(this->resolutions_);
+    size_t data_size = ::_pbi::WireFormatLite::
+      UInt32Size(this->_impl_.resolutions_);
     if (data_size > 0) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<int32_t>(data_size));
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
     }
-    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _resolutions_cached_byte_size_.store(cached_size,
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _impl_._resolutions_cached_byte_size_.store(cached_size,
                                     std::memory_order_relaxed);
     total_size += data_size;
   }
@@ -1029,16 +1050,15 @@ size_t DocumentSource::ByteSizeLong() const {
   {
     size_t data_size = 0;
     unsigned int count = static_cast<unsigned int>(this->_internal_color_modes_size());for (unsigned int i = 0; i < count; i++) {
-      data_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(
+      data_size += ::_pbi::WireFormatLite::EnumSize(
         this->_internal_color_modes(static_cast<int>(i)));
     }
     if (data_size > 0) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<int32_t>(data_size));
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
     }
-    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _color_modes_cached_byte_size_.store(cached_size,
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _impl_._color_modes_cached_byte_size_.store(cached_size,
                                     std::memory_order_relaxed);
     total_size += data_size;
   }
@@ -1054,47 +1074,49 @@ size_t DocumentSource::ByteSizeLong() const {
   if (this->_internal_has_area()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *area_);
+        *_impl_.area_);
   }
 
   // .lorgnette.SourceType type = 1;
   if (this->_internal_type() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void DocumentSource::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const DocumentSource*>(
+  MergeFrom(*::_pbi::DownCast<const DocumentSource*>(
       &from));
 }
 
 void DocumentSource::MergeFrom(const DocumentSource& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.DocumentSource)
-  GOOGLE_DCHECK_NE(&from, this);
+  DocumentSource* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.DocumentSource)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  resolutions_.MergeFrom(from.resolutions_);
-  color_modes_.MergeFrom(from.color_modes_);
+  _this->_impl_.resolutions_.MergeFrom(from._impl_.resolutions_);
+  _this->_impl_.color_modes_.MergeFrom(from._impl_.color_modes_);
   if (!from._internal_name().empty()) {
-    _internal_set_name(from._internal_name());
+    _this->_internal_set_name(from._internal_name());
   }
   if (from._internal_has_area()) {
-    _internal_mutable_area()->::lorgnette::ScannableArea::MergeFrom(from._internal_area());
+    _this->_internal_mutable_area()->::lorgnette::ScannableArea::MergeFrom(
+        from._internal_area());
   }
   if (from._internal_type() != 0) {
-    _internal_set_type(from._internal_type());
+    _this->_internal_set_type(from._internal_type());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void DocumentSource::CopyFrom(const DocumentSource& from) {
@@ -1113,19 +1135,18 @@ void DocumentSource::InternalSwap(DocumentSource* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  resolutions_.InternalSwap(&other->resolutions_);
-  color_modes_.InternalSwap(&other->color_modes_);
+  _impl_.resolutions_.InternalSwap(&other->_impl_.resolutions_);
+  _impl_.color_modes_.InternalSwap(&other->_impl_.color_modes_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, lhs_arena,
-      &other->name_, rhs_arena
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DocumentSource, type_)
-      + sizeof(DocumentSource::type_)
-      - PROTOBUF_FIELD_OFFSET(DocumentSource, area_)>(
-          reinterpret_cast<char*>(&area_),
-          reinterpret_cast<char*>(&other->area_));
+      PROTOBUF_FIELD_OFFSET(DocumentSource, _impl_.type_)
+      + sizeof(DocumentSource::_impl_.type_)
+      - PROTOBUF_FIELD_OFFSET(DocumentSource, _impl_.area_)>(
+          reinterpret_cast<char*>(&_impl_.area_),
+          reinterpret_cast<char*>(&other->_impl_.area_));
 }
 
 std::string DocumentSource::GetTypeName() const {
@@ -1142,92 +1163,103 @@ class ScannerInfo::_Internal {
 ScannerInfo::ScannerInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lorgnette.ScannerInfo)
 }
 ScannerInfo::ScannerInfo(const ScannerInfo& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ScannerInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.manufacturer_){}
+    , decltype(_impl_.model_){}
+    , decltype(_impl_.type_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
   }
-  manufacturer_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.manufacturer_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    manufacturer_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.manufacturer_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_manufacturer().empty()) {
-    manufacturer_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_manufacturer(), 
-      GetArenaForAllocation());
+    _this->_impl_.manufacturer_.Set(from._internal_manufacturer(), 
+      _this->GetArenaForAllocation());
   }
-  model_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.model_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    model_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.model_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_model().empty()) {
-    model_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_model(), 
-      GetArenaForAllocation());
+    _this->_impl_.model_.Set(from._internal_model(), 
+      _this->GetArenaForAllocation());
   }
-  type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.type_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.type_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_type().empty()) {
-    type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_type(), 
-      GetArenaForAllocation());
+    _this->_impl_.type_.Set(from._internal_type(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:lorgnette.ScannerInfo)
 }
 
-inline void ScannerInfo::SharedCtor() {
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-manufacturer_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  manufacturer_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-model_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  model_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void ScannerInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.manufacturer_){}
+    , decltype(_impl_.model_){}
+    , decltype(_impl_.type_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.manufacturer_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.manufacturer_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.model_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.model_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.type_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.type_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ScannerInfo::~ScannerInfo() {
   // @@protoc_insertion_point(destructor:lorgnette.ScannerInfo)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ScannerInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  manufacturer_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  model_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  type_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.Destroy();
+  _impl_.manufacturer_.Destroy();
+  _impl_.model_.Destroy();
+  _impl_.type_.Destroy();
 }
 
-void ScannerInfo::ArenaDtor(void* object) {
-  ScannerInfo* _this = reinterpret_cast< ScannerInfo* >(object);
-  (void)_this;
-}
-void ScannerInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ScannerInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ScannerInfo::Clear() {
@@ -1236,26 +1268,26 @@ void ScannerInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmpty();
-  manufacturer_.ClearToEmpty();
-  model_.ClearToEmpty();
-  type_.ClearToEmpty();
+  _impl_.name_.ClearToEmpty();
+  _impl_.manufacturer_.ClearToEmpty();
+  _impl_.model_.ClearToEmpty();
+  _impl_.type_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ScannerInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ScannerInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1263,9 +1295,9 @@ const char* ScannerInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_manufacturer();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1273,9 +1305,9 @@ const char* ScannerInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_model();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1283,9 +1315,9 @@ const char* ScannerInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_type();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1405,36 +1437,37 @@ size_t ScannerInfo::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ScannerInfo::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ScannerInfo*>(
+  MergeFrom(*::_pbi::DownCast<const ScannerInfo*>(
       &from));
 }
 
 void ScannerInfo::MergeFrom(const ScannerInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.ScannerInfo)
-  GOOGLE_DCHECK_NE(&from, this);
+  ScannerInfo* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.ScannerInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_name().empty()) {
-    _internal_set_name(from._internal_name());
+    _this->_internal_set_name(from._internal_name());
   }
   if (!from._internal_manufacturer().empty()) {
-    _internal_set_manufacturer(from._internal_manufacturer());
+    _this->_internal_set_manufacturer(from._internal_manufacturer());
   }
   if (!from._internal_model().empty()) {
-    _internal_set_model(from._internal_model());
+    _this->_internal_set_model(from._internal_model());
   }
   if (!from._internal_type().empty()) {
-    _internal_set_type(from._internal_type());
+    _this->_internal_set_type(from._internal_type());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ScannerInfo::CopyFrom(const ScannerInfo& from) {
@@ -1454,24 +1487,20 @@ void ScannerInfo::InternalSwap(ScannerInfo* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, lhs_arena,
-      &other->name_, rhs_arena
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &manufacturer_, lhs_arena,
-      &other->manufacturer_, rhs_arena
+      &_impl_.manufacturer_, lhs_arena,
+      &other->_impl_.manufacturer_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &model_, lhs_arena,
-      &other->model_, rhs_arena
+      &_impl_.model_, lhs_arena,
+      &other->_impl_.model_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &type_, lhs_arena,
-      &other->type_, rhs_arena
+      &_impl_.type_, lhs_arena,
+      &other->_impl_.type_, rhs_arena
   );
 }
 
@@ -1488,43 +1517,47 @@ class ListScannersResponse::_Internal {
 
 ListScannersResponse::ListScannersResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  scanners_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lorgnette.ListScannersResponse)
 }
 ListScannersResponse::ListScannersResponse(const ListScannersResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      scanners_(from.scanners_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ListScannersResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.scanners_){from._impl_.scanners_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:lorgnette.ListScannersResponse)
 }
 
-inline void ListScannersResponse::SharedCtor() {
+inline void ListScannersResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.scanners_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 ListScannersResponse::~ListScannersResponse() {
   // @@protoc_insertion_point(destructor:lorgnette.ListScannersResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ListScannersResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.scanners_.~RepeatedPtrField();
 }
 
-void ListScannersResponse::ArenaDtor(void* object) {
-  ListScannersResponse* _this = reinterpret_cast< ListScannersResponse* >(object);
-  (void)_this;
-}
-void ListScannersResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ListScannersResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ListScannersResponse::Clear() {
@@ -1533,15 +1566,15 @@ void ListScannersResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  scanners_.Clear();
+  _impl_.scanners_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ListScannersResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ListScannersResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .lorgnette.ScannerInfo scanners = 1;
       case 1:
@@ -1586,11 +1619,11 @@ uint8_t* ListScannersResponse::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .lorgnette.ScannerInfo scanners = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_scanners_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_scanners_size()); i < n; i++) {
+    const auto& repfield = this->_internal_scanners(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_scanners(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1611,7 +1644,7 @@ size_t ListScannersResponse::ByteSizeLong() const {
 
   // repeated .lorgnette.ScannerInfo scanners = 1;
   total_size += 1UL * this->_internal_scanners_size();
-  for (const auto& msg : this->scanners_) {
+  for (const auto& msg : this->_impl_.scanners_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1619,25 +1652,26 @@ size_t ListScannersResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ListScannersResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ListScannersResponse*>(
+  MergeFrom(*::_pbi::DownCast<const ListScannersResponse*>(
       &from));
 }
 
 void ListScannersResponse::MergeFrom(const ListScannersResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.ListScannersResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  ListScannersResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.ListScannersResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  scanners_.MergeFrom(from.scanners_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.scanners_.MergeFrom(from._impl_.scanners_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ListScannersResponse::CopyFrom(const ListScannersResponse& from) {
@@ -1654,7 +1688,7 @@ bool ListScannersResponse::IsInitialized() const {
 void ListScannersResponse::InternalSwap(ListScannersResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  scanners_.InternalSwap(&other->scanners_);
+  _impl_.scanners_.InternalSwap(&other->_impl_.scanners_);
 }
 
 std::string ListScannersResponse::GetTypeName() const {
@@ -1670,47 +1704,57 @@ class ScannerCapabilities::_Internal {
 
 ScannerCapabilities::ScannerCapabilities(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  resolutions_(arena),
-  sources_(arena),
-  color_modes_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lorgnette.ScannerCapabilities)
 }
 ScannerCapabilities::ScannerCapabilities(const ScannerCapabilities& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      resolutions_(from.resolutions_),
-      sources_(from.sources_),
-      color_modes_(from.color_modes_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ScannerCapabilities* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.resolutions_){from._impl_.resolutions_}
+    , /*decltype(_impl_._resolutions_cached_byte_size_)*/{0}
+    , decltype(_impl_.sources_){from._impl_.sources_}
+    , decltype(_impl_.color_modes_){from._impl_.color_modes_}
+    , /*decltype(_impl_._color_modes_cached_byte_size_)*/{0}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:lorgnette.ScannerCapabilities)
 }
 
-inline void ScannerCapabilities::SharedCtor() {
+inline void ScannerCapabilities::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.resolutions_){arena}
+    , /*decltype(_impl_._resolutions_cached_byte_size_)*/{0}
+    , decltype(_impl_.sources_){arena}
+    , decltype(_impl_.color_modes_){arena}
+    , /*decltype(_impl_._color_modes_cached_byte_size_)*/{0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 ScannerCapabilities::~ScannerCapabilities() {
   // @@protoc_insertion_point(destructor:lorgnette.ScannerCapabilities)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ScannerCapabilities::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.resolutions_.~RepeatedField();
+  _impl_.sources_.~RepeatedPtrField();
+  _impl_.color_modes_.~RepeatedField();
 }
 
-void ScannerCapabilities::ArenaDtor(void* object) {
-  ScannerCapabilities* _this = reinterpret_cast< ScannerCapabilities* >(object);
-  (void)_this;
-}
-void ScannerCapabilities::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ScannerCapabilities::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ScannerCapabilities::Clear() {
@@ -1719,17 +1763,17 @@ void ScannerCapabilities::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  resolutions_.Clear();
-  sources_.Clear();
-  color_modes_.Clear();
+  _impl_.resolutions_.Clear();
+  _impl_.sources_.Clear();
+  _impl_.color_modes_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ScannerCapabilities::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ScannerCapabilities::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated uint32 resolutions = 1;
       case 1:
@@ -1798,7 +1842,7 @@ uint8_t* ScannerCapabilities::_InternalSerialize(
 
   // repeated uint32 resolutions = 1;
   {
-    int byte_size = _resolutions_cached_byte_size_.load(std::memory_order_relaxed);
+    int byte_size = _impl_._resolutions_cached_byte_size_.load(std::memory_order_relaxed);
     if (byte_size > 0) {
       target = stream->WriteUInt32Packed(
           1, _internal_resolutions(), byte_size, target);
@@ -1806,19 +1850,19 @@ uint8_t* ScannerCapabilities::_InternalSerialize(
   }
 
   // repeated .lorgnette.DocumentSource sources = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_sources_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_sources_size()); i < n; i++) {
+    const auto& repfield = this->_internal_sources(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_sources(i), target, stream);
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // repeated .lorgnette.ColorMode color_modes = 3;
   {
-    int byte_size = _color_modes_cached_byte_size_.load(std::memory_order_relaxed);
+    int byte_size = _impl_._color_modes_cached_byte_size_.load(std::memory_order_relaxed);
     if (byte_size > 0) {
       target = stream->WriteEnumPacked(
-          3, color_modes_, byte_size, target);
+          3, _impl_.color_modes_, byte_size, target);
     }
   }
 
@@ -1840,22 +1884,21 @@ size_t ScannerCapabilities::ByteSizeLong() const {
 
   // repeated uint32 resolutions = 1;
   {
-    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt32Size(this->resolutions_);
+    size_t data_size = ::_pbi::WireFormatLite::
+      UInt32Size(this->_impl_.resolutions_);
     if (data_size > 0) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<int32_t>(data_size));
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
     }
-    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _resolutions_cached_byte_size_.store(cached_size,
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _impl_._resolutions_cached_byte_size_.store(cached_size,
                                     std::memory_order_relaxed);
     total_size += data_size;
   }
 
   // repeated .lorgnette.DocumentSource sources = 2;
   total_size += 1UL * this->_internal_sources_size();
-  for (const auto& msg : this->sources_) {
+  for (const auto& msg : this->_impl_.sources_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1864,16 +1907,15 @@ size_t ScannerCapabilities::ByteSizeLong() const {
   {
     size_t data_size = 0;
     unsigned int count = static_cast<unsigned int>(this->_internal_color_modes_size());for (unsigned int i = 0; i < count; i++) {
-      data_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(
+      data_size += ::_pbi::WireFormatLite::EnumSize(
         this->_internal_color_modes(static_cast<int>(i)));
     }
     if (data_size > 0) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-            static_cast<int32_t>(data_size));
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
     }
-    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
-    _color_modes_cached_byte_size_.store(cached_size,
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _impl_._color_modes_cached_byte_size_.store(cached_size,
                                     std::memory_order_relaxed);
     total_size += data_size;
   }
@@ -1881,27 +1923,28 @@ size_t ScannerCapabilities::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ScannerCapabilities::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ScannerCapabilities*>(
+  MergeFrom(*::_pbi::DownCast<const ScannerCapabilities*>(
       &from));
 }
 
 void ScannerCapabilities::MergeFrom(const ScannerCapabilities& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.ScannerCapabilities)
-  GOOGLE_DCHECK_NE(&from, this);
+  ScannerCapabilities* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.ScannerCapabilities)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  resolutions_.MergeFrom(from.resolutions_);
-  sources_.MergeFrom(from.sources_);
-  color_modes_.MergeFrom(from.color_modes_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.resolutions_.MergeFrom(from._impl_.resolutions_);
+  _this->_impl_.sources_.MergeFrom(from._impl_.sources_);
+  _this->_impl_.color_modes_.MergeFrom(from._impl_.color_modes_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ScannerCapabilities::CopyFrom(const ScannerCapabilities& from) {
@@ -1918,9 +1961,9 @@ bool ScannerCapabilities::IsInitialized() const {
 void ScannerCapabilities::InternalSwap(ScannerCapabilities* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  resolutions_.InternalSwap(&other->resolutions_);
-  sources_.InternalSwap(&other->sources_);
-  color_modes_.InternalSwap(&other->color_modes_);
+  _impl_.resolutions_.InternalSwap(&other->_impl_.resolutions_);
+  _impl_.sources_.InternalSwap(&other->_impl_.sources_);
+  _impl_.color_modes_.InternalSwap(&other->_impl_.color_modes_);
 }
 
 std::string ScannerCapabilities::GetTypeName() const {
@@ -1937,47 +1980,54 @@ class ScanRegion::_Internal {
 ScanRegion::ScanRegion(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lorgnette.ScanRegion)
 }
 ScanRegion::ScanRegion(const ScanRegion& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ScanRegion* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.top_left_x_){}
+    , decltype(_impl_.top_left_y_){}
+    , decltype(_impl_.bottom_right_x_){}
+    , decltype(_impl_.bottom_right_y_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&top_left_x_, &from.top_left_x_,
-    static_cast<size_t>(reinterpret_cast<char*>(&bottom_right_y_) -
-    reinterpret_cast<char*>(&top_left_x_)) + sizeof(bottom_right_y_));
+  ::memcpy(&_impl_.top_left_x_, &from._impl_.top_left_x_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.bottom_right_y_) -
+    reinterpret_cast<char*>(&_impl_.top_left_x_)) + sizeof(_impl_.bottom_right_y_));
   // @@protoc_insertion_point(copy_constructor:lorgnette.ScanRegion)
 }
 
-inline void ScanRegion::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&top_left_x_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&bottom_right_y_) -
-    reinterpret_cast<char*>(&top_left_x_)) + sizeof(bottom_right_y_));
+inline void ScanRegion::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.top_left_x_){0}
+    , decltype(_impl_.top_left_y_){0}
+    , decltype(_impl_.bottom_right_x_){0}
+    , decltype(_impl_.bottom_right_y_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 ScanRegion::~ScanRegion() {
   // @@protoc_insertion_point(destructor:lorgnette.ScanRegion)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ScanRegion::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void ScanRegion::ArenaDtor(void* object) {
-  ScanRegion* _this = reinterpret_cast< ScanRegion* >(object);
-  (void)_this;
-}
-void ScanRegion::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ScanRegion::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ScanRegion::Clear() {
@@ -1986,22 +2036,22 @@ void ScanRegion::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&top_left_x_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&bottom_right_y_) -
-      reinterpret_cast<char*>(&top_left_x_)) + sizeof(bottom_right_y_));
+  ::memset(&_impl_.top_left_x_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.bottom_right_y_) -
+      reinterpret_cast<char*>(&_impl_.top_left_x_)) + sizeof(_impl_.bottom_right_y_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ScanRegion::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ScanRegion::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // double top_left_x = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 9)) {
-          top_left_x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.top_left_x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -2009,7 +2059,7 @@ const char* ScanRegion::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
       // double top_left_y = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 17)) {
-          top_left_y_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.top_left_y_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -2017,7 +2067,7 @@ const char* ScanRegion::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
       // double bottom_right_x = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 25)) {
-          bottom_right_x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.bottom_right_x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -2025,7 +2075,7 @@ const char* ScanRegion::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
       // double bottom_right_y = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 33)) {
-          bottom_right_y_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          _impl_.bottom_right_y_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else
           goto handle_unusual;
@@ -2066,7 +2116,7 @@ uint8_t* ScanRegion::_InternalSerialize(
   memcpy(&raw_top_left_x, &tmp_top_left_x, sizeof(tmp_top_left_x));
   if (raw_top_left_x != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(1, this->_internal_top_left_x(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(1, this->_internal_top_left_x(), target);
   }
 
   // double top_left_y = 2;
@@ -2076,7 +2126,7 @@ uint8_t* ScanRegion::_InternalSerialize(
   memcpy(&raw_top_left_y, &tmp_top_left_y, sizeof(tmp_top_left_y));
   if (raw_top_left_y != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_top_left_y(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(2, this->_internal_top_left_y(), target);
   }
 
   // double bottom_right_x = 3;
@@ -2086,7 +2136,7 @@ uint8_t* ScanRegion::_InternalSerialize(
   memcpy(&raw_bottom_right_x, &tmp_bottom_right_x, sizeof(tmp_bottom_right_x));
   if (raw_bottom_right_x != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_bottom_right_x(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(3, this->_internal_bottom_right_x(), target);
   }
 
   // double bottom_right_y = 4;
@@ -2096,7 +2146,7 @@ uint8_t* ScanRegion::_InternalSerialize(
   memcpy(&raw_bottom_right_y, &tmp_bottom_right_y, sizeof(tmp_bottom_right_y));
   if (raw_bottom_right_y != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(4, this->_internal_bottom_right_y(), target);
+    target = ::_pbi::WireFormatLite::WriteDoubleToArray(4, this->_internal_bottom_right_y(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2154,20 +2204,21 @@ size_t ScanRegion::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ScanRegion::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ScanRegion*>(
+  MergeFrom(*::_pbi::DownCast<const ScanRegion*>(
       &from));
 }
 
 void ScanRegion::MergeFrom(const ScanRegion& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.ScanRegion)
-  GOOGLE_DCHECK_NE(&from, this);
+  ScanRegion* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.ScanRegion)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -2176,30 +2227,30 @@ void ScanRegion::MergeFrom(const ScanRegion& from) {
   uint64_t raw_top_left_x;
   memcpy(&raw_top_left_x, &tmp_top_left_x, sizeof(tmp_top_left_x));
   if (raw_top_left_x != 0) {
-    _internal_set_top_left_x(from._internal_top_left_x());
+    _this->_internal_set_top_left_x(from._internal_top_left_x());
   }
   static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
   double tmp_top_left_y = from._internal_top_left_y();
   uint64_t raw_top_left_y;
   memcpy(&raw_top_left_y, &tmp_top_left_y, sizeof(tmp_top_left_y));
   if (raw_top_left_y != 0) {
-    _internal_set_top_left_y(from._internal_top_left_y());
+    _this->_internal_set_top_left_y(from._internal_top_left_y());
   }
   static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
   double tmp_bottom_right_x = from._internal_bottom_right_x();
   uint64_t raw_bottom_right_x;
   memcpy(&raw_bottom_right_x, &tmp_bottom_right_x, sizeof(tmp_bottom_right_x));
   if (raw_bottom_right_x != 0) {
-    _internal_set_bottom_right_x(from._internal_bottom_right_x());
+    _this->_internal_set_bottom_right_x(from._internal_bottom_right_x());
   }
   static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
   double tmp_bottom_right_y = from._internal_bottom_right_y();
   uint64_t raw_bottom_right_y;
   memcpy(&raw_bottom_right_y, &tmp_bottom_right_y, sizeof(tmp_bottom_right_y));
   if (raw_bottom_right_y != 0) {
-    _internal_set_bottom_right_y(from._internal_bottom_right_y());
+    _this->_internal_set_bottom_right_y(from._internal_bottom_right_y());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ScanRegion::CopyFrom(const ScanRegion& from) {
@@ -2217,11 +2268,11 @@ void ScanRegion::InternalSwap(ScanRegion* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ScanRegion, bottom_right_y_)
-      + sizeof(ScanRegion::bottom_right_y_)
-      - PROTOBUF_FIELD_OFFSET(ScanRegion, top_left_x_)>(
-          reinterpret_cast<char*>(&top_left_x_),
-          reinterpret_cast<char*>(&other->top_left_x_));
+      PROTOBUF_FIELD_OFFSET(ScanRegion, _impl_.bottom_right_y_)
+      + sizeof(ScanRegion::_impl_.bottom_right_y_)
+      - PROTOBUF_FIELD_OFFSET(ScanRegion, _impl_.top_left_x_)>(
+          reinterpret_cast<char*>(&_impl_.top_left_x_),
+          reinterpret_cast<char*>(&other->_impl_.top_left_x_));
 }
 
 std::string ScanRegion::GetTypeName() const {
@@ -2238,71 +2289,78 @@ class ScanSettings::_Internal {
 
 const ::lorgnette::ScanRegion&
 ScanSettings::_Internal::scan_region(const ScanSettings* msg) {
-  return *msg->scan_region_;
+  return *msg->_impl_.scan_region_;
 }
 ScanSettings::ScanSettings(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lorgnette.ScanSettings)
 }
 ScanSettings::ScanSettings(const ScanSettings& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ScanSettings* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.source_name_){}
+    , decltype(_impl_.scan_region_){nullptr}
+    , decltype(_impl_.resolution_){}
+    , decltype(_impl_.color_mode_){}
+    , decltype(_impl_.image_format_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  source_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.source_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    source_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.source_name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_source_name().empty()) {
-    source_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_source_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.source_name_.Set(from._internal_source_name(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_scan_region()) {
-    scan_region_ = new ::lorgnette::ScanRegion(*from.scan_region_);
-  } else {
-    scan_region_ = nullptr;
+    _this->_impl_.scan_region_ = new ::lorgnette::ScanRegion(*from._impl_.scan_region_);
   }
-  ::memcpy(&resolution_, &from.resolution_,
-    static_cast<size_t>(reinterpret_cast<char*>(&image_format_) -
-    reinterpret_cast<char*>(&resolution_)) + sizeof(image_format_));
+  ::memcpy(&_impl_.resolution_, &from._impl_.resolution_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.image_format_) -
+    reinterpret_cast<char*>(&_impl_.resolution_)) + sizeof(_impl_.image_format_));
   // @@protoc_insertion_point(copy_constructor:lorgnette.ScanSettings)
 }
 
-inline void ScanSettings::SharedCtor() {
-source_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  source_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&scan_region_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&image_format_) -
-    reinterpret_cast<char*>(&scan_region_)) + sizeof(image_format_));
+inline void ScanSettings::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.source_name_){}
+    , decltype(_impl_.scan_region_){nullptr}
+    , decltype(_impl_.resolution_){0u}
+    , decltype(_impl_.color_mode_){0}
+    , decltype(_impl_.image_format_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.source_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.source_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ScanSettings::~ScanSettings() {
   // @@protoc_insertion_point(destructor:lorgnette.ScanSettings)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ScanSettings::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  source_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete scan_region_;
+  _impl_.source_name_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.scan_region_;
 }
 
-void ScanSettings::ArenaDtor(void* object) {
-  ScanSettings* _this = reinterpret_cast< ScanSettings* >(object);
-  (void)_this;
-}
-void ScanSettings::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ScanSettings::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ScanSettings::Clear() {
@@ -2311,27 +2369,27 @@ void ScanSettings::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  source_name_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && scan_region_ != nullptr) {
-    delete scan_region_;
+  _impl_.source_name_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.scan_region_ != nullptr) {
+    delete _impl_.scan_region_;
   }
-  scan_region_ = nullptr;
-  ::memset(&resolution_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&image_format_) -
-      reinterpret_cast<char*>(&resolution_)) + sizeof(image_format_));
+  _impl_.scan_region_ = nullptr;
+  ::memset(&_impl_.resolution_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.image_format_) -
+      reinterpret_cast<char*>(&_impl_.resolution_)) + sizeof(_impl_.image_format_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ScanSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ScanSettings::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint32 resolution = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          resolution_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.resolution_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2349,9 +2407,9 @@ const char* ScanSettings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_source_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -2404,13 +2462,13 @@ uint8_t* ScanSettings::_InternalSerialize(
   // uint32 resolution = 1;
   if (this->_internal_resolution() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_resolution(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_resolution(), target);
   }
 
   // .lorgnette.ColorMode color_mode = 3;
   if (this->_internal_color_mode() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_color_mode(), target);
   }
 
@@ -2426,16 +2484,15 @@ uint8_t* ScanSettings::_InternalSerialize(
 
   // .lorgnette.ScanRegion scan_region = 5;
   if (this->_internal_has_scan_region()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        5, _Internal::scan_region(this), target, stream);
+      InternalWriteMessage(5, _Internal::scan_region(this),
+        _Internal::scan_region(this).GetCachedSize(), target, stream);
   }
 
   // .lorgnette.ImageFormat image_format = 6;
   if (this->_internal_image_format() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       6, this->_internal_image_format(), target);
   }
 
@@ -2466,62 +2523,64 @@ size_t ScanSettings::ByteSizeLong() const {
   if (this->_internal_has_scan_region()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *scan_region_);
+        *_impl_.scan_region_);
   }
 
   // uint32 resolution = 1;
   if (this->_internal_resolution() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_resolution());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_resolution());
   }
 
   // .lorgnette.ColorMode color_mode = 3;
   if (this->_internal_color_mode() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_color_mode());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_color_mode());
   }
 
   // .lorgnette.ImageFormat image_format = 6;
   if (this->_internal_image_format() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_image_format());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_image_format());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ScanSettings::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ScanSettings*>(
+  MergeFrom(*::_pbi::DownCast<const ScanSettings*>(
       &from));
 }
 
 void ScanSettings::MergeFrom(const ScanSettings& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.ScanSettings)
-  GOOGLE_DCHECK_NE(&from, this);
+  ScanSettings* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.ScanSettings)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_source_name().empty()) {
-    _internal_set_source_name(from._internal_source_name());
+    _this->_internal_set_source_name(from._internal_source_name());
   }
   if (from._internal_has_scan_region()) {
-    _internal_mutable_scan_region()->::lorgnette::ScanRegion::MergeFrom(from._internal_scan_region());
+    _this->_internal_mutable_scan_region()->::lorgnette::ScanRegion::MergeFrom(
+        from._internal_scan_region());
   }
   if (from._internal_resolution() != 0) {
-    _internal_set_resolution(from._internal_resolution());
+    _this->_internal_set_resolution(from._internal_resolution());
   }
   if (from._internal_color_mode() != 0) {
-    _internal_set_color_mode(from._internal_color_mode());
+    _this->_internal_set_color_mode(from._internal_color_mode());
   }
   if (from._internal_image_format() != 0) {
-    _internal_set_image_format(from._internal_image_format());
+    _this->_internal_set_image_format(from._internal_image_format());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ScanSettings::CopyFrom(const ScanSettings& from) {
@@ -2541,16 +2600,15 @@ void ScanSettings::InternalSwap(ScanSettings* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &source_name_, lhs_arena,
-      &other->source_name_, rhs_arena
+      &_impl_.source_name_, lhs_arena,
+      &other->_impl_.source_name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ScanSettings, image_format_)
-      + sizeof(ScanSettings::image_format_)
-      - PROTOBUF_FIELD_OFFSET(ScanSettings, scan_region_)>(
-          reinterpret_cast<char*>(&scan_region_),
-          reinterpret_cast<char*>(&other->scan_region_));
+      PROTOBUF_FIELD_OFFSET(ScanSettings, _impl_.image_format_)
+      + sizeof(ScanSettings::_impl_.image_format_)
+      - PROTOBUF_FIELD_OFFSET(ScanSettings, _impl_.scan_region_)>(
+          reinterpret_cast<char*>(&_impl_.scan_region_),
+          reinterpret_cast<char*>(&other->_impl_.scan_region_));
 }
 
 std::string ScanSettings::GetTypeName() const {
@@ -2567,65 +2625,69 @@ class StartScanRequest::_Internal {
 
 const ::lorgnette::ScanSettings&
 StartScanRequest::_Internal::settings(const StartScanRequest* msg) {
-  return *msg->settings_;
+  return *msg->_impl_.settings_;
 }
 StartScanRequest::StartScanRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lorgnette.StartScanRequest)
 }
 StartScanRequest::StartScanRequest(const StartScanRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  StartScanRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.device_name_){}
+    , decltype(_impl_.settings_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  device_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.device_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    device_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.device_name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_device_name().empty()) {
-    device_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_device_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.device_name_.Set(from._internal_device_name(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_settings()) {
-    settings_ = new ::lorgnette::ScanSettings(*from.settings_);
-  } else {
-    settings_ = nullptr;
+    _this->_impl_.settings_ = new ::lorgnette::ScanSettings(*from._impl_.settings_);
   }
   // @@protoc_insertion_point(copy_constructor:lorgnette.StartScanRequest)
 }
 
-inline void StartScanRequest::SharedCtor() {
-device_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  device_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-settings_ = nullptr;
+inline void StartScanRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.device_name_){}
+    , decltype(_impl_.settings_){nullptr}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.device_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.device_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 StartScanRequest::~StartScanRequest() {
   // @@protoc_insertion_point(destructor:lorgnette.StartScanRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void StartScanRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  device_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete settings_;
+  _impl_.device_name_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.settings_;
 }
 
-void StartScanRequest::ArenaDtor(void* object) {
-  StartScanRequest* _this = reinterpret_cast< StartScanRequest* >(object);
-  (void)_this;
-}
-void StartScanRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void StartScanRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void StartScanRequest::Clear() {
@@ -2634,27 +2696,27 @@ void StartScanRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  device_name_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && settings_ != nullptr) {
-    delete settings_;
+  _impl_.device_name_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.settings_ != nullptr) {
+    delete _impl_.settings_;
   }
-  settings_ = nullptr;
+  _impl_.settings_ = nullptr;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* StartScanRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* StartScanRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string device_name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_device_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -2707,10 +2769,9 @@ uint8_t* StartScanRequest::_InternalSerialize(
 
   // .lorgnette.ScanSettings settings = 2;
   if (this->_internal_has_settings()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::settings(this), target, stream);
+      InternalWriteMessage(2, _Internal::settings(this),
+        _Internal::settings(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2740,36 +2801,38 @@ size_t StartScanRequest::ByteSizeLong() const {
   if (this->_internal_has_settings()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *settings_);
+        *_impl_.settings_);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void StartScanRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const StartScanRequest*>(
+  MergeFrom(*::_pbi::DownCast<const StartScanRequest*>(
       &from));
 }
 
 void StartScanRequest::MergeFrom(const StartScanRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.StartScanRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  StartScanRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.StartScanRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_device_name().empty()) {
-    _internal_set_device_name(from._internal_device_name());
+    _this->_internal_set_device_name(from._internal_device_name());
   }
   if (from._internal_has_settings()) {
-    _internal_mutable_settings()->::lorgnette::ScanSettings::MergeFrom(from._internal_settings());
+    _this->_internal_mutable_settings()->::lorgnette::ScanSettings::MergeFrom(
+        from._internal_settings());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void StartScanRequest::CopyFrom(const StartScanRequest& from) {
@@ -2789,11 +2852,10 @@ void StartScanRequest::InternalSwap(StartScanRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &device_name_, lhs_arena,
-      &other->device_name_, rhs_arena
+      &_impl_.device_name_, lhs_arena,
+      &other->_impl_.device_name_, rhs_arena
   );
-  swap(settings_, other->settings_);
+  swap(_impl_.settings_, other->_impl_.settings_);
 }
 
 std::string StartScanRequest::GetTypeName() const {
@@ -2810,73 +2872,80 @@ class StartScanResponse::_Internal {
 StartScanResponse::StartScanResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lorgnette.StartScanResponse)
 }
 StartScanResponse::StartScanResponse(const StartScanResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  StartScanResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.failure_reason_){}
+    , decltype(_impl_.scan_uuid_){}
+    , decltype(_impl_.state_){}
+    , decltype(_impl_.scan_failure_mode_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  failure_reason_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.failure_reason_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    failure_reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_failure_reason().empty()) {
-    failure_reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_failure_reason(), 
-      GetArenaForAllocation());
+    _this->_impl_.failure_reason_.Set(from._internal_failure_reason(), 
+      _this->GetArenaForAllocation());
   }
-  scan_uuid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.scan_uuid_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    scan_uuid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.scan_uuid_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_scan_uuid().empty()) {
-    scan_uuid_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_scan_uuid(), 
-      GetArenaForAllocation());
+    _this->_impl_.scan_uuid_.Set(from._internal_scan_uuid(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&state_, &from.state_,
-    static_cast<size_t>(reinterpret_cast<char*>(&scan_failure_mode_) -
-    reinterpret_cast<char*>(&state_)) + sizeof(scan_failure_mode_));
+  ::memcpy(&_impl_.state_, &from._impl_.state_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.scan_failure_mode_) -
+    reinterpret_cast<char*>(&_impl_.state_)) + sizeof(_impl_.scan_failure_mode_));
   // @@protoc_insertion_point(copy_constructor:lorgnette.StartScanResponse)
 }
 
-inline void StartScanResponse::SharedCtor() {
-failure_reason_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  failure_reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-scan_uuid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  scan_uuid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&state_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&scan_failure_mode_) -
-    reinterpret_cast<char*>(&state_)) + sizeof(scan_failure_mode_));
+inline void StartScanResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.failure_reason_){}
+    , decltype(_impl_.scan_uuid_){}
+    , decltype(_impl_.state_){0}
+    , decltype(_impl_.scan_failure_mode_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.failure_reason_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.scan_uuid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.scan_uuid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 StartScanResponse::~StartScanResponse() {
   // @@protoc_insertion_point(destructor:lorgnette.StartScanResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void StartScanResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  failure_reason_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  scan_uuid_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.failure_reason_.Destroy();
+  _impl_.scan_uuid_.Destroy();
 }
 
-void StartScanResponse::ArenaDtor(void* object) {
-  StartScanResponse* _this = reinterpret_cast< StartScanResponse* >(object);
-  (void)_this;
-}
-void StartScanResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void StartScanResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void StartScanResponse::Clear() {
@@ -2885,19 +2954,19 @@ void StartScanResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  failure_reason_.ClearToEmpty();
-  scan_uuid_.ClearToEmpty();
-  ::memset(&state_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&scan_failure_mode_) -
-      reinterpret_cast<char*>(&state_)) + sizeof(scan_failure_mode_));
+  _impl_.failure_reason_.ClearToEmpty();
+  _impl_.scan_uuid_.ClearToEmpty();
+  ::memset(&_impl_.state_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.scan_failure_mode_) -
+      reinterpret_cast<char*>(&_impl_.state_)) + sizeof(_impl_.scan_failure_mode_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* StartScanResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* StartScanResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .lorgnette.ScanState state = 1;
       case 1:
@@ -2912,9 +2981,9 @@ const char* StartScanResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_failure_reason();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -2922,9 +2991,9 @@ const char* StartScanResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_scan_uuid();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -2969,7 +3038,7 @@ uint8_t* StartScanResponse::_InternalSerialize(
   // .lorgnette.ScanState state = 1;
   if (this->_internal_state() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_state(), target);
   }
 
@@ -2996,7 +3065,7 @@ uint8_t* StartScanResponse::_InternalSerialize(
   // .lorgnette.ScanFailureMode scan_failure_mode = 4;
   if (this->_internal_scan_failure_mode() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       4, this->_internal_scan_failure_mode(), target);
   }
 
@@ -3033,48 +3102,49 @@ size_t StartScanResponse::ByteSizeLong() const {
   // .lorgnette.ScanState state = 1;
   if (this->_internal_state() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_state());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_state());
   }
 
   // .lorgnette.ScanFailureMode scan_failure_mode = 4;
   if (this->_internal_scan_failure_mode() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_scan_failure_mode());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_scan_failure_mode());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void StartScanResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const StartScanResponse*>(
+  MergeFrom(*::_pbi::DownCast<const StartScanResponse*>(
       &from));
 }
 
 void StartScanResponse::MergeFrom(const StartScanResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.StartScanResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  StartScanResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.StartScanResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_failure_reason().empty()) {
-    _internal_set_failure_reason(from._internal_failure_reason());
+    _this->_internal_set_failure_reason(from._internal_failure_reason());
   }
   if (!from._internal_scan_uuid().empty()) {
-    _internal_set_scan_uuid(from._internal_scan_uuid());
+    _this->_internal_set_scan_uuid(from._internal_scan_uuid());
   }
   if (from._internal_state() != 0) {
-    _internal_set_state(from._internal_state());
+    _this->_internal_set_state(from._internal_state());
   }
   if (from._internal_scan_failure_mode() != 0) {
-    _internal_set_scan_failure_mode(from._internal_scan_failure_mode());
+    _this->_internal_set_scan_failure_mode(from._internal_scan_failure_mode());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void StartScanResponse::CopyFrom(const StartScanResponse& from) {
@@ -3094,21 +3164,19 @@ void StartScanResponse::InternalSwap(StartScanResponse* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &failure_reason_, lhs_arena,
-      &other->failure_reason_, rhs_arena
+      &_impl_.failure_reason_, lhs_arena,
+      &other->_impl_.failure_reason_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &scan_uuid_, lhs_arena,
-      &other->scan_uuid_, rhs_arena
+      &_impl_.scan_uuid_, lhs_arena,
+      &other->_impl_.scan_uuid_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartScanResponse, scan_failure_mode_)
-      + sizeof(StartScanResponse::scan_failure_mode_)
-      - PROTOBUF_FIELD_OFFSET(StartScanResponse, state_)>(
-          reinterpret_cast<char*>(&state_),
-          reinterpret_cast<char*>(&other->state_));
+      PROTOBUF_FIELD_OFFSET(StartScanResponse, _impl_.scan_failure_mode_)
+      + sizeof(StartScanResponse::_impl_.scan_failure_mode_)
+      - PROTOBUF_FIELD_OFFSET(StartScanResponse, _impl_.state_)>(
+          reinterpret_cast<char*>(&_impl_.state_),
+          reinterpret_cast<char*>(&other->_impl_.state_));
 }
 
 std::string StartScanResponse::GetTypeName() const {
@@ -3125,53 +3193,58 @@ class GetNextImageRequest::_Internal {
 GetNextImageRequest::GetNextImageRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lorgnette.GetNextImageRequest)
 }
 GetNextImageRequest::GetNextImageRequest(const GetNextImageRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetNextImageRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.scan_uuid_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  scan_uuid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.scan_uuid_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    scan_uuid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.scan_uuid_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_scan_uuid().empty()) {
-    scan_uuid_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_scan_uuid(), 
-      GetArenaForAllocation());
+    _this->_impl_.scan_uuid_.Set(from._internal_scan_uuid(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:lorgnette.GetNextImageRequest)
 }
 
-inline void GetNextImageRequest::SharedCtor() {
-scan_uuid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  scan_uuid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void GetNextImageRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.scan_uuid_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.scan_uuid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.scan_uuid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetNextImageRequest::~GetNextImageRequest() {
   // @@protoc_insertion_point(destructor:lorgnette.GetNextImageRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void GetNextImageRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  scan_uuid_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.scan_uuid_.Destroy();
 }
 
-void GetNextImageRequest::ArenaDtor(void* object) {
-  GetNextImageRequest* _this = reinterpret_cast< GetNextImageRequest* >(object);
-  (void)_this;
-}
-void GetNextImageRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GetNextImageRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetNextImageRequest::Clear() {
@@ -3180,23 +3253,23 @@ void GetNextImageRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  scan_uuid_.ClearToEmpty();
+  _impl_.scan_uuid_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GetNextImageRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GetNextImageRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string scan_uuid = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_scan_uuid();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -3265,27 +3338,28 @@ size_t GetNextImageRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GetNextImageRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetNextImageRequest*>(
+  MergeFrom(*::_pbi::DownCast<const GetNextImageRequest*>(
       &from));
 }
 
 void GetNextImageRequest::MergeFrom(const GetNextImageRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.GetNextImageRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetNextImageRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.GetNextImageRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_scan_uuid().empty()) {
-    _internal_set_scan_uuid(from._internal_scan_uuid());
+    _this->_internal_set_scan_uuid(from._internal_scan_uuid());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetNextImageRequest::CopyFrom(const GetNextImageRequest& from) {
@@ -3305,9 +3379,8 @@ void GetNextImageRequest::InternalSwap(GetNextImageRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &scan_uuid_, lhs_arena,
-      &other->scan_uuid_, rhs_arena
+      &_impl_.scan_uuid_, lhs_arena,
+      &other->_impl_.scan_uuid_, rhs_arena
   );
 }
 
@@ -3325,60 +3398,65 @@ class GetNextImageResponse::_Internal {
 GetNextImageResponse::GetNextImageResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lorgnette.GetNextImageResponse)
 }
 GetNextImageResponse::GetNextImageResponse(const GetNextImageResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetNextImageResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.failure_reason_){}
+    , decltype(_impl_.success_){}
+    , decltype(_impl_.scan_failure_mode_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  failure_reason_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.failure_reason_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    failure_reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_failure_reason().empty()) {
-    failure_reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_failure_reason(), 
-      GetArenaForAllocation());
+    _this->_impl_.failure_reason_.Set(from._internal_failure_reason(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&success_, &from.success_,
-    static_cast<size_t>(reinterpret_cast<char*>(&scan_failure_mode_) -
-    reinterpret_cast<char*>(&success_)) + sizeof(scan_failure_mode_));
+  ::memcpy(&_impl_.success_, &from._impl_.success_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.scan_failure_mode_) -
+    reinterpret_cast<char*>(&_impl_.success_)) + sizeof(_impl_.scan_failure_mode_));
   // @@protoc_insertion_point(copy_constructor:lorgnette.GetNextImageResponse)
 }
 
-inline void GetNextImageResponse::SharedCtor() {
-failure_reason_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  failure_reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&success_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&scan_failure_mode_) -
-    reinterpret_cast<char*>(&success_)) + sizeof(scan_failure_mode_));
+inline void GetNextImageResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.failure_reason_){}
+    , decltype(_impl_.success_){false}
+    , decltype(_impl_.scan_failure_mode_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.failure_reason_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetNextImageResponse::~GetNextImageResponse() {
   // @@protoc_insertion_point(destructor:lorgnette.GetNextImageResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void GetNextImageResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  failure_reason_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.failure_reason_.Destroy();
 }
 
-void GetNextImageResponse::ArenaDtor(void* object) {
-  GetNextImageResponse* _this = reinterpret_cast< GetNextImageResponse* >(object);
-  (void)_this;
-}
-void GetNextImageResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GetNextImageResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetNextImageResponse::Clear() {
@@ -3387,23 +3465,23 @@ void GetNextImageResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  failure_reason_.ClearToEmpty();
-  ::memset(&success_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&scan_failure_mode_) -
-      reinterpret_cast<char*>(&success_)) + sizeof(scan_failure_mode_));
+  _impl_.failure_reason_.ClearToEmpty();
+  ::memset(&_impl_.success_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.scan_failure_mode_) -
+      reinterpret_cast<char*>(&_impl_.success_)) + sizeof(_impl_.scan_failure_mode_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GetNextImageResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GetNextImageResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bool success = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3412,9 +3490,9 @@ const char* GetNextImageResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAM
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_failure_reason();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -3459,7 +3537,7 @@ uint8_t* GetNextImageResponse::_InternalSerialize(
   // bool success = 1;
   if (this->_internal_success() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
   }
 
   // string failure_reason = 2;
@@ -3475,7 +3553,7 @@ uint8_t* GetNextImageResponse::_InternalSerialize(
   // .lorgnette.ScanFailureMode scan_failure_mode = 3;
   if (this->_internal_scan_failure_mode() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_scan_failure_mode(), target);
   }
 
@@ -3510,39 +3588,40 @@ size_t GetNextImageResponse::ByteSizeLong() const {
   // .lorgnette.ScanFailureMode scan_failure_mode = 3;
   if (this->_internal_scan_failure_mode() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_scan_failure_mode());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_scan_failure_mode());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GetNextImageResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetNextImageResponse*>(
+  MergeFrom(*::_pbi::DownCast<const GetNextImageResponse*>(
       &from));
 }
 
 void GetNextImageResponse::MergeFrom(const GetNextImageResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.GetNextImageResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetNextImageResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.GetNextImageResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_failure_reason().empty()) {
-    _internal_set_failure_reason(from._internal_failure_reason());
+    _this->_internal_set_failure_reason(from._internal_failure_reason());
   }
   if (from._internal_success() != 0) {
-    _internal_set_success(from._internal_success());
+    _this->_internal_set_success(from._internal_success());
   }
   if (from._internal_scan_failure_mode() != 0) {
-    _internal_set_scan_failure_mode(from._internal_scan_failure_mode());
+    _this->_internal_set_scan_failure_mode(from._internal_scan_failure_mode());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetNextImageResponse::CopyFrom(const GetNextImageResponse& from) {
@@ -3562,16 +3641,15 @@ void GetNextImageResponse::InternalSwap(GetNextImageResponse* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &failure_reason_, lhs_arena,
-      &other->failure_reason_, rhs_arena
+      &_impl_.failure_reason_, lhs_arena,
+      &other->_impl_.failure_reason_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetNextImageResponse, scan_failure_mode_)
-      + sizeof(GetNextImageResponse::scan_failure_mode_)
-      - PROTOBUF_FIELD_OFFSET(GetNextImageResponse, success_)>(
-          reinterpret_cast<char*>(&success_),
-          reinterpret_cast<char*>(&other->success_));
+      PROTOBUF_FIELD_OFFSET(GetNextImageResponse, _impl_.scan_failure_mode_)
+      + sizeof(GetNextImageResponse::_impl_.scan_failure_mode_)
+      - PROTOBUF_FIELD_OFFSET(GetNextImageResponse, _impl_.success_)>(
+          reinterpret_cast<char*>(&_impl_.success_),
+          reinterpret_cast<char*>(&other->_impl_.success_));
 }
 
 std::string GetNextImageResponse::GetTypeName() const {
@@ -3588,53 +3666,58 @@ class CancelScanRequest::_Internal {
 CancelScanRequest::CancelScanRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lorgnette.CancelScanRequest)
 }
 CancelScanRequest::CancelScanRequest(const CancelScanRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CancelScanRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.scan_uuid_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  scan_uuid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.scan_uuid_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    scan_uuid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.scan_uuid_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_scan_uuid().empty()) {
-    scan_uuid_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_scan_uuid(), 
-      GetArenaForAllocation());
+    _this->_impl_.scan_uuid_.Set(from._internal_scan_uuid(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:lorgnette.CancelScanRequest)
 }
 
-inline void CancelScanRequest::SharedCtor() {
-scan_uuid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  scan_uuid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void CancelScanRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.scan_uuid_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.scan_uuid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.scan_uuid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CancelScanRequest::~CancelScanRequest() {
   // @@protoc_insertion_point(destructor:lorgnette.CancelScanRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void CancelScanRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  scan_uuid_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.scan_uuid_.Destroy();
 }
 
-void CancelScanRequest::ArenaDtor(void* object) {
-  CancelScanRequest* _this = reinterpret_cast< CancelScanRequest* >(object);
-  (void)_this;
-}
-void CancelScanRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void CancelScanRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CancelScanRequest::Clear() {
@@ -3643,23 +3726,23 @@ void CancelScanRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  scan_uuid_.ClearToEmpty();
+  _impl_.scan_uuid_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* CancelScanRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* CancelScanRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string scan_uuid = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_scan_uuid();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -3728,27 +3811,28 @@ size_t CancelScanRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void CancelScanRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const CancelScanRequest*>(
+  MergeFrom(*::_pbi::DownCast<const CancelScanRequest*>(
       &from));
 }
 
 void CancelScanRequest::MergeFrom(const CancelScanRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.CancelScanRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  CancelScanRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.CancelScanRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_scan_uuid().empty()) {
-    _internal_set_scan_uuid(from._internal_scan_uuid());
+    _this->_internal_set_scan_uuid(from._internal_scan_uuid());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CancelScanRequest::CopyFrom(const CancelScanRequest& from) {
@@ -3768,9 +3852,8 @@ void CancelScanRequest::InternalSwap(CancelScanRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &scan_uuid_, lhs_arena,
-      &other->scan_uuid_, rhs_arena
+      &_impl_.scan_uuid_, lhs_arena,
+      &other->_impl_.scan_uuid_, rhs_arena
   );
 }
 
@@ -3788,55 +3871,61 @@ class CancelScanResponse::_Internal {
 CancelScanResponse::CancelScanResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lorgnette.CancelScanResponse)
 }
 CancelScanResponse::CancelScanResponse(const CancelScanResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CancelScanResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.failure_reason_){}
+    , decltype(_impl_.success_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  failure_reason_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.failure_reason_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    failure_reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_failure_reason().empty()) {
-    failure_reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_failure_reason(), 
-      GetArenaForAllocation());
+    _this->_impl_.failure_reason_.Set(from._internal_failure_reason(), 
+      _this->GetArenaForAllocation());
   }
-  success_ = from.success_;
+  _this->_impl_.success_ = from._impl_.success_;
   // @@protoc_insertion_point(copy_constructor:lorgnette.CancelScanResponse)
 }
 
-inline void CancelScanResponse::SharedCtor() {
-failure_reason_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  failure_reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-success_ = false;
+inline void CancelScanResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.failure_reason_){}
+    , decltype(_impl_.success_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.failure_reason_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CancelScanResponse::~CancelScanResponse() {
   // @@protoc_insertion_point(destructor:lorgnette.CancelScanResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void CancelScanResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  failure_reason_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.failure_reason_.Destroy();
 }
 
-void CancelScanResponse::ArenaDtor(void* object) {
-  CancelScanResponse* _this = reinterpret_cast< CancelScanResponse* >(object);
-  (void)_this;
-}
-void CancelScanResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void CancelScanResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CancelScanResponse::Clear() {
@@ -3845,21 +3934,21 @@ void CancelScanResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  failure_reason_.ClearToEmpty();
-  success_ = false;
+  _impl_.failure_reason_.ClearToEmpty();
+  _impl_.success_ = false;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* CancelScanResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* CancelScanResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bool success = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.success_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3868,9 +3957,9 @@ const char* CancelScanResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_failure_reason();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -3906,7 +3995,7 @@ uint8_t* CancelScanResponse::_InternalSerialize(
   // bool success = 1;
   if (this->_internal_success() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_success(), target);
   }
 
   // string failure_reason = 2;
@@ -3950,30 +4039,31 @@ size_t CancelScanResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void CancelScanResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const CancelScanResponse*>(
+  MergeFrom(*::_pbi::DownCast<const CancelScanResponse*>(
       &from));
 }
 
 void CancelScanResponse::MergeFrom(const CancelScanResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.CancelScanResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  CancelScanResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.CancelScanResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_failure_reason().empty()) {
-    _internal_set_failure_reason(from._internal_failure_reason());
+    _this->_internal_set_failure_reason(from._internal_failure_reason());
   }
   if (from._internal_success() != 0) {
-    _internal_set_success(from._internal_success());
+    _this->_internal_set_success(from._internal_success());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CancelScanResponse::CopyFrom(const CancelScanResponse& from) {
@@ -3993,11 +4083,10 @@ void CancelScanResponse::InternalSwap(CancelScanResponse* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &failure_reason_, lhs_arena,
-      &other->failure_reason_, rhs_arena
+      &_impl_.failure_reason_, lhs_arena,
+      &other->_impl_.failure_reason_, rhs_arena
   );
-  swap(success_, other->success_);
+  swap(_impl_.success_, other->_impl_.success_);
 }
 
 std::string CancelScanResponse::GetTypeName() const {
@@ -4014,73 +4103,86 @@ class ScanStatusChangedSignal::_Internal {
 ScanStatusChangedSignal::ScanStatusChangedSignal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:lorgnette.ScanStatusChangedSignal)
 }
 ScanStatusChangedSignal::ScanStatusChangedSignal(const ScanStatusChangedSignal& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ScanStatusChangedSignal* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.scan_uuid_){}
+    , decltype(_impl_.failure_reason_){}
+    , decltype(_impl_.state_){}
+    , decltype(_impl_.progress_){}
+    , decltype(_impl_.page_){}
+    , decltype(_impl_.more_pages_){}
+    , decltype(_impl_.scan_failure_mode_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  scan_uuid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.scan_uuid_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    scan_uuid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.scan_uuid_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_scan_uuid().empty()) {
-    scan_uuid_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_scan_uuid(), 
-      GetArenaForAllocation());
+    _this->_impl_.scan_uuid_.Set(from._internal_scan_uuid(), 
+      _this->GetArenaForAllocation());
   }
-  failure_reason_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.failure_reason_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    failure_reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_failure_reason().empty()) {
-    failure_reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_failure_reason(), 
-      GetArenaForAllocation());
+    _this->_impl_.failure_reason_.Set(from._internal_failure_reason(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&state_, &from.state_,
-    static_cast<size_t>(reinterpret_cast<char*>(&scan_failure_mode_) -
-    reinterpret_cast<char*>(&state_)) + sizeof(scan_failure_mode_));
+  ::memcpy(&_impl_.state_, &from._impl_.state_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.scan_failure_mode_) -
+    reinterpret_cast<char*>(&_impl_.state_)) + sizeof(_impl_.scan_failure_mode_));
   // @@protoc_insertion_point(copy_constructor:lorgnette.ScanStatusChangedSignal)
 }
 
-inline void ScanStatusChangedSignal::SharedCtor() {
-scan_uuid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  scan_uuid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-failure_reason_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  failure_reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&state_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&scan_failure_mode_) -
-    reinterpret_cast<char*>(&state_)) + sizeof(scan_failure_mode_));
+inline void ScanStatusChangedSignal::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.scan_uuid_){}
+    , decltype(_impl_.failure_reason_){}
+    , decltype(_impl_.state_){0}
+    , decltype(_impl_.progress_){0u}
+    , decltype(_impl_.page_){0u}
+    , decltype(_impl_.more_pages_){false}
+    , decltype(_impl_.scan_failure_mode_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.scan_uuid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.scan_uuid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.failure_reason_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.failure_reason_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ScanStatusChangedSignal::~ScanStatusChangedSignal() {
   // @@protoc_insertion_point(destructor:lorgnette.ScanStatusChangedSignal)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ScanStatusChangedSignal::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  scan_uuid_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  failure_reason_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.scan_uuid_.Destroy();
+  _impl_.failure_reason_.Destroy();
 }
 
-void ScanStatusChangedSignal::ArenaDtor(void* object) {
-  ScanStatusChangedSignal* _this = reinterpret_cast< ScanStatusChangedSignal* >(object);
-  (void)_this;
-}
-void ScanStatusChangedSignal::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ScanStatusChangedSignal::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ScanStatusChangedSignal::Clear() {
@@ -4089,27 +4191,27 @@ void ScanStatusChangedSignal::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  scan_uuid_.ClearToEmpty();
-  failure_reason_.ClearToEmpty();
-  ::memset(&state_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&scan_failure_mode_) -
-      reinterpret_cast<char*>(&state_)) + sizeof(scan_failure_mode_));
+  _impl_.scan_uuid_.ClearToEmpty();
+  _impl_.failure_reason_.ClearToEmpty();
+  ::memset(&_impl_.state_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.scan_failure_mode_) -
+      reinterpret_cast<char*>(&_impl_.state_)) + sizeof(_impl_.scan_failure_mode_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ScanStatusChangedSignal::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ScanStatusChangedSignal::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string scan_uuid = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_scan_uuid();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -4126,16 +4228,16 @@ const char* ScanStatusChangedSignal::_InternalParse(const char* ptr, ::PROTOBUF_
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_failure_reason();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
       // uint32 progress = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          progress_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.progress_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4143,7 +4245,7 @@ const char* ScanStatusChangedSignal::_InternalParse(const char* ptr, ::PROTOBUF_
       // uint32 page = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          page_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.page_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4151,7 +4253,7 @@ const char* ScanStatusChangedSignal::_InternalParse(const char* ptr, ::PROTOBUF_
       // bool more_pages = 6;
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
-          more_pages_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.more_pages_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4207,7 +4309,7 @@ uint8_t* ScanStatusChangedSignal::_InternalSerialize(
   // .lorgnette.ScanState state = 2;
   if (this->_internal_state() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_state(), target);
   }
 
@@ -4224,25 +4326,25 @@ uint8_t* ScanStatusChangedSignal::_InternalSerialize(
   // uint32 progress = 4;
   if (this->_internal_progress() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(4, this->_internal_progress(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(4, this->_internal_progress(), target);
   }
 
   // uint32 page = 5;
   if (this->_internal_page() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(5, this->_internal_page(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(5, this->_internal_page(), target);
   }
 
   // bool more_pages = 6;
   if (this->_internal_more_pages() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(6, this->_internal_more_pages(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_more_pages(), target);
   }
 
   // .lorgnette.ScanFailureMode scan_failure_mode = 7;
   if (this->_internal_scan_failure_mode() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       7, this->_internal_scan_failure_mode(), target);
   }
 
@@ -4279,17 +4381,17 @@ size_t ScanStatusChangedSignal::ByteSizeLong() const {
   // .lorgnette.ScanState state = 2;
   if (this->_internal_state() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_state());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_state());
   }
 
   // uint32 progress = 4;
   if (this->_internal_progress() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_progress());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_progress());
   }
 
   // uint32 page = 5;
   if (this->_internal_page() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_page());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_page());
   }
 
   // bool more_pages = 6;
@@ -4300,51 +4402,52 @@ size_t ScanStatusChangedSignal::ByteSizeLong() const {
   // .lorgnette.ScanFailureMode scan_failure_mode = 7;
   if (this->_internal_scan_failure_mode() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_scan_failure_mode());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_scan_failure_mode());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ScanStatusChangedSignal::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ScanStatusChangedSignal*>(
+  MergeFrom(*::_pbi::DownCast<const ScanStatusChangedSignal*>(
       &from));
 }
 
 void ScanStatusChangedSignal::MergeFrom(const ScanStatusChangedSignal& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.ScanStatusChangedSignal)
-  GOOGLE_DCHECK_NE(&from, this);
+  ScanStatusChangedSignal* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:lorgnette.ScanStatusChangedSignal)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_scan_uuid().empty()) {
-    _internal_set_scan_uuid(from._internal_scan_uuid());
+    _this->_internal_set_scan_uuid(from._internal_scan_uuid());
   }
   if (!from._internal_failure_reason().empty()) {
-    _internal_set_failure_reason(from._internal_failure_reason());
+    _this->_internal_set_failure_reason(from._internal_failure_reason());
   }
   if (from._internal_state() != 0) {
-    _internal_set_state(from._internal_state());
+    _this->_internal_set_state(from._internal_state());
   }
   if (from._internal_progress() != 0) {
-    _internal_set_progress(from._internal_progress());
+    _this->_internal_set_progress(from._internal_progress());
   }
   if (from._internal_page() != 0) {
-    _internal_set_page(from._internal_page());
+    _this->_internal_set_page(from._internal_page());
   }
   if (from._internal_more_pages() != 0) {
-    _internal_set_more_pages(from._internal_more_pages());
+    _this->_internal_set_more_pages(from._internal_more_pages());
   }
   if (from._internal_scan_failure_mode() != 0) {
-    _internal_set_scan_failure_mode(from._internal_scan_failure_mode());
+    _this->_internal_set_scan_failure_mode(from._internal_scan_failure_mode());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ScanStatusChangedSignal::CopyFrom(const ScanStatusChangedSignal& from) {
@@ -4364,21 +4467,19 @@ void ScanStatusChangedSignal::InternalSwap(ScanStatusChangedSignal* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &scan_uuid_, lhs_arena,
-      &other->scan_uuid_, rhs_arena
+      &_impl_.scan_uuid_, lhs_arena,
+      &other->_impl_.scan_uuid_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &failure_reason_, lhs_arena,
-      &other->failure_reason_, rhs_arena
+      &_impl_.failure_reason_, lhs_arena,
+      &other->_impl_.failure_reason_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ScanStatusChangedSignal, scan_failure_mode_)
-      + sizeof(ScanStatusChangedSignal::scan_failure_mode_)
-      - PROTOBUF_FIELD_OFFSET(ScanStatusChangedSignal, state_)>(
-          reinterpret_cast<char*>(&state_),
-          reinterpret_cast<char*>(&other->state_));
+      PROTOBUF_FIELD_OFFSET(ScanStatusChangedSignal, _impl_.scan_failure_mode_)
+      + sizeof(ScanStatusChangedSignal::_impl_.scan_failure_mode_)
+      - PROTOBUF_FIELD_OFFSET(ScanStatusChangedSignal, _impl_.state_)>(
+          reinterpret_cast<char*>(&_impl_.state_),
+          reinterpret_cast<char*>(&other->_impl_.state_));
 }
 
 std::string ScanStatusChangedSignal::GetTypeName() const {
@@ -4389,46 +4490,60 @@ std::string ScanStatusChangedSignal::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace lorgnette
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::lorgnette::ScannableArea* Arena::CreateMaybeMessage< ::lorgnette::ScannableArea >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lorgnette::ScannableArea*
+Arena::CreateMaybeMessage< ::lorgnette::ScannableArea >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lorgnette::ScannableArea >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lorgnette::DocumentSource* Arena::CreateMaybeMessage< ::lorgnette::DocumentSource >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lorgnette::DocumentSource*
+Arena::CreateMaybeMessage< ::lorgnette::DocumentSource >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lorgnette::DocumentSource >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lorgnette::ScannerInfo* Arena::CreateMaybeMessage< ::lorgnette::ScannerInfo >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lorgnette::ScannerInfo*
+Arena::CreateMaybeMessage< ::lorgnette::ScannerInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lorgnette::ScannerInfo >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lorgnette::ListScannersResponse* Arena::CreateMaybeMessage< ::lorgnette::ListScannersResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lorgnette::ListScannersResponse*
+Arena::CreateMaybeMessage< ::lorgnette::ListScannersResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lorgnette::ListScannersResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lorgnette::ScannerCapabilities* Arena::CreateMaybeMessage< ::lorgnette::ScannerCapabilities >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lorgnette::ScannerCapabilities*
+Arena::CreateMaybeMessage< ::lorgnette::ScannerCapabilities >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lorgnette::ScannerCapabilities >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lorgnette::ScanRegion* Arena::CreateMaybeMessage< ::lorgnette::ScanRegion >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lorgnette::ScanRegion*
+Arena::CreateMaybeMessage< ::lorgnette::ScanRegion >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lorgnette::ScanRegion >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lorgnette::ScanSettings* Arena::CreateMaybeMessage< ::lorgnette::ScanSettings >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lorgnette::ScanSettings*
+Arena::CreateMaybeMessage< ::lorgnette::ScanSettings >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lorgnette::ScanSettings >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lorgnette::StartScanRequest* Arena::CreateMaybeMessage< ::lorgnette::StartScanRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lorgnette::StartScanRequest*
+Arena::CreateMaybeMessage< ::lorgnette::StartScanRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lorgnette::StartScanRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lorgnette::StartScanResponse* Arena::CreateMaybeMessage< ::lorgnette::StartScanResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lorgnette::StartScanResponse*
+Arena::CreateMaybeMessage< ::lorgnette::StartScanResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lorgnette::StartScanResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lorgnette::GetNextImageRequest* Arena::CreateMaybeMessage< ::lorgnette::GetNextImageRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lorgnette::GetNextImageRequest*
+Arena::CreateMaybeMessage< ::lorgnette::GetNextImageRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lorgnette::GetNextImageRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lorgnette::GetNextImageResponse* Arena::CreateMaybeMessage< ::lorgnette::GetNextImageResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lorgnette::GetNextImageResponse*
+Arena::CreateMaybeMessage< ::lorgnette::GetNextImageResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lorgnette::GetNextImageResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lorgnette::CancelScanRequest* Arena::CreateMaybeMessage< ::lorgnette::CancelScanRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lorgnette::CancelScanRequest*
+Arena::CreateMaybeMessage< ::lorgnette::CancelScanRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lorgnette::CancelScanRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lorgnette::CancelScanResponse* Arena::CreateMaybeMessage< ::lorgnette::CancelScanResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lorgnette::CancelScanResponse*
+Arena::CreateMaybeMessage< ::lorgnette::CancelScanResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lorgnette::CancelScanResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::lorgnette::ScanStatusChangedSignal* Arena::CreateMaybeMessage< ::lorgnette::ScanStatusChangedSignal >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::lorgnette::ScanStatusChangedSignal*
+Arena::CreateMaybeMessage< ::lorgnette::ScanStatusChangedSignal >(Arena* arena) {
   return Arena::CreateMessageInternal< ::lorgnette::ScanStatusChangedSignal >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

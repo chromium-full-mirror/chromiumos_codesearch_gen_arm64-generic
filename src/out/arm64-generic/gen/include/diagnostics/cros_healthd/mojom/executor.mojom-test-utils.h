@@ -102,6 +102,25 @@ class  TouchscreenObserverAsyncWaiter {
 };
 
 
+class  StylusGarageObserverInterceptorForTesting : public StylusGarageObserver {
+  virtual StylusGarageObserver* GetForwardingInterface() = 0;
+  void OnInsert() override;
+  void OnRemove() override;
+};
+class  StylusGarageObserverAsyncWaiter {
+ public:
+  explicit StylusGarageObserverAsyncWaiter(StylusGarageObserver* proxy);
+
+  StylusGarageObserverAsyncWaiter(const StylusGarageObserverAsyncWaiter&) = delete;
+  StylusGarageObserverAsyncWaiter& operator=(const StylusGarageObserverAsyncWaiter&) = delete;
+
+  ~StylusGarageObserverAsyncWaiter();
+
+ private:
+  StylusGarageObserver* const proxy_;
+};
+
+
 class  ExecutorInterceptorForTesting : public Executor {
   virtual Executor* GetForwardingInterface() = 0;
   void ReadFile(Executor::File file_enum, ReadFileCallback callback) override;
@@ -122,6 +141,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void MonitorTouchpad(::mojo::PendingRemote<TouchpadObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
   void FetchBootPerformance(FetchBootPerformanceCallback callback) override;
   void MonitorTouchscreen(::mojo::PendingRemote<TouchscreenObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
+  void MonitorStylusGarage(::mojo::PendingRemote<StylusGarageObserver> observer, ::mojo::PendingReceiver<ProcessControl> process_control) override;
 };
 class  ExecutorAsyncWaiter {
  public:

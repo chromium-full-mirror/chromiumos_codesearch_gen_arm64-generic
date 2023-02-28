@@ -179,6 +179,16 @@ using TouchscreenObserverAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<TouchscreenObserverInterfaceBase>;
 using TouchscreenObserverAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<TouchscreenObserverInterfaceBase>;
+class StylusGarageObserverInterfaceBase {};
+
+using StylusGarageObserverPtrDataView =
+    mojo::InterfacePtrDataView<StylusGarageObserverInterfaceBase>;
+using StylusGarageObserverRequestDataView =
+    mojo::InterfaceRequestDataView<StylusGarageObserverInterfaceBase>;
+using StylusGarageObserverAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<StylusGarageObserverInterfaceBase>;
+using StylusGarageObserverAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<StylusGarageObserverInterfaceBase>;
 class ExecutorInterfaceBase {};
 
 using ExecutorPtrDataView =

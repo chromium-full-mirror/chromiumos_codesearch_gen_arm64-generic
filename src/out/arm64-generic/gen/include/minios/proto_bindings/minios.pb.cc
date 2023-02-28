@@ -13,20 +13,24 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace minios {
-constexpr State::State(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : state_(0)
-{}
+PROTOBUF_CONSTEXPR State::State(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.state_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct StateDefaultTypeInternal {
-  constexpr StateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR StateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~StateDefaultTypeInternal() {}
   union {
     State _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StateDefaultTypeInternal _State_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 StateDefaultTypeInternal _State_default_instance_;
 }  // namespace minios
 namespace minios {
 bool State_States_IsValid(int value) {
@@ -152,42 +156,46 @@ class State::_Internal {
 State::State(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:minios.State)
 }
 State::State(const State& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  State* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.state_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  state_ = from.state_;
+  _this->_impl_.state_ = from._impl_.state_;
   // @@protoc_insertion_point(copy_constructor:minios.State)
 }
 
-inline void State::SharedCtor() {
-state_ = 0;
+inline void State::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.state_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 State::~State() {
   // @@protoc_insertion_point(destructor:minios.State)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void State::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void State::ArenaDtor(void* object) {
-  State* _this = reinterpret_cast< State* >(object);
-  (void)_this;
-}
-void State::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void State::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void State::Clear() {
@@ -196,15 +204,15 @@ void State::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  state_ = 0;
+  _impl_.state_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* State::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* State::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .minios.State.States state = 1;
       case 1:
@@ -247,7 +255,7 @@ uint8_t* State::_InternalSerialize(
   // .minios.State.States state = 1;
   if (this->_internal_state() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_state(), target);
   }
 
@@ -270,33 +278,34 @@ size_t State::ByteSizeLong() const {
   // .minios.State.States state = 1;
   if (this->_internal_state() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_state());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_state());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void State::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const State*>(
+  MergeFrom(*::_pbi::DownCast<const State*>(
       &from));
 }
 
 void State::MergeFrom(const State& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:minios.State)
-  GOOGLE_DCHECK_NE(&from, this);
+  State* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:minios.State)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_state() != 0) {
-    _internal_set_state(from._internal_state());
+    _this->_internal_set_state(from._internal_state());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void State::CopyFrom(const State& from) {
@@ -313,7 +322,7 @@ bool State::IsInitialized() const {
 void State::InternalSwap(State* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(state_, other->state_);
+  swap(_impl_.state_, other->_impl_.state_);
 }
 
 std::string State::GetTypeName() const {
@@ -324,7 +333,8 @@ std::string State::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace minios
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::minios::State* Arena::CreateMaybeMessage< ::minios::State >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::minios::State*
+Arena::CreateMaybeMessage< ::minios::State >(Arena* arena) {
   return Arena::CreateMessageInternal< ::minios::State >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

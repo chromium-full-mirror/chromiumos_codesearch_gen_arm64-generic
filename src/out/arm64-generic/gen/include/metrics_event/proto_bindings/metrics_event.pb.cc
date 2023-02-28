@@ -13,21 +13,25 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace metrics_event {
-constexpr Event::Event(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : timestamp_(int64_t{0})
-  , type_(0)
-{}
+PROTOBUF_CONSTEXPR Event::Event(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.timestamp_)*/int64_t{0}
+  , /*decltype(_impl_.type_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct EventDefaultTypeInternal {
-  constexpr EventDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR EventDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~EventDefaultTypeInternal() {}
   union {
     Event _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT EventDefaultTypeInternal _Event_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EventDefaultTypeInternal _Event_default_instance_;
 }  // namespace metrics_event
 namespace metrics_event {
 bool Event_Type_IsValid(int value) {
@@ -113,47 +117,50 @@ class Event::_Internal {
 Event::Event(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:metrics_event.Event)
 }
 Event::Event(const Event& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  Event* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.timestamp_){}
+    , decltype(_impl_.type_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&timestamp_, &from.timestamp_,
-    static_cast<size_t>(reinterpret_cast<char*>(&type_) -
-    reinterpret_cast<char*>(&timestamp_)) + sizeof(type_));
+  ::memcpy(&_impl_.timestamp_, &from._impl_.timestamp_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.type_) -
+    reinterpret_cast<char*>(&_impl_.timestamp_)) + sizeof(_impl_.type_));
   // @@protoc_insertion_point(copy_constructor:metrics_event.Event)
 }
 
-inline void Event::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&timestamp_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&type_) -
-    reinterpret_cast<char*>(&timestamp_)) + sizeof(type_));
+inline void Event::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.timestamp_){int64_t{0}}
+    , decltype(_impl_.type_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 Event::~Event() {
   // @@protoc_insertion_point(destructor:metrics_event.Event)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void Event::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void Event::ArenaDtor(void* object) {
-  Event* _this = reinterpret_cast< Event* >(object);
-  (void)_this;
-}
-void Event::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void Event::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Event::Clear() {
@@ -162,17 +169,17 @@ void Event::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&timestamp_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&type_) -
-      reinterpret_cast<char*>(&timestamp_)) + sizeof(type_));
+  ::memset(&_impl_.timestamp_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.type_) -
+      reinterpret_cast<char*>(&_impl_.timestamp_)) + sizeof(_impl_.type_));
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* Event::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Event::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // .metrics_event.Event.Type type = 1;
       case 1:
@@ -186,7 +193,7 @@ const char* Event::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inte
       // int64 timestamp = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          timestamp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.timestamp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -223,14 +230,14 @@ uint8_t* Event::_InternalSerialize(
   // .metrics_event.Event.Type type = 1;
   if (this->_internal_type() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_type(), target);
   }
 
   // int64 timestamp = 2;
   if (this->_internal_timestamp() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_timestamp(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_timestamp(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -251,42 +258,43 @@ size_t Event::ByteSizeLong() const {
 
   // int64 timestamp = 2;
   if (this->_internal_timestamp() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_timestamp());
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_timestamp());
   }
 
   // .metrics_event.Event.Type type = 1;
   if (this->_internal_type() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_type());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void Event::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const Event*>(
+  MergeFrom(*::_pbi::DownCast<const Event*>(
       &from));
 }
 
 void Event::MergeFrom(const Event& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:metrics_event.Event)
-  GOOGLE_DCHECK_NE(&from, this);
+  Event* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:metrics_event.Event)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_timestamp() != 0) {
-    _internal_set_timestamp(from._internal_timestamp());
+    _this->_internal_set_timestamp(from._internal_timestamp());
   }
   if (from._internal_type() != 0) {
-    _internal_set_type(from._internal_type());
+    _this->_internal_set_type(from._internal_type());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Event::CopyFrom(const Event& from) {
@@ -304,11 +312,11 @@ void Event::InternalSwap(Event* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Event, type_)
-      + sizeof(Event::type_)
-      - PROTOBUF_FIELD_OFFSET(Event, timestamp_)>(
-          reinterpret_cast<char*>(&timestamp_),
-          reinterpret_cast<char*>(&other->timestamp_));
+      PROTOBUF_FIELD_OFFSET(Event, _impl_.type_)
+      + sizeof(Event::_impl_.type_)
+      - PROTOBUF_FIELD_OFFSET(Event, _impl_.timestamp_)>(
+          reinterpret_cast<char*>(&_impl_.timestamp_),
+          reinterpret_cast<char*>(&other->_impl_.timestamp_));
 }
 
 std::string Event::GetTypeName() const {
@@ -319,7 +327,8 @@ std::string Event::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace metrics_event
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::metrics_event::Event* Arena::CreateMaybeMessage< ::metrics_event::Event >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::metrics_event::Event*
+Arena::CreateMaybeMessage< ::metrics_event::Event >(Arena* arena) {
   return Arena::CreateMessageInternal< ::metrics_event::Event >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

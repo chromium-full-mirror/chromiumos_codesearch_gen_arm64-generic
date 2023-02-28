@@ -13,38 +13,44 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
-constexpr MtpStorageInfo::MtpStorageInfo(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : storage_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , vendor_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , product_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , storage_description_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , volume_identifier_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , serial_number_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , vendor_id_(0u)
-  , product_id_(0u)
-  , device_flags_(0u)
-  , storage_type_(0u)
-  , filesystem_type_(0u)
-  , access_capability_(0u)
-  , max_capacity_(uint64_t{0u})
-  , free_space_in_bytes_(uint64_t{0u})
-  , free_space_in_objects_(uint64_t{0u}){}
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
+PROTOBUF_CONSTEXPR MtpStorageInfo::MtpStorageInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.storage_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.vendor_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.product_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.storage_description_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.volume_identifier_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.serial_number_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.vendor_id_)*/0u
+  , /*decltype(_impl_.product_id_)*/0u
+  , /*decltype(_impl_.device_flags_)*/0u
+  , /*decltype(_impl_.storage_type_)*/0u
+  , /*decltype(_impl_.filesystem_type_)*/0u
+  , /*decltype(_impl_.access_capability_)*/0u
+  , /*decltype(_impl_.max_capacity_)*/uint64_t{0u}
+  , /*decltype(_impl_.free_space_in_bytes_)*/uint64_t{0u}
+  , /*decltype(_impl_.free_space_in_objects_)*/uint64_t{0u}} {}
 struct MtpStorageInfoDefaultTypeInternal {
-  constexpr MtpStorageInfoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR MtpStorageInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~MtpStorageInfoDefaultTypeInternal() {}
   union {
     MtpStorageInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MtpStorageInfoDefaultTypeInternal _MtpStorageInfo_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MtpStorageInfoDefaultTypeInternal _MtpStorageInfo_default_instance_;
 
 // ===================================================================
 
 class MtpStorageInfo::_Internal {
  public:
-  using HasBits = decltype(std::declval<MtpStorageInfo>()._has_bits_);
+  using HasBits = decltype(std::declval<MtpStorageInfo>()._impl_._has_bits_);
   static void set_has_storage_name(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -95,126 +101,156 @@ class MtpStorageInfo::_Internal {
 MtpStorageInfo::MtpStorageInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:MtpStorageInfo)
 }
 MtpStorageInfo::MtpStorageInfo(const MtpStorageInfo& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  MtpStorageInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.storage_name_){}
+    , decltype(_impl_.vendor_){}
+    , decltype(_impl_.product_){}
+    , decltype(_impl_.storage_description_){}
+    , decltype(_impl_.volume_identifier_){}
+    , decltype(_impl_.serial_number_){}
+    , decltype(_impl_.vendor_id_){}
+    , decltype(_impl_.product_id_){}
+    , decltype(_impl_.device_flags_){}
+    , decltype(_impl_.storage_type_){}
+    , decltype(_impl_.filesystem_type_){}
+    , decltype(_impl_.access_capability_){}
+    , decltype(_impl_.max_capacity_){}
+    , decltype(_impl_.free_space_in_bytes_){}
+    , decltype(_impl_.free_space_in_objects_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  storage_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.storage_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    storage_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.storage_name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_storage_name()) {
-    storage_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_storage_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.storage_name_.Set(from._internal_storage_name(), 
+      _this->GetArenaForAllocation());
   }
-  vendor_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.vendor_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    vendor_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.vendor_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_vendor()) {
-    vendor_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_vendor(), 
-      GetArenaForAllocation());
+    _this->_impl_.vendor_.Set(from._internal_vendor(), 
+      _this->GetArenaForAllocation());
   }
-  product_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.product_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    product_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.product_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_product()) {
-    product_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_product(), 
-      GetArenaForAllocation());
+    _this->_impl_.product_.Set(from._internal_product(), 
+      _this->GetArenaForAllocation());
   }
-  storage_description_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.storage_description_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    storage_description_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.storage_description_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_storage_description()) {
-    storage_description_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_storage_description(), 
-      GetArenaForAllocation());
+    _this->_impl_.storage_description_.Set(from._internal_storage_description(), 
+      _this->GetArenaForAllocation());
   }
-  volume_identifier_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.volume_identifier_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    volume_identifier_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.volume_identifier_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_volume_identifier()) {
-    volume_identifier_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_volume_identifier(), 
-      GetArenaForAllocation());
+    _this->_impl_.volume_identifier_.Set(from._internal_volume_identifier(), 
+      _this->GetArenaForAllocation());
   }
-  serial_number_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.serial_number_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    serial_number_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.serial_number_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_serial_number()) {
-    serial_number_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_serial_number(), 
-      GetArenaForAllocation());
+    _this->_impl_.serial_number_.Set(from._internal_serial_number(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&vendor_id_, &from.vendor_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&free_space_in_objects_) -
-    reinterpret_cast<char*>(&vendor_id_)) + sizeof(free_space_in_objects_));
+  ::memcpy(&_impl_.vendor_id_, &from._impl_.vendor_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.free_space_in_objects_) -
+    reinterpret_cast<char*>(&_impl_.vendor_id_)) + sizeof(_impl_.free_space_in_objects_));
   // @@protoc_insertion_point(copy_constructor:MtpStorageInfo)
 }
 
-inline void MtpStorageInfo::SharedCtor() {
-storage_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  storage_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-vendor_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  vendor_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-product_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  product_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-storage_description_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  storage_description_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-volume_identifier_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  volume_identifier_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-serial_number_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  serial_number_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&vendor_id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&free_space_in_objects_) -
-    reinterpret_cast<char*>(&vendor_id_)) + sizeof(free_space_in_objects_));
+inline void MtpStorageInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.storage_name_){}
+    , decltype(_impl_.vendor_){}
+    , decltype(_impl_.product_){}
+    , decltype(_impl_.storage_description_){}
+    , decltype(_impl_.volume_identifier_){}
+    , decltype(_impl_.serial_number_){}
+    , decltype(_impl_.vendor_id_){0u}
+    , decltype(_impl_.product_id_){0u}
+    , decltype(_impl_.device_flags_){0u}
+    , decltype(_impl_.storage_type_){0u}
+    , decltype(_impl_.filesystem_type_){0u}
+    , decltype(_impl_.access_capability_){0u}
+    , decltype(_impl_.max_capacity_){uint64_t{0u}}
+    , decltype(_impl_.free_space_in_bytes_){uint64_t{0u}}
+    , decltype(_impl_.free_space_in_objects_){uint64_t{0u}}
+  };
+  _impl_.storage_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.storage_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.vendor_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.vendor_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.product_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.product_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.storage_description_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.storage_description_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.volume_identifier_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.volume_identifier_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.serial_number_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.serial_number_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 MtpStorageInfo::~MtpStorageInfo() {
   // @@protoc_insertion_point(destructor:MtpStorageInfo)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void MtpStorageInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  storage_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  vendor_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  product_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  storage_description_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  volume_identifier_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  serial_number_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.storage_name_.Destroy();
+  _impl_.vendor_.Destroy();
+  _impl_.product_.Destroy();
+  _impl_.storage_description_.Destroy();
+  _impl_.volume_identifier_.Destroy();
+  _impl_.serial_number_.Destroy();
 }
 
-void MtpStorageInfo::ArenaDtor(void* object) {
-  MtpStorageInfo* _this = reinterpret_cast< MtpStorageInfo* >(object);
-  (void)_this;
-}
-void MtpStorageInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void MtpStorageInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void MtpStorageInfo::Clear() {
@@ -223,53 +259,53 @@ void MtpStorageInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
-      storage_name_.ClearNonDefaultToEmpty();
+      _impl_.storage_name_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      vendor_.ClearNonDefaultToEmpty();
+      _impl_.vendor_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      product_.ClearNonDefaultToEmpty();
+      _impl_.product_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      storage_description_.ClearNonDefaultToEmpty();
+      _impl_.storage_description_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000010u) {
-      volume_identifier_.ClearNonDefaultToEmpty();
+      _impl_.volume_identifier_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000020u) {
-      serial_number_.ClearNonDefaultToEmpty();
+      _impl_.serial_number_.ClearNonDefaultToEmpty();
     }
   }
   if (cached_has_bits & 0x000000c0u) {
-    ::memset(&vendor_id_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&product_id_) -
-        reinterpret_cast<char*>(&vendor_id_)) + sizeof(product_id_));
+    ::memset(&_impl_.vendor_id_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.product_id_) -
+        reinterpret_cast<char*>(&_impl_.vendor_id_)) + sizeof(_impl_.product_id_));
   }
   if (cached_has_bits & 0x00007f00u) {
-    ::memset(&device_flags_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&free_space_in_objects_) -
-        reinterpret_cast<char*>(&device_flags_)) + sizeof(free_space_in_objects_));
+    ::memset(&_impl_.device_flags_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.free_space_in_objects_) -
+        reinterpret_cast<char*>(&_impl_.device_flags_)) + sizeof(_impl_.free_space_in_objects_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* MtpStorageInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* MtpStorageInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string storage_name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_storage_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -278,7 +314,7 @@ const char* MtpStorageInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_vendor();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -287,7 +323,7 @@ const char* MtpStorageInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_vendor_id(&has_bits);
-          vendor_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.vendor_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -296,7 +332,7 @@ const char* MtpStorageInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_product();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -305,7 +341,7 @@ const char* MtpStorageInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _Internal::set_has_product_id(&has_bits);
-          product_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.product_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -314,7 +350,7 @@ const char* MtpStorageInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
           _Internal::set_has_device_flags(&has_bits);
-          device_flags_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.device_flags_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -323,7 +359,7 @@ const char* MtpStorageInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
           _Internal::set_has_storage_type(&has_bits);
-          storage_type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.storage_type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -332,7 +368,7 @@ const char* MtpStorageInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
           _Internal::set_has_filesystem_type(&has_bits);
-          filesystem_type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.filesystem_type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -341,7 +377,7 @@ const char* MtpStorageInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 9:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
           _Internal::set_has_access_capability(&has_bits);
-          access_capability_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.access_capability_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -350,7 +386,7 @@ const char* MtpStorageInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 10:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
           _Internal::set_has_max_capacity(&has_bits);
-          max_capacity_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.max_capacity_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -359,7 +395,7 @@ const char* MtpStorageInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 11:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 88)) {
           _Internal::set_has_free_space_in_bytes(&has_bits);
-          free_space_in_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.free_space_in_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -368,7 +404,7 @@ const char* MtpStorageInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 12:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
           _Internal::set_has_free_space_in_objects(&has_bits);
-          free_space_in_objects_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.free_space_in_objects_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -377,7 +413,7 @@ const char* MtpStorageInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 13:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
           auto str = _internal_mutable_storage_description();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -386,7 +422,7 @@ const char* MtpStorageInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 14:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
           auto str = _internal_mutable_volume_identifier();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -395,7 +431,7 @@ const char* MtpStorageInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 15:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
           auto str = _internal_mutable_serial_number();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -416,7 +452,7 @@ const char* MtpStorageInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -430,7 +466,7 @@ uint8_t* MtpStorageInfo::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string storage_name = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -446,7 +482,7 @@ uint8_t* MtpStorageInfo::_InternalSerialize(
   // optional uint32 vendor_id = 3;
   if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_vendor_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_vendor_id(), target);
   }
 
   // optional string product = 4;
@@ -458,49 +494,49 @@ uint8_t* MtpStorageInfo::_InternalSerialize(
   // optional uint32 product_id = 5;
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(5, this->_internal_product_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(5, this->_internal_product_id(), target);
   }
 
   // optional uint32 device_flags = 6;
   if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(6, this->_internal_device_flags(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(6, this->_internal_device_flags(), target);
   }
 
   // optional uint32 storage_type = 7;
   if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(7, this->_internal_storage_type(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(7, this->_internal_storage_type(), target);
   }
 
   // optional uint32 filesystem_type = 8;
   if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(8, this->_internal_filesystem_type(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(8, this->_internal_filesystem_type(), target);
   }
 
   // optional uint32 access_capability = 9;
   if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(9, this->_internal_access_capability(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(9, this->_internal_access_capability(), target);
   }
 
   // optional uint64 max_capacity = 10;
   if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(10, this->_internal_max_capacity(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(10, this->_internal_max_capacity(), target);
   }
 
   // optional uint64 free_space_in_bytes = 11;
   if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(11, this->_internal_free_space_in_bytes(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(11, this->_internal_free_space_in_bytes(), target);
   }
 
   // optional uint64 free_space_in_objects = 12;
   if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(12, this->_internal_free_space_in_objects(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(12, this->_internal_free_space_in_objects(), target);
   }
 
   // optional string storage_description = 13;
@@ -537,7 +573,7 @@ size_t MtpStorageInfo::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional string storage_name = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -583,125 +619,126 @@ size_t MtpStorageInfo::ByteSizeLong() const {
 
     // optional uint32 vendor_id = 3;
     if (cached_has_bits & 0x00000040u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_vendor_id());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_vendor_id());
     }
 
     // optional uint32 product_id = 5;
     if (cached_has_bits & 0x00000080u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_product_id());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_product_id());
     }
 
   }
   if (cached_has_bits & 0x00007f00u) {
     // optional uint32 device_flags = 6;
     if (cached_has_bits & 0x00000100u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_device_flags());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_device_flags());
     }
 
     // optional uint32 storage_type = 7;
     if (cached_has_bits & 0x00000200u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_storage_type());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_storage_type());
     }
 
     // optional uint32 filesystem_type = 8;
     if (cached_has_bits & 0x00000400u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_filesystem_type());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_filesystem_type());
     }
 
     // optional uint32 access_capability = 9;
     if (cached_has_bits & 0x00000800u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_access_capability());
+      total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_access_capability());
     }
 
     // optional uint64 max_capacity = 10;
     if (cached_has_bits & 0x00001000u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_max_capacity());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_max_capacity());
     }
 
     // optional uint64 free_space_in_bytes = 11;
     if (cached_has_bits & 0x00002000u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_free_space_in_bytes());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_free_space_in_bytes());
     }
 
     // optional uint64 free_space_in_objects = 12;
     if (cached_has_bits & 0x00004000u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_free_space_in_objects());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_free_space_in_objects());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void MtpStorageInfo::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const MtpStorageInfo*>(
+  MergeFrom(*::_pbi::DownCast<const MtpStorageInfo*>(
       &from));
 }
 
 void MtpStorageInfo::MergeFrom(const MtpStorageInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:MtpStorageInfo)
-  GOOGLE_DCHECK_NE(&from, this);
+  MtpStorageInfo* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:MtpStorageInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_storage_name(from._internal_storage_name());
+      _this->_internal_set_storage_name(from._internal_storage_name());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_vendor(from._internal_vendor());
+      _this->_internal_set_vendor(from._internal_vendor());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_product(from._internal_product());
+      _this->_internal_set_product(from._internal_product());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_set_storage_description(from._internal_storage_description());
+      _this->_internal_set_storage_description(from._internal_storage_description());
     }
     if (cached_has_bits & 0x00000010u) {
-      _internal_set_volume_identifier(from._internal_volume_identifier());
+      _this->_internal_set_volume_identifier(from._internal_volume_identifier());
     }
     if (cached_has_bits & 0x00000020u) {
-      _internal_set_serial_number(from._internal_serial_number());
+      _this->_internal_set_serial_number(from._internal_serial_number());
     }
     if (cached_has_bits & 0x00000040u) {
-      vendor_id_ = from.vendor_id_;
+      _this->_impl_.vendor_id_ = from._impl_.vendor_id_;
     }
     if (cached_has_bits & 0x00000080u) {
-      product_id_ = from.product_id_;
+      _this->_impl_.product_id_ = from._impl_.product_id_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x00007f00u) {
     if (cached_has_bits & 0x00000100u) {
-      device_flags_ = from.device_flags_;
+      _this->_impl_.device_flags_ = from._impl_.device_flags_;
     }
     if (cached_has_bits & 0x00000200u) {
-      storage_type_ = from.storage_type_;
+      _this->_impl_.storage_type_ = from._impl_.storage_type_;
     }
     if (cached_has_bits & 0x00000400u) {
-      filesystem_type_ = from.filesystem_type_;
+      _this->_impl_.filesystem_type_ = from._impl_.filesystem_type_;
     }
     if (cached_has_bits & 0x00000800u) {
-      access_capability_ = from.access_capability_;
+      _this->_impl_.access_capability_ = from._impl_.access_capability_;
     }
     if (cached_has_bits & 0x00001000u) {
-      max_capacity_ = from.max_capacity_;
+      _this->_impl_.max_capacity_ = from._impl_.max_capacity_;
     }
     if (cached_has_bits & 0x00002000u) {
-      free_space_in_bytes_ = from.free_space_in_bytes_;
+      _this->_impl_.free_space_in_bytes_ = from._impl_.free_space_in_bytes_;
     }
     if (cached_has_bits & 0x00004000u) {
-      free_space_in_objects_ = from.free_space_in_objects_;
+      _this->_impl_.free_space_in_objects_ = from._impl_.free_space_in_objects_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void MtpStorageInfo::CopyFrom(const MtpStorageInfo& from) {
@@ -720,43 +757,37 @@ void MtpStorageInfo::InternalSwap(MtpStorageInfo* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &storage_name_, lhs_arena,
-      &other->storage_name_, rhs_arena
+      &_impl_.storage_name_, lhs_arena,
+      &other->_impl_.storage_name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &vendor_, lhs_arena,
-      &other->vendor_, rhs_arena
+      &_impl_.vendor_, lhs_arena,
+      &other->_impl_.vendor_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &product_, lhs_arena,
-      &other->product_, rhs_arena
+      &_impl_.product_, lhs_arena,
+      &other->_impl_.product_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &storage_description_, lhs_arena,
-      &other->storage_description_, rhs_arena
+      &_impl_.storage_description_, lhs_arena,
+      &other->_impl_.storage_description_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &volume_identifier_, lhs_arena,
-      &other->volume_identifier_, rhs_arena
+      &_impl_.volume_identifier_, lhs_arena,
+      &other->_impl_.volume_identifier_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &serial_number_, lhs_arena,
-      &other->serial_number_, rhs_arena
+      &_impl_.serial_number_, lhs_arena,
+      &other->_impl_.serial_number_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(MtpStorageInfo, free_space_in_objects_)
-      + sizeof(MtpStorageInfo::free_space_in_objects_)
-      - PROTOBUF_FIELD_OFFSET(MtpStorageInfo, vendor_id_)>(
-          reinterpret_cast<char*>(&vendor_id_),
-          reinterpret_cast<char*>(&other->vendor_id_));
+      PROTOBUF_FIELD_OFFSET(MtpStorageInfo, _impl_.free_space_in_objects_)
+      + sizeof(MtpStorageInfo::_impl_.free_space_in_objects_)
+      - PROTOBUF_FIELD_OFFSET(MtpStorageInfo, _impl_.vendor_id_)>(
+          reinterpret_cast<char*>(&_impl_.vendor_id_),
+          reinterpret_cast<char*>(&other->_impl_.vendor_id_));
 }
 
 std::string MtpStorageInfo::GetTypeName() const {
@@ -766,7 +797,8 @@ std::string MtpStorageInfo::GetTypeName() const {
 
 // @@protoc_insertion_point(namespace_scope)
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::MtpStorageInfo* Arena::CreateMaybeMessage< ::MtpStorageInfo >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::MtpStorageInfo*
+Arena::CreateMaybeMessage< ::MtpStorageInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::MtpStorageInfo >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

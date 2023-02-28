@@ -13,56 +13,64 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace plugin_vm_service {
-constexpr GetLicenseDataResponse::GetLicenseDataResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : license_key_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , device_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_CONSTEXPR GetLicenseDataResponse::GetLicenseDataResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.license_key_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.device_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetLicenseDataResponseDefaultTypeInternal {
-  constexpr GetLicenseDataResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetLicenseDataResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetLicenseDataResponseDefaultTypeInternal() {}
   union {
     GetLicenseDataResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetLicenseDataResponseDefaultTypeInternal _GetLicenseDataResponse_default_instance_;
-constexpr ShowSettingsPageRequest::ShowSettingsPageRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : subpage_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetLicenseDataResponseDefaultTypeInternal _GetLicenseDataResponse_default_instance_;
+PROTOBUF_CONSTEXPR ShowSettingsPageRequest::ShowSettingsPageRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.subpage_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ShowSettingsPageRequestDefaultTypeInternal {
-  constexpr ShowSettingsPageRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ShowSettingsPageRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ShowSettingsPageRequestDefaultTypeInternal() {}
   union {
     ShowSettingsPageRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ShowSettingsPageRequestDefaultTypeInternal _ShowSettingsPageRequest_default_instance_;
-constexpr GetPermissionsResponse::GetPermissionsResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : data_collection_enabled_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ShowSettingsPageRequestDefaultTypeInternal _ShowSettingsPageRequest_default_instance_;
+PROTOBUF_CONSTEXPR GetPermissionsResponse::GetPermissionsResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.data_collection_enabled_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetPermissionsResponseDefaultTypeInternal {
-  constexpr GetPermissionsResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetPermissionsResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetPermissionsResponseDefaultTypeInternal() {}
   union {
     GetPermissionsResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetPermissionsResponseDefaultTypeInternal _GetPermissionsResponse_default_instance_;
-constexpr GetAppLicenseUserIdResponse::GetAppLicenseUserIdResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : user_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetPermissionsResponseDefaultTypeInternal _GetPermissionsResponse_default_instance_;
+PROTOBUF_CONSTEXPR GetAppLicenseUserIdResponse::GetAppLicenseUserIdResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.user_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetAppLicenseUserIdResponseDefaultTypeInternal {
-  constexpr GetAppLicenseUserIdResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetAppLicenseUserIdResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetAppLicenseUserIdResponseDefaultTypeInternal() {}
   union {
     GetAppLicenseUserIdResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetAppLicenseUserIdResponseDefaultTypeInternal _GetAppLicenseUserIdResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetAppLicenseUserIdResponseDefaultTypeInternal _GetAppLicenseUserIdResponse_default_instance_;
 }  // namespace plugin_vm_service
 namespace plugin_vm_service {
 
@@ -75,66 +83,73 @@ class GetLicenseDataResponse::_Internal {
 GetLicenseDataResponse::GetLicenseDataResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:plugin_vm_service.GetLicenseDataResponse)
 }
 GetLicenseDataResponse::GetLicenseDataResponse(const GetLicenseDataResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetLicenseDataResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.license_key_){}
+    , decltype(_impl_.device_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  license_key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.license_key_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    license_key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.license_key_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_license_key().empty()) {
-    license_key_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_license_key(), 
-      GetArenaForAllocation());
+    _this->_impl_.license_key_.Set(from._internal_license_key(), 
+      _this->GetArenaForAllocation());
   }
-  device_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.device_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    device_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.device_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_device_id().empty()) {
-    device_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_device_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.device_id_.Set(from._internal_device_id(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:plugin_vm_service.GetLicenseDataResponse)
 }
 
-inline void GetLicenseDataResponse::SharedCtor() {
-license_key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  license_key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-device_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  device_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void GetLicenseDataResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.license_key_){}
+    , decltype(_impl_.device_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.license_key_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.license_key_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.device_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.device_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetLicenseDataResponse::~GetLicenseDataResponse() {
   // @@protoc_insertion_point(destructor:plugin_vm_service.GetLicenseDataResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void GetLicenseDataResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  license_key_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  device_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.license_key_.Destroy();
+  _impl_.device_id_.Destroy();
 }
 
-void GetLicenseDataResponse::ArenaDtor(void* object) {
-  GetLicenseDataResponse* _this = reinterpret_cast< GetLicenseDataResponse* >(object);
-  (void)_this;
-}
-void GetLicenseDataResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GetLicenseDataResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetLicenseDataResponse::Clear() {
@@ -143,24 +158,24 @@ void GetLicenseDataResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  license_key_.ClearToEmpty();
-  device_id_.ClearToEmpty();
+  _impl_.license_key_.ClearToEmpty();
+  _impl_.device_id_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GetLicenseDataResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GetLicenseDataResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string license_key = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_license_key();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -168,9 +183,9 @@ const char* GetLicenseDataResponse::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_device_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -256,30 +271,31 @@ size_t GetLicenseDataResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GetLicenseDataResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetLicenseDataResponse*>(
+  MergeFrom(*::_pbi::DownCast<const GetLicenseDataResponse*>(
       &from));
 }
 
 void GetLicenseDataResponse::MergeFrom(const GetLicenseDataResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:plugin_vm_service.GetLicenseDataResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetLicenseDataResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:plugin_vm_service.GetLicenseDataResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_license_key().empty()) {
-    _internal_set_license_key(from._internal_license_key());
+    _this->_internal_set_license_key(from._internal_license_key());
   }
   if (!from._internal_device_id().empty()) {
-    _internal_set_device_id(from._internal_device_id());
+    _this->_internal_set_device_id(from._internal_device_id());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetLicenseDataResponse::CopyFrom(const GetLicenseDataResponse& from) {
@@ -299,14 +315,12 @@ void GetLicenseDataResponse::InternalSwap(GetLicenseDataResponse* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &license_key_, lhs_arena,
-      &other->license_key_, rhs_arena
+      &_impl_.license_key_, lhs_arena,
+      &other->_impl_.license_key_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &device_id_, lhs_arena,
-      &other->device_id_, rhs_arena
+      &_impl_.device_id_, lhs_arena,
+      &other->_impl_.device_id_, rhs_arena
   );
 }
 
@@ -324,53 +338,58 @@ class ShowSettingsPageRequest::_Internal {
 ShowSettingsPageRequest::ShowSettingsPageRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:plugin_vm_service.ShowSettingsPageRequest)
 }
 ShowSettingsPageRequest::ShowSettingsPageRequest(const ShowSettingsPageRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ShowSettingsPageRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.subpage_path_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  subpage_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.subpage_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    subpage_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.subpage_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_subpage_path().empty()) {
-    subpage_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_subpage_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.subpage_path_.Set(from._internal_subpage_path(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:plugin_vm_service.ShowSettingsPageRequest)
 }
 
-inline void ShowSettingsPageRequest::SharedCtor() {
-subpage_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  subpage_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void ShowSettingsPageRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.subpage_path_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.subpage_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.subpage_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ShowSettingsPageRequest::~ShowSettingsPageRequest() {
   // @@protoc_insertion_point(destructor:plugin_vm_service.ShowSettingsPageRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void ShowSettingsPageRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  subpage_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.subpage_path_.Destroy();
 }
 
-void ShowSettingsPageRequest::ArenaDtor(void* object) {
-  ShowSettingsPageRequest* _this = reinterpret_cast< ShowSettingsPageRequest* >(object);
-  (void)_this;
-}
-void ShowSettingsPageRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ShowSettingsPageRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ShowSettingsPageRequest::Clear() {
@@ -379,23 +398,23 @@ void ShowSettingsPageRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  subpage_path_.ClearToEmpty();
+  _impl_.subpage_path_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* ShowSettingsPageRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ShowSettingsPageRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string subpage_path = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_subpage_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -464,27 +483,28 @@ size_t ShowSettingsPageRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void ShowSettingsPageRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ShowSettingsPageRequest*>(
+  MergeFrom(*::_pbi::DownCast<const ShowSettingsPageRequest*>(
       &from));
 }
 
 void ShowSettingsPageRequest::MergeFrom(const ShowSettingsPageRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:plugin_vm_service.ShowSettingsPageRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  ShowSettingsPageRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:plugin_vm_service.ShowSettingsPageRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_subpage_path().empty()) {
-    _internal_set_subpage_path(from._internal_subpage_path());
+    _this->_internal_set_subpage_path(from._internal_subpage_path());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ShowSettingsPageRequest::CopyFrom(const ShowSettingsPageRequest& from) {
@@ -504,9 +524,8 @@ void ShowSettingsPageRequest::InternalSwap(ShowSettingsPageRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &subpage_path_, lhs_arena,
-      &other->subpage_path_, rhs_arena
+      &_impl_.subpage_path_, lhs_arena,
+      &other->_impl_.subpage_path_, rhs_arena
   );
 }
 
@@ -524,42 +543,46 @@ class GetPermissionsResponse::_Internal {
 GetPermissionsResponse::GetPermissionsResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:plugin_vm_service.GetPermissionsResponse)
 }
 GetPermissionsResponse::GetPermissionsResponse(const GetPermissionsResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetPermissionsResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.data_collection_enabled_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  data_collection_enabled_ = from.data_collection_enabled_;
+  _this->_impl_.data_collection_enabled_ = from._impl_.data_collection_enabled_;
   // @@protoc_insertion_point(copy_constructor:plugin_vm_service.GetPermissionsResponse)
 }
 
-inline void GetPermissionsResponse::SharedCtor() {
-data_collection_enabled_ = false;
+inline void GetPermissionsResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.data_collection_enabled_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 GetPermissionsResponse::~GetPermissionsResponse() {
   // @@protoc_insertion_point(destructor:plugin_vm_service.GetPermissionsResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void GetPermissionsResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void GetPermissionsResponse::ArenaDtor(void* object) {
-  GetPermissionsResponse* _this = reinterpret_cast< GetPermissionsResponse* >(object);
-  (void)_this;
-}
-void GetPermissionsResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GetPermissionsResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetPermissionsResponse::Clear() {
@@ -568,20 +591,20 @@ void GetPermissionsResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  data_collection_enabled_ = false;
+  _impl_.data_collection_enabled_ = false;
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GetPermissionsResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GetPermissionsResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // bool data_collection_enabled = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          data_collection_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.data_collection_enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -618,7 +641,7 @@ uint8_t* GetPermissionsResponse::_InternalSerialize(
   // bool data_collection_enabled = 1;
   if (this->_internal_data_collection_enabled() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_data_collection_enabled(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_data_collection_enabled(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -645,27 +668,28 @@ size_t GetPermissionsResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GetPermissionsResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetPermissionsResponse*>(
+  MergeFrom(*::_pbi::DownCast<const GetPermissionsResponse*>(
       &from));
 }
 
 void GetPermissionsResponse::MergeFrom(const GetPermissionsResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:plugin_vm_service.GetPermissionsResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetPermissionsResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:plugin_vm_service.GetPermissionsResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_data_collection_enabled() != 0) {
-    _internal_set_data_collection_enabled(from._internal_data_collection_enabled());
+    _this->_internal_set_data_collection_enabled(from._internal_data_collection_enabled());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetPermissionsResponse::CopyFrom(const GetPermissionsResponse& from) {
@@ -682,7 +706,7 @@ bool GetPermissionsResponse::IsInitialized() const {
 void GetPermissionsResponse::InternalSwap(GetPermissionsResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(data_collection_enabled_, other->data_collection_enabled_);
+  swap(_impl_.data_collection_enabled_, other->_impl_.data_collection_enabled_);
 }
 
 std::string GetPermissionsResponse::GetTypeName() const {
@@ -699,53 +723,58 @@ class GetAppLicenseUserIdResponse::_Internal {
 GetAppLicenseUserIdResponse::GetAppLicenseUserIdResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:plugin_vm_service.GetAppLicenseUserIdResponse)
 }
 GetAppLicenseUserIdResponse::GetAppLicenseUserIdResponse(const GetAppLicenseUserIdResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetAppLicenseUserIdResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.user_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  user_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.user_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.user_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_user_id().empty()) {
-    user_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_user_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.user_id_.Set(from._internal_user_id(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:plugin_vm_service.GetAppLicenseUserIdResponse)
 }
 
-inline void GetAppLicenseUserIdResponse::SharedCtor() {
-user_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  user_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void GetAppLicenseUserIdResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.user_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.user_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.user_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetAppLicenseUserIdResponse::~GetAppLicenseUserIdResponse() {
   // @@protoc_insertion_point(destructor:plugin_vm_service.GetAppLicenseUserIdResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void GetAppLicenseUserIdResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  user_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.user_id_.Destroy();
 }
 
-void GetAppLicenseUserIdResponse::ArenaDtor(void* object) {
-  GetAppLicenseUserIdResponse* _this = reinterpret_cast< GetAppLicenseUserIdResponse* >(object);
-  (void)_this;
-}
-void GetAppLicenseUserIdResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GetAppLicenseUserIdResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetAppLicenseUserIdResponse::Clear() {
@@ -754,23 +783,23 @@ void GetAppLicenseUserIdResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  user_id_.ClearToEmpty();
+  _impl_.user_id_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GetAppLicenseUserIdResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GetAppLicenseUserIdResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string user_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_user_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -839,27 +868,28 @@ size_t GetAppLicenseUserIdResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GetAppLicenseUserIdResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetAppLicenseUserIdResponse*>(
+  MergeFrom(*::_pbi::DownCast<const GetAppLicenseUserIdResponse*>(
       &from));
 }
 
 void GetAppLicenseUserIdResponse::MergeFrom(const GetAppLicenseUserIdResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:plugin_vm_service.GetAppLicenseUserIdResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetAppLicenseUserIdResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:plugin_vm_service.GetAppLicenseUserIdResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_user_id().empty()) {
-    _internal_set_user_id(from._internal_user_id());
+    _this->_internal_set_user_id(from._internal_user_id());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetAppLicenseUserIdResponse::CopyFrom(const GetAppLicenseUserIdResponse& from) {
@@ -879,9 +909,8 @@ void GetAppLicenseUserIdResponse::InternalSwap(GetAppLicenseUserIdResponse* othe
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &user_id_, lhs_arena,
-      &other->user_id_, rhs_arena
+      &_impl_.user_id_, lhs_arena,
+      &other->_impl_.user_id_, rhs_arena
   );
 }
 
@@ -893,16 +922,20 @@ std::string GetAppLicenseUserIdResponse::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace plugin_vm_service
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::plugin_vm_service::GetLicenseDataResponse* Arena::CreateMaybeMessage< ::plugin_vm_service::GetLicenseDataResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::plugin_vm_service::GetLicenseDataResponse*
+Arena::CreateMaybeMessage< ::plugin_vm_service::GetLicenseDataResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::plugin_vm_service::GetLicenseDataResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::plugin_vm_service::ShowSettingsPageRequest* Arena::CreateMaybeMessage< ::plugin_vm_service::ShowSettingsPageRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::plugin_vm_service::ShowSettingsPageRequest*
+Arena::CreateMaybeMessage< ::plugin_vm_service::ShowSettingsPageRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::plugin_vm_service::ShowSettingsPageRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::plugin_vm_service::GetPermissionsResponse* Arena::CreateMaybeMessage< ::plugin_vm_service::GetPermissionsResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::plugin_vm_service::GetPermissionsResponse*
+Arena::CreateMaybeMessage< ::plugin_vm_service::GetPermissionsResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::plugin_vm_service::GetPermissionsResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::plugin_vm_service::GetAppLicenseUserIdResponse* Arena::CreateMaybeMessage< ::plugin_vm_service::GetAppLicenseUserIdResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::plugin_vm_service::GetAppLicenseUserIdResponse*
+Arena::CreateMaybeMessage< ::plugin_vm_service::GetAppLicenseUserIdResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::plugin_vm_service::GetAppLicenseUserIdResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

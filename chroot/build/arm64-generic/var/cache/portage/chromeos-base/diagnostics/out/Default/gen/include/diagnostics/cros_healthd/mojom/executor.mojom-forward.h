@@ -53,6 +53,8 @@ class TouchpadObserver;
 
 class TouchscreenObserver;
 
+class StylusGarageObserver;
+
 class Executor;
 
 

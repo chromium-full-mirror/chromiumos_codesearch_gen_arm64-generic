@@ -13,228 +13,256 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace dlp {
-constexpr DlpFilesRule::DlpFilesRule(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : source_urls_()
-  , destination_urls_()
-  , level_(0)
-{}
+PROTOBUF_CONSTEXPR DlpFilesRule::DlpFilesRule(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.source_urls_)*/{}
+  , /*decltype(_impl_.destination_urls_)*/{}
+  , /*decltype(_impl_.level_)*/0} {}
 struct DlpFilesRuleDefaultTypeInternal {
-  constexpr DlpFilesRuleDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR DlpFilesRuleDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~DlpFilesRuleDefaultTypeInternal() {}
   union {
     DlpFilesRule _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DlpFilesRuleDefaultTypeInternal _DlpFilesRule_default_instance_;
-constexpr SetDlpFilesPolicyRequest::SetDlpFilesPolicyRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : rules_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DlpFilesRuleDefaultTypeInternal _DlpFilesRule_default_instance_;
+PROTOBUF_CONSTEXPR SetDlpFilesPolicyRequest::SetDlpFilesPolicyRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.rules_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SetDlpFilesPolicyRequestDefaultTypeInternal {
-  constexpr SetDlpFilesPolicyRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SetDlpFilesPolicyRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SetDlpFilesPolicyRequestDefaultTypeInternal() {}
   union {
     SetDlpFilesPolicyRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SetDlpFilesPolicyRequestDefaultTypeInternal _SetDlpFilesPolicyRequest_default_instance_;
-constexpr SetDlpFilesPolicyResponse::SetDlpFilesPolicyResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : error_message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetDlpFilesPolicyRequestDefaultTypeInternal _SetDlpFilesPolicyRequest_default_instance_;
+PROTOBUF_CONSTEXPR SetDlpFilesPolicyResponse::SetDlpFilesPolicyResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.error_message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct SetDlpFilesPolicyResponseDefaultTypeInternal {
-  constexpr SetDlpFilesPolicyResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SetDlpFilesPolicyResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SetDlpFilesPolicyResponseDefaultTypeInternal() {}
   union {
     SetDlpFilesPolicyResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SetDlpFilesPolicyResponseDefaultTypeInternal _SetDlpFilesPolicyResponse_default_instance_;
-constexpr AddFileRequest::AddFileRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : file_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , source_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , referrer_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetDlpFilesPolicyResponseDefaultTypeInternal _SetDlpFilesPolicyResponse_default_instance_;
+PROTOBUF_CONSTEXPR AddFileRequest::AddFileRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.file_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.source_url_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.referrer_url_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct AddFileRequestDefaultTypeInternal {
-  constexpr AddFileRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AddFileRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~AddFileRequestDefaultTypeInternal() {}
   union {
     AddFileRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AddFileRequestDefaultTypeInternal _AddFileRequest_default_instance_;
-constexpr AddFileResponse::AddFileResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : error_message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AddFileRequestDefaultTypeInternal _AddFileRequest_default_instance_;
+PROTOBUF_CONSTEXPR AddFileResponse::AddFileResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.error_message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct AddFileResponseDefaultTypeInternal {
-  constexpr AddFileResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR AddFileResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~AddFileResponseDefaultTypeInternal() {}
   union {
     AddFileResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AddFileResponseDefaultTypeInternal _AddFileResponse_default_instance_;
-constexpr RequestFileAccessRequest::RequestFileAccessRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : inodes_()
-  , files_paths_()
-  , destination_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , process_id_(0)
-  , destination_component_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AddFileResponseDefaultTypeInternal _AddFileResponse_default_instance_;
+PROTOBUF_CONSTEXPR RequestFileAccessRequest::RequestFileAccessRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.inodes_)*/{}
+  , /*decltype(_impl_.files_paths_)*/{}
+  , /*decltype(_impl_.destination_url_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.process_id_)*/0
+  , /*decltype(_impl_.destination_component_)*/0} {}
 struct RequestFileAccessRequestDefaultTypeInternal {
-  constexpr RequestFileAccessRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RequestFileAccessRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~RequestFileAccessRequestDefaultTypeInternal() {}
   union {
     RequestFileAccessRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RequestFileAccessRequestDefaultTypeInternal _RequestFileAccessRequest_default_instance_;
-constexpr RequestFileAccessResponse::RequestFileAccessResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : error_message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , allowed_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RequestFileAccessRequestDefaultTypeInternal _RequestFileAccessRequest_default_instance_;
+PROTOBUF_CONSTEXPR RequestFileAccessResponse::RequestFileAccessResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.error_message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.allowed_)*/false} {}
 struct RequestFileAccessResponseDefaultTypeInternal {
-  constexpr RequestFileAccessResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RequestFileAccessResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~RequestFileAccessResponseDefaultTypeInternal() {}
   union {
     RequestFileAccessResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RequestFileAccessResponseDefaultTypeInternal _RequestFileAccessResponse_default_instance_;
-constexpr FileMetadata::FileMetadata(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : source_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , inode_(uint64_t{0u}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RequestFileAccessResponseDefaultTypeInternal _RequestFileAccessResponse_default_instance_;
+PROTOBUF_CONSTEXPR FileMetadata::FileMetadata(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.source_url_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.inode_)*/uint64_t{0u}} {}
 struct FileMetadataDefaultTypeInternal {
-  constexpr FileMetadataDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR FileMetadataDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~FileMetadataDefaultTypeInternal() {}
   union {
     FileMetadata _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FileMetadataDefaultTypeInternal _FileMetadata_default_instance_;
-constexpr IsDlpPolicyMatchedRequest::IsDlpPolicyMatchedRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : source_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , file_metadata_(nullptr){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FileMetadataDefaultTypeInternal _FileMetadata_default_instance_;
+PROTOBUF_CONSTEXPR IsDlpPolicyMatchedRequest::IsDlpPolicyMatchedRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.source_url_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.file_metadata_)*/nullptr} {}
 struct IsDlpPolicyMatchedRequestDefaultTypeInternal {
-  constexpr IsDlpPolicyMatchedRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR IsDlpPolicyMatchedRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~IsDlpPolicyMatchedRequestDefaultTypeInternal() {}
   union {
     IsDlpPolicyMatchedRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT IsDlpPolicyMatchedRequestDefaultTypeInternal _IsDlpPolicyMatchedRequest_default_instance_;
-constexpr IsDlpPolicyMatchedResponse::IsDlpPolicyMatchedResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : restricted_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IsDlpPolicyMatchedRequestDefaultTypeInternal _IsDlpPolicyMatchedRequest_default_instance_;
+PROTOBUF_CONSTEXPR IsDlpPolicyMatchedResponse::IsDlpPolicyMatchedResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.restricted_)*/false} {}
 struct IsDlpPolicyMatchedResponseDefaultTypeInternal {
-  constexpr IsDlpPolicyMatchedResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR IsDlpPolicyMatchedResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~IsDlpPolicyMatchedResponseDefaultTypeInternal() {}
   union {
     IsDlpPolicyMatchedResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT IsDlpPolicyMatchedResponseDefaultTypeInternal _IsDlpPolicyMatchedResponse_default_instance_;
-constexpr GetFilesSourcesRequest::GetFilesSourcesRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : files_inodes_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IsDlpPolicyMatchedResponseDefaultTypeInternal _IsDlpPolicyMatchedResponse_default_instance_;
+PROTOBUF_CONSTEXPR GetFilesSourcesRequest::GetFilesSourcesRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.files_inodes_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetFilesSourcesRequestDefaultTypeInternal {
-  constexpr GetFilesSourcesRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetFilesSourcesRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetFilesSourcesRequestDefaultTypeInternal() {}
   union {
     GetFilesSourcesRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetFilesSourcesRequestDefaultTypeInternal _GetFilesSourcesRequest_default_instance_;
-constexpr GetFilesSourcesResponse::GetFilesSourcesResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : files_metadata_()
-  , error_message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetFilesSourcesRequestDefaultTypeInternal _GetFilesSourcesRequest_default_instance_;
+PROTOBUF_CONSTEXPR GetFilesSourcesResponse::GetFilesSourcesResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.files_metadata_)*/{}
+  , /*decltype(_impl_.error_message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct GetFilesSourcesResponseDefaultTypeInternal {
-  constexpr GetFilesSourcesResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetFilesSourcesResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetFilesSourcesResponseDefaultTypeInternal() {}
   union {
     GetFilesSourcesResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetFilesSourcesResponseDefaultTypeInternal _GetFilesSourcesResponse_default_instance_;
-constexpr CheckFilesTransferRequest::CheckFilesTransferRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : files_paths_()
-  , destination_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , destination_component_(0)
-
-  , file_action_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetFilesSourcesResponseDefaultTypeInternal _GetFilesSourcesResponse_default_instance_;
+PROTOBUF_CONSTEXPR CheckFilesTransferRequest::CheckFilesTransferRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.files_paths_)*/{}
+  , /*decltype(_impl_.destination_url_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.destination_component_)*/0
+  , /*decltype(_impl_.file_action_)*/0} {}
 struct CheckFilesTransferRequestDefaultTypeInternal {
-  constexpr CheckFilesTransferRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CheckFilesTransferRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~CheckFilesTransferRequestDefaultTypeInternal() {}
   union {
     CheckFilesTransferRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CheckFilesTransferRequestDefaultTypeInternal _CheckFilesTransferRequest_default_instance_;
-constexpr CheckFilesTransferResponse::CheckFilesTransferResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : files_paths_()
-  , error_message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CheckFilesTransferRequestDefaultTypeInternal _CheckFilesTransferRequest_default_instance_;
+PROTOBUF_CONSTEXPR CheckFilesTransferResponse::CheckFilesTransferResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.files_paths_)*/{}
+  , /*decltype(_impl_.error_message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct CheckFilesTransferResponseDefaultTypeInternal {
-  constexpr CheckFilesTransferResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR CheckFilesTransferResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~CheckFilesTransferResponseDefaultTypeInternal() {}
   union {
     CheckFilesTransferResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CheckFilesTransferResponseDefaultTypeInternal _CheckFilesTransferResponse_default_instance_;
-constexpr IsFilesTransferRestrictedRequest::IsFilesTransferRestrictedRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : files_sources_()
-  , transferred_files_()
-  , destination_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , destination_component_(0)
-
-  , file_action_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CheckFilesTransferResponseDefaultTypeInternal _CheckFilesTransferResponse_default_instance_;
+PROTOBUF_CONSTEXPR IsFilesTransferRestrictedRequest::IsFilesTransferRestrictedRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.files_sources_)*/{}
+  , /*decltype(_impl_.transferred_files_)*/{}
+  , /*decltype(_impl_.destination_url_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.destination_component_)*/0
+  , /*decltype(_impl_.file_action_)*/0} {}
 struct IsFilesTransferRestrictedRequestDefaultTypeInternal {
-  constexpr IsFilesTransferRestrictedRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR IsFilesTransferRestrictedRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~IsFilesTransferRestrictedRequestDefaultTypeInternal() {}
   union {
     IsFilesTransferRestrictedRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT IsFilesTransferRestrictedRequestDefaultTypeInternal _IsFilesTransferRestrictedRequest_default_instance_;
-constexpr IsFilesTransferRestrictedResponse::IsFilesTransferRestrictedResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : files_sources_()
-  , restricted_files_()
-  , error_message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IsFilesTransferRestrictedRequestDefaultTypeInternal _IsFilesTransferRestrictedRequest_default_instance_;
+PROTOBUF_CONSTEXPR IsFilesTransferRestrictedResponse::IsFilesTransferRestrictedResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.files_sources_)*/{}
+  , /*decltype(_impl_.restricted_files_)*/{}
+  , /*decltype(_impl_.error_message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct IsFilesTransferRestrictedResponseDefaultTypeInternal {
-  constexpr IsFilesTransferRestrictedResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR IsFilesTransferRestrictedResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~IsFilesTransferRestrictedResponseDefaultTypeInternal() {}
   union {
     IsFilesTransferRestrictedResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT IsFilesTransferRestrictedResponseDefaultTypeInternal _IsFilesTransferRestrictedResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 IsFilesTransferRestrictedResponseDefaultTypeInternal _IsFilesTransferRestrictedResponse_default_instance_;
 }  // namespace dlp
 namespace dlp {
 bool DlpRuleLevel_IsValid(int value) {
@@ -435,7 +463,7 @@ bool FileAction_Parse(
 
 class DlpFilesRule::_Internal {
  public:
-  using HasBits = decltype(std::declval<DlpFilesRule>()._has_bits_);
+  using HasBits = decltype(std::declval<DlpFilesRule>()._impl_._has_bits_);
   static void set_has_level(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -443,48 +471,55 @@ class DlpFilesRule::_Internal {
 
 DlpFilesRule::DlpFilesRule(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  source_urls_(arena),
-  destination_urls_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dlp.DlpFilesRule)
 }
 DlpFilesRule::DlpFilesRule(const DlpFilesRule& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      source_urls_(from.source_urls_),
-      destination_urls_(from.destination_urls_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  DlpFilesRule* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.source_urls_){from._impl_.source_urls_}
+    , decltype(_impl_.destination_urls_){from._impl_.destination_urls_}
+    , decltype(_impl_.level_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  level_ = from.level_;
+  _this->_impl_.level_ = from._impl_.level_;
   // @@protoc_insertion_point(copy_constructor:dlp.DlpFilesRule)
 }
 
-inline void DlpFilesRule::SharedCtor() {
-level_ = 0;
+inline void DlpFilesRule::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.source_urls_){arena}
+    , decltype(_impl_.destination_urls_){arena}
+    , decltype(_impl_.level_){0}
+  };
 }
 
 DlpFilesRule::~DlpFilesRule() {
   // @@protoc_insertion_point(destructor:dlp.DlpFilesRule)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void DlpFilesRule::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.source_urls_.~RepeatedPtrField();
+  _impl_.destination_urls_.~RepeatedPtrField();
 }
 
-void DlpFilesRule::ArenaDtor(void* object) {
-  DlpFilesRule* _this = reinterpret_cast< DlpFilesRule* >(object);
-  (void)_this;
-}
-void DlpFilesRule::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void DlpFilesRule::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void DlpFilesRule::Clear() {
@@ -493,19 +528,19 @@ void DlpFilesRule::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  source_urls_.Clear();
-  destination_urls_.Clear();
-  level_ = 0;
-  _has_bits_.Clear();
+  _impl_.source_urls_.Clear();
+  _impl_.destination_urls_.Clear();
+  _impl_.level_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* DlpFilesRule::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* DlpFilesRule::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated string source_urls = 1;
       case 1:
@@ -514,7 +549,7 @@ const char* DlpFilesRule::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
           do {
             ptr += 1;
             auto str = _internal_add_source_urls();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
@@ -528,7 +563,7 @@ const char* DlpFilesRule::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
           do {
             ptr += 1;
             auto str = _internal_add_destination_urls();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
@@ -564,7 +599,7 @@ const char* DlpFilesRule::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -590,11 +625,11 @@ uint8_t* DlpFilesRule::_InternalSerialize(
     target = stream->WriteString(2, s, target);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .dlp.DlpRuleLevel level = 3;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_level(), target);
   }
 
@@ -616,53 +651,54 @@ size_t DlpFilesRule::ByteSizeLong() const {
 
   // repeated string source_urls = 1;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(source_urls_.size());
-  for (int i = 0, n = source_urls_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.source_urls_.size());
+  for (int i = 0, n = _impl_.source_urls_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      source_urls_.Get(i));
+      _impl_.source_urls_.Get(i));
   }
 
   // repeated string destination_urls = 2;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(destination_urls_.size());
-  for (int i = 0, n = destination_urls_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.destination_urls_.size());
+  for (int i = 0, n = _impl_.destination_urls_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      destination_urls_.Get(i));
+      _impl_.destination_urls_.Get(i));
   }
 
   // optional .dlp.DlpRuleLevel level = 3;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_level());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_level());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void DlpFilesRule::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const DlpFilesRule*>(
+  MergeFrom(*::_pbi::DownCast<const DlpFilesRule*>(
       &from));
 }
 
 void DlpFilesRule::MergeFrom(const DlpFilesRule& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.DlpFilesRule)
-  GOOGLE_DCHECK_NE(&from, this);
+  DlpFilesRule* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dlp.DlpFilesRule)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  source_urls_.MergeFrom(from.source_urls_);
-  destination_urls_.MergeFrom(from.destination_urls_);
+  _this->_impl_.source_urls_.MergeFrom(from._impl_.source_urls_);
+  _this->_impl_.destination_urls_.MergeFrom(from._impl_.destination_urls_);
   if (from._internal_has_level()) {
-    _internal_set_level(from._internal_level());
+    _this->_internal_set_level(from._internal_level());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void DlpFilesRule::CopyFrom(const DlpFilesRule& from) {
@@ -679,10 +715,10 @@ bool DlpFilesRule::IsInitialized() const {
 void DlpFilesRule::InternalSwap(DlpFilesRule* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  source_urls_.InternalSwap(&other->source_urls_);
-  destination_urls_.InternalSwap(&other->destination_urls_);
-  swap(level_, other->level_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.source_urls_.InternalSwap(&other->_impl_.source_urls_);
+  _impl_.destination_urls_.InternalSwap(&other->_impl_.destination_urls_);
+  swap(_impl_.level_, other->_impl_.level_);
 }
 
 std::string DlpFilesRule::GetTypeName() const {
@@ -698,43 +734,47 @@ class SetDlpFilesPolicyRequest::_Internal {
 
 SetDlpFilesPolicyRequest::SetDlpFilesPolicyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  rules_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dlp.SetDlpFilesPolicyRequest)
 }
 SetDlpFilesPolicyRequest::SetDlpFilesPolicyRequest(const SetDlpFilesPolicyRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      rules_(from.rules_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SetDlpFilesPolicyRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.rules_){from._impl_.rules_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:dlp.SetDlpFilesPolicyRequest)
 }
 
-inline void SetDlpFilesPolicyRequest::SharedCtor() {
+inline void SetDlpFilesPolicyRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.rules_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 SetDlpFilesPolicyRequest::~SetDlpFilesPolicyRequest() {
   // @@protoc_insertion_point(destructor:dlp.SetDlpFilesPolicyRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SetDlpFilesPolicyRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.rules_.~RepeatedPtrField();
 }
 
-void SetDlpFilesPolicyRequest::ArenaDtor(void* object) {
-  SetDlpFilesPolicyRequest* _this = reinterpret_cast< SetDlpFilesPolicyRequest* >(object);
-  (void)_this;
-}
-void SetDlpFilesPolicyRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SetDlpFilesPolicyRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SetDlpFilesPolicyRequest::Clear() {
@@ -743,15 +783,15 @@ void SetDlpFilesPolicyRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  rules_.Clear();
+  _impl_.rules_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SetDlpFilesPolicyRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SetDlpFilesPolicyRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .dlp.DlpFilesRule rules = 1;
       case 1:
@@ -796,11 +836,11 @@ uint8_t* SetDlpFilesPolicyRequest::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .dlp.DlpFilesRule rules = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_rules_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_rules_size()); i < n; i++) {
+    const auto& repfield = this->_internal_rules(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_rules(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -821,7 +861,7 @@ size_t SetDlpFilesPolicyRequest::ByteSizeLong() const {
 
   // repeated .dlp.DlpFilesRule rules = 1;
   total_size += 1UL * this->_internal_rules_size();
-  for (const auto& msg : this->rules_) {
+  for (const auto& msg : this->_impl_.rules_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -829,25 +869,26 @@ size_t SetDlpFilesPolicyRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SetDlpFilesPolicyRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SetDlpFilesPolicyRequest*>(
+  MergeFrom(*::_pbi::DownCast<const SetDlpFilesPolicyRequest*>(
       &from));
 }
 
 void SetDlpFilesPolicyRequest::MergeFrom(const SetDlpFilesPolicyRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.SetDlpFilesPolicyRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  SetDlpFilesPolicyRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dlp.SetDlpFilesPolicyRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  rules_.MergeFrom(from.rules_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.rules_.MergeFrom(from._impl_.rules_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SetDlpFilesPolicyRequest::CopyFrom(const SetDlpFilesPolicyRequest& from) {
@@ -864,7 +905,7 @@ bool SetDlpFilesPolicyRequest::IsInitialized() const {
 void SetDlpFilesPolicyRequest::InternalSwap(SetDlpFilesPolicyRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  rules_.InternalSwap(&other->rules_);
+  _impl_.rules_.InternalSwap(&other->_impl_.rules_);
 }
 
 std::string SetDlpFilesPolicyRequest::GetTypeName() const {
@@ -876,7 +917,7 @@ std::string SetDlpFilesPolicyRequest::GetTypeName() const {
 
 class SetDlpFilesPolicyResponse::_Internal {
  public:
-  using HasBits = decltype(std::declval<SetDlpFilesPolicyResponse>()._has_bits_);
+  using HasBits = decltype(std::declval<SetDlpFilesPolicyResponse>()._impl_._has_bits_);
   static void set_has_error_message(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -885,54 +926,60 @@ class SetDlpFilesPolicyResponse::_Internal {
 SetDlpFilesPolicyResponse::SetDlpFilesPolicyResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dlp.SetDlpFilesPolicyResponse)
 }
 SetDlpFilesPolicyResponse::SetDlpFilesPolicyResponse(const SetDlpFilesPolicyResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SetDlpFilesPolicyResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.error_message_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.error_message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.error_message_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_error_message()) {
-    error_message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_error_message(), 
-      GetArenaForAllocation());
+    _this->_impl_.error_message_.Set(from._internal_error_message(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:dlp.SetDlpFilesPolicyResponse)
 }
 
-inline void SetDlpFilesPolicyResponse::SharedCtor() {
-error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void SetDlpFilesPolicyResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.error_message_){}
+  };
+  _impl_.error_message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.error_message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SetDlpFilesPolicyResponse::~SetDlpFilesPolicyResponse() {
   // @@protoc_insertion_point(destructor:dlp.SetDlpFilesPolicyResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SetDlpFilesPolicyResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  error_message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.error_message_.Destroy();
 }
 
-void SetDlpFilesPolicyResponse::ArenaDtor(void* object) {
-  SetDlpFilesPolicyResponse* _this = reinterpret_cast< SetDlpFilesPolicyResponse* >(object);
-  (void)_this;
-}
-void SetDlpFilesPolicyResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SetDlpFilesPolicyResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SetDlpFilesPolicyResponse::Clear() {
@@ -941,26 +988,26 @@ void SetDlpFilesPolicyResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    error_message_.ClearNonDefaultToEmpty();
+    _impl_.error_message_.ClearNonDefaultToEmpty();
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SetDlpFilesPolicyResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SetDlpFilesPolicyResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string error_message = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_error_message();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -981,7 +1028,7 @@ const char* SetDlpFilesPolicyResponse::_InternalParse(const char* ptr, ::PROTOBU
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -995,7 +1042,7 @@ uint8_t* SetDlpFilesPolicyResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string error_message = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -1019,7 +1066,7 @@ size_t SetDlpFilesPolicyResponse::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional string error_message = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -1029,27 +1076,28 @@ size_t SetDlpFilesPolicyResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SetDlpFilesPolicyResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SetDlpFilesPolicyResponse*>(
+  MergeFrom(*::_pbi::DownCast<const SetDlpFilesPolicyResponse*>(
       &from));
 }
 
 void SetDlpFilesPolicyResponse::MergeFrom(const SetDlpFilesPolicyResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.SetDlpFilesPolicyResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  SetDlpFilesPolicyResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dlp.SetDlpFilesPolicyResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_error_message()) {
-    _internal_set_error_message(from._internal_error_message());
+    _this->_internal_set_error_message(from._internal_error_message());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SetDlpFilesPolicyResponse::CopyFrom(const SetDlpFilesPolicyResponse& from) {
@@ -1068,11 +1116,10 @@ void SetDlpFilesPolicyResponse::InternalSwap(SetDlpFilesPolicyResponse* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &error_message_, lhs_arena,
-      &other->error_message_, rhs_arena
+      &_impl_.error_message_, lhs_arena,
+      &other->_impl_.error_message_, rhs_arena
   );
 }
 
@@ -1085,7 +1132,7 @@ std::string SetDlpFilesPolicyResponse::GetTypeName() const {
 
 class AddFileRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<AddFileRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<AddFileRequest>()._impl_._has_bits_);
   static void set_has_file_path(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1100,80 +1147,90 @@ class AddFileRequest::_Internal {
 AddFileRequest::AddFileRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dlp.AddFileRequest)
 }
 AddFileRequest::AddFileRequest(const AddFileRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AddFileRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.file_path_){}
+    , decltype(_impl_.source_url_){}
+    , decltype(_impl_.referrer_url_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  file_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.file_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    file_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.file_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_file_path()) {
-    file_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.file_path_.Set(from._internal_file_path(), 
+      _this->GetArenaForAllocation());
   }
-  source_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.source_url_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    source_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.source_url_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_source_url()) {
-    source_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_source_url(), 
-      GetArenaForAllocation());
+    _this->_impl_.source_url_.Set(from._internal_source_url(), 
+      _this->GetArenaForAllocation());
   }
-  referrer_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.referrer_url_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    referrer_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.referrer_url_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_referrer_url()) {
-    referrer_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_referrer_url(), 
-      GetArenaForAllocation());
+    _this->_impl_.referrer_url_.Set(from._internal_referrer_url(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:dlp.AddFileRequest)
 }
 
-inline void AddFileRequest::SharedCtor() {
-file_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  file_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-source_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  source_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-referrer_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  referrer_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void AddFileRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.file_path_){}
+    , decltype(_impl_.source_url_){}
+    , decltype(_impl_.referrer_url_){}
+  };
+  _impl_.file_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.file_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.source_url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.source_url_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.referrer_url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.referrer_url_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 AddFileRequest::~AddFileRequest() {
   // @@protoc_insertion_point(destructor:dlp.AddFileRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void AddFileRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  file_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  source_url_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  referrer_url_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.file_path_.Destroy();
+  _impl_.source_url_.Destroy();
+  _impl_.referrer_url_.Destroy();
 }
 
-void AddFileRequest::ArenaDtor(void* object) {
-  AddFileRequest* _this = reinterpret_cast< AddFileRequest* >(object);
-  (void)_this;
-}
-void AddFileRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void AddFileRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void AddFileRequest::Clear() {
@@ -1182,34 +1239,34 @@ void AddFileRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      file_path_.ClearNonDefaultToEmpty();
+      _impl_.file_path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      source_url_.ClearNonDefaultToEmpty();
+      _impl_.source_url_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      referrer_url_.ClearNonDefaultToEmpty();
+      _impl_.referrer_url_.ClearNonDefaultToEmpty();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* AddFileRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* AddFileRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string file_path = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_file_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1218,7 +1275,7 @@ const char* AddFileRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_source_url();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1227,7 +1284,7 @@ const char* AddFileRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_referrer_url();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1248,7 +1305,7 @@ const char* AddFileRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1262,7 +1319,7 @@ uint8_t* AddFileRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string file_path = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -1297,7 +1354,7 @@ size_t AddFileRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional string file_path = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -1324,36 +1381,37 @@ size_t AddFileRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void AddFileRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const AddFileRequest*>(
+  MergeFrom(*::_pbi::DownCast<const AddFileRequest*>(
       &from));
 }
 
 void AddFileRequest::MergeFrom(const AddFileRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.AddFileRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  AddFileRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dlp.AddFileRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_file_path(from._internal_file_path());
+      _this->_internal_set_file_path(from._internal_file_path());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_source_url(from._internal_source_url());
+      _this->_internal_set_source_url(from._internal_source_url());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_referrer_url(from._internal_referrer_url());
+      _this->_internal_set_referrer_url(from._internal_referrer_url());
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void AddFileRequest::CopyFrom(const AddFileRequest& from) {
@@ -1372,21 +1430,18 @@ void AddFileRequest::InternalSwap(AddFileRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &file_path_, lhs_arena,
-      &other->file_path_, rhs_arena
+      &_impl_.file_path_, lhs_arena,
+      &other->_impl_.file_path_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &source_url_, lhs_arena,
-      &other->source_url_, rhs_arena
+      &_impl_.source_url_, lhs_arena,
+      &other->_impl_.source_url_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &referrer_url_, lhs_arena,
-      &other->referrer_url_, rhs_arena
+      &_impl_.referrer_url_, lhs_arena,
+      &other->_impl_.referrer_url_, rhs_arena
   );
 }
 
@@ -1399,7 +1454,7 @@ std::string AddFileRequest::GetTypeName() const {
 
 class AddFileResponse::_Internal {
  public:
-  using HasBits = decltype(std::declval<AddFileResponse>()._has_bits_);
+  using HasBits = decltype(std::declval<AddFileResponse>()._impl_._has_bits_);
   static void set_has_error_message(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1408,54 +1463,60 @@ class AddFileResponse::_Internal {
 AddFileResponse::AddFileResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dlp.AddFileResponse)
 }
 AddFileResponse::AddFileResponse(const AddFileResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  AddFileResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.error_message_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.error_message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.error_message_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_error_message()) {
-    error_message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_error_message(), 
-      GetArenaForAllocation());
+    _this->_impl_.error_message_.Set(from._internal_error_message(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:dlp.AddFileResponse)
 }
 
-inline void AddFileResponse::SharedCtor() {
-error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void AddFileResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.error_message_){}
+  };
+  _impl_.error_message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.error_message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 AddFileResponse::~AddFileResponse() {
   // @@protoc_insertion_point(destructor:dlp.AddFileResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void AddFileResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  error_message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.error_message_.Destroy();
 }
 
-void AddFileResponse::ArenaDtor(void* object) {
-  AddFileResponse* _this = reinterpret_cast< AddFileResponse* >(object);
-  (void)_this;
-}
-void AddFileResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void AddFileResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void AddFileResponse::Clear() {
@@ -1464,26 +1525,26 @@ void AddFileResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    error_message_.ClearNonDefaultToEmpty();
+    _impl_.error_message_.ClearNonDefaultToEmpty();
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* AddFileResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* AddFileResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string error_message = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_error_message();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1504,7 +1565,7 @@ const char* AddFileResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPAC
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1518,7 +1579,7 @@ uint8_t* AddFileResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string error_message = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -1542,7 +1603,7 @@ size_t AddFileResponse::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional string error_message = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -1552,27 +1613,28 @@ size_t AddFileResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void AddFileResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const AddFileResponse*>(
+  MergeFrom(*::_pbi::DownCast<const AddFileResponse*>(
       &from));
 }
 
 void AddFileResponse::MergeFrom(const AddFileResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.AddFileResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  AddFileResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dlp.AddFileResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_error_message()) {
-    _internal_set_error_message(from._internal_error_message());
+    _this->_internal_set_error_message(from._internal_error_message());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void AddFileResponse::CopyFrom(const AddFileResponse& from) {
@@ -1591,11 +1653,10 @@ void AddFileResponse::InternalSwap(AddFileResponse* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &error_message_, lhs_arena,
-      &other->error_message_, rhs_arena
+      &_impl_.error_message_, lhs_arena,
+      &other->_impl_.error_message_, rhs_arena
   );
 }
 
@@ -1608,7 +1669,7 @@ std::string AddFileResponse::GetTypeName() const {
 
 class RequestFileAccessRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<RequestFileAccessRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<RequestFileAccessRequest>()._impl_._has_bits_);
   static void set_has_process_id(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
@@ -1622,66 +1683,74 @@ class RequestFileAccessRequest::_Internal {
 
 RequestFileAccessRequest::RequestFileAccessRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  inodes_(arena),
-  files_paths_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dlp.RequestFileAccessRequest)
 }
 RequestFileAccessRequest::RequestFileAccessRequest(const RequestFileAccessRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      inodes_(from.inodes_),
-      files_paths_(from.files_paths_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RequestFileAccessRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.inodes_){from._impl_.inodes_}
+    , decltype(_impl_.files_paths_){from._impl_.files_paths_}
+    , decltype(_impl_.destination_url_){}
+    , decltype(_impl_.process_id_){}
+    , decltype(_impl_.destination_component_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  destination_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.destination_url_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    destination_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.destination_url_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_destination_url()) {
-    destination_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_destination_url(), 
-      GetArenaForAllocation());
+    _this->_impl_.destination_url_.Set(from._internal_destination_url(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&process_id_, &from.process_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&destination_component_) -
-    reinterpret_cast<char*>(&process_id_)) + sizeof(destination_component_));
+  ::memcpy(&_impl_.process_id_, &from._impl_.process_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.destination_component_) -
+    reinterpret_cast<char*>(&_impl_.process_id_)) + sizeof(_impl_.destination_component_));
   // @@protoc_insertion_point(copy_constructor:dlp.RequestFileAccessRequest)
 }
 
-inline void RequestFileAccessRequest::SharedCtor() {
-destination_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  destination_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&process_id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&destination_component_) -
-    reinterpret_cast<char*>(&process_id_)) + sizeof(destination_component_));
+inline void RequestFileAccessRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.inodes_){arena}
+    , decltype(_impl_.files_paths_){arena}
+    , decltype(_impl_.destination_url_){}
+    , decltype(_impl_.process_id_){0}
+    , decltype(_impl_.destination_component_){0}
+  };
+  _impl_.destination_url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.destination_url_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 RequestFileAccessRequest::~RequestFileAccessRequest() {
   // @@protoc_insertion_point(destructor:dlp.RequestFileAccessRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void RequestFileAccessRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  destination_url_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.inodes_.~RepeatedField();
+  _impl_.files_paths_.~RepeatedPtrField();
+  _impl_.destination_url_.Destroy();
 }
 
-void RequestFileAccessRequest::ArenaDtor(void* object) {
-  RequestFileAccessRequest* _this = reinterpret_cast< RequestFileAccessRequest* >(object);
-  (void)_this;
-}
-void RequestFileAccessRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void RequestFileAccessRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RequestFileAccessRequest::Clear() {
@@ -1690,27 +1759,27 @@ void RequestFileAccessRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  inodes_.Clear();
-  files_paths_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.inodes_.Clear();
+  _impl_.files_paths_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    destination_url_.ClearNonDefaultToEmpty();
+    _impl_.destination_url_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&process_id_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&destination_component_) -
-        reinterpret_cast<char*>(&process_id_)) + sizeof(destination_component_));
+    ::memset(&_impl_.process_id_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.destination_component_) -
+        reinterpret_cast<char*>(&_impl_.process_id_)) + sizeof(_impl_.destination_component_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* RequestFileAccessRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* RequestFileAccessRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated uint64 inodes = 1;
       case 1:
@@ -1732,7 +1801,7 @@ const char* RequestFileAccessRequest::_InternalParse(const char* ptr, ::PROTOBUF
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_process_id(&has_bits);
-          process_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.process_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1741,7 +1810,7 @@ const char* RequestFileAccessRequest::_InternalParse(const char* ptr, ::PROTOBUF
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_destination_url();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1753,7 +1822,7 @@ const char* RequestFileAccessRequest::_InternalParse(const char* ptr, ::PROTOBUF
           do {
             ptr += 1;
             auto str = _internal_add_files_paths();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
@@ -1789,7 +1858,7 @@ const char* RequestFileAccessRequest::_InternalParse(const char* ptr, ::PROTOBUF
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1806,14 +1875,14 @@ uint8_t* RequestFileAccessRequest::_InternalSerialize(
   // repeated uint64 inodes = 1;
   for (int i = 0, n = this->_internal_inodes_size(); i < n; i++) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_inodes(i), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_inodes(i), target);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 process_id = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_process_id(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_process_id(), target);
   }
 
   // optional string destination_url = 3;
@@ -1831,7 +1900,7 @@ uint8_t* RequestFileAccessRequest::_InternalSerialize(
   // optional .dlp.DlpComponent destination_component = 5;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       5, this->_internal_destination_component(), target);
   }
 
@@ -1853,22 +1922,22 @@ size_t RequestFileAccessRequest::ByteSizeLong() const {
 
   // repeated uint64 inodes = 1;
   {
-    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt64Size(this->inodes_);
+    size_t data_size = ::_pbi::WireFormatLite::
+      UInt64Size(this->_impl_.inodes_);
     total_size += 1 *
-                  ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_inodes_size());
+                  ::_pbi::FromIntSize(this->_internal_inodes_size());
     total_size += data_size;
   }
 
   // repeated string files_paths = 4;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(files_paths_.size());
-  for (int i = 0, n = files_paths_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.files_paths_.size());
+  for (int i = 0, n = _impl_.files_paths_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      files_paths_.Get(i));
+      _impl_.files_paths_.Get(i));
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional string destination_url = 3;
     if (cached_has_bits & 0x00000001u) {
@@ -1879,52 +1948,53 @@ size_t RequestFileAccessRequest::ByteSizeLong() const {
 
     // optional int32 process_id = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_process_id());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_process_id());
     }
 
     // optional .dlp.DlpComponent destination_component = 5;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_destination_component());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_destination_component());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void RequestFileAccessRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const RequestFileAccessRequest*>(
+  MergeFrom(*::_pbi::DownCast<const RequestFileAccessRequest*>(
       &from));
 }
 
 void RequestFileAccessRequest::MergeFrom(const RequestFileAccessRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.RequestFileAccessRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  RequestFileAccessRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dlp.RequestFileAccessRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  inodes_.MergeFrom(from.inodes_);
-  files_paths_.MergeFrom(from.files_paths_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_impl_.inodes_.MergeFrom(from._impl_.inodes_);
+  _this->_impl_.files_paths_.MergeFrom(from._impl_.files_paths_);
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_destination_url(from._internal_destination_url());
+      _this->_internal_set_destination_url(from._internal_destination_url());
     }
     if (cached_has_bits & 0x00000002u) {
-      process_id_ = from.process_id_;
+      _this->_impl_.process_id_ = from._impl_.process_id_;
     }
     if (cached_has_bits & 0x00000004u) {
-      destination_component_ = from.destination_component_;
+      _this->_impl_.destination_component_ = from._impl_.destination_component_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RequestFileAccessRequest::CopyFrom(const RequestFileAccessRequest& from) {
@@ -1943,20 +2013,19 @@ void RequestFileAccessRequest::InternalSwap(RequestFileAccessRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  inodes_.InternalSwap(&other->inodes_);
-  files_paths_.InternalSwap(&other->files_paths_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.inodes_.InternalSwap(&other->_impl_.inodes_);
+  _impl_.files_paths_.InternalSwap(&other->_impl_.files_paths_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &destination_url_, lhs_arena,
-      &other->destination_url_, rhs_arena
+      &_impl_.destination_url_, lhs_arena,
+      &other->_impl_.destination_url_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RequestFileAccessRequest, destination_component_)
-      + sizeof(RequestFileAccessRequest::destination_component_)
-      - PROTOBUF_FIELD_OFFSET(RequestFileAccessRequest, process_id_)>(
-          reinterpret_cast<char*>(&process_id_),
-          reinterpret_cast<char*>(&other->process_id_));
+      PROTOBUF_FIELD_OFFSET(RequestFileAccessRequest, _impl_.destination_component_)
+      + sizeof(RequestFileAccessRequest::_impl_.destination_component_)
+      - PROTOBUF_FIELD_OFFSET(RequestFileAccessRequest, _impl_.process_id_)>(
+          reinterpret_cast<char*>(&_impl_.process_id_),
+          reinterpret_cast<char*>(&other->_impl_.process_id_));
 }
 
 std::string RequestFileAccessRequest::GetTypeName() const {
@@ -1968,7 +2037,7 @@ std::string RequestFileAccessRequest::GetTypeName() const {
 
 class RequestFileAccessResponse::_Internal {
  public:
-  using HasBits = decltype(std::declval<RequestFileAccessResponse>()._has_bits_);
+  using HasBits = decltype(std::declval<RequestFileAccessResponse>()._impl_._has_bits_);
   static void set_has_error_message(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1980,56 +2049,63 @@ class RequestFileAccessResponse::_Internal {
 RequestFileAccessResponse::RequestFileAccessResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dlp.RequestFileAccessResponse)
 }
 RequestFileAccessResponse::RequestFileAccessResponse(const RequestFileAccessResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  RequestFileAccessResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.error_message_){}
+    , decltype(_impl_.allowed_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.error_message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.error_message_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_error_message()) {
-    error_message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_error_message(), 
-      GetArenaForAllocation());
+    _this->_impl_.error_message_.Set(from._internal_error_message(), 
+      _this->GetArenaForAllocation());
   }
-  allowed_ = from.allowed_;
+  _this->_impl_.allowed_ = from._impl_.allowed_;
   // @@protoc_insertion_point(copy_constructor:dlp.RequestFileAccessResponse)
 }
 
-inline void RequestFileAccessResponse::SharedCtor() {
-error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-allowed_ = false;
+inline void RequestFileAccessResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.error_message_){}
+    , decltype(_impl_.allowed_){false}
+  };
+  _impl_.error_message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.error_message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 RequestFileAccessResponse::~RequestFileAccessResponse() {
   // @@protoc_insertion_point(destructor:dlp.RequestFileAccessResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void RequestFileAccessResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  error_message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.error_message_.Destroy();
 }
 
-void RequestFileAccessResponse::ArenaDtor(void* object) {
-  RequestFileAccessResponse* _this = reinterpret_cast< RequestFileAccessResponse* >(object);
-  (void)_this;
-}
-void RequestFileAccessResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void RequestFileAccessResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RequestFileAccessResponse::Clear() {
@@ -2038,27 +2114,27 @@ void RequestFileAccessResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    error_message_.ClearNonDefaultToEmpty();
+    _impl_.error_message_.ClearNonDefaultToEmpty();
   }
-  allowed_ = false;
-  _has_bits_.Clear();
+  _impl_.allowed_ = false;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* RequestFileAccessResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* RequestFileAccessResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string error_message = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_error_message();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2067,7 +2143,7 @@ const char* RequestFileAccessResponse::_InternalParse(const char* ptr, ::PROTOBU
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_allowed(&has_bits);
-          allowed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.allowed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2088,7 +2164,7 @@ const char* RequestFileAccessResponse::_InternalParse(const char* ptr, ::PROTOBU
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2102,7 +2178,7 @@ uint8_t* RequestFileAccessResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string error_message = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -2112,7 +2188,7 @@ uint8_t* RequestFileAccessResponse::_InternalSerialize(
   // optional bool allowed = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_allowed(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_allowed(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2131,7 +2207,7 @@ size_t RequestFileAccessResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional string error_message = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -2149,34 +2225,35 @@ size_t RequestFileAccessResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void RequestFileAccessResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const RequestFileAccessResponse*>(
+  MergeFrom(*::_pbi::DownCast<const RequestFileAccessResponse*>(
       &from));
 }
 
 void RequestFileAccessResponse::MergeFrom(const RequestFileAccessResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.RequestFileAccessResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  RequestFileAccessResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dlp.RequestFileAccessResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_error_message(from._internal_error_message());
+      _this->_internal_set_error_message(from._internal_error_message());
     }
     if (cached_has_bits & 0x00000002u) {
-      allowed_ = from.allowed_;
+      _this->_impl_.allowed_ = from._impl_.allowed_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void RequestFileAccessResponse::CopyFrom(const RequestFileAccessResponse& from) {
@@ -2195,13 +2272,12 @@ void RequestFileAccessResponse::InternalSwap(RequestFileAccessResponse* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &error_message_, lhs_arena,
-      &other->error_message_, rhs_arena
+      &_impl_.error_message_, lhs_arena,
+      &other->_impl_.error_message_, rhs_arena
   );
-  swap(allowed_, other->allowed_);
+  swap(_impl_.allowed_, other->_impl_.allowed_);
 }
 
 std::string RequestFileAccessResponse::GetTypeName() const {
@@ -2213,7 +2289,7 @@ std::string RequestFileAccessResponse::GetTypeName() const {
 
 class FileMetadata::_Internal {
  public:
-  using HasBits = decltype(std::declval<FileMetadata>()._has_bits_);
+  using HasBits = decltype(std::declval<FileMetadata>()._impl_._has_bits_);
   static void set_has_inode(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -2228,69 +2304,78 @@ class FileMetadata::_Internal {
 FileMetadata::FileMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dlp.FileMetadata)
 }
 FileMetadata::FileMetadata(const FileMetadata& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  FileMetadata* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.source_url_){}
+    , decltype(_impl_.path_){}
+    , decltype(_impl_.inode_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  source_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.source_url_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    source_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.source_url_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_source_url()) {
-    source_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_source_url(), 
-      GetArenaForAllocation());
+    _this->_impl_.source_url_.Set(from._internal_source_url(), 
+      _this->GetArenaForAllocation());
   }
-  path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_path()) {
-    path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.path_.Set(from._internal_path(), 
+      _this->GetArenaForAllocation());
   }
-  inode_ = from.inode_;
+  _this->_impl_.inode_ = from._impl_.inode_;
   // @@protoc_insertion_point(copy_constructor:dlp.FileMetadata)
 }
 
-inline void FileMetadata::SharedCtor() {
-source_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  source_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-inode_ = uint64_t{0u};
+inline void FileMetadata::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.source_url_){}
+    , decltype(_impl_.path_){}
+    , decltype(_impl_.inode_){uint64_t{0u}}
+  };
+  _impl_.source_url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.source_url_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 FileMetadata::~FileMetadata() {
   // @@protoc_insertion_point(destructor:dlp.FileMetadata)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void FileMetadata::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  source_url_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.source_url_.Destroy();
+  _impl_.path_.Destroy();
 }
 
-void FileMetadata::ArenaDtor(void* object) {
-  FileMetadata* _this = reinterpret_cast< FileMetadata* >(object);
-  (void)_this;
-}
-void FileMetadata::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void FileMetadata::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FileMetadata::Clear() {
@@ -2299,32 +2384,32 @@ void FileMetadata::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      source_url_.ClearNonDefaultToEmpty();
+      _impl_.source_url_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      path_.ClearNonDefaultToEmpty();
+      _impl_.path_.ClearNonDefaultToEmpty();
     }
   }
-  inode_ = uint64_t{0u};
-  _has_bits_.Clear();
+  _impl_.inode_ = uint64_t{0u};
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* FileMetadata::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* FileMetadata::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional uint64 inode = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_inode(&has_bits);
-          inode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.inode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2333,7 +2418,7 @@ const char* FileMetadata::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_source_url();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2342,7 +2427,7 @@ const char* FileMetadata::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2363,7 +2448,7 @@ const char* FileMetadata::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2377,11 +2462,11 @@ uint8_t* FileMetadata::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional uint64 inode = 1;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_inode(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_inode(), target);
   }
 
   // optional string source_url = 2;
@@ -2412,7 +2497,7 @@ size_t FileMetadata::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional string source_url = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -2430,44 +2515,45 @@ size_t FileMetadata::ByteSizeLong() const {
 
     // optional uint64 inode = 1;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_inode());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_inode());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void FileMetadata::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const FileMetadata*>(
+  MergeFrom(*::_pbi::DownCast<const FileMetadata*>(
       &from));
 }
 
 void FileMetadata::MergeFrom(const FileMetadata& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.FileMetadata)
-  GOOGLE_DCHECK_NE(&from, this);
+  FileMetadata* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dlp.FileMetadata)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_source_url(from._internal_source_url());
+      _this->_internal_set_source_url(from._internal_source_url());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_path(from._internal_path());
+      _this->_internal_set_path(from._internal_path());
     }
     if (cached_has_bits & 0x00000004u) {
-      inode_ = from.inode_;
+      _this->_impl_.inode_ = from._impl_.inode_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void FileMetadata::CopyFrom(const FileMetadata& from) {
@@ -2486,18 +2572,16 @@ void FileMetadata::InternalSwap(FileMetadata* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &source_url_, lhs_arena,
-      &other->source_url_, rhs_arena
+      &_impl_.source_url_, lhs_arena,
+      &other->_impl_.source_url_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &path_, lhs_arena,
-      &other->path_, rhs_arena
+      &_impl_.path_, lhs_arena,
+      &other->_impl_.path_, rhs_arena
   );
-  swap(inode_, other->inode_);
+  swap(_impl_.inode_, other->_impl_.inode_);
 }
 
 std::string FileMetadata::GetTypeName() const {
@@ -2509,7 +2593,7 @@ std::string FileMetadata::GetTypeName() const {
 
 class IsDlpPolicyMatchedRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<IsDlpPolicyMatchedRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<IsDlpPolicyMatchedRequest>()._impl_._has_bits_);
   static void set_has_source_url(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2521,66 +2605,71 @@ class IsDlpPolicyMatchedRequest::_Internal {
 
 const ::dlp::FileMetadata&
 IsDlpPolicyMatchedRequest::_Internal::file_metadata(const IsDlpPolicyMatchedRequest* msg) {
-  return *msg->file_metadata_;
+  return *msg->_impl_.file_metadata_;
 }
 IsDlpPolicyMatchedRequest::IsDlpPolicyMatchedRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dlp.IsDlpPolicyMatchedRequest)
 }
 IsDlpPolicyMatchedRequest::IsDlpPolicyMatchedRequest(const IsDlpPolicyMatchedRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  IsDlpPolicyMatchedRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.source_url_){}
+    , decltype(_impl_.file_metadata_){nullptr}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  source_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.source_url_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    source_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.source_url_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_source_url()) {
-    source_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_source_url(), 
-      GetArenaForAllocation());
+    _this->_impl_.source_url_.Set(from._internal_source_url(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_file_metadata()) {
-    file_metadata_ = new ::dlp::FileMetadata(*from.file_metadata_);
-  } else {
-    file_metadata_ = nullptr;
+    _this->_impl_.file_metadata_ = new ::dlp::FileMetadata(*from._impl_.file_metadata_);
   }
   // @@protoc_insertion_point(copy_constructor:dlp.IsDlpPolicyMatchedRequest)
 }
 
-inline void IsDlpPolicyMatchedRequest::SharedCtor() {
-source_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  source_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-file_metadata_ = nullptr;
+inline void IsDlpPolicyMatchedRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.source_url_){}
+    , decltype(_impl_.file_metadata_){nullptr}
+  };
+  _impl_.source_url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.source_url_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 IsDlpPolicyMatchedRequest::~IsDlpPolicyMatchedRequest() {
   // @@protoc_insertion_point(destructor:dlp.IsDlpPolicyMatchedRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void IsDlpPolicyMatchedRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  source_url_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete file_metadata_;
+  _impl_.source_url_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.file_metadata_;
 }
 
-void IsDlpPolicyMatchedRequest::ArenaDtor(void* object) {
-  IsDlpPolicyMatchedRequest* _this = reinterpret_cast< IsDlpPolicyMatchedRequest* >(object);
-  (void)_this;
-}
-void IsDlpPolicyMatchedRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void IsDlpPolicyMatchedRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void IsDlpPolicyMatchedRequest::Clear() {
@@ -2589,32 +2678,32 @@ void IsDlpPolicyMatchedRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      source_url_.ClearNonDefaultToEmpty();
+      _impl_.source_url_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(file_metadata_ != nullptr);
-      file_metadata_->Clear();
+      GOOGLE_DCHECK(_impl_.file_metadata_ != nullptr);
+      _impl_.file_metadata_->Clear();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* IsDlpPolicyMatchedRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* IsDlpPolicyMatchedRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string source_url = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_source_url();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2643,7 +2732,7 @@ const char* IsDlpPolicyMatchedRequest::_InternalParse(const char* ptr, ::PROTOBU
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2657,7 +2746,7 @@ uint8_t* IsDlpPolicyMatchedRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string source_url = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -2666,10 +2755,9 @@ uint8_t* IsDlpPolicyMatchedRequest::_InternalSerialize(
 
   // optional .dlp.FileMetadata file_metadata = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::file_metadata(this), target, stream);
+      InternalWriteMessage(2, _Internal::file_metadata(this),
+        _Internal::file_metadata(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2688,7 +2776,7 @@ size_t IsDlpPolicyMatchedRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional string source_url = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -2701,40 +2789,42 @@ size_t IsDlpPolicyMatchedRequest::ByteSizeLong() const {
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *file_metadata_);
+          *_impl_.file_metadata_);
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void IsDlpPolicyMatchedRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const IsDlpPolicyMatchedRequest*>(
+  MergeFrom(*::_pbi::DownCast<const IsDlpPolicyMatchedRequest*>(
       &from));
 }
 
 void IsDlpPolicyMatchedRequest::MergeFrom(const IsDlpPolicyMatchedRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.IsDlpPolicyMatchedRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  IsDlpPolicyMatchedRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dlp.IsDlpPolicyMatchedRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_source_url(from._internal_source_url());
+      _this->_internal_set_source_url(from._internal_source_url());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_file_metadata()->::dlp::FileMetadata::MergeFrom(from._internal_file_metadata());
+      _this->_internal_mutable_file_metadata()->::dlp::FileMetadata::MergeFrom(
+          from._internal_file_metadata());
     }
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void IsDlpPolicyMatchedRequest::CopyFrom(const IsDlpPolicyMatchedRequest& from) {
@@ -2753,13 +2843,12 @@ void IsDlpPolicyMatchedRequest::InternalSwap(IsDlpPolicyMatchedRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &source_url_, lhs_arena,
-      &other->source_url_, rhs_arena
+      &_impl_.source_url_, lhs_arena,
+      &other->_impl_.source_url_, rhs_arena
   );
-  swap(file_metadata_, other->file_metadata_);
+  swap(_impl_.file_metadata_, other->_impl_.file_metadata_);
 }
 
 std::string IsDlpPolicyMatchedRequest::GetTypeName() const {
@@ -2771,7 +2860,7 @@ std::string IsDlpPolicyMatchedRequest::GetTypeName() const {
 
 class IsDlpPolicyMatchedResponse::_Internal {
  public:
-  using HasBits = decltype(std::declval<IsDlpPolicyMatchedResponse>()._has_bits_);
+  using HasBits = decltype(std::declval<IsDlpPolicyMatchedResponse>()._impl_._has_bits_);
   static void set_has_restricted(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2780,43 +2869,48 @@ class IsDlpPolicyMatchedResponse::_Internal {
 IsDlpPolicyMatchedResponse::IsDlpPolicyMatchedResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dlp.IsDlpPolicyMatchedResponse)
 }
 IsDlpPolicyMatchedResponse::IsDlpPolicyMatchedResponse(const IsDlpPolicyMatchedResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  IsDlpPolicyMatchedResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.restricted_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  restricted_ = from.restricted_;
+  _this->_impl_.restricted_ = from._impl_.restricted_;
   // @@protoc_insertion_point(copy_constructor:dlp.IsDlpPolicyMatchedResponse)
 }
 
-inline void IsDlpPolicyMatchedResponse::SharedCtor() {
-restricted_ = false;
+inline void IsDlpPolicyMatchedResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.restricted_){false}
+  };
 }
 
 IsDlpPolicyMatchedResponse::~IsDlpPolicyMatchedResponse() {
   // @@protoc_insertion_point(destructor:dlp.IsDlpPolicyMatchedResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void IsDlpPolicyMatchedResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void IsDlpPolicyMatchedResponse::ArenaDtor(void* object) {
-  IsDlpPolicyMatchedResponse* _this = reinterpret_cast< IsDlpPolicyMatchedResponse* >(object);
-  (void)_this;
-}
-void IsDlpPolicyMatchedResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void IsDlpPolicyMatchedResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void IsDlpPolicyMatchedResponse::Clear() {
@@ -2825,23 +2919,23 @@ void IsDlpPolicyMatchedResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  restricted_ = false;
-  _has_bits_.Clear();
+  _impl_.restricted_ = false;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* IsDlpPolicyMatchedResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* IsDlpPolicyMatchedResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bool restricted = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_restricted(&has_bits);
-          restricted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.restricted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2862,7 +2956,7 @@ const char* IsDlpPolicyMatchedResponse::_InternalParse(const char* ptr, ::PROTOB
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2876,11 +2970,11 @@ uint8_t* IsDlpPolicyMatchedResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool restricted = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_restricted(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_restricted(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2900,7 +2994,7 @@ size_t IsDlpPolicyMatchedResponse::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional bool restricted = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 + 1;
   }
@@ -2908,27 +3002,28 @@ size_t IsDlpPolicyMatchedResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void IsDlpPolicyMatchedResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const IsDlpPolicyMatchedResponse*>(
+  MergeFrom(*::_pbi::DownCast<const IsDlpPolicyMatchedResponse*>(
       &from));
 }
 
 void IsDlpPolicyMatchedResponse::MergeFrom(const IsDlpPolicyMatchedResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.IsDlpPolicyMatchedResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  IsDlpPolicyMatchedResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dlp.IsDlpPolicyMatchedResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_restricted()) {
-    _internal_set_restricted(from._internal_restricted());
+    _this->_internal_set_restricted(from._internal_restricted());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void IsDlpPolicyMatchedResponse::CopyFrom(const IsDlpPolicyMatchedResponse& from) {
@@ -2945,8 +3040,8 @@ bool IsDlpPolicyMatchedResponse::IsInitialized() const {
 void IsDlpPolicyMatchedResponse::InternalSwap(IsDlpPolicyMatchedResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(restricted_, other->restricted_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.restricted_, other->_impl_.restricted_);
 }
 
 std::string IsDlpPolicyMatchedResponse::GetTypeName() const {
@@ -2962,43 +3057,47 @@ class GetFilesSourcesRequest::_Internal {
 
 GetFilesSourcesRequest::GetFilesSourcesRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  files_inodes_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dlp.GetFilesSourcesRequest)
 }
 GetFilesSourcesRequest::GetFilesSourcesRequest(const GetFilesSourcesRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      files_inodes_(from.files_inodes_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetFilesSourcesRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.files_inodes_){from._impl_.files_inodes_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:dlp.GetFilesSourcesRequest)
 }
 
-inline void GetFilesSourcesRequest::SharedCtor() {
+inline void GetFilesSourcesRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.files_inodes_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 GetFilesSourcesRequest::~GetFilesSourcesRequest() {
   // @@protoc_insertion_point(destructor:dlp.GetFilesSourcesRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void GetFilesSourcesRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.files_inodes_.~RepeatedField();
 }
 
-void GetFilesSourcesRequest::ArenaDtor(void* object) {
-  GetFilesSourcesRequest* _this = reinterpret_cast< GetFilesSourcesRequest* >(object);
-  (void)_this;
-}
-void GetFilesSourcesRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GetFilesSourcesRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetFilesSourcesRequest::Clear() {
@@ -3007,15 +3106,15 @@ void GetFilesSourcesRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  files_inodes_.Clear();
+  _impl_.files_inodes_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GetFilesSourcesRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GetFilesSourcesRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated uint64 files_inodes = 1;
       case 1:
@@ -3065,7 +3164,7 @@ uint8_t* GetFilesSourcesRequest::_InternalSerialize(
   // repeated uint64 files_inodes = 1;
   for (int i = 0, n = this->_internal_files_inodes_size(); i < n; i++) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_files_inodes(i), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_files_inodes(i), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3086,35 +3185,36 @@ size_t GetFilesSourcesRequest::ByteSizeLong() const {
 
   // repeated uint64 files_inodes = 1;
   {
-    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      UInt64Size(this->files_inodes_);
+    size_t data_size = ::_pbi::WireFormatLite::
+      UInt64Size(this->_impl_.files_inodes_);
     total_size += 1 *
-                  ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_files_inodes_size());
+                  ::_pbi::FromIntSize(this->_internal_files_inodes_size());
     total_size += data_size;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GetFilesSourcesRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetFilesSourcesRequest*>(
+  MergeFrom(*::_pbi::DownCast<const GetFilesSourcesRequest*>(
       &from));
 }
 
 void GetFilesSourcesRequest::MergeFrom(const GetFilesSourcesRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.GetFilesSourcesRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetFilesSourcesRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dlp.GetFilesSourcesRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  files_inodes_.MergeFrom(from.files_inodes_);
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.files_inodes_.MergeFrom(from._impl_.files_inodes_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetFilesSourcesRequest::CopyFrom(const GetFilesSourcesRequest& from) {
@@ -3131,7 +3231,7 @@ bool GetFilesSourcesRequest::IsInitialized() const {
 void GetFilesSourcesRequest::InternalSwap(GetFilesSourcesRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  files_inodes_.InternalSwap(&other->files_inodes_);
+  _impl_.files_inodes_.InternalSwap(&other->_impl_.files_inodes_);
 }
 
 std::string GetFilesSourcesRequest::GetTypeName() const {
@@ -3143,7 +3243,7 @@ std::string GetFilesSourcesRequest::GetTypeName() const {
 
 class GetFilesSourcesResponse::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetFilesSourcesResponse>()._has_bits_);
+  using HasBits = decltype(std::declval<GetFilesSourcesResponse>()._impl_._has_bits_);
   static void set_has_error_message(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -3151,57 +3251,64 @@ class GetFilesSourcesResponse::_Internal {
 
 GetFilesSourcesResponse::GetFilesSourcesResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  files_metadata_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dlp.GetFilesSourcesResponse)
 }
 GetFilesSourcesResponse::GetFilesSourcesResponse(const GetFilesSourcesResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      files_metadata_(from.files_metadata_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  GetFilesSourcesResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.files_metadata_){from._impl_.files_metadata_}
+    , decltype(_impl_.error_message_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.error_message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.error_message_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_error_message()) {
-    error_message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_error_message(), 
-      GetArenaForAllocation());
+    _this->_impl_.error_message_.Set(from._internal_error_message(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:dlp.GetFilesSourcesResponse)
 }
 
-inline void GetFilesSourcesResponse::SharedCtor() {
-error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void GetFilesSourcesResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.files_metadata_){arena}
+    , decltype(_impl_.error_message_){}
+  };
+  _impl_.error_message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.error_message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetFilesSourcesResponse::~GetFilesSourcesResponse() {
   // @@protoc_insertion_point(destructor:dlp.GetFilesSourcesResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void GetFilesSourcesResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  error_message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.files_metadata_.~RepeatedPtrField();
+  _impl_.error_message_.Destroy();
 }
 
-void GetFilesSourcesResponse::ArenaDtor(void* object) {
-  GetFilesSourcesResponse* _this = reinterpret_cast< GetFilesSourcesResponse* >(object);
-  (void)_this;
-}
-void GetFilesSourcesResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GetFilesSourcesResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetFilesSourcesResponse::Clear() {
@@ -3210,27 +3317,27 @@ void GetFilesSourcesResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  files_metadata_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.files_metadata_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    error_message_.ClearNonDefaultToEmpty();
+    _impl_.error_message_.ClearNonDefaultToEmpty();
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GetFilesSourcesResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GetFilesSourcesResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string error_message = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_error_message();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3264,7 +3371,7 @@ const char* GetFilesSourcesResponse::_InternalParse(const char* ptr, ::PROTOBUF_
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -3278,7 +3385,7 @@ uint8_t* GetFilesSourcesResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string error_message = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -3286,11 +3393,11 @@ uint8_t* GetFilesSourcesResponse::_InternalSerialize(
   }
 
   // repeated .dlp.FileMetadata files_metadata = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_files_metadata_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_files_metadata_size()); i < n; i++) {
+    const auto& repfield = this->_internal_files_metadata(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_files_metadata(i), target, stream);
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3311,13 +3418,13 @@ size_t GetFilesSourcesResponse::ByteSizeLong() const {
 
   // repeated .dlp.FileMetadata files_metadata = 2;
   total_size += 1UL * this->_internal_files_metadata_size();
-  for (const auto& msg : this->files_metadata_) {
+  for (const auto& msg : this->_impl_.files_metadata_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // optional string error_message = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -3327,28 +3434,29 @@ size_t GetFilesSourcesResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void GetFilesSourcesResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetFilesSourcesResponse*>(
+  MergeFrom(*::_pbi::DownCast<const GetFilesSourcesResponse*>(
       &from));
 }
 
 void GetFilesSourcesResponse::MergeFrom(const GetFilesSourcesResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.GetFilesSourcesResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  GetFilesSourcesResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dlp.GetFilesSourcesResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  files_metadata_.MergeFrom(from.files_metadata_);
+  _this->_impl_.files_metadata_.MergeFrom(from._impl_.files_metadata_);
   if (from._internal_has_error_message()) {
-    _internal_set_error_message(from._internal_error_message());
+    _this->_internal_set_error_message(from._internal_error_message());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void GetFilesSourcesResponse::CopyFrom(const GetFilesSourcesResponse& from) {
@@ -3367,12 +3475,11 @@ void GetFilesSourcesResponse::InternalSwap(GetFilesSourcesResponse* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  files_metadata_.InternalSwap(&other->files_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.files_metadata_.InternalSwap(&other->_impl_.files_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &error_message_, lhs_arena,
-      &other->error_message_, rhs_arena
+      &_impl_.error_message_, lhs_arena,
+      &other->_impl_.error_message_, rhs_arena
   );
 }
 
@@ -3385,7 +3492,7 @@ std::string GetFilesSourcesResponse::GetTypeName() const {
 
 class CheckFilesTransferRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<CheckFilesTransferRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<CheckFilesTransferRequest>()._impl_._has_bits_);
   static void set_has_destination_url(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -3399,64 +3506,71 @@ class CheckFilesTransferRequest::_Internal {
 
 CheckFilesTransferRequest::CheckFilesTransferRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  files_paths_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dlp.CheckFilesTransferRequest)
 }
 CheckFilesTransferRequest::CheckFilesTransferRequest(const CheckFilesTransferRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      files_paths_(from.files_paths_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CheckFilesTransferRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.files_paths_){from._impl_.files_paths_}
+    , decltype(_impl_.destination_url_){}
+    , decltype(_impl_.destination_component_){}
+    , decltype(_impl_.file_action_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  destination_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.destination_url_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    destination_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.destination_url_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_destination_url()) {
-    destination_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_destination_url(), 
-      GetArenaForAllocation());
+    _this->_impl_.destination_url_.Set(from._internal_destination_url(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&destination_component_, &from.destination_component_,
-    static_cast<size_t>(reinterpret_cast<char*>(&file_action_) -
-    reinterpret_cast<char*>(&destination_component_)) + sizeof(file_action_));
+  ::memcpy(&_impl_.destination_component_, &from._impl_.destination_component_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.file_action_) -
+    reinterpret_cast<char*>(&_impl_.destination_component_)) + sizeof(_impl_.file_action_));
   // @@protoc_insertion_point(copy_constructor:dlp.CheckFilesTransferRequest)
 }
 
-inline void CheckFilesTransferRequest::SharedCtor() {
-destination_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  destination_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&destination_component_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&file_action_) -
-    reinterpret_cast<char*>(&destination_component_)) + sizeof(file_action_));
+inline void CheckFilesTransferRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.files_paths_){arena}
+    , decltype(_impl_.destination_url_){}
+    , decltype(_impl_.destination_component_){0}
+    , decltype(_impl_.file_action_){0}
+  };
+  _impl_.destination_url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.destination_url_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CheckFilesTransferRequest::~CheckFilesTransferRequest() {
   // @@protoc_insertion_point(destructor:dlp.CheckFilesTransferRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void CheckFilesTransferRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  destination_url_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.files_paths_.~RepeatedPtrField();
+  _impl_.destination_url_.Destroy();
 }
 
-void CheckFilesTransferRequest::ArenaDtor(void* object) {
-  CheckFilesTransferRequest* _this = reinterpret_cast< CheckFilesTransferRequest* >(object);
-  (void)_this;
-}
-void CheckFilesTransferRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void CheckFilesTransferRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CheckFilesTransferRequest::Clear() {
@@ -3465,26 +3579,26 @@ void CheckFilesTransferRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  files_paths_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.files_paths_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    destination_url_.ClearNonDefaultToEmpty();
+    _impl_.destination_url_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&destination_component_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&file_action_) -
-        reinterpret_cast<char*>(&destination_component_)) + sizeof(file_action_));
+    ::memset(&_impl_.destination_component_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.file_action_) -
+        reinterpret_cast<char*>(&_impl_.destination_component_)) + sizeof(_impl_.file_action_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* CheckFilesTransferRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* CheckFilesTransferRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated string files_paths = 1;
       case 1:
@@ -3493,7 +3607,7 @@ const char* CheckFilesTransferRequest::_InternalParse(const char* ptr, ::PROTOBU
           do {
             ptr += 1;
             auto str = _internal_add_files_paths();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
@@ -3504,7 +3618,7 @@ const char* CheckFilesTransferRequest::_InternalParse(const char* ptr, ::PROTOBU
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_destination_url();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3551,7 +3665,7 @@ const char* CheckFilesTransferRequest::_InternalParse(const char* ptr, ::PROTOBU
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -3571,7 +3685,7 @@ uint8_t* CheckFilesTransferRequest::_InternalSerialize(
     target = stream->WriteString(1, s, target);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string destination_url = 2;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -3581,14 +3695,14 @@ uint8_t* CheckFilesTransferRequest::_InternalSerialize(
   // optional .dlp.DlpComponent destination_component = 3;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_destination_component(), target);
   }
 
   // optional .dlp.FileAction file_action = 4;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       4, this->_internal_file_action(), target);
   }
 
@@ -3610,13 +3724,13 @@ size_t CheckFilesTransferRequest::ByteSizeLong() const {
 
   // repeated string files_paths = 1;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(files_paths_.size());
-  for (int i = 0, n = files_paths_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.files_paths_.size());
+  for (int i = 0, n = _impl_.files_paths_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      files_paths_.Get(i));
+      _impl_.files_paths_.Get(i));
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional string destination_url = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -3628,51 +3742,52 @@ size_t CheckFilesTransferRequest::ByteSizeLong() const {
     // optional .dlp.DlpComponent destination_component = 3;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_destination_component());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_destination_component());
     }
 
     // optional .dlp.FileAction file_action = 4;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_file_action());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_file_action());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void CheckFilesTransferRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const CheckFilesTransferRequest*>(
+  MergeFrom(*::_pbi::DownCast<const CheckFilesTransferRequest*>(
       &from));
 }
 
 void CheckFilesTransferRequest::MergeFrom(const CheckFilesTransferRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.CheckFilesTransferRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  CheckFilesTransferRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dlp.CheckFilesTransferRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  files_paths_.MergeFrom(from.files_paths_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_impl_.files_paths_.MergeFrom(from._impl_.files_paths_);
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_destination_url(from._internal_destination_url());
+      _this->_internal_set_destination_url(from._internal_destination_url());
     }
     if (cached_has_bits & 0x00000002u) {
-      destination_component_ = from.destination_component_;
+      _this->_impl_.destination_component_ = from._impl_.destination_component_;
     }
     if (cached_has_bits & 0x00000004u) {
-      file_action_ = from.file_action_;
+      _this->_impl_.file_action_ = from._impl_.file_action_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CheckFilesTransferRequest::CopyFrom(const CheckFilesTransferRequest& from) {
@@ -3691,19 +3806,18 @@ void CheckFilesTransferRequest::InternalSwap(CheckFilesTransferRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  files_paths_.InternalSwap(&other->files_paths_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.files_paths_.InternalSwap(&other->_impl_.files_paths_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &destination_url_, lhs_arena,
-      &other->destination_url_, rhs_arena
+      &_impl_.destination_url_, lhs_arena,
+      &other->_impl_.destination_url_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(CheckFilesTransferRequest, file_action_)
-      + sizeof(CheckFilesTransferRequest::file_action_)
-      - PROTOBUF_FIELD_OFFSET(CheckFilesTransferRequest, destination_component_)>(
-          reinterpret_cast<char*>(&destination_component_),
-          reinterpret_cast<char*>(&other->destination_component_));
+      PROTOBUF_FIELD_OFFSET(CheckFilesTransferRequest, _impl_.file_action_)
+      + sizeof(CheckFilesTransferRequest::_impl_.file_action_)
+      - PROTOBUF_FIELD_OFFSET(CheckFilesTransferRequest, _impl_.destination_component_)>(
+          reinterpret_cast<char*>(&_impl_.destination_component_),
+          reinterpret_cast<char*>(&other->_impl_.destination_component_));
 }
 
 std::string CheckFilesTransferRequest::GetTypeName() const {
@@ -3715,7 +3829,7 @@ std::string CheckFilesTransferRequest::GetTypeName() const {
 
 class CheckFilesTransferResponse::_Internal {
  public:
-  using HasBits = decltype(std::declval<CheckFilesTransferResponse>()._has_bits_);
+  using HasBits = decltype(std::declval<CheckFilesTransferResponse>()._impl_._has_bits_);
   static void set_has_error_message(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -3723,57 +3837,64 @@ class CheckFilesTransferResponse::_Internal {
 
 CheckFilesTransferResponse::CheckFilesTransferResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  files_paths_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dlp.CheckFilesTransferResponse)
 }
 CheckFilesTransferResponse::CheckFilesTransferResponse(const CheckFilesTransferResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      files_paths_(from.files_paths_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CheckFilesTransferResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.files_paths_){from._impl_.files_paths_}
+    , decltype(_impl_.error_message_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.error_message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.error_message_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_error_message()) {
-    error_message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_error_message(), 
-      GetArenaForAllocation());
+    _this->_impl_.error_message_.Set(from._internal_error_message(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:dlp.CheckFilesTransferResponse)
 }
 
-inline void CheckFilesTransferResponse::SharedCtor() {
-error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void CheckFilesTransferResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.files_paths_){arena}
+    , decltype(_impl_.error_message_){}
+  };
+  _impl_.error_message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.error_message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 CheckFilesTransferResponse::~CheckFilesTransferResponse() {
   // @@protoc_insertion_point(destructor:dlp.CheckFilesTransferResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void CheckFilesTransferResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  error_message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.files_paths_.~RepeatedPtrField();
+  _impl_.error_message_.Destroy();
 }
 
-void CheckFilesTransferResponse::ArenaDtor(void* object) {
-  CheckFilesTransferResponse* _this = reinterpret_cast< CheckFilesTransferResponse* >(object);
-  (void)_this;
-}
-void CheckFilesTransferResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void CheckFilesTransferResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void CheckFilesTransferResponse::Clear() {
@@ -3782,27 +3903,27 @@ void CheckFilesTransferResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  files_paths_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.files_paths_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    error_message_.ClearNonDefaultToEmpty();
+    _impl_.error_message_.ClearNonDefaultToEmpty();
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* CheckFilesTransferResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* CheckFilesTransferResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string error_message = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_error_message();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3814,7 +3935,7 @@ const char* CheckFilesTransferResponse::_InternalParse(const char* ptr, ::PROTOB
           do {
             ptr += 1;
             auto str = _internal_add_files_paths();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
@@ -3837,7 +3958,7 @@ const char* CheckFilesTransferResponse::_InternalParse(const char* ptr, ::PROTOB
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -3851,7 +3972,7 @@ uint8_t* CheckFilesTransferResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string error_message = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -3882,14 +4003,14 @@ size_t CheckFilesTransferResponse::ByteSizeLong() const {
 
   // repeated string files_paths = 2;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(files_paths_.size());
-  for (int i = 0, n = files_paths_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.files_paths_.size());
+  for (int i = 0, n = _impl_.files_paths_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      files_paths_.Get(i));
+      _impl_.files_paths_.Get(i));
   }
 
   // optional string error_message = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -3899,28 +4020,29 @@ size_t CheckFilesTransferResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void CheckFilesTransferResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const CheckFilesTransferResponse*>(
+  MergeFrom(*::_pbi::DownCast<const CheckFilesTransferResponse*>(
       &from));
 }
 
 void CheckFilesTransferResponse::MergeFrom(const CheckFilesTransferResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.CheckFilesTransferResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  CheckFilesTransferResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dlp.CheckFilesTransferResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  files_paths_.MergeFrom(from.files_paths_);
+  _this->_impl_.files_paths_.MergeFrom(from._impl_.files_paths_);
   if (from._internal_has_error_message()) {
-    _internal_set_error_message(from._internal_error_message());
+    _this->_internal_set_error_message(from._internal_error_message());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void CheckFilesTransferResponse::CopyFrom(const CheckFilesTransferResponse& from) {
@@ -3939,12 +4061,11 @@ void CheckFilesTransferResponse::InternalSwap(CheckFilesTransferResponse* other)
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  files_paths_.InternalSwap(&other->files_paths_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.files_paths_.InternalSwap(&other->_impl_.files_paths_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &error_message_, lhs_arena,
-      &other->error_message_, rhs_arena
+      &_impl_.error_message_, lhs_arena,
+      &other->_impl_.error_message_, rhs_arena
   );
 }
 
@@ -3957,7 +4078,7 @@ std::string CheckFilesTransferResponse::GetTypeName() const {
 
 class IsFilesTransferRestrictedRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<IsFilesTransferRestrictedRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<IsFilesTransferRestrictedRequest>()._impl_._has_bits_);
   static void set_has_destination_url(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -3971,66 +4092,74 @@ class IsFilesTransferRestrictedRequest::_Internal {
 
 IsFilesTransferRestrictedRequest::IsFilesTransferRestrictedRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  files_sources_(arena),
-  transferred_files_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dlp.IsFilesTransferRestrictedRequest)
 }
 IsFilesTransferRestrictedRequest::IsFilesTransferRestrictedRequest(const IsFilesTransferRestrictedRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      files_sources_(from.files_sources_),
-      transferred_files_(from.transferred_files_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  IsFilesTransferRestrictedRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.files_sources_){from._impl_.files_sources_}
+    , decltype(_impl_.transferred_files_){from._impl_.transferred_files_}
+    , decltype(_impl_.destination_url_){}
+    , decltype(_impl_.destination_component_){}
+    , decltype(_impl_.file_action_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  destination_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.destination_url_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    destination_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.destination_url_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_destination_url()) {
-    destination_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_destination_url(), 
-      GetArenaForAllocation());
+    _this->_impl_.destination_url_.Set(from._internal_destination_url(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&destination_component_, &from.destination_component_,
-    static_cast<size_t>(reinterpret_cast<char*>(&file_action_) -
-    reinterpret_cast<char*>(&destination_component_)) + sizeof(file_action_));
+  ::memcpy(&_impl_.destination_component_, &from._impl_.destination_component_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.file_action_) -
+    reinterpret_cast<char*>(&_impl_.destination_component_)) + sizeof(_impl_.file_action_));
   // @@protoc_insertion_point(copy_constructor:dlp.IsFilesTransferRestrictedRequest)
 }
 
-inline void IsFilesTransferRestrictedRequest::SharedCtor() {
-destination_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  destination_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&destination_component_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&file_action_) -
-    reinterpret_cast<char*>(&destination_component_)) + sizeof(file_action_));
+inline void IsFilesTransferRestrictedRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.files_sources_){arena}
+    , decltype(_impl_.transferred_files_){arena}
+    , decltype(_impl_.destination_url_){}
+    , decltype(_impl_.destination_component_){0}
+    , decltype(_impl_.file_action_){0}
+  };
+  _impl_.destination_url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.destination_url_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 IsFilesTransferRestrictedRequest::~IsFilesTransferRestrictedRequest() {
   // @@protoc_insertion_point(destructor:dlp.IsFilesTransferRestrictedRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void IsFilesTransferRestrictedRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  destination_url_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.files_sources_.~RepeatedPtrField();
+  _impl_.transferred_files_.~RepeatedPtrField();
+  _impl_.destination_url_.Destroy();
 }
 
-void IsFilesTransferRestrictedRequest::ArenaDtor(void* object) {
-  IsFilesTransferRestrictedRequest* _this = reinterpret_cast< IsFilesTransferRestrictedRequest* >(object);
-  (void)_this;
-}
-void IsFilesTransferRestrictedRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void IsFilesTransferRestrictedRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void IsFilesTransferRestrictedRequest::Clear() {
@@ -4039,27 +4168,27 @@ void IsFilesTransferRestrictedRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  files_sources_.Clear();
-  transferred_files_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.files_sources_.Clear();
+  _impl_.transferred_files_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    destination_url_.ClearNonDefaultToEmpty();
+    _impl_.destination_url_.ClearNonDefaultToEmpty();
   }
   if (cached_has_bits & 0x00000006u) {
-    ::memset(&destination_component_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&file_action_) -
-        reinterpret_cast<char*>(&destination_component_)) + sizeof(file_action_));
+    ::memset(&_impl_.destination_component_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.file_action_) -
+        reinterpret_cast<char*>(&_impl_.destination_component_)) + sizeof(_impl_.file_action_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* IsFilesTransferRestrictedRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* IsFilesTransferRestrictedRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated string files_sources = 1;
       case 1:
@@ -4068,7 +4197,7 @@ const char* IsFilesTransferRestrictedRequest::_InternalParse(const char* ptr, ::
           do {
             ptr += 1;
             auto str = _internal_add_files_sources();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
@@ -4079,7 +4208,7 @@ const char* IsFilesTransferRestrictedRequest::_InternalParse(const char* ptr, ::
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_destination_url();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4139,7 +4268,7 @@ const char* IsFilesTransferRestrictedRequest::_InternalParse(const char* ptr, ::
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -4159,7 +4288,7 @@ uint8_t* IsFilesTransferRestrictedRequest::_InternalSerialize(
     target = stream->WriteString(1, s, target);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string destination_url = 2;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -4167,24 +4296,24 @@ uint8_t* IsFilesTransferRestrictedRequest::_InternalSerialize(
   }
 
   // repeated .dlp.FileMetadata transferred_files = 3;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_transferred_files_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_transferred_files_size()); i < n; i++) {
+    const auto& repfield = this->_internal_transferred_files(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, this->_internal_transferred_files(i), target, stream);
+        InternalWriteMessage(3, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // optional .dlp.DlpComponent destination_component = 4;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       4, this->_internal_destination_component(), target);
   }
 
   // optional .dlp.FileAction file_action = 5;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       5, this->_internal_file_action(), target);
   }
 
@@ -4206,20 +4335,20 @@ size_t IsFilesTransferRestrictedRequest::ByteSizeLong() const {
 
   // repeated string files_sources = 1;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(files_sources_.size());
-  for (int i = 0, n = files_sources_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.files_sources_.size());
+  for (int i = 0, n = _impl_.files_sources_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      files_sources_.Get(i));
+      _impl_.files_sources_.Get(i));
   }
 
   // repeated .dlp.FileMetadata transferred_files = 3;
   total_size += 1UL * this->_internal_transferred_files_size();
-  for (const auto& msg : this->transferred_files_) {
+  for (const auto& msg : this->_impl_.transferred_files_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional string destination_url = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -4231,52 +4360,53 @@ size_t IsFilesTransferRestrictedRequest::ByteSizeLong() const {
     // optional .dlp.DlpComponent destination_component = 4;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_destination_component());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_destination_component());
     }
 
     // optional .dlp.FileAction file_action = 5;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_file_action());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_file_action());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void IsFilesTransferRestrictedRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const IsFilesTransferRestrictedRequest*>(
+  MergeFrom(*::_pbi::DownCast<const IsFilesTransferRestrictedRequest*>(
       &from));
 }
 
 void IsFilesTransferRestrictedRequest::MergeFrom(const IsFilesTransferRestrictedRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.IsFilesTransferRestrictedRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  IsFilesTransferRestrictedRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dlp.IsFilesTransferRestrictedRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  files_sources_.MergeFrom(from.files_sources_);
-  transferred_files_.MergeFrom(from.transferred_files_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_impl_.files_sources_.MergeFrom(from._impl_.files_sources_);
+  _this->_impl_.transferred_files_.MergeFrom(from._impl_.transferred_files_);
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_destination_url(from._internal_destination_url());
+      _this->_internal_set_destination_url(from._internal_destination_url());
     }
     if (cached_has_bits & 0x00000002u) {
-      destination_component_ = from.destination_component_;
+      _this->_impl_.destination_component_ = from._impl_.destination_component_;
     }
     if (cached_has_bits & 0x00000004u) {
-      file_action_ = from.file_action_;
+      _this->_impl_.file_action_ = from._impl_.file_action_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void IsFilesTransferRestrictedRequest::CopyFrom(const IsFilesTransferRestrictedRequest& from) {
@@ -4295,20 +4425,19 @@ void IsFilesTransferRestrictedRequest::InternalSwap(IsFilesTransferRestrictedReq
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  files_sources_.InternalSwap(&other->files_sources_);
-  transferred_files_.InternalSwap(&other->transferred_files_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.files_sources_.InternalSwap(&other->_impl_.files_sources_);
+  _impl_.transferred_files_.InternalSwap(&other->_impl_.transferred_files_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &destination_url_, lhs_arena,
-      &other->destination_url_, rhs_arena
+      &_impl_.destination_url_, lhs_arena,
+      &other->_impl_.destination_url_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(IsFilesTransferRestrictedRequest, file_action_)
-      + sizeof(IsFilesTransferRestrictedRequest::file_action_)
-      - PROTOBUF_FIELD_OFFSET(IsFilesTransferRestrictedRequest, destination_component_)>(
-          reinterpret_cast<char*>(&destination_component_),
-          reinterpret_cast<char*>(&other->destination_component_));
+      PROTOBUF_FIELD_OFFSET(IsFilesTransferRestrictedRequest, _impl_.file_action_)
+      + sizeof(IsFilesTransferRestrictedRequest::_impl_.file_action_)
+      - PROTOBUF_FIELD_OFFSET(IsFilesTransferRestrictedRequest, _impl_.destination_component_)>(
+          reinterpret_cast<char*>(&_impl_.destination_component_),
+          reinterpret_cast<char*>(&other->_impl_.destination_component_));
 }
 
 std::string IsFilesTransferRestrictedRequest::GetTypeName() const {
@@ -4320,7 +4449,7 @@ std::string IsFilesTransferRestrictedRequest::GetTypeName() const {
 
 class IsFilesTransferRestrictedResponse::_Internal {
  public:
-  using HasBits = decltype(std::declval<IsFilesTransferRestrictedResponse>()._has_bits_);
+  using HasBits = decltype(std::declval<IsFilesTransferRestrictedResponse>()._impl_._has_bits_);
   static void set_has_error_message(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -4328,59 +4457,67 @@ class IsFilesTransferRestrictedResponse::_Internal {
 
 IsFilesTransferRestrictedResponse::IsFilesTransferRestrictedResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  files_sources_(arena),
-  restricted_files_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:dlp.IsFilesTransferRestrictedResponse)
 }
 IsFilesTransferRestrictedResponse::IsFilesTransferRestrictedResponse(const IsFilesTransferRestrictedResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_),
-      files_sources_(from.files_sources_),
-      restricted_files_(from.restricted_files_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  IsFilesTransferRestrictedResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.files_sources_){from._impl_.files_sources_}
+    , decltype(_impl_.restricted_files_){from._impl_.restricted_files_}
+    , decltype(_impl_.error_message_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.error_message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.error_message_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_error_message()) {
-    error_message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_error_message(), 
-      GetArenaForAllocation());
+    _this->_impl_.error_message_.Set(from._internal_error_message(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:dlp.IsFilesTransferRestrictedResponse)
 }
 
-inline void IsFilesTransferRestrictedResponse::SharedCtor() {
-error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void IsFilesTransferRestrictedResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.files_sources_){arena}
+    , decltype(_impl_.restricted_files_){arena}
+    , decltype(_impl_.error_message_){}
+  };
+  _impl_.error_message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.error_message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 IsFilesTransferRestrictedResponse::~IsFilesTransferRestrictedResponse() {
   // @@protoc_insertion_point(destructor:dlp.IsFilesTransferRestrictedResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void IsFilesTransferRestrictedResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  error_message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.files_sources_.~RepeatedPtrField();
+  _impl_.restricted_files_.~RepeatedPtrField();
+  _impl_.error_message_.Destroy();
 }
 
-void IsFilesTransferRestrictedResponse::ArenaDtor(void* object) {
-  IsFilesTransferRestrictedResponse* _this = reinterpret_cast< IsFilesTransferRestrictedResponse* >(object);
-  (void)_this;
-}
-void IsFilesTransferRestrictedResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void IsFilesTransferRestrictedResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void IsFilesTransferRestrictedResponse::Clear() {
@@ -4389,28 +4526,28 @@ void IsFilesTransferRestrictedResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  files_sources_.Clear();
-  restricted_files_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.files_sources_.Clear();
+  _impl_.restricted_files_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    error_message_.ClearNonDefaultToEmpty();
+    _impl_.error_message_.ClearNonDefaultToEmpty();
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* IsFilesTransferRestrictedResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* IsFilesTransferRestrictedResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string error_message = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_error_message();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4422,7 +4559,7 @@ const char* IsFilesTransferRestrictedResponse::_InternalParse(const char* ptr, :
           do {
             ptr += 1;
             auto str = _internal_add_files_sources();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
@@ -4458,7 +4595,7 @@ const char* IsFilesTransferRestrictedResponse::_InternalParse(const char* ptr, :
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -4472,7 +4609,7 @@ uint8_t* IsFilesTransferRestrictedResponse::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string error_message = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
@@ -4486,11 +4623,11 @@ uint8_t* IsFilesTransferRestrictedResponse::_InternalSerialize(
   }
 
   // repeated .dlp.FileMetadata restricted_files = 3;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_restricted_files_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_restricted_files_size()); i < n; i++) {
+    const auto& repfield = this->_internal_restricted_files(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(3, this->_internal_restricted_files(i), target, stream);
+        InternalWriteMessage(3, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4511,21 +4648,21 @@ size_t IsFilesTransferRestrictedResponse::ByteSizeLong() const {
 
   // repeated string files_sources = 2;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(files_sources_.size());
-  for (int i = 0, n = files_sources_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.files_sources_.size());
+  for (int i = 0, n = _impl_.files_sources_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      files_sources_.Get(i));
+      _impl_.files_sources_.Get(i));
   }
 
   // repeated .dlp.FileMetadata restricted_files = 3;
   total_size += 1UL * this->_internal_restricted_files_size();
-  for (const auto& msg : this->restricted_files_) {
+  for (const auto& msg : this->_impl_.restricted_files_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // optional string error_message = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -4535,29 +4672,30 @@ size_t IsFilesTransferRestrictedResponse::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void IsFilesTransferRestrictedResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const IsFilesTransferRestrictedResponse*>(
+  MergeFrom(*::_pbi::DownCast<const IsFilesTransferRestrictedResponse*>(
       &from));
 }
 
 void IsFilesTransferRestrictedResponse::MergeFrom(const IsFilesTransferRestrictedResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.IsFilesTransferRestrictedResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+  IsFilesTransferRestrictedResponse* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:dlp.IsFilesTransferRestrictedResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  files_sources_.MergeFrom(from.files_sources_);
-  restricted_files_.MergeFrom(from.restricted_files_);
+  _this->_impl_.files_sources_.MergeFrom(from._impl_.files_sources_);
+  _this->_impl_.restricted_files_.MergeFrom(from._impl_.restricted_files_);
   if (from._internal_has_error_message()) {
-    _internal_set_error_message(from._internal_error_message());
+    _this->_internal_set_error_message(from._internal_error_message());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void IsFilesTransferRestrictedResponse::CopyFrom(const IsFilesTransferRestrictedResponse& from) {
@@ -4576,13 +4714,12 @@ void IsFilesTransferRestrictedResponse::InternalSwap(IsFilesTransferRestrictedRe
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  files_sources_.InternalSwap(&other->files_sources_);
-  restricted_files_.InternalSwap(&other->restricted_files_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.files_sources_.InternalSwap(&other->_impl_.files_sources_);
+  _impl_.restricted_files_.InternalSwap(&other->_impl_.restricted_files_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &error_message_, lhs_arena,
-      &other->error_message_, rhs_arena
+      &_impl_.error_message_, lhs_arena,
+      &other->_impl_.error_message_, rhs_arena
   );
 }
 
@@ -4594,52 +4731,68 @@ std::string IsFilesTransferRestrictedResponse::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace dlp
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::dlp::DlpFilesRule* Arena::CreateMaybeMessage< ::dlp::DlpFilesRule >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dlp::DlpFilesRule*
+Arena::CreateMaybeMessage< ::dlp::DlpFilesRule >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::DlpFilesRule >(arena);
 }
-template<> PROTOBUF_NOINLINE ::dlp::SetDlpFilesPolicyRequest* Arena::CreateMaybeMessage< ::dlp::SetDlpFilesPolicyRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dlp::SetDlpFilesPolicyRequest*
+Arena::CreateMaybeMessage< ::dlp::SetDlpFilesPolicyRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::SetDlpFilesPolicyRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::dlp::SetDlpFilesPolicyResponse* Arena::CreateMaybeMessage< ::dlp::SetDlpFilesPolicyResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dlp::SetDlpFilesPolicyResponse*
+Arena::CreateMaybeMessage< ::dlp::SetDlpFilesPolicyResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::SetDlpFilesPolicyResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::dlp::AddFileRequest* Arena::CreateMaybeMessage< ::dlp::AddFileRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dlp::AddFileRequest*
+Arena::CreateMaybeMessage< ::dlp::AddFileRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::AddFileRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::dlp::AddFileResponse* Arena::CreateMaybeMessage< ::dlp::AddFileResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dlp::AddFileResponse*
+Arena::CreateMaybeMessage< ::dlp::AddFileResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::AddFileResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::dlp::RequestFileAccessRequest* Arena::CreateMaybeMessage< ::dlp::RequestFileAccessRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dlp::RequestFileAccessRequest*
+Arena::CreateMaybeMessage< ::dlp::RequestFileAccessRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::RequestFileAccessRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::dlp::RequestFileAccessResponse* Arena::CreateMaybeMessage< ::dlp::RequestFileAccessResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dlp::RequestFileAccessResponse*
+Arena::CreateMaybeMessage< ::dlp::RequestFileAccessResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::RequestFileAccessResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::dlp::FileMetadata* Arena::CreateMaybeMessage< ::dlp::FileMetadata >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dlp::FileMetadata*
+Arena::CreateMaybeMessage< ::dlp::FileMetadata >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::FileMetadata >(arena);
 }
-template<> PROTOBUF_NOINLINE ::dlp::IsDlpPolicyMatchedRequest* Arena::CreateMaybeMessage< ::dlp::IsDlpPolicyMatchedRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dlp::IsDlpPolicyMatchedRequest*
+Arena::CreateMaybeMessage< ::dlp::IsDlpPolicyMatchedRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::IsDlpPolicyMatchedRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::dlp::IsDlpPolicyMatchedResponse* Arena::CreateMaybeMessage< ::dlp::IsDlpPolicyMatchedResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dlp::IsDlpPolicyMatchedResponse*
+Arena::CreateMaybeMessage< ::dlp::IsDlpPolicyMatchedResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::IsDlpPolicyMatchedResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::dlp::GetFilesSourcesRequest* Arena::CreateMaybeMessage< ::dlp::GetFilesSourcesRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dlp::GetFilesSourcesRequest*
+Arena::CreateMaybeMessage< ::dlp::GetFilesSourcesRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::GetFilesSourcesRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::dlp::GetFilesSourcesResponse* Arena::CreateMaybeMessage< ::dlp::GetFilesSourcesResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dlp::GetFilesSourcesResponse*
+Arena::CreateMaybeMessage< ::dlp::GetFilesSourcesResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::GetFilesSourcesResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::dlp::CheckFilesTransferRequest* Arena::CreateMaybeMessage< ::dlp::CheckFilesTransferRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dlp::CheckFilesTransferRequest*
+Arena::CreateMaybeMessage< ::dlp::CheckFilesTransferRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::CheckFilesTransferRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::dlp::CheckFilesTransferResponse* Arena::CreateMaybeMessage< ::dlp::CheckFilesTransferResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dlp::CheckFilesTransferResponse*
+Arena::CreateMaybeMessage< ::dlp::CheckFilesTransferResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::CheckFilesTransferResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::dlp::IsFilesTransferRestrictedRequest* Arena::CreateMaybeMessage< ::dlp::IsFilesTransferRestrictedRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dlp::IsFilesTransferRestrictedRequest*
+Arena::CreateMaybeMessage< ::dlp::IsFilesTransferRestrictedRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::IsFilesTransferRestrictedRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::dlp::IsFilesTransferRestrictedResponse* Arena::CreateMaybeMessage< ::dlp::IsFilesTransferRestrictedResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::dlp::IsFilesTransferRestrictedResponse*
+Arena::CreateMaybeMessage< ::dlp::IsFilesTransferRestrictedResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::IsFilesTransferRestrictedResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

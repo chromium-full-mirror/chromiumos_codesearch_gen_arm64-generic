@@ -16,502 +16,538 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace vm_tools {
 namespace container {
-constexpr ContainerStartupInfo::ContainerStartupInfo(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , garcon_port_(0u)
-  , sftp_port_(0u){}
+PROTOBUF_CONSTEXPR ContainerStartupInfo::ContainerStartupInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.garcon_port_)*/0u
+  , /*decltype(_impl_.sftp_port_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ContainerStartupInfoDefaultTypeInternal {
-  constexpr ContainerStartupInfoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ContainerStartupInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ContainerStartupInfoDefaultTypeInternal() {}
   union {
     ContainerStartupInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ContainerStartupInfoDefaultTypeInternal _ContainerStartupInfo_default_instance_;
-constexpr ContainerShutdownInfo::ContainerShutdownInfo(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ContainerStartupInfoDefaultTypeInternal _ContainerStartupInfo_default_instance_;
+PROTOBUF_CONSTEXPR ContainerShutdownInfo::ContainerShutdownInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ContainerShutdownInfoDefaultTypeInternal {
-  constexpr ContainerShutdownInfoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ContainerShutdownInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ContainerShutdownInfoDefaultTypeInternal() {}
   union {
     ContainerShutdownInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ContainerShutdownInfoDefaultTypeInternal _ContainerShutdownInfo_default_instance_;
-constexpr Application_LocalizedString_StringWithLocale::Application_LocalizedString_StringWithLocale(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : locale_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , value_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ContainerShutdownInfoDefaultTypeInternal _ContainerShutdownInfo_default_instance_;
+PROTOBUF_CONSTEXPR Application_LocalizedString_StringWithLocale::Application_LocalizedString_StringWithLocale(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.locale_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.value_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct Application_LocalizedString_StringWithLocaleDefaultTypeInternal {
-  constexpr Application_LocalizedString_StringWithLocaleDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR Application_LocalizedString_StringWithLocaleDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~Application_LocalizedString_StringWithLocaleDefaultTypeInternal() {}
   union {
     Application_LocalizedString_StringWithLocale _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT Application_LocalizedString_StringWithLocaleDefaultTypeInternal _Application_LocalizedString_StringWithLocale_default_instance_;
-constexpr Application_LocalizedString::Application_LocalizedString(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : values_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Application_LocalizedString_StringWithLocaleDefaultTypeInternal _Application_LocalizedString_StringWithLocale_default_instance_;
+PROTOBUF_CONSTEXPR Application_LocalizedString::Application_LocalizedString(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.values_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct Application_LocalizedStringDefaultTypeInternal {
-  constexpr Application_LocalizedStringDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR Application_LocalizedStringDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~Application_LocalizedStringDefaultTypeInternal() {}
   union {
     Application_LocalizedString _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT Application_LocalizedStringDefaultTypeInternal _Application_LocalizedString_default_instance_;
-constexpr Application_LocaleStrings_StringsWithLocale::Application_LocaleStrings_StringsWithLocale(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : value_()
-  , locale_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Application_LocalizedStringDefaultTypeInternal _Application_LocalizedString_default_instance_;
+PROTOBUF_CONSTEXPR Application_LocaleStrings_StringsWithLocale::Application_LocaleStrings_StringsWithLocale(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.value_)*/{}
+  , /*decltype(_impl_.locale_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct Application_LocaleStrings_StringsWithLocaleDefaultTypeInternal {
-  constexpr Application_LocaleStrings_StringsWithLocaleDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR Application_LocaleStrings_StringsWithLocaleDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~Application_LocaleStrings_StringsWithLocaleDefaultTypeInternal() {}
   union {
     Application_LocaleStrings_StringsWithLocale _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT Application_LocaleStrings_StringsWithLocaleDefaultTypeInternal _Application_LocaleStrings_StringsWithLocale_default_instance_;
-constexpr Application_LocaleStrings::Application_LocaleStrings(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : values_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Application_LocaleStrings_StringsWithLocaleDefaultTypeInternal _Application_LocaleStrings_StringsWithLocale_default_instance_;
+PROTOBUF_CONSTEXPR Application_LocaleStrings::Application_LocaleStrings(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.values_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct Application_LocaleStringsDefaultTypeInternal {
-  constexpr Application_LocaleStringsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR Application_LocaleStringsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~Application_LocaleStringsDefaultTypeInternal() {}
   union {
     Application_LocaleStrings _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT Application_LocaleStringsDefaultTypeInternal _Application_LocaleStrings_default_instance_;
-constexpr Application::Application(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : mime_types_()
-  , extensions_()
-  , desktop_file_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , startup_wm_class_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , package_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , executable_file_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , exec_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , name_(nullptr)
-  , comment_(nullptr)
-  , keywords_(nullptr)
-  , no_display_(false)
-  , startup_notify_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Application_LocaleStringsDefaultTypeInternal _Application_LocaleStrings_default_instance_;
+PROTOBUF_CONSTEXPR Application::Application(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.mime_types_)*/{}
+  , /*decltype(_impl_.extensions_)*/{}
+  , /*decltype(_impl_.desktop_file_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.startup_wm_class_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.package_id_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.executable_file_name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.exec_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.name_)*/nullptr
+  , /*decltype(_impl_.comment_)*/nullptr
+  , /*decltype(_impl_.keywords_)*/nullptr
+  , /*decltype(_impl_.no_display_)*/false
+  , /*decltype(_impl_.startup_notify_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ApplicationDefaultTypeInternal {
-  constexpr ApplicationDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ApplicationDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ApplicationDefaultTypeInternal() {}
   union {
     Application _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ApplicationDefaultTypeInternal _Application_default_instance_;
-constexpr UpdateApplicationListRequest::UpdateApplicationListRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : application_()
-  , token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ApplicationDefaultTypeInternal _Application_default_instance_;
+PROTOBUF_CONSTEXPR UpdateApplicationListRequest::UpdateApplicationListRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.application_)*/{}
+  , /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UpdateApplicationListRequestDefaultTypeInternal {
-  constexpr UpdateApplicationListRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UpdateApplicationListRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UpdateApplicationListRequestDefaultTypeInternal() {}
   union {
     UpdateApplicationListRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UpdateApplicationListRequestDefaultTypeInternal _UpdateApplicationListRequest_default_instance_;
-constexpr OpenUrlRequest::OpenUrlRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UpdateApplicationListRequestDefaultTypeInternal _UpdateApplicationListRequest_default_instance_;
+PROTOBUF_CONSTEXPR OpenUrlRequest::OpenUrlRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.url_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct OpenUrlRequestDefaultTypeInternal {
-  constexpr OpenUrlRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR OpenUrlRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~OpenUrlRequestDefaultTypeInternal() {}
   union {
     OpenUrlRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OpenUrlRequestDefaultTypeInternal _OpenUrlRequest_default_instance_;
-constexpr PendingAppListUpdateCount::PendingAppListUpdateCount(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , count_(0u){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OpenUrlRequestDefaultTypeInternal _OpenUrlRequest_default_instance_;
+PROTOBUF_CONSTEXPR PendingAppListUpdateCount::PendingAppListUpdateCount(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.count_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct PendingAppListUpdateCountDefaultTypeInternal {
-  constexpr PendingAppListUpdateCountDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR PendingAppListUpdateCountDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~PendingAppListUpdateCountDefaultTypeInternal() {}
   union {
     PendingAppListUpdateCount _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PendingAppListUpdateCountDefaultTypeInternal _PendingAppListUpdateCount_default_instance_;
-constexpr InstallLinuxPackageProgressInfo::InstallLinuxPackageProgressInfo(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , failure_details_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , command_uuid_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , status_(0)
-
-  , progress_percent_(0u){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PendingAppListUpdateCountDefaultTypeInternal _PendingAppListUpdateCount_default_instance_;
+PROTOBUF_CONSTEXPR InstallLinuxPackageProgressInfo::InstallLinuxPackageProgressInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.failure_details_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.command_uuid_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0
+  , /*decltype(_impl_.progress_percent_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct InstallLinuxPackageProgressInfoDefaultTypeInternal {
-  constexpr InstallLinuxPackageProgressInfoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InstallLinuxPackageProgressInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~InstallLinuxPackageProgressInfoDefaultTypeInternal() {}
   union {
     InstallLinuxPackageProgressInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT InstallLinuxPackageProgressInfoDefaultTypeInternal _InstallLinuxPackageProgressInfo_default_instance_;
-constexpr UninstallPackageProgressInfo::UninstallPackageProgressInfo(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , failure_details_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , status_(0)
-
-  , progress_percent_(0u){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallLinuxPackageProgressInfoDefaultTypeInternal _InstallLinuxPackageProgressInfo_default_instance_;
+PROTOBUF_CONSTEXPR UninstallPackageProgressInfo::UninstallPackageProgressInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.failure_details_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0
+  , /*decltype(_impl_.progress_percent_)*/0u
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UninstallPackageProgressInfoDefaultTypeInternal {
-  constexpr UninstallPackageProgressInfoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UninstallPackageProgressInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UninstallPackageProgressInfoDefaultTypeInternal() {}
   union {
     UninstallPackageProgressInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UninstallPackageProgressInfoDefaultTypeInternal _UninstallPackageProgressInfo_default_instance_;
-constexpr ApplyAnsiblePlaybookProgressInfo::ApplyAnsiblePlaybookProgressInfo(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : status_string_()
-  , token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , failure_details_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , status_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UninstallPackageProgressInfoDefaultTypeInternal _UninstallPackageProgressInfo_default_instance_;
+PROTOBUF_CONSTEXPR ApplyAnsiblePlaybookProgressInfo::ApplyAnsiblePlaybookProgressInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.status_string_)*/{}
+  , /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.failure_details_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.status_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ApplyAnsiblePlaybookProgressInfoDefaultTypeInternal {
-  constexpr ApplyAnsiblePlaybookProgressInfoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ApplyAnsiblePlaybookProgressInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ApplyAnsiblePlaybookProgressInfoDefaultTypeInternal() {}
   union {
     ApplyAnsiblePlaybookProgressInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ApplyAnsiblePlaybookProgressInfoDefaultTypeInternal _ApplyAnsiblePlaybookProgressInfo_default_instance_;
-constexpr OpenTerminalRequest::OpenTerminalRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : params_()
-  , token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ApplyAnsiblePlaybookProgressInfoDefaultTypeInternal _ApplyAnsiblePlaybookProgressInfo_default_instance_;
+PROTOBUF_CONSTEXPR OpenTerminalRequest::OpenTerminalRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.params_)*/{}
+  , /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct OpenTerminalRequestDefaultTypeInternal {
-  constexpr OpenTerminalRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR OpenTerminalRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~OpenTerminalRequestDefaultTypeInternal() {}
   union {
     OpenTerminalRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OpenTerminalRequestDefaultTypeInternal _OpenTerminalRequest_default_instance_;
-constexpr SelectFileRequest::SelectFileRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , type_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , title_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , default_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , allowed_extensions_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OpenTerminalRequestDefaultTypeInternal _OpenTerminalRequest_default_instance_;
+PROTOBUF_CONSTEXPR SelectFileRequest::SelectFileRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.type_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.title_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.default_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.allowed_extensions_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SelectFileRequestDefaultTypeInternal {
-  constexpr SelectFileRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SelectFileRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SelectFileRequestDefaultTypeInternal() {}
   union {
     SelectFileRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SelectFileRequestDefaultTypeInternal _SelectFileRequest_default_instance_;
-constexpr SelectFileResponse::SelectFileResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : files_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SelectFileRequestDefaultTypeInternal _SelectFileRequest_default_instance_;
+PROTOBUF_CONSTEXPR SelectFileResponse::SelectFileResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.files_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct SelectFileResponseDefaultTypeInternal {
-  constexpr SelectFileResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SelectFileResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SelectFileResponseDefaultTypeInternal() {}
   union {
     SelectFileResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SelectFileResponseDefaultTypeInternal _SelectFileResponse_default_instance_;
-constexpr UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse::UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SelectFileResponseDefaultTypeInternal _SelectFileResponse_default_instance_;
+PROTOBUF_CONSTEXPR UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse::UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse(
+    ::_pbi::ConstantInitialized) {}
 struct UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUseDefaultTypeInternal {
-  constexpr UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUseDefaultTypeInternal() {}
   union {
     UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUseDefaultTypeInternal _UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse_default_instance_;
-constexpr UpdateMimeTypesRequest::UpdateMimeTypesRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : mime_type_mappings_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUseDefaultTypeInternal _UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse_default_instance_;
+PROTOBUF_CONSTEXPR UpdateMimeTypesRequest::UpdateMimeTypesRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.mime_type_mappings_)*/{::_pbi::ConstantInitialized()}
+  , /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UpdateMimeTypesRequestDefaultTypeInternal {
-  constexpr UpdateMimeTypesRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UpdateMimeTypesRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UpdateMimeTypesRequestDefaultTypeInternal() {}
   union {
     UpdateMimeTypesRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UpdateMimeTypesRequestDefaultTypeInternal _UpdateMimeTypesRequest_default_instance_;
-constexpr FileWatchTriggeredInfo::FileWatchTriggeredInfo(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UpdateMimeTypesRequestDefaultTypeInternal _UpdateMimeTypesRequest_default_instance_;
+PROTOBUF_CONSTEXPR FileWatchTriggeredInfo::FileWatchTriggeredInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct FileWatchTriggeredInfoDefaultTypeInternal {
-  constexpr FileWatchTriggeredInfoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR FileWatchTriggeredInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~FileWatchTriggeredInfoDefaultTypeInternal() {}
   union {
     FileWatchTriggeredInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FileWatchTriggeredInfoDefaultTypeInternal _FileWatchTriggeredInfo_default_instance_;
-constexpr LowDiskSpaceTriggeredInfo::LowDiskSpaceTriggeredInfo(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , free_bytes_(uint64_t{0u}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FileWatchTriggeredInfoDefaultTypeInternal _FileWatchTriggeredInfo_default_instance_;
+PROTOBUF_CONSTEXPR LowDiskSpaceTriggeredInfo::LowDiskSpaceTriggeredInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.free_bytes_)*/uint64_t{0u}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct LowDiskSpaceTriggeredInfoDefaultTypeInternal {
-  constexpr LowDiskSpaceTriggeredInfoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR LowDiskSpaceTriggeredInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~LowDiskSpaceTriggeredInfoDefaultTypeInternal() {}
   union {
     LowDiskSpaceTriggeredInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT LowDiskSpaceTriggeredInfoDefaultTypeInternal _LowDiskSpaceTriggeredInfo_default_instance_;
-constexpr ForwardSecurityKeyMessageRequest::ForwardSecurityKeyMessageRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LowDiskSpaceTriggeredInfoDefaultTypeInternal _LowDiskSpaceTriggeredInfo_default_instance_;
+PROTOBUF_CONSTEXPR ForwardSecurityKeyMessageRequest::ForwardSecurityKeyMessageRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ForwardSecurityKeyMessageRequestDefaultTypeInternal {
-  constexpr ForwardSecurityKeyMessageRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ForwardSecurityKeyMessageRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ForwardSecurityKeyMessageRequestDefaultTypeInternal() {}
   union {
     ForwardSecurityKeyMessageRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ForwardSecurityKeyMessageRequestDefaultTypeInternal _ForwardSecurityKeyMessageRequest_default_instance_;
-constexpr ForwardSecurityKeyMessageResponse::ForwardSecurityKeyMessageResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ForwardSecurityKeyMessageRequestDefaultTypeInternal _ForwardSecurityKeyMessageRequest_default_instance_;
+PROTOBUF_CONSTEXPR ForwardSecurityKeyMessageResponse::ForwardSecurityKeyMessageResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.message_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ForwardSecurityKeyMessageResponseDefaultTypeInternal {
-  constexpr ForwardSecurityKeyMessageResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ForwardSecurityKeyMessageResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ForwardSecurityKeyMessageResponseDefaultTypeInternal() {}
   union {
     ForwardSecurityKeyMessageResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ForwardSecurityKeyMessageResponseDefaultTypeInternal _ForwardSecurityKeyMessageResponse_default_instance_;
-constexpr GetDiskInfoRequest::GetDiskInfoRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ForwardSecurityKeyMessageResponseDefaultTypeInternal _ForwardSecurityKeyMessageResponse_default_instance_;
+PROTOBUF_CONSTEXPR GetDiskInfoRequest::GetDiskInfoRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetDiskInfoRequestDefaultTypeInternal {
-  constexpr GetDiskInfoRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetDiskInfoRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetDiskInfoRequestDefaultTypeInternal() {}
   union {
     GetDiskInfoRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetDiskInfoRequestDefaultTypeInternal _GetDiskInfoRequest_default_instance_;
-constexpr GetDiskInfoResponse::GetDiskInfoResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : error_(int64_t{0})
-  , available_space_(uint64_t{0u})
-  , expandable_space_(uint64_t{0u})
-  , disk_size_(uint64_t{0u}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetDiskInfoRequestDefaultTypeInternal _GetDiskInfoRequest_default_instance_;
+PROTOBUF_CONSTEXPR GetDiskInfoResponse::GetDiskInfoResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.error_)*/int64_t{0}
+  , /*decltype(_impl_.available_space_)*/uint64_t{0u}
+  , /*decltype(_impl_.expandable_space_)*/uint64_t{0u}
+  , /*decltype(_impl_.disk_size_)*/uint64_t{0u}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct GetDiskInfoResponseDefaultTypeInternal {
-  constexpr GetDiskInfoResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR GetDiskInfoResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~GetDiskInfoResponseDefaultTypeInternal() {}
   union {
     GetDiskInfoResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetDiskInfoResponseDefaultTypeInternal _GetDiskInfoResponse_default_instance_;
-constexpr RequestSpaceRequest::RequestSpaceRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , space_requested_(uint64_t{0u}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetDiskInfoResponseDefaultTypeInternal _GetDiskInfoResponse_default_instance_;
+PROTOBUF_CONSTEXPR RequestSpaceRequest::RequestSpaceRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.space_requested_)*/uint64_t{0u}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RequestSpaceRequestDefaultTypeInternal {
-  constexpr RequestSpaceRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RequestSpaceRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~RequestSpaceRequestDefaultTypeInternal() {}
   union {
     RequestSpaceRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RequestSpaceRequestDefaultTypeInternal _RequestSpaceRequest_default_instance_;
-constexpr RequestSpaceResponse::RequestSpaceResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : space_granted_(uint64_t{0u})
-  , error_(int64_t{0}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RequestSpaceRequestDefaultTypeInternal _RequestSpaceRequest_default_instance_;
+PROTOBUF_CONSTEXPR RequestSpaceResponse::RequestSpaceResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.space_granted_)*/uint64_t{0u}
+  , /*decltype(_impl_.error_)*/int64_t{0}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct RequestSpaceResponseDefaultTypeInternal {
-  constexpr RequestSpaceResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RequestSpaceResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~RequestSpaceResponseDefaultTypeInternal() {}
   union {
     RequestSpaceResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RequestSpaceResponseDefaultTypeInternal _RequestSpaceResponse_default_instance_;
-constexpr ReleaseSpaceRequest::ReleaseSpaceRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , space_to_release_(uint64_t{0u}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RequestSpaceResponseDefaultTypeInternal _RequestSpaceResponse_default_instance_;
+PROTOBUF_CONSTEXPR ReleaseSpaceRequest::ReleaseSpaceRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.space_to_release_)*/uint64_t{0u}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ReleaseSpaceRequestDefaultTypeInternal {
-  constexpr ReleaseSpaceRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ReleaseSpaceRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ReleaseSpaceRequestDefaultTypeInternal() {}
   union {
     ReleaseSpaceRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ReleaseSpaceRequestDefaultTypeInternal _ReleaseSpaceRequest_default_instance_;
-constexpr ReleaseSpaceResponse::ReleaseSpaceResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : space_released_(uint64_t{0u})
-  , error_(int64_t{0}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ReleaseSpaceRequestDefaultTypeInternal _ReleaseSpaceRequest_default_instance_;
+PROTOBUF_CONSTEXPR ReleaseSpaceResponse::ReleaseSpaceResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.space_released_)*/uint64_t{0u}
+  , /*decltype(_impl_.error_)*/int64_t{0}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ReleaseSpaceResponseDefaultTypeInternal {
-  constexpr ReleaseSpaceResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ReleaseSpaceResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ReleaseSpaceResponseDefaultTypeInternal() {}
   union {
     ReleaseSpaceResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ReleaseSpaceResponseDefaultTypeInternal _ReleaseSpaceResponse_default_instance_;
-constexpr Metric::Metric(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , value_(int64_t{0}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ReleaseSpaceResponseDefaultTypeInternal _ReleaseSpaceResponse_default_instance_;
+PROTOBUF_CONSTEXPR Metric::Metric(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.name_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.value_)*/int64_t{0}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct MetricDefaultTypeInternal {
-  constexpr MetricDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR MetricDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~MetricDefaultTypeInternal() {}
   union {
     Metric _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MetricDefaultTypeInternal _Metric_default_instance_;
-constexpr ReportMetricsRequest::ReportMetricsRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : metric_()
-  , token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MetricDefaultTypeInternal _Metric_default_instance_;
+PROTOBUF_CONSTEXPR ReportMetricsRequest::ReportMetricsRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.metric_)*/{}
+  , /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ReportMetricsRequestDefaultTypeInternal {
-  constexpr ReportMetricsRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ReportMetricsRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ReportMetricsRequestDefaultTypeInternal() {}
   union {
     ReportMetricsRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ReportMetricsRequestDefaultTypeInternal _ReportMetricsRequest_default_instance_;
-constexpr ReportMetricsResponse::ReportMetricsResponse(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : error_(int64_t{0}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ReportMetricsRequestDefaultTypeInternal _ReportMetricsRequest_default_instance_;
+PROTOBUF_CONSTEXPR ReportMetricsResponse::ReportMetricsResponse(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.error_)*/int64_t{0}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct ReportMetricsResponseDefaultTypeInternal {
-  constexpr ReportMetricsResponseDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR ReportMetricsResponseDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~ReportMetricsResponseDefaultTypeInternal() {}
   union {
     ReportMetricsResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ReportMetricsResponseDefaultTypeInternal _ReportMetricsResponse_default_instance_;
-constexpr InstallShaderCacheRequest::InstallShaderCacheRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , steam_app_id_(uint64_t{0u})
-  , mount_(false)
-  , wait_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ReportMetricsResponseDefaultTypeInternal _ReportMetricsResponse_default_instance_;
+PROTOBUF_CONSTEXPR InstallShaderCacheRequest::InstallShaderCacheRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.steam_app_id_)*/uint64_t{0u}
+  , /*decltype(_impl_.mount_)*/false
+  , /*decltype(_impl_.wait_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct InstallShaderCacheRequestDefaultTypeInternal {
-  constexpr InstallShaderCacheRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InstallShaderCacheRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~InstallShaderCacheRequestDefaultTypeInternal() {}
   union {
     InstallShaderCacheRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT InstallShaderCacheRequestDefaultTypeInternal _InstallShaderCacheRequest_default_instance_;
-constexpr UninstallShaderCacheRequest::UninstallShaderCacheRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , steam_app_id_(uint64_t{0u}){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InstallShaderCacheRequestDefaultTypeInternal _InstallShaderCacheRequest_default_instance_;
+PROTOBUF_CONSTEXPR UninstallShaderCacheRequest::UninstallShaderCacheRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.steam_app_id_)*/uint64_t{0u}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UninstallShaderCacheRequestDefaultTypeInternal {
-  constexpr UninstallShaderCacheRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UninstallShaderCacheRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UninstallShaderCacheRequestDefaultTypeInternal() {}
   union {
     UninstallShaderCacheRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UninstallShaderCacheRequestDefaultTypeInternal _UninstallShaderCacheRequest_default_instance_;
-constexpr UnmountShaderCacheRequest::UnmountShaderCacheRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , steam_app_id_(uint64_t{0u})
-  , wait_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UninstallShaderCacheRequestDefaultTypeInternal _UninstallShaderCacheRequest_default_instance_;
+PROTOBUF_CONSTEXPR UnmountShaderCacheRequest::UnmountShaderCacheRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.steam_app_id_)*/uint64_t{0u}
+  , /*decltype(_impl_.wait_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UnmountShaderCacheRequestDefaultTypeInternal {
-  constexpr UnmountShaderCacheRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UnmountShaderCacheRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UnmountShaderCacheRequestDefaultTypeInternal() {}
   union {
     UnmountShaderCacheRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UnmountShaderCacheRequestDefaultTypeInternal _UnmountShaderCacheRequest_default_instance_;
-constexpr InhibitScreensaverInfo::InhibitScreensaverInfo(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , client_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , reason_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , cookie_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UnmountShaderCacheRequestDefaultTypeInternal _UnmountShaderCacheRequest_default_instance_;
+PROTOBUF_CONSTEXPR InhibitScreensaverInfo::InhibitScreensaverInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.client_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.reason_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.cookie_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct InhibitScreensaverInfoDefaultTypeInternal {
-  constexpr InhibitScreensaverInfoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InhibitScreensaverInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~InhibitScreensaverInfoDefaultTypeInternal() {}
   union {
     InhibitScreensaverInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT InhibitScreensaverInfoDefaultTypeInternal _InhibitScreensaverInfo_default_instance_;
-constexpr UninhibitScreensaverInfo::UninhibitScreensaverInfo(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , cookie_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InhibitScreensaverInfoDefaultTypeInternal _InhibitScreensaverInfo_default_instance_;
+PROTOBUF_CONSTEXPR UninhibitScreensaverInfo::UninhibitScreensaverInfo(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.token_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.cookie_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct UninhibitScreensaverInfoDefaultTypeInternal {
-  constexpr UninhibitScreensaverInfoDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR UninhibitScreensaverInfoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~UninhibitScreensaverInfoDefaultTypeInternal() {}
   union {
     UninhibitScreensaverInfo _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UninhibitScreensaverInfoDefaultTypeInternal _UninhibitScreensaverInfo_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UninhibitScreensaverInfoDefaultTypeInternal _UninhibitScreensaverInfo_default_instance_;
 }  // namespace container
 }  // namespace vm_tools
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_container_5fhost_2eproto[36];
-static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_container_5fhost_2eproto[3];
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_container_5fhost_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_container_5fhost_2eproto[36];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_container_5fhost_2eproto[3];
+static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_container_5fhost_2eproto = nullptr;
 
 const uint32_t TableStruct_container_5fhost_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
@@ -520,145 +556,145 @@ const uint32_t TableStruct_container_5fhost_2eproto::offsets[] PROTOBUF_SECTION_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ContainerStartupInfo, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ContainerStartupInfo, garcon_port_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ContainerStartupInfo, sftp_port_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ContainerStartupInfo, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ContainerStartupInfo, _impl_.garcon_port_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ContainerStartupInfo, _impl_.sftp_port_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::ContainerShutdownInfo, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ContainerShutdownInfo, token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ContainerShutdownInfo, _impl_.token_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application_LocalizedString_StringWithLocale, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application_LocalizedString_StringWithLocale, locale_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application_LocalizedString_StringWithLocale, value_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application_LocalizedString_StringWithLocale, _impl_.locale_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application_LocalizedString_StringWithLocale, _impl_.value_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application_LocalizedString, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application_LocalizedString, values_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application_LocalizedString, _impl_.values_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application_LocaleStrings_StringsWithLocale, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application_LocaleStrings_StringsWithLocale, locale_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application_LocaleStrings_StringsWithLocale, value_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application_LocaleStrings_StringsWithLocale, _impl_.locale_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application_LocaleStrings_StringsWithLocale, _impl_.value_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application_LocaleStrings, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application_LocaleStrings, values_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application_LocaleStrings, _impl_.values_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, desktop_file_id_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, name_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, comment_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, mime_types_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, no_display_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, startup_wm_class_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, startup_notify_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, keywords_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, executable_file_name_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, exec_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, package_id_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, extensions_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.desktop_file_id_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.name_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.comment_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.mime_types_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.no_display_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.startup_wm_class_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.startup_notify_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.keywords_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.executable_file_name_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.exec_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.package_id_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Application, _impl_.extensions_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::UpdateApplicationListRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UpdateApplicationListRequest, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UpdateApplicationListRequest, application_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UpdateApplicationListRequest, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UpdateApplicationListRequest, _impl_.application_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::OpenUrlRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::OpenUrlRequest, url_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::OpenUrlRequest, token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::OpenUrlRequest, _impl_.url_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::OpenUrlRequest, _impl_.token_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::PendingAppListUpdateCount, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::PendingAppListUpdateCount, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::PendingAppListUpdateCount, count_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::PendingAppListUpdateCount, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::PendingAppListUpdateCount, _impl_.count_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallLinuxPackageProgressInfo, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallLinuxPackageProgressInfo, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallLinuxPackageProgressInfo, status_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallLinuxPackageProgressInfo, progress_percent_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallLinuxPackageProgressInfo, failure_details_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallLinuxPackageProgressInfo, command_uuid_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallLinuxPackageProgressInfo, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallLinuxPackageProgressInfo, _impl_.status_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallLinuxPackageProgressInfo, _impl_.progress_percent_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallLinuxPackageProgressInfo, _impl_.failure_details_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallLinuxPackageProgressInfo, _impl_.command_uuid_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninstallPackageProgressInfo, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninstallPackageProgressInfo, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninstallPackageProgressInfo, status_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninstallPackageProgressInfo, progress_percent_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninstallPackageProgressInfo, failure_details_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninstallPackageProgressInfo, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninstallPackageProgressInfo, _impl_.status_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninstallPackageProgressInfo, _impl_.progress_percent_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninstallPackageProgressInfo, _impl_.failure_details_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::ApplyAnsiblePlaybookProgressInfo, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ApplyAnsiblePlaybookProgressInfo, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ApplyAnsiblePlaybookProgressInfo, status_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ApplyAnsiblePlaybookProgressInfo, failure_details_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ApplyAnsiblePlaybookProgressInfo, status_string_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ApplyAnsiblePlaybookProgressInfo, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ApplyAnsiblePlaybookProgressInfo, _impl_.status_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ApplyAnsiblePlaybookProgressInfo, _impl_.failure_details_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ApplyAnsiblePlaybookProgressInfo, _impl_.status_string_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::OpenTerminalRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::OpenTerminalRequest, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::OpenTerminalRequest, params_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::OpenTerminalRequest, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::OpenTerminalRequest, _impl_.params_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::SelectFileRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::SelectFileRequest, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::SelectFileRequest, type_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::SelectFileRequest, title_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::SelectFileRequest, default_path_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::SelectFileRequest, allowed_extensions_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::SelectFileRequest, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::SelectFileRequest, _impl_.type_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::SelectFileRequest, _impl_.title_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::SelectFileRequest, _impl_.default_path_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::SelectFileRequest, _impl_.allowed_extensions_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::SelectFileResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::SelectFileResponse, files_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::SelectFileResponse, _impl_.files_),
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -675,157 +711,157 @@ const uint32_t TableStruct_container_5fhost_2eproto::offsets[] PROTOBUF_SECTION_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UpdateMimeTypesRequest, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UpdateMimeTypesRequest, mime_type_mappings_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UpdateMimeTypesRequest, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UpdateMimeTypesRequest, _impl_.mime_type_mappings_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::FileWatchTriggeredInfo, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::FileWatchTriggeredInfo, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::FileWatchTriggeredInfo, path_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::FileWatchTriggeredInfo, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::FileWatchTriggeredInfo, _impl_.path_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::LowDiskSpaceTriggeredInfo, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::LowDiskSpaceTriggeredInfo, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::LowDiskSpaceTriggeredInfo, free_bytes_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::LowDiskSpaceTriggeredInfo, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::LowDiskSpaceTriggeredInfo, _impl_.free_bytes_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::ForwardSecurityKeyMessageRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ForwardSecurityKeyMessageRequest, message_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ForwardSecurityKeyMessageRequest, _impl_.message_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::ForwardSecurityKeyMessageResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ForwardSecurityKeyMessageResponse, message_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ForwardSecurityKeyMessageResponse, _impl_.message_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::GetDiskInfoRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::GetDiskInfoRequest, token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::GetDiskInfoRequest, _impl_.token_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::GetDiskInfoResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::GetDiskInfoResponse, error_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::GetDiskInfoResponse, available_space_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::GetDiskInfoResponse, expandable_space_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::GetDiskInfoResponse, disk_size_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::GetDiskInfoResponse, _impl_.error_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::GetDiskInfoResponse, _impl_.available_space_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::GetDiskInfoResponse, _impl_.expandable_space_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::GetDiskInfoResponse, _impl_.disk_size_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::RequestSpaceRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::RequestSpaceRequest, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::RequestSpaceRequest, space_requested_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::RequestSpaceRequest, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::RequestSpaceRequest, _impl_.space_requested_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::RequestSpaceResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::RequestSpaceResponse, space_granted_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::RequestSpaceResponse, error_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::RequestSpaceResponse, _impl_.space_granted_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::RequestSpaceResponse, _impl_.error_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReleaseSpaceRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReleaseSpaceRequest, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReleaseSpaceRequest, space_to_release_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReleaseSpaceRequest, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReleaseSpaceRequest, _impl_.space_to_release_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReleaseSpaceResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReleaseSpaceResponse, space_released_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReleaseSpaceResponse, error_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReleaseSpaceResponse, _impl_.space_released_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReleaseSpaceResponse, _impl_.error_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::Metric, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Metric, name_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Metric, value_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Metric, _impl_.name_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::Metric, _impl_.value_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReportMetricsRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReportMetricsRequest, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReportMetricsRequest, metric_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReportMetricsRequest, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReportMetricsRequest, _impl_.metric_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReportMetricsResponse, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReportMetricsResponse, error_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::ReportMetricsResponse, _impl_.error_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallShaderCacheRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallShaderCacheRequest, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallShaderCacheRequest, steam_app_id_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallShaderCacheRequest, mount_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallShaderCacheRequest, wait_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallShaderCacheRequest, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallShaderCacheRequest, _impl_.steam_app_id_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallShaderCacheRequest, _impl_.mount_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InstallShaderCacheRequest, _impl_.wait_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninstallShaderCacheRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninstallShaderCacheRequest, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninstallShaderCacheRequest, steam_app_id_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninstallShaderCacheRequest, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninstallShaderCacheRequest, _impl_.steam_app_id_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::UnmountShaderCacheRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UnmountShaderCacheRequest, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UnmountShaderCacheRequest, steam_app_id_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UnmountShaderCacheRequest, wait_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UnmountShaderCacheRequest, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UnmountShaderCacheRequest, _impl_.steam_app_id_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UnmountShaderCacheRequest, _impl_.wait_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::InhibitScreensaverInfo, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InhibitScreensaverInfo, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InhibitScreensaverInfo, cookie_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InhibitScreensaverInfo, client_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InhibitScreensaverInfo, reason_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InhibitScreensaverInfo, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InhibitScreensaverInfo, _impl_.cookie_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InhibitScreensaverInfo, _impl_.client_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InhibitScreensaverInfo, _impl_.reason_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninhibitScreensaverInfo, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninhibitScreensaverInfo, token_),
-  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninhibitScreensaverInfo, cookie_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninhibitScreensaverInfo, _impl_.token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninhibitScreensaverInfo, _impl_.cookie_),
 };
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::vm_tools::container::ContainerStartupInfo)},
   { 9, -1, -1, sizeof(::vm_tools::container::ContainerShutdownInfo)},
   { 16, -1, -1, sizeof(::vm_tools::container::Application_LocalizedString_StringWithLocale)},
@@ -864,43 +900,43 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 302, -1, -1, sizeof(::vm_tools::container::UninhibitScreensaverInfo)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_ContainerStartupInfo_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_ContainerShutdownInfo_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_Application_LocalizedString_StringWithLocale_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_Application_LocalizedString_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_Application_LocaleStrings_StringsWithLocale_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_Application_LocaleStrings_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_Application_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_UpdateApplicationListRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_OpenUrlRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_PendingAppListUpdateCount_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_InstallLinuxPackageProgressInfo_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_UninstallPackageProgressInfo_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_ApplyAnsiblePlaybookProgressInfo_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_OpenTerminalRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_SelectFileRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_SelectFileResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_UpdateMimeTypesRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_FileWatchTriggeredInfo_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_LowDiskSpaceTriggeredInfo_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_ForwardSecurityKeyMessageRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_ForwardSecurityKeyMessageResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_GetDiskInfoRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_GetDiskInfoResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_RequestSpaceRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_RequestSpaceResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_ReleaseSpaceRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_ReleaseSpaceResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_Metric_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_ReportMetricsRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_ReportMetricsResponse_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_InstallShaderCacheRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_UninstallShaderCacheRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_UnmountShaderCacheRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_InhibitScreensaverInfo_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_UninhibitScreensaverInfo_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+  &::vm_tools::container::_ContainerStartupInfo_default_instance_._instance,
+  &::vm_tools::container::_ContainerShutdownInfo_default_instance_._instance,
+  &::vm_tools::container::_Application_LocalizedString_StringWithLocale_default_instance_._instance,
+  &::vm_tools::container::_Application_LocalizedString_default_instance_._instance,
+  &::vm_tools::container::_Application_LocaleStrings_StringsWithLocale_default_instance_._instance,
+  &::vm_tools::container::_Application_LocaleStrings_default_instance_._instance,
+  &::vm_tools::container::_Application_default_instance_._instance,
+  &::vm_tools::container::_UpdateApplicationListRequest_default_instance_._instance,
+  &::vm_tools::container::_OpenUrlRequest_default_instance_._instance,
+  &::vm_tools::container::_PendingAppListUpdateCount_default_instance_._instance,
+  &::vm_tools::container::_InstallLinuxPackageProgressInfo_default_instance_._instance,
+  &::vm_tools::container::_UninstallPackageProgressInfo_default_instance_._instance,
+  &::vm_tools::container::_ApplyAnsiblePlaybookProgressInfo_default_instance_._instance,
+  &::vm_tools::container::_OpenTerminalRequest_default_instance_._instance,
+  &::vm_tools::container::_SelectFileRequest_default_instance_._instance,
+  &::vm_tools::container::_SelectFileResponse_default_instance_._instance,
+  &::vm_tools::container::_UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse_default_instance_._instance,
+  &::vm_tools::container::_UpdateMimeTypesRequest_default_instance_._instance,
+  &::vm_tools::container::_FileWatchTriggeredInfo_default_instance_._instance,
+  &::vm_tools::container::_LowDiskSpaceTriggeredInfo_default_instance_._instance,
+  &::vm_tools::container::_ForwardSecurityKeyMessageRequest_default_instance_._instance,
+  &::vm_tools::container::_ForwardSecurityKeyMessageResponse_default_instance_._instance,
+  &::vm_tools::container::_GetDiskInfoRequest_default_instance_._instance,
+  &::vm_tools::container::_GetDiskInfoResponse_default_instance_._instance,
+  &::vm_tools::container::_RequestSpaceRequest_default_instance_._instance,
+  &::vm_tools::container::_RequestSpaceResponse_default_instance_._instance,
+  &::vm_tools::container::_ReleaseSpaceRequest_default_instance_._instance,
+  &::vm_tools::container::_ReleaseSpaceResponse_default_instance_._instance,
+  &::vm_tools::container::_Metric_default_instance_._instance,
+  &::vm_tools::container::_ReportMetricsRequest_default_instance_._instance,
+  &::vm_tools::container::_ReportMetricsResponse_default_instance_._instance,
+  &::vm_tools::container::_InstallShaderCacheRequest_default_instance_._instance,
+  &::vm_tools::container::_UninstallShaderCacheRequest_default_instance_._instance,
+  &::vm_tools::container::_UnmountShaderCacheRequest_default_instance_._instance,
+  &::vm_tools::container::_InhibitScreensaverInfo_default_instance_._instance,
+  &::vm_tools::container::_UninhibitScreensaverInfo_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_container_5fhost_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -1048,22 +1084,24 @@ const char descriptor_table_protodef_container_5fhost_2eproto[] PROTOBUF_SECTION
   "mptyMessageB(Z#chromiumos/vm_tools/conta"
   "iner_proto\370\001\001b\006proto3"
   ;
-static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_container_5fhost_2eproto_deps[1] = {
+static const ::_pbi::DescriptorTable* const descriptor_table_container_5fhost_2eproto_deps[1] = {
   &::descriptor_table_common_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_container_5fhost_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_container_5fhost_2eproto = {
-  false, false, 5701, descriptor_table_protodef_container_5fhost_2eproto, "container_host.proto", 
-  &descriptor_table_container_5fhost_2eproto_once, descriptor_table_container_5fhost_2eproto_deps, 1, 36,
-  schemas, file_default_instances, TableStruct_container_5fhost_2eproto::offsets,
-  file_level_metadata_container_5fhost_2eproto, file_level_enum_descriptors_container_5fhost_2eproto, file_level_service_descriptors_container_5fhost_2eproto,
+static ::_pbi::once_flag descriptor_table_container_5fhost_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_container_5fhost_2eproto = {
+    false, false, 5701, descriptor_table_protodef_container_5fhost_2eproto,
+    "container_host.proto",
+    &descriptor_table_container_5fhost_2eproto_once, descriptor_table_container_5fhost_2eproto_deps, 1, 36,
+    schemas, file_default_instances, TableStruct_container_5fhost_2eproto::offsets,
+    file_level_metadata_container_5fhost_2eproto, file_level_enum_descriptors_container_5fhost_2eproto,
+    file_level_service_descriptors_container_5fhost_2eproto,
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_container_5fhost_2eproto_getter() {
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_container_5fhost_2eproto_getter() {
   return &descriptor_table_container_5fhost_2eproto;
 }
 
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_container_5fhost_2eproto(&descriptor_table_container_5fhost_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_container_5fhost_2eproto(&descriptor_table_container_5fhost_2eproto);
 namespace vm_tools {
 namespace container {
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* InstallLinuxPackageProgressInfo_Status_descriptor() {
@@ -1149,60 +1187,65 @@ class ContainerStartupInfo::_Internal {
 ContainerStartupInfo::ContainerStartupInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.ContainerStartupInfo)
 }
 ContainerStartupInfo::ContainerStartupInfo(const ContainerStartupInfo& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ContainerStartupInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.garcon_port_){}
+    , decltype(_impl_.sftp_port_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&garcon_port_, &from.garcon_port_,
-    static_cast<size_t>(reinterpret_cast<char*>(&sftp_port_) -
-    reinterpret_cast<char*>(&garcon_port_)) + sizeof(sftp_port_));
+  ::memcpy(&_impl_.garcon_port_, &from._impl_.garcon_port_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.sftp_port_) -
+    reinterpret_cast<char*>(&_impl_.garcon_port_)) + sizeof(_impl_.sftp_port_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.ContainerStartupInfo)
 }
 
-inline void ContainerStartupInfo::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&garcon_port_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&sftp_port_) -
-    reinterpret_cast<char*>(&garcon_port_)) + sizeof(sftp_port_));
+inline void ContainerStartupInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.garcon_port_){0u}
+    , decltype(_impl_.sftp_port_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ContainerStartupInfo::~ContainerStartupInfo() {
   // @@protoc_insertion_point(destructor:vm_tools.container.ContainerStartupInfo)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void ContainerStartupInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
 }
 
-void ContainerStartupInfo::ArenaDtor(void* object) {
-  ContainerStartupInfo* _this = reinterpret_cast< ContainerStartupInfo* >(object);
-  (void)_this;
-}
-void ContainerStartupInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ContainerStartupInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ContainerStartupInfo::Clear() {
@@ -1211,33 +1254,33 @@ void ContainerStartupInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
-  ::memset(&garcon_port_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&sftp_port_) -
-      reinterpret_cast<char*>(&garcon_port_)) + sizeof(sftp_port_));
+  _impl_.token_.ClearToEmpty();
+  ::memset(&_impl_.garcon_port_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.sftp_port_) -
+      reinterpret_cast<char*>(&_impl_.garcon_port_)) + sizeof(_impl_.sftp_port_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ContainerStartupInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ContainerStartupInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.ContainerStartupInfo.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.ContainerStartupInfo.token"));
         } else
           goto handle_unusual;
         continue;
       // uint32 garcon_port = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          garcon_port_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.garcon_port_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1245,7 +1288,7 @@ const char* ContainerStartupInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAM
       // uint32 sftp_port = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          sftp_port_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.sftp_port_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1292,17 +1335,17 @@ uint8_t* ContainerStartupInfo::_InternalSerialize(
   // uint32 garcon_port = 2;
   if (this->_internal_garcon_port() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_garcon_port(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_garcon_port(), target);
   }
 
   // uint32 sftp_port = 3;
   if (this->_internal_sftp_port() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_sftp_port(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_sftp_port(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.ContainerStartupInfo)
@@ -1326,46 +1369,42 @@ size_t ContainerStartupInfo::ByteSizeLong() const {
 
   // uint32 garcon_port = 2;
   if (this->_internal_garcon_port() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_garcon_port());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_garcon_port());
   }
 
   // uint32 sftp_port = 3;
   if (this->_internal_sftp_port() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_sftp_port());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_sftp_port());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ContainerStartupInfo::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     ContainerStartupInfo::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ContainerStartupInfo::GetClassData() const { return &_class_data_; }
 
-void ContainerStartupInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<ContainerStartupInfo *>(to)->MergeFrom(
-      static_cast<const ContainerStartupInfo &>(from));
-}
 
-
-void ContainerStartupInfo::MergeFrom(const ContainerStartupInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ContainerStartupInfo)
-  GOOGLE_DCHECK_NE(&from, this);
+void ContainerStartupInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ContainerStartupInfo*>(&to_msg);
+  auto& from = static_cast<const ContainerStartupInfo&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ContainerStartupInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
   if (from._internal_garcon_port() != 0) {
-    _internal_set_garcon_port(from._internal_garcon_port());
+    _this->_internal_set_garcon_port(from._internal_garcon_port());
   }
   if (from._internal_sftp_port() != 0) {
-    _internal_set_sftp_port(from._internal_sftp_port());
+    _this->_internal_set_sftp_port(from._internal_sftp_port());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void ContainerStartupInfo::CopyFrom(const ContainerStartupInfo& from) {
@@ -1385,20 +1424,19 @@ void ContainerStartupInfo::InternalSwap(ContainerStartupInfo* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ContainerStartupInfo, sftp_port_)
-      + sizeof(ContainerStartupInfo::sftp_port_)
-      - PROTOBUF_FIELD_OFFSET(ContainerStartupInfo, garcon_port_)>(
-          reinterpret_cast<char*>(&garcon_port_),
-          reinterpret_cast<char*>(&other->garcon_port_));
+      PROTOBUF_FIELD_OFFSET(ContainerStartupInfo, _impl_.sftp_port_)
+      + sizeof(ContainerStartupInfo::_impl_.sftp_port_)
+      - PROTOBUF_FIELD_OFFSET(ContainerStartupInfo, _impl_.garcon_port_)>(
+          reinterpret_cast<char*>(&_impl_.garcon_port_),
+          reinterpret_cast<char*>(&other->_impl_.garcon_port_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ContainerStartupInfo::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[0]);
 }
@@ -1412,53 +1450,58 @@ class ContainerShutdownInfo::_Internal {
 ContainerShutdownInfo::ContainerShutdownInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.ContainerShutdownInfo)
 }
 ContainerShutdownInfo::ContainerShutdownInfo(const ContainerShutdownInfo& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ContainerShutdownInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.ContainerShutdownInfo)
 }
 
-inline void ContainerShutdownInfo::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void ContainerShutdownInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ContainerShutdownInfo::~ContainerShutdownInfo() {
   // @@protoc_insertion_point(destructor:vm_tools.container.ContainerShutdownInfo)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void ContainerShutdownInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
 }
 
-void ContainerShutdownInfo::ArenaDtor(void* object) {
-  ContainerShutdownInfo* _this = reinterpret_cast< ContainerShutdownInfo* >(object);
-  (void)_this;
-}
-void ContainerShutdownInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ContainerShutdownInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ContainerShutdownInfo::Clear() {
@@ -1467,23 +1510,23 @@ void ContainerShutdownInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
+  _impl_.token_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ContainerShutdownInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ContainerShutdownInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.ContainerShutdownInfo.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.ContainerShutdownInfo.token"));
         } else
           goto handle_unusual;
         continue;
@@ -1527,7 +1570,7 @@ uint8_t* ContainerShutdownInfo::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.ContainerShutdownInfo)
@@ -1549,32 +1592,28 @@ size_t ContainerShutdownInfo::ByteSizeLong() const {
         this->_internal_token());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ContainerShutdownInfo::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     ContainerShutdownInfo::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ContainerShutdownInfo::GetClassData() const { return &_class_data_; }
 
-void ContainerShutdownInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<ContainerShutdownInfo *>(to)->MergeFrom(
-      static_cast<const ContainerShutdownInfo &>(from));
-}
 
-
-void ContainerShutdownInfo::MergeFrom(const ContainerShutdownInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ContainerShutdownInfo)
-  GOOGLE_DCHECK_NE(&from, this);
+void ContainerShutdownInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ContainerShutdownInfo*>(&to_msg);
+  auto& from = static_cast<const ContainerShutdownInfo&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ContainerShutdownInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void ContainerShutdownInfo::CopyFrom(const ContainerShutdownInfo& from) {
@@ -1594,14 +1633,13 @@ void ContainerShutdownInfo::InternalSwap(ContainerShutdownInfo* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ContainerShutdownInfo::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[1]);
 }
@@ -1615,66 +1653,73 @@ class Application_LocalizedString_StringWithLocale::_Internal {
 Application_LocalizedString_StringWithLocale::Application_LocalizedString_StringWithLocale(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.Application.LocalizedString.StringWithLocale)
 }
 Application_LocalizedString_StringWithLocale::Application_LocalizedString_StringWithLocale(const Application_LocalizedString_StringWithLocale& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Application_LocalizedString_StringWithLocale* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.locale_){}
+    , decltype(_impl_.value_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  locale_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.locale_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    locale_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.locale_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_locale().empty()) {
-    locale_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_locale(), 
-      GetArenaForAllocation());
+    _this->_impl_.locale_.Set(from._internal_locale(), 
+      _this->GetArenaForAllocation());
   }
-  value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.value_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.value_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_value().empty()) {
-    value_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_value(), 
-      GetArenaForAllocation());
+    _this->_impl_.value_.Set(from._internal_value(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.Application.LocalizedString.StringWithLocale)
 }
 
-inline void Application_LocalizedString_StringWithLocale::SharedCtor() {
-locale_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  locale_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-value_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  value_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void Application_LocalizedString_StringWithLocale::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.locale_){}
+    , decltype(_impl_.value_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.locale_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.locale_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.value_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.value_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Application_LocalizedString_StringWithLocale::~Application_LocalizedString_StringWithLocale() {
   // @@protoc_insertion_point(destructor:vm_tools.container.Application.LocalizedString.StringWithLocale)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void Application_LocalizedString_StringWithLocale::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  locale_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  value_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.locale_.Destroy();
+  _impl_.value_.Destroy();
 }
 
-void Application_LocalizedString_StringWithLocale::ArenaDtor(void* object) {
-  Application_LocalizedString_StringWithLocale* _this = reinterpret_cast< Application_LocalizedString_StringWithLocale* >(object);
-  (void)_this;
-}
-void Application_LocalizedString_StringWithLocale::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void Application_LocalizedString_StringWithLocale::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Application_LocalizedString_StringWithLocale::Clear() {
@@ -1683,24 +1728,24 @@ void Application_LocalizedString_StringWithLocale::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  locale_.ClearToEmpty();
-  value_.ClearToEmpty();
+  _impl_.locale_.ClearToEmpty();
+  _impl_.value_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* Application_LocalizedString_StringWithLocale::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Application_LocalizedString_StringWithLocale::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string locale = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_locale();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.Application.LocalizedString.StringWithLocale.locale"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.Application.LocalizedString.StringWithLocale.locale"));
         } else
           goto handle_unusual;
         continue;
@@ -1708,9 +1753,9 @@ const char* Application_LocalizedString_StringWithLocale::_InternalParse(const c
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_value();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.Application.LocalizedString.StringWithLocale.value"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.Application.LocalizedString.StringWithLocale.value"));
         } else
           goto handle_unusual;
         continue;
@@ -1764,7 +1809,7 @@ uint8_t* Application_LocalizedString_StringWithLocale::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.Application.LocalizedString.StringWithLocale)
@@ -1793,35 +1838,31 @@ size_t Application_LocalizedString_StringWithLocale::ByteSizeLong() const {
         this->_internal_value());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Application_LocalizedString_StringWithLocale::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     Application_LocalizedString_StringWithLocale::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Application_LocalizedString_StringWithLocale::GetClassData() const { return &_class_data_; }
 
-void Application_LocalizedString_StringWithLocale::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<Application_LocalizedString_StringWithLocale *>(to)->MergeFrom(
-      static_cast<const Application_LocalizedString_StringWithLocale &>(from));
-}
 
-
-void Application_LocalizedString_StringWithLocale::MergeFrom(const Application_LocalizedString_StringWithLocale& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.Application.LocalizedString.StringWithLocale)
-  GOOGLE_DCHECK_NE(&from, this);
+void Application_LocalizedString_StringWithLocale::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Application_LocalizedString_StringWithLocale*>(&to_msg);
+  auto& from = static_cast<const Application_LocalizedString_StringWithLocale&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.Application.LocalizedString.StringWithLocale)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_locale().empty()) {
-    _internal_set_locale(from._internal_locale());
+    _this->_internal_set_locale(from._internal_locale());
   }
   if (!from._internal_value().empty()) {
-    _internal_set_value(from._internal_value());
+    _this->_internal_set_value(from._internal_value());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Application_LocalizedString_StringWithLocale::CopyFrom(const Application_LocalizedString_StringWithLocale& from) {
@@ -1841,19 +1882,17 @@ void Application_LocalizedString_StringWithLocale::InternalSwap(Application_Loca
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &locale_, lhs_arena,
-      &other->locale_, rhs_arena
+      &_impl_.locale_, lhs_arena,
+      &other->_impl_.locale_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &value_, lhs_arena,
-      &other->value_, rhs_arena
+      &_impl_.value_, lhs_arena,
+      &other->_impl_.value_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Application_LocalizedString_StringWithLocale::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[2]);
 }
@@ -1866,43 +1905,47 @@ class Application_LocalizedString::_Internal {
 
 Application_LocalizedString::Application_LocalizedString(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  values_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.Application.LocalizedString)
 }
 Application_LocalizedString::Application_LocalizedString(const Application_LocalizedString& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      values_(from.values_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Application_LocalizedString* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.values_){from._impl_.values_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.Application.LocalizedString)
 }
 
-inline void Application_LocalizedString::SharedCtor() {
+inline void Application_LocalizedString::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.values_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 Application_LocalizedString::~Application_LocalizedString() {
   // @@protoc_insertion_point(destructor:vm_tools.container.Application.LocalizedString)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void Application_LocalizedString::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.values_.~RepeatedPtrField();
 }
 
-void Application_LocalizedString::ArenaDtor(void* object) {
-  Application_LocalizedString* _this = reinterpret_cast< Application_LocalizedString* >(object);
-  (void)_this;
-}
-void Application_LocalizedString::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void Application_LocalizedString::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Application_LocalizedString::Clear() {
@@ -1911,15 +1954,15 @@ void Application_LocalizedString::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  values_.Clear();
+  _impl_.values_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* Application_LocalizedString::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Application_LocalizedString::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .vm_tools.container.Application.LocalizedString.StringWithLocale values = 1;
       case 1:
@@ -1964,15 +2007,15 @@ uint8_t* Application_LocalizedString::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .vm_tools.container.Application.LocalizedString.StringWithLocale values = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_values_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_values_size()); i < n; i++) {
+    const auto& repfield = this->_internal_values(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_values(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.Application.LocalizedString)
@@ -1989,35 +2032,31 @@ size_t Application_LocalizedString::ByteSizeLong() const {
 
   // repeated .vm_tools.container.Application.LocalizedString.StringWithLocale values = 1;
   total_size += 1UL * this->_internal_values_size();
-  for (const auto& msg : this->values_) {
+  for (const auto& msg : this->_impl_.values_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Application_LocalizedString::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     Application_LocalizedString::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Application_LocalizedString::GetClassData() const { return &_class_data_; }
 
-void Application_LocalizedString::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<Application_LocalizedString *>(to)->MergeFrom(
-      static_cast<const Application_LocalizedString &>(from));
-}
 
-
-void Application_LocalizedString::MergeFrom(const Application_LocalizedString& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.Application.LocalizedString)
-  GOOGLE_DCHECK_NE(&from, this);
+void Application_LocalizedString::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Application_LocalizedString*>(&to_msg);
+  auto& from = static_cast<const Application_LocalizedString&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.Application.LocalizedString)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  values_.MergeFrom(from.values_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.values_.MergeFrom(from._impl_.values_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Application_LocalizedString::CopyFrom(const Application_LocalizedString& from) {
@@ -2034,11 +2073,11 @@ bool Application_LocalizedString::IsInitialized() const {
 void Application_LocalizedString::InternalSwap(Application_LocalizedString* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  values_.InternalSwap(&other->values_);
+  _impl_.values_.InternalSwap(&other->_impl_.values_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Application_LocalizedString::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[3]);
 }
@@ -2051,56 +2090,62 @@ class Application_LocaleStrings_StringsWithLocale::_Internal {
 
 Application_LocaleStrings_StringsWithLocale::Application_LocaleStrings_StringsWithLocale(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  value_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.Application.LocaleStrings.StringsWithLocale)
 }
 Application_LocaleStrings_StringsWithLocale::Application_LocaleStrings_StringsWithLocale(const Application_LocaleStrings_StringsWithLocale& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      value_(from.value_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Application_LocaleStrings_StringsWithLocale* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.value_){from._impl_.value_}
+    , decltype(_impl_.locale_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  locale_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.locale_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    locale_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.locale_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_locale().empty()) {
-    locale_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_locale(), 
-      GetArenaForAllocation());
+    _this->_impl_.locale_.Set(from._internal_locale(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.Application.LocaleStrings.StringsWithLocale)
 }
 
-inline void Application_LocaleStrings_StringsWithLocale::SharedCtor() {
-locale_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  locale_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void Application_LocaleStrings_StringsWithLocale::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.value_){arena}
+    , decltype(_impl_.locale_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.locale_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.locale_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Application_LocaleStrings_StringsWithLocale::~Application_LocaleStrings_StringsWithLocale() {
   // @@protoc_insertion_point(destructor:vm_tools.container.Application.LocaleStrings.StringsWithLocale)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void Application_LocaleStrings_StringsWithLocale::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  locale_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.value_.~RepeatedPtrField();
+  _impl_.locale_.Destroy();
 }
 
-void Application_LocaleStrings_StringsWithLocale::ArenaDtor(void* object) {
-  Application_LocaleStrings_StringsWithLocale* _this = reinterpret_cast< Application_LocaleStrings_StringsWithLocale* >(object);
-  (void)_this;
-}
-void Application_LocaleStrings_StringsWithLocale::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void Application_LocaleStrings_StringsWithLocale::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Application_LocaleStrings_StringsWithLocale::Clear() {
@@ -2109,24 +2154,24 @@ void Application_LocaleStrings_StringsWithLocale::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  value_.Clear();
-  locale_.ClearToEmpty();
+  _impl_.value_.Clear();
+  _impl_.locale_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* Application_LocaleStrings_StringsWithLocale::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Application_LocaleStrings_StringsWithLocale::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string locale = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_locale();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.Application.LocaleStrings.StringsWithLocale.locale"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.Application.LocaleStrings.StringsWithLocale.locale"));
         } else
           goto handle_unusual;
         continue;
@@ -2137,9 +2182,9 @@ const char* Application_LocaleStrings_StringsWithLocale::_InternalParse(const ch
           do {
             ptr += 1;
             auto str = _internal_add_value();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.Application.LocaleStrings.StringsWithLocale.value"));
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.Application.LocaleStrings.StringsWithLocale.value"));
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
         } else
@@ -2195,7 +2240,7 @@ uint8_t* Application_LocaleStrings_StringsWithLocale::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.Application.LocaleStrings.StringsWithLocale)
@@ -2212,10 +2257,10 @@ size_t Application_LocaleStrings_StringsWithLocale::ByteSizeLong() const {
 
   // repeated string value = 2;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(value_.size());
-  for (int i = 0, n = value_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.value_.size());
+  for (int i = 0, n = _impl_.value_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      value_.Get(i));
+      _impl_.value_.Get(i));
   }
 
   // string locale = 1;
@@ -2225,33 +2270,29 @@ size_t Application_LocaleStrings_StringsWithLocale::ByteSizeLong() const {
         this->_internal_locale());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Application_LocaleStrings_StringsWithLocale::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     Application_LocaleStrings_StringsWithLocale::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Application_LocaleStrings_StringsWithLocale::GetClassData() const { return &_class_data_; }
 
-void Application_LocaleStrings_StringsWithLocale::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<Application_LocaleStrings_StringsWithLocale *>(to)->MergeFrom(
-      static_cast<const Application_LocaleStrings_StringsWithLocale &>(from));
-}
 
-
-void Application_LocaleStrings_StringsWithLocale::MergeFrom(const Application_LocaleStrings_StringsWithLocale& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.Application.LocaleStrings.StringsWithLocale)
-  GOOGLE_DCHECK_NE(&from, this);
+void Application_LocaleStrings_StringsWithLocale::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Application_LocaleStrings_StringsWithLocale*>(&to_msg);
+  auto& from = static_cast<const Application_LocaleStrings_StringsWithLocale&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.Application.LocaleStrings.StringsWithLocale)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  value_.MergeFrom(from.value_);
+  _this->_impl_.value_.MergeFrom(from._impl_.value_);
   if (!from._internal_locale().empty()) {
-    _internal_set_locale(from._internal_locale());
+    _this->_internal_set_locale(from._internal_locale());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Application_LocaleStrings_StringsWithLocale::CopyFrom(const Application_LocaleStrings_StringsWithLocale& from) {
@@ -2270,16 +2311,15 @@ void Application_LocaleStrings_StringsWithLocale::InternalSwap(Application_Local
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  value_.InternalSwap(&other->value_);
+  _impl_.value_.InternalSwap(&other->_impl_.value_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &locale_, lhs_arena,
-      &other->locale_, rhs_arena
+      &_impl_.locale_, lhs_arena,
+      &other->_impl_.locale_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Application_LocaleStrings_StringsWithLocale::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[4]);
 }
@@ -2292,43 +2332,47 @@ class Application_LocaleStrings::_Internal {
 
 Application_LocaleStrings::Application_LocaleStrings(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  values_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.Application.LocaleStrings)
 }
 Application_LocaleStrings::Application_LocaleStrings(const Application_LocaleStrings& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      values_(from.values_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Application_LocaleStrings* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.values_){from._impl_.values_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.Application.LocaleStrings)
 }
 
-inline void Application_LocaleStrings::SharedCtor() {
+inline void Application_LocaleStrings::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.values_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 Application_LocaleStrings::~Application_LocaleStrings() {
   // @@protoc_insertion_point(destructor:vm_tools.container.Application.LocaleStrings)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void Application_LocaleStrings::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.values_.~RepeatedPtrField();
 }
 
-void Application_LocaleStrings::ArenaDtor(void* object) {
-  Application_LocaleStrings* _this = reinterpret_cast< Application_LocaleStrings* >(object);
-  (void)_this;
-}
-void Application_LocaleStrings::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void Application_LocaleStrings::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Application_LocaleStrings::Clear() {
@@ -2337,15 +2381,15 @@ void Application_LocaleStrings::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  values_.Clear();
+  _impl_.values_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* Application_LocaleStrings::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Application_LocaleStrings::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .vm_tools.container.Application.LocaleStrings.StringsWithLocale values = 1;
       case 1:
@@ -2390,15 +2434,15 @@ uint8_t* Application_LocaleStrings::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .vm_tools.container.Application.LocaleStrings.StringsWithLocale values = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_values_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_values_size()); i < n; i++) {
+    const auto& repfield = this->_internal_values(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_values(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.Application.LocaleStrings)
@@ -2415,35 +2459,31 @@ size_t Application_LocaleStrings::ByteSizeLong() const {
 
   // repeated .vm_tools.container.Application.LocaleStrings.StringsWithLocale values = 1;
   total_size += 1UL * this->_internal_values_size();
-  for (const auto& msg : this->values_) {
+  for (const auto& msg : this->_impl_.values_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Application_LocaleStrings::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     Application_LocaleStrings::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Application_LocaleStrings::GetClassData() const { return &_class_data_; }
 
-void Application_LocaleStrings::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<Application_LocaleStrings *>(to)->MergeFrom(
-      static_cast<const Application_LocaleStrings &>(from));
-}
 
-
-void Application_LocaleStrings::MergeFrom(const Application_LocaleStrings& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.Application.LocaleStrings)
-  GOOGLE_DCHECK_NE(&from, this);
+void Application_LocaleStrings::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Application_LocaleStrings*>(&to_msg);
+  auto& from = static_cast<const Application_LocaleStrings&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.Application.LocaleStrings)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  values_.MergeFrom(from.values_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.values_.MergeFrom(from._impl_.values_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Application_LocaleStrings::CopyFrom(const Application_LocaleStrings& from) {
@@ -2460,11 +2500,11 @@ bool Application_LocaleStrings::IsInitialized() const {
 void Application_LocaleStrings::InternalSwap(Application_LocaleStrings* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  values_.InternalSwap(&other->values_);
+  _impl_.values_.InternalSwap(&other->_impl_.values_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Application_LocaleStrings::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[5]);
 }
@@ -2480,147 +2520,162 @@ class Application::_Internal {
 
 const ::vm_tools::container::Application_LocalizedString&
 Application::_Internal::name(const Application* msg) {
-  return *msg->name_;
+  return *msg->_impl_.name_;
 }
 const ::vm_tools::container::Application_LocalizedString&
 Application::_Internal::comment(const Application* msg) {
-  return *msg->comment_;
+  return *msg->_impl_.comment_;
 }
 const ::vm_tools::container::Application_LocaleStrings&
 Application::_Internal::keywords(const Application* msg) {
-  return *msg->keywords_;
+  return *msg->_impl_.keywords_;
 }
 Application::Application(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  mime_types_(arena),
-  extensions_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.Application)
 }
 Application::Application(const Application& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      mime_types_(from.mime_types_),
-      extensions_(from.extensions_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Application* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.mime_types_){from._impl_.mime_types_}
+    , decltype(_impl_.extensions_){from._impl_.extensions_}
+    , decltype(_impl_.desktop_file_id_){}
+    , decltype(_impl_.startup_wm_class_){}
+    , decltype(_impl_.package_id_){}
+    , decltype(_impl_.executable_file_name_){}
+    , decltype(_impl_.exec_){}
+    , decltype(_impl_.name_){nullptr}
+    , decltype(_impl_.comment_){nullptr}
+    , decltype(_impl_.keywords_){nullptr}
+    , decltype(_impl_.no_display_){}
+    , decltype(_impl_.startup_notify_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  desktop_file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.desktop_file_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    desktop_file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.desktop_file_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_desktop_file_id().empty()) {
-    desktop_file_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_desktop_file_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.desktop_file_id_.Set(from._internal_desktop_file_id(), 
+      _this->GetArenaForAllocation());
   }
-  startup_wm_class_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.startup_wm_class_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    startup_wm_class_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.startup_wm_class_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_startup_wm_class().empty()) {
-    startup_wm_class_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_startup_wm_class(), 
-      GetArenaForAllocation());
+    _this->_impl_.startup_wm_class_.Set(from._internal_startup_wm_class(), 
+      _this->GetArenaForAllocation());
   }
-  package_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.package_id_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    package_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.package_id_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_package_id().empty()) {
-    package_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_package_id(), 
-      GetArenaForAllocation());
+    _this->_impl_.package_id_.Set(from._internal_package_id(), 
+      _this->GetArenaForAllocation());
   }
-  executable_file_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.executable_file_name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    executable_file_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.executable_file_name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_executable_file_name().empty()) {
-    executable_file_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_executable_file_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.executable_file_name_.Set(from._internal_executable_file_name(), 
+      _this->GetArenaForAllocation());
   }
-  exec_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.exec_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    exec_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.exec_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_exec().empty()) {
-    exec_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_exec(), 
-      GetArenaForAllocation());
+    _this->_impl_.exec_.Set(from._internal_exec(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_name()) {
-    name_ = new ::vm_tools::container::Application_LocalizedString(*from.name_);
-  } else {
-    name_ = nullptr;
+    _this->_impl_.name_ = new ::vm_tools::container::Application_LocalizedString(*from._impl_.name_);
   }
   if (from._internal_has_comment()) {
-    comment_ = new ::vm_tools::container::Application_LocalizedString(*from.comment_);
-  } else {
-    comment_ = nullptr;
+    _this->_impl_.comment_ = new ::vm_tools::container::Application_LocalizedString(*from._impl_.comment_);
   }
   if (from._internal_has_keywords()) {
-    keywords_ = new ::vm_tools::container::Application_LocaleStrings(*from.keywords_);
-  } else {
-    keywords_ = nullptr;
+    _this->_impl_.keywords_ = new ::vm_tools::container::Application_LocaleStrings(*from._impl_.keywords_);
   }
-  ::memcpy(&no_display_, &from.no_display_,
-    static_cast<size_t>(reinterpret_cast<char*>(&startup_notify_) -
-    reinterpret_cast<char*>(&no_display_)) + sizeof(startup_notify_));
+  ::memcpy(&_impl_.no_display_, &from._impl_.no_display_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.startup_notify_) -
+    reinterpret_cast<char*>(&_impl_.no_display_)) + sizeof(_impl_.startup_notify_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.Application)
 }
 
-inline void Application::SharedCtor() {
-desktop_file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  desktop_file_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-startup_wm_class_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  startup_wm_class_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-package_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  package_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-executable_file_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  executable_file_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-exec_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  exec_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&name_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&startup_notify_) -
-    reinterpret_cast<char*>(&name_)) + sizeof(startup_notify_));
+inline void Application::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.mime_types_){arena}
+    , decltype(_impl_.extensions_){arena}
+    , decltype(_impl_.desktop_file_id_){}
+    , decltype(_impl_.startup_wm_class_){}
+    , decltype(_impl_.package_id_){}
+    , decltype(_impl_.executable_file_name_){}
+    , decltype(_impl_.exec_){}
+    , decltype(_impl_.name_){nullptr}
+    , decltype(_impl_.comment_){nullptr}
+    , decltype(_impl_.keywords_){nullptr}
+    , decltype(_impl_.no_display_){false}
+    , decltype(_impl_.startup_notify_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.desktop_file_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.desktop_file_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.startup_wm_class_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.startup_wm_class_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.package_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.package_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.executable_file_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.executable_file_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.exec_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.exec_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Application::~Application() {
   // @@protoc_insertion_point(destructor:vm_tools.container.Application)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void Application::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  desktop_file_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  startup_wm_class_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  package_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  executable_file_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  exec_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete name_;
-  if (this != internal_default_instance()) delete comment_;
-  if (this != internal_default_instance()) delete keywords_;
+  _impl_.mime_types_.~RepeatedPtrField();
+  _impl_.extensions_.~RepeatedPtrField();
+  _impl_.desktop_file_id_.Destroy();
+  _impl_.startup_wm_class_.Destroy();
+  _impl_.package_id_.Destroy();
+  _impl_.executable_file_name_.Destroy();
+  _impl_.exec_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.name_;
+  if (this != internal_default_instance()) delete _impl_.comment_;
+  if (this != internal_default_instance()) delete _impl_.keywords_;
 }
 
-void Application::ArenaDtor(void* object) {
-  Application* _this = reinterpret_cast< Application* >(object);
-  (void)_this;
-}
-void Application::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void Application::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Application::Clear() {
@@ -2629,44 +2684,44 @@ void Application::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  mime_types_.Clear();
-  extensions_.Clear();
-  desktop_file_id_.ClearToEmpty();
-  startup_wm_class_.ClearToEmpty();
-  package_id_.ClearToEmpty();
-  executable_file_name_.ClearToEmpty();
-  exec_.ClearToEmpty();
-  if (GetArenaForAllocation() == nullptr && name_ != nullptr) {
-    delete name_;
+  _impl_.mime_types_.Clear();
+  _impl_.extensions_.Clear();
+  _impl_.desktop_file_id_.ClearToEmpty();
+  _impl_.startup_wm_class_.ClearToEmpty();
+  _impl_.package_id_.ClearToEmpty();
+  _impl_.executable_file_name_.ClearToEmpty();
+  _impl_.exec_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && _impl_.name_ != nullptr) {
+    delete _impl_.name_;
   }
-  name_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && comment_ != nullptr) {
-    delete comment_;
+  _impl_.name_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.comment_ != nullptr) {
+    delete _impl_.comment_;
   }
-  comment_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && keywords_ != nullptr) {
-    delete keywords_;
+  _impl_.comment_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.keywords_ != nullptr) {
+    delete _impl_.keywords_;
   }
-  keywords_ = nullptr;
-  ::memset(&no_display_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&startup_notify_) -
-      reinterpret_cast<char*>(&no_display_)) + sizeof(startup_notify_));
+  _impl_.keywords_ = nullptr;
+  ::memset(&_impl_.no_display_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.startup_notify_) -
+      reinterpret_cast<char*>(&_impl_.no_display_)) + sizeof(_impl_.startup_notify_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* Application::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Application::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string desktop_file_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_desktop_file_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.Application.desktop_file_id"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.Application.desktop_file_id"));
         } else
           goto handle_unusual;
         continue;
@@ -2693,9 +2748,9 @@ const char* Application::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
           do {
             ptr += 1;
             auto str = _internal_add_mime_types();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.Application.mime_types"));
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.Application.mime_types"));
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
         } else
@@ -2704,7 +2759,7 @@ const char* Application::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       // bool no_display = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
-          no_display_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.no_display_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2713,16 +2768,16 @@ const char* Application::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_startup_wm_class();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.Application.startup_wm_class"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.Application.startup_wm_class"));
         } else
           goto handle_unusual;
         continue;
       // bool startup_notify = 7;
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
-          startup_notify_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.startup_notify_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2731,9 +2786,9 @@ const char* Application::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
           auto str = _internal_mutable_package_id();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.Application.package_id"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.Application.package_id"));
         } else
           goto handle_unusual;
         continue;
@@ -2749,9 +2804,9 @@ const char* Application::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       case 10:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
           auto str = _internal_mutable_executable_file_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.Application.executable_file_name"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.Application.executable_file_name"));
         } else
           goto handle_unusual;
         continue;
@@ -2762,9 +2817,9 @@ const char* Application::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
           do {
             ptr += 1;
             auto str = _internal_add_extensions();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.Application.extensions"));
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.Application.extensions"));
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<90>(ptr));
         } else
@@ -2774,9 +2829,9 @@ const char* Application::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       case 12:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
           auto str = _internal_mutable_exec();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.Application.exec"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.Application.exec"));
         } else
           goto handle_unusual;
         continue;
@@ -2821,18 +2876,16 @@ uint8_t* Application::_InternalSerialize(
 
   // .vm_tools.container.Application.LocalizedString name = 2;
   if (this->_internal_has_name()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::name(this), target, stream);
+      InternalWriteMessage(2, _Internal::name(this),
+        _Internal::name(this).GetCachedSize(), target, stream);
   }
 
   // .vm_tools.container.Application.LocalizedString comment = 3;
   if (this->_internal_has_comment()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::comment(this), target, stream);
+      InternalWriteMessage(3, _Internal::comment(this),
+        _Internal::comment(this).GetCachedSize(), target, stream);
   }
 
   // repeated string mime_types = 4;
@@ -2848,7 +2901,7 @@ uint8_t* Application::_InternalSerialize(
   // bool no_display = 5;
   if (this->_internal_no_display() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(5, this->_internal_no_display(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_no_display(), target);
   }
 
   // string startup_wm_class = 6;
@@ -2864,7 +2917,7 @@ uint8_t* Application::_InternalSerialize(
   // bool startup_notify = 7;
   if (this->_internal_startup_notify() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->_internal_startup_notify(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_startup_notify(), target);
   }
 
   // string package_id = 8;
@@ -2879,10 +2932,9 @@ uint8_t* Application::_InternalSerialize(
 
   // .vm_tools.container.Application.LocaleStrings keywords = 9;
   if (this->_internal_has_keywords()) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        9, _Internal::keywords(this), target, stream);
+      InternalWriteMessage(9, _Internal::keywords(this),
+        _Internal::keywords(this).GetCachedSize(), target, stream);
   }
 
   // string executable_file_name = 10;
@@ -2916,7 +2968,7 @@ uint8_t* Application::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.Application)
@@ -2933,18 +2985,18 @@ size_t Application::ByteSizeLong() const {
 
   // repeated string mime_types = 4;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(mime_types_.size());
-  for (int i = 0, n = mime_types_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.mime_types_.size());
+  for (int i = 0, n = _impl_.mime_types_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      mime_types_.Get(i));
+      _impl_.mime_types_.Get(i));
   }
 
   // repeated string extensions = 11;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(extensions_.size());
-  for (int i = 0, n = extensions_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.extensions_.size());
+  for (int i = 0, n = _impl_.extensions_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      extensions_.Get(i));
+      _impl_.extensions_.Get(i));
   }
 
   // string desktop_file_id = 1;
@@ -2986,21 +3038,21 @@ size_t Application::ByteSizeLong() const {
   if (this->_internal_has_name()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *name_);
+        *_impl_.name_);
   }
 
   // .vm_tools.container.Application.LocalizedString comment = 3;
   if (this->_internal_has_comment()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *comment_);
+        *_impl_.comment_);
   }
 
   // .vm_tools.container.Application.LocaleStrings keywords = 9;
   if (this->_internal_has_keywords()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *keywords_);
+        *_impl_.keywords_);
   }
 
   // bool no_display = 5;
@@ -3013,61 +3065,60 @@ size_t Application::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Application::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     Application::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Application::GetClassData() const { return &_class_data_; }
 
-void Application::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<Application *>(to)->MergeFrom(
-      static_cast<const Application &>(from));
-}
 
-
-void Application::MergeFrom(const Application& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.Application)
-  GOOGLE_DCHECK_NE(&from, this);
+void Application::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Application*>(&to_msg);
+  auto& from = static_cast<const Application&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.Application)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  mime_types_.MergeFrom(from.mime_types_);
-  extensions_.MergeFrom(from.extensions_);
+  _this->_impl_.mime_types_.MergeFrom(from._impl_.mime_types_);
+  _this->_impl_.extensions_.MergeFrom(from._impl_.extensions_);
   if (!from._internal_desktop_file_id().empty()) {
-    _internal_set_desktop_file_id(from._internal_desktop_file_id());
+    _this->_internal_set_desktop_file_id(from._internal_desktop_file_id());
   }
   if (!from._internal_startup_wm_class().empty()) {
-    _internal_set_startup_wm_class(from._internal_startup_wm_class());
+    _this->_internal_set_startup_wm_class(from._internal_startup_wm_class());
   }
   if (!from._internal_package_id().empty()) {
-    _internal_set_package_id(from._internal_package_id());
+    _this->_internal_set_package_id(from._internal_package_id());
   }
   if (!from._internal_executable_file_name().empty()) {
-    _internal_set_executable_file_name(from._internal_executable_file_name());
+    _this->_internal_set_executable_file_name(from._internal_executable_file_name());
   }
   if (!from._internal_exec().empty()) {
-    _internal_set_exec(from._internal_exec());
+    _this->_internal_set_exec(from._internal_exec());
   }
   if (from._internal_has_name()) {
-    _internal_mutable_name()->::vm_tools::container::Application_LocalizedString::MergeFrom(from._internal_name());
+    _this->_internal_mutable_name()->::vm_tools::container::Application_LocalizedString::MergeFrom(
+        from._internal_name());
   }
   if (from._internal_has_comment()) {
-    _internal_mutable_comment()->::vm_tools::container::Application_LocalizedString::MergeFrom(from._internal_comment());
+    _this->_internal_mutable_comment()->::vm_tools::container::Application_LocalizedString::MergeFrom(
+        from._internal_comment());
   }
   if (from._internal_has_keywords()) {
-    _internal_mutable_keywords()->::vm_tools::container::Application_LocaleStrings::MergeFrom(from._internal_keywords());
+    _this->_internal_mutable_keywords()->::vm_tools::container::Application_LocaleStrings::MergeFrom(
+        from._internal_keywords());
   }
   if (from._internal_no_display() != 0) {
-    _internal_set_no_display(from._internal_no_display());
+    _this->_internal_set_no_display(from._internal_no_display());
   }
   if (from._internal_startup_notify() != 0) {
-    _internal_set_startup_notify(from._internal_startup_notify());
+    _this->_internal_set_startup_notify(from._internal_startup_notify());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Application::CopyFrom(const Application& from) {
@@ -3086,43 +3137,38 @@ void Application::InternalSwap(Application* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  mime_types_.InternalSwap(&other->mime_types_);
-  extensions_.InternalSwap(&other->extensions_);
+  _impl_.mime_types_.InternalSwap(&other->_impl_.mime_types_);
+  _impl_.extensions_.InternalSwap(&other->_impl_.extensions_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &desktop_file_id_, lhs_arena,
-      &other->desktop_file_id_, rhs_arena
+      &_impl_.desktop_file_id_, lhs_arena,
+      &other->_impl_.desktop_file_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &startup_wm_class_, lhs_arena,
-      &other->startup_wm_class_, rhs_arena
+      &_impl_.startup_wm_class_, lhs_arena,
+      &other->_impl_.startup_wm_class_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &package_id_, lhs_arena,
-      &other->package_id_, rhs_arena
+      &_impl_.package_id_, lhs_arena,
+      &other->_impl_.package_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &executable_file_name_, lhs_arena,
-      &other->executable_file_name_, rhs_arena
+      &_impl_.executable_file_name_, lhs_arena,
+      &other->_impl_.executable_file_name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &exec_, lhs_arena,
-      &other->exec_, rhs_arena
+      &_impl_.exec_, lhs_arena,
+      &other->_impl_.exec_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Application, startup_notify_)
-      + sizeof(Application::startup_notify_)
-      - PROTOBUF_FIELD_OFFSET(Application, name_)>(
-          reinterpret_cast<char*>(&name_),
-          reinterpret_cast<char*>(&other->name_));
+      PROTOBUF_FIELD_OFFSET(Application, _impl_.startup_notify_)
+      + sizeof(Application::_impl_.startup_notify_)
+      - PROTOBUF_FIELD_OFFSET(Application, _impl_.name_)>(
+          reinterpret_cast<char*>(&_impl_.name_),
+          reinterpret_cast<char*>(&other->_impl_.name_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Application::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[6]);
 }
@@ -3135,56 +3181,62 @@ class UpdateApplicationListRequest::_Internal {
 
 UpdateApplicationListRequest::UpdateApplicationListRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  application_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.UpdateApplicationListRequest)
 }
 UpdateApplicationListRequest::UpdateApplicationListRequest(const UpdateApplicationListRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      application_(from.application_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  UpdateApplicationListRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.application_){from._impl_.application_}
+    , decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.UpdateApplicationListRequest)
 }
 
-inline void UpdateApplicationListRequest::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void UpdateApplicationListRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.application_){arena}
+    , decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 UpdateApplicationListRequest::~UpdateApplicationListRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.container.UpdateApplicationListRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void UpdateApplicationListRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.application_.~RepeatedPtrField();
+  _impl_.token_.Destroy();
 }
 
-void UpdateApplicationListRequest::ArenaDtor(void* object) {
-  UpdateApplicationListRequest* _this = reinterpret_cast< UpdateApplicationListRequest* >(object);
-  (void)_this;
-}
-void UpdateApplicationListRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void UpdateApplicationListRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UpdateApplicationListRequest::Clear() {
@@ -3193,24 +3245,24 @@ void UpdateApplicationListRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  application_.Clear();
-  token_.ClearToEmpty();
+  _impl_.application_.Clear();
+  _impl_.token_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* UpdateApplicationListRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* UpdateApplicationListRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.UpdateApplicationListRequest.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.UpdateApplicationListRequest.token"));
         } else
           goto handle_unusual;
         continue;
@@ -3267,15 +3319,15 @@ uint8_t* UpdateApplicationListRequest::_InternalSerialize(
   }
 
   // repeated .vm_tools.container.Application application = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_application_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_application_size()); i < n; i++) {
+    const auto& repfield = this->_internal_application(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_application(i), target, stream);
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.UpdateApplicationListRequest)
@@ -3292,7 +3344,7 @@ size_t UpdateApplicationListRequest::ByteSizeLong() const {
 
   // repeated .vm_tools.container.Application application = 2;
   total_size += 1UL * this->_internal_application_size();
-  for (const auto& msg : this->application_) {
+  for (const auto& msg : this->_impl_.application_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -3304,33 +3356,29 @@ size_t UpdateApplicationListRequest::ByteSizeLong() const {
         this->_internal_token());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData UpdateApplicationListRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     UpdateApplicationListRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*UpdateApplicationListRequest::GetClassData() const { return &_class_data_; }
 
-void UpdateApplicationListRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<UpdateApplicationListRequest *>(to)->MergeFrom(
-      static_cast<const UpdateApplicationListRequest &>(from));
-}
 
-
-void UpdateApplicationListRequest::MergeFrom(const UpdateApplicationListRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.UpdateApplicationListRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void UpdateApplicationListRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<UpdateApplicationListRequest*>(&to_msg);
+  auto& from = static_cast<const UpdateApplicationListRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.UpdateApplicationListRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  application_.MergeFrom(from.application_);
+  _this->_impl_.application_.MergeFrom(from._impl_.application_);
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void UpdateApplicationListRequest::CopyFrom(const UpdateApplicationListRequest& from) {
@@ -3349,16 +3397,15 @@ void UpdateApplicationListRequest::InternalSwap(UpdateApplicationListRequest* ot
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  application_.InternalSwap(&other->application_);
+  _impl_.application_.InternalSwap(&other->_impl_.application_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata UpdateApplicationListRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[7]);
 }
@@ -3372,66 +3419,73 @@ class OpenUrlRequest::_Internal {
 OpenUrlRequest::OpenUrlRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.OpenUrlRequest)
 }
 OpenUrlRequest::OpenUrlRequest(const OpenUrlRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  OpenUrlRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.url_){}
+    , decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.url_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.url_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_url().empty()) {
-    url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_url(), 
-      GetArenaForAllocation());
+    _this->_impl_.url_.Set(from._internal_url(), 
+      _this->GetArenaForAllocation());
   }
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.OpenUrlRequest)
 }
 
-inline void OpenUrlRequest::SharedCtor() {
-url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void OpenUrlRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.url_){}
+    , decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.url_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 OpenUrlRequest::~OpenUrlRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.container.OpenUrlRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void OpenUrlRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  url_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.url_.Destroy();
+  _impl_.token_.Destroy();
 }
 
-void OpenUrlRequest::ArenaDtor(void* object) {
-  OpenUrlRequest* _this = reinterpret_cast< OpenUrlRequest* >(object);
-  (void)_this;
-}
-void OpenUrlRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void OpenUrlRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void OpenUrlRequest::Clear() {
@@ -3440,24 +3494,24 @@ void OpenUrlRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  url_.ClearToEmpty();
-  token_.ClearToEmpty();
+  _impl_.url_.ClearToEmpty();
+  _impl_.token_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* OpenUrlRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* OpenUrlRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string url = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_url();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.OpenUrlRequest.url"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.OpenUrlRequest.url"));
         } else
           goto handle_unusual;
         continue;
@@ -3465,9 +3519,9 @@ const char* OpenUrlRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.OpenUrlRequest.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.OpenUrlRequest.token"));
         } else
           goto handle_unusual;
         continue;
@@ -3521,7 +3575,7 @@ uint8_t* OpenUrlRequest::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.OpenUrlRequest)
@@ -3550,35 +3604,31 @@ size_t OpenUrlRequest::ByteSizeLong() const {
         this->_internal_token());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData OpenUrlRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     OpenUrlRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*OpenUrlRequest::GetClassData() const { return &_class_data_; }
 
-void OpenUrlRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<OpenUrlRequest *>(to)->MergeFrom(
-      static_cast<const OpenUrlRequest &>(from));
-}
 
-
-void OpenUrlRequest::MergeFrom(const OpenUrlRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.OpenUrlRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void OpenUrlRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<OpenUrlRequest*>(&to_msg);
+  auto& from = static_cast<const OpenUrlRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.OpenUrlRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_url().empty()) {
-    _internal_set_url(from._internal_url());
+    _this->_internal_set_url(from._internal_url());
   }
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void OpenUrlRequest::CopyFrom(const OpenUrlRequest& from) {
@@ -3598,19 +3648,17 @@ void OpenUrlRequest::InternalSwap(OpenUrlRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &url_, lhs_arena,
-      &other->url_, rhs_arena
+      &_impl_.url_, lhs_arena,
+      &other->_impl_.url_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata OpenUrlRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[8]);
 }
@@ -3624,55 +3672,61 @@ class PendingAppListUpdateCount::_Internal {
 PendingAppListUpdateCount::PendingAppListUpdateCount(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.PendingAppListUpdateCount)
 }
 PendingAppListUpdateCount::PendingAppListUpdateCount(const PendingAppListUpdateCount& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  PendingAppListUpdateCount* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.count_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
-  count_ = from.count_;
+  _this->_impl_.count_ = from._impl_.count_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.PendingAppListUpdateCount)
 }
 
-inline void PendingAppListUpdateCount::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-count_ = 0u;
+inline void PendingAppListUpdateCount::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.count_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 PendingAppListUpdateCount::~PendingAppListUpdateCount() {
   // @@protoc_insertion_point(destructor:vm_tools.container.PendingAppListUpdateCount)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void PendingAppListUpdateCount::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
 }
 
-void PendingAppListUpdateCount::ArenaDtor(void* object) {
-  PendingAppListUpdateCount* _this = reinterpret_cast< PendingAppListUpdateCount* >(object);
-  (void)_this;
-}
-void PendingAppListUpdateCount::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void PendingAppListUpdateCount::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void PendingAppListUpdateCount::Clear() {
@@ -3681,31 +3735,31 @@ void PendingAppListUpdateCount::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
-  count_ = 0u;
+  _impl_.token_.ClearToEmpty();
+  _impl_.count_ = 0u;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* PendingAppListUpdateCount::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* PendingAppListUpdateCount::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.PendingAppListUpdateCount.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.PendingAppListUpdateCount.token"));
         } else
           goto handle_unusual;
         continue;
       // uint32 count = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.count_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3752,11 +3806,11 @@ uint8_t* PendingAppListUpdateCount::_InternalSerialize(
   // uint32 count = 2;
   if (this->_internal_count() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_count(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_count(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.PendingAppListUpdateCount)
@@ -3780,38 +3834,34 @@ size_t PendingAppListUpdateCount::ByteSizeLong() const {
 
   // uint32 count = 2;
   if (this->_internal_count() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_count());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_count());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData PendingAppListUpdateCount::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     PendingAppListUpdateCount::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*PendingAppListUpdateCount::GetClassData() const { return &_class_data_; }
 
-void PendingAppListUpdateCount::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<PendingAppListUpdateCount *>(to)->MergeFrom(
-      static_cast<const PendingAppListUpdateCount &>(from));
-}
 
-
-void PendingAppListUpdateCount::MergeFrom(const PendingAppListUpdateCount& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.PendingAppListUpdateCount)
-  GOOGLE_DCHECK_NE(&from, this);
+void PendingAppListUpdateCount::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<PendingAppListUpdateCount*>(&to_msg);
+  auto& from = static_cast<const PendingAppListUpdateCount&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.PendingAppListUpdateCount)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
   if (from._internal_count() != 0) {
-    _internal_set_count(from._internal_count());
+    _this->_internal_set_count(from._internal_count());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void PendingAppListUpdateCount::CopyFrom(const PendingAppListUpdateCount& from) {
@@ -3831,15 +3881,14 @@ void PendingAppListUpdateCount::InternalSwap(PendingAppListUpdateCount* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
-  swap(count_, other->count_);
+  swap(_impl_.count_, other->_impl_.count_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata PendingAppListUpdateCount::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[9]);
 }
@@ -3853,86 +3902,95 @@ class InstallLinuxPackageProgressInfo::_Internal {
 InstallLinuxPackageProgressInfo::InstallLinuxPackageProgressInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.InstallLinuxPackageProgressInfo)
 }
 InstallLinuxPackageProgressInfo::InstallLinuxPackageProgressInfo(const InstallLinuxPackageProgressInfo& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  InstallLinuxPackageProgressInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.failure_details_){}
+    , decltype(_impl_.command_uuid_){}
+    , decltype(_impl_.status_){}
+    , decltype(_impl_.progress_percent_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
-  failure_details_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.failure_details_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    failure_details_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.failure_details_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_failure_details().empty()) {
-    failure_details_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_failure_details(), 
-      GetArenaForAllocation());
+    _this->_impl_.failure_details_.Set(from._internal_failure_details(), 
+      _this->GetArenaForAllocation());
   }
-  command_uuid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.command_uuid_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    command_uuid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.command_uuid_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_command_uuid().empty()) {
-    command_uuid_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_command_uuid(), 
-      GetArenaForAllocation());
+    _this->_impl_.command_uuid_.Set(from._internal_command_uuid(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&status_, &from.status_,
-    static_cast<size_t>(reinterpret_cast<char*>(&progress_percent_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(progress_percent_));
+  ::memcpy(&_impl_.status_, &from._impl_.status_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.progress_percent_) -
+    reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.progress_percent_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.InstallLinuxPackageProgressInfo)
 }
 
-inline void InstallLinuxPackageProgressInfo::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-failure_details_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  failure_details_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-command_uuid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  command_uuid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&status_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&progress_percent_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(progress_percent_));
+inline void InstallLinuxPackageProgressInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.failure_details_){}
+    , decltype(_impl_.command_uuid_){}
+    , decltype(_impl_.status_){0}
+    , decltype(_impl_.progress_percent_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.failure_details_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.failure_details_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.command_uuid_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.command_uuid_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 InstallLinuxPackageProgressInfo::~InstallLinuxPackageProgressInfo() {
   // @@protoc_insertion_point(destructor:vm_tools.container.InstallLinuxPackageProgressInfo)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void InstallLinuxPackageProgressInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  failure_details_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  command_uuid_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
+  _impl_.failure_details_.Destroy();
+  _impl_.command_uuid_.Destroy();
 }
 
-void InstallLinuxPackageProgressInfo::ArenaDtor(void* object) {
-  InstallLinuxPackageProgressInfo* _this = reinterpret_cast< InstallLinuxPackageProgressInfo* >(object);
-  (void)_this;
-}
-void InstallLinuxPackageProgressInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void InstallLinuxPackageProgressInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void InstallLinuxPackageProgressInfo::Clear() {
@@ -3941,28 +3999,28 @@ void InstallLinuxPackageProgressInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
-  failure_details_.ClearToEmpty();
-  command_uuid_.ClearToEmpty();
-  ::memset(&status_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&progress_percent_) -
-      reinterpret_cast<char*>(&status_)) + sizeof(progress_percent_));
+  _impl_.token_.ClearToEmpty();
+  _impl_.failure_details_.ClearToEmpty();
+  _impl_.command_uuid_.ClearToEmpty();
+  ::memset(&_impl_.status_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.progress_percent_) -
+      reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.progress_percent_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* InstallLinuxPackageProgressInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* InstallLinuxPackageProgressInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.InstallLinuxPackageProgressInfo.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.InstallLinuxPackageProgressInfo.token"));
         } else
           goto handle_unusual;
         continue;
@@ -3978,7 +4036,7 @@ const char* InstallLinuxPackageProgressInfo::_InternalParse(const char* ptr, ::P
       // uint32 progress_percent = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          progress_percent_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.progress_percent_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3987,9 +4045,9 @@ const char* InstallLinuxPackageProgressInfo::_InternalParse(const char* ptr, ::P
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_failure_details();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.InstallLinuxPackageProgressInfo.failure_details"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.InstallLinuxPackageProgressInfo.failure_details"));
         } else
           goto handle_unusual;
         continue;
@@ -3997,9 +4055,9 @@ const char* InstallLinuxPackageProgressInfo::_InternalParse(const char* ptr, ::P
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_command_uuid();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.InstallLinuxPackageProgressInfo.command_uuid"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.InstallLinuxPackageProgressInfo.command_uuid"));
         } else
           goto handle_unusual;
         continue;
@@ -4045,14 +4103,14 @@ uint8_t* InstallLinuxPackageProgressInfo::_InternalSerialize(
   // .vm_tools.container.InstallLinuxPackageProgressInfo.Status status = 2;
   if (this->_internal_status() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_status(), target);
   }
 
   // uint32 progress_percent = 3;
   if (this->_internal_progress_percent() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_progress_percent(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_progress_percent(), target);
   }
 
   // string failure_details = 4;
@@ -4076,7 +4134,7 @@ uint8_t* InstallLinuxPackageProgressInfo::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.InstallLinuxPackageProgressInfo)
@@ -4115,52 +4173,48 @@ size_t InstallLinuxPackageProgressInfo::ByteSizeLong() const {
   // .vm_tools.container.InstallLinuxPackageProgressInfo.Status status = 2;
   if (this->_internal_status() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_status());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
   }
 
   // uint32 progress_percent = 3;
   if (this->_internal_progress_percent() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_progress_percent());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_progress_percent());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData InstallLinuxPackageProgressInfo::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     InstallLinuxPackageProgressInfo::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*InstallLinuxPackageProgressInfo::GetClassData() const { return &_class_data_; }
 
-void InstallLinuxPackageProgressInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<InstallLinuxPackageProgressInfo *>(to)->MergeFrom(
-      static_cast<const InstallLinuxPackageProgressInfo &>(from));
-}
 
-
-void InstallLinuxPackageProgressInfo::MergeFrom(const InstallLinuxPackageProgressInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.InstallLinuxPackageProgressInfo)
-  GOOGLE_DCHECK_NE(&from, this);
+void InstallLinuxPackageProgressInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<InstallLinuxPackageProgressInfo*>(&to_msg);
+  auto& from = static_cast<const InstallLinuxPackageProgressInfo&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.InstallLinuxPackageProgressInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
   if (!from._internal_failure_details().empty()) {
-    _internal_set_failure_details(from._internal_failure_details());
+    _this->_internal_set_failure_details(from._internal_failure_details());
   }
   if (!from._internal_command_uuid().empty()) {
-    _internal_set_command_uuid(from._internal_command_uuid());
+    _this->_internal_set_command_uuid(from._internal_command_uuid());
   }
   if (from._internal_status() != 0) {
-    _internal_set_status(from._internal_status());
+    _this->_internal_set_status(from._internal_status());
   }
   if (from._internal_progress_percent() != 0) {
-    _internal_set_progress_percent(from._internal_progress_percent());
+    _this->_internal_set_progress_percent(from._internal_progress_percent());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void InstallLinuxPackageProgressInfo::CopyFrom(const InstallLinuxPackageProgressInfo& from) {
@@ -4180,30 +4234,27 @@ void InstallLinuxPackageProgressInfo::InternalSwap(InstallLinuxPackageProgressIn
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &failure_details_, lhs_arena,
-      &other->failure_details_, rhs_arena
+      &_impl_.failure_details_, lhs_arena,
+      &other->_impl_.failure_details_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &command_uuid_, lhs_arena,
-      &other->command_uuid_, rhs_arena
+      &_impl_.command_uuid_, lhs_arena,
+      &other->_impl_.command_uuid_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(InstallLinuxPackageProgressInfo, progress_percent_)
-      + sizeof(InstallLinuxPackageProgressInfo::progress_percent_)
-      - PROTOBUF_FIELD_OFFSET(InstallLinuxPackageProgressInfo, status_)>(
-          reinterpret_cast<char*>(&status_),
-          reinterpret_cast<char*>(&other->status_));
+      PROTOBUF_FIELD_OFFSET(InstallLinuxPackageProgressInfo, _impl_.progress_percent_)
+      + sizeof(InstallLinuxPackageProgressInfo::_impl_.progress_percent_)
+      - PROTOBUF_FIELD_OFFSET(InstallLinuxPackageProgressInfo, _impl_.status_)>(
+          reinterpret_cast<char*>(&_impl_.status_),
+          reinterpret_cast<char*>(&other->_impl_.status_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata InstallLinuxPackageProgressInfo::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[10]);
 }
@@ -4217,73 +4268,80 @@ class UninstallPackageProgressInfo::_Internal {
 UninstallPackageProgressInfo::UninstallPackageProgressInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.UninstallPackageProgressInfo)
 }
 UninstallPackageProgressInfo::UninstallPackageProgressInfo(const UninstallPackageProgressInfo& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  UninstallPackageProgressInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.failure_details_){}
+    , decltype(_impl_.status_){}
+    , decltype(_impl_.progress_percent_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
-  failure_details_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.failure_details_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    failure_details_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.failure_details_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_failure_details().empty()) {
-    failure_details_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_failure_details(), 
-      GetArenaForAllocation());
+    _this->_impl_.failure_details_.Set(from._internal_failure_details(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&status_, &from.status_,
-    static_cast<size_t>(reinterpret_cast<char*>(&progress_percent_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(progress_percent_));
+  ::memcpy(&_impl_.status_, &from._impl_.status_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.progress_percent_) -
+    reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.progress_percent_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.UninstallPackageProgressInfo)
 }
 
-inline void UninstallPackageProgressInfo::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-failure_details_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  failure_details_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&status_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&progress_percent_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(progress_percent_));
+inline void UninstallPackageProgressInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.failure_details_){}
+    , decltype(_impl_.status_){0}
+    , decltype(_impl_.progress_percent_){0u}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.failure_details_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.failure_details_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 UninstallPackageProgressInfo::~UninstallPackageProgressInfo() {
   // @@protoc_insertion_point(destructor:vm_tools.container.UninstallPackageProgressInfo)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void UninstallPackageProgressInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  failure_details_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
+  _impl_.failure_details_.Destroy();
 }
 
-void UninstallPackageProgressInfo::ArenaDtor(void* object) {
-  UninstallPackageProgressInfo* _this = reinterpret_cast< UninstallPackageProgressInfo* >(object);
-  (void)_this;
-}
-void UninstallPackageProgressInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void UninstallPackageProgressInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UninstallPackageProgressInfo::Clear() {
@@ -4292,27 +4350,27 @@ void UninstallPackageProgressInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
-  failure_details_.ClearToEmpty();
-  ::memset(&status_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&progress_percent_) -
-      reinterpret_cast<char*>(&status_)) + sizeof(progress_percent_));
+  _impl_.token_.ClearToEmpty();
+  _impl_.failure_details_.ClearToEmpty();
+  ::memset(&_impl_.status_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.progress_percent_) -
+      reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.progress_percent_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* UninstallPackageProgressInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* UninstallPackageProgressInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.UninstallPackageProgressInfo.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.UninstallPackageProgressInfo.token"));
         } else
           goto handle_unusual;
         continue;
@@ -4328,7 +4386,7 @@ const char* UninstallPackageProgressInfo::_InternalParse(const char* ptr, ::PROT
       // uint32 progress_percent = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          progress_percent_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.progress_percent_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4337,9 +4395,9 @@ const char* UninstallPackageProgressInfo::_InternalParse(const char* ptr, ::PROT
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_failure_details();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.UninstallPackageProgressInfo.failure_details"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.UninstallPackageProgressInfo.failure_details"));
         } else
           goto handle_unusual;
         continue;
@@ -4385,14 +4443,14 @@ uint8_t* UninstallPackageProgressInfo::_InternalSerialize(
   // .vm_tools.container.UninstallPackageProgressInfo.Status status = 2;
   if (this->_internal_status() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_status(), target);
   }
 
   // uint32 progress_percent = 3;
   if (this->_internal_progress_percent() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_progress_percent(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_progress_percent(), target);
   }
 
   // string failure_details = 4;
@@ -4406,7 +4464,7 @@ uint8_t* UninstallPackageProgressInfo::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.UninstallPackageProgressInfo)
@@ -4438,49 +4496,45 @@ size_t UninstallPackageProgressInfo::ByteSizeLong() const {
   // .vm_tools.container.UninstallPackageProgressInfo.Status status = 2;
   if (this->_internal_status() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_status());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
   }
 
   // uint32 progress_percent = 3;
   if (this->_internal_progress_percent() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_progress_percent());
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_progress_percent());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData UninstallPackageProgressInfo::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     UninstallPackageProgressInfo::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*UninstallPackageProgressInfo::GetClassData() const { return &_class_data_; }
 
-void UninstallPackageProgressInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<UninstallPackageProgressInfo *>(to)->MergeFrom(
-      static_cast<const UninstallPackageProgressInfo &>(from));
-}
 
-
-void UninstallPackageProgressInfo::MergeFrom(const UninstallPackageProgressInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.UninstallPackageProgressInfo)
-  GOOGLE_DCHECK_NE(&from, this);
+void UninstallPackageProgressInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<UninstallPackageProgressInfo*>(&to_msg);
+  auto& from = static_cast<const UninstallPackageProgressInfo&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.UninstallPackageProgressInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
   if (!from._internal_failure_details().empty()) {
-    _internal_set_failure_details(from._internal_failure_details());
+    _this->_internal_set_failure_details(from._internal_failure_details());
   }
   if (from._internal_status() != 0) {
-    _internal_set_status(from._internal_status());
+    _this->_internal_set_status(from._internal_status());
   }
   if (from._internal_progress_percent() != 0) {
-    _internal_set_progress_percent(from._internal_progress_percent());
+    _this->_internal_set_progress_percent(from._internal_progress_percent());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void UninstallPackageProgressInfo::CopyFrom(const UninstallPackageProgressInfo& from) {
@@ -4500,25 +4554,23 @@ void UninstallPackageProgressInfo::InternalSwap(UninstallPackageProgressInfo* ot
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &failure_details_, lhs_arena,
-      &other->failure_details_, rhs_arena
+      &_impl_.failure_details_, lhs_arena,
+      &other->_impl_.failure_details_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(UninstallPackageProgressInfo, progress_percent_)
-      + sizeof(UninstallPackageProgressInfo::progress_percent_)
-      - PROTOBUF_FIELD_OFFSET(UninstallPackageProgressInfo, status_)>(
-          reinterpret_cast<char*>(&status_),
-          reinterpret_cast<char*>(&other->status_));
+      PROTOBUF_FIELD_OFFSET(UninstallPackageProgressInfo, _impl_.progress_percent_)
+      + sizeof(UninstallPackageProgressInfo::_impl_.progress_percent_)
+      - PROTOBUF_FIELD_OFFSET(UninstallPackageProgressInfo, _impl_.status_)>(
+          reinterpret_cast<char*>(&_impl_.status_),
+          reinterpret_cast<char*>(&other->_impl_.status_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata UninstallPackageProgressInfo::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[11]);
 }
@@ -4531,71 +4583,80 @@ class ApplyAnsiblePlaybookProgressInfo::_Internal {
 
 ApplyAnsiblePlaybookProgressInfo::ApplyAnsiblePlaybookProgressInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  status_string_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.ApplyAnsiblePlaybookProgressInfo)
 }
 ApplyAnsiblePlaybookProgressInfo::ApplyAnsiblePlaybookProgressInfo(const ApplyAnsiblePlaybookProgressInfo& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      status_string_(from.status_string_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ApplyAnsiblePlaybookProgressInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.status_string_){from._impl_.status_string_}
+    , decltype(_impl_.token_){}
+    , decltype(_impl_.failure_details_){}
+    , decltype(_impl_.status_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
-  failure_details_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.failure_details_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    failure_details_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.failure_details_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_failure_details().empty()) {
-    failure_details_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_failure_details(), 
-      GetArenaForAllocation());
+    _this->_impl_.failure_details_.Set(from._internal_failure_details(), 
+      _this->GetArenaForAllocation());
   }
-  status_ = from.status_;
+  _this->_impl_.status_ = from._impl_.status_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.ApplyAnsiblePlaybookProgressInfo)
 }
 
-inline void ApplyAnsiblePlaybookProgressInfo::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-failure_details_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  failure_details_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-status_ = 0;
+inline void ApplyAnsiblePlaybookProgressInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.status_string_){arena}
+    , decltype(_impl_.token_){}
+    , decltype(_impl_.failure_details_){}
+    , decltype(_impl_.status_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.failure_details_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.failure_details_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ApplyAnsiblePlaybookProgressInfo::~ApplyAnsiblePlaybookProgressInfo() {
   // @@protoc_insertion_point(destructor:vm_tools.container.ApplyAnsiblePlaybookProgressInfo)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void ApplyAnsiblePlaybookProgressInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  failure_details_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.status_string_.~RepeatedPtrField();
+  _impl_.token_.Destroy();
+  _impl_.failure_details_.Destroy();
 }
 
-void ApplyAnsiblePlaybookProgressInfo::ArenaDtor(void* object) {
-  ApplyAnsiblePlaybookProgressInfo* _this = reinterpret_cast< ApplyAnsiblePlaybookProgressInfo* >(object);
-  (void)_this;
-}
-void ApplyAnsiblePlaybookProgressInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ApplyAnsiblePlaybookProgressInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ApplyAnsiblePlaybookProgressInfo::Clear() {
@@ -4604,26 +4665,26 @@ void ApplyAnsiblePlaybookProgressInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  status_string_.Clear();
-  token_.ClearToEmpty();
-  failure_details_.ClearToEmpty();
-  status_ = 0;
+  _impl_.status_string_.Clear();
+  _impl_.token_.ClearToEmpty();
+  _impl_.failure_details_.ClearToEmpty();
+  _impl_.status_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ApplyAnsiblePlaybookProgressInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ApplyAnsiblePlaybookProgressInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.ApplyAnsiblePlaybookProgressInfo.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.ApplyAnsiblePlaybookProgressInfo.token"));
         } else
           goto handle_unusual;
         continue;
@@ -4640,9 +4701,9 @@ const char* ApplyAnsiblePlaybookProgressInfo::_InternalParse(const char* ptr, ::
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_failure_details();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.ApplyAnsiblePlaybookProgressInfo.failure_details"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.ApplyAnsiblePlaybookProgressInfo.failure_details"));
         } else
           goto handle_unusual;
         continue;
@@ -4653,9 +4714,9 @@ const char* ApplyAnsiblePlaybookProgressInfo::_InternalParse(const char* ptr, ::
           do {
             ptr += 1;
             auto str = _internal_add_status_string();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.ApplyAnsiblePlaybookProgressInfo.status_string"));
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.ApplyAnsiblePlaybookProgressInfo.status_string"));
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
         } else
@@ -4703,7 +4764,7 @@ uint8_t* ApplyAnsiblePlaybookProgressInfo::_InternalSerialize(
   // .vm_tools.container.ApplyAnsiblePlaybookProgressInfo.Status status = 2;
   if (this->_internal_status() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_status(), target);
   }
 
@@ -4728,7 +4789,7 @@ uint8_t* ApplyAnsiblePlaybookProgressInfo::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.ApplyAnsiblePlaybookProgressInfo)
@@ -4745,10 +4806,10 @@ size_t ApplyAnsiblePlaybookProgressInfo::ByteSizeLong() const {
 
   // repeated string status_string = 4;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(status_string_.size());
-  for (int i = 0, n = status_string_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.status_string_.size());
+  for (int i = 0, n = _impl_.status_string_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      status_string_.Get(i));
+      _impl_.status_string_.Get(i));
   }
 
   // string token = 1;
@@ -4768,42 +4829,38 @@ size_t ApplyAnsiblePlaybookProgressInfo::ByteSizeLong() const {
   // .vm_tools.container.ApplyAnsiblePlaybookProgressInfo.Status status = 2;
   if (this->_internal_status() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_status());
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ApplyAnsiblePlaybookProgressInfo::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     ApplyAnsiblePlaybookProgressInfo::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ApplyAnsiblePlaybookProgressInfo::GetClassData() const { return &_class_data_; }
 
-void ApplyAnsiblePlaybookProgressInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<ApplyAnsiblePlaybookProgressInfo *>(to)->MergeFrom(
-      static_cast<const ApplyAnsiblePlaybookProgressInfo &>(from));
-}
 
-
-void ApplyAnsiblePlaybookProgressInfo::MergeFrom(const ApplyAnsiblePlaybookProgressInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ApplyAnsiblePlaybookProgressInfo)
-  GOOGLE_DCHECK_NE(&from, this);
+void ApplyAnsiblePlaybookProgressInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ApplyAnsiblePlaybookProgressInfo*>(&to_msg);
+  auto& from = static_cast<const ApplyAnsiblePlaybookProgressInfo&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ApplyAnsiblePlaybookProgressInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  status_string_.MergeFrom(from.status_string_);
+  _this->_impl_.status_string_.MergeFrom(from._impl_.status_string_);
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
   if (!from._internal_failure_details().empty()) {
-    _internal_set_failure_details(from._internal_failure_details());
+    _this->_internal_set_failure_details(from._internal_failure_details());
   }
   if (from._internal_status() != 0) {
-    _internal_set_status(from._internal_status());
+    _this->_internal_set_status(from._internal_status());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void ApplyAnsiblePlaybookProgressInfo::CopyFrom(const ApplyAnsiblePlaybookProgressInfo& from) {
@@ -4822,22 +4879,20 @@ void ApplyAnsiblePlaybookProgressInfo::InternalSwap(ApplyAnsiblePlaybookProgress
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  status_string_.InternalSwap(&other->status_string_);
+  _impl_.status_string_.InternalSwap(&other->_impl_.status_string_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &failure_details_, lhs_arena,
-      &other->failure_details_, rhs_arena
+      &_impl_.failure_details_, lhs_arena,
+      &other->_impl_.failure_details_, rhs_arena
   );
-  swap(status_, other->status_);
+  swap(_impl_.status_, other->_impl_.status_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ApplyAnsiblePlaybookProgressInfo::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[12]);
 }
@@ -4850,56 +4905,62 @@ class OpenTerminalRequest::_Internal {
 
 OpenTerminalRequest::OpenTerminalRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  params_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.OpenTerminalRequest)
 }
 OpenTerminalRequest::OpenTerminalRequest(const OpenTerminalRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      params_(from.params_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  OpenTerminalRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.params_){from._impl_.params_}
+    , decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.OpenTerminalRequest)
 }
 
-inline void OpenTerminalRequest::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void OpenTerminalRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.params_){arena}
+    , decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 OpenTerminalRequest::~OpenTerminalRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.container.OpenTerminalRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void OpenTerminalRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.params_.~RepeatedPtrField();
+  _impl_.token_.Destroy();
 }
 
-void OpenTerminalRequest::ArenaDtor(void* object) {
-  OpenTerminalRequest* _this = reinterpret_cast< OpenTerminalRequest* >(object);
-  (void)_this;
-}
-void OpenTerminalRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void OpenTerminalRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void OpenTerminalRequest::Clear() {
@@ -4908,24 +4969,24 @@ void OpenTerminalRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  params_.Clear();
-  token_.ClearToEmpty();
+  _impl_.params_.Clear();
+  _impl_.token_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* OpenTerminalRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* OpenTerminalRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.OpenTerminalRequest.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.OpenTerminalRequest.token"));
         } else
           goto handle_unusual;
         continue;
@@ -4936,9 +4997,9 @@ const char* OpenTerminalRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAME
           do {
             ptr += 1;
             auto str = _internal_add_params();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.OpenTerminalRequest.params"));
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.OpenTerminalRequest.params"));
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
         } else
@@ -4994,7 +5055,7 @@ uint8_t* OpenTerminalRequest::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.OpenTerminalRequest)
@@ -5011,10 +5072,10 @@ size_t OpenTerminalRequest::ByteSizeLong() const {
 
   // repeated string params = 2;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(params_.size());
-  for (int i = 0, n = params_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.params_.size());
+  for (int i = 0, n = _impl_.params_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      params_.Get(i));
+      _impl_.params_.Get(i));
   }
 
   // string token = 1;
@@ -5024,33 +5085,29 @@ size_t OpenTerminalRequest::ByteSizeLong() const {
         this->_internal_token());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData OpenTerminalRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     OpenTerminalRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*OpenTerminalRequest::GetClassData() const { return &_class_data_; }
 
-void OpenTerminalRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<OpenTerminalRequest *>(to)->MergeFrom(
-      static_cast<const OpenTerminalRequest &>(from));
-}
 
-
-void OpenTerminalRequest::MergeFrom(const OpenTerminalRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.OpenTerminalRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void OpenTerminalRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<OpenTerminalRequest*>(&to_msg);
+  auto& from = static_cast<const OpenTerminalRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.OpenTerminalRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  params_.MergeFrom(from.params_);
+  _this->_impl_.params_.MergeFrom(from._impl_.params_);
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void OpenTerminalRequest::CopyFrom(const OpenTerminalRequest& from) {
@@ -5069,16 +5126,15 @@ void OpenTerminalRequest::InternalSwap(OpenTerminalRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  params_.InternalSwap(&other->params_);
+  _impl_.params_.InternalSwap(&other->_impl_.params_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata OpenTerminalRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[13]);
 }
@@ -5092,105 +5148,118 @@ class SelectFileRequest::_Internal {
 SelectFileRequest::SelectFileRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.SelectFileRequest)
 }
 SelectFileRequest::SelectFileRequest(const SelectFileRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  SelectFileRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.type_){}
+    , decltype(_impl_.title_){}
+    , decltype(_impl_.default_path_){}
+    , decltype(_impl_.allowed_extensions_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
-  type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.type_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.type_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_type().empty()) {
-    type_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_type(), 
-      GetArenaForAllocation());
+    _this->_impl_.type_.Set(from._internal_type(), 
+      _this->GetArenaForAllocation());
   }
-  title_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.title_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    title_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.title_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_title().empty()) {
-    title_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_title(), 
-      GetArenaForAllocation());
+    _this->_impl_.title_.Set(from._internal_title(), 
+      _this->GetArenaForAllocation());
   }
-  default_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.default_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    default_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.default_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_default_path().empty()) {
-    default_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_default_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.default_path_.Set(from._internal_default_path(), 
+      _this->GetArenaForAllocation());
   }
-  allowed_extensions_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.allowed_extensions_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    allowed_extensions_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.allowed_extensions_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_allowed_extensions().empty()) {
-    allowed_extensions_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_allowed_extensions(), 
-      GetArenaForAllocation());
+    _this->_impl_.allowed_extensions_.Set(from._internal_allowed_extensions(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.SelectFileRequest)
 }
 
-inline void SelectFileRequest::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-type_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  type_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-title_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  title_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-default_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  default_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-allowed_extensions_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  allowed_extensions_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void SelectFileRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.type_){}
+    , decltype(_impl_.title_){}
+    , decltype(_impl_.default_path_){}
+    , decltype(_impl_.allowed_extensions_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.type_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.type_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.title_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.title_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.default_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.default_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.allowed_extensions_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.allowed_extensions_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 SelectFileRequest::~SelectFileRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.container.SelectFileRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void SelectFileRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  type_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  title_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  default_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  allowed_extensions_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
+  _impl_.type_.Destroy();
+  _impl_.title_.Destroy();
+  _impl_.default_path_.Destroy();
+  _impl_.allowed_extensions_.Destroy();
 }
 
-void SelectFileRequest::ArenaDtor(void* object) {
-  SelectFileRequest* _this = reinterpret_cast< SelectFileRequest* >(object);
-  (void)_this;
-}
-void SelectFileRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SelectFileRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SelectFileRequest::Clear() {
@@ -5199,27 +5268,27 @@ void SelectFileRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
-  type_.ClearToEmpty();
-  title_.ClearToEmpty();
-  default_path_.ClearToEmpty();
-  allowed_extensions_.ClearToEmpty();
+  _impl_.token_.ClearToEmpty();
+  _impl_.type_.ClearToEmpty();
+  _impl_.title_.ClearToEmpty();
+  _impl_.default_path_.ClearToEmpty();
+  _impl_.allowed_extensions_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* SelectFileRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SelectFileRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.SelectFileRequest.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.SelectFileRequest.token"));
         } else
           goto handle_unusual;
         continue;
@@ -5227,9 +5296,9 @@ const char* SelectFileRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_type();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.SelectFileRequest.type"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.SelectFileRequest.type"));
         } else
           goto handle_unusual;
         continue;
@@ -5237,9 +5306,9 @@ const char* SelectFileRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_title();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.SelectFileRequest.title"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.SelectFileRequest.title"));
         } else
           goto handle_unusual;
         continue;
@@ -5247,9 +5316,9 @@ const char* SelectFileRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_default_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.SelectFileRequest.default_path"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.SelectFileRequest.default_path"));
         } else
           goto handle_unusual;
         continue;
@@ -5257,9 +5326,9 @@ const char* SelectFileRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_allowed_extensions();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.SelectFileRequest.allowed_extensions"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.SelectFileRequest.allowed_extensions"));
         } else
           goto handle_unusual;
         continue;
@@ -5343,7 +5412,7 @@ uint8_t* SelectFileRequest::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.SelectFileRequest)
@@ -5393,44 +5462,40 @@ size_t SelectFileRequest::ByteSizeLong() const {
         this->_internal_allowed_extensions());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SelectFileRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     SelectFileRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SelectFileRequest::GetClassData() const { return &_class_data_; }
 
-void SelectFileRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<SelectFileRequest *>(to)->MergeFrom(
-      static_cast<const SelectFileRequest &>(from));
-}
 
-
-void SelectFileRequest::MergeFrom(const SelectFileRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.SelectFileRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void SelectFileRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SelectFileRequest*>(&to_msg);
+  auto& from = static_cast<const SelectFileRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.SelectFileRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
   if (!from._internal_type().empty()) {
-    _internal_set_type(from._internal_type());
+    _this->_internal_set_type(from._internal_type());
   }
   if (!from._internal_title().empty()) {
-    _internal_set_title(from._internal_title());
+    _this->_internal_set_title(from._internal_title());
   }
   if (!from._internal_default_path().empty()) {
-    _internal_set_default_path(from._internal_default_path());
+    _this->_internal_set_default_path(from._internal_default_path());
   }
   if (!from._internal_allowed_extensions().empty()) {
-    _internal_set_allowed_extensions(from._internal_allowed_extensions());
+    _this->_internal_set_allowed_extensions(from._internal_allowed_extensions());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void SelectFileRequest::CopyFrom(const SelectFileRequest& from) {
@@ -5450,34 +5515,29 @@ void SelectFileRequest::InternalSwap(SelectFileRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &type_, lhs_arena,
-      &other->type_, rhs_arena
+      &_impl_.type_, lhs_arena,
+      &other->_impl_.type_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &title_, lhs_arena,
-      &other->title_, rhs_arena
+      &_impl_.title_, lhs_arena,
+      &other->_impl_.title_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &default_path_, lhs_arena,
-      &other->default_path_, rhs_arena
+      &_impl_.default_path_, lhs_arena,
+      &other->_impl_.default_path_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &allowed_extensions_, lhs_arena,
-      &other->allowed_extensions_, rhs_arena
+      &_impl_.allowed_extensions_, lhs_arena,
+      &other->_impl_.allowed_extensions_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SelectFileRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[14]);
 }
@@ -5490,43 +5550,47 @@ class SelectFileResponse::_Internal {
 
 SelectFileResponse::SelectFileResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  files_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.SelectFileResponse)
 }
 SelectFileResponse::SelectFileResponse(const SelectFileResponse& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      files_(from.files_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  SelectFileResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.files_){from._impl_.files_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.SelectFileResponse)
 }
 
-inline void SelectFileResponse::SharedCtor() {
+inline void SelectFileResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.files_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 SelectFileResponse::~SelectFileResponse() {
   // @@protoc_insertion_point(destructor:vm_tools.container.SelectFileResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void SelectFileResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.files_.~RepeatedPtrField();
 }
 
-void SelectFileResponse::ArenaDtor(void* object) {
-  SelectFileResponse* _this = reinterpret_cast< SelectFileResponse* >(object);
-  (void)_this;
-}
-void SelectFileResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SelectFileResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SelectFileResponse::Clear() {
@@ -5535,15 +5599,15 @@ void SelectFileResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  files_.Clear();
+  _impl_.files_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* SelectFileResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SelectFileResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated string files = 1;
       case 1:
@@ -5552,9 +5616,9 @@ const char* SelectFileResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
           do {
             ptr += 1;
             auto str = _internal_add_files();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.SelectFileResponse.files"));
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
             CHK_(ptr);
+            CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.SelectFileResponse.files"));
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
         } else
@@ -5600,7 +5664,7 @@ uint8_t* SelectFileResponse::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.SelectFileResponse)
@@ -5617,36 +5681,32 @@ size_t SelectFileResponse::ByteSizeLong() const {
 
   // repeated string files = 1;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(files_.size());
-  for (int i = 0, n = files_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(_impl_.files_.size());
+  for (int i = 0, n = _impl_.files_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      files_.Get(i));
+      _impl_.files_.Get(i));
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData SelectFileResponse::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     SelectFileResponse::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*SelectFileResponse::GetClassData() const { return &_class_data_; }
 
-void SelectFileResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<SelectFileResponse *>(to)->MergeFrom(
-      static_cast<const SelectFileResponse &>(from));
-}
 
-
-void SelectFileResponse::MergeFrom(const SelectFileResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.SelectFileResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+void SelectFileResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<SelectFileResponse*>(&to_msg);
+  auto& from = static_cast<const SelectFileResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.SelectFileResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  files_.MergeFrom(from.files_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.files_.MergeFrom(from._impl_.files_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void SelectFileResponse::CopyFrom(const SelectFileResponse& from) {
@@ -5663,11 +5723,11 @@ bool SelectFileResponse::IsInitialized() const {
 void SelectFileResponse::InternalSwap(SelectFileResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  files_.InternalSwap(&other->files_);
+  _impl_.files_.InternalSwap(&other->_impl_.files_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata SelectFileResponse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[15]);
 }
@@ -5681,7 +5741,7 @@ void UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse::MergeFrom(const Upda
   MergeFromInternal(other);
 }
 ::PROTOBUF_NAMESPACE_ID::Metadata UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[16]);
 }
@@ -5694,60 +5754,72 @@ class UpdateMimeTypesRequest::_Internal {
 
 UpdateMimeTypesRequest::UpdateMimeTypesRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  mime_type_mappings_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  if (arena != nullptr && !is_message_owned) {
+    arena->OwnCustomDestructor(this, &UpdateMimeTypesRequest::ArenaDtor);
   }
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.UpdateMimeTypesRequest)
 }
 UpdateMimeTypesRequest::UpdateMimeTypesRequest(const UpdateMimeTypesRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  UpdateMimeTypesRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_.mime_type_mappings_)*/{}
+    , decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  mime_type_mappings_.MergeFrom(from.mime_type_mappings_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _this->_impl_.mime_type_mappings_.MergeFrom(from._impl_.mime_type_mappings_);
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.UpdateMimeTypesRequest)
 }
 
-inline void UpdateMimeTypesRequest::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void UpdateMimeTypesRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      /*decltype(_impl_.mime_type_mappings_)*/{::_pbi::ArenaInitialized(), arena}
+    , decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 UpdateMimeTypesRequest::~UpdateMimeTypesRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.container.UpdateMimeTypesRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    ArenaDtor(this);
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void UpdateMimeTypesRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.mime_type_mappings_.Destruct();
+  _impl_.mime_type_mappings_.~MapField();
+  _impl_.token_.Destroy();
 }
 
 void UpdateMimeTypesRequest::ArenaDtor(void* object) {
   UpdateMimeTypesRequest* _this = reinterpret_cast< UpdateMimeTypesRequest* >(object);
-  (void)_this;
-  _this->mime_type_mappings_. ~MapField();
-}
-inline void UpdateMimeTypesRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena) {
-  if (arena != nullptr) {
-    arena->OwnCustomDestructor(this, &UpdateMimeTypesRequest::ArenaDtor);
-  }
+  _this->_impl_.mime_type_mappings_.Destruct();
 }
 void UpdateMimeTypesRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UpdateMimeTypesRequest::Clear() {
@@ -5756,24 +5828,24 @@ void UpdateMimeTypesRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  mime_type_mappings_.Clear();
-  token_.ClearToEmpty();
+  _impl_.mime_type_mappings_.Clear();
+  _impl_.token_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* UpdateMimeTypesRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* UpdateMimeTypesRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.UpdateMimeTypesRequest.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.UpdateMimeTypesRequest.token"));
         } else
           goto handle_unusual;
         continue;
@@ -5783,7 +5855,7 @@ const char* UpdateMimeTypesRequest::_InternalParse(const char* ptr, ::PROTOBUF_N
           ptr -= 1;
           do {
             ptr += 1;
-            ptr = ctx->ParseMessage(&mime_type_mappings_, ptr);
+            ptr = ctx->ParseMessage(&_impl_.mime_type_mappings_, ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
@@ -5831,52 +5903,36 @@ uint8_t* UpdateMimeTypesRequest::_InternalSerialize(
 
   // map<string, string> mime_type_mappings = 2;
   if (!this->_internal_mime_type_mappings().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_pointer
-        ConstPtr;
-    typedef ConstPtr SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByDerefFirst<SortItem> Less;
-    struct Utf8Check {
-      static void Check(ConstPtr p) {
-        (void)p;
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-          p->first.data(), static_cast<int>(p->first.length()),
-          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-          "vm_tools.container.UpdateMimeTypesRequest.MimeTypeMappingsEntry.key");
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-          p->second.data(), static_cast<int>(p->second.length()),
-          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-          "vm_tools.container.UpdateMimeTypesRequest.MimeTypeMappingsEntry.value");
-      }
+    using MapType = ::_pb::Map<std::string, std::string>;
+    using WireHelper = UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse::Funcs;
+    const auto& map_field = this->_internal_mime_type_mappings();
+    auto check_utf8 = [](const MapType::value_type& entry) {
+      (void)entry;
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+        entry.first.data(), static_cast<int>(entry.first.length()),
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+        "vm_tools.container.UpdateMimeTypesRequest.MimeTypeMappingsEntry.key");
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+        entry.second.data(), static_cast<int>(entry.second.length()),
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+        "vm_tools.container.UpdateMimeTypesRequest.MimeTypeMappingsEntry.value");
     };
 
-    if (stream->IsSerializationDeterministic() &&
-        this->_internal_mime_type_mappings().size() > 1) {
-      ::std::unique_ptr<SortItem[]> items(
-          new SortItem[this->_internal_mime_type_mappings().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::size_type size_type;
-      size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
-          it = this->_internal_mime_type_mappings().begin();
-          it != this->_internal_mime_type_mappings().end(); ++it, ++n) {
-        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
-      }
-      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
-      for (size_type i = 0; i < n; i++) {
-        target = UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse::Funcs::InternalSerialize(2, items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second, target, stream);
-        Utf8Check::Check(&(*items[static_cast<ptrdiff_t>(i)]));
+    if (stream->IsSerializationDeterministic() && map_field.size() > 1) {
+      for (const auto& entry : ::_pbi::MapSorterPtr<MapType>(map_field)) {
+        target = WireHelper::InternalSerialize(2, entry.first, entry.second, target, stream);
+        check_utf8(entry);
       }
     } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
-          it = this->_internal_mime_type_mappings().begin();
-          it != this->_internal_mime_type_mappings().end(); ++it) {
-        target = UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse::Funcs::InternalSerialize(2, it->first, it->second, target, stream);
-        Utf8Check::Check(&(*it));
+      for (const auto& entry : map_field) {
+        target = WireHelper::InternalSerialize(2, entry.first, entry.second, target, stream);
+        check_utf8(entry);
       }
     }
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.UpdateMimeTypesRequest)
@@ -5907,33 +5963,29 @@ size_t UpdateMimeTypesRequest::ByteSizeLong() const {
         this->_internal_token());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData UpdateMimeTypesRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     UpdateMimeTypesRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*UpdateMimeTypesRequest::GetClassData() const { return &_class_data_; }
 
-void UpdateMimeTypesRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<UpdateMimeTypesRequest *>(to)->MergeFrom(
-      static_cast<const UpdateMimeTypesRequest &>(from));
-}
 
-
-void UpdateMimeTypesRequest::MergeFrom(const UpdateMimeTypesRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.UpdateMimeTypesRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void UpdateMimeTypesRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<UpdateMimeTypesRequest*>(&to_msg);
+  auto& from = static_cast<const UpdateMimeTypesRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.UpdateMimeTypesRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  mime_type_mappings_.MergeFrom(from.mime_type_mappings_);
+  _this->_impl_.mime_type_mappings_.MergeFrom(from._impl_.mime_type_mappings_);
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void UpdateMimeTypesRequest::CopyFrom(const UpdateMimeTypesRequest& from) {
@@ -5952,16 +6004,15 @@ void UpdateMimeTypesRequest::InternalSwap(UpdateMimeTypesRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  mime_type_mappings_.InternalSwap(&other->mime_type_mappings_);
+  _impl_.mime_type_mappings_.InternalSwap(&other->_impl_.mime_type_mappings_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata UpdateMimeTypesRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[17]);
 }
@@ -5975,66 +6026,73 @@ class FileWatchTriggeredInfo::_Internal {
 FileWatchTriggeredInfo::FileWatchTriggeredInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.FileWatchTriggeredInfo)
 }
 FileWatchTriggeredInfo::FileWatchTriggeredInfo(const FileWatchTriggeredInfo& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  FileWatchTriggeredInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.path_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
-  path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_path().empty()) {
-    path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.path_.Set(from._internal_path(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.FileWatchTriggeredInfo)
 }
 
-inline void FileWatchTriggeredInfo::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void FileWatchTriggeredInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.path_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 FileWatchTriggeredInfo::~FileWatchTriggeredInfo() {
   // @@protoc_insertion_point(destructor:vm_tools.container.FileWatchTriggeredInfo)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void FileWatchTriggeredInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
+  _impl_.path_.Destroy();
 }
 
-void FileWatchTriggeredInfo::ArenaDtor(void* object) {
-  FileWatchTriggeredInfo* _this = reinterpret_cast< FileWatchTriggeredInfo* >(object);
-  (void)_this;
-}
-void FileWatchTriggeredInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void FileWatchTriggeredInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void FileWatchTriggeredInfo::Clear() {
@@ -6043,24 +6101,24 @@ void FileWatchTriggeredInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
-  path_.ClearToEmpty();
+  _impl_.token_.ClearToEmpty();
+  _impl_.path_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* FileWatchTriggeredInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* FileWatchTriggeredInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.FileWatchTriggeredInfo.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.FileWatchTriggeredInfo.token"));
         } else
           goto handle_unusual;
         continue;
@@ -6068,9 +6126,9 @@ const char* FileWatchTriggeredInfo::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.FileWatchTriggeredInfo.path"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.FileWatchTriggeredInfo.path"));
         } else
           goto handle_unusual;
         continue;
@@ -6124,7 +6182,7 @@ uint8_t* FileWatchTriggeredInfo::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.FileWatchTriggeredInfo)
@@ -6153,35 +6211,31 @@ size_t FileWatchTriggeredInfo::ByteSizeLong() const {
         this->_internal_path());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData FileWatchTriggeredInfo::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     FileWatchTriggeredInfo::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*FileWatchTriggeredInfo::GetClassData() const { return &_class_data_; }
 
-void FileWatchTriggeredInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<FileWatchTriggeredInfo *>(to)->MergeFrom(
-      static_cast<const FileWatchTriggeredInfo &>(from));
-}
 
-
-void FileWatchTriggeredInfo::MergeFrom(const FileWatchTriggeredInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.FileWatchTriggeredInfo)
-  GOOGLE_DCHECK_NE(&from, this);
+void FileWatchTriggeredInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<FileWatchTriggeredInfo*>(&to_msg);
+  auto& from = static_cast<const FileWatchTriggeredInfo&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.FileWatchTriggeredInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
   if (!from._internal_path().empty()) {
-    _internal_set_path(from._internal_path());
+    _this->_internal_set_path(from._internal_path());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void FileWatchTriggeredInfo::CopyFrom(const FileWatchTriggeredInfo& from) {
@@ -6201,19 +6255,17 @@ void FileWatchTriggeredInfo::InternalSwap(FileWatchTriggeredInfo* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &path_, lhs_arena,
-      &other->path_, rhs_arena
+      &_impl_.path_, lhs_arena,
+      &other->_impl_.path_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata FileWatchTriggeredInfo::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[18]);
 }
@@ -6227,55 +6279,61 @@ class LowDiskSpaceTriggeredInfo::_Internal {
 LowDiskSpaceTriggeredInfo::LowDiskSpaceTriggeredInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.LowDiskSpaceTriggeredInfo)
 }
 LowDiskSpaceTriggeredInfo::LowDiskSpaceTriggeredInfo(const LowDiskSpaceTriggeredInfo& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  LowDiskSpaceTriggeredInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.free_bytes_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
-  free_bytes_ = from.free_bytes_;
+  _this->_impl_.free_bytes_ = from._impl_.free_bytes_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.LowDiskSpaceTriggeredInfo)
 }
 
-inline void LowDiskSpaceTriggeredInfo::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-free_bytes_ = uint64_t{0u};
+inline void LowDiskSpaceTriggeredInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.free_bytes_){uint64_t{0u}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 LowDiskSpaceTriggeredInfo::~LowDiskSpaceTriggeredInfo() {
   // @@protoc_insertion_point(destructor:vm_tools.container.LowDiskSpaceTriggeredInfo)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void LowDiskSpaceTriggeredInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
 }
 
-void LowDiskSpaceTriggeredInfo::ArenaDtor(void* object) {
-  LowDiskSpaceTriggeredInfo* _this = reinterpret_cast< LowDiskSpaceTriggeredInfo* >(object);
-  (void)_this;
-}
-void LowDiskSpaceTriggeredInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void LowDiskSpaceTriggeredInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void LowDiskSpaceTriggeredInfo::Clear() {
@@ -6284,31 +6342,31 @@ void LowDiskSpaceTriggeredInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
-  free_bytes_ = uint64_t{0u};
+  _impl_.token_.ClearToEmpty();
+  _impl_.free_bytes_ = uint64_t{0u};
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* LowDiskSpaceTriggeredInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* LowDiskSpaceTriggeredInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.LowDiskSpaceTriggeredInfo.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.LowDiskSpaceTriggeredInfo.token"));
         } else
           goto handle_unusual;
         continue;
       // uint64 free_bytes = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          free_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.free_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -6355,11 +6413,11 @@ uint8_t* LowDiskSpaceTriggeredInfo::_InternalSerialize(
   // uint64 free_bytes = 2;
   if (this->_internal_free_bytes() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(2, this->_internal_free_bytes(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_free_bytes(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.LowDiskSpaceTriggeredInfo)
@@ -6383,38 +6441,34 @@ size_t LowDiskSpaceTriggeredInfo::ByteSizeLong() const {
 
   // uint64 free_bytes = 2;
   if (this->_internal_free_bytes() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_free_bytes());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_free_bytes());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData LowDiskSpaceTriggeredInfo::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     LowDiskSpaceTriggeredInfo::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*LowDiskSpaceTriggeredInfo::GetClassData() const { return &_class_data_; }
 
-void LowDiskSpaceTriggeredInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<LowDiskSpaceTriggeredInfo *>(to)->MergeFrom(
-      static_cast<const LowDiskSpaceTriggeredInfo &>(from));
-}
 
-
-void LowDiskSpaceTriggeredInfo::MergeFrom(const LowDiskSpaceTriggeredInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.LowDiskSpaceTriggeredInfo)
-  GOOGLE_DCHECK_NE(&from, this);
+void LowDiskSpaceTriggeredInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<LowDiskSpaceTriggeredInfo*>(&to_msg);
+  auto& from = static_cast<const LowDiskSpaceTriggeredInfo&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.LowDiskSpaceTriggeredInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
   if (from._internal_free_bytes() != 0) {
-    _internal_set_free_bytes(from._internal_free_bytes());
+    _this->_internal_set_free_bytes(from._internal_free_bytes());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void LowDiskSpaceTriggeredInfo::CopyFrom(const LowDiskSpaceTriggeredInfo& from) {
@@ -6434,15 +6488,14 @@ void LowDiskSpaceTriggeredInfo::InternalSwap(LowDiskSpaceTriggeredInfo* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
-  swap(free_bytes_, other->free_bytes_);
+  swap(_impl_.free_bytes_, other->_impl_.free_bytes_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata LowDiskSpaceTriggeredInfo::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[19]);
 }
@@ -6456,53 +6509,58 @@ class ForwardSecurityKeyMessageRequest::_Internal {
 ForwardSecurityKeyMessageRequest::ForwardSecurityKeyMessageRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.ForwardSecurityKeyMessageRequest)
 }
 ForwardSecurityKeyMessageRequest::ForwardSecurityKeyMessageRequest(const ForwardSecurityKeyMessageRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ForwardSecurityKeyMessageRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.message_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.message_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_message().empty()) {
-    message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_message(), 
-      GetArenaForAllocation());
+    _this->_impl_.message_.Set(from._internal_message(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.ForwardSecurityKeyMessageRequest)
 }
 
-inline void ForwardSecurityKeyMessageRequest::SharedCtor() {
-message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void ForwardSecurityKeyMessageRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.message_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ForwardSecurityKeyMessageRequest::~ForwardSecurityKeyMessageRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.container.ForwardSecurityKeyMessageRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void ForwardSecurityKeyMessageRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.message_.Destroy();
 }
 
-void ForwardSecurityKeyMessageRequest::ArenaDtor(void* object) {
-  ForwardSecurityKeyMessageRequest* _this = reinterpret_cast< ForwardSecurityKeyMessageRequest* >(object);
-  (void)_this;
-}
-void ForwardSecurityKeyMessageRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ForwardSecurityKeyMessageRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ForwardSecurityKeyMessageRequest::Clear() {
@@ -6511,23 +6569,23 @@ void ForwardSecurityKeyMessageRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  message_.ClearToEmpty();
+  _impl_.message_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ForwardSecurityKeyMessageRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ForwardSecurityKeyMessageRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string message = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_message();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.ForwardSecurityKeyMessageRequest.message"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.ForwardSecurityKeyMessageRequest.message"));
         } else
           goto handle_unusual;
         continue;
@@ -6571,7 +6629,7 @@ uint8_t* ForwardSecurityKeyMessageRequest::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.ForwardSecurityKeyMessageRequest)
@@ -6593,32 +6651,28 @@ size_t ForwardSecurityKeyMessageRequest::ByteSizeLong() const {
         this->_internal_message());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ForwardSecurityKeyMessageRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     ForwardSecurityKeyMessageRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ForwardSecurityKeyMessageRequest::GetClassData() const { return &_class_data_; }
 
-void ForwardSecurityKeyMessageRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<ForwardSecurityKeyMessageRequest *>(to)->MergeFrom(
-      static_cast<const ForwardSecurityKeyMessageRequest &>(from));
-}
 
-
-void ForwardSecurityKeyMessageRequest::MergeFrom(const ForwardSecurityKeyMessageRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ForwardSecurityKeyMessageRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void ForwardSecurityKeyMessageRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ForwardSecurityKeyMessageRequest*>(&to_msg);
+  auto& from = static_cast<const ForwardSecurityKeyMessageRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ForwardSecurityKeyMessageRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_message().empty()) {
-    _internal_set_message(from._internal_message());
+    _this->_internal_set_message(from._internal_message());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void ForwardSecurityKeyMessageRequest::CopyFrom(const ForwardSecurityKeyMessageRequest& from) {
@@ -6638,14 +6692,13 @@ void ForwardSecurityKeyMessageRequest::InternalSwap(ForwardSecurityKeyMessageReq
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &message_, lhs_arena,
-      &other->message_, rhs_arena
+      &_impl_.message_, lhs_arena,
+      &other->_impl_.message_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ForwardSecurityKeyMessageRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[20]);
 }
@@ -6659,53 +6712,58 @@ class ForwardSecurityKeyMessageResponse::_Internal {
 ForwardSecurityKeyMessageResponse::ForwardSecurityKeyMessageResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.ForwardSecurityKeyMessageResponse)
 }
 ForwardSecurityKeyMessageResponse::ForwardSecurityKeyMessageResponse(const ForwardSecurityKeyMessageResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ForwardSecurityKeyMessageResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.message_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.message_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.message_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_message().empty()) {
-    message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_message(), 
-      GetArenaForAllocation());
+    _this->_impl_.message_.Set(from._internal_message(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.ForwardSecurityKeyMessageResponse)
 }
 
-inline void ForwardSecurityKeyMessageResponse::SharedCtor() {
-message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void ForwardSecurityKeyMessageResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.message_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.message_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.message_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ForwardSecurityKeyMessageResponse::~ForwardSecurityKeyMessageResponse() {
   // @@protoc_insertion_point(destructor:vm_tools.container.ForwardSecurityKeyMessageResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void ForwardSecurityKeyMessageResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.message_.Destroy();
 }
 
-void ForwardSecurityKeyMessageResponse::ArenaDtor(void* object) {
-  ForwardSecurityKeyMessageResponse* _this = reinterpret_cast< ForwardSecurityKeyMessageResponse* >(object);
-  (void)_this;
-}
-void ForwardSecurityKeyMessageResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ForwardSecurityKeyMessageResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ForwardSecurityKeyMessageResponse::Clear() {
@@ -6714,23 +6772,23 @@ void ForwardSecurityKeyMessageResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  message_.ClearToEmpty();
+  _impl_.message_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ForwardSecurityKeyMessageResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ForwardSecurityKeyMessageResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string message = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_message();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.ForwardSecurityKeyMessageResponse.message"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.ForwardSecurityKeyMessageResponse.message"));
         } else
           goto handle_unusual;
         continue;
@@ -6774,7 +6832,7 @@ uint8_t* ForwardSecurityKeyMessageResponse::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.ForwardSecurityKeyMessageResponse)
@@ -6796,32 +6854,28 @@ size_t ForwardSecurityKeyMessageResponse::ByteSizeLong() const {
         this->_internal_message());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ForwardSecurityKeyMessageResponse::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     ForwardSecurityKeyMessageResponse::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ForwardSecurityKeyMessageResponse::GetClassData() const { return &_class_data_; }
 
-void ForwardSecurityKeyMessageResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<ForwardSecurityKeyMessageResponse *>(to)->MergeFrom(
-      static_cast<const ForwardSecurityKeyMessageResponse &>(from));
-}
 
-
-void ForwardSecurityKeyMessageResponse::MergeFrom(const ForwardSecurityKeyMessageResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ForwardSecurityKeyMessageResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+void ForwardSecurityKeyMessageResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ForwardSecurityKeyMessageResponse*>(&to_msg);
+  auto& from = static_cast<const ForwardSecurityKeyMessageResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ForwardSecurityKeyMessageResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_message().empty()) {
-    _internal_set_message(from._internal_message());
+    _this->_internal_set_message(from._internal_message());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void ForwardSecurityKeyMessageResponse::CopyFrom(const ForwardSecurityKeyMessageResponse& from) {
@@ -6841,14 +6895,13 @@ void ForwardSecurityKeyMessageResponse::InternalSwap(ForwardSecurityKeyMessageRe
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &message_, lhs_arena,
-      &other->message_, rhs_arena
+      &_impl_.message_, lhs_arena,
+      &other->_impl_.message_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ForwardSecurityKeyMessageResponse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[21]);
 }
@@ -6862,53 +6915,58 @@ class GetDiskInfoRequest::_Internal {
 GetDiskInfoRequest::GetDiskInfoRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.GetDiskInfoRequest)
 }
 GetDiskInfoRequest::GetDiskInfoRequest(const GetDiskInfoRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  GetDiskInfoRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.GetDiskInfoRequest)
 }
 
-inline void GetDiskInfoRequest::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void GetDiskInfoRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 GetDiskInfoRequest::~GetDiskInfoRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.container.GetDiskInfoRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void GetDiskInfoRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
 }
 
-void GetDiskInfoRequest::ArenaDtor(void* object) {
-  GetDiskInfoRequest* _this = reinterpret_cast< GetDiskInfoRequest* >(object);
-  (void)_this;
-}
-void GetDiskInfoRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GetDiskInfoRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetDiskInfoRequest::Clear() {
@@ -6917,23 +6975,23 @@ void GetDiskInfoRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
+  _impl_.token_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* GetDiskInfoRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GetDiskInfoRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.GetDiskInfoRequest.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.GetDiskInfoRequest.token"));
         } else
           goto handle_unusual;
         continue;
@@ -6977,7 +7035,7 @@ uint8_t* GetDiskInfoRequest::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.GetDiskInfoRequest)
@@ -6999,32 +7057,28 @@ size_t GetDiskInfoRequest::ByteSizeLong() const {
         this->_internal_token());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetDiskInfoRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     GetDiskInfoRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetDiskInfoRequest::GetClassData() const { return &_class_data_; }
 
-void GetDiskInfoRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<GetDiskInfoRequest *>(to)->MergeFrom(
-      static_cast<const GetDiskInfoRequest &>(from));
-}
 
-
-void GetDiskInfoRequest::MergeFrom(const GetDiskInfoRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.GetDiskInfoRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void GetDiskInfoRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<GetDiskInfoRequest*>(&to_msg);
+  auto& from = static_cast<const GetDiskInfoRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.GetDiskInfoRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void GetDiskInfoRequest::CopyFrom(const GetDiskInfoRequest& from) {
@@ -7044,14 +7098,13 @@ void GetDiskInfoRequest::InternalSwap(GetDiskInfoRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata GetDiskInfoRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[22]);
 }
@@ -7065,47 +7118,54 @@ class GetDiskInfoResponse::_Internal {
 GetDiskInfoResponse::GetDiskInfoResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.GetDiskInfoResponse)
 }
 GetDiskInfoResponse::GetDiskInfoResponse(const GetDiskInfoResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  GetDiskInfoResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_){}
+    , decltype(_impl_.available_space_){}
+    , decltype(_impl_.expandable_space_){}
+    , decltype(_impl_.disk_size_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&error_, &from.error_,
-    static_cast<size_t>(reinterpret_cast<char*>(&disk_size_) -
-    reinterpret_cast<char*>(&error_)) + sizeof(disk_size_));
+  ::memcpy(&_impl_.error_, &from._impl_.error_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.disk_size_) -
+    reinterpret_cast<char*>(&_impl_.error_)) + sizeof(_impl_.disk_size_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.GetDiskInfoResponse)
 }
 
-inline void GetDiskInfoResponse::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&error_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&disk_size_) -
-    reinterpret_cast<char*>(&error_)) + sizeof(disk_size_));
+inline void GetDiskInfoResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_){int64_t{0}}
+    , decltype(_impl_.available_space_){uint64_t{0u}}
+    , decltype(_impl_.expandable_space_){uint64_t{0u}}
+    , decltype(_impl_.disk_size_){uint64_t{0u}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 GetDiskInfoResponse::~GetDiskInfoResponse() {
   // @@protoc_insertion_point(destructor:vm_tools.container.GetDiskInfoResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void GetDiskInfoResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void GetDiskInfoResponse::ArenaDtor(void* object) {
-  GetDiskInfoResponse* _this = reinterpret_cast< GetDiskInfoResponse* >(object);
-  (void)_this;
-}
-void GetDiskInfoResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void GetDiskInfoResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void GetDiskInfoResponse::Clear() {
@@ -7114,22 +7174,22 @@ void GetDiskInfoResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&error_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&disk_size_) -
-      reinterpret_cast<char*>(&error_)) + sizeof(disk_size_));
+  ::memset(&_impl_.error_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.disk_size_) -
+      reinterpret_cast<char*>(&_impl_.error_)) + sizeof(_impl_.disk_size_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* GetDiskInfoResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GetDiskInfoResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int64 error = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          error_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.error_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7137,7 +7197,7 @@ const char* GetDiskInfoResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAME
       // uint64 available_space = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          available_space_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.available_space_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7145,7 +7205,7 @@ const char* GetDiskInfoResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAME
       // uint64 expandable_space = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          expandable_space_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.expandable_space_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7153,7 +7213,7 @@ const char* GetDiskInfoResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAME
       // uint64 disk_size = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          disk_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.disk_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7190,29 +7250,29 @@ uint8_t* GetDiskInfoResponse::_InternalSerialize(
   // int64 error = 1;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_error(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_error(), target);
   }
 
   // uint64 available_space = 2;
   if (this->_internal_available_space() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(2, this->_internal_available_space(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_available_space(), target);
   }
 
   // uint64 expandable_space = 3;
   if (this->_internal_expandable_space() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(3, this->_internal_expandable_space(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(3, this->_internal_expandable_space(), target);
   }
 
   // uint64 disk_size = 4;
   if (this->_internal_disk_size() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(4, this->_internal_disk_size(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(4, this->_internal_disk_size(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.GetDiskInfoResponse)
@@ -7229,59 +7289,55 @@ size_t GetDiskInfoResponse::ByteSizeLong() const {
 
   // int64 error = 1;
   if (this->_internal_error() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_error());
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_error());
   }
 
   // uint64 available_space = 2;
   if (this->_internal_available_space() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_available_space());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_available_space());
   }
 
   // uint64 expandable_space = 3;
   if (this->_internal_expandable_space() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_expandable_space());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_expandable_space());
   }
 
   // uint64 disk_size = 4;
   if (this->_internal_disk_size() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_disk_size());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_disk_size());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData GetDiskInfoResponse::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     GetDiskInfoResponse::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetDiskInfoResponse::GetClassData() const { return &_class_data_; }
 
-void GetDiskInfoResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<GetDiskInfoResponse *>(to)->MergeFrom(
-      static_cast<const GetDiskInfoResponse &>(from));
-}
 
-
-void GetDiskInfoResponse::MergeFrom(const GetDiskInfoResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.GetDiskInfoResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+void GetDiskInfoResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<GetDiskInfoResponse*>(&to_msg);
+  auto& from = static_cast<const GetDiskInfoResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.GetDiskInfoResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_error() != 0) {
-    _internal_set_error(from._internal_error());
+    _this->_internal_set_error(from._internal_error());
   }
   if (from._internal_available_space() != 0) {
-    _internal_set_available_space(from._internal_available_space());
+    _this->_internal_set_available_space(from._internal_available_space());
   }
   if (from._internal_expandable_space() != 0) {
-    _internal_set_expandable_space(from._internal_expandable_space());
+    _this->_internal_set_expandable_space(from._internal_expandable_space());
   }
   if (from._internal_disk_size() != 0) {
-    _internal_set_disk_size(from._internal_disk_size());
+    _this->_internal_set_disk_size(from._internal_disk_size());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void GetDiskInfoResponse::CopyFrom(const GetDiskInfoResponse& from) {
@@ -7299,15 +7355,15 @@ void GetDiskInfoResponse::InternalSwap(GetDiskInfoResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(GetDiskInfoResponse, disk_size_)
-      + sizeof(GetDiskInfoResponse::disk_size_)
-      - PROTOBUF_FIELD_OFFSET(GetDiskInfoResponse, error_)>(
-          reinterpret_cast<char*>(&error_),
-          reinterpret_cast<char*>(&other->error_));
+      PROTOBUF_FIELD_OFFSET(GetDiskInfoResponse, _impl_.disk_size_)
+      + sizeof(GetDiskInfoResponse::_impl_.disk_size_)
+      - PROTOBUF_FIELD_OFFSET(GetDiskInfoResponse, _impl_.error_)>(
+          reinterpret_cast<char*>(&_impl_.error_),
+          reinterpret_cast<char*>(&other->_impl_.error_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata GetDiskInfoResponse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[23]);
 }
@@ -7321,55 +7377,61 @@ class RequestSpaceRequest::_Internal {
 RequestSpaceRequest::RequestSpaceRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.RequestSpaceRequest)
 }
 RequestSpaceRequest::RequestSpaceRequest(const RequestSpaceRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  RequestSpaceRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.space_requested_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
-  space_requested_ = from.space_requested_;
+  _this->_impl_.space_requested_ = from._impl_.space_requested_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.RequestSpaceRequest)
 }
 
-inline void RequestSpaceRequest::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-space_requested_ = uint64_t{0u};
+inline void RequestSpaceRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.space_requested_){uint64_t{0u}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 RequestSpaceRequest::~RequestSpaceRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.container.RequestSpaceRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void RequestSpaceRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
 }
 
-void RequestSpaceRequest::ArenaDtor(void* object) {
-  RequestSpaceRequest* _this = reinterpret_cast< RequestSpaceRequest* >(object);
-  (void)_this;
-}
-void RequestSpaceRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void RequestSpaceRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RequestSpaceRequest::Clear() {
@@ -7378,31 +7440,31 @@ void RequestSpaceRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
-  space_requested_ = uint64_t{0u};
+  _impl_.token_.ClearToEmpty();
+  _impl_.space_requested_ = uint64_t{0u};
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* RequestSpaceRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* RequestSpaceRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.RequestSpaceRequest.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.RequestSpaceRequest.token"));
         } else
           goto handle_unusual;
         continue;
       // uint64 space_requested = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          space_requested_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.space_requested_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7449,11 +7511,11 @@ uint8_t* RequestSpaceRequest::_InternalSerialize(
   // uint64 space_requested = 2;
   if (this->_internal_space_requested() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(2, this->_internal_space_requested(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_space_requested(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.RequestSpaceRequest)
@@ -7477,38 +7539,34 @@ size_t RequestSpaceRequest::ByteSizeLong() const {
 
   // uint64 space_requested = 2;
   if (this->_internal_space_requested() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_space_requested());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_space_requested());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RequestSpaceRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     RequestSpaceRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RequestSpaceRequest::GetClassData() const { return &_class_data_; }
 
-void RequestSpaceRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<RequestSpaceRequest *>(to)->MergeFrom(
-      static_cast<const RequestSpaceRequest &>(from));
-}
 
-
-void RequestSpaceRequest::MergeFrom(const RequestSpaceRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.RequestSpaceRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void RequestSpaceRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<RequestSpaceRequest*>(&to_msg);
+  auto& from = static_cast<const RequestSpaceRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.RequestSpaceRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
   if (from._internal_space_requested() != 0) {
-    _internal_set_space_requested(from._internal_space_requested());
+    _this->_internal_set_space_requested(from._internal_space_requested());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void RequestSpaceRequest::CopyFrom(const RequestSpaceRequest& from) {
@@ -7528,15 +7586,14 @@ void RequestSpaceRequest::InternalSwap(RequestSpaceRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
-  swap(space_requested_, other->space_requested_);
+  swap(_impl_.space_requested_, other->_impl_.space_requested_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata RequestSpaceRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[24]);
 }
@@ -7550,47 +7607,50 @@ class RequestSpaceResponse::_Internal {
 RequestSpaceResponse::RequestSpaceResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.RequestSpaceResponse)
 }
 RequestSpaceResponse::RequestSpaceResponse(const RequestSpaceResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  RequestSpaceResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.space_granted_){}
+    , decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&space_granted_, &from.space_granted_,
-    static_cast<size_t>(reinterpret_cast<char*>(&error_) -
-    reinterpret_cast<char*>(&space_granted_)) + sizeof(error_));
+  ::memcpy(&_impl_.space_granted_, &from._impl_.space_granted_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.error_) -
+    reinterpret_cast<char*>(&_impl_.space_granted_)) + sizeof(_impl_.error_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.RequestSpaceResponse)
 }
 
-inline void RequestSpaceResponse::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&space_granted_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&error_) -
-    reinterpret_cast<char*>(&space_granted_)) + sizeof(error_));
+inline void RequestSpaceResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.space_granted_){uint64_t{0u}}
+    , decltype(_impl_.error_){int64_t{0}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 RequestSpaceResponse::~RequestSpaceResponse() {
   // @@protoc_insertion_point(destructor:vm_tools.container.RequestSpaceResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void RequestSpaceResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void RequestSpaceResponse::ArenaDtor(void* object) {
-  RequestSpaceResponse* _this = reinterpret_cast< RequestSpaceResponse* >(object);
-  (void)_this;
-}
-void RequestSpaceResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void RequestSpaceResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RequestSpaceResponse::Clear() {
@@ -7599,22 +7659,22 @@ void RequestSpaceResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&space_granted_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&error_) -
-      reinterpret_cast<char*>(&space_granted_)) + sizeof(error_));
+  ::memset(&_impl_.space_granted_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.error_) -
+      reinterpret_cast<char*>(&_impl_.space_granted_)) + sizeof(_impl_.error_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* RequestSpaceResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* RequestSpaceResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint64 space_granted = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          space_granted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.space_granted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7622,7 +7682,7 @@ const char* RequestSpaceResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAM
       // int64 error = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          error_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.error_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7659,17 +7719,17 @@ uint8_t* RequestSpaceResponse::_InternalSerialize(
   // uint64 space_granted = 1;
   if (this->_internal_space_granted() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_space_granted(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_space_granted(), target);
   }
 
   // int64 error = 2;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_error(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_error(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.RequestSpaceResponse)
@@ -7686,43 +7746,39 @@ size_t RequestSpaceResponse::ByteSizeLong() const {
 
   // uint64 space_granted = 1;
   if (this->_internal_space_granted() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_space_granted());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_space_granted());
   }
 
   // int64 error = 2;
   if (this->_internal_error() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_error());
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_error());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RequestSpaceResponse::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     RequestSpaceResponse::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RequestSpaceResponse::GetClassData() const { return &_class_data_; }
 
-void RequestSpaceResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<RequestSpaceResponse *>(to)->MergeFrom(
-      static_cast<const RequestSpaceResponse &>(from));
-}
 
-
-void RequestSpaceResponse::MergeFrom(const RequestSpaceResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.RequestSpaceResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+void RequestSpaceResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<RequestSpaceResponse*>(&to_msg);
+  auto& from = static_cast<const RequestSpaceResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.RequestSpaceResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_space_granted() != 0) {
-    _internal_set_space_granted(from._internal_space_granted());
+    _this->_internal_set_space_granted(from._internal_space_granted());
   }
   if (from._internal_error() != 0) {
-    _internal_set_error(from._internal_error());
+    _this->_internal_set_error(from._internal_error());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void RequestSpaceResponse::CopyFrom(const RequestSpaceResponse& from) {
@@ -7740,15 +7796,15 @@ void RequestSpaceResponse::InternalSwap(RequestSpaceResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(RequestSpaceResponse, error_)
-      + sizeof(RequestSpaceResponse::error_)
-      - PROTOBUF_FIELD_OFFSET(RequestSpaceResponse, space_granted_)>(
-          reinterpret_cast<char*>(&space_granted_),
-          reinterpret_cast<char*>(&other->space_granted_));
+      PROTOBUF_FIELD_OFFSET(RequestSpaceResponse, _impl_.error_)
+      + sizeof(RequestSpaceResponse::_impl_.error_)
+      - PROTOBUF_FIELD_OFFSET(RequestSpaceResponse, _impl_.space_granted_)>(
+          reinterpret_cast<char*>(&_impl_.space_granted_),
+          reinterpret_cast<char*>(&other->_impl_.space_granted_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata RequestSpaceResponse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[25]);
 }
@@ -7762,55 +7818,61 @@ class ReleaseSpaceRequest::_Internal {
 ReleaseSpaceRequest::ReleaseSpaceRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.ReleaseSpaceRequest)
 }
 ReleaseSpaceRequest::ReleaseSpaceRequest(const ReleaseSpaceRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ReleaseSpaceRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.space_to_release_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
-  space_to_release_ = from.space_to_release_;
+  _this->_impl_.space_to_release_ = from._impl_.space_to_release_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.ReleaseSpaceRequest)
 }
 
-inline void ReleaseSpaceRequest::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-space_to_release_ = uint64_t{0u};
+inline void ReleaseSpaceRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.space_to_release_){uint64_t{0u}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ReleaseSpaceRequest::~ReleaseSpaceRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.container.ReleaseSpaceRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void ReleaseSpaceRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
 }
 
-void ReleaseSpaceRequest::ArenaDtor(void* object) {
-  ReleaseSpaceRequest* _this = reinterpret_cast< ReleaseSpaceRequest* >(object);
-  (void)_this;
-}
-void ReleaseSpaceRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ReleaseSpaceRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ReleaseSpaceRequest::Clear() {
@@ -7819,31 +7881,31 @@ void ReleaseSpaceRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
-  space_to_release_ = uint64_t{0u};
+  _impl_.token_.ClearToEmpty();
+  _impl_.space_to_release_ = uint64_t{0u};
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ReleaseSpaceRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ReleaseSpaceRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.ReleaseSpaceRequest.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.ReleaseSpaceRequest.token"));
         } else
           goto handle_unusual;
         continue;
       // uint64 space_to_release = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          space_to_release_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.space_to_release_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -7890,11 +7952,11 @@ uint8_t* ReleaseSpaceRequest::_InternalSerialize(
   // uint64 space_to_release = 2;
   if (this->_internal_space_to_release() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(2, this->_internal_space_to_release(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_space_to_release(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.ReleaseSpaceRequest)
@@ -7918,38 +7980,34 @@ size_t ReleaseSpaceRequest::ByteSizeLong() const {
 
   // uint64 space_to_release = 2;
   if (this->_internal_space_to_release() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_space_to_release());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_space_to_release());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ReleaseSpaceRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     ReleaseSpaceRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ReleaseSpaceRequest::GetClassData() const { return &_class_data_; }
 
-void ReleaseSpaceRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<ReleaseSpaceRequest *>(to)->MergeFrom(
-      static_cast<const ReleaseSpaceRequest &>(from));
-}
 
-
-void ReleaseSpaceRequest::MergeFrom(const ReleaseSpaceRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ReleaseSpaceRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void ReleaseSpaceRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ReleaseSpaceRequest*>(&to_msg);
+  auto& from = static_cast<const ReleaseSpaceRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ReleaseSpaceRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
   if (from._internal_space_to_release() != 0) {
-    _internal_set_space_to_release(from._internal_space_to_release());
+    _this->_internal_set_space_to_release(from._internal_space_to_release());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void ReleaseSpaceRequest::CopyFrom(const ReleaseSpaceRequest& from) {
@@ -7969,15 +8027,14 @@ void ReleaseSpaceRequest::InternalSwap(ReleaseSpaceRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
-  swap(space_to_release_, other->space_to_release_);
+  swap(_impl_.space_to_release_, other->_impl_.space_to_release_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ReleaseSpaceRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[26]);
 }
@@ -7991,47 +8048,50 @@ class ReleaseSpaceResponse::_Internal {
 ReleaseSpaceResponse::ReleaseSpaceResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.ReleaseSpaceResponse)
 }
 ReleaseSpaceResponse::ReleaseSpaceResponse(const ReleaseSpaceResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ReleaseSpaceResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.space_released_){}
+    , decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&space_released_, &from.space_released_,
-    static_cast<size_t>(reinterpret_cast<char*>(&error_) -
-    reinterpret_cast<char*>(&space_released_)) + sizeof(error_));
+  ::memcpy(&_impl_.space_released_, &from._impl_.space_released_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.error_) -
+    reinterpret_cast<char*>(&_impl_.space_released_)) + sizeof(_impl_.error_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.ReleaseSpaceResponse)
 }
 
-inline void ReleaseSpaceResponse::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&space_released_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&error_) -
-    reinterpret_cast<char*>(&space_released_)) + sizeof(error_));
+inline void ReleaseSpaceResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.space_released_){uint64_t{0u}}
+    , decltype(_impl_.error_){int64_t{0}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 ReleaseSpaceResponse::~ReleaseSpaceResponse() {
   // @@protoc_insertion_point(destructor:vm_tools.container.ReleaseSpaceResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void ReleaseSpaceResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void ReleaseSpaceResponse::ArenaDtor(void* object) {
-  ReleaseSpaceResponse* _this = reinterpret_cast< ReleaseSpaceResponse* >(object);
-  (void)_this;
-}
-void ReleaseSpaceResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ReleaseSpaceResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ReleaseSpaceResponse::Clear() {
@@ -8040,22 +8100,22 @@ void ReleaseSpaceResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ::memset(&space_released_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&error_) -
-      reinterpret_cast<char*>(&space_released_)) + sizeof(error_));
+  ::memset(&_impl_.space_released_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.error_) -
+      reinterpret_cast<char*>(&_impl_.space_released_)) + sizeof(_impl_.error_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ReleaseSpaceResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ReleaseSpaceResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // uint64 space_released = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          space_released_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.space_released_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -8063,7 +8123,7 @@ const char* ReleaseSpaceResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAM
       // int64 error = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          error_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.error_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -8100,17 +8160,17 @@ uint8_t* ReleaseSpaceResponse::_InternalSerialize(
   // uint64 space_released = 1;
   if (this->_internal_space_released() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_space_released(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_space_released(), target);
   }
 
   // int64 error = 2;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_error(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_error(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.ReleaseSpaceResponse)
@@ -8127,43 +8187,39 @@ size_t ReleaseSpaceResponse::ByteSizeLong() const {
 
   // uint64 space_released = 1;
   if (this->_internal_space_released() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_space_released());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_space_released());
   }
 
   // int64 error = 2;
   if (this->_internal_error() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_error());
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_error());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ReleaseSpaceResponse::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     ReleaseSpaceResponse::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ReleaseSpaceResponse::GetClassData() const { return &_class_data_; }
 
-void ReleaseSpaceResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<ReleaseSpaceResponse *>(to)->MergeFrom(
-      static_cast<const ReleaseSpaceResponse &>(from));
-}
 
-
-void ReleaseSpaceResponse::MergeFrom(const ReleaseSpaceResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ReleaseSpaceResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+void ReleaseSpaceResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ReleaseSpaceResponse*>(&to_msg);
+  auto& from = static_cast<const ReleaseSpaceResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ReleaseSpaceResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_space_released() != 0) {
-    _internal_set_space_released(from._internal_space_released());
+    _this->_internal_set_space_released(from._internal_space_released());
   }
   if (from._internal_error() != 0) {
-    _internal_set_error(from._internal_error());
+    _this->_internal_set_error(from._internal_error());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void ReleaseSpaceResponse::CopyFrom(const ReleaseSpaceResponse& from) {
@@ -8181,15 +8237,15 @@ void ReleaseSpaceResponse::InternalSwap(ReleaseSpaceResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ReleaseSpaceResponse, error_)
-      + sizeof(ReleaseSpaceResponse::error_)
-      - PROTOBUF_FIELD_OFFSET(ReleaseSpaceResponse, space_released_)>(
-          reinterpret_cast<char*>(&space_released_),
-          reinterpret_cast<char*>(&other->space_released_));
+      PROTOBUF_FIELD_OFFSET(ReleaseSpaceResponse, _impl_.error_)
+      + sizeof(ReleaseSpaceResponse::_impl_.error_)
+      - PROTOBUF_FIELD_OFFSET(ReleaseSpaceResponse, _impl_.space_released_)>(
+          reinterpret_cast<char*>(&_impl_.space_released_),
+          reinterpret_cast<char*>(&other->_impl_.space_released_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ReleaseSpaceResponse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[27]);
 }
@@ -8203,55 +8259,61 @@ class Metric::_Internal {
 Metric::Metric(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.Metric)
 }
 Metric::Metric(const Metric& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Metric* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.value_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.name_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
+    _this->_impl_.name_.Set(from._internal_name(), 
+      _this->GetArenaForAllocation());
   }
-  value_ = from.value_;
+  _this->_impl_.value_ = from._impl_.value_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.Metric)
 }
 
-inline void Metric::SharedCtor() {
-name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-value_ = int64_t{0};
+inline void Metric::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.name_){}
+    , decltype(_impl_.value_){int64_t{0}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 Metric::~Metric() {
   // @@protoc_insertion_point(destructor:vm_tools.container.Metric)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void Metric::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.name_.Destroy();
 }
 
-void Metric::ArenaDtor(void* object) {
-  Metric* _this = reinterpret_cast< Metric* >(object);
-  (void)_this;
-}
-void Metric::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void Metric::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Metric::Clear() {
@@ -8260,31 +8322,31 @@ void Metric::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmpty();
-  value_ = int64_t{0};
+  _impl_.name_.ClearToEmpty();
+  _impl_.value_ = int64_t{0};
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* Metric::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Metric::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.Metric.name"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.Metric.name"));
         } else
           goto handle_unusual;
         continue;
       // int64 value = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          value_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.value_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -8331,11 +8393,11 @@ uint8_t* Metric::_InternalSerialize(
   // int64 value = 2;
   if (this->_internal_value() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_value(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(2, this->_internal_value(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.Metric)
@@ -8359,38 +8421,34 @@ size_t Metric::ByteSizeLong() const {
 
   // int64 value = 2;
   if (this->_internal_value() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_value());
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_value());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Metric::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     Metric::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Metric::GetClassData() const { return &_class_data_; }
 
-void Metric::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<Metric *>(to)->MergeFrom(
-      static_cast<const Metric &>(from));
-}
 
-
-void Metric::MergeFrom(const Metric& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.Metric)
-  GOOGLE_DCHECK_NE(&from, this);
+void Metric::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Metric*>(&to_msg);
+  auto& from = static_cast<const Metric&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.Metric)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_name().empty()) {
-    _internal_set_name(from._internal_name());
+    _this->_internal_set_name(from._internal_name());
   }
   if (from._internal_value() != 0) {
-    _internal_set_value(from._internal_value());
+    _this->_internal_set_value(from._internal_value());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Metric::CopyFrom(const Metric& from) {
@@ -8410,15 +8468,14 @@ void Metric::InternalSwap(Metric* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &name_, lhs_arena,
-      &other->name_, rhs_arena
+      &_impl_.name_, lhs_arena,
+      &other->_impl_.name_, rhs_arena
   );
-  swap(value_, other->value_);
+  swap(_impl_.value_, other->_impl_.value_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Metric::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[28]);
 }
@@ -8431,56 +8488,62 @@ class ReportMetricsRequest::_Internal {
 
 ReportMetricsRequest::ReportMetricsRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  metric_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.ReportMetricsRequest)
 }
 ReportMetricsRequest::ReportMetricsRequest(const ReportMetricsRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      metric_(from.metric_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ReportMetricsRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.metric_){from._impl_.metric_}
+    , decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.ReportMetricsRequest)
 }
 
-inline void ReportMetricsRequest::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void ReportMetricsRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.metric_){arena}
+    , decltype(_impl_.token_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ReportMetricsRequest::~ReportMetricsRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.container.ReportMetricsRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void ReportMetricsRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.metric_.~RepeatedPtrField();
+  _impl_.token_.Destroy();
 }
 
-void ReportMetricsRequest::ArenaDtor(void* object) {
-  ReportMetricsRequest* _this = reinterpret_cast< ReportMetricsRequest* >(object);
-  (void)_this;
-}
-void ReportMetricsRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ReportMetricsRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ReportMetricsRequest::Clear() {
@@ -8489,24 +8552,24 @@ void ReportMetricsRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  metric_.Clear();
-  token_.ClearToEmpty();
+  _impl_.metric_.Clear();
+  _impl_.token_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ReportMetricsRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ReportMetricsRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.ReportMetricsRequest.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.ReportMetricsRequest.token"));
         } else
           goto handle_unusual;
         continue;
@@ -8563,15 +8626,15 @@ uint8_t* ReportMetricsRequest::_InternalSerialize(
   }
 
   // repeated .vm_tools.container.Metric metric = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_metric_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_metric_size()); i < n; i++) {
+    const auto& repfield = this->_internal_metric(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_metric(i), target, stream);
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.ReportMetricsRequest)
@@ -8588,7 +8651,7 @@ size_t ReportMetricsRequest::ByteSizeLong() const {
 
   // repeated .vm_tools.container.Metric metric = 2;
   total_size += 1UL * this->_internal_metric_size();
-  for (const auto& msg : this->metric_) {
+  for (const auto& msg : this->_impl_.metric_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -8600,33 +8663,29 @@ size_t ReportMetricsRequest::ByteSizeLong() const {
         this->_internal_token());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ReportMetricsRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     ReportMetricsRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ReportMetricsRequest::GetClassData() const { return &_class_data_; }
 
-void ReportMetricsRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<ReportMetricsRequest *>(to)->MergeFrom(
-      static_cast<const ReportMetricsRequest &>(from));
-}
 
-
-void ReportMetricsRequest::MergeFrom(const ReportMetricsRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ReportMetricsRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void ReportMetricsRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ReportMetricsRequest*>(&to_msg);
+  auto& from = static_cast<const ReportMetricsRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ReportMetricsRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  metric_.MergeFrom(from.metric_);
+  _this->_impl_.metric_.MergeFrom(from._impl_.metric_);
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void ReportMetricsRequest::CopyFrom(const ReportMetricsRequest& from) {
@@ -8645,16 +8704,15 @@ void ReportMetricsRequest::InternalSwap(ReportMetricsRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  metric_.InternalSwap(&other->metric_);
+  _impl_.metric_.InternalSwap(&other->_impl_.metric_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ReportMetricsRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[29]);
 }
@@ -8668,42 +8726,46 @@ class ReportMetricsResponse::_Internal {
 ReportMetricsResponse::ReportMetricsResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.ReportMetricsResponse)
 }
 ReportMetricsResponse::ReportMetricsResponse(const ReportMetricsResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  ReportMetricsResponse* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  error_ = from.error_;
+  _this->_impl_.error_ = from._impl_.error_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.ReportMetricsResponse)
 }
 
-inline void ReportMetricsResponse::SharedCtor() {
-error_ = int64_t{0};
+inline void ReportMetricsResponse::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_){int64_t{0}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 ReportMetricsResponse::~ReportMetricsResponse() {
   // @@protoc_insertion_point(destructor:vm_tools.container.ReportMetricsResponse)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void ReportMetricsResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void ReportMetricsResponse::ArenaDtor(void* object) {
-  ReportMetricsResponse* _this = reinterpret_cast< ReportMetricsResponse* >(object);
-  (void)_this;
-}
-void ReportMetricsResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void ReportMetricsResponse::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void ReportMetricsResponse::Clear() {
@@ -8712,20 +8774,20 @@ void ReportMetricsResponse::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  error_ = int64_t{0};
+  _impl_.error_ = int64_t{0};
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* ReportMetricsResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* ReportMetricsResponse::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // int64 error = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          error_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.error_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -8762,11 +8824,11 @@ uint8_t* ReportMetricsResponse::_InternalSerialize(
   // int64 error = 1;
   if (this->_internal_error() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_error(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_error(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.ReportMetricsResponse)
@@ -8783,35 +8845,31 @@ size_t ReportMetricsResponse::ByteSizeLong() const {
 
   // int64 error = 1;
   if (this->_internal_error() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_error());
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_error());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData ReportMetricsResponse::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     ReportMetricsResponse::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*ReportMetricsResponse::GetClassData() const { return &_class_data_; }
 
-void ReportMetricsResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<ReportMetricsResponse *>(to)->MergeFrom(
-      static_cast<const ReportMetricsResponse &>(from));
-}
 
-
-void ReportMetricsResponse::MergeFrom(const ReportMetricsResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ReportMetricsResponse)
-  GOOGLE_DCHECK_NE(&from, this);
+void ReportMetricsResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<ReportMetricsResponse*>(&to_msg);
+  auto& from = static_cast<const ReportMetricsResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.ReportMetricsResponse)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_error() != 0) {
-    _internal_set_error(from._internal_error());
+    _this->_internal_set_error(from._internal_error());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void ReportMetricsResponse::CopyFrom(const ReportMetricsResponse& from) {
@@ -8828,11 +8886,11 @@ bool ReportMetricsResponse::IsInitialized() const {
 void ReportMetricsResponse::InternalSwap(ReportMetricsResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(error_, other->error_);
+  swap(_impl_.error_, other->_impl_.error_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata ReportMetricsResponse::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[30]);
 }
@@ -8846,60 +8904,67 @@ class InstallShaderCacheRequest::_Internal {
 InstallShaderCacheRequest::InstallShaderCacheRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.InstallShaderCacheRequest)
 }
 InstallShaderCacheRequest::InstallShaderCacheRequest(const InstallShaderCacheRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  InstallShaderCacheRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.steam_app_id_){}
+    , decltype(_impl_.mount_){}
+    , decltype(_impl_.wait_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&steam_app_id_, &from.steam_app_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&wait_) -
-    reinterpret_cast<char*>(&steam_app_id_)) + sizeof(wait_));
+  ::memcpy(&_impl_.steam_app_id_, &from._impl_.steam_app_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.wait_) -
+    reinterpret_cast<char*>(&_impl_.steam_app_id_)) + sizeof(_impl_.wait_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.InstallShaderCacheRequest)
 }
 
-inline void InstallShaderCacheRequest::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&steam_app_id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&wait_) -
-    reinterpret_cast<char*>(&steam_app_id_)) + sizeof(wait_));
+inline void InstallShaderCacheRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.steam_app_id_){uint64_t{0u}}
+    , decltype(_impl_.mount_){false}
+    , decltype(_impl_.wait_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 InstallShaderCacheRequest::~InstallShaderCacheRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.container.InstallShaderCacheRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void InstallShaderCacheRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
 }
 
-void InstallShaderCacheRequest::ArenaDtor(void* object) {
-  InstallShaderCacheRequest* _this = reinterpret_cast< InstallShaderCacheRequest* >(object);
-  (void)_this;
-}
-void InstallShaderCacheRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void InstallShaderCacheRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void InstallShaderCacheRequest::Clear() {
@@ -8908,33 +8973,33 @@ void InstallShaderCacheRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
-  ::memset(&steam_app_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&wait_) -
-      reinterpret_cast<char*>(&steam_app_id_)) + sizeof(wait_));
+  _impl_.token_.ClearToEmpty();
+  ::memset(&_impl_.steam_app_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.wait_) -
+      reinterpret_cast<char*>(&_impl_.steam_app_id_)) + sizeof(_impl_.wait_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* InstallShaderCacheRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* InstallShaderCacheRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.InstallShaderCacheRequest.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.InstallShaderCacheRequest.token"));
         } else
           goto handle_unusual;
         continue;
       // uint64 steam_app_id = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          steam_app_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.steam_app_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -8942,7 +9007,7 @@ const char* InstallShaderCacheRequest::_InternalParse(const char* ptr, ::PROTOBU
       // bool mount = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          mount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.mount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -8950,7 +9015,7 @@ const char* InstallShaderCacheRequest::_InternalParse(const char* ptr, ::PROTOBU
       // bool wait = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
-          wait_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.wait_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -8997,23 +9062,23 @@ uint8_t* InstallShaderCacheRequest::_InternalSerialize(
   // uint64 steam_app_id = 2;
   if (this->_internal_steam_app_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(2, this->_internal_steam_app_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_steam_app_id(), target);
   }
 
   // bool mount = 3;
   if (this->_internal_mount() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_mount(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_mount(), target);
   }
 
   // bool wait = 4;
   if (this->_internal_wait() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_wait(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_wait(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.InstallShaderCacheRequest)
@@ -9037,7 +9102,7 @@ size_t InstallShaderCacheRequest::ByteSizeLong() const {
 
   // uint64 steam_app_id = 2;
   if (this->_internal_steam_app_id() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_steam_app_id());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_steam_app_id());
   }
 
   // bool mount = 3;
@@ -9050,41 +9115,37 @@ size_t InstallShaderCacheRequest::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData InstallShaderCacheRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     InstallShaderCacheRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*InstallShaderCacheRequest::GetClassData() const { return &_class_data_; }
 
-void InstallShaderCacheRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<InstallShaderCacheRequest *>(to)->MergeFrom(
-      static_cast<const InstallShaderCacheRequest &>(from));
-}
 
-
-void InstallShaderCacheRequest::MergeFrom(const InstallShaderCacheRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.InstallShaderCacheRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void InstallShaderCacheRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<InstallShaderCacheRequest*>(&to_msg);
+  auto& from = static_cast<const InstallShaderCacheRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.InstallShaderCacheRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
   if (from._internal_steam_app_id() != 0) {
-    _internal_set_steam_app_id(from._internal_steam_app_id());
+    _this->_internal_set_steam_app_id(from._internal_steam_app_id());
   }
   if (from._internal_mount() != 0) {
-    _internal_set_mount(from._internal_mount());
+    _this->_internal_set_mount(from._internal_mount());
   }
   if (from._internal_wait() != 0) {
-    _internal_set_wait(from._internal_wait());
+    _this->_internal_set_wait(from._internal_wait());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void InstallShaderCacheRequest::CopyFrom(const InstallShaderCacheRequest& from) {
@@ -9104,20 +9165,19 @@ void InstallShaderCacheRequest::InternalSwap(InstallShaderCacheRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(InstallShaderCacheRequest, wait_)
-      + sizeof(InstallShaderCacheRequest::wait_)
-      - PROTOBUF_FIELD_OFFSET(InstallShaderCacheRequest, steam_app_id_)>(
-          reinterpret_cast<char*>(&steam_app_id_),
-          reinterpret_cast<char*>(&other->steam_app_id_));
+      PROTOBUF_FIELD_OFFSET(InstallShaderCacheRequest, _impl_.wait_)
+      + sizeof(InstallShaderCacheRequest::_impl_.wait_)
+      - PROTOBUF_FIELD_OFFSET(InstallShaderCacheRequest, _impl_.steam_app_id_)>(
+          reinterpret_cast<char*>(&_impl_.steam_app_id_),
+          reinterpret_cast<char*>(&other->_impl_.steam_app_id_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata InstallShaderCacheRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[31]);
 }
@@ -9131,55 +9191,61 @@ class UninstallShaderCacheRequest::_Internal {
 UninstallShaderCacheRequest::UninstallShaderCacheRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.UninstallShaderCacheRequest)
 }
 UninstallShaderCacheRequest::UninstallShaderCacheRequest(const UninstallShaderCacheRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  UninstallShaderCacheRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.steam_app_id_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
-  steam_app_id_ = from.steam_app_id_;
+  _this->_impl_.steam_app_id_ = from._impl_.steam_app_id_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.UninstallShaderCacheRequest)
 }
 
-inline void UninstallShaderCacheRequest::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-steam_app_id_ = uint64_t{0u};
+inline void UninstallShaderCacheRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.steam_app_id_){uint64_t{0u}}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 UninstallShaderCacheRequest::~UninstallShaderCacheRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.container.UninstallShaderCacheRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void UninstallShaderCacheRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
 }
 
-void UninstallShaderCacheRequest::ArenaDtor(void* object) {
-  UninstallShaderCacheRequest* _this = reinterpret_cast< UninstallShaderCacheRequest* >(object);
-  (void)_this;
-}
-void UninstallShaderCacheRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void UninstallShaderCacheRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UninstallShaderCacheRequest::Clear() {
@@ -9188,31 +9254,31 @@ void UninstallShaderCacheRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
-  steam_app_id_ = uint64_t{0u};
+  _impl_.token_.ClearToEmpty();
+  _impl_.steam_app_id_ = uint64_t{0u};
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* UninstallShaderCacheRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* UninstallShaderCacheRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.UninstallShaderCacheRequest.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.UninstallShaderCacheRequest.token"));
         } else
           goto handle_unusual;
         continue;
       // uint64 steam_app_id = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          steam_app_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.steam_app_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9259,11 +9325,11 @@ uint8_t* UninstallShaderCacheRequest::_InternalSerialize(
   // uint64 steam_app_id = 2;
   if (this->_internal_steam_app_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(2, this->_internal_steam_app_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_steam_app_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.UninstallShaderCacheRequest)
@@ -9287,38 +9353,34 @@ size_t UninstallShaderCacheRequest::ByteSizeLong() const {
 
   // uint64 steam_app_id = 2;
   if (this->_internal_steam_app_id() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_steam_app_id());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_steam_app_id());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData UninstallShaderCacheRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     UninstallShaderCacheRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*UninstallShaderCacheRequest::GetClassData() const { return &_class_data_; }
 
-void UninstallShaderCacheRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<UninstallShaderCacheRequest *>(to)->MergeFrom(
-      static_cast<const UninstallShaderCacheRequest &>(from));
-}
 
-
-void UninstallShaderCacheRequest::MergeFrom(const UninstallShaderCacheRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.UninstallShaderCacheRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void UninstallShaderCacheRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<UninstallShaderCacheRequest*>(&to_msg);
+  auto& from = static_cast<const UninstallShaderCacheRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.UninstallShaderCacheRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
   if (from._internal_steam_app_id() != 0) {
-    _internal_set_steam_app_id(from._internal_steam_app_id());
+    _this->_internal_set_steam_app_id(from._internal_steam_app_id());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void UninstallShaderCacheRequest::CopyFrom(const UninstallShaderCacheRequest& from) {
@@ -9338,15 +9400,14 @@ void UninstallShaderCacheRequest::InternalSwap(UninstallShaderCacheRequest* othe
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
-  swap(steam_app_id_, other->steam_app_id_);
+  swap(_impl_.steam_app_id_, other->_impl_.steam_app_id_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata UninstallShaderCacheRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[32]);
 }
@@ -9360,60 +9421,65 @@ class UnmountShaderCacheRequest::_Internal {
 UnmountShaderCacheRequest::UnmountShaderCacheRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.UnmountShaderCacheRequest)
 }
 UnmountShaderCacheRequest::UnmountShaderCacheRequest(const UnmountShaderCacheRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  UnmountShaderCacheRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.steam_app_id_){}
+    , decltype(_impl_.wait_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
-  ::memcpy(&steam_app_id_, &from.steam_app_id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&wait_) -
-    reinterpret_cast<char*>(&steam_app_id_)) + sizeof(wait_));
+  ::memcpy(&_impl_.steam_app_id_, &from._impl_.steam_app_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.wait_) -
+    reinterpret_cast<char*>(&_impl_.steam_app_id_)) + sizeof(_impl_.wait_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.UnmountShaderCacheRequest)
 }
 
-inline void UnmountShaderCacheRequest::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&steam_app_id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&wait_) -
-    reinterpret_cast<char*>(&steam_app_id_)) + sizeof(wait_));
+inline void UnmountShaderCacheRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.steam_app_id_){uint64_t{0u}}
+    , decltype(_impl_.wait_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 UnmountShaderCacheRequest::~UnmountShaderCacheRequest() {
   // @@protoc_insertion_point(destructor:vm_tools.container.UnmountShaderCacheRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void UnmountShaderCacheRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
 }
 
-void UnmountShaderCacheRequest::ArenaDtor(void* object) {
-  UnmountShaderCacheRequest* _this = reinterpret_cast< UnmountShaderCacheRequest* >(object);
-  (void)_this;
-}
-void UnmountShaderCacheRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void UnmountShaderCacheRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UnmountShaderCacheRequest::Clear() {
@@ -9422,33 +9488,33 @@ void UnmountShaderCacheRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
-  ::memset(&steam_app_id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&wait_) -
-      reinterpret_cast<char*>(&steam_app_id_)) + sizeof(wait_));
+  _impl_.token_.ClearToEmpty();
+  ::memset(&_impl_.steam_app_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&_impl_.wait_) -
+      reinterpret_cast<char*>(&_impl_.steam_app_id_)) + sizeof(_impl_.wait_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* UnmountShaderCacheRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* UnmountShaderCacheRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.UnmountShaderCacheRequest.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.UnmountShaderCacheRequest.token"));
         } else
           goto handle_unusual;
         continue;
       // uint64 steam_app_id = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          steam_app_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.steam_app_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9456,7 +9522,7 @@ const char* UnmountShaderCacheRequest::_InternalParse(const char* ptr, ::PROTOBU
       // bool wait = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          wait_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.wait_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9503,17 +9569,17 @@ uint8_t* UnmountShaderCacheRequest::_InternalSerialize(
   // uint64 steam_app_id = 2;
   if (this->_internal_steam_app_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(2, this->_internal_steam_app_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_steam_app_id(), target);
   }
 
   // bool wait = 3;
   if (this->_internal_wait() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_wait(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_wait(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.UnmountShaderCacheRequest)
@@ -9537,7 +9603,7 @@ size_t UnmountShaderCacheRequest::ByteSizeLong() const {
 
   // uint64 steam_app_id = 2;
   if (this->_internal_steam_app_id() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_steam_app_id());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_steam_app_id());
   }
 
   // bool wait = 3;
@@ -9545,38 +9611,34 @@ size_t UnmountShaderCacheRequest::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData UnmountShaderCacheRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     UnmountShaderCacheRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*UnmountShaderCacheRequest::GetClassData() const { return &_class_data_; }
 
-void UnmountShaderCacheRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<UnmountShaderCacheRequest *>(to)->MergeFrom(
-      static_cast<const UnmountShaderCacheRequest &>(from));
-}
 
-
-void UnmountShaderCacheRequest::MergeFrom(const UnmountShaderCacheRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.UnmountShaderCacheRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void UnmountShaderCacheRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<UnmountShaderCacheRequest*>(&to_msg);
+  auto& from = static_cast<const UnmountShaderCacheRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.UnmountShaderCacheRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
   if (from._internal_steam_app_id() != 0) {
-    _internal_set_steam_app_id(from._internal_steam_app_id());
+    _this->_internal_set_steam_app_id(from._internal_steam_app_id());
   }
   if (from._internal_wait() != 0) {
-    _internal_set_wait(from._internal_wait());
+    _this->_internal_set_wait(from._internal_wait());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void UnmountShaderCacheRequest::CopyFrom(const UnmountShaderCacheRequest& from) {
@@ -9596,20 +9658,19 @@ void UnmountShaderCacheRequest::InternalSwap(UnmountShaderCacheRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(UnmountShaderCacheRequest, wait_)
-      + sizeof(UnmountShaderCacheRequest::wait_)
-      - PROTOBUF_FIELD_OFFSET(UnmountShaderCacheRequest, steam_app_id_)>(
-          reinterpret_cast<char*>(&steam_app_id_),
-          reinterpret_cast<char*>(&other->steam_app_id_));
+      PROTOBUF_FIELD_OFFSET(UnmountShaderCacheRequest, _impl_.wait_)
+      + sizeof(UnmountShaderCacheRequest::_impl_.wait_)
+      - PROTOBUF_FIELD_OFFSET(UnmountShaderCacheRequest, _impl_.steam_app_id_)>(
+          reinterpret_cast<char*>(&_impl_.steam_app_id_),
+          reinterpret_cast<char*>(&other->_impl_.steam_app_id_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata UnmountShaderCacheRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[33]);
 }
@@ -9623,81 +9684,91 @@ class InhibitScreensaverInfo::_Internal {
 InhibitScreensaverInfo::InhibitScreensaverInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.InhibitScreensaverInfo)
 }
 InhibitScreensaverInfo::InhibitScreensaverInfo(const InhibitScreensaverInfo& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  InhibitScreensaverInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.client_){}
+    , decltype(_impl_.reason_){}
+    , decltype(_impl_.cookie_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
-  client_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.client_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    client_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.client_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_client().empty()) {
-    client_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_client(), 
-      GetArenaForAllocation());
+    _this->_impl_.client_.Set(from._internal_client(), 
+      _this->GetArenaForAllocation());
   }
-  reason_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.reason_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.reason_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_reason().empty()) {
-    reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_reason(), 
-      GetArenaForAllocation());
+    _this->_impl_.reason_.Set(from._internal_reason(), 
+      _this->GetArenaForAllocation());
   }
-  cookie_ = from.cookie_;
+  _this->_impl_.cookie_ = from._impl_.cookie_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.InhibitScreensaverInfo)
 }
 
-inline void InhibitScreensaverInfo::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-client_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  client_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-reason_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-cookie_ = 0;
+inline void InhibitScreensaverInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.client_){}
+    , decltype(_impl_.reason_){}
+    , decltype(_impl_.cookie_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.client_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.client_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.reason_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.reason_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 InhibitScreensaverInfo::~InhibitScreensaverInfo() {
   // @@protoc_insertion_point(destructor:vm_tools.container.InhibitScreensaverInfo)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void InhibitScreensaverInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  client_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  reason_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
+  _impl_.client_.Destroy();
+  _impl_.reason_.Destroy();
 }
 
-void InhibitScreensaverInfo::ArenaDtor(void* object) {
-  InhibitScreensaverInfo* _this = reinterpret_cast< InhibitScreensaverInfo* >(object);
-  (void)_this;
-}
-void InhibitScreensaverInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void InhibitScreensaverInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void InhibitScreensaverInfo::Clear() {
@@ -9706,33 +9777,33 @@ void InhibitScreensaverInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
-  client_.ClearToEmpty();
-  reason_.ClearToEmpty();
-  cookie_ = 0;
+  _impl_.token_.ClearToEmpty();
+  _impl_.client_.ClearToEmpty();
+  _impl_.reason_.ClearToEmpty();
+  _impl_.cookie_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* InhibitScreensaverInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* InhibitScreensaverInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.InhibitScreensaverInfo.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.InhibitScreensaverInfo.token"));
         } else
           goto handle_unusual;
         continue;
       // int32 cookie = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          cookie_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.cookie_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -9741,9 +9812,9 @@ const char* InhibitScreensaverInfo::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_client();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.InhibitScreensaverInfo.client"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.InhibitScreensaverInfo.client"));
         } else
           goto handle_unusual;
         continue;
@@ -9751,9 +9822,9 @@ const char* InhibitScreensaverInfo::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_reason();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.InhibitScreensaverInfo.reason"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.InhibitScreensaverInfo.reason"));
         } else
           goto handle_unusual;
         continue;
@@ -9799,7 +9870,7 @@ uint8_t* InhibitScreensaverInfo::_InternalSerialize(
   // int32 cookie = 2;
   if (this->_internal_cookie() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_cookie(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_cookie(), target);
   }
 
   // string client = 3;
@@ -9823,7 +9894,7 @@ uint8_t* InhibitScreensaverInfo::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.InhibitScreensaverInfo)
@@ -9861,44 +9932,40 @@ size_t InhibitScreensaverInfo::ByteSizeLong() const {
 
   // int32 cookie = 2;
   if (this->_internal_cookie() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_cookie());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_cookie());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData InhibitScreensaverInfo::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     InhibitScreensaverInfo::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*InhibitScreensaverInfo::GetClassData() const { return &_class_data_; }
 
-void InhibitScreensaverInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<InhibitScreensaverInfo *>(to)->MergeFrom(
-      static_cast<const InhibitScreensaverInfo &>(from));
-}
 
-
-void InhibitScreensaverInfo::MergeFrom(const InhibitScreensaverInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.InhibitScreensaverInfo)
-  GOOGLE_DCHECK_NE(&from, this);
+void InhibitScreensaverInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<InhibitScreensaverInfo*>(&to_msg);
+  auto& from = static_cast<const InhibitScreensaverInfo&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.InhibitScreensaverInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
   if (!from._internal_client().empty()) {
-    _internal_set_client(from._internal_client());
+    _this->_internal_set_client(from._internal_client());
   }
   if (!from._internal_reason().empty()) {
-    _internal_set_reason(from._internal_reason());
+    _this->_internal_set_reason(from._internal_reason());
   }
   if (from._internal_cookie() != 0) {
-    _internal_set_cookie(from._internal_cookie());
+    _this->_internal_set_cookie(from._internal_cookie());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void InhibitScreensaverInfo::CopyFrom(const InhibitScreensaverInfo& from) {
@@ -9918,25 +9985,22 @@ void InhibitScreensaverInfo::InternalSwap(InhibitScreensaverInfo* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &client_, lhs_arena,
-      &other->client_, rhs_arena
+      &_impl_.client_, lhs_arena,
+      &other->_impl_.client_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &reason_, lhs_arena,
-      &other->reason_, rhs_arena
+      &_impl_.reason_, lhs_arena,
+      &other->_impl_.reason_, rhs_arena
   );
-  swap(cookie_, other->cookie_);
+  swap(_impl_.cookie_, other->_impl_.cookie_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata InhibitScreensaverInfo::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[34]);
 }
@@ -9950,55 +10014,61 @@ class UninhibitScreensaverInfo::_Internal {
 UninhibitScreensaverInfo::UninhibitScreensaverInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.UninhibitScreensaverInfo)
 }
 UninhibitScreensaverInfo::UninhibitScreensaverInfo(const UninhibitScreensaverInfo& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
+  UninhibitScreensaverInfo* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.cookie_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.token_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_token().empty()) {
-    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
-      GetArenaForAllocation());
+    _this->_impl_.token_.Set(from._internal_token(), 
+      _this->GetArenaForAllocation());
   }
-  cookie_ = from.cookie_;
+  _this->_impl_.cookie_ = from._impl_.cookie_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.UninhibitScreensaverInfo)
 }
 
-inline void UninhibitScreensaverInfo::SharedCtor() {
-token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-cookie_ = 0;
+inline void UninhibitScreensaverInfo::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.token_){}
+    , decltype(_impl_.cookie_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+  _impl_.token_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.token_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 UninhibitScreensaverInfo::~UninhibitScreensaverInfo() {
   // @@protoc_insertion_point(destructor:vm_tools.container.UninhibitScreensaverInfo)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void UninhibitScreensaverInfo::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.token_.Destroy();
 }
 
-void UninhibitScreensaverInfo::ArenaDtor(void* object) {
-  UninhibitScreensaverInfo* _this = reinterpret_cast< UninhibitScreensaverInfo* >(object);
-  (void)_this;
-}
-void UninhibitScreensaverInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void UninhibitScreensaverInfo::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void UninhibitScreensaverInfo::Clear() {
@@ -10007,31 +10077,31 @@ void UninhibitScreensaverInfo::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  token_.ClearToEmpty();
-  cookie_ = 0;
+  _impl_.token_.ClearToEmpty();
+  _impl_.cookie_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* UninhibitScreensaverInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* UninhibitScreensaverInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // string token = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_token();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.UninhibitScreensaverInfo.token"));
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, "vm_tools.container.UninhibitScreensaverInfo.token"));
         } else
           goto handle_unusual;
         continue;
       // int32 cookie = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          cookie_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.cookie_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -10078,11 +10148,11 @@ uint8_t* UninhibitScreensaverInfo::_InternalSerialize(
   // int32 cookie = 2;
   if (this->_internal_cookie() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_cookie(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_cookie(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.UninhibitScreensaverInfo)
@@ -10106,38 +10176,34 @@ size_t UninhibitScreensaverInfo::ByteSizeLong() const {
 
   // int32 cookie = 2;
   if (this->_internal_cookie() != 0) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_cookie());
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_cookie());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData UninhibitScreensaverInfo::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     UninhibitScreensaverInfo::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*UninhibitScreensaverInfo::GetClassData() const { return &_class_data_; }
 
-void UninhibitScreensaverInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<UninhibitScreensaverInfo *>(to)->MergeFrom(
-      static_cast<const UninhibitScreensaverInfo &>(from));
-}
 
-
-void UninhibitScreensaverInfo::MergeFrom(const UninhibitScreensaverInfo& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.UninhibitScreensaverInfo)
-  GOOGLE_DCHECK_NE(&from, this);
+void UninhibitScreensaverInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<UninhibitScreensaverInfo*>(&to_msg);
+  auto& from = static_cast<const UninhibitScreensaverInfo&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.UninhibitScreensaverInfo)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (!from._internal_token().empty()) {
-    _internal_set_token(from._internal_token());
+    _this->_internal_set_token(from._internal_token());
   }
   if (from._internal_cookie() != 0) {
-    _internal_set_cookie(from._internal_cookie());
+    _this->_internal_set_cookie(from._internal_cookie());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void UninhibitScreensaverInfo::CopyFrom(const UninhibitScreensaverInfo& from) {
@@ -10157,15 +10223,14 @@ void UninhibitScreensaverInfo::InternalSwap(UninhibitScreensaverInfo* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &token_, lhs_arena,
-      &other->token_, rhs_arena
+      &_impl_.token_, lhs_arena,
+      &other->_impl_.token_, rhs_arena
   );
-  swap(cookie_, other->cookie_);
+  swap(_impl_.cookie_, other->_impl_.cookie_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata UninhibitScreensaverInfo::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
       file_level_metadata_container_5fhost_2eproto[35]);
 }
@@ -10174,112 +10239,148 @@ void UninhibitScreensaverInfo::InternalSwap(UninhibitScreensaverInfo* other) {
 }  // namespace container
 }  // namespace vm_tools
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::vm_tools::container::ContainerStartupInfo* Arena::CreateMaybeMessage< ::vm_tools::container::ContainerStartupInfo >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::ContainerStartupInfo*
+Arena::CreateMaybeMessage< ::vm_tools::container::ContainerStartupInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::ContainerStartupInfo >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::ContainerShutdownInfo* Arena::CreateMaybeMessage< ::vm_tools::container::ContainerShutdownInfo >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::ContainerShutdownInfo*
+Arena::CreateMaybeMessage< ::vm_tools::container::ContainerShutdownInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::ContainerShutdownInfo >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::Application_LocalizedString_StringWithLocale* Arena::CreateMaybeMessage< ::vm_tools::container::Application_LocalizedString_StringWithLocale >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::Application_LocalizedString_StringWithLocale*
+Arena::CreateMaybeMessage< ::vm_tools::container::Application_LocalizedString_StringWithLocale >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::Application_LocalizedString_StringWithLocale >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::Application_LocalizedString* Arena::CreateMaybeMessage< ::vm_tools::container::Application_LocalizedString >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::Application_LocalizedString*
+Arena::CreateMaybeMessage< ::vm_tools::container::Application_LocalizedString >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::Application_LocalizedString >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::Application_LocaleStrings_StringsWithLocale* Arena::CreateMaybeMessage< ::vm_tools::container::Application_LocaleStrings_StringsWithLocale >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::Application_LocaleStrings_StringsWithLocale*
+Arena::CreateMaybeMessage< ::vm_tools::container::Application_LocaleStrings_StringsWithLocale >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::Application_LocaleStrings_StringsWithLocale >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::Application_LocaleStrings* Arena::CreateMaybeMessage< ::vm_tools::container::Application_LocaleStrings >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::Application_LocaleStrings*
+Arena::CreateMaybeMessage< ::vm_tools::container::Application_LocaleStrings >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::Application_LocaleStrings >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::Application* Arena::CreateMaybeMessage< ::vm_tools::container::Application >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::Application*
+Arena::CreateMaybeMessage< ::vm_tools::container::Application >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::Application >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::UpdateApplicationListRequest* Arena::CreateMaybeMessage< ::vm_tools::container::UpdateApplicationListRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::UpdateApplicationListRequest*
+Arena::CreateMaybeMessage< ::vm_tools::container::UpdateApplicationListRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::UpdateApplicationListRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::OpenUrlRequest* Arena::CreateMaybeMessage< ::vm_tools::container::OpenUrlRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::OpenUrlRequest*
+Arena::CreateMaybeMessage< ::vm_tools::container::OpenUrlRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::OpenUrlRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::PendingAppListUpdateCount* Arena::CreateMaybeMessage< ::vm_tools::container::PendingAppListUpdateCount >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::PendingAppListUpdateCount*
+Arena::CreateMaybeMessage< ::vm_tools::container::PendingAppListUpdateCount >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::PendingAppListUpdateCount >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::InstallLinuxPackageProgressInfo* Arena::CreateMaybeMessage< ::vm_tools::container::InstallLinuxPackageProgressInfo >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::InstallLinuxPackageProgressInfo*
+Arena::CreateMaybeMessage< ::vm_tools::container::InstallLinuxPackageProgressInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::InstallLinuxPackageProgressInfo >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::UninstallPackageProgressInfo* Arena::CreateMaybeMessage< ::vm_tools::container::UninstallPackageProgressInfo >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::UninstallPackageProgressInfo*
+Arena::CreateMaybeMessage< ::vm_tools::container::UninstallPackageProgressInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::UninstallPackageProgressInfo >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::ApplyAnsiblePlaybookProgressInfo* Arena::CreateMaybeMessage< ::vm_tools::container::ApplyAnsiblePlaybookProgressInfo >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::ApplyAnsiblePlaybookProgressInfo*
+Arena::CreateMaybeMessage< ::vm_tools::container::ApplyAnsiblePlaybookProgressInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::ApplyAnsiblePlaybookProgressInfo >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::OpenTerminalRequest* Arena::CreateMaybeMessage< ::vm_tools::container::OpenTerminalRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::OpenTerminalRequest*
+Arena::CreateMaybeMessage< ::vm_tools::container::OpenTerminalRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::OpenTerminalRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::SelectFileRequest* Arena::CreateMaybeMessage< ::vm_tools::container::SelectFileRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::SelectFileRequest*
+Arena::CreateMaybeMessage< ::vm_tools::container::SelectFileRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::SelectFileRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::SelectFileResponse* Arena::CreateMaybeMessage< ::vm_tools::container::SelectFileResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::SelectFileResponse*
+Arena::CreateMaybeMessage< ::vm_tools::container::SelectFileResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::SelectFileResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse* Arena::CreateMaybeMessage< ::vm_tools::container::UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse*
+Arena::CreateMaybeMessage< ::vm_tools::container::UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::UpdateMimeTypesRequest_MimeTypeMappingsEntry_DoNotUse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::UpdateMimeTypesRequest* Arena::CreateMaybeMessage< ::vm_tools::container::UpdateMimeTypesRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::UpdateMimeTypesRequest*
+Arena::CreateMaybeMessage< ::vm_tools::container::UpdateMimeTypesRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::UpdateMimeTypesRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::FileWatchTriggeredInfo* Arena::CreateMaybeMessage< ::vm_tools::container::FileWatchTriggeredInfo >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::FileWatchTriggeredInfo*
+Arena::CreateMaybeMessage< ::vm_tools::container::FileWatchTriggeredInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::FileWatchTriggeredInfo >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::LowDiskSpaceTriggeredInfo* Arena::CreateMaybeMessage< ::vm_tools::container::LowDiskSpaceTriggeredInfo >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::LowDiskSpaceTriggeredInfo*
+Arena::CreateMaybeMessage< ::vm_tools::container::LowDiskSpaceTriggeredInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::LowDiskSpaceTriggeredInfo >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::ForwardSecurityKeyMessageRequest* Arena::CreateMaybeMessage< ::vm_tools::container::ForwardSecurityKeyMessageRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::ForwardSecurityKeyMessageRequest*
+Arena::CreateMaybeMessage< ::vm_tools::container::ForwardSecurityKeyMessageRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::ForwardSecurityKeyMessageRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::ForwardSecurityKeyMessageResponse* Arena::CreateMaybeMessage< ::vm_tools::container::ForwardSecurityKeyMessageResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::ForwardSecurityKeyMessageResponse*
+Arena::CreateMaybeMessage< ::vm_tools::container::ForwardSecurityKeyMessageResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::ForwardSecurityKeyMessageResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::GetDiskInfoRequest* Arena::CreateMaybeMessage< ::vm_tools::container::GetDiskInfoRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::GetDiskInfoRequest*
+Arena::CreateMaybeMessage< ::vm_tools::container::GetDiskInfoRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::GetDiskInfoRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::GetDiskInfoResponse* Arena::CreateMaybeMessage< ::vm_tools::container::GetDiskInfoResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::GetDiskInfoResponse*
+Arena::CreateMaybeMessage< ::vm_tools::container::GetDiskInfoResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::GetDiskInfoResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::RequestSpaceRequest* Arena::CreateMaybeMessage< ::vm_tools::container::RequestSpaceRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::RequestSpaceRequest*
+Arena::CreateMaybeMessage< ::vm_tools::container::RequestSpaceRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::RequestSpaceRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::RequestSpaceResponse* Arena::CreateMaybeMessage< ::vm_tools::container::RequestSpaceResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::RequestSpaceResponse*
+Arena::CreateMaybeMessage< ::vm_tools::container::RequestSpaceResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::RequestSpaceResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::ReleaseSpaceRequest* Arena::CreateMaybeMessage< ::vm_tools::container::ReleaseSpaceRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::ReleaseSpaceRequest*
+Arena::CreateMaybeMessage< ::vm_tools::container::ReleaseSpaceRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::ReleaseSpaceRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::ReleaseSpaceResponse* Arena::CreateMaybeMessage< ::vm_tools::container::ReleaseSpaceResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::ReleaseSpaceResponse*
+Arena::CreateMaybeMessage< ::vm_tools::container::ReleaseSpaceResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::ReleaseSpaceResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::Metric* Arena::CreateMaybeMessage< ::vm_tools::container::Metric >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::Metric*
+Arena::CreateMaybeMessage< ::vm_tools::container::Metric >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::Metric >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::ReportMetricsRequest* Arena::CreateMaybeMessage< ::vm_tools::container::ReportMetricsRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::ReportMetricsRequest*
+Arena::CreateMaybeMessage< ::vm_tools::container::ReportMetricsRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::ReportMetricsRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::ReportMetricsResponse* Arena::CreateMaybeMessage< ::vm_tools::container::ReportMetricsResponse >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::ReportMetricsResponse*
+Arena::CreateMaybeMessage< ::vm_tools::container::ReportMetricsResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::ReportMetricsResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::InstallShaderCacheRequest* Arena::CreateMaybeMessage< ::vm_tools::container::InstallShaderCacheRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::InstallShaderCacheRequest*
+Arena::CreateMaybeMessage< ::vm_tools::container::InstallShaderCacheRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::InstallShaderCacheRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::UninstallShaderCacheRequest* Arena::CreateMaybeMessage< ::vm_tools::container::UninstallShaderCacheRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::UninstallShaderCacheRequest*
+Arena::CreateMaybeMessage< ::vm_tools::container::UninstallShaderCacheRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::UninstallShaderCacheRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::UnmountShaderCacheRequest* Arena::CreateMaybeMessage< ::vm_tools::container::UnmountShaderCacheRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::UnmountShaderCacheRequest*
+Arena::CreateMaybeMessage< ::vm_tools::container::UnmountShaderCacheRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::UnmountShaderCacheRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::InhibitScreensaverInfo* Arena::CreateMaybeMessage< ::vm_tools::container::InhibitScreensaverInfo >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::InhibitScreensaverInfo*
+Arena::CreateMaybeMessage< ::vm_tools::container::InhibitScreensaverInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::InhibitScreensaverInfo >(arena);
 }
-template<> PROTOBUF_NOINLINE ::vm_tools::container::UninhibitScreensaverInfo* Arena::CreateMaybeMessage< ::vm_tools::container::UninhibitScreensaverInfo >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::vm_tools::container::UninhibitScreensaverInfo*
+Arena::CreateMaybeMessage< ::vm_tools::container::UninhibitScreensaverInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::UninhibitScreensaverInfo >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

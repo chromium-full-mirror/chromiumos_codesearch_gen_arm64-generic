@@ -13,33 +13,40 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace power_manager {
-constexpr SetBatterySaverModeStateRequest::SetBatterySaverModeStateRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : enabled_(false){}
+PROTOBUF_CONSTEXPR SetBatterySaverModeStateRequest::SetBatterySaverModeStateRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.enabled_)*/false} {}
 struct SetBatterySaverModeStateRequestDefaultTypeInternal {
-  constexpr SetBatterySaverModeStateRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR SetBatterySaverModeStateRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~SetBatterySaverModeStateRequestDefaultTypeInternal() {}
   union {
     SetBatterySaverModeStateRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SetBatterySaverModeStateRequestDefaultTypeInternal _SetBatterySaverModeStateRequest_default_instance_;
-constexpr BatterySaverModeState::BatterySaverModeState(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : enabled_(false)
-  , cause_(0)
-{}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SetBatterySaverModeStateRequestDefaultTypeInternal _SetBatterySaverModeStateRequest_default_instance_;
+PROTOBUF_CONSTEXPR BatterySaverModeState::BatterySaverModeState(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.enabled_)*/false
+  , /*decltype(_impl_.cause_)*/0} {}
 struct BatterySaverModeStateDefaultTypeInternal {
-  constexpr BatterySaverModeStateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR BatterySaverModeStateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~BatterySaverModeStateDefaultTypeInternal() {}
   union {
     BatterySaverModeState _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT BatterySaverModeStateDefaultTypeInternal _BatterySaverModeState_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 BatterySaverModeStateDefaultTypeInternal _BatterySaverModeState_default_instance_;
 }  // namespace power_manager
 namespace power_manager {
 bool BatterySaverModeState_Cause_IsValid(int value) {
@@ -115,7 +122,7 @@ constexpr int BatterySaverModeState::Cause_ARRAYSIZE;
 
 class SetBatterySaverModeStateRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<SetBatterySaverModeStateRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<SetBatterySaverModeStateRequest>()._impl_._has_bits_);
   static void set_has_enabled(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -124,43 +131,48 @@ class SetBatterySaverModeStateRequest::_Internal {
 SetBatterySaverModeStateRequest::SetBatterySaverModeStateRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:power_manager.SetBatterySaverModeStateRequest)
 }
 SetBatterySaverModeStateRequest::SetBatterySaverModeStateRequest(const SetBatterySaverModeStateRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  SetBatterySaverModeStateRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.enabled_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  enabled_ = from.enabled_;
+  _this->_impl_.enabled_ = from._impl_.enabled_;
   // @@protoc_insertion_point(copy_constructor:power_manager.SetBatterySaverModeStateRequest)
 }
 
-inline void SetBatterySaverModeStateRequest::SharedCtor() {
-enabled_ = false;
+inline void SetBatterySaverModeStateRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.enabled_){false}
+  };
 }
 
 SetBatterySaverModeStateRequest::~SetBatterySaverModeStateRequest() {
   // @@protoc_insertion_point(destructor:power_manager.SetBatterySaverModeStateRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void SetBatterySaverModeStateRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void SetBatterySaverModeStateRequest::ArenaDtor(void* object) {
-  SetBatterySaverModeStateRequest* _this = reinterpret_cast< SetBatterySaverModeStateRequest* >(object);
-  (void)_this;
-}
-void SetBatterySaverModeStateRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void SetBatterySaverModeStateRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void SetBatterySaverModeStateRequest::Clear() {
@@ -169,23 +181,23 @@ void SetBatterySaverModeStateRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  enabled_ = false;
-  _has_bits_.Clear();
+  _impl_.enabled_ = false;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SetBatterySaverModeStateRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SetBatterySaverModeStateRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bool enabled = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_enabled(&has_bits);
-          enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -206,7 +218,7 @@ const char* SetBatterySaverModeStateRequest::_InternalParse(const char* ptr, ::P
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -220,11 +232,11 @@ uint8_t* SetBatterySaverModeStateRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool enabled = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_enabled(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_enabled(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -244,7 +256,7 @@ size_t SetBatterySaverModeStateRequest::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional bool enabled = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 + 1;
   }
@@ -252,27 +264,28 @@ size_t SetBatterySaverModeStateRequest::ByteSizeLong() const {
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void SetBatterySaverModeStateRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SetBatterySaverModeStateRequest*>(
+  MergeFrom(*::_pbi::DownCast<const SetBatterySaverModeStateRequest*>(
       &from));
 }
 
 void SetBatterySaverModeStateRequest::MergeFrom(const SetBatterySaverModeStateRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:power_manager.SetBatterySaverModeStateRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+  SetBatterySaverModeStateRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.SetBatterySaverModeStateRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_enabled()) {
-    _internal_set_enabled(from._internal_enabled());
+    _this->_internal_set_enabled(from._internal_enabled());
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void SetBatterySaverModeStateRequest::CopyFrom(const SetBatterySaverModeStateRequest& from) {
@@ -289,8 +302,8 @@ bool SetBatterySaverModeStateRequest::IsInitialized() const {
 void SetBatterySaverModeStateRequest::InternalSwap(SetBatterySaverModeStateRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  swap(enabled_, other->enabled_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.enabled_, other->_impl_.enabled_);
 }
 
 std::string SetBatterySaverModeStateRequest::GetTypeName() const {
@@ -302,7 +315,7 @@ std::string SetBatterySaverModeStateRequest::GetTypeName() const {
 
 class BatterySaverModeState::_Internal {
  public:
-  using HasBits = decltype(std::declval<BatterySaverModeState>()._has_bits_);
+  using HasBits = decltype(std::declval<BatterySaverModeState>()._impl_._has_bits_);
   static void set_has_enabled(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -314,48 +327,52 @@ class BatterySaverModeState::_Internal {
 BatterySaverModeState::BatterySaverModeState(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:power_manager.BatterySaverModeState)
 }
 BatterySaverModeState::BatterySaverModeState(const BatterySaverModeState& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  BatterySaverModeState* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.enabled_){}
+    , decltype(_impl_.cause_){}};
+
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ::memcpy(&enabled_, &from.enabled_,
-    static_cast<size_t>(reinterpret_cast<char*>(&cause_) -
-    reinterpret_cast<char*>(&enabled_)) + sizeof(cause_));
+  ::memcpy(&_impl_.enabled_, &from._impl_.enabled_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.cause_) -
+    reinterpret_cast<char*>(&_impl_.enabled_)) + sizeof(_impl_.cause_));
   // @@protoc_insertion_point(copy_constructor:power_manager.BatterySaverModeState)
 }
 
-inline void BatterySaverModeState::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&enabled_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&cause_) -
-    reinterpret_cast<char*>(&enabled_)) + sizeof(cause_));
+inline void BatterySaverModeState::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.enabled_){false}
+    , decltype(_impl_.cause_){0}
+  };
 }
 
 BatterySaverModeState::~BatterySaverModeState() {
   // @@protoc_insertion_point(destructor:power_manager.BatterySaverModeState)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<std::string>();
 }
 
 inline void BatterySaverModeState::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void BatterySaverModeState::ArenaDtor(void* object) {
-  BatterySaverModeState* _this = reinterpret_cast< BatterySaverModeState* >(object);
-  (void)_this;
-}
-void BatterySaverModeState::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void BatterySaverModeState::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void BatterySaverModeState::Clear() {
@@ -364,28 +381,28 @@ void BatterySaverModeState::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&enabled_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&cause_) -
-        reinterpret_cast<char*>(&enabled_)) + sizeof(cause_));
+    ::memset(&_impl_.enabled_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.cause_) -
+        reinterpret_cast<char*>(&_impl_.enabled_)) + sizeof(_impl_.cause_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* BatterySaverModeState::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* BatterySaverModeState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional bool enabled = 1 [default = false];
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_enabled(&has_bits);
-          enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -419,7 +436,7 @@ const char* BatterySaverModeState::_InternalParse(const char* ptr, ::PROTOBUF_NA
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -433,17 +450,17 @@ uint8_t* BatterySaverModeState::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional bool enabled = 1 [default = false];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_enabled(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_enabled(), target);
   }
 
   // optional .power_manager.BatterySaverModeState.Cause cause = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       2, this->_internal_cause(), target);
   }
 
@@ -463,7 +480,7 @@ size_t BatterySaverModeState::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional bool enabled = 1 [default = false];
     if (cached_has_bits & 0x00000001u) {
@@ -473,41 +490,42 @@ size_t BatterySaverModeState::ByteSizeLong() const {
     // optional .power_manager.BatterySaverModeState.Cause cause = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_cause());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_cause());
     }
 
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  int cached_size = ::_pbi::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
 void BatterySaverModeState::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const BatterySaverModeState*>(
+  MergeFrom(*::_pbi::DownCast<const BatterySaverModeState*>(
       &from));
 }
 
 void BatterySaverModeState::MergeFrom(const BatterySaverModeState& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:power_manager.BatterySaverModeState)
-  GOOGLE_DCHECK_NE(&from, this);
+  BatterySaverModeState* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:power_manager.BatterySaverModeState)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      enabled_ = from.enabled_;
+      _this->_impl_.enabled_ = from._impl_.enabled_;
     }
     if (cached_has_bits & 0x00000002u) {
-      cause_ = from.cause_;
+      _this->_impl_.cause_ = from._impl_.cause_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void BatterySaverModeState::CopyFrom(const BatterySaverModeState& from) {
@@ -524,13 +542,13 @@ bool BatterySaverModeState::IsInitialized() const {
 void BatterySaverModeState::InternalSwap(BatterySaverModeState* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(BatterySaverModeState, cause_)
-      + sizeof(BatterySaverModeState::cause_)
-      - PROTOBUF_FIELD_OFFSET(BatterySaverModeState, enabled_)>(
-          reinterpret_cast<char*>(&enabled_),
-          reinterpret_cast<char*>(&other->enabled_));
+      PROTOBUF_FIELD_OFFSET(BatterySaverModeState, _impl_.cause_)
+      + sizeof(BatterySaverModeState::_impl_.cause_)
+      - PROTOBUF_FIELD_OFFSET(BatterySaverModeState, _impl_.enabled_)>(
+          reinterpret_cast<char*>(&_impl_.enabled_),
+          reinterpret_cast<char*>(&other->_impl_.enabled_));
 }
 
 std::string BatterySaverModeState::GetTypeName() const {
@@ -541,10 +559,12 @@ std::string BatterySaverModeState::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace power_manager
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::power_manager::SetBatterySaverModeStateRequest* Arena::CreateMaybeMessage< ::power_manager::SetBatterySaverModeStateRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::power_manager::SetBatterySaverModeStateRequest*
+Arena::CreateMaybeMessage< ::power_manager::SetBatterySaverModeStateRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::power_manager::SetBatterySaverModeStateRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::power_manager::BatterySaverModeState* Arena::CreateMaybeMessage< ::power_manager::BatterySaverModeState >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::power_manager::BatterySaverModeState*
+Arena::CreateMaybeMessage< ::power_manager::BatterySaverModeState >(Arena* arena) {
   return Arena::CreateMessageInternal< ::power_manager::BatterySaverModeState >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE

@@ -67,6 +67,8 @@ class TouchscreenTouchEventDataView;
 
 class TouchscreenConnectedEventDataView;
 
+class StylusGarageEventInfoDataView;
+
 class TouchpadEventInfoDataView;
 class TouchscreenEventInfoDataView;
 class EventInfoDataView;
@@ -185,6 +187,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchscreenConnectedEventData
 };
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::StylusGarageEventInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::StylusGarageEventInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchpadEventInfoDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::TouchpadEventInfo_Data;
   using DataAsArrayElement = Data;
@@ -270,8 +279,10 @@ enum class EventCategoryEnum : int32_t {
   kHdmi = 12,
   
   kTouchscreen = 13,
+  
+  kStylusGarage = 14,
   kMinValue = 0,
-  kMaxValue = 13,
+  kMaxValue = 14,
   kDefaultValue = 0
 };
 
@@ -526,6 +537,31 @@ inline HdmiEventInfo_State ToKnownEnumValue(HdmiEventInfo_State value) {
     return value;
   }
   return HdmiEventInfo_State::kDefaultValue;
+}
+
+
+enum class StylusGarageEventInfo_State : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kInsert = 1,
+  
+  kRemove = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, StylusGarageEventInfo_State value);
+inline bool IsKnownEnumValue(StylusGarageEventInfo_State value) {
+  return internal::StylusGarageEventInfo_State_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline StylusGarageEventInfo_State ToKnownEnumValue(StylusGarageEventInfo_State value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return StylusGarageEventInfo_State::kDefaultValue;
 }
 // Interface base classes. They are used for type safety check.
 class CrosHealthdBluetoothObserverInterfaceBase {};
@@ -1114,6 +1150,32 @@ class TouchscreenConnectedEventDataView {
 
 
 
+class StylusGarageEventInfoDataView {
+ public:
+  StylusGarageEventInfoDataView() = default;
+
+  StylusGarageEventInfoDataView(
+      internal::StylusGarageEventInfo_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) const {
+    auto data_value = data_->state;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::StylusGarageEventInfo_State>(
+        data_value, output);
+  }
+  StylusGarageEventInfo_State state() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::StylusGarageEventInfo_State>(data_->state));
+  }
+ private:
+  internal::StylusGarageEventInfo_Data* data_ = nullptr;
+};
+
+
+
 class TouchpadEventInfoDataView {
  public:
   using Tag = internal::TouchpadEventInfo_Data::TouchpadEventInfo_Tag;
@@ -1386,6 +1448,17 @@ class EventInfoDataView {
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TouchscreenEventInfoDataView>(
         data_->data.f_touchscreen_event_info.Get(), output, message_);
   }
+  bool is_stylus_garage_event_info() const { return data_->tag == Tag::kStylusGarageEventInfo; }
+  inline void GetStylusGarageEventInfoDataView(
+      StylusGarageEventInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadStylusGarageEventInfo(UserType* output) const {
+    
+    CHECK(is_stylus_garage_event_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::StylusGarageEventInfoDataView>(
+        data_->data.f_stylus_garage_event_info.Get(), output, message_);
+  }
 
  private:
   internal::EventInfo_Data* data_ = nullptr;
@@ -1443,6 +1516,10 @@ struct hash<::ash::cros_healthd::mojom::SdCardEventInfo_State>
 template <>
 struct hash<::ash::cros_healthd::mojom::HdmiEventInfo_State>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::HdmiEventInfo_State> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::StylusGarageEventInfo_State>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::StylusGarageEventInfo_State> {};
 
 }  // namespace std
 
@@ -1663,6 +1740,26 @@ struct Serializer<::ash::cros_healthd::mojom::HdmiEventInfo_State, MaybeConstUse
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::HdmiEventInfo_State>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::StylusGarageEventInfo_State, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::StylusGarageEventInfo_State, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::StylusGarageEventInfo_State>(input)), output);
   }
 };
 
@@ -2243,6 +2340,37 @@ struct Serializer<::ash::cros_healthd::mojom::TouchscreenConnectedEventDataView,
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::StylusGarageEventInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::StylusGarageEventInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::StylusGarageEventInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::StylusGarageEventInfo_State>(
+        Traits::state(input), &fragment->state);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::StylusGarageEventInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::StylusGarageEventInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::TouchpadEventInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfoDataView, UserType>;
@@ -2636,6 +2764,22 @@ struct Serializer<::ash::cros_healthd::mojom::EventInfoDataView, MaybeConstUserT
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::ash::cros_healthd::mojom::EventInfoDataView::Tag::kStylusGarageEventInfo: {
+        decltype(Traits::stylus_garage_event_info(input))
+            in_stylus_garage_event_info = Traits::stylus_garage_event_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_stylus_garage_event_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::StylusGarageEventInfoDataView>(
+            in_stylus_garage_event_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null stylus_garage_event_info in EventInfo union");
+        fragment->data.f_stylus_garage_event_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -2734,6 +2878,8 @@ inline void TouchscreenTouchEventDataView::GetTouchPointsDataView(
 
 
 
+
+
 inline void TouchpadEventInfoDataView::GetButtonEventDataView(
     TouchpadButtonEventDataView* output) const {
   CHECK(is_button_event());
@@ -2820,6 +2966,11 @@ inline void EventInfoDataView::GetTouchscreenEventInfoDataView(
     TouchscreenEventInfoDataView* output) const {
   CHECK(is_touchscreen_event_info());
   *output = TouchscreenEventInfoDataView(data_->data.f_touchscreen_event_info.Get(), message_);
+}
+inline void EventInfoDataView::GetStylusGarageEventInfoDataView(
+    StylusGarageEventInfoDataView* output) const {
+  CHECK(is_stylus_garage_event_info());
+  *output = StylusGarageEventInfoDataView(data_->data.f_stylus_garage_event_info.Get(), message_);
 }
 
 
@@ -2925,6 +3076,15 @@ namespace perfetto_libchrome {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::HdmiEventInfo_State> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::HdmiEventInfo_State value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::StylusGarageEventInfo_State> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::StylusGarageEventInfo_State value);
 };
 
 } // namespace perfetto

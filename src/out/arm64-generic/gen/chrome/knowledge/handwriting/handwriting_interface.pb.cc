@@ -16,198 +16,224 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+
+namespace _pb = ::PROTOBUF_NAMESPACE_ID;
+namespace _pbi = _pb::internal;
+
 namespace chrome_knowledge {
-constexpr InkPoint::InkPoint(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : x_(0)
-  , y_(0)
-  , t_(int64_t{0}){}
+PROTOBUF_CONSTEXPR InkPoint::InkPoint(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.x_)*/0
+  , /*decltype(_impl_.y_)*/0
+  , /*decltype(_impl_.t_)*/int64_t{0}} {}
 struct InkPointDefaultTypeInternal {
-  constexpr InkPointDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InkPointDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~InkPointDefaultTypeInternal() {}
   union {
     InkPoint _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT InkPointDefaultTypeInternal _InkPoint_default_instance_;
-constexpr InkStroke::InkStroke(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : points_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InkPointDefaultTypeInternal _InkPoint_default_instance_;
+PROTOBUF_CONSTEXPR InkStroke::InkStroke(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.points_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct InkStrokeDefaultTypeInternal {
-  constexpr InkStrokeDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InkStrokeDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~InkStrokeDefaultTypeInternal() {}
   union {
     InkStroke _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT InkStrokeDefaultTypeInternal _InkStroke_default_instance_;
-constexpr Ink::Ink(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : strokes_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InkStrokeDefaultTypeInternal _InkStroke_default_instance_;
+PROTOBUF_CONSTEXPR Ink::Ink(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.strokes_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct InkDefaultTypeInternal {
-  constexpr InkDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR InkDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~InkDefaultTypeInternal() {}
   union {
     Ink _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT InkDefaultTypeInternal _Ink_default_instance_;
-constexpr WritingGuide::WritingGuide(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : width_(0)
-  , height_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InkDefaultTypeInternal _Ink_default_instance_;
+PROTOBUF_CONSTEXPR WritingGuide::WritingGuide(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.width_)*/0
+  , /*decltype(_impl_.height_)*/0} {}
 struct WritingGuideDefaultTypeInternal {
-  constexpr WritingGuideDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR WritingGuideDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~WritingGuideDefaultTypeInternal() {}
   union {
     WritingGuide _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT WritingGuideDefaultTypeInternal _WritingGuide_default_instance_;
-constexpr RecognitionContext::RecognitionContext(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : pre_context_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , writing_guide_(nullptr){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 WritingGuideDefaultTypeInternal _WritingGuide_default_instance_;
+PROTOBUF_CONSTEXPR RecognitionContext::RecognitionContext(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.pre_context_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.writing_guide_)*/nullptr} {}
 struct RecognitionContextDefaultTypeInternal {
-  constexpr RecognitionContextDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR RecognitionContextDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~RecognitionContextDefaultTypeInternal() {}
   union {
     RecognitionContext _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RecognitionContextDefaultTypeInternal _RecognitionContext_default_instance_;
-constexpr HandwritingRecognizerRequest::HandwritingRecognizerRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : ink_(nullptr)
-  , context_(nullptr)
-  , max_num_results_(0)
-  , return_segmentation_(false){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RecognitionContextDefaultTypeInternal _RecognitionContext_default_instance_;
+PROTOBUF_CONSTEXPR HandwritingRecognizerRequest::HandwritingRecognizerRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.ink_)*/nullptr
+  , /*decltype(_impl_.context_)*/nullptr
+  , /*decltype(_impl_.max_num_results_)*/0
+  , /*decltype(_impl_.return_segmentation_)*/false} {}
 struct HandwritingRecognizerRequestDefaultTypeInternal {
-  constexpr HandwritingRecognizerRequestDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandwritingRecognizerRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandwritingRecognizerRequestDefaultTypeInternal() {}
   union {
     HandwritingRecognizerRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandwritingRecognizerRequestDefaultTypeInternal _HandwritingRecognizerRequest_default_instance_;
-constexpr HandwritingRecognizerInkRange::HandwritingRecognizerInkRange(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : start_stroke_(0)
-  , end_stroke_(0)
-  , start_point_(0)
-  , end_point_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandwritingRecognizerRequestDefaultTypeInternal _HandwritingRecognizerRequest_default_instance_;
+PROTOBUF_CONSTEXPR HandwritingRecognizerInkRange::HandwritingRecognizerInkRange(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.start_stroke_)*/0
+  , /*decltype(_impl_.end_stroke_)*/0
+  , /*decltype(_impl_.start_point_)*/0
+  , /*decltype(_impl_.end_point_)*/0} {}
 struct HandwritingRecognizerInkRangeDefaultTypeInternal {
-  constexpr HandwritingRecognizerInkRangeDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandwritingRecognizerInkRangeDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandwritingRecognizerInkRangeDefaultTypeInternal() {}
   union {
     HandwritingRecognizerInkRange _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandwritingRecognizerInkRangeDefaultTypeInternal _HandwritingRecognizerInkRange_default_instance_;
-constexpr HandwritingRecognizerSegment::HandwritingRecognizerSegment(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : ink_ranges_()
-  , sublabel_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandwritingRecognizerInkRangeDefaultTypeInternal _HandwritingRecognizerInkRange_default_instance_;
+PROTOBUF_CONSTEXPR HandwritingRecognizerSegment::HandwritingRecognizerSegment(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.ink_ranges_)*/{}
+  , /*decltype(_impl_.sublabel_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct HandwritingRecognizerSegmentDefaultTypeInternal {
-  constexpr HandwritingRecognizerSegmentDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandwritingRecognizerSegmentDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandwritingRecognizerSegmentDefaultTypeInternal() {}
   union {
     HandwritingRecognizerSegment _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandwritingRecognizerSegmentDefaultTypeInternal _HandwritingRecognizerSegment_default_instance_;
-constexpr HandwritingRecognizerSegmentation::HandwritingRecognizerSegmentation(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : segments_(){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandwritingRecognizerSegmentDefaultTypeInternal _HandwritingRecognizerSegment_default_instance_;
+PROTOBUF_CONSTEXPR HandwritingRecognizerSegmentation::HandwritingRecognizerSegmentation(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.segments_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}} {}
 struct HandwritingRecognizerSegmentationDefaultTypeInternal {
-  constexpr HandwritingRecognizerSegmentationDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandwritingRecognizerSegmentationDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandwritingRecognizerSegmentationDefaultTypeInternal() {}
   union {
     HandwritingRecognizerSegmentation _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandwritingRecognizerSegmentationDefaultTypeInternal _HandwritingRecognizerSegmentation_default_instance_;
-constexpr HandwritingRecognizerCandidate::HandwritingRecognizerCandidate(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : text_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , segmentation_(nullptr)
-  , score_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandwritingRecognizerSegmentationDefaultTypeInternal _HandwritingRecognizerSegmentation_default_instance_;
+PROTOBUF_CONSTEXPR HandwritingRecognizerCandidate::HandwritingRecognizerCandidate(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.text_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.segmentation_)*/nullptr
+  , /*decltype(_impl_.score_)*/0} {}
 struct HandwritingRecognizerCandidateDefaultTypeInternal {
-  constexpr HandwritingRecognizerCandidateDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandwritingRecognizerCandidateDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandwritingRecognizerCandidateDefaultTypeInternal() {}
   union {
     HandwritingRecognizerCandidate _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandwritingRecognizerCandidateDefaultTypeInternal _HandwritingRecognizerCandidate_default_instance_;
-constexpr HandwritingRecognizerResult::HandwritingRecognizerResult(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : candidates_()
-  , status_(0)
-
-  , total_time_ms_(0){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandwritingRecognizerCandidateDefaultTypeInternal _HandwritingRecognizerCandidate_default_instance_;
+PROTOBUF_CONSTEXPR HandwritingRecognizerResult::HandwritingRecognizerResult(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.candidates_)*/{}
+  , /*decltype(_impl_.status_)*/0
+  , /*decltype(_impl_.total_time_ms_)*/0} {}
 struct HandwritingRecognizerResultDefaultTypeInternal {
-  constexpr HandwritingRecognizerResultDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandwritingRecognizerResultDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandwritingRecognizerResultDefaultTypeInternal() {}
   union {
     HandwritingRecognizerResult _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandwritingRecognizerResultDefaultTypeInternal _HandwritingRecognizerResult_default_instance_;
-constexpr HandwritingRecognizerModelPaths::HandwritingRecognizerModelPaths(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : reco_model_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , seg_model_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , conf_model_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , fst_lm_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , recospec_path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandwritingRecognizerResultDefaultTypeInternal _HandwritingRecognizerResult_default_instance_;
+PROTOBUF_CONSTEXPR HandwritingRecognizerModelPaths::HandwritingRecognizerModelPaths(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.reco_model_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.seg_model_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.conf_model_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.fst_lm_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
+  , /*decltype(_impl_.recospec_path_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct HandwritingRecognizerModelPathsDefaultTypeInternal {
-  constexpr HandwritingRecognizerModelPathsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandwritingRecognizerModelPathsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandwritingRecognizerModelPathsDefaultTypeInternal() {}
   union {
     HandwritingRecognizerModelPaths _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandwritingRecognizerModelPathsDefaultTypeInternal _HandwritingRecognizerModelPaths_default_instance_;
-constexpr HandwritingRecognizerOptions::HandwritingRecognizerOptions(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : language_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandwritingRecognizerModelPathsDefaultTypeInternal _HandwritingRecognizerModelPaths_default_instance_;
+PROTOBUF_CONSTEXPR HandwritingRecognizerOptions::HandwritingRecognizerOptions(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.language_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}} {}
 struct HandwritingRecognizerOptionsDefaultTypeInternal {
-  constexpr HandwritingRecognizerOptionsDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  PROTOBUF_CONSTEXPR HandwritingRecognizerOptionsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
   ~HandwritingRecognizerOptionsDefaultTypeInternal() {}
   union {
     HandwritingRecognizerOptions _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HandwritingRecognizerOptionsDefaultTypeInternal _HandwritingRecognizerOptions_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HandwritingRecognizerOptionsDefaultTypeInternal _HandwritingRecognizerOptions_default_instance_;
 }  // namespace chrome_knowledge
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_handwriting_5finterface_2eproto[13];
-static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_handwriting_5finterface_2eproto[1];
-static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_handwriting_5finterface_2eproto = nullptr;
+static ::_pb::Metadata file_level_metadata_handwriting_5finterface_2eproto[13];
+static const ::_pb::EnumDescriptor* file_level_enum_descriptors_handwriting_5finterface_2eproto[1];
+static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_handwriting_5finterface_2eproto = nullptr;
 
 const uint32_t TableStruct_handwriting_5finterface_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::InkPoint, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::InkPoint, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::InkPoint, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::InkPoint, x_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::InkPoint, y_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::InkPoint, t_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::InkPoint, _impl_.x_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::InkPoint, _impl_.y_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::InkPoint, _impl_.t_),
   0,
   1,
   2,
@@ -217,70 +243,70 @@ const uint32_t TableStruct_handwriting_5finterface_2eproto::offsets[] PROTOBUF_S
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::InkStroke, points_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::InkStroke, _impl_.points_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::Ink, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::Ink, strokes_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::WritingGuide, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::Ink, _impl_.strokes_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::WritingGuide, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::WritingGuide, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::WritingGuide, width_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::WritingGuide, height_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::WritingGuide, _impl_.width_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::WritingGuide, _impl_.height_),
   0,
   1,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::RecognitionContext, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::RecognitionContext, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::RecognitionContext, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::RecognitionContext, writing_guide_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::RecognitionContext, pre_context_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::RecognitionContext, _impl_.writing_guide_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::RecognitionContext, _impl_.pre_context_),
   1,
   0,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerRequest, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerRequest, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerRequest, ink_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerRequest, context_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerRequest, max_num_results_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerRequest, return_segmentation_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerRequest, _impl_.ink_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerRequest, _impl_.context_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerRequest, _impl_.max_num_results_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerRequest, _impl_.return_segmentation_),
   0,
   1,
   2,
   3,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerInkRange, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerInkRange, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerInkRange, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerInkRange, start_stroke_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerInkRange, end_stroke_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerInkRange, start_point_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerInkRange, end_point_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerInkRange, _impl_.start_stroke_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerInkRange, _impl_.end_stroke_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerInkRange, _impl_.start_point_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerInkRange, _impl_.end_point_),
   0,
   1,
   2,
   3,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerSegment, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerSegment, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerSegment, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerSegment, sublabel_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerSegment, ink_ranges_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerSegment, _impl_.sublabel_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerSegment, _impl_.ink_ranges_),
   0,
   ~0u,
   ~0u,  // no _has_bits_
@@ -289,57 +315,57 @@ const uint32_t TableStruct_handwriting_5finterface_2eproto::offsets[] PROTOBUF_S
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerSegmentation, segments_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerCandidate, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerSegmentation, _impl_.segments_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerCandidate, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerCandidate, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerCandidate, text_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerCandidate, score_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerCandidate, segmentation_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerCandidate, _impl_.text_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerCandidate, _impl_.score_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerCandidate, _impl_.segmentation_),
   0,
   2,
   1,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerResult, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerResult, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerResult, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerResult, status_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerResult, candidates_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerResult, total_time_ms_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerResult, _impl_.status_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerResult, _impl_.candidates_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerResult, _impl_.total_time_ms_),
   0,
   ~0u,
   1,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerModelPaths, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerModelPaths, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerModelPaths, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerModelPaths, reco_model_path_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerModelPaths, seg_model_path_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerModelPaths, conf_model_path_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerModelPaths, fst_lm_path_),
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerModelPaths, recospec_path_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerModelPaths, _impl_.reco_model_path_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerModelPaths, _impl_.seg_model_path_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerModelPaths, _impl_.conf_model_path_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerModelPaths, _impl_.fst_lm_path_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerModelPaths, _impl_.recospec_path_),
   0,
   1,
   2,
   3,
   4,
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerOptions, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerOptions, _impl_._has_bits_),
   PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerOptions, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerOptions, language_),
+  PROTOBUF_FIELD_OFFSET(::chrome_knowledge::HandwritingRecognizerOptions, _impl_.language_),
   0,
 };
-static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 9, -1, sizeof(::chrome_knowledge::InkPoint)},
   { 12, -1, -1, sizeof(::chrome_knowledge::InkStroke)},
   { 19, -1, -1, sizeof(::chrome_knowledge::Ink)},
@@ -355,20 +381,20 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 131, 138, -1, sizeof(::chrome_knowledge::HandwritingRecognizerOptions)},
 };
 
-static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_InkPoint_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_InkStroke_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_Ink_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_WritingGuide_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_RecognitionContext_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_HandwritingRecognizerRequest_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_HandwritingRecognizerInkRange_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_HandwritingRecognizerSegment_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_HandwritingRecognizerSegmentation_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_HandwritingRecognizerCandidate_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_HandwritingRecognizerResult_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_HandwritingRecognizerModelPaths_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::chrome_knowledge::_HandwritingRecognizerOptions_default_instance_),
+static const ::_pb::Message* const file_default_instances[] = {
+  &::chrome_knowledge::_InkPoint_default_instance_._instance,
+  &::chrome_knowledge::_InkStroke_default_instance_._instance,
+  &::chrome_knowledge::_Ink_default_instance_._instance,
+  &::chrome_knowledge::_WritingGuide_default_instance_._instance,
+  &::chrome_knowledge::_RecognitionContext_default_instance_._instance,
+  &::chrome_knowledge::_HandwritingRecognizerRequest_default_instance_._instance,
+  &::chrome_knowledge::_HandwritingRecognizerInkRange_default_instance_._instance,
+  &::chrome_knowledge::_HandwritingRecognizerSegment_default_instance_._instance,
+  &::chrome_knowledge::_HandwritingRecognizerSegmentation_default_instance_._instance,
+  &::chrome_knowledge::_HandwritingRecognizerCandidate_default_instance_._instance,
+  &::chrome_knowledge::_HandwritingRecognizerResult_default_instance_._instance,
+  &::chrome_knowledge::_HandwritingRecognizerModelPaths_default_instance_._instance,
+  &::chrome_knowledge::_HandwritingRecognizerOptions_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_handwriting_5finterface_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -409,19 +435,21 @@ const char descriptor_table_protodef_handwriting_5finterface_2eproto[] PROTOBUF_
   "\022\025\n\rrecospec_path\030\005 \001(\t\"0\n\034HandwritingRe"
   "cognizerOptions\022\020\n\010language\030\001 \001(\t"
   ;
-static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_handwriting_5finterface_2eproto_once;
-const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_handwriting_5finterface_2eproto = {
-  false, false, 1433, descriptor_table_protodef_handwriting_5finterface_2eproto, "handwriting_interface.proto", 
-  &descriptor_table_handwriting_5finterface_2eproto_once, nullptr, 0, 13,
-  schemas, file_default_instances, TableStruct_handwriting_5finterface_2eproto::offsets,
-  file_level_metadata_handwriting_5finterface_2eproto, file_level_enum_descriptors_handwriting_5finterface_2eproto, file_level_service_descriptors_handwriting_5finterface_2eproto,
+static ::_pbi::once_flag descriptor_table_handwriting_5finterface_2eproto_once;
+const ::_pbi::DescriptorTable descriptor_table_handwriting_5finterface_2eproto = {
+    false, false, 1433, descriptor_table_protodef_handwriting_5finterface_2eproto,
+    "handwriting_interface.proto",
+    &descriptor_table_handwriting_5finterface_2eproto_once, nullptr, 0, 13,
+    schemas, file_default_instances, TableStruct_handwriting_5finterface_2eproto::offsets,
+    file_level_metadata_handwriting_5finterface_2eproto, file_level_enum_descriptors_handwriting_5finterface_2eproto,
+    file_level_service_descriptors_handwriting_5finterface_2eproto,
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable* descriptor_table_handwriting_5finterface_2eproto_getter() {
+PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_handwriting_5finterface_2eproto_getter() {
   return &descriptor_table_handwriting_5finterface_2eproto;
 }
 
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY static ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptorsRunner dynamic_init_dummy_handwriting_5finterface_2eproto(&descriptor_table_handwriting_5finterface_2eproto);
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_handwriting_5finterface_2eproto(&descriptor_table_handwriting_5finterface_2eproto);
 namespace chrome_knowledge {
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* HandwritingRecognizerResult_Status_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_handwriting_5finterface_2eproto);
@@ -449,7 +477,7 @@ constexpr int HandwritingRecognizerResult::Status_ARRAYSIZE;
 
 class InkPoint::_Internal {
  public:
-  using HasBits = decltype(std::declval<InkPoint>()._has_bits_);
+  using HasBits = decltype(std::declval<InkPoint>()._impl_._has_bits_);
   static void set_has_x(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -464,48 +492,54 @@ class InkPoint::_Internal {
 InkPoint::InkPoint(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.InkPoint)
 }
 InkPoint::InkPoint(const InkPoint& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  InkPoint* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.x_){}
+    , decltype(_impl_.y_){}
+    , decltype(_impl_.t_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&x_, &from.x_,
-    static_cast<size_t>(reinterpret_cast<char*>(&t_) -
-    reinterpret_cast<char*>(&x_)) + sizeof(t_));
+  ::memcpy(&_impl_.x_, &from._impl_.x_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.t_) -
+    reinterpret_cast<char*>(&_impl_.x_)) + sizeof(_impl_.t_));
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.InkPoint)
 }
 
-inline void InkPoint::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&x_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&t_) -
-    reinterpret_cast<char*>(&x_)) + sizeof(t_));
+inline void InkPoint::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.x_){0}
+    , decltype(_impl_.y_){0}
+    , decltype(_impl_.t_){int64_t{0}}
+  };
 }
 
 InkPoint::~InkPoint() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.InkPoint)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void InkPoint::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void InkPoint::ArenaDtor(void* object) {
-  InkPoint* _this = reinterpret_cast< InkPoint* >(object);
-  (void)_this;
-}
-void InkPoint::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void InkPoint::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void InkPoint::Clear() {
@@ -514,28 +548,28 @@ void InkPoint::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
-    ::memset(&x_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&t_) -
-        reinterpret_cast<char*>(&x_)) + sizeof(t_));
+    ::memset(&_impl_.x_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.t_) -
+        reinterpret_cast<char*>(&_impl_.x_)) + sizeof(_impl_.t_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* InkPoint::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* InkPoint::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional float x = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 13)) {
           _Internal::set_has_x(&has_bits);
-          x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -544,7 +578,7 @@ const char* InkPoint::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
           _Internal::set_has_y(&has_bits);
-          y_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.y_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -553,7 +587,7 @@ const char* InkPoint::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_t(&has_bits);
-          t_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.t_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -574,7 +608,7 @@ const char* InkPoint::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -588,27 +622,27 @@ uint8_t* InkPoint::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional float x = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(1, this->_internal_x(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(1, this->_internal_x(), target);
   }
 
   // optional float y = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_y(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(2, this->_internal_y(), target);
   }
 
   // optional int64 t = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(3, this->_internal_t(), target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(3, this->_internal_t(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.InkPoint)
@@ -623,7 +657,7 @@ size_t InkPoint::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional float x = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -637,46 +671,42 @@ size_t InkPoint::ByteSizeLong() const {
 
     // optional int64 t = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_t());
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_t());
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData InkPoint::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     InkPoint::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*InkPoint::GetClassData() const { return &_class_data_; }
 
-void InkPoint::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<InkPoint *>(to)->MergeFrom(
-      static_cast<const InkPoint &>(from));
-}
 
-
-void InkPoint::MergeFrom(const InkPoint& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.InkPoint)
-  GOOGLE_DCHECK_NE(&from, this);
+void InkPoint::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<InkPoint*>(&to_msg);
+  auto& from = static_cast<const InkPoint&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.InkPoint)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      x_ = from.x_;
+      _this->_impl_.x_ = from._impl_.x_;
     }
     if (cached_has_bits & 0x00000002u) {
-      y_ = from.y_;
+      _this->_impl_.y_ = from._impl_.y_;
     }
     if (cached_has_bits & 0x00000004u) {
-      t_ = from.t_;
+      _this->_impl_.t_ = from._impl_.t_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void InkPoint::CopyFrom(const InkPoint& from) {
@@ -693,17 +723,17 @@ bool InkPoint::IsInitialized() const {
 void InkPoint::InternalSwap(InkPoint* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(InkPoint, t_)
-      + sizeof(InkPoint::t_)
-      - PROTOBUF_FIELD_OFFSET(InkPoint, x_)>(
-          reinterpret_cast<char*>(&x_),
-          reinterpret_cast<char*>(&other->x_));
+      PROTOBUF_FIELD_OFFSET(InkPoint, _impl_.t_)
+      + sizeof(InkPoint::_impl_.t_)
+      - PROTOBUF_FIELD_OFFSET(InkPoint, _impl_.x_)>(
+          reinterpret_cast<char*>(&_impl_.x_),
+          reinterpret_cast<char*>(&other->_impl_.x_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata InkPoint::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_handwriting_5finterface_2eproto_getter, &descriptor_table_handwriting_5finterface_2eproto_once,
       file_level_metadata_handwriting_5finterface_2eproto[0]);
 }
@@ -716,43 +746,47 @@ class InkStroke::_Internal {
 
 InkStroke::InkStroke(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  points_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.InkStroke)
 }
 InkStroke::InkStroke(const InkStroke& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      points_(from.points_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  InkStroke* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.points_){from._impl_.points_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.InkStroke)
 }
 
-inline void InkStroke::SharedCtor() {
+inline void InkStroke::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.points_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 InkStroke::~InkStroke() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.InkStroke)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void InkStroke::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.points_.~RepeatedPtrField();
 }
 
-void InkStroke::ArenaDtor(void* object) {
-  InkStroke* _this = reinterpret_cast< InkStroke* >(object);
-  (void)_this;
-}
-void InkStroke::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void InkStroke::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void InkStroke::Clear() {
@@ -761,15 +795,15 @@ void InkStroke::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  points_.Clear();
+  _impl_.points_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* InkStroke::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* InkStroke::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .chrome_knowledge.InkPoint points = 1;
       case 1:
@@ -814,15 +848,15 @@ uint8_t* InkStroke::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .chrome_knowledge.InkPoint points = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_points_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_points_size()); i < n; i++) {
+    const auto& repfield = this->_internal_points(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_points(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.InkStroke)
@@ -839,35 +873,31 @@ size_t InkStroke::ByteSizeLong() const {
 
   // repeated .chrome_knowledge.InkPoint points = 1;
   total_size += 1UL * this->_internal_points_size();
-  for (const auto& msg : this->points_) {
+  for (const auto& msg : this->_impl_.points_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData InkStroke::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     InkStroke::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*InkStroke::GetClassData() const { return &_class_data_; }
 
-void InkStroke::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<InkStroke *>(to)->MergeFrom(
-      static_cast<const InkStroke &>(from));
-}
 
-
-void InkStroke::MergeFrom(const InkStroke& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.InkStroke)
-  GOOGLE_DCHECK_NE(&from, this);
+void InkStroke::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<InkStroke*>(&to_msg);
+  auto& from = static_cast<const InkStroke&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.InkStroke)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  points_.MergeFrom(from.points_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.points_.MergeFrom(from._impl_.points_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void InkStroke::CopyFrom(const InkStroke& from) {
@@ -884,11 +914,11 @@ bool InkStroke::IsInitialized() const {
 void InkStroke::InternalSwap(InkStroke* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  points_.InternalSwap(&other->points_);
+  _impl_.points_.InternalSwap(&other->_impl_.points_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata InkStroke::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_handwriting_5finterface_2eproto_getter, &descriptor_table_handwriting_5finterface_2eproto_once,
       file_level_metadata_handwriting_5finterface_2eproto[1]);
 }
@@ -901,43 +931,47 @@ class Ink::_Internal {
 
 Ink::Ink(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  strokes_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.Ink)
 }
 Ink::Ink(const Ink& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      strokes_(from.strokes_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  Ink* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.strokes_){from._impl_.strokes_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.Ink)
 }
 
-inline void Ink::SharedCtor() {
+inline void Ink::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.strokes_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 Ink::~Ink() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.Ink)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void Ink::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.strokes_.~RepeatedPtrField();
 }
 
-void Ink::ArenaDtor(void* object) {
-  Ink* _this = reinterpret_cast< Ink* >(object);
-  (void)_this;
-}
-void Ink::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void Ink::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void Ink::Clear() {
@@ -946,15 +980,15 @@ void Ink::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  strokes_.Clear();
+  _impl_.strokes_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* Ink::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* Ink::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .chrome_knowledge.InkStroke strokes = 1;
       case 1:
@@ -999,15 +1033,15 @@ uint8_t* Ink::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .chrome_knowledge.InkStroke strokes = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_strokes_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_strokes_size()); i < n; i++) {
+    const auto& repfield = this->_internal_strokes(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_strokes(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.Ink)
@@ -1024,35 +1058,31 @@ size_t Ink::ByteSizeLong() const {
 
   // repeated .chrome_knowledge.InkStroke strokes = 1;
   total_size += 1UL * this->_internal_strokes_size();
-  for (const auto& msg : this->strokes_) {
+  for (const auto& msg : this->_impl_.strokes_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Ink::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     Ink::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Ink::GetClassData() const { return &_class_data_; }
 
-void Ink::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<Ink *>(to)->MergeFrom(
-      static_cast<const Ink &>(from));
-}
 
-
-void Ink::MergeFrom(const Ink& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.Ink)
-  GOOGLE_DCHECK_NE(&from, this);
+void Ink::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<Ink*>(&to_msg);
+  auto& from = static_cast<const Ink&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.Ink)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  strokes_.MergeFrom(from.strokes_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.strokes_.MergeFrom(from._impl_.strokes_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void Ink::CopyFrom(const Ink& from) {
@@ -1069,11 +1099,11 @@ bool Ink::IsInitialized() const {
 void Ink::InternalSwap(Ink* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  strokes_.InternalSwap(&other->strokes_);
+  _impl_.strokes_.InternalSwap(&other->_impl_.strokes_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata Ink::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_handwriting_5finterface_2eproto_getter, &descriptor_table_handwriting_5finterface_2eproto_once,
       file_level_metadata_handwriting_5finterface_2eproto[2]);
 }
@@ -1082,7 +1112,7 @@ void Ink::InternalSwap(Ink* other) {
 
 class WritingGuide::_Internal {
  public:
-  using HasBits = decltype(std::declval<WritingGuide>()._has_bits_);
+  using HasBits = decltype(std::declval<WritingGuide>()._impl_._has_bits_);
   static void set_has_width(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1094,48 +1124,52 @@ class WritingGuide::_Internal {
 WritingGuide::WritingGuide(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.WritingGuide)
 }
 WritingGuide::WritingGuide(const WritingGuide& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  WritingGuide* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.width_){}
+    , decltype(_impl_.height_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&width_, &from.width_,
-    static_cast<size_t>(reinterpret_cast<char*>(&height_) -
-    reinterpret_cast<char*>(&width_)) + sizeof(height_));
+  ::memcpy(&_impl_.width_, &from._impl_.width_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.height_) -
+    reinterpret_cast<char*>(&_impl_.width_)) + sizeof(_impl_.height_));
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.WritingGuide)
 }
 
-inline void WritingGuide::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&width_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&height_) -
-    reinterpret_cast<char*>(&width_)) + sizeof(height_));
+inline void WritingGuide::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.width_){0}
+    , decltype(_impl_.height_){0}
+  };
 }
 
 WritingGuide::~WritingGuide() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.WritingGuide)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void WritingGuide::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void WritingGuide::ArenaDtor(void* object) {
-  WritingGuide* _this = reinterpret_cast< WritingGuide* >(object);
-  (void)_this;
-}
-void WritingGuide::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void WritingGuide::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void WritingGuide::Clear() {
@@ -1144,28 +1178,28 @@ void WritingGuide::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&width_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&height_) -
-        reinterpret_cast<char*>(&width_)) + sizeof(height_));
+    ::memset(&_impl_.width_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.height_) -
+        reinterpret_cast<char*>(&_impl_.width_)) + sizeof(_impl_.height_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* WritingGuide::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* WritingGuide::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional float width = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 13)) {
           _Internal::set_has_width(&has_bits);
-          width_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.width_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -1174,7 +1208,7 @@ const char* WritingGuide::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
           _Internal::set_has_height(&has_bits);
-          height_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.height_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -1195,7 +1229,7 @@ const char* WritingGuide::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1209,21 +1243,21 @@ uint8_t* WritingGuide::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional float width = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(1, this->_internal_width(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(1, this->_internal_width(), target);
   }
 
   // optional float height = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_height(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(2, this->_internal_height(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.WritingGuide)
@@ -1238,7 +1272,7 @@ size_t WritingGuide::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional float width = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -1251,39 +1285,35 @@ size_t WritingGuide::ByteSizeLong() const {
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData WritingGuide::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     WritingGuide::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*WritingGuide::GetClassData() const { return &_class_data_; }
 
-void WritingGuide::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<WritingGuide *>(to)->MergeFrom(
-      static_cast<const WritingGuide &>(from));
-}
 
-
-void WritingGuide::MergeFrom(const WritingGuide& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.WritingGuide)
-  GOOGLE_DCHECK_NE(&from, this);
+void WritingGuide::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<WritingGuide*>(&to_msg);
+  auto& from = static_cast<const WritingGuide&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.WritingGuide)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      width_ = from.width_;
+      _this->_impl_.width_ = from._impl_.width_;
     }
     if (cached_has_bits & 0x00000002u) {
-      height_ = from.height_;
+      _this->_impl_.height_ = from._impl_.height_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void WritingGuide::CopyFrom(const WritingGuide& from) {
@@ -1300,17 +1330,17 @@ bool WritingGuide::IsInitialized() const {
 void WritingGuide::InternalSwap(WritingGuide* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(WritingGuide, height_)
-      + sizeof(WritingGuide::height_)
-      - PROTOBUF_FIELD_OFFSET(WritingGuide, width_)>(
-          reinterpret_cast<char*>(&width_),
-          reinterpret_cast<char*>(&other->width_));
+      PROTOBUF_FIELD_OFFSET(WritingGuide, _impl_.height_)
+      + sizeof(WritingGuide::_impl_.height_)
+      - PROTOBUF_FIELD_OFFSET(WritingGuide, _impl_.width_)>(
+          reinterpret_cast<char*>(&_impl_.width_),
+          reinterpret_cast<char*>(&other->_impl_.width_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata WritingGuide::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_handwriting_5finterface_2eproto_getter, &descriptor_table_handwriting_5finterface_2eproto_once,
       file_level_metadata_handwriting_5finterface_2eproto[3]);
 }
@@ -1319,7 +1349,7 @@ void WritingGuide::InternalSwap(WritingGuide* other) {
 
 class RecognitionContext::_Internal {
  public:
-  using HasBits = decltype(std::declval<RecognitionContext>()._has_bits_);
+  using HasBits = decltype(std::declval<RecognitionContext>()._impl_._has_bits_);
   static const ::chrome_knowledge::WritingGuide& writing_guide(const RecognitionContext* msg);
   static void set_has_writing_guide(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
@@ -1331,66 +1361,71 @@ class RecognitionContext::_Internal {
 
 const ::chrome_knowledge::WritingGuide&
 RecognitionContext::_Internal::writing_guide(const RecognitionContext* msg) {
-  return *msg->writing_guide_;
+  return *msg->_impl_.writing_guide_;
 }
 RecognitionContext::RecognitionContext(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.RecognitionContext)
 }
 RecognitionContext::RecognitionContext(const RecognitionContext& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  RecognitionContext* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.pre_context_){}
+    , decltype(_impl_.writing_guide_){nullptr}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  pre_context_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.pre_context_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    pre_context_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.pre_context_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_pre_context()) {
-    pre_context_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_pre_context(), 
-      GetArenaForAllocation());
+    _this->_impl_.pre_context_.Set(from._internal_pre_context(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_writing_guide()) {
-    writing_guide_ = new ::chrome_knowledge::WritingGuide(*from.writing_guide_);
-  } else {
-    writing_guide_ = nullptr;
+    _this->_impl_.writing_guide_ = new ::chrome_knowledge::WritingGuide(*from._impl_.writing_guide_);
   }
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.RecognitionContext)
 }
 
-inline void RecognitionContext::SharedCtor() {
-pre_context_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  pre_context_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-writing_guide_ = nullptr;
+inline void RecognitionContext::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.pre_context_){}
+    , decltype(_impl_.writing_guide_){nullptr}
+  };
+  _impl_.pre_context_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.pre_context_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 RecognitionContext::~RecognitionContext() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.RecognitionContext)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void RecognitionContext::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  pre_context_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete writing_guide_;
+  _impl_.pre_context_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.writing_guide_;
 }
 
-void RecognitionContext::ArenaDtor(void* object) {
-  RecognitionContext* _this = reinterpret_cast< RecognitionContext* >(object);
-  (void)_this;
-}
-void RecognitionContext::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void RecognitionContext::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void RecognitionContext::Clear() {
@@ -1399,26 +1434,26 @@ void RecognitionContext::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      pre_context_.ClearNonDefaultToEmpty();
+      _impl_.pre_context_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(writing_guide_ != nullptr);
-      writing_guide_->Clear();
+      GOOGLE_DCHECK(_impl_.writing_guide_ != nullptr);
+      _impl_.writing_guide_->Clear();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* RecognitionContext::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* RecognitionContext::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .chrome_knowledge.WritingGuide writing_guide = 1;
       case 1:
@@ -1432,11 +1467,11 @@ const char* RecognitionContext::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_pre_context();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.RecognitionContext.pre_context");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.RecognitionContext.pre_context");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -1456,7 +1491,7 @@ const char* RecognitionContext::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1470,13 +1505,12 @@ uint8_t* RecognitionContext::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .chrome_knowledge.WritingGuide writing_guide = 1;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::writing_guide(this), target, stream);
+      InternalWriteMessage(1, _Internal::writing_guide(this),
+        _Internal::writing_guide(this).GetCachedSize(), target, stream);
   }
 
   // optional string pre_context = 2;
@@ -1490,7 +1524,7 @@ uint8_t* RecognitionContext::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.RecognitionContext)
@@ -1505,7 +1539,7 @@ size_t RecognitionContext::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional string pre_context = 2;
     if (cached_has_bits & 0x00000001u) {
@@ -1518,42 +1552,39 @@ size_t RecognitionContext::ByteSizeLong() const {
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *writing_guide_);
+          *_impl_.writing_guide_);
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData RecognitionContext::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     RecognitionContext::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*RecognitionContext::GetClassData() const { return &_class_data_; }
 
-void RecognitionContext::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<RecognitionContext *>(to)->MergeFrom(
-      static_cast<const RecognitionContext &>(from));
-}
 
-
-void RecognitionContext::MergeFrom(const RecognitionContext& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.RecognitionContext)
-  GOOGLE_DCHECK_NE(&from, this);
+void RecognitionContext::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<RecognitionContext*>(&to_msg);
+  auto& from = static_cast<const RecognitionContext&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.RecognitionContext)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_pre_context(from._internal_pre_context());
+      _this->_internal_set_pre_context(from._internal_pre_context());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_writing_guide()->::chrome_knowledge::WritingGuide::MergeFrom(from._internal_writing_guide());
+      _this->_internal_mutable_writing_guide()->::chrome_knowledge::WritingGuide::MergeFrom(
+          from._internal_writing_guide());
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void RecognitionContext::CopyFrom(const RecognitionContext& from) {
@@ -1572,17 +1603,16 @@ void RecognitionContext::InternalSwap(RecognitionContext* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &pre_context_, lhs_arena,
-      &other->pre_context_, rhs_arena
+      &_impl_.pre_context_, lhs_arena,
+      &other->_impl_.pre_context_, rhs_arena
   );
-  swap(writing_guide_, other->writing_guide_);
+  swap(_impl_.writing_guide_, other->_impl_.writing_guide_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata RecognitionContext::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_handwriting_5finterface_2eproto_getter, &descriptor_table_handwriting_5finterface_2eproto_once,
       file_level_metadata_handwriting_5finterface_2eproto[4]);
 }
@@ -1591,7 +1621,7 @@ void RecognitionContext::InternalSwap(RecognitionContext* other) {
 
 class HandwritingRecognizerRequest::_Internal {
  public:
-  using HasBits = decltype(std::declval<HandwritingRecognizerRequest>()._has_bits_);
+  using HasBits = decltype(std::declval<HandwritingRecognizerRequest>()._impl_._has_bits_);
   static const ::chrome_knowledge::Ink& ink(const HandwritingRecognizerRequest* msg);
   static void set_has_ink(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -1610,69 +1640,73 @@ class HandwritingRecognizerRequest::_Internal {
 
 const ::chrome_knowledge::Ink&
 HandwritingRecognizerRequest::_Internal::ink(const HandwritingRecognizerRequest* msg) {
-  return *msg->ink_;
+  return *msg->_impl_.ink_;
 }
 const ::chrome_knowledge::RecognitionContext&
 HandwritingRecognizerRequest::_Internal::context(const HandwritingRecognizerRequest* msg) {
-  return *msg->context_;
+  return *msg->_impl_.context_;
 }
 HandwritingRecognizerRequest::HandwritingRecognizerRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.HandwritingRecognizerRequest)
 }
 HandwritingRecognizerRequest::HandwritingRecognizerRequest(const HandwritingRecognizerRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HandwritingRecognizerRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ink_){nullptr}
+    , decltype(_impl_.context_){nullptr}
+    , decltype(_impl_.max_num_results_){}
+    , decltype(_impl_.return_segmentation_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   if (from._internal_has_ink()) {
-    ink_ = new ::chrome_knowledge::Ink(*from.ink_);
-  } else {
-    ink_ = nullptr;
+    _this->_impl_.ink_ = new ::chrome_knowledge::Ink(*from._impl_.ink_);
   }
   if (from._internal_has_context()) {
-    context_ = new ::chrome_knowledge::RecognitionContext(*from.context_);
-  } else {
-    context_ = nullptr;
+    _this->_impl_.context_ = new ::chrome_knowledge::RecognitionContext(*from._impl_.context_);
   }
-  ::memcpy(&max_num_results_, &from.max_num_results_,
-    static_cast<size_t>(reinterpret_cast<char*>(&return_segmentation_) -
-    reinterpret_cast<char*>(&max_num_results_)) + sizeof(return_segmentation_));
+  ::memcpy(&_impl_.max_num_results_, &from._impl_.max_num_results_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.return_segmentation_) -
+    reinterpret_cast<char*>(&_impl_.max_num_results_)) + sizeof(_impl_.return_segmentation_));
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.HandwritingRecognizerRequest)
 }
 
-inline void HandwritingRecognizerRequest::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&ink_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&return_segmentation_) -
-    reinterpret_cast<char*>(&ink_)) + sizeof(return_segmentation_));
+inline void HandwritingRecognizerRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ink_){nullptr}
+    , decltype(_impl_.context_){nullptr}
+    , decltype(_impl_.max_num_results_){0}
+    , decltype(_impl_.return_segmentation_){false}
+  };
 }
 
 HandwritingRecognizerRequest::~HandwritingRecognizerRequest() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.HandwritingRecognizerRequest)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HandwritingRecognizerRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete ink_;
-  if (this != internal_default_instance()) delete context_;
+  if (this != internal_default_instance()) delete _impl_.ink_;
+  if (this != internal_default_instance()) delete _impl_.context_;
 }
 
-void HandwritingRecognizerRequest::ArenaDtor(void* object) {
-  HandwritingRecognizerRequest* _this = reinterpret_cast< HandwritingRecognizerRequest* >(object);
-  (void)_this;
-}
-void HandwritingRecognizerRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HandwritingRecognizerRequest::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HandwritingRecognizerRequest::Clear() {
@@ -1681,32 +1715,32 @@ void HandwritingRecognizerRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(ink_ != nullptr);
-      ink_->Clear();
+      GOOGLE_DCHECK(_impl_.ink_ != nullptr);
+      _impl_.ink_->Clear();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(context_ != nullptr);
-      context_->Clear();
+      GOOGLE_DCHECK(_impl_.context_ != nullptr);
+      _impl_.context_->Clear();
     }
   }
   if (cached_has_bits & 0x0000000cu) {
-    ::memset(&max_num_results_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&return_segmentation_) -
-        reinterpret_cast<char*>(&max_num_results_)) + sizeof(return_segmentation_));
+    ::memset(&_impl_.max_num_results_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.return_segmentation_) -
+        reinterpret_cast<char*>(&_impl_.max_num_results_)) + sizeof(_impl_.return_segmentation_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HandwritingRecognizerRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HandwritingRecognizerRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .chrome_knowledge.Ink ink = 1;
       case 1:
@@ -1728,7 +1762,7 @@ const char* HandwritingRecognizerRequest::_InternalParse(const char* ptr, ::PROT
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_max_num_results(&has_bits);
-          max_num_results_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.max_num_results_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1737,7 +1771,7 @@ const char* HandwritingRecognizerRequest::_InternalParse(const char* ptr, ::PROT
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _Internal::set_has_return_segmentation(&has_bits);
-          return_segmentation_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.return_segmentation_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1758,7 +1792,7 @@ const char* HandwritingRecognizerRequest::_InternalParse(const char* ptr, ::PROT
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -1772,37 +1806,35 @@ uint8_t* HandwritingRecognizerRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .chrome_knowledge.Ink ink = 1;
   if (cached_has_bits & 0x00000001u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::ink(this), target, stream);
+      InternalWriteMessage(1, _Internal::ink(this),
+        _Internal::ink(this).GetCachedSize(), target, stream);
   }
 
   // optional .chrome_knowledge.RecognitionContext context = 2;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::context(this), target, stream);
+      InternalWriteMessage(2, _Internal::context(this),
+        _Internal::context(this).GetCachedSize(), target, stream);
   }
 
   // optional int32 max_num_results = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_max_num_results(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_max_num_results(), target);
   }
 
   // optional bool return_segmentation = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_return_segmentation(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_return_segmentation(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.HandwritingRecognizerRequest)
@@ -1817,25 +1849,25 @@ size_t HandwritingRecognizerRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional .chrome_knowledge.Ink ink = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *ink_);
+          *_impl_.ink_);
     }
 
     // optional .chrome_knowledge.RecognitionContext context = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *context_);
+          *_impl_.context_);
     }
 
     // optional int32 max_num_results = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_max_num_results());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_max_num_results());
     }
 
     // optional bool return_segmentation = 4;
@@ -1844,45 +1876,43 @@ size_t HandwritingRecognizerRequest::ByteSizeLong() const {
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HandwritingRecognizerRequest::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HandwritingRecognizerRequest::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandwritingRecognizerRequest::GetClassData() const { return &_class_data_; }
 
-void HandwritingRecognizerRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HandwritingRecognizerRequest *>(to)->MergeFrom(
-      static_cast<const HandwritingRecognizerRequest &>(from));
-}
 
-
-void HandwritingRecognizerRequest::MergeFrom(const HandwritingRecognizerRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.HandwritingRecognizerRequest)
-  GOOGLE_DCHECK_NE(&from, this);
+void HandwritingRecognizerRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HandwritingRecognizerRequest*>(&to_msg);
+  auto& from = static_cast<const HandwritingRecognizerRequest&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.HandwritingRecognizerRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_ink()->::chrome_knowledge::Ink::MergeFrom(from._internal_ink());
+      _this->_internal_mutable_ink()->::chrome_knowledge::Ink::MergeFrom(
+          from._internal_ink());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_context()->::chrome_knowledge::RecognitionContext::MergeFrom(from._internal_context());
+      _this->_internal_mutable_context()->::chrome_knowledge::RecognitionContext::MergeFrom(
+          from._internal_context());
     }
     if (cached_has_bits & 0x00000004u) {
-      max_num_results_ = from.max_num_results_;
+      _this->_impl_.max_num_results_ = from._impl_.max_num_results_;
     }
     if (cached_has_bits & 0x00000008u) {
-      return_segmentation_ = from.return_segmentation_;
+      _this->_impl_.return_segmentation_ = from._impl_.return_segmentation_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HandwritingRecognizerRequest::CopyFrom(const HandwritingRecognizerRequest& from) {
@@ -1899,17 +1929,17 @@ bool HandwritingRecognizerRequest::IsInitialized() const {
 void HandwritingRecognizerRequest::InternalSwap(HandwritingRecognizerRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(HandwritingRecognizerRequest, return_segmentation_)
-      + sizeof(HandwritingRecognizerRequest::return_segmentation_)
-      - PROTOBUF_FIELD_OFFSET(HandwritingRecognizerRequest, ink_)>(
-          reinterpret_cast<char*>(&ink_),
-          reinterpret_cast<char*>(&other->ink_));
+      PROTOBUF_FIELD_OFFSET(HandwritingRecognizerRequest, _impl_.return_segmentation_)
+      + sizeof(HandwritingRecognizerRequest::_impl_.return_segmentation_)
+      - PROTOBUF_FIELD_OFFSET(HandwritingRecognizerRequest, _impl_.ink_)>(
+          reinterpret_cast<char*>(&_impl_.ink_),
+          reinterpret_cast<char*>(&other->_impl_.ink_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandwritingRecognizerRequest::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_handwriting_5finterface_2eproto_getter, &descriptor_table_handwriting_5finterface_2eproto_once,
       file_level_metadata_handwriting_5finterface_2eproto[5]);
 }
@@ -1918,7 +1948,7 @@ void HandwritingRecognizerRequest::InternalSwap(HandwritingRecognizerRequest* ot
 
 class HandwritingRecognizerInkRange::_Internal {
  public:
-  using HasBits = decltype(std::declval<HandwritingRecognizerInkRange>()._has_bits_);
+  using HasBits = decltype(std::declval<HandwritingRecognizerInkRange>()._impl_._has_bits_);
   static void set_has_start_stroke(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -1936,48 +1966,56 @@ class HandwritingRecognizerInkRange::_Internal {
 HandwritingRecognizerInkRange::HandwritingRecognizerInkRange(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.HandwritingRecognizerInkRange)
 }
 HandwritingRecognizerInkRange::HandwritingRecognizerInkRange(const HandwritingRecognizerInkRange& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HandwritingRecognizerInkRange* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.start_stroke_){}
+    , decltype(_impl_.end_stroke_){}
+    , decltype(_impl_.start_point_){}
+    , decltype(_impl_.end_point_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&start_stroke_, &from.start_stroke_,
-    static_cast<size_t>(reinterpret_cast<char*>(&end_point_) -
-    reinterpret_cast<char*>(&start_stroke_)) + sizeof(end_point_));
+  ::memcpy(&_impl_.start_stroke_, &from._impl_.start_stroke_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.end_point_) -
+    reinterpret_cast<char*>(&_impl_.start_stroke_)) + sizeof(_impl_.end_point_));
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.HandwritingRecognizerInkRange)
 }
 
-inline void HandwritingRecognizerInkRange::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&start_stroke_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&end_point_) -
-    reinterpret_cast<char*>(&start_stroke_)) + sizeof(end_point_));
+inline void HandwritingRecognizerInkRange::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.start_stroke_){0}
+    , decltype(_impl_.end_stroke_){0}
+    , decltype(_impl_.start_point_){0}
+    , decltype(_impl_.end_point_){0}
+  };
 }
 
 HandwritingRecognizerInkRange::~HandwritingRecognizerInkRange() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.HandwritingRecognizerInkRange)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HandwritingRecognizerInkRange::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void HandwritingRecognizerInkRange::ArenaDtor(void* object) {
-  HandwritingRecognizerInkRange* _this = reinterpret_cast< HandwritingRecognizerInkRange* >(object);
-  (void)_this;
-}
-void HandwritingRecognizerInkRange::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HandwritingRecognizerInkRange::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HandwritingRecognizerInkRange::Clear() {
@@ -1986,28 +2024,28 @@ void HandwritingRecognizerInkRange::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
-    ::memset(&start_stroke_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&end_point_) -
-        reinterpret_cast<char*>(&start_stroke_)) + sizeof(end_point_));
+    ::memset(&_impl_.start_stroke_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.end_point_) -
+        reinterpret_cast<char*>(&_impl_.start_stroke_)) + sizeof(_impl_.end_point_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HandwritingRecognizerInkRange::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HandwritingRecognizerInkRange::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional int32 start_stroke = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           _Internal::set_has_start_stroke(&has_bits);
-          start_stroke_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.start_stroke_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2016,7 +2054,7 @@ const char* HandwritingRecognizerInkRange::_InternalParse(const char* ptr, ::PRO
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           _Internal::set_has_end_stroke(&has_bits);
-          end_stroke_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.end_stroke_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2025,7 +2063,7 @@ const char* HandwritingRecognizerInkRange::_InternalParse(const char* ptr, ::PRO
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           _Internal::set_has_start_point(&has_bits);
-          start_point_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.start_point_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2034,7 +2072,7 @@ const char* HandwritingRecognizerInkRange::_InternalParse(const char* ptr, ::PRO
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _Internal::set_has_end_point(&has_bits);
-          end_point_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.end_point_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2055,7 +2093,7 @@ const char* HandwritingRecognizerInkRange::_InternalParse(const char* ptr, ::PRO
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2069,33 +2107,33 @@ uint8_t* HandwritingRecognizerInkRange::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional int32 start_stroke = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_start_stroke(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_start_stroke(), target);
   }
 
   // optional int32 end_stroke = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_end_stroke(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_end_stroke(), target);
   }
 
   // optional int32 start_point = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_start_point(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_start_point(), target);
   }
 
   // optional int32 end_point = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_end_point(), target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(4, this->_internal_end_point(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.HandwritingRecognizerInkRange)
@@ -2110,68 +2148,64 @@ size_t HandwritingRecognizerInkRange::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     // optional int32 start_stroke = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_start_stroke());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_start_stroke());
     }
 
     // optional int32 end_stroke = 2;
     if (cached_has_bits & 0x00000002u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_end_stroke());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_end_stroke());
     }
 
     // optional int32 start_point = 3;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_start_point());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_start_point());
     }
 
     // optional int32 end_point = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_end_point());
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_end_point());
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HandwritingRecognizerInkRange::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HandwritingRecognizerInkRange::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandwritingRecognizerInkRange::GetClassData() const { return &_class_data_; }
 
-void HandwritingRecognizerInkRange::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HandwritingRecognizerInkRange *>(to)->MergeFrom(
-      static_cast<const HandwritingRecognizerInkRange &>(from));
-}
 
-
-void HandwritingRecognizerInkRange::MergeFrom(const HandwritingRecognizerInkRange& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.HandwritingRecognizerInkRange)
-  GOOGLE_DCHECK_NE(&from, this);
+void HandwritingRecognizerInkRange::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HandwritingRecognizerInkRange*>(&to_msg);
+  auto& from = static_cast<const HandwritingRecognizerInkRange&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.HandwritingRecognizerInkRange)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      start_stroke_ = from.start_stroke_;
+      _this->_impl_.start_stroke_ = from._impl_.start_stroke_;
     }
     if (cached_has_bits & 0x00000002u) {
-      end_stroke_ = from.end_stroke_;
+      _this->_impl_.end_stroke_ = from._impl_.end_stroke_;
     }
     if (cached_has_bits & 0x00000004u) {
-      start_point_ = from.start_point_;
+      _this->_impl_.start_point_ = from._impl_.start_point_;
     }
     if (cached_has_bits & 0x00000008u) {
-      end_point_ = from.end_point_;
+      _this->_impl_.end_point_ = from._impl_.end_point_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HandwritingRecognizerInkRange::CopyFrom(const HandwritingRecognizerInkRange& from) {
@@ -2188,17 +2222,17 @@ bool HandwritingRecognizerInkRange::IsInitialized() const {
 void HandwritingRecognizerInkRange::InternalSwap(HandwritingRecognizerInkRange* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(HandwritingRecognizerInkRange, end_point_)
-      + sizeof(HandwritingRecognizerInkRange::end_point_)
-      - PROTOBUF_FIELD_OFFSET(HandwritingRecognizerInkRange, start_stroke_)>(
-          reinterpret_cast<char*>(&start_stroke_),
-          reinterpret_cast<char*>(&other->start_stroke_));
+      PROTOBUF_FIELD_OFFSET(HandwritingRecognizerInkRange, _impl_.end_point_)
+      + sizeof(HandwritingRecognizerInkRange::_impl_.end_point_)
+      - PROTOBUF_FIELD_OFFSET(HandwritingRecognizerInkRange, _impl_.start_stroke_)>(
+          reinterpret_cast<char*>(&_impl_.start_stroke_),
+          reinterpret_cast<char*>(&other->_impl_.start_stroke_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandwritingRecognizerInkRange::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_handwriting_5finterface_2eproto_getter, &descriptor_table_handwriting_5finterface_2eproto_once,
       file_level_metadata_handwriting_5finterface_2eproto[6]);
 }
@@ -2207,7 +2241,7 @@ void HandwritingRecognizerInkRange::InternalSwap(HandwritingRecognizerInkRange* 
 
 class HandwritingRecognizerSegment::_Internal {
  public:
-  using HasBits = decltype(std::declval<HandwritingRecognizerSegment>()._has_bits_);
+  using HasBits = decltype(std::declval<HandwritingRecognizerSegment>()._impl_._has_bits_);
   static void set_has_sublabel(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2215,57 +2249,64 @@ class HandwritingRecognizerSegment::_Internal {
 
 HandwritingRecognizerSegment::HandwritingRecognizerSegment(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  ink_ranges_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.HandwritingRecognizerSegment)
 }
 HandwritingRecognizerSegment::HandwritingRecognizerSegment(const HandwritingRecognizerSegment& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_),
-      ink_ranges_(from.ink_ranges_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HandwritingRecognizerSegment* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ink_ranges_){from._impl_.ink_ranges_}
+    , decltype(_impl_.sublabel_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  sublabel_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.sublabel_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    sublabel_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.sublabel_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_sublabel()) {
-    sublabel_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_sublabel(), 
-      GetArenaForAllocation());
+    _this->_impl_.sublabel_.Set(from._internal_sublabel(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.HandwritingRecognizerSegment)
 }
 
-inline void HandwritingRecognizerSegment::SharedCtor() {
-sublabel_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  sublabel_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void HandwritingRecognizerSegment::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.ink_ranges_){arena}
+    , decltype(_impl_.sublabel_){}
+  };
+  _impl_.sublabel_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.sublabel_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 HandwritingRecognizerSegment::~HandwritingRecognizerSegment() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.HandwritingRecognizerSegment)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HandwritingRecognizerSegment::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  sublabel_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.ink_ranges_.~RepeatedPtrField();
+  _impl_.sublabel_.Destroy();
 }
 
-void HandwritingRecognizerSegment::ArenaDtor(void* object) {
-  HandwritingRecognizerSegment* _this = reinterpret_cast< HandwritingRecognizerSegment* >(object);
-  (void)_this;
-}
-void HandwritingRecognizerSegment::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HandwritingRecognizerSegment::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HandwritingRecognizerSegment::Clear() {
@@ -2274,31 +2315,31 @@ void HandwritingRecognizerSegment::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  ink_ranges_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.ink_ranges_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    sublabel_.ClearNonDefaultToEmpty();
+    _impl_.sublabel_.ClearNonDefaultToEmpty();
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HandwritingRecognizerSegment::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HandwritingRecognizerSegment::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string sublabel = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_sublabel();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.HandwritingRecognizerSegment.sublabel");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.HandwritingRecognizerSegment.sublabel");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -2331,7 +2372,7 @@ const char* HandwritingRecognizerSegment::_InternalParse(const char* ptr, ::PROT
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2345,7 +2386,7 @@ uint8_t* HandwritingRecognizerSegment::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string sublabel = 1;
   if (cached_has_bits & 0x00000001u) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -2357,15 +2398,15 @@ uint8_t* HandwritingRecognizerSegment::_InternalSerialize(
   }
 
   // repeated .chrome_knowledge.HandwritingRecognizerInkRange ink_ranges = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_ink_ranges_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_ink_ranges_size()); i < n; i++) {
+    const auto& repfield = this->_internal_ink_ranges(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_ink_ranges(i), target, stream);
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.HandwritingRecognizerSegment)
@@ -2382,46 +2423,42 @@ size_t HandwritingRecognizerSegment::ByteSizeLong() const {
 
   // repeated .chrome_knowledge.HandwritingRecognizerInkRange ink_ranges = 2;
   total_size += 1UL * this->_internal_ink_ranges_size();
-  for (const auto& msg : this->ink_ranges_) {
+  for (const auto& msg : this->_impl_.ink_ranges_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // optional string sublabel = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_sublabel());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HandwritingRecognizerSegment::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HandwritingRecognizerSegment::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandwritingRecognizerSegment::GetClassData() const { return &_class_data_; }
 
-void HandwritingRecognizerSegment::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HandwritingRecognizerSegment *>(to)->MergeFrom(
-      static_cast<const HandwritingRecognizerSegment &>(from));
-}
 
-
-void HandwritingRecognizerSegment::MergeFrom(const HandwritingRecognizerSegment& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.HandwritingRecognizerSegment)
-  GOOGLE_DCHECK_NE(&from, this);
+void HandwritingRecognizerSegment::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HandwritingRecognizerSegment*>(&to_msg);
+  auto& from = static_cast<const HandwritingRecognizerSegment&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.HandwritingRecognizerSegment)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  ink_ranges_.MergeFrom(from.ink_ranges_);
+  _this->_impl_.ink_ranges_.MergeFrom(from._impl_.ink_ranges_);
   if (from._internal_has_sublabel()) {
-    _internal_set_sublabel(from._internal_sublabel());
+    _this->_internal_set_sublabel(from._internal_sublabel());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HandwritingRecognizerSegment::CopyFrom(const HandwritingRecognizerSegment& from) {
@@ -2440,17 +2477,16 @@ void HandwritingRecognizerSegment::InternalSwap(HandwritingRecognizerSegment* ot
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ink_ranges_.InternalSwap(&other->ink_ranges_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.ink_ranges_.InternalSwap(&other->_impl_.ink_ranges_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &sublabel_, lhs_arena,
-      &other->sublabel_, rhs_arena
+      &_impl_.sublabel_, lhs_arena,
+      &other->_impl_.sublabel_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandwritingRecognizerSegment::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_handwriting_5finterface_2eproto_getter, &descriptor_table_handwriting_5finterface_2eproto_once,
       file_level_metadata_handwriting_5finterface_2eproto[7]);
 }
@@ -2463,43 +2499,47 @@ class HandwritingRecognizerSegmentation::_Internal {
 
 HandwritingRecognizerSegmentation::HandwritingRecognizerSegmentation(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  segments_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.HandwritingRecognizerSegmentation)
 }
 HandwritingRecognizerSegmentation::HandwritingRecognizerSegmentation(const HandwritingRecognizerSegmentation& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      segments_(from.segments_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HandwritingRecognizerSegmentation* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.segments_){from._impl_.segments_}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.HandwritingRecognizerSegmentation)
 }
 
-inline void HandwritingRecognizerSegmentation::SharedCtor() {
+inline void HandwritingRecognizerSegmentation::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.segments_){arena}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
 }
 
 HandwritingRecognizerSegmentation::~HandwritingRecognizerSegmentation() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.HandwritingRecognizerSegmentation)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HandwritingRecognizerSegmentation::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.segments_.~RepeatedPtrField();
 }
 
-void HandwritingRecognizerSegmentation::ArenaDtor(void* object) {
-  HandwritingRecognizerSegmentation* _this = reinterpret_cast< HandwritingRecognizerSegmentation* >(object);
-  (void)_this;
-}
-void HandwritingRecognizerSegmentation::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HandwritingRecognizerSegmentation::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HandwritingRecognizerSegmentation::Clear() {
@@ -2508,15 +2548,15 @@ void HandwritingRecognizerSegmentation::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  segments_.Clear();
+  _impl_.segments_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HandwritingRecognizerSegmentation::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HandwritingRecognizerSegmentation::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // repeated .chrome_knowledge.HandwritingRecognizerSegment segments = 1;
       case 1:
@@ -2561,15 +2601,15 @@ uint8_t* HandwritingRecognizerSegmentation::_InternalSerialize(
   (void) cached_has_bits;
 
   // repeated .chrome_knowledge.HandwritingRecognizerSegment segments = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_segments_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_segments_size()); i < n; i++) {
+    const auto& repfield = this->_internal_segments(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(1, this->_internal_segments(i), target, stream);
+        InternalWriteMessage(1, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.HandwritingRecognizerSegmentation)
@@ -2586,35 +2626,31 @@ size_t HandwritingRecognizerSegmentation::ByteSizeLong() const {
 
   // repeated .chrome_knowledge.HandwritingRecognizerSegment segments = 1;
   total_size += 1UL * this->_internal_segments_size();
-  for (const auto& msg : this->segments_) {
+  for (const auto& msg : this->_impl_.segments_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HandwritingRecognizerSegmentation::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HandwritingRecognizerSegmentation::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandwritingRecognizerSegmentation::GetClassData() const { return &_class_data_; }
 
-void HandwritingRecognizerSegmentation::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HandwritingRecognizerSegmentation *>(to)->MergeFrom(
-      static_cast<const HandwritingRecognizerSegmentation &>(from));
-}
 
-
-void HandwritingRecognizerSegmentation::MergeFrom(const HandwritingRecognizerSegmentation& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.HandwritingRecognizerSegmentation)
-  GOOGLE_DCHECK_NE(&from, this);
+void HandwritingRecognizerSegmentation::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HandwritingRecognizerSegmentation*>(&to_msg);
+  auto& from = static_cast<const HandwritingRecognizerSegmentation&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.HandwritingRecognizerSegmentation)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  segments_.MergeFrom(from.segments_);
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_impl_.segments_.MergeFrom(from._impl_.segments_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HandwritingRecognizerSegmentation::CopyFrom(const HandwritingRecognizerSegmentation& from) {
@@ -2631,11 +2667,11 @@ bool HandwritingRecognizerSegmentation::IsInitialized() const {
 void HandwritingRecognizerSegmentation::InternalSwap(HandwritingRecognizerSegmentation* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  segments_.InternalSwap(&other->segments_);
+  _impl_.segments_.InternalSwap(&other->_impl_.segments_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandwritingRecognizerSegmentation::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_handwriting_5finterface_2eproto_getter, &descriptor_table_handwriting_5finterface_2eproto_once,
       file_level_metadata_handwriting_5finterface_2eproto[8]);
 }
@@ -2644,7 +2680,7 @@ void HandwritingRecognizerSegmentation::InternalSwap(HandwritingRecognizerSegmen
 
 class HandwritingRecognizerCandidate::_Internal {
  public:
-  using HasBits = decltype(std::declval<HandwritingRecognizerCandidate>()._has_bits_);
+  using HasBits = decltype(std::declval<HandwritingRecognizerCandidate>()._impl_._has_bits_);
   static void set_has_text(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2659,70 +2695,74 @@ class HandwritingRecognizerCandidate::_Internal {
 
 const ::chrome_knowledge::HandwritingRecognizerSegmentation&
 HandwritingRecognizerCandidate::_Internal::segmentation(const HandwritingRecognizerCandidate* msg) {
-  return *msg->segmentation_;
+  return *msg->_impl_.segmentation_;
 }
 HandwritingRecognizerCandidate::HandwritingRecognizerCandidate(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.HandwritingRecognizerCandidate)
 }
 HandwritingRecognizerCandidate::HandwritingRecognizerCandidate(const HandwritingRecognizerCandidate& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HandwritingRecognizerCandidate* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.text_){}
+    , decltype(_impl_.segmentation_){nullptr}
+    , decltype(_impl_.score_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.text_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    text_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.text_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_text()) {
-    text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_text(), 
-      GetArenaForAllocation());
+    _this->_impl_.text_.Set(from._internal_text(), 
+      _this->GetArenaForAllocation());
   }
   if (from._internal_has_segmentation()) {
-    segmentation_ = new ::chrome_knowledge::HandwritingRecognizerSegmentation(*from.segmentation_);
-  } else {
-    segmentation_ = nullptr;
+    _this->_impl_.segmentation_ = new ::chrome_knowledge::HandwritingRecognizerSegmentation(*from._impl_.segmentation_);
   }
-  score_ = from.score_;
+  _this->_impl_.score_ = from._impl_.score_;
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.HandwritingRecognizerCandidate)
 }
 
-inline void HandwritingRecognizerCandidate::SharedCtor() {
-text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  text_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&segmentation_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&score_) -
-    reinterpret_cast<char*>(&segmentation_)) + sizeof(score_));
+inline void HandwritingRecognizerCandidate::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.text_){}
+    , decltype(_impl_.segmentation_){nullptr}
+    , decltype(_impl_.score_){0}
+  };
+  _impl_.text_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.text_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 HandwritingRecognizerCandidate::~HandwritingRecognizerCandidate() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.HandwritingRecognizerCandidate)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HandwritingRecognizerCandidate::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  text_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (this != internal_default_instance()) delete segmentation_;
+  _impl_.text_.Destroy();
+  if (this != internal_default_instance()) delete _impl_.segmentation_;
 }
 
-void HandwritingRecognizerCandidate::ArenaDtor(void* object) {
-  HandwritingRecognizerCandidate* _this = reinterpret_cast< HandwritingRecognizerCandidate* >(object);
-  (void)_this;
-}
-void HandwritingRecognizerCandidate::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HandwritingRecognizerCandidate::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HandwritingRecognizerCandidate::Clear() {
@@ -2731,37 +2771,37 @@ void HandwritingRecognizerCandidate::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      text_.ClearNonDefaultToEmpty();
+      _impl_.text_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(segmentation_ != nullptr);
-      segmentation_->Clear();
+      GOOGLE_DCHECK(_impl_.segmentation_ != nullptr);
+      _impl_.segmentation_->Clear();
     }
   }
-  score_ = 0;
-  _has_bits_.Clear();
+  _impl_.score_ = 0;
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HandwritingRecognizerCandidate::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HandwritingRecognizerCandidate::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string text = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_text();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.HandwritingRecognizerCandidate.text");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.HandwritingRecognizerCandidate.text");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -2769,7 +2809,7 @@ const char* HandwritingRecognizerCandidate::_InternalParse(const char* ptr, ::PR
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 21)) {
           _Internal::set_has_score(&has_bits);
-          score_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.score_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -2798,7 +2838,7 @@ const char* HandwritingRecognizerCandidate::_InternalParse(const char* ptr, ::PR
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2812,7 +2852,7 @@ uint8_t* HandwritingRecognizerCandidate::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string text = 1;
   if (cached_has_bits & 0x00000001u) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -2826,19 +2866,18 @@ uint8_t* HandwritingRecognizerCandidate::_InternalSerialize(
   // optional float score = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_score(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(2, this->_internal_score(), target);
   }
 
   // optional .chrome_knowledge.HandwritingRecognizerSegmentation segmentation = 3;
   if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::segmentation(this), target, stream);
+      InternalWriteMessage(3, _Internal::segmentation(this),
+        _Internal::segmentation(this).GetCachedSize(), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.HandwritingRecognizerCandidate)
@@ -2853,7 +2892,7 @@ size_t HandwritingRecognizerCandidate::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional string text = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -2866,7 +2905,7 @@ size_t HandwritingRecognizerCandidate::ByteSizeLong() const {
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *segmentation_);
+          *_impl_.segmentation_);
     }
 
     // optional float score = 2;
@@ -2875,42 +2914,39 @@ size_t HandwritingRecognizerCandidate::ByteSizeLong() const {
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HandwritingRecognizerCandidate::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HandwritingRecognizerCandidate::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandwritingRecognizerCandidate::GetClassData() const { return &_class_data_; }
 
-void HandwritingRecognizerCandidate::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HandwritingRecognizerCandidate *>(to)->MergeFrom(
-      static_cast<const HandwritingRecognizerCandidate &>(from));
-}
 
-
-void HandwritingRecognizerCandidate::MergeFrom(const HandwritingRecognizerCandidate& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.HandwritingRecognizerCandidate)
-  GOOGLE_DCHECK_NE(&from, this);
+void HandwritingRecognizerCandidate::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HandwritingRecognizerCandidate*>(&to_msg);
+  auto& from = static_cast<const HandwritingRecognizerCandidate&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.HandwritingRecognizerCandidate)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_text(from._internal_text());
+      _this->_internal_set_text(from._internal_text());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_segmentation()->::chrome_knowledge::HandwritingRecognizerSegmentation::MergeFrom(from._internal_segmentation());
+      _this->_internal_mutable_segmentation()->::chrome_knowledge::HandwritingRecognizerSegmentation::MergeFrom(
+          from._internal_segmentation());
     }
     if (cached_has_bits & 0x00000004u) {
-      score_ = from.score_;
+      _this->_impl_.score_ = from._impl_.score_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HandwritingRecognizerCandidate::CopyFrom(const HandwritingRecognizerCandidate& from) {
@@ -2929,22 +2965,21 @@ void HandwritingRecognizerCandidate::InternalSwap(HandwritingRecognizerCandidate
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &text_, lhs_arena,
-      &other->text_, rhs_arena
+      &_impl_.text_, lhs_arena,
+      &other->_impl_.text_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(HandwritingRecognizerCandidate, score_)
-      + sizeof(HandwritingRecognizerCandidate::score_)
-      - PROTOBUF_FIELD_OFFSET(HandwritingRecognizerCandidate, segmentation_)>(
-          reinterpret_cast<char*>(&segmentation_),
-          reinterpret_cast<char*>(&other->segmentation_));
+      PROTOBUF_FIELD_OFFSET(HandwritingRecognizerCandidate, _impl_.score_)
+      + sizeof(HandwritingRecognizerCandidate::_impl_.score_)
+      - PROTOBUF_FIELD_OFFSET(HandwritingRecognizerCandidate, _impl_.segmentation_)>(
+          reinterpret_cast<char*>(&_impl_.segmentation_),
+          reinterpret_cast<char*>(&other->_impl_.segmentation_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandwritingRecognizerCandidate::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_handwriting_5finterface_2eproto_getter, &descriptor_table_handwriting_5finterface_2eproto_once,
       file_level_metadata_handwriting_5finterface_2eproto[9]);
 }
@@ -2953,7 +2988,7 @@ void HandwritingRecognizerCandidate::InternalSwap(HandwritingRecognizerCandidate
 
 class HandwritingRecognizerResult::_Internal {
  public:
-  using HasBits = decltype(std::declval<HandwritingRecognizerResult>()._has_bits_);
+  using HasBits = decltype(std::declval<HandwritingRecognizerResult>()._impl_._has_bits_);
   static void set_has_status(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -2964,51 +2999,56 @@ class HandwritingRecognizerResult::_Internal {
 
 HandwritingRecognizerResult::HandwritingRecognizerResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  candidates_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.HandwritingRecognizerResult)
 }
 HandwritingRecognizerResult::HandwritingRecognizerResult(const HandwritingRecognizerResult& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_),
-      candidates_(from.candidates_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HandwritingRecognizerResult* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.candidates_){from._impl_.candidates_}
+    , decltype(_impl_.status_){}
+    , decltype(_impl_.total_time_ms_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  ::memcpy(&status_, &from.status_,
-    static_cast<size_t>(reinterpret_cast<char*>(&total_time_ms_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(total_time_ms_));
+  ::memcpy(&_impl_.status_, &from._impl_.status_,
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.total_time_ms_) -
+    reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.total_time_ms_));
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.HandwritingRecognizerResult)
 }
 
-inline void HandwritingRecognizerResult::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&status_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&total_time_ms_) -
-    reinterpret_cast<char*>(&status_)) + sizeof(total_time_ms_));
+inline void HandwritingRecognizerResult::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.candidates_){arena}
+    , decltype(_impl_.status_){0}
+    , decltype(_impl_.total_time_ms_){0}
+  };
 }
 
 HandwritingRecognizerResult::~HandwritingRecognizerResult() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.HandwritingRecognizerResult)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HandwritingRecognizerResult::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.candidates_.~RepeatedPtrField();
 }
 
-void HandwritingRecognizerResult::ArenaDtor(void* object) {
-  HandwritingRecognizerResult* _this = reinterpret_cast< HandwritingRecognizerResult* >(object);
-  (void)_this;
-}
-void HandwritingRecognizerResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HandwritingRecognizerResult::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HandwritingRecognizerResult::Clear() {
@@ -3017,23 +3057,23 @@ void HandwritingRecognizerResult::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  candidates_.Clear();
-  cached_has_bits = _has_bits_[0];
+  _impl_.candidates_.Clear();
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    ::memset(&status_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&total_time_ms_) -
-        reinterpret_cast<char*>(&status_)) + sizeof(total_time_ms_));
+    ::memset(&_impl_.status_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&_impl_.total_time_ms_) -
+        reinterpret_cast<char*>(&_impl_.status_)) + sizeof(_impl_.total_time_ms_));
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HandwritingRecognizerResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HandwritingRecognizerResult::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional .chrome_knowledge.HandwritingRecognizerResult.Status status = 1 [deprecated = true];
       case 1:
@@ -3065,7 +3105,7 @@ const char* HandwritingRecognizerResult::_InternalParse(const char* ptr, ::PROTO
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 29)) {
           _Internal::set_has_total_time_ms(&has_bits);
-          total_time_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          _impl_.total_time_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
         } else
           goto handle_unusual;
@@ -3086,7 +3126,7 @@ const char* HandwritingRecognizerResult::_InternalParse(const char* ptr, ::PROTO
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -3100,30 +3140,30 @@ uint8_t* HandwritingRecognizerResult::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional .chrome_knowledge.HandwritingRecognizerResult.Status status = 1 [deprecated = true];
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_status(), target);
   }
 
   // repeated .chrome_knowledge.HandwritingRecognizerCandidate candidates = 2;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->_internal_candidates_size()); i < n; i++) {
-    target = stream->EnsureSpace(target);
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_candidates_size()); i < n; i++) {
+    const auto& repfield = this->_internal_candidates(i);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(2, this->_internal_candidates(i), target, stream);
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
   // optional float total_time_ms = 3;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(3, this->_internal_total_time_ms(), target);
+    target = ::_pbi::WireFormatLite::WriteFloatToArray(3, this->_internal_total_time_ms(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.HandwritingRecognizerResult)
@@ -3140,17 +3180,17 @@ size_t HandwritingRecognizerResult::ByteSizeLong() const {
 
   // repeated .chrome_knowledge.HandwritingRecognizerCandidate candidates = 2;
   total_size += 1UL * this->_internal_candidates_size();
-  for (const auto& msg : this->candidates_) {
+  for (const auto& msg : this->_impl_.candidates_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     // optional .chrome_knowledge.HandwritingRecognizerResult.Status status = 1 [deprecated = true];
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_status());
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_status());
     }
 
     // optional float total_time_ms = 3;
@@ -3159,40 +3199,36 @@ size_t HandwritingRecognizerResult::ByteSizeLong() const {
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HandwritingRecognizerResult::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HandwritingRecognizerResult::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandwritingRecognizerResult::GetClassData() const { return &_class_data_; }
 
-void HandwritingRecognizerResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HandwritingRecognizerResult *>(to)->MergeFrom(
-      static_cast<const HandwritingRecognizerResult &>(from));
-}
 
-
-void HandwritingRecognizerResult::MergeFrom(const HandwritingRecognizerResult& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.HandwritingRecognizerResult)
-  GOOGLE_DCHECK_NE(&from, this);
+void HandwritingRecognizerResult::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HandwritingRecognizerResult*>(&to_msg);
+  auto& from = static_cast<const HandwritingRecognizerResult&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.HandwritingRecognizerResult)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  candidates_.MergeFrom(from.candidates_);
-  cached_has_bits = from._has_bits_[0];
+  _this->_impl_.candidates_.MergeFrom(from._impl_.candidates_);
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      status_ = from.status_;
+      _this->_impl_.status_ = from._impl_.status_;
     }
     if (cached_has_bits & 0x00000002u) {
-      total_time_ms_ = from.total_time_ms_;
+      _this->_impl_.total_time_ms_ = from._impl_.total_time_ms_;
     }
-    _has_bits_[0] |= cached_has_bits;
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HandwritingRecognizerResult::CopyFrom(const HandwritingRecognizerResult& from) {
@@ -3209,18 +3245,18 @@ bool HandwritingRecognizerResult::IsInitialized() const {
 void HandwritingRecognizerResult::InternalSwap(HandwritingRecognizerResult* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  candidates_.InternalSwap(&other->candidates_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.candidates_.InternalSwap(&other->_impl_.candidates_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(HandwritingRecognizerResult, total_time_ms_)
-      + sizeof(HandwritingRecognizerResult::total_time_ms_)
-      - PROTOBUF_FIELD_OFFSET(HandwritingRecognizerResult, status_)>(
-          reinterpret_cast<char*>(&status_),
-          reinterpret_cast<char*>(&other->status_));
+      PROTOBUF_FIELD_OFFSET(HandwritingRecognizerResult, _impl_.total_time_ms_)
+      + sizeof(HandwritingRecognizerResult::_impl_.total_time_ms_)
+      - PROTOBUF_FIELD_OFFSET(HandwritingRecognizerResult, _impl_.status_)>(
+          reinterpret_cast<char*>(&_impl_.status_),
+          reinterpret_cast<char*>(&other->_impl_.status_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandwritingRecognizerResult::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_handwriting_5finterface_2eproto_getter, &descriptor_table_handwriting_5finterface_2eproto_once,
       file_level_metadata_handwriting_5finterface_2eproto[10]);
 }
@@ -3229,7 +3265,7 @@ void HandwritingRecognizerResult::InternalSwap(HandwritingRecognizerResult* othe
 
 class HandwritingRecognizerModelPaths::_Internal {
  public:
-  using HasBits = decltype(std::declval<HandwritingRecognizerModelPaths>()._has_bits_);
+  using HasBits = decltype(std::declval<HandwritingRecognizerModelPaths>()._impl_._has_bits_);
   static void set_has_reco_model_path(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -3250,106 +3286,120 @@ class HandwritingRecognizerModelPaths::_Internal {
 HandwritingRecognizerModelPaths::HandwritingRecognizerModelPaths(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.HandwritingRecognizerModelPaths)
 }
 HandwritingRecognizerModelPaths::HandwritingRecognizerModelPaths(const HandwritingRecognizerModelPaths& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HandwritingRecognizerModelPaths* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.reco_model_path_){}
+    , decltype(_impl_.seg_model_path_){}
+    , decltype(_impl_.conf_model_path_){}
+    , decltype(_impl_.fst_lm_path_){}
+    , decltype(_impl_.recospec_path_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  reco_model_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.reco_model_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    reco_model_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.reco_model_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_reco_model_path()) {
-    reco_model_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_reco_model_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.reco_model_path_.Set(from._internal_reco_model_path(), 
+      _this->GetArenaForAllocation());
   }
-  seg_model_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.seg_model_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    seg_model_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.seg_model_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_seg_model_path()) {
-    seg_model_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_seg_model_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.seg_model_path_.Set(from._internal_seg_model_path(), 
+      _this->GetArenaForAllocation());
   }
-  conf_model_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.conf_model_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    conf_model_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.conf_model_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_conf_model_path()) {
-    conf_model_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_conf_model_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.conf_model_path_.Set(from._internal_conf_model_path(), 
+      _this->GetArenaForAllocation());
   }
-  fst_lm_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.fst_lm_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    fst_lm_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.fst_lm_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_fst_lm_path()) {
-    fst_lm_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_fst_lm_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.fst_lm_path_.Set(from._internal_fst_lm_path(), 
+      _this->GetArenaForAllocation());
   }
-  recospec_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.recospec_path_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    recospec_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.recospec_path_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_recospec_path()) {
-    recospec_path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_recospec_path(), 
-      GetArenaForAllocation());
+    _this->_impl_.recospec_path_.Set(from._internal_recospec_path(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.HandwritingRecognizerModelPaths)
 }
 
-inline void HandwritingRecognizerModelPaths::SharedCtor() {
-reco_model_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  reco_model_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-seg_model_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  seg_model_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-conf_model_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  conf_model_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-fst_lm_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  fst_lm_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-recospec_path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  recospec_path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void HandwritingRecognizerModelPaths::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.reco_model_path_){}
+    , decltype(_impl_.seg_model_path_){}
+    , decltype(_impl_.conf_model_path_){}
+    , decltype(_impl_.fst_lm_path_){}
+    , decltype(_impl_.recospec_path_){}
+  };
+  _impl_.reco_model_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.reco_model_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.seg_model_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.seg_model_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.conf_model_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.conf_model_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.fst_lm_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.fst_lm_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.recospec_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.recospec_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 HandwritingRecognizerModelPaths::~HandwritingRecognizerModelPaths() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.HandwritingRecognizerModelPaths)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HandwritingRecognizerModelPaths::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  reco_model_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  seg_model_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  conf_model_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  fst_lm_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  recospec_path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.reco_model_path_.Destroy();
+  _impl_.seg_model_path_.Destroy();
+  _impl_.conf_model_path_.Destroy();
+  _impl_.fst_lm_path_.Destroy();
+  _impl_.recospec_path_.Destroy();
 }
 
-void HandwritingRecognizerModelPaths::ArenaDtor(void* object) {
-  HandwritingRecognizerModelPaths* _this = reinterpret_cast< HandwritingRecognizerModelPaths* >(object);
-  (void)_this;
-}
-void HandwritingRecognizerModelPaths::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HandwritingRecognizerModelPaths::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HandwritingRecognizerModelPaths::Clear() {
@@ -3358,44 +3408,44 @@ void HandwritingRecognizerModelPaths::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      reco_model_path_.ClearNonDefaultToEmpty();
+      _impl_.reco_model_path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      seg_model_path_.ClearNonDefaultToEmpty();
+      _impl_.seg_model_path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000004u) {
-      conf_model_path_.ClearNonDefaultToEmpty();
+      _impl_.conf_model_path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000008u) {
-      fst_lm_path_.ClearNonDefaultToEmpty();
+      _impl_.fst_lm_path_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000010u) {
-      recospec_path_.ClearNonDefaultToEmpty();
+      _impl_.recospec_path_.ClearNonDefaultToEmpty();
     }
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HandwritingRecognizerModelPaths::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HandwritingRecognizerModelPaths::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string reco_model_path = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_reco_model_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.HandwritingRecognizerModelPaths.reco_model_path");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.HandwritingRecognizerModelPaths.reco_model_path");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -3403,11 +3453,11 @@ const char* HandwritingRecognizerModelPaths::_InternalParse(const char* ptr, ::P
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_seg_model_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.HandwritingRecognizerModelPaths.seg_model_path");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.HandwritingRecognizerModelPaths.seg_model_path");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -3415,11 +3465,11 @@ const char* HandwritingRecognizerModelPaths::_InternalParse(const char* ptr, ::P
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           auto str = _internal_mutable_conf_model_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.HandwritingRecognizerModelPaths.conf_model_path");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.HandwritingRecognizerModelPaths.conf_model_path");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -3427,11 +3477,11 @@ const char* HandwritingRecognizerModelPaths::_InternalParse(const char* ptr, ::P
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_fst_lm_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.HandwritingRecognizerModelPaths.fst_lm_path");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.HandwritingRecognizerModelPaths.fst_lm_path");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -3439,11 +3489,11 @@ const char* HandwritingRecognizerModelPaths::_InternalParse(const char* ptr, ::P
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_recospec_path();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.HandwritingRecognizerModelPaths.recospec_path");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.HandwritingRecognizerModelPaths.recospec_path");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -3463,7 +3513,7 @@ const char* HandwritingRecognizerModelPaths::_InternalParse(const char* ptr, ::P
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -3477,7 +3527,7 @@ uint8_t* HandwritingRecognizerModelPaths::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string reco_model_path = 1;
   if (cached_has_bits & 0x00000001u) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -3529,7 +3579,7 @@ uint8_t* HandwritingRecognizerModelPaths::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.HandwritingRecognizerModelPaths)
@@ -3544,7 +3594,7 @@ size_t HandwritingRecognizerModelPaths::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     // optional string reco_model_path = 1;
     if (cached_has_bits & 0x00000001u) {
@@ -3582,47 +3632,43 @@ size_t HandwritingRecognizerModelPaths::ByteSizeLong() const {
     }
 
   }
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HandwritingRecognizerModelPaths::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HandwritingRecognizerModelPaths::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandwritingRecognizerModelPaths::GetClassData() const { return &_class_data_; }
 
-void HandwritingRecognizerModelPaths::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HandwritingRecognizerModelPaths *>(to)->MergeFrom(
-      static_cast<const HandwritingRecognizerModelPaths &>(from));
-}
 
-
-void HandwritingRecognizerModelPaths::MergeFrom(const HandwritingRecognizerModelPaths& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.HandwritingRecognizerModelPaths)
-  GOOGLE_DCHECK_NE(&from, this);
+void HandwritingRecognizerModelPaths::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HandwritingRecognizerModelPaths*>(&to_msg);
+  auto& from = static_cast<const HandwritingRecognizerModelPaths&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.HandwritingRecognizerModelPaths)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
+  cached_has_bits = from._impl_._has_bits_[0];
   if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_reco_model_path(from._internal_reco_model_path());
+      _this->_internal_set_reco_model_path(from._internal_reco_model_path());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_seg_model_path(from._internal_seg_model_path());
+      _this->_internal_set_seg_model_path(from._internal_seg_model_path());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_set_conf_model_path(from._internal_conf_model_path());
+      _this->_internal_set_conf_model_path(from._internal_conf_model_path());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_set_fst_lm_path(from._internal_fst_lm_path());
+      _this->_internal_set_fst_lm_path(from._internal_fst_lm_path());
     }
     if (cached_has_bits & 0x00000010u) {
-      _internal_set_recospec_path(from._internal_recospec_path());
+      _this->_internal_set_recospec_path(from._internal_recospec_path());
     }
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HandwritingRecognizerModelPaths::CopyFrom(const HandwritingRecognizerModelPaths& from) {
@@ -3641,36 +3687,31 @@ void HandwritingRecognizerModelPaths::InternalSwap(HandwritingRecognizerModelPat
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &reco_model_path_, lhs_arena,
-      &other->reco_model_path_, rhs_arena
+      &_impl_.reco_model_path_, lhs_arena,
+      &other->_impl_.reco_model_path_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &seg_model_path_, lhs_arena,
-      &other->seg_model_path_, rhs_arena
+      &_impl_.seg_model_path_, lhs_arena,
+      &other->_impl_.seg_model_path_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &conf_model_path_, lhs_arena,
-      &other->conf_model_path_, rhs_arena
+      &_impl_.conf_model_path_, lhs_arena,
+      &other->_impl_.conf_model_path_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &fst_lm_path_, lhs_arena,
-      &other->fst_lm_path_, rhs_arena
+      &_impl_.fst_lm_path_, lhs_arena,
+      &other->_impl_.fst_lm_path_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &recospec_path_, lhs_arena,
-      &other->recospec_path_, rhs_arena
+      &_impl_.recospec_path_, lhs_arena,
+      &other->_impl_.recospec_path_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandwritingRecognizerModelPaths::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_handwriting_5finterface_2eproto_getter, &descriptor_table_handwriting_5finterface_2eproto_once,
       file_level_metadata_handwriting_5finterface_2eproto[11]);
 }
@@ -3679,7 +3720,7 @@ void HandwritingRecognizerModelPaths::InternalSwap(HandwritingRecognizerModelPat
 
 class HandwritingRecognizerOptions::_Internal {
  public:
-  using HasBits = decltype(std::declval<HandwritingRecognizerOptions>()._has_bits_);
+  using HasBits = decltype(std::declval<HandwritingRecognizerOptions>()._impl_._has_bits_);
   static void set_has_language(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
@@ -3688,54 +3729,60 @@ class HandwritingRecognizerOptions::_Internal {
 HandwritingRecognizerOptions::HandwritingRecognizerOptions(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
+  SharedCtor(arena, is_message_owned);
   // @@protoc_insertion_point(arena_constructor:chrome_knowledge.HandwritingRecognizerOptions)
 }
 HandwritingRecognizerOptions::HandwritingRecognizerOptions(const HandwritingRecognizerOptions& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  HandwritingRecognizerOptions* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.language_){}};
+
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  language_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.language_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    language_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    _impl_.language_.Set("", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (from._internal_has_language()) {
-    language_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_language(), 
-      GetArenaForAllocation());
+    _this->_impl_.language_.Set(from._internal_language(), 
+      _this->GetArenaForAllocation());
   }
   // @@protoc_insertion_point(copy_constructor:chrome_knowledge.HandwritingRecognizerOptions)
 }
 
-inline void HandwritingRecognizerOptions::SharedCtor() {
-language_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  language_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inline void HandwritingRecognizerOptions::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.language_){}
+  };
+  _impl_.language_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    _impl_.language_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 HandwritingRecognizerOptions::~HandwritingRecognizerOptions() {
   // @@protoc_insertion_point(destructor:chrome_knowledge.HandwritingRecognizerOptions)
-  if (GetArenaForAllocation() != nullptr) return;
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
+  (void)arena;
+    return;
+  }
   SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 inline void HandwritingRecognizerOptions::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  language_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _impl_.language_.Destroy();
 }
 
-void HandwritingRecognizerOptions::ArenaDtor(void* object) {
-  HandwritingRecognizerOptions* _this = reinterpret_cast< HandwritingRecognizerOptions* >(object);
-  (void)_this;
-}
-void HandwritingRecognizerOptions::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
 void HandwritingRecognizerOptions::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
+  _impl_._cached_size_.Set(size);
 }
 
 void HandwritingRecognizerOptions::Clear() {
@@ -3744,30 +3791,30 @@ void HandwritingRecognizerOptions::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    language_.ClearNonDefaultToEmpty();
+    _impl_.language_.ClearNonDefaultToEmpty();
   }
-  _has_bits_.Clear();
+  _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* HandwritingRecognizerOptions::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* HandwritingRecognizerOptions::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
       // optional string language = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_language();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          #ifndef NDEBUG
-          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "chrome_knowledge.HandwritingRecognizerOptions.language");
-          #endif  // !NDEBUG
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+          #ifndef NDEBUG
+          ::_pbi::VerifyUTF8(str, "chrome_knowledge.HandwritingRecognizerOptions.language");
+          #endif  // !NDEBUG
         } else
           goto handle_unusual;
         continue;
@@ -3787,7 +3834,7 @@ const char* HandwritingRecognizerOptions::_InternalParse(const char* ptr, ::PROT
     CHK_(ptr != nullptr);
   }  // while
 message_done:
-  _has_bits_.Or(has_bits);
+  _impl_._has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -3801,7 +3848,7 @@ uint8_t* HandwritingRecognizerOptions::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string language = 1;
   if (cached_has_bits & 0x00000001u) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -3813,7 +3860,7 @@ uint8_t* HandwritingRecognizerOptions::_InternalSerialize(
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+    target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:chrome_knowledge.HandwritingRecognizerOptions)
@@ -3829,39 +3876,35 @@ size_t HandwritingRecognizerOptions::ByteSizeLong() const {
   (void) cached_has_bits;
 
   // optional string language = 1;
-  cached_has_bits = _has_bits_[0];
+  cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_language());
   }
 
-  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData HandwritingRecognizerOptions::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
     HandwritingRecognizerOptions::MergeImpl
 };
 const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*HandwritingRecognizerOptions::GetClassData() const { return &_class_data_; }
 
-void HandwritingRecognizerOptions::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
-  static_cast<HandwritingRecognizerOptions *>(to)->MergeFrom(
-      static_cast<const HandwritingRecognizerOptions &>(from));
-}
 
-
-void HandwritingRecognizerOptions::MergeFrom(const HandwritingRecognizerOptions& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.HandwritingRecognizerOptions)
-  GOOGLE_DCHECK_NE(&from, this);
+void HandwritingRecognizerOptions::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<HandwritingRecognizerOptions*>(&to_msg);
+  auto& from = static_cast<const HandwritingRecognizerOptions&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:chrome_knowledge.HandwritingRecognizerOptions)
+  GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   if (from._internal_has_language()) {
-    _internal_set_language(from._internal_language());
+    _this->_internal_set_language(from._internal_language());
   }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
 void HandwritingRecognizerOptions::CopyFrom(const HandwritingRecognizerOptions& from) {
@@ -3880,16 +3923,15 @@ void HandwritingRecognizerOptions::InternalSwap(HandwritingRecognizerOptions* ot
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &language_, lhs_arena,
-      &other->language_, rhs_arena
+      &_impl_.language_, lhs_arena,
+      &other->_impl_.language_, rhs_arena
   );
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata HandwritingRecognizerOptions::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+  return ::_pbi::AssignDescriptors(
       &descriptor_table_handwriting_5finterface_2eproto_getter, &descriptor_table_handwriting_5finterface_2eproto_once,
       file_level_metadata_handwriting_5finterface_2eproto[12]);
 }
@@ -3897,43 +3939,56 @@ void HandwritingRecognizerOptions::InternalSwap(HandwritingRecognizerOptions* ot
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace chrome_knowledge
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::InkPoint* Arena::CreateMaybeMessage< ::chrome_knowledge::InkPoint >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::InkPoint*
+Arena::CreateMaybeMessage< ::chrome_knowledge::InkPoint >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::InkPoint >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::InkStroke* Arena::CreateMaybeMessage< ::chrome_knowledge::InkStroke >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::InkStroke*
+Arena::CreateMaybeMessage< ::chrome_knowledge::InkStroke >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::InkStroke >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::Ink* Arena::CreateMaybeMessage< ::chrome_knowledge::Ink >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::Ink*
+Arena::CreateMaybeMessage< ::chrome_knowledge::Ink >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::Ink >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::WritingGuide* Arena::CreateMaybeMessage< ::chrome_knowledge::WritingGuide >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::WritingGuide*
+Arena::CreateMaybeMessage< ::chrome_knowledge::WritingGuide >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::WritingGuide >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::RecognitionContext* Arena::CreateMaybeMessage< ::chrome_knowledge::RecognitionContext >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::RecognitionContext*
+Arena::CreateMaybeMessage< ::chrome_knowledge::RecognitionContext >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::RecognitionContext >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::HandwritingRecognizerRequest* Arena::CreateMaybeMessage< ::chrome_knowledge::HandwritingRecognizerRequest >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::HandwritingRecognizerRequest*
+Arena::CreateMaybeMessage< ::chrome_knowledge::HandwritingRecognizerRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::HandwritingRecognizerRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::HandwritingRecognizerInkRange* Arena::CreateMaybeMessage< ::chrome_knowledge::HandwritingRecognizerInkRange >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::HandwritingRecognizerInkRange*
+Arena::CreateMaybeMessage< ::chrome_knowledge::HandwritingRecognizerInkRange >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::HandwritingRecognizerInkRange >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::HandwritingRecognizerSegment* Arena::CreateMaybeMessage< ::chrome_knowledge::HandwritingRecognizerSegment >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::HandwritingRecognizerSegment*
+Arena::CreateMaybeMessage< ::chrome_knowledge::HandwritingRecognizerSegment >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::HandwritingRecognizerSegment >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::HandwritingRecognizerSegmentation* Arena::CreateMaybeMessage< ::chrome_knowledge::HandwritingRecognizerSegmentation >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::HandwritingRecognizerSegmentation*
+Arena::CreateMaybeMessage< ::chrome_knowledge::HandwritingRecognizerSegmentation >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::HandwritingRecognizerSegmentation >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::HandwritingRecognizerCandidate* Arena::CreateMaybeMessage< ::chrome_knowledge::HandwritingRecognizerCandidate >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::HandwritingRecognizerCandidate*
+Arena::CreateMaybeMessage< ::chrome_knowledge::HandwritingRecognizerCandidate >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::HandwritingRecognizerCandidate >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::HandwritingRecognizerResult* Arena::CreateMaybeMessage< ::chrome_knowledge::HandwritingRecognizerResult >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::HandwritingRecognizerResult*
+Arena::CreateMaybeMessage< ::chrome_knowledge::HandwritingRecognizerResult >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::HandwritingRecognizerResult >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::HandwritingRecognizerModelPaths* Arena::CreateMaybeMessage< ::chrome_knowledge::HandwritingRecognizerModelPaths >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::HandwritingRecognizerModelPaths*
+Arena::CreateMaybeMessage< ::chrome_knowledge::HandwritingRecognizerModelPaths >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::HandwritingRecognizerModelPaths >(arena);
 }
-template<> PROTOBUF_NOINLINE ::chrome_knowledge::HandwritingRecognizerOptions* Arena::CreateMaybeMessage< ::chrome_knowledge::HandwritingRecognizerOptions >(Arena* arena) {
+template<> PROTOBUF_NOINLINE ::chrome_knowledge::HandwritingRecognizerOptions*
+Arena::CreateMaybeMessage< ::chrome_knowledge::HandwritingRecognizerOptions >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chrome_knowledge::HandwritingRecognizerOptions >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
