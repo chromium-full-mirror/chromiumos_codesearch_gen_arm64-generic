@@ -197,6 +197,34 @@ struct ListKeysReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ListKeysReplyDefaultTypeInternal _ListKeysReply_default_instance_;
+PROTOBUF_CONSTEXPR CheckKeyRequest::CheckKeyRequest(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.account_id_)*/nullptr
+  , /*decltype(_impl_.authorization_request_)*/nullptr
+  , /*decltype(_impl_.unlock_webauthn_secret_)*/false
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct CheckKeyRequestDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CheckKeyRequestDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CheckKeyRequestDefaultTypeInternal() {}
+  union {
+    CheckKeyRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CheckKeyRequestDefaultTypeInternal _CheckKeyRequest_default_instance_;
+PROTOBUF_CONSTEXPR CheckKeyReply::CheckKeyReply(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.error_)*/0
+  , /*decltype(_impl_._cached_size_)*/{}} {}
+struct CheckKeyReplyDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CheckKeyReplyDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CheckKeyReplyDefaultTypeInternal() {}
+  union {
+    CheckKeyReply _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CheckKeyReplyDefaultTypeInternal _CheckKeyReply_default_instance_;
 PROTOBUF_CONSTEXPR StartFingerprintAuthSessionRequest::StartFingerprintAuthSessionRequest(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.account_id_)*/nullptr
@@ -5911,6 +5939,468 @@ void ListKeysReply::InternalSwap(ListKeysReply* other) {
 
 std::string ListKeysReply::GetTypeName() const {
   return "user_data_auth.ListKeysReply";
+}
+
+
+// ===================================================================
+
+class CheckKeyRequest::_Internal {
+ public:
+  static const ::cryptohome::AccountIdentifier& account_id(const CheckKeyRequest* msg);
+  static const ::cryptohome::AuthorizationRequest& authorization_request(const CheckKeyRequest* msg);
+};
+
+const ::cryptohome::AccountIdentifier&
+CheckKeyRequest::_Internal::account_id(const CheckKeyRequest* msg) {
+  return *msg->_impl_.account_id_;
+}
+const ::cryptohome::AuthorizationRequest&
+CheckKeyRequest::_Internal::authorization_request(const CheckKeyRequest* msg) {
+  return *msg->_impl_.authorization_request_;
+}
+void CheckKeyRequest::clear_account_id() {
+  if (GetArenaForAllocation() == nullptr && _impl_.account_id_ != nullptr) {
+    delete _impl_.account_id_;
+  }
+  _impl_.account_id_ = nullptr;
+}
+void CheckKeyRequest::clear_authorization_request() {
+  if (GetArenaForAllocation() == nullptr && _impl_.authorization_request_ != nullptr) {
+    delete _impl_.authorization_request_;
+  }
+  _impl_.authorization_request_ = nullptr;
+}
+CheckKeyRequest::CheckKeyRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.CheckKeyRequest)
+}
+CheckKeyRequest::CheckKeyRequest(const CheckKeyRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CheckKeyRequest* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.account_id_){nullptr}
+    , decltype(_impl_.authorization_request_){nullptr}
+    , decltype(_impl_.unlock_webauthn_secret_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_account_id()) {
+    _this->_impl_.account_id_ = new ::cryptohome::AccountIdentifier(*from._impl_.account_id_);
+  }
+  if (from._internal_has_authorization_request()) {
+    _this->_impl_.authorization_request_ = new ::cryptohome::AuthorizationRequest(*from._impl_.authorization_request_);
+  }
+  _this->_impl_.unlock_webauthn_secret_ = from._impl_.unlock_webauthn_secret_;
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.CheckKeyRequest)
+}
+
+inline void CheckKeyRequest::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.account_id_){nullptr}
+    , decltype(_impl_.authorization_request_){nullptr}
+    , decltype(_impl_.unlock_webauthn_secret_){false}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+CheckKeyRequest::~CheckKeyRequest() {
+  // @@protoc_insertion_point(destructor:user_data_auth.CheckKeyRequest)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CheckKeyRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.account_id_;
+  if (this != internal_default_instance()) delete _impl_.authorization_request_;
+}
+
+void CheckKeyRequest::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void CheckKeyRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.CheckKeyRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (GetArenaForAllocation() == nullptr && _impl_.account_id_ != nullptr) {
+    delete _impl_.account_id_;
+  }
+  _impl_.account_id_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && _impl_.authorization_request_ != nullptr) {
+    delete _impl_.authorization_request_;
+  }
+  _impl_.authorization_request_ = nullptr;
+  _impl_.unlock_webauthn_secret_ = false;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* CheckKeyRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .cryptohome.AccountIdentifier account_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_account_id(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .cryptohome.AuthorizationRequest authorization_request = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_authorization_request(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool unlock_webauthn_secret = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _impl_.unlock_webauthn_secret_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CheckKeyRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.CheckKeyRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .cryptohome.AccountIdentifier account_id = 1;
+  if (this->_internal_has_account_id()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::account_id(this),
+        _Internal::account_id(this).GetCachedSize(), target, stream);
+  }
+
+  // .cryptohome.AuthorizationRequest authorization_request = 2;
+  if (this->_internal_has_authorization_request()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::authorization_request(this),
+        _Internal::authorization_request(this).GetCachedSize(), target, stream);
+  }
+
+  // bool unlock_webauthn_secret = 3;
+  if (this->_internal_unlock_webauthn_secret() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_unlock_webauthn_secret(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.CheckKeyRequest)
+  return target;
+}
+
+size_t CheckKeyRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.CheckKeyRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .cryptohome.AccountIdentifier account_id = 1;
+  if (this->_internal_has_account_id()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.account_id_);
+  }
+
+  // .cryptohome.AuthorizationRequest authorization_request = 2;
+  if (this->_internal_has_authorization_request()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.authorization_request_);
+  }
+
+  // bool unlock_webauthn_secret = 3;
+  if (this->_internal_unlock_webauthn_secret() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CheckKeyRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const CheckKeyRequest*>(
+      &from));
+}
+
+void CheckKeyRequest::MergeFrom(const CheckKeyRequest& from) {
+  CheckKeyRequest* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.CheckKeyRequest)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_account_id()) {
+    _this->_internal_mutable_account_id()->::cryptohome::AccountIdentifier::MergeFrom(
+        from._internal_account_id());
+  }
+  if (from._internal_has_authorization_request()) {
+    _this->_internal_mutable_authorization_request()->::cryptohome::AuthorizationRequest::MergeFrom(
+        from._internal_authorization_request());
+  }
+  if (from._internal_unlock_webauthn_secret() != 0) {
+    _this->_internal_set_unlock_webauthn_secret(from._internal_unlock_webauthn_secret());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void CheckKeyRequest::CopyFrom(const CheckKeyRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.CheckKeyRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CheckKeyRequest::IsInitialized() const {
+  return true;
+}
+
+void CheckKeyRequest::InternalSwap(CheckKeyRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CheckKeyRequest, _impl_.unlock_webauthn_secret_)
+      + sizeof(CheckKeyRequest::_impl_.unlock_webauthn_secret_)
+      - PROTOBUF_FIELD_OFFSET(CheckKeyRequest, _impl_.account_id_)>(
+          reinterpret_cast<char*>(&_impl_.account_id_),
+          reinterpret_cast<char*>(&other->_impl_.account_id_));
+}
+
+std::string CheckKeyRequest::GetTypeName() const {
+  return "user_data_auth.CheckKeyRequest";
+}
+
+
+// ===================================================================
+
+class CheckKeyReply::_Internal {
+ public:
+};
+
+CheckKeyReply::CheckKeyReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.CheckKeyReply)
+}
+CheckKeyReply::CheckKeyReply(const CheckKeyReply& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CheckKeyReply* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_){}
+    , /*decltype(_impl_._cached_size_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.error_ = from._impl_.error_;
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.CheckKeyReply)
+}
+
+inline void CheckKeyReply::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.error_){0}
+    , /*decltype(_impl_._cached_size_)*/{}
+  };
+}
+
+CheckKeyReply::~CheckKeyReply() {
+  // @@protoc_insertion_point(destructor:user_data_auth.CheckKeyReply)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CheckKeyReply::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void CheckKeyReply::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void CheckKeyReply::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.CheckKeyReply)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.error_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* CheckKeyReply::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .user_data_auth.CryptohomeErrorCode error = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_error(static_cast<::user_data_auth::CryptohomeErrorCode>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CheckKeyReply::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.CheckKeyReply)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_error(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.CheckKeyReply)
+  return target;
+}
+
+size_t CheckKeyReply::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.CheckKeyReply)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .user_data_auth.CryptohomeErrorCode error = 1;
+  if (this->_internal_error() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CheckKeyReply::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const CheckKeyReply*>(
+      &from));
+}
+
+void CheckKeyReply::MergeFrom(const CheckKeyReply& from) {
+  CheckKeyReply* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.CheckKeyReply)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_error() != 0) {
+    _this->_internal_set_error(from._internal_error());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void CheckKeyReply::CopyFrom(const CheckKeyReply& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.CheckKeyReply)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CheckKeyReply::IsInitialized() const {
+  return true;
+}
+
+void CheckKeyReply::InternalSwap(CheckKeyReply* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.error_, other->_impl_.error_);
+}
+
+std::string CheckKeyReply::GetTypeName() const {
+  return "user_data_auth.CheckKeyReply";
 }
 
 
@@ -32776,6 +33266,14 @@ Arena::CreateMaybeMessage< ::user_data_auth::ListKeysRequest >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::user_data_auth::ListKeysReply*
 Arena::CreateMaybeMessage< ::user_data_auth::ListKeysReply >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::ListKeysReply >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::CheckKeyRequest*
+Arena::CreateMaybeMessage< ::user_data_auth::CheckKeyRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::CheckKeyRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::CheckKeyReply*
+Arena::CreateMaybeMessage< ::user_data_auth::CheckKeyReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::CheckKeyReply >(arena);
 }
 template<> PROTOBUF_NOINLINE ::user_data_auth::StartFingerprintAuthSessionRequest*
 Arena::CreateMaybeMessage< ::user_data_auth::StartFingerprintAuthSessionRequest >(Arena* arena) {

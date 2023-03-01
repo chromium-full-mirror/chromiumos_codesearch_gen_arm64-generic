@@ -822,6 +822,59 @@ std::string GetProtoDebugStringWithIndent(const ListKeysReply& value,
   return output;
 }
 
+std::string GetProtoDebugString(const CheckKeyRequest& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const CheckKeyRequest& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  account_id: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "  authorization_request: ";
+  base::StringAppendF(&output, "%s",
+                      GetProtoDebugStringWithIndent(
+                          value.authorization_request(), indent_size + 2)
+                          .c_str());
+  output += "\n";
+
+  output += indent + "  unlock_webauthn_secret: ";
+  base::StringAppendF(&output, "%s",
+                      value.unlock_webauthn_secret() ? "true" : "false");
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const CheckKeyReply& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const CheckKeyReply& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  error: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
 std::string GetProtoDebugString(
     const StartFingerprintAuthSessionRequest& value) {
   return GetProtoDebugStringWithIndent(value, 0);
