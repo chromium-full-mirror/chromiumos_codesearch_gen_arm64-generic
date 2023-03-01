@@ -713,6 +713,38 @@ bool TouchscreenConnectedEvent::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+StylusGarageEventInfo::StylusGarageEventInfo()
+    : state() {}
+
+StylusGarageEventInfo::StylusGarageEventInfo(
+    StylusGarageEventInfo::State state_in)
+    : state(std::move(state_in)) {}
+
+StylusGarageEventInfo::~StylusGarageEventInfo() = default;
+size_t StylusGarageEventInfo::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->state);
+  return seed;
+}
+
+void StylusGarageEventInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "state"), this->state,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type StylusGarageEventInfo::State>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool StylusGarageEventInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 TouchpadEventInfo::TouchpadEventInfo() : tag_(Tag::kDefaultType) {
   data_.default_type = uint8_t();
 }
@@ -1001,6 +1033,17 @@ void EventInfo::set_touchscreen_event_info(
         std::move(touchscreen_event_info));
   }
 }
+void EventInfo::set_stylus_garage_event_info(
+    StylusGarageEventInfoPtr stylus_garage_event_info) {
+  if (tag_ == Tag::kStylusGarageEventInfo) {
+    *(data_.stylus_garage_event_info) = std::move(stylus_garage_event_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kStylusGarageEventInfo;
+    data_.stylus_garage_event_info = new StylusGarageEventInfoPtr(
+        std::move(stylus_garage_event_info));
+  }
+}
 
 void EventInfo::DestroyActive() {
   switch (tag_) {
@@ -1055,6 +1098,10 @@ void EventInfo::DestroyActive() {
     case Tag::kTouchscreenEventInfo:
 
       delete data_.touchscreen_event_info;
+      break;
+    case Tag::kStylusGarageEventInfo:
+
+      delete data_.stylus_garage_event_info;
       break;
   }
 }
@@ -3710,6 +3757,20 @@ bool StructTraits<::ash::cros_healthd::mojom::TouchscreenConnectedEvent::DataVie
   return success;
 }
 
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::StylusGarageEventInfo::DataView, ::ash::cros_healthd::mojom::StylusGarageEventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::StylusGarageEventInfo::DataView input,
+    ::ash::cros_healthd::mojom::StylusGarageEventInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::StylusGarageEventInfoPtr result(::ash::cros_healthd::mojom::StylusGarageEventInfo::New());
+  
+      if (success && !input.ReadState(&result->state))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 // static
 bool UnionTraits<::ash::cros_healthd::mojom::TouchpadEventInfo::DataView, ::ash::cros_healthd::mojom::TouchpadEventInfoPtr>::Read(
     ::ash::cros_healthd::mojom::TouchpadEventInfo::DataView input,
@@ -3913,6 +3974,15 @@ bool UnionTraits<::ash::cros_healthd::mojom::EventInfo::DataView, ::ash::cros_he
 
       *output = UnionType::NewTouchscreenEventInfo(
           std::move(result_touchscreen_event_info));
+      break;
+    }
+    case Tag::kStylusGarageEventInfo: {
+      ::ash::cros_healthd::mojom::StylusGarageEventInfoPtr result_stylus_garage_event_info;
+      if (!input.ReadStylusGarageEventInfo(&result_stylus_garage_event_info))
+        return false;
+
+      *output = UnionType::NewStylusGarageEventInfo(
+          std::move(result_stylus_garage_event_info));
       break;
     }
     default:

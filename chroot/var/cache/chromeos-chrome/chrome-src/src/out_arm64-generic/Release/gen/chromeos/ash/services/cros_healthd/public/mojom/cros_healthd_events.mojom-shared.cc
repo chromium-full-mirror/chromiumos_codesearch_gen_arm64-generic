@@ -81,6 +81,8 @@ static NOINLINE const char* EventCategoryEnumToStringHelper(EventCategoryEnum va
       return "kHdmi";
     case EventCategoryEnum::kTouchscreen:
       return "kTouchscreen";
+    case EventCategoryEnum::kStylusGarage:
+      return "kStylusGarage";
     default:
       return nullptr;
   }
@@ -346,6 +348,32 @@ std::string HdmiEventInfo_StateToString(HdmiEventInfo_State value) {
 
 std::ostream& operator<<(std::ostream& os, HdmiEventInfo_State value) {
   return os << HdmiEventInfo_StateToString(value);
+}
+
+static NOINLINE const char* StylusGarageEventInfo_StateToStringHelper(StylusGarageEventInfo_State value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case StylusGarageEventInfo_State::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case StylusGarageEventInfo_State::kInsert:
+      return "kInsert";
+    case StylusGarageEventInfo_State::kRemove:
+      return "kRemove";
+    default:
+      return nullptr;
+  }
+}
+
+std::string StylusGarageEventInfo_StateToString(StylusGarageEventInfo_State value) {
+  const char *str = StylusGarageEventInfo_StateToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown StylusGarageEventInfo_State value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, StylusGarageEventInfo_State value) {
+  return os << StylusGarageEventInfo_StateToString(value);
 }
 
 namespace internal {
@@ -623,6 +651,16 @@ bool EventInfo_Data::Validate(
       }
       if (!mojo::internal::ValidateNonInlinedUnion(object->data.f_touchscreen_event_info,
                                                    validation_context))
+        return false;
+      return true;
+    }
+    case EventInfo_Tag::kStylusGarageEventInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_stylus_garage_event_info, 14, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_stylus_garage_event_info, validation_context))
         return false;
       return true;
     }
@@ -1107,6 +1145,34 @@ bool TouchscreenConnectedEvent_Data::Validate(
 }
 
 TouchscreenConnectedEvent_Data::TouchscreenConnectedEvent_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool StylusGarageEventInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const StylusGarageEventInfo_Data* object =
+      static_cast<const StylusGarageEventInfo_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::StylusGarageEventInfo_State_Data
+        ::Validate(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+StylusGarageEventInfo_Data::StylusGarageEventInfo_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1770,6 +1836,16 @@ namespace perfetto {
 void TraceFormatTraits<::ash::cros_healthd::mojom::HdmiEventInfo_State>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::HdmiEventInfo_State value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::HdmiEventInfo_StateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::StylusGarageEventInfo_State>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::StylusGarageEventInfo_State value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::StylusGarageEventInfo_StateToString(value));
 }
 
 } // namespace perfetto
