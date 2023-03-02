@@ -107,6 +107,30 @@ std::ostream& operator<<(std::ostream& os, CameraAutoFramingState value) {
   return os << CameraAutoFramingStateToString(value);
 }
 
+static NOINLINE const char* SetEffectResultToStringHelper(SetEffectResult value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case SetEffectResult::kOk:
+      return "kOk";
+    case SetEffectResult::kError:
+      return "kError";
+    default:
+      return nullptr;
+  }
+}
+
+std::string SetEffectResultToString(SetEffectResult value) {
+  const char *str = SetEffectResultToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown SetEffectResult value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, SetEffectResult value) {
+  return os << SetEffectResultToString(value);
+}
+
 namespace internal {
 
 
@@ -864,6 +888,16 @@ namespace perfetto_libchrome {
 void TraceFormatTraits<::cros::mojom::CameraAutoFramingState>::WriteIntoTrace(
    perfetto_libchrome::TracedValue context, ::cros::mojom::CameraAutoFramingState value) {
   return std::move(context).WriteString(::cros::mojom::CameraAutoFramingStateToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::cros::mojom::SetEffectResult>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::cros::mojom::SetEffectResult value) {
+  return std::move(context).WriteString(::cros::mojom::SetEffectResultToString(value));
 }
 
 } // namespace perfetto

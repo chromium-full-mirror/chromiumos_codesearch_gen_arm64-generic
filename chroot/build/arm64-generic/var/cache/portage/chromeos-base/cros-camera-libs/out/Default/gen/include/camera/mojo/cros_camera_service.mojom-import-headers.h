@@ -10,13 +10,13 @@
 #include "iioservice/mojo/cros_sensor_service.mojom-import-headers.h"
 #include "camera/mojo/camera_common.mojom.h"
 #include "camera/mojo/camera_common.mojom-import-headers.h"
+#include "camera/mojo/effects/effects_pipeline.mojom.h"
+#include "camera/mojo/effects/effects_pipeline.mojom-import-headers.h"
 #include "camera/mojo/gpu/jpeg_encode_accelerator.mojom.h"
 #include "camera/mojo/gpu/jpeg_encode_accelerator.mojom-import-headers.h"
 #include "camera/mojo/gpu/mjpeg_decode_accelerator.mojom.h"
 #include "camera/mojo/gpu/mjpeg_decode_accelerator.mojom-import-headers.h"
 #include "camera/mojo/unguessable_token.mojom.h"
 #include "camera/mojo/unguessable_token.mojom-import-headers.h"
-#include "ml_core/mojo/effects_pipeline.mojom.h"
-#include "ml_core/mojo/effects_pipeline.mojom-import-headers.h"
 
 #endif  // CAMERA_MOJO_CROS_CAMERA_SERVICE_MOJOM_IMPORT_HEADERS_H_

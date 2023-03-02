@@ -950,7 +950,7 @@ class CameraHalServer_SetCameraEffect_ResponseParamsDataView {
     return mojo::internal::Deserialize<::cros::mojom::SetEffectResult>(
         data_value, output);
   }
-  ::cros::mojom::SetEffectResult result() const {
+  SetEffectResult result() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::cros::mojom::SetEffectResult>(data_->result));
   }

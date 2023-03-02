@@ -27,10 +27,10 @@
 #include "camera/mojo/cros_camera_service.mojom-forward.h"
 #include "iioservice/mojo/cros_sensor_service.mojom-forward.h"
 #include "camera/mojo/camera_common.mojom-forward.h"
+#include "camera/mojo/effects/effects_pipeline.mojom-forward.h"
 #include "camera/mojo/gpu/jpeg_encode_accelerator.mojom-forward.h"
 #include "camera/mojo/gpu/mjpeg_decode_accelerator.mojom-forward.h"
 #include "camera/mojo/unguessable_token.mojom-forward.h"
-#include "ml_core/mojo/effects_pipeline.mojom-forward.h"
 #include <string>
 #include <vector>
 
@@ -228,7 +228,7 @@ class CameraHalServer
   virtual void GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) = 0;
 
 
-  using SetCameraEffectCallback = base::OnceCallback<void(::cros::mojom::SetEffectResult)>;
+  using SetCameraEffectCallback = base::OnceCallback<void(SetEffectResult)>;
   
   virtual void SetCameraEffect(::cros::mojom::EffectsConfigPtr config, SetCameraEffectCallback callback) = 0;
 };

@@ -72,8 +72,8 @@ class  CameraHalServerAsyncWaiter {
       bool* out_supported);
   bool GetAutoFramingSupported();
   void SetCameraEffect(
-      ::cros::mojom::EffectsConfigPtr config, ::cros::mojom::SetEffectResult* out_result);
-  ::cros::mojom::SetEffectResult SetCameraEffect(::cros::mojom::EffectsConfigPtr config);
+      ::cros::mojom::EffectsConfigPtr config, SetEffectResult* out_result);
+  SetEffectResult SetCameraEffect(::cros::mojom::EffectsConfigPtr config);
 
  private:
   CameraHalServer* const proxy_;

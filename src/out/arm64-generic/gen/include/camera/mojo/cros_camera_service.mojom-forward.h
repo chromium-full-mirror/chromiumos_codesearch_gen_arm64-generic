@@ -28,6 +28,8 @@ enum class CameraClientType : int32_t;
 enum class CameraPrivacySwitchState : int32_t;
 
 enum class CameraAutoFramingState : int32_t;
+
+enum class SetEffectResult : int32_t;
 class CameraHalDispatcher;
 
 class CameraHalServer;

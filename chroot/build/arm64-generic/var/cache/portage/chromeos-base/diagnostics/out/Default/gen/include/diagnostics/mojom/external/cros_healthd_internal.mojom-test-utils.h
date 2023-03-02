@@ -21,6 +21,7 @@ class  ChromiumDataCollectorInterceptorForTesting : public ChromiumDataCollector
   void GetTouchscreenDevices(GetTouchscreenDevicesCallback callback) override;
   void GetTouchpadLibraryName(GetTouchpadLibraryNameCallback callback) override;
   void SetPrivacyScreenState(bool state, SetPrivacyScreenStateCallback callback) override;
+  void SetAudioOutputMute(bool mute_on, SetAudioOutputMuteCallback callback) override;
 };
 class  ChromiumDataCollectorAsyncWaiter {
  public:
@@ -39,6 +40,9 @@ class  ChromiumDataCollectorAsyncWaiter {
   void SetPrivacyScreenState(
       bool state, bool* out_success);
   bool SetPrivacyScreenState(bool state);
+  void SetAudioOutputMute(
+      bool mute_on, bool* out_success);
+  bool SetAudioOutputMute(bool mute_on);
 
  private:
   ChromiumDataCollector* const proxy_;

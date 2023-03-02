@@ -2042,7 +2042,7 @@ class CameraHalServer_SetCameraEffect_ProxyToResponder : public ::mojo::internal
 #endif
 
   void Run(
-      ::cros::mojom::SetEffectResult in_result);
+      SetEffectResult in_result);
 };
 
 bool CameraHalServer_SetCameraEffect_ForwardToCallback::Accept(
@@ -2055,7 +2055,7 @@ bool CameraHalServer_SetCameraEffect_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::cros::mojom::SetEffectResult p_result = mojo::DefaultConstructTraits::CreateInstance<::cros::mojom::SetEffectResult>();
+  SetEffectResult p_result = mojo::DefaultConstructTraits::CreateInstance<SetEffectResult>();
   CameraHalServer_SetCameraEffect_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2074,7 +2074,7 @@ std::move(p_result));
 }
 
 void CameraHalServer_SetCameraEffect_ProxyToResponder::Run(
-    ::cros::mojom::SetEffectResult in_result) {
+    SetEffectResult in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::CameraHalServer::SetCameraEffect", "async_response_parameters",
@@ -2082,7 +2082,7 @@ void CameraHalServer_SetCameraEffect_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
-                        "<value of type ::cros::mojom::SetEffectResult>");
+                        "<value of type SetEffectResult>");
    });
 #endif
   
@@ -3094,14 +3094,14 @@ bool CameraHalServerAsyncWaiter::GetAutoFramingSupported(
 }
 
 void CameraHalServerAsyncWaiter::SetCameraEffect(
-    ::cros::mojom::EffectsConfigPtr config, ::cros::mojom::SetEffectResult* out_result) {
+    ::cros::mojom::EffectsConfigPtr config, SetEffectResult* out_result) {
   base::RunLoop loop;
   proxy_->SetCameraEffect(std::move(config),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::cros::mojom::SetEffectResult* out_result
+             SetEffectResult* out_result
 ,
-             ::cros::mojom::SetEffectResult result) {*out_result = std::move(result);
+             SetEffectResult result) {*out_result = std::move(result);
             loop->Quit();
           },
           &loop,
@@ -3109,9 +3109,9 @@ void CameraHalServerAsyncWaiter::SetCameraEffect(
   loop.Run();
 }
 
-::cros::mojom::SetEffectResult CameraHalServerAsyncWaiter::SetCameraEffect(
+SetEffectResult CameraHalServerAsyncWaiter::SetCameraEffect(
     ::cros::mojom::EffectsConfigPtr config) {
-  ::cros::mojom::SetEffectResult async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::cros::mojom::SetEffectResult>();
+  SetEffectResult async_wait_result = mojo::DefaultConstructTraits::CreateInstance<SetEffectResult>();
   SetCameraEffect(std::move(config),&async_wait_result);
   return async_wait_result;
 }

@@ -215,6 +215,9 @@ ChromiumDataCollector::IPCStableHashFunction ChromiumDataCollector::MessageToMet
     case internal::kChromiumDataCollector_SetPrivacyScreenState_Name: {
       return &ChromiumDataCollector::SetPrivacyScreenState_Sym::IPCStableHash;
     }
+    case internal::kChromiumDataCollector_SetAudioOutputMute_Name: {
+      return &ChromiumDataCollector::SetAudioOutputMute_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -232,6 +235,8 @@ const char* ChromiumDataCollector::MessageToMethodName_(mojo::Message& message) 
             return "Receive ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName";
       case internal::kChromiumDataCollector_SetPrivacyScreenState_Name:
             return "Receive ash::cros_healthd::internal::mojom::ChromiumDataCollector::SetPrivacyScreenState";
+      case internal::kChromiumDataCollector_SetAudioOutputMute_Name:
+            return "Receive ash::cros_healthd::internal::mojom::ChromiumDataCollector::SetAudioOutputMute";
     }
   } else {
     switch (message.name()) {
@@ -241,6 +246,8 @@ const char* ChromiumDataCollector::MessageToMethodName_(mojo::Message& message) 
             return "Receive reply ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName";
       case internal::kChromiumDataCollector_SetPrivacyScreenState_Name:
             return "Receive reply ash::cros_healthd::internal::mojom::ChromiumDataCollector::SetPrivacyScreenState";
+      case internal::kChromiumDataCollector_SetAudioOutputMute_Name:
+            return "Receive reply ash::cros_healthd::internal::mojom::ChromiumDataCollector::SetAudioOutputMute";
     }
   }
   return "Receive unknown mojo message";
@@ -294,6 +301,19 @@ uint32_t ChromiumDataCollector::SetPrivacyScreenState_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t ChromiumDataCollector::SetAudioOutputMute_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::internal::mojom::ChromiumDataCollector::SetAudioOutputMute");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class ChromiumDataCollector_GetTouchscreenDevices_ForwardToCallback
@@ -342,6 +362,22 @@ class ChromiumDataCollector_SetPrivacyScreenState_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   ChromiumDataCollector::SetPrivacyScreenStateCallback callback_;
+};
+
+class ChromiumDataCollector_SetAudioOutputMute_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  ChromiumDataCollector_SetAudioOutputMute_ForwardToCallback(
+      ChromiumDataCollector::SetAudioOutputMuteCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  ChromiumDataCollector_SetAudioOutputMute_ForwardToCallback(const ChromiumDataCollector_SetAudioOutputMute_ForwardToCallback&) = delete;
+  ChromiumDataCollector_SetAudioOutputMute_ForwardToCallback& operator=(const ChromiumDataCollector_SetAudioOutputMute_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  ChromiumDataCollector::SetAudioOutputMuteCallback callback_;
 };
 
 ChromiumDataCollectorProxy::ChromiumDataCollectorProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -445,6 +481,45 @@ void ChromiumDataCollectorProxy::SetPrivacyScreenState(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new ChromiumDataCollector_SetPrivacyScreenState_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ChromiumDataCollectorProxy::SetAudioOutputMute(
+    bool in_mute_on, SetAudioOutputMuteCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::internal::mojom::ChromiumDataCollector::SetAudioOutputMute", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("mute_on"), in_mute_on,
+                        "<value of type bool>");
+   });
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kChromiumDataCollector_SetAudioOutputMute_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_SetAudioOutputMute_Params_Data> params(
+          message);
+  params.Allocate();
+  params->mute_on = in_mute_on;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ChromiumDataCollector::Name_);
+  message.set_method_name("SetAudioOutputMute");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new ChromiumDataCollector_SetAudioOutputMute_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -812,6 +887,120 @@ void ChromiumDataCollector_SetPrivacyScreenState_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class ChromiumDataCollector_SetAudioOutputMute_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static ChromiumDataCollector::SetAudioOutputMuteCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<ChromiumDataCollector_SetAudioOutputMute_ProxyToResponder> proxy(
+        new ChromiumDataCollector_SetAudioOutputMute_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&ChromiumDataCollector_SetAudioOutputMute_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~ChromiumDataCollector_SetAudioOutputMute_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  ChromiumDataCollector_SetAudioOutputMute_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "ChromiumDataCollector::SetAudioOutputMuteCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_success);
+};
+
+bool ChromiumDataCollector_SetAudioOutputMute_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_success = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  ChromiumDataCollector_SetAudioOutputMute_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_success = input_data_view.success();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        ChromiumDataCollector::Name_, 3, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_success));
+  return true;
+}
+
+void ChromiumDataCollector_SetAudioOutputMute_ProxyToResponder::Run(
+    bool in_success) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::internal::mojom::ChromiumDataCollector::SetAudioOutputMute", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("success"), in_success,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kChromiumDataCollector_SetAudioOutputMute_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->success = in_success;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ChromiumDataCollector::Name_);
+  message.set_method_name("SetAudioOutputMute");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool ChromiumDataCollectorStubDispatch::Accept(
@@ -825,6 +1014,9 @@ bool ChromiumDataCollectorStubDispatch::Accept(
       break;
     }
     case internal::kChromiumDataCollector_SetPrivacyScreenState_Name: {
+      break;
+    }
+    case internal::kChromiumDataCollector_SetAudioOutputMute_Name: {
       break;
     }
   }
@@ -919,6 +1111,35 @@ bool ChromiumDataCollectorStubDispatch::AcceptWithResponder(
 std::move(p_state), std::move(callback));
       return true;
     }
+    case internal::kChromiumDataCollector_SetAudioOutputMute_Name: {
+
+      internal::ChromiumDataCollector_SetAudioOutputMute_Params_Data* params =
+          reinterpret_cast<
+              internal::ChromiumDataCollector_SetAudioOutputMute_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      bool p_mute_on = mojo::DefaultConstructTraits::CreateInstance<bool>();
+      ChromiumDataCollector_SetAudioOutputMute_ParamsDataView input_data_view(params, message);
+      
+      if (success)
+        p_mute_on = input_data_view.mute_on();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ChromiumDataCollector::Name_, 3, false);
+        return false;
+      }
+      ChromiumDataCollector::SetAudioOutputMuteCallback callback =
+          ChromiumDataCollector_SetAudioOutputMute_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetAudioOutputMute(
+std::move(p_mute_on), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -931,6 +1152,8 @@ static const mojo::internal::GenericValidationInfo kChromiumDataCollectorValidat
      &internal::ChromiumDataCollector_GetTouchpadLibraryName_ResponseParams_Data::Validate},
     {&internal::ChromiumDataCollector_SetPrivacyScreenState_Params_Data::Validate,
      &internal::ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data::Validate},
+    {&internal::ChromiumDataCollector_SetAudioOutputMute_Params_Data::Validate,
+     &internal::ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data::Validate},
 };
 
 bool ChromiumDataCollectorRequestValidator::Accept(mojo::Message* message) {
@@ -1016,6 +1239,9 @@ void ChromiumDataCollectorInterceptorForTesting::GetTouchpadLibraryName(GetTouch
 void ChromiumDataCollectorInterceptorForTesting::SetPrivacyScreenState(bool state, SetPrivacyScreenStateCallback callback) {
   GetForwardingInterface()->SetPrivacyScreenState(std::move(state), std::move(callback));
 }
+void ChromiumDataCollectorInterceptorForTesting::SetAudioOutputMute(bool mute_on, SetAudioOutputMuteCallback callback) {
+  GetForwardingInterface()->SetAudioOutputMute(std::move(mute_on), std::move(callback));
+}
 ChromiumDataCollectorAsyncWaiter::ChromiumDataCollectorAsyncWaiter(
     ChromiumDataCollector* proxy) : proxy_(proxy) {}
 
@@ -1087,6 +1313,29 @@ bool ChromiumDataCollectorAsyncWaiter::SetPrivacyScreenState(
     bool state) {
   bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
   SetPrivacyScreenState(std::move(state),&async_wait_result);
+  return async_wait_result;
+}
+
+void ChromiumDataCollectorAsyncWaiter::SetAudioOutputMute(
+    bool mute_on, bool* out_success) {
+  base::RunLoop loop;
+  proxy_->SetAudioOutputMute(std::move(mute_on),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_success
+,
+             bool success) {*out_success = std::move(success);
+            loop->Quit();
+          },
+          &loop,
+          out_success));
+  loop.Run();
+}
+
+bool ChromiumDataCollectorAsyncWaiter::SetAudioOutputMute(
+    bool mute_on) {
+  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
+  SetAudioOutputMute(std::move(mute_on),&async_wait_result);
   return async_wait_result;
 }
 

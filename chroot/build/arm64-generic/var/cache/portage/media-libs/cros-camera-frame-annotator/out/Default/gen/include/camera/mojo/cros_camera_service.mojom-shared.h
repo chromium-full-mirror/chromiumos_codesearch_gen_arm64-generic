@@ -26,10 +26,10 @@
 #include "camera/mojo/cros_camera_service.mojom-shared-internal.h"
 #include "iioservice/mojo/cros_sensor_service.mojom-shared.h"
 #include "camera/mojo/camera_common.mojom-shared.h"
+#include "camera/mojo/effects/effects_pipeline.mojom-shared.h"
 #include "camera/mojo/gpu/jpeg_encode_accelerator.mojom-shared.h"
 #include "camera/mojo/gpu/mjpeg_decode_accelerator.mojom-shared.h"
 #include "camera/mojo/unguessable_token.mojom-shared.h"
-#include "ml_core/mojo/effects_pipeline.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -116,6 +116,29 @@ inline bool IsKnownEnumValue(CameraAutoFramingState value) {
   return internal::CameraAutoFramingState_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+
+
+enum class SetEffectResult : int32_t {
+  
+  kOk = 0,
+  
+  kError = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, SetEffectResult value);
+inline bool IsKnownEnumValue(SetEffectResult value) {
+  return internal::SetEffectResult_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline SetEffectResult ToKnownEnumValue(SetEffectResult value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return SetEffectResult::kDefaultValue;
+}
 // Interface base classes. They are used for type safety check.
 class CameraHalDispatcherInterfaceBase {};
 
@@ -175,6 +198,10 @@ struct hash<::cros::mojom::CameraPrivacySwitchState>
 template <>
 struct hash<::cros::mojom::CameraAutoFramingState>
     : public mojo::internal::EnumHashImpl<::cros::mojom::CameraAutoFramingState> {};
+
+template <>
+struct hash<::cros::mojom::SetEffectResult>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::SetEffectResult> {};
 
 }  // namespace std
 
@@ -240,6 +267,26 @@ struct Serializer<::cros::mojom::CameraAutoFramingState, MaybeConstUserType> {
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::SetEffectResult, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::SetEffectResult, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::SetEffectResult>(input)), output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -276,6 +323,15 @@ namespace perfetto_libchrome {
 template <>
 struct  TraceFormatTraits<::cros::mojom::CameraAutoFramingState> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::CameraAutoFramingState value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::SetEffectResult> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::SetEffectResult value);
 };
 
 } // namespace perfetto

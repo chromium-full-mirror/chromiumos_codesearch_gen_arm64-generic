@@ -12,10 +12,10 @@
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "iioservice/mojo/cros_sensor_service.mojom-shared-internal.h"
 #include "camera/mojo/camera_common.mojom-shared-internal.h"
+#include "camera/mojo/effects/effects_pipeline.mojom-shared-internal.h"
 #include "camera/mojo/gpu/jpeg_encode_accelerator.mojom-shared-internal.h"
 #include "camera/mojo/gpu/mjpeg_decode_accelerator.mojom-shared-internal.h"
 #include "camera/mojo/unguessable_token.mojom-shared-internal.h"
-#include "ml_core/mojo/effects_pipeline.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -93,6 +93,30 @@ struct CameraAutoFramingState_Data {
       case 0:
       case 1:
       case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct SetEffectResult_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
         return true;
     }
     return false;
