@@ -8,7 +8,7 @@
 #include <optional>
 #include <utility>
 
-#include <base/callback.h>
+#include <base/functional/callback.h>
 #include <biod/biod_proxy/auth_stack_manager_proxy_base.h>
 #include <brillo/dbus/dbus_object.h>
 #include <brillo/secure_blob.h>
@@ -290,10 +290,22 @@ CryptohomeStatus ScanResultToCryptohomeStatus(biod::ScanResult scan_result) {
       return OkStatus<CryptohomeError>();
     // TODO(b/268597445): Include more fine-grained match error types in the
     // returned error.
-    default:
+    case biod::SCAN_RESULT_PARTIAL:
+    case biod::SCAN_RESULT_INSUFFICIENT:
+    case biod::SCAN_RESULT_SENSOR_DIRTY:
+    case biod::SCAN_RESULT_TOO_SLOW:
+    case biod::SCAN_RESULT_TOO_FAST:
+    case biod::SCAN_RESULT_IMMOBILE:
+    case biod::SCAN_RESULT_NO_MATCH:
       return MakeStatus<CryptohomeError>(
           CRYPTOHOME_ERR_LOC(kLocBiometricsProcessorMatchCredentialNoMatch),
-          ErrorActionSet({ErrorAction::kRetry}),
+          ErrorActionSet({ErrorAction::kIncorrectAuth}),
+          user_data_auth::CRYPTOHOME_ERROR_FINGERPRINT_RETRY_REQUIRED);
+    default:
+      return MakeStatus<CryptohomeError>(
+          CRYPTOHOME_ERR_LOC(
+              kLocBiometricsProcessorMatchCredentialUnexpectedScanResult),
+          ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
           user_data_auth::CRYPTOHOME_ERROR_FINGERPRINT_RETRY_REQUIRED);
   }
 }

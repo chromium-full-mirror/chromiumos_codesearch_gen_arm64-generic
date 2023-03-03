@@ -29,6 +29,7 @@
 
 #include "base/functional/callback_helpers.h"
 #include "cryptohome/auth_blocks/auth_block.h"
+#include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/auth_blocks/auth_block_utility.h"
 #include "cryptohome/auth_factor/auth_factor.h"
 #include "cryptohome/auth_factor/auth_factor_label_arity.h"
@@ -249,6 +250,26 @@ CryptohomeStatus CleanUpBackupKeyset(
   return OkStatus<CryptohomeError>();
 }
 
+// Removes the backup VaultKeysets.
+CryptohomeStatus CleanUpAllBackupKeysets(
+    KeysetManagement& keyset_management,
+    const ObfuscatedUsername& obfuscated_username,
+    const AuthFactorMap& auth_factor_map) {
+  for (auto item : auth_factor_map) {
+    CryptohomeStatus status = CleanUpBackupKeyset(
+        keyset_management, obfuscated_username, item.auth_factor().label());
+    if (!status.ok()) {
+      return MakeStatus<CryptohomeError>(
+                 CRYPTOHOME_ERR_LOC(
+                     kLocAuthSessionRemoveFailedInCleanUpAllBackupKeysets),
+                 ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+                 user_data_auth::CRYPTOHOME_ERROR_BACKING_STORE_FAILURE)
+          .Wrap(std::move(status));
+    }
+  }
+  return OkStatus<CryptohomeError>();
+}
+
 }  // namespace
 
 std::unique_ptr<AuthSession> AuthSession::Create(
@@ -284,9 +305,8 @@ std::unique_ptr<AuthSession> AuthSession::Create(
   if (persistent_user_exists) {
     AuthFactorVaultKeysetConverter converter(backing_apis.keyset_management);
     auth_factor_map = LoadAuthFactorMap(
-        (ShouldMigrateToUss() || migrate_to_user_secret_stash),
-        obfuscated_username, *backing_apis.platform, converter,
-        *backing_apis.auth_factor_manager);
+        migrate_to_user_secret_stash, obfuscated_username,
+        *backing_apis.platform, converter, *backing_apis.auth_factor_manager);
   }
 
   // Assumption here is that keyset_management_ will outlive this AuthSession.
@@ -641,9 +661,9 @@ void AuthSession::AuthenticateViaVaultKeysetAndMigrateToUss(
   }
 
   // Determine the auth block type to use.
-  AuthBlockType auth_block_type =
+  std::optional<AuthBlockType> auth_block_type =
       auth_block_utility_->GetAuthBlockTypeFromState(auth_state);
-  if (auth_block_type == AuthBlockType::kMaxValue) {
+  if (!auth_block_type) {
     LOG(ERROR) << "Failed to determine auth block type from auth block state";
     std::move(on_done).Run(MakeStatus<CryptohomeError>(
         CRYPTOHOME_ERR_LOC(kLocAuthSessionInvalidBlockTypeInAuthViaVaultKey),
@@ -653,17 +673,17 @@ void AuthSession::AuthenticateViaVaultKeysetAndMigrateToUss(
   }
 
   // Parameterize the AuthSession performance timer by AuthBlockType
-  auth_session_performance_timer->auth_block_type = auth_block_type;
+  auth_session_performance_timer->auth_block_type = *auth_block_type;
 
   // Derive KeyBlobs from the existing VaultKeyset, using GetValidKeyset
   // as a callback that loads |vault_keyset_| and resaves if needed.
   AuthBlock::DeriveCallback derive_callback = base::BindOnce(
       &AuthSession::LoadVaultKeysetAndFsKeys, weak_factory_.GetWeakPtr(),
-      request_auth_factor_type, auth_input, auth_block_type, metadata,
+      request_auth_factor_type, auth_input, *auth_block_type, metadata,
       std::move(auth_session_performance_timer), std::move(on_done));
 
   auth_block_utility_->DeriveKeyBlobsWithAuthBlockAsync(
-      auth_block_type, auth_input, auth_state, std::move(derive_callback));
+      *auth_block_type, auth_input, auth_state, std::move(derive_callback));
 }
 
 void AuthSession::LoadVaultKeysetAndFsKeys(
@@ -762,7 +782,7 @@ void AuthSession::LoadVaultKeysetAndFsKeys(
 
   ReportTimerDuration(auth_session_performance_timer.get());
 
-  if ((migrate_to_user_secret_stash_ || ShouldMigrateToUss()) &&
+  if (migrate_to_user_secret_stash_ &&
       status_ == AuthStatus::kAuthStatusAuthenticated &&
       IsUserSecretStashExperimentEnabled(platform_)) {
     UssMigrator migrator(username_);
@@ -2179,14 +2199,28 @@ CryptohomeStatus AuthSession::PersistAuthFactorToUserSecretStashImpl(
         .Wrap(std::move(status));
   }
 
-  // Generate and persist the backup (or migrated) VaultKeyset. This is skipped
-  // if at least one factor (including the just-added one) is USS-only.
+  // If a USS only factor is added backup keysets should be removed.
   if (!IsFactorTypeSupportedByVk(auth_factor_type)) {
     enable_create_backup_vk_with_uss_ = false;
+
+    CryptohomeStatus cleanup_status = CleanUpAllBackupKeysets(
+        *keyset_management_, obfuscated_username_, auth_factor_map_);
+    if (!cleanup_status.ok()) {
+      LOG(ERROR) << "Cleaning up backup keysets failed.";
+      return (MakeStatus<CryptohomeError>(
+                  CRYPTOHOME_ERR_LOC(
+                      kLocAuthSessionCleanupBackupFailedInAddauthFactor),
+                  user_data_auth::CRYPTOHOME_ADD_CREDENTIALS_FAILED)
+                  .Wrap(std::move(cleanup_status).status()));
+    }
   }
+  // Generate and persist the backup (or migrated) VaultKeyset. This is
+  // skipped if at least one factor (including the just-added one) is
+  // USS-only.
   if (enable_create_backup_vk_with_uss_) {
-    // Clobbering is on by default, so if USS&AuthFactor is added for migration
-    // this will convert a regular VaultKeyset to a backup VaultKeyset.
+    // Clobbering is on by default, so if USS&AuthFactor is added for
+    // migration this will convert a regular VaultKeyset to a backup
+    // VaultKeyset.
     status = AddVaultKeyset(auth_factor_label, key_data, /*is_initial_keyset=*/
                             auth_factor_map_.empty(),
                             VaultKeysetIntent{.backup = true},
@@ -2196,12 +2230,11 @@ CryptohomeStatus AuthSession::PersistAuthFactorToUserSecretStashImpl(
       // informed that the adding operation is failed. However the factor is
       // added and can be used starting from the next AuthSession.
       // If MigrateVkToUss fails at this step, user still can login with
-      // that factor, and the migration of the factor is completed. But migrator
-      // will attempt to migrate that factor every time, not knowing that it has
-      // already migrated.
-      // Considering this is a very rare edge case and doesn't cause a big user
-      // facing issue we don't try to do any cleanup, because any cleanup
-      // attempts share similar risks, or worse.
+      // that factor, and the migration of the factor is completed. But
+      // migrator will attempt to migrate that factor every time, not knowing
+      // that it has already migrated. Considering this is a very rare edge
+      // case and doesn't cause a big user facing issue we don't try to do any
+      // cleanup, because any cleanup attempts share similar risks, or worse.
       LOG(ERROR) << "Failed to create VaultKeyset for a backup to new added "
                     "AuthFactor with label: "
                  << auth_factor_label;
@@ -2474,10 +2507,10 @@ void AuthSession::AuthenticateViaUserSecretStash(
   // Determine the auth block type to use.
   // TODO(b/223207622): This step is the same for both USS and VaultKeyset other
   // than how the AuthBlock state is obtained, they can be merged.
-  AuthBlockType auth_block_type =
+  std::optional<AuthBlockType> auth_block_type =
       auth_block_utility_->GetAuthBlockTypeFromState(
           auth_factor.auth_block_state());
-  if (auth_block_type == AuthBlockType::kMaxValue) {
+  if (!auth_block_type) {
     LOG(ERROR) << "Failed to determine auth block type for the loaded factor "
                   "with label "
                << auth_factor.label();
@@ -2489,7 +2522,7 @@ void AuthSession::AuthenticateViaUserSecretStash(
   }
 
   // Parameterize timer by AuthBlockType.
-  auth_session_performance_timer->auth_block_type = auth_block_type;
+  auth_session_performance_timer->auth_block_type = *auth_block_type;
 
   // Derive the keyset and then use USS to complete the authentication.
   auto derive_callback = base::BindOnce(
@@ -2497,7 +2530,7 @@ void AuthSession::AuthenticateViaUserSecretStash(
       auth_factor.type(), auth_factor_label, auth_input,
       std::move(auth_session_performance_timer), std::move(on_done));
   auth_block_utility_->DeriveKeyBlobsWithAuthBlockAsync(
-      auth_block_type, auth_input, auth_factor.auth_block_state(),
+      *auth_block_type, auth_input, auth_factor.auth_block_state(),
       std::move(derive_callback));
 }
 

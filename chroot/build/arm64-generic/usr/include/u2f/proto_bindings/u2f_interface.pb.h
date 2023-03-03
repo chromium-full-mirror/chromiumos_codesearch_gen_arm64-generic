@@ -2749,15 +2749,15 @@ class IsUvpaaResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kAvailableFieldNumber = 1,
+    kNotReadyFieldNumber = 2,
   };
-  // bool available = 1;
-  void clear_available();
-  bool available() const;
-  void set_available(bool value);
+  // bool not_ready = 2;
+  void clear_not_ready();
+  bool not_ready() const;
+  void set_not_ready(bool value);
   private:
-  bool _internal_available() const;
-  void _internal_set_available(bool value);
+  bool _internal_not_ready() const;
+  void _internal_set_not_ready(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:u2f.IsUvpaaResponse)
@@ -2768,7 +2768,7 @@ class IsUvpaaResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    bool available_;
+    bool not_ready_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -5865,24 +5865,24 @@ inline void IsPlatformAuthenticatorInitializedResponse::set_initialized(bool val
 
 // IsUvpaaResponse
 
-// bool available = 1;
-inline void IsUvpaaResponse::clear_available() {
-  _impl_.available_ = false;
+// bool not_ready = 2;
+inline void IsUvpaaResponse::clear_not_ready() {
+  _impl_.not_ready_ = false;
 }
-inline bool IsUvpaaResponse::_internal_available() const {
-  return _impl_.available_;
+inline bool IsUvpaaResponse::_internal_not_ready() const {
+  return _impl_.not_ready_;
 }
-inline bool IsUvpaaResponse::available() const {
-  // @@protoc_insertion_point(field_get:u2f.IsUvpaaResponse.available)
-  return _internal_available();
+inline bool IsUvpaaResponse::not_ready() const {
+  // @@protoc_insertion_point(field_get:u2f.IsUvpaaResponse.not_ready)
+  return _internal_not_ready();
 }
-inline void IsUvpaaResponse::_internal_set_available(bool value) {
+inline void IsUvpaaResponse::_internal_set_not_ready(bool value) {
   
-  _impl_.available_ = value;
+  _impl_.not_ready_ = value;
 }
-inline void IsUvpaaResponse::set_available(bool value) {
-  _internal_set_available(value);
-  // @@protoc_insertion_point(field_set:u2f.IsUvpaaResponse.available)
+inline void IsUvpaaResponse::set_not_ready(bool value) {
+  _internal_set_not_ready(value);
+  // @@protoc_insertion_point(field_set:u2f.IsUvpaaResponse.not_ready)
 }
 
 // -------------------------------------------------------------------
