@@ -391,72 +391,6 @@ class  SensorDevice_GetAllEvents_ResponseParams_Data {
 };
 static_assert(sizeof(SensorDevice_GetAllEvents_ResponseParams_Data) == 16,
               "Bad sizeof(SensorDevice_GetAllEvents_ResponseParams_Data)");
-class  SensorDevice_SetEventsEnabled_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> iio_event_indices;
-  uint8_t en : 1;
-  uint8_t padfinal_[7];
-
- private:
-  friend class mojo::internal::MessageFragment<SensorDevice_SetEventsEnabled_Params_Data>;
-
-  SensorDevice_SetEventsEnabled_Params_Data();
-  ~SensorDevice_SetEventsEnabled_Params_Data() = delete;
-};
-static_assert(sizeof(SensorDevice_SetEventsEnabled_Params_Data) == 24,
-              "Bad sizeof(SensorDevice_SetEventsEnabled_Params_Data)");
-class  SensorDevice_SetEventsEnabled_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> failed_indices;
-
- private:
-  friend class mojo::internal::MessageFragment<SensorDevice_SetEventsEnabled_ResponseParams_Data>;
-
-  SensorDevice_SetEventsEnabled_ResponseParams_Data();
-  ~SensorDevice_SetEventsEnabled_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(SensorDevice_SetEventsEnabled_ResponseParams_Data) == 16,
-              "Bad sizeof(SensorDevice_SetEventsEnabled_ResponseParams_Data)");
-class  SensorDevice_GetEventsEnabled_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> iio_event_indices;
-
- private:
-  friend class mojo::internal::MessageFragment<SensorDevice_GetEventsEnabled_Params_Data>;
-
-  SensorDevice_GetEventsEnabled_Params_Data();
-  ~SensorDevice_GetEventsEnabled_Params_Data() = delete;
-};
-static_assert(sizeof(SensorDevice_GetEventsEnabled_Params_Data) == 16,
-              "Bad sizeof(SensorDevice_GetEventsEnabled_Params_Data)");
-class  SensorDevice_GetEventsEnabled_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<bool>> enabled;
-
- private:
-  friend class mojo::internal::MessageFragment<SensorDevice_GetEventsEnabled_ResponseParams_Data>;
-
-  SensorDevice_GetEventsEnabled_ResponseParams_Data();
-  ~SensorDevice_GetEventsEnabled_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(SensorDevice_GetEventsEnabled_ResponseParams_Data) == 16,
-              "Bad sizeof(SensorDevice_GetEventsEnabled_ResponseParams_Data)");
 class  SensorDevice_GetEventsAttributes_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -496,6 +430,7 @@ class  SensorDevice_StartReadingEvents_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> iio_event_indices;
   mojo::internal::Interface_Data observer;
 
  private:
@@ -504,23 +439,8 @@ class  SensorDevice_StartReadingEvents_Params_Data {
   SensorDevice_StartReadingEvents_Params_Data();
   ~SensorDevice_StartReadingEvents_Params_Data() = delete;
 };
-static_assert(sizeof(SensorDevice_StartReadingEvents_Params_Data) == 16,
+static_assert(sizeof(SensorDevice_StartReadingEvents_Params_Data) == 24,
               "Bad sizeof(SensorDevice_StartReadingEvents_Params_Data)");
-class  SensorDevice_StopReadingEvents_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-
- private:
-  friend class mojo::internal::MessageFragment<SensorDevice_StopReadingEvents_Params_Data>;
-
-  SensorDevice_StopReadingEvents_Params_Data();
-  ~SensorDevice_StopReadingEvents_Params_Data() = delete;
-};
-static_assert(sizeof(SensorDevice_StopReadingEvents_Params_Data) == 8,
-              "Bad sizeof(SensorDevice_StopReadingEvents_Params_Data)");
 class  SensorDeviceSamplesObserver_OnSampleUpdated_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1174,117 +1094,6 @@ class SensorDevice_GetAllEvents_ResponseParamsDataView {
 
 
 
-class SensorDevice_SetEventsEnabled_ParamsDataView {
- public:
-  SensorDevice_SetEventsEnabled_ParamsDataView() = default;
-
-  SensorDevice_SetEventsEnabled_ParamsDataView(
-      internal::SensorDevice_SetEventsEnabled_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetIioEventIndicesDataView(
-      mojo::ArrayDataView<int32_t>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadIioEventIndices(UserType* output) {
-    
-    auto* pointer = data_->iio_event_indices.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<int32_t>>(
-        pointer, output, message_);
-  }
-  bool en() const {
-    return data_->en;
-  }
- private:
-  internal::SensorDevice_SetEventsEnabled_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-
-class SensorDevice_SetEventsEnabled_ResponseParamsDataView {
- public:
-  SensorDevice_SetEventsEnabled_ResponseParamsDataView() = default;
-
-  SensorDevice_SetEventsEnabled_ResponseParamsDataView(
-      internal::SensorDevice_SetEventsEnabled_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetFailedIndicesDataView(
-      mojo::ArrayDataView<int32_t>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadFailedIndices(UserType* output) {
-    
-    auto* pointer = data_->failed_indices.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<int32_t>>(
-        pointer, output, message_);
-  }
- private:
-  internal::SensorDevice_SetEventsEnabled_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-
-class SensorDevice_GetEventsEnabled_ParamsDataView {
- public:
-  SensorDevice_GetEventsEnabled_ParamsDataView() = default;
-
-  SensorDevice_GetEventsEnabled_ParamsDataView(
-      internal::SensorDevice_GetEventsEnabled_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetIioEventIndicesDataView(
-      mojo::ArrayDataView<int32_t>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadIioEventIndices(UserType* output) {
-    
-    auto* pointer = data_->iio_event_indices.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<int32_t>>(
-        pointer, output, message_);
-  }
- private:
-  internal::SensorDevice_GetEventsEnabled_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-
-class SensorDevice_GetEventsEnabled_ResponseParamsDataView {
- public:
-  SensorDevice_GetEventsEnabled_ResponseParamsDataView() = default;
-
-  SensorDevice_GetEventsEnabled_ResponseParamsDataView(
-      internal::SensorDevice_GetEventsEnabled_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetEnabledDataView(
-      mojo::ArrayDataView<bool>* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadEnabled(UserType* output) {
-    
-    auto* pointer = data_->enabled.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<bool>>(
-        pointer, output, message_);
-  }
- private:
-  internal::SensorDevice_GetEventsEnabled_ResponseParams_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-
 class SensorDevice_GetEventsAttributes_ParamsDataView {
  public:
   SensorDevice_GetEventsAttributes_ParamsDataView() = default;
@@ -1359,6 +1168,16 @@ class SensorDevice_StartReadingEvents_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
+  inline void GetIioEventIndicesDataView(
+      mojo::ArrayDataView<int32_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadIioEventIndices(UserType* output) {
+    
+    auto* pointer = data_->iio_event_indices.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<int32_t>>(
+        pointer, output, message_);
+  }
   template <typename UserType>
   UserType TakeObserver() {
     UserType result;
@@ -1371,22 +1190,6 @@ class SensorDevice_StartReadingEvents_ParamsDataView {
  private:
   internal::SensorDevice_StartReadingEvents_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
-};
-
-
-
-class SensorDevice_StopReadingEvents_ParamsDataView {
- public:
-  SensorDevice_StopReadingEvents_ParamsDataView() = default;
-
-  SensorDevice_StopReadingEvents_ParamsDataView(
-      internal::SensorDevice_StopReadingEvents_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
- private:
-  internal::SensorDevice_StopReadingEvents_Params_Data* data_ = nullptr;
 };
 
 
@@ -1637,34 +1440,6 @@ inline void SensorDevice_GetAllEvents_ResponseParamsDataView::GetIioEventsDataVi
 }
 
 
-inline void SensorDevice_SetEventsEnabled_ParamsDataView::GetIioEventIndicesDataView(
-    mojo::ArrayDataView<int32_t>* output) {
-  auto pointer = data_->iio_event_indices.Get();
-  *output = mojo::ArrayDataView<int32_t>(pointer, message_);
-}
-
-
-inline void SensorDevice_SetEventsEnabled_ResponseParamsDataView::GetFailedIndicesDataView(
-    mojo::ArrayDataView<int32_t>* output) {
-  auto pointer = data_->failed_indices.Get();
-  *output = mojo::ArrayDataView<int32_t>(pointer, message_);
-}
-
-
-inline void SensorDevice_GetEventsEnabled_ParamsDataView::GetIioEventIndicesDataView(
-    mojo::ArrayDataView<int32_t>* output) {
-  auto pointer = data_->iio_event_indices.Get();
-  *output = mojo::ArrayDataView<int32_t>(pointer, message_);
-}
-
-
-inline void SensorDevice_GetEventsEnabled_ResponseParamsDataView::GetEnabledDataView(
-    mojo::ArrayDataView<bool>* output) {
-  auto pointer = data_->enabled.Get();
-  *output = mojo::ArrayDataView<bool>(pointer, message_);
-}
-
-
 inline void SensorDevice_GetEventsAttributes_ParamsDataView::GetIioEventIndicesDataView(
     mojo::ArrayDataView<int32_t>* output) {
   auto pointer = data_->iio_event_indices.Get();
@@ -1684,8 +1459,11 @@ inline void SensorDevice_GetEventsAttributes_ResponseParamsDataView::GetValuesDa
 }
 
 
-
-
+inline void SensorDevice_StartReadingEvents_ParamsDataView::GetIioEventIndicesDataView(
+    mojo::ArrayDataView<int32_t>* output) {
+  auto pointer = data_->iio_event_indices.Get();
+  *output = mojo::ArrayDataView<int32_t>(pointer, message_);
+}
 
 
 inline void SensorDeviceSamplesObserver_OnSampleUpdated_ParamsDataView::GetSampleDataView(

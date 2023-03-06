@@ -648,6 +648,21 @@ BRILLO_EXPORT std::string GetProtoDebugString(
 std::string GetProtoDebugStringWithIndent(const AuthScanDone& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const AuthScanDone& value);
+std::string GetProtoDebugStringWithIndent(
+    const PrepareAuthFactorForAddProgress& value,
+    int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const PrepareAuthFactorForAddProgress& value);
+std::string GetProtoDebugStringWithIndent(
+    const PrepareAuthFactorForAuthProgress& value,
+    int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const PrepareAuthFactorForAuthProgress& value);
+std::string GetProtoDebugStringWithIndent(
+    const PrepareAuthFactorProgress& value,
+    int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const PrepareAuthFactorProgress& value);
 
 }  // namespace user_data_auth
 

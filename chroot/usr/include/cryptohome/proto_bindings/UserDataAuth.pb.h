@@ -326,6 +326,15 @@ extern Pkcs11TerminateReplyDefaultTypeInternal _Pkcs11TerminateReply_default_ins
 class Pkcs11TerminateRequest;
 struct Pkcs11TerminateRequestDefaultTypeInternal;
 extern Pkcs11TerminateRequestDefaultTypeInternal _Pkcs11TerminateRequest_default_instance_;
+class PrepareAuthFactorForAddProgress;
+struct PrepareAuthFactorForAddProgressDefaultTypeInternal;
+extern PrepareAuthFactorForAddProgressDefaultTypeInternal _PrepareAuthFactorForAddProgress_default_instance_;
+class PrepareAuthFactorForAuthProgress;
+struct PrepareAuthFactorForAuthProgressDefaultTypeInternal;
+extern PrepareAuthFactorForAuthProgressDefaultTypeInternal _PrepareAuthFactorForAuthProgress_default_instance_;
+class PrepareAuthFactorProgress;
+struct PrepareAuthFactorProgressDefaultTypeInternal;
+extern PrepareAuthFactorProgressDefaultTypeInternal _PrepareAuthFactorProgress_default_instance_;
 class PrepareAuthFactorReply;
 struct PrepareAuthFactorReplyDefaultTypeInternal;
 extern PrepareAuthFactorReplyDefaultTypeInternal _PrepareAuthFactorReply_default_instance_;
@@ -544,6 +553,9 @@ template<> ::user_data_auth::Pkcs11RestoreTpmTokensReply* Arena::CreateMaybeMess
 template<> ::user_data_auth::Pkcs11RestoreTpmTokensRequest* Arena::CreateMaybeMessage<::user_data_auth::Pkcs11RestoreTpmTokensRequest>(Arena*);
 template<> ::user_data_auth::Pkcs11TerminateReply* Arena::CreateMaybeMessage<::user_data_auth::Pkcs11TerminateReply>(Arena*);
 template<> ::user_data_auth::Pkcs11TerminateRequest* Arena::CreateMaybeMessage<::user_data_auth::Pkcs11TerminateRequest>(Arena*);
+template<> ::user_data_auth::PrepareAuthFactorForAddProgress* Arena::CreateMaybeMessage<::user_data_auth::PrepareAuthFactorForAddProgress>(Arena*);
+template<> ::user_data_auth::PrepareAuthFactorForAuthProgress* Arena::CreateMaybeMessage<::user_data_auth::PrepareAuthFactorForAuthProgress>(Arena*);
+template<> ::user_data_auth::PrepareAuthFactorProgress* Arena::CreateMaybeMessage<::user_data_auth::PrepareAuthFactorProgress>(Arena*);
 template<> ::user_data_auth::PrepareAuthFactorReply* Arena::CreateMaybeMessage<::user_data_auth::PrepareAuthFactorReply>(Arena*);
 template<> ::user_data_auth::PrepareAuthFactorRequest* Arena::CreateMaybeMessage<::user_data_auth::PrepareAuthFactorRequest>(Arena*);
 template<> ::user_data_auth::PrepareEphemeralVaultReply* Arena::CreateMaybeMessage<::user_data_auth::PrepareEphemeralVaultReply>(Arena*);
@@ -20266,6 +20278,529 @@ class AuthScanDone final :
   union { Impl_ _impl_; };
   friend struct ::TableStruct_UserDataAuth_2eproto;
 };
+// -------------------------------------------------------------------
+
+class PrepareAuthFactorForAddProgress final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.PrepareAuthFactorForAddProgress) */ {
+ public:
+  inline PrepareAuthFactorForAddProgress() : PrepareAuthFactorForAddProgress(nullptr) {}
+  ~PrepareAuthFactorForAddProgress() override;
+  explicit PROTOBUF_CONSTEXPR PrepareAuthFactorForAddProgress(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PrepareAuthFactorForAddProgress(const PrepareAuthFactorForAddProgress& from);
+  PrepareAuthFactorForAddProgress(PrepareAuthFactorForAddProgress&& from) noexcept
+    : PrepareAuthFactorForAddProgress() {
+    *this = ::std::move(from);
+  }
+
+  inline PrepareAuthFactorForAddProgress& operator=(const PrepareAuthFactorForAddProgress& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PrepareAuthFactorForAddProgress& operator=(PrepareAuthFactorForAddProgress&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const PrepareAuthFactorForAddProgress& default_instance() {
+    return *internal_default_instance();
+  }
+  enum ProgressCase {
+    kBiometricsProgress = 2,
+    PROGRESS_NOT_SET = 0,
+  };
+
+  static inline const PrepareAuthFactorForAddProgress* internal_default_instance() {
+    return reinterpret_cast<const PrepareAuthFactorForAddProgress*>(
+               &_PrepareAuthFactorForAddProgress_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    134;
+
+  friend void swap(PrepareAuthFactorForAddProgress& a, PrepareAuthFactorForAddProgress& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PrepareAuthFactorForAddProgress* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PrepareAuthFactorForAddProgress* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PrepareAuthFactorForAddProgress* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PrepareAuthFactorForAddProgress>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const PrepareAuthFactorForAddProgress& from);
+  void MergeFrom(const PrepareAuthFactorForAddProgress& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PrepareAuthFactorForAddProgress* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.PrepareAuthFactorForAddProgress";
+  }
+  protected:
+  explicit PrepareAuthFactorForAddProgress(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAuthFactorTypeFieldNumber = 1,
+    kBiometricsProgressFieldNumber = 2,
+  };
+  // .user_data_auth.AuthFactorType auth_factor_type = 1;
+  void clear_auth_factor_type();
+  ::user_data_auth::AuthFactorType auth_factor_type() const;
+  void set_auth_factor_type(::user_data_auth::AuthFactorType value);
+  private:
+  ::user_data_auth::AuthFactorType _internal_auth_factor_type() const;
+  void _internal_set_auth_factor_type(::user_data_auth::AuthFactorType value);
+  public:
+
+  // .user_data_auth.AuthEnrollmentProgress biometrics_progress = 2;
+  bool has_biometrics_progress() const;
+  private:
+  bool _internal_has_biometrics_progress() const;
+  public:
+  void clear_biometrics_progress();
+  const ::user_data_auth::AuthEnrollmentProgress& biometrics_progress() const;
+  PROTOBUF_NODISCARD ::user_data_auth::AuthEnrollmentProgress* release_biometrics_progress();
+  ::user_data_auth::AuthEnrollmentProgress* mutable_biometrics_progress();
+  void set_allocated_biometrics_progress(::user_data_auth::AuthEnrollmentProgress* biometrics_progress);
+  private:
+  const ::user_data_auth::AuthEnrollmentProgress& _internal_biometrics_progress() const;
+  ::user_data_auth::AuthEnrollmentProgress* _internal_mutable_biometrics_progress();
+  public:
+  void unsafe_arena_set_allocated_biometrics_progress(
+      ::user_data_auth::AuthEnrollmentProgress* biometrics_progress);
+  ::user_data_auth::AuthEnrollmentProgress* unsafe_arena_release_biometrics_progress();
+
+  void clear_progress();
+  ProgressCase progress_case() const;
+  // @@protoc_insertion_point(class_scope:user_data_auth.PrepareAuthFactorForAddProgress)
+ private:
+  class _Internal;
+  void set_has_biometrics_progress();
+
+  inline bool has_progress() const;
+  inline void clear_has_progress();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int auth_factor_type_;
+    union ProgressUnion {
+      constexpr ProgressUnion() : _constinit_{} {}
+        ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+      ::user_data_auth::AuthEnrollmentProgress* biometrics_progress_;
+    } progress_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    uint32_t _oneof_case_[1];
+
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_UserDataAuth_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PrepareAuthFactorForAuthProgress final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.PrepareAuthFactorForAuthProgress) */ {
+ public:
+  inline PrepareAuthFactorForAuthProgress() : PrepareAuthFactorForAuthProgress(nullptr) {}
+  ~PrepareAuthFactorForAuthProgress() override;
+  explicit PROTOBUF_CONSTEXPR PrepareAuthFactorForAuthProgress(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PrepareAuthFactorForAuthProgress(const PrepareAuthFactorForAuthProgress& from);
+  PrepareAuthFactorForAuthProgress(PrepareAuthFactorForAuthProgress&& from) noexcept
+    : PrepareAuthFactorForAuthProgress() {
+    *this = ::std::move(from);
+  }
+
+  inline PrepareAuthFactorForAuthProgress& operator=(const PrepareAuthFactorForAuthProgress& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PrepareAuthFactorForAuthProgress& operator=(PrepareAuthFactorForAuthProgress&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const PrepareAuthFactorForAuthProgress& default_instance() {
+    return *internal_default_instance();
+  }
+  enum ProgressCase {
+    kBiometricsProgress = 2,
+    PROGRESS_NOT_SET = 0,
+  };
+
+  static inline const PrepareAuthFactorForAuthProgress* internal_default_instance() {
+    return reinterpret_cast<const PrepareAuthFactorForAuthProgress*>(
+               &_PrepareAuthFactorForAuthProgress_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    135;
+
+  friend void swap(PrepareAuthFactorForAuthProgress& a, PrepareAuthFactorForAuthProgress& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PrepareAuthFactorForAuthProgress* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PrepareAuthFactorForAuthProgress* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PrepareAuthFactorForAuthProgress* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PrepareAuthFactorForAuthProgress>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const PrepareAuthFactorForAuthProgress& from);
+  void MergeFrom(const PrepareAuthFactorForAuthProgress& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PrepareAuthFactorForAuthProgress* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.PrepareAuthFactorForAuthProgress";
+  }
+  protected:
+  explicit PrepareAuthFactorForAuthProgress(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAuthFactorTypeFieldNumber = 1,
+    kBiometricsProgressFieldNumber = 2,
+  };
+  // .user_data_auth.AuthFactorType auth_factor_type = 1;
+  void clear_auth_factor_type();
+  ::user_data_auth::AuthFactorType auth_factor_type() const;
+  void set_auth_factor_type(::user_data_auth::AuthFactorType value);
+  private:
+  ::user_data_auth::AuthFactorType _internal_auth_factor_type() const;
+  void _internal_set_auth_factor_type(::user_data_auth::AuthFactorType value);
+  public:
+
+  // .user_data_auth.AuthScanDone biometrics_progress = 2;
+  bool has_biometrics_progress() const;
+  private:
+  bool _internal_has_biometrics_progress() const;
+  public:
+  void clear_biometrics_progress();
+  const ::user_data_auth::AuthScanDone& biometrics_progress() const;
+  PROTOBUF_NODISCARD ::user_data_auth::AuthScanDone* release_biometrics_progress();
+  ::user_data_auth::AuthScanDone* mutable_biometrics_progress();
+  void set_allocated_biometrics_progress(::user_data_auth::AuthScanDone* biometrics_progress);
+  private:
+  const ::user_data_auth::AuthScanDone& _internal_biometrics_progress() const;
+  ::user_data_auth::AuthScanDone* _internal_mutable_biometrics_progress();
+  public:
+  void unsafe_arena_set_allocated_biometrics_progress(
+      ::user_data_auth::AuthScanDone* biometrics_progress);
+  ::user_data_auth::AuthScanDone* unsafe_arena_release_biometrics_progress();
+
+  void clear_progress();
+  ProgressCase progress_case() const;
+  // @@protoc_insertion_point(class_scope:user_data_auth.PrepareAuthFactorForAuthProgress)
+ private:
+  class _Internal;
+  void set_has_biometrics_progress();
+
+  inline bool has_progress() const;
+  inline void clear_has_progress();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int auth_factor_type_;
+    union ProgressUnion {
+      constexpr ProgressUnion() : _constinit_{} {}
+        ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+      ::user_data_auth::AuthScanDone* biometrics_progress_;
+    } progress_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    uint32_t _oneof_case_[1];
+
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_UserDataAuth_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PrepareAuthFactorProgress final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.PrepareAuthFactorProgress) */ {
+ public:
+  inline PrepareAuthFactorProgress() : PrepareAuthFactorProgress(nullptr) {}
+  ~PrepareAuthFactorProgress() override;
+  explicit PROTOBUF_CONSTEXPR PrepareAuthFactorProgress(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PrepareAuthFactorProgress(const PrepareAuthFactorProgress& from);
+  PrepareAuthFactorProgress(PrepareAuthFactorProgress&& from) noexcept
+    : PrepareAuthFactorProgress() {
+    *this = ::std::move(from);
+  }
+
+  inline PrepareAuthFactorProgress& operator=(const PrepareAuthFactorProgress& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PrepareAuthFactorProgress& operator=(PrepareAuthFactorProgress&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const PrepareAuthFactorProgress& default_instance() {
+    return *internal_default_instance();
+  }
+  enum ProgressCase {
+    kAddProgress = 2,
+    kAuthProgress = 3,
+    PROGRESS_NOT_SET = 0,
+  };
+
+  static inline const PrepareAuthFactorProgress* internal_default_instance() {
+    return reinterpret_cast<const PrepareAuthFactorProgress*>(
+               &_PrepareAuthFactorProgress_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    136;
+
+  friend void swap(PrepareAuthFactorProgress& a, PrepareAuthFactorProgress& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PrepareAuthFactorProgress* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PrepareAuthFactorProgress* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PrepareAuthFactorProgress* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PrepareAuthFactorProgress>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const PrepareAuthFactorProgress& from);
+  void MergeFrom(const PrepareAuthFactorProgress& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PrepareAuthFactorProgress* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.PrepareAuthFactorProgress";
+  }
+  protected:
+  explicit PrepareAuthFactorProgress(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPurposeFieldNumber = 1,
+    kAddProgressFieldNumber = 2,
+    kAuthProgressFieldNumber = 3,
+  };
+  // .user_data_auth.AuthFactorPreparePurpose purpose = 1;
+  void clear_purpose();
+  ::user_data_auth::AuthFactorPreparePurpose purpose() const;
+  void set_purpose(::user_data_auth::AuthFactorPreparePurpose value);
+  private:
+  ::user_data_auth::AuthFactorPreparePurpose _internal_purpose() const;
+  void _internal_set_purpose(::user_data_auth::AuthFactorPreparePurpose value);
+  public:
+
+  // .user_data_auth.PrepareAuthFactorForAddProgress add_progress = 2;
+  bool has_add_progress() const;
+  private:
+  bool _internal_has_add_progress() const;
+  public:
+  void clear_add_progress();
+  const ::user_data_auth::PrepareAuthFactorForAddProgress& add_progress() const;
+  PROTOBUF_NODISCARD ::user_data_auth::PrepareAuthFactorForAddProgress* release_add_progress();
+  ::user_data_auth::PrepareAuthFactorForAddProgress* mutable_add_progress();
+  void set_allocated_add_progress(::user_data_auth::PrepareAuthFactorForAddProgress* add_progress);
+  private:
+  const ::user_data_auth::PrepareAuthFactorForAddProgress& _internal_add_progress() const;
+  ::user_data_auth::PrepareAuthFactorForAddProgress* _internal_mutable_add_progress();
+  public:
+  void unsafe_arena_set_allocated_add_progress(
+      ::user_data_auth::PrepareAuthFactorForAddProgress* add_progress);
+  ::user_data_auth::PrepareAuthFactorForAddProgress* unsafe_arena_release_add_progress();
+
+  // .user_data_auth.PrepareAuthFactorForAuthProgress auth_progress = 3;
+  bool has_auth_progress() const;
+  private:
+  bool _internal_has_auth_progress() const;
+  public:
+  void clear_auth_progress();
+  const ::user_data_auth::PrepareAuthFactorForAuthProgress& auth_progress() const;
+  PROTOBUF_NODISCARD ::user_data_auth::PrepareAuthFactorForAuthProgress* release_auth_progress();
+  ::user_data_auth::PrepareAuthFactorForAuthProgress* mutable_auth_progress();
+  void set_allocated_auth_progress(::user_data_auth::PrepareAuthFactorForAuthProgress* auth_progress);
+  private:
+  const ::user_data_auth::PrepareAuthFactorForAuthProgress& _internal_auth_progress() const;
+  ::user_data_auth::PrepareAuthFactorForAuthProgress* _internal_mutable_auth_progress();
+  public:
+  void unsafe_arena_set_allocated_auth_progress(
+      ::user_data_auth::PrepareAuthFactorForAuthProgress* auth_progress);
+  ::user_data_auth::PrepareAuthFactorForAuthProgress* unsafe_arena_release_auth_progress();
+
+  void clear_progress();
+  ProgressCase progress_case() const;
+  // @@protoc_insertion_point(class_scope:user_data_auth.PrepareAuthFactorProgress)
+ private:
+  class _Internal;
+  void set_has_add_progress();
+  void set_has_auth_progress();
+
+  inline bool has_progress() const;
+  inline void clear_has_progress();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    int purpose_;
+    union ProgressUnion {
+      constexpr ProgressUnion() : _constinit_{} {}
+        ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+      ::user_data_auth::PrepareAuthFactorForAddProgress* add_progress_;
+      ::user_data_auth::PrepareAuthFactorForAuthProgress* auth_progress_;
+    } progress_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    uint32_t _oneof_case_[1];
+
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_UserDataAuth_2eproto;
+};
 // ===================================================================
 
 
@@ -31160,9 +31695,410 @@ inline void AuthScanDone::set_allocated_scan_result(::user_data_auth::AuthScanRe
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.AuthScanDone.scan_result)
 }
 
+// -------------------------------------------------------------------
+
+// PrepareAuthFactorForAddProgress
+
+// .user_data_auth.AuthFactorType auth_factor_type = 1;
+inline void PrepareAuthFactorForAddProgress::clear_auth_factor_type() {
+  _impl_.auth_factor_type_ = 0;
+}
+inline ::user_data_auth::AuthFactorType PrepareAuthFactorForAddProgress::_internal_auth_factor_type() const {
+  return static_cast< ::user_data_auth::AuthFactorType >(_impl_.auth_factor_type_);
+}
+inline ::user_data_auth::AuthFactorType PrepareAuthFactorForAddProgress::auth_factor_type() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.PrepareAuthFactorForAddProgress.auth_factor_type)
+  return _internal_auth_factor_type();
+}
+inline void PrepareAuthFactorForAddProgress::_internal_set_auth_factor_type(::user_data_auth::AuthFactorType value) {
+  
+  _impl_.auth_factor_type_ = value;
+}
+inline void PrepareAuthFactorForAddProgress::set_auth_factor_type(::user_data_auth::AuthFactorType value) {
+  _internal_set_auth_factor_type(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.PrepareAuthFactorForAddProgress.auth_factor_type)
+}
+
+// .user_data_auth.AuthEnrollmentProgress biometrics_progress = 2;
+inline bool PrepareAuthFactorForAddProgress::_internal_has_biometrics_progress() const {
+  return progress_case() == kBiometricsProgress;
+}
+inline bool PrepareAuthFactorForAddProgress::has_biometrics_progress() const {
+  return _internal_has_biometrics_progress();
+}
+inline void PrepareAuthFactorForAddProgress::set_has_biometrics_progress() {
+  _impl_._oneof_case_[0] = kBiometricsProgress;
+}
+inline void PrepareAuthFactorForAddProgress::clear_biometrics_progress() {
+  if (_internal_has_biometrics_progress()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.progress_.biometrics_progress_;
+    }
+    clear_has_progress();
+  }
+}
+inline ::user_data_auth::AuthEnrollmentProgress* PrepareAuthFactorForAddProgress::release_biometrics_progress() {
+  // @@protoc_insertion_point(field_release:user_data_auth.PrepareAuthFactorForAddProgress.biometrics_progress)
+  if (_internal_has_biometrics_progress()) {
+    clear_has_progress();
+    ::user_data_auth::AuthEnrollmentProgress* temp = _impl_.progress_.biometrics_progress_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.progress_.biometrics_progress_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::user_data_auth::AuthEnrollmentProgress& PrepareAuthFactorForAddProgress::_internal_biometrics_progress() const {
+  return _internal_has_biometrics_progress()
+      ? *_impl_.progress_.biometrics_progress_
+      : reinterpret_cast< ::user_data_auth::AuthEnrollmentProgress&>(::user_data_auth::_AuthEnrollmentProgress_default_instance_);
+}
+inline const ::user_data_auth::AuthEnrollmentProgress& PrepareAuthFactorForAddProgress::biometrics_progress() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.PrepareAuthFactorForAddProgress.biometrics_progress)
+  return _internal_biometrics_progress();
+}
+inline ::user_data_auth::AuthEnrollmentProgress* PrepareAuthFactorForAddProgress::unsafe_arena_release_biometrics_progress() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:user_data_auth.PrepareAuthFactorForAddProgress.biometrics_progress)
+  if (_internal_has_biometrics_progress()) {
+    clear_has_progress();
+    ::user_data_auth::AuthEnrollmentProgress* temp = _impl_.progress_.biometrics_progress_;
+    _impl_.progress_.biometrics_progress_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void PrepareAuthFactorForAddProgress::unsafe_arena_set_allocated_biometrics_progress(::user_data_auth::AuthEnrollmentProgress* biometrics_progress) {
+  clear_progress();
+  if (biometrics_progress) {
+    set_has_biometrics_progress();
+    _impl_.progress_.biometrics_progress_ = biometrics_progress;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.PrepareAuthFactorForAddProgress.biometrics_progress)
+}
+inline ::user_data_auth::AuthEnrollmentProgress* PrepareAuthFactorForAddProgress::_internal_mutable_biometrics_progress() {
+  if (!_internal_has_biometrics_progress()) {
+    clear_progress();
+    set_has_biometrics_progress();
+    _impl_.progress_.biometrics_progress_ = CreateMaybeMessage< ::user_data_auth::AuthEnrollmentProgress >(GetArenaForAllocation());
+  }
+  return _impl_.progress_.biometrics_progress_;
+}
+inline ::user_data_auth::AuthEnrollmentProgress* PrepareAuthFactorForAddProgress::mutable_biometrics_progress() {
+  ::user_data_auth::AuthEnrollmentProgress* _msg = _internal_mutable_biometrics_progress();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.PrepareAuthFactorForAddProgress.biometrics_progress)
+  return _msg;
+}
+
+inline bool PrepareAuthFactorForAddProgress::has_progress() const {
+  return progress_case() != PROGRESS_NOT_SET;
+}
+inline void PrepareAuthFactorForAddProgress::clear_has_progress() {
+  _impl_._oneof_case_[0] = PROGRESS_NOT_SET;
+}
+inline PrepareAuthFactorForAddProgress::ProgressCase PrepareAuthFactorForAddProgress::progress_case() const {
+  return PrepareAuthFactorForAddProgress::ProgressCase(_impl_._oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
+// PrepareAuthFactorForAuthProgress
+
+// .user_data_auth.AuthFactorType auth_factor_type = 1;
+inline void PrepareAuthFactorForAuthProgress::clear_auth_factor_type() {
+  _impl_.auth_factor_type_ = 0;
+}
+inline ::user_data_auth::AuthFactorType PrepareAuthFactorForAuthProgress::_internal_auth_factor_type() const {
+  return static_cast< ::user_data_auth::AuthFactorType >(_impl_.auth_factor_type_);
+}
+inline ::user_data_auth::AuthFactorType PrepareAuthFactorForAuthProgress::auth_factor_type() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.PrepareAuthFactorForAuthProgress.auth_factor_type)
+  return _internal_auth_factor_type();
+}
+inline void PrepareAuthFactorForAuthProgress::_internal_set_auth_factor_type(::user_data_auth::AuthFactorType value) {
+  
+  _impl_.auth_factor_type_ = value;
+}
+inline void PrepareAuthFactorForAuthProgress::set_auth_factor_type(::user_data_auth::AuthFactorType value) {
+  _internal_set_auth_factor_type(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.PrepareAuthFactorForAuthProgress.auth_factor_type)
+}
+
+// .user_data_auth.AuthScanDone biometrics_progress = 2;
+inline bool PrepareAuthFactorForAuthProgress::_internal_has_biometrics_progress() const {
+  return progress_case() == kBiometricsProgress;
+}
+inline bool PrepareAuthFactorForAuthProgress::has_biometrics_progress() const {
+  return _internal_has_biometrics_progress();
+}
+inline void PrepareAuthFactorForAuthProgress::set_has_biometrics_progress() {
+  _impl_._oneof_case_[0] = kBiometricsProgress;
+}
+inline void PrepareAuthFactorForAuthProgress::clear_biometrics_progress() {
+  if (_internal_has_biometrics_progress()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.progress_.biometrics_progress_;
+    }
+    clear_has_progress();
+  }
+}
+inline ::user_data_auth::AuthScanDone* PrepareAuthFactorForAuthProgress::release_biometrics_progress() {
+  // @@protoc_insertion_point(field_release:user_data_auth.PrepareAuthFactorForAuthProgress.biometrics_progress)
+  if (_internal_has_biometrics_progress()) {
+    clear_has_progress();
+    ::user_data_auth::AuthScanDone* temp = _impl_.progress_.biometrics_progress_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.progress_.biometrics_progress_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::user_data_auth::AuthScanDone& PrepareAuthFactorForAuthProgress::_internal_biometrics_progress() const {
+  return _internal_has_biometrics_progress()
+      ? *_impl_.progress_.biometrics_progress_
+      : reinterpret_cast< ::user_data_auth::AuthScanDone&>(::user_data_auth::_AuthScanDone_default_instance_);
+}
+inline const ::user_data_auth::AuthScanDone& PrepareAuthFactorForAuthProgress::biometrics_progress() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.PrepareAuthFactorForAuthProgress.biometrics_progress)
+  return _internal_biometrics_progress();
+}
+inline ::user_data_auth::AuthScanDone* PrepareAuthFactorForAuthProgress::unsafe_arena_release_biometrics_progress() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:user_data_auth.PrepareAuthFactorForAuthProgress.biometrics_progress)
+  if (_internal_has_biometrics_progress()) {
+    clear_has_progress();
+    ::user_data_auth::AuthScanDone* temp = _impl_.progress_.biometrics_progress_;
+    _impl_.progress_.biometrics_progress_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void PrepareAuthFactorForAuthProgress::unsafe_arena_set_allocated_biometrics_progress(::user_data_auth::AuthScanDone* biometrics_progress) {
+  clear_progress();
+  if (biometrics_progress) {
+    set_has_biometrics_progress();
+    _impl_.progress_.biometrics_progress_ = biometrics_progress;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.PrepareAuthFactorForAuthProgress.biometrics_progress)
+}
+inline ::user_data_auth::AuthScanDone* PrepareAuthFactorForAuthProgress::_internal_mutable_biometrics_progress() {
+  if (!_internal_has_biometrics_progress()) {
+    clear_progress();
+    set_has_biometrics_progress();
+    _impl_.progress_.biometrics_progress_ = CreateMaybeMessage< ::user_data_auth::AuthScanDone >(GetArenaForAllocation());
+  }
+  return _impl_.progress_.biometrics_progress_;
+}
+inline ::user_data_auth::AuthScanDone* PrepareAuthFactorForAuthProgress::mutable_biometrics_progress() {
+  ::user_data_auth::AuthScanDone* _msg = _internal_mutable_biometrics_progress();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.PrepareAuthFactorForAuthProgress.biometrics_progress)
+  return _msg;
+}
+
+inline bool PrepareAuthFactorForAuthProgress::has_progress() const {
+  return progress_case() != PROGRESS_NOT_SET;
+}
+inline void PrepareAuthFactorForAuthProgress::clear_has_progress() {
+  _impl_._oneof_case_[0] = PROGRESS_NOT_SET;
+}
+inline PrepareAuthFactorForAuthProgress::ProgressCase PrepareAuthFactorForAuthProgress::progress_case() const {
+  return PrepareAuthFactorForAuthProgress::ProgressCase(_impl_._oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
+// PrepareAuthFactorProgress
+
+// .user_data_auth.AuthFactorPreparePurpose purpose = 1;
+inline void PrepareAuthFactorProgress::clear_purpose() {
+  _impl_.purpose_ = 0;
+}
+inline ::user_data_auth::AuthFactorPreparePurpose PrepareAuthFactorProgress::_internal_purpose() const {
+  return static_cast< ::user_data_auth::AuthFactorPreparePurpose >(_impl_.purpose_);
+}
+inline ::user_data_auth::AuthFactorPreparePurpose PrepareAuthFactorProgress::purpose() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.PrepareAuthFactorProgress.purpose)
+  return _internal_purpose();
+}
+inline void PrepareAuthFactorProgress::_internal_set_purpose(::user_data_auth::AuthFactorPreparePurpose value) {
+  
+  _impl_.purpose_ = value;
+}
+inline void PrepareAuthFactorProgress::set_purpose(::user_data_auth::AuthFactorPreparePurpose value) {
+  _internal_set_purpose(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.PrepareAuthFactorProgress.purpose)
+}
+
+// .user_data_auth.PrepareAuthFactorForAddProgress add_progress = 2;
+inline bool PrepareAuthFactorProgress::_internal_has_add_progress() const {
+  return progress_case() == kAddProgress;
+}
+inline bool PrepareAuthFactorProgress::has_add_progress() const {
+  return _internal_has_add_progress();
+}
+inline void PrepareAuthFactorProgress::set_has_add_progress() {
+  _impl_._oneof_case_[0] = kAddProgress;
+}
+inline void PrepareAuthFactorProgress::clear_add_progress() {
+  if (_internal_has_add_progress()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.progress_.add_progress_;
+    }
+    clear_has_progress();
+  }
+}
+inline ::user_data_auth::PrepareAuthFactorForAddProgress* PrepareAuthFactorProgress::release_add_progress() {
+  // @@protoc_insertion_point(field_release:user_data_auth.PrepareAuthFactorProgress.add_progress)
+  if (_internal_has_add_progress()) {
+    clear_has_progress();
+    ::user_data_auth::PrepareAuthFactorForAddProgress* temp = _impl_.progress_.add_progress_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.progress_.add_progress_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::user_data_auth::PrepareAuthFactorForAddProgress& PrepareAuthFactorProgress::_internal_add_progress() const {
+  return _internal_has_add_progress()
+      ? *_impl_.progress_.add_progress_
+      : reinterpret_cast< ::user_data_auth::PrepareAuthFactorForAddProgress&>(::user_data_auth::_PrepareAuthFactorForAddProgress_default_instance_);
+}
+inline const ::user_data_auth::PrepareAuthFactorForAddProgress& PrepareAuthFactorProgress::add_progress() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.PrepareAuthFactorProgress.add_progress)
+  return _internal_add_progress();
+}
+inline ::user_data_auth::PrepareAuthFactorForAddProgress* PrepareAuthFactorProgress::unsafe_arena_release_add_progress() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:user_data_auth.PrepareAuthFactorProgress.add_progress)
+  if (_internal_has_add_progress()) {
+    clear_has_progress();
+    ::user_data_auth::PrepareAuthFactorForAddProgress* temp = _impl_.progress_.add_progress_;
+    _impl_.progress_.add_progress_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void PrepareAuthFactorProgress::unsafe_arena_set_allocated_add_progress(::user_data_auth::PrepareAuthFactorForAddProgress* add_progress) {
+  clear_progress();
+  if (add_progress) {
+    set_has_add_progress();
+    _impl_.progress_.add_progress_ = add_progress;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.PrepareAuthFactorProgress.add_progress)
+}
+inline ::user_data_auth::PrepareAuthFactorForAddProgress* PrepareAuthFactorProgress::_internal_mutable_add_progress() {
+  if (!_internal_has_add_progress()) {
+    clear_progress();
+    set_has_add_progress();
+    _impl_.progress_.add_progress_ = CreateMaybeMessage< ::user_data_auth::PrepareAuthFactorForAddProgress >(GetArenaForAllocation());
+  }
+  return _impl_.progress_.add_progress_;
+}
+inline ::user_data_auth::PrepareAuthFactorForAddProgress* PrepareAuthFactorProgress::mutable_add_progress() {
+  ::user_data_auth::PrepareAuthFactorForAddProgress* _msg = _internal_mutable_add_progress();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.PrepareAuthFactorProgress.add_progress)
+  return _msg;
+}
+
+// .user_data_auth.PrepareAuthFactorForAuthProgress auth_progress = 3;
+inline bool PrepareAuthFactorProgress::_internal_has_auth_progress() const {
+  return progress_case() == kAuthProgress;
+}
+inline bool PrepareAuthFactorProgress::has_auth_progress() const {
+  return _internal_has_auth_progress();
+}
+inline void PrepareAuthFactorProgress::set_has_auth_progress() {
+  _impl_._oneof_case_[0] = kAuthProgress;
+}
+inline void PrepareAuthFactorProgress::clear_auth_progress() {
+  if (_internal_has_auth_progress()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete _impl_.progress_.auth_progress_;
+    }
+    clear_has_progress();
+  }
+}
+inline ::user_data_auth::PrepareAuthFactorForAuthProgress* PrepareAuthFactorProgress::release_auth_progress() {
+  // @@protoc_insertion_point(field_release:user_data_auth.PrepareAuthFactorProgress.auth_progress)
+  if (_internal_has_auth_progress()) {
+    clear_has_progress();
+    ::user_data_auth::PrepareAuthFactorForAuthProgress* temp = _impl_.progress_.auth_progress_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    _impl_.progress_.auth_progress_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::user_data_auth::PrepareAuthFactorForAuthProgress& PrepareAuthFactorProgress::_internal_auth_progress() const {
+  return _internal_has_auth_progress()
+      ? *_impl_.progress_.auth_progress_
+      : reinterpret_cast< ::user_data_auth::PrepareAuthFactorForAuthProgress&>(::user_data_auth::_PrepareAuthFactorForAuthProgress_default_instance_);
+}
+inline const ::user_data_auth::PrepareAuthFactorForAuthProgress& PrepareAuthFactorProgress::auth_progress() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.PrepareAuthFactorProgress.auth_progress)
+  return _internal_auth_progress();
+}
+inline ::user_data_auth::PrepareAuthFactorForAuthProgress* PrepareAuthFactorProgress::unsafe_arena_release_auth_progress() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:user_data_auth.PrepareAuthFactorProgress.auth_progress)
+  if (_internal_has_auth_progress()) {
+    clear_has_progress();
+    ::user_data_auth::PrepareAuthFactorForAuthProgress* temp = _impl_.progress_.auth_progress_;
+    _impl_.progress_.auth_progress_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void PrepareAuthFactorProgress::unsafe_arena_set_allocated_auth_progress(::user_data_auth::PrepareAuthFactorForAuthProgress* auth_progress) {
+  clear_progress();
+  if (auth_progress) {
+    set_has_auth_progress();
+    _impl_.progress_.auth_progress_ = auth_progress;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.PrepareAuthFactorProgress.auth_progress)
+}
+inline ::user_data_auth::PrepareAuthFactorForAuthProgress* PrepareAuthFactorProgress::_internal_mutable_auth_progress() {
+  if (!_internal_has_auth_progress()) {
+    clear_progress();
+    set_has_auth_progress();
+    _impl_.progress_.auth_progress_ = CreateMaybeMessage< ::user_data_auth::PrepareAuthFactorForAuthProgress >(GetArenaForAllocation());
+  }
+  return _impl_.progress_.auth_progress_;
+}
+inline ::user_data_auth::PrepareAuthFactorForAuthProgress* PrepareAuthFactorProgress::mutable_auth_progress() {
+  ::user_data_auth::PrepareAuthFactorForAuthProgress* _msg = _internal_mutable_auth_progress();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.PrepareAuthFactorProgress.auth_progress)
+  return _msg;
+}
+
+inline bool PrepareAuthFactorProgress::has_progress() const {
+  return progress_case() != PROGRESS_NOT_SET;
+}
+inline void PrepareAuthFactorProgress::clear_has_progress() {
+  _impl_._oneof_case_[0] = PROGRESS_NOT_SET;
+}
+inline PrepareAuthFactorProgress::ProgressCase PrepareAuthFactorProgress::progress_case() const {
+  return PrepareAuthFactorProgress::ProgressCase(_impl_._oneof_case_[0]);
+}
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

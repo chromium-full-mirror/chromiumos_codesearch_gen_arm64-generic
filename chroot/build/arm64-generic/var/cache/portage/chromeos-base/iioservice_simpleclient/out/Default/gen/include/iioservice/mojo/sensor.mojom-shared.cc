@@ -979,142 +979,6 @@ SensorDevice_GetAllEvents_ResponseParams_Data::SensorDevice_GetAllEvents_Respons
 
 
 // static
-bool SensorDevice_SetEventsEnabled_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const SensorDevice_SetEventsEnabled_Params_Data* object =
-      static_cast<const SensorDevice_SetEventsEnabled_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->iio_event_indices, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& iio_event_indices_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->iio_event_indices, validation_context,
-                                         &iio_event_indices_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-SensorDevice_SetEventsEnabled_Params_Data::SensorDevice_SetEventsEnabled_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool SensorDevice_SetEventsEnabled_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const SensorDevice_SetEventsEnabled_ResponseParams_Data* object =
-      static_cast<const SensorDevice_SetEventsEnabled_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->failed_indices, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& failed_indices_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->failed_indices, validation_context,
-                                         &failed_indices_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-SensorDevice_SetEventsEnabled_ResponseParams_Data::SensorDevice_SetEventsEnabled_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool SensorDevice_GetEventsEnabled_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const SensorDevice_GetEventsEnabled_Params_Data* object =
-      static_cast<const SensorDevice_GetEventsEnabled_Params_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->iio_event_indices, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& iio_event_indices_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->iio_event_indices, validation_context,
-                                         &iio_event_indices_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-SensorDevice_GetEventsEnabled_Params_Data::SensorDevice_GetEventsEnabled_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool SensorDevice_GetEventsEnabled_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const SensorDevice_GetEventsEnabled_ResponseParams_Data* object =
-      static_cast<const SensorDevice_GetEventsEnabled_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->enabled, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& enabled_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->enabled, validation_context,
-                                         &enabled_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-SensorDevice_GetEventsEnabled_ResponseParams_Data::SensorDevice_GetEventsEnabled_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool SensorDevice_GetEventsAttributes_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -1200,7 +1064,7 @@ bool SensorDevice_StartReadingEvents_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -1209,8 +1073,19 @@ bool SensorDevice_StartReadingEvents_Params_Data::Validate(
   [[maybe_unused]] const SensorDevice_StartReadingEvents_Params_Data* object =
       static_cast<const SensorDevice_StartReadingEvents_Params_Data*>(data);
 
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->iio_event_indices, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& iio_event_indices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->iio_event_indices, validation_context,
+                                         &iio_event_indices_validate_params)) {
+    return false;
+  }
+
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->observer, 1, validation_context)) {
+          object->observer, 2, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateHandleOrInterface(object->observer,
@@ -1222,29 +1097,6 @@ bool SensorDevice_StartReadingEvents_Params_Data::Validate(
 }
 
 SensorDevice_StartReadingEvents_Params_Data::SensorDevice_StartReadingEvents_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool SensorDevice_StopReadingEvents_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const SensorDevice_StopReadingEvents_Params_Data* object =
-      static_cast<const SensorDevice_StopReadingEvents_Params_Data*>(data);
-
-  return true;
-}
-
-SensorDevice_StopReadingEvents_Params_Data::SensorDevice_StopReadingEvents_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 

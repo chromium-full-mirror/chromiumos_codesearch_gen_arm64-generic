@@ -53,11 +53,8 @@ class  SensorDeviceInterceptorForTesting : public SensorDevice {
   void GetChannelsEnabled(const std::vector<int32_t>& iio_chn_indices, GetChannelsEnabledCallback callback) override;
   void GetChannelsAttributes(const std::vector<int32_t>& iio_chn_indices, const std::string& attr_name, GetChannelsAttributesCallback callback) override;
   void GetAllEvents(GetAllEventsCallback callback) override;
-  void SetEventsEnabled(const std::vector<int32_t>& iio_event_indices, bool en, SetEventsEnabledCallback callback) override;
-  void GetEventsEnabled(const std::vector<int32_t>& iio_event_indices, GetEventsEnabledCallback callback) override;
   void GetEventsAttributes(const std::vector<int32_t>& iio_event_indices, const std::string& attr_name, GetEventsAttributesCallback callback) override;
-  void StartReadingEvents(::mojo::PendingRemote<SensorDeviceEventsObserver> observer) override;
-  void StopReadingEvents() override;
+  void StartReadingEvents(const std::vector<int32_t>& iio_event_indices, ::mojo::PendingRemote<SensorDeviceEventsObserver> observer) override;
 };
 class  SensorDeviceAsyncWaiter {
  public:
@@ -88,12 +85,6 @@ class  SensorDeviceAsyncWaiter {
   void GetAllEvents(
       std::vector<IioEventPtr>* out_iio_events);
   std::vector<IioEventPtr> GetAllEvents();
-  void SetEventsEnabled(
-      const std::vector<int32_t>& iio_event_indices, bool en, std::vector<int32_t>* out_failed_indices);
-  std::vector<int32_t> SetEventsEnabled(const std::vector<int32_t>& iio_event_indices, bool en);
-  void GetEventsEnabled(
-      const std::vector<int32_t>& iio_event_indices, std::vector<bool>* out_enabled);
-  std::vector<bool> GetEventsEnabled(const std::vector<int32_t>& iio_event_indices);
   void GetEventsAttributes(
       const std::vector<int32_t>& iio_event_indices, const std::string& attr_name, std::vector<absl::optional<std::string>>* out_values);
   std::vector<absl::optional<std::string>> GetEventsAttributes(const std::vector<int32_t>& iio_event_indices, const std::string& attr_name);

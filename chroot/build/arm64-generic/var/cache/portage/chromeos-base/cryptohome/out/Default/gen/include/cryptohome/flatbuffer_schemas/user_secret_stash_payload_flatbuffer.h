@@ -88,6 +88,49 @@ struct FromFlatBuffer<::cryptohome::ResetSecretMapping> {
 namespace hwsec_foundation {
 
 template <>
+struct ToFlatBuffer<::cryptohome::TypeToResetSecretMapping> {
+  using ResultType =
+      flatbuffers::Offset<::cryptohome::_serialized_::TypeToResetSecretMapping>;
+
+  ResultType operator()(
+      flatbuffers::FlatBufferBuilder* builder,
+      const ::cryptohome::TypeToResetSecretMapping& object) const {
+    auto auth_factor_type = ToFlatBuffer<std::optional<uint32_t>>()(
+        builder, object.auth_factor_type);
+    auto reset_secret =
+        ToFlatBuffer<brillo::SecureBlob>()(builder, object.reset_secret);
+
+    return ::cryptohome::_serialized_::CreateTypeToResetSecretMapping(
+        *builder, auth_factor_type, reset_secret);
+  }
+};
+
+}  // namespace hwsec_foundation
+
+namespace hwsec_foundation {
+
+template <>
+struct FromFlatBuffer<::cryptohome::TypeToResetSecretMapping> {
+  ::cryptohome::TypeToResetSecretMapping operator()(
+      const ::cryptohome::_serialized_::TypeToResetSecretMapping* object)
+      const {
+    if (object == nullptr) {
+      return ::cryptohome::TypeToResetSecretMapping();
+    }
+    return ::cryptohome::TypeToResetSecretMapping{
+        .auth_factor_type = FromFlatBuffer<std::optional<uint32_t>>()(
+            object->auth_factor_type()),
+        .reset_secret =
+            FromFlatBuffer<brillo::SecureBlob>()(object->reset_secret()),
+    };
+  }
+};
+
+}  // namespace hwsec_foundation
+
+namespace hwsec_foundation {
+
+template <>
 struct ToFlatBuffer<::cryptohome::UserSecretStashPayload> {
   using ResultType =
       flatbuffers::Offset<::cryptohome::_serialized_::UserSecretStashPayload>;
@@ -109,10 +152,13 @@ struct ToFlatBuffer<::cryptohome::UserSecretStashPayload> {
     auto reset_secrets =
         ToFlatBuffer<std::vector<::cryptohome::ResetSecretMapping>>()(
             builder, object.reset_secrets);
+    auto rate_limiter_reset_secrets =
+        ToFlatBuffer<std::vector<::cryptohome::TypeToResetSecretMapping>>()(
+            builder, object.rate_limiter_reset_secrets);
 
     return ::cryptohome::_serialized_::CreateUserSecretStashPayload(
         *builder, fek, fnek, fek_salt, fnek_salt, fek_sig, fnek_sig, chaps_key,
-        reset_secrets);
+        reset_secrets, rate_limiter_reset_secrets);
   }
 };
 
@@ -138,6 +184,9 @@ struct FromFlatBuffer<::cryptohome::UserSecretStashPayload> {
         .reset_secrets =
             FromFlatBuffer<std::vector<::cryptohome::ResetSecretMapping>>()(
                 object->reset_secrets()),
+        .rate_limiter_reset_secrets = FromFlatBuffer<
+            std::vector<::cryptohome::TypeToResetSecretMapping>>()(
+            object->rate_limiter_reset_secrets()),
     };
   }
 };

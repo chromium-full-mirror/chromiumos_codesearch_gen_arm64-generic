@@ -30,6 +30,9 @@ struct SerializedKioskMetadataBuilder;
 struct SerializedSmartCardMetadata;
 struct SerializedSmartCardMetadataBuilder;
 
+struct SerializedFingerprintMetadata;
+struct SerializedFingerprintMetadataBuilder;
+
 struct SerializedAuthFactor;
 struct SerializedAuthFactorBuilder;
 
@@ -40,37 +43,40 @@ enum class SerializedAuthFactorMetadata : uint8_t {
   SerializedCryptohomeRecoveryMetadata = 3,
   SerializedKioskMetadata = 4,
   SerializedSmartCardMetadata = 5,
+  SerializedFingerprintMetadata = 6,
   MIN = NONE,
-  MAX = SerializedSmartCardMetadata
+  MAX = SerializedFingerprintMetadata
 };
 
-inline const SerializedAuthFactorMetadata (&EnumValuesSerializedAuthFactorMetadata())[6] {
+inline const SerializedAuthFactorMetadata (&EnumValuesSerializedAuthFactorMetadata())[7] {
   static const SerializedAuthFactorMetadata values[] = {
     SerializedAuthFactorMetadata::NONE,
     SerializedAuthFactorMetadata::SerializedPasswordMetadata,
     SerializedAuthFactorMetadata::SerializedPinMetadata,
     SerializedAuthFactorMetadata::SerializedCryptohomeRecoveryMetadata,
     SerializedAuthFactorMetadata::SerializedKioskMetadata,
-    SerializedAuthFactorMetadata::SerializedSmartCardMetadata
+    SerializedAuthFactorMetadata::SerializedSmartCardMetadata,
+    SerializedAuthFactorMetadata::SerializedFingerprintMetadata
   };
   return values;
 }
 
 inline const char * const *EnumNamesSerializedAuthFactorMetadata() {
-  static const char * const names[7] = {
+  static const char * const names[8] = {
     "NONE",
     "SerializedPasswordMetadata",
     "SerializedPinMetadata",
     "SerializedCryptohomeRecoveryMetadata",
     "SerializedKioskMetadata",
     "SerializedSmartCardMetadata",
+    "SerializedFingerprintMetadata",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameSerializedAuthFactorMetadata(SerializedAuthFactorMetadata e) {
-  if (flatbuffers::IsOutRange(e, SerializedAuthFactorMetadata::NONE, SerializedAuthFactorMetadata::SerializedSmartCardMetadata)) return "";
+  if (flatbuffers::IsOutRange(e, SerializedAuthFactorMetadata::NONE, SerializedAuthFactorMetadata::SerializedFingerprintMetadata)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesSerializedAuthFactorMetadata()[index];
 }
@@ -97,6 +103,10 @@ template<> struct SerializedAuthFactorMetadataTraits<cryptohome::SerializedKiosk
 
 template<> struct SerializedAuthFactorMetadataTraits<cryptohome::SerializedSmartCardMetadata> {
   static const SerializedAuthFactorMetadata enum_value = SerializedAuthFactorMetadata::SerializedSmartCardMetadata;
+};
+
+template<> struct SerializedAuthFactorMetadataTraits<cryptohome::SerializedFingerprintMetadata> {
+  static const SerializedAuthFactorMetadata enum_value = SerializedAuthFactorMetadata::SerializedFingerprintMetadata;
 };
 
 bool VerifySerializedAuthFactorMetadata(flatbuffers::Verifier &verifier, const void *obj, SerializedAuthFactorMetadata type);
@@ -334,6 +344,35 @@ inline flatbuffers::Offset<SerializedSmartCardMetadata> CreateSerializedSmartCar
       public_key_spki_der__);
 }
 
+struct SerializedFingerprintMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SerializedFingerprintMetadataBuilder Builder;
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           verifier.EndTable();
+  }
+};
+
+struct SerializedFingerprintMetadataBuilder {
+  typedef SerializedFingerprintMetadata Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  explicit SerializedFingerprintMetadataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SerializedFingerprintMetadata> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SerializedFingerprintMetadata>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SerializedFingerprintMetadata> CreateSerializedFingerprintMetadata(
+    flatbuffers::FlatBufferBuilder &_fbb) {
+  SerializedFingerprintMetadataBuilder builder_(_fbb);
+  return builder_.Finish();
+}
+
 struct SerializedAuthFactor FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef SerializedAuthFactorBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -366,6 +405,9 @@ struct SerializedAuthFactor FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   }
   const cryptohome::SerializedSmartCardMetadata *metadata_as_SerializedSmartCardMetadata() const {
     return metadata_type() == cryptohome::SerializedAuthFactorMetadata::SerializedSmartCardMetadata ? static_cast<const cryptohome::SerializedSmartCardMetadata *>(metadata()) : nullptr;
+  }
+  const cryptohome::SerializedFingerprintMetadata *metadata_as_SerializedFingerprintMetadata() const {
+    return metadata_type() == cryptohome::SerializedAuthFactorMetadata::SerializedFingerprintMetadata ? static_cast<const cryptohome::SerializedFingerprintMetadata *>(metadata()) : nullptr;
   }
   const cryptohome::SerializedCommonMetadata *common_metadata() const {
     return GetPointer<const cryptohome::SerializedCommonMetadata *>(VT_COMMON_METADATA);
@@ -401,6 +443,10 @@ template<> inline const cryptohome::SerializedKioskMetadata *SerializedAuthFacto
 
 template<> inline const cryptohome::SerializedSmartCardMetadata *SerializedAuthFactor::metadata_as<cryptohome::SerializedSmartCardMetadata>() const {
   return metadata_as_SerializedSmartCardMetadata();
+}
+
+template<> inline const cryptohome::SerializedFingerprintMetadata *SerializedAuthFactor::metadata_as<cryptohome::SerializedFingerprintMetadata>() const {
+  return metadata_as_SerializedFingerprintMetadata();
 }
 
 struct SerializedAuthFactorBuilder {
@@ -467,6 +513,10 @@ inline bool VerifySerializedAuthFactorMetadata(flatbuffers::Verifier &verifier, 
     }
     case SerializedAuthFactorMetadata::SerializedSmartCardMetadata: {
       auto ptr = reinterpret_cast<const cryptohome::SerializedSmartCardMetadata *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case SerializedAuthFactorMetadata::SerializedFingerprintMetadata: {
+      auto ptr = reinterpret_cast<const cryptohome::SerializedFingerprintMetadata *>(obj);
       return verifier.VerifyTable(ptr);
     }
     default: return true;

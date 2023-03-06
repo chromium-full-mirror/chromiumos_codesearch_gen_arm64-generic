@@ -260,6 +260,7 @@ class UserDataAuthInterfaceAdaptor {
     signal_DircryptoMigrationProgress_ = itf->RegisterSignalOfType<SignalDircryptoMigrationProgressType>("DircryptoMigrationProgress");
     signal_LowDiskSpace_ = itf->RegisterSignalOfType<SignalLowDiskSpaceType>("LowDiskSpace");
     signal_AuthScanResult_ = itf->RegisterSignalOfType<SignalAuthScanResultType>("AuthScanResult");
+    signal_PrepareAuthFactorProgress_ = itf->RegisterSignalOfType<SignalPrepareAuthFactorProgressType>("PrepareAuthFactorProgress");
   }
 
   void SendDircryptoMigrationProgressSignal(
@@ -277,6 +278,12 @@ class UserDataAuthInterfaceAdaptor {
   void SendAuthScanResultSignal(
       const user_data_auth::AuthScanResult& in_status) {
     auto signal = signal_AuthScanResult_.lock();
+    if (signal)
+      signal->Send(in_status);
+  }
+  void SendPrepareAuthFactorProgressSignal(
+      const user_data_auth::PrepareAuthFactorProgress& in_status) {
+    auto signal = signal_PrepareAuthFactorProgress_.lock();
     if (signal)
       signal->Send(in_status);
   }
@@ -421,6 +428,9 @@ class UserDataAuthInterfaceAdaptor {
         "    <signal name=\"AuthScanResult\">\n"
         "      <arg name=\"status\" type=\"ay\"/>\n"
         "    </signal>\n"
+        "    <signal name=\"PrepareAuthFactorProgress\">\n"
+        "      <arg name=\"status\" type=\"ay\"/>\n"
+        "    </signal>\n"
         "  </interface>\n";
   }
 
@@ -436,6 +446,10 @@ class UserDataAuthInterfaceAdaptor {
   using SignalAuthScanResultType = brillo::dbus_utils::DBusSignal<
       user_data_auth::AuthScanResult /*status*/>;
   std::weak_ptr<SignalAuthScanResultType> signal_AuthScanResult_;
+
+  using SignalPrepareAuthFactorProgressType = brillo::dbus_utils::DBusSignal<
+      user_data_auth::PrepareAuthFactorProgress /*status*/>;
+  std::weak_ptr<SignalPrepareAuthFactorProgressType> signal_PrepareAuthFactorProgress_;
 
   UserDataAuthInterfaceInterface* interface_;  // Owned by container of this adapter.
 };

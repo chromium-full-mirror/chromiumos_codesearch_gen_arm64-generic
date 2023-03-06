@@ -12,6 +12,9 @@ namespace _serialized_ {
 struct ResetSecretMapping;
 struct ResetSecretMappingBuilder;
 
+struct TypeToResetSecretMapping;
+struct TypeToResetSecretMappingBuilder;
+
 struct UserSecretStashPayload;
 struct UserSecretStashPayloadBuilder;
 
@@ -80,6 +83,69 @@ inline flatbuffers::Offset<ResetSecretMapping> CreateResetSecretMappingDirect(
       reset_secret__);
 }
 
+struct TypeToResetSecretMapping FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef TypeToResetSecretMappingBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_AUTH_FACTOR_TYPE = 4,
+    VT_RESET_SECRET = 6
+  };
+  flatbuffers::Optional<uint32_t> auth_factor_type() const {
+    return GetOptional<uint32_t, uint32_t>(VT_AUTH_FACTOR_TYPE);
+  }
+  const flatbuffers::Vector<uint8_t> *reset_secret() const {
+    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_RESET_SECRET);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyField<uint32_t>(verifier, VT_AUTH_FACTOR_TYPE) &&
+           VerifyOffset(verifier, VT_RESET_SECRET) &&
+           verifier.VerifyVector(reset_secret()) &&
+           verifier.EndTable();
+  }
+};
+
+struct TypeToResetSecretMappingBuilder {
+  typedef TypeToResetSecretMapping Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_auth_factor_type(uint32_t auth_factor_type) {
+    fbb_.AddElement<uint32_t>(TypeToResetSecretMapping::VT_AUTH_FACTOR_TYPE, auth_factor_type);
+  }
+  void add_reset_secret(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> reset_secret) {
+    fbb_.AddOffset(TypeToResetSecretMapping::VT_RESET_SECRET, reset_secret);
+  }
+  explicit TypeToResetSecretMappingBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<TypeToResetSecretMapping> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<TypeToResetSecretMapping>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<TypeToResetSecretMapping> CreateTypeToResetSecretMapping(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Optional<uint32_t> auth_factor_type = flatbuffers::nullopt,
+    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> reset_secret = 0) {
+  TypeToResetSecretMappingBuilder builder_(_fbb);
+  builder_.add_reset_secret(reset_secret);
+  if(auth_factor_type) { builder_.add_auth_factor_type(*auth_factor_type); }
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<TypeToResetSecretMapping> CreateTypeToResetSecretMappingDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Optional<uint32_t> auth_factor_type = flatbuffers::nullopt,
+    const std::vector<uint8_t> *reset_secret = nullptr) {
+  auto reset_secret__ = reset_secret ? _fbb.CreateVector<uint8_t>(*reset_secret) : 0;
+  return cryptohome::_serialized_::CreateTypeToResetSecretMapping(
+      _fbb,
+      auth_factor_type,
+      reset_secret__);
+}
+
 struct UserSecretStashPayload FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef UserSecretStashPayloadBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -90,7 +156,8 @@ struct UserSecretStashPayload FLATBUFFERS_FINAL_CLASS : private flatbuffers::Tab
     VT_FEK_SIG = 12,
     VT_FNEK_SIG = 14,
     VT_CHAPS_KEY = 16,
-    VT_RESET_SECRETS = 18
+    VT_RESET_SECRETS = 18,
+    VT_RATE_LIMITER_RESET_SECRETS = 20
   };
   const flatbuffers::Vector<uint8_t> *fek() const {
     return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_FEK);
@@ -116,6 +183,9 @@ struct UserSecretStashPayload FLATBUFFERS_FINAL_CLASS : private flatbuffers::Tab
   const flatbuffers::Vector<flatbuffers::Offset<cryptohome::_serialized_::ResetSecretMapping>> *reset_secrets() const {
     return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<cryptohome::_serialized_::ResetSecretMapping>> *>(VT_RESET_SECRETS);
   }
+  const flatbuffers::Vector<flatbuffers::Offset<cryptohome::_serialized_::TypeToResetSecretMapping>> *rate_limiter_reset_secrets() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<cryptohome::_serialized_::TypeToResetSecretMapping>> *>(VT_RATE_LIMITER_RESET_SECRETS);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_FEK) &&
@@ -135,6 +205,9 @@ struct UserSecretStashPayload FLATBUFFERS_FINAL_CLASS : private flatbuffers::Tab
            VerifyOffset(verifier, VT_RESET_SECRETS) &&
            verifier.VerifyVector(reset_secrets()) &&
            verifier.VerifyVectorOfTables(reset_secrets()) &&
+           VerifyOffset(verifier, VT_RATE_LIMITER_RESET_SECRETS) &&
+           verifier.VerifyVector(rate_limiter_reset_secrets()) &&
+           verifier.VerifyVectorOfTables(rate_limiter_reset_secrets()) &&
            verifier.EndTable();
   }
 };
@@ -167,6 +240,9 @@ struct UserSecretStashPayloadBuilder {
   void add_reset_secrets(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<cryptohome::_serialized_::ResetSecretMapping>>> reset_secrets) {
     fbb_.AddOffset(UserSecretStashPayload::VT_RESET_SECRETS, reset_secrets);
   }
+  void add_rate_limiter_reset_secrets(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<cryptohome::_serialized_::TypeToResetSecretMapping>>> rate_limiter_reset_secrets) {
+    fbb_.AddOffset(UserSecretStashPayload::VT_RATE_LIMITER_RESET_SECRETS, rate_limiter_reset_secrets);
+  }
   explicit UserSecretStashPayloadBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -187,8 +263,10 @@ inline flatbuffers::Offset<UserSecretStashPayload> CreateUserSecretStashPayload(
     flatbuffers::Offset<flatbuffers::Vector<uint8_t>> fek_sig = 0,
     flatbuffers::Offset<flatbuffers::Vector<uint8_t>> fnek_sig = 0,
     flatbuffers::Offset<flatbuffers::Vector<uint8_t>> chaps_key = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<cryptohome::_serialized_::ResetSecretMapping>>> reset_secrets = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<cryptohome::_serialized_::ResetSecretMapping>>> reset_secrets = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<cryptohome::_serialized_::TypeToResetSecretMapping>>> rate_limiter_reset_secrets = 0) {
   UserSecretStashPayloadBuilder builder_(_fbb);
+  builder_.add_rate_limiter_reset_secrets(rate_limiter_reset_secrets);
   builder_.add_reset_secrets(reset_secrets);
   builder_.add_chaps_key(chaps_key);
   builder_.add_fnek_sig(fnek_sig);
@@ -209,7 +287,8 @@ inline flatbuffers::Offset<UserSecretStashPayload> CreateUserSecretStashPayloadD
     const std::vector<uint8_t> *fek_sig = nullptr,
     const std::vector<uint8_t> *fnek_sig = nullptr,
     const std::vector<uint8_t> *chaps_key = nullptr,
-    const std::vector<flatbuffers::Offset<cryptohome::_serialized_::ResetSecretMapping>> *reset_secrets = nullptr) {
+    const std::vector<flatbuffers::Offset<cryptohome::_serialized_::ResetSecretMapping>> *reset_secrets = nullptr,
+    const std::vector<flatbuffers::Offset<cryptohome::_serialized_::TypeToResetSecretMapping>> *rate_limiter_reset_secrets = nullptr) {
   auto fek__ = fek ? _fbb.CreateVector<uint8_t>(*fek) : 0;
   auto fnek__ = fnek ? _fbb.CreateVector<uint8_t>(*fnek) : 0;
   auto fek_salt__ = fek_salt ? _fbb.CreateVector<uint8_t>(*fek_salt) : 0;
@@ -218,6 +297,7 @@ inline flatbuffers::Offset<UserSecretStashPayload> CreateUserSecretStashPayloadD
   auto fnek_sig__ = fnek_sig ? _fbb.CreateVector<uint8_t>(*fnek_sig) : 0;
   auto chaps_key__ = chaps_key ? _fbb.CreateVector<uint8_t>(*chaps_key) : 0;
   auto reset_secrets__ = reset_secrets ? _fbb.CreateVector<flatbuffers::Offset<cryptohome::_serialized_::ResetSecretMapping>>(*reset_secrets) : 0;
+  auto rate_limiter_reset_secrets__ = rate_limiter_reset_secrets ? _fbb.CreateVector<flatbuffers::Offset<cryptohome::_serialized_::TypeToResetSecretMapping>>(*rate_limiter_reset_secrets) : 0;
   return cryptohome::_serialized_::CreateUserSecretStashPayload(
       _fbb,
       fek__,
@@ -227,7 +307,8 @@ inline flatbuffers::Offset<UserSecretStashPayload> CreateUserSecretStashPayloadD
       fek_sig__,
       fnek_sig__,
       chaps_key__,
-      reset_secrets__);
+      reset_secrets__,
+      rate_limiter_reset_secrets__);
 }
 
 inline const cryptohome::_serialized_::UserSecretStashPayload *GetUserSecretStashPayload(const void *buf) {

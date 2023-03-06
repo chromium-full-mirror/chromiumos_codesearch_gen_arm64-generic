@@ -1860,6 +1860,51 @@ struct AuthScanDoneDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthScanDoneDefaultTypeInternal _AuthScanDone_default_instance_;
+PROTOBUF_CONSTEXPR PrepareAuthFactorForAddProgress::PrepareAuthFactorForAddProgress(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.auth_factor_type_)*/0
+  , /*decltype(_impl_.progress_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
+struct PrepareAuthFactorForAddProgressDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PrepareAuthFactorForAddProgressDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PrepareAuthFactorForAddProgressDefaultTypeInternal() {}
+  union {
+    PrepareAuthFactorForAddProgress _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrepareAuthFactorForAddProgressDefaultTypeInternal _PrepareAuthFactorForAddProgress_default_instance_;
+PROTOBUF_CONSTEXPR PrepareAuthFactorForAuthProgress::PrepareAuthFactorForAuthProgress(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.auth_factor_type_)*/0
+  , /*decltype(_impl_.progress_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
+struct PrepareAuthFactorForAuthProgressDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PrepareAuthFactorForAuthProgressDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PrepareAuthFactorForAuthProgressDefaultTypeInternal() {}
+  union {
+    PrepareAuthFactorForAuthProgress _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrepareAuthFactorForAuthProgressDefaultTypeInternal _PrepareAuthFactorForAuthProgress_default_instance_;
+PROTOBUF_CONSTEXPR PrepareAuthFactorProgress::PrepareAuthFactorProgress(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_.purpose_)*/0
+  , /*decltype(_impl_.progress_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
+struct PrepareAuthFactorProgressDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PrepareAuthFactorProgressDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PrepareAuthFactorProgressDefaultTypeInternal() {}
+  union {
+    PrepareAuthFactorProgress _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrepareAuthFactorProgressDefaultTypeInternal _PrepareAuthFactorProgress_default_instance_;
 }  // namespace user_data_auth
 namespace user_data_auth {
 bool GetRecoveryRequestRequest_UserType_IsValid(int value) {
@@ -32138,6 +32183,901 @@ std::string AuthScanDone::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class PrepareAuthFactorForAddProgress::_Internal {
+ public:
+  static const ::user_data_auth::AuthEnrollmentProgress& biometrics_progress(const PrepareAuthFactorForAddProgress* msg);
+};
+
+const ::user_data_auth::AuthEnrollmentProgress&
+PrepareAuthFactorForAddProgress::_Internal::biometrics_progress(const PrepareAuthFactorForAddProgress* msg) {
+  return *msg->_impl_.progress_.biometrics_progress_;
+}
+void PrepareAuthFactorForAddProgress::set_allocated_biometrics_progress(::user_data_auth::AuthEnrollmentProgress* biometrics_progress) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_progress();
+  if (biometrics_progress) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(biometrics_progress);
+    if (message_arena != submessage_arena) {
+      biometrics_progress = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, biometrics_progress, submessage_arena);
+    }
+    set_has_biometrics_progress();
+    _impl_.progress_.biometrics_progress_ = biometrics_progress;
+  }
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.PrepareAuthFactorForAddProgress.biometrics_progress)
+}
+PrepareAuthFactorForAddProgress::PrepareAuthFactorForAddProgress(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.PrepareAuthFactorForAddProgress)
+}
+PrepareAuthFactorForAddProgress::PrepareAuthFactorForAddProgress(const PrepareAuthFactorForAddProgress& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PrepareAuthFactorForAddProgress* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.auth_factor_type_){}
+    , decltype(_impl_.progress_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.auth_factor_type_ = from._impl_.auth_factor_type_;
+  clear_has_progress();
+  switch (from.progress_case()) {
+    case kBiometricsProgress: {
+      _this->_internal_mutable_biometrics_progress()->::user_data_auth::AuthEnrollmentProgress::MergeFrom(
+          from._internal_biometrics_progress());
+      break;
+    }
+    case PROGRESS_NOT_SET: {
+      break;
+    }
+  }
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.PrepareAuthFactorForAddProgress)
+}
+
+inline void PrepareAuthFactorForAddProgress::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.auth_factor_type_){0}
+    , decltype(_impl_.progress_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  clear_has_progress();
+}
+
+PrepareAuthFactorForAddProgress::~PrepareAuthFactorForAddProgress() {
+  // @@protoc_insertion_point(destructor:user_data_auth.PrepareAuthFactorForAddProgress)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void PrepareAuthFactorForAddProgress::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (has_progress()) {
+    clear_progress();
+  }
+}
+
+void PrepareAuthFactorForAddProgress::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void PrepareAuthFactorForAddProgress::clear_progress() {
+// @@protoc_insertion_point(one_of_clear_start:user_data_auth.PrepareAuthFactorForAddProgress)
+  switch (progress_case()) {
+    case kBiometricsProgress: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.progress_.biometrics_progress_;
+      }
+      break;
+    }
+    case PROGRESS_NOT_SET: {
+      break;
+    }
+  }
+  _impl_._oneof_case_[0] = PROGRESS_NOT_SET;
+}
+
+
+void PrepareAuthFactorForAddProgress::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.PrepareAuthFactorForAddProgress)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.auth_factor_type_ = 0;
+  clear_progress();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* PrepareAuthFactorForAddProgress::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .user_data_auth.AuthFactorType auth_factor_type = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_auth_factor_type(static_cast<::user_data_auth::AuthFactorType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.AuthEnrollmentProgress biometrics_progress = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_biometrics_progress(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* PrepareAuthFactorForAddProgress::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.PrepareAuthFactorForAddProgress)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .user_data_auth.AuthFactorType auth_factor_type = 1;
+  if (this->_internal_auth_factor_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_auth_factor_type(), target);
+  }
+
+  // .user_data_auth.AuthEnrollmentProgress biometrics_progress = 2;
+  if (_internal_has_biometrics_progress()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::biometrics_progress(this),
+        _Internal::biometrics_progress(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.PrepareAuthFactorForAddProgress)
+  return target;
+}
+
+size_t PrepareAuthFactorForAddProgress::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.PrepareAuthFactorForAddProgress)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .user_data_auth.AuthFactorType auth_factor_type = 1;
+  if (this->_internal_auth_factor_type() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_auth_factor_type());
+  }
+
+  switch (progress_case()) {
+    // .user_data_auth.AuthEnrollmentProgress biometrics_progress = 2;
+    case kBiometricsProgress: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.progress_.biometrics_progress_);
+      break;
+    }
+    case PROGRESS_NOT_SET: {
+      break;
+    }
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void PrepareAuthFactorForAddProgress::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const PrepareAuthFactorForAddProgress*>(
+      &from));
+}
+
+void PrepareAuthFactorForAddProgress::MergeFrom(const PrepareAuthFactorForAddProgress& from) {
+  PrepareAuthFactorForAddProgress* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.PrepareAuthFactorForAddProgress)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_auth_factor_type() != 0) {
+    _this->_internal_set_auth_factor_type(from._internal_auth_factor_type());
+  }
+  switch (from.progress_case()) {
+    case kBiometricsProgress: {
+      _this->_internal_mutable_biometrics_progress()->::user_data_auth::AuthEnrollmentProgress::MergeFrom(
+          from._internal_biometrics_progress());
+      break;
+    }
+    case PROGRESS_NOT_SET: {
+      break;
+    }
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void PrepareAuthFactorForAddProgress::CopyFrom(const PrepareAuthFactorForAddProgress& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.PrepareAuthFactorForAddProgress)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PrepareAuthFactorForAddProgress::IsInitialized() const {
+  return true;
+}
+
+void PrepareAuthFactorForAddProgress::InternalSwap(PrepareAuthFactorForAddProgress* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.auth_factor_type_, other->_impl_.auth_factor_type_);
+  swap(_impl_.progress_, other->_impl_.progress_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
+}
+
+std::string PrepareAuthFactorForAddProgress::GetTypeName() const {
+  return "user_data_auth.PrepareAuthFactorForAddProgress";
+}
+
+
+// ===================================================================
+
+class PrepareAuthFactorForAuthProgress::_Internal {
+ public:
+  static const ::user_data_auth::AuthScanDone& biometrics_progress(const PrepareAuthFactorForAuthProgress* msg);
+};
+
+const ::user_data_auth::AuthScanDone&
+PrepareAuthFactorForAuthProgress::_Internal::biometrics_progress(const PrepareAuthFactorForAuthProgress* msg) {
+  return *msg->_impl_.progress_.biometrics_progress_;
+}
+void PrepareAuthFactorForAuthProgress::set_allocated_biometrics_progress(::user_data_auth::AuthScanDone* biometrics_progress) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_progress();
+  if (biometrics_progress) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(biometrics_progress);
+    if (message_arena != submessage_arena) {
+      biometrics_progress = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, biometrics_progress, submessage_arena);
+    }
+    set_has_biometrics_progress();
+    _impl_.progress_.biometrics_progress_ = biometrics_progress;
+  }
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.PrepareAuthFactorForAuthProgress.biometrics_progress)
+}
+PrepareAuthFactorForAuthProgress::PrepareAuthFactorForAuthProgress(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.PrepareAuthFactorForAuthProgress)
+}
+PrepareAuthFactorForAuthProgress::PrepareAuthFactorForAuthProgress(const PrepareAuthFactorForAuthProgress& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PrepareAuthFactorForAuthProgress* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.auth_factor_type_){}
+    , decltype(_impl_.progress_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.auth_factor_type_ = from._impl_.auth_factor_type_;
+  clear_has_progress();
+  switch (from.progress_case()) {
+    case kBiometricsProgress: {
+      _this->_internal_mutable_biometrics_progress()->::user_data_auth::AuthScanDone::MergeFrom(
+          from._internal_biometrics_progress());
+      break;
+    }
+    case PROGRESS_NOT_SET: {
+      break;
+    }
+  }
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.PrepareAuthFactorForAuthProgress)
+}
+
+inline void PrepareAuthFactorForAuthProgress::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.auth_factor_type_){0}
+    , decltype(_impl_.progress_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  clear_has_progress();
+}
+
+PrepareAuthFactorForAuthProgress::~PrepareAuthFactorForAuthProgress() {
+  // @@protoc_insertion_point(destructor:user_data_auth.PrepareAuthFactorForAuthProgress)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void PrepareAuthFactorForAuthProgress::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (has_progress()) {
+    clear_progress();
+  }
+}
+
+void PrepareAuthFactorForAuthProgress::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void PrepareAuthFactorForAuthProgress::clear_progress() {
+// @@protoc_insertion_point(one_of_clear_start:user_data_auth.PrepareAuthFactorForAuthProgress)
+  switch (progress_case()) {
+    case kBiometricsProgress: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.progress_.biometrics_progress_;
+      }
+      break;
+    }
+    case PROGRESS_NOT_SET: {
+      break;
+    }
+  }
+  _impl_._oneof_case_[0] = PROGRESS_NOT_SET;
+}
+
+
+void PrepareAuthFactorForAuthProgress::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.PrepareAuthFactorForAuthProgress)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.auth_factor_type_ = 0;
+  clear_progress();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* PrepareAuthFactorForAuthProgress::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .user_data_auth.AuthFactorType auth_factor_type = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_auth_factor_type(static_cast<::user_data_auth::AuthFactorType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.AuthScanDone biometrics_progress = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_biometrics_progress(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* PrepareAuthFactorForAuthProgress::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.PrepareAuthFactorForAuthProgress)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .user_data_auth.AuthFactorType auth_factor_type = 1;
+  if (this->_internal_auth_factor_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_auth_factor_type(), target);
+  }
+
+  // .user_data_auth.AuthScanDone biometrics_progress = 2;
+  if (_internal_has_biometrics_progress()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::biometrics_progress(this),
+        _Internal::biometrics_progress(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.PrepareAuthFactorForAuthProgress)
+  return target;
+}
+
+size_t PrepareAuthFactorForAuthProgress::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.PrepareAuthFactorForAuthProgress)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .user_data_auth.AuthFactorType auth_factor_type = 1;
+  if (this->_internal_auth_factor_type() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_auth_factor_type());
+  }
+
+  switch (progress_case()) {
+    // .user_data_auth.AuthScanDone biometrics_progress = 2;
+    case kBiometricsProgress: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.progress_.biometrics_progress_);
+      break;
+    }
+    case PROGRESS_NOT_SET: {
+      break;
+    }
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void PrepareAuthFactorForAuthProgress::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const PrepareAuthFactorForAuthProgress*>(
+      &from));
+}
+
+void PrepareAuthFactorForAuthProgress::MergeFrom(const PrepareAuthFactorForAuthProgress& from) {
+  PrepareAuthFactorForAuthProgress* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.PrepareAuthFactorForAuthProgress)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_auth_factor_type() != 0) {
+    _this->_internal_set_auth_factor_type(from._internal_auth_factor_type());
+  }
+  switch (from.progress_case()) {
+    case kBiometricsProgress: {
+      _this->_internal_mutable_biometrics_progress()->::user_data_auth::AuthScanDone::MergeFrom(
+          from._internal_biometrics_progress());
+      break;
+    }
+    case PROGRESS_NOT_SET: {
+      break;
+    }
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void PrepareAuthFactorForAuthProgress::CopyFrom(const PrepareAuthFactorForAuthProgress& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.PrepareAuthFactorForAuthProgress)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PrepareAuthFactorForAuthProgress::IsInitialized() const {
+  return true;
+}
+
+void PrepareAuthFactorForAuthProgress::InternalSwap(PrepareAuthFactorForAuthProgress* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.auth_factor_type_, other->_impl_.auth_factor_type_);
+  swap(_impl_.progress_, other->_impl_.progress_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
+}
+
+std::string PrepareAuthFactorForAuthProgress::GetTypeName() const {
+  return "user_data_auth.PrepareAuthFactorForAuthProgress";
+}
+
+
+// ===================================================================
+
+class PrepareAuthFactorProgress::_Internal {
+ public:
+  static const ::user_data_auth::PrepareAuthFactorForAddProgress& add_progress(const PrepareAuthFactorProgress* msg);
+  static const ::user_data_auth::PrepareAuthFactorForAuthProgress& auth_progress(const PrepareAuthFactorProgress* msg);
+};
+
+const ::user_data_auth::PrepareAuthFactorForAddProgress&
+PrepareAuthFactorProgress::_Internal::add_progress(const PrepareAuthFactorProgress* msg) {
+  return *msg->_impl_.progress_.add_progress_;
+}
+const ::user_data_auth::PrepareAuthFactorForAuthProgress&
+PrepareAuthFactorProgress::_Internal::auth_progress(const PrepareAuthFactorProgress* msg) {
+  return *msg->_impl_.progress_.auth_progress_;
+}
+void PrepareAuthFactorProgress::set_allocated_add_progress(::user_data_auth::PrepareAuthFactorForAddProgress* add_progress) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_progress();
+  if (add_progress) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(add_progress);
+    if (message_arena != submessage_arena) {
+      add_progress = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, add_progress, submessage_arena);
+    }
+    set_has_add_progress();
+    _impl_.progress_.add_progress_ = add_progress;
+  }
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.PrepareAuthFactorProgress.add_progress)
+}
+void PrepareAuthFactorProgress::set_allocated_auth_progress(::user_data_auth::PrepareAuthFactorForAuthProgress* auth_progress) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_progress();
+  if (auth_progress) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(auth_progress);
+    if (message_arena != submessage_arena) {
+      auth_progress = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, auth_progress, submessage_arena);
+    }
+    set_has_auth_progress();
+    _impl_.progress_.auth_progress_ = auth_progress;
+  }
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.PrepareAuthFactorProgress.auth_progress)
+}
+PrepareAuthFactorProgress::PrepareAuthFactorProgress(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.PrepareAuthFactorProgress)
+}
+PrepareAuthFactorProgress::PrepareAuthFactorProgress(const PrepareAuthFactorProgress& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PrepareAuthFactorProgress* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_.purpose_){}
+    , decltype(_impl_.progress_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.purpose_ = from._impl_.purpose_;
+  clear_has_progress();
+  switch (from.progress_case()) {
+    case kAddProgress: {
+      _this->_internal_mutable_add_progress()->::user_data_auth::PrepareAuthFactorForAddProgress::MergeFrom(
+          from._internal_add_progress());
+      break;
+    }
+    case kAuthProgress: {
+      _this->_internal_mutable_auth_progress()->::user_data_auth::PrepareAuthFactorForAuthProgress::MergeFrom(
+          from._internal_auth_progress());
+      break;
+    }
+    case PROGRESS_NOT_SET: {
+      break;
+    }
+  }
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.PrepareAuthFactorProgress)
+}
+
+inline void PrepareAuthFactorProgress::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_.purpose_){0}
+    , decltype(_impl_.progress_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  clear_has_progress();
+}
+
+PrepareAuthFactorProgress::~PrepareAuthFactorProgress() {
+  // @@protoc_insertion_point(destructor:user_data_auth.PrepareAuthFactorProgress)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void PrepareAuthFactorProgress::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (has_progress()) {
+    clear_progress();
+  }
+}
+
+void PrepareAuthFactorProgress::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void PrepareAuthFactorProgress::clear_progress() {
+// @@protoc_insertion_point(one_of_clear_start:user_data_auth.PrepareAuthFactorProgress)
+  switch (progress_case()) {
+    case kAddProgress: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.progress_.add_progress_;
+      }
+      break;
+    }
+    case kAuthProgress: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.progress_.auth_progress_;
+      }
+      break;
+    }
+    case PROGRESS_NOT_SET: {
+      break;
+    }
+  }
+  _impl_._oneof_case_[0] = PROGRESS_NOT_SET;
+}
+
+
+void PrepareAuthFactorProgress::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.PrepareAuthFactorProgress)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.purpose_ = 0;
+  clear_progress();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* PrepareAuthFactorProgress::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .user_data_auth.AuthFactorPreparePurpose purpose = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_purpose(static_cast<::user_data_auth::AuthFactorPreparePurpose>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.PrepareAuthFactorForAddProgress add_progress = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_add_progress(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.PrepareAuthFactorForAuthProgress auth_progress = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_auth_progress(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* PrepareAuthFactorProgress::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.PrepareAuthFactorProgress)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .user_data_auth.AuthFactorPreparePurpose purpose = 1;
+  if (this->_internal_purpose() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_purpose(), target);
+  }
+
+  // .user_data_auth.PrepareAuthFactorForAddProgress add_progress = 2;
+  if (_internal_has_add_progress()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::add_progress(this),
+        _Internal::add_progress(this).GetCachedSize(), target, stream);
+  }
+
+  // .user_data_auth.PrepareAuthFactorForAuthProgress auth_progress = 3;
+  if (_internal_has_auth_progress()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::auth_progress(this),
+        _Internal::auth_progress(this).GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.PrepareAuthFactorProgress)
+  return target;
+}
+
+size_t PrepareAuthFactorProgress::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.PrepareAuthFactorProgress)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .user_data_auth.AuthFactorPreparePurpose purpose = 1;
+  if (this->_internal_purpose() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_purpose());
+  }
+
+  switch (progress_case()) {
+    // .user_data_auth.PrepareAuthFactorForAddProgress add_progress = 2;
+    case kAddProgress: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.progress_.add_progress_);
+      break;
+    }
+    // .user_data_auth.PrepareAuthFactorForAuthProgress auth_progress = 3;
+    case kAuthProgress: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.progress_.auth_progress_);
+      break;
+    }
+    case PROGRESS_NOT_SET: {
+      break;
+    }
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void PrepareAuthFactorProgress::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const PrepareAuthFactorProgress*>(
+      &from));
+}
+
+void PrepareAuthFactorProgress::MergeFrom(const PrepareAuthFactorProgress& from) {
+  PrepareAuthFactorProgress* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.PrepareAuthFactorProgress)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_purpose() != 0) {
+    _this->_internal_set_purpose(from._internal_purpose());
+  }
+  switch (from.progress_case()) {
+    case kAddProgress: {
+      _this->_internal_mutable_add_progress()->::user_data_auth::PrepareAuthFactorForAddProgress::MergeFrom(
+          from._internal_add_progress());
+      break;
+    }
+    case kAuthProgress: {
+      _this->_internal_mutable_auth_progress()->::user_data_auth::PrepareAuthFactorForAuthProgress::MergeFrom(
+          from._internal_auth_progress());
+      break;
+    }
+    case PROGRESS_NOT_SET: {
+      break;
+    }
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void PrepareAuthFactorProgress::CopyFrom(const PrepareAuthFactorProgress& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.PrepareAuthFactorProgress)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PrepareAuthFactorProgress::IsInitialized() const {
+  return true;
+}
+
+void PrepareAuthFactorProgress::InternalSwap(PrepareAuthFactorProgress* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.purpose_, other->_impl_.purpose_);
+  swap(_impl_.progress_, other->_impl_.progress_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
+}
+
+std::string PrepareAuthFactorProgress::GetTypeName() const {
+  return "user_data_auth.PrepareAuthFactorProgress";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace user_data_auth
 PROTOBUF_NAMESPACE_OPEN
@@ -32676,6 +33616,18 @@ Arena::CreateMaybeMessage< ::user_data_auth::AuthEnrollmentProgress >(Arena* are
 template<> PROTOBUF_NOINLINE ::user_data_auth::AuthScanDone*
 Arena::CreateMaybeMessage< ::user_data_auth::AuthScanDone >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::AuthScanDone >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::PrepareAuthFactorForAddProgress*
+Arena::CreateMaybeMessage< ::user_data_auth::PrepareAuthFactorForAddProgress >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::PrepareAuthFactorForAddProgress >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::PrepareAuthFactorForAuthProgress*
+Arena::CreateMaybeMessage< ::user_data_auth::PrepareAuthFactorForAuthProgress >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::PrepareAuthFactorForAuthProgress >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::PrepareAuthFactorProgress*
+Arena::CreateMaybeMessage< ::user_data_auth::PrepareAuthFactorProgress >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::PrepareAuthFactorProgress >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

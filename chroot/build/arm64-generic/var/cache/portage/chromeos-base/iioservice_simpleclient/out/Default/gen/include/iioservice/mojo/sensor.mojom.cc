@@ -915,20 +915,11 @@ SensorDevice::IPCStableHashFunction SensorDevice::MessageToMethodInfo_(mojo::Mes
     case internal::kSensorDevice_GetAllEvents_Name: {
       return &SensorDevice::GetAllEvents_Sym::IPCStableHash;
     }
-    case internal::kSensorDevice_SetEventsEnabled_Name: {
-      return &SensorDevice::SetEventsEnabled_Sym::IPCStableHash;
-    }
-    case internal::kSensorDevice_GetEventsEnabled_Name: {
-      return &SensorDevice::GetEventsEnabled_Sym::IPCStableHash;
-    }
     case internal::kSensorDevice_GetEventsAttributes_Name: {
       return &SensorDevice::GetEventsAttributes_Sym::IPCStableHash;
     }
     case internal::kSensorDevice_StartReadingEvents_Name: {
       return &SensorDevice::StartReadingEvents_Sym::IPCStableHash;
-    }
-    case internal::kSensorDevice_StopReadingEvents_Name: {
-      return &SensorDevice::StopReadingEvents_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -961,16 +952,10 @@ const char* SensorDevice::MessageToMethodName_(mojo::Message& message) {
             return "Receive cros::mojom::SensorDevice::GetChannelsAttributes";
       case internal::kSensorDevice_GetAllEvents_Name:
             return "Receive cros::mojom::SensorDevice::GetAllEvents";
-      case internal::kSensorDevice_SetEventsEnabled_Name:
-            return "Receive cros::mojom::SensorDevice::SetEventsEnabled";
-      case internal::kSensorDevice_GetEventsEnabled_Name:
-            return "Receive cros::mojom::SensorDevice::GetEventsEnabled";
       case internal::kSensorDevice_GetEventsAttributes_Name:
             return "Receive cros::mojom::SensorDevice::GetEventsAttributes";
       case internal::kSensorDevice_StartReadingEvents_Name:
             return "Receive cros::mojom::SensorDevice::StartReadingEvents";
-      case internal::kSensorDevice_StopReadingEvents_Name:
-            return "Receive cros::mojom::SensorDevice::StopReadingEvents";
     }
   } else {
     switch (message.name()) {
@@ -994,16 +979,10 @@ const char* SensorDevice::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply cros::mojom::SensorDevice::GetChannelsAttributes";
       case internal::kSensorDevice_GetAllEvents_Name:
             return "Receive reply cros::mojom::SensorDevice::GetAllEvents";
-      case internal::kSensorDevice_SetEventsEnabled_Name:
-            return "Receive reply cros::mojom::SensorDevice::SetEventsEnabled";
-      case internal::kSensorDevice_GetEventsEnabled_Name:
-            return "Receive reply cros::mojom::SensorDevice::GetEventsEnabled";
       case internal::kSensorDevice_GetEventsAttributes_Name:
             return "Receive reply cros::mojom::SensorDevice::GetEventsAttributes";
       case internal::kSensorDevice_StartReadingEvents_Name:
             return "Receive reply cros::mojom::SensorDevice::StartReadingEvents";
-      case internal::kSensorDevice_StopReadingEvents_Name:
-            return "Receive reply cros::mojom::SensorDevice::StopReadingEvents";
     }
   }
   return "Receive unknown mojo message";
@@ -1148,32 +1127,6 @@ uint32_t SensorDevice::GetAllEvents_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t SensorDevice::SetEventsEnabled_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::SensorDevice::SetEventsEnabled");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t SensorDevice::GetEventsEnabled_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::SensorDevice::GetEventsEnabled");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t SensorDevice::GetEventsAttributes_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -1196,19 +1149,6 @@ uint32_t SensorDevice::StartReadingEvents_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)cros::mojom::SensorDevice::StartReadingEvents");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t SensorDevice::StopReadingEvents_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)cros::mojom::SensorDevice::StopReadingEvents");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1325,38 +1265,6 @@ class SensorDevice_GetAllEvents_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   SensorDevice::GetAllEventsCallback callback_;
-};
-
-class SensorDevice_SetEventsEnabled_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  SensorDevice_SetEventsEnabled_ForwardToCallback(
-      SensorDevice::SetEventsEnabledCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  SensorDevice_SetEventsEnabled_ForwardToCallback(const SensorDevice_SetEventsEnabled_ForwardToCallback&) = delete;
-  SensorDevice_SetEventsEnabled_ForwardToCallback& operator=(const SensorDevice_SetEventsEnabled_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  SensorDevice::SetEventsEnabledCallback callback_;
-};
-
-class SensorDevice_GetEventsEnabled_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  SensorDevice_GetEventsEnabled_ForwardToCallback(
-      SensorDevice::GetEventsEnabledCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  SensorDevice_GetEventsEnabled_ForwardToCallback(const SensorDevice_GetEventsEnabled_ForwardToCallback&) = delete;
-  SensorDevice_GetEventsEnabled_ForwardToCallback& operator=(const SensorDevice_GetEventsEnabled_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  SensorDevice::GetEventsEnabledCallback callback_;
 };
 
 class SensorDevice_GetEventsAttributes_ForwardToCallback
@@ -1813,112 +1721,6 @@ void SensorDeviceProxy::GetAllEvents(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
-void SensorDeviceProxy::SetEventsEnabled(
-    const std::vector<int32_t>& in_iio_event_indices, bool in_en, SetEventsEnabledCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send cros::mojom::SensorDevice::SetEventsEnabled", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("iio_event_indices"), in_iio_event_indices,
-                        "<value of type const std::vector<int32_t>&>");
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("en"), in_en,
-                        "<value of type bool>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kSensorDevice_SetEventsEnabled_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::SensorDevice_SetEventsEnabled_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->iio_event_indices)::BaseType>
-      iio_event_indices_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& iio_event_indices_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<int32_t>>(
-      in_iio_event_indices, iio_event_indices_fragment, &iio_event_indices_validate_params);
-  params->iio_event_indices.Set(
-      iio_event_indices_fragment.is_null() ? nullptr : iio_event_indices_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->iio_event_indices.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null iio_event_indices in SensorDevice.SetEventsEnabled request");
-  params->en = in_en;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(SensorDevice::Name_);
-  message.set_method_name("SetEventsEnabled");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new SensorDevice_SetEventsEnabled_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
-void SensorDeviceProxy::GetEventsEnabled(
-    const std::vector<int32_t>& in_iio_event_indices, GetEventsEnabledCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send cros::mojom::SensorDevice::GetEventsEnabled", "input_parameters",
-    [&](perfetto_libchrome::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("iio_event_indices"), in_iio_event_indices,
-                        "<value of type const std::vector<int32_t>&>");
-   });
-#endif
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kSensorDevice_GetEventsEnabled_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::SensorDevice_GetEventsEnabled_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->iio_event_indices)::BaseType>
-      iio_event_indices_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& iio_event_indices_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<int32_t>>(
-      in_iio_event_indices, iio_event_indices_fragment, &iio_event_indices_validate_params);
-  params->iio_event_indices.Set(
-      iio_event_indices_fragment.is_null() ? nullptr : iio_event_indices_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->iio_event_indices.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null iio_event_indices in SensorDevice.GetEventsEnabled request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(SensorDevice::Name_);
-  message.set_method_name("GetEventsEnabled");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new SensorDevice_GetEventsEnabled_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
-
 void SensorDeviceProxy::GetEventsAttributes(
     const std::vector<int32_t>& in_iio_event_indices, const std::string& in_attr_name, GetEventsAttributesCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1985,12 +1787,15 @@ void SensorDeviceProxy::GetEventsAttributes(
 }
 
 void SensorDeviceProxy::StartReadingEvents(
-    ::mojo::PendingRemote<SensorDeviceEventsObserver> in_observer) {
+    const std::vector<int32_t>& in_iio_event_indices, ::mojo::PendingRemote<SensorDeviceEventsObserver> in_observer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorDevice::StartReadingEvents", "input_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("iio_event_indices"), in_iio_event_indices,
+                        "<value of type const std::vector<int32_t>&>");
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<SensorDeviceEventsObserver>>");
@@ -2011,6 +1816,19 @@ void SensorDeviceProxy::StartReadingEvents(
       ::cros::mojom::internal::SensorDevice_StartReadingEvents_Params_Data> params(
           message);
   params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->iio_event_indices)::BaseType>
+      iio_event_indices_fragment(params.message());
+  constexpr const mojo::internal::ContainerValidateParams& iio_event_indices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<int32_t>>(
+      in_iio_event_indices, iio_event_indices_fragment, &iio_event_indices_validate_params);
+  params->iio_event_indices.Set(
+      iio_event_indices_fragment.is_null() ? nullptr : iio_event_indices_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->iio_event_indices.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null iio_event_indices in SensorDevice.StartReadingEvents request");
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::cros::mojom::SensorDeviceEventsObserverInterfaceBase>>(
       in_observer, &params->observer, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -2021,36 +1839,6 @@ void SensorDeviceProxy::StartReadingEvents(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(SensorDevice::Name_);
   message.set_method_name("StartReadingEvents");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void SensorDeviceProxy::StopReadingEvents(
-    ) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send cros::mojom::SensorDevice::StopReadingEvents");
-#endif
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kSensorDevice_StopReadingEvents_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::SensorDevice_StopReadingEvents_Params_Data> params(
-          message);
-  params.Allocate();
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(SensorDevice::Name_);
-  message.set_method_name("StopReadingEvents");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -2926,258 +2714,6 @@ void SensorDevice_GetAllEvents_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
-class SensorDevice_SetEventsEnabled_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static SensorDevice::SetEventsEnabledCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<SensorDevice_SetEventsEnabled_ProxyToResponder> proxy(
-        new SensorDevice_SetEventsEnabled_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&SensorDevice_SetEventsEnabled_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~SensorDevice_SetEventsEnabled_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  SensorDevice_SetEventsEnabled_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "SensorDevice::SetEventsEnabledCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      const std::vector<int32_t>& in_failed_indices);
-};
-
-bool SensorDevice_SetEventsEnabled_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::SensorDevice_SetEventsEnabled_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::SensorDevice_SetEventsEnabled_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  std::vector<int32_t> p_failed_indices = mojo::DefaultConstructTraits::CreateInstance<std::vector<int32_t>>();
-  SensorDevice_SetEventsEnabled_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadFailedIndices(&p_failed_indices))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        SensorDevice::Name_, 10, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_failed_indices));
-  return true;
-}
-
-void SensorDevice_SetEventsEnabled_ProxyToResponder::Run(
-    const std::vector<int32_t>& in_failed_indices) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply cros::mojom::SensorDevice::SetEventsEnabled", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("failed_indices"), in_failed_indices,
-                        "<value of type const std::vector<int32_t>&>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kSensorDevice_SetEventsEnabled_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::SensorDevice_SetEventsEnabled_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->failed_indices)::BaseType>
-      failed_indices_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& failed_indices_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<int32_t>>(
-      in_failed_indices, failed_indices_fragment, &failed_indices_validate_params);
-  params->failed_indices.Set(
-      failed_indices_fragment.is_null() ? nullptr : failed_indices_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->failed_indices.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null failed_indices in ");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(SensorDevice::Name_);
-  message.set_method_name("SetEventsEnabled");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-class SensorDevice_GetEventsEnabled_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static SensorDevice::GetEventsEnabledCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<SensorDevice_GetEventsEnabled_ProxyToResponder> proxy(
-        new SensorDevice_GetEventsEnabled_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&SensorDevice_GetEventsEnabled_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~SensorDevice_GetEventsEnabled_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  SensorDevice_GetEventsEnabled_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "SensorDevice::GetEventsEnabledCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      const std::vector<bool>& in_enabled);
-};
-
-bool SensorDevice_GetEventsEnabled_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::SensorDevice_GetEventsEnabled_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::SensorDevice_GetEventsEnabled_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  bool success = true;
-  std::vector<bool> p_enabled = mojo::DefaultConstructTraits::CreateInstance<std::vector<bool>>();
-  SensorDevice_GetEventsEnabled_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success && !input_data_view.ReadEnabled(&p_enabled))
-    success = false;
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        SensorDevice::Name_, 11, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_enabled));
-  return true;
-}
-
-void SensorDevice_GetEventsEnabled_ProxyToResponder::Run(
-    const std::vector<bool>& in_enabled) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply cros::mojom::SensorDevice::GetEventsEnabled", "async_response_parameters",
-    [&](perfetto_libchrome::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("enabled"), in_enabled,
-                        "<value of type const std::vector<bool>&>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
-  
-  mojo::Message message(
-      internal::kSensorDevice_GetEventsEnabled_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::cros::mojom::internal::SensorDevice_GetEventsEnabled_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->enabled)::BaseType>
-      enabled_fragment(params.message());
-  constexpr const mojo::internal::ContainerValidateParams& enabled_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  mojo::internal::Serialize<mojo::ArrayDataView<bool>>(
-      in_enabled, enabled_fragment, &enabled_validate_params);
-  params->enabled.Set(
-      enabled_fragment.is_null() ? nullptr : enabled_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->enabled.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null enabled in ");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(SensorDevice::Name_);
-  message.set_method_name("GetEventsEnabled");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
 class SensorDevice_GetEventsAttributes_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static SensorDevice::GetEventsAttributesCallback CreateCallback(
@@ -3407,12 +2943,6 @@ std::move(p_observer));
     case internal::kSensorDevice_GetAllEvents_Name: {
       break;
     }
-    case internal::kSensorDevice_SetEventsEnabled_Name: {
-      break;
-    }
-    case internal::kSensorDevice_GetEventsEnabled_Name: {
-      break;
-    }
     case internal::kSensorDevice_GetEventsAttributes_Name: {
       break;
     }
@@ -3424,9 +2954,12 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
+      std::vector<int32_t> p_iio_event_indices = mojo::DefaultConstructTraits::CreateInstance<std::vector<int32_t>>();
       ::mojo::PendingRemote<SensorDeviceEventsObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<SensorDeviceEventsObserver>>();
       SensorDevice_StartReadingEvents_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadIioEventIndices(&p_iio_event_indices))
+        success = false;
       if (success) {
         p_observer =
             input_data_view.TakeObserver<decltype(p_observer)>();
@@ -3435,35 +2968,14 @@ std::move(p_observer));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            SensorDevice::Name_, 13, false);
+            SensorDevice::Name_, 15, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->StartReadingEvents(
+std::move(p_iio_event_indices), 
 std::move(p_observer));
-      return true;
-    }
-    case internal::kSensorDevice_StopReadingEvents_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::SensorDevice_StopReadingEvents_Params_Data* params =
-          reinterpret_cast<internal::SensorDevice_StopReadingEvents_Params_Data*>(
-              message->mutable_payload());
-      
-      bool success = true;
-      SensorDevice_StopReadingEvents_ParamsDataView input_data_view(params, message);
-      
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            SensorDevice::Name_, 14, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->StopReadingEvents();
       return true;
     }
   }
@@ -3691,68 +3203,6 @@ std::move(p_attr_name), std::move(callback));
       impl->GetAllEvents(std::move(callback));
       return true;
     }
-    case internal::kSensorDevice_SetEventsEnabled_Name: {
-
-      internal::SensorDevice_SetEventsEnabled_Params_Data* params =
-          reinterpret_cast<
-              internal::SensorDevice_SetEventsEnabled_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      std::vector<int32_t> p_iio_event_indices = mojo::DefaultConstructTraits::CreateInstance<std::vector<int32_t>>();
-      bool p_en = mojo::DefaultConstructTraits::CreateInstance<bool>();
-      SensorDevice_SetEventsEnabled_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadIioEventIndices(&p_iio_event_indices))
-        success = false;
-      if (success)
-        p_en = input_data_view.en();
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            SensorDevice::Name_, 10, false);
-        return false;
-      }
-      SensorDevice::SetEventsEnabledCallback callback =
-          SensorDevice_SetEventsEnabled_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetEventsEnabled(
-std::move(p_iio_event_indices), 
-std::move(p_en), std::move(callback));
-      return true;
-    }
-    case internal::kSensorDevice_GetEventsEnabled_Name: {
-
-      internal::SensorDevice_GetEventsEnabled_Params_Data* params =
-          reinterpret_cast<
-              internal::SensorDevice_GetEventsEnabled_Params_Data*>(
-                  message->mutable_payload());
-      
-      bool success = true;
-      std::vector<int32_t> p_iio_event_indices = mojo::DefaultConstructTraits::CreateInstance<std::vector<int32_t>>();
-      SensorDevice_GetEventsEnabled_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadIioEventIndices(&p_iio_event_indices))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            SensorDevice::Name_, 11, false);
-        return false;
-      }
-      SensorDevice::GetEventsEnabledCallback callback =
-          SensorDevice_GetEventsEnabled_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetEventsEnabled(
-std::move(p_iio_event_indices), std::move(callback));
-      return true;
-    }
     case internal::kSensorDevice_GetEventsAttributes_Name: {
 
       internal::SensorDevice_GetEventsAttributes_Params_Data* params =
@@ -3789,9 +3239,6 @@ std::move(p_attr_name), std::move(callback));
     case internal::kSensorDevice_StartReadingEvents_Name: {
       break;
     }
-    case internal::kSensorDevice_StopReadingEvents_Name: {
-      break;
-    }
   }
   return false;
 }
@@ -3818,15 +3265,13 @@ static const mojo::internal::GenericValidationInfo kSensorDeviceValidationInfo[]
      &internal::SensorDevice_GetChannelsAttributes_ResponseParams_Data::Validate},
     {&internal::SensorDevice_GetAllEvents_Params_Data::Validate,
      &internal::SensorDevice_GetAllEvents_ResponseParams_Data::Validate},
-    {&internal::SensorDevice_SetEventsEnabled_Params_Data::Validate,
-     &internal::SensorDevice_SetEventsEnabled_ResponseParams_Data::Validate},
-    {&internal::SensorDevice_GetEventsEnabled_Params_Data::Validate,
-     &internal::SensorDevice_GetEventsEnabled_ResponseParams_Data::Validate},
+    {nullptr, nullptr},  // nonexistent
+    {nullptr, nullptr},  // nonexistent
     {&internal::SensorDevice_GetEventsAttributes_Params_Data::Validate,
      &internal::SensorDevice_GetEventsAttributes_ResponseParams_Data::Validate},
+    {nullptr, nullptr},  // nonexistent
+    {nullptr, nullptr},  // nonexistent
     {&internal::SensorDevice_StartReadingEvents_Params_Data::Validate,
-     nullptr /* no response */},
-    {&internal::SensorDevice_StopReadingEvents_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -4675,20 +4120,11 @@ void SensorDeviceInterceptorForTesting::GetChannelsAttributes(const std::vector<
 void SensorDeviceInterceptorForTesting::GetAllEvents(GetAllEventsCallback callback) {
   GetForwardingInterface()->GetAllEvents(std::move(callback));
 }
-void SensorDeviceInterceptorForTesting::SetEventsEnabled(const std::vector<int32_t>& iio_event_indices, bool en, SetEventsEnabledCallback callback) {
-  GetForwardingInterface()->SetEventsEnabled(std::move(iio_event_indices), std::move(en), std::move(callback));
-}
-void SensorDeviceInterceptorForTesting::GetEventsEnabled(const std::vector<int32_t>& iio_event_indices, GetEventsEnabledCallback callback) {
-  GetForwardingInterface()->GetEventsEnabled(std::move(iio_event_indices), std::move(callback));
-}
 void SensorDeviceInterceptorForTesting::GetEventsAttributes(const std::vector<int32_t>& iio_event_indices, const std::string& attr_name, GetEventsAttributesCallback callback) {
   GetForwardingInterface()->GetEventsAttributes(std::move(iio_event_indices), std::move(attr_name), std::move(callback));
 }
-void SensorDeviceInterceptorForTesting::StartReadingEvents(::mojo::PendingRemote<SensorDeviceEventsObserver> observer) {
-  GetForwardingInterface()->StartReadingEvents(std::move(observer));
-}
-void SensorDeviceInterceptorForTesting::StopReadingEvents() {
-  GetForwardingInterface()->StopReadingEvents();
+void SensorDeviceInterceptorForTesting::StartReadingEvents(const std::vector<int32_t>& iio_event_indices, ::mojo::PendingRemote<SensorDeviceEventsObserver> observer) {
+  GetForwardingInterface()->StartReadingEvents(std::move(iio_event_indices), std::move(observer));
 }
 SensorDeviceAsyncWaiter::SensorDeviceAsyncWaiter(
     SensorDevice* proxy) : proxy_(proxy) {}
@@ -4853,52 +4289,6 @@ std::vector<IioEventPtr> SensorDeviceAsyncWaiter::GetAllEvents(
     ) {
   std::vector<IioEventPtr> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<IioEventPtr>>();
   GetAllEvents(&async_wait_result);
-  return async_wait_result;
-}
-
-void SensorDeviceAsyncWaiter::SetEventsEnabled(
-    const std::vector<int32_t>& iio_event_indices, bool en, std::vector<int32_t>* out_failed_indices) {
-  base::RunLoop loop;
-  proxy_->SetEventsEnabled(std::move(iio_event_indices),std::move(en),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             std::vector<int32_t>* out_failed_indices
-,
-             const std::vector<int32_t>& failed_indices) {*out_failed_indices = std::move(failed_indices);
-            loop->Quit();
-          },
-          &loop,
-          out_failed_indices));
-  loop.Run();
-}
-
-std::vector<int32_t> SensorDeviceAsyncWaiter::SetEventsEnabled(
-    const std::vector<int32_t>& iio_event_indices, bool en) {
-  std::vector<int32_t> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<int32_t>>();
-  SetEventsEnabled(std::move(iio_event_indices),std::move(en),&async_wait_result);
-  return async_wait_result;
-}
-
-void SensorDeviceAsyncWaiter::GetEventsEnabled(
-    const std::vector<int32_t>& iio_event_indices, std::vector<bool>* out_enabled) {
-  base::RunLoop loop;
-  proxy_->GetEventsEnabled(std::move(iio_event_indices),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             std::vector<bool>* out_enabled
-,
-             const std::vector<bool>& enabled) {*out_enabled = std::move(enabled);
-            loop->Quit();
-          },
-          &loop,
-          out_enabled));
-  loop.Run();
-}
-
-std::vector<bool> SensorDeviceAsyncWaiter::GetEventsEnabled(
-    const std::vector<int32_t>& iio_event_indices) {
-  std::vector<bool> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<bool>>();
-  GetEventsEnabled(std::move(iio_event_indices),&async_wait_result);
   return async_wait_result;
 }
 

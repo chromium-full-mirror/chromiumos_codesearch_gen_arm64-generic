@@ -49,6 +49,15 @@ struct ResetSecretMapping {
 
 namespace cryptohome {
 
+struct TypeToResetSecretMapping {
+  std::optional<uint32_t> auth_factor_type;
+  brillo::SecureBlob reset_secret;
+};
+
+}  // namespace cryptohome
+
+namespace cryptohome {
+
 struct UserSecretStashPayload {
   std::optional<brillo::SecureBlob> Serialize() const;
   static std::optional<UserSecretStashPayload> Deserialize(
@@ -62,6 +71,8 @@ struct UserSecretStashPayload {
   brillo::SecureBlob fnek_sig;
   brillo::SecureBlob chaps_key;
   std::vector<::cryptohome::ResetSecretMapping> reset_secrets;
+  std::vector<::cryptohome::TypeToResetSecretMapping>
+      rate_limiter_reset_secrets;
 };
 
 }  // namespace cryptohome

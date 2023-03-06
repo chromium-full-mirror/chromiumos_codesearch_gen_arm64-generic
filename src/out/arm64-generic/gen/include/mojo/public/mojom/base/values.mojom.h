@@ -44,7 +44,6 @@ namespace mojom {
 
 
 
-
 class  Value {
  public:
   using DataView = ValueDataView;
@@ -577,145 +576,6 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
-
-
-
-
-class  DeprecatedDictionaryValue {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<DeprecatedDictionaryValue, T>::value>;
-  using DataView = DeprecatedDictionaryValueDataView;
-  using Data_ = internal::DeprecatedDictionaryValue_Data;
-
-  template <typename... Args>
-  static DeprecatedDictionaryValuePtr New(Args&&... args) {
-    return DeprecatedDictionaryValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static DeprecatedDictionaryValuePtr From(const U& u) {
-    return mojo::TypeConverter<DeprecatedDictionaryValuePtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, DeprecatedDictionaryValue>::Convert(*this);
-  }
-
-
-  DeprecatedDictionaryValue();
-
-  explicit DeprecatedDictionaryValue(
-      base::flat_map<std::string, ValuePtr> storage);
-
-DeprecatedDictionaryValue(const DeprecatedDictionaryValue&) = delete;
-DeprecatedDictionaryValue& operator=(const DeprecatedDictionaryValue&) = delete;
-
-  ~DeprecatedDictionaryValue();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = DeprecatedDictionaryValuePtr>
-  DeprecatedDictionaryValuePtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, DeprecatedDictionaryValue::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, DeprecatedDictionaryValue::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        DeprecatedDictionaryValue::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        DeprecatedDictionaryValue::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::DeprecatedDictionaryValue_UnserializedMessageContext<
-            UserType, DeprecatedDictionaryValue::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<DeprecatedDictionaryValue::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return DeprecatedDictionaryValue::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::DeprecatedDictionaryValue_UnserializedMessageContext<
-            UserType, DeprecatedDictionaryValue::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<DeprecatedDictionaryValue::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  base::flat_map<std::string, ValuePtr> storage;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, DeprecatedDictionaryValue::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, DeprecatedDictionaryValue::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, DeprecatedDictionaryValue::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, DeprecatedDictionaryValue::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
 template <typename UnionPtrType>
 ValuePtr Value::Clone() const {
   switch (tag_) {
@@ -819,28 +679,6 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
-template <typename StructPtrType>
-DeprecatedDictionaryValuePtr DeprecatedDictionaryValue::Clone() const {
-  return New(
-      mojo::Clone(storage)
-  );
-}
-
-template <typename T, DeprecatedDictionaryValue::EnableIfSame<T>*>
-bool DeprecatedDictionaryValue::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->storage, other_struct.storage))
-    return false;
-  return true;
-}
-
-template <typename T, DeprecatedDictionaryValue::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.storage < rhs.storage)
-    return true;
-  if (rhs.storage < lhs.storage)
-    return false;
-  return false;
-}
 
 
 }  // namespace mojom
@@ -876,21 +714,6 @@ struct  StructTraits<::mojo_base::mojom::ListValue::DataView,
   }
 
   static bool Read(::mojo_base::mojom::ListValue::DataView input, ::mojo_base::mojom::ListValuePtr* output);
-};
-
-
-template <>
-struct  StructTraits<::mojo_base::mojom::DeprecatedDictionaryValue::DataView,
-                                         ::mojo_base::mojom::DeprecatedDictionaryValuePtr> {
-  static bool IsNull(const ::mojo_base::mojom::DeprecatedDictionaryValuePtr& input) { return !input; }
-  static void SetToNull(::mojo_base::mojom::DeprecatedDictionaryValuePtr* output) { output->reset(); }
-
-  static const decltype(::mojo_base::mojom::DeprecatedDictionaryValue::storage)& storage(
-      const ::mojo_base::mojom::DeprecatedDictionaryValuePtr& input) {
-    return input->storage;
-  }
-
-  static bool Read(::mojo_base::mojom::DeprecatedDictionaryValue::DataView input, ::mojo_base::mojom::DeprecatedDictionaryValuePtr* output);
 };
 
 

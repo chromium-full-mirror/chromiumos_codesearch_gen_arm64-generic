@@ -3780,4 +3780,97 @@ std::string GetProtoDebugStringWithIndent(const AuthScanDone& value,
   return output;
 }
 
+std::string GetProtoDebugString(const PrepareAuthFactorForAddProgress& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const PrepareAuthFactorForAddProgress& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  auth_factor_type: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.auth_factor_type(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "  biometrics_progress: ";
+  base::StringAppendF(&output, "%s",
+                      GetProtoDebugStringWithIndent(value.biometrics_progress(),
+                                                    indent_size + 2)
+                          .c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const PrepareAuthFactorForAuthProgress& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const PrepareAuthFactorForAuthProgress& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  auth_factor_type: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.auth_factor_type(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "  biometrics_progress: ";
+  base::StringAppendF(&output, "%s",
+                      GetProtoDebugStringWithIndent(value.biometrics_progress(),
+                                                    indent_size + 2)
+                          .c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const PrepareAuthFactorProgress& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const PrepareAuthFactorProgress& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  purpose: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.purpose(), indent_size + 2).c_str());
+  output += "\n";
+
+  output += indent + "  add_progress: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.add_progress(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "  auth_progress: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.auth_progress(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
 }  // namespace user_data_auth

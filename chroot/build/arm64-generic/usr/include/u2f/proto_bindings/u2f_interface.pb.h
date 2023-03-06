@@ -2749,8 +2749,18 @@ class IsUvpaaResponse final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kAvailableFieldNumber = 1,
     kNotReadyFieldNumber = 2,
   };
+  // bool available = 1 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_available();
+  PROTOBUF_DEPRECATED bool available() const;
+  PROTOBUF_DEPRECATED void set_available(bool value);
+  private:
+  bool _internal_available() const;
+  void _internal_set_available(bool value);
+  public:
+
   // bool not_ready = 2;
   void clear_not_ready();
   bool not_ready() const;
@@ -2768,6 +2778,7 @@ class IsUvpaaResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
+    bool available_;
     bool not_ready_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -5864,6 +5875,26 @@ inline void IsPlatformAuthenticatorInitializedResponse::set_initialized(bool val
 // -------------------------------------------------------------------
 
 // IsUvpaaResponse
+
+// bool available = 1 [deprecated = true];
+inline void IsUvpaaResponse::clear_available() {
+  _impl_.available_ = false;
+}
+inline bool IsUvpaaResponse::_internal_available() const {
+  return _impl_.available_;
+}
+inline bool IsUvpaaResponse::available() const {
+  // @@protoc_insertion_point(field_get:u2f.IsUvpaaResponse.available)
+  return _internal_available();
+}
+inline void IsUvpaaResponse::_internal_set_available(bool value) {
+  
+  _impl_.available_ = value;
+}
+inline void IsUvpaaResponse::set_available(bool value) {
+  _internal_set_available(value);
+  // @@protoc_insertion_point(field_set:u2f.IsUvpaaResponse.available)
+}
 
 // bool not_ready = 2;
 inline void IsUvpaaResponse::clear_not_ready() {

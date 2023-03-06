@@ -150,11 +150,8 @@ class SensorDevice
     kGetChannelsEnabledMinVersion = 0,
     kGetChannelsAttributesMinVersion = 0,
     kGetAllEventsMinVersion = 0,
-    kSetEventsEnabledMinVersion = 0,
-    kGetEventsEnabledMinVersion = 0,
     kGetEventsAttributesMinVersion = 0,
     kStartReadingEventsMinVersion = 0,
-    kStopReadingEventsMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -190,19 +187,10 @@ class SensorDevice
   struct GetAllEvents_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct SetEventsEnabled_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetEventsEnabled_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct GetEventsAttributes_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct StartReadingEvents_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct StopReadingEvents_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -253,25 +241,12 @@ class SensorDevice
   virtual void GetAllEvents(GetAllEventsCallback callback) = 0;
 
 
-  using SetEventsEnabledCallback = base::OnceCallback<void(const std::vector<int32_t>&)>;
-  
-  virtual void SetEventsEnabled(const std::vector<int32_t>& iio_event_indices, bool en, SetEventsEnabledCallback callback) = 0;
-
-
-  using GetEventsEnabledCallback = base::OnceCallback<void(const std::vector<bool>&)>;
-  
-  virtual void GetEventsEnabled(const std::vector<int32_t>& iio_event_indices, GetEventsEnabledCallback callback) = 0;
-
-
   using GetEventsAttributesCallback = base::OnceCallback<void(const std::vector<absl::optional<std::string>>&)>;
   
   virtual void GetEventsAttributes(const std::vector<int32_t>& iio_event_indices, const std::string& attr_name, GetEventsAttributesCallback callback) = 0;
 
   
-  virtual void StartReadingEvents(::mojo::PendingRemote<SensorDeviceEventsObserver> observer) = 0;
-
-  
-  virtual void StopReadingEvents() = 0;
+  virtual void StartReadingEvents(const std::vector<int32_t>& iio_event_indices, ::mojo::PendingRemote<SensorDeviceEventsObserver> observer) = 0;
 };
 
 class SensorDeviceSamplesObserverProxy;
@@ -473,15 +448,9 @@ class  SensorDeviceProxy
   
   void GetAllEvents(GetAllEventsCallback callback) final;
   
-  void SetEventsEnabled(const std::vector<int32_t>& iio_event_indices, bool en, SetEventsEnabledCallback callback) final;
-  
-  void GetEventsEnabled(const std::vector<int32_t>& iio_event_indices, GetEventsEnabledCallback callback) final;
-  
   void GetEventsAttributes(const std::vector<int32_t>& iio_event_indices, const std::string& attr_name, GetEventsAttributesCallback callback) final;
   
-  void StartReadingEvents(::mojo::PendingRemote<SensorDeviceEventsObserver> observer) final;
-  
-  void StopReadingEvents() final;
+  void StartReadingEvents(const std::vector<int32_t>& iio_event_indices, ::mojo::PendingRemote<SensorDeviceEventsObserver> observer) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
