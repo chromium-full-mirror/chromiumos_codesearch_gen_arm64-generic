@@ -2443,18 +2443,6 @@ class CryptohomeMiscInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  virtual bool GetStatusString(
-      const user_data_auth::GetStatusStringRequest& in_request,
-      user_data_auth::GetStatusStringReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void GetStatusStringAsync(
-      const user_data_auth::GetStatusStringRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::GetStatusStringReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   virtual bool LockToSingleUserMountUntilReboot(
       const user_data_auth::LockToSingleUserMountUntilRebootRequest& in_request,
       user_data_auth::LockToSingleUserMountUntilRebootReply* out_reply,
@@ -2647,37 +2635,6 @@ class CryptohomeMiscInterfaceProxy final : public CryptohomeMiscInterfaceProxyIn
         dbus_object_proxy_,
         "org.chromium.CryptohomeMiscInterface",
         "GetLoginStatus",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_request);
-  }
-
-  bool GetStatusString(
-      const user_data_auth::GetStatusStringRequest& in_request,
-      user_data_auth::GetStatusStringReply* out_reply,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.CryptohomeMiscInterface",
-        "GetStatusString",
-        error,
-        in_request);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_reply);
-  }
-
-  void GetStatusStringAsync(
-      const user_data_auth::GetStatusStringRequest& in_request,
-      base::OnceCallback<void(const user_data_auth::GetStatusStringReply& /*reply*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.CryptohomeMiscInterface",
-        "GetStatusString",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

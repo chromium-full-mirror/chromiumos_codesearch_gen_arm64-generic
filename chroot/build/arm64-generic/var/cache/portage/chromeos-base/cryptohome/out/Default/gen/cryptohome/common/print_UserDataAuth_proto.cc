@@ -2705,38 +2705,6 @@ std::string GetProtoDebugStringWithIndent(const GetLoginStatusReply& value,
   return output;
 }
 
-std::string GetProtoDebugString(const GetStatusStringRequest& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(const GetStatusStringRequest& value,
-                                          int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "}\n";
-  return output;
-}
-
-std::string GetProtoDebugString(const GetStatusStringReply& value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(const GetStatusStringReply& value,
-                                          int indent_size) {
-  std::string indent(indent_size, ' ');
-  std::string output =
-      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
-
-  output += indent + "  status: ";
-  base::StringAppendF(&output, "%s", value.status().c_str());
-  output += "\n";
-
-  output += indent + "}\n";
-  return output;
-}
-
 std::string GetProtoDebugString(
     const LockToSingleUserMountUntilRebootRequest& value) {
   return GetProtoDebugStringWithIndent(value, 0);

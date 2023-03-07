@@ -788,9 +788,6 @@ class CryptohomeMiscInterfaceInterface {
   virtual void GetLoginStatus(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetLoginStatusReply>> response,
       const user_data_auth::GetLoginStatusRequest& in_request) = 0;
-  virtual void GetStatusString(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetStatusStringReply>> response,
-      const user_data_auth::GetStatusStringRequest& in_request) = 0;
   virtual void LockToSingleUserMountUntilReboot(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::LockToSingleUserMountUntilRebootReply>> response,
       const user_data_auth::LockToSingleUserMountUntilRebootRequest& in_request) = 0;
@@ -830,10 +827,6 @@ class CryptohomeMiscInterfaceAdaptor {
         base::Unretained(interface_),
         &CryptohomeMiscInterfaceInterface::GetLoginStatus);
     itf->AddMethodHandler(
-        "GetStatusString",
-        base::Unretained(interface_),
-        &CryptohomeMiscInterfaceInterface::GetStatusString);
-    itf->AddMethodHandler(
         "LockToSingleUserMountUntilReboot",
         base::Unretained(interface_),
         &CryptohomeMiscInterfaceInterface::LockToSingleUserMountUntilReboot);
@@ -867,10 +860,6 @@ class CryptohomeMiscInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"GetLoginStatus\">\n"
-        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
-        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
-        "    </method>\n"
-        "    <method name=\"GetStatusString\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

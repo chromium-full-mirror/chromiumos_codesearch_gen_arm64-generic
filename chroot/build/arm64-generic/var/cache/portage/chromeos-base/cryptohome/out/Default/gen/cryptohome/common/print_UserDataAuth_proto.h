@@ -488,14 +488,6 @@ BRILLO_EXPORT std::string GetProtoDebugString(
 std::string GetProtoDebugStringWithIndent(const GetLoginStatusReply& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const GetLoginStatusReply& value);
-std::string GetProtoDebugStringWithIndent(const GetStatusStringRequest& value,
-                                          int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const GetStatusStringRequest& value);
-std::string GetProtoDebugStringWithIndent(const GetStatusStringReply& value,
-                                          int indent_size);
-BRILLO_EXPORT std::string GetProtoDebugString(
-    const GetStatusStringReply& value);
 std::string GetProtoDebugStringWithIndent(
     const LockToSingleUserMountUntilRebootRequest& value,
     int indent_size);

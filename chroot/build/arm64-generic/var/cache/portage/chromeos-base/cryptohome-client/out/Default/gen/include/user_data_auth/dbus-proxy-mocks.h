@@ -648,16 +648,6 @@ class CryptohomeMiscInterfaceProxyMock : public CryptohomeMiscInterfaceProxyInte
                     base::OnceCallback<void(const user_data_auth::GetLoginStatusReply& /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
-  MOCK_METHOD4(GetStatusString,
-               bool(const user_data_auth::GetStatusStringRequest& /*in_request*/,
-                    user_data_auth::GetStatusStringReply* /*out_reply*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD4(GetStatusStringAsync,
-               void(const user_data_auth::GetStatusStringRequest& /*in_request*/,
-                    base::OnceCallback<void(const user_data_auth::GetStatusStringReply& /*reply*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
   MOCK_METHOD4(LockToSingleUserMountUntilReboot,
                bool(const user_data_auth::LockToSingleUserMountUntilRebootRequest& /*in_request*/,
                     user_data_auth::LockToSingleUserMountUntilRebootReply* /*out_reply*/,
