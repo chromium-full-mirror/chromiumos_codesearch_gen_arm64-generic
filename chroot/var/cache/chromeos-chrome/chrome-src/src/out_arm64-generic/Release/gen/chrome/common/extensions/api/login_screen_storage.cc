@@ -36,9 +36,55 @@ namespace StorePersistentData {
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 2) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& extension_ids_value = args[0];
+    {
+      if (!extension_ids_value.is_list()) {
+        return absl::nullopt;
+      }
+      else {
+        if (!json_schema_compiler::util::PopulateArrayFromList(extension_ids_value.GetList(), &params->extension_ids)) {
+          return absl::nullopt;
+        }
+      }
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  if (1 < args.size() &&
+      !args[1].is_none()) {
+    const base::Value& data_value = args[1];
+    {
+      auto* temp = data_value.GetIfString();
+      if (!temp) {
+        return absl::nullopt;
+      }
+      params->data = *temp;
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 2) {
     return nullptr;
   }
@@ -49,17 +95,17 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     const base::Value& extension_ids_value = args[0];
     {
       if (!extension_ids_value.is_list()) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       else {
         if (!json_schema_compiler::util::PopulateArrayFromList(extension_ids_value.GetList(), &params->extension_ids)) {
-          return std::unique_ptr<Params>();
+          return nullptr;
         }
       }
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   if (1 < args.size() &&
@@ -68,13 +114,13 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = data_value.GetIfString();
       if (!temp) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       params->data = *temp;
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;
@@ -92,9 +138,37 @@ namespace RetrievePersistentData {
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& owner_id_value = args[0];
+    {
+      auto* temp = owner_id_value.GetIfString();
+      if (!temp) {
+        return absl::nullopt;
+      }
+      params->owner_id = *temp;
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 1) {
     return nullptr;
   }
@@ -106,13 +180,13 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = owner_id_value.GetIfString();
       if (!temp) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       params->owner_id = *temp;
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;
@@ -132,9 +206,52 @@ namespace StoreCredentials {
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 2) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& extension_id_value = args[0];
+    {
+      auto* temp = extension_id_value.GetIfString();
+      if (!temp) {
+        return absl::nullopt;
+      }
+      params->extension_id = *temp;
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  if (1 < args.size() &&
+      !args[1].is_none()) {
+    const base::Value& credentials_value = args[1];
+    {
+      auto* temp = credentials_value.GetIfString();
+      if (!temp) {
+        return absl::nullopt;
+      }
+      params->credentials = *temp;
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 2) {
     return nullptr;
   }
@@ -146,13 +263,13 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = extension_id_value.GetIfString();
       if (!temp) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       params->extension_id = *temp;
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   if (1 < args.size() &&
@@ -161,13 +278,13 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = credentials_value.GetIfString();
       if (!temp) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       params->credentials = *temp;
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;

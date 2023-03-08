@@ -127,9 +127,12 @@ namespace StorageArea {
 namespace Get {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   // A single key to get, list of keys to get, or a dictionary specifying default
@@ -211,9 +214,12 @@ base::Value::List Create(const Items& items);
 namespace GetBytesInUse {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   // A single key or list of keys to get the total usage for. An empty list will
@@ -255,9 +261,12 @@ base::Value::List Create(int bytes_in_use);
 namespace Set {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   // <p>An object which gives each key/value pair to update storage with. Any
@@ -307,9 +316,12 @@ base::Value::List Create();
 namespace Remove {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   // A single key or a list of keys for items to remove.
@@ -357,9 +369,12 @@ base::Value::List Create();
 namespace SetAccessLevel {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   struct AccessOptions {

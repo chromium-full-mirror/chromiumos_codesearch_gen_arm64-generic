@@ -329,9 +329,53 @@ namespace Attach {
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 2) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& target_value = args[0];
+    {
+      if (!target_value.is_dict()) {
+        return absl::nullopt;
+      }
+      if (!Debuggee::Populate(target_value, &params->target)) {
+        return absl::nullopt;
+      }
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  if (1 < args.size() &&
+      !args[1].is_none()) {
+    const base::Value& required_version_value = args[1];
+    {
+      auto* temp = required_version_value.GetIfString();
+      if (!temp) {
+        return absl::nullopt;
+      }
+      params->required_version = *temp;
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 2) {
     return nullptr;
   }
@@ -342,15 +386,15 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     const base::Value& target_value = args[0];
     {
       if (!target_value.is_dict()) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       if (!Debuggee::Populate(target_value, &params->target)) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   if (1 < args.size() &&
@@ -359,13 +403,13 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = required_version_value.GetIfString();
       if (!temp) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       params->required_version = *temp;
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;
@@ -383,9 +427,38 @@ namespace Detach {
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& target_value = args[0];
+    {
+      if (!target_value.is_dict()) {
+        return absl::nullopt;
+      }
+      if (!Debuggee::Populate(target_value, &params->target)) {
+        return absl::nullopt;
+      }
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 1) {
     return nullptr;
   }
@@ -396,15 +469,15 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     const base::Value& target_value = args[0];
     {
       if (!target_value.is_dict()) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       if (!Debuggee::Populate(target_value, &params->target)) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;
@@ -440,9 +513,69 @@ bool Params::CommandParams::Populate(
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() < 2 || args.size() > 3) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& target_value = args[0];
+    {
+      if (!target_value.is_dict()) {
+        return absl::nullopt;
+      }
+      if (!Debuggee::Populate(target_value, &params->target)) {
+        return absl::nullopt;
+      }
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  if (1 < args.size() &&
+      !args[1].is_none()) {
+    const base::Value& method_value = args[1];
+    {
+      auto* temp = method_value.GetIfString();
+      if (!temp) {
+        return absl::nullopt;
+      }
+      params->method = *temp;
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  if (2 < args.size() &&
+      !args[2].is_none()) {
+    const base::Value& command_params_value = args[2];
+    {
+      if (!command_params_value.is_dict()) {
+        return absl::nullopt;
+      }
+      else {
+        CommandParams temp;
+        if (!CommandParams::Populate(command_params_value, &temp))
+          return absl::nullopt;
+        params->command_params = std::move(temp);
+      }
+    }
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() < 2 || args.size() > 3) {
     return nullptr;
   }
@@ -453,15 +586,15 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     const base::Value& target_value = args[0];
     {
       if (!target_value.is_dict()) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       if (!Debuggee::Populate(target_value, &params->target)) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   if (1 < args.size() &&
@@ -470,13 +603,13 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = method_value.GetIfString();
       if (!temp) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       params->method = *temp;
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   if (2 < args.size() &&
@@ -484,12 +617,12 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     const base::Value& command_params_value = args[2];
     {
       if (!command_params_value.is_dict()) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       else {
         CommandParams temp;
         if (!CommandParams::Populate(command_params_value, &temp))
-          return std::unique_ptr<Params>();
+          return nullptr;
         params->command_params = std::move(temp);
       }
     }

@@ -79,9 +79,12 @@ struct QueryInfo {
 namespace Query {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   QueryInfo query_info;

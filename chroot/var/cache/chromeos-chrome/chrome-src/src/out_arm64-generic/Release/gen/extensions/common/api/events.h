@@ -69,9 +69,12 @@ namespace Event {
 namespace AddRules {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   // Name of the event this function affects.
@@ -100,9 +103,12 @@ base::Value::List Create(const std::vector<Rule>& rules);
 namespace GetRules {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   // Name of the event this function affects.
@@ -132,9 +138,12 @@ base::Value::List Create(const std::vector<Rule>& rules);
 namespace RemoveRules {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   // Name of the event this function affects.

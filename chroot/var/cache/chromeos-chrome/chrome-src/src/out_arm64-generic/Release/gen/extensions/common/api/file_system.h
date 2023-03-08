@@ -202,9 +202,12 @@ struct VolumeListChangedEvent {
 namespace GetDisplayPath {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   struct Entry {
@@ -240,9 +243,12 @@ base::Value::List Create(const std::string& display_path);
 namespace GetWritableEntry {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   struct Entry {
@@ -294,9 +300,12 @@ base::Value::List Create(const Entry& entry);
 namespace IsWritableEntry {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   struct Entry {
@@ -332,9 +341,12 @@ base::Value::List Create(bool is_writable);
 namespace ChooseEntry {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   absl::optional<ChooseEntryOptions> options;
@@ -386,9 +398,12 @@ base::Value::List Create(const Entry& entry, const std::vector<FileEntriesType>&
 namespace RestoreEntry {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   std::string id;
@@ -424,9 +439,12 @@ base::Value::List Create(const Entry& entry);
 namespace IsRestorable {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   std::string id;
@@ -446,9 +464,12 @@ base::Value::List Create(bool is_restorable);
 namespace RetainEntry {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   struct Entry {
@@ -479,9 +500,12 @@ struct Params {
 namespace RequestFileSystem {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   RequestFileSystemOptions options;

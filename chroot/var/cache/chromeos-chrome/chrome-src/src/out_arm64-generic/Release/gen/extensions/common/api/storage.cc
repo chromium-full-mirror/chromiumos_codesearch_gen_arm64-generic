@@ -206,9 +206,33 @@ bool Params::Keys::Populate(
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() > 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& keys_value = args[0];
+    {
+      Keys temp;
+      if (!Keys::Populate(keys_value, &temp))
+        return absl::nullopt;
+      params->keys = std::move(temp);
+    }
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() > 1) {
     return nullptr;
   }
@@ -220,7 +244,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       Keys temp;
       if (!Keys::Populate(keys_value, &temp))
-        return std::unique_ptr<Params>();
+        return nullptr;
       params->keys = std::move(temp);
     }
   }
@@ -294,9 +318,33 @@ bool Params::Keys::Populate(
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() > 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& keys_value = args[0];
+    {
+      Keys temp;
+      if (!Keys::Populate(keys_value, &temp))
+        return absl::nullopt;
+      params->keys = std::move(temp);
+    }
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() > 1) {
     return nullptr;
   }
@@ -308,7 +356,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       Keys temp;
       if (!Keys::Populate(keys_value, &temp))
-        return std::unique_ptr<Params>();
+        return nullptr;
       params->keys = std::move(temp);
     }
   }
@@ -348,9 +396,38 @@ bool Params::Items::Populate(
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& items_value = args[0];
+    {
+      if (!items_value.is_dict()) {
+        return absl::nullopt;
+      }
+      if (!Items::Populate(items_value, &params->items)) {
+        return absl::nullopt;
+      }
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 1) {
     return nullptr;
   }
@@ -361,15 +438,15 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     const base::Value& items_value = args[0];
     {
       if (!items_value.is_dict()) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       if (!Items::Populate(items_value, &params->items)) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;
@@ -424,9 +501,34 @@ bool Params::Keys::Populate(
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& keys_value = args[0];
+    {
+      if (!Keys::Populate(keys_value, &params->keys))
+        return absl::nullopt;
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 1) {
     return nullptr;
   }
@@ -437,11 +539,11 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     const base::Value& keys_value = args[0];
     {
       if (!Keys::Populate(keys_value, &params->keys))
-        return std::unique_ptr<Params>();
+        return nullptr;
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;
@@ -500,9 +602,38 @@ bool Params::AccessOptions::Populate(
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& access_options_value = args[0];
+    {
+      if (!access_options_value.is_dict()) {
+        return absl::nullopt;
+      }
+      if (!AccessOptions::Populate(access_options_value, &params->access_options)) {
+        return absl::nullopt;
+      }
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 1) {
     return nullptr;
   }
@@ -513,15 +644,15 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     const base::Value& access_options_value = args[0];
     {
       if (!access_options_value.is_dict()) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       if (!AccessOptions::Populate(access_options_value, &params->access_options)) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;

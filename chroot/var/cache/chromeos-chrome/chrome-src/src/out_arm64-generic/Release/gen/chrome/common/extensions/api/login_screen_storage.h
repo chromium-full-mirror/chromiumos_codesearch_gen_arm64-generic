@@ -30,9 +30,12 @@ namespace login_screen_storage {
 namespace StorePersistentData {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   // IDs of the extensions that should have access to the stored data.
@@ -56,9 +59,12 @@ base::Value::List Create();
 namespace RetrievePersistentData {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   // ID of the extension that saved the data that the caller is trying to
@@ -80,9 +86,12 @@ base::Value::List Create(const std::string& data);
 namespace StoreCredentials {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   // ID of the in-session extension that should have access to these credentials.

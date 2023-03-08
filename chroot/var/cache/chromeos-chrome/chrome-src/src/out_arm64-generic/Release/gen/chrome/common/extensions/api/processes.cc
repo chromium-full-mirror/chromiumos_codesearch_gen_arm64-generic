@@ -503,9 +503,37 @@ namespace GetProcessIdForTab {
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& tab_id_value = args[0];
+    {
+      auto temp = tab_id_value.GetIfInt();
+      if (!temp.has_value()) {
+        return absl::nullopt;
+      }
+      params->tab_id = *temp;
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 1) {
     return nullptr;
   }
@@ -517,13 +545,13 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = tab_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       params->tab_id = *temp;
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;
@@ -543,9 +571,37 @@ namespace Terminate {
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& process_id_value = args[0];
+    {
+      auto temp = process_id_value.GetIfInt();
+      if (!temp.has_value()) {
+        return absl::nullopt;
+      }
+      params->process_id = *temp;
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 1) {
     return nullptr;
   }
@@ -557,13 +613,13 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = process_id_value.GetIfInt();
       if (!temp.has_value()) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       params->process_id = *temp;
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;
@@ -620,9 +676,49 @@ bool Params::ProcessIds::Populate(
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 2) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& process_ids_value = args[0];
+    {
+      if (!ProcessIds::Populate(process_ids_value, &params->process_ids))
+        return absl::nullopt;
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  if (1 < args.size() &&
+      !args[1].is_none()) {
+    const base::Value& include_memory_value = args[1];
+    {
+      auto temp = include_memory_value.GetIfBool();
+      if (!temp.has_value()) {
+        return absl::nullopt;
+      }
+      params->include_memory = *temp;
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 2) {
     return nullptr;
   }
@@ -633,11 +729,11 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     const base::Value& process_ids_value = args[0];
     {
       if (!ProcessIds::Populate(process_ids_value, &params->process_ids))
-        return std::unique_ptr<Params>();
+        return nullptr;
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   if (1 < args.size() &&
@@ -646,13 +742,13 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = include_memory_value.GetIfBool();
       if (!temp.has_value()) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       params->include_memory = *temp;
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;

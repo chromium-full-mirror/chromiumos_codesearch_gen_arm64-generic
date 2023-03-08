@@ -214,11 +214,29 @@ struct WebAuthFlowDetails {
   // flows may immediately redirect to a result URL,
   // <code>launchWebAuthFlow</code> hides its web view until the first navigation
   // either redirects to the final URL, or finishes loading a page meant to be
-  // displayed.</p><p>If the interactive flag is <code>true</code>, the window
-  // will be displayed when a page load completes. If the flag is
+  // displayed.</p><p>If the <code>interactive</code> flag is <code>true</code>,
+  // the window will be displayed when a page load completes. If the flag is
   // <code>false</code> or omitted, <code>launchWebAuthFlow</code> will return
-  // with an error if the initial navigation does not complete the flow.</p>
+  // with an error if the initial navigation does not complete the flow.</p><p>For
+  // flows that use JavaScript for redirection,
+  // <code>abortOnLoadForNonInteractive</code> can be set to <code>false</code> in
+  // combination with setting <code>timeoutMsForNonInteractive</code> to give the
+  // page a chance to perform any redirects.</p>
   absl::optional<bool> interactive;
+
+  // <p>Whether to terminate <code>launchWebAuthFlow</code> for non-interactive
+  // requests after the page loads. This parameter does not affect interactive
+  // flows.</p><p>When set to <code>true</code> (default) the flow will terminate
+  // immediately after the page loads. When set to <code>false</code>, the flow
+  // will only terminate after the <code>timeoutMsForNonInteractive</code> passes.
+  // This is useful for identity providers that use JavaScript to perform
+  // redirections after the page loads.</p>
+  absl::optional<bool> abort_on_load_for_non_interactive;
+
+  // The maximum amount of time, in miliseconds, <code>launchWebAuthFlow</code> is
+  // allowed to run in non-interactive mode in total. Only has an effect if
+  // <code>interactive</code> is <code>false</code>.
+  absl::optional<int> timeout_ms_for_non_interactive;
 
 };
 
@@ -266,9 +284,12 @@ base::Value::List Create(const std::vector<AccountInfo>& accounts);
 namespace GetAuthToken {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   // Token options.
@@ -289,9 +310,12 @@ base::Value::List Create(const GetAuthTokenResult& result);
 namespace GetProfileUserInfo {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   // Profile options.
@@ -312,9 +336,12 @@ base::Value::List Create(const ProfileUserInfo& user_info);
 namespace RemoveCachedAuthToken {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   // Token information.
@@ -344,9 +371,12 @@ base::Value::List Create();
 namespace LaunchWebAuthFlow {
 
 struct Params {
-  static std::unique_ptr<Params> Create(const base::Value::List& args);
+  static std::unique_ptr<Params> CreateDeprecated(const base::Value::List& args);
+  static absl::optional<Params> Create(const base::Value::List& args);
   Params(const Params&) = delete;
   Params& operator=(const Params&) = delete;
+  Params(Params&& rhs);
+  Params& operator=(Params&& rhs);
   ~Params();
 
   // WebAuth flow options.

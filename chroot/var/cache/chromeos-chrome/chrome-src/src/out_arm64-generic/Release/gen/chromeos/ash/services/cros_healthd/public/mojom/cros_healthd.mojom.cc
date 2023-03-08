@@ -11297,26 +11297,26 @@ const char CrosHealthdEventService::Name_[] = "ash.cros_healthd.mojom.CrosHealth
 CrosHealthdEventService::IPCStableHashFunction CrosHealthdEventService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kCrosHealthdEventService_AddBluetoothObserver_Name: {
-      return &CrosHealthdEventService::AddBluetoothObserver_Sym::IPCStableHash;
+    case internal::kCrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Name: {
+      return &CrosHealthdEventService::DEPRECATED_AddBluetoothObserver_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdEventService_AddLidObserver_Name: {
-      return &CrosHealthdEventService::AddLidObserver_Sym::IPCStableHash;
+    case internal::kCrosHealthdEventService_DEPRECATED_AddLidObserver_Name: {
+      return &CrosHealthdEventService::DEPRECATED_AddLidObserver_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdEventService_AddPowerObserver_Name: {
-      return &CrosHealthdEventService::AddPowerObserver_Sym::IPCStableHash;
+    case internal::kCrosHealthdEventService_DEPRECATED_AddPowerObserver_Name: {
+      return &CrosHealthdEventService::DEPRECATED_AddPowerObserver_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdEventService_AddNetworkObserver_Name: {
       return &CrosHealthdEventService::AddNetworkObserver_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdEventService_AddAudioObserver_Name: {
-      return &CrosHealthdEventService::AddAudioObserver_Sym::IPCStableHash;
+    case internal::kCrosHealthdEventService_DEPRECATED_AddAudioObserver_Name: {
+      return &CrosHealthdEventService::DEPRECATED_AddAudioObserver_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdEventService_AddThunderboltObserver_Name: {
-      return &CrosHealthdEventService::AddThunderboltObserver_Sym::IPCStableHash;
+    case internal::kCrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Name: {
+      return &CrosHealthdEventService::DEPRECATED_AddThunderboltObserver_Sym::IPCStableHash;
     }
-    case internal::kCrosHealthdEventService_AddUsbObserver_Name: {
-      return &CrosHealthdEventService::AddUsbObserver_Sym::IPCStableHash;
+    case internal::kCrosHealthdEventService_DEPRECATED_AddUsbObserver_Name: {
+      return &CrosHealthdEventService::DEPRECATED_AddUsbObserver_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdEventService_AddEventObserver_Name: {
       return &CrosHealthdEventService::AddEventObserver_Sym::IPCStableHash;
@@ -11332,39 +11332,39 @@ const char* CrosHealthdEventService::MessageToMethodName_(mojo::Message& message
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kCrosHealthdEventService_AddBluetoothObserver_Name:
-            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddBluetoothObserver";
-      case internal::kCrosHealthdEventService_AddLidObserver_Name:
-            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddLidObserver";
-      case internal::kCrosHealthdEventService_AddPowerObserver_Name:
-            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddPowerObserver";
+      case internal::kCrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddBluetoothObserver";
+      case internal::kCrosHealthdEventService_DEPRECATED_AddLidObserver_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddLidObserver";
+      case internal::kCrosHealthdEventService_DEPRECATED_AddPowerObserver_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddPowerObserver";
       case internal::kCrosHealthdEventService_AddNetworkObserver_Name:
             return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddNetworkObserver";
-      case internal::kCrosHealthdEventService_AddAudioObserver_Name:
-            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddAudioObserver";
-      case internal::kCrosHealthdEventService_AddThunderboltObserver_Name:
-            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddThunderboltObserver";
-      case internal::kCrosHealthdEventService_AddUsbObserver_Name:
-            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver";
+      case internal::kCrosHealthdEventService_DEPRECATED_AddAudioObserver_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddAudioObserver";
+      case internal::kCrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddThunderboltObserver";
+      case internal::kCrosHealthdEventService_DEPRECATED_AddUsbObserver_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddUsbObserver";
       case internal::kCrosHealthdEventService_AddEventObserver_Name:
             return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddEventObserver";
     }
   } else {
     switch (message.name()) {
-      case internal::kCrosHealthdEventService_AddBluetoothObserver_Name:
-            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddBluetoothObserver";
-      case internal::kCrosHealthdEventService_AddLidObserver_Name:
-            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddLidObserver";
-      case internal::kCrosHealthdEventService_AddPowerObserver_Name:
-            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddPowerObserver";
+      case internal::kCrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddBluetoothObserver";
+      case internal::kCrosHealthdEventService_DEPRECATED_AddLidObserver_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddLidObserver";
+      case internal::kCrosHealthdEventService_DEPRECATED_AddPowerObserver_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddPowerObserver";
       case internal::kCrosHealthdEventService_AddNetworkObserver_Name:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddNetworkObserver";
-      case internal::kCrosHealthdEventService_AddAudioObserver_Name:
-            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddAudioObserver";
-      case internal::kCrosHealthdEventService_AddThunderboltObserver_Name:
-            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddThunderboltObserver";
-      case internal::kCrosHealthdEventService_AddUsbObserver_Name:
-            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver";
+      case internal::kCrosHealthdEventService_DEPRECATED_AddAudioObserver_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddAudioObserver";
+      case internal::kCrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddThunderboltObserver";
+      case internal::kCrosHealthdEventService_DEPRECATED_AddUsbObserver_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddUsbObserver";
       case internal::kCrosHealthdEventService_AddEventObserver_Name:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddEventObserver";
     }
@@ -11381,7 +11381,7 @@ const char* CrosHealthdEventService::MessageToMethodName_(mojo::Message& message
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t CrosHealthdEventService::AddBluetoothObserver_Sym::IPCStableHash() {
+uint32_t CrosHealthdEventService::DEPRECATED_AddBluetoothObserver_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -11389,12 +11389,12 @@ uint32_t CrosHealthdEventService::AddBluetoothObserver_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::AddBluetoothObserver");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddBluetoothObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t CrosHealthdEventService::AddLidObserver_Sym::IPCStableHash() {
+uint32_t CrosHealthdEventService::DEPRECATED_AddLidObserver_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -11402,12 +11402,12 @@ uint32_t CrosHealthdEventService::AddLidObserver_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::AddLidObserver");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddLidObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t CrosHealthdEventService::AddPowerObserver_Sym::IPCStableHash() {
+uint32_t CrosHealthdEventService::DEPRECATED_AddPowerObserver_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -11415,7 +11415,7 @@ uint32_t CrosHealthdEventService::AddPowerObserver_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::AddPowerObserver");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddPowerObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -11433,7 +11433,7 @@ uint32_t CrosHealthdEventService::AddNetworkObserver_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t CrosHealthdEventService::AddAudioObserver_Sym::IPCStableHash() {
+uint32_t CrosHealthdEventService::DEPRECATED_AddAudioObserver_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -11441,12 +11441,12 @@ uint32_t CrosHealthdEventService::AddAudioObserver_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::AddAudioObserver");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddAudioObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t CrosHealthdEventService::AddThunderboltObserver_Sym::IPCStableHash() {
+uint32_t CrosHealthdEventService::DEPRECATED_AddThunderboltObserver_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -11454,12 +11454,12 @@ uint32_t CrosHealthdEventService::AddThunderboltObserver_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::AddThunderboltObserver");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddThunderboltObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t CrosHealthdEventService::AddUsbObserver_Sym::IPCStableHash() {
+uint32_t CrosHealthdEventService::DEPRECATED_AddUsbObserver_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -11467,7 +11467,7 @@ uint32_t CrosHealthdEventService::AddUsbObserver_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddUsbObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -11491,11 +11491,11 @@ CrosHealthdEventServiceProxy::CrosHealthdEventServiceProxy(mojo::MessageReceiver
     : receiver_(receiver) {
 }
 
-void CrosHealthdEventServiceProxy::AddBluetoothObserver(
+void CrosHealthdEventServiceProxy::DEPRECATED_AddBluetoothObserver(
     ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver> in_observer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddBluetoothObserver", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddBluetoothObserver", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -11513,9 +11513,9 @@ void CrosHealthdEventServiceProxy::AddBluetoothObserver(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kCrosHealthdEventService_AddBluetoothObserver_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_AddBluetoothObserver_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserverInterfaceBase>>(
@@ -11523,22 +11523,22 @@ void CrosHealthdEventServiceProxy::AddBluetoothObserver(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->observer),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid observer in CrosHealthdEventService.AddBluetoothObserver request");
+      "invalid observer in CrosHealthdEventService.DEPRECATED_AddBluetoothObserver request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosHealthdEventService::Name_);
-  message.set_method_name("AddBluetoothObserver");
+  message.set_method_name("DEPRECATED_AddBluetoothObserver");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void CrosHealthdEventServiceProxy::AddLidObserver(
+void CrosHealthdEventServiceProxy::DEPRECATED_AddLidObserver(
     ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver> in_observer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddLidObserver", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddLidObserver", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -11556,9 +11556,9 @@ void CrosHealthdEventServiceProxy::AddLidObserver(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kCrosHealthdEventService_AddLidObserver_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdEventService_DEPRECATED_AddLidObserver_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_AddLidObserver_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdLidObserverInterfaceBase>>(
@@ -11566,22 +11566,22 @@ void CrosHealthdEventServiceProxy::AddLidObserver(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->observer),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid observer in CrosHealthdEventService.AddLidObserver request");
+      "invalid observer in CrosHealthdEventService.DEPRECATED_AddLidObserver request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosHealthdEventService::Name_);
-  message.set_method_name("AddLidObserver");
+  message.set_method_name("DEPRECATED_AddLidObserver");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void CrosHealthdEventServiceProxy::AddPowerObserver(
+void CrosHealthdEventServiceProxy::DEPRECATED_AddPowerObserver(
     ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver> in_observer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddPowerObserver", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddPowerObserver", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -11599,9 +11599,9 @@ void CrosHealthdEventServiceProxy::AddPowerObserver(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kCrosHealthdEventService_AddPowerObserver_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdEventService_DEPRECATED_AddPowerObserver_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_AddPowerObserver_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdPowerObserverInterfaceBase>>(
@@ -11609,11 +11609,11 @@ void CrosHealthdEventServiceProxy::AddPowerObserver(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->observer),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid observer in CrosHealthdEventService.AddPowerObserver request");
+      "invalid observer in CrosHealthdEventService.DEPRECATED_AddPowerObserver request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosHealthdEventService::Name_);
-  message.set_method_name("AddPowerObserver");
+  message.set_method_name("DEPRECATED_AddPowerObserver");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -11663,11 +11663,11 @@ void CrosHealthdEventServiceProxy::AddNetworkObserver(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void CrosHealthdEventServiceProxy::AddAudioObserver(
+void CrosHealthdEventServiceProxy::DEPRECATED_AddAudioObserver(
     ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> in_observer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddAudioObserver", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddAudioObserver", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -11685,9 +11685,9 @@ void CrosHealthdEventServiceProxy::AddAudioObserver(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kCrosHealthdEventService_AddAudioObserver_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdEventService_DEPRECATED_AddAudioObserver_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_AddAudioObserver_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdAudioObserverInterfaceBase>>(
@@ -11695,22 +11695,22 @@ void CrosHealthdEventServiceProxy::AddAudioObserver(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->observer),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid observer in CrosHealthdEventService.AddAudioObserver request");
+      "invalid observer in CrosHealthdEventService.DEPRECATED_AddAudioObserver request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosHealthdEventService::Name_);
-  message.set_method_name("AddAudioObserver");
+  message.set_method_name("DEPRECATED_AddAudioObserver");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void CrosHealthdEventServiceProxy::AddThunderboltObserver(
+void CrosHealthdEventServiceProxy::DEPRECATED_AddThunderboltObserver(
     ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> in_observer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddThunderboltObserver", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddThunderboltObserver", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -11728,9 +11728,9 @@ void CrosHealthdEventServiceProxy::AddThunderboltObserver(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kCrosHealthdEventService_AddThunderboltObserver_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_AddThunderboltObserver_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserverInterfaceBase>>(
@@ -11738,22 +11738,22 @@ void CrosHealthdEventServiceProxy::AddThunderboltObserver(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->observer),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid observer in CrosHealthdEventService.AddThunderboltObserver request");
+      "invalid observer in CrosHealthdEventService.DEPRECATED_AddThunderboltObserver request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosHealthdEventService::Name_);
-  message.set_method_name("AddThunderboltObserver");
+  message.set_method_name("DEPRECATED_AddThunderboltObserver");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void CrosHealthdEventServiceProxy::AddUsbObserver(
+void CrosHealthdEventServiceProxy::DEPRECATED_AddUsbObserver(
     ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> in_observer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::DEPRECATED_AddUsbObserver", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -11771,9 +11771,9 @@ void CrosHealthdEventServiceProxy::AddUsbObserver(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
-      internal::kCrosHealthdEventService_AddUsbObserver_Name, kFlags, 0, 0, nullptr);
+      internal::kCrosHealthdEventService_DEPRECATED_AddUsbObserver_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_AddUsbObserver_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdUsbObserverInterfaceBase>>(
@@ -11781,11 +11781,11 @@ void CrosHealthdEventServiceProxy::AddUsbObserver(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->observer),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid observer in CrosHealthdEventService.AddUsbObserver request");
+      "invalid observer in CrosHealthdEventService.DEPRECATED_AddUsbObserver request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosHealthdEventService::Name_);
-  message.set_method_name("AddUsbObserver");
+  message.set_method_name("DEPRECATED_AddUsbObserver");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -11845,16 +11845,16 @@ bool CrosHealthdEventServiceStubDispatch::Accept(
     CrosHealthdEventService* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kCrosHealthdEventService_AddBluetoothObserver_Name: {
+    case internal::kCrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Name: {
 
       DCHECK(message->is_serialized());
-      internal::CrosHealthdEventService_AddBluetoothObserver_Params_Data* params =
-          reinterpret_cast<internal::CrosHealthdEventService_AddBluetoothObserver_Params_Data*>(
+      internal::CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data* params =
+          reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
       ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver>>();
-      CrosHealthdEventService_AddBluetoothObserver_ParamsDataView input_data_view(params, message);
+      CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
         p_observer =
@@ -11869,20 +11869,20 @@ bool CrosHealthdEventServiceStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddBluetoothObserver(
+      impl->DEPRECATED_AddBluetoothObserver(
 std::move(p_observer));
       return true;
     }
-    case internal::kCrosHealthdEventService_AddLidObserver_Name: {
+    case internal::kCrosHealthdEventService_DEPRECATED_AddLidObserver_Name: {
 
       DCHECK(message->is_serialized());
-      internal::CrosHealthdEventService_AddLidObserver_Params_Data* params =
-          reinterpret_cast<internal::CrosHealthdEventService_AddLidObserver_Params_Data*>(
+      internal::CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data* params =
+          reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
       ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver>>();
-      CrosHealthdEventService_AddLidObserver_ParamsDataView input_data_view(params, message);
+      CrosHealthdEventService_DEPRECATED_AddLidObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
         p_observer =
@@ -11897,20 +11897,20 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddLidObserver(
+      impl->DEPRECATED_AddLidObserver(
 std::move(p_observer));
       return true;
     }
-    case internal::kCrosHealthdEventService_AddPowerObserver_Name: {
+    case internal::kCrosHealthdEventService_DEPRECATED_AddPowerObserver_Name: {
 
       DCHECK(message->is_serialized());
-      internal::CrosHealthdEventService_AddPowerObserver_Params_Data* params =
-          reinterpret_cast<internal::CrosHealthdEventService_AddPowerObserver_Params_Data*>(
+      internal::CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data* params =
+          reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
       ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver>>();
-      CrosHealthdEventService_AddPowerObserver_ParamsDataView input_data_view(params, message);
+      CrosHealthdEventService_DEPRECATED_AddPowerObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
         p_observer =
@@ -11925,7 +11925,7 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddPowerObserver(
+      impl->DEPRECATED_AddPowerObserver(
 std::move(p_observer));
       return true;
     }
@@ -11957,16 +11957,16 @@ std::move(p_observer));
 std::move(p_observer));
       return true;
     }
-    case internal::kCrosHealthdEventService_AddAudioObserver_Name: {
+    case internal::kCrosHealthdEventService_DEPRECATED_AddAudioObserver_Name: {
 
       DCHECK(message->is_serialized());
-      internal::CrosHealthdEventService_AddAudioObserver_Params_Data* params =
-          reinterpret_cast<internal::CrosHealthdEventService_AddAudioObserver_Params_Data*>(
+      internal::CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data* params =
+          reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
       ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver>>();
-      CrosHealthdEventService_AddAudioObserver_ParamsDataView input_data_view(params, message);
+      CrosHealthdEventService_DEPRECATED_AddAudioObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
         p_observer =
@@ -11981,20 +11981,20 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddAudioObserver(
+      impl->DEPRECATED_AddAudioObserver(
 std::move(p_observer));
       return true;
     }
-    case internal::kCrosHealthdEventService_AddThunderboltObserver_Name: {
+    case internal::kCrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Name: {
 
       DCHECK(message->is_serialized());
-      internal::CrosHealthdEventService_AddThunderboltObserver_Params_Data* params =
-          reinterpret_cast<internal::CrosHealthdEventService_AddThunderboltObserver_Params_Data*>(
+      internal::CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data* params =
+          reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
       ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver>>();
-      CrosHealthdEventService_AddThunderboltObserver_ParamsDataView input_data_view(params, message);
+      CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
         p_observer =
@@ -12009,20 +12009,20 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddThunderboltObserver(
+      impl->DEPRECATED_AddThunderboltObserver(
 std::move(p_observer));
       return true;
     }
-    case internal::kCrosHealthdEventService_AddUsbObserver_Name: {
+    case internal::kCrosHealthdEventService_DEPRECATED_AddUsbObserver_Name: {
 
       DCHECK(message->is_serialized());
-      internal::CrosHealthdEventService_AddUsbObserver_Params_Data* params =
-          reinterpret_cast<internal::CrosHealthdEventService_AddUsbObserver_Params_Data*>(
+      internal::CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data* params =
+          reinterpret_cast<internal::CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data*>(
               message->mutable_payload());
       
       bool success = true;
       ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver>>();
-      CrosHealthdEventService_AddUsbObserver_ParamsDataView input_data_view(params, message);
+      CrosHealthdEventService_DEPRECATED_AddUsbObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
         p_observer =
@@ -12037,7 +12037,7 @@ std::move(p_observer));
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->AddUsbObserver(
+      impl->DEPRECATED_AddUsbObserver(
 std::move(p_observer));
       return true;
     }
@@ -12086,25 +12086,25 @@ bool CrosHealthdEventServiceStubDispatch::AcceptWithResponder(
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kCrosHealthdEventService_AddBluetoothObserver_Name: {
+    case internal::kCrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Name: {
       break;
     }
-    case internal::kCrosHealthdEventService_AddLidObserver_Name: {
+    case internal::kCrosHealthdEventService_DEPRECATED_AddLidObserver_Name: {
       break;
     }
-    case internal::kCrosHealthdEventService_AddPowerObserver_Name: {
+    case internal::kCrosHealthdEventService_DEPRECATED_AddPowerObserver_Name: {
       break;
     }
     case internal::kCrosHealthdEventService_AddNetworkObserver_Name: {
       break;
     }
-    case internal::kCrosHealthdEventService_AddAudioObserver_Name: {
+    case internal::kCrosHealthdEventService_DEPRECATED_AddAudioObserver_Name: {
       break;
     }
-    case internal::kCrosHealthdEventService_AddThunderboltObserver_Name: {
+    case internal::kCrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Name: {
       break;
     }
-    case internal::kCrosHealthdEventService_AddUsbObserver_Name: {
+    case internal::kCrosHealthdEventService_DEPRECATED_AddUsbObserver_Name: {
       break;
     }
     case internal::kCrosHealthdEventService_AddEventObserver_Name: {
@@ -12116,19 +12116,19 @@ bool CrosHealthdEventServiceStubDispatch::AcceptWithResponder(
 
 
 static const mojo::internal::GenericValidationInfo kCrosHealthdEventServiceValidationInfo[] = {
-    {&internal::CrosHealthdEventService_AddBluetoothObserver_Params_Data::Validate,
+    {&internal::CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdEventService_AddLidObserver_Params_Data::Validate,
+    {&internal::CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdEventService_AddPowerObserver_Params_Data::Validate,
+    {&internal::CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::CrosHealthdEventService_AddNetworkObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdEventService_AddAudioObserver_Params_Data::Validate,
+    {&internal::CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdEventService_AddThunderboltObserver_Params_Data::Validate,
+    {&internal::CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data::Validate,
      nullptr /* no response */},
-    {&internal::CrosHealthdEventService_AddUsbObserver_Params_Data::Validate,
+    {&internal::CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::CrosHealthdEventService_AddEventObserver_Params_Data::Validate,
      nullptr /* no response */},
@@ -15044,26 +15044,26 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBluetoothPairingRoutine(
 
 
 
-void CrosHealthdEventServiceInterceptorForTesting::AddBluetoothObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver> observer) {
-  GetForwardingInterface()->AddBluetoothObserver(std::move(observer));
+void CrosHealthdEventServiceInterceptorForTesting::DEPRECATED_AddBluetoothObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver> observer) {
+  GetForwardingInterface()->DEPRECATED_AddBluetoothObserver(std::move(observer));
 }
-void CrosHealthdEventServiceInterceptorForTesting::AddLidObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver> observer) {
-  GetForwardingInterface()->AddLidObserver(std::move(observer));
+void CrosHealthdEventServiceInterceptorForTesting::DEPRECATED_AddLidObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver> observer) {
+  GetForwardingInterface()->DEPRECATED_AddLidObserver(std::move(observer));
 }
-void CrosHealthdEventServiceInterceptorForTesting::AddPowerObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver> observer) {
-  GetForwardingInterface()->AddPowerObserver(std::move(observer));
+void CrosHealthdEventServiceInterceptorForTesting::DEPRECATED_AddPowerObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver> observer) {
+  GetForwardingInterface()->DEPRECATED_AddPowerObserver(std::move(observer));
 }
 void CrosHealthdEventServiceInterceptorForTesting::AddNetworkObserver(::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkEventsObserver> observer) {
   GetForwardingInterface()->AddNetworkObserver(std::move(observer));
 }
-void CrosHealthdEventServiceInterceptorForTesting::AddAudioObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> observer) {
-  GetForwardingInterface()->AddAudioObserver(std::move(observer));
+void CrosHealthdEventServiceInterceptorForTesting::DEPRECATED_AddAudioObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> observer) {
+  GetForwardingInterface()->DEPRECATED_AddAudioObserver(std::move(observer));
 }
-void CrosHealthdEventServiceInterceptorForTesting::AddThunderboltObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> observer) {
-  GetForwardingInterface()->AddThunderboltObserver(std::move(observer));
+void CrosHealthdEventServiceInterceptorForTesting::DEPRECATED_AddThunderboltObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> observer) {
+  GetForwardingInterface()->DEPRECATED_AddThunderboltObserver(std::move(observer));
 }
-void CrosHealthdEventServiceInterceptorForTesting::AddUsbObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> observer) {
-  GetForwardingInterface()->AddUsbObserver(std::move(observer));
+void CrosHealthdEventServiceInterceptorForTesting::DEPRECATED_AddUsbObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> observer) {
+  GetForwardingInterface()->DEPRECATED_AddUsbObserver(std::move(observer));
 }
 void CrosHealthdEventServiceInterceptorForTesting::AddEventObserver(::ash::cros_healthd::mojom::EventCategoryEnum category, ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> observer) {
   GetForwardingInterface()->AddEventObserver(std::move(category), std::move(observer));

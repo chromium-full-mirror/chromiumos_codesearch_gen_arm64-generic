@@ -119,6 +119,40 @@ class  ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data {
 };
 static_assert(sizeof(ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data) == 16,
               "Bad sizeof(ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data)");
+class  ChromiumDataCollector_SetAudioOutputMute_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t mute_on : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<ChromiumDataCollector_SetAudioOutputMute_Params_Data>;
+
+  ChromiumDataCollector_SetAudioOutputMute_Params_Data();
+  ~ChromiumDataCollector_SetAudioOutputMute_Params_Data() = delete;
+};
+static_assert(sizeof(ChromiumDataCollector_SetAudioOutputMute_Params_Data) == 16,
+              "Bad sizeof(ChromiumDataCollector_SetAudioOutputMute_Params_Data)");
+class  ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t success : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data>;
+
+  ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data();
+  ~ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data) == 16,
+              "Bad sizeof(ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -247,6 +281,44 @@ class ChromiumDataCollector_SetPrivacyScreenState_ResponseParamsDataView {
 
 
 
+class ChromiumDataCollector_SetAudioOutputMute_ParamsDataView {
+ public:
+  ChromiumDataCollector_SetAudioOutputMute_ParamsDataView() = default;
+
+  ChromiumDataCollector_SetAudioOutputMute_ParamsDataView(
+      internal::ChromiumDataCollector_SetAudioOutputMute_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool mute_on() const {
+    return data_->mute_on;
+  }
+ private:
+  internal::ChromiumDataCollector_SetAudioOutputMute_Params_Data* data_ = nullptr;
+};
+
+
+
+class ChromiumDataCollector_SetAudioOutputMute_ResponseParamsDataView {
+ public:
+  ChromiumDataCollector_SetAudioOutputMute_ResponseParamsDataView() = default;
+
+  ChromiumDataCollector_SetAudioOutputMute_ResponseParamsDataView(
+      internal::ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool success() const {
+    return data_->success;
+  }
+ private:
+  internal::ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data* data_ = nullptr;
+};
+
+
+
 
 inline void ChromiumDataCollector_GetTouchscreenDevices_ResponseParamsDataView::GetDevicesDataView(
     mojo::ArrayDataView<TouchscreenDeviceDataView>* output) {
@@ -262,6 +334,10 @@ inline void ChromiumDataCollector_GetTouchpadLibraryName_ResponseParamsDataView:
   auto pointer = data_->library_name.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
+
+
 
 
 

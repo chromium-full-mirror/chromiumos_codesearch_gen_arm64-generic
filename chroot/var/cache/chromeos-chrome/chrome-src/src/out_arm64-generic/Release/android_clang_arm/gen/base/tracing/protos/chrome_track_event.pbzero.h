@@ -700,13 +700,16 @@ enum Priority : int32_t {
   NORMAL_PRIORITY = 5,
   LOW_PRIORITY = 6,
   BEST_EFFORT_PRIORITY = 7,
+  HIGH_PRIORITY_CONTINUATION = 8,
+  NORMAL_PRIORITY_CONTINUATION = 9,
+  LOW_PRIORITY_CONTINUATION = 10,
 };
 } // namespace perfetto_pbzero_enum_SequenceManagerTask
 using SequenceManagerTask_Priority = perfetto_pbzero_enum_SequenceManagerTask::Priority;
 
 
 constexpr SequenceManagerTask_Priority SequenceManagerTask_Priority_MIN = SequenceManagerTask_Priority::UNKNOWN;
-constexpr SequenceManagerTask_Priority SequenceManagerTask_Priority_MAX = SequenceManagerTask_Priority::BEST_EFFORT_PRIORITY;
+constexpr SequenceManagerTask_Priority SequenceManagerTask_Priority_MAX = SequenceManagerTask_Priority::LOW_PRIORITY_CONTINUATION;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -735,6 +738,15 @@ const char* SequenceManagerTask_Priority_Name(::perfetto::protos::pbzero::Sequen
 
   case ::perfetto::protos::pbzero::SequenceManagerTask_Priority::BEST_EFFORT_PRIORITY:
     return "BEST_EFFORT_PRIORITY";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_Priority::HIGH_PRIORITY_CONTINUATION:
+    return "HIGH_PRIORITY_CONTINUATION";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_Priority::NORMAL_PRIORITY_CONTINUATION:
+    return "NORMAL_PRIORITY_CONTINUATION";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_Priority::LOW_PRIORITY_CONTINUATION:
+    return "LOW_PRIORITY_CONTINUATION";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -2053,13 +2065,14 @@ enum TaskScopeType : int32_t {
   TASK_SCOPE_SCRIPT_EXECUTION = 3,
   TASK_SCOPE_POST_MESSAGE = 4,
   TASK_SCOPE_POP_STATE = 5,
+  TASK_SCOPE_SCHEDULER_POST_TASK = 6,
 };
 } // namespace perfetto_pbzero_enum_BlinkTaskScope
 using BlinkTaskScope_TaskScopeType = perfetto_pbzero_enum_BlinkTaskScope::TaskScopeType;
 
 
 constexpr BlinkTaskScope_TaskScopeType BlinkTaskScope_TaskScopeType_MIN = BlinkTaskScope_TaskScopeType::TASK_SCOPE_UNKNOWN;
-constexpr BlinkTaskScope_TaskScopeType BlinkTaskScope_TaskScopeType_MAX = BlinkTaskScope_TaskScopeType::TASK_SCOPE_POP_STATE;
+constexpr BlinkTaskScope_TaskScopeType BlinkTaskScope_TaskScopeType_MAX = BlinkTaskScope_TaskScopeType::TASK_SCOPE_SCHEDULER_POST_TASK;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -2082,6 +2095,9 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
 
   case ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType::TASK_SCOPE_POP_STATE:
     return "TASK_SCOPE_POP_STATE";
+
+  case ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType::TASK_SCOPE_SCHEDULER_POST_TASK:
+    return "TASK_SCOPE_SCHEDULER_POST_TASK";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -3764,6 +3780,9 @@ class SequenceManagerTask : public ::protozero::Message {
   static const Priority NORMAL_PRIORITY = Priority::NORMAL_PRIORITY;
   static const Priority LOW_PRIORITY = Priority::LOW_PRIORITY;
   static const Priority BEST_EFFORT_PRIORITY = Priority::BEST_EFFORT_PRIORITY;
+  static const Priority HIGH_PRIORITY_CONTINUATION = Priority::HIGH_PRIORITY_CONTINUATION;
+  static const Priority NORMAL_PRIORITY_CONTINUATION = Priority::NORMAL_PRIORITY_CONTINUATION;
+  static const Priority LOW_PRIORITY_CONTINUATION = Priority::LOW_PRIORITY_CONTINUATION;
   static const QueueName UNKNOWN_TQ = QueueName::UNKNOWN_TQ;
   static const QueueName DEFAULT_TQ = QueueName::DEFAULT_TQ;
   static const QueueName TASK_ENVIRONMENT_DEFAULT_TQ = QueueName::TASK_ENVIRONMENT_DEFAULT_TQ;
@@ -9274,6 +9293,7 @@ class BlinkTaskScope : public ::protozero::Message {
   static const TaskScopeType TASK_SCOPE_SCRIPT_EXECUTION = TaskScopeType::TASK_SCOPE_SCRIPT_EXECUTION;
   static const TaskScopeType TASK_SCOPE_POST_MESSAGE = TaskScopeType::TASK_SCOPE_POST_MESSAGE;
   static const TaskScopeType TASK_SCOPE_POP_STATE = TaskScopeType::TASK_SCOPE_POP_STATE;
+  static const TaskScopeType TASK_SCOPE_SCHEDULER_POST_TASK = TaskScopeType::TASK_SCOPE_SCHEDULER_POST_TASK;
 
   using FieldMetadata_Type =
     ::protozero::proto_utils::FieldMetadata<

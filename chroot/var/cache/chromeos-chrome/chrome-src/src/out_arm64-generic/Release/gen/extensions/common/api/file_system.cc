@@ -468,9 +468,38 @@ bool Params::Entry::Populate(
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& entry_value = args[0];
+    {
+      if (!entry_value.is_dict()) {
+        return absl::nullopt;
+      }
+      if (!Entry::Populate(entry_value, &params->entry)) {
+        return absl::nullopt;
+      }
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 1) {
     return nullptr;
   }
@@ -481,15 +510,15 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     const base::Value& entry_value = args[0];
     {
       if (!entry_value.is_dict()) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       if (!Entry::Populate(entry_value, &params->entry)) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;
@@ -527,9 +556,38 @@ bool Params::Entry::Populate(
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& entry_value = args[0];
+    {
+      if (!entry_value.is_dict()) {
+        return absl::nullopt;
+      }
+      if (!Entry::Populate(entry_value, &params->entry)) {
+        return absl::nullopt;
+      }
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 1) {
     return nullptr;
   }
@@ -540,15 +598,15 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     const base::Value& entry_value = args[0];
     {
       if (!entry_value.is_dict()) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       if (!Entry::Populate(entry_value, &params->entry)) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;
@@ -601,9 +659,38 @@ bool Params::Entry::Populate(
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& entry_value = args[0];
+    {
+      if (!entry_value.is_dict()) {
+        return absl::nullopt;
+      }
+      if (!Entry::Populate(entry_value, &params->entry)) {
+        return absl::nullopt;
+      }
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 1) {
     return nullptr;
   }
@@ -614,15 +701,15 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     const base::Value& entry_value = args[0];
     {
       if (!entry_value.is_dict()) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       if (!Entry::Populate(entry_value, &params->entry)) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;
@@ -642,9 +729,38 @@ namespace ChooseEntry {
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() > 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& options_value = args[0];
+    {
+      if (!options_value.is_dict()) {
+        return absl::nullopt;
+      }
+      else {
+        ChooseEntryOptions temp;
+        if (!ChooseEntryOptions::Populate(options_value, &temp))
+          return absl::nullopt;
+        params->options = std::move(temp);
+      }
+    }
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() > 1) {
     return nullptr;
   }
@@ -655,12 +771,12 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       else {
         ChooseEntryOptions temp;
         if (!ChooseEntryOptions::Populate(options_value, &temp))
-          return std::unique_ptr<Params>();
+          return nullptr;
         params->options = std::move(temp);
       }
     }
@@ -716,9 +832,37 @@ namespace RestoreEntry {
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& id_value = args[0];
+    {
+      auto* temp = id_value.GetIfString();
+      if (!temp) {
+        return absl::nullopt;
+      }
+      params->id = *temp;
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 1) {
     return nullptr;
   }
@@ -730,13 +874,13 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       params->id = *temp;
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;
@@ -771,9 +915,37 @@ namespace IsRestorable {
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& id_value = args[0];
+    {
+      auto* temp = id_value.GetIfString();
+      if (!temp) {
+        return absl::nullopt;
+      }
+      params->id = *temp;
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 1) {
     return nullptr;
   }
@@ -785,13 +957,13 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       auto* temp = id_value.GetIfString();
       if (!temp) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       params->id = *temp;
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;
@@ -829,9 +1001,38 @@ bool Params::Entry::Populate(
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& entry_value = args[0];
+    {
+      if (!entry_value.is_dict()) {
+        return absl::nullopt;
+      }
+      if (!Entry::Populate(entry_value, &params->entry)) {
+        return absl::nullopt;
+      }
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 1) {
     return nullptr;
   }
@@ -842,15 +1043,15 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     const base::Value& entry_value = args[0];
     {
       if (!entry_value.is_dict()) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       if (!Entry::Populate(entry_value, &params->entry)) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;
@@ -863,9 +1064,38 @@ namespace RequestFileSystem {
 
 Params::Params() = default;
 Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
 
 // static
-std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+absl::optional<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return absl::nullopt;
+  }
+  absl::optional<Params> params((Params()));
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& options_value = args[0];
+    {
+      if (!options_value.is_dict()) {
+        return absl::nullopt;
+      }
+      if (!RequestFileSystemOptions::Populate(options_value, &params->options)) {
+        return absl::nullopt;
+      }
+    }
+  }
+  else {
+    return absl::nullopt;
+  }
+
+  return params;
+}
+
+
+// static
+std::unique_ptr<Params> Params::CreateDeprecated(const base::Value::List& args) {
   if (args.size() != 1) {
     return nullptr;
   }
@@ -876,15 +1106,15 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     const base::Value& options_value = args[0];
     {
       if (!options_value.is_dict()) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
       if (!RequestFileSystemOptions::Populate(options_value, &params->options)) {
-        return std::unique_ptr<Params>();
+        return nullptr;
       }
     }
   }
   else {
-    return std::unique_ptr<Params>();
+    return nullptr;
   }
 
   return params;

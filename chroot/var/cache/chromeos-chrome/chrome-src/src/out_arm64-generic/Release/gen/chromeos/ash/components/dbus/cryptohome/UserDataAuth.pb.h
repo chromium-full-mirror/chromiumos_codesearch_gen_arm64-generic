@@ -709,12 +709,13 @@ enum PrimaryAction : int {
   PRIMARY_TPM_NEEDS_REBOOT = 6,
   PRIMARY_TPM_LOCKOUT = 7,
   PRIMARY_INCORRECT_AUTH = 8,
+  PRIMARY_LE_LOCKED_OUT = 9,
   PrimaryAction_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   PrimaryAction_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool PrimaryAction_IsValid(int value);
 constexpr PrimaryAction PrimaryAction_MIN = PRIMARY_NO_ERROR;
-constexpr PrimaryAction PrimaryAction_MAX = PRIMARY_INCORRECT_AUTH;
+constexpr PrimaryAction PrimaryAction_MAX = PRIMARY_LE_LOCKED_OUT;
 constexpr int PrimaryAction_ARRAYSIZE = PrimaryAction_MAX + 1;
 
 const std::string& PrimaryAction_Name(PrimaryAction value);
@@ -874,12 +875,19 @@ enum FingerprintScanResult : int {
   FINGERPRINT_SCAN_RESULT_RETRY = 1,
   FINGERPRINT_SCAN_RESULT_LOCKOUT = 2,
   FINGERPRINT_SCAN_RESULT_FATAL_ERROR = 3,
+  FINGERPRINT_SCAN_RESULT_PARTIAL = 4,
+  FINGERPRINT_SCAN_RESULT_INSUFFICIENT = 5,
+  FINGERPRINT_SCAN_RESULT_SENSOR_DIRTY = 6,
+  FINGERPRINT_SCAN_RESULT_TOO_SLOW = 7,
+  FINGERPRINT_SCAN_RESULT_TOO_FAST = 8,
+  FINGERPRINT_SCAN_RESULT_IMMOBILE = 9,
+  FINGERPRINT_SCAN_RESULT_ENROLL_OTHER = 10,
   FingerprintScanResult_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   FingerprintScanResult_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool FingerprintScanResult_IsValid(int value);
 constexpr FingerprintScanResult FingerprintScanResult_MIN = FINGERPRINT_SCAN_RESULT_SUCCESS;
-constexpr FingerprintScanResult FingerprintScanResult_MAX = FINGERPRINT_SCAN_RESULT_FATAL_ERROR;
+constexpr FingerprintScanResult FingerprintScanResult_MAX = FINGERPRINT_SCAN_RESULT_ENROLL_OTHER;
 constexpr int FingerprintScanResult_ARRAYSIZE = FingerprintScanResult_MAX + 1;
 
 const std::string& FingerprintScanResult_Name(FingerprintScanResult value);

@@ -268,6 +268,13 @@ class UserLogin final : public ::metrics::structured::Event {
 
   };
 
+class UserLogout final : public ::metrics::structured::Event {
+ public:
+  UserLogout();
+  ~UserLogout() override;
+
+  };
+
 class Test1 final : public ::metrics::structured::Event {
  public:
   Test1();

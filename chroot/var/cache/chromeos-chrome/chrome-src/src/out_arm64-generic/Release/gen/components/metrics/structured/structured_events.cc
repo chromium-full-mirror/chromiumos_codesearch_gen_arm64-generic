@@ -627,6 +627,12 @@ UserLogin::UserLogin() :
                                true) {}
 UserLogin::~UserLogin() = default;
 
+UserLogout::UserLogout() :
+  ::metrics::structured::Event("CrOSEvents",
+                               "UserLogout",
+                               true) {}
+UserLogout::~UserLogout() = default;
+
 Test1::Test1() :
   ::metrics::structured::Event("CrOSEvents",
                                "Test1",

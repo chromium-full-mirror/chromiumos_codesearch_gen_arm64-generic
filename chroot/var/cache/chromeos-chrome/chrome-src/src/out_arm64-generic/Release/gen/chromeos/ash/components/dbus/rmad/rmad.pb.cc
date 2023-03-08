@@ -1983,6 +1983,8 @@ bool RmadComponent_IsValid(int value) {
     case 17:
     case 18:
     case 19:
+    case 20:
+    case 21:
     case 33:
     case 34:
       return true;
@@ -1991,9 +1993,10 @@ bool RmadComponent_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RmadComponent_strings[22] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RmadComponent_strings[24] = {};
 
 static const char RmadComponent_names[] =
+  "RMAD_COMPONENT_AP_I2C"
   "RMAD_COMPONENT_AUDIO_CODEC"
   "RMAD_COMPONENT_BASE_ACCELEROMETER"
   "RMAD_COMPONENT_BASE_GYROSCOPE"
@@ -2002,6 +2005,7 @@ static const char RmadComponent_names[] =
   "RMAD_COMPONENT_CELLULAR"
   "RMAD_COMPONENT_DISPLAY_PANEL"
   "RMAD_COMPONENT_DRAM"
+  "RMAD_COMPONENT_EC_I2C"
   "RMAD_COMPONENT_ETHERNET"
   "RMAD_COMPONENT_KEYBOARD"
   "RMAD_COMPONENT_LID_ACCELEROMETER"
@@ -2018,53 +2022,57 @@ static const char RmadComponent_names[] =
   "RMAD_COMPONENT_WIRELESS";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry RmadComponent_entries[] = {
-  { {RmadComponent_names + 0, 26}, 1 },
-  { {RmadComponent_names + 26, 33}, 16 },
-  { {RmadComponent_names + 59, 29}, 18 },
-  { {RmadComponent_names + 88, 22}, 2 },
-  { {RmadComponent_names + 110, 21}, 6 },
-  { {RmadComponent_names + 131, 23}, 12 },
-  { {RmadComponent_names + 154, 28}, 11 },
-  { {RmadComponent_names + 182, 19}, 10 },
-  { {RmadComponent_names + 201, 23}, 13 },
-  { {RmadComponent_names + 224, 23}, 33 },
-  { {RmadComponent_names + 247, 32}, 17 },
-  { {RmadComponent_names + 279, 28}, 19 },
-  { {RmadComponent_names + 307, 22}, 5 },
-  { {RmadComponent_names + 329, 27}, 34 },
-  { {RmadComponent_names + 356, 21}, 15 },
-  { {RmadComponent_names + 377, 22}, 3 },
-  { {RmadComponent_names + 399, 21}, 7 },
-  { {RmadComponent_names + 420, 23}, 8 },
-  { {RmadComponent_names + 443, 26}, 9 },
-  { {RmadComponent_names + 469, 22}, 0 },
-  { {RmadComponent_names + 491, 25}, 4 },
-  { {RmadComponent_names + 516, 23}, 14 },
+  { {RmadComponent_names + 0, 21}, 20 },
+  { {RmadComponent_names + 21, 26}, 1 },
+  { {RmadComponent_names + 47, 33}, 16 },
+  { {RmadComponent_names + 80, 29}, 18 },
+  { {RmadComponent_names + 109, 22}, 2 },
+  { {RmadComponent_names + 131, 21}, 6 },
+  { {RmadComponent_names + 152, 23}, 12 },
+  { {RmadComponent_names + 175, 28}, 11 },
+  { {RmadComponent_names + 203, 19}, 10 },
+  { {RmadComponent_names + 222, 21}, 21 },
+  { {RmadComponent_names + 243, 23}, 13 },
+  { {RmadComponent_names + 266, 23}, 33 },
+  { {RmadComponent_names + 289, 32}, 17 },
+  { {RmadComponent_names + 321, 28}, 19 },
+  { {RmadComponent_names + 349, 22}, 5 },
+  { {RmadComponent_names + 371, 27}, 34 },
+  { {RmadComponent_names + 398, 21}, 15 },
+  { {RmadComponent_names + 419, 22}, 3 },
+  { {RmadComponent_names + 441, 21}, 7 },
+  { {RmadComponent_names + 462, 23}, 8 },
+  { {RmadComponent_names + 485, 26}, 9 },
+  { {RmadComponent_names + 511, 22}, 0 },
+  { {RmadComponent_names + 533, 25}, 4 },
+  { {RmadComponent_names + 558, 23}, 14 },
 };
 
 static const int RmadComponent_entries_by_number[] = {
-  19, // 0 -> RMAD_COMPONENT_UNKNOWN
-  0, // 1 -> RMAD_COMPONENT_AUDIO_CODEC
-  3, // 2 -> RMAD_COMPONENT_BATTERY
-  15, // 3 -> RMAD_COMPONENT_STORAGE
-  20, // 4 -> RMAD_COMPONENT_VPD_CACHED
-  12, // 5 -> RMAD_COMPONENT_NETWORK
-  4, // 6 -> RMAD_COMPONENT_CAMERA
-  16, // 7 -> RMAD_COMPONENT_STYLUS
-  17, // 8 -> RMAD_COMPONENT_TOUCHPAD
-  18, // 9 -> RMAD_COMPONENT_TOUCHSCREEN
-  7, // 10 -> RMAD_COMPONENT_DRAM
-  6, // 11 -> RMAD_COMPONENT_DISPLAY_PANEL
-  5, // 12 -> RMAD_COMPONENT_CELLULAR
-  8, // 13 -> RMAD_COMPONENT_ETHERNET
-  21, // 14 -> RMAD_COMPONENT_WIRELESS
-  14, // 15 -> RMAD_COMPONENT_SCREEN
-  1, // 16 -> RMAD_COMPONENT_BASE_ACCELEROMETER
-  10, // 17 -> RMAD_COMPONENT_LID_ACCELEROMETER
-  2, // 18 -> RMAD_COMPONENT_BASE_GYROSCOPE
-  11, // 19 -> RMAD_COMPONENT_LID_GYROSCOPE
-  9, // 33 -> RMAD_COMPONENT_KEYBOARD
-  13, // 34 -> RMAD_COMPONENT_POWER_BUTTON
+  21, // 0 -> RMAD_COMPONENT_UNKNOWN
+  1, // 1 -> RMAD_COMPONENT_AUDIO_CODEC
+  4, // 2 -> RMAD_COMPONENT_BATTERY
+  17, // 3 -> RMAD_COMPONENT_STORAGE
+  22, // 4 -> RMAD_COMPONENT_VPD_CACHED
+  14, // 5 -> RMAD_COMPONENT_NETWORK
+  5, // 6 -> RMAD_COMPONENT_CAMERA
+  18, // 7 -> RMAD_COMPONENT_STYLUS
+  19, // 8 -> RMAD_COMPONENT_TOUCHPAD
+  20, // 9 -> RMAD_COMPONENT_TOUCHSCREEN
+  8, // 10 -> RMAD_COMPONENT_DRAM
+  7, // 11 -> RMAD_COMPONENT_DISPLAY_PANEL
+  6, // 12 -> RMAD_COMPONENT_CELLULAR
+  10, // 13 -> RMAD_COMPONENT_ETHERNET
+  23, // 14 -> RMAD_COMPONENT_WIRELESS
+  16, // 15 -> RMAD_COMPONENT_SCREEN
+  2, // 16 -> RMAD_COMPONENT_BASE_ACCELEROMETER
+  12, // 17 -> RMAD_COMPONENT_LID_ACCELEROMETER
+  3, // 18 -> RMAD_COMPONENT_BASE_GYROSCOPE
+  13, // 19 -> RMAD_COMPONENT_LID_GYROSCOPE
+  0, // 20 -> RMAD_COMPONENT_AP_I2C
+  9, // 21 -> RMAD_COMPONENT_EC_I2C
+  11, // 33 -> RMAD_COMPONENT_KEYBOARD
+  15, // 34 -> RMAD_COMPONENT_POWER_BUTTON
 };
 
 const std::string& RmadComponent_Name(
@@ -2073,12 +2081,12 @@ const std::string& RmadComponent_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           RmadComponent_entries,
           RmadComponent_entries_by_number,
-          22, RmadComponent_strings);
+          24, RmadComponent_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       RmadComponent_entries,
       RmadComponent_entries_by_number,
-      22, value);
+      24, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      RmadComponent_strings[idx].get();
 }
@@ -2086,7 +2094,7 @@ bool RmadComponent_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RmadComponent* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      RmadComponent_entries, 22, name, &int_value);
+      RmadComponent_entries, 24, name, &int_value);
   if (success) {
     *value = static_cast<RmadComponent>(int_value);
   }

@@ -1575,7 +1575,7 @@ class  CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_D
 };
 static_assert(sizeof(CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParams_Data)");
-class  CrosHealthdEventService_AddBluetoothObserver_Params_Data {
+class  CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -1584,14 +1584,14 @@ class  CrosHealthdEventService_AddBluetoothObserver_Params_Data {
   mojo::internal::Interface_Data observer;
 
  private:
-  friend class mojo::internal::MessageFragment<CrosHealthdEventService_AddBluetoothObserver_Params_Data>;
+  friend class mojo::internal::MessageFragment<CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data>;
 
-  CrosHealthdEventService_AddBluetoothObserver_Params_Data();
-  ~CrosHealthdEventService_AddBluetoothObserver_Params_Data() = delete;
+  CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data();
+  ~CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data() = delete;
 };
-static_assert(sizeof(CrosHealthdEventService_AddBluetoothObserver_Params_Data) == 16,
-              "Bad sizeof(CrosHealthdEventService_AddBluetoothObserver_Params_Data)");
-class  CrosHealthdEventService_AddLidObserver_Params_Data {
+static_assert(sizeof(CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data) == 16,
+              "Bad sizeof(CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data)");
+class  CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -1600,14 +1600,14 @@ class  CrosHealthdEventService_AddLidObserver_Params_Data {
   mojo::internal::Interface_Data observer;
 
  private:
-  friend class mojo::internal::MessageFragment<CrosHealthdEventService_AddLidObserver_Params_Data>;
+  friend class mojo::internal::MessageFragment<CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data>;
 
-  CrosHealthdEventService_AddLidObserver_Params_Data();
-  ~CrosHealthdEventService_AddLidObserver_Params_Data() = delete;
+  CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data();
+  ~CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data() = delete;
 };
-static_assert(sizeof(CrosHealthdEventService_AddLidObserver_Params_Data) == 16,
-              "Bad sizeof(CrosHealthdEventService_AddLidObserver_Params_Data)");
-class  CrosHealthdEventService_AddPowerObserver_Params_Data {
+static_assert(sizeof(CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data) == 16,
+              "Bad sizeof(CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data)");
+class  CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -1616,13 +1616,13 @@ class  CrosHealthdEventService_AddPowerObserver_Params_Data {
   mojo::internal::Interface_Data observer;
 
  private:
-  friend class mojo::internal::MessageFragment<CrosHealthdEventService_AddPowerObserver_Params_Data>;
+  friend class mojo::internal::MessageFragment<CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data>;
 
-  CrosHealthdEventService_AddPowerObserver_Params_Data();
-  ~CrosHealthdEventService_AddPowerObserver_Params_Data() = delete;
+  CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data();
+  ~CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data() = delete;
 };
-static_assert(sizeof(CrosHealthdEventService_AddPowerObserver_Params_Data) == 16,
-              "Bad sizeof(CrosHealthdEventService_AddPowerObserver_Params_Data)");
+static_assert(sizeof(CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data) == 16,
+              "Bad sizeof(CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data)");
 class  CrosHealthdEventService_AddNetworkObserver_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1639,7 +1639,7 @@ class  CrosHealthdEventService_AddNetworkObserver_Params_Data {
 };
 static_assert(sizeof(CrosHealthdEventService_AddNetworkObserver_Params_Data) == 16,
               "Bad sizeof(CrosHealthdEventService_AddNetworkObserver_Params_Data)");
-class  CrosHealthdEventService_AddAudioObserver_Params_Data {
+class  CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -1648,14 +1648,14 @@ class  CrosHealthdEventService_AddAudioObserver_Params_Data {
   mojo::internal::Interface_Data observer;
 
  private:
-  friend class mojo::internal::MessageFragment<CrosHealthdEventService_AddAudioObserver_Params_Data>;
+  friend class mojo::internal::MessageFragment<CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data>;
 
-  CrosHealthdEventService_AddAudioObserver_Params_Data();
-  ~CrosHealthdEventService_AddAudioObserver_Params_Data() = delete;
+  CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data();
+  ~CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data() = delete;
 };
-static_assert(sizeof(CrosHealthdEventService_AddAudioObserver_Params_Data) == 16,
-              "Bad sizeof(CrosHealthdEventService_AddAudioObserver_Params_Data)");
-class  CrosHealthdEventService_AddThunderboltObserver_Params_Data {
+static_assert(sizeof(CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data) == 16,
+              "Bad sizeof(CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data)");
+class  CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -1664,14 +1664,14 @@ class  CrosHealthdEventService_AddThunderboltObserver_Params_Data {
   mojo::internal::Interface_Data observer;
 
  private:
-  friend class mojo::internal::MessageFragment<CrosHealthdEventService_AddThunderboltObserver_Params_Data>;
+  friend class mojo::internal::MessageFragment<CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data>;
 
-  CrosHealthdEventService_AddThunderboltObserver_Params_Data();
-  ~CrosHealthdEventService_AddThunderboltObserver_Params_Data() = delete;
+  CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data();
+  ~CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data() = delete;
 };
-static_assert(sizeof(CrosHealthdEventService_AddThunderboltObserver_Params_Data) == 16,
-              "Bad sizeof(CrosHealthdEventService_AddThunderboltObserver_Params_Data)");
-class  CrosHealthdEventService_AddUsbObserver_Params_Data {
+static_assert(sizeof(CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data) == 16,
+              "Bad sizeof(CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data)");
+class  CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -1680,13 +1680,13 @@ class  CrosHealthdEventService_AddUsbObserver_Params_Data {
   mojo::internal::Interface_Data observer;
 
  private:
-  friend class mojo::internal::MessageFragment<CrosHealthdEventService_AddUsbObserver_Params_Data>;
+  friend class mojo::internal::MessageFragment<CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data>;
 
-  CrosHealthdEventService_AddUsbObserver_Params_Data();
-  ~CrosHealthdEventService_AddUsbObserver_Params_Data() = delete;
+  CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data();
+  ~CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data() = delete;
 };
-static_assert(sizeof(CrosHealthdEventService_AddUsbObserver_Params_Data) == 16,
-              "Bad sizeof(CrosHealthdEventService_AddUsbObserver_Params_Data)");
+static_assert(sizeof(CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data) == 16,
+              "Bad sizeof(CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data)");
 class  CrosHealthdEventService_AddEventObserver_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -4374,12 +4374,12 @@ class CrosHealthdDiagnosticsService_RunBluetoothPairingRoutine_ResponseParamsDat
 
 
 
-class CrosHealthdEventService_AddBluetoothObserver_ParamsDataView {
+class CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_ParamsDataView {
  public:
-  CrosHealthdEventService_AddBluetoothObserver_ParamsDataView() = default;
+  CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_ParamsDataView() = default;
 
-  CrosHealthdEventService_AddBluetoothObserver_ParamsDataView(
-      internal::CrosHealthdEventService_AddBluetoothObserver_Params_Data* data,
+  CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_ParamsDataView(
+      internal::CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -4394,18 +4394,18 @@ class CrosHealthdEventService_AddBluetoothObserver_ParamsDataView {
     return result;
   }
  private:
-  internal::CrosHealthdEventService_AddBluetoothObserver_Params_Data* data_ = nullptr;
+  internal::CrosHealthdEventService_DEPRECATED_AddBluetoothObserver_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
 
-class CrosHealthdEventService_AddLidObserver_ParamsDataView {
+class CrosHealthdEventService_DEPRECATED_AddLidObserver_ParamsDataView {
  public:
-  CrosHealthdEventService_AddLidObserver_ParamsDataView() = default;
+  CrosHealthdEventService_DEPRECATED_AddLidObserver_ParamsDataView() = default;
 
-  CrosHealthdEventService_AddLidObserver_ParamsDataView(
-      internal::CrosHealthdEventService_AddLidObserver_Params_Data* data,
+  CrosHealthdEventService_DEPRECATED_AddLidObserver_ParamsDataView(
+      internal::CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -4420,18 +4420,18 @@ class CrosHealthdEventService_AddLidObserver_ParamsDataView {
     return result;
   }
  private:
-  internal::CrosHealthdEventService_AddLidObserver_Params_Data* data_ = nullptr;
+  internal::CrosHealthdEventService_DEPRECATED_AddLidObserver_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
 
-class CrosHealthdEventService_AddPowerObserver_ParamsDataView {
+class CrosHealthdEventService_DEPRECATED_AddPowerObserver_ParamsDataView {
  public:
-  CrosHealthdEventService_AddPowerObserver_ParamsDataView() = default;
+  CrosHealthdEventService_DEPRECATED_AddPowerObserver_ParamsDataView() = default;
 
-  CrosHealthdEventService_AddPowerObserver_ParamsDataView(
-      internal::CrosHealthdEventService_AddPowerObserver_Params_Data* data,
+  CrosHealthdEventService_DEPRECATED_AddPowerObserver_ParamsDataView(
+      internal::CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -4446,7 +4446,7 @@ class CrosHealthdEventService_AddPowerObserver_ParamsDataView {
     return result;
   }
  private:
-  internal::CrosHealthdEventService_AddPowerObserver_Params_Data* data_ = nullptr;
+  internal::CrosHealthdEventService_DEPRECATED_AddPowerObserver_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -4478,12 +4478,12 @@ class CrosHealthdEventService_AddNetworkObserver_ParamsDataView {
 
 
 
-class CrosHealthdEventService_AddAudioObserver_ParamsDataView {
+class CrosHealthdEventService_DEPRECATED_AddAudioObserver_ParamsDataView {
  public:
-  CrosHealthdEventService_AddAudioObserver_ParamsDataView() = default;
+  CrosHealthdEventService_DEPRECATED_AddAudioObserver_ParamsDataView() = default;
 
-  CrosHealthdEventService_AddAudioObserver_ParamsDataView(
-      internal::CrosHealthdEventService_AddAudioObserver_Params_Data* data,
+  CrosHealthdEventService_DEPRECATED_AddAudioObserver_ParamsDataView(
+      internal::CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -4498,18 +4498,18 @@ class CrosHealthdEventService_AddAudioObserver_ParamsDataView {
     return result;
   }
  private:
-  internal::CrosHealthdEventService_AddAudioObserver_Params_Data* data_ = nullptr;
+  internal::CrosHealthdEventService_DEPRECATED_AddAudioObserver_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
 
-class CrosHealthdEventService_AddThunderboltObserver_ParamsDataView {
+class CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_ParamsDataView {
  public:
-  CrosHealthdEventService_AddThunderboltObserver_ParamsDataView() = default;
+  CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_ParamsDataView() = default;
 
-  CrosHealthdEventService_AddThunderboltObserver_ParamsDataView(
-      internal::CrosHealthdEventService_AddThunderboltObserver_Params_Data* data,
+  CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_ParamsDataView(
+      internal::CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -4524,18 +4524,18 @@ class CrosHealthdEventService_AddThunderboltObserver_ParamsDataView {
     return result;
   }
  private:
-  internal::CrosHealthdEventService_AddThunderboltObserver_Params_Data* data_ = nullptr;
+  internal::CrosHealthdEventService_DEPRECATED_AddThunderboltObserver_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
 
-class CrosHealthdEventService_AddUsbObserver_ParamsDataView {
+class CrosHealthdEventService_DEPRECATED_AddUsbObserver_ParamsDataView {
  public:
-  CrosHealthdEventService_AddUsbObserver_ParamsDataView() = default;
+  CrosHealthdEventService_DEPRECATED_AddUsbObserver_ParamsDataView() = default;
 
-  CrosHealthdEventService_AddUsbObserver_ParamsDataView(
-      internal::CrosHealthdEventService_AddUsbObserver_Params_Data* data,
+  CrosHealthdEventService_DEPRECATED_AddUsbObserver_ParamsDataView(
+      internal::CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -4550,7 +4550,7 @@ class CrosHealthdEventService_AddUsbObserver_ParamsDataView {
     return result;
   }
  private:
-  internal::CrosHealthdEventService_AddUsbObserver_Params_Data* data_ = nullptr;
+  internal::CrosHealthdEventService_DEPRECATED_AddUsbObserver_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
