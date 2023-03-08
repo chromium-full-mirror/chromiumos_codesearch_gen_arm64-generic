@@ -26,6 +26,7 @@
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-shared-internal.h"
 #include "diagnostics/mojom/external/input.mojom-shared.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom-shared.h"
+#include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -1079,7 +1080,7 @@ class HdmiEventInfoDataView {
   HdmiEventInfoDataView(
       internal::HdmiEventInfo_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
   template <typename UserType>
@@ -1092,8 +1093,30 @@ class HdmiEventInfoDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ash::cros_healthd::mojom::HdmiEventInfo_State>(data_->state));
   }
+  inline void GetDisplayInfoDataView(
+      ::ash::cros_healthd::mojom::ExternalDisplayInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDisplayInfo(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::ExternalDisplayInfoDataView, UserType>(),
+    "Attempting to read the optional `display_info` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadDisplayInfo` instead "
+    "of `ReadDisplayInfo if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->display_info.Get() : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::HdmiEventInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -2246,6 +2269,14 @@ struct Serializer<::ash::cros_healthd::mojom::HdmiEventInfoDataView, MaybeConstU
     fragment.Allocate();
     mojo::internal::Serialize<::ash::cros_healthd::mojom::HdmiEventInfo_State>(
         Traits::state(input), &fragment->state);
+    decltype(Traits::display_info(input)) in_display_info = Traits::display_info(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->display_info)::BaseType> display_info_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>(
+        in_display_info, display_info_fragment);
+    fragment->display_info.Set(
+        display_info_fragment.is_null() ? nullptr : display_info_fragment.data());
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::HdmiEventInfo_Data* input,
@@ -2867,6 +2898,12 @@ inline void TouchpadConnectedEventDataView::GetButtonsDataView(
 }
 
 
+inline void HdmiEventInfoDataView::GetDisplayInfoDataView(
+    ::ash::cros_healthd::mojom::ExternalDisplayInfoDataView* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->display_info.Get() : nullptr;
+  *output = ::ash::cros_healthd::mojom::ExternalDisplayInfoDataView(pointer, message_);
+}
 
 
 inline void TouchscreenTouchEventDataView::GetTouchPointsDataView(

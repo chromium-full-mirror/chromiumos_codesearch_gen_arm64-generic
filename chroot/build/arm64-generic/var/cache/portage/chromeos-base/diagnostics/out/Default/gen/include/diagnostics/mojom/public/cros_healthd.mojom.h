@@ -556,7 +556,7 @@ class CrosHealthdDiagnosticsService
 
   using RunAudioSetGainRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
   
-  virtual void RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool mute_on, RunAudioSetGainRoutineCallback callback) = 0;
+  virtual void RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool deprecated_mute_on, RunAudioSetGainRoutineCallback callback) = 0;
 
 
   using RunBluetoothPowerRoutineCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::RunRoutineResponsePtr)>;
@@ -972,7 +972,7 @@ class  CrosHealthdDiagnosticsServiceProxy
   
   void RunAudioSetVolumeRoutine(uint64_t node_id, uint8_t volume, bool mute_on, RunAudioSetVolumeRoutineCallback callback) final;
   
-  void RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool mute_on, RunAudioSetGainRoutineCallback callback) final;
+  void RunAudioSetGainRoutine(uint64_t node_id, uint8_t gain, bool deprecated_mute_on, RunAudioSetGainRoutineCallback callback) final;
   
   void RunBluetoothPowerRoutine(RunBluetoothPowerRoutineCallback callback) final;
   

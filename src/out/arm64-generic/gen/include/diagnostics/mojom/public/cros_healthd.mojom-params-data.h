@@ -1422,7 +1422,7 @@ class  CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data {
   mojo::internal::StructHeader header_;
   uint64_t node_id;
   uint8_t gain;
-  uint8_t mute_on : 1;
+  uint8_t deprecated_mute_on : 1;
   uint8_t padfinal_[6];
 
  private:
@@ -4134,8 +4134,8 @@ class CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_ParamsDataView {
   uint8_t gain() const {
     return data_->gain;
   }
-  bool mute_on() const {
-    return data_->mute_on;
+  bool deprecated_mute_on() const {
+    return data_->deprecated_mute_on;
   }
  private:
   internal::CrosHealthdDiagnosticsService_RunAudioSetGainRoutine_Params_Data* data_ = nullptr;

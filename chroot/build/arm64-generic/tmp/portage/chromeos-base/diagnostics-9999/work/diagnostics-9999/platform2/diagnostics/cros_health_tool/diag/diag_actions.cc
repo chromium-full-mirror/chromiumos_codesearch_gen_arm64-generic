@@ -109,6 +109,10 @@ void OnMojoResponseReceived(T* response_destination,
   std::move(quit_closure).Run();
 }
 
+void PrintStatusMessage(const std::string& status_message) {
+  std::cout << "Status message: " << status_message << std::endl;
+}
+
 }  // namespace
 
 DiagActions::DiagActions(base::TimeDelta polling_interval,
@@ -668,14 +672,12 @@ bool DiagActions::ActionRunAudioSetVolumeRoutine(uint64_t node_id,
   return ProcessRoutineResponse(response);
 }
 
-bool DiagActions::ActionRunAudioSetGainRoutine(uint64_t node_id,
-                                               uint8_t gain,
-                                               bool mute_on) {
+bool DiagActions::ActionRunAudioSetGainRoutine(uint64_t node_id, uint8_t gain) {
   mojom::RunRoutineResponsePtr response;
   base::RunLoop run_loop;
 
   cros_healthd_diagnostics_service_->RunAudioSetGainRoutine(
-      node_id, gain, mute_on,
+      node_id, gain, /*deprecated_mute_on=*/false,
       base::BindOnce(&OnMojoResponseReceived<mojom::RunRoutineResponsePtr>,
                      &response, run_loop.QuitClosure()));
   run_loop.Run();
@@ -759,7 +761,7 @@ bool DiagActions::ProcessRoutineResponse(
       default:
         status_msg = "Failed to start routine";
     }
-    std::cout << "Status Message: " << status_msg << std::endl;
+    PrintStatusMessage(status_msg);
     return true;
   }
 
@@ -889,8 +891,7 @@ bool DiagActions::ProcessNonInteractiveResultAndEnd(
   if (!PrintStatus(status))
     return false;
 
-  std::cout << "Status message: " << noninteractive_result->status_message
-            << std::endl;
+  PrintStatusMessage(noninteractive_result->status_message);
 
   return true;
 }

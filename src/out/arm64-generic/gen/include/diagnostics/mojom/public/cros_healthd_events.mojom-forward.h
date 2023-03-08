@@ -120,7 +120,7 @@ class TouchpadConnectedEvent;
 using TouchpadConnectedEventPtr = mojo::StructPtr<TouchpadConnectedEvent>;
 
 class HdmiEventInfo;
-using HdmiEventInfoPtr = mojo::InlinedStructPtr<HdmiEventInfo>;
+using HdmiEventInfoPtr = mojo::StructPtr<HdmiEventInfo>;
 
 class TouchscreenTouchEvent;
 using TouchscreenTouchEventPtr = mojo::StructPtr<TouchscreenTouchEvent>;

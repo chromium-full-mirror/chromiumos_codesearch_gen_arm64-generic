@@ -12,6 +12,7 @@
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "diagnostics/mojom/external/input.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom-shared-internal.h"
+#include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -1176,7 +1177,8 @@ class  HdmiEventInfo_Data {
 
   mojo::internal::StructHeader header_;
   int32_t state;
-  uint8_t padfinal_[4];
+  uint8_t pad0_[4];
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::ExternalDisplayInfo_Data> display_info;
 
  private:
   friend class mojo::internal::MessageFragment<HdmiEventInfo_Data>;
@@ -1184,7 +1186,7 @@ class  HdmiEventInfo_Data {
   HdmiEventInfo_Data();
   ~HdmiEventInfo_Data() = delete;
 };
-static_assert(sizeof(HdmiEventInfo_Data) == 16,
+static_assert(sizeof(HdmiEventInfo_Data) == 24,
               "Bad sizeof(HdmiEventInfo_Data)");
 // Used by HdmiEventInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

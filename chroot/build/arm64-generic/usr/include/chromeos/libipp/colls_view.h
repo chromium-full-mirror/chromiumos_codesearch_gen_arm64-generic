@@ -8,18 +8,20 @@
 #include <iterator>
 #include <vector>
 
+#include "ipp_export.h"
+
 namespace ipp {
 
 class Attribute;
 class Collection;
-class ConstCollectionsView;
+class ConstCollsView;
 class Frame;
 
 // This class represents a range of Collections inside Frame or Attribute. It
 // provides const and non-const access to underlying Collections with
 // bidirectional iterators, operator[], as well as, methods size() and empty().
 //
-class CollectionsView {
+class LIBIPP_EXPORT CollsView {
  public:
   class const_iterator;
   class iterator {
@@ -51,7 +53,7 @@ class CollectionsView {
     bool operator!=(const const_iterator& i) const { return iter_ != i.iter_; }
 
    private:
-    friend class CollectionsView;
+    friend class CollsView;
     friend class Frame;
     explicit iterator(std::vector<Collection*>::iterator iter) : iter_(iter) {}
     std::vector<Collection*>::iterator iter_;
@@ -91,55 +93,71 @@ class CollectionsView {
     bool operator!=(const const_iterator& i) const { return iter_ != i.iter_; }
 
    private:
-    friend class CollectionsView;
-    friend class ConstCollectionsView;
+    friend class CollsView;
+    friend class ConstCollsView;
     friend class Frame;
     explicit const_iterator(std::vector<Collection*>::const_iterator iter)
         : iter_(iter) {}
     std::vector<Collection*>::const_iterator iter_;
   };
 
-  CollectionsView(const CollectionsView& cv) = default;
-  iterator begin() { return iterator(colls_.begin()); }
-  iterator end() { return iterator(colls_.end()); }
-  const_iterator cbegin() const { return const_iterator(colls_.cbegin()); }
-  const_iterator cend() const { return const_iterator(colls_.cend()); }
+  // Default constructor returns always empty range.
+  CollsView();
+  CollsView(const CollsView& cv) = default;
+  CollsView& operator=(const CollsView& cv) {
+    colls_ = cv.colls_;
+    return *this;
+  }
+  iterator begin() { return iterator(colls_->begin()); }
+  iterator end() { return iterator(colls_->end()); }
+  const_iterator cbegin() const { return const_iterator(colls_->cbegin()); }
+  const_iterator cend() const { return const_iterator(colls_->cend()); }
   const_iterator begin() const { return cbegin(); }
   const_iterator end() const { return cend(); }
-  size_t size() const { return colls_.size(); }
-  bool empty() const { return colls_.empty(); }
-  Collection& operator[](size_t index) { return *colls_[index]; }
-  const Collection& operator[](size_t index) const { return *colls_[index]; }
+  size_t size() const { return colls_->size(); }
+  bool empty() const { return colls_->empty(); }
+  Collection& operator[](size_t index) { return *(*colls_)[index]; }
+  const Collection& operator[](size_t index) const { return *(*colls_)[index]; }
 
  private:
   friend class Attribute;
-  friend class ConstCollectionsView;
+  friend class ConstCollsView;
   friend class Frame;
-  explicit CollectionsView(std::vector<Collection*>& colls) : colls_(colls) {}
-  std::vector<Collection*>& colls_;
+  explicit CollsView(std::vector<Collection*>& colls) : colls_(&colls) {}
+  std::vector<Collection*>* colls_;
 };
 
-// Const version of CollectionsView.
-class ConstCollectionsView {
+// Const version of CollsView.
+class LIBIPP_EXPORT ConstCollsView {
  public:
-  using const_iterator = CollectionsView::const_iterator;
-  ConstCollectionsView(const ConstCollectionsView& cv) = default;
-  explicit ConstCollectionsView(const CollectionsView& cv)
-      : colls_(cv.colls_) {}
-  const_iterator cbegin() const { return const_iterator(colls_.cbegin()); }
-  const_iterator cend() const { return const_iterator(colls_.cend()); }
+  using const_iterator = CollsView::const_iterator;
+
+  // Default constructor returns always empty range.
+  ConstCollsView();
+  ConstCollsView(const ConstCollsView& cv) = default;
+  explicit ConstCollsView(const CollsView& cv) : colls_(cv.colls_) {}
+  ConstCollsView& operator=(const ConstCollsView& cv) {
+    colls_ = cv.colls_;
+    return *this;
+  }
+  ConstCollsView& operator=(const CollsView& cv) {
+    colls_ = cv.colls_;
+    return *this;
+  }
+  const_iterator cbegin() const { return const_iterator(colls_->cbegin()); }
+  const_iterator cend() const { return const_iterator(colls_->cend()); }
   const_iterator begin() const { return cbegin(); }
   const_iterator end() const { return cend(); }
-  size_t size() const { return colls_.size(); }
-  bool empty() const { return colls_.empty(); }
-  const Collection& operator[](size_t index) const { return *colls_[index]; }
+  size_t size() const { return colls_->size(); }
+  bool empty() const { return colls_->empty(); }
+  const Collection& operator[](size_t index) const { return *(*colls_)[index]; }
 
  private:
   friend class Attribute;
   friend class Frame;
-  explicit ConstCollectionsView(const std::vector<Collection*>& colls)
-      : colls_(colls) {}
-  const std::vector<Collection*>& colls_;
+  explicit ConstCollsView(const std::vector<Collection*>& colls)
+      : colls_(&colls) {}
+  const std::vector<Collection*>* colls_;
 };
 
 }  // namespace ipp
