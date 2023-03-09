@@ -119,7 +119,6 @@ class DmaBufPlaneDataView {
 };
 
 
-
 class DmaBufVideoFrameDataView {
  public:
   DmaBufVideoFrameDataView() = default;
@@ -160,7 +159,6 @@ class DmaBufVideoFrameDataView {
   internal::DmaBufVideoFrame_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

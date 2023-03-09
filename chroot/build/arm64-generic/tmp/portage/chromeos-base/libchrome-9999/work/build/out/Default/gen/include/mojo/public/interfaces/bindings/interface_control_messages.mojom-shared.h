@@ -189,7 +189,6 @@ class RunMessageParamsDataView {
 };
 
 
-
 class RunResponseMessageParamsDataView {
  public:
   RunResponseMessageParamsDataView() = default;
@@ -226,7 +225,6 @@ static_assert(
 };
 
 
-
 class QueryVersionDataView {
  public:
   QueryVersionDataView() = default;
@@ -240,7 +238,6 @@ class QueryVersionDataView {
  private:
   internal::QueryVersion_Data* data_ = nullptr;
 };
-
 
 
 class QueryVersionResultDataView {
@@ -261,7 +258,6 @@ class QueryVersionResultDataView {
 };
 
 
-
 class FlushForTestingDataView {
  public:
   FlushForTestingDataView() = default;
@@ -275,7 +271,6 @@ class FlushForTestingDataView {
  private:
   internal::FlushForTesting_Data* data_ = nullptr;
 };
-
 
 
 class RunOrClosePipeMessageParamsDataView {
@@ -304,7 +299,6 @@ class RunOrClosePipeMessageParamsDataView {
 };
 
 
-
 class RequireVersionDataView {
  public:
   RequireVersionDataView() = default;
@@ -321,7 +315,6 @@ class RequireVersionDataView {
  private:
   internal::RequireVersion_Data* data_ = nullptr;
 };
-
 
 
 class EnableIdleTrackingDataView {
@@ -342,7 +335,6 @@ class EnableIdleTrackingDataView {
 };
 
 
-
 class MessageAckDataView {
  public:
   MessageAckDataView() = default;
@@ -358,7 +350,6 @@ class MessageAckDataView {
 };
 
 
-
 class NotifyIdleDataView {
  public:
   NotifyIdleDataView() = default;
@@ -372,7 +363,6 @@ class NotifyIdleDataView {
  private:
   internal::NotifyIdle_Data* data_ = nullptr;
 };
-
 
 
 class RunInputDataView {

@@ -105,7 +105,6 @@ class GenericPendingAssociatedReceiverDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace mojo_base
 

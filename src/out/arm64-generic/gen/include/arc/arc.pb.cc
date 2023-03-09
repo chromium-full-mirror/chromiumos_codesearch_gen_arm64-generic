@@ -38,6 +38,7 @@ PROTOBUF_CONSTEXPR StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(
   , /*decltype(_impl_.enable_consumer_auto_update_toggle_)*/false
   , /*decltype(_impl_.host_ureadahead_generation_)*/false
   , /*decltype(_impl_.enable_privacy_hub_for_chrome_)*/false
+  , /*decltype(_impl_.arc_switch_to_keymint_)*/false
   , /*decltype(_impl_.lcd_density_)*/-1} {}
 struct StartArcMiniInstanceRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StartArcMiniInstanceRequestDefaultTypeInternal()
@@ -350,7 +351,7 @@ class StartArcMiniInstanceRequest::_Internal {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_lcd_density(HasBits* has_bits) {
-    (*has_bits)[0] |= 65536u;
+    (*has_bits)[0] |= 131072u;
   }
   static void set_has_arc_file_picker_experiment(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
@@ -397,6 +398,9 @@ class StartArcMiniInstanceRequest::_Internal {
   static void set_has_enable_privacy_hub_for_chrome(HasBits* has_bits) {
     (*has_bits)[0] |= 32768u;
   }
+  static void set_has_arc_switch_to_keymint(HasBits* has_bits) {
+    (*has_bits)[0] |= 65536u;
+  }
 };
 
 StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -427,6 +431,7 @@ StartArcMiniInstanceRequest::StartArcMiniInstanceRequest(const StartArcMiniInsta
     , decltype(_impl_.enable_consumer_auto_update_toggle_){}
     , decltype(_impl_.host_ureadahead_generation_){}
     , decltype(_impl_.enable_privacy_hub_for_chrome_){}
+    , decltype(_impl_.arc_switch_to_keymint_){}
     , decltype(_impl_.lcd_density_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -459,6 +464,7 @@ inline void StartArcMiniInstanceRequest::SharedCtor(
     , decltype(_impl_.enable_consumer_auto_update_toggle_){false}
     , decltype(_impl_.host_ureadahead_generation_){false}
     , decltype(_impl_.enable_privacy_hub_for_chrome_){false}
+    , decltype(_impl_.arc_switch_to_keymint_){false}
     , decltype(_impl_.lcd_density_){-1}
   };
 }
@@ -497,7 +503,10 @@ void StartArcMiniInstanceRequest::Clear() {
         reinterpret_cast<char*>(&_impl_.enable_privacy_hub_for_chrome_) -
         reinterpret_cast<char*>(&_impl_.disable_download_provider_)) + sizeof(_impl_.enable_privacy_hub_for_chrome_));
   }
-  _impl_.lcd_density_ = -1;
+  if (cached_has_bits & 0x00030000u) {
+    _impl_.arc_switch_to_keymint_ = false;
+    _impl_.lcd_density_ = -1;
+  }
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -670,6 +679,15 @@ const char* StartArcMiniInstanceRequest::_InternalParse(const char* ptr, ::_pbi:
         } else
           goto handle_unusual;
         continue;
+      // optional bool arc_switch_to_keymint = 18 [default = false];
+      case 18:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 144)) {
+          _Internal::set_has_arc_switch_to_keymint(&has_bits);
+          _impl_.arc_switch_to_keymint_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -708,7 +726,7 @@ uint8_t* StartArcMiniInstanceRequest::_InternalSerialize(
   }
 
   // optional int32 lcd_density = 2 [default = -1];
-  if (cached_has_bits & 0x00010000u) {
+  if (cached_has_bits & 0x00020000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_lcd_density(), target);
   }
@@ -803,6 +821,12 @@ uint8_t* StartArcMiniInstanceRequest::_InternalSerialize(
   if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(17, this->_internal_enable_privacy_hub_for_chrome(), target);
+  }
+
+  // optional bool arc_switch_to_keymint = 18 [default = false];
+  if (cached_has_bits & 0x00010000u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(18, this->_internal_arc_switch_to_keymint(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -908,11 +932,18 @@ size_t StartArcMiniInstanceRequest::ByteSizeLong() const {
     }
 
   }
-  // optional int32 lcd_density = 2 [default = -1];
-  if (cached_has_bits & 0x00010000u) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_lcd_density());
-  }
+  if (cached_has_bits & 0x00030000u) {
+    // optional bool arc_switch_to_keymint = 18 [default = false];
+    if (cached_has_bits & 0x00010000u) {
+      total_size += 2 + 1;
+    }
 
+    // optional int32 lcd_density = 2 [default = -1];
+    if (cached_has_bits & 0x00020000u) {
+      total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_lcd_density());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -989,8 +1020,14 @@ void StartArcMiniInstanceRequest::MergeFrom(const StartArcMiniInstanceRequest& f
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00010000u) {
-    _this->_internal_set_lcd_density(from._internal_lcd_density());
+  if (cached_has_bits & 0x00030000u) {
+    if (cached_has_bits & 0x00010000u) {
+      _this->_impl_.arc_switch_to_keymint_ = from._impl_.arc_switch_to_keymint_;
+    }
+    if (cached_has_bits & 0x00020000u) {
+      _this->_impl_.lcd_density_ = from._impl_.lcd_density_;
+    }
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -1011,8 +1048,8 @@ void StartArcMiniInstanceRequest::InternalSwap(StartArcMiniInstanceRequest* othe
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartArcMiniInstanceRequest, _impl_.enable_privacy_hub_for_chrome_)
-      + sizeof(StartArcMiniInstanceRequest::_impl_.enable_privacy_hub_for_chrome_)
+      PROTOBUF_FIELD_OFFSET(StartArcMiniInstanceRequest, _impl_.arc_switch_to_keymint_)
+      + sizeof(StartArcMiniInstanceRequest::_impl_.arc_switch_to_keymint_)
       - PROTOBUF_FIELD_OFFSET(StartArcMiniInstanceRequest, _impl_.native_bridge_experiment_)>(
           reinterpret_cast<char*>(&_impl_.native_bridge_experiment_),
           reinterpret_cast<char*>(&other->_impl_.native_bridge_experiment_));

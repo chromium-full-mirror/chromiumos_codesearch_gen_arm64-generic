@@ -122,7 +122,6 @@ class StringListDataView {
 };
 
 
-
 class FloatListDataView {
  public:
   FloatListDataView() = default;
@@ -149,7 +148,6 @@ class FloatListDataView {
 };
 
 
-
 class Int64ListDataView {
  public:
   Int64ListDataView() = default;
@@ -174,7 +172,6 @@ class Int64ListDataView {
   internal::Int64List_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class TensorDataView {
@@ -211,7 +208,6 @@ class TensorDataView {
   internal::Tensor_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class ValueListDataView {

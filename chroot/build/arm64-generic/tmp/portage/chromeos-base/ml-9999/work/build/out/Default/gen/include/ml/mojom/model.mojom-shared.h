@@ -211,7 +211,6 @@ class GraphExecutorOptionsDataView {
 };
 
 
-
 class BuiltinModelSpecDataView {
  public:
   BuiltinModelSpecDataView() = default;
@@ -235,7 +234,6 @@ class BuiltinModelSpecDataView {
  private:
   internal::BuiltinModelSpec_Data* data_ = nullptr;
 };
-
 
 
 class FlatBufferModelSpecDataView {
@@ -292,7 +290,6 @@ class FlatBufferModelSpecDataView {
   internal::FlatBufferModelSpec_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

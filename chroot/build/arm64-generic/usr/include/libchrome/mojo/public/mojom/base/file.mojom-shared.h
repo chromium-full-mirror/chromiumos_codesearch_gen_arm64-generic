@@ -86,7 +86,6 @@ class FileDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace mojo_base
 

@@ -223,7 +223,6 @@ class PasswordDataView {
 };
 
 
-
 class KerberosConfigDataView {
  public:
   KerberosConfigDataView() = default;
@@ -260,7 +259,6 @@ class KerberosConfigDataView {
 };
 
 
-
 class CredentialStorageOptionsDataView {
  public:
   CredentialStorageOptionsDataView() = default;
@@ -295,7 +293,6 @@ class CredentialStorageOptionsDataView {
   internal::CredentialStorageOptions_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class MountOptionsDataView {
@@ -431,7 +428,6 @@ static_assert(
 };
 
 
-
 class CredentialsDataView {
  public:
   CredentialsDataView() = default;
@@ -486,7 +482,6 @@ static_assert(
   internal::Credentials_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

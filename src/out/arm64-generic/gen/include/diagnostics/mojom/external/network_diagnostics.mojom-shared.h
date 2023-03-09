@@ -594,7 +594,6 @@ class HttpsLatencyResultValueDataView {
 };
 
 
-
 class RoutineResultDataView {
  public:
   RoutineResultDataView() = default;
@@ -660,7 +659,6 @@ static_assert(
   internal::RoutineResult_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class RoutineProblemsDataView {

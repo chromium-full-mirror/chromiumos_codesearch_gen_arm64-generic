@@ -454,7 +454,6 @@ class CropRotateScaleInfoDataView {
 };
 
 
-
 class Camera3StreamDataView {
  public:
   Camera3StreamDataView() = default;
@@ -561,7 +560,6 @@ static_assert(
 };
 
 
-
 class Camera3StreamConfigurationDataView {
  public:
   Camera3StreamConfigurationDataView() = default;
@@ -617,7 +615,6 @@ static_assert(
   internal::Camera3StreamConfiguration_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CameraBufferHandleDataView {
@@ -709,7 +706,6 @@ static_assert(
 };
 
 
-
 class Camera3StreamBufferDataView {
  public:
   Camera3StreamBufferDataView() = default;
@@ -779,7 +775,6 @@ static_assert(
 };
 
 
-
 class Camera3ErrorMsgDataView {
  public:
   Camera3ErrorMsgDataView() = default;
@@ -811,7 +806,6 @@ class Camera3ErrorMsgDataView {
 };
 
 
-
 class Camera3ShutterMsgDataView {
  public:
   Camera3ShutterMsgDataView() = default;
@@ -831,7 +825,6 @@ class Camera3ShutterMsgDataView {
  private:
   internal::Camera3ShutterMsg_Data* data_ = nullptr;
 };
-
 
 
 class Camera3NotifyMsgDataView {
@@ -870,7 +863,6 @@ class Camera3NotifyMsgDataView {
 };
 
 
-
 class Camera3BufferRequestDataView {
  public:
   Camera3BufferRequestDataView() = default;
@@ -890,7 +882,6 @@ class Camera3BufferRequestDataView {
  private:
   internal::Camera3BufferRequest_Data* data_ = nullptr;
 };
-
 
 
 class Camera3StreamBufferRetDataView {
@@ -942,7 +933,6 @@ static_assert(
 };
 
 
-
 class Camera3PhyscamMetadataDataView {
  public:
   Camera3PhyscamMetadataDataView() = default;
@@ -970,7 +960,6 @@ class Camera3PhyscamMetadataDataView {
   internal::Camera3PhyscamMetadata_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class Camera3CaptureRequestDataView {
@@ -1051,7 +1040,6 @@ static_assert(
   internal::Camera3CaptureRequest_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class Camera3CaptureResultDataView {
@@ -1145,7 +1133,6 @@ static_assert(
   internal::Camera3CaptureResult_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class Camera3NotifyMsgMessageDataView {

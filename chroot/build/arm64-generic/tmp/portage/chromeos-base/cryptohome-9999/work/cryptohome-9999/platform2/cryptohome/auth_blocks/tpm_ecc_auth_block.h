@@ -15,6 +15,7 @@
 #include <libhwsec/frontend/cryptohome/frontend.h>
 #include <libhwsec/structures/key.h>
 
+#include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/auth_blocks/tpm_auth_block_utils.h"
 #include "cryptohome/crypto.h"
 #include "cryptohome/cryptohome_keys_manager.h"
@@ -26,12 +27,14 @@ namespace cryptohome {
 
 class TpmEccAuthBlock : public SyncAuthBlock {
  public:
-  // Returns success if the AuthBlock is supported on the current hardware and
-  // software environment.
+  // Implement the GenericAuthBlock concept.
+  static constexpr auto kType = AuthBlockType::kTpmEcc;
+  using StateType = TpmEccAuthBlockState;
   static CryptoStatus IsSupported(Crypto& crypto);
 
   TpmEccAuthBlock(hwsec::CryptohomeFrontend* hwsec,
                   CryptohomeKeysManager* cryptohome_keys_manager);
+
   TpmEccAuthBlock(const TpmEccAuthBlock&) = delete;
   TpmEccAuthBlock& operator=(const TpmEccAuthBlock&) = delete;
 

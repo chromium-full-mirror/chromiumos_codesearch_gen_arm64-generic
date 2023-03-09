@@ -158,7 +158,6 @@ static_assert(
 };
 
 
-
 class DetectCornersResultDataView {
  public:
   DetectCornersResultDataView() = default;
@@ -195,7 +194,6 @@ class DetectCornersResultDataView {
 };
 
 
-
 class DoPostProcessingResultDataView {
  public:
   DoPostProcessingResultDataView() = default;
@@ -230,7 +228,6 @@ class DoPostProcessingResultDataView {
   internal::DoPostProcessingResult_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

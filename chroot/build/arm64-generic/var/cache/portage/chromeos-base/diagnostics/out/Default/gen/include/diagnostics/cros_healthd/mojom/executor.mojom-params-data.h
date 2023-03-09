@@ -802,7 +802,6 @@ class ProcessControl_GetStdout_ParamsDataView {
 };
 
 
-
 class ProcessControl_GetStdout_ResponseParamsDataView {
  public:
   ProcessControl_GetStdout_ResponseParamsDataView() = default;
@@ -827,7 +826,6 @@ class ProcessControl_GetStdout_ResponseParamsDataView {
 };
 
 
-
 class ProcessControl_GetStderr_ParamsDataView {
  public:
   ProcessControl_GetStderr_ParamsDataView() = default;
@@ -841,7 +839,6 @@ class ProcessControl_GetStderr_ParamsDataView {
  private:
   internal::ProcessControl_GetStderr_Params_Data* data_ = nullptr;
 };
-
 
 
 class ProcessControl_GetStderr_ResponseParamsDataView {
@@ -868,7 +865,6 @@ class ProcessControl_GetStderr_ResponseParamsDataView {
 };
 
 
-
 class ProcessControl_GetReturnCode_ParamsDataView {
  public:
   ProcessControl_GetReturnCode_ParamsDataView() = default;
@@ -882,7 +878,6 @@ class ProcessControl_GetReturnCode_ParamsDataView {
  private:
   internal::ProcessControl_GetReturnCode_Params_Data* data_ = nullptr;
 };
-
 
 
 class ProcessControl_GetReturnCode_ResponseParamsDataView {
@@ -903,7 +898,6 @@ class ProcessControl_GetReturnCode_ResponseParamsDataView {
 };
 
 
-
 class AudioJackObserver_OnAdd_ParamsDataView {
  public:
   AudioJackObserver_OnAdd_ParamsDataView() = default;
@@ -919,7 +913,6 @@ class AudioJackObserver_OnAdd_ParamsDataView {
 };
 
 
-
 class AudioJackObserver_OnRemove_ParamsDataView {
  public:
   AudioJackObserver_OnRemove_ParamsDataView() = default;
@@ -933,7 +926,6 @@ class AudioJackObserver_OnRemove_ParamsDataView {
  private:
   internal::AudioJackObserver_OnRemove_Params_Data* data_ = nullptr;
 };
-
 
 
 class TouchpadObserver_OnButton_ParamsDataView {
@@ -962,7 +954,6 @@ class TouchpadObserver_OnButton_ParamsDataView {
 };
 
 
-
 class TouchpadObserver_OnTouch_ParamsDataView {
  public:
   TouchpadObserver_OnTouch_ParamsDataView() = default;
@@ -987,7 +978,6 @@ class TouchpadObserver_OnTouch_ParamsDataView {
   internal::TouchpadObserver_OnTouch_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class TouchpadObserver_OnConnected_ParamsDataView {
@@ -1016,7 +1006,6 @@ class TouchpadObserver_OnConnected_ParamsDataView {
 };
 
 
-
 class TouchscreenObserver_OnTouch_ParamsDataView {
  public:
   TouchscreenObserver_OnTouch_ParamsDataView() = default;
@@ -1041,7 +1030,6 @@ class TouchscreenObserver_OnTouch_ParamsDataView {
   internal::TouchscreenObserver_OnTouch_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class TouchscreenObserver_OnConnected_ParamsDataView {
@@ -1070,7 +1058,6 @@ class TouchscreenObserver_OnConnected_ParamsDataView {
 };
 
 
-
 class StylusGarageObserver_OnInsert_ParamsDataView {
  public:
   StylusGarageObserver_OnInsert_ParamsDataView() = default;
@@ -1086,7 +1073,6 @@ class StylusGarageObserver_OnInsert_ParamsDataView {
 };
 
 
-
 class StylusGarageObserver_OnRemove_ParamsDataView {
  public:
   StylusGarageObserver_OnRemove_ParamsDataView() = default;
@@ -1100,7 +1086,6 @@ class StylusGarageObserver_OnRemove_ParamsDataView {
  private:
   internal::StylusGarageObserver_OnRemove_Params_Data* data_ = nullptr;
 };
-
 
 
 class Executor_ReadFile_ParamsDataView {
@@ -1126,7 +1111,6 @@ class Executor_ReadFile_ParamsDataView {
  private:
   internal::Executor_ReadFile_Params_Data* data_ = nullptr;
 };
-
 
 
 class Executor_ReadFile_ResponseParamsDataView {
@@ -1165,7 +1149,6 @@ static_assert(
 };
 
 
-
 class Executor_GetFanSpeed_ParamsDataView {
  public:
   Executor_GetFanSpeed_ParamsDataView() = default;
@@ -1179,7 +1162,6 @@ class Executor_GetFanSpeed_ParamsDataView {
  private:
   internal::Executor_GetFanSpeed_Params_Data* data_ = nullptr;
 };
-
 
 
 class Executor_GetFanSpeed_ResponseParamsDataView {
@@ -1206,7 +1188,6 @@ class Executor_GetFanSpeed_ResponseParamsDataView {
   internal::Executor_GetFanSpeed_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class Executor_RunIw_ParamsDataView {
@@ -1245,7 +1226,6 @@ class Executor_RunIw_ParamsDataView {
 };
 
 
-
 class Executor_RunIw_ResponseParamsDataView {
  public:
   Executor_RunIw_ResponseParamsDataView() = default;
@@ -1272,7 +1252,6 @@ class Executor_RunIw_ResponseParamsDataView {
 };
 
 
-
 class Executor_RunMemtester_ParamsDataView {
  public:
   Executor_RunMemtester_ParamsDataView() = default;
@@ -1289,7 +1268,6 @@ class Executor_RunMemtester_ParamsDataView {
  private:
   internal::Executor_RunMemtester_Params_Data* data_ = nullptr;
 };
-
 
 
 class Executor_RunMemtester_ResponseParamsDataView {
@@ -1316,7 +1294,6 @@ class Executor_RunMemtester_ResponseParamsDataView {
   internal::Executor_RunMemtester_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class Executor_RunMemtesterV2_ParamsDataView {
@@ -1347,7 +1324,6 @@ class Executor_RunMemtesterV2_ParamsDataView {
 };
 
 
-
 class Executor_KillMemtester_ParamsDataView {
  public:
   Executor_KillMemtester_ParamsDataView() = default;
@@ -1361,7 +1337,6 @@ class Executor_KillMemtester_ParamsDataView {
  private:
   internal::Executor_KillMemtester_Params_Data* data_ = nullptr;
 };
-
 
 
 class Executor_GetProcessIOContents_ParamsDataView {
@@ -1390,7 +1365,6 @@ class Executor_GetProcessIOContents_ParamsDataView {
 };
 
 
-
 class Executor_GetProcessIOContents_ResponseParamsDataView {
  public:
   Executor_GetProcessIOContents_ResponseParamsDataView() = default;
@@ -1417,7 +1391,6 @@ class Executor_GetProcessIOContents_ResponseParamsDataView {
 };
 
 
-
 class Executor_ReadMsr_ParamsDataView {
  public:
   Executor_ReadMsr_ParamsDataView() = default;
@@ -1437,7 +1410,6 @@ class Executor_ReadMsr_ParamsDataView {
  private:
   internal::Executor_ReadMsr_Params_Data* data_ = nullptr;
 };
-
 
 
 class Executor_ReadMsr_ResponseParamsDataView {
@@ -1476,7 +1448,6 @@ static_assert(
 };
 
 
-
 class Executor_GetLidAngle_ParamsDataView {
  public:
   Executor_GetLidAngle_ParamsDataView() = default;
@@ -1490,7 +1461,6 @@ class Executor_GetLidAngle_ParamsDataView {
  private:
   internal::Executor_GetLidAngle_Params_Data* data_ = nullptr;
 };
-
 
 
 class Executor_GetLidAngle_ResponseParamsDataView {
@@ -1519,7 +1489,6 @@ class Executor_GetLidAngle_ResponseParamsDataView {
 };
 
 
-
 class Executor_GetFingerprintFrame_ParamsDataView {
  public:
   Executor_GetFingerprintFrame_ParamsDataView() = default;
@@ -1543,7 +1512,6 @@ class Executor_GetFingerprintFrame_ParamsDataView {
  private:
   internal::Executor_GetFingerprintFrame_Params_Data* data_ = nullptr;
 };
-
 
 
 class Executor_GetFingerprintFrame_ResponseParamsDataView {
@@ -1592,7 +1560,6 @@ static_assert(
 };
 
 
-
 class Executor_GetFingerprintInfo_ParamsDataView {
  public:
   Executor_GetFingerprintInfo_ParamsDataView() = default;
@@ -1606,7 +1573,6 @@ class Executor_GetFingerprintInfo_ParamsDataView {
  private:
   internal::Executor_GetFingerprintInfo_Params_Data* data_ = nullptr;
 };
-
 
 
 class Executor_GetFingerprintInfo_ResponseParamsDataView {
@@ -1655,7 +1621,6 @@ static_assert(
 };
 
 
-
 class Executor_SetLedColor_ParamsDataView {
  public:
   Executor_SetLedColor_ParamsDataView() = default;
@@ -1689,7 +1654,6 @@ class Executor_SetLedColor_ParamsDataView {
  private:
   internal::Executor_SetLedColor_Params_Data* data_ = nullptr;
 };
-
 
 
 class Executor_SetLedColor_ResponseParamsDataView {
@@ -1728,7 +1692,6 @@ static_assert(
 };
 
 
-
 class Executor_ResetLedColor_ParamsDataView {
  public:
   Executor_ResetLedColor_ParamsDataView() = default;
@@ -1752,7 +1715,6 @@ class Executor_ResetLedColor_ParamsDataView {
  private:
   internal::Executor_ResetLedColor_Params_Data* data_ = nullptr;
 };
-
 
 
 class Executor_ResetLedColor_ResponseParamsDataView {
@@ -1791,7 +1753,6 @@ static_assert(
 };
 
 
-
 class Executor_GetHciDeviceConfig_ParamsDataView {
  public:
   Executor_GetHciDeviceConfig_ParamsDataView() = default;
@@ -1805,7 +1766,6 @@ class Executor_GetHciDeviceConfig_ParamsDataView {
  private:
   internal::Executor_GetHciDeviceConfig_Params_Data* data_ = nullptr;
 };
-
 
 
 class Executor_GetHciDeviceConfig_ResponseParamsDataView {
@@ -1832,7 +1792,6 @@ class Executor_GetHciDeviceConfig_ResponseParamsDataView {
   internal::Executor_GetHciDeviceConfig_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class Executor_MonitorAudioJack_ParamsDataView {
@@ -1869,7 +1828,6 @@ class Executor_MonitorAudioJack_ParamsDataView {
 };
 
 
-
 class Executor_MonitorTouchpad_ParamsDataView {
  public:
   Executor_MonitorTouchpad_ParamsDataView() = default;
@@ -1904,7 +1862,6 @@ class Executor_MonitorTouchpad_ParamsDataView {
 };
 
 
-
 class Executor_FetchBootPerformance_ParamsDataView {
  public:
   Executor_FetchBootPerformance_ParamsDataView() = default;
@@ -1918,7 +1875,6 @@ class Executor_FetchBootPerformance_ParamsDataView {
  private:
   internal::Executor_FetchBootPerformance_Params_Data* data_ = nullptr;
 };
-
 
 
 class Executor_FetchBootPerformance_ResponseParamsDataView {
@@ -1945,7 +1901,6 @@ class Executor_FetchBootPerformance_ResponseParamsDataView {
   internal::Executor_FetchBootPerformance_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class Executor_MonitorTouchscreen_ParamsDataView {
@@ -1982,7 +1937,6 @@ class Executor_MonitorTouchscreen_ParamsDataView {
 };
 
 
-
 class Executor_MonitorStylusGarage_ParamsDataView {
  public:
   Executor_MonitorStylusGarage_ParamsDataView() = default;
@@ -2015,7 +1969,6 @@ class Executor_MonitorStylusGarage_ParamsDataView {
   internal::Executor_MonitorStylusGarage_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 

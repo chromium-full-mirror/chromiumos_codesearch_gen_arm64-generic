@@ -297,7 +297,6 @@ class WilcoDtcSupportdServiceFactory_GetService_ParamsDataView {
 };
 
 
-
 class WilcoDtcSupportdServiceFactory_GetService_ResponseParamsDataView {
  public:
   WilcoDtcSupportdServiceFactory_GetService_ResponseParamsDataView() = default;
@@ -311,7 +310,6 @@ class WilcoDtcSupportdServiceFactory_GetService_ResponseParamsDataView {
  private:
   internal::WilcoDtcSupportdServiceFactory_GetService_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ParamsDataView {
@@ -338,7 +336,6 @@ class WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ParamsDataView {
 };
 
 
-
 class WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ResponseParamsDataView {
  public:
   WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ResponseParamsDataView() = default;
@@ -363,7 +360,6 @@ class WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ResponseParamsDataView {
 };
 
 
-
 class WilcoDtcSupportdService_NotifyConfigurationDataChanged_ParamsDataView {
  public:
   WilcoDtcSupportdService_NotifyConfigurationDataChanged_ParamsDataView() = default;
@@ -377,7 +373,6 @@ class WilcoDtcSupportdService_NotifyConfigurationDataChanged_ParamsDataView {
  private:
   internal::WilcoDtcSupportdService_NotifyConfigurationDataChanged_Params_Data* data_ = nullptr;
 };
-
 
 
 class WilcoDtcSupportdClient_PerformWebRequest_ParamsDataView {
@@ -432,7 +427,6 @@ class WilcoDtcSupportdClient_PerformWebRequest_ParamsDataView {
 };
 
 
-
 class WilcoDtcSupportdClient_PerformWebRequest_ResponseParamsDataView {
  public:
   WilcoDtcSupportdClient_PerformWebRequest_ResponseParamsDataView() = default;
@@ -470,7 +464,6 @@ class WilcoDtcSupportdClient_PerformWebRequest_ResponseParamsDataView {
 };
 
 
-
 class WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ParamsDataView {
  public:
   WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ParamsDataView() = default;
@@ -493,7 +486,6 @@ class WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ParamsDataView {
   internal::WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ResponseParamsDataView {
@@ -520,7 +512,6 @@ class WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ResponseParamsDataView {
 };
 
 
-
 class WilcoDtcSupportdClient_GetConfigurationData_ParamsDataView {
  public:
   WilcoDtcSupportdClient_GetConfigurationData_ParamsDataView() = default;
@@ -534,7 +525,6 @@ class WilcoDtcSupportdClient_GetConfigurationData_ParamsDataView {
  private:
   internal::WilcoDtcSupportdClient_GetConfigurationData_Params_Data* data_ = nullptr;
 };
-
 
 
 class WilcoDtcSupportdClient_GetConfigurationData_ResponseParamsDataView {
@@ -563,7 +553,6 @@ class WilcoDtcSupportdClient_GetConfigurationData_ResponseParamsDataView {
 };
 
 
-
 class WilcoDtcSupportdClient_HandleEvent_ParamsDataView {
  public:
   WilcoDtcSupportdClient_HandleEvent_ParamsDataView() = default;
@@ -587,7 +576,6 @@ class WilcoDtcSupportdClient_HandleEvent_ParamsDataView {
  private:
   internal::WilcoDtcSupportdClient_HandleEvent_Params_Data* data_ = nullptr;
 };
-
 
 
 class WilcoDtcSupportdClient_GetCrosHealthdDiagnosticsService_ParamsDataView {
@@ -615,7 +603,6 @@ class WilcoDtcSupportdClient_GetCrosHealthdDiagnosticsService_ParamsDataView {
 };
 
 
-
 class WilcoDtcSupportdClient_GetCrosHealthdProbeService_ParamsDataView {
  public:
   WilcoDtcSupportdClient_GetCrosHealthdProbeService_ParamsDataView() = default;
@@ -639,7 +626,6 @@ class WilcoDtcSupportdClient_GetCrosHealthdProbeService_ParamsDataView {
   internal::WilcoDtcSupportdClient_GetCrosHealthdProbeService_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 

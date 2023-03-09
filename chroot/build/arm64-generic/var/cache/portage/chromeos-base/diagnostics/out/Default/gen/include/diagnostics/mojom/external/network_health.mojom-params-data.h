@@ -175,7 +175,6 @@ class NetworkEventsObserver_OnConnectionStateChanged_ParamsDataView {
 };
 
 
-
 class NetworkEventsObserver_OnSignalStrengthChanged_ParamsDataView {
  public:
   NetworkEventsObserver_OnSignalStrengthChanged_ParamsDataView() = default;
@@ -212,7 +211,6 @@ class NetworkEventsObserver_OnSignalStrengthChanged_ParamsDataView {
 };
 
 
-
 class NetworkHealthService_AddObserver_ParamsDataView {
  public:
   NetworkHealthService_AddObserver_ParamsDataView() = default;
@@ -238,7 +236,6 @@ class NetworkHealthService_AddObserver_ParamsDataView {
 };
 
 
-
 class NetworkHealthService_GetNetworkList_ParamsDataView {
  public:
   NetworkHealthService_GetNetworkList_ParamsDataView() = default;
@@ -252,7 +249,6 @@ class NetworkHealthService_GetNetworkList_ParamsDataView {
  private:
   internal::NetworkHealthService_GetNetworkList_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkHealthService_GetNetworkList_ResponseParamsDataView {
@@ -281,7 +277,6 @@ class NetworkHealthService_GetNetworkList_ResponseParamsDataView {
 };
 
 
-
 class NetworkHealthService_GetHealthSnapshot_ParamsDataView {
  public:
   NetworkHealthService_GetHealthSnapshot_ParamsDataView() = default;
@@ -295,7 +290,6 @@ class NetworkHealthService_GetHealthSnapshot_ParamsDataView {
  private:
   internal::NetworkHealthService_GetHealthSnapshot_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkHealthService_GetHealthSnapshot_ResponseParamsDataView {
@@ -322,7 +316,6 @@ class NetworkHealthService_GetHealthSnapshot_ResponseParamsDataView {
   internal::NetworkHealthService_GetHealthSnapshot_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void NetworkEventsObserver_OnConnectionStateChanged_ParamsDataView::GetGuidDataView(
     mojo::StringDataView* output) {

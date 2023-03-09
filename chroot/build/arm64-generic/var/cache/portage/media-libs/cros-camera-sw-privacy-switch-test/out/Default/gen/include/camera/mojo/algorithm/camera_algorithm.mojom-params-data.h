@@ -222,7 +222,6 @@ class CameraAlgorithmOps_Initialize_ParamsDataView {
 };
 
 
-
 class CameraAlgorithmOps_Initialize_ResponseParamsDataView {
  public:
   CameraAlgorithmOps_Initialize_ResponseParamsDataView() = default;
@@ -239,7 +238,6 @@ class CameraAlgorithmOps_Initialize_ResponseParamsDataView {
  private:
   internal::CameraAlgorithmOps_Initialize_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class CameraAlgorithmOps_RegisterBuffer_ParamsDataView {
@@ -266,7 +264,6 @@ class CameraAlgorithmOps_RegisterBuffer_ParamsDataView {
 };
 
 
-
 class CameraAlgorithmOps_RegisterBuffer_ResponseParamsDataView {
  public:
   CameraAlgorithmOps_RegisterBuffer_ResponseParamsDataView() = default;
@@ -283,7 +280,6 @@ class CameraAlgorithmOps_RegisterBuffer_ResponseParamsDataView {
  private:
   internal::CameraAlgorithmOps_RegisterBuffer_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class CameraAlgorithmOps_Request_ParamsDataView {
@@ -318,7 +314,6 @@ class CameraAlgorithmOps_Request_ParamsDataView {
 };
 
 
-
 class CameraAlgorithmOps_DeregisterBuffers_ParamsDataView {
  public:
   CameraAlgorithmOps_DeregisterBuffers_ParamsDataView() = default;
@@ -343,7 +338,6 @@ class CameraAlgorithmOps_DeregisterBuffers_ParamsDataView {
   internal::CameraAlgorithmOps_DeregisterBuffers_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CameraAlgorithmOps_UpdateReturn_ParamsDataView {
@@ -376,7 +370,6 @@ class CameraAlgorithmOps_UpdateReturn_ParamsDataView {
 };
 
 
-
 class CameraAlgorithmOps_Deinitialize_ParamsDataView {
  public:
   CameraAlgorithmOps_Deinitialize_ParamsDataView() = default;
@@ -390,7 +383,6 @@ class CameraAlgorithmOps_Deinitialize_ParamsDataView {
  private:
   internal::CameraAlgorithmOps_Deinitialize_Params_Data* data_ = nullptr;
 };
-
 
 
 class CameraAlgorithmCallbackOps_Return_ParamsDataView {
@@ -415,7 +407,6 @@ class CameraAlgorithmCallbackOps_Return_ParamsDataView {
  private:
   internal::CameraAlgorithmCallbackOps_Return_Params_Data* data_ = nullptr;
 };
-
 
 
 class CameraAlgorithmCallbackOps_Update_ParamsDataView {
@@ -453,7 +444,6 @@ class CameraAlgorithmCallbackOps_Update_ParamsDataView {
   internal::CameraAlgorithmCallbackOps_Update_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 

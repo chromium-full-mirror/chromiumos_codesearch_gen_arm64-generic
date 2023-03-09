@@ -177,7 +177,6 @@ class BitstreamBufferDataView {
 };
 
 
-
 class PictureDataView {
  public:
   PictureDataView() = default;
@@ -210,7 +209,6 @@ class PictureDataView {
 };
 
 
-
 class PictureBufferFormatDataView {
  public:
   PictureBufferFormatDataView() = default;
@@ -238,7 +236,6 @@ class PictureBufferFormatDataView {
   internal::PictureBufferFormat_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class VideoDecodeAcceleratorConfigDataView {
@@ -269,7 +266,6 @@ class VideoDecodeAcceleratorConfigDataView {
 };
 
 
-
 class BufferModifierDataView {
  public:
   BufferModifierDataView() = default;
@@ -286,7 +282,6 @@ class BufferModifierDataView {
  private:
   internal::BufferModifier_Data* data_ = nullptr;
 };
-
 
 
 }  // namespace mojom

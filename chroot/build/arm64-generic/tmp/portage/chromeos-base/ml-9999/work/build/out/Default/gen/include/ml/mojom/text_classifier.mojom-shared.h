@@ -182,7 +182,6 @@ class TextEntityDataView {
 };
 
 
-
 class TextAnnotationDataView {
  public:
   TextAnnotationDataView() = default;
@@ -213,7 +212,6 @@ class TextAnnotationDataView {
   internal::TextAnnotation_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class TextAnnotationRequestDataView {
@@ -357,7 +355,6 @@ static_assert(
 };
 
 
-
 class CodepointSpanDataView {
  public:
   CodepointSpanDataView() = default;
@@ -377,7 +374,6 @@ class CodepointSpanDataView {
  private:
   internal::CodepointSpan_Data* data_ = nullptr;
 };
-
 
 
 class TextLanguageDataView {
@@ -407,7 +403,6 @@ class TextLanguageDataView {
   internal::TextLanguage_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class REMOVED_TextSuggestSelectionRequestDataView {
@@ -494,7 +489,6 @@ static_assert(
   internal::REMOVED_TextSuggestSelectionRequest_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class TextEntityDataDataView {

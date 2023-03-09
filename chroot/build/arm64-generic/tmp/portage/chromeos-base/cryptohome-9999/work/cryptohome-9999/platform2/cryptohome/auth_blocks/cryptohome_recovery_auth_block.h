@@ -8,6 +8,7 @@
 #include <libhwsec/frontend/cryptohome/frontend.h>
 
 #include "cryptohome/auth_blocks/auth_block.h"
+#include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/crypto.h"
 #include "cryptohome/error/cryptohome_crypto_error.h"
 #include "cryptohome/flatbuffer_schemas/auth_block_state.h"
@@ -21,8 +22,9 @@ namespace cryptohome {
 // and by Recovery Mediator service.
 class CryptohomeRecoveryAuthBlock : public SyncAuthBlock {
  public:
-  // Returns success if the AuthBlock is supported on the current hardware and
-  // software environment.
+  // Implement the GenericAuthBlock concept.
+  static constexpr auto kType = AuthBlockType::kCryptohomeRecovery;
+  using StateType = CryptohomeRecoveryAuthBlockState;
   static CryptoStatus IsSupported(Crypto& crypto);
 
   // the `tpm` pointer must outlive `this`
@@ -39,7 +41,6 @@ class CryptohomeRecoveryAuthBlock : public SyncAuthBlock {
   CryptohomeRecoveryAuthBlock(const CryptohomeRecoveryAuthBlock&) = delete;
   CryptohomeRecoveryAuthBlock& operator=(const CryptohomeRecoveryAuthBlock&) =
       delete;
-  ~CryptohomeRecoveryAuthBlock() = default;
 
   // `auth_input` object should have `salt` and
   // `cryptohome_recovery_auth_input.mediator_pub_key` fields set.

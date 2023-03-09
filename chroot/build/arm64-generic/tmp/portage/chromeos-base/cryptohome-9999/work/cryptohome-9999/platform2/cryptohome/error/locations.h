@@ -1347,6 +1347,8 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   kLocScryptVerifierVerifyWrongScryptOutputSize = 2102,
   /* ./scrypt_verifier.cc */
   kLocScryptVerifierVerifySecretMismatch = 2103,
+  /* ./auth_blocks/generic.h */
+  kLocGenericAuthBlockIsSupportedNotFound = 2104,
   //////////////////////////////////////////////////
   //// This is a separator block at value 2300
   //// See location_db.py for more info.
@@ -1560,7 +1562,7 @@ enum class ErrorLocationSpecifier : CryptohomeError::ErrorLocation {
   /* ./auth_blocks/fingerprint_auth_block.cc */
   kLocFingerprintAuthBlockPrepareForRemovalUnimplemented = 3338,
   /* ./auth_blocks/auth_block_utility_impl.cc */
-  kLocAuthBlockUtilFingerprintNoServiceInIsAuthBlockSupported = 3339,
+  kLocFingerprintAuthBlockNoServiceInIsSupported = 3339,
   /* ./auth_blocks/auth_block_utility_impl.cc */
   kLocAuthBlockUtilFingerprintNoServiceInGetAsyncAuthBlock = 3340,
   /* ./auth_blocks/fingerprint_auth_block.cc */

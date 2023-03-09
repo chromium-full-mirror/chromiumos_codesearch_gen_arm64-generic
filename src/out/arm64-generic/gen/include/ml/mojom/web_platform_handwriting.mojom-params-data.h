@@ -96,7 +96,6 @@ class HandwritingRecognizer_GetPrediction_ParamsDataView {
 };
 
 
-
 class HandwritingRecognizer_GetPrediction_ResponseParamsDataView {
  public:
   HandwritingRecognizer_GetPrediction_ResponseParamsDataView() = default;
@@ -131,7 +130,6 @@ static_assert(
   internal::HandwritingRecognizer_GetPrediction_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void HandwritingRecognizer_GetPrediction_ParamsDataView::GetStrokesDataView(
     mojo::ArrayDataView<HandwritingStrokeDataView>* output) {

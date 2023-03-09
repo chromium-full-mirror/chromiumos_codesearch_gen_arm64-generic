@@ -296,7 +296,6 @@ class VideoDecodeAccelerator_Initialize_ParamsDataView {
 };
 
 
-
 class VideoDecodeAccelerator_Initialize_ResponseParamsDataView {
  public:
   VideoDecodeAccelerator_Initialize_ResponseParamsDataView() = default;
@@ -320,7 +319,6 @@ class VideoDecodeAccelerator_Initialize_ResponseParamsDataView {
  private:
   internal::VideoDecodeAccelerator_Initialize_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class VideoDecodeAccelerator_Decode_ParamsDataView {
@@ -349,7 +347,6 @@ class VideoDecodeAccelerator_Decode_ParamsDataView {
 };
 
 
-
 class VideoDecodeAccelerator_AssignPictureBuffers_ParamsDataView {
  public:
   VideoDecodeAccelerator_AssignPictureBuffers_ParamsDataView() = default;
@@ -366,7 +363,6 @@ class VideoDecodeAccelerator_AssignPictureBuffers_ParamsDataView {
  private:
   internal::VideoDecodeAccelerator_AssignPictureBuffers_Params_Data* data_ = nullptr;
 };
-
 
 
 class VideoDecodeAccelerator_ImportBufferForPicture_ParamsDataView {
@@ -437,7 +433,6 @@ static_assert(
 };
 
 
-
 class VideoDecodeAccelerator_ReusePictureBuffer_ParamsDataView {
  public:
   VideoDecodeAccelerator_ReusePictureBuffer_ParamsDataView() = default;
@@ -456,7 +451,6 @@ class VideoDecodeAccelerator_ReusePictureBuffer_ParamsDataView {
 };
 
 
-
 class VideoDecodeAccelerator_Reset_ParamsDataView {
  public:
   VideoDecodeAccelerator_Reset_ParamsDataView() = default;
@@ -470,7 +464,6 @@ class VideoDecodeAccelerator_Reset_ParamsDataView {
  private:
   internal::VideoDecodeAccelerator_Reset_Params_Data* data_ = nullptr;
 };
-
 
 
 class VideoDecodeAccelerator_Reset_ResponseParamsDataView {
@@ -498,7 +491,6 @@ class VideoDecodeAccelerator_Reset_ResponseParamsDataView {
 };
 
 
-
 class VideoDecodeAccelerator_Flush_ParamsDataView {
  public:
   VideoDecodeAccelerator_Flush_ParamsDataView() = default;
@@ -512,7 +504,6 @@ class VideoDecodeAccelerator_Flush_ParamsDataView {
  private:
   internal::VideoDecodeAccelerator_Flush_Params_Data* data_ = nullptr;
 };
-
 
 
 class VideoDecodeAccelerator_Flush_ResponseParamsDataView {
@@ -538,7 +529,6 @@ class VideoDecodeAccelerator_Flush_ResponseParamsDataView {
  private:
   internal::VideoDecodeAccelerator_Flush_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class VideoDecodeClient_PictureReady_ParamsDataView {
@@ -567,7 +557,6 @@ class VideoDecodeClient_PictureReady_ParamsDataView {
 };
 
 
-
 class VideoDecodeClient_NotifyEndOfBitstreamBuffer_ParamsDataView {
  public:
   VideoDecodeClient_NotifyEndOfBitstreamBuffer_ParamsDataView() = default;
@@ -584,7 +573,6 @@ class VideoDecodeClient_NotifyEndOfBitstreamBuffer_ParamsDataView {
  private:
   internal::VideoDecodeClient_NotifyEndOfBitstreamBuffer_Params_Data* data_ = nullptr;
 };
-
 
 
 class VideoDecodeClient_NotifyError_ParamsDataView {
@@ -610,7 +598,6 @@ class VideoDecodeClient_NotifyError_ParamsDataView {
  private:
   internal::VideoDecodeClient_NotifyError_Params_Data* data_ = nullptr;
 };
-
 
 
 class VideoDecodeClient_ProvidePictureBuffers_ParamsDataView {
@@ -647,7 +634,6 @@ class VideoDecodeClient_ProvidePictureBuffers_ParamsDataView {
   internal::VideoDecodeClient_ProvidePictureBuffers_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void VideoDecodeAccelerator_Initialize_ParamsDataView::GetConfigDataView(
     VideoDecodeAcceleratorConfigDataView* output) {

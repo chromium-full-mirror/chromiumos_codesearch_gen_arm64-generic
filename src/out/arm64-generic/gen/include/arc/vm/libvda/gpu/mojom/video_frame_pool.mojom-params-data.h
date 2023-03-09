@@ -118,7 +118,6 @@ class VideoFramePool_Initialize_ParamsDataView {
 };
 
 
-
 class VideoFramePool_AddVideoFrame_ParamsDataView {
  public:
   VideoFramePool_AddVideoFrame_ParamsDataView() = default;
@@ -145,7 +144,6 @@ class VideoFramePool_AddVideoFrame_ParamsDataView {
 };
 
 
-
 class VideoFramePool_AddVideoFrame_ResponseParamsDataView {
  public:
   VideoFramePool_AddVideoFrame_ResponseParamsDataView() = default;
@@ -162,7 +160,6 @@ class VideoFramePool_AddVideoFrame_ResponseParamsDataView {
  private:
   internal::VideoFramePool_AddVideoFrame_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class VideoFramePoolClient_RequestVideoFrames_ParamsDataView {
@@ -212,7 +209,6 @@ class VideoFramePoolClient_RequestVideoFrames_ParamsDataView {
   internal::VideoFramePoolClient_RequestVideoFrames_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 

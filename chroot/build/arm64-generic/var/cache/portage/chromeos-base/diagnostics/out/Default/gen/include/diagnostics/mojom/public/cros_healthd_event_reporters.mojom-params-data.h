@@ -67,7 +67,6 @@ class AshEventReporter_SendKeyboardDiagnosticEvent_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
-
 inline void AshEventReporter_SendKeyboardDiagnosticEvent_ParamsDataView::GetInfoDataView(
     ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoDataView* output) {
   auto pointer = data_->info.Get();

@@ -79,7 +79,6 @@ class UnguessableTokenDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace mojo_base
 

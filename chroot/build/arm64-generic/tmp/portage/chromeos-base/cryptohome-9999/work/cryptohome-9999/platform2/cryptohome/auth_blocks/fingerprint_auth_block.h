@@ -6,6 +6,7 @@
 #define CRYPTOHOME_AUTH_BLOCKS_FINGERPRINT_AUTH_BLOCK_H_
 
 #include "cryptohome/auth_blocks/auth_block.h"
+#include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/auth_blocks/biometrics_auth_block_service.h"
 #include "cryptohome/crypto.h"
 #include "cryptohome/error/cryptohome_crypto_error.h"
@@ -16,12 +17,17 @@ namespace cryptohome {
 
 class FingerprintAuthBlock : public AuthBlock {
  public:
-  // Returns success if the AuthBlock is supported on the current hardware and
-  // software environment.
-  static CryptoStatus IsSupported(Crypto& crypto);
+  // Implement the GenericAuthBlock concept.
+  static constexpr auto kType = AuthBlockType::kFingerprint;
+  using StateType = FingerprintAuthBlockState;
+  static CryptoStatus IsSupported(
+      Crypto& crypto,
+      base::RepeatingCallback<BiometricsAuthBlockService*()>&
+          bio_service_getter);
 
   FingerprintAuthBlock(LECredentialManager* le_manager,
                        BiometricsAuthBlockService* service);
+
   FingerprintAuthBlock(const FingerprintAuthBlock&) = delete;
   FingerprintAuthBlock& operator=(const FingerprintAuthBlock&) = delete;
 

@@ -15,6 +15,7 @@
 #include <libhwsec/frontend/cryptohome/frontend.h>
 #include <libhwsec/status.h>
 
+#include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/auth_blocks/tpm_auth_block_utils.h"
 #include "cryptohome/crypto.h"
 #include "cryptohome/cryptohome_keys_manager.h"
@@ -26,12 +27,14 @@ namespace cryptohome {
 
 class TpmBoundToPcrAuthBlock : public SyncAuthBlock {
  public:
-  // Returns success if the AuthBlock is supported on the current hardware and
-  // software environment.
+  // Implement the GenericAuthBlock concept.
+  static constexpr auto kType = AuthBlockType::kTpmBoundToPcr;
+  using StateType = TpmBoundToPcrAuthBlockState;
   static CryptoStatus IsSupported(Crypto& crypto);
 
   TpmBoundToPcrAuthBlock(hwsec::CryptohomeFrontend* hwsec,
                          CryptohomeKeysManager* cryptohome_keys_manager);
+
   TpmBoundToPcrAuthBlock(const TpmBoundToPcrAuthBlock&) = delete;
   TpmBoundToPcrAuthBlock& operator=(const TpmBoundToPcrAuthBlock&) = delete;
 

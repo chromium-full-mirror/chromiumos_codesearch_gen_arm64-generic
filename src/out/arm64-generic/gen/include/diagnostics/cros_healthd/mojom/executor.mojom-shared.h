@@ -240,7 +240,6 @@ class ExecutedProcessResultDataView {
 };
 
 
-
 class FingerprintInfoResultDataView {
  public:
   FingerprintInfoResultDataView() = default;
@@ -257,7 +256,6 @@ class FingerprintInfoResultDataView {
  private:
   internal::FingerprintInfoResult_Data* data_ = nullptr;
 };
-
 
 
 class FingerprintFrameResultDataView {
@@ -290,7 +288,6 @@ class FingerprintFrameResultDataView {
   internal::FingerprintFrameResult_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

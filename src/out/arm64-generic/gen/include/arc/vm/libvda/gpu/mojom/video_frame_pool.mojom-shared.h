@@ -142,7 +142,6 @@ class VideoFrameDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace arc
 

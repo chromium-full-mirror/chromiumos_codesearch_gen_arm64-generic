@@ -28,6 +28,7 @@
 #include "cryptohome/auth_blocks/cryptohome_recovery_auth_block.h"
 #include "cryptohome/auth_blocks/double_wrapped_compat_auth_block.h"
 #include "cryptohome/auth_blocks/fingerprint_auth_block.h"
+#include "cryptohome/auth_blocks/generic.h"
 #include "cryptohome/auth_blocks/pin_weaver_auth_block.h"
 #include "cryptohome/auth_blocks/scrypt_auth_block.h"
 #include "cryptohome/auth_blocks/sync_to_async_auth_block_adapter.h"
@@ -167,10 +168,10 @@ bool AuthBlockUtilityImpl::IsAuthFactorSupported(
     case AuthFactorType::kLegacyFingerprint:
       return false;
     case AuthFactorType::kFingerprint: {
+      auto getter_copy = bio_service_getter_;
       return (auth_factor_storage_type ==
               AuthFactorStorageType::kUserSecretStash) &&
-             bio_service_getter_.Run() &&
-             FingerprintAuthBlock::IsSupported(*crypto_).ok();
+             FingerprintAuthBlock::IsSupported(*crypto_, getter_copy).ok();
     }
     case AuthFactorType::kUnspecified:
       return false;
@@ -553,34 +554,8 @@ CryptoStatusOr<AuthBlockType> AuthBlockUtilityImpl::GetAuthBlockTypeForCreation(
 
 CryptoStatus AuthBlockUtilityImpl::IsAuthBlockSupported(
     AuthBlockType auth_block_type) const {
-  switch (auth_block_type) {
-    case AuthBlockType::kPinWeaver:
-      return PinWeaverAuthBlock::IsSupported(*crypto_);
-    case AuthBlockType::kChallengeCredential:
-      return AsyncChallengeCredentialAuthBlock::IsSupported(*crypto_);
-    case AuthBlockType::kDoubleWrappedCompat:
-      return DoubleWrappedCompatAuthBlock::IsSupported(*crypto_);
-    case AuthBlockType::kTpmBoundToPcr:
-      return TpmBoundToPcrAuthBlock::IsSupported(*crypto_);
-    case AuthBlockType::kTpmNotBoundToPcr:
-      return TpmNotBoundToPcrAuthBlock::IsSupported(*crypto_);
-    case AuthBlockType::kScrypt:
-      // `ScryptAuthBlock` has no `IsSupported()` method. This AuthBlock is
-      // pruned in factor creation by `GetAuthBlockPriorityListForCreation()`.
-      return OkStatus<CryptohomeCryptoError>();
-    case AuthBlockType::kCryptohomeRecovery:
-      return CryptohomeRecoveryAuthBlock::IsSupported(*crypto_);
-    case AuthBlockType::kTpmEcc:
-      return TpmEccAuthBlock::IsSupported(*crypto_);
-    case AuthBlockType::kFingerprint:
-      if (!bio_service_getter_.Run()) {
-        return MakeStatus<CryptohomeCryptoError>(
-            CRYPTOHOME_ERR_LOC(
-                kLocAuthBlockUtilFingerprintNoServiceInIsAuthBlockSupported),
-            ErrorActionSet({ErrorAction::kAuth}), CryptoError::CE_OTHER_CRYPTO);
-      }
-      return FingerprintAuthBlock::IsSupported(*crypto_);
-  }
+  GenericAuthBlockFunctions generic(crypto_, bio_service_getter_);
+  return generic.IsSupported(auth_block_type);
 }
 
 CryptoStatusOr<std::unique_ptr<SyncAuthBlock>>
@@ -799,34 +774,8 @@ void AuthBlockUtilityImpl::AssignAuthBlockStateToVaultKeyset(
 
 std::optional<AuthBlockType> AuthBlockUtilityImpl::GetAuthBlockTypeFromState(
     const AuthBlockState& auth_block_state) const {
-  std::optional<AuthBlockType> auth_block_type;
-  if (const auto* state = std::get_if<TpmNotBoundToPcrAuthBlockState>(
-          &auth_block_state.state)) {
-    auth_block_type = AuthBlockType::kTpmNotBoundToPcr;
-  } else if (const auto* state = std::get_if<TpmBoundToPcrAuthBlockState>(
-                 &auth_block_state.state)) {
-    auth_block_type = AuthBlockType::kTpmBoundToPcr;
-  } else if (const auto* state = std::get_if<PinWeaverAuthBlockState>(
-                 &auth_block_state.state)) {
-    auth_block_type = AuthBlockType::kPinWeaver;
-  } else if (const auto* state =
-                 std::get_if<ScryptAuthBlockState>(&auth_block_state.state)) {
-    auth_block_type = AuthBlockType::kScrypt;
-  } else if (const auto* state =
-                 std::get_if<TpmEccAuthBlockState>(&auth_block_state.state)) {
-    auth_block_type = AuthBlockType::kTpmEcc;
-  } else if (const auto& state = std::get_if<ChallengeCredentialAuthBlockState>(
-                 &auth_block_state.state)) {
-    auth_block_type = AuthBlockType::kChallengeCredential;
-  } else if (const auto& state = std::get_if<CryptohomeRecoveryAuthBlockState>(
-                 &auth_block_state.state)) {
-    auth_block_type = AuthBlockType::kCryptohomeRecovery;
-  } else if (const auto& state = std::get_if<FingerprintAuthBlockState>(
-                 &auth_block_state.state)) {
-    auth_block_type = AuthBlockType::kFingerprint;
-  }
-
-  return auth_block_type;
+  GenericAuthBlockFunctions generic(crypto_, bio_service_getter_);
+  return generic.GetAuthBlockTypeFromState(auth_block_state);
 }
 
 base::flat_set<AuthIntent> AuthBlockUtilityImpl::GetSupportedIntentsFromState(

@@ -12,6 +12,7 @@
 
 #include <base/memory/weak_ptr.h>
 
+#include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/auth_blocks/scrypt_auth_block.h"
 #include "cryptohome/challenge_credentials/challenge_credentials_helper.h"
 #include "cryptohome/credentials.h"
@@ -28,15 +29,20 @@ namespace cryptohome {
 // block.
 class AsyncChallengeCredentialAuthBlock : public AuthBlock {
  public:
-  // Returns success if the AuthBlock is supported on the current hardware and
-  // software environment.
+  // Implement the GenericAuthBlock concept.
+  static constexpr auto kType = AuthBlockType::kChallengeCredential;
+  using StateType = ChallengeCredentialAuthBlockState;
   static CryptoStatus IsSupported(Crypto& crypto);
 
   AsyncChallengeCredentialAuthBlock(
       ChallengeCredentialsHelper* challenge_credentials_helper,
       std::unique_ptr<KeyChallengeService> key_challenge_service,
       const Username& account_id);
-  ~AsyncChallengeCredentialAuthBlock() = default;
+
+  AsyncChallengeCredentialAuthBlock(const AsyncChallengeCredentialAuthBlock&) =
+      delete;
+  AsyncChallengeCredentialAuthBlock& operator=(
+      const AsyncChallengeCredentialAuthBlock&) = delete;
 
   // This creates the KeyBlobs & AuthBlockState  from the key challenge service.
   void Create(const AuthInput& user_input, CreateCallback callback) override;

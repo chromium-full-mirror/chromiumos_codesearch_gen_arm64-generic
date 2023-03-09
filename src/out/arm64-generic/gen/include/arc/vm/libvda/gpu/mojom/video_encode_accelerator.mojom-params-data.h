@@ -315,7 +315,6 @@ class VideoEncodeAccelerator_GetSupportedProfiles_ParamsDataView {
 };
 
 
-
 class VideoEncodeAccelerator_GetSupportedProfiles_ResponseParamsDataView {
  public:
   VideoEncodeAccelerator_GetSupportedProfiles_ResponseParamsDataView() = default;
@@ -340,7 +339,6 @@ class VideoEncodeAccelerator_GetSupportedProfiles_ResponseParamsDataView {
   internal::VideoEncodeAccelerator_GetSupportedProfiles_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class VideoEncodeAccelerator_Initialize_ParamsDataView {
@@ -378,7 +376,6 @@ class VideoEncodeAccelerator_Initialize_ParamsDataView {
 };
 
 
-
 class VideoEncodeAccelerator_Initialize_ResponseParamsDataView {
  public:
   VideoEncodeAccelerator_Initialize_ResponseParamsDataView() = default;
@@ -402,7 +399,6 @@ class VideoEncodeAccelerator_Initialize_ResponseParamsDataView {
  private:
   internal::VideoEncodeAccelerator_Initialize_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class VideoEncodeAccelerator_InitializeDeprecated_ParamsDataView {
@@ -440,7 +436,6 @@ class VideoEncodeAccelerator_InitializeDeprecated_ParamsDataView {
 };
 
 
-
 class VideoEncodeAccelerator_InitializeDeprecated_ResponseParamsDataView {
  public:
   VideoEncodeAccelerator_InitializeDeprecated_ResponseParamsDataView() = default;
@@ -457,7 +452,6 @@ class VideoEncodeAccelerator_InitializeDeprecated_ResponseParamsDataView {
  private:
   internal::VideoEncodeAccelerator_InitializeDeprecated_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class VideoEncodeAccelerator_Encode_ParamsDataView {
@@ -510,7 +504,6 @@ class VideoEncodeAccelerator_Encode_ParamsDataView {
 };
 
 
-
 class VideoEncodeAccelerator_Encode_ResponseParamsDataView {
  public:
   VideoEncodeAccelerator_Encode_ResponseParamsDataView() = default;
@@ -524,7 +517,6 @@ class VideoEncodeAccelerator_Encode_ResponseParamsDataView {
  private:
   internal::VideoEncodeAccelerator_Encode_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class VideoEncodeAccelerator_UseBitstreamBuffer_ParamsDataView {
@@ -557,7 +549,6 @@ class VideoEncodeAccelerator_UseBitstreamBuffer_ParamsDataView {
 };
 
 
-
 class VideoEncodeAccelerator_UseBitstreamBuffer_ResponseParamsDataView {
  public:
   VideoEncodeAccelerator_UseBitstreamBuffer_ResponseParamsDataView() = default;
@@ -580,7 +571,6 @@ class VideoEncodeAccelerator_UseBitstreamBuffer_ResponseParamsDataView {
  private:
   internal::VideoEncodeAccelerator_UseBitstreamBuffer_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class VideoEncodeAccelerator_RequestEncodingParametersChange_ParamsDataView {
@@ -612,7 +602,6 @@ class VideoEncodeAccelerator_RequestEncodingParametersChange_ParamsDataView {
 };
 
 
-
 class VideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_ParamsDataView {
  public:
   VideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_ParamsDataView() = default;
@@ -634,7 +623,6 @@ class VideoEncodeAccelerator_RequestEncodingParametersChangeDeprecated_ParamsDat
 };
 
 
-
 class VideoEncodeAccelerator_Flush_ParamsDataView {
  public:
   VideoEncodeAccelerator_Flush_ParamsDataView() = default;
@@ -648,7 +636,6 @@ class VideoEncodeAccelerator_Flush_ParamsDataView {
  private:
   internal::VideoEncodeAccelerator_Flush_Params_Data* data_ = nullptr;
 };
-
 
 
 class VideoEncodeAccelerator_Flush_ResponseParamsDataView {
@@ -667,7 +654,6 @@ class VideoEncodeAccelerator_Flush_ResponseParamsDataView {
  private:
   internal::VideoEncodeAccelerator_Flush_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class VideoEncodeClient_RequireBitstreamBuffers_ParamsDataView {
@@ -702,7 +688,6 @@ class VideoEncodeClient_RequireBitstreamBuffers_ParamsDataView {
 };
 
 
-
 class VideoEncodeClient_NotifyError_ParamsDataView {
  public:
   VideoEncodeClient_NotifyError_ParamsDataView() = default;
@@ -726,7 +711,6 @@ class VideoEncodeClient_NotifyError_ParamsDataView {
  private:
   internal::VideoEncodeClient_NotifyError_Params_Data* data_ = nullptr;
 };
-
 
 
 

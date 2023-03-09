@@ -84,7 +84,6 @@ class ReadOnlyBufferDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace mojo_base
 

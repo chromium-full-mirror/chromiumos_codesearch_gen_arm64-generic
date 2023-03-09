@@ -295,7 +295,6 @@ class CreateModelLoaderOptionsDataView {
 };
 
 
-
 class TensorInfoDataView {
  public:
   TensorInfoDataView() = default;
@@ -335,7 +334,6 @@ class TensorInfoDataView {
 };
 
 
-
 class ModelInfoDataView {
  public:
   ModelInfoDataView() = default;
@@ -370,7 +368,6 @@ class ModelInfoDataView {
   internal::ModelInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

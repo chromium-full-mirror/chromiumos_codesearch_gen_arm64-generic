@@ -278,7 +278,6 @@ class Delegate_GetFingerprintFrame_ParamsDataView {
 };
 
 
-
 class Delegate_GetFingerprintFrame_ResponseParamsDataView {
  public:
   Delegate_GetFingerprintFrame_ResponseParamsDataView() = default;
@@ -325,7 +324,6 @@ static_assert(
 };
 
 
-
 class Delegate_GetFingerprintInfo_ParamsDataView {
  public:
   Delegate_GetFingerprintInfo_ParamsDataView() = default;
@@ -339,7 +337,6 @@ class Delegate_GetFingerprintInfo_ParamsDataView {
  private:
   internal::Delegate_GetFingerprintInfo_Params_Data* data_ = nullptr;
 };
-
 
 
 class Delegate_GetFingerprintInfo_ResponseParamsDataView {
@@ -388,7 +385,6 @@ static_assert(
 };
 
 
-
 class Delegate_SetLedColor_ParamsDataView {
  public:
   Delegate_SetLedColor_ParamsDataView() = default;
@@ -422,7 +418,6 @@ class Delegate_SetLedColor_ParamsDataView {
  private:
   internal::Delegate_SetLedColor_Params_Data* data_ = nullptr;
 };
-
 
 
 class Delegate_SetLedColor_ResponseParamsDataView {
@@ -461,7 +456,6 @@ static_assert(
 };
 
 
-
 class Delegate_ResetLedColor_ParamsDataView {
  public:
   Delegate_ResetLedColor_ParamsDataView() = default;
@@ -485,7 +479,6 @@ class Delegate_ResetLedColor_ParamsDataView {
  private:
   internal::Delegate_ResetLedColor_Params_Data* data_ = nullptr;
 };
-
 
 
 class Delegate_ResetLedColor_ResponseParamsDataView {
@@ -524,7 +517,6 @@ static_assert(
 };
 
 
-
 class Delegate_MonitorAudioJack_ParamsDataView {
  public:
   Delegate_MonitorAudioJack_ParamsDataView() = default;
@@ -548,7 +540,6 @@ class Delegate_MonitorAudioJack_ParamsDataView {
   internal::Delegate_MonitorAudioJack_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class Delegate_MonitorTouchpad_ParamsDataView {
@@ -576,7 +567,6 @@ class Delegate_MonitorTouchpad_ParamsDataView {
 };
 
 
-
 class Delegate_FetchBootPerformance_ParamsDataView {
  public:
   Delegate_FetchBootPerformance_ParamsDataView() = default;
@@ -590,7 +580,6 @@ class Delegate_FetchBootPerformance_ParamsDataView {
  private:
   internal::Delegate_FetchBootPerformance_Params_Data* data_ = nullptr;
 };
-
 
 
 class Delegate_FetchBootPerformance_ResponseParamsDataView {
@@ -619,7 +608,6 @@ class Delegate_FetchBootPerformance_ResponseParamsDataView {
 };
 
 
-
 class Delegate_MonitorTouchscreen_ParamsDataView {
  public:
   Delegate_MonitorTouchscreen_ParamsDataView() = default;
@@ -645,7 +633,6 @@ class Delegate_MonitorTouchscreen_ParamsDataView {
 };
 
 
-
 class Delegate_MonitorStylusGarage_ParamsDataView {
  public:
   Delegate_MonitorStylusGarage_ParamsDataView() = default;
@@ -669,7 +656,6 @@ class Delegate_MonitorStylusGarage_ParamsDataView {
   internal::Delegate_MonitorStylusGarage_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 

@@ -440,7 +440,6 @@ class Camera3CallbackOps_ProcessCaptureResult_ParamsDataView {
 };
 
 
-
 class Camera3CallbackOps_Notify_ParamsDataView {
  public:
   Camera3CallbackOps_Notify_ParamsDataView() = default;
@@ -467,7 +466,6 @@ class Camera3CallbackOps_Notify_ParamsDataView {
 };
 
 
-
 class Camera3CallbackOps_RequestStreamBuffers_ParamsDataView {
  public:
   Camera3CallbackOps_RequestStreamBuffers_ParamsDataView() = default;
@@ -492,7 +490,6 @@ class Camera3CallbackOps_RequestStreamBuffers_ParamsDataView {
   internal::Camera3CallbackOps_RequestStreamBuffers_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class Camera3CallbackOps_RequestStreamBuffers_ResponseParamsDataView {
@@ -541,7 +538,6 @@ static_assert(
 };
 
 
-
 class Camera3CallbackOps_ReturnStreamBuffers_ParamsDataView {
  public:
   Camera3CallbackOps_ReturnStreamBuffers_ParamsDataView() = default;
@@ -566,7 +562,6 @@ class Camera3CallbackOps_ReturnStreamBuffers_ParamsDataView {
   internal::Camera3CallbackOps_ReturnStreamBuffers_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class Camera3DeviceOps_Initialize_ParamsDataView {
@@ -594,7 +589,6 @@ class Camera3DeviceOps_Initialize_ParamsDataView {
 };
 
 
-
 class Camera3DeviceOps_Initialize_ResponseParamsDataView {
  public:
   Camera3DeviceOps_Initialize_ResponseParamsDataView() = default;
@@ -611,7 +605,6 @@ class Camera3DeviceOps_Initialize_ResponseParamsDataView {
  private:
   internal::Camera3DeviceOps_Initialize_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class Camera3DeviceOps_ConfigureStreams_ParamsDataView {
@@ -638,7 +631,6 @@ class Camera3DeviceOps_ConfigureStreams_ParamsDataView {
   internal::Camera3DeviceOps_ConfigureStreams_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class Camera3DeviceOps_ConfigureStreams_ResponseParamsDataView {
@@ -680,7 +672,6 @@ static_assert(
 };
 
 
-
 class Camera3DeviceOps_ConstructDefaultRequestSettings_ParamsDataView {
  public:
   Camera3DeviceOps_ConstructDefaultRequestSettings_ParamsDataView() = default;
@@ -704,7 +695,6 @@ class Camera3DeviceOps_ConstructDefaultRequestSettings_ParamsDataView {
  private:
   internal::Camera3DeviceOps_ConstructDefaultRequestSettings_Params_Data* data_ = nullptr;
 };
-
 
 
 class Camera3DeviceOps_ConstructDefaultRequestSettings_ResponseParamsDataView {
@@ -743,7 +733,6 @@ static_assert(
 };
 
 
-
 class Camera3DeviceOps_ProcessCaptureRequest_ParamsDataView {
  public:
   Camera3DeviceOps_ProcessCaptureRequest_ParamsDataView() = default;
@@ -770,7 +759,6 @@ class Camera3DeviceOps_ProcessCaptureRequest_ParamsDataView {
 };
 
 
-
 class Camera3DeviceOps_ProcessCaptureRequest_ResponseParamsDataView {
  public:
   Camera3DeviceOps_ProcessCaptureRequest_ResponseParamsDataView() = default;
@@ -787,7 +775,6 @@ class Camera3DeviceOps_ProcessCaptureRequest_ResponseParamsDataView {
  private:
   internal::Camera3DeviceOps_ProcessCaptureRequest_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class Camera3DeviceOps_Dump_ParamsDataView {
@@ -814,7 +801,6 @@ class Camera3DeviceOps_Dump_ParamsDataView {
 };
 
 
-
 class Camera3DeviceOps_Flush_ParamsDataView {
  public:
   Camera3DeviceOps_Flush_ParamsDataView() = default;
@@ -828,7 +814,6 @@ class Camera3DeviceOps_Flush_ParamsDataView {
  private:
   internal::Camera3DeviceOps_Flush_Params_Data* data_ = nullptr;
 };
-
 
 
 class Camera3DeviceOps_Flush_ResponseParamsDataView {
@@ -847,7 +832,6 @@ class Camera3DeviceOps_Flush_ResponseParamsDataView {
  private:
   internal::Camera3DeviceOps_Flush_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class Camera3DeviceOps_RegisterBuffer_ParamsDataView {
@@ -928,7 +912,6 @@ class Camera3DeviceOps_RegisterBuffer_ParamsDataView {
 };
 
 
-
 class Camera3DeviceOps_RegisterBuffer_ResponseParamsDataView {
  public:
   Camera3DeviceOps_RegisterBuffer_ResponseParamsDataView() = default;
@@ -947,7 +930,6 @@ class Camera3DeviceOps_RegisterBuffer_ResponseParamsDataView {
 };
 
 
-
 class Camera3DeviceOps_Close_ParamsDataView {
  public:
   Camera3DeviceOps_Close_ParamsDataView() = default;
@@ -961,7 +943,6 @@ class Camera3DeviceOps_Close_ParamsDataView {
  private:
   internal::Camera3DeviceOps_Close_Params_Data* data_ = nullptr;
 };
-
 
 
 class Camera3DeviceOps_Close_ResponseParamsDataView {
@@ -980,7 +961,6 @@ class Camera3DeviceOps_Close_ResponseParamsDataView {
  private:
   internal::Camera3DeviceOps_Close_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ParamsDataView {
@@ -1007,7 +987,6 @@ class Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ParamsDataView {
   internal::Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ResponseParamsDataView {
@@ -1059,7 +1038,6 @@ static_assert(
 };
 
 
-
 class Camera3DeviceOps_SignalStreamFlush_ParamsDataView {
  public:
   Camera3DeviceOps_SignalStreamFlush_ParamsDataView() = default;
@@ -1084,7 +1062,6 @@ class Camera3DeviceOps_SignalStreamFlush_ParamsDataView {
   internal::Camera3DeviceOps_SignalStreamFlush_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void Camera3CallbackOps_ProcessCaptureResult_ParamsDataView::GetResultDataView(
     Camera3CaptureResultDataView* output) {

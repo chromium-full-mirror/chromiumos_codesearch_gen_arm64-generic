@@ -157,7 +157,6 @@ class CrosHealthdRoutinesService_CreateRoutine_ParamsDataView {
 };
 
 
-
 class RoutineControl_GetState_ParamsDataView {
  public:
   RoutineControl_GetState_ParamsDataView() = default;
@@ -171,7 +170,6 @@ class RoutineControl_GetState_ParamsDataView {
  private:
   internal::RoutineControl_GetState_Params_Data* data_ = nullptr;
 };
-
 
 
 class RoutineControl_GetState_ResponseParamsDataView {
@@ -200,7 +198,6 @@ class RoutineControl_GetState_ResponseParamsDataView {
 };
 
 
-
 class RoutineControl_AddObserver_ParamsDataView {
  public:
   RoutineControl_AddObserver_ParamsDataView() = default;
@@ -226,7 +223,6 @@ class RoutineControl_AddObserver_ParamsDataView {
 };
 
 
-
 class RoutineControl_Start_ParamsDataView {
  public:
   RoutineControl_Start_ParamsDataView() = default;
@@ -240,7 +236,6 @@ class RoutineControl_Start_ParamsDataView {
  private:
   internal::RoutineControl_Start_Params_Data* data_ = nullptr;
 };
-
 
 
 class RoutineObserver_OnRoutineStateChange_ParamsDataView {
@@ -267,7 +262,6 @@ class RoutineObserver_OnRoutineStateChange_ParamsDataView {
   internal::RoutineObserver_OnRoutineStateChange_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void CrosHealthdRoutinesService_CreateRoutine_ParamsDataView::GetRoutineArgumentDataView(
     RoutineArgumentDataView* output) {

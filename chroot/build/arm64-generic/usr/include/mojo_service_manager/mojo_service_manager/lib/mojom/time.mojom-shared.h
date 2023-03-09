@@ -79,7 +79,6 @@ class TimeDeltaDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace mojo_service_manager
 }  // namespace chromeos

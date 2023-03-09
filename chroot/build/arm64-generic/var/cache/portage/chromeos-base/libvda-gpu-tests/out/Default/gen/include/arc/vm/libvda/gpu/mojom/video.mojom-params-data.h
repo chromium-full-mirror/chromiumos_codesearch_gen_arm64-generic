@@ -172,7 +172,6 @@ class VideoHost_OnBootstrapVideoAcceleratorFactory_ParamsDataView {
 };
 
 
-
 class VideoHost_OnBootstrapVideoAcceleratorFactory_ResponseParamsDataView {
  public:
   VideoHost_OnBootstrapVideoAcceleratorFactory_ResponseParamsDataView() = default;
@@ -207,7 +206,6 @@ class VideoHost_OnBootstrapVideoAcceleratorFactory_ResponseParamsDataView {
 };
 
 
-
 class VideoInstance_Init_ParamsDataView {
  public:
   VideoInstance_Init_ParamsDataView() = default;
@@ -233,7 +231,6 @@ class VideoInstance_Init_ParamsDataView {
 };
 
 
-
 class VideoInstance_Init_ResponseParamsDataView {
  public:
   VideoInstance_Init_ResponseParamsDataView() = default;
@@ -247,7 +244,6 @@ class VideoInstance_Init_ResponseParamsDataView {
  private:
   internal::VideoInstance_Init_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class VideoAcceleratorFactory_CreateEncodeAccelerator_ParamsDataView {
@@ -275,7 +271,6 @@ class VideoAcceleratorFactory_CreateEncodeAccelerator_ParamsDataView {
 };
 
 
-
 class VideoAcceleratorFactory_CreateDecodeAccelerator_ParamsDataView {
  public:
   VideoAcceleratorFactory_CreateDecodeAccelerator_ParamsDataView() = default;
@@ -299,7 +294,6 @@ class VideoAcceleratorFactory_CreateDecodeAccelerator_ParamsDataView {
   internal::VideoAcceleratorFactory_CreateDecodeAccelerator_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class VideoAcceleratorFactory_CreateVideoDecoder_ParamsDataView {
@@ -327,7 +321,6 @@ class VideoAcceleratorFactory_CreateVideoDecoder_ParamsDataView {
 };
 
 
-
 class VideoAcceleratorFactory_CreateProtectedBufferAllocator_ParamsDataView {
  public:
   VideoAcceleratorFactory_CreateProtectedBufferAllocator_ParamsDataView() = default;
@@ -351,7 +344,6 @@ class VideoAcceleratorFactory_CreateProtectedBufferAllocator_ParamsDataView {
   internal::VideoAcceleratorFactory_CreateProtectedBufferAllocator_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 

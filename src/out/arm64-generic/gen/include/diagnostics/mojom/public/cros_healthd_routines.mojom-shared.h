@@ -304,7 +304,6 @@ class MemoryRoutineArgumentDataView {
 };
 
 
-
 class RoutineStateDataView {
  public:
   RoutineStateDataView() = default;
@@ -334,7 +333,6 @@ class RoutineStateDataView {
 };
 
 
-
 class RoutineStateInitializedDataView {
  public:
   RoutineStateInitializedDataView() = default;
@@ -350,7 +348,6 @@ class RoutineStateInitializedDataView {
 };
 
 
-
 class RoutineStateRunningDataView {
  public:
   RoutineStateRunningDataView() = default;
@@ -364,7 +361,6 @@ class RoutineStateRunningDataView {
  private:
   internal::RoutineStateRunning_Data* data_ = nullptr;
 };
-
 
 
 class RoutineStateWaitingDataView {
@@ -401,7 +397,6 @@ class RoutineStateWaitingDataView {
   internal::RoutineStateWaiting_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class RoutineStateFinishedDataView {
@@ -443,7 +438,6 @@ static_assert(
 };
 
 
-
 class MemoryRoutineDetailDataView {
  public:
   MemoryRoutineDetailDataView() = default;
@@ -471,7 +465,6 @@ class MemoryRoutineDetailDataView {
   internal::MemoryRoutineDetail_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class MemtesterResultDataView {
@@ -508,7 +501,6 @@ class MemtesterResultDataView {
   internal::MemtesterResult_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class RoutineArgumentDataView {

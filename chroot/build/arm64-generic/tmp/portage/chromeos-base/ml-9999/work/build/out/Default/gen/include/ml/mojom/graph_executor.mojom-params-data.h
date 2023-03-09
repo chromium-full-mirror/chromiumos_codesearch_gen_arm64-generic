@@ -97,7 +97,6 @@ class GraphExecutor_Execute_ParamsDataView {
 };
 
 
-
 class GraphExecutor_Execute_ResponseParamsDataView {
  public:
   GraphExecutor_Execute_ResponseParamsDataView() = default;
@@ -142,7 +141,6 @@ static_assert(
   internal::GraphExecutor_Execute_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void GraphExecutor_Execute_ParamsDataView::GetInputsDataView(
     mojo::MapDataView<mojo::StringDataView, ::chromeos::machine_learning::mojom::TensorDataView>* output) {

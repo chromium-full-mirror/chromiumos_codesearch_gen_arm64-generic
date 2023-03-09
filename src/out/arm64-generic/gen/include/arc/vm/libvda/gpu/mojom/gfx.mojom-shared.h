@@ -103,7 +103,6 @@ class RectDataView {
 };
 
 
-
 class RangeDataView {
  public:
   RangeDataView() = default;
@@ -125,7 +124,6 @@ class RangeDataView {
 };
 
 
-
 class SizeDataView {
  public:
   SizeDataView() = default;
@@ -145,7 +143,6 @@ class SizeDataView {
  private:
   internal::Size_Data* data_ = nullptr;
 };
-
 
 
 }  // namespace mojom

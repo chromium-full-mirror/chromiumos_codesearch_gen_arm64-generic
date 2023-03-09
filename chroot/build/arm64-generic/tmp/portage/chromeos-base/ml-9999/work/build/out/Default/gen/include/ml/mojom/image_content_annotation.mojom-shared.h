@@ -141,7 +141,6 @@ class ImageAnnotatorConfigDataView {
 };
 
 
-
 class ImageAnnotationScoreDataView {
  public:
   ImageAnnotationScoreDataView() = default;
@@ -194,7 +193,6 @@ static_assert(
 };
 
 
-
 class ImageAnnotationResultDataView {
  public:
   ImageAnnotationResultDataView() = default;
@@ -229,7 +227,6 @@ class ImageAnnotationResultDataView {
   internal::ImageAnnotationResult_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

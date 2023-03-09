@@ -158,7 +158,6 @@ class JpegEncodeAccelerator_Initialize_ParamsDataView {
 };
 
 
-
 class JpegEncodeAccelerator_Initialize_ResponseParamsDataView {
  public:
   JpegEncodeAccelerator_Initialize_ResponseParamsDataView() = default;
@@ -175,7 +174,6 @@ class JpegEncodeAccelerator_Initialize_ResponseParamsDataView {
  private:
   internal::JpegEncodeAccelerator_Initialize_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class JpegEncodeAccelerator_EncodeWithFD_ParamsDataView {
@@ -236,7 +234,6 @@ class JpegEncodeAccelerator_EncodeWithFD_ParamsDataView {
 };
 
 
-
 class JpegEncodeAccelerator_EncodeWithFD_ResponseParamsDataView {
  public:
   JpegEncodeAccelerator_EncodeWithFD_ResponseParamsDataView() = default;
@@ -266,7 +263,6 @@ class JpegEncodeAccelerator_EncodeWithFD_ResponseParamsDataView {
  private:
   internal::JpegEncodeAccelerator_EncodeWithFD_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class JpegEncodeAccelerator_EncodeWithDmaBuf_ParamsDataView {
@@ -331,7 +327,6 @@ class JpegEncodeAccelerator_EncodeWithDmaBuf_ParamsDataView {
 };
 
 
-
 class JpegEncodeAccelerator_EncodeWithDmaBuf_ResponseParamsDataView {
  public:
   JpegEncodeAccelerator_EncodeWithDmaBuf_ResponseParamsDataView() = default;
@@ -358,7 +353,6 @@ class JpegEncodeAccelerator_EncodeWithDmaBuf_ResponseParamsDataView {
  private:
   internal::JpegEncodeAccelerator_EncodeWithDmaBuf_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 

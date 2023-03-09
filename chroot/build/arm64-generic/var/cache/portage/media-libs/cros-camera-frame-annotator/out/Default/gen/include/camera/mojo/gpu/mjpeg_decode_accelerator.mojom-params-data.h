@@ -124,7 +124,6 @@ class MjpegDecodeAccelerator_Initialize_ParamsDataView {
 };
 
 
-
 class MjpegDecodeAccelerator_Initialize_ResponseParamsDataView {
  public:
   MjpegDecodeAccelerator_Initialize_ResponseParamsDataView() = default;
@@ -141,7 +140,6 @@ class MjpegDecodeAccelerator_Initialize_ResponseParamsDataView {
  private:
   internal::MjpegDecodeAccelerator_Initialize_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class MjpegDecodeAccelerator_DecodeWithDmaBuf_ParamsDataView {
@@ -187,7 +185,6 @@ class MjpegDecodeAccelerator_DecodeWithDmaBuf_ParamsDataView {
 };
 
 
-
 class MjpegDecodeAccelerator_DecodeWithDmaBuf_ResponseParamsDataView {
  public:
   MjpegDecodeAccelerator_DecodeWithDmaBuf_ResponseParamsDataView() = default;
@@ -213,7 +210,6 @@ class MjpegDecodeAccelerator_DecodeWithDmaBuf_ResponseParamsDataView {
 };
 
 
-
 class MjpegDecodeAccelerator_Uninitialize_ParamsDataView {
  public:
   MjpegDecodeAccelerator_Uninitialize_ParamsDataView() = default;
@@ -227,7 +223,6 @@ class MjpegDecodeAccelerator_Uninitialize_ParamsDataView {
  private:
   internal::MjpegDecodeAccelerator_Uninitialize_Params_Data* data_ = nullptr;
 };
-
 
 
 

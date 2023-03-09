@@ -206,7 +206,6 @@ class EffectsConfigDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace cros
 

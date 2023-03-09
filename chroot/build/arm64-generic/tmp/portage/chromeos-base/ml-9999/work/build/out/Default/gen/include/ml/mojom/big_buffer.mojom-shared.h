@@ -94,7 +94,6 @@ class BigBufferSharedMemoryRegionDataView {
 };
 
 
-
 class BigBufferDataView {
  public:
   using Tag = internal::BigBuffer_Data::BigBuffer_Tag;

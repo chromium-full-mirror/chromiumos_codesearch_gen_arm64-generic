@@ -581,7 +581,6 @@ class NetworkDiagnosticsRoutines_GetResult_ParamsDataView {
 };
 
 
-
 class NetworkDiagnosticsRoutines_GetResult_ResponseParamsDataView {
  public:
   NetworkDiagnosticsRoutines_GetResult_ResponseParamsDataView() = default;
@@ -618,7 +617,6 @@ static_assert(
 };
 
 
-
 class NetworkDiagnosticsRoutines_GetAllResults_ParamsDataView {
  public:
   NetworkDiagnosticsRoutines_GetAllResults_ParamsDataView() = default;
@@ -632,7 +630,6 @@ class NetworkDiagnosticsRoutines_GetAllResults_ParamsDataView {
  private:
   internal::NetworkDiagnosticsRoutines_GetAllResults_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkDiagnosticsRoutines_GetAllResults_ResponseParamsDataView {
@@ -661,7 +658,6 @@ class NetworkDiagnosticsRoutines_GetAllResults_ResponseParamsDataView {
 };
 
 
-
 class NetworkDiagnosticsRoutines_RunLanConnectivity_ParamsDataView {
  public:
   NetworkDiagnosticsRoutines_RunLanConnectivity_ParamsDataView() = default;
@@ -675,7 +671,6 @@ class NetworkDiagnosticsRoutines_RunLanConnectivity_ParamsDataView {
  private:
   internal::NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParamsDataView {
@@ -704,7 +699,6 @@ class NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParamsDataView {
 };
 
 
-
 class NetworkDiagnosticsRoutines_RunSignalStrength_ParamsDataView {
  public:
   NetworkDiagnosticsRoutines_RunSignalStrength_ParamsDataView() = default;
@@ -718,7 +712,6 @@ class NetworkDiagnosticsRoutines_RunSignalStrength_ParamsDataView {
  private:
   internal::NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParamsDataView {
@@ -747,7 +740,6 @@ class NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParamsDataView {
 };
 
 
-
 class NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ParamsDataView {
  public:
   NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ParamsDataView() = default;
@@ -761,7 +753,6 @@ class NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ParamsDataView {
  private:
   internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParamsDataView {
@@ -790,7 +781,6 @@ class NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParamsDataView {
 };
 
 
-
 class NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ParamsDataView {
  public:
   NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ParamsDataView() = default;
@@ -804,7 +794,6 @@ class NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ParamsDataView {
  private:
   internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParamsDataView {
@@ -833,7 +822,6 @@ class NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParamsDataVi
 };
 
 
-
 class NetworkDiagnosticsRoutines_RunDnsResolverPresent_ParamsDataView {
  public:
   NetworkDiagnosticsRoutines_RunDnsResolverPresent_ParamsDataView() = default;
@@ -847,7 +835,6 @@ class NetworkDiagnosticsRoutines_RunDnsResolverPresent_ParamsDataView {
  private:
   internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParamsDataView {
@@ -876,7 +863,6 @@ class NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParamsDataView {
 };
 
 
-
 class NetworkDiagnosticsRoutines_RunDnsLatency_ParamsDataView {
  public:
   NetworkDiagnosticsRoutines_RunDnsLatency_ParamsDataView() = default;
@@ -890,7 +876,6 @@ class NetworkDiagnosticsRoutines_RunDnsLatency_ParamsDataView {
  private:
   internal::NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParamsDataView {
@@ -919,7 +904,6 @@ class NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParamsDataView {
 };
 
 
-
 class NetworkDiagnosticsRoutines_RunDnsResolution_ParamsDataView {
  public:
   NetworkDiagnosticsRoutines_RunDnsResolution_ParamsDataView() = default;
@@ -933,7 +917,6 @@ class NetworkDiagnosticsRoutines_RunDnsResolution_ParamsDataView {
  private:
   internal::NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParamsDataView {
@@ -962,7 +945,6 @@ class NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParamsDataView {
 };
 
 
-
 class NetworkDiagnosticsRoutines_RunCaptivePortal_ParamsDataView {
  public:
   NetworkDiagnosticsRoutines_RunCaptivePortal_ParamsDataView() = default;
@@ -976,7 +958,6 @@ class NetworkDiagnosticsRoutines_RunCaptivePortal_ParamsDataView {
  private:
   internal::NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParamsDataView {
@@ -1005,7 +986,6 @@ class NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParamsDataView {
 };
 
 
-
 class NetworkDiagnosticsRoutines_RunHttpFirewall_ParamsDataView {
  public:
   NetworkDiagnosticsRoutines_RunHttpFirewall_ParamsDataView() = default;
@@ -1019,7 +999,6 @@ class NetworkDiagnosticsRoutines_RunHttpFirewall_ParamsDataView {
  private:
   internal::NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParamsDataView {
@@ -1048,7 +1027,6 @@ class NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParamsDataView {
 };
 
 
-
 class NetworkDiagnosticsRoutines_RunHttpsFirewall_ParamsDataView {
  public:
   NetworkDiagnosticsRoutines_RunHttpsFirewall_ParamsDataView() = default;
@@ -1062,7 +1040,6 @@ class NetworkDiagnosticsRoutines_RunHttpsFirewall_ParamsDataView {
  private:
   internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParamsDataView {
@@ -1091,7 +1068,6 @@ class NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParamsDataView {
 };
 
 
-
 class NetworkDiagnosticsRoutines_RunHttpsLatency_ParamsDataView {
  public:
   NetworkDiagnosticsRoutines_RunHttpsLatency_ParamsDataView() = default;
@@ -1105,7 +1081,6 @@ class NetworkDiagnosticsRoutines_RunHttpsLatency_ParamsDataView {
  private:
   internal::NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParamsDataView {
@@ -1132,7 +1107,6 @@ class NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParamsDataView {
   internal::NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class NetworkDiagnosticsRoutines_RunVideoConferencing_ParamsDataView {
@@ -1171,7 +1145,6 @@ static_assert(
 };
 
 
-
 class NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParamsDataView {
  public:
   NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParamsDataView() = default;
@@ -1198,7 +1171,6 @@ class NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParamsDataView {
 };
 
 
-
 class NetworkDiagnosticsRoutines_RunArcHttp_ParamsDataView {
  public:
   NetworkDiagnosticsRoutines_RunArcHttp_ParamsDataView() = default;
@@ -1212,7 +1184,6 @@ class NetworkDiagnosticsRoutines_RunArcHttp_ParamsDataView {
  private:
   internal::NetworkDiagnosticsRoutines_RunArcHttp_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkDiagnosticsRoutines_RunArcHttp_ResponseParamsDataView {
@@ -1241,7 +1212,6 @@ class NetworkDiagnosticsRoutines_RunArcHttp_ResponseParamsDataView {
 };
 
 
-
 class NetworkDiagnosticsRoutines_RunArcPing_ParamsDataView {
  public:
   NetworkDiagnosticsRoutines_RunArcPing_ParamsDataView() = default;
@@ -1255,7 +1225,6 @@ class NetworkDiagnosticsRoutines_RunArcPing_ParamsDataView {
  private:
   internal::NetworkDiagnosticsRoutines_RunArcPing_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkDiagnosticsRoutines_RunArcPing_ResponseParamsDataView {
@@ -1284,7 +1253,6 @@ class NetworkDiagnosticsRoutines_RunArcPing_ResponseParamsDataView {
 };
 
 
-
 class NetworkDiagnosticsRoutines_RunArcDnsResolution_ParamsDataView {
  public:
   NetworkDiagnosticsRoutines_RunArcDnsResolution_ParamsDataView() = default;
@@ -1298,7 +1266,6 @@ class NetworkDiagnosticsRoutines_RunArcDnsResolution_ParamsDataView {
  private:
   internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data* data_ = nullptr;
 };
-
 
 
 class NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParamsDataView {
@@ -1325,7 +1292,6 @@ class NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParamsDataView {
   internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 

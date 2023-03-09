@@ -258,7 +258,6 @@ static_assert(
 };
 
 
-
 class InkStrokeDataView {
  public:
   InkStrokeDataView() = default;
@@ -285,7 +284,6 @@ class InkStrokeDataView {
 };
 
 
-
 class WritingGuideDataView {
  public:
   WritingGuideDataView() = default;
@@ -305,7 +303,6 @@ class WritingGuideDataView {
  private:
   internal::WritingGuide_Data* data_ = nullptr;
 };
-
 
 
 class RecognitionContextDataView {
@@ -364,7 +361,6 @@ static_assert(
 };
 
 
-
 class HandwritingRecognitionQueryDataView {
  public:
   HandwritingRecognitionQueryDataView() = default;
@@ -417,7 +413,6 @@ static_assert(
 };
 
 
-
 class HandwritingRecognizerInkRangeDataView {
  public:
   HandwritingRecognizerInkRangeDataView() = default;
@@ -443,7 +438,6 @@ class HandwritingRecognizerInkRangeDataView {
  private:
   internal::HandwritingRecognizerInkRange_Data* data_ = nullptr;
 };
-
 
 
 class HandwritingRecognizerSegmentDataView {
@@ -482,7 +476,6 @@ class HandwritingRecognizerSegmentDataView {
 };
 
 
-
 class HandwritingRecognizerSegmentationDataView {
  public:
   HandwritingRecognizerSegmentationDataView() = default;
@@ -507,7 +500,6 @@ class HandwritingRecognizerSegmentationDataView {
   internal::HandwritingRecognizerSegmentation_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class HandwritingRecognizerCandidateDataView {
@@ -559,7 +551,6 @@ static_assert(
 };
 
 
-
 class HandwritingRecognizerResultDataView {
  public:
   HandwritingRecognizerResultDataView() = default;
@@ -594,7 +585,6 @@ class HandwritingRecognizerResultDataView {
   internal::HandwritingRecognizerResult_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class HandwritingRecognizerSpecDataView {
@@ -663,7 +653,6 @@ static_assert(
   internal::HandwritingRecognizerSpec_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

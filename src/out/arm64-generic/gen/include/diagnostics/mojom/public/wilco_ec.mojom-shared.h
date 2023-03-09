@@ -219,7 +219,6 @@ class EcEventDataView {
 };
 
 
-
 class GetEcTelemetryResponseDataView {
  public:
   GetEcTelemetryResponseDataView() = default;
@@ -254,7 +253,6 @@ class GetEcTelemetryResponseDataView {
   internal::GetEcTelemetryResponse_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

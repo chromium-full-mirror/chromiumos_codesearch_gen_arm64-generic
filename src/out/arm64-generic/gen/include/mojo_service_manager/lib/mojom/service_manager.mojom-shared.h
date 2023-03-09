@@ -237,7 +237,6 @@ class ProcessIdentityDataView {
 };
 
 
-
 class RegisteredServiceStateDataView {
  public:
   RegisteredServiceStateDataView() = default;
@@ -264,7 +263,6 @@ class RegisteredServiceStateDataView {
 };
 
 
-
 class UnregisteredServiceStateDataView {
  public:
   UnregisteredServiceStateDataView() = default;
@@ -278,7 +276,6 @@ class UnregisteredServiceStateDataView {
  private:
   internal::UnregisteredServiceState_Data* data_ = nullptr;
 };
-
 
 
 class ServiceEventDataView {
@@ -327,7 +324,6 @@ class ServiceEventDataView {
 };
 
 
-
 class ErrorDataView {
  public:
   ErrorDataView() = default;
@@ -362,7 +358,6 @@ class ErrorDataView {
   internal::Error_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class ErrorOrServiceStateDataView {

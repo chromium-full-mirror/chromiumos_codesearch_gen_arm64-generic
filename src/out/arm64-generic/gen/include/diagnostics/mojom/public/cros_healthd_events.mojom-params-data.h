@@ -389,7 +389,6 @@ class CrosHealthdBluetoothObserver_OnAdapterAdded_ParamsDataView {
 };
 
 
-
 class CrosHealthdBluetoothObserver_OnAdapterRemoved_ParamsDataView {
  public:
   CrosHealthdBluetoothObserver_OnAdapterRemoved_ParamsDataView() = default;
@@ -403,7 +402,6 @@ class CrosHealthdBluetoothObserver_OnAdapterRemoved_ParamsDataView {
  private:
   internal::CrosHealthdBluetoothObserver_OnAdapterRemoved_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdBluetoothObserver_OnAdapterPropertyChanged_ParamsDataView {
@@ -421,7 +419,6 @@ class CrosHealthdBluetoothObserver_OnAdapterPropertyChanged_ParamsDataView {
 };
 
 
-
 class CrosHealthdBluetoothObserver_OnDeviceAdded_ParamsDataView {
  public:
   CrosHealthdBluetoothObserver_OnDeviceAdded_ParamsDataView() = default;
@@ -435,7 +432,6 @@ class CrosHealthdBluetoothObserver_OnDeviceAdded_ParamsDataView {
  private:
   internal::CrosHealthdBluetoothObserver_OnDeviceAdded_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdBluetoothObserver_OnDeviceRemoved_ParamsDataView {
@@ -453,7 +449,6 @@ class CrosHealthdBluetoothObserver_OnDeviceRemoved_ParamsDataView {
 };
 
 
-
 class CrosHealthdBluetoothObserver_OnDevicePropertyChanged_ParamsDataView {
  public:
   CrosHealthdBluetoothObserver_OnDevicePropertyChanged_ParamsDataView() = default;
@@ -467,7 +462,6 @@ class CrosHealthdBluetoothObserver_OnDevicePropertyChanged_ParamsDataView {
  private:
   internal::CrosHealthdBluetoothObserver_OnDevicePropertyChanged_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdLidObserver_OnLidClosed_ParamsDataView {
@@ -485,7 +479,6 @@ class CrosHealthdLidObserver_OnLidClosed_ParamsDataView {
 };
 
 
-
 class CrosHealthdLidObserver_OnLidOpened_ParamsDataView {
  public:
   CrosHealthdLidObserver_OnLidOpened_ParamsDataView() = default;
@@ -499,7 +492,6 @@ class CrosHealthdLidObserver_OnLidOpened_ParamsDataView {
  private:
   internal::CrosHealthdLidObserver_OnLidOpened_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdPowerObserver_OnAcInserted_ParamsDataView {
@@ -517,7 +509,6 @@ class CrosHealthdPowerObserver_OnAcInserted_ParamsDataView {
 };
 
 
-
 class CrosHealthdPowerObserver_OnAcRemoved_ParamsDataView {
  public:
   CrosHealthdPowerObserver_OnAcRemoved_ParamsDataView() = default;
@@ -531,7 +522,6 @@ class CrosHealthdPowerObserver_OnAcRemoved_ParamsDataView {
  private:
   internal::CrosHealthdPowerObserver_OnAcRemoved_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdPowerObserver_OnOsSuspend_ParamsDataView {
@@ -549,7 +539,6 @@ class CrosHealthdPowerObserver_OnOsSuspend_ParamsDataView {
 };
 
 
-
 class CrosHealthdPowerObserver_OnOsResume_ParamsDataView {
  public:
   CrosHealthdPowerObserver_OnOsResume_ParamsDataView() = default;
@@ -563,7 +552,6 @@ class CrosHealthdPowerObserver_OnOsResume_ParamsDataView {
  private:
   internal::CrosHealthdPowerObserver_OnOsResume_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdAudioObserver_OnUnderrun_ParamsDataView {
@@ -581,7 +569,6 @@ class CrosHealthdAudioObserver_OnUnderrun_ParamsDataView {
 };
 
 
-
 class CrosHealthdAudioObserver_OnSevereUnderrun_ParamsDataView {
  public:
   CrosHealthdAudioObserver_OnSevereUnderrun_ParamsDataView() = default;
@@ -595,7 +582,6 @@ class CrosHealthdAudioObserver_OnSevereUnderrun_ParamsDataView {
  private:
   internal::CrosHealthdAudioObserver_OnSevereUnderrun_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdThunderboltObserver_OnAdd_ParamsDataView {
@@ -613,7 +599,6 @@ class CrosHealthdThunderboltObserver_OnAdd_ParamsDataView {
 };
 
 
-
 class CrosHealthdThunderboltObserver_OnRemove_ParamsDataView {
  public:
   CrosHealthdThunderboltObserver_OnRemove_ParamsDataView() = default;
@@ -627,7 +612,6 @@ class CrosHealthdThunderboltObserver_OnRemove_ParamsDataView {
  private:
   internal::CrosHealthdThunderboltObserver_OnRemove_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdThunderboltObserver_OnAuthorized_ParamsDataView {
@@ -645,7 +629,6 @@ class CrosHealthdThunderboltObserver_OnAuthorized_ParamsDataView {
 };
 
 
-
 class CrosHealthdThunderboltObserver_OnUnAuthorized_ParamsDataView {
  public:
   CrosHealthdThunderboltObserver_OnUnAuthorized_ParamsDataView() = default;
@@ -659,7 +642,6 @@ class CrosHealthdThunderboltObserver_OnUnAuthorized_ParamsDataView {
  private:
   internal::CrosHealthdThunderboltObserver_OnUnAuthorized_Params_Data* data_ = nullptr;
 };
-
 
 
 class CrosHealthdUsbObserver_OnAdd_ParamsDataView {
@@ -688,7 +670,6 @@ class CrosHealthdUsbObserver_OnAdd_ParamsDataView {
 };
 
 
-
 class CrosHealthdUsbObserver_OnRemove_ParamsDataView {
  public:
   CrosHealthdUsbObserver_OnRemove_ParamsDataView() = default;
@@ -715,7 +696,6 @@ class CrosHealthdUsbObserver_OnRemove_ParamsDataView {
 };
 
 
-
 class CrosHealthdSdCardObserver_OnAdd_ParamsDataView {
  public:
   CrosHealthdSdCardObserver_OnAdd_ParamsDataView() = default;
@@ -731,7 +711,6 @@ class CrosHealthdSdCardObserver_OnAdd_ParamsDataView {
 };
 
 
-
 class CrosHealthdSdCardObserver_OnRemove_ParamsDataView {
  public:
   CrosHealthdSdCardObserver_OnRemove_ParamsDataView() = default;
@@ -745,7 +724,6 @@ class CrosHealthdSdCardObserver_OnRemove_ParamsDataView {
  private:
   internal::CrosHealthdSdCardObserver_OnRemove_Params_Data* data_ = nullptr;
 };
-
 
 
 class EventObserver_OnEvent_ParamsDataView {
@@ -772,7 +750,6 @@ class EventObserver_OnEvent_ParamsDataView {
   internal::EventObserver_OnEvent_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 

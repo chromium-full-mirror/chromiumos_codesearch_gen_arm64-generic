@@ -366,7 +366,6 @@ class IioEventDataView {
 };
 
 
-
 }  // namespace mojom
 }  // namespace cros
 

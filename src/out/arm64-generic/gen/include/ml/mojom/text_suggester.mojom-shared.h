@@ -227,7 +227,6 @@ class NextWordCompletionCandidateDataView {
 };
 
 
-
 class TextSuggesterQueryDataView {
  public:
   TextSuggesterQueryDataView() = default;
@@ -277,7 +276,6 @@ class TextSuggesterQueryDataView {
 };
 
 
-
 class MultiWordSuggestionCandidateDataView {
  public:
   MultiWordSuggestionCandidateDataView() = default;
@@ -305,7 +303,6 @@ class MultiWordSuggestionCandidateDataView {
   internal::MultiWordSuggestionCandidate_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class TextSuggesterResultDataView {
@@ -344,7 +341,6 @@ class TextSuggesterResultDataView {
 };
 
 
-
 class TextSuggesterSpecDataView {
  public:
   TextSuggesterSpecDataView() = default;
@@ -368,7 +364,6 @@ class TextSuggesterSpecDataView {
  private:
   internal::TextSuggesterSpec_Data* data_ = nullptr;
 };
-
 
 
 class TextSuggestionCandidateDataView {

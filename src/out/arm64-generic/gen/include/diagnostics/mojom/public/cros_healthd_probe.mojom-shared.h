@@ -1629,7 +1629,6 @@ class ProbeErrorDataView {
 };
 
 
-
 class MultipleProcessResultDataView {
  public:
   MultipleProcessResultDataView() = default;
@@ -1664,7 +1663,6 @@ class MultipleProcessResultDataView {
   internal::MultipleProcessResult_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class ProcessInfoDataView {
@@ -1784,7 +1782,6 @@ static_assert(
   internal::ProcessInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class BatteryInfoDataView {
@@ -1914,7 +1911,6 @@ static_assert(
 };
 
 
-
 class NvmeDeviceInfoDataView {
  public:
   NvmeDeviceInfoDataView() = default;
@@ -1940,7 +1936,6 @@ class NvmeDeviceInfoDataView {
  private:
   internal::NvmeDeviceInfo_Data* data_ = nullptr;
 };
-
 
 
 class EmmcDeviceInfoDataView {
@@ -1970,7 +1965,6 @@ class EmmcDeviceInfoDataView {
 };
 
 
-
 class UfsDeviceInfoDataView {
  public:
   UfsDeviceInfoDataView() = default;
@@ -1990,7 +1984,6 @@ class UfsDeviceInfoDataView {
  private:
   internal::UfsDeviceInfo_Data* data_ = nullptr;
 };
-
 
 
 class NonRemovableBlockDeviceInfoDataView {
@@ -2154,7 +2147,6 @@ static_assert(
 };
 
 
-
 class CpuInfoDataView {
  public:
   CpuInfoDataView() = default;
@@ -2266,7 +2258,6 @@ static_assert(
 };
 
 
-
 class VirtualizationInfoDataView {
  public:
   VirtualizationInfoDataView() = default;
@@ -2296,7 +2287,6 @@ class VirtualizationInfoDataView {
  private:
   internal::VirtualizationInfo_Data* data_ = nullptr;
 };
-
 
 
 class VulnerabilityInfoDataView {
@@ -2335,7 +2325,6 @@ class VulnerabilityInfoDataView {
 };
 
 
-
 class KeylockerInfoDataView {
  public:
   KeylockerInfoDataView() = default;
@@ -2352,7 +2341,6 @@ class KeylockerInfoDataView {
  private:
   internal::KeylockerInfo_Data* data_ = nullptr;
 };
-
 
 
 class PhysicalCpuInfoDataView {
@@ -2443,7 +2431,6 @@ static_assert(
 };
 
 
-
 class CpuVirtualizationInfoDataView {
  public:
   CpuVirtualizationInfoDataView() = default;
@@ -2473,7 +2460,6 @@ class CpuVirtualizationInfoDataView {
  private:
   internal::CpuVirtualizationInfo_Data* data_ = nullptr;
 };
-
 
 
 class LogicalCpuInfoDataView {
@@ -2520,7 +2506,6 @@ class LogicalCpuInfoDataView {
 };
 
 
-
 class CpuCStateInfoDataView {
  public:
   CpuCStateInfoDataView() = default;
@@ -2548,7 +2533,6 @@ class CpuCStateInfoDataView {
   internal::CpuCStateInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class CpuTemperatureChannelDataView {
@@ -2590,7 +2574,6 @@ static_assert(
 };
 
 
-
 class TimezoneInfoDataView {
  public:
   TimezoneInfoDataView() = default;
@@ -2625,7 +2608,6 @@ class TimezoneInfoDataView {
   internal::TimezoneInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class MemoryInfoDataView {
@@ -2677,7 +2659,6 @@ static_assert(
 };
 
 
-
 class MemoryEncryptionInfoDataView {
  public:
   MemoryEncryptionInfoDataView() = default;
@@ -2719,7 +2700,6 @@ class MemoryEncryptionInfoDataView {
 };
 
 
-
 class BacklightInfoDataView {
  public:
   BacklightInfoDataView() = default;
@@ -2752,7 +2732,6 @@ class BacklightInfoDataView {
 };
 
 
-
 class FanInfoDataView {
  public:
   FanInfoDataView() = default;
@@ -2769,7 +2748,6 @@ class FanInfoDataView {
  private:
   internal::FanInfo_Data* data_ = nullptr;
 };
-
 
 
 class StatefulPartitionInfoDataView {
@@ -2812,7 +2790,6 @@ class StatefulPartitionInfoDataView {
   internal::StatefulPartitionInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class BluetoothAdapterInfoDataView {
@@ -2970,7 +2947,6 @@ static_assert(
   internal::BluetoothAdapterInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class BluetoothDeviceInfoDataView {
@@ -3171,7 +3147,6 @@ static_assert(
 };
 
 
-
 class SupportedCapabilitiesDataView {
  public:
   SupportedCapabilitiesDataView() = default;
@@ -3197,7 +3172,6 @@ class SupportedCapabilitiesDataView {
  private:
   internal::SupportedCapabilities_Data* data_ = nullptr;
 };
-
 
 
 class SystemInfoDataView {
@@ -3264,7 +3238,6 @@ static_assert(
   internal::SystemInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class OsInfoDataView {
@@ -3367,7 +3340,6 @@ static_assert(
 };
 
 
-
 class OsVersionDataView {
  public:
   OsVersionDataView() = default;
@@ -3443,7 +3415,6 @@ static_assert(
   internal::OsVersion_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class VpdInfoDataView {
@@ -3601,7 +3572,6 @@ static_assert(
   internal::VpdInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class DmiInfoDataView {
@@ -3840,7 +3810,6 @@ static_assert(
 };
 
 
-
 class WirelessInterfaceInfoDataView {
  public:
   WirelessInterfaceInfoDataView() = default;
@@ -3890,7 +3859,6 @@ static_assert(
 };
 
 
-
 class WirelessLinkInfoDataView {
  public:
   WirelessLinkInfoDataView() = default;
@@ -3933,7 +3901,6 @@ class WirelessLinkInfoDataView {
   internal::WirelessLinkInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class AudioInfoDataView {
@@ -4032,7 +3999,6 @@ static_assert(
 };
 
 
-
 class AudioNodeInfoDataView {
  public:
   AudioNodeInfoDataView() = default;
@@ -4081,7 +4047,6 @@ class AudioNodeInfoDataView {
 };
 
 
-
 class AudioHardwareInfoDataView {
  public:
   AudioHardwareInfoDataView() = default;
@@ -4106,7 +4071,6 @@ class AudioHardwareInfoDataView {
   internal::AudioHardwareInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class AudioCardDataView {
@@ -4165,7 +4129,6 @@ static_assert(
 };
 
 
-
 class HDAudioCodecDataView {
  public:
   HDAudioCodecDataView() = default;
@@ -4193,7 +4156,6 @@ class HDAudioCodecDataView {
   internal::HDAudioCodec_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class BootPerformanceInfoDataView {
@@ -4255,7 +4217,6 @@ static_assert(
 };
 
 
-
 class BusDeviceDataView {
  public:
   BusDeviceDataView() = default;
@@ -4310,7 +4271,6 @@ class BusDeviceDataView {
   internal::BusDevice_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class PciBusInfoDataView {
@@ -4406,7 +4366,6 @@ static_assert(
 };
 
 
-
 class UsbBusInfoDataView {
  public:
   UsbBusInfoDataView() = default;
@@ -4495,7 +4454,6 @@ static_assert(
 };
 
 
-
 class FwupdFirmwareVersionInfoDataView {
  public:
   FwupdFirmwareVersionInfoDataView() = default;
@@ -4530,7 +4488,6 @@ class FwupdFirmwareVersionInfoDataView {
   internal::FwupdFirmwareVersionInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class UsbBusInterfaceInfoDataView {
@@ -4579,7 +4536,6 @@ static_assert(
   internal::UsbBusInterfaceInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class TpmInfoDataView {
@@ -4668,7 +4624,6 @@ static_assert(
 };
 
 
-
 class TpmVersionDataView {
  public:
   TpmVersionDataView() = default;
@@ -4730,7 +4685,6 @@ static_assert(
 };
 
 
-
 class TpmStatusDataView {
  public:
   TpmStatusDataView() = default;
@@ -4753,7 +4707,6 @@ class TpmStatusDataView {
  private:
   internal::TpmStatus_Data* data_ = nullptr;
 };
-
 
 
 class TpmDictionaryAttackDataView {
@@ -4783,7 +4736,6 @@ class TpmDictionaryAttackDataView {
 };
 
 
-
 class TpmAttestationDataView {
  public:
   TpmAttestationDataView() = default;
@@ -4803,7 +4755,6 @@ class TpmAttestationDataView {
  private:
   internal::TpmAttestation_Data* data_ = nullptr;
 };
-
 
 
 class TpmSupportedFeaturesDataView {
@@ -4831,7 +4782,6 @@ class TpmSupportedFeaturesDataView {
  private:
   internal::TpmSupportedFeatures_Data* data_ = nullptr;
 };
-
 
 
 class GraphicsInfoDataView {
@@ -4868,7 +4818,6 @@ class GraphicsInfoDataView {
   internal::GraphicsInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class GLESInfoDataView {
@@ -4937,7 +4886,6 @@ class GLESInfoDataView {
 };
 
 
-
 class EGLInfoDataView {
  public:
   EGLInfoDataView() = default;
@@ -4994,7 +4942,6 @@ class EGLInfoDataView {
 };
 
 
-
 class DisplayInfoDataView {
  public:
   DisplayInfoDataView() = default;
@@ -5040,7 +4987,6 @@ static_assert(
   internal::DisplayInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class EmbeddedDisplayInfoDataView {
@@ -5330,7 +5276,6 @@ static_assert(
 };
 
 
-
 class ExternalDisplayInfoDataView {
  public:
   ExternalDisplayInfoDataView() = default;
@@ -5607,7 +5552,6 @@ static_assert(
 };
 
 
-
 class ThunderboltBusInterfaceInfoDataView {
  public:
   ThunderboltBusInterfaceInfoDataView() = default;
@@ -5683,7 +5627,6 @@ class ThunderboltBusInterfaceInfoDataView {
 };
 
 
-
 class ThunderboltBusInfoDataView {
  public:
   ThunderboltBusInfoDataView() = default;
@@ -5718,7 +5661,6 @@ class ThunderboltBusInfoDataView {
   internal::ThunderboltBusInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class InputInfoDataView {
@@ -5757,7 +5699,6 @@ class InputInfoDataView {
 };
 
 
-
 class TouchscreenDeviceDataView {
  public:
   TouchscreenDeviceDataView() = default;
@@ -5791,7 +5732,6 @@ class TouchscreenDeviceDataView {
   internal::TouchscreenDevice_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class InputDeviceDataView {
@@ -5841,7 +5781,6 @@ class InputDeviceDataView {
   internal::InputDevice_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class SensorInfoDataView {
@@ -5901,7 +5840,6 @@ static_assert(
 };
 
 
-
 class SensorDataView {
  public:
   SensorDataView() = default;
@@ -5959,7 +5897,6 @@ static_assert(
   internal::Sensor_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class TelemetryInfoDataView {
@@ -6421,7 +6358,6 @@ static_assert(
   internal::TelemetryInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class ProcessResultDataView {

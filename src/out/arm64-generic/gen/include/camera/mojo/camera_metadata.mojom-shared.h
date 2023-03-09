@@ -146,7 +146,6 @@ class CameraMetadataEntryDataView {
 };
 
 
-
 class CameraMetadataDataView {
  public:
   CameraMetadataDataView() = default;
@@ -196,7 +195,6 @@ static_assert(
   internal::CameraMetadata_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace mojom

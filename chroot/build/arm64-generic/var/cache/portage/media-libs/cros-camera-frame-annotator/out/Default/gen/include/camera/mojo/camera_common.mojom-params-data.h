@@ -516,7 +516,6 @@ class CameraModuleCallbacks_CameraDeviceStatusChange_ParamsDataView {
 };
 
 
-
 class CameraModuleCallbacks_TorchModeStatusChange_ParamsDataView {
  public:
   CameraModuleCallbacks_TorchModeStatusChange_ParamsDataView() = default;
@@ -545,7 +544,6 @@ class CameraModuleCallbacks_TorchModeStatusChange_ParamsDataView {
 };
 
 
-
 class VendorTagOps_GetTagCount_ParamsDataView {
  public:
   VendorTagOps_GetTagCount_ParamsDataView() = default;
@@ -559,7 +557,6 @@ class VendorTagOps_GetTagCount_ParamsDataView {
  private:
   internal::VendorTagOps_GetTagCount_Params_Data* data_ = nullptr;
 };
-
 
 
 class VendorTagOps_GetTagCount_ResponseParamsDataView {
@@ -580,7 +577,6 @@ class VendorTagOps_GetTagCount_ResponseParamsDataView {
 };
 
 
-
 class VendorTagOps_GetAllTags_ParamsDataView {
  public:
   VendorTagOps_GetAllTags_ParamsDataView() = default;
@@ -594,7 +590,6 @@ class VendorTagOps_GetAllTags_ParamsDataView {
  private:
   internal::VendorTagOps_GetAllTags_Params_Data* data_ = nullptr;
 };
-
 
 
 class VendorTagOps_GetAllTags_ResponseParamsDataView {
@@ -623,7 +618,6 @@ class VendorTagOps_GetAllTags_ResponseParamsDataView {
 };
 
 
-
 class VendorTagOps_GetSectionName_ParamsDataView {
  public:
   VendorTagOps_GetSectionName_ParamsDataView() = default;
@@ -640,7 +634,6 @@ class VendorTagOps_GetSectionName_ParamsDataView {
  private:
   internal::VendorTagOps_GetSectionName_Params_Data* data_ = nullptr;
 };
-
 
 
 class VendorTagOps_GetSectionName_ResponseParamsDataView {
@@ -679,7 +672,6 @@ static_assert(
 };
 
 
-
 class VendorTagOps_GetTagName_ParamsDataView {
  public:
   VendorTagOps_GetTagName_ParamsDataView() = default;
@@ -696,7 +688,6 @@ class VendorTagOps_GetTagName_ParamsDataView {
  private:
   internal::VendorTagOps_GetTagName_Params_Data* data_ = nullptr;
 };
-
 
 
 class VendorTagOps_GetTagName_ResponseParamsDataView {
@@ -735,7 +726,6 @@ static_assert(
 };
 
 
-
 class VendorTagOps_GetTagType_ParamsDataView {
  public:
   VendorTagOps_GetTagType_ParamsDataView() = default;
@@ -754,7 +744,6 @@ class VendorTagOps_GetTagType_ParamsDataView {
 };
 
 
-
 class VendorTagOps_GetTagType_ResponseParamsDataView {
  public:
   VendorTagOps_GetTagType_ResponseParamsDataView() = default;
@@ -771,7 +760,6 @@ class VendorTagOps_GetTagType_ResponseParamsDataView {
  private:
   internal::VendorTagOps_GetTagType_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class CameraModule_OpenDevice_ParamsDataView {
@@ -802,7 +790,6 @@ class CameraModule_OpenDevice_ParamsDataView {
 };
 
 
-
 class CameraModule_OpenDevice_ResponseParamsDataView {
  public:
   CameraModule_OpenDevice_ResponseParamsDataView() = default;
@@ -821,7 +808,6 @@ class CameraModule_OpenDevice_ResponseParamsDataView {
 };
 
 
-
 class CameraModule_GetNumberOfCameras_ParamsDataView {
  public:
   CameraModule_GetNumberOfCameras_ParamsDataView() = default;
@@ -835,7 +821,6 @@ class CameraModule_GetNumberOfCameras_ParamsDataView {
  private:
   internal::CameraModule_GetNumberOfCameras_Params_Data* data_ = nullptr;
 };
-
 
 
 class CameraModule_GetNumberOfCameras_ResponseParamsDataView {
@@ -856,7 +841,6 @@ class CameraModule_GetNumberOfCameras_ResponseParamsDataView {
 };
 
 
-
 class CameraModule_GetCameraInfo_ParamsDataView {
  public:
   CameraModule_GetCameraInfo_ParamsDataView() = default;
@@ -873,7 +857,6 @@ class CameraModule_GetCameraInfo_ParamsDataView {
  private:
   internal::CameraModule_GetCameraInfo_Params_Data* data_ = nullptr;
 };
-
 
 
 class CameraModule_GetCameraInfo_ResponseParamsDataView {
@@ -915,7 +898,6 @@ static_assert(
 };
 
 
-
 class CameraModule_SetCallbacks_ParamsDataView {
  public:
   CameraModule_SetCallbacks_ParamsDataView() = default;
@@ -941,7 +923,6 @@ class CameraModule_SetCallbacks_ParamsDataView {
 };
 
 
-
 class CameraModule_SetCallbacks_ResponseParamsDataView {
  public:
   CameraModule_SetCallbacks_ResponseParamsDataView() = default;
@@ -958,7 +939,6 @@ class CameraModule_SetCallbacks_ResponseParamsDataView {
  private:
   internal::CameraModule_SetCallbacks_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class CameraModule_SetTorchMode_ParamsDataView {
@@ -982,7 +962,6 @@ class CameraModule_SetTorchMode_ParamsDataView {
 };
 
 
-
 class CameraModule_SetTorchMode_ResponseParamsDataView {
  public:
   CameraModule_SetTorchMode_ResponseParamsDataView() = default;
@@ -1001,7 +980,6 @@ class CameraModule_SetTorchMode_ResponseParamsDataView {
 };
 
 
-
 class CameraModule_Init_ParamsDataView {
  public:
   CameraModule_Init_ParamsDataView() = default;
@@ -1015,7 +993,6 @@ class CameraModule_Init_ParamsDataView {
  private:
   internal::CameraModule_Init_Params_Data* data_ = nullptr;
 };
-
 
 
 class CameraModule_Init_ResponseParamsDataView {
@@ -1034,7 +1011,6 @@ class CameraModule_Init_ResponseParamsDataView {
  private:
   internal::CameraModule_Init_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class CameraModule_GetVendorTagOps_ParamsDataView {
@@ -1062,7 +1038,6 @@ class CameraModule_GetVendorTagOps_ParamsDataView {
 };
 
 
-
 class CameraModule_GetVendorTagOps_ResponseParamsDataView {
  public:
   CameraModule_GetVendorTagOps_ResponseParamsDataView() = default;
@@ -1076,7 +1051,6 @@ class CameraModule_GetVendorTagOps_ResponseParamsDataView {
  private:
   internal::CameraModule_GetVendorTagOps_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 class CameraModule_SetCallbacksAssociated_ParamsDataView {
@@ -1104,7 +1078,6 @@ class CameraModule_SetCallbacksAssociated_ParamsDataView {
 };
 
 
-
 class CameraModule_SetCallbacksAssociated_ResponseParamsDataView {
  public:
   CameraModule_SetCallbacksAssociated_ResponseParamsDataView() = default;
@@ -1121,7 +1094,6 @@ class CameraModule_SetCallbacksAssociated_ResponseParamsDataView {
  private:
   internal::CameraModule_SetCallbacksAssociated_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 

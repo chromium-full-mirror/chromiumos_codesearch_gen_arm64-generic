@@ -179,7 +179,6 @@ class ServiceManager_Register_ParamsDataView {
 };
 
 
-
 class ServiceManager_Request_ParamsDataView {
  public:
   ServiceManager_Request_ParamsDataView() = default;
@@ -234,7 +233,6 @@ static_assert(
 };
 
 
-
 class ServiceManager_Query_ParamsDataView {
  public:
   ServiceManager_Query_ParamsDataView() = default;
@@ -259,7 +257,6 @@ class ServiceManager_Query_ParamsDataView {
   internal::ServiceManager_Query_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class ServiceManager_Query_ResponseParamsDataView {
@@ -288,7 +285,6 @@ class ServiceManager_Query_ResponseParamsDataView {
 };
 
 
-
 class ServiceManager_AddServiceObserver_ParamsDataView {
  public:
   ServiceManager_AddServiceObserver_ParamsDataView() = default;
@@ -312,7 +308,6 @@ class ServiceManager_AddServiceObserver_ParamsDataView {
   internal::ServiceManager_AddServiceObserver_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 class ServiceProvider_Request_ParamsDataView {
@@ -349,7 +344,6 @@ class ServiceProvider_Request_ParamsDataView {
 };
 
 
-
 class ServiceObserver_OnServiceEvent_ParamsDataView {
  public:
   ServiceObserver_OnServiceEvent_ParamsDataView() = default;
@@ -374,7 +368,6 @@ class ServiceObserver_OnServiceEvent_ParamsDataView {
   internal::ServiceObserver_OnServiceEvent_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 inline void ServiceManager_Register_ParamsDataView::GetServiceNameDataView(
     mojo::StringDataView* output) {

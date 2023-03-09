@@ -71,7 +71,6 @@ class Foo_Ping_ParamsDataView {
 };
 
 
-
 class Foo_Ping_ResponseParamsDataView {
  public:
   Foo_Ping_ResponseParamsDataView() = default;
@@ -85,7 +84,6 @@ class Foo_Ping_ResponseParamsDataView {
  private:
   internal::Foo_Ping_ResponseParams_Data* data_ = nullptr;
 };
-
 
 
 

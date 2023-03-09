@@ -124,7 +124,6 @@ class SerializedHandleDataView {
 };
 
 
-
 class NativeStructDataView {
  public:
   NativeStructDataView() = default;
@@ -169,7 +168,6 @@ static_assert(
   internal::NativeStruct_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
 
 
 }  // namespace native
