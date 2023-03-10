@@ -9,6 +9,8 @@
 #include <base/test/test_future.h>
 #include <gtest/gtest.h>
 #include <libhwsec-foundation/error/testing_helper.h>
+#include <tpm_manager/proto_bindings/tpm_manager.pb.h>
+#include <tpm_manager-client-test/tpm_manager/dbus-proxy-mocks.h>
 
 #include "libhwsec/backend/tpm1/backend_test_base.h"
 
@@ -37,7 +39,7 @@ TEST_F(BackendStateTpm1Test, IsEnabled) {
   tpm_manager::GetTpmNonsensitiveStatusReply reply;
   reply.set_status(TpmManagerStatus::STATUS_SUCCESS);
   reply.set_is_enabled(true);
-  EXPECT_CALL(proxy_->GetMock().tpm_manager,
+  EXPECT_CALL(proxy_->GetMockTpmManagerProxy(),
               GetTpmNonsensitiveStatus(_, _, _, _))
       .WillOnce(DoAll(SetArgPointee<1>(reply), Return(true)));
 
@@ -48,7 +50,7 @@ TEST_F(BackendStateTpm1Test, IsReady) {
   tpm_manager::GetTpmNonsensitiveStatusReply reply;
   reply.set_status(TpmManagerStatus::STATUS_SUCCESS);
   reply.set_is_owned(true);
-  EXPECT_CALL(proxy_->GetMock().tpm_manager,
+  EXPECT_CALL(proxy_->GetMockTpmManagerProxy(),
               GetTpmNonsensitiveStatus(_, _, _, _))
       .WillOnce(DoAll(SetArgPointee<1>(reply), Return(true)));
 
@@ -58,7 +60,7 @@ TEST_F(BackendStateTpm1Test, IsReady) {
 TEST_F(BackendStateTpm1Test, Prepare) {
   tpm_manager::TakeOwnershipReply reply;
   reply.set_status(TpmManagerStatus::STATUS_SUCCESS);
-  EXPECT_CALL(proxy_->GetMock().tpm_manager, TakeOwnership(_, _, _, _))
+  EXPECT_CALL(proxy_->GetMockTpmManagerProxy(), TakeOwnership(_, _, _, _))
       .WillOnce(DoAll(SetArgPointee<1>(reply), Return(true)));
 
   EXPECT_THAT(backend_->GetStateTpm1().Prepare(), IsOk());
@@ -69,7 +71,7 @@ TEST_F(BackendStateTpm1Test, WaitUntilReadyEarly) {
   reply.set_status(TpmManagerStatus::STATUS_SUCCESS);
   reply.set_is_enabled(true);
   reply.set_is_owned(true);
-  EXPECT_CALL(proxy_->GetMock().tpm_manager,
+  EXPECT_CALL(proxy_->GetMockTpmManagerProxy(),
               GetTpmNonsensitiveStatus(_, _, _, _))
       .WillOnce(DoAll(SetArgPointee<1>(reply), Return(true)));
 
@@ -84,14 +86,14 @@ TEST_F(BackendStateTpm1Test, WaitUntilReadySignal) {
   reply.set_status(TpmManagerStatus::STATUS_SUCCESS);
   reply.set_is_enabled(false);
   reply.set_is_owned(false);
-  EXPECT_CALL(proxy_->GetMock().tpm_manager,
+  EXPECT_CALL(proxy_->GetMockTpmManagerProxy(),
               GetTpmNonsensitiveStatus(_, _, _, _))
       .WillOnce(DoAll(SetArgPointee<1>(reply), Return(true)));
 
   base::RepeatingCallback<void(const tpm_manager::OwnershipTakenSignal&)>
       signal_callback = base::NullCallback();
 
-  EXPECT_CALL(proxy_->GetMock().tpm_manager,
+  EXPECT_CALL(proxy_->GetMockTpmManagerProxy(),
               DoRegisterSignalOwnershipTakenSignalHandler(_, _))
       .WillOnce(SaveArg<0>(&signal_callback));
 
@@ -112,14 +114,14 @@ TEST_F(BackendStateTpm1Test, WaitUntilReadyEarlyAndSignal) {
   reply.set_status(TpmManagerStatus::STATUS_SUCCESS);
   reply.set_is_enabled(true);
   reply.set_is_owned(true);
-  EXPECT_CALL(proxy_->GetMock().tpm_manager,
+  EXPECT_CALL(proxy_->GetMockTpmManagerProxy(),
               GetTpmNonsensitiveStatus(_, _, _, _))
       .WillOnce(DoAll(SetArgPointee<1>(reply), Return(true)));
 
   base::RepeatingCallback<void(const tpm_manager::OwnershipTakenSignal&)>
       signal_callback = base::NullCallback();
 
-  EXPECT_CALL(proxy_->GetMock().tpm_manager,
+  EXPECT_CALL(proxy_->GetMockTpmManagerProxy(),
               DoRegisterSignalOwnershipTakenSignalHandler(_, _))
       .WillOnce(SaveArg<0>(&signal_callback));
 

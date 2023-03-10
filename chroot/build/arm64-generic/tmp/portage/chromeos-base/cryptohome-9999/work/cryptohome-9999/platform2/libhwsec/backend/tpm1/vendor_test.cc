@@ -8,8 +8,11 @@
 #include <gtest/gtest.h>
 #include <libhwsec-foundation/crypto/rsa.h>
 #include <libhwsec-foundation/error/testing_helper.h>
+#include <tpm_manager/proto_bindings/tpm_manager.pb.h>
+#include <tpm_manager-client-test/tpm_manager/dbus-proxy-mocks.h>
 
 #include "libhwsec/backend/tpm1/backend_test_base.h"
+#include "libhwsec/overalls/mock_overalls.h"
 
 using hwsec_foundation::kWellKnownExponent;
 using hwsec_foundation::error::testing::IsOk;
@@ -26,7 +29,7 @@ using testing::SetArgPointee;
 using tpm_manager::TpmManagerStatus;
 namespace hwsec {
 
-class BackendVendorTpm1Test : public BackendTpm1TestBase {};
+using BackendVendorTpm1Test = BackendTpm1TestBase;
 
 TEST_F(BackendVendorTpm1Test, GetVersionInfo) {
   const brillo::Blob kFakeVendorSpecific = {0x06, 0x2B, 0x00, 0xF3, 0x00,
@@ -41,7 +44,7 @@ TEST_F(BackendVendorTpm1Test, GetVersionInfo) {
   reply.set_firmware_version(0x62B);
   reply.set_vendor_specific(brillo::BlobToString(kFakeVendorSpecific));
   reply.set_gsc_version(tpm_manager::GSC_VERSION_NOT_GSC);
-  EXPECT_CALL(proxy_->GetMock().tpm_manager, GetVersionInfo(_, _, _, _))
+  EXPECT_CALL(proxy_->GetMockTpmManagerProxy(), GetVersionInfo(_, _, _, _))
       .WillOnce(DoAll(SetArgPointee<1>(reply), Return(true)));
 
   EXPECT_THAT(backend_->GetVendorTpm1().GetFamily(), IsOkAndHolds(0x312E3200));
@@ -121,7 +124,7 @@ TEST_F(BackendVendorTpm1Test, IsSrkRocaVulnerable) {
           },
   };
 
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Orspi_UnloadBlob_PUBKEY_s(_, _, kDefaultSrkPubkey.size(), _))
       .WillOnce(DoAll(SetArgPointee<0>(kDefaultSrkPubkey.size()),
                       SetArgPointee<3>(fake_pub_key), Return(TPM_SUCCESS)));
@@ -138,7 +141,7 @@ TEST_F(BackendVendorTpm1Test, IsSrkRocaVulnerable) {
   };
 
   EXPECT_CALL(
-      proxy_->GetMock().overalls,
+      proxy_->GetMockOveralls(),
       Orspi_UnloadBlob_RSA_KEY_PARMS_s(_, parms_ptr, sizeof(kFakeParms), _))
       .WillOnce(DoAll(SetArgPointee<0>(sizeof(kFakeParms)),
                       SetArgPointee<3>(key_parms), Return(TPM_SUCCESS)));
@@ -201,7 +204,7 @@ TEST_F(BackendVendorTpm1Test, IsSrkRocaVulnerableFalse) {
           },
   };
 
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Orspi_UnloadBlob_PUBKEY_s(_, _, kDefaultSrkPubkey.size(), _))
       .WillOnce(DoAll(SetArgPointee<0>(kDefaultSrkPubkey.size()),
                       SetArgPointee<3>(fake_pub_key), Return(TPM_SUCCESS)));
@@ -214,7 +217,7 @@ TEST_F(BackendVendorTpm1Test, IsSrkRocaVulnerableFalse) {
   };
 
   EXPECT_CALL(
-      proxy_->GetMock().overalls,
+      proxy_->GetMockOveralls(),
       Orspi_UnloadBlob_RSA_KEY_PARMS_s(_, parms_ptr, sizeof(kFakeParms), _))
       .WillOnce(DoAll(SetArgPointee<0>(sizeof(kFakeParms)),
                       SetArgPointee<3>(key_parms), Return(TPM_SUCCESS)));
@@ -228,7 +231,7 @@ TEST_F(BackendVendorTpm1Test, IsSrkRocaVulnerableLengthFailed) {
 
   TPM_PUBKEY fake_pub_key{};
 
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Orspi_UnloadBlob_PUBKEY_s(_, _, kDefaultSrkPubkey.size(), _))
       .WillOnce(DoAll(SetArgPointee<0>(kDefaultSrkPubkey.size() - 1),
                       SetArgPointee<3>(fake_pub_key), Return(TPM_SUCCESS)));
@@ -242,14 +245,14 @@ TEST_F(BackendVendorTpm1Test, IsSrkRocaVulnerableLengthFailed2) {
 
   TPM_PUBKEY fake_pub_key{};
 
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Orspi_UnloadBlob_PUBKEY_s(_, _, kDefaultSrkPubkey.size(), _))
       .WillOnce(DoAll(SetArgPointee<0>(kDefaultSrkPubkey.size()),
                       SetArgPointee<3>(fake_pub_key), Return(TPM_SUCCESS)));
 
   TPM_RSA_KEY_PARMS key_parms{};
 
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Orspi_UnloadBlob_RSA_KEY_PARMS_s(_, _, 0, _))
       .WillOnce(DoAll(SetArgPointee<0>(1), SetArgPointee<3>(key_parms),
                       Return(TPM_SUCCESS)));
@@ -263,16 +266,16 @@ TEST_F(BackendVendorTpm1Test, GetIFXFieldUpgradeInfo) {
   fake_result[0] = 0;
   fake_result[1] = 106;
 
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Ospi_TPM_FieldUpgrade(kDefaultTpm, _, _, _, _))
       .WillOnce(DoAll(SetArgPointee<3>(fake_result.size()),
                       SetArgPointee<4>(fake_result.data()),
                       Return(TPM_SUCCESS)));
 
-  EXPECT_CALL(proxy_->GetMock().overalls, Orspi_UnloadBlob_UINT16_s(_, _, _, _))
+  EXPECT_CALL(proxy_->GetMockOveralls(), Orspi_UnloadBlob_UINT16_s(_, _, _, _))
       .WillRepeatedly(Trspi_UnloadBlob_UINT16_s);
 
-  EXPECT_CALL(proxy_->GetMock().overalls, Orspi_UnloadBlob_UINT32_s(_, _, _, _))
+  EXPECT_CALL(proxy_->GetMockOveralls(), Orspi_UnloadBlob_UINT32_s(_, _, _, _))
       .WillRepeatedly(Trspi_UnloadBlob_UINT32_s);
 
   EXPECT_THAT(backend_->GetVendorTpm1().GetIFXFieldUpgradeInfo(), IsOk());
@@ -281,16 +284,16 @@ TEST_F(BackendVendorTpm1Test, GetIFXFieldUpgradeInfo) {
 TEST_F(BackendVendorTpm1Test, GetIFXFieldUpgradeInfoLengthMismatch) {
   brillo::Blob fake_result{42, 42, 42, 42, 42};
 
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Ospi_TPM_FieldUpgrade(kDefaultTpm, _, _, _, _))
       .WillOnce(DoAll(SetArgPointee<3>(fake_result.size()),
                       SetArgPointee<4>(fake_result.data()),
                       Return(TPM_SUCCESS)));
 
-  EXPECT_CALL(proxy_->GetMock().overalls, Orspi_UnloadBlob_UINT16_s(_, _, _, _))
+  EXPECT_CALL(proxy_->GetMockOveralls(), Orspi_UnloadBlob_UINT16_s(_, _, _, _))
       .WillRepeatedly(Trspi_UnloadBlob_UINT16_s);
 
-  EXPECT_CALL(proxy_->GetMock().overalls, Orspi_UnloadBlob_UINT32_s(_, _, _, _))
+  EXPECT_CALL(proxy_->GetMockOveralls(), Orspi_UnloadBlob_UINT32_s(_, _, _, _))
       .WillRepeatedly(Trspi_UnloadBlob_UINT32_s);
 
   EXPECT_THAT(backend_->GetVendorTpm1().GetIFXFieldUpgradeInfo(), NotOk());
@@ -299,16 +302,16 @@ TEST_F(BackendVendorTpm1Test, GetIFXFieldUpgradeInfoLengthMismatch) {
 TEST_F(BackendVendorTpm1Test, GetIFXFieldUpgradeInfoUnknownLength) {
   brillo::Blob fake_result{0, 3, 1, 2, 3};
 
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Ospi_TPM_FieldUpgrade(kDefaultTpm, _, _, _, _))
       .WillOnce(DoAll(SetArgPointee<3>(fake_result.size()),
                       SetArgPointee<4>(fake_result.data()),
                       Return(TPM_SUCCESS)));
 
-  EXPECT_CALL(proxy_->GetMock().overalls, Orspi_UnloadBlob_UINT16_s(_, _, _, _))
+  EXPECT_CALL(proxy_->GetMockOveralls(), Orspi_UnloadBlob_UINT16_s(_, _, _, _))
       .WillRepeatedly(Trspi_UnloadBlob_UINT16_s);
 
-  EXPECT_CALL(proxy_->GetMock().overalls, Orspi_UnloadBlob_UINT32_s(_, _, _, _))
+  EXPECT_CALL(proxy_->GetMockOveralls(), Orspi_UnloadBlob_UINT32_s(_, _, _, _))
       .WillRepeatedly(Trspi_UnloadBlob_UINT32_s);
 
   EXPECT_THAT(backend_->GetVendorTpm1().GetIFXFieldUpgradeInfo(), NotOk());

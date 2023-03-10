@@ -10,6 +10,7 @@
 #include <libhwsec-foundation/error/testing_helper.h>
 
 #include "libhwsec/backend/tpm1/backend_test_base.h"
+#include "libhwsec/overalls/mock_overalls.h"
 
 using hwsec_foundation::error::testing::IsOkAndHolds;
 using hwsec_foundation::error::testing::ReturnError;
@@ -23,7 +24,7 @@ using testing::SetArgPointee;
 using tpm_manager::TpmManagerStatus;
 namespace hwsec {
 
-class BackendEncryptionTpm1Test : public BackendTpm1TestBase {};
+using BackendEncryptionTpm1Test = BackendTpm1TestBase;
 
 TEST_F(BackendEncryptionTpm1Test, Encrypt) {
   const OperationPolicy kFakePolicy{};
@@ -37,12 +38,12 @@ TEST_F(BackendEncryptionTpm1Test, Encrypt) {
   SetupSrk();
 
   EXPECT_CALL(
-      proxy_->GetMock().overalls,
+      proxy_->GetMockOveralls(),
       Ospi_Context_LoadKeyByBlob(kDefaultContext, kDefaultSrkHandle, _, _, _))
       .WillOnce(DoAll(SetArgPointee<4>(kFakeKeyHandle), Return(TPM_SUCCESS)));
 
   brillo::Blob fake_pubkey = kFakePubkey;
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Ospi_Key_GetPubKey(kFakeKeyHandle, _, _))
       .WillOnce(DoAll(SetArgPointee<1>(kFakePubkey.size()),
                       SetArgPointee<2>(fake_pubkey.data()),
@@ -54,17 +55,17 @@ TEST_F(BackendEncryptionTpm1Test, Encrypt) {
   ASSERT_OK(key);
 
   EXPECT_CALL(
-      proxy_->GetMock().overalls,
+      proxy_->GetMockOveralls(),
       Ospi_Context_CreateObject(kDefaultContext, TSS_OBJECT_TYPE_ENCDATA,
                                 TSS_ENCDATA_SEAL, _))
       .WillOnce(DoAll(SetArgPointee<3>(kFakeEncHandle), Return(TPM_SUCCESS)));
 
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Ospi_Data_Bind(kFakeEncHandle, kFakeKeyHandle, _, _))
       .WillOnce(Return(TPM_SUCCESS));
 
   brillo::Blob mutable_ciphertext = kCiphertext;
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Ospi_GetAttribData(kFakeEncHandle, TSS_TSPATTRIB_ENCDATA_BLOB,
                                  TSS_TSPATTRIB_ENCDATABLOB_BLOB, _, _))
       .WillOnce(DoAll(SetArgPointee<3>(mutable_ciphertext.size()),
@@ -89,12 +90,12 @@ TEST_F(BackendEncryptionTpm1Test, Decrypt) {
   SetupSrk();
 
   EXPECT_CALL(
-      proxy_->GetMock().overalls,
+      proxy_->GetMockOveralls(),
       Ospi_Context_LoadKeyByBlob(kDefaultContext, kDefaultSrkHandle, _, _, _))
       .WillOnce(DoAll(SetArgPointee<4>(kFakeKeyHandle), Return(TPM_SUCCESS)));
 
   brillo::Blob fake_pubkey = kFakePubkey;
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Ospi_Key_GetPubKey(kFakeKeyHandle, _, _))
       .WillOnce(DoAll(SetArgPointee<1>(kFakePubkey.size()),
                       SetArgPointee<2>(fake_pubkey.data()),
@@ -106,18 +107,18 @@ TEST_F(BackendEncryptionTpm1Test, Decrypt) {
   ASSERT_OK(key);
 
   EXPECT_CALL(
-      proxy_->GetMock().overalls,
+      proxy_->GetMockOveralls(),
       Ospi_Context_CreateObject(kDefaultContext, TSS_OBJECT_TYPE_ENCDATA,
                                 TSS_ENCDATA_SEAL, _))
       .WillOnce(DoAll(SetArgPointee<3>(kFakeEncHandle), Return(TPM_SUCCESS)));
 
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Ospi_SetAttribData(kFakeEncHandle, TSS_TSPATTRIB_ENCDATA_BLOB,
                                  TSS_TSPATTRIB_ENCDATABLOB_BLOB, _, _))
       .WillOnce(Return(TPM_SUCCESS));
 
   brillo::SecureBlob mutable_plaintext = kPlaintext;
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Ospi_Data_Unbind(kFakeEncHandle, kFakeKeyHandle, _, _))
       .WillOnce(DoAll(SetArgPointee<2>(mutable_plaintext.size()),
                       SetArgPointee<3>(mutable_plaintext.data()),

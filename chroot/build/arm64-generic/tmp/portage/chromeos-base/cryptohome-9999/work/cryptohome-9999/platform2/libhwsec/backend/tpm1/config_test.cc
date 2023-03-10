@@ -10,6 +10,7 @@
 #include <openssl/sha.h>
 
 #include "libhwsec/backend/tpm1/backend_test_base.h"
+#include "libhwsec/overalls/mock_overalls.h"
 
 using hwsec_foundation::error::testing::IsOk;
 using hwsec_foundation::error::testing::IsOkAndHolds;
@@ -24,7 +25,7 @@ using testing::SetArgPointee;
 using tpm_manager::TpmManagerStatus;
 namespace hwsec {
 
-class BackendConfigTpm1Test : public BackendTpm1TestBase {};
+using BackendConfigTpm1Test = BackendTpm1TestBase;
 
 TEST_F(BackendConfigTpm1Test, ToOperationPolicy) {
   const brillo::SecureBlob kFakeAuthValue("auth_value");
@@ -70,7 +71,7 @@ TEST_F(BackendConfigTpm1Test, ToOperationPolicy) {
 TEST_F(BackendConfigTpm1Test, SetCurrentUser) {
   const std::string kFakeUser = "fake_user";
 
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Ospi_TPM_PcrExtend(kDefaultTpm, _, _, _, _, _, _))
       .WillOnce(Return(TPM_SUCCESS));
 
@@ -81,7 +82,7 @@ TEST_F(BackendConfigTpm1Test, IsCurrentUserSet) {
   const brillo::Blob kNonZeroPcr(SHA_DIGEST_LENGTH, 'X');
 
   brillo::Blob non_zero_pcr = kNonZeroPcr;
-  EXPECT_CALL(proxy_->GetMock().overalls, Ospi_TPM_PcrRead(_, _, _, _))
+  EXPECT_CALL(proxy_->GetMockOveralls(), Ospi_TPM_PcrRead(_, _, _, _))
       .WillOnce(DoAll(SetArgPointee<2>(non_zero_pcr.size()),
                       SetArgPointee<3>(non_zero_pcr.data()),
                       Return(TPM_SUCCESS)));
@@ -93,7 +94,7 @@ TEST_F(BackendConfigTpm1Test, IsCurrentUserSetZero) {
   const brillo::Blob kZeroPcr(SHA_DIGEST_LENGTH, 0);
 
   brillo::Blob zero_pcr = kZeroPcr;
-  EXPECT_CALL(proxy_->GetMock().overalls, Ospi_TPM_PcrRead(_, _, _, _))
+  EXPECT_CALL(proxy_->GetMockOveralls(), Ospi_TPM_PcrRead(_, _, _, _))
       .WillOnce(DoAll(SetArgPointee<2>(zero_pcr.size()),
                       SetArgPointee<3>(zero_pcr.data()), Return(TPM_SUCCESS)));
 

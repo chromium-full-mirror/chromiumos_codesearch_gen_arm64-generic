@@ -7,6 +7,10 @@
 
 #include <gtest/gtest.h>
 #include <libhwsec-foundation/error/testing_helper.h>
+#include <tpm_manager/proto_bindings/tpm_manager.pb.h>
+#include <tpm_manager-client-test/tpm_manager/dbus-proxy-mocks.h>
+#include <trunks/mock_command_transceiver.h>
+#include <trunks/mock_tpm_utility.h>
 
 #include "libhwsec/backend/tpm2/backend_test_base.h"
 
@@ -23,7 +27,7 @@ using testing::SetArgPointee;
 using tpm_manager::TpmManagerStatus;
 namespace hwsec {
 
-class BackendVendorTpm2Test : public BackendTpm2TestBase {};
+using BackendVendorTpm2Test = BackendTpm2TestBase;
 
 TEST_F(BackendVendorTpm2Test, GetVersionInfo) {
   const brillo::Blob kFakeVendorSpecific = {0x78, 0x43, 0x47, 0x20,
@@ -37,7 +41,7 @@ TEST_F(BackendVendorTpm2Test, GetVersionInfo) {
   reply.set_firmware_version(0x8E0F7DC508B56D7C);
   reply.set_vendor_specific(brillo::BlobToString(kFakeVendorSpecific));
   reply.set_gsc_version(tpm_manager::GSC_VERSION_CR50);
-  EXPECT_CALL(proxy_->GetMock().tpm_manager, GetVersionInfo(_, _, _, _))
+  EXPECT_CALL(proxy_->GetMockTpmManagerProxy(), GetVersionInfo(_, _, _, _))
       .WillOnce(DoAll(SetArgPointee<1>(reply), Return(true)));
 
   EXPECT_THAT(backend_->GetVendorTpm2().GetFamily(), IsOkAndHolds(0x322E3000));
@@ -65,7 +69,7 @@ TEST_F(BackendVendorTpm2Test, IsSrkRocaVulnerable) {
 }
 
 TEST_F(BackendVendorTpm2Test, DeclareTpmFirmwareStable) {
-  EXPECT_CALL(proxy_->GetMock().tpm_utility, DeclareTpmFirmwareStable())
+  EXPECT_CALL(proxy_->GetMockTpmUtility(), DeclareTpmFirmwareStable())
       .WillOnce(Return(trunks::TPM_RC_SUCCESS));
 
   EXPECT_THAT(backend_->GetVendorTpm2().DeclareTpmFirmwareStable(), IsOk());
@@ -86,7 +90,7 @@ TEST_F(BackendVendorTpm2Test, SendRawCommand) {
       0x00, 0x00, 0x00, 0x00, 0xaa, 0x66, 0x15, 0x0f, 0x87, 0xb7, 0x3b, 0x67};
   const std::string kFakeOutput = brillo::BlobToString(kFakeResponse);
 
-  EXPECT_CALL(proxy_->GetMock().trunks_command_transceiver,
+  EXPECT_CALL(proxy_->GetMockCommandTransceiver(),
               SendCommandAndWait(kFakeInput))
       .WillOnce(Return(kFakeOutput));
 
@@ -97,7 +101,7 @@ TEST_F(BackendVendorTpm2Test, SendRawCommand) {
 TEST_F(BackendVendorTpm2Test, GetRsuDeviceId) {
   const std::string kFakeRsuDeviceId = "fake_rsu_device_id";
 
-  EXPECT_CALL(proxy_->GetMock().tpm_utility, GetRsuDeviceId(_))
+  EXPECT_CALL(proxy_->GetMockTpmUtility(), GetRsuDeviceId(_))
       .WillOnce(DoAll(SetArgPointee<0>(kFakeRsuDeviceId),
                       Return(trunks::TPM_RC_SUCCESS)));
 

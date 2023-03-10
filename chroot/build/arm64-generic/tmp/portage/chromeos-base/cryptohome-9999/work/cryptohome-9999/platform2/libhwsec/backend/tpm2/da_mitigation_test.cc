@@ -8,6 +8,8 @@
 #include <base/time/time.h>
 #include <gtest/gtest.h>
 #include <libhwsec-foundation/error/testing_helper.h>
+#include <tpm_manager/proto_bindings/tpm_manager.pb.h>
+#include <tpm_manager-client-test/tpm_manager/dbus-proxy-mocks.h>
 
 #include "libhwsec/backend/tpm2/backend_test_base.h"
 
@@ -24,7 +26,7 @@ using testing::SetArgPointee;
 using tpm_manager::TpmManagerStatus;
 namespace hwsec {
 
-class BackendDAMitigationTpm2Test : public BackendTpm2TestBase {};
+using BackendDAMitigationTpm2Test = BackendTpm2TestBase;
 
 TEST_F(BackendDAMitigationTpm2Test, IsReady) {
   tpm_manager::GetTpmNonsensitiveStatusReply reply;
@@ -32,7 +34,7 @@ TEST_F(BackendDAMitigationTpm2Test, IsReady) {
   reply.set_is_enabled(true);
   reply.set_is_owned(true);
   reply.set_has_reset_lock_permissions(true);
-  EXPECT_CALL(proxy_->GetMock().tpm_manager,
+  EXPECT_CALL(proxy_->GetMockTpmManagerProxy(),
               GetTpmNonsensitiveStatus(_, _, _, _))
       .WillOnce(DoAll(SetArgPointee<1>(reply), Return(true)));
 
@@ -45,7 +47,7 @@ TEST_F(BackendDAMitigationTpm2Test, IsNotReady) {
   reply.set_is_enabled(true);
   reply.set_is_owned(true);
   reply.set_has_reset_lock_permissions(false);
-  EXPECT_CALL(proxy_->GetMock().tpm_manager,
+  EXPECT_CALL(proxy_->GetMockTpmManagerProxy(),
               GetTpmNonsensitiveStatus(_, _, _, _))
       .WillOnce(DoAll(SetArgPointee<1>(reply), Return(true)));
 
@@ -59,7 +61,7 @@ TEST_F(BackendDAMitigationTpm2Test, GetStatus) {
   reply.set_status(TpmManagerStatus::STATUS_SUCCESS);
   reply.set_dictionary_attack_lockout_in_effect(true);
   reply.set_dictionary_attack_lockout_seconds_remaining(kRemaining.InSeconds());
-  EXPECT_CALL(proxy_->GetMock().tpm_manager,
+  EXPECT_CALL(proxy_->GetMockTpmManagerProxy(),
               GetDictionaryAttackInfo(_, _, _, _))
       .WillOnce(DoAll(SetArgPointee<1>(reply), Return(true)));
 
@@ -72,7 +74,7 @@ TEST_F(BackendDAMitigationTpm2Test, GetStatus) {
 TEST_F(BackendDAMitigationTpm2Test, Mitigate) {
   tpm_manager::ResetDictionaryAttackLockReply reply;
   reply.set_status(TpmManagerStatus::STATUS_SUCCESS);
-  EXPECT_CALL(proxy_->GetMock().tpm_manager,
+  EXPECT_CALL(proxy_->GetMockTpmManagerProxy(),
               ResetDictionaryAttackLock(_, _, _, _))
       .WillOnce(DoAll(SetArgPointee<1>(reply), Return(true)));
 

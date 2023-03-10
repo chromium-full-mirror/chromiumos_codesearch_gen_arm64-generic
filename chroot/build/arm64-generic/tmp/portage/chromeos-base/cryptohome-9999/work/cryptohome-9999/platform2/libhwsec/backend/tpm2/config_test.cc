@@ -8,6 +8,7 @@
 #include <gtest/gtest.h>
 #include <libhwsec-foundation/error/testing_helper.h>
 #include <openssl/sha.h>
+#include <trunks/mock_tpm_utility.h>
 
 #include "libhwsec/backend/tpm2/backend_test_base.h"
 
@@ -23,7 +24,7 @@ using testing::SetArgPointee;
 using tpm_manager::TpmManagerStatus;
 namespace hwsec {
 
-class BackendConfigTpm2Test : public BackendTpm2TestBase {};
+using BackendConfigTpm2Test = BackendTpm2TestBase;
 
 TEST_F(BackendConfigTpm2Test, ToOperationPolicy) {
   const brillo::SecureBlob kFakeAuthValue("auth_value");
@@ -69,10 +70,10 @@ TEST_F(BackendConfigTpm2Test, ToOperationPolicy) {
 TEST_F(BackendConfigTpm2Test, SetCurrentUser) {
   const std::string kFakeUser = "fake_user";
 
-  EXPECT_CALL(proxy_->GetMock().tpm_utility, ExtendPCR(_, kFakeUser, _))
+  EXPECT_CALL(proxy_->GetMockTpmUtility(), ExtendPCR(_, kFakeUser, _))
       .WillOnce(Return(trunks::TPM_RC_SUCCESS));
 
-  EXPECT_CALL(proxy_->GetMock().tpm_utility, ExtendPCRForCSME(_, kFakeUser))
+  EXPECT_CALL(proxy_->GetMockTpmUtility(), ExtendPCRForCSME(_, kFakeUser))
       .WillOnce(Return(trunks::TPM_RC_SUCCESS));
 
   auto result = backend_->GetConfigTpm2().SetCurrentUser(kFakeUser);
@@ -83,7 +84,7 @@ TEST_F(BackendConfigTpm2Test, SetCurrentUser) {
 TEST_F(BackendConfigTpm2Test, IsCurrentUserSet) {
   const std::string kNonZeroPcr(SHA256_DIGEST_LENGTH, 'X');
 
-  EXPECT_CALL(proxy_->GetMock().tpm_utility, ReadPCR(_, _))
+  EXPECT_CALL(proxy_->GetMockTpmUtility(), ReadPCR(_, _))
       .WillOnce(
           DoAll(SetArgPointee<1>(kNonZeroPcr), Return(trunks::TPM_RC_SUCCESS)));
 
@@ -93,7 +94,7 @@ TEST_F(BackendConfigTpm2Test, IsCurrentUserSet) {
 TEST_F(BackendConfigTpm2Test, IsCurrentUserSetZero) {
   const std::string kZeroPcr(SHA256_DIGEST_LENGTH, 0);
 
-  EXPECT_CALL(proxy_->GetMock().tpm_utility, ReadPCR(_, _))
+  EXPECT_CALL(proxy_->GetMockTpmUtility(), ReadPCR(_, _))
       .WillOnce(
           DoAll(SetArgPointee<1>(kZeroPcr), Return(trunks::TPM_RC_SUCCESS)));
 

@@ -98,8 +98,10 @@ enum class BuiltinModelId : int32_t {
   UNSUPPORTED_SEARCH_RANKER_20190923 = 6,
   
   ADAPTIVE_CHARGING_20211105 = 7,
+  
+  PONCHO_PALM_REJECTION_20230213 = 8,
   kMinValue = 0,
-  kMaxValue = 7,
+  kMaxValue = 8,
 };
 
  std::ostream& operator<<(std::ostream& os, BuiltinModelId value);

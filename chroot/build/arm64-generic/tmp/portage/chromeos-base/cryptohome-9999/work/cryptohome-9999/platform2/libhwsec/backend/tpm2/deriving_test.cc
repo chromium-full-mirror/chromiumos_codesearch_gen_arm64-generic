@@ -8,6 +8,7 @@
 
 #include <base/strings/string_number_conversions.h>
 #include <gtest/gtest.h>
+#include <trunks/mock_tpm_utility.h>
 
 #include <libhwsec-foundation/crypto/sha.h>
 #include <libhwsec-foundation/error/testing_helper.h>
@@ -30,7 +31,7 @@ using testing::SetArgPointee;
 using tpm_manager::TpmManagerStatus;
 namespace hwsec {
 
-class BackendDeriveTpm2Test : public BackendTpm2TestBase {};
+using BackendDeriveTpm2Test = BackendTpm2TestBase;
 
 TEST_F(BackendDeriveTpm2Test, DeriveSecureRsa) {
   const OperationPolicy kFakePolicy{};
@@ -69,12 +70,11 @@ TEST_F(BackendDeriveTpm2Test, DeriveSecureRsa) {
           },
   };
 
-  EXPECT_CALL(proxy_->GetMock().tpm_utility, LoadKey(kFakeKeyBlob, _, _))
+  EXPECT_CALL(proxy_->GetMockTpmUtility(), LoadKey(kFakeKeyBlob, _, _))
       .WillOnce(DoAll(SetArgPointee<2>(kFakeKeyHandle),
                       Return(trunks::TPM_RC_SUCCESS)));
 
-  EXPECT_CALL(proxy_->GetMock().tpm_utility,
-              GetKeyPublicArea(kFakeKeyHandle, _))
+  EXPECT_CALL(proxy_->GetMockTpmUtility(), GetKeyPublicArea(kFakeKeyHandle, _))
       .WillOnce(
           DoAll(SetArgPointee<1>(kFakePublic), Return(trunks::TPM_RC_SUCCESS)));
 
@@ -84,7 +84,7 @@ TEST_F(BackendDeriveTpm2Test, DeriveSecureRsa) {
 
   ASSERT_OK(key);
 
-  EXPECT_CALL(proxy_->GetMock().tpm_utility,
+  EXPECT_CALL(proxy_->GetMockTpmUtility(),
               AsymmetricDecrypt(kFakeKeyHandle, trunks::TPM_ALG_NULL,
                                 trunks::TPM_ALG_NULL, _, _, _))
       .WillOnce(
@@ -150,12 +150,11 @@ TEST_F(BackendDeriveTpm2Test, DeriveEcc) {
           },
   };
 
-  EXPECT_CALL(proxy_->GetMock().tpm_utility, LoadKey(kFakeKeyBlob, _, _))
+  EXPECT_CALL(proxy_->GetMockTpmUtility(), LoadKey(kFakeKeyBlob, _, _))
       .WillOnce(DoAll(SetArgPointee<2>(kFakeKeyHandle),
                       Return(trunks::TPM_RC_SUCCESS)));
 
-  EXPECT_CALL(proxy_->GetMock().tpm_utility,
-              GetKeyPublicArea(kFakeKeyHandle, _))
+  EXPECT_CALL(proxy_->GetMockTpmUtility(), GetKeyPublicArea(kFakeKeyHandle, _))
       .WillOnce(
           DoAll(SetArgPointee<1>(kFakePublic), Return(trunks::TPM_RC_SUCCESS)));
 
@@ -165,7 +164,7 @@ TEST_F(BackendDeriveTpm2Test, DeriveEcc) {
 
   ASSERT_OK(key);
 
-  EXPECT_CALL(proxy_->GetMock().tpm_utility, ECDHZGen(kFakeKeyHandle, _, _, _))
+  EXPECT_CALL(proxy_->GetMockTpmUtility(), ECDHZGen(kFakeKeyHandle, _, _, _))
       .WillOnce(
           DoAll(SetArgPointee<3>(kFakeZPoint), Return(trunks::TPM_RC_SUCCESS)));
 
@@ -221,12 +220,11 @@ TEST_F(BackendDeriveTpm2Test, DeriveEccOutOfRange) {
   brillo::Blob fake_blob;
   base::HexStringToBytes(kOorStr, &fake_blob);
 
-  EXPECT_CALL(proxy_->GetMock().tpm_utility, LoadKey(kFakeKeyBlob, _, _))
+  EXPECT_CALL(proxy_->GetMockTpmUtility(), LoadKey(kFakeKeyBlob, _, _))
       .WillOnce(DoAll(SetArgPointee<2>(kFakeKeyHandle),
                       Return(trunks::TPM_RC_SUCCESS)));
 
-  EXPECT_CALL(proxy_->GetMock().tpm_utility,
-              GetKeyPublicArea(kFakeKeyHandle, _))
+  EXPECT_CALL(proxy_->GetMockTpmUtility(), GetKeyPublicArea(kFakeKeyHandle, _))
       .WillOnce(
           DoAll(SetArgPointee<1>(kFakePublic), Return(trunks::TPM_RC_SUCCESS)));
 

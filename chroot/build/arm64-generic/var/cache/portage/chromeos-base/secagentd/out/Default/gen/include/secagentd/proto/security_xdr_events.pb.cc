@@ -208,10 +208,41 @@ struct ProcessTerminateEventDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProcessTerminateEventDefaultTypeInternal _ProcessTerminateEvent_default_instance_;
+PROTOBUF_CONSTEXPR CommonEventVariantDataFields::CommonEventVariantDataFields(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.create_timestamp_us_)*/int64_t{0}} {}
+struct CommonEventVariantDataFieldsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CommonEventVariantDataFieldsDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CommonEventVariantDataFieldsDefaultTypeInternal() {}
+  union {
+    CommonEventVariantDataFields _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CommonEventVariantDataFieldsDefaultTypeInternal _CommonEventVariantDataFields_default_instance_;
+PROTOBUF_CONSTEXPR ProcessEventAtomicVariant::ProcessEventAtomicVariant(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.common_)*/nullptr
+  , /*decltype(_impl_.variant_type_)*/{}
+  , /*decltype(_impl_._oneof_case_)*/{}} {}
+struct ProcessEventAtomicVariantDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR ProcessEventAtomicVariantDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~ProcessEventAtomicVariantDefaultTypeInternal() {}
+  union {
+    ProcessEventAtomicVariant _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ProcessEventAtomicVariantDefaultTypeInternal _ProcessEventAtomicVariant_default_instance_;
 PROTOBUF_CONSTEXPR XdrProcessEvent::XdrProcessEvent(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.batched_events_)*/{}
   , /*decltype(_impl_.common_)*/nullptr
   , /*decltype(_impl_.message_type_)*/{}
   , /*decltype(_impl_._oneof_case_)*/{}} {}
@@ -4428,6 +4459,562 @@ std::string ProcessTerminateEvent::GetTypeName() const {
 
 // ===================================================================
 
+class CommonEventVariantDataFields::_Internal {
+ public:
+  using HasBits = decltype(std::declval<CommonEventVariantDataFields>()._impl_._has_bits_);
+  static void set_has_create_timestamp_us(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+CommonEventVariantDataFields::CommonEventVariantDataFields(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.CommonEventVariantDataFields)
+}
+CommonEventVariantDataFields::CommonEventVariantDataFields(const CommonEventVariantDataFields& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  CommonEventVariantDataFields* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.create_timestamp_us_){}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.create_timestamp_us_ = from._impl_.create_timestamp_us_;
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.CommonEventVariantDataFields)
+}
+
+inline void CommonEventVariantDataFields::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.create_timestamp_us_){int64_t{0}}
+  };
+}
+
+CommonEventVariantDataFields::~CommonEventVariantDataFields() {
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.CommonEventVariantDataFields)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void CommonEventVariantDataFields::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void CommonEventVariantDataFields::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void CommonEventVariantDataFields::Clear() {
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.CommonEventVariantDataFields)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.create_timestamp_us_ = int64_t{0};
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* CommonEventVariantDataFields::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional int64 create_timestamp_us = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_create_timestamp_us(&has_bits);
+          _impl_.create_timestamp_us_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CommonEventVariantDataFields::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.CommonEventVariantDataFields)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional int64 create_timestamp_us = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(1, this->_internal_create_timestamp_us(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.CommonEventVariantDataFields)
+  return target;
+}
+
+size_t CommonEventVariantDataFields::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.CommonEventVariantDataFields)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional int64 create_timestamp_us = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_create_timestamp_us());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CommonEventVariantDataFields::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const CommonEventVariantDataFields*>(
+      &from));
+}
+
+void CommonEventVariantDataFields::MergeFrom(const CommonEventVariantDataFields& from) {
+  CommonEventVariantDataFields* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.CommonEventVariantDataFields)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_create_timestamp_us()) {
+    _this->_internal_set_create_timestamp_us(from._internal_create_timestamp_us());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void CommonEventVariantDataFields::CopyFrom(const CommonEventVariantDataFields& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.CommonEventVariantDataFields)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CommonEventVariantDataFields::IsInitialized() const {
+  return true;
+}
+
+void CommonEventVariantDataFields::InternalSwap(CommonEventVariantDataFields* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.create_timestamp_us_, other->_impl_.create_timestamp_us_);
+}
+
+std::string CommonEventVariantDataFields::GetTypeName() const {
+  return "cros_xdr.reporting.CommonEventVariantDataFields";
+}
+
+
+// ===================================================================
+
+class ProcessEventAtomicVariant::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ProcessEventAtomicVariant>()._impl_._has_bits_);
+  static const ::cros_xdr::reporting::CommonEventVariantDataFields& common(const ProcessEventAtomicVariant* msg);
+  static void set_has_common(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static const ::cros_xdr::reporting::ProcessExecEvent& process_exec(const ProcessEventAtomicVariant* msg);
+  static const ::cros_xdr::reporting::ProcessTerminateEvent& process_terminate(const ProcessEventAtomicVariant* msg);
+};
+
+const ::cros_xdr::reporting::CommonEventVariantDataFields&
+ProcessEventAtomicVariant::_Internal::common(const ProcessEventAtomicVariant* msg) {
+  return *msg->_impl_.common_;
+}
+const ::cros_xdr::reporting::ProcessExecEvent&
+ProcessEventAtomicVariant::_Internal::process_exec(const ProcessEventAtomicVariant* msg) {
+  return *msg->_impl_.variant_type_.process_exec_;
+}
+const ::cros_xdr::reporting::ProcessTerminateEvent&
+ProcessEventAtomicVariant::_Internal::process_terminate(const ProcessEventAtomicVariant* msg) {
+  return *msg->_impl_.variant_type_.process_terminate_;
+}
+void ProcessEventAtomicVariant::set_allocated_process_exec(::cros_xdr::reporting::ProcessExecEvent* process_exec) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_variant_type();
+  if (process_exec) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(process_exec);
+    if (message_arena != submessage_arena) {
+      process_exec = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, process_exec, submessage_arena);
+    }
+    set_has_process_exec();
+    _impl_.variant_type_.process_exec_ = process_exec;
+  }
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.ProcessEventAtomicVariant.process_exec)
+}
+void ProcessEventAtomicVariant::set_allocated_process_terminate(::cros_xdr::reporting::ProcessTerminateEvent* process_terminate) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_variant_type();
+  if (process_terminate) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(process_terminate);
+    if (message_arena != submessage_arena) {
+      process_terminate = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, process_terminate, submessage_arena);
+    }
+    set_has_process_terminate();
+    _impl_.variant_type_.process_terminate_ = process_terminate;
+  }
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.ProcessEventAtomicVariant.process_terminate)
+}
+ProcessEventAtomicVariant::ProcessEventAtomicVariant(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor(arena, is_message_owned);
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.ProcessEventAtomicVariant)
+}
+ProcessEventAtomicVariant::ProcessEventAtomicVariant(const ProcessEventAtomicVariant& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  ProcessEventAtomicVariant* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.common_){nullptr}
+    , decltype(_impl_.variant_type_){}
+    , /*decltype(_impl_._oneof_case_)*/{}};
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_common()) {
+    _this->_impl_.common_ = new ::cros_xdr::reporting::CommonEventVariantDataFields(*from._impl_.common_);
+  }
+  clear_has_variant_type();
+  switch (from.variant_type_case()) {
+    case kProcessExec: {
+      _this->_internal_mutable_process_exec()->::cros_xdr::reporting::ProcessExecEvent::MergeFrom(
+          from._internal_process_exec());
+      break;
+    }
+    case kProcessTerminate: {
+      _this->_internal_mutable_process_terminate()->::cros_xdr::reporting::ProcessTerminateEvent::MergeFrom(
+          from._internal_process_terminate());
+      break;
+    }
+    case VARIANT_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.ProcessEventAtomicVariant)
+}
+
+inline void ProcessEventAtomicVariant::SharedCtor(
+    ::_pb::Arena* arena, bool is_message_owned) {
+  (void)arena;
+  (void)is_message_owned;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.common_){nullptr}
+    , decltype(_impl_.variant_type_){}
+    , /*decltype(_impl_._oneof_case_)*/{}
+  };
+  clear_has_variant_type();
+}
+
+ProcessEventAtomicVariant::~ProcessEventAtomicVariant() {
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.ProcessEventAtomicVariant)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void ProcessEventAtomicVariant::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete _impl_.common_;
+  if (has_variant_type()) {
+    clear_variant_type();
+  }
+}
+
+void ProcessEventAtomicVariant::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void ProcessEventAtomicVariant::clear_variant_type() {
+// @@protoc_insertion_point(one_of_clear_start:cros_xdr.reporting.ProcessEventAtomicVariant)
+  switch (variant_type_case()) {
+    case kProcessExec: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.variant_type_.process_exec_;
+      }
+      break;
+    }
+    case kProcessTerminate: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete _impl_.variant_type_.process_terminate_;
+      }
+      break;
+    }
+    case VARIANT_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  _impl_._oneof_case_[0] = VARIANT_TYPE_NOT_SET;
+}
+
+
+void ProcessEventAtomicVariant::Clear() {
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.ProcessEventAtomicVariant)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(_impl_.common_ != nullptr);
+    _impl_.common_->Clear();
+  }
+  clear_variant_type();
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ProcessEventAtomicVariant::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .cros_xdr.reporting.CommonEventVariantDataFields common = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .cros_xdr.reporting.ProcessExecEvent process_exec = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_process_exec(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .cros_xdr.reporting.ProcessTerminateEvent process_terminate = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_process_terminate(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ProcessEventAtomicVariant::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.ProcessEventAtomicVariant)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional .cros_xdr.reporting.CommonEventVariantDataFields common = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, _Internal::common(this),
+        _Internal::common(this).GetCachedSize(), target, stream);
+  }
+
+  switch (variant_type_case()) {
+    case kProcessExec: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, _Internal::process_exec(this),
+          _Internal::process_exec(this).GetCachedSize(), target, stream);
+      break;
+    }
+    case kProcessTerminate: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(3, _Internal::process_terminate(this),
+          _Internal::process_terminate(this).GetCachedSize(), target, stream);
+      break;
+    }
+    default: ;
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.ProcessEventAtomicVariant)
+  return target;
+}
+
+size_t ProcessEventAtomicVariant::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.ProcessEventAtomicVariant)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .cros_xdr.reporting.CommonEventVariantDataFields common = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *_impl_.common_);
+  }
+
+  switch (variant_type_case()) {
+    // .cros_xdr.reporting.ProcessExecEvent process_exec = 2;
+    case kProcessExec: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.variant_type_.process_exec_);
+      break;
+    }
+    // .cros_xdr.reporting.ProcessTerminateEvent process_terminate = 3;
+    case kProcessTerminate: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *_impl_.variant_type_.process_terminate_);
+      break;
+    }
+    case VARIANT_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ProcessEventAtomicVariant::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const ProcessEventAtomicVariant*>(
+      &from));
+}
+
+void ProcessEventAtomicVariant::MergeFrom(const ProcessEventAtomicVariant& from) {
+  ProcessEventAtomicVariant* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.ProcessEventAtomicVariant)
+  GOOGLE_DCHECK_NE(&from, _this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_common()) {
+    _this->_internal_mutable_common()->::cros_xdr::reporting::CommonEventVariantDataFields::MergeFrom(
+        from._internal_common());
+  }
+  switch (from.variant_type_case()) {
+    case kProcessExec: {
+      _this->_internal_mutable_process_exec()->::cros_xdr::reporting::ProcessExecEvent::MergeFrom(
+          from._internal_process_exec());
+      break;
+    }
+    case kProcessTerminate: {
+      _this->_internal_mutable_process_terminate()->::cros_xdr::reporting::ProcessTerminateEvent::MergeFrom(
+          from._internal_process_terminate());
+      break;
+    }
+    case VARIANT_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ProcessEventAtomicVariant::CopyFrom(const ProcessEventAtomicVariant& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.ProcessEventAtomicVariant)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ProcessEventAtomicVariant::IsInitialized() const {
+  return true;
+}
+
+void ProcessEventAtomicVariant::InternalSwap(ProcessEventAtomicVariant* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  swap(_impl_.common_, other->_impl_.common_);
+  swap(_impl_.variant_type_, other->_impl_.variant_type_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
+}
+
+std::string ProcessEventAtomicVariant::GetTypeName() const {
+  return "cros_xdr.reporting.ProcessEventAtomicVariant";
+}
+
+
+// ===================================================================
+
 class XdrProcessEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<XdrProcessEvent>()._impl_._has_bits_);
@@ -4493,6 +5080,7 @@ XdrProcessEvent::XdrProcessEvent(const XdrProcessEvent& from)
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.batched_events_){from._impl_.batched_events_}
     , decltype(_impl_.common_){nullptr}
     , decltype(_impl_.message_type_){}
     , /*decltype(_impl_._oneof_case_)*/{}};
@@ -4527,6 +5115,7 @@ inline void XdrProcessEvent::SharedCtor(
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.batched_events_){arena}
     , decltype(_impl_.common_){nullptr}
     , decltype(_impl_.message_type_){}
     , /*decltype(_impl_._oneof_case_)*/{}
@@ -4545,6 +5134,7 @@ XdrProcessEvent::~XdrProcessEvent() {
 
 inline void XdrProcessEvent::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.batched_events_.~RepeatedPtrField();
   if (this != internal_default_instance()) delete _impl_.common_;
   if (has_message_type()) {
     clear_message_type();
@@ -4584,6 +5174,7 @@ void XdrProcessEvent::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  _impl_.batched_events_.Clear();
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     GOOGLE_DCHECK(_impl_.common_ != nullptr);
@@ -4609,7 +5200,7 @@ const char* XdrProcessEvent::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
-      // .cros_xdr.reporting.ProcessExecEvent process_exec = 2;
+      // .cros_xdr.reporting.ProcessExecEvent process_exec = 2 [deprecated = true];
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_process_exec(), ptr);
@@ -4617,11 +5208,24 @@ const char* XdrProcessEvent::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
-      // .cros_xdr.reporting.ProcessTerminateEvent process_terminate = 3;
+      // .cros_xdr.reporting.ProcessTerminateEvent process_terminate = 3 [deprecated = true];
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_process_terminate(), ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .cros_xdr.reporting.ProcessEventAtomicVariant batched_events = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_batched_events(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -4678,6 +5282,14 @@ uint8_t* XdrProcessEvent::_InternalSerialize(
     }
     default: ;
   }
+  // repeated .cros_xdr.reporting.ProcessEventAtomicVariant batched_events = 4;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_batched_events_size()); i < n; i++) {
+    const auto& repfield = this->_internal_batched_events(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(4, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -4694,6 +5306,13 @@ size_t XdrProcessEvent::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // repeated .cros_xdr.reporting.ProcessEventAtomicVariant batched_events = 4;
+  total_size += 1UL * this->_internal_batched_events_size();
+  for (const auto& msg : this->_impl_.batched_events_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
   // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
   cached_has_bits = _impl_._has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
@@ -4703,14 +5322,14 @@ size_t XdrProcessEvent::ByteSizeLong() const {
   }
 
   switch (message_type_case()) {
-    // .cros_xdr.reporting.ProcessExecEvent process_exec = 2;
+    // .cros_xdr.reporting.ProcessExecEvent process_exec = 2 [deprecated = true];
     case kProcessExec: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *_impl_.message_type_.process_exec_);
       break;
     }
-    // .cros_xdr.reporting.ProcessTerminateEvent process_terminate = 3;
+    // .cros_xdr.reporting.ProcessTerminateEvent process_terminate = 3 [deprecated = true];
     case kProcessTerminate: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -4742,6 +5361,7 @@ void XdrProcessEvent::MergeFrom(const XdrProcessEvent& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  _this->_impl_.batched_events_.MergeFrom(from._impl_.batched_events_);
   if (from._internal_has_common()) {
     _this->_internal_mutable_common()->::cros_xdr::reporting::CommonEventDataFields::MergeFrom(
         from._internal_common());
@@ -4779,6 +5399,7 @@ void XdrProcessEvent::InternalSwap(XdrProcessEvent* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _impl_.batched_events_.InternalSwap(&other->_impl_.batched_events_);
   swap(_impl_.common_, other->_impl_.common_);
   swap(_impl_.message_type_, other->_impl_.message_type_);
   swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
@@ -6379,6 +7000,14 @@ Arena::CreateMaybeMessage< ::cros_xdr::reporting::ProcessExecEvent >(Arena* aren
 template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::ProcessTerminateEvent*
 Arena::CreateMaybeMessage< ::cros_xdr::reporting::ProcessTerminateEvent >(Arena* arena) {
   return Arena::CreateMessageInternal< ::cros_xdr::reporting::ProcessTerminateEvent >(arena);
+}
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::CommonEventVariantDataFields*
+Arena::CreateMaybeMessage< ::cros_xdr::reporting::CommonEventVariantDataFields >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::CommonEventVariantDataFields >(arena);
+}
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::ProcessEventAtomicVariant*
+Arena::CreateMaybeMessage< ::cros_xdr::reporting::ProcessEventAtomicVariant >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::ProcessEventAtomicVariant >(arena);
 }
 template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::XdrProcessEvent*
 Arena::CreateMaybeMessage< ::cros_xdr::reporting::XdrProcessEvent >(Arena* arena) {

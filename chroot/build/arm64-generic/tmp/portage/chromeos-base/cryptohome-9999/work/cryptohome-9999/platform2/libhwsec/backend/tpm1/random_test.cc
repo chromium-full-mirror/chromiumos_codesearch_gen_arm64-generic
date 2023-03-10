@@ -9,6 +9,7 @@
 #include <libhwsec-foundation/error/testing_helper.h>
 
 #include "libhwsec/backend/tpm1/backend_test_base.h"
+#include "libhwsec/overalls/mock_overalls.h"
 
 using hwsec_foundation::error::testing::IsOkAndHolds;
 using hwsec_foundation::error::testing::ReturnError;
@@ -22,14 +23,14 @@ using testing::SetArgPointee;
 using tpm_manager::TpmManagerStatus;
 namespace hwsec {
 
-class BackendRandomTpm1Test : public BackendTpm1TestBase {};
+using BackendRandomTpm1Test = BackendTpm1TestBase;
 
 TEST_F(BackendRandomTpm1Test, RandomBlob) {
   const size_t kFakeSize = 42;
   const brillo::Blob kFakeData(kFakeSize, 'X');
 
   brillo::Blob fake_data = kFakeData;
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Ospi_TPM_GetRandom(kDefaultTpm, kFakeSize, _))
       .WillOnce(DoAll(SetArgPointee<2>(fake_data.data()), Return(TPM_SUCCESS)));
 
@@ -42,7 +43,7 @@ TEST_F(BackendRandomTpm1Test, RandomSecureBlob) {
   const brillo::SecureBlob kFakeData(kFakeSize, 'Y');
 
   brillo::SecureBlob fake_data = kFakeData;
-  EXPECT_CALL(proxy_->GetMock().overalls,
+  EXPECT_CALL(proxy_->GetMockOveralls(),
               Ospi_TPM_GetRandom(kDefaultTpm, kFakeSize, _))
       .WillOnce(DoAll(SetArgPointee<2>(fake_data.data()), Return(TPM_SUCCESS)));
 

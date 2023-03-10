@@ -7,6 +7,7 @@
 
 #include <gtest/gtest.h>
 #include <libhwsec-foundation/error/testing_helper.h>
+#include <trunks/mock_hmac_session.h>
 
 #include "libhwsec/backend/tpm2/backend_test_base.h"
 #include "libhwsec/backend/tpm2/session_management.h"
@@ -24,10 +25,10 @@ using testing::SetArgPointee;
 using tpm_manager::TpmManagerStatus;
 namespace hwsec {
 
-class BackendSessionManagementTpm2Test : public BackendTpm2TestBase {};
+using BackendSessionManagementTpm2Test = BackendTpm2TestBase;
 
 TEST_F(BackendSessionManagementTpm2Test, GetOrCreateHmacSession) {
-  EXPECT_CALL(proxy_->GetMock().hmac_session, StartUnboundSession(false, false))
+  EXPECT_CALL(proxy_->GetMockHmacSession(), StartUnboundSession(false, false))
       .WillOnce(Return(trunks::TPM_RC_SUCCESS));
 
   auto result0 = backend_->GetSessionManagementTpm2().GetOrCreateHmacSession(
@@ -45,10 +46,10 @@ TEST_F(BackendSessionManagementTpm2Test, GetOrCreateHmacSessionAndFlush) {
   auto result0 = backend_->GetSessionManagementTpm2().FlushInvalidSessions();
   EXPECT_THAT(result0, NotOk());
 
-  EXPECT_CALL(proxy_->GetMock().hmac_session, StartUnboundSession(false, true))
+  EXPECT_CALL(proxy_->GetMockHmacSession(), StartUnboundSession(false, true))
       .WillOnce(Return(trunks::TPM_RC_SUCCESS));
 
-  EXPECT_CALL(proxy_->GetMock().hmac_session, StartUnboundSession(true, true))
+  EXPECT_CALL(proxy_->GetMockHmacSession(), StartUnboundSession(true, true))
       .WillOnce(Return(trunks::TPM_RC_SUCCESS));
 
   auto result1 = backend_->GetSessionManagementTpm2().GetOrCreateHmacSession(
@@ -74,7 +75,7 @@ TEST_F(BackendSessionManagementTpm2Test, GetOrCreateHmacSessionAndFlush) {
   EXPECT_THAT(result5, IsOk());
 
   // The cache should not work.
-  EXPECT_CALL(proxy_->GetMock().hmac_session, StartUnboundSession(false, true))
+  EXPECT_CALL(proxy_->GetMockHmacSession(), StartUnboundSession(false, true))
       .WillOnce(Return(trunks::TPM_RC_SUCCESS));
 
   auto result6 = backend_->GetSessionManagementTpm2().GetOrCreateHmacSession(

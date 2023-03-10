@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 #include <gtest/gtest.h>
+#include <libhwsec-foundation/error/testing_helper.h>
 
 #include "libhwsec/backend/tpm1/backend_test_base.h"
 
@@ -10,7 +11,7 @@ using hwsec_foundation::error::testing::IsOkAndHolds;
 
 namespace hwsec {
 
-class BackendU2fTpm1Test : public BackendTpm1TestBase {};
+using BackendU2fTpm1Test = BackendTpm1TestBase;
 
 TEST_F(BackendU2fTpm1Test, IsEnabled) {
   EXPECT_THAT(backend_->GetU2fTpm1().IsEnabled(), IsOkAndHolds(false));
