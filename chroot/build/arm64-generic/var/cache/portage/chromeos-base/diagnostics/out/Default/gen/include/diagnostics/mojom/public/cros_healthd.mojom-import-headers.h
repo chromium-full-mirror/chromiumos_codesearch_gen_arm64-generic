@@ -16,6 +16,8 @@
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-import-headers.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-import-headers.h"
+#include "diagnostics/mojom/public/cros_healthd_exception.mojom.h"
+#include "diagnostics/mojom/public/cros_healthd_exception.mojom-import-headers.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-import-headers.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom.h"

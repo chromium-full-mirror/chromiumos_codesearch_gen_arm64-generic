@@ -20,6 +20,7 @@ class  ProcessControlInterceptorForTesting : public ProcessControl {
   void GetStdout(GetStdoutCallback callback) override;
   void GetStderr(GetStderrCallback callback) override;
   void GetReturnCode(GetReturnCodeCallback callback) override;
+  void Kill() override;
 };
 class  ProcessControlAsyncWaiter {
  public:

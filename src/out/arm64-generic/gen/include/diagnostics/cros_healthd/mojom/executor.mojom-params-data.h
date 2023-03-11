@@ -118,6 +118,21 @@ class  ProcessControl_GetReturnCode_ResponseParams_Data {
 };
 static_assert(sizeof(ProcessControl_GetReturnCode_ResponseParams_Data) == 16,
               "Bad sizeof(ProcessControl_GetReturnCode_ResponseParams_Data)");
+class  ProcessControl_Kill_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<ProcessControl_Kill_Params_Data>;
+
+  ProcessControl_Kill_Params_Data();
+  ~ProcessControl_Kill_Params_Data() = delete;
+};
+static_assert(sizeof(ProcessControl_Kill_Params_Data) == 8,
+              "Bad sizeof(ProcessControl_Kill_Params_Data)");
 class  AudioJackObserver_OnAdd_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -895,6 +910,21 @@ class ProcessControl_GetReturnCode_ResponseParamsDataView {
   }
  private:
   internal::ProcessControl_GetReturnCode_ResponseParams_Data* data_ = nullptr;
+};
+
+
+class ProcessControl_Kill_ParamsDataView {
+ public:
+  ProcessControl_Kill_ParamsDataView() = default;
+
+  ProcessControl_Kill_ParamsDataView(
+      internal::ProcessControl_Kill_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::ProcessControl_Kill_Params_Data* data_ = nullptr;
 };
 
 
@@ -1969,6 +1999,8 @@ class Executor_MonitorStylusGarage_ParamsDataView {
   internal::Executor_MonitorStylusGarage_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
+
+
 
 
 

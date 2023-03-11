@@ -77,6 +77,7 @@ class ProcessControl
     kGetStdoutMinVersion = 0,
     kGetStderrMinVersion = 0,
     kGetReturnCodeMinVersion = 0,
+    kKillMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -89,6 +90,9 @@ class ProcessControl
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetReturnCode_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Kill_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -108,6 +112,9 @@ class ProcessControl
   using GetReturnCodeCallback = base::OnceCallback<void(int32_t)>;
   
   virtual void GetReturnCode(GetReturnCodeCallback callback) = 0;
+
+  
+  virtual void Kill() = 0;
 };
 
 class AudioJackObserverProxy;
@@ -541,6 +548,8 @@ class  ProcessControlProxy
   void GetStderr(GetStderrCallback callback) final;
   
   void GetReturnCode(GetReturnCodeCallback callback) final;
+  
+  void Kill() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

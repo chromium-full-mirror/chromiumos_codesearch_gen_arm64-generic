@@ -183,7 +183,8 @@ PROTOBUF_CONSTEXPR ProcessExecEvent::ProcessExecEvent(
   , /*decltype(_impl_.parent_process_)*/nullptr
   , /*decltype(_impl_.process_)*/nullptr
   , /*decltype(_impl_.spawn_process_)*/nullptr
-  , /*decltype(_impl_.spawn_namespaces_)*/nullptr} {}
+  , /*decltype(_impl_.spawn_namespaces_)*/nullptr
+  , /*decltype(_impl_.terminate_timestamp_us_)*/int64_t{0}} {}
 struct ProcessExecEventDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ProcessExecEventDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -3862,6 +3863,9 @@ class ProcessExecEvent::_Internal {
   static void set_has_spawn_namespaces(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
+  static void set_has_terminate_timestamp_us(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
 };
 
 const ::cros_xdr::reporting::Process&
@@ -3895,7 +3899,8 @@ ProcessExecEvent::ProcessExecEvent(const ProcessExecEvent& from)
     , decltype(_impl_.parent_process_){nullptr}
     , decltype(_impl_.process_){nullptr}
     , decltype(_impl_.spawn_process_){nullptr}
-    , decltype(_impl_.spawn_namespaces_){nullptr}};
+    , decltype(_impl_.spawn_namespaces_){nullptr}
+    , decltype(_impl_.terminate_timestamp_us_){}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_parent_process()) {
@@ -3910,6 +3915,7 @@ ProcessExecEvent::ProcessExecEvent(const ProcessExecEvent& from)
   if (from._internal_has_spawn_namespaces()) {
     _this->_impl_.spawn_namespaces_ = new ::cros_xdr::reporting::Namespaces(*from._impl_.spawn_namespaces_);
   }
+  _this->_impl_.terminate_timestamp_us_ = from._impl_.terminate_timestamp_us_;
   // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.ProcessExecEvent)
 }
 
@@ -3924,6 +3930,7 @@ inline void ProcessExecEvent::SharedCtor(
     , decltype(_impl_.process_){nullptr}
     , decltype(_impl_.spawn_process_){nullptr}
     , decltype(_impl_.spawn_namespaces_){nullptr}
+    , decltype(_impl_.terminate_timestamp_us_){int64_t{0}}
   };
 }
 
@@ -3973,6 +3980,7 @@ void ProcessExecEvent::Clear() {
       _impl_.spawn_namespaces_->Clear();
     }
   }
+  _impl_.terminate_timestamp_us_ = int64_t{0};
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -4012,6 +4020,15 @@ const char* ProcessExecEvent::_InternalParse(const char* ptr, ::_pbi::ParseConte
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_spawn_namespaces(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional int64 terminate_timestamp_us = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          _Internal::set_has_terminate_timestamp_us(&has_bits);
+          _impl_.terminate_timestamp_us_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4075,6 +4092,12 @@ uint8_t* ProcessExecEvent::_InternalSerialize(
         _Internal::spawn_namespaces(this).GetCachedSize(), target, stream);
   }
 
+  // optional int64 terminate_timestamp_us = 5;
+  if (cached_has_bits & 0x00000010u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(5, this->_internal_terminate_timestamp_us(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -4092,7 +4115,7 @@ size_t ProcessExecEvent::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     // optional .cros_xdr.reporting.Process parent_process = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -4121,6 +4144,11 @@ size_t ProcessExecEvent::ByteSizeLong() const {
           *_impl_.spawn_namespaces_);
     }
 
+    // optional int64 terminate_timestamp_us = 5;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_terminate_timestamp_us());
+    }
+
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -4144,7 +4172,7 @@ void ProcessExecEvent::MergeFrom(const ProcessExecEvent& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       _this->_internal_mutable_parent_process()->::cros_xdr::reporting::Process::MergeFrom(
           from._internal_parent_process());
@@ -4161,6 +4189,10 @@ void ProcessExecEvent::MergeFrom(const ProcessExecEvent& from) {
       _this->_internal_mutable_spawn_namespaces()->::cros_xdr::reporting::Namespaces::MergeFrom(
           from._internal_spawn_namespaces());
     }
+    if (cached_has_bits & 0x00000010u) {
+      _this->_impl_.terminate_timestamp_us_ = from._impl_.terminate_timestamp_us_;
+    }
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -4181,8 +4213,8 @@ void ProcessExecEvent::InternalSwap(ProcessExecEvent* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ProcessExecEvent, _impl_.spawn_namespaces_)
-      + sizeof(ProcessExecEvent::_impl_.spawn_namespaces_)
+      PROTOBUF_FIELD_OFFSET(ProcessExecEvent, _impl_.terminate_timestamp_us_)
+      + sizeof(ProcessExecEvent::_impl_.terminate_timestamp_us_)
       - PROTOBUF_FIELD_OFFSET(ProcessExecEvent, _impl_.parent_process_)>(
           reinterpret_cast<char*>(&_impl_.parent_process_),
           reinterpret_cast<char*>(&other->_impl_.parent_process_));

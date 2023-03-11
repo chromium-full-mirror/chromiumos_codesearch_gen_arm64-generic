@@ -2263,6 +2263,7 @@ class ProcessExecEvent final :
     kProcessFieldNumber = 2,
     kSpawnProcessFieldNumber = 3,
     kSpawnNamespacesFieldNumber = 4,
+    kTerminateTimestampUsFieldNumber = 5,
   };
   // optional .cros_xdr.reporting.Process parent_process = 1;
   bool has_parent_process() const;
@@ -2336,6 +2337,19 @@ class ProcessExecEvent final :
       ::cros_xdr::reporting::Namespaces* spawn_namespaces);
   ::cros_xdr::reporting::Namespaces* unsafe_arena_release_spawn_namespaces();
 
+  // optional int64 terminate_timestamp_us = 5;
+  bool has_terminate_timestamp_us() const;
+  private:
+  bool _internal_has_terminate_timestamp_us() const;
+  public:
+  void clear_terminate_timestamp_us();
+  int64_t terminate_timestamp_us() const;
+  void set_terminate_timestamp_us(int64_t value);
+  private:
+  int64_t _internal_terminate_timestamp_us() const;
+  void _internal_set_terminate_timestamp_us(int64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:cros_xdr.reporting.ProcessExecEvent)
  private:
   class _Internal;
@@ -2350,6 +2364,7 @@ class ProcessExecEvent final :
     ::cros_xdr::reporting::Process* process_;
     ::cros_xdr::reporting::Process* spawn_process_;
     ::cros_xdr::reporting::Namespaces* spawn_namespaces_;
+    int64_t terminate_timestamp_us_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_security_5fxdr_5fevents_2eproto;
@@ -6466,6 +6481,34 @@ inline void ProcessExecEvent::set_allocated_spawn_namespaces(::cros_xdr::reporti
   }
   _impl_.spawn_namespaces_ = spawn_namespaces;
   // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.ProcessExecEvent.spawn_namespaces)
+}
+
+// optional int64 terminate_timestamp_us = 5;
+inline bool ProcessExecEvent::_internal_has_terminate_timestamp_us() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool ProcessExecEvent::has_terminate_timestamp_us() const {
+  return _internal_has_terminate_timestamp_us();
+}
+inline void ProcessExecEvent::clear_terminate_timestamp_us() {
+  _impl_.terminate_timestamp_us_ = int64_t{0};
+  _impl_._has_bits_[0] &= ~0x00000010u;
+}
+inline int64_t ProcessExecEvent::_internal_terminate_timestamp_us() const {
+  return _impl_.terminate_timestamp_us_;
+}
+inline int64_t ProcessExecEvent::terminate_timestamp_us() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.ProcessExecEvent.terminate_timestamp_us)
+  return _internal_terminate_timestamp_us();
+}
+inline void ProcessExecEvent::_internal_set_terminate_timestamp_us(int64_t value) {
+  _impl_._has_bits_[0] |= 0x00000010u;
+  _impl_.terminate_timestamp_us_ = value;
+}
+inline void ProcessExecEvent::set_terminate_timestamp_us(int64_t value) {
+  _internal_set_terminate_timestamp_us(value);
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.ProcessExecEvent.terminate_timestamp_us)
 }
 
 // -------------------------------------------------------------------

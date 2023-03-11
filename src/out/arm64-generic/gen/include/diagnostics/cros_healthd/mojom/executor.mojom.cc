@@ -201,6 +201,9 @@ ProcessControl::IPCStableHashFunction ProcessControl::MessageToMethodInfo_(mojo:
     case internal::kProcessControl_GetReturnCode_Name: {
       return &ProcessControl::GetReturnCode_Sym::IPCStableHash;
     }
+    case internal::kProcessControl_Kill_Name: {
+      return &ProcessControl::Kill_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -218,6 +221,8 @@ const char* ProcessControl::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::ProcessControl::GetStderr";
       case internal::kProcessControl_GetReturnCode_Name:
             return "Receive ash::cros_healthd::mojom::ProcessControl::GetReturnCode";
+      case internal::kProcessControl_Kill_Name:
+            return "Receive ash::cros_healthd::mojom::ProcessControl::Kill";
     }
   } else {
     switch (message.name()) {
@@ -227,6 +232,8 @@ const char* ProcessControl::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::ProcessControl::GetStderr";
       case internal::kProcessControl_GetReturnCode_Name:
             return "Receive reply ash::cros_healthd::mojom::ProcessControl::GetReturnCode";
+      case internal::kProcessControl_Kill_Name:
+            return "Receive reply ash::cros_healthd::mojom::ProcessControl::Kill";
     }
   }
   return "Receive unknown mojo message";
@@ -276,6 +283,19 @@ uint32_t ProcessControl::GetReturnCode_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::ProcessControl::GetReturnCode");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t ProcessControl::Kill_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::ProcessControl::Kill");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -425,6 +445,36 @@ void ProcessControlProxy::GetReturnCode(
       new ProcessControl_GetReturnCode_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ProcessControlProxy::Kill(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::ProcessControl::Kill");
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kProcessControl_Kill_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::ProcessControl_Kill_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ProcessControl::Name_);
+  message.set_method_name("Kill");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class ProcessControl_GetStdout_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -793,6 +843,28 @@ bool ProcessControlStubDispatch::Accept(
     case internal::kProcessControl_GetReturnCode_Name: {
       break;
     }
+    case internal::kProcessControl_Kill_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::ProcessControl_Kill_Params_Data* params =
+          reinterpret_cast<internal::ProcessControl_Kill_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ProcessControl_Kill_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ProcessControl::Name_, 3, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->Kill();
+      return true;
+    }
   }
   return false;
 }
@@ -881,6 +953,9 @@ bool ProcessControlStubDispatch::AcceptWithResponder(
       impl->GetReturnCode(std::move(callback));
       return true;
     }
+    case internal::kProcessControl_Kill_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -893,6 +968,8 @@ static const mojo::internal::GenericValidationInfo kProcessControlValidationInfo
      &internal::ProcessControl_GetStderr_ResponseParams_Data::Validate},
     {&internal::ProcessControl_GetReturnCode_Params_Data::Validate,
      &internal::ProcessControl_GetReturnCode_ResponseParams_Data::Validate},
+    {&internal::ProcessControl_Kill_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool ProcessControlRequestValidator::Accept(mojo::Message* message) {
@@ -5798,6 +5875,9 @@ void ProcessControlInterceptorForTesting::GetStderr(GetStderrCallback callback) 
 }
 void ProcessControlInterceptorForTesting::GetReturnCode(GetReturnCodeCallback callback) {
   GetForwardingInterface()->GetReturnCode(std::move(callback));
+}
+void ProcessControlInterceptorForTesting::Kill() {
+  GetForwardingInterface()->Kill();
 }
 ProcessControlAsyncWaiter::ProcessControlAsyncWaiter(
     ProcessControl* proxy) : proxy_(proxy) {}

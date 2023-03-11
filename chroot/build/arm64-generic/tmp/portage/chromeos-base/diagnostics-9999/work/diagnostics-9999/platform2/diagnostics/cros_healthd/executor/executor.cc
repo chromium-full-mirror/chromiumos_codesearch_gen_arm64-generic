@@ -38,6 +38,7 @@
 #include "diagnostics/cros_healthd/delegate/constants.h"
 #include "diagnostics/cros_healthd/executor/utils/delegate_process.h"
 #include "diagnostics/cros_healthd/executor/utils/process_control.h"
+#include "diagnostics/cros_healthd/executor/utils/sandboxed_process.h"
 #include "diagnostics/cros_healthd/mojom/executor.mojom.h"
 #include "diagnostics/cros_healthd/process/process_with_output.h"
 #include "diagnostics/cros_healthd/routines/memory_and_cpu/constants.h"
@@ -288,7 +289,7 @@ void Executor::KillMemtester() {
   if (itr == tracked_processes_.end())
     return;
 
-  brillo::Process* process = itr->second.get();
+  SandboxedProcess* process = itr->second.get();
   // If the process has ended, don't try to kill anything.
   if (!process->pid())
     return;
@@ -446,7 +447,8 @@ void Executor::MonitorAudioJack(
       std::vector<base::FilePath>{});
 
   delegate->remote()->MonitorAudioJack(std::move(observer));
-  auto controller = std::make_unique<ProcessControl>(std::move(delegate));
+  auto controller =
+      std::make_unique<ProcessControl>(std::move(delegate), process_reaper_);
 
   base::SequencedTaskRunnerHandle::Get()->PostTask(
       FROM_HERE,
@@ -466,7 +468,8 @@ void Executor::MonitorTouchpad(
       std::vector<base::FilePath>{});
 
   delegate->remote()->MonitorTouchpad(std::move(observer));
-  auto controller = std::make_unique<ProcessControl>(std::move(delegate));
+  auto controller =
+      std::make_unique<ProcessControl>(std::move(delegate), process_reaper_);
 
   base::SequencedTaskRunnerHandle::Get()->PostTask(
       FROM_HERE,
@@ -505,7 +508,8 @@ void Executor::MonitorTouchscreen(
       std::vector<base::FilePath>{});
 
   delegate->remote()->MonitorTouchscreen(std::move(observer));
-  auto controller = std::make_unique<ProcessControl>(std::move(delegate));
+  auto controller =
+      std::make_unique<ProcessControl>(std::move(delegate), process_reaper_);
 
   base::SequencedTaskRunnerHandle::Get()->PostTask(
       FROM_HERE,
@@ -525,7 +529,8 @@ void Executor::MonitorStylusGarage(
       std::vector<base::FilePath>{});
 
   delegate->remote()->MonitorStylusGarage(std::move(observer));
-  auto controller = std::make_unique<ProcessControl>(std::move(delegate));
+  auto controller =
+      std::make_unique<ProcessControl>(std::move(delegate), process_reaper_);
 
   base::SequencedTaskRunnerHandle::Get()->PostTask(
       FROM_HERE,
@@ -535,7 +540,7 @@ void Executor::MonitorStylusGarage(
 }
 
 void Executor::RunAndWaitProcess(
-    std::unique_ptr<brillo::Process> process,
+    std::unique_ptr<SandboxedProcess> process,
     base::OnceCallback<void(mojom::ExecutedProcessResultPtr)> callback,
     bool combine_stdout_and_stderr) {
   process->RedirectOutputToMemory(combine_stdout_and_stderr);
@@ -550,7 +555,7 @@ void Executor::RunAndWaitProcess(
 
 void Executor::OnRunAndWaitProcessFinished(
     base::OnceCallback<void(mojom::ExecutedProcessResultPtr)> callback,
-    std::unique_ptr<brillo::Process> process,
+    std::unique_ptr<SandboxedProcess> process,
     const siginfo_t& siginfo) {
   auto result = mojom::ExecutedProcessResult::New();
 
@@ -563,7 +568,7 @@ void Executor::OnRunAndWaitProcessFinished(
 }
 
 void Executor::RunTrackedBinary(
-    std::unique_ptr<brillo::Process> process,
+    std::unique_ptr<SandboxedProcess> process,
     base::OnceCallback<void(ash::cros_healthd::mojom::ExecutedProcessResultPtr)>
         callback,
     const std::string& binary_path) {
@@ -596,20 +601,21 @@ void Executor::OnTrackedBinaryFinished(
 }
 
 void Executor::RunLongRunningProcess(
-    std::unique_ptr<brillo::Process> process,
+    std::unique_ptr<SandboxedProcess> process,
     mojo::PendingReceiver<ash::cros_healthd::mojom::ProcessControl> receiver,
     bool combine_stdout_and_stderr) {
-  auto controller = std::make_unique<ProcessControl>(std::move(process));
+  auto controller =
+      std::make_unique<ProcessControl>(std::move(process), process_reaper_);
 
   controller->RedirectOutputToMemory(combine_stdout_and_stderr);
-  controller->StartAndWait(process_reaper_);
+  controller->StartAndWait();
   process_control_set_.Add(std::move(controller), std::move(receiver));
 }
 
 void Executor::RunLongRunningDelegate(
     std::unique_ptr<ProcessControl> process_control,
     mojo::PendingReceiver<mojom::ProcessControl> receiver) {
-  process_control->StartAndWait(process_reaper_);
+  process_control->StartAndWait();
   process_control_set_.Add(std::move(process_control), std::move(receiver));
 }
 

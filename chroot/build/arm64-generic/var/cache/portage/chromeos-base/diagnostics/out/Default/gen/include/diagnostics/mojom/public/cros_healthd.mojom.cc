@@ -11321,6 +11321,9 @@ CrosHealthdEventService::IPCStableHashFunction CrosHealthdEventService::MessageT
     case internal::kCrosHealthdEventService_AddEventObserver_Name: {
       return &CrosHealthdEventService::AddEventObserver_Sym::IPCStableHash;
     }
+    case internal::kCrosHealthdEventService_IsEventSupported_Name: {
+      return &CrosHealthdEventService::IsEventSupported_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -11348,6 +11351,8 @@ const char* CrosHealthdEventService::MessageToMethodName_(mojo::Message& message
             return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver";
       case internal::kCrosHealthdEventService_AddEventObserver_Name:
             return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddEventObserver";
+      case internal::kCrosHealthdEventService_IsEventSupported_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::IsEventSupported";
     }
   } else {
     switch (message.name()) {
@@ -11367,6 +11372,8 @@ const char* CrosHealthdEventService::MessageToMethodName_(mojo::Message& message
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver";
       case internal::kCrosHealthdEventService_AddEventObserver_Name:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddEventObserver";
+      case internal::kCrosHealthdEventService_IsEventSupported_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::IsEventSupported";
     }
   }
   return "Receive unknown mojo message";
@@ -11485,7 +11492,36 @@ uint32_t CrosHealthdEventService::AddEventObserver_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t CrosHealthdEventService::IsEventSupported_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::IsEventSupported");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
+
+class CrosHealthdEventService_IsEventSupported_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosHealthdEventService_IsEventSupported_ForwardToCallback(
+      CrosHealthdEventService::IsEventSupportedCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosHealthdEventService_IsEventSupported_ForwardToCallback(const CrosHealthdEventService_IsEventSupported_ForwardToCallback&) = delete;
+  CrosHealthdEventService_IsEventSupported_ForwardToCallback& operator=(const CrosHealthdEventService_IsEventSupported_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosHealthdEventService::IsEventSupportedCallback callback_;
+};
 
 CrosHealthdEventServiceProxy::CrosHealthdEventServiceProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -11840,6 +11876,166 @@ void CrosHealthdEventServiceProxy::AddEventObserver(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void CrosHealthdEventServiceProxy::IsEventSupported(
+    ::ash::cros_healthd::mojom::EventCategoryEnum in_category, IsEventSupportedCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::IsEventSupported", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("category"), in_category,
+                        "<value of type ::ash::cros_healthd::mojom::EventCategoryEnum>");
+   });
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdEventService_IsEventSupported_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_IsEventSupported_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::EventCategoryEnum>(
+      in_category, &params->category);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdEventService::Name_);
+  message.set_method_name("IsEventSupported");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosHealthdEventService_IsEventSupported_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+class CrosHealthdEventService_IsEventSupported_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosHealthdEventService::IsEventSupportedCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosHealthdEventService_IsEventSupported_ProxyToResponder> proxy(
+        new CrosHealthdEventService_IsEventSupported_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosHealthdEventService_IsEventSupported_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosHealthdEventService_IsEventSupported_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosHealthdEventService_IsEventSupported_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosHealthdEventService::IsEventSupportedCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::ExceptionPtr in_exception);
+};
+
+bool CrosHealthdEventService_IsEventSupported_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosHealthdEventService_IsEventSupported_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosHealthdEventService_IsEventSupported_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::ash::cros_healthd::mojom::ExceptionPtr p_exception = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::ExceptionPtr>();
+  CrosHealthdEventService_IsEventSupported_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadException(&p_exception))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosHealthdEventService::Name_, 8, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_exception));
+  return true;
+}
+
+void CrosHealthdEventService_IsEventSupported_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::ExceptionPtr in_exception) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdEventService::IsEventSupported", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("exception"), in_exception,
+                        "<value of type ::ash::cros_healthd::mojom::ExceptionPtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdEventService_IsEventSupported_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_IsEventSupported_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->exception)::BaseType> exception_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::ExceptionDataView>(
+      in_exception, exception_fragment);
+  params->exception.Set(
+      exception_fragment.is_null() ? nullptr : exception_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdEventService::Name_);
+  message.set_method_name("IsEventSupported");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+
 // static
 bool CrosHealthdEventServiceStubDispatch::Accept(
     CrosHealthdEventService* impl,
@@ -12073,6 +12269,9 @@ std::move(p_category),
 std::move(p_observer));
       return true;
     }
+    case internal::kCrosHealthdEventService_IsEventSupported_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -12110,6 +12309,35 @@ bool CrosHealthdEventServiceStubDispatch::AcceptWithResponder(
     case internal::kCrosHealthdEventService_AddEventObserver_Name: {
       break;
     }
+    case internal::kCrosHealthdEventService_IsEventSupported_Name: {
+
+      internal::CrosHealthdEventService_IsEventSupported_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosHealthdEventService_IsEventSupported_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::ash::cros_healthd::mojom::EventCategoryEnum p_category = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::EventCategoryEnum>();
+      CrosHealthdEventService_IsEventSupported_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadCategory(&p_category))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdEventService::Name_, 8, false);
+        return false;
+      }
+      CrosHealthdEventService::IsEventSupportedCallback callback =
+          CrosHealthdEventService_IsEventSupported_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->IsEventSupported(
+std::move(p_category), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -12132,6 +12360,8 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdEventServiceValid
      nullptr /* no response */},
     {&internal::CrosHealthdEventService_AddEventObserver_Params_Data::Validate,
      nullptr /* no response */},
+    {&internal::CrosHealthdEventService_IsEventSupported_Params_Data::Validate,
+     &internal::CrosHealthdEventService_IsEventSupported_ResponseParams_Data::Validate},
 };
 
 bool CrosHealthdEventServiceRequestValidator::Accept(mojo::Message* message) {
@@ -12139,6 +12369,10 @@ bool CrosHealthdEventServiceRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosHealthdEventServiceValidationInfo);
 }
 
+bool CrosHealthdEventServiceResponseValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdEventService::Name_;
+  return mojo::internal::ValidateResponseGenericPacked(message, name, kCrosHealthdEventServiceValidationInfo);
+}
 const char CrosHealthdProbeService::Name_[] = "ash.cros_healthd.mojom.CrosHealthdProbeService";
 
 CrosHealthdProbeService::IPCStableHashFunction CrosHealthdProbeService::MessageToMethodInfo_(mojo::Message& message) {
@@ -15068,10 +15302,36 @@ void CrosHealthdEventServiceInterceptorForTesting::AddUsbObserver(::mojo::Pendin
 void CrosHealthdEventServiceInterceptorForTesting::AddEventObserver(::ash::cros_healthd::mojom::EventCategoryEnum category, ::mojo::PendingRemote<::ash::cros_healthd::mojom::EventObserver> observer) {
   GetForwardingInterface()->AddEventObserver(std::move(category), std::move(observer));
 }
+void CrosHealthdEventServiceInterceptorForTesting::IsEventSupported(::ash::cros_healthd::mojom::EventCategoryEnum category, IsEventSupportedCallback callback) {
+  GetForwardingInterface()->IsEventSupported(std::move(category), std::move(callback));
+}
 CrosHealthdEventServiceAsyncWaiter::CrosHealthdEventServiceAsyncWaiter(
     CrosHealthdEventService* proxy) : proxy_(proxy) {}
 
 CrosHealthdEventServiceAsyncWaiter::~CrosHealthdEventServiceAsyncWaiter() = default;
+
+void CrosHealthdEventServiceAsyncWaiter::IsEventSupported(
+    ::ash::cros_healthd::mojom::EventCategoryEnum category, ::ash::cros_healthd::mojom::ExceptionPtr* out_exception) {
+  base::RunLoop loop;
+  proxy_->IsEventSupported(std::move(category),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::ExceptionPtr* out_exception
+,
+             ::ash::cros_healthd::mojom::ExceptionPtr exception) {*out_exception = std::move(exception);
+            loop->Quit();
+          },
+          &loop,
+          out_exception));
+  loop.Run();
+}
+
+::ash::cros_healthd::mojom::ExceptionPtr CrosHealthdEventServiceAsyncWaiter::IsEventSupported(
+    ::ash::cros_healthd::mojom::EventCategoryEnum category) {
+  ::ash::cros_healthd::mojom::ExceptionPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::ExceptionPtr>();
+  IsEventSupported(std::move(category),&async_wait_result);
+  return async_wait_result;
+}
 
 
 

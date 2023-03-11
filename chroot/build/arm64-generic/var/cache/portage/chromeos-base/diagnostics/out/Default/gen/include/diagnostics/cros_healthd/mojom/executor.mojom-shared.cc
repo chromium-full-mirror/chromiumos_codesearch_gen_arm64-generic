@@ -364,6 +364,29 @@ ProcessControl_GetReturnCode_ResponseParams_Data::ProcessControl_GetReturnCode_R
 
 
 // static
+bool ProcessControl_Kill_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ProcessControl_Kill_Params_Data* object =
+      static_cast<const ProcessControl_Kill_Params_Data*>(data);
+
+  return true;
+}
+
+ProcessControl_Kill_Params_Data::ProcessControl_Kill_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool AudioJackObserver_OnAdd_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

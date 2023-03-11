@@ -29,6 +29,7 @@
 #include "diagnostics/mojom/external/network_health.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_events.mojom-shared.h"
+#include "diagnostics/mojom/public/cros_healthd_exception.mojom-shared.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom-shared.h"
 #include "diagnostics/mojom/public/wilco_ec.mojom-shared.h"
