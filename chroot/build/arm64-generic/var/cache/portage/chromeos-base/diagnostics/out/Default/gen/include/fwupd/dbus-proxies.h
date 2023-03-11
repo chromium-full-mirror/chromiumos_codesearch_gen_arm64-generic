@@ -390,12 +390,56 @@ class fwupdProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool Inhibit(
+      const std::string& in_reason,
+      std::string* out_inhibit_id,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void InhibitAsync(
+      const std::string& in_reason,
+      base::OnceCallback<void(const std::string& /*inhibit_id*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool Uninhibit(
+      const std::string& in_inhibit_id,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void UninhibitAsync(
+      const std::string& in_inhibit_id,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool Quit(
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void QuitAsync(
       base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool EmulationLoad(
+      const std::vector<uint8_t>& in_data,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void EmulationLoadAsync(
+      const std::vector<uint8_t>& in_data,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool EmulationSave(
+      std::vector<uint8_t>* out_data,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void EmulationSaveAsync(
+      base::OnceCallback<void(const std::vector<uint8_t>& /*data*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -1558,6 +1602,67 @@ class fwupdProxy final : public fwupdProxyInterface {
         std::move(error_callback));
   }
 
+  bool Inhibit(
+      const std::string& in_reason,
+      std::string* out_inhibit_id,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.fwupd",
+        "Inhibit",
+        error,
+        in_reason);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_inhibit_id);
+  }
+
+  void InhibitAsync(
+      const std::string& in_reason,
+      base::OnceCallback<void(const std::string& /*inhibit_id*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.fwupd",
+        "Inhibit",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_reason);
+  }
+
+  bool Uninhibit(
+      const std::string& in_inhibit_id,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.fwupd",
+        "Uninhibit",
+        error,
+        in_inhibit_id);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void UninhibitAsync(
+      const std::string& in_inhibit_id,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.fwupd",
+        "Uninhibit",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_inhibit_id);
+  }
+
   bool Quit(
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -1580,6 +1685,63 @@ class fwupdProxy final : public fwupdProxyInterface {
         dbus_object_proxy_,
         "org.freedesktop.fwupd",
         "Quit",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  bool EmulationLoad(
+      const std::vector<uint8_t>& in_data,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.fwupd",
+        "EmulationLoad",
+        error,
+        in_data);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void EmulationLoadAsync(
+      const std::vector<uint8_t>& in_data,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.fwupd",
+        "EmulationLoad",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_data);
+  }
+
+  bool EmulationSave(
+      std::vector<uint8_t>* out_data,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.fwupd",
+        "EmulationSave",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_data);
+  }
+
+  void EmulationSaveAsync(
+      base::OnceCallback<void(const std::vector<uint8_t>& /*data*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.fwupd",
+        "EmulationSave",
         std::move(success_callback),
         std::move(error_callback));
   }

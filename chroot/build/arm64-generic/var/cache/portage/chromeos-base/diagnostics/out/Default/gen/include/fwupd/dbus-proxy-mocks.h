@@ -321,11 +321,47 @@ class fwupdProxyMock : public fwupdProxyInterface {
                void(base::OnceCallback<void(const std::vector<brillo::VariantDictionary>& /*attrs*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD4(Inhibit,
+               bool(const std::string& /*in_reason*/,
+                    std::string* /*out_inhibit_id*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(InhibitAsync,
+               void(const std::string& /*in_reason*/,
+                    base::OnceCallback<void(const std::string& /*inhibit_id*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(Uninhibit,
+               bool(const std::string& /*in_inhibit_id*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(UninhibitAsync,
+               void(const std::string& /*in_inhibit_id*/,
+                    base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD2(Quit,
                bool(brillo::ErrorPtr* /*error*/,
                     int /*timeout_ms*/));
   MOCK_METHOD3(QuitAsync,
                void(base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(EmulationLoad,
+               bool(const std::vector<uint8_t>& /*in_data*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(EmulationLoadAsync,
+               void(const std::vector<uint8_t>& /*in_data*/,
+                    base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(EmulationSave,
+               bool(std::vector<uint8_t>* /*out_data*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(EmulationSaveAsync,
+               void(base::OnceCallback<void(const std::vector<uint8_t>& /*data*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
   void RegisterChangedSignalHandler(
