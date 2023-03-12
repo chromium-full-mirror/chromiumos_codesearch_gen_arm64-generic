@@ -214,7 +214,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORIT
 PROTOBUF_CONSTEXPR IsUvpaaResponse::IsUvpaaResponse(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.available_)*/false
-  , /*decltype(_impl_.not_ready_)*/false
+  , /*decltype(_impl_.not_available_)*/false
   , /*decltype(_impl_._cached_size_)*/{}} {}
 struct IsUvpaaResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR IsUvpaaResponseDefaultTypeInternal()
@@ -4491,13 +4491,13 @@ IsUvpaaResponse::IsUvpaaResponse(const IsUvpaaResponse& from)
   IsUvpaaResponse* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_.available_){}
-    , decltype(_impl_.not_ready_){}
+    , decltype(_impl_.not_available_){}
     , /*decltype(_impl_._cached_size_)*/{}};
 
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&_impl_.available_, &from._impl_.available_,
-    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.not_ready_) -
-    reinterpret_cast<char*>(&_impl_.available_)) + sizeof(_impl_.not_ready_));
+    static_cast<size_t>(reinterpret_cast<char*>(&_impl_.not_available_) -
+    reinterpret_cast<char*>(&_impl_.available_)) + sizeof(_impl_.not_available_));
   // @@protoc_insertion_point(copy_constructor:u2f.IsUvpaaResponse)
 }
 
@@ -4507,7 +4507,7 @@ inline void IsUvpaaResponse::SharedCtor(
   (void)is_message_owned;
   new (&_impl_) Impl_{
       decltype(_impl_.available_){false}
-    , decltype(_impl_.not_ready_){false}
+    , decltype(_impl_.not_available_){false}
     , /*decltype(_impl_._cached_size_)*/{}
   };
 }
@@ -4536,8 +4536,8 @@ void IsUvpaaResponse::Clear() {
   (void) cached_has_bits;
 
   ::memset(&_impl_.available_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&_impl_.not_ready_) -
-      reinterpret_cast<char*>(&_impl_.available_)) + sizeof(_impl_.not_ready_));
+      reinterpret_cast<char*>(&_impl_.not_available_) -
+      reinterpret_cast<char*>(&_impl_.available_)) + sizeof(_impl_.not_available_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -4555,10 +4555,10 @@ const char* IsUvpaaResponse::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
-      // bool not_ready = 2;
+      // bool not_available = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.not_ready_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _impl_.not_available_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -4598,10 +4598,10 @@ uint8_t* IsUvpaaResponse::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_available(), target);
   }
 
-  // bool not_ready = 2;
-  if (this->_internal_not_ready() != 0) {
+  // bool not_available = 2;
+  if (this->_internal_not_available() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_not_ready(), target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_not_available(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -4625,8 +4625,8 @@ size_t IsUvpaaResponse::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  // bool not_ready = 2;
-  if (this->_internal_not_ready() != 0) {
+  // bool not_available = 2;
+  if (this->_internal_not_available() != 0) {
     total_size += 1 + 1;
   }
 
@@ -4654,8 +4654,8 @@ void IsUvpaaResponse::MergeFrom(const IsUvpaaResponse& from) {
   if (from._internal_available() != 0) {
     _this->_internal_set_available(from._internal_available());
   }
-  if (from._internal_not_ready() != 0) {
-    _this->_internal_set_not_ready(from._internal_not_ready());
+  if (from._internal_not_available() != 0) {
+    _this->_internal_set_not_available(from._internal_not_available());
   }
   _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -4675,8 +4675,8 @@ void IsUvpaaResponse::InternalSwap(IsUvpaaResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(IsUvpaaResponse, _impl_.not_ready_)
-      + sizeof(IsUvpaaResponse::_impl_.not_ready_)
+      PROTOBUF_FIELD_OFFSET(IsUvpaaResponse, _impl_.not_available_)
+      + sizeof(IsUvpaaResponse::_impl_.not_available_)
       - PROTOBUF_FIELD_OFFSET(IsUvpaaResponse, _impl_.available_)>(
           reinterpret_cast<char*>(&_impl_.available_),
           reinterpret_cast<char*>(&other->_impl_.available_));
